@@ -11,6 +11,7 @@
                 <outlet property="bandsTable" destination="dgf-Nq-wZb" id="G7x-sJ-jpn"/>
                 <outlet property="chart" destination="Qtq-wD-MAi" id="QEG-NF-KsJ"/>
                 <outlet property="editorView" destination="Rjd-wU-5ww" id="8UK-Pu-fOb"/>
+                <outlet property="filterView" destination="Fl5-cz-GI5" id="3FF-cY-0hI"/>
                 <outlet property="previewBox" destination="qZl-Pa-jmV" id="HjX-44-e8S"/>
                 <outlet property="tableViewDelegate" destination="8fN-CM-kh9" id="3E8-Oi-gg3"/>
                 <outlet property="view" destination="U1u-GR-7QF" id="b5M-PG-uvT"/>
@@ -108,7 +109,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wMl-kt-ewH" userLabel="Controls Box">
                                 <rect key="frame" x="0.0" y="10" width="442" height="239"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="Fl5-cz-GI5">
+                                <view key="contentView" ambiguous="YES" id="Fl5-cz-GI5" customClass="FilterView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="442" height="239"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -243,6 +244,11 @@
                                             </textFieldCell>
                                         </textField>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="bandsTable" destination="dgf-Nq-wZb" id="yL6-gu-L10"/>
+                                        <outlet property="chart" destination="Qtq-wD-MAi" id="i7Z-7o-k5y"/>
+                                        <outlet property="tableViewDelegate" destination="8fN-CM-kh9" id="CTV-YP-ENY"/>
+                                    </connections>
                                 </view>
                                 <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                 <color key="fillColor" white="0.20293330479999999" alpha="0.0" colorSpace="calibratedWhite"/>
