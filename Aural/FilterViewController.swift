@@ -23,6 +23,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
     
     override var nibName: String? {return "Filter"}
     
@@ -45,7 +46,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         // Re-initialize the menu with user-defined presets
         
         // Initialize the menu with user-defined presets
-        FilterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        filterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -156,7 +157,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !FilterPresets.presetWithNameExists(string)
+        let valid = !filterPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")

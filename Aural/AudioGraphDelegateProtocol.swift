@@ -272,6 +272,8 @@ protocol FilterUnitDelegateProtocol {
     
     func getFilterBand(_ index: Int) -> FilterBand
     
+    var filterPresets: FilterPresets {get}
+    
     func saveFilterPreset(_ presetName: String)
     
     func applyFilterPreset(_ presetName: String)
