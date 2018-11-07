@@ -8,18 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="bandsTable" destination="s0s-js-HDE" id="TpL-cB-3pq"/>
                 <outlet property="btnFilterBypass" destination="N6p-bI-VWV" id="yz2-gz-7FV"/>
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
-                <outlet property="chart" destination="WKo-oZ-DDd" id="iAV-ph-Un1"/>
+                <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
-                <outlet property="tableViewDelegate" destination="aHf-z2-jHq" id="Osq-dr-4yu"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="e4i-Mp-MMA">
+        <view id="e4i-Mp-MMA" customClass="FilterView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="500" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -385,6 +383,11 @@
                     </connections>
                 </button>
             </subviews>
+            <connections>
+                <outlet property="bandsTable" destination="s0s-js-HDE" id="IU0-uX-yhf"/>
+                <outlet property="chart" destination="WKo-oZ-DDd" id="vQF-Xg-8dy"/>
+                <outlet property="tableViewDelegate" destination="aHf-z2-jHq" id="dLO-qy-xBt"/>
+            </connections>
             <point key="canvasLocation" x="155" y="199"/>
         </view>
         <customObject id="aHf-z2-jHq" customClass="FilterBandsViewDelegate" customModule="Aural" customModuleProvider="target"/>

@@ -22,6 +22,9 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var timeSubPreview: TimeView!
     @IBOutlet weak var reverbSubPreview: ReverbView!
     
+    @IBOutlet weak var filterSubPreview: FilterView!
+    private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
+    
     // Delay
     
     @IBOutlet weak var delaySubPreview: NSView!
@@ -35,16 +38,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var lblDelayAmountValue: NSTextField!
     @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
     @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
-    
-    // Filter
-    
-    @IBOutlet weak var filterSubPreview: NSView!
-    
-    @IBOutlet weak var bandsTable: NSTableView!
-    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
-    private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
-    
-    @IBOutlet weak var chart: FilterChart!
     
     // --------------------------------
     
@@ -73,12 +66,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         pitchSubPreview.initialize(nil)
         
-        chart.bandsDataFunction = {() -> [FilterBand] in
-            return self.getFilterChartBands()
-        }
-        
-        tableViewDelegate.dataSource = bandsDataSource
-        tableViewDelegate.allowSelection = false
+        let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
+        filterSubPreview.initialize({() -> EffectsUnitState in return self.getPresetFilterUnitState()}, bandsDataFunction, bandsDataSource, false)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -96,6 +85,19 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         }
         
         return []
+    }
+    
+    private func getPresetFilterUnitState() -> EffectsUnitState {
+        
+        let selection = getSelectedPresetNames()
+        
+        if !selection.isEmpty {
+        
+            let preset = masterPresets.presetByName(selection[0])!
+            return preset.filter.state
+        }
+        
+        return .active
     }
     
     override func viewDidAppear() {
@@ -247,9 +249,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     private func renderFilterPreview(_ preset: FilterPreset) {
-        
-        chart.redraw()
-        bandsTable.reloadData()
+        filterSubPreview.refresh()
     }
     
     // MARK: View delegate functions

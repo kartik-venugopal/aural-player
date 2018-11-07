@@ -4,13 +4,10 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var previewBox: NSBox!
-    
-    @IBOutlet weak var bandsTable: NSTableView!
-    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    @IBOutlet weak var filterView: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
-    @IBOutlet weak var chart: FilterChart!
+    @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
@@ -23,12 +20,8 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         previewBox.hide()
         
-        chart.bandsDataFunction = {() -> [FilterBand] in
-            return self.getFilterChartBands()
-        }
-        
-        tableViewDelegate.dataSource = bandsDataSource
-        tableViewDelegate.allowSelection = false
+        let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
+        filterView.initialize({() -> EffectsUnitState in return .active}, bandsDataFunction, bandsDataSource, false)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -91,8 +84,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderPreview(_ preset: FilterPreset) {
         
-        chart.redraw()
-        bandsTable.reloadData()
+        filterView.refresh()
         previewBox.show()
     }
     

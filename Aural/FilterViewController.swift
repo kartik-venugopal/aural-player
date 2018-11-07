@@ -8,14 +8,11 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
+    @IBOutlet weak var filterView: FilterView!
+    
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
-    
-    @IBOutlet weak var bandsTable: NSTableView!
-    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
-    
-    @IBOutlet weak var chart: FilterChart!
     
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -54,27 +51,17 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     private func oneTimeSetup() {
         
-        let stateFunction = {
-            () -> EffectsUnitState in
-            return self.graph.getFilterState()
-        }
-        
+        let stateFunction = {() -> EffectsUnitState in return self.graph.getFilterState()}
         btnFilterBypass.stateFunction = stateFunction
-        
-        chart.bandsDataFunction = {() -> [FilterBand] in
-            return self.graph.allFilterBands()
-        }
-        
-        chart.filterUnitStateFunction = {() -> EffectsUnitState in return self.graph.getFilterState()}
-        
-        tableViewDelegate.dataSource = AudioGraphFilterBandsDataSource(graph)
+
+        let bandsDataFunction = {() -> [FilterBand] in return self.graph.allFilterBands()}
+        filterView.initialize(stateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(graph))
     }
  
     private func initControls() {
         
         btnFilterBypass.updateState()
-        chart.redraw()
-        bandsTable.reloadData()
+        filterView.refresh()
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -86,48 +73,40 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         _ = graph.toggleFilterState()
         
         btnFilterBypass.updateState()
-        chart.redraw()
+        filterView.redrawChart()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     @IBAction func editBandAction(_ sender: AnyObject) {
         
-        if bandsTable.numberOfSelectedRows == 1 {
+        if filterView.numberOfSelectedRows == 1 {
             
-            let index = bandsTable.selectedRow
+            let index = filterView.selectedRow
             editor.editBand(index, graph.getFilterBand(index))
-            bandsTable.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: [0, 1])
-            chart!.redraw()
+            filterView.bandEdited()
         }
     }
     
     @IBAction func addBandAction(_ sender: AnyObject) {
         
         if editor.showDialog() == .ok {
-            
-            bandsTable.noteNumberOfRowsChanged()
-            chart.redraw()
+            filterView.tableRowsAddedOrRemoved()
         }
     }
     
     @IBAction func removeBandsAction(_ sender: AnyObject) {
         
-        if bandsTable.numberOfSelectedRows > 0 {
+        if filterView.numberOfSelectedRows > 0 {
             
-            graph.removeFilterBands(bandsTable.selectedRowIndexes)
-            
-            bandsTable.reloadData()
-            bandsTable.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
-            
-            chart.redraw()
+            graph.removeFilterBands(filterView.selectedRows)
+            filterView.bandsRemoved()
         }
     }
     
     @IBAction func removeAllBandsAction(_ sender: AnyObject) {
         graph.removeAllFilterBands()
-        bandsTable.noteNumberOfRowsChanged()
-        chart.redraw()
+        filterView.tableRowsAddedOrRemoved()
     }
     
     // Applies a preset to the effects unit
@@ -185,7 +164,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         if notification is EffectsUnitStateChangedNotification {
             btnFilterBypass.updateState()
-            chart.redraw()
+            filterView.redrawChart()
         }
     }
     

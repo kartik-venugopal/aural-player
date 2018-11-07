@@ -225,6 +225,7 @@
 		3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E64B2192723300FB5BAC /* FXPresets.swift */; };
 		3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E64D2192E60000FB5BAC /* TimeView.swift */; };
 		3EA2E6522192F22F00FB5BAC /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E6512192F22F00FB5BAC /* ReverbView.swift */; };
+		3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E6532192FA1900FB5BAC /* FilterView.swift */; };
 		3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD098E216478440007D7DF /* MasterPresets.swift */; };
 		3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */; };
 		3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */; };
@@ -556,6 +557,7 @@
 		3EA2E64B2192723300FB5BAC /* FXPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresets.swift; sourceTree = "<group>"; };
 		3EA2E64D2192E60000FB5BAC /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		3EA2E6512192F22F00FB5BAC /* ReverbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbView.swift; sourceTree = "<group>"; };
+		3EA2E6532192FA1900FB5BAC /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
 		3EAD098E216478440007D7DF /* MasterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitPreset.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 			children = (
 				3E3F296A215A395A00581EFE /* Filter.xib */,
 				3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */,
+				3EA2E6532192FA1900FB5BAC /* FilterView.swift */,
 				3EF743AE218C366A0060BDE0 /* FilterChart.swift */,
 				3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */,
 				3E93AC16218B14C80055E18E /* NewFilter.xib */,
@@ -2069,6 +2072,7 @@
 				3E357B541F9C7DFB00C8F7B1 /* FlatPlaylist.swift in Sources */,
 				3E3FB7F7215B58C900974A59 /* FavoritesProtocol.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
+				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
 				3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */,
 				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */,
 				3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */,
