@@ -8,21 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MasterViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnDelayBypass" destination="hGg-d2-PQ6" id="eDR-ag-1Fo"/>
-                <outlet property="btnEQBypass" destination="Yne-n1-YwI" id="9c3-O7-c5E"/>
-                <outlet property="btnFilterBypass" destination="s8e-4e-0d3" id="afu-s3-SEQ"/>
                 <outlet property="btnMasterBypass" destination="1bl-Og-Men" id="7Wk-La-TdU"/>
-                <outlet property="btnPitchBypass" destination="44n-oY-8vs" id="fDJ-4O-IwZ"/>
-                <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="2Uw-VG-7Wm"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
-                <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="r3F-T8-y8J"/>
+                <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsMenu" destination="ryf-gT-ZGe" id="82S-Df-bBT"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="0Bs-7g-5at">
+        <view id="0Bs-7g-5at" customClass="MasterView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="500" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -210,6 +205,14 @@
                     </connections>
                 </button>
             </subviews>
+            <connections>
+                <outlet property="btnDelayBypass" destination="hGg-d2-PQ6" id="VxW-gz-B4z"/>
+                <outlet property="btnEQBypass" destination="Yne-n1-YwI" id="V8D-Vm-8D5"/>
+                <outlet property="btnFilterBypass" destination="s8e-4e-0d3" id="UTy-wY-jga"/>
+                <outlet property="btnPitchBypass" destination="44n-oY-8vs" id="zO5-LI-3Vc"/>
+                <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="YhI-6D-vCi"/>
+                <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="LdT-PN-7CG"/>
+            </connections>
         </view>
     </objects>
     <resources>

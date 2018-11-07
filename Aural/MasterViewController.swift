@@ -4,12 +4,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBOutlet weak var btnMasterBypass: EffectsUnitBypassButton!
     
-    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var masterView: MasterView!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -49,41 +44,13 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func oneTimeSetup() {
         
-        btnEQBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getEQState()
-        }
-        
-        btnPitchBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getPitchState()
-        }
-        
-        btnTimeBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getTimeState()
-        }
-        
-        btnReverbBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getReverbState()
-        }
-        
-        btnDelayBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getDelayState()
-        }
-        
-        btnFilterBypass.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getFilterState()
-        }
+        // TODO: Declare these widely reused state functions in a functions file and reuse across UI layer
+        masterView.initialize({() -> EffectsUnitState in return self.graph.getEQState()},
+                              {() -> EffectsUnitState in return self.graph.getPitchState()},
+                              {() -> EffectsUnitState in return self.graph.getTimeState()},
+                              {() -> EffectsUnitState in return self.graph.getReverbState()},
+                              {() -> EffectsUnitState in return self.graph.getDelayState()},
+                              {() -> EffectsUnitState in return self.graph.getFilterState()})
         
         self.menuNeedsUpdate(presetsMenu.menu!)
         
@@ -159,10 +126,9 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         btnMasterBypass.onIf(!graph.isMasterBypass())
         
         // Update the bypass buttons for the effects units
-        
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
-        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+        masterView.stateChanged()
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -200,7 +166,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func effectsUnitStateChanged() {
         
         btnMasterBypass.onIf(!graph.isMasterBypass())
-        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+        masterView.stateChanged()
     }
     
     private func saveSoundProfile() {
@@ -343,3 +309,5 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }
+
+typealias EffectsUnitStateFunction = () -> EffectsUnitState
