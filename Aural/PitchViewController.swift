@@ -7,13 +7,8 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblPitchValue: NSTextField!
-    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
-    private var sliders: [EffectsUnitSlider] = []
-    
+    @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
     
     // Presets menu
@@ -70,23 +65,14 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         }
         
         btnPitchBypass.stateFunction = stateFunction
-        
-        sliders = [pitchSlider, pitchOverlapSlider]
-        sliders.forEach({$0.stateFunction = stateFunction})
+        pitchView.initialize(stateFunction)
     }
     
     private func initControls() {
         
         btnPitchBypass.updateState()
-        sliders.forEach({$0.updateState()})
-        
-        let pitch = graph.getPitch()
-        pitchSlider.floatValue = pitch.pitch
-        lblPitchValue.stringValue = pitch.pitchString
-        
-        let overlap = graph.getPitchOverlap()
-        pitchOverlapSlider.floatValue = overlap.overlap
-        lblPitchOverlapValue.stringValue = overlap.overlapString
+        pitchView.stateChanged()
+        pitchView.setState(graph.getPitch(), graph.getPitchOverlap())
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -98,14 +84,14 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         _ = graph.togglePitchState()
         
         btnPitchBypass.updateState()
-        sliders.forEach({$0.updateState()})
+        pitchView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
-        lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue, false)
+        pitchView.setPitch((pitchView.pitch, graph.setPitch(pitchView.pitch, false)))
     }
     
     private func showPitchTab() {
@@ -115,12 +101,10 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        lblPitchValue.stringValue = graph.setPitch(pitch, true)
+        pitchView.setPitch((pitch, graph.setPitch(pitch, true)))
         
         btnPitchBypass.updateState()
-        sliders.forEach({$0.updateState()})
-        
-        pitchSlider.floatValue = pitch
+        pitchView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
@@ -130,7 +114,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-        lblPitchOverlapValue.stringValue = graph.setPitchOverlap(pitchOverlapSlider.floatValue)
+        pitchView.setPitchOverlap((pitchView.overlap, graph.setPitchOverlap(pitchView.overlap)))
     }
     
     // Applies a preset to the effects unit
@@ -163,11 +147,9 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
-        pitchSlider.floatValue = pitchInfo.pitch
-        lblPitchValue.stringValue = pitchInfo.pitchString
-        
+        pitchView.setPitch(pitchInfo)
         btnPitchBypass.updateState()
-        sliders.forEach({$0.updateState()})
+        pitchView.stateChanged()
         
         // Show the Pitch tab if the Effects panel is shown
         showPitchTab()
@@ -183,7 +165,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         if notification is EffectsUnitStateChangedNotification {
             btnPitchBypass.updateState()
-            sliders.forEach({$0.updateState()})
+            pitchView.stateChanged()
         }
     }
     

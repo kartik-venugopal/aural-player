@@ -425,6 +425,7 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
 }
 
+// TODO: This is dead code, remove it
 // Request from the User Presets popover to an effects unit controller to save a user-defined preset with a given name
 struct SaveUserPresetRequest: RequestMessage {
     

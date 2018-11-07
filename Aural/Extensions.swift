@@ -202,3 +202,17 @@ extension NSControl {
         self.isEnabled = !condition
     }
 }
+
+extension NSPopUpButton {
+    
+    var separatorCount: Int {
+        
+        var count: Int = 0
+        
+        for item in self.menu!.items {
+            if item.isSeparatorItem {count += 1}
+        }
+        
+        return count
+    }
+}
