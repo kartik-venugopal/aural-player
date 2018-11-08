@@ -8,7 +8,8 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
+//    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
+    var pitchPresets: PitchPresets = PitchPresets()
     
     private var oldPresetName: String?
     
@@ -73,7 +74,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyPitchPreset(selection[0])
+//        graph.applyPitchPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .pitch))
     }
     

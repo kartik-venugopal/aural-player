@@ -19,7 +19,11 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
+    
+    private var fxUnit: PitchUnitDelegate = ObjectGraph.getAudioGraphDelegate().pitchUnit
+    
+//    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
+    private let pitchPresets: PitchPresets = PitchPresets()
     
     override var nibName: String? {return "Pitch"}
     
@@ -56,7 +60,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         let stateFunction = {
             () -> EffectsUnitState in
             
-            return self.graph.getPitchState()
+            return self.fxUnit.state
         }
         
         btnPitchBypass.stateFunction = stateFunction
@@ -67,7 +71,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         btnPitchBypass.updateState()
         pitchView.stateChanged()
-        pitchView.setState(graph.getPitch(), graph.getPitchOverlap())
+        pitchView.setState(fxUnit.pitch, fxUnit.formattedPitch, fxUnit.overlap, fxUnit.formattedOverlap)
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -76,7 +80,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
-        _ = graph.togglePitchState()
+        _ = fxUnit.toggleState()
         
         btnPitchBypass.updateState()
         pitchView.stateChanged()
@@ -86,7 +90,9 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
-        pitchView.setPitch((pitchView.pitch, graph.setPitch(pitchView.pitch, false)))
+        
+        fxUnit.pitch = pitchView.pitch
+        pitchView.setPitch(fxUnit.pitch, fxUnit.formattedPitch)
     }
     
     private func showPitchTab() {
@@ -96,7 +102,9 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        pitchView.setPitch((pitch, graph.setPitch(pitch, true)))
+        // TODO: Ensure unit active
+        fxUnit.pitch = pitch
+        pitchView.setPitch(pitch, fxUnit.formattedPitch)
         
         btnPitchBypass.updateState()
         pitchView.stateChanged()
@@ -109,12 +117,14 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-        pitchView.setPitchOverlap((pitchView.overlap, graph.setPitchOverlap(pitchView.overlap)))
+
+        fxUnit.overlap = pitchView.overlap
+        pitchView.setPitchOverlap(fxUnit.overlap, fxUnit.formattedOverlap)
     }
     
     // Applies a preset to the effects unit
     @IBAction func pitchPresetsAction(_ sender: AnyObject) {
-        graph.applyPitchPreset(presetsMenu.titleOfSelectedItem!)
+//        graph.applyPitchPreset(presetsMenu.titleOfSelectedItem!)
         initControls()
     }
     
@@ -129,20 +139,24 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
-        pitchChange(graph.increasePitch())
+        
+        let newPitch = fxUnit.increasePitch()
+        pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
     // Decreases the overall pitch by a certain preset decrement
     private func decreasePitch() {
-        pitchChange(graph.decreasePitch())
+        
+        let newPitch = fxUnit.decreasePitch()
+        pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
     // Changes the pitch to a specified value
-    private func pitchChange(_ pitchInfo: (pitch: Float, pitchString: String)) {
+    private func pitchChange(_ pitch: Float, _ pitchString: String) {
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
-        pitchView.setPitch(pitchInfo)
+        pitchView.setPitch(pitch, pitchString)
         btnPitchBypass.updateState()
         pitchView.stateChanged()
         
@@ -213,7 +227,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        graph.savePitchPreset(string)
+//        graph.savePitchPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)

@@ -88,7 +88,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         pitchTabViewButton.stateFunction = {
             () -> EffectsUnitState in
             
-            return self.graph.getPitchState()
+            return self.graph.pitchUnit.state
         }
         
         timeTabViewButton.stateFunction = {

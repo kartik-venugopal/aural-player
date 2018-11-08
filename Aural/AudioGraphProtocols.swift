@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
  */
-protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretchUnitProtocol, ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
+protocol AudioGraphProtocol: EQUnitProtocol, TimeStretchUnitProtocol, ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
     
     func toggleMasterBypass() -> Bool
     
@@ -41,6 +41,8 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
+    
+    var pitchUnit: PitchUnit {get set}
 }
 
 protocol EQUnitProtocol {
@@ -100,30 +102,23 @@ protocol EQUnitProtocol {
     func applyEQPreset(_ preset: EQPreset)
 }
 
-protocol PitchShiftUnitProtocol {
+protocol FXUnitProtocol {
     
-    // Returns the current state of the pitch shift audio effects unit
-    func getPitchState() -> EffectsUnitState
+    var state: EffectsUnitState {get}
     
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func togglePitchState() -> EffectsUnitState
+    func toggleState() -> EffectsUnitState
     
-    func getPitch() -> Float
+    var avNodes: [AVAudioNode] {get}
+}
+
+protocol PitchShiftUnitProtocol: FXUnitProtocol {
+
+    // The pitch shift value, in cents, specified as a value between -2400 and 2400
+    var pitch: Float {get set}
     
-    // Sets the pitch shift value, in cents, specified as a value between -2400 and 2400
-    func setPitch(_ pitch: Float)
-    
-    // Retrieves the overlap value of the pitch shift audio effects unit
-    func getPitchOverlap() -> Float
-    
-    // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
-    func setPitchOverlap(_ overlap: Float)
-    
-    var pitchPresets: PitchPresets {get}
-    
-    func savePitchPreset(_ presetName: String)
-    
-    func applyPitchPreset(_ preset: PitchPreset)
+    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
+    var overlap: Float {get set}
 }
 
 protocol TimeStretchUnitProtocol {

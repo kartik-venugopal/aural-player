@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDelegateProtocol, TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
     
     func toggleMasterBypass() -> Bool
     
@@ -58,6 +58,8 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDeleg
     
     // Pans right by a small increment. Returns new balance value.
     func panRight() -> Float
+    
+    var pitchUnit: PitchUnitDelegate {get set}
 }
 
 protocol EQUnitDelegateProtocol {
@@ -117,37 +119,43 @@ protocol EQUnitDelegateProtocol {
     func applyEQPreset(_ presetName: String)
 }
 
-protocol PitchShiftUnitDelegateProtocol {
+protocol FXUnitDelegateProtocol {
     
-    // Returns the current state of the pitch shift audio effects unit
-    func getPitchState() -> EffectsUnitState
+    var state: EffectsUnitState {get}
     
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func togglePitchState() -> EffectsUnitState
+    func toggleState() -> EffectsUnitState
     
-    // Retrieves the pitch shift value and a formatted string representation of it
-    func getPitch() -> (pitch: Float, pitchString: String)
+    associatedtype PresetsType: FXPresetsProtocol
     
-    // Sets the pitch shift value, in octaves, specified as a value between -2 and 2
-    func setPitch(_ pitch: Float, _ ensureActive: Bool) -> String
+    var presets: PresetsType {get}
+    
+    func savePreset(_ presetName: String)
+    
+    func applyPreset(_ presetName: String)
+}
+
+protocol PitchShiftUnitDelegateProtocol: FXUnitDelegateProtocol {
+    
+//    typealias PresetsType = PitchPresets
+    
+//    var presets: PitchPresets {get}
+    
+    // The pitch shift value, in cents, specified as a value between -2400 and 2400
+    var pitch: Float {get set}
+    
+    var formattedPitch: String {get}
+    
+    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
+    var overlap: Float {get set}
+    
+    var formattedOverlap: String {get}
     
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
     func increasePitch() -> (pitch: Float, pitchString: String)
     
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
     func decreasePitch() -> (pitch: Float, pitchString: String)
-    
-    // Retrieves the overlap value of the pitch shift audio effects unit and a string representation of it
-    func getPitchOverlap() -> (overlap: Float, overlapString: String)
-    
-    // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
-    func setPitchOverlap(_ overlap: Float) -> String
-    
-    var pitchPresets: PitchPresets {get}
-    
-    func savePitchPreset(_ presetName: String)
-    
-    func applyPitchPreset(_ presetName: String)
 }
 
 protocol TimeStretchUnitDelegateProtocol {

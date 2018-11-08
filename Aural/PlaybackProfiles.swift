@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Code duplication with SoundProfiles
 class PlaybackProfiles {
     
     // Track file -> Profile
