@@ -124,6 +124,8 @@ enum MessageType {
     case applyFilterPreset
     
     case gapUpdatedNotification
+    
+    case fxUnitActivatedNotification
 }
 
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -412,6 +414,15 @@ struct EffectsUnitStateChangedNotification: NotificationMessage {
     private init() {}
     
     static let instance: EffectsUnitStateChangedNotification = EffectsUnitStateChangedNotification()
+}
+
+// Audio graph
+struct FXUnitActivatedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .fxUnitActivatedNotification
+    private init() {}
+    
+    static let instance: FXUnitActivatedNotification = FXUnitActivatedNotification()
 }
 
 // Notification that the state of the segment playback loop for the currently playing track has been changed and the UI may need to be updated as a result

@@ -6,8 +6,10 @@ import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
+    var pitchUnit: PitchUnitDelegate
+    
     // The actual underlying audio graph
-    private let graph: AudioGraphProtocol
+    private var graph: AudioGraphProtocol
     
     // User preferences
     private let preferences: SoundPreferences
@@ -16,6 +18,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         self.graph = graph
         self.preferences = preferences
+        pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         
         if (preferences.volumeOnStartupOption == .specific) {
             graph.setVolume(preferences.startupVolumeValue)
@@ -264,100 +267,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         let preset = eqPresets.presetByName(presetName)!
         graph.applyEQPreset(preset)
-    }
-    
-    // MARK: Pitch shift unit functions
-    
-    // Returns the current state of the pitch shift audio effects unit
-    func getPitchState() -> EffectsUnitState {
-        return graph.getPitchState()
-    }
-    
-    // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func togglePitchState() -> EffectsUnitState {
-        return graph.togglePitchState()
-    }
-    
-    func getPitch() -> (pitch: Float, pitchString: String) {
-        
-        let pitch = graph.getPitch() * AppConstants.pitchConversion_audioGraphToUI
-        return (pitch, ValueFormatter.formatPitch(pitch))
-    }
-    
-    func setPitch(_ pitch: Float, _ ensureActive: Bool = false) -> String {
-        
-        // If the pitch unit is currently inactive, start at default pitch offset, before the increase
-        if ensureActive && graph.getPitchState() != .active {
-            
-            _ = graph.togglePitchState()
-        }
-        
-        // Convert from octaves (-2, 2) to cents (-2400, 2400)
-        graph.setPitch(pitch * AppConstants.pitchConversion_UIToAudioGraph)
-        
-        return ValueFormatter.formatPitch(pitch)
-    }
-    
-    func getPitchOverlap() -> (overlap: Float, overlapString: String) {
-        let overlap = graph.getPitchOverlap()
-        return (overlap, ValueFormatter.formatOverlap(overlap))
-    }
-    
-    func setPitchOverlap(_ overlap: Float) -> String {
-        graph.setPitchOverlap(overlap)
-        return ValueFormatter.formatOverlap(overlap)
-    }
-    
-    func increasePitch() -> (pitch: Float, pitchString: String) {
-        
-        // If the pitch unit is currently inactive, start at default pitch offset, before the increase
-        if graph.getPitchState() != .active {
-            
-            _ = graph.togglePitchState()
-            graph.setPitch(AppDefaults.pitch)
-        }
-        
-        // TODO: Put this value in a constant
-        let newPitch = min(2400, graph.getPitch() + Float(preferences.pitchDelta))
-        graph.setPitch(newPitch)
-        
-        // Convert from cents to octaves
-        let convPitch = newPitch * AppConstants.pitchConversion_audioGraphToUI
-        
-        return (convPitch, ValueFormatter.formatPitch(convPitch))
-    }
-    
-    func decreasePitch() -> (pitch: Float, pitchString: String) {
-        
-        // If the pitch unit is currently inactive, start at default pitch offset, before the decrease
-        if graph.getPitchState() != .active {
-            
-            _ = graph.togglePitchState()
-            graph.setPitch(AppDefaults.pitch)
-        }
-        
-        // TODO: Put this value in a constant
-        let newPitch = max(-2400, graph.getPitch() - Float(preferences.pitchDelta))
-        graph.setPitch(newPitch)
-        
-        // Convert from cents to octaves
-        let convPitch = newPitch * AppConstants.pitchConversion_audioGraphToUI
-        
-        return (convPitch, ValueFormatter.formatPitch(convPitch))
-    }
-    
-    var pitchPresets: PitchPresets {
-        return graph.pitchPresets
-    }
-    
-    func savePitchPreset(_ presetName: String) {
-        graph.savePitchPreset(presetName)
-    }
-    
-    func applyPitchPreset(_ presetName: String) {
-        
-        let preset = pitchPresets.presetByName(presetName)!
-        graph.applyPitchPreset(preset)
     }
     
     // MARK: Time stretch unit functions

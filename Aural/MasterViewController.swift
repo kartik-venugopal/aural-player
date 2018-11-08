@@ -46,7 +46,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         // TODO: Declare these widely reused state functions in a functions file and reuse across UI layer
         masterView.initialize({() -> EffectsUnitState in return self.graph.getEQState()},
-                              {() -> EffectsUnitState in return self.graph.getPitchState()},
+                              {() -> EffectsUnitState in return self.graph.pitchUnit.state},
                               {() -> EffectsUnitState in return self.graph.getTimeState()},
                               {() -> EffectsUnitState in return self.graph.getReverbState()},
                               {() -> EffectsUnitState in return self.graph.getDelayState()},
@@ -58,6 +58,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         presetsMenu.selectItem(at: -1)
         
         // If specific startup behavior is defined, update controls accordingly
+        // TODO: Move this to AudioGraphDelegate
         if soundPreferences.effectsSettingsOnStartupOption == .applyMasterPreset {
             
             if let preset = soundPreferences.masterPresetOnStartup_name {
@@ -117,7 +118,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
-        _ = graph.togglePitchState()
+//        _ = graph.togglePitchState()
         updateButtons()
     }
     

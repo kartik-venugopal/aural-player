@@ -29,26 +29,26 @@ class PitchView: NSView {
         })
     }
     
-    func setState(_ pitchInfo: (pitch: Float, pitchString: String), _ overlapInfo: (overlap: Float, overlapString: String)) {
+    func setState(_ pitch: Float, _ pitchString: String, _ overlap: Float, _ overlapString: String) {
         
-        setPitch(pitchInfo)
-        setPitchOverlap(overlapInfo)
+        setPitch(pitch, pitchString)
+        setPitchOverlap(overlap, overlapString)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     
-    func setPitch(_ pitchInfo: (pitch: Float, pitchString: String)) {
+    func setPitch(_ pitch: Float, _ pitchString: String) {
         
-        pitchSlider.floatValue = pitchInfo.pitch
-        lblPitchValue.stringValue = pitchInfo.pitchString
+        pitchSlider.floatValue = pitch
+        lblPitchValue.stringValue = pitchString
     }
     
-    func setPitchOverlap(_ overlapInfo: (overlap: Float, overlapString: String)) {
+    func setPitchOverlap(_ overlap: Float, _ overlapString: String) {
         
-        pitchOverlapSlider.floatValue = overlapInfo.overlap
-        lblPitchOverlapValue.stringValue = overlapInfo.overlapString
+        pitchOverlapSlider.floatValue = overlap
+        lblPitchOverlapValue.stringValue = overlapString
     }
     
     func stateChanged() {
@@ -58,8 +58,8 @@ class PitchView: NSView {
     func applyPreset(_ preset: PitchPreset) {
         
         let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
-        setPitch((pitch, ValueFormatter.formatPitch(pitch)))
-        setPitchOverlap((preset.overlap, ValueFormatter.formatOverlap(preset.overlap)))
+        setPitch(pitch, ValueFormatter.formatPitch(pitch))
+        setPitchOverlap(preset.overlap, ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)
     }
 }

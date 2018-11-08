@@ -1,30 +1,38 @@
 import Foundation
 
-class FXPresets<T: EffectsUnitPreset> {
+protocol FXPresetsProtocol {
+    
+    associatedtype T: EffectsUnitPreset
+    
+    var userDefinedPresets: [T] {get}
+    var systemDefinedPresets: [T] {get}
+    
+    func presetByName(_ name: String) -> T?
+    
+    func deletePresets(_ presetNames: [String])
+    
+    func renamePreset(_ oldName: String, _ newName: String)
+    
+    func addPresets(_ presetsArr: [T])
+    
+    func addPreset(_ preset: T)
+    
+    func presetWithNameExists(_ name: String) -> Bool
+}
+
+class FXPresets<T: EffectsUnitPreset>: FXPresetsProtocol {
     
     private var map: [String: T] = [:]
     
     private(set) var userDefinedPresets: [T] = []
     private(set) var systemDefinedPresets: [T] = []
     
-    func presetByName(_ name: String) -> T? {
-        return map[name]
+    func presetWithNameExists(_ name: String) -> Bool {
+        return map[name] != nil
     }
     
-    func deletePresets(_ presetNames: [String]) {
-        
-        for presetName in presetNames {
-            
-            if map[presetName] != nil {
-            
-                map[presetName] = nil
-                
-                // Remove from user defined presets (system-defined presets cannot be deleted)
-                if let index = userDefinedPresets.firstIndex(where: {$0.name == presetName}) {
-                    userDefinedPresets.remove(at: index)
-                }
-            }
-        }
+    func presetByName(_ name: String) -> T? {
+        return map[name]
     }
     
     func renamePreset(_ oldName: String, _ newName: String) {
@@ -48,7 +56,19 @@ class FXPresets<T: EffectsUnitPreset> {
         preset.systemDefined ? systemDefinedPresets.append(preset) : userDefinedPresets.append(preset)
     }
     
-    func presetWithNameExists(_ name: String) -> Bool {
-        return map[name] != nil
+    func deletePresets(_ presetNames: [String]) {
+        
+        for presetName in presetNames {
+            
+            if map[presetName] != nil {
+                
+                map[presetName] = nil
+                
+                // Remove from user defined presets (system-defined presets cannot be deleted)
+                if let index = userDefinedPresets.firstIndex(where: {$0.name == presetName}) {
+                    userDefinedPresets.remove(at: index)
+                }
+            }
+        }
     }
 }
