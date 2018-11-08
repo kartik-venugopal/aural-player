@@ -127,17 +127,7 @@ struct ViewFactory {
     
     // Returns the view that displays the Pitch effects unit
     static func getPitchView() -> NSView {
-//        return EffectsViews.pitchViewController.view
-        
-        var objects: NSArray?
-        if Bundle.main.loadNibNamed("Pitch", owner: self, topLevelObjects: &objects) {
-            
-            let view = (objects!.first(where: {$0 is NSView}) as! NSView)
-            print("CV: ", view.className)
-            return view
-        }
-        
-        return NSView(frame: NSRect.zero)
+        return EffectsViews.pitchViewController.view
     }
     
     // Returns the view that displays the Time effects unit

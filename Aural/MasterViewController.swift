@@ -312,3 +312,5 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
 }
 
 typealias EffectsUnitStateFunction = () -> EffectsUnitState
+
+typealias PresetsDataFunction = () -> [EffectsUnitPreset]
