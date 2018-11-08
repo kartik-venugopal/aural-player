@@ -3,49 +3,30 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
-    
-    // Pitch controls
-    @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
+class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
     
-    // Presets menu
-    @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
-    
-    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
-    
-    // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    
-    private var fxUnit: PitchUnitDelegate = ObjectGraph.getAudioGraphDelegate().pitchUnit
-    
-//    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
-    private let pitchPresets: PitchPresets = PitchPresets()
-    
     override var nibName: String? {return "Pitch"}
     
+    var pitchUnit: PitchUnitDelegate!
+    
+    override func awakeFromNib() {
+        
+        fxUnit = ObjectGraph.getAudioGraphDelegate().pitchUnit
+        pitchUnit = fxUnit as! PitchUnitDelegate
+        unitStateFunction = pitchStateFunction
+        self.presets = pitchUnit.presets
+    }
+    
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         
         oneTimeSetup()
         initControls()
         initSubscriptions()
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Remove all custom presets
-        while !presetsMenu.item(at: 0)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 0)
-        }
-        
-        // Re-initialize the menu with user-defined presets
-        pitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
-        
-        // Don't select any items from the EQ presets menu
-        presetsMenu.selectItem(at: -1)
     }
     
     private func initSubscriptions() {
@@ -56,43 +37,28 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     }
     
     private func oneTimeSetup() {
-        
-        let stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.fxUnit.state
-        }
-        
-        btnPitchBypass.stateFunction = stateFunction
-        pitchView.initialize(stateFunction)
+        pitchView.initialize(pitchStateFunction)
     }
     
-    private func initControls() {
+    override func initControls() {
         
-        btnPitchBypass.updateState()
+        super.initControls()
+        
         pitchView.stateChanged()
-        pitchView.setState(fxUnit.pitch, fxUnit.formattedPitch, fxUnit.overlap, fxUnit.formattedOverlap)
-        
-        // Don't select any items from the presets menu
-        presetsMenu.selectItem(at: -1)
+        pitchView.setState(pitchUnit.pitch, pitchUnit.formattedPitch, pitchUnit.overlap, pitchUnit.formattedOverlap)
     }
     
     // Activates/deactivates the Pitch effects unit
-    @IBAction func pitchBypassAction(_ sender: AnyObject) {
-        
-        _ = fxUnit.toggleState()
-        
-        btnPitchBypass.updateState()
+    @IBAction override func bypassAction(_ sender: AnyObject) {
+        super.bypassAction(sender)
         pitchView.stateChanged()
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
         
-        fxUnit.pitch = pitchView.pitch
-        pitchView.setPitch(fxUnit.pitch, fxUnit.formattedPitch)
+        pitchUnit.pitch = pitchView.pitch
+        pitchView.setPitch(pitchUnit.pitch, pitchUnit.formattedPitch)
     }
     
     private func showPitchTab() {
@@ -103,10 +69,10 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     private func setPitch(_ pitch: Float) {
         
         // TODO: Ensure unit active
-        fxUnit.pitch = pitch
-        pitchView.setPitch(pitch, fxUnit.formattedPitch)
+        pitchUnit.pitch = pitch
+        pitchView.setPitch(pitch, pitchUnit.formattedPitch)
         
-        btnPitchBypass.updateState()
+        btnBypass.updateState()
         pitchView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
@@ -118,36 +84,21 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
 
-        fxUnit.overlap = pitchView.overlap
-        pitchView.setPitchOverlap(fxUnit.overlap, fxUnit.formattedOverlap)
-    }
-    
-    // Applies a preset to the effects unit
-    @IBAction func pitchPresetsAction(_ sender: AnyObject) {
-//        graph.applyPitchPreset(presetsMenu.titleOfSelectedItem!)
-        initControls()
-    }
-    
-    // Displays a popover to allow the user to name the new custom preset
-    @IBAction func savePresetAction(_ sender: AnyObject) {
-        
-        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
-        
-        // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.mainWindow.orderFront(self)
+        pitchUnit.overlap = pitchView.overlap
+        pitchView.setPitchOverlap(pitchUnit.overlap, pitchUnit.formattedOverlap)
     }
     
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
         
-        let newPitch = fxUnit.increasePitch()
+        let newPitch = pitchUnit.increasePitch()
         pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
     // Decreases the overall pitch by a certain preset decrement
     private func decreasePitch() {
         
-        let newPitch = fxUnit.decreasePitch()
+        let newPitch = pitchUnit.decreasePitch()
         pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
@@ -157,15 +108,10 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         pitchView.setPitch(pitch, pitchString)
-        btnPitchBypass.updateState()
         pitchView.stateChanged()
         
         // Show the Pitch tab if the Effects panel is shown
         showPitchTab()
-    }
-    
-    func getID() -> String {
-        return self.className
     }
     
     // MARK: Message handling
@@ -173,7 +119,6 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is EffectsUnitStateChangedNotification {
-            btnPitchBypass.updateState()
             pitchView.stateChanged()
         }
     }
@@ -201,35 +146,5 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
                 initControls()
             }
         }
-    }
-    
-    // MARK - StringInputClient functions
-    
-    func getInputPrompt() -> String {
-        return "Enter a new preset name:"
-    }
-    
-    func getDefaultValue() -> String? {
-        return "<New Pitch preset>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !pitchPresets.presetWithNameExists(string)
-        
-        if (!valid) {
-            return (false, "Preset with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        
-//        graph.savePitchPreset(string)
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }
