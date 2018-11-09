@@ -49,7 +49,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
                               pitchStateFunction,
                               timeStateFunction,
                               reverbStateFunction,
-                              {() -> EffectsUnitState in return self.graph.getDelayState()},
+                              delayStateFunction,
                               {() -> EffectsUnitState in return self.graph.getFilterState()})
         
         self.menuNeedsUpdate(presetsMenu.menu!)
@@ -153,7 +153,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleDelayState()
+//        _ = graph.toggleDelayState()
         updateButtons()
     }
     

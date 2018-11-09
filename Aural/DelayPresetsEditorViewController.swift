@@ -8,7 +8,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let delayPresets: DelayPresets = ObjectGraph.getAudioGraphDelegate().delayPresets
+//    private let delayPresets: DelayPresets = ObjectGraph.getAudioGraphDelegate().delayPresets
     
     private var oldPresetName: String?
     
@@ -36,7 +36,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        delayPresets.deletePresets(selection)
+//        delayPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -73,7 +73,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyDelayPreset(selection[0])
+//        graph.applyDelayPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .delay))
     }
     
@@ -87,7 +87,8 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return delayPresets.userDefinedPresets.count
+//        return delayPresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -98,9 +99,9 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         
         if numRows == 1 {
             
-            let presetName = getSelectedPresetNames()[0]
-            renderPreview(delayPresets.presetByName(presetName)!)
-            oldPresetName = presetName
+//            let presetName = getSelectedPresetNames()[0]
+//            renderPreview(delayPresets.presetByName(presetName)!)
+//            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -114,8 +115,8 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = delayPresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = delayPresets.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, "preset.name")
     }
     
     // Creates a cell view containing text
@@ -145,43 +146,43 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
-        
-        // Access the old value from the temp storage variable
-        let oldName = oldPresetName ?? editedTextField.stringValue
-        
-        if let preset = delayPresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else if delayPresets.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                delayPresets.renamePreset(oldName, newPresetName)
-            }
-            
-        } else {
-            
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldName
-        }
+//        let rowIndex = editorView.selectedRow
+//        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+//        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
+//        let editedTextField = cell.textField!
+//
+//        // Access the old value from the temp storage variable
+//        let oldName = oldPresetName ?? editedTextField.stringValue
+//
+//        if let preset = delayPresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if delayPresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                delayPresets.renamePreset(oldName, newPresetName)
+//            }
+//
+//        } else {
+//
+//            // IMPOSSIBLE
+//            editedTextField.stringValue = oldName
+//        }
     }
     
     // MARK: Message handling

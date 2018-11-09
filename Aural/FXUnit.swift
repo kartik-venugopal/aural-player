@@ -39,6 +39,8 @@ class FXUnit {
         state = state == .suppressed ? .active : state
     }
     
+    func reset() {}
+    
     func savePreset(_ presetName: String) {}
     
     func applyPreset(_ presetName: String) {}

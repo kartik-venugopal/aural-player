@@ -10,6 +10,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     var pitchUnit: PitchUnitDelegate
     var timeUnit: TimeUnitDelegate
     var reverbUnit: ReverbUnitDelegate
+    var delayUnit: DelayUnitDelegate
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
@@ -26,6 +27,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
+        delayUnit = DelayUnitDelegate(graph.delayUnit)
         
         if (preferences.volumeOnStartupOption == .specific) {
             graph.setVolume(preferences.startupVolumeValue)
@@ -166,70 +168,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    // MARK: Delay unit functions
-    
-    func getDelayState() -> EffectsUnitState {
-        return graph.getDelayState()
-    }
-    
-    func toggleDelayState() -> EffectsUnitState {
-        return graph.toggleDelayState()
-    }
-    
-    func getDelayAmount() -> (amount: Float, amountString: String) {
-        let amount = graph.getDelayAmount()
-        return (amount, ValueFormatter.formatDelayAmount(amount))
-    }
-    
-    func setDelayAmount(_ amount: Float) -> String {
-        graph.setDelayAmount(amount)
-        return ValueFormatter.formatDelayAmount(amount)
-    }
-    
-    func getDelayTime() -> (time: Double, timeString: String) {
-        let time = graph.getDelayTime()
-        return (time, ValueFormatter.formatDelayTime(time))
-    }
-    
-    func setDelayTime(_ time: Double) -> String {
-        graph.setDelayTime(time)
-        return ValueFormatter.formatDelayTime(time)
-    }
-    
-    func getDelayFeedback() -> (percent: Float, percentString: String) {
-        let feedback = graph.getDelayFeedback()
-        return (feedback, ValueFormatter.formatDelayFeedback(feedback))
-    }
-    
-    func setDelayFeedback(_ percent: Float) -> String {
-        graph.setDelayFeedback(percent)
-        return ValueFormatter.formatDelayFeedback(percent)
-    }
-    
-    func getDelayLowPassCutoff() -> (cutoff: Float, cutoffString: String) {
-        let cutoff = graph.getDelayLowPassCutoff()
-        return (cutoff, ValueFormatter.formatDelayLowPassCutoff(cutoff))
-    }
-    
-    func setDelayLowPassCutoff(_ cutoff: Float) -> String {
-        graph.setDelayLowPassCutoff(cutoff)
-        return ValueFormatter.formatDelayLowPassCutoff(cutoff)
-    }
-    
-    var delayPresets: DelayPresets {
-        return graph.delayPresets
-    }
-    
-    func saveDelayPreset(_ presetName: String) {
-        graph.saveDelayPreset(presetName)
-    }
-    
-    func applyDelayPreset(_ presetName: String) {
-        
-        let preset = delayPresets.presetByName(presetName)!
-        graph.applyDelayPreset(preset)
     }
     
     // MARK: Filter unit functions

@@ -1,4 +1,3 @@
-import Foundation
 import AVFoundation
 
 class ReverbUnit: FXUnit, ReverbUnitProtocol {
@@ -28,7 +27,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     var avNodes: [AVAudioNode] {return [node]}
     
-    func reset() {
+    override func reset() {
         node.reset()
     }
     

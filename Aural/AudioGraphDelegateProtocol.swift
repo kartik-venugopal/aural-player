@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol: FilterUnitDelegateProtocol {
     
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
@@ -63,6 +63,7 @@ protocol AudioGraphDelegateProtocol: DelayUnitDelegateProtocol, FilterUnitDelega
     var pitchUnit: PitchUnitDelegate {get set}
     var timeUnit: TimeUnitDelegate {get set}
     var reverbUnit: ReverbUnitDelegate {get set}
+    var delayUnit: DelayUnitDelegate {get set}
 }
 
 protocol FXUnitDelegateProtocol {
@@ -164,39 +165,23 @@ protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
     var formattedAmount: String {get}
 }
 
-protocol DelayUnitDelegateProtocol {
+protocol DelayUnitDelegateProtocol: FXUnitDelegateProtocol {
     
-    // Returns the current state of the delay audio effects unit
-    func getDelayState() -> EffectsUnitState
+    var amount: Float {get set}
     
-    // Toggles the state of the delay audio effects unit, and returns its new state
-    func toggleDelayState() -> EffectsUnitState
+    var formattedAmount: String {get}
     
-    func getDelayAmount() -> (amount: Float, amountString: String)
+    var time: Double {get set}
     
-    // Sets the delay (echo) amount, specified as a value between 0 (dry) and 100 (wet)
-    func setDelayAmount(_ amount: Float) -> String
+    var formattedTime: String {get}
     
-    func getDelayTime() -> (time: Double, timeString: String)
+    var feedback: Float {get set}
     
-    // Sets the delay time, in seconds, specified as a value between 0 and 2
-    func setDelayTime(_ time: Double) -> String
+    var formattedFeedback: String {get}
     
-    func getDelayFeedback() -> (percent: Float, percentString: String)
+    var lowPassCutoff: Float {get set}
     
-    // Sets the delay feedback, in percentage, specified as a value between -100 and 100
-    func setDelayFeedback(_ percent: Float) -> String
-    
-    func getDelayLowPassCutoff() -> (cutoff: Float, cutoffString: String)
-    
-    // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setDelayLowPassCutoff(_ cutoff: Float) -> String
-    
-    var delayPresets: DelayPresets {get}
-    
-    func saveDelayPreset(_ presetName: String)
-    
-    func applyDelayPreset(_ presetName: String)
+    var formattedLowPassCutoff: String {get}
 }
 
 protocol FilterUnitDelegateProtocol {
