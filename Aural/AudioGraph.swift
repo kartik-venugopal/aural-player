@@ -13,12 +13,12 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     var eqUnit: EQUnit
     var pitchUnit: PitchUnit
     var timeUnit: TimeUnit
+    var reverbUnit: ReverbUnit
     
     // Playback
     internal let playerNode: AVAudioPlayerNode
     
     // Effects
-    private let reverbNode: AVAudioUnitReverb
     private let filterNode: FlexibleFilterNode
     private let delayNode: AVAudioUnitDelay
     
@@ -32,18 +32,15 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     // Temp variables to store individual node bypass states that can be saved/restored when master bypass is toggled
     private var masterBypass: Bool
     
-    private var reverbSuppressed: Bool
     private var delaySuppressed: Bool
     private var filterSuppressed: Bool
     
     // Sound setting value holders
     private var playerVolume: Float
     private var muted: Bool
-    private var reverbSpace: AVAudioUnitReverbPreset
     
     // Presets
     private(set) var masterPresets: MasterPresets = MasterPresets()
-    private(set) var reverbPresets: ReverbPresets = ReverbPresets()
     private(set) var delayPresets: DelayPresets = DelayPresets()
     private(set) var filterPresets: FilterPresets = FilterPresets()
     
@@ -58,8 +55,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         eqUnit = EQUnit(state)
         pitchUnit = PitchUnit(state)
         timeUnit = TimeUnit(state)
+        reverbUnit = ReverbUnit(state)
         
-        reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
         filterNode = FlexibleFilterNode()
         auxMixer = AVAudioMixerNode()
@@ -71,7 +68,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         nodes.append(contentsOf: eqUnit.avNodes)
         nodes.append(contentsOf: pitchUnit.avNodes)
         nodes.append(contentsOf: timeUnit.avNodes)
-        nodes.append(contentsOf: [filterNode, reverbNode, delayNode])
+        nodes.append(contentsOf: reverbUnit.avNodes)
+        nodes.append(contentsOf: [filterNode, delayNode])
         audioEngineHelper.addNodes(nodes)
         
         audioEngineHelper.connectNodes()
@@ -91,14 +89,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         masterBypass = state.masterState != .active
         masterPresets.addPresets(state.masterUserPresets)
         
-        // Reverb
-        reverbNode.bypass = state.reverbState != .active
-        reverbSuppressed = state.reverbState == .suppressed
-        reverbSpace = state.reverbSpace.avPreset
-        reverbNode.loadFactoryPreset(reverbSpace)
-        reverbNode.wetDryMix = state.reverbAmount
-        reverbPresets.addPresets(state.reverbUserPresets)
-        
         // Delay
         delayNode.bypass = state.delayState != .active
         delaySuppressed = state.delayState == .suppressed
@@ -116,8 +106,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
 
     private func bypassAllUnits() {
-        
-        [reverbNode, delayNode, filterNode].forEach({$0.bypass = true})
+        [delayNode, filterNode].forEach({$0.bypass = true})
     }
     
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
@@ -135,9 +124,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
             
             // If a unit was active (i.e. not bypassed), mark it as now being suppressed by the master bypass
             
-            [eqUnit, pitchUnit, timeUnit].forEach({$0.suppress()})
+            [eqUnit, pitchUnit, timeUnit, reverbUnit].forEach({$0.suppress()})
             
-            reverbSuppressed = !reverbNode.bypass
             delaySuppressed = !delayNode.bypass
             filterSuppressed = !filterNode.bypass
             
@@ -147,9 +135,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
             
             // Inactive -> Active
             
-            [eqUnit, pitchUnit, timeUnit].forEach({$0.unsuppress()})
+            [eqUnit, pitchUnit, timeUnit, reverbUnit].forEach({$0.unsuppress()})
             
-            reverbNode.bypass = !reverbSuppressed
             delayNode.bypass = !delaySuppressed
             filterNode.bypass = !filterSuppressed
         }
@@ -188,9 +175,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
 
         // Reverb state
-        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let space = getReverbSpace()
-        let reverbAmount = reverbNode.wetDryMix
+        let reverbState = reverbUnit.state
+        let space = reverbUnit.space
+        let reverbAmount = reverbUnit.amount
 
         let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
 
@@ -239,9 +226,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
         
         // Reverb state
-        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let space = getReverbSpace()
-        let reverbAmount = reverbNode.wetDryMix
+        let reverbState = reverbUnit.state
+        let space = reverbUnit.space
+        let reverbAmount = reverbUnit.amount
         
         let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
         
@@ -265,17 +252,16 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
 //        applyEQPreset(preset.eq)
 //        applyTimePreset(preset.time)
-        applyReverbPreset(preset.reverb)
+//        applyReverbPreset(preset.reverb)
         applyDelayPreset(preset.delay)
         applyFilterPreset(preset.filter)
         
         // Apply unit states and determine master state
 //        timeNode.bypass = preset.time.state != .active
-        reverbNode.bypass = preset.reverb.state != .active
         delayNode.bypass = preset.delay.state != .active
         filterNode.bypass = preset.filter.state != .active
         
-        let needMasterActive = !(reverbNode.bypass && delayNode.bypass && filterNode.bypass)
+        let needMasterActive = !(delayNode.bypass && filterNode.bypass)
         
         if needMasterActive && masterBypass {
             masterBypass = false
@@ -313,68 +299,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func setBalance(_ balance: Float) {
         playerNode.pan = balance
-    }
-    
-    // MARK: Time stretch unit functions
-    
-    // MARK: Reverb unit functions
-    
-    func getReverbState() -> EffectsUnitState {
-        return masterBypass ? (reverbSuppressed ? .suppressed : .bypassed) : (reverbNode.bypass ? .bypassed : .active)
-    }
-    
-    func toggleReverbState() -> EffectsUnitState {
-        
-        let curState = getReverbState()
-        let newState: EffectsUnitState
-        
-        switch curState {
-            
-        case .active:   newState = .bypassed
-            
-        case .bypassed: newState = .active
-                        if masterBypass {
-                            _ = toggleMasterBypass()
-                        }
-            
-        // Master unit is currently bypassed, activate it
-        case .suppressed:   newState = .active
-                            _ = toggleMasterBypass()
-            
-        }
-        
-        reverbNode.bypass = newState != .active
-        
-        return newState
-    }
-    
-    func getReverbSpace() -> ReverbSpaces {
-        return ReverbSpaces.mapFromAVPreset(reverbSpace)
-    }
-    
-    func setReverbSpace(_ space: ReverbSpaces) {
-        
-        let avPreset: AVAudioUnitReverbPreset = space.avPreset
-        self.reverbSpace = avPreset
-        reverbNode.loadFactoryPreset(self.reverbSpace)
-    }
-    
-    func getReverbAmount() -> Float {
-        return reverbNode.wetDryMix
-    }
-    
-    func setReverbAmount(_ amount: Float) {
-        reverbNode.wetDryMix = amount
-    }
-    
-    func saveReverbPreset(_ presetName: String) {
-        reverbPresets.addPreset(ReverbPreset(presetName, .active, getReverbSpace(), reverbNode.wetDryMix, false))
-    }
-    
-    func applyReverbPreset(_ preset: ReverbPreset) {
-        
-        setReverbSpace(preset.space)
-        setReverbAmount(preset.amount)
     }
     
     // MARK: Delay unit functions
@@ -544,8 +468,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
             delayNode.reset()
         }
         
-        if (!reverbNode.bypass) {
-            reverbNode.reset()
+        // TODO: Add reset() and isActive() to all FX units
+        if reverbUnit.state == .active {
+            reverbUnit.reset()
         }
     }
     
@@ -571,10 +496,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.timeUnitState = timeUnit.persistentState()
         
         // Reverb
-        state.reverbState = getReverbState()
-        state.reverbSpace = ReverbSpaces.mapFromAVPreset(reverbSpace)
-        state.reverbAmount = reverbNode.wetDryMix
-        state.reverbUserPresets = reverbPresets.userDefinedPresets
+        state.reverbUnitState = reverbUnit.persistentState()
         
         // Delay
         state.delayState = getDelayState()

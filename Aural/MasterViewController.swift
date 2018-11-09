@@ -48,7 +48,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         masterView.initialize(eqStateFunction,
                               pitchStateFunction,
                               timeStateFunction,
-                              {() -> EffectsUnitState in return self.graph.getReverbState()},
+                              reverbStateFunction,
                               {() -> EffectsUnitState in return self.graph.getDelayState()},
                               {() -> EffectsUnitState in return self.graph.getFilterState()})
         
@@ -146,7 +146,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleReverbState()
+//        _ = graph.toggleReverbState()
         updateButtons()
     }
     

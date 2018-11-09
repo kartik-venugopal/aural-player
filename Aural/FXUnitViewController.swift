@@ -95,19 +95,15 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        
         fxUnit.savePreset(string)
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: string, at: 0)
     }
     
     // MARK: Menu delegate
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Remove all custom presets
-        while !presetsMenu.item(at: 0)!.isSeparatorItem {
+        // Remove all custom presets (all items before the first separator)
+        while !presetsMenu.itemArray.isEmpty && !presetsMenu.item(at: 0)!.isSeparatorItem {
             presetsMenu.removeItem(at: 0)
         }
         

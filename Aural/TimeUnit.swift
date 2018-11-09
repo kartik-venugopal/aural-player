@@ -2,12 +2,12 @@ import AVFoundation
 
 class TimeUnit: FXUnit, TimeUnitProtocol {
     
-    private let node: VariableRateNode = VariableRateNode()
-    let presets: TimePresets = TimePresets()
-    
     override var state: EffectsUnitState {
         didSet {node.bypass = state != .active}
     }
+    
+    private let node: VariableRateNode = VariableRateNode()
+    let presets: TimePresets = TimePresets()
     
     init(_ appState: AudioGraphState) {
         

@@ -3,12 +3,12 @@ import AVFoundation
 
 class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     
-    private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
-    let presets: PitchPresets = PitchPresets()
-    
     override var state: EffectsUnitState {
         didSet {node.bypass = state != .active}
     }
+    
+    private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
+    let presets: PitchPresets = PitchPresets()
     
     // TODO: Pass in PitchUnitState (use generics to pass in type T)
     init(_ appState: AudioGraphState) {

@@ -616,6 +616,84 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
     }
 }
 
+class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
+    
+    var space: ReverbSpaces = AppDefaults.reverbSpace
+    var amount: Float = AppDefaults.reverbAmount
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["state"] = unitState.rawValue as AnyObject
+        map["space"] = space.rawValue as AnyObject
+        map["amount"] = amount as NSNumber
+        
+        var reverbUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in userPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["space"] = preset.space.rawValue as AnyObject
+            presetDict["amount"] = preset.amount as NSNumber
+            
+            reverbUserPresetsArr.append(presetDict)
+        }
+
+        map["userPresets"] = NSArray(array: reverbUserPresetsArr)
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let reverbState: ReverbUnitState = ReverbUnitState()
+        
+        if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
+            reverbState.unitState = unitState
+        }
+        
+        if let spaceStr = map["space"] as? String, let space = ReverbSpaces(rawValue: spaceStr) {
+            reverbState.space = space
+        }
+        
+        if let amount = map["amount"] as? NSNumber {
+            reverbState.amount = amount.floatValue
+        }
+        
+        // Reverb user presets
+        if let userPresets = map["userPresets"] as? [NSDictionary] {
+            
+            userPresets.forEach({
+                
+                var presetName: String?
+                var presetSpace: String?
+                var presetAmount: Float?
+                
+                if let name = $0["name"] as? String {
+                    presetName = name
+                }
+                
+                if let space = $0["space"] as? String {
+                    presetSpace = space
+                }
+                
+                if let amount = $0["amount"] as? NSNumber {
+                    presetAmount = amount.floatValue
+                }
+                
+                // Preset must have a name
+                if let presetName = presetName {
+                    
+                    reverbState.userPresets.append(ReverbPreset(presetName, .active, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
+                }
+            })
+        }
+        
+        return reverbState
+    }
+}
+
 /*
     Encapsulates audio graph state
  */
@@ -632,11 +710,7 @@ class AudioGraphState: PersistentState {
     var eqUnitState: EQUnitState = EQUnitState()
     var pitchUnitState: PitchUnitState = PitchUnitState()
     var timeUnitState: TimeUnitState = TimeUnitState()
-    
-    var reverbState: EffectsUnitState = AppDefaults.reverbState
-    var reverbSpace: ReverbSpaces = AppDefaults.reverbSpace
-    var reverbAmount: Float = AppDefaults.reverbAmount
-    var reverbUserPresets: [ReverbPreset] = [ReverbPreset]()
+    var reverbUnitState: ReverbUnitState = ReverbUnitState()
     
     var delayState: EffectsUnitState = AppDefaults.delayState
     var delayAmount: Float = AppDefaults.delayAmount
@@ -760,24 +834,7 @@ class AudioGraphState: PersistentState {
         
         map["time"] = timeUnitState.toSerializableMap() as AnyObject
         
-        var reverbDict = [NSString: AnyObject]()
-        reverbDict["state"] = reverbState.rawValue as AnyObject
-        reverbDict["space"] = reverbSpace.rawValue as AnyObject
-        reverbDict["amount"] = reverbAmount as NSNumber
-        
-        var reverbUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in reverbUserPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["space"] = preset.space.rawValue as AnyObject
-            presetDict["amount"] = preset.amount as NSNumber
-            
-            reverbUserPresetsArr.append(presetDict)
-        }
-        reverbDict["userPresets"] = NSArray(array: reverbUserPresetsArr)
-        
-        map["reverb"] = reverbDict as AnyObject
+        map["reverb"] = reverbUnitState.toSerializableMap() as AnyObject
         
         var delayDict = [NSString: AnyObject]()
         delayDict["state"] = delayState.rawValue as AnyObject
@@ -1122,61 +1179,15 @@ class AudioGraphState: PersistentState {
         }
         
         if let pitchDict = (map["pitch"] as? NSDictionary) {
-            // TODO: Generics :)
             audioGraphState.pitchUnitState = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
         }
         
         if let timeDict = (map["time"] as? NSDictionary) {
-            // TODO: Generics :)
             audioGraphState.timeUnitState = TimeUnitState.deserialize(timeDict) as! TimeUnitState
         }
         
         if let reverbDict = (map["reverb"] as? NSDictionary) {
-            
-            if let state = reverbDict["state"] as? String {
-                if let reverbState = EffectsUnitState(rawValue: state) {
-                    audioGraphState.reverbState = reverbState
-                }
-            }
-            
-            if let space = reverbDict["space"] as? String {
-                if let reverbSpace = ReverbSpaces(rawValue: space) {
-                    audioGraphState.reverbSpace = reverbSpace
-                }
-            }
-            
-            if let amount = reverbDict["amount"] as? NSNumber {
-                audioGraphState.reverbAmount = amount.floatValue
-            }
-            
-            // Reverb user presets
-            if let userPresets = reverbDict["userPresets"] as? [NSDictionary] {
-                
-                userPresets.forEach({
-                    
-                    var presetName: String?
-                    var presetSpace: String?
-                    var presetAmount: Float?
-                    
-                    if let name = $0["name"] as? String {
-                        presetName = name
-                    }
-                    
-                    if let space = $0["space"] as? String {
-                        presetSpace = space
-                    }
-                    
-                    if let amount = $0["amount"] as? NSNumber {
-                        presetAmount = amount.floatValue
-                    }
-                    
-                    // Preset must have a name
-                    if let presetName = presetName {
-                        
-                        audioGraphState.reverbUserPresets.append(ReverbPreset(presetName, .active, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
-                    }
-                })
-            }
+            audioGraphState.reverbUnitState = ReverbUnitState.deserialize(reverbDict) as! ReverbUnitState
         }
         
         if let delayDict = (map["delay"] as? NSDictionary) {

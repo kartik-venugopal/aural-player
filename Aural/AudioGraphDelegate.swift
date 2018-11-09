@@ -9,6 +9,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     var eqUnit: EQUnitDelegate
     var pitchUnit: PitchUnitDelegate
     var timeUnit: TimeUnitDelegate
+    var reverbUnit: ReverbUnitDelegate
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
@@ -24,6 +25,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
+        reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         
         if (preferences.volumeOnStartupOption == .specific) {
             graph.setVolume(preferences.startupVolumeValue)
@@ -164,48 +166,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    // MARK: Reverb unit functions
-    
-    func getReverbState() -> EffectsUnitState {
-        return graph.getReverbState()
-    }
-    
-    func toggleReverbState() -> EffectsUnitState {
-        return graph.toggleReverbState()
-    }
-    
-    func getReverbSpace() -> ReverbSpaces {
-        return graph.getReverbSpace()
-    }
-    
-    func setReverbSpace(_ space: ReverbSpaces) {
-        graph.setReverbSpace(space)
-    }
-    
-    func getReverbAmount() -> (amount: Float, amountString: String) {
-        let amount = graph.getReverbAmount()
-        return (amount, ValueFormatter.formatReverbAmount(amount))
-    }
-    
-    func setReverbAmount(_ amount: Float) -> String {
-        graph.setReverbAmount(amount)
-        return ValueFormatter.formatReverbAmount(amount)
-    }
-    
-    var reverbPresets: ReverbPresets {
-        return graph.reverbPresets
-    }
-    
-    func saveReverbPreset(_ presetName: String) {
-        graph.saveReverbPreset(presetName)
-    }
-    
-    func applyReverbPreset(_ presetName: String) {
-        
-        let preset = reverbPresets.presetByName(presetName)!
-        graph.applyReverbPreset(preset)
     }
     
     // MARK: Delay unit functions
