@@ -3,173 +3,120 @@ import Cocoa
 /*
     View controller for the EQ (Equalizer) effects unit
  */
-class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, ActionMessageSubscriber, StringInputClient {
+class EQViewController: FXUnitViewController {
     
     @IBOutlet weak var eqView: EQView!
     
-    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
-    
-    // Presets menu
-    @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
-    
-    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
-    
-    // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
+    private var eqUnit: EQUnitDelegate {return graph.eqUnit}
     
     override var nibName: String? {return "EQ"}
     
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         
-        oneTimeSetup()
-        initControls()
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .updateEffectsView], subscriber: self)
+        super.awakeFromNib()
+        self.unitType = .eq
+        self.fxUnit = graph.eqUnit
+        self.unitStateFunction = eqStateFunction
+        self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    override func oneTimeSetup() {
         
-        // Remove all custom presets
-        while !presetsMenu.item(at: 0)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 0)
-        }
-        
-        // Re-initialize the menu with user-defined presets
-        eqPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
-        
-        // Don't select any items from the EQ presets menu
-        presetsMenu.selectItem(at: -1)
-    }
-    
-    private func oneTimeSetup() {
-        
-        let eqStateFunction = {
-            () -> EffectsUnitState in
-            return self.graph.getEQState()
-        }
-        
-        btnEQBypass.stateFunction = eqStateFunction
+        super.oneTimeSetup()
         eqView.initialize(#selector(self.eqSliderAction(_:)), self, eqStateFunction)
     }
     
-    private func initControls() {
+    override func initSubscriptions() {
         
-        btnEQBypass.updateState()
-        eqView.setState(graph.getEQType(), graph.getEQBands(), graph.getEQGlobalGain(), graph.getEQSync())
+        super.initSubscriptions()
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
+    }
+    
+    override func initControls() {
         
-        // Don't select any items from the EQ presets menu
-        presetsMenu.selectItem(at: -1)
+        super.initControls()
+        eqView.setState(eqUnit.type, eqUnit.bands, eqUnit.globalGain, eqUnit.sync)
     }
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        graph.chooseEQType(eqView.type)
-        eqView.typeChanged(graph.getEQBands(), graph.getEQGlobalGain())
+        eqUnit.type = eqView.type
+        eqView.typeChanged(eqUnit.bands, eqUnit.globalGain)
     }
     
     @IBAction func eqSyncAction(_ sender: AnyObject) {
-        _ = graph.toggleEQSync()
+        eqUnit.sync = eqView.sync
     }
     
-    @IBAction func eqBypassAction(_ sender: AnyObject) {
+    @IBAction override func bypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleEQState()
-        
-        btnEQBypass.updateState()
+        super.bypassAction(sender)
         eqView.stateChanged()
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
-        graph.setEQGlobalGain(sender.floatValue)
+        eqUnit.globalGain = sender.floatValue
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
     @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
-        // Slider tags match the corresponding EQ band indexes
-        graph.setEQBand(sender.tag, gain: sender.floatValue)
-    }
-   
-    // Applies a built-in preset to the Equalizer
-    @IBAction func eqPresetsAction(_ sender: AnyObject) {
-        
-        graph.applyEQPreset(presetsMenu.titleOfSelectedItem!)
-        eqView.bandsUpdated(graph.getEQBands(), graph.getEQGlobalGain())
-    }
-    
-    // Displays a popover to allow the user to name the new custom preset
-    @IBAction func savePresetAction(_ sender: AnyObject) {
-        
-        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
-        
-        // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.mainWindow.orderFront(self)
-    }
-    
-    private func showEQTab() {
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .eq))
+        eqUnit.setBand(sender.tag, gain: sender.floatValue)
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     private func increaseBass() {
-        bandsUpdated(graph.increaseBass())
+        bandsUpdated(eqUnit.increaseBass())
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement
     private func decreaseBass() {
-        bandsUpdated(graph.decreaseBass())
+        bandsUpdated(eqUnit.decreaseBass())
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     private func increaseMids() {
-        bandsUpdated(graph.increaseMids())
+        bandsUpdated(eqUnit.increaseMids())
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     private func decreaseMids() {
-        bandsUpdated(graph.decreaseMids())
+        bandsUpdated(eqUnit.decreaseMids())
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     private func increaseTreble() {
-        bandsUpdated(graph.increaseTreble())
+        bandsUpdated(eqUnit.increaseTreble())
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     private func decreaseTreble() {
-        bandsUpdated(graph.decreaseTreble())
+        bandsUpdated(eqUnit.decreaseTreble())
     }
     
     private func bandsUpdated(_ bands: [Int: Float]) {
         
-        btnEQBypass.on()
+        btnBypass.on()
         eqView.stateChanged()
-        eqView.bandsUpdated(bands, graph.getEQGlobalGain())
+        eqView.bandsUpdated(bands, eqUnit.globalGain)
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
-        showEQTab()
-    }
-    
-    func getID() -> String {
-        return self.className
+        showThisTab()
     }
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    override func consumeNotification(_ notification: NotificationMessage) {
+        
+        super.consumeNotification(notification)
         
         if notification is EffectsUnitStateChangedNotification {
-            btnEQBypass.updateState()
             eqView.stateChanged()
         }
     }
     
-    func consumeMessage(_ message: ActionMessage) {
+    override func consumeMessage(_ message: ActionMessage) {
+        
+        super.consumeMessage(message)
         
         if let message = message as? AudioGraphActionMessage {
         
@@ -191,42 +138,6 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
                 
             }
             
-        } else if message.actionType == .updateEffectsView {
-            
-            let msg = message as! EffectsViewActionMessage
-            if msg.effectsUnit == .master || msg.effectsUnit == .eq {
-                initControls()
-            }
         }
-    }
-    
-    // MARK - StringInputClient functions
-    
-    func getInputPrompt() -> String {
-        return "Enter a new preset name:"
-    }
-    
-    func getDefaultValue() -> String? {
-        return "<New EQ preset>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !eqPresets.presetWithNameExists(string)
-        
-        if (!valid) {
-            return (false, "Preset with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
- 
-        graph.saveEQPreset(string)
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }

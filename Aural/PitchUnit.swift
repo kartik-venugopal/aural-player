@@ -6,19 +6,18 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchPresets = PitchPresets()
     
-    init(_ appState: AudioGraphState) {
-
-        super.init(.pitch, appState.pitchState)
-        
-        node.bypass = state != .active
-        node.pitch = appState.pitch
-        node.overlap = appState.pitchOverlap
+    override var state: EffectsUnitState {
+        didSet {node.bypass = state != .active}
     }
     
-    override func toggleState() -> EffectsUnitState {
+    // TODO: Pass in PitchUnitState (use generics to pass in type T)
+    init(_ appState: AudioGraphState) {
         
-        node.bypass = super.toggleState() != .active
-        return state
+        self.presets.addPresets(appState.pitchUnitState.userPresets)
+        super.init(.pitch, appState.pitchUnitState.unitState)
+        
+        node.pitch = appState.pitchUnitState.pitch
+        node.overlap = appState.pitchUnitState.overlap
     }
     
     var avNodes: [AVAudioNode] {return [node]}
@@ -47,5 +46,21 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
             pitch = preset.pitch
             overlap = preset.overlap
         }
+    }
+    
+    func getSettingsAsPreset() -> PitchPreset {
+        return PitchPreset("pitchSettings", state, pitch, overlap, false)
+    }
+    
+    func persistentState() -> PitchUnitState {
+        
+        let unitState = PitchUnitState()
+        
+        unitState.unitState = state
+        unitState.pitch = pitch
+        unitState.overlap = overlap
+        unitState.userPresets = presets.userDefinedPresets
+        
+        return unitState
     }
 }

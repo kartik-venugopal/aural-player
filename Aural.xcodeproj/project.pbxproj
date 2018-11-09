@@ -26,6 +26,7 @@
 		3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08399F21944E15008D84BA /* FXUnitViewController.swift */; };
 		3E0839A22194554C008D84BA /* StateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A12194554C008D84BA /* StateFunctions.swift */; };
 		3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A92195251D008D84BA /* PresetsWrapper.swift */; };
+		3E0839AC21954AAD008D84BA /* EQUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */; };
 		3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
 		3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */; };
 		3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */; };
@@ -365,6 +366,7 @@
 		3E08399F21944E15008D84BA /* FXUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FXUnitViewController.swift; sourceTree = "<group>"; };
 		3E0839A12194554C008D84BA /* StateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFunctions.swift; sourceTree = "<group>"; };
 		3E0839A92195251D008D84BA /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
+		3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitDelegate.swift; sourceTree = "<group>"; };
 		3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSession.swift; sourceTree = "<group>"; };
 		3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
@@ -1610,6 +1612,7 @@
 				3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */,
 				3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */,
 				3EDD4CD62194155E00C15D5A /* FXUnitDelegate.swift */,
+				3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */,
 				3EDD4CD82194166A00C15D5A /* PitchUnitDelegate.swift */,
 			);
 			name = Delegate;
@@ -2003,6 +2006,7 @@
 				3EB20B491EFF230C008138A4 /* AppStateIO.swift in Sources */,
 				3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */,
 				3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */,
+				3E0839AC21954AAD008D84BA /* EQUnitDelegate.swift in Sources */,
 				3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */,
 				3E3AEB101F9D361A00E9BEDE /* TracksPlaylistViewController.swift in Sources */,
 				3E221FBA1F98541100DA3AD8 /* GroupingPlaylist.swift in Sources */,

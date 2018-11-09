@@ -79,17 +79,9 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             return self.graph.isMasterBypass() ? .bypassed : .active
         }
         
-        eqTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getEQState()
-        }
+        eqTabViewButton.stateFunction = eqStateFunction
         
-        pitchTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.pitchUnit.state
-        }
+        pitchTabViewButton.stateFunction = pitchStateFunction
         
         timeTabViewButton.stateFunction = {
             () -> EffectsUnitState in

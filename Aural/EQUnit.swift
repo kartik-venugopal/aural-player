@@ -1,65 +1,58 @@
-import Foundation
+//import Foundation
+import AVFoundation
 
-class EQUnit: FXUnit {
+class EQUnit: FXUnit, EQUnitProtocol {
     
     private let node: ParametricEQ
+    let presets: EQPresets = EQPresets()
+    
+    override var state: EffectsUnitState {
+        didSet {node.bypass = state != .active}
+    }
     
     init(_ appState: AudioGraphState) {
         
-        self.node = ParametricEQ(appState.eqType, appState.eqSync)
+        let eqState = appState.eqUnitState
         
-        super.init(.eq, appState.eqState)
+        node = ParametricEQ(eqState.type, eqState.sync)
+        presets.addPresets(eqState.userPresets)
         
-        node.bypass = self.state != .active
-        node.setBands(appState.eqBands)
-        node.globalGain = appState.eqGlobalGain
-    }
-    
-    override func toggleState() -> EffectsUnitState {
+        super.init(.eq, eqState.unitState)
         
-        node.bypass = super.toggleState() != .active
-        return state
-    }
-    
-    var sync: Bool {
-        return node.sync
-    }
-    
-    func toggleSync() -> Bool {
-        return node.toggleSync()
+        bands = eqState.bands
+        globalGain = eqState.globalGain
     }
     
     var type: EQType {
         
-        get {
-            return node.type
-        }
+        get {return node.type}
         
-        set(newType) {
-            node.chooseType(newType)
-        }
+        set(newType) {node.chooseType(newType)}
     }
     
     var globalGain: Float {
         
-        get {
-            return node.globalGain
-        }
+        get {return node.globalGain}
         
-        set(newValue) {
-            node.globalGain = newValue
-        }
+        set(newValue) {node.globalGain = newValue}
     }
     
     var bands: [Int: Float] {
         
-        get {
-            return node.allBands()
-        }
+        get {return node.allBands()}
         
-        set(newValue) {
-            node.setBands(newValue)
-        }
+        set(newValue) {node.setBands(newValue)}
+    }
+    
+    var sync: Bool {
+        
+        get {return node.sync}
+        
+        set(newValue) {node.sync = newValue}
+    }
+    
+    var avNodes: [AVAudioNode] {
+        return node.allNodes
     }
     
     func setBand(_ index: Int , gain: Float) {
@@ -90,13 +83,40 @@ class EQUnit: FXUnit {
         return node.decreaseTreble(decrement)
     }
     
-//    func savePreset(_ presetName: String) {
-//        presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
-//    }
-//
-//    func applyPreset(_ preset: EQPreset) {
-//
-//        bands = preset.bands
-//        globalGain = preset.globalGain
-//    }
+    override func savePreset(_ presetName: String) {
+        presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
+    }
+    
+    override func applyPreset(_ presetName: String) {
+        
+        if let preset = presets.presetByName(presetName) {
+            
+            bands = preset.bands
+            globalGain = preset.globalGain
+        }
+    }
+    
+    func getSettingsAsPreset() -> EQPreset {
+        return EQPreset("eqSettings", state, bands, globalGain, false)
+    }
+    
+    func persistentState() -> EQUnitState {
+
+        let unitState = EQUnitState()
+
+        unitState.unitState = state
+        unitState.type = type
+        unitState.bands = bands
+        unitState.globalGain = globalGain
+        unitState.sync = sync
+        unitState.userPresets = presets.userDefinedPresets
+
+        return unitState
+    }
+}
+
+enum EQType: String {
+    
+    case tenBand
+    case fifteenBand
 }

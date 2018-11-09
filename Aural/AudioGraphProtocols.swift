@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
  */
-protocol AudioGraphProtocol: EQUnitProtocol, TimeStretchUnitProtocol, ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
+protocol AudioGraphProtocol: TimeStretchUnitProtocol, ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
     
     func toggleMasterBypass() -> Bool
     
@@ -42,40 +42,22 @@ protocol AudioGraphProtocol: EQUnitProtocol, TimeStretchUnitProtocol, ReverbUnit
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
     
+    var eqUnit: EQUnit {get set}
     var pitchUnit: PitchUnit {get set}
 }
 
-protocol EQUnitProtocol {
+protocol EQUnitProtocol: FXUnitProtocol {
     
-    func toggleEQSync() -> Bool
+    var type: EQType {get set}
     
-    func getEQType() -> EQType
+    var globalGain: Float {get set}
     
-    func getEQSync() -> Bool
+    var bands: [Int: Float] {get set}
     
-    func chooseEQType(_ type: EQType)
-    
-    // Returns the current state of the Equalizer audio effects unit
-    func getEQState() -> EffectsUnitState
-    
-    // Toggles the state of the Equalizer audio effects unit, and returns its new state
-    func toggleEQState() -> EffectsUnitState
-    
-    // Retrieves the current gloabal gain value for the EQ
-    func getEQGlobalGain() -> Float
-    
-    // Sets global gain (or preamp) for the EQ
-    func setEQGlobalGain(_ gain: Float)
-    
-    // Retrieves all EQ band gains in a map of index -> gain
-    func getEQBands() -> [Int: Float]
+    var sync: Bool {get set}
     
     // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
-    func setEQBand(_ index: Int, gain: Float)
-    
-    // Sets the gain values of multiple equalizer bands (when using an EQ preset)
-    // The bands parameter is a mapping of index -> gain
-    func setEQBands(_ bands: [Int: Float])
+    func setBand(_ index: Int, gain: Float)
     
     // Increases the equalizer bass band gains by a small increment. Returns all EQ band gain values, mapped by index.
     func increaseBass(_ increment: Float) -> [Int: Float]
@@ -94,12 +76,6 @@ protocol EQUnitProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
     func decreaseTreble(_ decrement: Float) -> [Int: Float]
-    
-    var eqPresets: EQPresets {get}
-    
-    func saveEQPreset(_ presetName: String)
-    
-    func applyEQPreset(_ preset: EQPreset)
 }
 
 protocol FXUnitProtocol {
@@ -115,6 +91,7 @@ protocol FXUnitProtocol {
     
     var avNodes: [AVAudioNode] {get}
     
+    associatedtype PresetType: EffectsUnitPreset
     associatedtype PresetsType: FXPresetsProtocol
     
     var presets: PresetsType {get}
@@ -122,6 +99,8 @@ protocol FXUnitProtocol {
     func savePreset(_ presetName: String)
     
     func applyPreset(_ presetName: String)
+    
+    func getSettingsAsPreset() -> PresetType
 }
 
 protocol PitchShiftUnitProtocol: FXUnitProtocol {

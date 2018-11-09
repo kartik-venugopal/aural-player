@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient {
+class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
 
@@ -15,6 +15,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
     var unitStateFunction: EffectsUnitStateFunction!
     var presetsWrapper: PresetsWrapperProtocol!
     
+    var unitType: EffectsUnit = .master
+    
     override func viewDidLoad() {
         
         oneTimeSetup()
@@ -23,6 +25,14 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
     
     func oneTimeSetup() {
         btnBypass.stateFunction = self.unitStateFunction
+        initSubscriptions()
+    }
+    
+    func initSubscriptions() {
+        
+        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
     
     func initControls() {
@@ -30,6 +40,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
         btnBypass.updateState()
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
+    }
+    
+    func showThisTab() {
+        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, unitType))
     }
     
     @IBAction func bypassAction(_ sender: AnyObject) {
@@ -102,5 +116,21 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
+    }
+    
+    // MARK: Message handling
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if notification is EffectsUnitStateChangedNotification {
+            btnBypass.updateState()
+        }
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
+            initControls()
+        }
     }
 }

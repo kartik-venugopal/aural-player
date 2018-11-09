@@ -9,7 +9,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     @IBOutlet weak var eqView: EQView!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
+//    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
     
     private var oldPresetName: String?
     
@@ -32,9 +32,9 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         let selection = getSelectedPresetNames()
-        let preset = eqPresets.presetByName(selection[0])!
-        
-        eqView.typeChanged(preset.bands, preset.globalGain)
+//        let preset = eqPresets.presetByName(selection[0])!
+//
+//        eqView.typeChanged(preset.bands, preset.globalGain)
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -44,7 +44,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        eqPresets.deletePresets(selection)
+//        eqPresets.deletePresets(selection)
         editorView.reloadData()
         previewBox.hide()
         
@@ -78,8 +78,8 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     private func applyPresetAction() {
         
-        let selection = getSelectedPresetNames()
-        graph.applyEQPreset(selection[0])
+//        let selection = getSelectedPresetNames()
+////        graph.applyEQPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .eq))
     }
     
@@ -91,7 +91,8 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return eqPresets.userDefinedPresets.count
+//        return eqPresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -105,10 +106,10 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             let selection = getSelectedPresetNames()
             let presetName = selection[0]
             
-            let preset = eqPresets.presetByName(presetName)!
-            oldPresetName = presetName
-            
-            renderPreview(preset)
+//            let preset = eqPresets.presetByName(presetName)!
+//            oldPresetName = presetName
+//
+//            renderPreview(preset)
             
         } else {
             previewBox.hide()
@@ -125,8 +126,9 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = eqPresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = eqPresets.userDefinedPresets[row]
+//        return createTextCell(tableView, tableColumn!, row, preset.name)
+        return createTextCell(tableView, tableColumn!, row, "")
     }
     
     // Creates a cell view containing text
@@ -163,35 +165,35 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if let preset = eqPresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else if eqPresets.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                eqPresets.renamePreset(oldName, newPresetName)
-            }
-            
-        } else {
-            
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldName
-        }
+//        if let preset = eqPresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if eqPresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                eqPresets.renamePreset(oldName, newPresetName)
+//            }
+//
+//        } else {
+//
+//            // IMPOSSIBLE
+//            editedTextField.stringValue = oldName
+//        }
     }
  
     // MARK: Message handling

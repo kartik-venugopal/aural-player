@@ -11,7 +11,6 @@ class ParametricEQ: ParametricEQProtocol {
     var eq10Node: ParametricEQNode
     var eq15Node: FifteenBandEQNode
     var sync: Bool
-    
     var allNodes: [ParametricEQNode] { return [eq10Node, eq15Node] }
     
     var bypass: Bool {
@@ -53,11 +52,6 @@ class ParametricEQ: ParametricEQProtocol {
         self.globalGain = AppDefaults.eqGlobalGain
     }
     
-    func toggleSync() -> Bool {
-        sync = !sync
-        return sync
-    }
-    
     func chooseType(_ type: EQType) {
         
         if self.type == type {return}
@@ -71,6 +65,7 @@ class ParametricEQ: ParametricEQProtocol {
         
         if sync {
             setBands(inactiveNode.allBands())
+            globalGain = inactiveNode.globalGain
         }
     }
     

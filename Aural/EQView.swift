@@ -15,6 +15,10 @@ class EQView: NSView {
         return btn10Band.isOn() ? .tenBand : .fifteenBand
     }
     
+    var sync: Bool {
+        return btnSync.isOn()
+    }
+    
     private var activeView: EQSubview {
         return btn10Band.isOn() ? eq10BandView : eq15BandView
     }

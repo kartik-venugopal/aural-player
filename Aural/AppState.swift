@@ -316,6 +316,219 @@ class WindowLayoutState: PersistentState {
     }
 }
 
+class FXUnitState<T: EffectsUnitPreset> {
+    
+    var unitState: EffectsUnitState = AppDefaults.pitchState
+    var userPresets: [T] = [T]()
+}
+
+class EQUnitState: FXUnitState<EQPreset>, PersistentState {
+    
+    var type: EQType = AppDefaults.eqType
+    var globalGain: Float = AppDefaults.eqGlobalGain
+    var bands: [Int: Float] = [Int: Float]() // Index -> Gain
+    var sync: Bool = AppDefaults.eqSync
+
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["state"] = unitState.rawValue as AnyObject
+        map["type"] = type.rawValue as AnyObject
+        map["sync"] = sync as AnyObject
+        map["globalGain"] = globalGain as NSNumber
+        
+        var eqBandsDict = [NSString: NSNumber]()
+        for (index, gain) in bands {
+            eqBandsDict[String(index) as NSString] = gain as NSNumber
+        }
+        map["bands"] = eqBandsDict as AnyObject
+        
+        var eqUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in userPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            
+            presetDict["globalGain"] = preset.globalGain as NSNumber
+            
+            var presetBandsDict = [NSString: NSNumber]()
+            for (index, gain) in preset.bands {
+                presetBandsDict[String(index) as NSString] = gain as NSNumber
+            }
+            presetDict["bands"] = presetBandsDict as AnyObject
+            
+            
+            eqUserPresetsArr.append(presetDict)
+        }
+        map["userPresets"] = NSArray(array: eqUserPresetsArr)
+
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let eqState: EQUnitState = EQUnitState()
+        
+        if let state = map["state"] as? String {
+            
+            if let unitState = EffectsUnitState(rawValue: state) {
+                eqState.unitState = unitState
+            }
+        }
+        
+        if let typeStr = map["type"] as? String, let type = EQType(rawValue: typeStr) {
+            eqState.type = type
+        }
+        
+        if let sync = map["sync"] as? Bool {
+            eqState.sync = sync
+        }
+        
+        if let globalGain = map["globalGain"] as? NSNumber {
+            eqState.globalGain = globalGain.floatValue
+        }
+        
+        if let eqBands: NSDictionary = map["bands"] as? NSDictionary {
+            
+            for (index, gain) in eqBands {
+                
+                if let indexStr = index as? String {
+                    
+                    if let indexInt = Int(indexStr) {
+                        
+                        if let gainNum = gain as? NSNumber {
+                            eqState.bands[indexInt] = gainNum.floatValue
+                        }
+                    }
+                }
+            }
+        }
+        
+        // EQ User presets
+        if let userPresets = map["userPresets"] as? [NSDictionary] {
+            
+            userPresets.forEach({
+                
+                var presetName: String?
+                
+                // TODO: Get this from a default value constant
+                var presetGlobalGain: Float = 0
+                
+                if let name = $0["name"] as? String {
+                    presetName = name
+                }
+                
+                var presetBands: [Int: Float] = [Int: Float]()
+                
+                if let presetBandsDict: NSDictionary = $0["bands"] as? NSDictionary {
+                    
+                    for (index, gain) in presetBandsDict {
+                        
+                        if let indexStr = index as? String {
+                            
+                            if let indexInt = Int(indexStr) {
+                                
+                                if let gainNum = gain as? NSNumber {
+                                    presetBands[indexInt] = gainNum.floatValue
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if let globalGain = $0["globalGain"] as? NSNumber {
+                    presetGlobalGain = globalGain.floatValue
+                }
+                
+                // Preset must have a name
+                if let presetName = presetName {
+                    eqState.userPresets.append(EQPreset(presetName, .active, presetBands, presetGlobalGain, false))
+                }
+            })
+        }
+        
+        return eqState
+    }
+}
+
+class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
+    
+    var pitch: Float = AppDefaults.pitch
+    var overlap: Float = AppDefaults.pitchOverlap
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        map["state"] = unitState.rawValue as AnyObject
+        map["pitch"] = pitch as NSNumber
+        map["overlap"] = overlap as NSNumber
+        
+        var pitchUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in userPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["pitch"] = preset.pitch as NSNumber
+            presetDict["overlap"] = preset.overlap as NSNumber
+            
+            pitchUserPresetsArr.append(presetDict)
+        }
+        map["userPresets"] = NSArray(array: pitchUserPresetsArr)
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state: PitchUnitState = PitchUnitState()
+        
+        if let unitState = map["state"] as? String {
+            if let pitchState = EffectsUnitState(rawValue: unitState) {
+                state.unitState = pitchState
+            }
+        }
+        
+        if let pitch = map["pitch"] as? NSNumber {
+            state.pitch = pitch.floatValue
+        }
+        
+        if let overlap = map["overlap"] as? NSNumber {
+            state.overlap = overlap.floatValue
+        }
+        
+        // Pitch user presets
+        if let userPresets = map["userPresets"] as? [NSDictionary] {
+            
+            userPresets.forEach({
+                
+                var presetName: String?
+                var presetPitch: Float?
+                var presetOverlap: Float?
+                
+                if let name = $0["name"] as? String {
+                    presetName = name
+                }
+                
+                if let pitch = $0["pitch"] as? NSNumber {
+                    presetPitch = pitch.floatValue
+                }
+                
+                if let overlap = $0["overlap"] as? NSNumber {
+                    presetOverlap = overlap.floatValue
+                }
+                
+                // Preset must have a name
+                if let presetName = presetName {
+                    state.userPresets.append(PitchPreset(presetName, .active, presetPitch!, presetOverlap!, false))
+                }
+            })
+        }
+        
+        return state
+    }
+}
+
 /*
     Encapsulates audio graph state
  */
@@ -329,17 +542,8 @@ class AudioGraphState: PersistentState {
     var masterState: EffectsUnitState = AppDefaults.masterState
     var masterUserPresets: [MasterPreset] = [MasterPreset]()
     
-    var eqState: EffectsUnitState = AppDefaults.eqState
-    var eqType: EQType = AppDefaults.eqType
-    var eqSync: Bool = AppDefaults.eqSync
-    var eqGlobalGain: Float = AppDefaults.eqGlobalGain
-    var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
-    var eqUserPresets: [EQPreset] = [EQPreset]()
-    
-    var pitchState: EffectsUnitState = AppDefaults.pitchState
-    var pitch: Float = AppDefaults.pitch
-    var pitchOverlap: Float = AppDefaults.pitchOverlap
-    var pitchUserPresets: [PitchPreset] = [PitchPreset]()
+    var eqUnitState: EQUnitState = EQUnitState()
+    var pitchUnitState: PitchUnitState = PitchUnitState()
     
     var timeState: EffectsUnitState = AppDefaults.timeState
     var timeStretchRate: Float = AppDefaults.timeStretchRate
@@ -468,58 +672,9 @@ class AudioGraphState: PersistentState {
         
         map["master"] = masterDict as AnyObject
         
-        var eqDict = [NSString: AnyObject]()
+        map["eq"] = eqUnitState.toSerializableMap() as AnyObject
         
-        eqDict["state"] = eqState.rawValue as AnyObject
-        eqDict["type"] = eqType.rawValue as AnyObject
-        eqDict["sync"] = eqSync as AnyObject
-        eqDict["globalGain"] = eqGlobalGain as NSNumber
-        
-        var eqBandsDict = [NSString: NSNumber]()
-        for (index, gain) in eqBands {
-            eqBandsDict[String(index) as NSString] = gain as NSNumber
-        }
-        eqDict["bands"] = eqBandsDict as AnyObject
-        
-        var eqUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in eqUserPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            
-            presetDict["globalGain"] = preset.globalGain as NSNumber
-            
-            var presetBandsDict = [NSString: NSNumber]()
-            for (index, gain) in preset.bands {
-                presetBandsDict[String(index) as NSString] = gain as NSNumber
-            }
-            presetDict["bands"] = presetBandsDict as AnyObject
-            
-            
-            eqUserPresetsArr.append(presetDict)
-        }
-        eqDict["userPresets"] = NSArray(array: eqUserPresetsArr)
-        
-        map["eq"] = eqDict as AnyObject
-        
-        var pitchDict = [NSString: AnyObject]()
-        pitchDict["state"] = pitchState.rawValue as AnyObject
-        pitchDict["pitch"] = pitch as NSNumber
-        pitchDict["overlap"] = pitchOverlap as NSNumber
-        
-        var pitchUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in pitchUserPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["pitch"] = preset.pitch as NSNumber
-            presetDict["overlap"] = preset.overlap as NSNumber
-            
-            pitchUserPresetsArr.append(presetDict)
-        }
-        pitchDict["userPresets"] = NSArray(array: pitchUserPresetsArr)
-        
-        map["pitch"] = pitchDict as AnyObject
+        map["pitch"] = pitchUnitState.toSerializableMap() as AnyObject
         
         var timeDict = [NSString: AnyObject]()
         timeDict["state"] = timeState.rawValue as AnyObject
@@ -899,128 +1054,13 @@ class AudioGraphState: PersistentState {
         }
         
         if let eqDict = (map["eq"] as? NSDictionary) {
-            
-            if let state = eqDict["state"] as? String {
-                if let eqState = EffectsUnitState(rawValue: state) {
-                    audioGraphState.eqState = eqState
-                }
-            }
-            
-            if let typeStr = eqDict["type"] as? String, let type = EQType(rawValue: typeStr) {
-                audioGraphState.eqType = type
-            }
-            
-            if let sync = eqDict["sync"] as? Bool {
-                audioGraphState.eqSync = sync
-            }
-            
-            if let globalGain = eqDict["globalGain"] as? NSNumber {
-                audioGraphState.eqGlobalGain = globalGain.floatValue
-            }
-            
-            if let eqBands: NSDictionary = eqDict["bands"] as? NSDictionary {
-                
-                for (index, gain) in eqBands {
-                    
-                    if let indexStr = index as? String {
-                        
-                        if let indexInt = Int(indexStr) {
-                            
-                            if let gainNum = gain as? NSNumber {
-                                audioGraphState.eqBands[indexInt] = gainNum.floatValue
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // EQ User presets
-            if let userPresets = eqDict["userPresets"] as? [NSDictionary] {
-                
-                userPresets.forEach({
-                    
-                    var presetName: String?
-                    
-                    // TODO: Get this from a default value constant
-                    var presetGlobalGain: Float = 0
-                    
-                    if let name = $0["name"] as? String {
-                        presetName = name
-                    }
-                    
-                    var presetBands: [Int: Float] = [Int: Float]()
-                    
-                    if let presetBandsDict: NSDictionary = $0["bands"] as? NSDictionary {
-                        
-                        for (index, gain) in presetBandsDict {
-                            
-                            if let indexStr = index as? String {
-                                
-                                if let indexInt = Int(indexStr) {
-                                    
-                                    if let gainNum = gain as? NSNumber {
-                                        presetBands[indexInt] = gainNum.floatValue
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if let globalGain = $0["globalGain"] as? NSNumber {
-                        presetGlobalGain = globalGain.floatValue
-                    }
-                    
-                    // Preset must have a name
-                    if let presetName = presetName {
-                        audioGraphState.eqUserPresets.append(EQPreset(presetName, .active, presetBands, presetGlobalGain, false))
-                    }
-                })
-            }
+            // TODO: Generics :)
+            audioGraphState.eqUnitState = EQUnitState.deserialize(eqDict) as! EQUnitState
         }
         
         if let pitchDict = (map["pitch"] as? NSDictionary) {
-            
-            if let state = pitchDict["state"] as? String {
-                if let pitchState = EffectsUnitState(rawValue: state) {
-                    audioGraphState.pitchState = pitchState
-                }
-            }
-            
-            if let pitch = pitchDict["pitch"] as? NSNumber {
-                audioGraphState.pitch = pitch.floatValue
-            }
-            
-            if let overlap = pitchDict["overlap"] as? NSNumber {
-                audioGraphState.pitchOverlap = overlap.floatValue
-            }
-            
-            // Pitch user presets
-            if let userPresets = pitchDict["userPresets"] as? [NSDictionary] {
-                
-                userPresets.forEach({
-                    
-                    var presetName: String?
-                    var presetPitch: Float?
-                    var presetOverlap: Float?
-                    
-                    if let name = $0["name"] as? String {
-                        presetName = name
-                    }
-                    
-                    if let pitch = $0["pitch"] as? NSNumber {
-                        presetPitch = pitch.floatValue
-                    }
-                    
-                    if let overlap = $0["overlap"] as? NSNumber {
-                        presetOverlap = overlap.floatValue
-                    }
-                    
-                    // Preset must have a name
-                    if let presetName = presetName {
-                        audioGraphState.pitchUserPresets.append(PitchPreset(presetName, .active, presetPitch!, presetOverlap!, false))
-                    }
-                })
-            }
+            // TODO: Generics :)
+            audioGraphState.pitchUnitState = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
         }
         
         if let timeDict = (map["time"] as? NSDictionary) {

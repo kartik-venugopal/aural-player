@@ -26,6 +26,8 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtoc
         return ValueFormatter.formatOverlap(overlap)
     }
     
+    var presets: PitchPresets {return unit.presets}
+    
     init(_ unit: PitchUnit, _ preferences: SoundPreferences) {
         
         self.preferences = preferences
@@ -56,6 +58,4 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtoc
             unit.pitch = AppDefaults.pitch
         }
     }
-    
-    var presets: PitchPresets {return unit.presets}
 }

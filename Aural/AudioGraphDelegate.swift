@@ -6,6 +6,7 @@ import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
+    var eqUnit: EQUnitDelegate
     var pitchUnit: PitchUnitDelegate
     
     // The actual underlying audio graph
@@ -18,6 +19,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         self.graph = graph
         self.preferences = preferences
+        
+        eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         
         if (preferences.volumeOnStartupOption == .specific) {
@@ -159,114 +162,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    // MARK: EQ unit functions
-    
-    func toggleEQSync() -> Bool {
-        return graph.toggleEQSync()
-    }
-    
-    func getEQSync() -> Bool {
-        return graph.getEQSync()
-    }
-    
-    func getEQType() -> EQType {
-        return graph.getEQType()
-    }
-    
-    func chooseEQType(_ type: EQType) {
-        graph.chooseEQType(type)
-    }
-    
-    func getEQState() -> EffectsUnitState {
-        return graph.getEQState()
-    }
-    
-    func toggleEQState() -> EffectsUnitState {
-        return graph.toggleEQState()
-    }
-    
-    func getEQGlobalGain() -> Float {
-        return graph.getEQGlobalGain()
-    }
-    
-    func getEQBands() -> [Int: Float] {
-        return graph.getEQBands()
-    }
-    
-    func setEQGlobalGain(_ gain: Float) {
-        graph.setEQGlobalGain(gain)
-    }
-    
-    func setEQBand(_ index: Int, gain: Float) {
-        graph.setEQBand(index, gain: gain)
-    }
-    
-    func setEQBands(_ bands: [Int : Float]) {
-        graph.setEQBands(bands)
-    }
-    
-    func increaseBass() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.increaseBass(preferences.eqDelta)
-    }
-    
-    func decreaseBass() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.decreaseBass(preferences.eqDelta)
-    }
-    
-    func increaseMids() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.increaseMids(preferences.eqDelta)
-    }
-    
-    func decreaseMids() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.decreaseMids(preferences.eqDelta)
-    }
-    
-    func increaseTreble() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.increaseTreble(preferences.eqDelta)
-    }
-    
-    func decreaseTreble() -> [Int : Float] {
-        
-        ensureEQActive()
-        return graph.decreaseTreble(preferences.eqDelta)
-    }
-    
-    // Activates and resets the EQ unit if it is inactive
-    private func ensureEQActive() {
-        
-        // If the EQ unit is currently inactive, activate it
-        if graph.getEQState() != .active {
-            _ = graph.toggleEQState()
-            
-            // Reset to "flat" preset (because it is equivalent to an inactive EQ)
-            graph.setEQBands(EQPresets.defaultPreset.bands)
-        }
-    }
-    
-    var eqPresets: EQPresets {
-        return graph.eqPresets
-    }
-    
-    func saveEQPreset(_ presetName: String) {
-        graph.saveEQPreset(presetName)
-    }
-    
-    func applyEQPreset(_ presetName: String) {
-        
-        let preset = eqPresets.presetByName(presetName)!
-        graph.applyEQPreset(preset)
     }
     
     // MARK: Time stretch unit functions

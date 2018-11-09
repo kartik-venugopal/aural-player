@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessageSubscriber {
+class PitchViewController: FXUnitViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
@@ -14,7 +14,10 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
  
     override func awakeFromNib() {
         
+        super.awakeFromNib()
+        
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
+        unitType = .pitch
         fxUnit = graph.pitchUnit
         unitStateFunction = pitchStateFunction
         presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
@@ -26,11 +29,10 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         initSubscriptions()
     }
     
-    private func initSubscriptions() {
+    override func initSubscriptions() {
         
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .updateEffectsView], subscriber: self)
+        super.initSubscriptions()
+        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
     override func oneTimeSetup() {
@@ -63,11 +65,6 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         pitchView.setPitch(pitchUnit.pitch, pitchUnit.formattedPitch)
     }
     
-    // TODO: Move to parent VC
-    private func showPitchTab() {
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .pitch))
-    }
-    
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
@@ -81,7 +78,7 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         // Show the Pitch tab
-        showPitchTab()
+        showThisTab()
     }
     
     // Updates the Overlap parameter of the Pitch shift effects unit
@@ -114,19 +111,23 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         pitchView.stateChanged()
         
         // Show the Pitch tab if the Effects panel is shown
-        showPitchTab()
+        showThisTab()
     }
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    override func consumeNotification(_ notification: NotificationMessage) {
+        
+        super.consumeNotification(notification)
         
         if notification is EffectsUnitStateChangedNotification {
             pitchView.stateChanged()
         }
     }
     
-    func consumeMessage(_ message: ActionMessage) {
+    override func consumeMessage(_ message: ActionMessage) {
+        
+        super.consumeMessage(message)
         
         if let message = message as? AudioGraphActionMessage {
         
@@ -140,13 +141,6 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
                 
             default: return
                 
-            }
-            
-        } else if message.actionType == .updateEffectsView {
-            
-            let msg = message as! EffectsViewActionMessage
-            if msg.effectsUnit == .master || msg.effectsUnit == .pitch {
-                initControls()
             }
         }
     }
