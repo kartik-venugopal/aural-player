@@ -80,14 +80,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         }
         
         eqTabViewButton.stateFunction = eqStateFunction
-        
         pitchTabViewButton.stateFunction = pitchStateFunction
-        
-        timeTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getTimeState()
-        }
+        timeTabViewButton.stateFunction = timeStateFunction
         
         reverbTabViewButton.stateFunction = {
             () -> EffectsUnitState in
@@ -133,7 +127,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
 
         // Select EQ tab view by default
-        tabViewAction(eqTabViewButton)
+        tabViewAction(timeTabViewButton)
     }
 
     private func initSubscriptions() {

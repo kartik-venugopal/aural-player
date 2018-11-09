@@ -68,8 +68,9 @@ class PitchViewController: FXUnitViewController {
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        // TODO: Ensure unit active
         pitchUnit.pitch = pitch
+        pitchUnit.ensureActive()
+        
         pitchView.setPitch(pitch, pitchUnit.formattedPitch)
         
         btnBypass.updateState()

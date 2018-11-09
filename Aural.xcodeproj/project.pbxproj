@@ -27,6 +27,8 @@
 		3E0839A22194554C008D84BA /* StateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A12194554C008D84BA /* StateFunctions.swift */; };
 		3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A92195251D008D84BA /* PresetsWrapper.swift */; };
 		3E0839AC21954AAD008D84BA /* EQUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */; };
+		3E0839AE219569C3008D84BA /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839AD219569C3008D84BA /* TimeUnit.swift */; };
+		3E0839B02195756F008D84BA /* TimeUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839AF2195756F008D84BA /* TimeUnitDelegate.swift */; };
 		3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
 		3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */; };
 		3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */; };
@@ -367,6 +369,8 @@
 		3E0839A12194554C008D84BA /* StateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFunctions.swift; sourceTree = "<group>"; };
 		3E0839A92195251D008D84BA /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
 		3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnitDelegate.swift; sourceTree = "<group>"; };
+		3E0839AD219569C3008D84BA /* TimeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
+		3E0839AF2195756F008D84BA /* TimeUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnitDelegate.swift; sourceTree = "<group>"; };
 		3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSession.swift; sourceTree = "<group>"; };
 		3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
@@ -1210,6 +1214,7 @@
 				3E50DC952193A36000D42373 /* MasterUnit.swift */,
 				3EDD4CD12193EA3300C15D5A /* EQUnit.swift */,
 				3EDD4CD32193FAE300C15D5A /* PitchUnit.swift */,
+				3E0839AD219569C3008D84BA /* TimeUnit.swift */,
 			);
 			name = FXUnits;
 			sourceTree = "<group>";
@@ -1614,6 +1619,7 @@
 				3EDD4CD62194155E00C15D5A /* FXUnitDelegate.swift */,
 				3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */,
 				3EDD4CD82194166A00C15D5A /* PitchUnitDelegate.swift */,
+				3E0839AF2195756F008D84BA /* TimeUnitDelegate.swift */,
 			);
 			name = Delegate;
 			sourceTree = "<group>";
@@ -1995,6 +2001,7 @@
 				3EB3A6DA21850D40003C7F07 /* TrackInfoView.swift in Sources */,
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,
 				3EBA52F51FC2E29E007F902F /* KeyCodeConstants.swift in Sources */,
+				3E0839B02195756F008D84BA /* TimeUnitDelegate.swift in Sources */,
 				3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */,
 				3E50DC91219388D200D42373 /* DelayView.swift in Sources */,
 				3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */,
@@ -2055,6 +2062,7 @@
 				3E7D8A6821817C8300EF8746 /* PlayerViewController.swift in Sources */,
 				3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */,
 				3E3AEB121F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift in Sources */,
+				3E0839AE219569C3008D84BA /* TimeUnit.swift in Sources */,
 				3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */,
 				3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */,
 				3ECD17441F6BBEE400492F56 /* ID3Spec.swift in Sources */,

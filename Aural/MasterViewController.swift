@@ -47,7 +47,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // TODO: Declare these widely reused state functions in a functions file and reuse across UI layer
         masterView.initialize(eqStateFunction,
                               pitchStateFunction,
-                              {() -> EffectsUnitState in return self.graph.getTimeState()},
+                              timeStateFunction,
                               {() -> EffectsUnitState in return self.graph.getReverbState()},
                               {() -> EffectsUnitState in return self.graph.getDelayState()},
                               {() -> EffectsUnitState in return self.graph.getFilterState()})
@@ -135,12 +135,12 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
-        let newBypassState = graph.toggleTimeState() != .active
-        
-        let newRate = newBypassState ? 1 : graph.getTimeRate().rate
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
-        
-        updateButtons()
+//        let newBypassState = graph.toggleTimeState() != .active
+//
+//        let newRate = newBypassState ? 1 : graph.getTimeRate().rate
+//        SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
+//
+//        updateButtons()
     }
     
     // Activates/deactivates the Reverb effects unit

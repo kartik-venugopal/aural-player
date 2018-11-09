@@ -21,6 +21,10 @@ class TimeView: NSView {
         return timeOverlapSlider.floatValue
     }
     
+    var shiftPitch: Bool {
+        return btnShiftPitch.isOn()
+    }
+    
     override func awakeFromNib() {
         sliders = [timeSlider, timeOverlapSlider]
     }

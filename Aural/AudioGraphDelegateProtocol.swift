@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol: ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
     
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
@@ -61,6 +61,7 @@ protocol AudioGraphDelegateProtocol: TimeStretchUnitDelegateProtocol, ReverbUnit
     
     var eqUnit: EQUnitDelegate {get set}
     var pitchUnit: PitchUnitDelegate {get set}
+    var timeUnit: TimeUnitDelegate {get set}
 }
 
 protocol FXUnitDelegateProtocol {
@@ -69,6 +70,8 @@ protocol FXUnitDelegateProtocol {
     
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
     func toggleState() -> EffectsUnitState
+    
+    func ensureActive()
     
     func savePreset(_ presetName: String)
     
@@ -128,46 +131,27 @@ protocol PitchShiftUnitDelegateProtocol: FXUnitDelegateProtocol {
     func decreasePitch() -> (pitch: Float, pitchString: String)
 }
 
-protocol TimeStretchUnitDelegateProtocol {
+protocol TimeStretchUnitDelegateProtocol: FXUnitDelegateProtocol {
     
-    // Returns the current state of the time audio effects unit
-    func getTimeState() -> EffectsUnitState
+    var rate: Float {get set}
     
-    // Toggles the state of the time audio effects unit, and returns its new state
-    func toggleTimeState() -> EffectsUnitState
+    var formattedRate: String {get}
     
-    // Returns the current state of the pitch shift option of the time audio effects unit
-    func isTimePitchShift() -> Bool
+    var overlap: Float {get set}
     
-    // Toggles the pitch shift option of the time audio effects unit, and returns its new state
-    func toggleTimePitchShift() -> Bool
+    var formattedOverlap: String {get}
     
-    // Retrieves the current playback rate value and a formatted string representation of it
-    func getTimeRate() -> (rate: Float, rateString: String)
+    var shiftPitch: Bool {get set}
     
-    // Returns the pitch offset of the time audio effects unit, as a user-friendly string. If the pitch shift option of the unit is enabled, this value will range between -2 and +2 octaves. It will be 0 otherwise (i.e. pitch unaltered).
-    func getTimePitchShift() -> String
+    var pitch: Float {get}
     
-    // Sets the playback rate, specified as a value between 1/32 and 32
-    func setTimeStretchRate(_ rate: Float) -> String
+    var formattedPitch: String {get}
     
     // Increases the playback rate by a small increment. Returns the new playback rate value.
     func increaseRate() -> (rate: Float, rateString: String)
     
     // Decreases the playback rate by a small decrement. Returns the new playback rate value.
     func decreaseRate() -> (rate: Float, rateString: String)
-    
-    // Retrieves the overlap value of the time audio effects unit and a string representation of it
-    func getTimeOverlap() -> (overlap: Float, overlapString: String)
-    
-    // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
-    func setTimeOverlap(_ overlap: Float) -> String
-    
-    var timePresets: TimePresets {get}
-    
-    func saveTimePreset(_ presetName: String)
-    
-    func applyTimePreset(_ presetName: String)
 }
 
 protocol ReverbUnitDelegateProtocol {

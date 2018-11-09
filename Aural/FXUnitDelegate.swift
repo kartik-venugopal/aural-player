@@ -1,6 +1,6 @@
 import Foundation
 
-class FXUnitDelegate<T: FXUnit> {
+class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
     
     var unit: T
     
@@ -14,6 +14,10 @@ class FXUnitDelegate<T: FXUnit> {
     
     func toggleState() -> EffectsUnitState {
         return unit.toggleState()
+    }
+    
+    func ensureActive() {
+        unit.ensureActive()
     }
     
     func savePreset(_ presetName: String) {
