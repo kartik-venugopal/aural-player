@@ -13,14 +13,16 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
 
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!
-    var presets: UserDefinedPresets!
+    var presetsWrapper: PresetsWrapperProtocol!
     
     override func viewDidLoad() {
         
-        // one-time setup
-        btnBypass.stateFunction = self.unitStateFunction
-        
+        oneTimeSetup()
         initControls()
+    }
+    
+    func oneTimeSetup() {
+        btnBypass.stateFunction = self.unitStateFunction
     }
     
     func initControls() {
@@ -30,28 +32,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
         presetsMenu.selectItem(at: -1)
     }
     
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Remove all custom presets
-        while !presetsMenu.item(at: 0)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 0)
-        }
-        
-        // Re-initialize the menu with user-defined presets
-        presets.presets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
-        
-        // Don't select any items from the EQ presets menu
-        presetsMenu.selectItem(at: -1)
-    }
-    
     @IBAction func bypassAction(_ sender: AnyObject) {
 
         _ = fxUnit.toggleState()
         btnBypass.updateState()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
-        
-        print(presets.presets.count)
     }
     
     // Applies a preset to the effects unit
@@ -81,14 +67,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
     }
     
     func getDefaultValue() -> String? {
-        return "<New Pitch preset>"
+        return "<New preset>"
     }
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !presets.presetWithNameExists(string)
-
-        if (!valid) {
+        if presetsWrapper.presetWithNameExists(string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)
@@ -102,5 +86,21 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient 
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
+    }
+    
+    // MARK: Menu delegate
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // Remove all custom presets
+        while !presetsMenu.item(at: 0)!.isSeparatorItem {
+            presetsMenu.removeItem(at: 0)
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        presetsWrapper.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the EQ presets menu
+        presetsMenu.selectItem(at: -1)
     }
 }

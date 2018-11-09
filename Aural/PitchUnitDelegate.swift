@@ -57,18 +57,5 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtoc
         }
     }
     
-    var presets: PitchPresets {
-        return unit.presets
-    }
-    
-    func savePreset(_ presetName: String) {
-        unit.savePreset(presetName)
-    }
-    
-    func applyPreset(_ presetName: String) {
-        
-        if let preset = presets.presetByName(presetName) {
-            unit.applyPreset(preset)
-        }
-    }
+    var presets: PitchPresets {return unit.presets}
 }

@@ -1,19 +1,18 @@
 import Foundation
 import AVFoundation
 
-class PitchUnit: FXUnit, FXUnitPresetsProtocol, PitchShiftUnitProtocol {
+class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchPresets = PitchPresets()
     
     init(_ appState: AudioGraphState) {
-        
+
         super.init(.pitch, appState.pitchState)
         
         node.bypass = state != .active
         node.pitch = appState.pitch
         node.overlap = appState.pitchOverlap
-        presets.addPresets(appState.pitchUserPresets)
     }
     
     override func toggleState() -> EffectsUnitState {
@@ -38,13 +37,15 @@ class PitchUnit: FXUnit, FXUnitPresetsProtocol, PitchShiftUnitProtocol {
         set(newValue) {node.overlap = newValue}
     }
     
-    func savePreset(_ presetName: String) {
+    override func savePreset(_ presetName: String) {
         presets.addPreset(PitchPreset(presetName, .active, pitch, overlap, false))
     }
-    
-    func applyPreset(_ preset: PitchPreset) {
-        
-        pitch = preset.pitch
-        overlap = preset.overlap
+
+    override func applyPreset(_ presetName: String) {
+
+        if let preset = presets.presetByName(presetName) {
+            pitch = preset.pitch
+            overlap = preset.overlap
+        }
     }
 }
