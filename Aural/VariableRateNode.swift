@@ -49,6 +49,7 @@ class VariableRateNode {
     }
     
     var pitch: Float {
+        // TODO: Put this value in a constant
         return self.shiftPitch ? 1200 * log2(self.rate) : 0
     }
     

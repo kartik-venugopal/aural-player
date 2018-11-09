@@ -8,6 +8,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     var eqUnit: EQUnitDelegate
     var pitchUnit: PitchUnitDelegate
+    var timeUnit: TimeUnitDelegate
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
@@ -22,6 +23,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
+        timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
         
         if (preferences.volumeOnStartupOption == .specific) {
             graph.setVolume(preferences.startupVolumeValue)
@@ -162,103 +164,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    // MARK: Time stretch unit functions
-    
-    func getTimeState() -> EffectsUnitState {
-        return graph.getTimeState()
-    }
-    
-    func toggleTimeState() -> EffectsUnitState {
-        return graph.toggleTimeState()
-    }
-   
-    func getTimePitchShift() -> String {
-        return ValueFormatter.formatPitch(graph.getTimePitchShift() * AppConstants.pitchConversion_audioGraphToUI)
-    }
-    
-    func isTimePitchShift() -> Bool {
-        return graph.isTimePitchShift()
-    }
-    
-    func toggleTimePitchShift() -> Bool {
-        return graph.toggleTimePitchShift()
-    }
-   
-    func getTimeRate() -> (rate: Float, rateString: String) {
-        let rate = graph.getTimeStretchRate()
-        return (rate, ValueFormatter.formatTimeStretchRate(rate))
-    }
-    
-    func setTimeStretchRate(_ rate: Float) -> String {
-        
-        graph.setTimeStretchRate(rate)
-        return ValueFormatter.formatTimeStretchRate(rate)
-    }
-    
-    func increaseRate() -> (rate: Float, rateString: String) {
-        
-        // If the time unit is currently inactive, start at default playback rate, before the increase
-        if graph.getTimeState() != .active {
-            
-            _ = graph.toggleTimeState()
-            graph.setTimeStretchRate(AppDefaults.timeStretchRate)
-        }
-        
-        // Volume is increased by an amount set in the user preferences
-        
-        let curRate = graph.getTimeStretchRate()
-        
-        // TODO: Put this value in a constant
-        let newRate = min(4, curRate + preferences.timeDelta)
-        graph.setTimeStretchRate(newRate)
-        
-        return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
-    }
-    
-    func decreaseRate() -> (rate: Float, rateString: String) {
-        
-        // If the time unit is currently inactive, start at default playback rate, before the decrease
-        if graph.getTimeState() != .active {
-            
-            _ = graph.toggleTimeState()
-            graph.setTimeStretchRate(AppDefaults.timeStretchRate)
-        }
-        
-        // Volume is increased by an amount set in the user preferences
-        
-        let curRate = graph.getTimeStretchRate()
-        
-        // TODO: Put this value in a constant
-        let newRate = max(0.25, curRate - preferences.timeDelta)
-        graph.setTimeStretchRate(newRate)
-        
-        return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
-    }
-    
-    func getTimeOverlap() -> (overlap: Float, overlapString: String) {
-        let overlap = graph.getTimeOverlap()
-        return (overlap, ValueFormatter.formatOverlap(overlap))
-    }
-    
-    func setTimeOverlap(_ overlap: Float) -> String {
-        graph.setTimeOverlap(overlap)
-        return ValueFormatter.formatOverlap(overlap)
-    }
-    
-    var timePresets: TimePresets {
-        return graph.timePresets
-    }
-    
-    func saveTimePreset(_ presetName: String) {
-        graph.saveTimePreset(presetName)
-    }
-    
-    func applyTimePreset(_ presetName: String) {
-        
-        let preset = timePresets.presetByName(presetName)!
-        graph.applyTimePreset(preset)
     }
     
     // MARK: Reverb unit functions

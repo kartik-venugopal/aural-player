@@ -1,4 +1,3 @@
-//import Foundation
 import AVFoundation
 
 class EQUnit: FXUnit, EQUnitProtocol {
@@ -15,12 +14,13 @@ class EQUnit: FXUnit, EQUnitProtocol {
         let eqState = appState.eqUnitState
         
         node = ParametricEQ(eqState.type, eqState.sync)
-        presets.addPresets(eqState.userPresets)
-        
         super.init(.eq, eqState.unitState)
+        node.bypass = state != .active
         
         bands = eqState.bands
         globalGain = eqState.globalGain
+        
+        presets.addPresets(eqState.userPresets)
     }
     
     var type: EQType {

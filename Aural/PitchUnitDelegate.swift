@@ -35,12 +35,12 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtoc
     }
     
     func increasePitch() -> (pitch: Float, pitchString: String) {
-        ensureActive()
+        ensureActiveAndResetPitch()
         return setUnitPitch(min(2400, unit.pitch + Float(preferences.pitchDelta)))
     }
     
     func decreasePitch() -> (pitch: Float, pitchString: String) {
-        ensureActive()
+        ensureActiveAndResetPitch()
         return setUnitPitch(max(-2400, unit.pitch - Float(preferences.pitchDelta)))
     }
     
@@ -49,7 +49,7 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtoc
         return (pitch, formattedPitch)
     }
     
-    private func ensureActive() {
+    private func ensureActiveAndResetPitch() {
         
         // If the pitch unit is currently inactive, start at default pitch offset, before the increase/decrease
         if state != .active {

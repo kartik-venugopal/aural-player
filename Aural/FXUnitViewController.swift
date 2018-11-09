@@ -15,7 +15,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     var unitStateFunction: EffectsUnitStateFunction!
     var presetsWrapper: PresetsWrapperProtocol!
     
-    var unitType: EffectsUnit = .master
+    var unitType: EffectsUnit!
     
     override func viewDidLoad() {
         

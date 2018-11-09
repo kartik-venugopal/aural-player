@@ -29,8 +29,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func activate() {
         
-        let timeBypassed = audioGraph.getTimeState() != .active
-        let playbackRate = timeBypassed ? Float(1.0) : audioGraph.getTimeRate().rate
+//        let timeBypassed = audioGraph.getTimeState() != .active
+        let timeBypassed = true
+//        let playbackRate = timeBypassed ? Float(1.0) : audioGraph.getTimeRate().rate
+        let playbackRate: Float = 1
         
         let rsModes = player.getRepeatAndShuffleModes()
         

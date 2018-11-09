@@ -9,7 +9,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private var timePresets: TimePresets = ObjectGraph.getAudioGraphDelegate().timePresets
+//    private var timePresets: TimePresets = ObjectGraph.getAudioGraphDelegate().timePresets
     
     private var oldPresetName: String?
     
@@ -41,13 +41,13 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     private func deleteSelectedPresetsAction() {
         
-        let selection = getSelectedPresetNames()
-        timePresets.deletePresets(selection)
-        editorView.reloadData()
-        
-        previewBox.hide()
-        
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
+//        let selection = getSelectedPresetNames()
+//        timePresets.deletePresets(selection)
+//        editorView.reloadData()
+//
+//        previewBox.hide()
+//
+//        SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
     
     private func getSelectedPresetNames() -> [String] {
@@ -78,9 +78,9 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     private func applyPresetAction() {
         
-        let selection = getSelectedPresetNames()
-        graph.applyTimePreset(selection[0])
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .time))
+//        let selection = getSelectedPresetNames()
+//        graph.applyTimePreset(selection[0])
+//        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .time))
     }
     
     private func renderPreview(_ preset: TimePreset) {
@@ -93,7 +93,8 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return timePresets.userDefinedPresets.count
+//        return timePresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -104,9 +105,9 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         
         if numRows == 1 {
             
-            let presetName = getSelectedPresetNames()[0]
-            renderPreview(timePresets.presetByName(presetName)!)
-            oldPresetName = presetName
+//            let presetName = getSelectedPresetNames()[0]
+//            renderPreview(timePresets.presetByName(presetName)!)
+//            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -120,8 +121,8 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = timePresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = timePresets.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, "preset.name")
     }
     
     // Creates a cell view containing text
@@ -151,43 +152,43 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
-        
-        // Access the old value from the temp storage variable
-        let oldName = oldPresetName ?? editedTextField.stringValue
-        
-        if let preset = timePresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else if timePresets.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                timePresets.renamePreset(oldName, newPresetName)
-            }
-            
-        } else {
-            
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldName
-        }
+//        let rowIndex = editorView.selectedRow
+//        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+//        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
+//        let editedTextField = cell.textField!
+//
+//        // Access the old value from the temp storage variable
+//        let oldName = oldPresetName ?? editedTextField.stringValue
+//
+//        if let preset = timePresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if timePresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                timePresets.renamePreset(oldName, newPresetName)
+//            }
+//
+//        } else {
+//
+//            // IMPOSSIBLE
+//            editedTextField.stringValue = oldName
+//        }
     }
     
     // MARK: Message handling
