@@ -83,12 +83,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         pitchTabViewButton.stateFunction = pitchStateFunction
         timeTabViewButton.stateFunction = timeStateFunction
         reverbTabViewButton.stateFunction = reverbStateFunction
-        
-        delayTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.getDelayState()
-        }
+        delayTabViewButton.stateFunction = delayStateFunction
         
         filterTabViewButton.stateFunction = {
             () -> EffectsUnitState in
