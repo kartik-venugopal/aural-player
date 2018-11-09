@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol: DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
     
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
@@ -62,6 +62,7 @@ protocol AudioGraphDelegateProtocol: ReverbUnitDelegateProtocol, DelayUnitDelega
     var eqUnit: EQUnitDelegate {get set}
     var pitchUnit: PitchUnitDelegate {get set}
     var timeUnit: TimeUnitDelegate {get set}
+    var reverbUnit: ReverbUnitDelegate {get set}
 }
 
 protocol FXUnitDelegateProtocol {
@@ -154,29 +155,13 @@ protocol TimeStretchUnitDelegateProtocol: FXUnitDelegateProtocol {
     func decreaseRate() -> (rate: Float, rateString: String)
 }
 
-protocol ReverbUnitDelegateProtocol {
+protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
     
-    // Returns the current state of the reverb audio effects unit
-    func getReverbState() -> EffectsUnitState
+    var space: ReverbSpaces {get set}
     
-    // Toggles the state of the reverb audio effects unit, and returns its new state
-    func toggleReverbState() -> EffectsUnitState
+    var amount: Float {get set}
     
-    func getReverbSpace() -> ReverbSpaces
-    
-    // Sets the reverb space. See ReverbSpaces for more details.
-    func setReverbSpace(_ space: ReverbSpaces)
-    
-    func getReverbAmount() -> (amount: Float, amountString: String)
-    
-    // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
-    func setReverbAmount(_ amount: Float) -> String
-    
-    var reverbPresets: ReverbPresets {get}
-    
-    func saveReverbPreset(_ presetName: String)
-    
-    func applyReverbPreset(_ presetName: String)
+    var formattedAmount: String {get}
 }
 
 protocol DelayUnitDelegateProtocol {

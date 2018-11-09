@@ -2,12 +2,12 @@ import AVFoundation
 
 class EQUnit: FXUnit, EQUnitProtocol {
     
-    private let node: ParametricEQ
-    let presets: EQPresets = EQPresets()
-    
     override var state: EffectsUnitState {
         didSet {node.bypass = state != .active}
     }
+    
+    private let node: ParametricEQ
+    let presets: EQPresets = EQPresets()
     
     init(_ appState: AudioGraphState) {
         

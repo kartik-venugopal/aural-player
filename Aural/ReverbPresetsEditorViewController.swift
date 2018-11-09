@@ -9,7 +9,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let reverbPresets: ReverbPresets = ObjectGraph.getAudioGraphDelegate().reverbPresets
+//    private let reverbPresebts: ReverbPresets = ObjectGraph.getAudioGraphDelegate().reverbPresets
     
     private var oldPresetName: String?
     
@@ -37,7 +37,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        reverbPresets.deletePresets(selection)
+//        reverbPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -74,7 +74,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyReverbPreset(selection[0])
+//        graph.applyReverbPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .reverb))
     }
     
@@ -88,7 +88,8 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return reverbPresets.userDefinedPresets.count
+//        return reverbPresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -99,9 +100,9 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         if numRows == 1 {
             
-            let presetName = getSelectedPresetNames()[0]
-            renderPreview(reverbPresets.presetByName(presetName)!)
-            oldPresetName = presetName
+//            let presetName = getSelectedPresetNames()[0]
+//            renderPreview(reverbPresets.presetByName(presetName)!)
+//            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -115,8 +116,8 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = reverbPresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = reverbPresets.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, "preset.name")
     }
     
     // Creates a cell view containing text
@@ -146,43 +147,43 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
-        
-        // Access the old value from the temp storage variable
-        let oldName = oldPresetName ?? editedTextField.stringValue
-        
-        if let preset = reverbPresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else if reverbPresets.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                reverbPresets.renamePreset(oldName, newPresetName)
-            }
-            
-        } else {
-            
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldName
-        }
+//        let rowIndex = editorView.selectedRow
+//        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+//        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
+//        let editedTextField = cell.textField!
+//
+//        // Access the old value from the temp storage variable
+//        let oldName = oldPresetName ?? editedTextField.stringValue
+//
+//        if let preset = reverbPresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if reverbPresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                reverbPresets.renamePreset(oldName, newPresetName)
+//            }
+//
+//        } else {
+//
+//            // IMPOSSIBLE
+//            editedTextField.stringValue = oldName
+//        }
     }
     
     // MARK: Message handling

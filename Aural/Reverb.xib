@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ReverbViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnReverbBypass" destination="II7-fY-0FS" id="BEG-OU-CVb"/>
+                <outlet property="btnBypass" destination="II7-fY-0FS" id="ekP-WC-hYk"/>
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="presetsMenu" destination="zIT-2E-ecK" id="8Jn-Au-Shr"/>
                 <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
@@ -29,7 +29,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="reverbBypassAction:" target="-2" id="Rm8-2l-ty8"/>
+                        <action selector="bypassAction:" target="-2" id="B8c-y1-3Y7"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaO-Rg-qne" userLabel="Reverb Desc">
@@ -166,7 +166,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIT-2E-ecK" userLabel="Reverb Presets Menu">
-                    <rect key="frame" x="383" y="2" width="34" height="18"/>
+                    <rect key="frame" x="384" y="2" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Rh0-mV-5kt" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -178,7 +178,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="reverbPresetsAction:" target="-2" id="1zX-xt-DKA"/>
+                        <action selector="presetsAction:" target="-2" id="jPC-QD-BNq"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save">

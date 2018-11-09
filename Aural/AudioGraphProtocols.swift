@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
  */
-protocol AudioGraphProtocol: ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
+protocol AudioGraphProtocol: DelayUnitProtocol, FilterUnitProtocol {
     
     func toggleMasterBypass() -> Bool
     
@@ -45,6 +45,7 @@ protocol AudioGraphProtocol: ReverbUnitProtocol, DelayUnitProtocol, FilterUnitPr
     var eqUnit: EQUnit {get set}
     var pitchUnit: PitchUnit {get set}
     var timeUnit: TimeUnit {get set}
+    var reverbUnit: ReverbUnit {get set}
 }
 
 protocol EQUnitProtocol: FXUnitProtocol {
@@ -129,29 +130,11 @@ protocol TimeUnitProtocol: FXUnitProtocol {
     var pitch: Float {get}
 }
 
-protocol ReverbUnitProtocol {
+protocol ReverbUnitProtocol: FXUnitProtocol {
     
-    // Returns the current state of the reverb audio effects unit
-    func getReverbState() -> EffectsUnitState
+    var space: ReverbSpaces {get set}
     
-    // Toggles the state of the reverb audio effects unit, and returns its new state
-    func toggleReverbState() -> EffectsUnitState
-    
-    func getReverbSpace() -> ReverbSpaces
-    
-    // Sets the reverb space. See ReverbSpaces for more details.
-    func setReverbSpace(_ space: ReverbSpaces)
-    
-    func getReverbAmount() -> Float
-    
-    // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
-    func setReverbAmount(_ amount: Float)
-    
-    var reverbPresets: ReverbPresets {get}
-    
-    func saveReverbPreset(_ presetName: String)
-    
-    func applyReverbPreset(_ preset: ReverbPreset)
+    var amount: Float {get set}
 }
 
 protocol DelayUnitProtocol {
