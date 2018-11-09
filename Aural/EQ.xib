@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EQViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnEQBypass" destination="lmp-7m-bHA" id="mpH-99-dUS"/>
+                <outlet property="btnBypass" destination="lmp-7m-bHA" id="tRO-Zi-hU6"/>
                 <outlet property="btnSavePreset" destination="udy-ev-aXo" id="UkB-2u-gnw"/>
                 <outlet property="eqView" destination="zTt-IY-Dad" id="Tq0-ny-AWA"/>
                 <outlet property="presetsMenu" destination="uwy-7t-2Z1" id="WcI-AI-kov"/>
@@ -29,7 +29,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="eqBypassAction:" target="-2" id="sBC-Ej-ybS"/>
+                        <action selector="bypassAction:" target="-2" id="h8X-96-2Fz"/>
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ESy-Uk-h3y" userLabel="Container">
@@ -112,7 +112,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="eqPresetsAction:" target="-2" id="462-ux-fbd"/>
+                        <action selector="presetsAction:" target="-2" id="unU-nm-TE8"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save">

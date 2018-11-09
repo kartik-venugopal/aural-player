@@ -3,7 +3,9 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol: TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
+    
+    // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
     func toggleMasterBypass() -> Bool
     
@@ -18,8 +20,6 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, TimeStretchUnitDele
     func applyMasterPreset(_ preset: MasterPreset)
     
     func getSettingsAsMasterPreset() -> MasterPreset
-    
-    // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
     // Retrieves the current player volume
     func getVolume() -> Float
@@ -59,40 +59,36 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, TimeStretchUnitDele
     // Pans right by a small increment. Returns new balance value.
     func panRight() -> Float
     
+    var eqUnit: EQUnitDelegate {get set}
     var pitchUnit: PitchUnitDelegate {get set}
 }
 
-protocol EQUnitDelegateProtocol {
+protocol FXUnitDelegateProtocol {
     
-    func getEQType() -> EQType
+    var state: EffectsUnitState {get}
     
-    func chooseEQType(_ type: EQType)
+    // Toggles the state of the pitch shift audio effects unit, and returns its new state
+    func toggleState() -> EffectsUnitState
     
-    func toggleEQSync() -> Bool
+    func savePreset(_ presetName: String)
     
-    func getEQSync() -> Bool
+    func applyPreset(_ presetName: String)
+}
+
+protocol MasterUnitDelegateProtocol: FXUnitDelegateProtocol {}
+
+protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     
-    // Returns the current state of the Equalizer audio effects unit
-    func getEQState() -> EffectsUnitState
+    var type: EQType {get set}
     
-    // Toggles the state of the Equalizer audio effects unit, and returns its new state
-    func toggleEQState() -> EffectsUnitState
+    var globalGain: Float {get set}
     
-    // Retrieves the current gloabal gain value for the EQ
-    func getEQGlobalGain() -> Float
+    var bands: [Int: Float] {get set}
     
-    // Retrieves all EQ band gains in a map of index -> gain
-    func getEQBands() -> [Int: Float]
-    
-    // Sets global gain (or preamp) for the equalizer
-    func setEQGlobalGain(_ gain: Float)
+    var sync: Bool {get set}
     
     // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
-    func setEQBand(_ index: Int, gain: Float)
-    
-    // Sets the gain values of multiple equalizer bands (when using an EQ preset)
-    // The bands parameter is a mapping of index -> gain
-    func setEQBands(_ bands: [Int: Float])
+    func setBand(_ index: Int, gain: Float)
     
     // Increases the equalizer bass band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func increaseBass() -> [Int: Float]
@@ -111,24 +107,6 @@ protocol EQUnitDelegateProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
-    
-    var eqPresets: EQPresets {get}
-    
-    func saveEQPreset(_ presetName: String)
-    
-    func applyEQPreset(_ presetName: String)
-}
-
-protocol FXUnitDelegateProtocol {
-    
-    var state: EffectsUnitState {get}
-    
-    // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func toggleState() -> EffectsUnitState
-    
-    func savePreset(_ presetName: String)
-    
-    func applyPreset(_ presetName: String)
 }
 
 protocol PitchShiftUnitDelegateProtocol: FXUnitDelegateProtocol {

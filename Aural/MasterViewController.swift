@@ -45,8 +45,8 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func oneTimeSetup() {
         
         // TODO: Declare these widely reused state functions in a functions file and reuse across UI layer
-        masterView.initialize({() -> EffectsUnitState in return self.graph.getEQState()},
-                              {() -> EffectsUnitState in return self.graph.pitchUnit.state},
+        masterView.initialize(eqStateFunction,
+                              pitchStateFunction,
                               {() -> EffectsUnitState in return self.graph.getTimeState()},
                               {() -> EffectsUnitState in return self.graph.getReverbState()},
                               {() -> EffectsUnitState in return self.graph.getDelayState()},
@@ -111,7 +111,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleEQState()
+//        _ = graph.toggleEQState()
         updateButtons()
     }
     

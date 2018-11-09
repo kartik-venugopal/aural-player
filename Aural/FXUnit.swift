@@ -17,7 +17,7 @@ class FXUnit {
         
         state = state == .active ? .bypassed : .active
         
-        if unitType != .master && state == .active {
+        if state == .active && unitType != .master {
             SyncMessenger.publishNotification(FXUnitActivatedNotification.instance)
         }
         

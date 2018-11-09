@@ -3,6 +3,7 @@ import Foundation
 class MasterUnit: FXUnit, MessageSubscriber {
     
     var slaveUnits: [FXUnit]
+    let presets: MasterPresets = MasterPresets()
 
     init(_ appState: AudioGraphState, _ slaveUnits: [FXUnit]) {
         
@@ -48,4 +49,28 @@ class MasterUnit: FXUnit, MessageSubscriber {
             }
         }
     }
+    
+    override func savePreset(_ presetName: String) {
+//        presets.addPreset(PitchPreset(presetName, .active, pitch, overlap, false))
+    }
+    
+    override func applyPreset(_ presetName: String) {
+        
+//        if let preset = presets.presetByName(presetName) {
+//            pitch = preset.pitch
+//            overlap = preset.overlap
+//        }
+    }
+    
+//    func persistentState() -> PitchUnitState {
+//
+//        let unitState = PitchUnitState()
+//
+//        unitState.unitState = state
+//        unitState.pitch = pitch
+//        unitState.overlap = overlap
+//        unitState.userPresets = presets.userDefinedPresets
+//
+//        return unitState
+//    }
 }
