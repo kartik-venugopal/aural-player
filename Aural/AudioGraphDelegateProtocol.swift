@@ -126,12 +126,8 @@ protocol FXUnitDelegateProtocol {
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
     func toggleState() -> EffectsUnitState
     
-//    associatedtype PresetsType: FXPresetsProtocol
-//
-//    var presets: PresetsType {get}
-//
     func savePreset(_ presetName: String)
-
+    
     func applyPreset(_ presetName: String)
 }
 

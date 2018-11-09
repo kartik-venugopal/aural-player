@@ -770,7 +770,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
 //        state.pitchState = getPitchState()
 //        state.pitch = pitchNode.pitch
 //        state.pitchOverlap = pitchNode.overlap
-        state.pitchUserPresets = pitchUnit.presets.userDefinedPresets
+//        state.pitchUserPresets = pitchUnit.presets.userDefinedPresets
         
         // Time
         state.timeState = getTimeState()

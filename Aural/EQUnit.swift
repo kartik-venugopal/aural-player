@@ -1,15 +1,12 @@
 import Foundation
 
-class EQUnit: FXUnit, FXUnitPresetsProtocol {
+class EQUnit: FXUnit {
     
     private let node: ParametricEQ
-    let presets: EQPresets = EQPresets()
     
     init(_ appState: AudioGraphState) {
         
         self.node = ParametricEQ(appState.eqType, appState.eqSync)
-        
-        presets.addPresets(appState.eqUserPresets)
         
         super.init(.eq, appState.eqState)
         
@@ -93,13 +90,13 @@ class EQUnit: FXUnit, FXUnitPresetsProtocol {
         return node.decreaseTreble(decrement)
     }
     
-    func savePreset(_ presetName: String) {
-        presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
-    }
-    
-    func applyPreset(_ preset: EQPreset) {
-        
-        bands = preset.bands
-        globalGain = preset.globalGain
-    }
+//    func savePreset(_ presetName: String) {
+//        presets.addPreset(EQPreset(presetName, .active, bands, globalGain, false))
+//    }
+//
+//    func applyPreset(_ preset: EQPreset) {
+//
+//        bands = preset.bands
+//        globalGain = preset.globalGain
+//    }
 }

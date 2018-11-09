@@ -5,7 +5,6 @@ class FXUnit {
     
     var unitType: EffectsUnit
     var state: EffectsUnitState
-//    var avNodes: [AVAudioNode]
     
     init(_ unitType: EffectsUnit, _ state: EffectsUnitState) {
         
@@ -39,6 +38,10 @@ class FXUnit {
     func unsuppress() {
         state = state == .suppressed ? .active : state
     }
+    
+    func savePreset(_ presetName: String) {}
+    
+    func applyPreset(_ presetName: String) {}
 }
 
 protocol FXUnitPresetsProtocol {

@@ -15,4 +15,12 @@ class FXUnitDelegate<T: FXUnit> {
     func toggleState() -> EffectsUnitState {
         return unit.toggleState()
     }
+    
+    func savePreset(_ presetName: String) {
+        unit.savePreset(presetName)
+    }
+    
+    func applyPreset(_ presetName: String) {
+        unit.applyPreset(presetName)
+    }
 }

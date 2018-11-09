@@ -1,12 +1,5 @@
 import Foundation
 
-protocol UserDefinedPresets {
-    
-    var presets: [EffectsUnitPreset] {get}
-    
-    func presetWithNameExists(_ name: String) -> Bool
-}
-
 protocol FXPresetsProtocol {
     
     associatedtype T: EffectsUnitPreset
@@ -27,12 +20,7 @@ protocol FXPresetsProtocol {
     func presetWithNameExists(_ name: String) -> Bool
 }
 
-class FXPresets<T: EffectsUnitPreset>: FXPresetsProtocol, UserDefinedPresets {
-    
-    var presets: [EffectsUnitPreset] {
-        return self.userDefinedPresets
-    }
-    
+class FXPresets<T: EffectsUnitPreset>: FXPresetsProtocol {
     
     private var map: [String: T] = [:]
     

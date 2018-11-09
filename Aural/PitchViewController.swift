@@ -10,22 +10,19 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
     
     override var nibName: String? {return "Pitch"}
     
-    var pitchUnit: PitchUnitDelegate!
-    
+    var pitchUnit: PitchUnitDelegate {return graph.pitchUnit}
+ 
     override func awakeFromNib() {
         
-        fxUnit = ObjectGraph.getAudioGraphDelegate().pitchUnit
-        pitchUnit = fxUnit as! PitchUnitDelegate
+        // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
+        fxUnit = graph.pitchUnit
         unitStateFunction = pitchStateFunction
-        self.presets = pitchUnit.presets
+        presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        oneTimeSetup()
-        initControls()
         initSubscriptions()
     }
     
@@ -36,8 +33,11 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .updateEffectsView], subscriber: self)
     }
     
-    private func oneTimeSetup() {
-        pitchView.initialize(pitchStateFunction)
+    override func oneTimeSetup() {
+        
+        super.oneTimeSetup()
+        // TODO: Move this to generic view
+        pitchView.initialize(unitStateFunction)
     }
     
     override func initControls() {
@@ -51,6 +51,8 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
     // Activates/deactivates the Pitch effects unit
     @IBAction override func bypassAction(_ sender: AnyObject) {
         super.bypassAction(sender)
+        
+        // TODO: Move to generic view
         pitchView.stateChanged()
     }
     
@@ -61,6 +63,7 @@ class PitchViewController: FXUnitViewController, MessageSubscriber, ActionMessag
         pitchView.setPitch(pitchUnit.pitch, pitchUnit.formattedPitch)
     }
     
+    // TODO: Move to parent VC
     private func showPitchTab() {
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .pitch))
     }
