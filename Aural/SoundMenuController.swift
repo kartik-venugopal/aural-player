@@ -85,7 +85,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        masterBypassMenuItem.onIf(graph.isMasterBypass())
+        masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
         
         let isRegularMode = AppModeManager.mode == .regular
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
@@ -130,7 +130,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(!graph.masterUnit.isActive ? .enableEffects : .disableEffects))
     }
     
     @IBAction func managePresetsAction(_ sender: Any) {

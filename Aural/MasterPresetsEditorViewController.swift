@@ -26,7 +26,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
     private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
-    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterPresets
+//    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterPresets
     
     private var oldPresetName: String?
     
@@ -53,8 +53,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
             
             // TODO: Write a simple function to get selection[0]
             
-            let preset = masterPresets.presetByName(selection[0])!
-            return preset.filter.bands
+//            let preset = masterPresets.presetByName(selection[0])!
+//            return preset.filter.bands
         }
         
         return []
@@ -66,8 +66,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         if !selection.isEmpty {
         
-            let preset = masterPresets.presetByName(selection[0])!
-            return preset.filter.state
+//            let preset = masterPresets.presetByName(selection[0])!
+//            return preset.filter.state
         }
         
         return .active
@@ -93,7 +93,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        masterPresets.deletePresets(selection)
+//        masterPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -128,7 +128,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyMasterPreset(selection[0])
+//        graph.applyMasterPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
     }
     
@@ -162,10 +162,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         let presetName = getSelectedPresetNames()[0]
-        let preset = masterPresets.presetByName(presetName)!.eq
-        
-        eqSubPreview.setUnitState(preset.state)
-        eqSubPreview.typeChanged(preset.bands, preset.globalGain)
+//        let preset = masterPresets.presetByName(presetName)!.eq
+//
+//        eqSubPreview.setUnitState(preset.state)
+//        eqSubPreview.typeChanged(preset.bands, preset.globalGain)
     }
     
     private func renderPreview(_ preset: MasterPreset) {
@@ -187,7 +187,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return masterPresets.userDefinedPresets.count
+//        return masterPresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -199,11 +200,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            let masterPreset = masterPresets.presetByName(presetName)!
-            
-            bandsDataSource.preset = masterPreset.filter
-            renderPreview(masterPreset)
-            oldPresetName = presetName
+//            let masterPreset = masterPresets.presetByName(presetName)!
+//
+//            bandsDataSource.preset = masterPreset.filter
+//            renderPreview(masterPreset)
+//            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -217,8 +218,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = masterPresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = masterPresets.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, "preset.name")
     }
     
     // Creates a cell view containing text
@@ -256,38 +257,38 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if let preset = masterPresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-
-            // TODO: What if the string is too long ?
-
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-
-            } else if masterPresets.presetWithNameExists(newPresetName) {
-
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-
-            } else {
-
-                // Update the preset name
-                masterPresets.renamePreset(oldName, newPresetName)
-                
-                // Also update the sound preference, if the chosen preset was this edited one
-                let presetOnStartup = preferences.soundPreferences.masterPresetOnStartup_name
-                if presetOnStartup == oldName {
-                    
-                    preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
-                    preferencesDelegate.savePreferences(preferences)
-                }
-            }
-        }
+//        if let preset = masterPresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if masterPresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                masterPresets.renamePreset(oldName, newPresetName)
+//
+//                // Also update the sound preference, if the chosen preset was this edited one
+//                let presetOnStartup = preferences.soundPreferences.masterPresetOnStartup_name
+//                if presetOnStartup == oldName {
+//
+//                    preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
+//                    preferencesDelegate.savePreferences(preferences)
+//                }
+//            }
+//        }
     }
     
     // MARK: Message handling

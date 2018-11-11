@@ -4,41 +4,37 @@ class FilterUnitDelegate: FXUnitDelegate<FilterUnit> {
 
     var presets: FilterPresets {return unit.presets}
     
-    override init(_ unit: FilterUnit) {
-        super.init(unit)
-    }
-    
     var bands: [FilterBand] {
         
         get {return unit.bands}
         set(newValue) {unit.bands = newValue}
     }
     
-    func addFilterBand(_ band: FilterBand) -> Int {
-        return unit.addFilterBand(band)
+    func addBand(_ band: FilterBand) -> Int {
+        return unit.addBand(band)
     }
     
-    func updateFilterBand(_ index: Int, _ band: FilterBand) {
-        unit.updateFilterBand(index, band)
+    func updateBand(_ index: Int, _ band: FilterBand) {
+        unit.updateBand(index, band)
     }
     
-    func removeFilterBands(_ indexSet: IndexSet) {
-        unit.removeFilterBands(indexSet)
+    func removeBands(_ indexSet: IndexSet) {
+        unit.removeBands(indexSet)
     }
     
-    func removeAllFilterBands() {
-        unit.removeAllFilterBands()
+    func removeAllBands() {
+        unit.removeAllBands()
     }
     
-    func getFilterBand(_ index: Int) -> FilterBand {
-        return unit.getFilterBand(index)
+    func getBand(_ index: Int) -> FilterBand {
+        return unit.getBand(index)
     }
     
-    func saveFilterPreset(_ presetName: String) {
-        unit.saveFilterPreset(presetName)
+    override func savePreset(_ presetName: String) {
+        unit.savePreset(presetName)
     }
     
-    func applyFilterPreset(_ presetName: String) {
-        unit.applyFilterPreset(presetName)
+    override func applyPreset(_ presetName: String) {
+        unit.applyPreset(presetName)
     }
 }

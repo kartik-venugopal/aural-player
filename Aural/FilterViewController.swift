@@ -48,7 +48,7 @@ class FilterViewController: FXUnitViewController {
         if filterView.numberOfSelectedRows == 1 {
             
             let index = filterView.selectedRow
-            editor.editBand(index, filterUnit.getFilterBand(index))
+            editor.editBand(index, filterUnit.getBand(index))
             filterView.bandEdited()
         }
     }
@@ -64,14 +64,14 @@ class FilterViewController: FXUnitViewController {
         
         if filterView.numberOfSelectedRows > 0 {
             
-            filterUnit.removeFilterBands(filterView.selectedRows)
+            filterUnit.removeBands(filterView.selectedRows)
             filterView.bandsRemoved()
         }
     }
     
     @IBAction func removeAllBandsAction(_ sender: AnyObject) {
         
-        filterUnit.removeAllFilterBands()
+        filterUnit.removeAllBands()
         filterView.tableRowsAddedOrRemoved()
     }
 }

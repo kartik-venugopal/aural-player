@@ -8,9 +8,9 @@ class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
         self.unit = unit
     }
     
-    var state: EffectsUnitState {
-        return unit.state
-    }
+    var state: EffectsUnitState {return unit.state}
+    
+    var isActive: Bool {return unit.isActive}
     
     func toggleState() -> EffectsUnitState {
         return unit.toggleState()

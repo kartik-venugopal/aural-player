@@ -60,7 +60,6 @@ class ObjectGraph {
         
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState!.audioGraphState)
-        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!.soundPreferences)
         
         // Player
         player = Player(audioGraph!)
@@ -82,6 +81,8 @@ class ObjectGraph {
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
+        
+        audioGraphDelegate = AudioGraphDelegate(audioGraph!, playbackDelegate!, preferences!.soundPreferences)
         
         // History (and delegate)
         history = History(preferences!.historyPreferences)

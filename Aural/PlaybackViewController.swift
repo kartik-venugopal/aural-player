@@ -14,7 +14,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
-    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let timeUnit: TimeUnitDelegate = ObjectGraph.getAudioGraphDelegate().timeUnit
     
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
@@ -29,14 +30,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func activate() {
         
-//        let timeBypassed = audioGraph.getTimeState() != .active
-        let timeBypassed = true
-//        let playbackRate = timeBypassed ? Float(1.0) : audioGraph.getTimeRate().rate
-        let playbackRate: Float = 1
-        
+        let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
         let rsModes = player.getRepeatAndShuffleModes()
         
-        controlsView.initialize(audioGraph.getVolume(), audioGraph.isMuted(), audioGraph.getBalance(), player.getPlaybackState(), playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.getSeekPosition() })
+        controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.getPlaybackState(), playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.getSeekPosition() })
         
 //        let newTrack = player.getPlayingTrack()
 //
@@ -110,50 +107,46 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Updates the volume
     @IBAction func volumeAction(_ sender: AnyObject) {
         
-        audioGraph.setVolume(controlsView.volumeSliderValue)
-        controlsView.volumeChanged(audioGraph.getVolume(), audioGraph.isMuted())
+        audioGraph.volume = controlsView.volumeSliderValue
+        controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
     }
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
         
-        let muted = audioGraph.toggleMute()
-        controlsView.mutedOrUnmuted(audioGraph.getVolume(), muted)
+        audioGraph.muted = !audioGraph.muted
+        controlsView.mutedOrUnmuted(audioGraph.volume, audioGraph.muted)
     }
     
     // Decreases the volume by a certain preset decrement
     private func decreaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.decreaseVolume(actionMode)
-        controlsView.volumeChanged(newVolume, audioGraph.isMuted())
+        controlsView.volumeChanged(newVolume, audioGraph.muted)
     }
     
     // Increases the volume by a certain preset increment
     private func increaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.increaseVolume(actionMode)
-        controlsView.volumeChanged(newVolume, audioGraph.isMuted())
+        controlsView.volumeChanged(newVolume, audioGraph.muted)
     }
     
     // Updates the stereo pan
     @IBAction func panAction(_ sender: AnyObject) {
         
-        audioGraph.setBalance(controlsView.panSliderValue)
-        controlsView.panChanged(audioGraph.getBalance())
+        audioGraph.balance = controlsView.panSliderValue
+        controlsView.panChanged(audioGraph.balance)
     }
     
     // Pans the sound towards the left channel, by a certain preset value
     private func panLeft() {
-        
-        let panValue = audioGraph.panLeft()
-        controlsView.panChanged(panValue)
+        controlsView.panChanged(audioGraph.panLeft())
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     private func panRight() {
-        
-        let panValue = audioGraph.panRight()
-        controlsView.panChanged(panValue)
+        controlsView.panChanged(audioGraph.panRight())
     }
     
     // MARK: Playback
@@ -332,18 +325,17 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
                 if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(_oldTrack.track) != nil {
-                    
-                    SoundProfiles.saveProfile(_oldTrack.track, audioGraph.getVolume(), audioGraph.getBalance(), audioGraph.getSettingsAsMasterPreset())
+                    SoundProfiles.saveProfile(_oldTrack.track, audioGraph.volume, audioGraph.balance, audioGraph.getSettingsAsMasterPreset())
                 }
             }
             
             // Apply sound profile if there is one for the new track and the preferences allow it
             if newTrack != nil, let profile = SoundProfiles.profileForTrack(newTrack!.track) {
                 
-                audioGraph.setVolume(profile.volume)
-                audioGraph.setBalance(profile.balance)
+                audioGraph.volume = profile.volume
+                audioGraph.balance = profile.balance
                 
-                controlsView.volumeChanged(profile.volume, audioGraph.isMuted())
+                controlsView.volumeChanged(profile.volume, audioGraph.muted)
                 controlsView.panChanged(profile.balance)
             }
         }
@@ -398,7 +390,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
                 if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
                     
-                    SoundProfiles.saveProfile(oldTrack.track, audioGraph.getVolume(), audioGraph.getBalance(), audioGraph.getSettingsAsMasterPreset())
+                    SoundProfiles.saveProfile(oldTrack.track, audioGraph.volume, audioGraph.balance, audioGraph.getSettingsAsMasterPreset())
                 }
             }
         }

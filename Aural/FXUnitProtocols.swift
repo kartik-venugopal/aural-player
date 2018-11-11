@@ -27,6 +27,8 @@ protocol FXUnitProtocol {
     func getSettingsAsPreset() -> PresetType
 }
 
+protocol MasterUnitProtocol: FXUnitProtocol {}
+
 protocol EQUnitProtocol: FXUnitProtocol {
     
     var type: EQType {get set}
@@ -71,7 +73,6 @@ protocol PitchShiftUnitProtocol: FXUnitProtocol {
 protocol TimeUnitProtocol: FXUnitProtocol {
     
     // The playback rate, specified as a value between 1/32 and 32
-    // TODO: Can we allow the wider range ???
     var rate: Float {get set}
     
     // The amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
@@ -106,13 +107,13 @@ protocol FilterUnitProtocol: FXUnitProtocol {
     
     var bands: [FilterBand] {get set}
     
-    func getFilterBand(_ index: Int) -> FilterBand
+    func getBand(_ index: Int) -> FilterBand
     
-    func addFilterBand(_ band: FilterBand) -> Int
+    func addBand(_ band: FilterBand) -> Int
     
-    func updateFilterBand(_ index: Int, _ band: FilterBand)
+    func updateBand(_ index: Int, _ band: FilterBand)
     
-    func removeFilterBands(_ indexSet: IndexSet)
+    func removeBands(_ indexSet: IndexSet)
     
-    func removeAllFilterBands()
+    func removeAllBands()
 }
