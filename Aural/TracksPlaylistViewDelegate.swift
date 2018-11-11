@@ -69,17 +69,17 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 let indexText: String = String(format: "%d.", row + 1)
                 
-                switch playbackInfo.getPlaybackState() {
+                switch playbackInfo.state {
                     
                     case .playing, .paused:
                         
-                        if let playingTrackIndex = playbackInfo.getPlayingTrack()?.index, playingTrackIndex == row {
+                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
                             return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     
                     case .waiting:
                         
-                        if let waitingTrackIndex = playbackInfo.getWaitingTrack()?.index, waitingTrackIndex == row {
+                        if let waitingTrackIndex = playbackInfo.waitingTrack?.index, waitingTrackIndex == row {
                             return createWaitingImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     

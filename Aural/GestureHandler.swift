@@ -83,7 +83,7 @@ class GestureHandler {
         if preferences.allowSeeking {
             
             // If no track is playing, seeking cannot be performed
-            if (playbackInfo.getPlaybackState().notPlaying()) {
+            if (playbackInfo.state.notPlaying()) {
                 return
             }
             
@@ -113,7 +113,7 @@ class GestureHandler {
     private func isResidualScroll(_ event: NSEvent) -> Bool {
     
         // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
-        let playingTrackStartTime = playbackInfo.getPlayingTrackStartTime()!
+        let playingTrackStartTime = playbackInfo.playingTrackStartTime!
         let scrollSessionStartTime = ScrollSession.getSessionStartTime()
         let scrollSessionInvalid = scrollSessionStartTime != nil && scrollSessionStartTime! < playingTrackStartTime
         

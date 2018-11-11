@@ -6,7 +6,7 @@ import Foundation
 protocol PlaybackInfoDelegateProtocol {
     
     // Returns the current playback state of the player. See PlaybackState for more details
-    func getPlaybackState() -> PlaybackState
+    var state: PlaybackState {get}
     
     /*
         Returns summary information about the current playback sequence
@@ -17,30 +17,30 @@ protocol PlaybackInfoDelegateProtocol {
      
         totalTracks - the total number of tracks in the current sequence
      */
-    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int)
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {get}
     
     // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
-    func getSeekPosition() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double)
+    var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {get}
     
     // Returns the currently playing track (with its index), if a track is currently playing
-    func getPlayingTrack() -> IndexedTrack?
+    var playingTrack: IndexedTrack? {get}
     
     // Currently waiting track
-    func getWaitingTrack() -> IndexedTrack?
-    
-    // Returns grouping info for the playing track, for a specific group type
-    func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack?
+    var waitingTrack: IndexedTrack? {get}
     
     // Returns the current repeat and shuffle modes
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
     
     /*
         Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
      
         The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime
     */
-    func getPlayingTrackStartTime() -> TimeInterval?
+    var playingTrackStartTime: TimeInterval? {get}
     
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
-    func getPlaybackLoop() -> PlaybackLoop?
+    var playbackLoop: PlaybackLoop? {get}
+    
+    // Returns grouping info for the playing track, for a specific group type
+    func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack?
 }

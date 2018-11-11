@@ -84,10 +84,10 @@ import Cocoa
 //        volumeSlider.floatValue = audioGraph.getVolume()
 //        setVolumeImage(audioGraph.isMuted())
 //
-//        let rsModes = player.getRepeatAndShuffleModes()
+//        let rsModes = player.repeatAndShuffleModes
 //        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
 //
-//        btnPlayPause.switchState(player.getPlaybackState())
+//        btnPlayPause.switchState(player.state)
 //    }
 //
 //    private func initSubscriptions() {
@@ -168,7 +168,7 @@ import Cocoa
 //    // Plays, pauses, or resumes playback
 //    @IBAction func playPauseAction(_ sender: AnyObject) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////
@@ -207,7 +207,7 @@ import Cocoa
 //    // Replays the currently playing track, from the beginning, if there is one
 //    private func replayTrack() {
 //
-//        if let _ = player.getPlayingTrack() {
+//        if let _ = player.playingTrack {
 //            player.seekToPercentage(0)
 //            SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
 //        }
@@ -216,7 +216,7 @@ import Cocoa
 //    // Plays the previous track in the current playback sequence
 //    @IBAction func previousTrackAction(_ sender: AnyObject) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////
@@ -236,7 +236,7 @@ import Cocoa
 //    // Plays the next track in the current playback sequence
 //    @IBAction func nextTrackAction(_ sender: AnyObject) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////            let nextTrack = try player.nextTrack()
@@ -276,7 +276,7 @@ import Cocoa
 //
 //    private func playTrackWithIndex(_ trackIndex: Int) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////
@@ -293,7 +293,7 @@ import Cocoa
 //
 //    private func playTrack(_ track: Track) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////
@@ -310,7 +310,7 @@ import Cocoa
 //
 //    private func playGroup(_ group: Group) {
 //
-////        let oldTrack = player.getPlayingTrack()
+////        let oldTrack = player.playingTrack
 ////
 ////        do {
 ////
@@ -345,9 +345,9 @@ import Cocoa
 //
 //    private func toggleLoop() {
 //
-//        if player.getPlaybackState() == .playing {
+//        if player.state == .playing {
 //
-//            if let _ = player.getPlayingTrack() {
+//            if let _ = player.playingTrack {
 //
 //                _ = player.toggleLoop()
 //                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
@@ -357,7 +357,7 @@ import Cocoa
 //
 //    private func playbackLoopChanged() {
 //
-//        let loop = player.getPlaybackLoop()
+//        let loop = player.playbackLoop
 //
 //        // Update loop button image
 //        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
@@ -408,7 +408,7 @@ import Cocoa
 //    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
 //    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
 //
-//        btnPlayPause.switchState(player.getPlaybackState())
+//        btnPlayPause.switchState(player.state)
 //        SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
 //        btnLoop.switchState(LoopState.none)
 //    }

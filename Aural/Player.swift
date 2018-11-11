@@ -103,9 +103,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         return playbackState
     }
     
-    func getPlayingTrackStartTime() -> TimeInterval? {
-        return PlaybackSession.currentSession?.timestamp
-    }
+    var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
     
     func toggleLoop() -> PlaybackLoop? {
         
@@ -152,9 +150,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         PlaybackSession.removeLoop()
     }
     
-    func getPlaybackLoop() -> PlaybackLoop? {
-        return PlaybackSession.getCurrentLoop()
-    }
+    var playbackLoop: PlaybackLoop? {return PlaybackSession.getCurrentLoop()}
     
     // MARK: Message handling
     

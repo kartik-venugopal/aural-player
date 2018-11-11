@@ -103,14 +103,14 @@ class MasterViewController: FXUnitViewController {
     
     private func saveSoundProfile() {
         
-        if let plTrack = player.getPlayingTrack()?.track {
+        if let plTrack = player.playingTrack?.track {
             SoundProfiles.saveProfile(plTrack, graph.volume, graph.balance, graph.getSettingsAsMasterPreset())
         }
     }
     
     private func deleteSoundProfile() {
         
-        if let plTrack = player.getPlayingTrack()?.track {
+        if let plTrack = player.playingTrack?.track {
             SoundProfiles.deleteProfile(plTrack)
         }
     }

@@ -121,7 +121,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)
                 
                 // If a track is playing, the playback sequence may have changed (depending on the location of the playing track)
-                if (playbackInfo.getPlayingTrack() != nil) {
+                if (playbackInfo.playingTrack != nil) {
                     SyncMessenger.publishNotification(SequenceChangedNotification.instance)
                 }
                 

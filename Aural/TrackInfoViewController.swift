@@ -26,12 +26,12 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         initSubscriptions()
         
-        let newTrack = player.getPlayingTrack()
+        let newTrack = player.playingTrack
         
         if (newTrack != nil) {
             
-            let sequence = player.getPlaybackSequenceInfo()
-            theView?.showNowPlayingInfo(newTrack!.track, player.getPlaybackState(), sequence)
+            let sequence = player.sequenceInfo
+            theView?.showNowPlayingInfo(newTrack!.track, player.state, sequence)
             
         } else {
             
@@ -62,7 +62,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
         if (newTrack != nil) {
-            theView?.showNowPlayingInfo(newTrack!.track, player.getPlaybackState(), player.getPlaybackSequenceInfo())
+            theView?.showNowPlayingInfo(newTrack!.track, player.state, player.sequenceInfo)
         } else {
             
             // No track playing, clear the info fields
@@ -72,11 +72,11 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
-        theView?.showNowPlayingInfo(player.getPlayingTrack()!.track, player.getPlaybackState(), player.getPlaybackSequenceInfo())
+        theView?.showNowPlayingInfo(player.playingTrack!.track, player.state, player.sequenceInfo)
     }
     
     private func sequenceChanged() {
-        theView?.sequenceChanged(player.getPlaybackSequenceInfo())
+        theView?.sequenceChanged(player.sequenceInfo)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {

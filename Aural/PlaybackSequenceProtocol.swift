@@ -55,7 +55,7 @@ protocol PlaybackSequenceProtocol {
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
     // Returns the current repeat and shuffle modes
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
  
     // Returns the size of the sequence (i.e. number of tracks)
     func size() -> Int

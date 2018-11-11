@@ -140,7 +140,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // When the playback sequence has changed, the UI needs to show the updated info
     private func sequenceChanged() {
         
-        if (playbackInfo.getPlayingTrack() != nil) {
+        if (playbackInfo.playingTrack != nil) {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
     }
@@ -171,7 +171,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
+            let playingTrackIndex = self.playbackInfo.playingTrack?.index
             if (playingTrackIndex == message.trackIndex) {
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }

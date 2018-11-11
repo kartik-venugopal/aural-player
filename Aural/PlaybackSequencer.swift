@@ -19,7 +19,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     private let playlist: PlaylistAccessorProtocol
     
     // Stores the currently playing track, if there is one
-    private var playingTrack: Track?
+    private var thePlayingTrack: Track?
     
     init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
@@ -30,7 +30,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         SyncMessenger.subscribe(messageTypes: [.playlistTypeChangedNotification], subscriber: self)
     }
     
-    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
         
         // The sequence cursor is the index of the currently playing track within the current playback sequence
         return (scope, (sequence.getCursor() ?? -1) + 1, sequence.size())
@@ -67,7 +67,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Reset the sequence cursor (to indicate that no track is playing)
         sequence.resetCursor()
-        playingTrack = nil
+        thePlayingTrack = nil
         
         // Reset the scope and the scope type depending on which playlist view is currently selected
         scope.scope = nil
@@ -97,7 +97,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     func subsequent() -> IndexedTrack? {
         
         let subsequent = getTrackForIndex(sequence.subsequent())
-        playingTrack = subsequent?.track
+        thePlayingTrack = subsequent?.track
         return subsequent
     }
     
@@ -111,7 +111,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
         if (next != nil) {
-            playingTrack = next?.track
+            thePlayingTrack = next?.track
         }
         
         return next
@@ -127,7 +127,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
         if (previous != nil) {
-            playingTrack = previous?.track
+            thePlayingTrack = previous?.track
         }
         
         return previous
@@ -150,7 +150,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         sequence.select(index)
         let track = getTrackForIndex(index)!
-        playingTrack = track.track
+        thePlayingTrack = track.track
         return track
     }
     
@@ -223,10 +223,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return subsequent()!
     }
     
-    func getPlayingTrack() -> IndexedTrack? {
+    var playingTrack: IndexedTrack? {
         
         // Wrap the playing track with its flat playlist index, before returning it
-        return playingTrack != nil ? wrapTrack(playingTrack!) : nil
+        return thePlayingTrack != nil ? wrapTrack(thePlayingTrack!) : nil
     }
     
     // Helper function that
@@ -353,7 +353,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         let state = PlaybackSequenceState()
         
-        let modes = sequence.getRepeatAndShuffleModes()
+        let modes = sequence.repeatAndShuffleModes
         state.repeatMode = modes.repeatMode
         state.shuffleMode = modes.shuffleMode
         
@@ -408,7 +408,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     private func calculateNewCursor() -> Int? {
         
         // We only need to do this if there is a track currently playing
-        if let playingTrack = playingTrack {
+        if let playingTrack = thePlayingTrack {
             
             switch scope.type {
                 
@@ -465,9 +465,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         }
     }
     
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequence.getRepeatAndShuffleModes()
-    }
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequence.repeatAndShuffleModes}
     
     func getID() -> String {
         return "PlaybackSequencer"
