@@ -44,13 +44,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func oneTimeSetup() {
         
-        // TODO: Declare these widely reused state functions in a functions file and reuse across UI layer
-        masterView.initialize(eqStateFunction,
-                              pitchStateFunction,
-                              timeStateFunction,
-                              reverbStateFunction,
-                              delayStateFunction,
-                              {() -> EffectsUnitState in return self.graph.getFilterState()})
+        masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
         
         self.menuNeedsUpdate(presetsMenu.menu!)
         
@@ -160,7 +154,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleFilterState()
+//        _ = graph.toggleFilterState()
         updateButtons()
     }
     

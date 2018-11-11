@@ -16,7 +16,7 @@ class DelayViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .delay
-        fxUnit = graph.delayUnit
+        fxUnit = delayUnit
         unitStateFunction = delayStateFunction
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }

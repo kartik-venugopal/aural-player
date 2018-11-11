@@ -164,14 +164,14 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             band = FilterBand(filterType).withMinFreq(cutoffSlider.frequency)
         }
         
-        if action == .add {
-        
-            _ = graph.addFilterBand(band)
-            
-        } else {
-            
-            graph.updateFilterBand(editBandIndex, band)
-        }
+//        if action == .add {
+//        
+//            _ = graph.addFilterBand(band)
+//            
+//        } else {
+//            
+//            graph.updateFilterBand(editBandIndex, band)
+//        }
         
         modalDialogResponse = .ok
         UIUtils.dismissModalDialog()

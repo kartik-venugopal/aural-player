@@ -3,79 +3,44 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
-    
-    // Filter controls
-    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
+class FilterViewController: FXUnitViewController {
     
     @IBOutlet weak var filterView: FilterView!
-    
-    // Presets menu
-    @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
-    
-    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
-    
     private lazy var editor: FilterBandEditorController = FilterBandEditorController()
-    
-    // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
     
     override var nibName: String? {return "Filter"}
     
-    override func viewDidLoad() {
+    var filterUnit: FilterUnitDelegate {return graph.filterUnit}
+    
+    override func awakeFromNib() {
         
-        oneTimeSetup()
-        initControls()
+        super.awakeFromNib()
         
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
+        unitType = .filter
+        fxUnit = filterUnit
+        unitStateFunction = filterStateFunction
+        presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    override func oneTimeSetup() {
         
-        // Remove all custom presets
-        while !presetsMenu.item(at: 0)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 0)
-        }
-        
-        // Re-initialize the menu with user-defined presets
-        
-        // Initialize the menu with user-defined presets
-        filterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
-        
-        // Don't select any items from the presets menu
-        presetsMenu.selectItem(at: -1)
-    }
-    
-    private func oneTimeSetup() {
-        
-        let stateFunction = {() -> EffectsUnitState in return self.graph.getFilterState()}
-        btnFilterBypass.stateFunction = stateFunction
+        super.oneTimeSetup()
 
-        let bandsDataFunction = {() -> [FilterBand] in return self.graph.allFilterBands()}
-        filterView.initialize(stateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(graph))
+        let bandsDataFunction = {() -> [FilterBand] in return self.filterUnit.bands}
+        filterView.initialize(filterStateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(filterUnit))
     }
  
-    private func initControls() {
-        
-        btnFilterBypass.updateState()
+    override func initControls() {
+
+        super.initControls()
         filterView.refresh()
-        
-        // Don't select any items from the presets menu
-        presetsMenu.selectItem(at: -1)
     }
     
     // Activates/deactivates the Filter effects unit
-    @IBAction func filterBypassAction(_ sender: AnyObject) {
+    @IBAction override func bypassAction(_ sender: AnyObject) {
         
-        _ = graph.toggleFilterState()
-        
-        btnFilterBypass.updateState()
-        filterView.redrawChart()
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        super.bypassAction(sender)
+        filterView.refresh()
     }
     
     @IBAction func editBandAction(_ sender: AnyObject) {
@@ -83,7 +48,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         if filterView.numberOfSelectedRows == 1 {
             
             let index = filterView.selectedRow
-            editor.editBand(index, graph.getFilterBand(index))
+            editor.editBand(index, filterUnit.getFilterBand(index))
             filterView.bandEdited()
         }
     }
@@ -99,83 +64,14 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         if filterView.numberOfSelectedRows > 0 {
             
-            graph.removeFilterBands(filterView.selectedRows)
+            filterUnit.removeFilterBands(filterView.selectedRows)
             filterView.bandsRemoved()
         }
     }
     
     @IBAction func removeAllBandsAction(_ sender: AnyObject) {
-        graph.removeAllFilterBands()
+        
+        filterUnit.removeAllFilterBands()
         filterView.tableRowsAddedOrRemoved()
-    }
-    
-    // Applies a preset to the effects unit
-    @IBAction func filterPresetsAction(_ sender: AnyObject) {
-        graph.applyFilterPreset(presetsMenu.titleOfSelectedItem!)
-        initControls()
-    }
-    
-    // Displays a popover to allow the user to name the new custom preset
-    @IBAction func savePresetAction(_ sender: AnyObject) {
-        
-        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
-        
-        // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.mainWindow.orderFront(self)
-    }
-    
-    // MARK - StringInputClient functions
-    
-    func getInputPrompt() -> String {
-        return "Enter a new preset name:"
-    }
-    
-    func getDefaultValue() -> String? {
-        return "<New Filter preset>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !filterPresets.presetWithNameExists(string)
-        
-        if (!valid) {
-            return (false, "Preset with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        
-        graph.saveFilterPreset(string)
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: string, at: 0)
-    }
-    
-    // MARK: Message handling
-    
-    func getID() -> String {
-        return self.className
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if notification is EffectsUnitStateChangedNotification {
-            btnFilterBypass.updateState()
-            filterView.redrawChart()
-        }
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if message.actionType == .updateEffectsView {
-            
-            let msg = message as! EffectsViewActionMessage
-            if msg.effectsUnit == .master || msg.effectsUnit == .filter {
-                initControls()
-            }
-        }
     }
 }

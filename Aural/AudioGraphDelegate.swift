@@ -6,11 +6,13 @@ import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
+//    var masterUnit: MasterUnit
     var eqUnit: EQUnitDelegate
     var pitchUnit: PitchUnitDelegate
     var timeUnit: TimeUnitDelegate
     var reverbUnit: ReverbUnitDelegate
     var delayUnit: DelayUnitDelegate
+    var filterUnit: FilterUnitDelegate
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
@@ -18,7 +20,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     // User preferences
     private let preferences: SoundPreferences
     
-    init(_ graph: AudioGraphProtocol, _ preferences: SoundPreferences) {
+    init(_ graph: inout AudioGraphProtocol, _ preferences: SoundPreferences) {
         
         self.graph = graph
         self.preferences = preferences
@@ -28,193 +30,70 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         delayUnit = DelayUnitDelegate(graph.delayUnit)
+        filterUnit = FilterUnitDelegate(graph.filterUnit)
         
         if (preferences.volumeOnStartupOption == .specific) {
-            graph.setVolume(preferences.startupVolumeValue)
-            graph.unmute()
+            
+            graph.volume = preferences.startupVolumeValue
+            muted = false
         }
-    }
-    
-    func toggleMasterBypass() -> Bool {
-        return graph.toggleMasterBypass()
-    }
-    
-    func isMasterBypass() -> Bool {
-        return graph.isMasterBypass()
-    }
-    
-    var masterPresets: MasterPresets {
-        return graph.masterPresets
-    }
-    
-    func saveMasterPreset(_ presetName: String) {
-        graph.saveMasterPreset(presetName)
-    }
-    
-    func applyMasterPreset(_ presetName: String) {
-        
-        if let preset = masterPresets.presetByName(presetName) {
-            graph.applyMasterPreset(preset)
-        }
-    }
-    
-    func applyMasterPreset(_ preset: MasterPreset) {
-        graph.applyMasterPreset(preset)
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
         return graph.getSettingsAsMasterPreset()
     }
     
-    func getVolume() -> Float {
-        
-        // Convert from {0,1} to percentage
-        return round(graph.getVolume() * AppConstants.volumeConversion_audioGraphToUI)
+    var volume: Float {
+
+        get {return round(graph.volume * AppConstants.volumeConversion_audioGraphToUI)}
+        set(newValue) {graph.volume = round(newValue * AppConstants.volumeConversion_UIToAudioGraph)}
     }
     
-    func setVolume(_ volumePercentage: Float) {
+    var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
+    
+    var muted: Bool {
         
-        // Convert from percentage to {0,1}
-        graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToAudioGraph)
+        get {return graph.muted}
+        set(newValue) {graph.muted = newValue}
     }
+    
+    var balance: Float {
+        
+        get {return round(graph.balance * AppConstants.panConversion_audioGraphToUI)}
+        set(newValue) {graph.balance = newValue * AppConstants.panConversion_UIToAudioGraph}
+    }
+    
+    var formattedBalance: String {return ValueFormatter.formatPan(balance)}
     
     func increaseVolume(_ actionMode: ActionMode) -> Float {
         
-        // Volume is increased by an amount set in the user preferences
-        
-        // The volume increment will depend on the action mode
         let volumeDelta = actionMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        graph.volume = min(1, graph.volume + volumeDelta)
         
-        let newVolume = min(1, graph.getVolume() + volumeDelta)
-        graph.setVolume(newVolume)
-        
-        // Convert from {0,1} to percentage
-        return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
+        return volume
     }
     
     func decreaseVolume(_ actionMode: ActionMode) -> Float {
         
-        // Volume is decreased by an amount set in the user preferences
-        
-        // The volume decrement will depend on the action mode
         let volumeDelta = actionMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        graph.volume = max(0, graph.volume - volumeDelta)
         
-        let newVolume = max(0, graph.getVolume() - volumeDelta)
-        graph.setVolume(newVolume)
-        
-        // Convert from {0,1} to percentage
-        return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
-    }
-    
-    func toggleMute() -> Bool {
-        
-        let muted = isMuted()
-        if muted {
-            graph.unmute()
-        } else {
-            graph.mute()
-        }
-        
-        return !muted
-    }
-    
-    func isMuted() -> Bool {
-        return graph.isMuted()
-    }
-    
-    func getBalance() -> Float {
-        
-        // Convert from {-1,1} to percentage
-        return round(graph.getBalance() * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    func setBalance(_ balance: Float) {
-        
-        // Convert from percentage to {-1,1}
-        graph.setBalance(balance * AppConstants.panConversion_UIToAudioGraph)
+        return volume
     }
     
     func panLeft() -> Float {
         
-        // Pan is shifted left by an amount set in the user preferences
+        let newBalance = max(-1, graph.balance - preferences.panDelta)
+        graph.balance = graph.balance > 0 && newBalance < 0 ? 0 : newBalance
         
-        let curBalance = graph.getBalance()
-        var newBalance = max(-1, curBalance - preferences.panDelta)
-        
-        // Snap to center
-        if (curBalance > 0 && newBalance < 0) {
-            newBalance = 0
-        }
-        
-        graph.setBalance(newBalance)
-        
-        // Convert from {-1,1} to percentage
-        return round(newBalance * AppConstants.panConversion_audioGraphToUI)
+        return balance
     }
     
     func panRight() -> Float {
         
-        // Pan is shifted right by an amount set in the user preferences
+        let newBalance = min(1, graph.balance + preferences.panDelta)
+        graph.balance = graph.balance < 0 && newBalance > 0 ? 0 : newBalance
         
-        let curBalance = graph.getBalance()
-        var newBalance = min(1, curBalance + preferences.panDelta)
-        
-        // Snap to center
-        if (curBalance < 0 && newBalance > 0) {
-            newBalance = 0
-        }
-        
-        graph.setBalance(newBalance)
-        
-        // Convert from {-1,1} to percentage
-        return round(newBalance * AppConstants.panConversion_audioGraphToUI)
-    }
-    
-    // MARK: Filter unit functions
-    
-    func getFilterState() -> EffectsUnitState {
-        return graph.getFilterState()
-    }
-    
-    func toggleFilterState() -> EffectsUnitState{
-        return graph.toggleFilterState()
-    }
-    
-    func addFilterBand(_ band: FilterBand) -> Int {
-        return graph.addFilterBand(band)
-    }
-    
-    func updateFilterBand(_ index: Int, _ band: FilterBand) {
-        graph.updateFilterBand(index, band)
-    }
-    
-    func removeFilterBands(_ indexSet: IndexSet) {
-        graph.removeFilterBands(indexSet)
-    }
-    
-    func removeAllFilterBands() {
-        graph.removeAllFilterBands()
-    }
-    
-    func allFilterBands() -> [FilterBand] {
-        return graph.allFilterBands()
-    }
-    
-    func getFilterBand(_ index: Int) -> FilterBand {
-        return graph.getFilterBand(index)
-    }
-    
-    var filterPresets: FilterPresets {
-        return graph.filterPresets
-    }
-    
-    func saveFilterPreset(_ presetName: String) {
-        graph.saveFilterPreset(presetName)
-    }
-    
-    func applyFilterPreset(_ presetName: String) {
-        
-        let preset = filterPresets.presetByName(presetName)!
-        graph.applyFilterPreset(preset)
+        return balance
     }
 }
