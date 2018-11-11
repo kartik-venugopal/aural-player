@@ -13,17 +13,11 @@ protocol AudioGraphProtocol {
     var muted: Bool {get set}
     
     var masterUnit: MasterUnit {get set}
-    
     var eqUnit: EQUnit {get set}
-    
     var pitchUnit: PitchUnit {get set}
-    
     var timeUnit: TimeUnit {get set}
-    
     var reverbUnit: ReverbUnit {get set}
-    
     var delayUnit: DelayUnit {get set}
-    
     var filterUnit: FilterUnit {get set}
     
     func getSettingsAsMasterPreset() -> MasterPreset
