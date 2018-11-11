@@ -185,6 +185,7 @@
 		3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */; };
 		3E7DCBDD2196E8B700C6D6D3 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBDC2196E8B700C6D6D3 /* FilterUnit.swift */; };
 		3E7DCBDF2197709500C6D6D3 /* FilterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBDE2197709500C6D6D3 /* FilterUnitDelegate.swift */; };
+		3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBE02197E63400C6D6D3 /* MasterUnitDelegate.swift */; };
 		3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */; };
 		3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E807C411FC597FC0027050F /* MouseTrackingView.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
@@ -536,6 +537,7 @@
 		3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		3E7DCBDC2196E8B700C6D6D3 /* FilterUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnit.swift; sourceTree = "<group>"; };
 		3E7DCBDE2197709500C6D6D3 /* FilterUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitDelegate.swift; sourceTree = "<group>"; };
+		3E7DCBE02197E63400C6D6D3 /* MasterUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitDelegate.swift; sourceTree = "<group>"; };
 		3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniBarAppModeController.swift; sourceTree = "<group>"; };
 		3E807C411FC597FC0027050F /* MouseTrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -1635,6 +1637,7 @@
 				3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */,
 				3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */,
 				3EDD4CD62194155E00C15D5A /* FXUnitDelegate.swift */,
+				3E7DCBE02197E63400C6D6D3 /* MasterUnitDelegate.swift */,
 				3E0839AB21954AAD008D84BA /* EQUnitDelegate.swift */,
 				3EDD4CD82194166A00C15D5A /* PitchUnitDelegate.swift */,
 				3E0839AF2195756F008D84BA /* TimeUnitDelegate.swift */,
@@ -2045,6 +2048,7 @@
 				3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */,
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
 				3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */,
+				3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,

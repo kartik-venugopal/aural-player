@@ -73,24 +73,15 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
         fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
         
-        masterTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.graph.isMasterBypass() ? .bypassed : .active
-        }
-        
+        masterTabViewButton.stateFunction = masterStateFunction
         eqTabViewButton.stateFunction = eqStateFunction
         pitchTabViewButton.stateFunction = pitchStateFunction
         timeTabViewButton.stateFunction = timeStateFunction
         reverbTabViewButton.stateFunction = reverbStateFunction
         delayTabViewButton.stateFunction = delayStateFunction
         filterTabViewButton.stateFunction = filterStateFunction
-        
-        recorderTabViewButton.stateFunction = {
-            () -> EffectsUnitState in
-            
-            return self.recorder.isRecording() ? .active : .bypassed
-        }
+
+        recorderTabViewButton.stateFunction = recorderStateFunction
     }
 
     func activate() {

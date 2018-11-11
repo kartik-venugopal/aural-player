@@ -29,23 +29,23 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
         node.bypass = !isActive
     }
     
-    func getFilterBand(_ index: Int) -> FilterBand {
+    func getBand(_ index: Int) -> FilterBand {
         return node.getBand(index)
     }
     
-    func addFilterBand(_ band: FilterBand) -> Int {
+    func addBand(_ band: FilterBand) -> Int {
         return node.addBand(band)
     }
     
-    func updateFilterBand(_ index: Int, _ band: FilterBand) {
+    func updateBand(_ index: Int, _ band: FilterBand) {
         node.updateBand(index, band)
     }
     
-    func removeFilterBands(_ indexSet: IndexSet) {
+    func removeBands(_ indexSet: IndexSet) {
         node.removeBands(indexSet)
     }
     
-    func removeAllFilterBands() {
+    func removeAllBands() {
         node.removeAllBands()
     }
     

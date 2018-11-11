@@ -14,6 +14,17 @@ class VariableRateNode {
     let timePitchNode: AVAudioUnitTimePitch
     let variNode: AVAudioUnitVarispeed
     
+    init() {
+        
+        timePitchNode = AVAudioUnitTimePitch()
+        variNode = AVAudioUnitVarispeed()
+        
+        bypass = AppDefaults.timeState != .active
+        rate = AppDefaults.timeStretchRate
+        shiftPitch = AppDefaults.timeShiftPitch
+        overlap = AppDefaults.timeOverlap
+    }
+    
     var bypass: Bool {
         
         didSet {
@@ -54,20 +65,6 @@ class VariableRateNode {
     }
     
     var overlap: Float {
-        
-        didSet {
-            timePitchNode.overlap = self.overlap
-        }
-    }
-    
-    init() {
-        
-        timePitchNode = AVAudioUnitTimePitch()
-        variNode = AVAudioUnitVarispeed()
-        
-        bypass = AppDefaults.timeState != .active
-        rate = AppDefaults.timeStretchRate
-        shiftPitch = AppDefaults.timeShiftPitch
-        overlap = AppDefaults.timeOverlap
+        didSet {timePitchNode.overlap = self.overlap}
     }
 }

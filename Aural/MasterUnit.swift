@@ -75,14 +75,18 @@ class MasterUnit: FXUnit, MessageSubscriber {
     override func applyPreset(_ presetName: String) {
         
         if let preset = presets.presetByName(presetName) {
-            
-            eqUnit.applyPreset(preset.eq)
-            pitchUnit.applyPreset(preset.pitch)
-            timeUnit.applyPreset(preset.time)
-            reverbUnit.applyPreset(preset.reverb)
-            delayUnit.applyPreset(preset.delay)
-            filterUnit.applyPreset(preset.filter)
+            applyPreset(preset)
         }
+    }
+    
+    func applyPreset(_ preset: MasterPreset) {
+        
+        eqUnit.applyPreset(preset.eq)
+        pitchUnit.applyPreset(preset.pitch)
+        timeUnit.applyPreset(preset.time)
+        reverbUnit.applyPreset(preset.reverb)
+        delayUnit.applyPreset(preset.delay)
+        filterUnit.applyPreset(preset.filter)
     }
     
     func persistentState() -> MasterUnitState {

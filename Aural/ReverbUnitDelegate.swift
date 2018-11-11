@@ -4,10 +4,6 @@ class ReverbUnitDelegate: FXUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol
     
     var presets: ReverbPresets {return unit.presets}
     
-    override init(_ unit: ReverbUnit) {
-        super.init(unit)
-    }
-    
     var space: ReverbSpaces {
         
         get {return unit.space}

@@ -4,10 +4,6 @@ class DelayUnitDelegate: FXUnitDelegate<DelayUnit>, DelayUnitDelegateProtocol {
     
     var presets: DelayPresets {return unit.presets}
     
-    override init(_ unit: DelayUnit) {
-        super.init(unit)
-    }
-    
     var amount: Float {
         
         get {return unit.amount}

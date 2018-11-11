@@ -7,7 +7,6 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeStretchUnitDelegateProtoco
     var rate: Float {
         
         get {return unit.rate}
-        
         set(newValue) {unit.rate = newValue}
     }
     
@@ -16,7 +15,6 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeStretchUnitDelegateProtoco
     var overlap: Float {
         
         get {return unit.overlap}
-        
         set(newValue) {unit.overlap = newValue}
     }
     
@@ -25,7 +23,6 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeStretchUnitDelegateProtoco
     var shiftPitch: Bool {
         
         get {return unit.shiftPitch}
-        
         set(newValue) {unit.shiftPitch = newValue}
     }
     

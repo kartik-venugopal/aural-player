@@ -78,6 +78,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
             playerNode.volume = muted ? 0 : playerVolume
         }
     }
+    
+    func getSettingsAsMasterPreset() -> MasterPreset {
+        return masterUnit.getSettingsAsPreset()
+    }
 
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
         audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
@@ -89,7 +93,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Clear sound tails from reverb and delay nodes, if they're active
         [delayUnit, reverbUnit].forEach({
-            if $0.state == .active {$0.reset()}
+            if $0.isActive {$0.reset()}
         })
     }
     
@@ -102,8 +106,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.muted = muted
         state.balance = playerNode.pan
         
-//        state.masterState = masterBypass ? .bypassed : .active
-//        state.masterUserPresets = masterPresets.userDefinedPresets
+        state.masterUnitState = masterUnit.persistentState()
         
         // EQ
         state.eqUnitState = eqUnit.persistentState()

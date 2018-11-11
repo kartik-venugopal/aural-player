@@ -4,9 +4,9 @@
 
 import Foundation
 
-class AudioGraphDelegate: AudioGraphDelegateProtocol {
+class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber {
     
-//    var masterUnit: MasterUnit
+    var masterUnit: MasterUnitDelegate
     var eqUnit: EQUnitDelegate
     var pitchUnit: PitchUnitDelegate
     var timeUnit: TimeUnitDelegate
@@ -16,15 +16,18 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
+    private let player: PlaybackInfoDelegateProtocol
     
     // User preferences
     private let preferences: SoundPreferences
     
-    init(_ graph: inout AudioGraphProtocol, _ preferences: SoundPreferences) {
+    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences) {
         
         self.graph = graph
+        self.player = player
         self.preferences = preferences
         
+        masterUnit = MasterUnitDelegate(graph, preferences)
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
@@ -34,9 +37,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if (preferences.volumeOnStartupOption == .specific) {
             
-            graph.volume = preferences.startupVolumeValue
+            self.graph.volume = preferences.startupVolumeValue
             muted = false
         }
+        
+        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
@@ -96,4 +101,37 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         return balance
     }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return "AudioGraphDelegate"
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if (request is AppExitRequest) {
+            return onExit()
+        }
+        
+        return EmptyResponse.instance
+    }
+    
+    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
+    private func onExit() -> AppExitResponse {
+        
+        // Apply sound profile if there is one for the new track and if the preferences allow it
+        if preferences.rememberEffectsSettings, let plTrack = player.getPlayingTrack()?.track {
+            
+            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
+            if preferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
+                SoundProfiles.saveProfile(plTrack, graph.volume, graph.balance, graph.getSettingsAsMasterPreset())
+            }
+        }
+        
+        // Proceed with exit
+        return AppExitResponse.okToExit
+    }
+
 }
