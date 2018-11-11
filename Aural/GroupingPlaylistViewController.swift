@@ -571,7 +571,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Selects the currently playing track, within the playlist view
     private func showPlayingTrack() {
-        selectTrack(playbackInfo.getPlayingTrackGroupInfo(self.groupType))
+        selectTrack(playbackInfo.playingTrackGroupInfo(self.groupType))
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist

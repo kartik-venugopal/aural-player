@@ -74,7 +74,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     func resetFields() {
         
-        if let playingTrack = playbackInfo.getPlayingTrack() {
+        if let playingTrack = playbackInfo.playingTrack {
         
             let roundedDuration = round(playingTrack.track.duration)
             let formattedDuration = StringUtils.formatSecondsToHMS(roundedDuration)

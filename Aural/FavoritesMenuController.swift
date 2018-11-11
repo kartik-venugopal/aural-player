@@ -41,14 +41,14 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         // Recreate the menu
         favorites.getAllFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
         
-        if let playingTrackFile = playbackInfo.getPlayingTrack()?.track.file {
+        if let playingTrackFile = playbackInfo.playingTrack?.track.file {
             addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
         } else {
             addRemoveFavoritesMenuItem.off()
         }
         
         // These menu item actions are only available when a track is currently playing/paused
-        addRemoveFavoritesMenuItem.enableIf(playbackInfo.getPlaybackState().playingOrPaused())
+        addRemoveFavoritesMenuItem.enableIf(playbackInfo.state.playingOrPaused())
         
         // Menu has 3 static items
         manageFavoritesMenuItem.enableIf(favoritesMenu.items.count > 3)
@@ -75,7 +75,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     @IBAction func favoritesAction(_ sender: Any) {
         
         // Check if there is a track playing (this function cannot be invoked otherwise)
-        if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
+        if let playingTrack = (playbackInfo.playingTrack?.track) {
             
             // Publish an action message to add/remove the item to/from Favorites
             if favorites.favoriteWithFileExists(playingTrack.file) {

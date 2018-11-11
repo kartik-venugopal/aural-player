@@ -742,7 +742,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return state
     }
     
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return (repeatMode, shuffleMode)
     }
 }

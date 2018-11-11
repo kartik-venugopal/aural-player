@@ -60,7 +60,7 @@ protocol PlaybackSequencerProtocol {
     func select(_ group: Group) -> IndexedTrack
     
     // Returns the currently playing track, with its index
-    func getPlayingTrack() -> IndexedTrack?
+    var playingTrack: IndexedTrack? {get}
     
     /* 
         Returns summary information about the current playback sequence
@@ -71,7 +71,7 @@ protocol PlaybackSequencerProtocol {
      
         totalTracks - the total number of tracks in the current sequence
      */
-    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int)
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {get}
     
     // Toggles between repeat modes. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
@@ -86,5 +86,5 @@ protocol PlaybackSequencerProtocol {
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
     // Returns the current repeat and shuffle modes
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
 }

@@ -140,7 +140,7 @@ class PlayerView: NSView {
         }
         
         infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
-        functionsBox.showIf_elseHide(player.getPlaybackState().playingOrPaused() && PlayerViewState.showPlayingTrackFunctions)
+        functionsBox.showIf_elseHide(player.state.playingOrPaused() && PlayerViewState.showPlayingTrackFunctions)
     }
     
     func handOff(_ otherView: PlayerView) {
@@ -283,7 +283,7 @@ class ExpandedArtPlayerView: PlayerView {
     private func autoHideInfo_show() {
         
         makeTransparent(infoBox, gapBox)
-        infoBox.showIf_elseHide(player.getPlaybackState().playingOrPaused())
+        infoBox.showIf_elseHide(player.state.playingOrPaused())
     }
     
     private func autoHideInfo_hide() {
@@ -302,7 +302,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Re-position the info box, art view, and functions box
         moveInfoBoxTo(infoBoxTopPosition)
-        infoBox.showIf_elseHide(player.getPlaybackState().playingOrPaused())
+        infoBox.showIf_elseHide(player.state.playingOrPaused())
     }
     
     private func autoHideControls_hide() {

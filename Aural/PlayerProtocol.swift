@@ -34,7 +34,7 @@ protocol PlayerProtocol {
      
         The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime
      */
-    func getPlayingTrackStartTime() -> TimeInterval?
+    var playingTrackStartTime: TimeInterval? {get}
     
     // MARK: Loop functions
     
@@ -53,7 +53,7 @@ protocol PlayerProtocol {
     func removeLoop()
     
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
-    func getPlaybackLoop() -> PlaybackLoop?
+    var playbackLoop: PlaybackLoop? {get}
     
     // Before app exits
     func tearDown()

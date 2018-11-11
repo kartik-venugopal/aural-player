@@ -63,7 +63,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         let isRegularMode = AppModeManager.mode == .regular
-        let playbackState = playbackInfo.getPlaybackState()
+        let playbackState = playbackInfo.state
         let isPlayingOrPaused = playbackState.playingOrPaused()
         let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
         
@@ -86,7 +86,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
-        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
+        if let playingTrack = playbackInfo.playingTrack?.track {
             
             rememberLastPositionMenuItem.enable()
             rememberLastPositionMenuItem.onIf(PlaybackProfiles.profileForTrack(playingTrack) != nil)
@@ -191,7 +191,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playbackInfo.getRepeatAndShuffleModes()
+        let modes = playbackInfo.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

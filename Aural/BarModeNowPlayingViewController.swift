@@ -38,7 +38,7 @@ import Cocoa
 //        
 //        lblTrackName.beginAnimation()
 //        
-//        if let plTrack = player.getPlayingTrack() {
+//        if let plTrack = player.playingTrack {
 //            showNowPlayingInfo(plTrack.track)
 //            renderLoop()
 //        } else {
@@ -96,7 +96,7 @@ import Cocoa
 //        } else {
 //            
 //            // Default artwork
-//            let playing = player.getPlaybackState() == .playing
+//            let playing = player.state == .playing
 //            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
 //        }
 //        
@@ -135,14 +135,14 @@ import Cocoa
 //    // Updates the seek slider and time elapsed/remaining labels as playback proceeds
 //    private func updateSeekPosition() {
 //        
-//        if (player.getPlaybackState() == .playing) {
-//            seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
+//        if (player.state == .playing) {
+//            seekSlider.doubleValue = player.seekPosition.percentageElapsed
 //        }
 //    }
 //    
 //    // Regardless of playback state
 //    private func initSeekPosition() {
-//        seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
+//        seekSlider.doubleValue = player.seekPosition.percentageElapsed
 //    }
 //    
 //    // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -197,7 +197,7 @@ import Cocoa
 //            seekTimer?.stop()
 //            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
 //            
-//            let playbackState = player.getPlaybackState()
+//            let playbackState = player.state
 //            setSeekTimerState(playbackState == .playing)
 //        }
 //    }
@@ -210,25 +210,25 @@ import Cocoa
 //        // The seek timer can be disabled when not needed (e.g. when paused)
 //        setSeekTimerState(isPlaying)
 //        
-//        let track = (player.getPlayingTrack()?.track)!
+//        let track = (player.playingTrack?.track)!
 //        if (track.displayInfo.art == nil) {
 //            
 //            // Default artwork
-//            let playing = player.getPlaybackState() == .playing
+//            let playing = player.state == .playing
 //            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
 //        }
 //    }
 //    
 //    // When track info for the playing track changes, display fields need to be updated
 //    private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
-//        showNowPlayingInfo(player.getPlayingTrack()!.track)
+//        showNowPlayingInfo(player.playingTrack!.track)
 //    }
 //    
 //    private func renderLoop() {
 //        
-//        if let loop = player.getPlaybackLoop() {
+//        if let loop = player.playbackLoop {
 //            
-//            let duration = (player.getPlayingTrack()?.track.duration)!
+//            let duration = (player.playingTrack?.track.duration)!
 //            
 //            // Mark start
 //            seekSliderClone.doubleValue = loop.startTime * 100 / duration
@@ -252,9 +252,9 @@ import Cocoa
 //    
 //    private func playbackLoopChanged() {
 //        
-//        if let loop = player.getPlaybackLoop() {
+//        if let loop = player.playbackLoop {
 //            
-//            let duration = (player.getPlayingTrack()?.track.duration)!
+//            let duration = (player.playingTrack?.track.duration)!
 //            
 //            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
 //            if (loop.isComplete()) {

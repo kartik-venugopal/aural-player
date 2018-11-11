@@ -70,7 +70,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let playingTrack = player.getPlayingTrack()
+        let playingTrack = player.playingTrack
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
         if (playingTrack != nil) {
@@ -98,7 +98,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         btnFavorite.toggle()
         
         // Assume there is a track playing (this function cannot be invoked otherwise)
-        let playingTrack = (player.getPlayingTrack()?.track)!
+        let playingTrack = (player.playingTrack?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
         if btnFavorite.isOn() {
@@ -112,8 +112,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     @IBAction func bookmarkAction(_ sender: Any) {
         
         // Mark the playing track and position
-        BookmarkContext.bookmarkedTrack = player.getPlayingTrack()!.track
-        BookmarkContext.bookmarkedTrackStartPosition = player.getSeekPosition().timeElapsed
+        BookmarkContext.bookmarkedTrack = player.playingTrack!.track
+        BookmarkContext.bookmarkedTrackStartPosition = player.seekPosition.timeElapsed
         BookmarkContext.bookmarkedTrackEndPosition = nil
         
         BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(BookmarkContext.bookmarkedTrackStartPosition!))
@@ -134,8 +134,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func bookmarkLoop() {
         
         // Mark the playing track and position
-        BookmarkContext.bookmarkedTrack = player.getPlayingTrack()!.track
-        if let loop = player.getPlaybackLoop() {
+        BookmarkContext.bookmarkedTrack = player.playingTrack!.track
+        if let loop = player.playbackLoop {
             
             if loop.isComplete() {
                 
@@ -173,7 +173,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
-        if let playingTrack = player.getPlayingTrack()?.track {
+        if let playingTrack = player.playingTrack?.track {
             
             // Do this only if the track in the message is the playing track
             if message.file.path == playingTrack.file.path {
@@ -229,8 +229,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 
                 if (detailedInfoPopover.isShown()) {
                     
-                    player.getPlayingTrack()!.track.loadDetailedInfo()
-                    detailedInfoPopover.refresh(player.getPlayingTrack()!.track)
+                    player.playingTrack!.track.loadDetailedInfo()
+                    detailedInfoPopover.refresh(player.playingTrack!.track)
                 }
             }
             

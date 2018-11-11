@@ -91,7 +91,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.hide()
         expandedArtView.hideView()
 
-        defaultView.showView(player.getPlaybackState())
+        defaultView.showView(player.state)
         defaultView.show()
     }
     
@@ -102,7 +102,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         defaultView.hide()
         defaultView.hideView()
         
-        expandedArtView.showView(player.getPlaybackState())
+        expandedArtView.showView(player.state)
         expandedArtView.show()
     }
     

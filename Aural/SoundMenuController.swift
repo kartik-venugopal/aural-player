@@ -94,7 +94,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
         
-        if let playingTrack = player.getPlayingTrack()?.track {
+        if let playingTrack = player.playingTrack?.track {
             
             rememberSettingsMenuItem.enable()
             rememberSettingsMenuItem.onIf(SoundProfiles.profileForTrack(playingTrack) != nil)

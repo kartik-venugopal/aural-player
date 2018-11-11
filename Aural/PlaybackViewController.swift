@@ -31,11 +31,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func activate() {
         
         let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
-        let rsModes = player.getRepeatAndShuffleModes()
+        let rsModes = player.repeatAndShuffleModes
         
-        controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.getPlaybackState(), playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.getSeekPosition() })
+        controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
-//        let newTrack = player.getPlayingTrack()
+//        let newTrack = player.playingTrack
 //
 //        if (newTrack != nil) {
 //
@@ -89,17 +89,17 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     private func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
-        controlsView.playbackRateChanged(notification.newPlaybackRate, player.getPlaybackState())
+        controlsView.playbackRateChanged(notification.newPlaybackRate, player.state)
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
     private func playbackStateChanged() {
-        controlsView.playbackStateChanged(player.getPlaybackState())
+        controlsView.playbackStateChanged(player.state)
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
-        controlsView.playbackLoopChanged(player.getPlaybackLoop(), player.getPlayingTrack()!.track.duration)
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack!.track.duration)
     }
     
     // MARK - Volume and Pan
@@ -165,9 +165,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Replays the currently playing track, from the beginning, if there is one
     private func replayTrack() {
         
-        if let _ = player.getPlayingTrack() {
+        if let _ = player.playingTrack {
             
-            let wasPaused: Bool = player.getPlaybackState() == .paused
+            let wasPaused: Bool = player.state == .paused
             
             player.replay()
             controlsView.updateSeekPosition()
@@ -185,9 +185,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func toggleLoop() {
         
-        if player.getPlaybackState().playingOrPaused() {
+        if player.state.playingOrPaused() {
         
-            if let _ = player.getPlayingTrack() {
+            if let _ = player.playingTrack {
                 
                 _ = player.toggleLoop()
                 playbackLoopChanged()

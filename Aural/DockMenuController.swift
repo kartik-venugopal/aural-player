@@ -65,7 +65,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     @IBAction func favoritesAction(_ sender: Any) {
         
         // Check if there is a track playing (this function cannot be invoked otherwise)
-        if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
+        if let playingTrack = (playbackInfo.playingTrack?.track) {
             
             // Toggle the menu item
             favoritesMenuItem.toggle()
@@ -94,7 +94,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             favoritesMenu.addItem(item)
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.getPlayingTrack()?.track {
+            if let plTrack = playbackInfo.playingTrack?.track {
                 favoritesMenuItem.onIf(plTrack.file.path == message.file.path)
             }
             
@@ -112,7 +112,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             })
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.getPlayingTrack()?.track {
+            if let plTrack = playbackInfo.playingTrack?.track {
                 if (plTrack.file.path == message.file.path) {
                     favoritesMenuItem.off()
                 }
@@ -207,7 +207,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playbackInfo.getRepeatAndShuffleModes()
+        let modes = playbackInfo.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

@@ -258,7 +258,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: IndexSet) {
         
-        let playingTrack = playbackSequencer.getPlayingTrack()
+        let playingTrack = playbackSequencer.playingTrack
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         
         let playingTrackRemoved = playingTrack != nil && indexes.contains(playingTrack!.index)
@@ -270,7 +270,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
-        let playingTrack = playbackSequencer.getPlayingTrack()
+        let playingTrack = playbackSequencer.playingTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
         let playingTrackRemoved = playingTrack != nil && playlist.indexOfTrack(playingTrack!.track) == nil

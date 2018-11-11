@@ -290,7 +290,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
     private func sequenceChanged() {
-        if (playbackInfo.getPlayingTrack() != nil) {
+        if (playbackInfo.playingTrack != nil) {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
     }

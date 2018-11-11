@@ -38,10 +38,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func togglePlayPause() {
         
-        let playbackState = player.getPlaybackState()
-        
         // Determine current state of player, to then toggle it
-        switch playbackState {
+        switch state {
             
         case .noTrack:
             
@@ -58,7 +56,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         case .waiting:
             
             // Skip gap and start playback
-            playImmediately(getWaitingTrack()!)
+            playImmediately(waitingTrack!)
         }
     }
     
@@ -81,20 +79,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareForTrackChange() {
         
-        let curState = getPlaybackState()
-        let isPlayingOrPaused = curState.playingOrPaused()
+        let isPlayingOrPaused = state.playingOrPaused()
         
-        let curTrack = isPlayingOrPaused ? getPlayingTrack() : (curState == .waiting ? getWaitingTrack() : nil)
+        let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : nil)
         
         // Make note of which track was playing/waiting
-        TrackChangeContext.setCurrentState(curTrack, curState)
+        TrackChangeContext.setCurrentState(curTrack, state)
         
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the lastTrack was actually playing/paused
         if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack?.track, preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(actualTrack) != nil {
             
             // Update last position for current track
-            let curPosn = getSeekPosition().timeElapsed
+            let curPosn = seekPosition.timeElapsed
             let trackDuration = actualTrack.duration
             
             // If track finished playing the last time, reset the last position to 0
@@ -165,7 +162,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     private func okToPlay(_ params: PlaybackParams) -> Bool {
-        return params.interruptPlayback || (getPlayingTrack() == nil && getWaitingTrack() == nil)
+        return params.interruptPlayback || (playingTrack == nil && waitingTrack == nil)
     }
     
     private func prepareAndPlay(_ indexedTrack: IndexedTrack, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
@@ -289,13 +286,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func replay() {
         
-        let curState = getPlaybackState()
-        let isPlayingOrPaused = curState.playingOrPaused()
+        let isPlayingOrPaused = state.playingOrPaused()
         
         if !isPlayingOrPaused {return}
         
         seekToTime(0)
-        if curState == .paused {
+        if state == .paused {
             resume()
         }
     }
@@ -328,26 +324,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func getPlaybackState() -> PlaybackState {
-        return player.getPlaybackState()
-    }
     
-    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
-        return sequencer.getPlaybackSequenceInfo()
-    }
-    
-    // MARK: Seeking
-    
-    func getSeekPosition() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
-        
-        let playingTrack = getPlayingTrack()
-        let seconds = playingTrack != nil ? player.getSeekPosition() : 0
-        
-        let duration = playingTrack == nil ? 0 : playingTrack!.track.duration
-        let percentage = playingTrack != nil ? seconds * 100 / duration : 0
-        
-        return (seconds, percentage, duration)
-    }
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
@@ -372,9 +349,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         
-        let playingTrack = getPlayingTrack()
-        
-        if let loop = getPlaybackLoop() {
+        if let loop = playbackLoop {
             
             if let loopEnd = loop.endTime {
                 
@@ -396,7 +371,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         
-        if (player.getPlaybackState() == .playing) {
+        if (state == .playing) {
             
             if (newPosn < trackDuration) {
                 player.seekToTime(playingTrack!.track, newPosn)
@@ -415,7 +390,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState().notPlaying()) {
+        if (state.notPlaying()) {
             return
         }
         
@@ -424,7 +399,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackwardSecondary() {
         
-        if (player.getPlaybackState().notPlaying()) {
+        if (state.notPlaying()) {
             return
         }
         
@@ -433,12 +408,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func doSeekBackward(_ decrement: Double) {
         
-        let playingTrack = getPlayingTrack()
-        
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         
-        if let loop = getPlaybackLoop() {
+        if let loop = playbackLoop {
             
             let loopStart = loop.startTime
             
@@ -462,7 +435,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
             } else {
                 
-                let trackDuration = getPlayingTrack()!.track.duration
+                let trackDuration = playingTrack!.track.duration
                 let perc = Double(preferences.primarySeekLengthPercentage)
                 
                 return trackDuration * perc / 100.0
@@ -481,7 +454,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
         } else {
             
-            let trackDuration = getPlayingTrack()!.track.duration
+            let trackDuration = playingTrack!.track.duration
             let perc = Double(preferences.secondarySeekLengthPercentage)
             
             return trackDuration * perc / 100.0
@@ -490,20 +463,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekToPercentage(_ percentage: Double) {
         
-        let playbackState = player.getPlaybackState()
-        
-        if (playbackState.notPlaying()) {
+        if (state.notPlaying()) {
             return
         }
         
         // Calculate the new start position
-        let playingTrack = getPlayingTrack()
         let trackDuration = playingTrack!.track.duration
-        
         let newPosn = percentage * trackDuration / 100
         
         // If there's a loop, check where the seek occurred relative to the loop
-        if let loop = getPlaybackLoop() {
+        if let loop = playbackLoop {
             
             // Check if the loop is complete
             if let loopEnd = loop.endTime {
@@ -522,7 +491,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         
-        if (playbackState == .playing) {
+        if (state == .playing) {
             
             if (newPosn < trackDuration) {
                 player.seekToTime(playingTrack!.track, newPosn)
@@ -537,31 +506,49 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func seekToTime(_ seconds: Double) {
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {return sequencer.sequenceInfo}
+    
+    // MARK: Seeking
+    
+    var state: PlaybackState {return player.getPlaybackState()}
+    
+    var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
-        // Calculate the new start position
-        let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track.duration
+        if playingTrack != nil {
+            
+            let seconds = player.getSeekPosition()
+            let duration = playingTrack!.track.duration
+            return (seconds, seconds * 100 / duration, duration)
+        }
         
-        let percentage = seconds * 100 / trackDuration
-        seekToPercentage(percentage)
+        return (0, 0, 0)
     }
     
-    func getPlayingTrack() -> IndexedTrack? {
-        return getPlaybackState() == .waiting ? nil : sequencer.getPlayingTrack()
-    }
+    var playingTrack: IndexedTrack? {return state == .waiting ? nil : sequencer.playingTrack}
     
-    func getWaitingTrack() -> IndexedTrack? {
-        return getPlaybackState() == .waiting ? sequencer.getPlayingTrack() : nil
-    }
+    var waitingTrack: IndexedTrack? {return state == .waiting ? sequencer.playingTrack : nil}
     
-    func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequencer.repeatAndShuffleModes}
+    
+    var playingTrackStartTime: TimeInterval? {return player.playingTrackStartTime}
+    
+    var playbackLoop: PlaybackLoop? {return player.playbackLoop}
+    
+    func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
         
-        if let playingTrack = sequencer.getPlayingTrack() {
+        if let playingTrack = sequencer.playingTrack {
             return playlist.groupingInfoForTrack(groupType, playingTrack.track)
         }
         
         return nil
+    }
+    
+    func seekToTime(_ seconds: Double) {
+        
+        // Calculate the new start position
+        let trackDuration = playingTrack!.track.duration
+        let percentage = seconds * 100 / trackDuration
+        seekToPercentage(percentage)
     }
     
     // MARK: Repeat and Shuffle
@@ -582,10 +569,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return sequencer.setShuffleMode(shuffleMode)
     }
     
-    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode){
-        return sequencer.getRepeatAndShuffleModes()
-    }
-    
     func toggleLoop() -> PlaybackLoop? {
         return player.toggleLoop()
     }
@@ -594,18 +577,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         player.removeLoop()
     }
     
-    func getPlayingTrackStartTime() -> TimeInterval? {
-        return player.getPlayingTrackStartTime()
-    }
-    
-    func getPlaybackLoop() -> PlaybackLoop? {
-        return player.getPlaybackLoop()
-    }
-    
     // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
     private func trackPlaybackCompleted() {
         
-        let oldTrack = getPlayingTrack()
+        let oldTrack = playingTrack
         
         // Reset playback profile last position to 0 (if there is a profile for the track that completed)
         if let profile = PlaybackProfiles.profileForTrack(oldTrack!.track) {
@@ -643,14 +618,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func saveProfile() {
         
-        if let plTrack = getPlayingTrack()?.track {
-            PlaybackProfiles.saveProfile(plTrack, getSeekPosition().timeElapsed)
+        if let plTrack = playingTrack?.track {
+            PlaybackProfiles.saveProfile(plTrack, seekPosition.timeElapsed)
         }
     }
     
     private func deleteProfile() {
         
-        if let plTrack = getPlayingTrack()?.track {
+        if let plTrack = playingTrack?.track {
             PlaybackProfiles.deleteProfile(plTrack)
         }
     }
@@ -661,10 +636,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         if preferences.rememberLastPosition {
             
             // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let plTrack = getPlayingTrack()?.track {
+            if let plTrack = playingTrack?.track {
                 
                 if preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(plTrack) != nil {
-                    PlaybackProfiles.saveProfile(plTrack, getSeekPosition().timeElapsed)
+                    PlaybackProfiles.saveProfile(plTrack, seekPosition.timeElapsed)
                 }
             }
         }
