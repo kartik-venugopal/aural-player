@@ -74,9 +74,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     var muted: Bool {
-        didSet {
-            playerNode.volume = muted ? 0 : playerVolume
-        }
+        didSet {playerNode.volume = muted ? 0 : playerVolume}
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
@@ -107,23 +105,11 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.balance = playerNode.pan
         
         state.masterUnitState = masterUnit.persistentState()
-        
-        // EQ
         state.eqUnitState = eqUnit.persistentState()
-        
-        // Pitch
         state.pitchUnitState = pitchUnit.persistentState()
-        
-        // Time
         state.timeUnitState = timeUnit.persistentState()
-        
-        // Reverb
         state.reverbUnitState = reverbUnit.persistentState()
-        
-        // Delay
         state.delayUnitState = delayUnit.persistentState()
-        
-        // Filter
         state.filterUnitState = filterUnit.persistentState()
         
         return state
