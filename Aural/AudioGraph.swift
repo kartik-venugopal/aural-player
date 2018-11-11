@@ -8,366 +8,79 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     private let audioEngine: AVAudioEngine
     private let mainMixer: AVAudioMixerNode
+    internal let playerNode: AVAudioPlayerNode
+    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
+    private let audioEngineHelper: AudioEngineHelper
+    internal let nodeForRecorderTap: AVAudioNode
     
-    // Audio graph nodes
+    // FX units
+    var masterUnit: MasterUnit
     var eqUnit: EQUnit
     var pitchUnit: PitchUnit
     var timeUnit: TimeUnit
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
-    
-    // Playback
-    internal let playerNode: AVAudioPlayerNode
-    
-    // Effects
-    private let filterNode: FlexibleFilterNode
-    
-    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
-    
-    // Helper
-    private let audioEngineHelper: AudioEngineHelper
-    
-    internal let nodeForRecorderTap: AVAudioNode
-    
-    // Temp variables to store individual node bypass states that can be saved/restored when master bypass is toggled
-    private var masterBypass: Bool
-    
-    private var filterSuppressed: Bool
+    var filterUnit: FilterUnit
     
     // Sound setting value holders
     private var playerVolume: Float
-    private var muted: Bool
-    
-    // Presets
-    private(set) var masterPresets: MasterPresets = MasterPresets()
-    private(set) var filterPresets: FilterPresets = FilterPresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
         
-        playerNode = AVAudioPlayerNode()
-        
         audioEngine = AVAudioEngine()
+        playerNode = AVAudioPlayerNode()
         mainMixer = audioEngine.mainMixerNode
+        nodeForRecorderTap = mainMixer
+        auxMixer = AVAudioMixerNode()
+        audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
         eqUnit = EQUnit(state)
         pitchUnit = PitchUnit(state)
         timeUnit = TimeUnit(state)
         reverbUnit = ReverbUnit(state)
         delayUnit = DelayUnit(state)
+        filterUnit = FilterUnit(state)
         
-        filterNode = FlexibleFilterNode()
-        auxMixer = AVAudioMixerNode()
-        nodeForRecorderTap = mainMixer
-        
-        audioEngineHelper = AudioEngineHelper(engine: audioEngine)
-        
+        let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
+        masterUnit = MasterUnit(state, slaveUnits)
+
         var nodes = [playerNode, auxMixer]
-        nodes.append(contentsOf: eqUnit.avNodes)
-        nodes.append(filterNode)
-        nodes.append(contentsOf: pitchUnit.avNodes)
-        nodes.append(contentsOf: timeUnit.avNodes)
-        nodes.append(contentsOf: reverbUnit.avNodes)
-        nodes.append(contentsOf: delayUnit.avNodes)
+        slaveUnits.forEach({nodes.append(contentsOf: $0.avNodes)})
         
         audioEngineHelper.addNodes(nodes)
-        
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
         
-        muted = state.muted
         playerVolume = state.volume
-        
-        if (muted) {
-            playerNode.volume = 0
-        } else {
-            playerNode.volume = playerVolume
-        }
-        
+        muted = state.muted
         playerNode.pan = state.balance
-        
-        masterBypass = state.masterState != .active
-        masterPresets.addPresets(state.masterUserPresets)
-        
-        // Filter
-        filterNode.bypass = state.filterState != .active
-        filterSuppressed = state.filterState == .suppressed
-        filterNode.addBands(state.filterBands)
-        filterPresets.addPresets(state.filterUserPresets)
-    }
-
-    private func bypassAllUnits() {
-        filterNode.bypass = true
     }
     
+    var volume: Float {
+        
+        get {return playerVolume}
+        
+        set(newValue) {
+            playerVolume = newValue
+            if !muted {playerNode.volume = newValue}
+        }
+    }
+    
+    var balance: Float {
+        
+        get {return playerNode.pan}
+        set(newValue) {playerNode.pan = newValue}
+    }
+    
+    var muted: Bool {
+        didSet {
+            playerNode.volume = muted ? 0 : playerVolume
+        }
+    }
+
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
         audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
-    }
-    
-    func toggleMasterBypass() -> Bool {
-        
-        let newState = !masterBypass
-        masterBypass = newState
-     
-        if masterBypass {
-            
-            // Active -> Inactive
-            
-            // If a unit was active (i.e. not bypassed), mark it as now being suppressed by the master bypass
-            
-            [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit].forEach({$0.suppress()})
-            filterSuppressed = !filterNode.bypass
-            
-            bypassAllUnits()
-            
-        } else {
-            
-            // Inactive -> Active
-            
-            [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit].forEach({$0.unsuppress()})
-            filterNode.bypass = !filterSuppressed
-        }
-        
-        return newState
-    }
-    
-    func isMasterBypass() -> Bool {
-        return masterBypass
-    }
-    
-    func saveMasterPreset(_ presetName: String) {
-        
-        let dummyPresetName = "masterPreset_" + presetName
-
-        // EQ state
-        let eqState = eqUnit.state
-        let eqBands = eqUnit.bands
-        let eqGlobalGain = eqUnit.globalGain
-
-        let eqPreset = EQPreset(dummyPresetName, eqState, eqBands, eqGlobalGain, false)
-
-        // Pitch state
-        let pitchState = pitchUnit.state
-        let pitch = pitchUnit.pitch
-        let pitchOverlap = pitchUnit.overlap
-        
-        let pitchPreset = PitchPreset(dummyPresetName, pitchState, pitch, pitchOverlap, false)
-
-        // Time state
-        let timeState = timeUnit.state
-        let rate = timeUnit.rate
-        let timeOverlap = timeUnit.overlap
-        let timePitchShift = timeUnit.shiftPitch
-
-        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
-
-        // Reverb state
-        let reverbState = reverbUnit.state
-        let space = reverbUnit.space
-        let reverbAmount = reverbUnit.amount
-
-        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
-
-        // Delay state
-        let delayState = delayUnit.state
-        let delayTime = delayUnit.time
-        let delayAmount = delayUnit.amount
-        let cutoff = delayUnit.lowPassCutoff
-        let feedback = delayUnit.feedback
-
-        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
-
-        // Filter state
-        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let filterPreset = FilterPreset(dummyPresetName, filterState, allFilterBands(), false)
-
-        // Save the new preset
-        let masterPreset = MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
-        masterPresets.addPreset(masterPreset)
-    }
-    
-    func getSettingsAsMasterPreset() -> MasterPreset {
-        
-        let dummyPresetName = "masterPreset_for_soundProfile"
-        
-        // EQ state
-        let eqState = eqUnit.state
-        let eqBands = eqUnit.bands
-        let eqGlobalGain = eqUnit.globalGain
-        
-        let eqPreset = EQPreset(dummyPresetName, eqState, eqBands, eqGlobalGain, false)
-        
-        // Pitch state
-        let pitchState = pitchUnit.state
-        let pitch = pitchUnit.pitch
-        let pitchOverlap = pitchUnit.overlap
-        
-        let pitchPreset = PitchPreset(dummyPresetName, pitchState, pitch, pitchOverlap, false)
-        
-        // Time state
-        let timeState = timeUnit.state
-        let rate = timeUnit.rate
-        let timeOverlap = timeUnit.overlap
-        let timePitchShift = timeUnit.shiftPitch
-        
-        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
-        
-        // Reverb state
-        let reverbState = reverbUnit.state
-        let space = reverbUnit.space
-        let reverbAmount = reverbUnit.amount
-        
-        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
-        
-        // Delay state
-        let delayState = delayUnit.state
-        let delayTime = delayUnit.time
-        let delayAmount = delayUnit.amount
-        let cutoff = delayUnit.lowPassCutoff
-        let feedback = delayUnit.feedback
-        
-        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
-        
-        // Filter state
-        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let filterPreset = FilterPreset(dummyPresetName, filterState, filterNode.allBands(), false)
-        
-        return MasterPreset("_masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
-    }
-    
-    func applyMasterPreset(_ preset: MasterPreset) {
-        
-//        applyEQPreset(preset.eq)
-//        applyTimePreset(preset.time)
-//        applyReverbPreset(preset.reverb)
-//        applyDelayPreset(preset.delay)
-        applyFilterPreset(preset.filter)
-        
-        // Apply unit states and determine master state
-//        timeNode.bypass = preset.time.state != .active
-//        delayNode.bypass = preset.delay.state != .active
-        filterNode.bypass = preset.filter.state != .active
-        
-        let needMasterActive = !filterNode.bypass
-        
-        if needMasterActive && masterBypass {
-            masterBypass = false
-        }
-    }
-    
-    func getVolume() -> Float {
-        return playerVolume
-    }
-    
-    func setVolume(_ volume: Float) {
-        playerVolume = volume
-        if (!muted) {
-            playerNode.volume = volume
-        }
-    }
-    
-    func mute() {
-        playerNode.volume = 0
-        muted = true
-    }
-    
-    func unmute() {
-        playerNode.volume = playerVolume
-        muted = false
-    }
-    
-    func isMuted() -> Bool {
-        return muted
-    }
-    
-    func getBalance() -> Float {
-        return playerNode.pan
-    }
-    
-    func setBalance(_ balance: Float) {
-        playerNode.pan = balance
-    }
-    
-    // MARK: Filter unit functions
-    
-    func getFilterState() -> EffectsUnitState {
-        return masterBypass ? (filterSuppressed ? .suppressed : .bypassed) : (filterNode.bypass ? .bypassed : .active)
-    }
-    
-    func toggleFilterState() -> EffectsUnitState {
-        
-        let curState = getFilterState()
-        let newState: EffectsUnitState
-        
-        switch curState {
-            
-        case .active:   newState = .bypassed
-            
-        case .bypassed: newState = .active
-                        if masterBypass {
-                            _ = toggleMasterBypass()
-                        }
-            
-        // Master unit is currently bypassed, activate it
-        case .suppressed:   newState = .active
-                            _ = toggleMasterBypass()
-            
-        }
-        
-        filterNode.bypass = newState != .active
-        
-        return newState
-    }
-    
-    func isFilterBypass() -> Bool {
-        return filterNode.bypass
-    }
-    
-    func toggleFilterBypass() -> Bool {
-        let newState = !filterNode.bypass
-        filterNode.bypass = newState
-        return newState
-    }
-    
-    func saveFilterPreset(_ presetName: String) {
-        
-        // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
-        var presetBands: [FilterBand] = []
-        filterNode.allBands().forEach({presetBands.append($0.clone())})
-        
-        filterPresets.addPreset(FilterPreset(presetName, .active, presetBands, false))
-    }
-    
-    func applyFilterPreset(_ preset: FilterPreset) {
-        
-        // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
-        var filterBands: [FilterBand] = []
-        preset.bands.forEach({filterBands.append($0.clone())})
-        filterNode.setBands(filterBands)
-    }
-    
-    func addFilterBand(_ band: FilterBand) -> Int {
-        return filterNode.addBand(band)
-    }
-    
-    func updateFilterBand(_ index: Int, _ band: FilterBand) {
-        filterNode.updateBand(index, band)
-    }
-    
-    func removeFilterBands(_ indexSet: IndexSet) {
-        filterNode.removeBands(indexSet)
-    }
-    
-    func removeAllFilterBands() {
-        filterNode.removeAllBands()
-    }
-    
-    func allFilterBands() -> [FilterBand] {
-        return filterNode.allBands()
-    }
-    
-    func getFilterBand(_ index: Int) -> FilterBand {
-        return filterNode.getBand(index)
     }
     
     // MARK: Miscellaneous functions
@@ -389,8 +102,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.muted = muted
         state.balance = playerNode.pan
         
-        state.masterState = masterBypass ? .bypassed : .active
-        state.masterUserPresets = masterPresets.userDefinedPresets
+//        state.masterState = masterBypass ? .bypassed : .active
+//        state.masterUserPresets = masterPresets.userDefinedPresets
         
         // EQ
         state.eqUnitState = eqUnit.persistentState()
@@ -408,9 +121,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.delayUnitState = delayUnit.persistentState()
         
         // Filter
-        state.filterState = getFilterState()
-        state.filterBands = filterNode.allBands()
-        state.filterUserPresets = filterPresets.userDefinedPresets
+        state.filterUnitState = filterUnit.persistentState()
         
         return state
     }

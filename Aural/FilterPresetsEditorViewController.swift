@@ -10,7 +10,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
+//    private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
     
     private var oldPresetName: String?
     
@@ -41,7 +41,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        filterPresets.deletePresets(selection)
+//        filterPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -78,7 +78,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyFilterPreset(selection[0])
+//        graph.applyFilterPreset(selection[0])
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .filter))
     }
     
@@ -91,7 +91,8 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func getFilterChartBands() -> [FilterBand] {
         
         if !getSelectedPresetNames().isEmpty {
-            return filterPresets.presetByName(getSelectedPresetNames()[0])!.bands
+//            return filterPresets.presetByName(getSelectedPresetNames()[0])!.bands
+            return []
         }
         
         return []
@@ -101,7 +102,8 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return filterPresets.userDefinedPresets.count
+//        return filterPresets.userDefinedPresets.count
+        return 0
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -113,10 +115,10 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            let preset = filterPresets.presetByName(presetName)!
-            bandsDataSource.preset = preset
-            renderPreview(preset)
-            oldPresetName = presetName
+//            let preset = filterPresets.presetByName(presetName)!
+//            bandsDataSource.preset = preset
+//            renderPreview(preset)
+//            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -130,8 +132,8 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = filterPresets.userDefinedPresets[row]
-        return createTextCell(tableView, tableColumn!, row, preset.name)
+//        let preset = filterPresets.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, "preset.name")
     }
     
     // Creates a cell view containing text
@@ -161,44 +163,44 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
-        
-        // Access the old value from the temp storage variable
-        
-        let oldName = oldPresetName ?? editedTextField.stringValue
-        
-        if let preset = filterPresets.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.playlistSelectedTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else if filterPresets.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                filterPresets.renamePreset(oldName, newPresetName)
-            }
-            
-        } else {
-            
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldName
-        }
+//        let rowIndex = editorView.selectedRow
+//        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+//        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
+//        let editedTextField = cell.textField!
+//
+//        // Access the old value from the temp storage variable
+//
+//        let oldName = oldPresetName ?? editedTextField.stringValue
+//
+//        if let preset = filterPresets.presetByName(oldName) {
+//
+//            let newPresetName = editedTextField.stringValue
+//
+//            editedTextField.textColor = Colors.playlistSelectedTextColor
+//
+//            // TODO: What if the string is too long ?
+//
+//            // Empty string is invalid, revert to old value
+//            if (StringUtils.isStringEmpty(newPresetName)) {
+//
+//                editedTextField.stringValue = preset.name
+//
+//            } else if filterPresets.presetWithNameExists(newPresetName) {
+//
+//                // Another preset with that name exists, can't rename
+//                editedTextField.stringValue = preset.name
+//
+//            } else {
+//
+//                // Update the preset name
+//                filterPresets.renamePreset(oldName, newPresetName)
+//            }
+//
+//        } else {
+//
+//            // IMPOSSIBLE
+//            editedTextField.stringValue = oldName
+//        }
     }
     
     // MARK: Message handling

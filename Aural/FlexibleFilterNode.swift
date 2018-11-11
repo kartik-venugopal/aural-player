@@ -10,13 +10,9 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     static let bandStopGain: Float = -24
     static let minBandwidth: Float = 0.05
     
-    var numberOfBands: Int {
-        return bandInfos.count
-    }
+    var numberOfBands: Int {return bandInfos.count}
     
-    var maxBands: Int {
-        return bands.count
-    }
+    var maxBands: Int {return bands.count}
     
     var inactiveBands: [AVAudioUnitEQFilterParameters] = []
     
@@ -100,6 +96,7 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     func updateBand(_ index: Int, _ band: FilterBand) {
         
         let updatedBand = bandInfos[index]
+        
         updatedBand.type = band.type
         updatedBand.minFreq = band.minFreq
         updatedBand.maxFreq = band.maxFreq
@@ -169,6 +166,7 @@ class FilterBand {
     }
     
     init(_ type: FilterBandType, _ minFreq: Float?, _ maxFreq: Float?) {
+        
         self.type = type
         self.minFreq = minFreq
         self.maxFreq = maxFreq

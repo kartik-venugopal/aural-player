@@ -2,51 +2,34 @@ import Cocoa
 import AVFoundation
 
 /*
-    Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
+    Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and other sound effects
  */
-protocol AudioGraphProtocol: FilterUnitProtocol {
+protocol AudioGraphProtocol {
     
-    func toggleMasterBypass() -> Bool
+    var volume: Float {get set}
     
-    func isMasterBypass() -> Bool
+    var balance: Float {get set}
     
-    var masterPresets: MasterPresets {get}
+    var muted: Bool {get set}
     
-    func saveMasterPreset(_ presetName: String)
+    var masterUnit: MasterUnit {get set}
     
-    func applyMasterPreset(_ preset: MasterPreset)
+    var eqUnit: EQUnit {get set}
+    
+    var pitchUnit: PitchUnit {get set}
+    
+    var timeUnit: TimeUnit {get set}
+    
+    var reverbUnit: ReverbUnit {get set}
+    
+    var delayUnit: DelayUnit {get set}
+    
+    var filterUnit: FilterUnit {get set}
     
     func getSettingsAsMasterPreset() -> MasterPreset
     
-    // Retrieves the current player volume
-    func getVolume() -> Float
-    
-    // Sets the player volume, specified as a value between 0 and 1
-    func setVolume(_ volume: Float)
-    
-    // Retrieves the current stereo L/R balance (aka pan)
-    func getBalance() -> Float
-    
-    // Sets the stereo L/R balance (aka pan), specified as a value between -1 (L) and 1 (R)
-    func setBalance(_ balance: Float)
-    
-    // Mutes the player
-    func mute()
-    
-    // Unmutes the player
-    func unmute()
-    
-    // Determines whether the player is currently muted
-    func isMuted() -> Bool
-    
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
-    
-    var eqUnit: EQUnit {get set}
-    var pitchUnit: PitchUnit {get set}
-    var timeUnit: TimeUnit {get set}
-    var reverbUnit: ReverbUnit {get set}
-    var delayUnit: DelayUnit {get set}
 }
 
 /*

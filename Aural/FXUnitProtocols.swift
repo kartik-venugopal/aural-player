@@ -22,6 +22,8 @@ protocol FXUnitProtocol {
     
     func applyPreset(_ presetName: String)
     
+    func applyPreset(_ preset: PresetType)
+    
     func getSettingsAsPreset() -> PresetType
 }
 
@@ -100,13 +102,11 @@ protocol DelayUnitProtocol: FXUnitProtocol {
     var lowPassCutoff: Float {get set}
 }
 
-protocol FilterUnitProtocol {
+protocol FilterUnitProtocol: FXUnitProtocol {
     
-    // Returns the current state of the filter audio effects unit
-    func getFilterState() -> EffectsUnitState
+    var bands: [FilterBand] {get set}
     
-    // Toggles the state of the filter audio effects unit, and returns its new state
-    func toggleFilterState() -> EffectsUnitState
+    func getFilterBand(_ index: Int) -> FilterBand
     
     func addFilterBand(_ band: FilterBand) -> Int
     
@@ -115,14 +115,4 @@ protocol FilterUnitProtocol {
     func removeFilterBands(_ indexSet: IndexSet)
     
     func removeAllFilterBands()
-    
-    func allFilterBands() -> [FilterBand]
-    
-    func getFilterBand(_ index: Int) -> FilterBand
-    
-    var filterPresets: FilterPresets {get}
-    
-    func saveFilterPreset(_ presetName: String)
-    
-    func applyFilterPreset(_ preset: FilterPreset)
 }

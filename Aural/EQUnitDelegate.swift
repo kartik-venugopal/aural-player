@@ -13,28 +13,24 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     var type: EQType {
         
         get {return unit.type}
-        
         set(newType) {unit.type = newType}
     }
     
     var globalGain: Float {
         
         get {return unit.globalGain}
-        
         set(newValue) {unit.globalGain = newValue}
     }
     
     var bands: [Int: Float] {
         
         get {return unit.bands}
-        
         set(newValue) {unit.bands = newValue}
     }
     
     var sync: Bool {
         
         get {return unit.sync}
-        
         set(newValue) {unit.sync = newValue}
     }
     
@@ -99,16 +95,4 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     override func applyPreset(_ presetName: String) {
         unit.applyPreset(presetName)
     }
-    
-    //    func persistentState() -> EQUnitState {
-    //
-    //        let unitState = EQUnitState()
-    //
-    //        unitState.unitState = state
-    //        unitState.pitch = pitch
-    //        unitState.overlap = overlap
-    //        unitState.userPresets = presets.userDefinedPresets
-    //
-    //        return unitState
-    //    }
 }

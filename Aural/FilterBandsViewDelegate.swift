@@ -9,18 +9,18 @@ protocol FilterBandsDataSource {
 
 class AudioGraphFilterBandsDataSource: FilterBandsDataSource {
     
-    private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private var filterUnit: FilterUnitDelegate = ObjectGraph.getAudioGraphDelegate().filterUnit
     
-    init(_ graph: AudioGraphDelegateProtocol) {
-        self.graph = graph
+    init(_ filterUnit: FilterUnitDelegate) {
+        self.filterUnit = filterUnit
     }
     
     func countFilterBands() -> Int {
-        return graph.allFilterBands().count
+        return filterUnit.bands.count
     }
     
     func getFilterBand(_ index: Int) -> FilterBand {
-        return graph.getFilterBand(index)
+        return filterUnit.bands[index]
     }
 }
 

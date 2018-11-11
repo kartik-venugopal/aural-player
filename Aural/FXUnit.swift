@@ -4,7 +4,12 @@ import AVFoundation
 class FXUnit {
     
     var unitType: EffectsUnit
-    var state: EffectsUnitState
+    var state: EffectsUnitState {
+        didSet {stateChanged()}
+    }
+    var avNodes: [AVAudioNode] {return []}
+    
+    var isActive: Bool {return state == .active}
     
     init(_ unitType: EffectsUnit, _ state: EffectsUnitState) {
         
@@ -12,15 +17,17 @@ class FXUnit {
         self.state = state
     }
     
+    func stateChanged() {
+        
+        if isActive && unitType != .master {
+            SyncMessenger.publishNotification(FXUnitActivatedNotification.instance)
+        }
+    }
+    
     // Toggles the state of the effects unit, and returns its new state
     func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
-        
-        if state == .active && unitType != .master {
-            SyncMessenger.publishNotification(FXUnitActivatedNotification.instance)
-        }
-        
         return state
     }
     

@@ -2,10 +2,6 @@ import AVFoundation
 
 class DelayUnit: FXUnit, DelayUnitProtocol {
     
-    override var state: EffectsUnitState {
-        didSet {node.bypass = state != .active}
-    }
-    
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets = DelayPresets()
     
@@ -14,7 +10,6 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         let delayState = appState.delayUnitState
         
         super.init(.delay, delayState.unitState)
-        node.bypass = state != .active
         
         time = delayState.time
         amount = delayState.amount
@@ -24,7 +19,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         presets.addPresets(delayState.userPresets)
     }
     
-    var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {return [node]}
     
     override func reset() {
         node.reset()
@@ -54,6 +49,12 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         set(newValue) {node.lowPassCutoff = newValue}
     }
     
+    override func stateChanged() {
+        
+        super.stateChanged()
+        node.bypass = !isActive
+    }
+    
     override func savePreset(_ presetName: String) {
         presets.addPreset(DelayPreset(presetName, state, amount, time, feedback, lowPassCutoff, false))
     }
@@ -61,12 +62,17 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     override func applyPreset(_ presetName: String) {
         
         if let preset = presets.presetByName(presetName) {
-            
-            time = preset.time
-            amount = preset.amount
-            feedback = preset.feedback
-            lowPassCutoff = preset.cutoff
+            applyPreset(preset)
         }
+    }
+    
+    func applyPreset(_ preset: DelayPreset) {
+        
+        state = preset.state
+        time = preset.time
+        amount = preset.amount
+        feedback = preset.feedback
+        lowPassCutoff = preset.cutoff
     }
     
     func getSettingsAsPreset() -> DelayPreset {

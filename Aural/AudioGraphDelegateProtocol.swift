@@ -3,55 +3,32 @@
  */
 import Cocoa
 
-protocol AudioGraphDelegateProtocol: FilterUnitDelegateProtocol {
+protocol AudioGraphDelegateProtocol {
     
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
+    var volume: Float {get set}
     
-    func toggleMasterBypass() -> Bool
-    
-    func isMasterBypass() -> Bool
-    
-    var masterPresets: MasterPresets {get}
-    
-    func saveMasterPreset(_ presetName: String)
-    
-    func applyMasterPreset(_ presetName: String)
-    
-    func applyMasterPreset(_ preset: MasterPreset)
-    
-    func getSettingsAsMasterPreset() -> MasterPreset
-    
-    // Retrieves the current player volume
-    func getVolume() -> Float
-    
-    // Sets the player volume, specified as a percentage (0 to 100)
-    func setVolume(_ volumePercentage: Float)
+    var formattedVolume: String {get}
     
     /*
-        Increases the player volume by a small increment. Returns the new player volume.
+     Increases the player volume by a small increment. Returns the new player volume.
      
-        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the amount by which the volume is increased.
+     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the amount by which the volume is increased.
      */
     func increaseVolume(_ actionMode: ActionMode) -> Float
     
     /*
-        Decreases the player volume by a small decrement. Returns the new player volume.
+     Decreases the player volume by a small decrement. Returns the new player volume.
      
-        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the amount by which the volume is decreased.
+     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the amount by which the volume is decreased.
      */
     func decreaseVolume(_ actionMode: ActionMode) -> Float
     
-    // Toggles mute between on/off. Returns true if muted after method execution, false otherwise
-    func toggleMute() -> Bool
+    var muted: Bool {get set}
     
-    // Determines whether player is currently muted
-    func isMuted() -> Bool
+    var balance: Float {get set}
     
-    // Retrieves the current L/R balance (aka pan)
-    func getBalance() -> Float
-    
-    // Sets the L/R balance (aka pan), specified as a percentage value between -100 (L) and 100 (R)
-    func setBalance(_ balancePercentage: Float)
+    var formattedBalance: String {get}
     
     // Pans left by a small increment. Returns new balance value.
     func panLeft() -> Float
@@ -64,6 +41,7 @@ protocol AudioGraphDelegateProtocol: FilterUnitDelegateProtocol {
     var timeUnit: TimeUnitDelegate {get set}
     var reverbUnit: ReverbUnitDelegate {get set}
     var delayUnit: DelayUnitDelegate {get set}
+    var filterUnit: FilterUnitDelegate {get set}
 }
 
 protocol FXUnitDelegateProtocol {

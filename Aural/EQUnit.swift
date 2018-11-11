@@ -2,10 +2,6 @@ import AVFoundation
 
 class EQUnit: FXUnit, EQUnitProtocol {
     
-    override var state: EffectsUnitState {
-        didSet {node.bypass = state != .active}
-    }
-    
     private let node: ParametricEQ
     let presets: EQPresets = EQPresets()
     
@@ -15,7 +11,6 @@ class EQUnit: FXUnit, EQUnitProtocol {
         
         node = ParametricEQ(eqState.type, eqState.sync)
         super.init(.eq, eqState.unitState)
-        node.bypass = state != .active
         
         bands = eqState.bands
         globalGain = eqState.globalGain
@@ -23,35 +18,37 @@ class EQUnit: FXUnit, EQUnitProtocol {
         presets.addPresets(eqState.userPresets)
     }
     
+    override func stateChanged() {
+        
+        super.stateChanged()
+        node.bypass = !isActive
+    }
+    
     var type: EQType {
         
         get {return node.type}
-        
         set(newType) {node.chooseType(newType)}
     }
     
     var globalGain: Float {
         
         get {return node.globalGain}
-        
         set(newValue) {node.globalGain = newValue}
     }
     
     var bands: [Int: Float] {
         
         get {return node.allBands()}
-        
         set(newValue) {node.setBands(newValue)}
     }
     
     var sync: Bool {
         
         get {return node.sync}
-        
         set(newValue) {node.sync = newValue}
     }
     
-    var avNodes: [AVAudioNode] {
+    override var avNodes: [AVAudioNode] {
         return node.allNodes
     }
     
@@ -90,10 +87,15 @@ class EQUnit: FXUnit, EQUnitProtocol {
     override func applyPreset(_ presetName: String) {
         
         if let preset = presets.presetByName(presetName) {
-            
-            bands = preset.bands
-            globalGain = preset.globalGain
+            applyPreset(preset)
         }
+    }
+    
+    func applyPreset(_ preset: EQPreset) {
+        
+        state = preset.state
+        bands = preset.bands
+        globalGain = preset.globalGain
     }
     
     func getSettingsAsPreset() -> EQPreset {

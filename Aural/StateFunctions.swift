@@ -7,3 +7,4 @@ let pitchStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in re
 let timeStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.timeUnit.state}
 let reverbStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.reverbUnit.state}
 let delayStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.delayUnit.state}
+let filterStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.filterUnit.state}

@@ -2,16 +2,8 @@ import AVFoundation
 
 class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
-    override var state: EffectsUnitState {
-        didSet {node.bypass = state != .active}
-    }
-    
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets = ReverbPresets()
-    
-    var avSpace: AVAudioUnitReverbPreset {
-        didSet {node.loadFactoryPreset(avSpace)}
-    }
     
     init(_ appState: AudioGraphState) {
         
@@ -19,16 +11,19 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
         
         avSpace = reverbState.space.avPreset
         super.init(.reverb, reverbState.unitState)
-        node.bypass = state != .active
         
         amount = reverbState.amount
         presets.addPresets(reverbState.userPresets)
     }
     
-    var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {return [node]}
     
     override func reset() {
         node.reset()
+    }
+    
+    var avSpace: AVAudioUnitReverbPreset {
+        didSet {node.loadFactoryPreset(avSpace)}
     }
     
     var space: ReverbSpaces {
@@ -43,6 +38,12 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
         set(newValue) {node.wetDryMix = newValue}
     }
     
+    override func stateChanged() {
+        
+        super.stateChanged()
+        node.bypass = !isActive
+    }
+    
     override func savePreset(_ presetName: String) {
         presets.addPreset(ReverbPreset(presetName, state, space, amount, false))
     }
@@ -50,13 +51,19 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     override func applyPreset(_ presetName: String) {
         
         if let preset = presets.presetByName(presetName) {
-            space = preset.space
-            amount = preset.amount
+            applyPreset(preset)
         }
     }
     
+    func applyPreset(_ preset: ReverbPreset) {
+        
+        state = preset.state
+        space = preset.space
+        amount = preset.amount
+    }
+    
     func getSettingsAsPreset() -> ReverbPreset {
-        return ReverbPreset("", state, space, amount, false)
+        return ReverbPreset("reverbSettings", state, space, amount, false)
     }
     
     func persistentState() -> ReverbUnitState {
