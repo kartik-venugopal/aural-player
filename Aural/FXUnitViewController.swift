@@ -24,6 +24,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     }
     
     func oneTimeSetup() {
+        
         btnBypass.stateFunction = self.unitStateFunction
         initSubscriptions()
     }

@@ -30,8 +30,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func deleteSelectedPresetsAction() {
         
-        let selection = getSelectedPresetNames()
-        presetsWrapper.deletePresets(selection)
+        presetsWrapper.deletePresets(getSelectedPresetNames())
         editorView.reloadData()
         
         previewBox.hide()
@@ -52,6 +51,10 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         return names
     }
     
+    var firstSelectedPresetName: String {
+        return (editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView).textField!.stringValue
+    }
+    
     func renamePresetAction() {
         
         let rowIndex = editorView.selectedRow
@@ -63,8 +66,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func applyPresetAction() {
         
-        let selection = getSelectedPresetNames()
-        fxUnit.applyPreset(selection[0])
+        fxUnit.applyPreset(firstSelectedPresetName)
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, self.unitType))
     }
     
@@ -80,14 +82,12 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     func tableViewSelectionDidChange(_ notification: Notification) {
         
         let numRows = editorView.numberOfSelectedRows
-        
-        previewBox.hideIf_elseShow(numRows != 1)
+        previewBox.showIf_elseHide(numRows == 1)
         
         if numRows == 1 {
             
-            let presetName = getSelectedPresetNames()[0]
+            let presetName = firstSelectedPresetName
             renderPreview(presetName)
-            previewBox.show()
             oldPresetName = presetName
         }
         
