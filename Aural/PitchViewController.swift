@@ -18,15 +18,9 @@ class PitchViewController: FXUnitViewController {
         
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
         unitType = .pitch
-        fxUnit = graph.pitchUnit
+        fxUnit = pitchUnit
         unitStateFunction = pitchStateFunction
         presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
-    }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        initSubscriptions()
     }
     
     override func initSubscriptions() {

@@ -15,6 +15,7 @@ class FXUnit {
         
         self.unitType = unitType
         self.state = state
+        stateChanged()
     }
     
     func stateChanged() {

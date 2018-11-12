@@ -118,7 +118,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if notification is EffectsUnitStateChangedNotification {
+        if notification.messageType == .effectsUnitStateChangedNotification {
             initControls()
         }
     }

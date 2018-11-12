@@ -133,6 +133,7 @@
 		3E3FB7F9215B590A00974A59 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7F8215B590A00974A59 /* Favorites.swift */; };
 		3E3FB7FB215B5B4800974A59 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */; };
 		3E3FB7FD215B5BBB00974A59 /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */; };
+		3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
@@ -483,6 +484,7 @@
 		3E3FB7F8215B590A00974A59 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
+		3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsEditorGenericViewController.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
@@ -906,6 +908,7 @@
 			children = (
 				3E24F4CF21699E5000B9CDA6 /* EffectsPresetsEditor.xib */,
 				3E24F4D82169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift */,
+				3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */,
 				3E24F4D72169A0DD00B9CDA6 /* Master */,
 				3E24F4D12169A0B400B9CDA6 /* EQ */,
 				3E24F4D22169A0BA00B9CDA6 /* Pitch */,
@@ -2103,6 +2106,7 @@
 				3E3A63691F690EA200F72A60 /* PreferencesDelegate.swift in Sources */,
 				3E24ED431FBB28700023F9F9 /* TimeViewController.swift in Sources */,
 				3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */,
+				3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */,
 				3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */,
 				3E7DCBDF2197709500C6D6D3 /* FilterUnitDelegate.swift in Sources */,
 				3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */,

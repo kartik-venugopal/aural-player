@@ -18,6 +18,16 @@ class MasterViewController: FXUnitViewController {
     
     override var nibName: String? {return "Master"}
     
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        unitType = .master
+        fxUnit = masterUnit
+        unitStateFunction = masterStateFunction
+        presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
+    }
+    
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
@@ -36,12 +46,14 @@ class MasterViewController: FXUnitViewController {
         
         super.initControls()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     @IBAction override func bypassAction(_ sender: AnyObject) {
         
         super.bypassAction(sender)
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     @IBAction override func presetsAction(_ sender: AnyObject) {
@@ -51,16 +63,19 @@ class MasterViewController: FXUnitViewController {
     }
     
     private func updateButtons() {
-        
+        masterView.stateChanged()
+    }
+    
+    private func broadcastStateChangeNotification() {
         // Update the bypass buttons for the effects units
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
-        masterView.stateChanged()
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
         
         _ = eqUnit.toggleState()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     // Activates/deactivates the Pitch effects unit
@@ -68,6 +83,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = pitchUnit.toggleState()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -78,6 +94,7 @@ class MasterViewController: FXUnitViewController {
         
         SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     // Activates/deactivates the Reverb effects unit
@@ -85,6 +102,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = reverbUnit.toggleState()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     // Activates/deactivates the Delay effects unit
@@ -92,6 +110,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = delayUnit.toggleState()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     // Activates/deactivates the Filter effects unit
@@ -99,6 +118,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = filterUnit.toggleState()
         updateButtons()
+        broadcastStateChangeNotification()
     }
     
     private func saveSoundProfile() {
@@ -131,9 +151,11 @@ class MasterViewController: FXUnitViewController {
     
     override func consumeNotification(_ notification: NotificationMessage) {
         
-        super.consumeNotification(notification)
-        
         switch notification.messageType {
+            
+        case .effectsUnitStateChangedNotification:
+            
+            updateButtons()
         
         case .trackChangedNotification:
             
