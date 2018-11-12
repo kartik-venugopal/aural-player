@@ -1,6 +1,6 @@
 import Foundation
 
-class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchShiftUnitDelegateProtocol {
+class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     

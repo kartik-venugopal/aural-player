@@ -1,6 +1,6 @@
 import Foundation
 
-class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeStretchUnitDelegateProtocol {
+class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     

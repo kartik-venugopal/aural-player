@@ -7,7 +7,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "FilterPresetsEditor"}
     
-    var filterUnit: FilterUnitDelegate {return graph.filterUnit}
+    var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
     
     override func awakeFromNib() {
         

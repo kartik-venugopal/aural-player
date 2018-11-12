@@ -6,7 +6,7 @@ class ReverbPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "ReverbPresetsEditor"}
     
-    var reverbUnit: ReverbUnitDelegate {return graph.reverbUnit}
+    var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
     
     override func awakeFromNib() {
         

@@ -1,6 +1,6 @@
 import Foundation
 
-class MasterUnitDelegate: FXUnitDelegate<MasterUnit> {
+class MasterUnitDelegate: FXUnitDelegate<MasterUnit>, MasterUnitDelegateProtocol {
     
     let graph: AudioGraphProtocol
     let soundPreferences: SoundPreferences

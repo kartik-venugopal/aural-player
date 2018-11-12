@@ -6,7 +6,7 @@ class DelayPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "DelayPresetsEditor"}
     
-    var delayUnit: DelayUnitDelegate {return graph.delayUnit}
+    var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().delayUnit
     
     override func awakeFromNib() {
         

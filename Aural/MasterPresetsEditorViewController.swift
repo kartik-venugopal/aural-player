@@ -25,7 +25,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "MasterPresetsEditor"}
     
-    var masterUnit: MasterUnitDelegate {return graph.masterUnit}
+    var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
     
     override func awakeFromNib() {
         

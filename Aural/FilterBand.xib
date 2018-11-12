@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FilterBandViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="cutoffSlider" destination="wYO-9x-wjI" id="Z9k-oy-3og"/>
+                <outlet property="cutoffSliderCell" destination="wfe-Er-w3H" id="eqd-97-cz4"/>
+                <outlet property="filterTypeMenu" destination="MJ3-Sv-cdg" id="3yL-tV-RbT"/>
+                <outlet property="freqRangeSlider" destination="eIm-fO-zcJ" id="yRD-YI-5BD"/>
+                <outlet property="lblCutoffCaption" destination="wzh-Oc-HHf" id="LmC-IF-ZPK"/>
+                <outlet property="lblFrequencies" destination="O34-nB-lgF" id="Len-tm-9Wp"/>
+                <outlet property="lblPresetCutoffsCaption" destination="mSu-aD-uYm" id="Tws-3V-LsW"/>
+                <outlet property="lblPresetRangesCaption" destination="fQV-te-4cX" id="4Zq-hG-RTI"/>
+                <outlet property="lblRangeCaption" destination="b5A-Za-rhh" id="AtI-5f-Ox8"/>
+                <outlet property="presetCutoffsMenu" destination="5nl-0F-3Hj" id="SFK-Fj-EXV"/>
+                <outlet property="presetRangesMenu" destination="w0k-fw-FrQ" id="rS5-BR-hq8"/>
+                <outlet property="view" destination="jGK-0m-f8s" id="54P-Hg-fUH"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view wantsLayer="YES" id="jGK-0m-f8s" userLabel="Band Editor">
+            <rect key="frame" x="0.0" y="0.0" width="367" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e1R-Of-2yx">
+                    <rect key="frame" x="0.0" y="36" width="33" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Type" id="Wey-bl-g9f">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJ3-Sv-cdg" userLabel="Type Menu">
+                    <rect key="frame" x="123" y="33" width="101" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Band pass" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="TRg-eJ-35N" id="wDH-mC-fA2" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="M4W-hO-VYn">
+                            <items>
+                                <menuItem title="Band pass" id="TRg-eJ-35N">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Band stop" id="tsr-az-HKf">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Low pass" id="wxF-kc-qXk">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="High pass" id="JAS-nK-bhN">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="bandTypeAction:" target="-2" id="yhi-tf-73M"/>
+                    </connections>
+                </popUpButton>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wzh-Oc-HHf">
+                    <rect key="frame" x="0.0" y="15" width="95" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff frequency" id="Qpp-3K-VQo">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b5A-Za-rhh">
+                    <rect key="frame" x="0.0" y="16" width="104" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Frequency range" id="WUh-Ge-BCr">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="usF-eP-Jag" userLabel="Treble 20K">
+                    <rect key="frame" x="344" y="15" width="25" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="pXr-Kg-r44">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O34-nB-lgF" userLabel="Lbl Treble Range">
+                    <rect key="frame" x="190" y="1" width="109" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="vtr-FG-se2">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWk-mQ-p2Y" userLabel="Bass 20">
+                    <rect key="frame" x="106" y="15" width="30" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="aOt-1X-p0y">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wYO-9x-wjI" userLabel="Cutoff Freq Slider" customClass="CutoffFrequencySlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="141" y="14" width="200" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="20" maxValue="20000" doubleValue="20" tickMarkPosition="below" sliderType="linear" id="wfe-Er-w3H" customClass="CutoffFrequencySliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <connections>
+                        <action selector="cutoffSliderAction:" target="-2" id="CwQ-aJ-bQo"/>
+                    </connections>
+                </slider>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-fO-zcJ" customClass="FilterBandSlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="142" y="12" width="197" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                            <real key="value" value="20000"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mSu-aD-uYm" userLabel="Lbl preset f">
+                    <rect key="frame" x="0.0" y="-1" width="104" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preset frequencies" id="5ka-2L-ee9">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQV-te-4cX" userLabel="Lbl preset f ranges">
+                    <rect key="frame" x="0.0" y="0.0" width="120" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preset frequency ranges" id="VDl-XY-vOa">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5nl-0F-3Hj" userLabel="Preset fs">
+                    <rect key="frame" x="123" y="-5" width="193" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Audible range min (20Hz)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" altersStateOfSelectedItem="NO" selectedItem="GnX-en-Zv9" id="2P0-IN-Kaa" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="AwD-Le-bcu">
+                            <items>
+                                <menuItem title="Audible range min (20Hz)" tag="20" id="GnX-en-Zv9" userLabel="Audible range min (20Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Sub-bass range max (60Hz)" tag="60" id="wYc-oB-dUi" userLabel="Sub-bass range max (60Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Bass range max (250Hz)" tag="250" id="xoA-f0-QxI" userLabel="Bass range max (250Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Low midrange max (500Hz)" tag="500" id="vKL-Bt-8X2" userLabel="Low midrange max (500Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Midrange max (2KHz)" tag="2000" id="M2a-VC-Mis" userLabel="Midrange max (2KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Upper Midrange max (4KHz)" tag="4000" id="VMK-O5-Qh7" userLabel="Upper Midrange max (4KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="VQG-is-Gvo" userLabel="Presence (treble) max (6KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Audible range max (20KHz)" tag="20000" id="Idk-GN-LfK" userLabel="Audible range max (20KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetCutoffAction:" target="-2" id="PN2-BM-JKp"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0k-fw-FrQ" userLabel="Preset ranges">
+                    <rect key="frame" x="123" y="-5" width="193" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Audible range (20Hz - 20KHz)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" altersStateOfSelectedItem="NO" selectedItem="4FM-9Q-kGh" id="xTY-EL-6Cq" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="5nP-gh-DRh">
+                            <items>
+                                <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="4FM-9Q-kGh" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="eVo-lc-0FE" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Bass range (60Hz - 250Hz)" tag="250" id="gQs-vu-Nmb" userLabel="Bass range (60Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Bass range (20Hz - 250Hz)" tag="500" id="g35-Ex-0BU" userLabel="Entire Bass range (20Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="fI3-EZ-JTI" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="500"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Midrange (500Hz - 2KHz)" tag="4000" id="Etv-8R-2nk" userLabel="Midrange (500Hz - 2KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="500"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="2000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Upper Midrange (2KHz - 4KHz)" tag="4000" id="TBR-bS-MsE" userLabel="Upper Midrange (2KHz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="2000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Midrange (250Hz - 4KHz)" tag="4000" id="XMH-u6-JJ5" userLabel="Entire Midrange (250Hz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="qMl-C2-g2P" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="6000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Brilliance (Treble) range (6KHz - 20KHz)" tag="20000" id="V7b-3H-59j" userLabel="Brilliance (Treble) range (6KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="6000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Treble range (4KHz - 20KHz)" tag="20000" id="hXM-6l-sPn" userLabel="Entire Treble range (4KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetRangeAction:" target="-2" id="ucH-hg-F2Q"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="161.5" y="-342"/>
+        </view>
+    </objects>
+</document>

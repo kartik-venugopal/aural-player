@@ -6,13 +6,13 @@ import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber {
     
-    var masterUnit: MasterUnitDelegate
-    var eqUnit: EQUnitDelegate
-    var pitchUnit: PitchUnitDelegate
-    var timeUnit: TimeUnitDelegate
-    var reverbUnit: ReverbUnitDelegate
-    var delayUnit: DelayUnitDelegate
-    var filterUnit: FilterUnitDelegate
+    var masterUnit: MasterUnitDelegateProtocol
+    var eqUnit: EQUnitDelegateProtocol
+    var pitchUnit: PitchUnitDelegateProtocol
+    var timeUnit: TimeUnitDelegateProtocol
+    var reverbUnit: ReverbUnitDelegateProtocol
+    var delayUnit: DelayUnitDelegateProtocol
+    var filterUnit: FilterUnitDelegateProtocol
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol

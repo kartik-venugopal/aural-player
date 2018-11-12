@@ -7,7 +7,7 @@ class EQViewController: FXUnitViewController {
     
     @IBOutlet weak var eqView: EQView!
     
-    private var eqUnit: EQUnitDelegate {return graph.eqUnit}
+    private var eqUnit: EQUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().eqUnit
     
     override var nibName: String? {return "EQ"}
     

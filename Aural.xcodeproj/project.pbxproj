@@ -272,6 +272,8 @@
 		3EB7F461217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */; };
 		3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */; };
 		3EB7F466217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */; };
+		3EB9304921996353008E45F8 /* FilterBand.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB9304821996353008E45F8 /* FilterBand.xib */; };
+		3EB9304B21996376008E45F8 /* FilterBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB9304A21996376008E45F8 /* FilterBandViewController.swift */; };
 		3EB9EB6C1FCFB98A00287F53 /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */; };
 		3EBA52F51FC2E29E007F902F /* KeyCodeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */; };
 		3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F61FC2E6A2007F902F /* StateMachine.swift */; };
@@ -628,6 +630,8 @@
 		3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsPlaylistSort.xib; sourceTree = "<group>"; };
 		3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenresPlaylistSort.xib; sourceTree = "<group>"; };
 		3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresPlaylistSortViewController.swift; sourceTree = "<group>"; };
+		3EB9304821996353008E45F8 /* FilterBand.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterBand.xib; sourceTree = "<group>"; };
+		3EB9304A21996376008E45F8 /* FilterBandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandViewController.swift; sourceTree = "<group>"; };
 		3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodeConstants.swift; sourceTree = "<group>"; };
 		3EBA52F61FC2E6A2007F902F /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
@@ -857,7 +861,9 @@
 			isa = PBXGroup;
 			children = (
 				3E3F296A215A395A00581EFE /* Filter.xib */,
+				3EB9304821996353008E45F8 /* FilterBand.xib */,
 				3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */,
+				3EB9304A21996376008E45F8 /* FilterBandViewController.swift */,
 				3EA2E6532192FA1900FB5BAC /* FilterView.swift */,
 				3EF743AE218C366A0060BDE0 /* FilterChart.swift */,
 				3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */,
@@ -1856,6 +1862,7 @@
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
+				3EB9304921996353008E45F8 /* FilterBand.xib in Resources */,
 				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
 				3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */,
 				3E3F296B215A395A00581EFE /* Filter.xib in Resources */,
@@ -2102,6 +2109,7 @@
 				3EF1847C217C8F6C00D24F39 /* Spectrogram.swift in Sources */,
 				3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */,
 				3E911CEF1F441BE1009C1572 /* UIAppState.swift in Sources */,
+				3EB9304B21996376008E45F8 /* FilterBandViewController.swift in Sources */,
 				3E3A636B1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift in Sources */,
 				3E3A63691F690EA200F72A60 /* PreferencesDelegate.swift in Sources */,
 				3E24ED431FBB28700023F9F9 /* TimeViewController.swift in Sources */,

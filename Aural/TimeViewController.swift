@@ -9,7 +9,7 @@ class TimeViewController: FXUnitViewController {
     
     override var nibName: String? {return "Time"}
     
-    var timeUnit: TimeUnitDelegate {return graph.timeUnit}
+    var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().timeUnit
     
     override func awakeFromNib() {
         
@@ -63,7 +63,7 @@ class TimeViewController: FXUnitViewController {
     // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
 
-        timeUnit.rate = timeView.rate
+        timeUnit.rate = timeView.rate * 4
         timeView.setRate(timeUnit.rate, timeUnit.formattedRate, timeUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
