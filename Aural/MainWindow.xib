@@ -189,13 +189,13 @@
     </objects>
     <resources>
         <image name="AppTitle" width="101" height="48"/>
-        <image name="Close" width="80" height="80"/>
-        <image name="EffectsView-Off" width="419" height="422"/>
-        <image name="EffectsView-On" width="419" height="422"/>
-        <image name="FloatingBarMode" width="1200" height="1200"/>
-        <image name="Hide" width="94" height="94"/>
-        <image name="PlaylistView-Off" width="185" height="161"/>
-        <image name="PlaylistView-On" width="185" height="161"/>
+        <image name="Close" width="16" height="16"/>
+        <image name="EffectsView-Off" width="25" height="25"/>
+        <image name="EffectsView-On" width="25" height="25"/>
+        <image name="FloatingBarMode" width="24" height="24"/>
+        <image name="Hide" width="14" height="14"/>
+        <image name="PlaylistView-Off" width="28" height="24"/>
+        <image name="PlaylistView-On" width="28" height="24"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>

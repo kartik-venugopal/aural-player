@@ -41,293 +41,15 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="e8b-jm-olO" userLabel="Chart Box">
-                    <rect key="frame" x="8" y="7" width="294" height="125"/>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="20" y="93" width="460" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="iO5-yZ-OmP">
-                        <rect key="frame" x="0.0" y="0.0" width="294" height="125"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="32" y="50" width="250" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </customView>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="CTd-aV-JWt" userLabel="Legend-Green">
-                                <rect key="frame" x="61" y="23" width="10" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="ll5-TD-aBV">
-                                    <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.0" green="0.70417651434285711" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JlQ-Ld-pv6">
-                                <rect key="frame" x="73" y="18" width="69" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Passband" id="GGa-Yr-4n3">
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="mQf-d5-ygT" userLabel="Legend-Red">
-                                <rect key="frame" x="61" y="3" width="10" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="kuR-7X-qJC">
-                                    <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.70569196424285707" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9bf-4b-EeQ">
-                                <rect key="frame" x="73" y="-2" width="69" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Stopband" id="pPA-mv-klN">
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Lsi-8O-5us" userLabel="Legend-Green">
-                                <rect key="frame" x="171" y="23" width="5" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="kGm-9e-bxM">
-                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.0" green="0.70417651434285711" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="khq-tL-OQW" userLabel="Legend-Red">
-                                <rect key="frame" x="176" y="23" width="5" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="48M-mH-Pdb">
-                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.70569196424285707" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n4r-Qr-MZe">
-                                <rect key="frame" x="183" y="18" width="101" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Low pass cutoff" id="d8g-jm-A1o">
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="AKY-SK-j02" userLabel="Legend-Red">
-                                <rect key="frame" x="171" y="1" width="5" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="nbn-Jc-Zhj">
-                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.70661272317142854" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="f86-fm-s1W" userLabel="Legend-Green">
-                                <rect key="frame" x="176" y="1" width="5" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="tfc-XO-rl6">
-                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="fillColor" red="0.0" green="0.70417651434285711" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r6g-6g-GX3">
-                                <rect key="frame" x="183" y="-3" width="101" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="High pass cutoff" id="Fqy-Xg-Sh2">
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                    </view>
-                </box>
-                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="woh-c9-UiD" userLabel="Table Container">
-                    <rect key="frame" x="309" y="-5" width="182" height="126"/>
+                </customView>
+                <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jYE-vo-rzA" userLabel="Bands">
+                    <rect key="frame" x="13" y="-12" width="412" height="103"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="ctd-zf-F9G">
-                        <rect key="frame" x="0.0" y="0.0" width="182" height="126"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="g7B-Xw-dMG" userLabel="Table Box">
-                                <rect key="frame" x="0.0" y="29" width="180" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="LT3-ij-529">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="94"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rtS-6L-JV6">
-                                            <rect key="frame" x="6" y="74" width="92" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Band frequencies" id="gd4-Q0-HLX">
-                                                <font key="font" size="10" name="GillSans"/>
-                                                <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fuo-0s-Kwo">
-                                            <rect key="frame" x="120" y="74" width="61" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Filter type" id="HEC-9i-ADF">
-                                                <font key="font" size="10" name="GillSans"/>
-                                                <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf2-AH-Ypa" userLabel="Bands table">
-                                            <rect key="frame" x="2" y="2" width="176" height="72"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" ambiguous="YES" id="2fz-6G-kpc">
-                                                <rect key="frame" x="0.0" y="0.0" width="176" height="72"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="16" rowSizeStyle="automatic" viewBased="YES" id="s0s-js-HDE" userLabel="Bands Table View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="70"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <size key="intercellSpacing" width="3" height="2"/>
-                                                        <color key="backgroundColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                        <tableColumns>
-                                                            <tableColumn identifier="cid_Frequencies" width="110" minWidth="40" maxWidth="110" id="DgW-5l-va6">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Frequencies">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="qf9-di-JLF">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <prototypeCellViews>
-                                                                    <tableCellView id="ZDv-qm-dPI" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                                        <rect key="frame" x="1" y="1" width="110" height="16"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <subviews>
-                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xys-Nm-d89">
-                                                                                <rect key="frame" x="5" y="1" width="105" height="16"/>
-                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Bza-I7-jB7">
-                                                                                    <font key="font" metaFont="system"/>
-                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                                </textFieldCell>
-                                                                            </textField>
-                                                                        </subviews>
-                                                                        <connections>
-                                                                            <outlet property="textField" destination="Xys-Nm-d89" id="06E-DO-UUn"/>
-                                                                        </connections>
-                                                                    </tableCellView>
-                                                                </prototypeCellViews>
-                                                            </tableColumn>
-                                                            <tableColumn identifier="cid_Type" width="60" minWidth="40" maxWidth="60" id="0In-MP-kEJ">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Filter Type">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="8ph-ew-c4V">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                <prototypeCellViews>
-                                                                    <tableCellView id="HOU-ef-Zuu" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                                        <rect key="frame" x="114" y="1" width="60" height="16"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <subviews>
-                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7TX-VT-lMx">
-                                                                                <rect key="frame" x="5" y="1" width="55" height="16"/>
-                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Jvz-tV-HrV">
-                                                                                    <font key="font" metaFont="system"/>
-                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                                </textFieldCell>
-                                                                            </textField>
-                                                                        </subviews>
-                                                                        <connections>
-                                                                            <outlet property="textField" destination="7TX-VT-lMx" id="Fqb-El-PVp"/>
-                                                                        </connections>
-                                                                    </tableCellView>
-                                                                </prototypeCellViews>
-                                                            </tableColumn>
-                                                        </tableColumns>
-                                                        <connections>
-                                                            <action trigger="doubleAction" selector="editBandAction:" target="-2" id="fce-MT-3gu"/>
-                                                            <outlet property="dataSource" destination="aHf-z2-jHq" id="S3C-Gv-nh6"/>
-                                                            <outlet property="delegate" destination="aHf-z2-jHq" id="uSv-Wy-CK0"/>
-                                                        </connections>
-                                                    </tableView>
-                                                </subviews>
-                                                <color key="backgroundColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
-                                            </clipView>
-                                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="2" bottom="0.0"/>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="zVU-fd-eo8">
-                                                <rect key="frame" x="0.0" y="64" width="170" height="16"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="8lK-0G-Qm0">
-                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                        </scrollView>
-                                    </subviews>
-                                </view>
-                                <color key="fillColor" white="0.24526599700000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </box>
-                            <button toolTip="Add a filter band" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="znC-TZ-bFC" userLabel="Add">
-                                <rect key="frame" x="3" y="11" width="9" height="8"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="gFj-YD-vRA">
-                                    <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addBandAction:" target="-2" id="64n-og-Bu3"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Edit selected filter band" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQk-FK-jJI" userLabel="Edit">
-                                <rect key="frame" x="15" y="11" width="9" height="8"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EditFilterBand" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="S3M-Xi-wUq">
-                                    <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="editBandAction:" target="-2" id="cB0-EJ-XzO"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Remove selected filter bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmC-Tc-He4" userLabel="Remove">
-                                <rect key="frame" x="30" y="11" width="9" height="8"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jp5-hS-woz">
-                                    <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="removeBandsAction:" target="-2" id="9bT-EX-f3S"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Remove all filter bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4W3-gp-M7A" userLabel="Clear">
-                                <rect key="frame" x="42" y="10" width="10" height="10"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="F5J-Rv-xiX">
-                                    <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="removeAllBandsAction:" target="-2" id="IWi-gC-XTq"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                </box>
+                    <font key="font" metaFont="system"/>
+                </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WCA-6T-fFj">
                     <rect key="frame" x="424" y="2" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -382,15 +104,691 @@
                         <action selector="savePresetAction:" target="-2" id="6M3-Oa-JfU"/>
                     </connections>
                 </button>
+                <button toolTip="Add a filter band" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4V-vC-pvS" userLabel="Add">
+                    <rect key="frame" x="424" y="71" width="9" height="8"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XVL-JL-myC">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addBandAction:" target="-2" id="LZV-iK-mhJ"/>
+                    </connections>
+                </button>
+                <button toolTip="Remove selected filter bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4g-xD-cAQ" userLabel="Remove">
+                    <rect key="frame" x="425" y="54" width="9" height="8"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3ni-hq-Q9s">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeBandAction:" target="-2" id="IPy-Hy-thT"/>
+                    </connections>
+                </button>
             </subviews>
             <connections>
-                <outlet property="bandsTable" destination="s0s-js-HDE" id="IU0-uX-yhf"/>
+                <outlet property="bandsView" destination="jYE-vo-rzA" id="Ubp-ja-tHw"/>
                 <outlet property="chart" destination="WKo-oZ-DDd" id="vQF-Xg-8dy"/>
-                <outlet property="tableViewDelegate" destination="aHf-z2-jHq" id="dLO-qy-xBt"/>
             </connections>
-            <point key="canvasLocation" x="155" y="199"/>
+            <point key="canvasLocation" x="175" y="-81"/>
+        </view>
+        <view id="Pal-lo-wGb" userLabel="Old Filter View" customClass="FilterView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="160"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0l-xF-u4P" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="10" y="134" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="VuB-1l-3Ol">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="bypassAction:" target="-2" id="duN-d2-AIm"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aNx-Xx-Olg" userLabel="Filter Desc">
+                    <rect key="frame" x="83" y="133" width="365" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Eliminates unwanted frequency ranges" id="QFk-7v-55U">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="1h2-7R-nkh" userLabel="Chart Box">
+                    <rect key="frame" x="8" y="7" width="294" height="125"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="U9B-uP-pCw">
+                        <rect key="frame" x="0.0" y="0.0" width="294" height="125"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZXw-4e-Mpa" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="32" y="50" width="250" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="tAn-e2-z9v" userLabel="Legend-Green">
+                                <rect key="frame" x="61" y="23" width="10" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="PBb-vn-wTl">
+                                    <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.0" green="0.70417651429999994" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vKN-Ja-Bc7">
+                                <rect key="frame" x="73" y="18" width="69" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Passband" id="e2Z-Lw-DYu">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Q1M-2z-ZLf" userLabel="Legend-Red">
+                                <rect key="frame" x="61" y="3" width="10" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="aye-Oj-HvK">
+                                    <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.70569196420000002" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sm9-fk-FlA">
+                                <rect key="frame" x="73" y="-2" width="69" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Stopband" id="WTK-7N-dht">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="nnn-HQ-ZJ5" userLabel="Legend-Green">
+                                <rect key="frame" x="171" y="23" width="5" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="Eay-5g-I8m">
+                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.0" green="0.70417651429999994" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="paS-BV-Dmy" userLabel="Legend-Red">
+                                <rect key="frame" x="176" y="23" width="5" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="sHk-hM-XNf">
+                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.70569196420000002" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NzA-JT-u9Z">
+                                <rect key="frame" x="183" y="18" width="101" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Low pass cutoff" id="RfL-D4-mp6">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="xhF-hU-8gm" userLabel="Legend-Red">
+                                <rect key="frame" x="171" y="1" width="5" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="ed5-MH-zCN">
+                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.70661272320000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="2d5-b3-JnV" userLabel="Legend-Green">
+                                <rect key="frame" x="176" y="1" width="5" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="p1d-Qk-jyh">
+                                    <rect key="frame" x="0.0" y="0.0" width="5" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" red="0.0" green="0.70417651429999994" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tQv-vb-SMk">
+                                <rect key="frame" x="183" y="-3" width="101" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="High pass cutoff" id="vdC-xV-2WW">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                </box>
+                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="Fmz-bL-reJ" userLabel="Table Container">
+                    <rect key="frame" x="309" y="-5" width="182" height="126"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="91Z-9a-eEF">
+                        <rect key="frame" x="0.0" y="0.0" width="182" height="126"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="4QH-0g-XJH" userLabel="Table Box">
+                                <rect key="frame" x="0.0" y="29" width="180" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="O6P-vH-2qx">
+                                    <rect key="frame" x="0.0" y="0.0" width="180" height="94"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8My-X4-0AF">
+                                            <rect key="frame" x="6" y="74" width="92" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Band frequencies" id="bzc-o6-qVz">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1u-pC-Qdw">
+                                            <rect key="frame" x="120" y="74" width="61" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Filter type" id="8rJ-fW-rh4">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ha0-GM-DYB" userLabel="Bands table">
+                                            <rect key="frame" x="2" y="2" width="176" height="72"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <clipView key="contentView" ambiguous="YES" id="Sfz-uf-2GO">
+                                                <rect key="frame" x="0.0" y="0.0" width="176" height="72"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" autosaveColumns="NO" rowHeight="16" rowSizeStyle="automatic" viewBased="YES" id="oiy-h6-KVD" userLabel="Bands Table View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="70"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <size key="intercellSpacing" width="3" height="2"/>
+                                                        <color key="backgroundColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                        <tableColumns>
+                                                            <tableColumn identifier="cid_Frequencies" width="110" minWidth="40" maxWidth="110" id="b04-5y-aLa">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Frequencies">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="5pS-Hp-I99">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="vKA-fd-H7D" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
+                                                                        <rect key="frame" x="1" y="1" width="110" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EV9-nK-y4X">
+                                                                                <rect key="frame" x="5" y="3" width="105" height="16"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="EKg-X8-8fF">
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="EV9-nK-y4X" id="XSl-Cm-oyc"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
+                                                            </tableColumn>
+                                                            <tableColumn identifier="cid_Type" width="60" minWidth="40" maxWidth="60" id="h2A-GX-fzp">
+                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Filter Type">
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                </tableHeaderCell>
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="Yfd-tW-ysv">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                <prototypeCellViews>
+                                                                    <tableCellView id="Mz5-lK-pTD" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
+                                                                        <rect key="frame" x="114" y="1" width="60" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wN4-rw-H51">
+                                                                                <rect key="frame" x="5" y="3" width="55" height="16"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Hev-1Q-J3S">
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                        <connections>
+                                                                            <outlet property="textField" destination="wN4-rw-H51" id="1Ag-5q-0Wh"/>
+                                                                        </connections>
+                                                                    </tableCellView>
+                                                                </prototypeCellViews>
+                                                            </tableColumn>
+                                                        </tableColumns>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="aHf-z2-jHq" id="N0s-nj-W9X"/>
+                                                            <outlet property="delegate" destination="aHf-z2-jHq" id="qzt-wr-pLi"/>
+                                                        </connections>
+                                                    </tableView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
+                                            </clipView>
+                                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="2" bottom="0.0"/>
+                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="y9v-PL-dF9">
+                                                <rect key="frame" x="0.0" y="64" width="170" height="16"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="mid-tq-Mr5">
+                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </scroller>
+                                        </scrollView>
+                                    </subviews>
+                                </view>
+                                <color key="fillColor" white="0.24526599700000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </box>
+                            <button toolTip="Add a filter band" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VoE-ws-OI3" userLabel="Add">
+                                <rect key="frame" x="3" y="11" width="9" height="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bsf-J6-QEf">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="addBandAction:" target="-2" id="sKp-KM-f1E"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Edit selected filter band" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWV-Sm-kZm" userLabel="Edit">
+                                <rect key="frame" x="15" y="11" width="9" height="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EditFilterBand" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Xx2-W1-o3m">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Remove selected filter bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Lp-c5-uch" userLabel="Remove">
+                                <rect key="frame" x="30" y="11" width="9" height="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qGa-B5-TBG">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Remove all filter bands" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0oV-oW-Ruo" userLabel="Clear">
+                                <rect key="frame" x="42" y="10" width="10" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="58O-7o-g4C">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="removeAllBandsAction:" target="-2" id="Oj1-Id-sJ1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrd-zT-vAb">
+                    <rect key="frame" x="424" y="2" width="40" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ciJ-Xt-NRI">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70393880210000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgP-2r-SlG" userLabel="Filter Presets Menu">
+                    <rect key="frame" x="451" y="0.0" width="34" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="rms-kK-7eE" id="Zbr-Jf-f3X" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                        <menu key="menu" showsStateColumn="NO" id="LTe-FO-CZZ">
+                            <items>
+                                <menuItem isSeparatorItem="YES" id="rms-kK-7eE"/>
+                                <menuItem title="Karaoke" id="L6K-wa-5z1">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="No bass" id="1h9-Jb-7HR">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Nothing but bass" id="Luh-5O-2Gg">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Pass through" id="igy-t0-ZXx">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Emphasized vocals" id="AgH-oe-7uf">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="fq5-d8-7nq"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="presetsAction:" target="-2" id="EBD-Yg-v5b"/>
+                    </connections>
+                </popUpButton>
+                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uG4-fh-clz" userLabel="Save">
+                    <rect key="frame" x="476" y="5" width="10" height="9"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ko6-Ry-YJC">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="vT0-kF-74u"/>
+                    </connections>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="bandsTable" destination="oiy-h6-KVD" id="tBB-A5-T5K"/>
+                <outlet property="chart" destination="ZXw-4e-Mpa" id="lCo-1i-Xec"/>
+                <outlet property="tableViewDelegate" destination="aHf-z2-jHq" id="yXJ-GD-A1r"/>
+            </connections>
+            <point key="canvasLocation" x="175" y="339"/>
         </view>
         <customObject id="aHf-z2-jHq" customClass="FilterBandsViewDelegate" customModule="Aural" customModuleProvider="target"/>
+        <view wantsLayer="YES" id="jMe-V4-gWS" userLabel="Band Editor">
+            <rect key="frame" x="0.0" y="0.0" width="382" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3DX-rH-Lvp" customClass="FilterBandSlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="142" y="34" width="212" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                            <real key="value" value="20000"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qh7-Vh-doK">
+                    <rect key="frame" x="0.0" y="58" width="33" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Type" id="VcV-cq-Flm">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XfW-4W-FE0" userLabel="Type Menu">
+                    <rect key="frame" x="123" y="55" width="101" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Band pass" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="HXQ-yO-0ll" id="zXR-ff-0n3" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="5EL-ny-qzl">
+                            <items>
+                                <menuItem title="Band pass" id="HXQ-yO-0ll">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Band stop" id="Nad-MW-8Nq">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Low pass" id="OQS-5x-88O">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="High pass" id="ryJ-Tb-SDd">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jig-IV-UcS">
+                    <rect key="frame" x="0.0" y="37" width="95" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff frequency" id="hwA-CE-Bii">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zg9-Fe-FO9">
+                    <rect key="frame" x="0.0" y="38" width="104" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Frequency range" id="Uwe-ZR-ghl">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r7J-Zc-b7L" userLabel="Treble 20K">
+                    <rect key="frame" x="359" y="37" width="25" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="Skh-GM-iGb">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSX-rH-S9B" userLabel="Lbl Treble Range">
+                    <rect key="frame" x="190" y="23" width="109" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="itK-cE-n47">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3e-xj-5KF" userLabel="Bass 20">
+                    <rect key="frame" x="106" y="37" width="30" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="XyZ-VP-Pjz">
+                        <font key="font" size="10" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TIE-Pm-qbA" userLabel="Cutoff Freq Slider" customClass="CutoffFrequencySlider" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="141" y="36" width="215" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="20" maxValue="20000" doubleValue="20" tickMarkPosition="below" sliderType="linear" id="yox-pD-qHm" customClass="CutoffFrequencySliderCell" customModule="Aural" customModuleProvider="target"/>
+                </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XG9-JL-wJW" userLabel="Lbl preset f">
+                    <rect key="frame" x="0.0" y="4" width="104" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preset frequencies" id="rj5-oq-2ts">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAJ-uK-c7M" userLabel="Lbl preset f ranges">
+                    <rect key="frame" x="0.0" y="5" width="120" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preset frequency ranges" id="8sM-Ul-HoJ">
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCr-b3-yIX" userLabel="Preset fs">
+                    <rect key="frame" x="123" y="0.0" width="193" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Audible range min (20Hz)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" altersStateOfSelectedItem="NO" selectedItem="29K-nf-heg" id="7Iy-Tq-hHA" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="C4R-my-SLV">
+                            <items>
+                                <menuItem title="Audible range min (20Hz)" tag="20" id="29K-nf-heg" userLabel="Audible range min (20Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Sub-bass range max (60Hz)" tag="60" id="0uH-OT-mwc" userLabel="Sub-bass range max (60Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Bass range max (250Hz)" tag="250" id="nb4-Zb-U3k" userLabel="Bass range max (250Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Low midrange max (500Hz)" tag="500" id="XaY-OJ-9db" userLabel="Low midrange max (500Hz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Midrange max (2KHz)" tag="2000" id="w23-B4-5bU" userLabel="Midrange max (2KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Upper Midrange max (4KHz)" tag="4000" id="RkI-vV-4ZF" userLabel="Upper Midrange max (4KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="Azg-kh-oHB" userLabel="Presence (treble) max (6KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Audible range max (20KHz)" tag="20000" id="HVO-aP-QU9" userLabel="Audible range max (20KHz)">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJS-9l-1V6" userLabel="Preset ranges">
+                    <rect key="frame" x="123" y="0.0" width="193" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Audible range (20Hz - 20KHz)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" altersStateOfSelectedItem="NO" selectedItem="lta-R1-1wz" id="wLe-d7-ayk" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="k4h-Ia-UXB">
+                            <items>
+                                <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="lta-R1-1wz" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="fgp-xP-o0N" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Bass range (60Hz - 250Hz)" tag="250" id="mRB-gH-Yh8" userLabel="Bass range (60Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Bass range (20Hz - 250Hz)" tag="500" id="SFQ-Qg-TLr" userLabel="Entire Bass range (20Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="v4F-mz-VsL" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="500"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Midrange (500Hz - 2KHz)" tag="4000" id="EGo-7A-EgT" userLabel="Midrange (500Hz - 2KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="500"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="2000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Upper Midrange (2KHz - 4KHz)" tag="4000" id="yhC-Yy-Tg3" userLabel="Upper Midrange (2KHz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="2000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Midrange (250Hz - 4KHz)" tag="4000" id="eAj-zh-ttd" userLabel="Entire Midrange (250Hz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="250"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="jzZ-dI-aW9" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="6000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Brilliance (Treble) range (6KHz - 20KHz)" tag="20000" id="6tu-bi-fE6" userLabel="Brilliance (Treble) range (6KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="6000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Entire Treble range (4KHz - 20KHz)" tag="20000" id="iOf-ml-FvL" userLabel="Entire Treble range (4KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
+                                            <real key="value" value="4000"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="maxFreq">
+                                            <real key="value" value="20000"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="169" y="-342"/>
+        </view>
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>

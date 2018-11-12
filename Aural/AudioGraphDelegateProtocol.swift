@@ -38,13 +38,13 @@ protocol AudioGraphDelegateProtocol {
     
     func getSettingsAsMasterPreset() -> MasterPreset
     
-    var masterUnit: MasterUnitDelegate {get set}
-    var eqUnit: EQUnitDelegate {get set}
-    var pitchUnit: PitchUnitDelegate {get set}
-    var timeUnit: TimeUnitDelegate {get set}
-    var reverbUnit: ReverbUnitDelegate {get set}
-    var delayUnit: DelayUnitDelegate {get set}
-    var filterUnit: FilterUnitDelegate {get set}
+    var masterUnit: MasterUnitDelegateProtocol {get set}
+    var eqUnit: EQUnitDelegateProtocol {get set}
+    var pitchUnit: PitchUnitDelegateProtocol {get set}
+    var timeUnit: TimeUnitDelegateProtocol {get set}
+    var reverbUnit: ReverbUnitDelegateProtocol {get set}
+    var delayUnit: DelayUnitDelegateProtocol {get set}
+    var filterUnit: FilterUnitDelegateProtocol {get set}
 }
 
 protocol FXUnitDelegateProtocol {
@@ -54,6 +54,8 @@ protocol FXUnitDelegateProtocol {
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
     func toggleState() -> EffectsUnitState
     
+    var isActive: Bool {get}
+    
     func ensureActive()
     
     func savePreset(_ presetName: String)
@@ -61,7 +63,12 @@ protocol FXUnitDelegateProtocol {
     func applyPreset(_ presetName: String)
 }
 
-protocol MasterUnitDelegateProtocol: FXUnitDelegateProtocol {}
+protocol MasterUnitDelegateProtocol: FXUnitDelegateProtocol {
+    
+    var presets: MasterPresets {get}
+    
+    func applyPreset(_ preset: MasterPreset)
+}
 
 protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     
@@ -93,9 +100,11 @@ protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
+    
+    var presets: EQPresets {get}
 }
 
-protocol PitchShiftUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
     var pitch: Float {get set}
@@ -112,9 +121,11 @@ protocol PitchShiftUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
     func decreasePitch() -> (pitch: Float, pitchString: String)
+    
+    var presets: PitchPresets {get}
 }
 
-protocol TimeStretchUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var rate: Float {get set}
     
@@ -135,6 +146,8 @@ protocol TimeStretchUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     // Decreases the playback rate by a small decrement. Returns the new playback rate value.
     func decreaseRate() -> (rate: Float, rateString: String)
+    
+    var presets: TimePresets {get}
 }
 
 protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
@@ -144,6 +157,8 @@ protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
     var amount: Float {get set}
     
     var formattedAmount: String {get}
+    
+    var presets: ReverbPresets {get}
 }
 
 protocol DelayUnitDelegateProtocol: FXUnitDelegateProtocol {
@@ -163,31 +178,23 @@ protocol DelayUnitDelegateProtocol: FXUnitDelegateProtocol {
     var lowPassCutoff: Float {get set}
     
     var formattedLowPassCutoff: String {get}
+    
+    var presets: DelayPresets {get}
 }
 
-protocol FilterUnitDelegateProtocol {
- 
-    // Returns the current state of the filter audio effects unit
-    func getFilterState() -> EffectsUnitState
+protocol FilterUnitDelegateProtocol: FXUnitDelegateProtocol {
+
+    var bands: [FilterBand] {get set}
     
-    // Toggles the state of the filter audio effects unit, and returns its new state
-    func toggleFilterState() -> EffectsUnitState
+    func addBand(_ band: FilterBand) -> Int
     
-    func addFilterBand(_ band: FilterBand) -> Int
+    func updateBand(_ index: Int, _ band: FilterBand)
     
-    func updateFilterBand(_ index: Int, _ band: FilterBand)
+    func removeBands(_ indexSet: IndexSet)
     
-    func removeFilterBands(_ indexSet: IndexSet)
+    func removeAllBands()
     
-    func removeAllFilterBands()
+    func getBand(_ index: Int) -> FilterBand
     
-    func allFilterBands() -> [FilterBand]
-    
-    func getFilterBand(_ index: Int) -> FilterBand
-    
-    var filterPresets: FilterPresets {get}
-    
-    func saveFilterPreset(_ presetName: String)
-    
-    func applyFilterPreset(_ presetName: String)
+    var presets: FilterPresets {get}
 }

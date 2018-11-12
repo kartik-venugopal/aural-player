@@ -9,9 +9,9 @@ protocol FilterBandsDataSource {
 
 class AudioGraphFilterBandsDataSource: FilterBandsDataSource {
     
-    private var filterUnit: FilterUnitDelegate = ObjectGraph.getAudioGraphDelegate().filterUnit
+    private var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
     
-    init(_ filterUnit: FilterUnitDelegate) {
+    init(_ filterUnit: FilterUnitDelegateProtocol) {
         self.filterUnit = filterUnit
     }
     

@@ -10,7 +10,7 @@ class PitchViewController: FXUnitViewController {
     
     override var nibName: String? {return "Pitch"}
     
-    var pitchUnit: PitchUnitDelegate {return graph.pitchUnit}
+    var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().pitchUnit
  
     override func awakeFromNib() {
         

@@ -8,13 +8,13 @@ class MasterViewController: FXUnitViewController {
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
     
-    private var masterUnit: MasterUnitDelegate {return graph.masterUnit}
-    private var eqUnit: EQUnitDelegate {return graph.eqUnit}
-    private var pitchUnit: PitchUnitDelegate {return graph.pitchUnit}
-    private var timeUnit: TimeUnitDelegate {return graph.timeUnit}
-    private var reverbUnit: ReverbUnitDelegate {return graph.reverbUnit}
-    private var delayUnit: DelayUnitDelegate {return graph.delayUnit}
-    private var filterUnit: FilterUnitDelegate {return graph.filterUnit}
+    private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
+    private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
+    private var pitchUnit: PitchUnitDelegateProtocol {return graph.pitchUnit}
+    private var timeUnit: TimeUnitDelegateProtocol {return graph.timeUnit}
+    private var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
+    private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
+    private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
     
     override var nibName: String? {return "Master"}
     

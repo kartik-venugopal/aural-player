@@ -6,7 +6,7 @@ class EQPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "EQPresetsEditor"}
     
-    var eqUnit: EQUnitDelegate {return graph.eqUnit}
+    var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
     
     override func awakeFromNib() {
         

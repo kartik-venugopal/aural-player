@@ -15,7 +15,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let timeUnit: TimeUnitDelegate = ObjectGraph.getAudioGraphDelegate().timeUnit
+    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().timeUnit
     
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
