@@ -244,7 +244,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         // Update the tool tip
 
-        let font = cell.textField!.font!
+        let font = editedTextField.font!
         let nameColumn = editorView.tableColumns[0]
         
         if StringUtils.numberOfLines(newBookmarkName, font, nameColumn.width) > 1 {

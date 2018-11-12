@@ -16,7 +16,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
     private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
-    private var oldLayoutName: String?
+    private var oldLayoutName: String = ""
     
     override var nibName: String? {return "LayoutsEditor"}
     
@@ -177,15 +177,9 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
+        let editedTextField = obj.object as! NSTextField
         
-        // Access the old value from the temp storage variable
-        let oldName = oldLayoutName ?? editedTextField.stringValue
-        
-        if let layout = WindowLayouts.layoutByName(oldName, false) {
+        if let layout = WindowLayouts.layoutByName(oldLayoutName, false) {
             
             let newLayoutName = editedTextField.stringValue
             
@@ -209,7 +203,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
                 
                 // Also update the view preference, if the chosen layout was this edited one
                 let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
-                if prefLayout == oldName {
+                if prefLayout == oldLayoutName {
                     
                     preferences.viewPreferences.layoutOnStartup.layoutName = newLayoutName
                     preferencesDelegate.savePreferences(preferences)
