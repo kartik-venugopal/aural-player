@@ -10,7 +10,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnit!
     
-    var oldPresetName: String?
+    var oldPresetName: String = ""
     
     override func viewDidLoad() {
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
@@ -133,42 +133,30 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
-        let editedTextField = cell.textField!
+        let editedTextField = obj.object as! NSTextField
+        let newPresetName = editedTextField.stringValue
         
-        // Access the old value from the temp storage variable
-        let oldName = oldPresetName ?? editedTextField.stringValue
-        
-        if let preset = presetsWrapper.presetByName(oldName) {
-            
-            let newPresetName = editedTextField.stringValue
+        if let preset = presetsWrapper.presetByName(oldPresetName) {
             
             editedTextField.textColor = Colors.playlistSelectedTextColor
             
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName)) {
+            if (StringUtils.isStringEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName)) {
                 
-                editedTextField.stringValue = preset.name
-                
-            } else if presetsWrapper.presetWithNameExists(newPresetName) {
-                
-                // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
                 
             } else {
                 
                 // Update the preset name
-                presetsWrapper.renamePreset(oldName, newPresetName)
+                presetsWrapper.renamePreset(oldPresetName, newPresetName)
             }
             
         } else {
             
             // IMPOSSIBLE
-            editedTextField.stringValue = oldName
+            editedTextField.stringValue = oldPresetName
         }
     }
     
