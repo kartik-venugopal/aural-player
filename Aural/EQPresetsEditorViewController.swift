@@ -26,8 +26,7 @@ class EQPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        let selection = getSelectedPresetNames()
-        let preset = eqUnit.presets.presetByName(selection[0])!
+        let preset = eqUnit.presets.presetByName(firstSelectedPresetName)!
         eqView.typeChanged(preset.bands, preset.globalGain)
     }
     

@@ -42,8 +42,10 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let band = dataSource!.getFilterBand(row)
+        let colID = tableColumn!.identifier.rawValue
+        var cellText: String
         
-        switch tableColumn!.identifier.rawValue {
+        switch colID {
             
         case UIConstants.filterBandsFreqColumnID:
             
@@ -51,30 +53,26 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
                 
             case .bandPass, .bandStop:
                 
-                let rangeText = String(format: "[ %@ - %@ ]", formatFreqNumber(band.minFreq!), formatFreqNumber(band.maxFreq!))
-                return createCell(tableView, tableColumn!.identifier.rawValue, row, rangeText)
+                cellText = String(format: "[ %@ - %@ ]", formatFreqNumber(band.minFreq!), formatFreqNumber(band.maxFreq!))
                 
             case .lowPass:
                 
-                let cutoffText = String(format: "< %@", formatFreqNumber(band.maxFreq!))
-                return createCell(tableView, tableColumn!.identifier.rawValue, row, cutoffText)
+                cellText = String(format: "< %@", formatFreqNumber(band.maxFreq!))
                 
             case .highPass:
                 
-                let cutoffText = String(format: "> %@", formatFreqNumber(band.minFreq!))
-                return createCell(tableView, tableColumn!.identifier.rawValue, row, cutoffText)
+                cellText = String(format: "> %@", formatFreqNumber(band.minFreq!))
             }
-            
-            
             
         case UIConstants.filterBandsTypeColumnID:
             
-            let typeText = band.type.rawValue
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, typeText)
+            cellText = band.type.rawValue
             
         default: return nil
             
         }
+        
+        return createCell(tableView, colID, row, cellText)
     }
     
     private func formatFreqNumber(_ freq: Float) -> String {
@@ -105,15 +103,10 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         return nil
     }
     
-    // Completely disable row selection
+    // Row selection
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return allowSelection
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
-    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.

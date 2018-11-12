@@ -21,6 +21,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var filterTypeMenu: NSPopUpButton!
     
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let filterUnit: FilterUnitDelegate = ObjectGraph.getAudioGraphDelegate().filterUnit
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
@@ -87,36 +88,18 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
         
         let filterType = FilterBandType(rawValue: filterTypeMenu.titleOfSelectedItem!)!
         
+        [freqRangeSlider, lblRangeCaption, lblPresetRangesCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
+        [cutoffSlider, lblCutoffCaption, lblPresetCutoffsCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
+        
         if filterType == .bandPass || filterType == .bandStop {
 
             freqRangeSlider.filterType = filterType
-            freqRangeSlider.show()
-            lblRangeCaption.show()
-            lblPresetRangesCaption.show()
-            presetRangesMenu.show()
-            
-            lblCutoffCaption.hide()
-            cutoffSlider.hide()
-            lblPresetCutoffsCaption.hide()
-            presetCutoffsMenu.hide()
-            
             freqRangeChanged()
             
         } else {
             
-            freqRangeSlider.hide()
-            lblRangeCaption.hide()
-            lblPresetRangesCaption.hide()
-            presetRangesMenu.hide()
-            
-            lblCutoffCaption.show()
-            lblPresetCutoffsCaption.show()
-            presetCutoffsMenu.show()
-            
             cutoffSliderCell.filterType = filterType
             cutoffSlider.redraw()
-            cutoffSlider.show()
-            
             cutoffSliderAction(self)
         }
     }
@@ -164,14 +147,11 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             band = FilterBand(filterType).withMinFreq(cutoffSlider.frequency)
         }
         
-//        if action == .add {
-//        
-//            _ = graph.addFilterBand(band)
-//            
-//        } else {
-//            
-//            graph.updateFilterBand(editBandIndex, band)
-//        }
+        if action == .add {
+            _ = filterUnit.addBand(band)
+        } else {
+            filterUnit.updateBand(editBandIndex, band)
+        }
         
         modalDialogResponse = .ok
         UIUtils.dismissModalDialog()
