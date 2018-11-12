@@ -338,9 +338,8 @@ class PlayerControlsView: NSView {
         btnRepeat.switchState(repeatMode)
     }
 
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     func trackChanged(_ playbackState: PlaybackState, _ loop: PlaybackLoop?, _ newTrack: IndexedTrack?) {
-
+        
         btnPlayPause.onIf(playbackState == .playing)
         btnLoop.switchState(loop != nil ? LoopState.complete : LoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})

@@ -4,6 +4,7 @@ class MasterUnitDelegate: FXUnitDelegate<MasterUnit> {
     
     let graph: AudioGraphProtocol
     let soundPreferences: SoundPreferences
+    var presets: MasterPresets {return unit.presets}
     
     init(_ graph: AudioGraphProtocol, _ soundPreferences: SoundPreferences) {
         

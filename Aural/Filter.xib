@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnFilterBypass" destination="N6p-bI-VWV" id="yz2-gz-7FV"/>
+                <outlet property="btnBypass" destination="N6p-bI-VWV" id="5UH-co-PWL"/>
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
@@ -29,7 +29,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="filterBypassAction:" target="-2" id="Wcj-6R-fKz"/>
+                        <action selector="bypassAction:" target="-2" id="kxt-Hu-2Q3"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6D-g3-0xt" userLabel="Filter Desc">
@@ -368,7 +368,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="filterPresetsAction:" target="-2" id="0zK-KG-Bn8"/>
+                        <action selector="presetsAction:" target="-2" id="kOi-q3-IMV"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-pf-0wI" userLabel="Save">
