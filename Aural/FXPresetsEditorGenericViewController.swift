@@ -65,12 +65,10 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         let selection = getSelectedPresetNames()
         fxUnit.applyPreset(selection[0])
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .pitch))
+        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, self.unitType))
     }
     
-    func renderPreview(_ presetName: String) {
-        previewBox.show()
-    }
+    func renderPreview(_ presetName: String) {}
     
     // MARK: View delegate functions
     
@@ -89,6 +87,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             
             let presetName = getSelectedPresetNames()[0]
             renderPreview(presetName)
+            previewBox.show()
             oldPresetName = presetName
         }
         
