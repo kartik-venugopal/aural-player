@@ -24,8 +24,6 @@ class PitchPresetsEditorViewController: FXPresetsEditorGenericViewController {
     }
     
     override func renderPreview(_ presetName: String) {
-        
-        super.renderPreview(presetName)
         renderPreview(pitchUnit.presets.presetByName(presetName)!)
     }
    
