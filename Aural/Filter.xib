@@ -12,6 +12,8 @@
                 <outlet property="btnBypass" destination="N6p-bI-VWV" id="5UH-co-PWL"/>
                 <outlet property="btnRemove" destination="obx-WP-Bye" id="rcz-eP-s0O"/>
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
+                <outlet property="btnScrollLeft" destination="ix6-8B-1a4" id="5ZO-st-Qev"/>
+                <outlet property="btnScrollRight" destination="Z8Q-IY-snQ" id="Oxw-8y-ySK"/>
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
                 <outlet property="tabsBox" destination="pTF-TT-2rE" id="bmM-eh-E4A"/>
@@ -45,24 +47,46 @@
                     </textFieldCell>
                 </textField>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-TT-2rE">
-                    <rect key="frame" x="35" y="75" width="350" height="21"/>
+                    <rect key="frame" x="42" y="70" width="350" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="zP9-SS-Z40">
                         <rect key="frame" x="0.0" y="0.0" width="350" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </box>
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-8B-1a4" userLabel="Bands-Left">
+                    <rect key="frame" x="25" y="72" width="12" height="12"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Left" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5x5-sf-fJc">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="scrollTabsLeftAction:" target="-2" id="95k-hf-GKt"/>
+                    </connections>
+                </button>
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8Q-IY-snQ" userLabel="Bands-Right">
+                    <rect key="frame" x="394" y="72" width="12" height="12"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Right" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bmb-za-MqI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="scrollTabsRightAction:" target="-2" id="M9V-Hd-AQS"/>
+                    </connections>
+                </button>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="18" y="93" width="477" height="38"/>
+                    <rect key="frame" x="39" y="93" width="456" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="jYE-vo-rzA" userLabel="Bands">
-                    <rect key="frame" x="22" y="0.0" width="393" height="70"/>
+                    <rect key="frame" x="42" y="0.0" width="350" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                 </tabView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-v2-fWg" userLabel="Add button">
-                    <rect key="frame" x="418" y="51" width="72" height="17"/>
+                    <rect key="frame" x="403" y="48" width="87" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Add Band" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bl-kU-qiq" customClass="FilterBandControlsButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -73,7 +97,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obx-WP-Bye" userLabel="Remove button">
-                    <rect key="frame" x="418" y="27" width="72" height="17"/>
+                    <rect key="frame" x="403" y="26" width="87" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Remove Band" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJv-7G-f4Q" customClass="FilterBandControlsButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -147,6 +171,8 @@
         <customObject id="aHf-z2-jHq" customClass="FilterBandsViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
+        <image name="FilterBandsTabs-Left" width="24" height="32"/>
+        <image name="FilterBandsTabs-Right" width="24" height="32"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

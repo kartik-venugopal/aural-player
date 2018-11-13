@@ -9,16 +9,21 @@ class FilterViewController: FXUnitViewController {
     
     @IBOutlet weak var btnAdd: NSButton!
     @IBOutlet weak var btnRemove: NSButton!
+    @IBOutlet weak var btnScrollLeft: NSButton!
+    @IBOutlet weak var btnScrollRight: NSButton!
     
     @IBOutlet weak var tabsBox: NSBox!
     private var tabButtons: [NSButton] = []
     private var bandControllers: [FilterBandViewController] = []
+    private var numTabs: Int {return bandControllers.count}
     
     private var selTab: Int = -1
     
     override var nibName: String? {return "Filter"}
     
     var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
+    
+    var tabsShown: ClosedRange<Int> = (-1)...(-1)
     
     override func awakeFromNib() {
         
@@ -43,17 +48,17 @@ class FilterViewController: FXUnitViewController {
         super.initControls()
         
         filterView.refresh()
-        
+
         clearBands()
-        for index in 0..<(filterUnit.bands.count) {
+        let numBands = filterUnit.bands.count
+        
+        for index in 0..<numBands {
             addBandView(index)
         }
         
-        if filterUnit.bands.count > 0 {
-        
-            tabButtons[0].state = UIConstants.onState
-            filterView.selectTab(0)
-            selTab = 0
+        if numBands > 0 {
+            selectTab(0)
+            tabsShown = 0...(min(numTabs - 1, 6))
         }
         
         updateCRUDButtonStates()
@@ -70,14 +75,18 @@ class FilterViewController: FXUnitViewController {
         selTab = -1
         
         updateCRUDButtonStates()
+        tabsShown = (-1)...(-1)
     }
     
     private func updateCRUDButtonStates() {
         
-        btnAdd.isEnabled = bandControllers.count < 31
-        btnRemove.isEnabled = bandControllers.count > 0
+        btnAdd.isEnabled = numTabs < 31
+        btnRemove.isEnabled = numTabs > 0
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
+        
+        btnScrollLeft.showIf_elseHide(numTabs > 7 && tabsShown.lowerBound > 0)
+        btnScrollRight.showIf_elseHide(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
     }
     
     // Activates/deactivates the Filter effects unit
@@ -91,53 +100,34 @@ class FilterViewController: FXUnitViewController {
         
         let bandCon = FilterBandViewController()
         let index = filterUnit.addBand(bandCon.band)
-        
-        bandCon.bandChangedCallback = {() -> Void in self.bandChanged()}
-        bandControllers.append(bandCon)
-        bandCon.bandIndex = index
-        
-        filterView.addBandView(bandCon.view)
-        bandCon.tabButton.title = String(format: "Band %d", (index + 1))
-        
-        tabsBox.addSubview(bandCon.tabButton)
-        tabButtons.append(bandCon.tabButton)
-        bandCon.tabButton.action = #selector(self.showBandAction(_:))
-        bandCon.tabButton.target = self
-        bandCon.tabButton.tag = index
+        initBandController(bandCon, index)
         
         let btnWidth = bandCon.tabButton.frame.width
-        bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
-        
-        // Button state
-        tabButtons.forEach({$0.state = UIConstants.offState})
-        bandCon.tabButton.state = UIConstants.onState
+        let prevBtnX = index == 0 ? 0 : tabButtons[index - 1].frame.origin.x + btnWidth
+        bandCon.tabButton.setFrameOrigin(NSPoint(x: prevBtnX, y: 0))
         
         // Button tag is the tab index
-        filterView.selectTab(index)
-        selTab = index
-        
+        selectTab(index)
         filterView.redrawChart()
         updateCRUDButtonStates()
+        
+        // Show new tab
+        if index >= 7 {
+            
+            for _ in 0..<(index - tabsShown.upperBound) {
+                scrollRight()
+            }
+            
+        } else {
+            tabsShown = 0...index
+        }
     }
     
     private func addBandView(_ index: Int) {
         
         let bandCon = FilterBandViewController()
         bandCon.band = filterUnit.getBand(index)
-        
-        bandCon.bandChangedCallback = {() -> Void in self.bandChanged()}
-        bandControllers.append(bandCon)
-        bandCon.bandIndex = index
-        
-        filterView.addBandView(bandCon.view)
-        bandCon.tabButton.title = String(format: "Band %d", (index + 1))
-        
-        tabsBox.addSubview(bandCon.tabButton)
-        tabButtons.append(bandCon.tabButton)
-        
-        bandCon.tabButton.action = #selector(self.showBandAction(_:))
-        bandCon.tabButton.target = self
-        bandCon.tabButton.tag = index
+        initBandController(bandCon, index)
         
         let btnWidth = bandCon.tabButton.frame.width
         bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
@@ -146,13 +136,25 @@ class FilterViewController: FXUnitViewController {
         bandCon.tabButton.state = UIConstants.offState
     }
     
+    private func initBandController(_ bandCon: FilterBandViewController, _ index: Int) {
+        
+        bandCon.bandChangedCallback = {() -> Void in self.bandChanged()}
+        bandControllers.append(bandCon)
+        bandCon.bandIndex = index
+        
+        filterView.addBandView(bandCon.view)
+        bandCon.tabButton.title = String(format: "Band %d", (index + 1))
+        
+        tabsBox.addSubview(bandCon.tabButton)
+        tabButtons.append(bandCon.tabButton)
+        
+        bandCon.tabButton.action = #selector(self.showBandAction(_:))
+        bandCon.tabButton.target = self
+        bandCon.tabButton.tag = index
+    }
+    
     @IBAction func showBandAction(_ sender: NSButton) {
-        
-        tabButtons.forEach({$0.state = UIConstants.offState})
-        sender.state = UIConstants.onState
-        
-        filterView.selectTab(sender.tag)
-        selTab = sender.tag
+        selectTab(sender.tag)
     }
     
     @IBAction func removeBandAction(_ sender: AnyObject) {
@@ -162,14 +164,17 @@ class FilterViewController: FXUnitViewController {
         bandControllers.remove(at: selTab)
         tabButtons.remove(at: tabButtons.count - 1).removeFromSuperview()
         
-        for index in selTab..<(bandControllers.count) {
+        for index in selTab..<numTabs {
             bandControllers[index].bandIndex = index
         }
         
-        selTab = !bandControllers.isEmpty ? 0 : -1
-        if !bandControllers.isEmpty {filterView.selectTab(selTab)}
+        selectTab(!bandControllers.isEmpty ? 0 : -1)
         
-        tabButtons.forEach({$0.state = $0.tag == selTab ? UIConstants.onState : UIConstants.offState})
+        // Show tab 0
+        for _ in 0..<tabsShown.lowerBound {
+            scrollLeft()
+        }
+        
         filterView.redrawChart()
         updateCRUDButtonStates()
     }
@@ -191,5 +196,51 @@ class FilterViewController: FXUnitViewController {
     
     private func bandChanged() {
         filterView.redrawChart()
+    }
+    
+    @IBAction func scrollTabsLeftAction(_ sender: AnyObject) {
+        
+        scrollLeft()
+        
+        if !tabsShown.contains(selTab) {
+            selectTab(tabsShown.lowerBound)
+        }
+    }
+    
+    @IBAction func scrollTabsRightAction(_ sender: AnyObject) {
+        
+        scrollRight()
+        
+        if !tabsShown.contains(selTab) {
+            selectTab(tabsShown.lowerBound)
+        }
+    }
+    
+    private func scrollLeft() {
+        
+        if tabsShown.lowerBound > 0 {
+            moveTabButtonsRight()
+            tabsShown = (tabsShown.lowerBound - 1)...(tabsShown.upperBound - 1)
+            updateCRUDButtonStates()
+        }
+    }
+    
+    private func scrollRight() {
+        
+        if tabsShown.upperBound < numTabs - 1 {
+            moveTabButtonsLeft()
+            tabsShown = (tabsShown.lowerBound + 1)...(tabsShown.upperBound + 1)
+            updateCRUDButtonStates()
+        }
+    }
+    
+    private func selectTab(_ index: Int) {
+        
+        if index >= 0 {
+            
+            selTab = index
+            filterView.selectTab(index)
+            tabButtons.forEach({$0.state = $0.tag == selTab ? UIConstants.onState : UIConstants.offState})
+        }
     }
 }
