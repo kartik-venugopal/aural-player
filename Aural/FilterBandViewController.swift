@@ -39,8 +39,6 @@ class FilterBandViewController: NSViewController {
     
     private func resetFields() {
         
-        print(bandIndex!, band.type.rawValue, band.minFreq, band.maxFreq)
-        
         let filterType = band.type
         
         filterTypeMenu.selectItem(withTitle: filterType.rawValue)

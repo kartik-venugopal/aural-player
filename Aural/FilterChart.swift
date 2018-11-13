@@ -121,6 +121,7 @@ class FilterChart: NSView {
         
         // Draw X-axis markings
         let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
+        let textFont: NSFont = Fonts.gillSans9Font
         
         for y in xMarks {
 
@@ -134,12 +135,12 @@ class FilterChart: NSView {
                 text = String(describing: Int(y))
             }
             
-            let tw = StringUtils.sizeOfString(text, Fonts.gillSans10Font)
+            let tw = StringUtils.sizeOfString(text, textFont)
             let tx = offset + x * scale - tw.width / 2
             
             let trect = NSRect(x: tx, y: bottomMargin + height / 2 - 7.5, width: tw.width + 10, height: 15)
             
-            GraphicsUtils.drawTextInRect(trect, text, NSColor.white, Fonts.gillSans10Font)
+            GraphicsUtils.drawTextInRect(trect, text, NSColor.white, textFont)
             
             if (sx != offset && sx != offset + width) {
                 GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)
