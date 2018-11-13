@@ -41,4 +41,12 @@ class FilterView: NSView {
         
         newItem.view?.addSubview(view)
     }
+    
+    func selectTab(_ index: Int) {
+        bandsView.selectTabViewItem(at: index)
+    }
+    
+    func removeTab(_ index: Int) {
+        bandsView.removeTabViewItem(bandsView.tabViewItem(at: index))
+    }
 }
