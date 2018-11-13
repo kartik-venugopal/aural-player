@@ -49,4 +49,8 @@ class FilterView: NSView {
     func removeTab(_ index: Int) {
         bandsView.removeTabViewItem(bandsView.tabViewItem(at: index))
     }
+    
+    func removeAllTabs() {
+        bandsView.tabViewItems.forEach({bandsView.removeTabViewItem($0)})
+    }
 }

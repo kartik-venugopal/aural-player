@@ -60,7 +60,7 @@ class GraphicsUtils {
         // Compute size and origin
         let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         let sx = (rect.width - size.width) / 2
-        let sy = (rect.height - size.height) / 2 - 2
+        let sy = (rect.height - size.height) / 2 - 1
         
         text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }

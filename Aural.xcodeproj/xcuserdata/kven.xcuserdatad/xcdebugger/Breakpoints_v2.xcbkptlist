@@ -2,4 +2,54 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aural/FilterViewController.swift"
+            timestampString = "563800738.5950381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "updateCRUDButtonStates()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aural.FilterViewController.(updateCRUDButtonStates in _45DA3377568D4FE12586F3F5DF560348)() -&gt; ()"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/FilterViewController.swift"
+                  timestampString = "563800606.959626"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "657">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.NSButton&gt;) -&gt; () in Aural.FilterViewController.(updateCRUDButtonStates in _45DA3377568D4FE12586F3F5DF560348)() -&gt; ()"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/FilterViewController.swift"
+                  timestampString = "563800606.961373"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

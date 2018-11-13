@@ -48,9 +48,9 @@ class FilterChart: NSView {
         
         let offset: CGFloat = 5
         let width = self.frame.width - 2 * offset
-        let height = self.frame.height - 25
+        let height = self.frame.height - 10
         let scale: CGFloat = width / 3
-        let bottomMargin: CGFloat = 20
+        let bottomMargin: CGFloat = 5
         
         let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height)
         
@@ -134,15 +134,16 @@ class FilterChart: NSView {
                 text = String(describing: Int(y))
             }
             
-            let tw = StringUtils.sizeOfString(text, Fonts.gillSans8Font)
+            let tw = StringUtils.sizeOfString(text, Fonts.gillSans10Font)
             let tx = offset + x * scale - tw.width / 2
             
-            let trect = NSRect(x: tx, y: 2, width: tw.width + 10, height: 15)
+            let trect = NSRect(x: tx, y: bottomMargin + height / 2 - 7.5, width: tw.width + 10, height: 15)
             
-            GraphicsUtils.drawTextInRect(trect, text, NSColor.lightGray, Fonts.gillSans8Font)
+            GraphicsUtils.drawTextInRect(trect, text, NSColor.white, Fonts.gillSans10Font)
             
             if (sx != offset && sx != offset + width) {
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: 16), pt2: NSPoint(x: sx, y: 22), width: 1.5)
+                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)
+                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
             }
         }
     }

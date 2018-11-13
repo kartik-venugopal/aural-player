@@ -8,7 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FilterViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAdd" destination="dAC-v2-fWg" id="VOu-IG-4yP"/>
                 <outlet property="btnBypass" destination="N6p-bI-VWV" id="5UH-co-PWL"/>
+                <outlet property="btnRemove" destination="obx-WP-Bye" id="rcz-eP-s0O"/>
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
@@ -42,16 +44,16 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-TT-2rE">
-                    <rect key="frame" x="20" y="69" width="393" height="21"/>
+                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-TT-2rE">
+                    <rect key="frame" x="35" y="75" width="350" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="zP9-SS-Z40">
-                        <rect key="frame" x="1" y="1" width="391" height="19"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </box>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WKo-oZ-DDd" customClass="FilterChart" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="20" y="93" width="460" height="38"/>
+                    <rect key="frame" x="18" y="93" width="477" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="jYE-vo-rzA" userLabel="Bands">
@@ -60,22 +62,22 @@
                     <font key="font" metaFont="system"/>
                 </tabView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-v2-fWg" userLabel="Add button">
-                    <rect key="frame" x="409" y="51" width="81" height="19"/>
+                    <rect key="frame" x="418" y="51" width="72" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Add Band" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bl-kU-qiq" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Add Band" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2bl-kU-qiq" customClass="FilterBandControlsButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
                         <action selector="addBandAction:" target="-2" id="s8A-ZI-ss8"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obx-WP-Bye" userLabel="Remove button">
-                    <rect key="frame" x="409" y="27" width="81" height="19"/>
+                    <rect key="frame" x="418" y="27" width="72" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Remove Band" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJv-7G-f4Q" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Remove Band" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CJv-7G-f4Q" customClass="FilterBandControlsButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
                         <action selector="removeBandAction:" target="-2" id="iFC-rS-MwI"/>
