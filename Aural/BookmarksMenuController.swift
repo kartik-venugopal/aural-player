@@ -5,10 +5,10 @@ import Cocoa
  */
 class BookmarksMenuController: NSObject, NSMenuDelegate {
     
-    private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
+    private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     
     // Delegate used to perform playback
-    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     @IBOutlet weak var theMenu: NSMenu!
     

@@ -9,7 +9,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     @IBOutlet weak var btnSavePreset: NSButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
 
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!

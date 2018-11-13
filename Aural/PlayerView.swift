@@ -12,7 +12,7 @@ class PlayerView: NSView {
     @IBOutlet weak var infoView: TrackInfoView!
     @IBOutlet weak var gapView: GapView!
     
-    fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 52) }
     fileprivate var autoHideFields_showing: Bool = false

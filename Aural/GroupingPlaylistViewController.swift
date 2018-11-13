@@ -10,14 +10,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
-    private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
+    private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()

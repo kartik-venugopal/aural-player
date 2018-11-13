@@ -13,7 +13,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     @IBOutlet weak var btnPlay: NSButton!
     
     // Delegate that relays accessor operations to the bookmarks model
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     override var nibName: String? {return "FavoritesEditor"}
     

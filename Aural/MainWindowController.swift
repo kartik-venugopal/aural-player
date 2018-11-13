@@ -19,8 +19,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
     @IBOutlet weak var btnLayout: NSPopUpButton!
     
-    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
-    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
     private var eventMonitor: Any?
     
@@ -68,7 +68,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         addSubViews()
         
-        let appState = ObjectGraph.getAppState().uiState.windowLayoutState
+        let appState = ObjectGraph.appState.uiState.windowLayoutState
         
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)

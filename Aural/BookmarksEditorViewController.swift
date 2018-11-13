@@ -14,7 +14,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     @IBOutlet weak var btnRename: NSButton!
     
     // Delegate that relays accessor operations to the bookmarks model
-    private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
+    private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     
     override var nibName: String? {return "BookmarksEditor"}
     

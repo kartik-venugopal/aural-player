@@ -3,7 +3,7 @@ import Cocoa
 class RegularAppModeController: AppModeController {
     
     var mode: AppMode {return .regular}
-    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     private var constituentViews: [ConstituentView] = []
     
     func presentMode() {

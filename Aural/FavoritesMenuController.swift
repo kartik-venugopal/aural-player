@@ -9,9 +9,9 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem!    
 
     // Delegate that performs CRUD on the favorites model
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     

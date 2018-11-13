@@ -14,7 +14,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     }
     
     // Delegate that conveys all seek and playback info requests to the player
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func viewDidLoad() {
         

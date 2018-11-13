@@ -9,7 +9,7 @@ class TimeViewController: FXUnitViewController {
     
     override var nibName: String? {return "Time"}
     
-    var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().timeUnit
+    var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     override func awakeFromNib() {
         

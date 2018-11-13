@@ -43,12 +43,12 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var pageUpMenuItem: NSMenuItem!
     @IBOutlet weak var pageDownMenuItem: NSMenuItem!
     
-    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
+    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()

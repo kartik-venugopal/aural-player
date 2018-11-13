@@ -19,7 +19,7 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     private var playingTrack: Track?
     
     // Delegate that retrieves playing track info
-    private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Constants used to calculate row height
     

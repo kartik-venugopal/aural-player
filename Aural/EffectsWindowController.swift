@@ -33,13 +33,13 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private var fxTabViewButtons: [EffectsUnitTabButton]?
 
     // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
+    private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
 
-    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
 
-    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
 
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow

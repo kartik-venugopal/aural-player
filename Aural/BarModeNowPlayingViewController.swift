@@ -19,7 +19,7 @@ import Cocoa
 //    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
 //    
 //    // Delegate that retrieves Time Stretch information
-//    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+//    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
 //    
 //    // Timer that periodically updates the seek position slider and label
 //    private var seekTimer: RepeatingTaskExecutor?

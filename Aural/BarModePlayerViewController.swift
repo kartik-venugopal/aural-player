@@ -23,7 +23,7 @@ import Cocoa
 //    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
 //
 //    // Delegate that conveys all volume/pan adjustments to the audio graph
-//    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+//    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
 //
 //    override var nibName: String? {return "BarModePlayer"}
 //

@@ -10,11 +10,11 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     @IBOutlet weak var previewView: LayoutPreviewView!
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.getLayoutManager()
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     // Delegate that performs CRUD on user preferences
-    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
-    private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
+    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
+    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.getPreferences()
     
     private var oldLayoutName: String = ""
     

@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Wrapper around AVAudioEngine. Manages the AVAudioEngine audio graph.
  */
-class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol, PersistentModelObject {
+class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     private let audioEngine: AVAudioEngine
     private let mainMixer: AVAudioMixerNode

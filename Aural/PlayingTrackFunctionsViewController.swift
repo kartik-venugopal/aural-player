@@ -21,10 +21,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     @IBOutlet weak var seekPositionMarker: NSView!
     
     // Delegate that conveys all seek and playback info requests to the player
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
@@ -32,7 +32,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
-    private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
+    private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     override func viewDidLoad() {

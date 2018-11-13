@@ -9,7 +9,7 @@ class ReverbViewController: FXUnitViewController {
     
     override var nibName: String? {return "Reverb"}
     
-    var reverbUnit: ReverbUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().reverbUnit
+    var reverbUnit: ReverbUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.reverbUnit
     
     override func awakeFromNib() {
         

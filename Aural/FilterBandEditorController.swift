@@ -20,8 +20,8 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var filterTypeMenu: NSPopUpButton!
     
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

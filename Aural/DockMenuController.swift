@@ -33,11 +33,11 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     @IBOutlet weak var favoritesMenu: NSMenu!
     
     // Delegate that retrieves current playback info (e.g. repeat/shuffle modes)
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
+    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
