@@ -6,7 +6,7 @@ class TimePresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "TimePresetsEditor"}
     
-    var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().timeUnit
+    var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     override func awakeFromNib() {
         

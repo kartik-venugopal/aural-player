@@ -5,7 +5,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     @IBOutlet weak var editorView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!
     
-    let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     var fxUnit: FXUnitDelegateProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnit!

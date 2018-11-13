@@ -11,7 +11,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     override var nibName: String? {return "Player"}
     
@@ -27,7 +27,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         defaultView.setFrameOrigin(NSPoint.zero)
         expandedArtView.setFrameOrigin(NSPoint.zero)
         
-        PlayerViewState.initialize(ObjectGraph.getAppState().uiState.playerState)
+        PlayerViewState.initialize(ObjectGraph.appState.uiState.playerState)
         showView(PlayerViewState.viewType)
         
         AppModeManager.registerConstituentView(.regular, self)

@@ -8,18 +8,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBOutlet weak var controlsView: PlayerControlsView!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
+    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
-    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().timeUnit
+    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
-    private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
+    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
-    private let appState: PlayerState = ObjectGraph.getAppState().uiState.playerState
+    private let appState: PlayerState = ObjectGraph.appState.uiState.playerState
     
     override var nibName: String? {return "Player"}
     

@@ -23,7 +23,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     private var gaps: (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?)?
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

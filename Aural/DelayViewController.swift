@@ -9,7 +9,7 @@ class DelayViewController: FXUnitViewController {
     
     override var nibName: String? {return "Delay"}
     
-    var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().delayUnit
+    var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.delayUnit
     
     override func awakeFromNib() {
         

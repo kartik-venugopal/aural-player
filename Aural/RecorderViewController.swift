@@ -14,7 +14,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var formatMenu: NSPopUpButton!
     
     // Delegate that relays requests to the recorder
-    private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
+    private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
     
     // Timer that periodically updates recording info - duration and filesize (only when recorder is active)
     private var recorderTimer: RepeatingTaskExecutor?

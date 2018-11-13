@@ -2,7 +2,7 @@ import Cocoa
 
 class LayoutPreviewView: NSView {
     
-    private var layoutManager: LayoutManagerProtocol = ObjectGraph.getLayoutManager()
+    private var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     private var layout: WindowLayout?
     private let idealImgSize: CGFloat = 15
     

@@ -23,7 +23,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     @IBOutlet weak var txtPercentage: NSTextField!
     @IBOutlet weak var percentageStepper: NSStepper!
     
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

@@ -14,7 +14,7 @@ private var visibleFrame: NSRect = {
 
 class UIUtils {
     
-    private static var preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     
     // Dismisses the currently displayed modal dialog
     static func dismissModalDialog() {

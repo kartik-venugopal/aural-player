@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and other sound effects
  */
-protocol AudioGraphProtocol {
+protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var volume: Float {get set}
     

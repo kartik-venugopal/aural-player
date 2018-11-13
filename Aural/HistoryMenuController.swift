@@ -14,7 +14,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {

@@ -45,11 +45,11 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let preferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
+    private let preferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
     private let presetsEditor: EditorWindowController = WindowFactory.getEditorWindowController()
     

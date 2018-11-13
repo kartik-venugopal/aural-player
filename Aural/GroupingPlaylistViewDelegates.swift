@@ -8,10 +8,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     @IBOutlet weak var playlistView: NSOutlineView!
     
     // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
+    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
     // Used to determine the currently playing track
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var playlistType: PlaylistType

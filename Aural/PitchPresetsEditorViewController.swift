@@ -6,7 +6,7 @@ class PitchPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override var nibName: String? {return "PitchPresetsEditor"}
     
-    var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().pitchUnit
+    var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
     
     override func awakeFromNib() {
         

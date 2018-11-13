@@ -5,7 +5,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     @IBOutlet weak var recentlyAddedListSizeMenu: NSPopUpButton!
     @IBOutlet weak var recentlyPlayedListSizeMenu: NSPopUpButton!
     
-    private lazy var history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
     override var nibName: String? {return "HistoryPreferences"}
     

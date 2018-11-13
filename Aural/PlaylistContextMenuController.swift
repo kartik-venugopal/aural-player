@@ -51,13 +51,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()

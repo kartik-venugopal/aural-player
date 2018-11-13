@@ -18,10 +18,10 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     // --------------------------------
     
-    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
-    private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
+    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
+    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.getPreferences()
     
-    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterUnit.presets
+    private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     
     override var nibName: String? {return "MasterPresetsEditor"}
     

@@ -31,7 +31,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
     @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
     
-//    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterPresets
+//    private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterPresets
     
     override var nibName: String? {return "SoundPreferences"}
     

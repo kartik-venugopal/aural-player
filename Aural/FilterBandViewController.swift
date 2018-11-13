@@ -20,7 +20,7 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var tabButton: NSButton!
     
-    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
+    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.audibleRangeMin).withMaxFreq(AppConstants.subBass_max)
     var bandIndex: Int!

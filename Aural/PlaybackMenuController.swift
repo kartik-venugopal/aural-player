@@ -38,16 +38,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
+    private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
     // Delegate that provides access to History information
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    private let preferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
+    private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
     
-    private let layoutManager: LayoutManagerProtocol = ObjectGraph.getLayoutManager()
+    private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.getJumpToTimeEditorDialog()
     

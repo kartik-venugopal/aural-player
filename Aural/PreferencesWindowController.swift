@@ -19,10 +19,10 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     private var subViews: [PreferencesViewProtocol] = []
     
     // Delegate that performs CRUD on user preferences
-    private let delegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
+    private let delegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
     
     // Cached preferences instance
-    private var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
+    private var preferences: Preferences = ObjectGraph.preferencesDelegate.getPreferences()
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

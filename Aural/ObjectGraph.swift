@@ -6,36 +6,40 @@ import Foundation
 
 class ObjectGraph {
     
-    private static var appState: AppState?
-    private static var uiAppState: UIAppState?
-    private static var preferences: Preferences?
+    static var appState: AppState!
+    static var preferences: Preferences!
     
-    private static var preferencesDelegate: PreferencesDelegate?
+    static var preferencesDelegate: PreferencesDelegate!
     
-    private static var playlist: Playlist?
-    private static var playlistDelegate: PlaylistDelegate?
+    private static var playlist: PlaylistCRUDProtocol!
+    static var playlistAccessor: PlaylistAccessorProtocol {return playlist}
     
-    private static var audioGraph: AudioGraph?
-    private static var audioGraphDelegate: AudioGraphDelegate?
+    static var playlistDelegate: PlaylistDelegateProtocol!
+    static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {return playlistDelegate}
     
-    private static var player: PlayerProtocol?
-    private static var playbackSequencer: PlaybackSequencer?
-    private static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegate?
-    private static var playbackDelegate: PlaybackDelegate?
+    private static var audioGraph: AudioGraphProtocol!
+    static var audioGraphDelegate: AudioGraphDelegateProtocol!
     
-    private static var recorder: Recorder?
-    private static var recorderDelegate: RecorderDelegate?
+    private static var player: PlayerProtocol!
+    private static var playbackSequencer: PlaybackSequencerProtocol!
     
-    private static var history: History?
-    private static var historyDelegate: HistoryDelegate?
+    static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol!
+    static var playbackDelegate: PlaybackDelegateProtocol!
+    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol {return playbackDelegate}
     
-    private static var favorites: Favorites?
-    private static var favoritesDelegate: FavoritesDelegate?
+    private static var recorder: Recorder!
+    static var recorderDelegate: RecorderDelegateProtocol!
     
-    private static var bookmarks: Bookmarks?
-    private static var bookmarksDelegate: BookmarksDelegate?
+    private static var history: History!
+    static var historyDelegate: HistoryDelegateProtocol!
     
-    private static var layoutManager: LayoutManager?
+    private static var favorites: Favorites!
+    static var favoritesDelegate: FavoritesDelegateProtocol!
+    
+    private static var bookmarks: Bookmarks!
+    static var bookmarksDelegate: BookmarksDelegateProtocol!
+    
+    static var layoutManager: LayoutManager!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -53,16 +57,13 @@ class ObjectGraph {
         
         // Preferences (and delegate)
         preferences = Preferences.instance()
-        preferencesDelegate = PreferencesDelegate(preferences!)
-        
-        // State used for UI initialization
-        uiAppState = UIAppState(appState!, preferences!)
+        preferencesDelegate = PreferencesDelegate(preferences)
         
         // Audio Graph (and delegate)
-        audioGraph = AudioGraph(appState!.audioGraphState)
+        audioGraph = AudioGraph(appState.audioGraphState)
         
         // Player
-        player = Player(audioGraph!)
+        player = Player(audioGraph)
         
         // Playlist
         let flatPlaylist = FlatPlaylist()
@@ -73,118 +74,52 @@ class ObjectGraph {
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
         // Playback Sequencer and delegate
-        let repeatMode = appState!.playbackSequenceState.repeatMode
-        let shuffleMode = appState!.playbackSequenceState.shuffleMode
-        playbackSequencer = PlaybackSequencer(playlist!, repeatMode, shuffleMode)
+        let repeatMode = appState.playbackSequenceState.repeatMode
+        let shuffleMode = appState.playbackSequenceState.shuffleMode
+        playbackSequencer = PlaybackSequencer(playlist, repeatMode, shuffleMode)
         
-        playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer!)
+        playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(player, playbackSequencer, playlist, preferences.playbackPreferences)
         
-        audioGraphDelegate = AudioGraphDelegate(audioGraph!, playbackDelegate!, preferences!.soundPreferences)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
         // History (and delegate)
-        history = History(preferences!.historyPreferences)
+        history = History(preferences.historyPreferences)
         
         // Playlist Delegate
-        let accessor = PlaylistAccessorDelegate(playlist!)
+        let accessor = PlaylistAccessorDelegate(playlist)
         
-        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer!, playbackDelegate!]
-        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequencer!, playbackDelegate!, appState!.playlistState, preferences!, changeListeners)
+        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! PlaybackSequencer, playbackDelegate as! PlaybackDelegate]
+        let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlistState, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
         
         // Recorder (and delegate)
-        recorder = Recorder(audioGraph!)
-        recorderDelegate = RecorderDelegate(recorder!)
+        recorder = Recorder(audioGraph)
+        recorderDelegate = RecorderDelegate(recorder)
         
-        historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
+        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, appState.historyState)
         
         bookmarks = Bookmarks()
-        bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!, appState!.bookmarksState)
+        bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, appState.bookmarksState)
         
         favorites = Favorites()
-        favoritesDelegate = FavoritesDelegate(favorites!, playlistDelegate!, playbackDelegate!, appState!.favoritesState)
+        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState.favoritesState)
         
-        WindowLayouts.loadUserDefinedLayouts((appState?.uiState.windowLayoutState.userWindowLayouts)!)
+        WindowLayouts.loadUserDefinedLayouts(appState.uiState.windowLayoutState.userWindowLayouts)
         
-        layoutManager = LayoutManager(appState!.uiState.windowLayoutState, preferences!.viewPreferences)
+        layoutManager = LayoutManager(appState.uiState.windowLayoutState, preferences.viewPreferences)
         
         // TODO: Who should own this initialization ???
-        appState?.soundProfilesState.profiles.forEach({
+        appState.soundProfilesState.profiles.forEach({
             SoundProfiles.saveProfile($0.file, $0.volume, $0.balance, $0.effects)
         })
         
-        appState?.playbackProfilesState.profiles.forEach({
+        appState.playbackProfilesState.profiles.forEach({
             PlaybackProfiles.saveProfile($0.file, $0.lastPosition)
         })
-    }
-    
-    // MARK: Accessor methods to retrieve objects
-    
-    static  func getAppState() -> AppState {
-        return appState!
-    }
-    
-    static func getUIAppState() -> UIAppState {
-        return uiAppState!
-    }
-    
-    static func getPreferencesDelegate() -> PreferencesDelegateProtocol {
-        return preferencesDelegate!
-    }
-    
-    static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
-        return playlist!
-    }
-    
-    static func getPlaylistAccessorDelegate() -> PlaylistAccessorDelegateProtocol {
-        return playlistDelegate!
-    }
-    
-    static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
-        return playlistDelegate!
-    }
-    
-    static func getAudioGraphDelegate() -> AudioGraphDelegateProtocol {
-        return audioGraphDelegate!
-    }
-    
-    static func getPlaybackDelegate() -> PlaybackDelegateProtocol {
-        return playbackDelegate!
-    }
-    
-    static func getPlaybackInfoDelegate() -> PlaybackInfoDelegateProtocol {
-        return getPlaybackDelegate()
-    }
-    
-    static func getPlaybackSequencerInfoDelegate() -> PlaybackSequencerInfoDelegateProtocol {
-        return playbackSequencerInfoDelegate!
-    }
-    
-    static func getRecorderDelegate() -> RecorderDelegateProtocol {
-        return recorderDelegate!
-    }
-    
-    static func getRecorder() -> Recorder {
-        return recorder!
-    }
-    
-    static func getHistoryDelegate() -> HistoryDelegateProtocol {
-        return historyDelegate!
-    }
-    
-    static func getFavoritesDelegate() -> FavoritesDelegateProtocol {
-        return favoritesDelegate!
-    }
-    
-    static func getBookmarksDelegate() -> BookmarksDelegateProtocol {
-        return bookmarksDelegate!
-    }
-    
-    static func getLayoutManager() -> LayoutManager {
-        return layoutManager!
     }
     
     // Called when app exits
@@ -192,25 +127,25 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
-        appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
-        appState?.playlistState = playlist!.persistentState() as! PlaylistState
-        appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
+        appState.audioGraphState = (audioGraph as! AudioGraph).persistentState() as! AudioGraphState
+        appState.playlistState = (playlist as! Playlist).persistentState() as! PlaylistState
+        appState.playbackSequenceState = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
         
-        appState?.uiState = UIState()
-        appState?.uiState.windowLayoutState = layoutManager!.persistentState()
-        appState?.uiState.playerState = PlayerViewState.persistentState()
+        appState.uiState = UIState()
+        appState.uiState.windowLayoutState = layoutManager.persistentState()
+        appState.uiState.playerState = PlayerViewState.persistentState()
         
-        appState?.historyState = historyDelegate!.persistentState() as! HistoryState
-        appState?.favoritesState = favoritesDelegate!.persistentState() as! FavoritesState
-        appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
-        appState?.soundProfilesState = SoundProfiles.getPersistentState()
-        appState?.playbackProfilesState = PlaybackProfiles.getPersistentState()
+        appState.historyState = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
+        appState.favoritesState = (favoritesDelegate as! FavoritesDelegate).persistentState() as! FavoritesState
+        appState.bookmarksState = (bookmarksDelegate as! BookmarksDelegate).persistentState() as! BookmarksState
+        appState.soundProfilesState = SoundProfiles.getPersistentState()
+        appState.playbackProfilesState = PlaybackProfiles.getPersistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)
         
         // Tear down the audio engine
-        player?.tearDown()
-        audioGraph?.tearDown()
+        player.tearDown()
+        audioGraph.tearDown()
     }
 }
