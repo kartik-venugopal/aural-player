@@ -123,7 +123,7 @@ class ObjectGraph {
     
     // MARK: Accessor methods to retrieve objects
     
-    static func getAppState() -> AppState {
+    static  func getAppState() -> AppState {
         return appState!
     }
     

@@ -74,3 +74,5 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 2}
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.235, alpha: 1)}
 }
+
+class FilterBandsTabButtonCell: EQSelectorButtonCell {}

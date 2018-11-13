@@ -11,25 +11,27 @@ class FilterBandViewController: NSViewController {
     @IBOutlet weak var cutoffSliderCell: CutoffFrequencySliderCell!
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
-    @IBOutlet weak var lblPresetRangesCaption: NSTextField!
     @IBOutlet weak var presetRangesMenu: NSPopUpButton!
     
     @IBOutlet weak var lblCutoffCaption: NSTextField!
-    @IBOutlet weak var lblPresetCutoffsCaption: NSTextField!
     @IBOutlet weak var presetCutoffsMenu: NSPopUpButton!
     
     @IBOutlet weak var lblFrequencies: NSTextField!
     
-    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
+    @IBOutlet weak var tabButton: NSButton!
     
-    private var modalDialogResponse: ModalDialogResponse = .ok
-    private var editBandIndex: Int = -1
+    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
     
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.audibleRangeMin).withMaxFreq(AppConstants.audibleRangeMax)
     var bandIndex: Int!
     
+    var bandChangedCallback: (() -> Void) = {() -> Void in
+        // Do nothing
+    }
+    
     override func awakeFromNib() {
         freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
+        print("TabBtn", tabButton)
     }
     
     override func viewDidLoad() {
@@ -48,11 +50,8 @@ class FilterBandViewController: NSViewController {
         let filterType = FilterBandType(rawValue: filterTypeMenu.titleOfSelectedItem!)!
         band.type = filterType
         
-//        [freqRangeSlider, lblRangeCaption, lblPresetRangesCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
-//        [cutoffSlider, lblCutoffCaption, lblPresetCutoffsCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
-        
-        [freqRangeSlider, lblRangeCaption].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
-        [cutoffSlider, lblCutoffCaption].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
         
         if filterType == .bandPass || filterType == .bandStop {
             
@@ -73,6 +72,8 @@ class FilterBandViewController: NSViewController {
         }
         
         filterUnit.updateBand(bandIndex, band)
+        
+        bandChangedCallback()
     }
     
     private func freqRangeChanged() {
@@ -83,6 +84,8 @@ class FilterBandViewController: NSViewController {
         filterUnit.updateBand(bandIndex, band)
         
         lblFrequencies.stringValue = String(format: "[%@ - %@]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
+        
+        bandChangedCallback()
     }
     
     @IBAction func cutoffSliderAction(_ sender: Any) {
@@ -93,6 +96,8 @@ class FilterBandViewController: NSViewController {
         filterUnit.updateBand(bandIndex, band)
         
         lblFrequencies.stringValue = formatFrequency(cutoffSlider.frequency)
+        
+        bandChangedCallback()
     }
     
     @IBAction func presetRangeAction(_ sender: NSPopUpButton) {
