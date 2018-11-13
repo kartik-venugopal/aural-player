@@ -108,9 +108,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
         
         if let range = sender.selectedItem as? FrequencyRangeMenuItem {
         
-            freqRangeSlider.setStartFrequency(range.minFreq)
-            freqRangeSlider.setEndFrequency(range.maxFreq)
-            
+            freqRangeSlider.setFrequencyRange(range.minFreq, range.maxFreq)
             freqRangeChanged()
         }
         
@@ -177,8 +175,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
         let filterType = band.type
         if filterType == .bandPass || filterType == .bandStop {
             
-            freqRangeSlider.setStartFrequency(band.minFreq!)
-            freqRangeSlider.setEndFrequency(band.maxFreq!)
+            freqRangeSlider.setFrequencyRange(band.minFreq!, band.maxFreq!)
             
         } else {
             

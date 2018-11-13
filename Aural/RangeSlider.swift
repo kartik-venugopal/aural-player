@@ -70,6 +70,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     private let barTrailingMargin: CGFloat = 1.0
     private let disabledControlDimmingRatio: CGFloat = 0.65
     
+    var shouldTriggerHandler: Bool = true
+    
     /** Optional action block, called when the control's start or end values change. */
     var onControlChanged : ((RangeSlider) -> Void)?
     
@@ -133,7 +135,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - Properties -
     
-    private var selection: SelectionRange = SelectionRange(start: 0.0, end: 1.0) {
+    var selection: SelectionRange = SelectionRange(start: 0.0, end: 1.0) {
+        
         willSet {
             if newValue.start != selection.start {
                 self.willChangeValue(forKey: "start")
@@ -166,7 +169,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             }
             
             if valuesChanged {
-                if let block = onControlChanged {
+                if shouldTriggerHandler, let block = onControlChanged {
                     block(self)
                 }
             }
@@ -447,15 +450,18 @@ class FilterBandSlider: RangeSlider {
         return Float(20 * pow(10, (start - 20) / 6660))
     }
     
-    func setStartFrequency(_ freq: Float) {
-        self.start = Double(6660 * log10(freq/20) + 20)
-    }
-    
     var endFrequency: Float {
         return Float(20 * pow(10, (end - 20) / 6660))
     }
     
-    func setEndFrequency(_ freq: Float) {
-        self.end = Double(6660 * log10(freq/20) + 20)
+    func setFrequencyRange(_ min: Float, _ max: Float) {
+        
+        let temp = shouldTriggerHandler
+        shouldTriggerHandler = false
+        
+        start = Double(6660 * log10(min/20) + 20)
+        end = Double(6660 * log10(max/20) + 20)
+        
+        shouldTriggerHandler = temp
     }
 }

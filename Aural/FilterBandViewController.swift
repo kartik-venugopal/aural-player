@@ -22,7 +22,7 @@ class FilterBandViewController: NSViewController {
     
     private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.getAudioGraphDelegate().filterUnit
     
-    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.audibleRangeMin).withMaxFreq(AppConstants.audibleRangeMax)
+    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.audibleRangeMin).withMaxFreq(AppConstants.subBass_max)
     var bandIndex: Int!
     
     var bandChangedCallback: (() -> Void) = {() -> Void in
@@ -31,7 +31,6 @@ class FilterBandViewController: NSViewController {
     
     override func awakeFromNib() {
         freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
-        print("TabBtn", tabButton)
     }
     
     override func viewDidLoad() {
@@ -40,7 +39,35 @@ class FilterBandViewController: NSViewController {
     
     private func resetFields() {
         
-        bandTypeAction(self)
+        print(bandIndex!, band.type.rawValue, band.minFreq, band.maxFreq)
+        
+        let filterType = band.type
+        
+        filterTypeMenu.selectItem(withTitle: filterType.rawValue)
+        
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
+        
+        if filterType == .bandPass || filterType == .bandStop {
+            
+            freqRangeSlider.filterType = filterType
+            
+            freqRangeSlider.setFrequencyRange(band.minFreq!, band.maxFreq!)
+            lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
+            
+            cutoffSlider.setFrequency(AppConstants.audibleRangeMin)
+            
+        } else {
+            
+            cutoffSlider.setFrequency(filterType == .lowPass ? band.maxFreq! : band.minFreq!)
+            
+            cutoffSliderCell.filterType = filterType
+            cutoffSlider.redraw()
+            lblFrequencies.stringValue = formatFrequency(cutoffSlider.frequency)
+            
+            freqRangeSlider.setFrequencyRange(AppConstants.audibleRangeMin, AppConstants.subBass_max)
+        }
+        
         presetCutoffsMenu.selectItem(at: -1)
         presetRangesMenu.selectItem(at: -1)
     }
@@ -83,7 +110,7 @@ class FilterBandViewController: NSViewController {
         
         filterUnit.updateBand(bandIndex, band)
         
-        lblFrequencies.stringValue = String(format: "[%@ - %@]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
+        lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
         
         bandChangedCallback()
     }
@@ -104,9 +131,7 @@ class FilterBandViewController: NSViewController {
         
         if let range = sender.selectedItem as? FrequencyRangeMenuItem {
             
-            freqRangeSlider.setStartFrequency(range.minFreq)
-            freqRangeSlider.setEndFrequency(range.maxFreq)
-            
+            freqRangeSlider.setFrequencyRange(range.minFreq, range.maxFreq)
             freqRangeChanged()
         }
         

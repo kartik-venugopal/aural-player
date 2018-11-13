@@ -75,4 +75,8 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.235, alpha: 1)}
 }
 
-class FilterBandsTabButtonCell: EQSelectorButtonCell {}
+class FilterBandsTabButtonCell: EQSelectorButtonCell {
+    
+    override var textFont: NSFont {return Fonts.gillSans10Font}
+    override var boldTextFont: NSFont {return Fonts.gillSansSemiBold10Font}
+}

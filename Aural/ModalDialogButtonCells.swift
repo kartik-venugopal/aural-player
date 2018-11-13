@@ -74,3 +74,7 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
     override var textColor: NSColor {return Colors.modalDialogNavButtonTextColor}
     override var textFont: NSFont {return Fonts.modalDialogNavButtonFont}
 }
+
+class FilterBandControlsButtonCell: ModalDialogButtonCell {
+    override var textFont: NSFont {return Fonts.gillSans10Font}
+}
