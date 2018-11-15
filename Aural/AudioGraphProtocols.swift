@@ -7,9 +7,7 @@ import AVFoundation
 protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var volume: Float {get set}
-    
     var balance: Float {get set}
-    
     var muted: Bool {get set}
     
     var masterUnit: MasterUnit {get set}
@@ -21,6 +19,8 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     var filterUnit: FilterUnit {get set}
     
     func getSettingsAsMasterPreset() -> MasterPreset
+    
+    var soundProfiles: SoundProfiles {get set}
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()

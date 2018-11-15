@@ -1,36 +1,15 @@
 import Foundation
 
-class SoundProfiles {
+class SoundProfiles: TrackKeyedMap<SoundProfile> {
     
-    // Track file -> Profile
-    private static var map: [URL: SoundProfile] = [:]
+    var audioGraph: AudioGraphProtocol!
     
-    static func saveProfile(_ track: Track, _ volume: Float, _ balance: Float, _ effects: MasterPreset) {
-        map[track.file] = SoundProfile(file: track.file, volume: volume, balance: balance, effects: effects)
+    func add(_ track: Track) {
+        self.add(track.file)
     }
     
-    static func saveProfile(_ file: URL, _ volume: Float, _ balance: Float, _ effects: MasterPreset) {
-        map[file] = SoundProfile(file: file, volume: volume, balance: balance, effects: effects)
-    }
-    
-    static func deleteProfile(_ track: Track) {
-        map[track.file] = nil
-    }
-    
-    static func profileForTrack(_ track: Track) -> SoundProfile? {
-        return map[track.file]
-    }
-    
-    static func removeAll() {
-        map.removeAll()
-    }
-    
-    static func getPersistentState() -> SoundProfilesState {
-        
-        let state = SoundProfilesState()
-        state.profiles.append(contentsOf: map.values)
-        
-        return state
+    func add(_ file: URL) {
+        self.add(file, SoundProfile(file: file, volume: audioGraph.volume, balance: audioGraph.balance, effects: audioGraph.getSettingsAsMasterPreset()))
     }
 }
 
@@ -42,4 +21,37 @@ struct SoundProfile {
     let balance: Float
     
     let effects: MasterPreset
+}
+
+class TrackKeyedMap<T> {
+
+    var map: [URL: T] = [:]
+    
+    func add(_ track: Track, _ item: T) {
+        map[track.file] = item
+    }
+    
+    func add(_ file: URL, _ item: T) {
+        map[file] = item
+    }
+    
+    func get(_ track: Track) -> T? {
+        return map[track.file]
+    }
+    
+    func hasFor(_ track: Track) -> Bool {
+        return get(track) != nil
+    }
+    
+    func remove(_ track: Track) {
+        map[track.file] = nil
+    }
+    
+    func removeAll() {
+        map.removeAll()
+    }
+    
+    func all() -> [T] {
+        return [T](map.values)
+    }
 }

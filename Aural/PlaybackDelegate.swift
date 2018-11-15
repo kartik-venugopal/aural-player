@@ -273,6 +273,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             return
         }
         
+        SyncMessenger.publishNotification(PreTrackChangeNotification(TrackChangeContext.currentTrack, TrackChangeContext.currentState, TrackChangeContext.newTrack))
+        
         player.play(track, startPosition ?? 0, endPosition)
         
         // TODO: Can we consolidate these 2 notifications into one ?
@@ -390,18 +392,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if (state.notPlaying()) {
-            return
-        }
+        if (state.notPlaying()) {return}
         
         doSeekBackward(getPrimarySeekLength(actionMode))
     }
     
     func seekBackwardSecondary() {
         
-        if (state.notPlaying()) {
-            return
-        }
+        if (state.notPlaying()) {return}
         
         doSeekBackward(getSecondarySeekLength())
     }

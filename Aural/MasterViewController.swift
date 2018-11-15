@@ -16,6 +16,8 @@ class MasterViewController: FXUnitViewController {
     private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
     private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
     
+    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
+    
     override var nibName: String? {return "Master"}
     
     override func awakeFromNib() {
@@ -39,7 +41,7 @@ class MasterViewController: FXUnitViewController {
         super.initSubscriptions()
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects, .saveSoundProfile, .deleteSoundProfile], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
     }
     
     override func initControls() {
@@ -121,27 +123,11 @@ class MasterViewController: FXUnitViewController {
         broadcastStateChangeNotification()
     }
     
-    private func saveSoundProfile() {
-        
-        if let plTrack = player.playingTrack?.track {
-            SoundProfiles.saveProfile(plTrack, graph.volume, graph.balance, graph.getSettingsAsMasterPreset())
-        }
-    }
-    
-    private func deleteSoundProfile() {
-        
-        if let plTrack = player.playingTrack?.track {
-            SoundProfiles.deleteProfile(plTrack)
-        }
-    }
-    
     private func trackChanged(_ message: TrackChangedNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack?.track, let profile = SoundProfiles.profileForTrack(newTrack) {
-            
-            masterUnit.applyPreset(profile.effects)
-            
+        if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack?.track, soundProfiles.hasFor(newTrack) {
+
             updateButtons()
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
@@ -174,12 +160,6 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
-            
-        case .saveSoundProfile:
-            saveSoundProfile()
-            
-        case .deleteSoundProfile:
-            deleteSoundProfile()
             
         default: return
             

@@ -45,6 +45,8 @@ protocol AudioGraphDelegateProtocol {
     var reverbUnit: ReverbUnitDelegateProtocol {get set}
     var delayUnit: DelayUnitDelegateProtocol {get set}
     var filterUnit: FilterUnitDelegateProtocol {get set}
+    
+    var soundProfiles: SoundProfiles {get}
 }
 
 protocol FXUnitDelegateProtocol {

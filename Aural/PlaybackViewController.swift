@@ -15,6 +15,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
@@ -318,26 +319,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         controlsView.trackChanged(player.state, player.playbackLoop, newTrack)
         
-        if soundPreferences.rememberEffectsSettings {
-            
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let _oldTrack = oldTrack, oldState != .waiting {
-                
-                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(_oldTrack.track) != nil {
-                    SoundProfiles.saveProfile(_oldTrack.track, audioGraph.volume, audioGraph.balance, audioGraph.getSettingsAsMasterPreset())
-                }
-            }
-            
-            // Apply sound profile if there is one for the new track and the preferences allow it
-            if newTrack != nil, let profile = SoundProfiles.profileForTrack(newTrack!.track) {
-                
-                audioGraph.volume = profile.volume
-                audioGraph.balance = profile.balance
-                
-                controlsView.volumeChanged(profile.volume, audioGraph.muted)
-                controlsView.panChanged(profile.balance)
-            }
+        // Apply sound profile if there is one for the new track and the preferences allow it
+        if soundPreferences.rememberEffectsSettings, newTrack != nil, soundProfiles.hasFor(newTrack!.track) {
+
+            controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
+            controlsView.panChanged(audioGraph.balance)
         }
     }
     
@@ -379,21 +365,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        
         controlsView.gapStarted()
-        
-        if soundPreferences.rememberEffectsSettings {
-            
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let oldTrack = msg.lastPlayedTrack {
-                
-                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
-                    
-                    SoundProfiles.saveProfile(oldTrack.track, audioGraph.volume, audioGraph.balance, audioGraph.getSettingsAsMasterPreset())
-                }
-            }
-        }
     }
     
     func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
