@@ -87,12 +87,4 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
             bands = EQPresets.defaultPreset.bands
         }
     }
-    
-    override func savePreset(_ presetName: String) {
-        unit.savePreset(presetName)
-    }
-    
-    override func applyPreset(_ presetName: String) {
-        unit.applyPreset(presetName)
-    }
 }

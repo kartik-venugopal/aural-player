@@ -46,6 +46,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
@@ -97,7 +98,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if let playingTrack = player.playingTrack?.track {
             
             rememberSettingsMenuItem.enable()
-            rememberSettingsMenuItem.onIf(SoundProfiles.profileForTrack(playingTrack) != nil)
+            rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
+            
         } else {
             rememberSettingsMenuItem.disable()
         }

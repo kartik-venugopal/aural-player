@@ -112,11 +112,7 @@ class ObjectGraph {
         
         layoutManager = LayoutManager(appState.uiState.windowLayoutState, preferences.viewPreferences)
         
-        // TODO: Who should own this initialization ???
-        appState.soundProfilesState.profiles.forEach({
-            SoundProfiles.saveProfile($0.file, $0.volume, $0.balance, $0.effects)
-        })
-        
+        // TODO: Who should own this initialization ??? (PlaybackDelegate)
         appState.playbackProfilesState.profiles.forEach({
             PlaybackProfiles.saveProfile($0.file, $0.lastPosition)
         })
@@ -138,7 +134,6 @@ class ObjectGraph {
         appState.historyState = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
         appState.favoritesState = (favoritesDelegate as! FavoritesDelegate).persistentState() as! FavoritesState
         appState.bookmarksState = (bookmarksDelegate as! BookmarksDelegate).persistentState() as! BookmarksState
-        appState.soundProfilesState = SoundProfiles.getPersistentState()
         appState.playbackProfilesState = PlaybackProfiles.getPersistentState()
         
         // Persist app state to disk

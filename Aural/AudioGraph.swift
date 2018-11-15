@@ -25,6 +25,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     // Sound setting value holders
     private var playerVolume: Float
     
+    var soundProfiles: SoundProfiles
+    
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
         
@@ -55,6 +57,13 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         playerVolume = state.volume
         muted = state.muted
         playerNode.pan = state.balance
+        
+        soundProfiles = SoundProfiles()
+        state.soundProfiles.forEach({
+            soundProfiles.add($0.file, $0)
+        })
+        
+        soundProfiles.audioGraph = self
     }
     
     var volume: Float {
@@ -111,6 +120,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.reverbUnitState = reverbUnit.persistentState()
         state.delayUnitState = delayUnit.persistentState()
         state.filterUnitState = filterUnit.persistentState()
+        
+        state.soundProfiles.append(contentsOf: soundProfiles.all())
         
         return state
     }

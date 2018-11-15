@@ -29,12 +29,4 @@ class FilterUnitDelegate: FXUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol
     func getBand(_ index: Int) -> FilterBand {
         return unit.getBand(index)
     }
-    
-    override func savePreset(_ presetName: String) {
-        unit.savePreset(presetName)
-    }
-    
-    override func applyPreset(_ presetName: String) {
-        unit.applyPreset(presetName)
-    }
 }

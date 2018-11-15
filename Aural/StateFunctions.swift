@@ -2,8 +2,8 @@ import Foundation
 
 typealias EffectsUnitStateFunction = () -> EffectsUnitState
 
-let graph = ObjectGraph.audioGraphDelegate!
-let recorder = ObjectGraph.recorderDelegate!
+fileprivate let graph = ObjectGraph.audioGraphDelegate!
+fileprivate let recorder = ObjectGraph.recorderDelegate!
 
 let masterStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.masterUnit.state}
 let eqStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.eqUnit.state}

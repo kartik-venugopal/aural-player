@@ -33,10 +33,7 @@ class FXUnit {
     }
     
     func ensureActive() {
-        
-        if state != .active {
-            _ = toggleState()
-        }
+        if !isActive {_ = toggleState()}
     }
     
     func suppress() {
