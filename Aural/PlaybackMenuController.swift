@@ -39,6 +39,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
@@ -86,12 +87,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
+        rememberLastPositionMenuItem.enableIf(playbackInfo.playingTrack != nil)
         if let playingTrack = playbackInfo.playingTrack?.track {
-            
-            rememberLastPositionMenuItem.enable()
-            rememberLastPositionMenuItem.onIf(PlaybackProfiles.profileForTrack(playingTrack) != nil)
-        } else {
-            rememberLastPositionMenuItem.disable()
+            rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
         }
     }
     

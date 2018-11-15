@@ -81,7 +81,7 @@ class ObjectGraph {
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player, playbackSequencer, playlist, preferences.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(appState.playbackProfilesState, player, playbackSequencer, playlist, preferences.playbackPreferences)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
@@ -111,11 +111,6 @@ class ObjectGraph {
         WindowLayouts.loadUserDefinedLayouts(appState.uiState.windowLayoutState.userWindowLayouts)
         
         layoutManager = LayoutManager(appState.uiState.windowLayoutState, preferences.viewPreferences)
-        
-        // TODO: Who should own this initialization ??? (PlaybackDelegate)
-        appState.playbackProfilesState.profiles.forEach({
-            PlaybackProfiles.saveProfile($0.file, $0.lastPosition)
-        })
     }
     
     // Called when app exits
@@ -126,6 +121,7 @@ class ObjectGraph {
         appState.audioGraphState = (audioGraph as! AudioGraph).persistentState() as! AudioGraphState
         appState.playlistState = (playlist as! Playlist).persistentState() as! PlaylistState
         appState.playbackSequenceState = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
+        appState.playbackProfilesState.profiles = playbackDelegate.profiles.all()
         
         appState.uiState = UIState()
         appState.uiState.windowLayoutState = layoutManager.persistentState()
@@ -134,7 +130,6 @@ class ObjectGraph {
         appState.historyState = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
         appState.favoritesState = (favoritesDelegate as! FavoritesDelegate).persistentState() as! FavoritesState
         appState.bookmarksState = (bookmarksDelegate as! BookmarksDelegate).persistentState() as! BookmarksState
-        appState.playbackProfilesState = PlaybackProfiles.getPersistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)

@@ -19,12 +19,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private let trackPlaybackQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
-    init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
+    var profiles: PlaybackProfiles
+    
+    init(_ appState: PlaybackProfilesState, _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.sequencer = sequencer
         self.playlist = playlist
         self.preferences = preferences
+        
+        self.profiles = PlaybackProfiles()
+        appState.profiles.forEach({profiles.add($0.file, $0)})
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
@@ -88,7 +93,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the lastTrack was actually playing/paused
-        if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack?.track, preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(actualTrack) != nil {
+        if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack?.track, preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(actualTrack) {
             
             // Update last position for current track
             let curPosn = seekPosition.timeElapsed
@@ -97,7 +102,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             // If track finished playing the last time, reset the last position to 0
             let lastPosn = (curPosn >= trackDuration ? 0 : curPosn)
             
-            PlaybackProfiles.saveProfile(actualTrack, lastPosn)
+            profiles.add(actualTrack, PlaybackProfile(actualTrack.file, lastPosn))
         }
     }
     
@@ -177,7 +182,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let endPosition: Double? = params.endPosition
         
         // Check for playback profile
-        if params.startPosition == nil, preferences.rememberLastPosition, let profile = PlaybackProfiles.profileForTrack(indexedTrack.track) {
+        if params.startPosition == nil, preferences.rememberLastPosition, let profile = profiles.get(indexedTrack.track) {
             
             // Apply playback profile for new track
             // Validate the playback profile before applying it
@@ -581,7 +586,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let oldTrack = playingTrack
         
         // Reset playback profile last position to 0 (if there is a profile for the track that completed)
-        if let profile = PlaybackProfiles.profileForTrack(oldTrack!.track) {
+        if let profile = profiles.get(oldTrack!.track) {
             profile.lastPosition = 0
         }
         
@@ -617,14 +622,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func saveProfile() {
         
         if let plTrack = playingTrack?.track {
-            PlaybackProfiles.saveProfile(plTrack, seekPosition.timeElapsed)
+            profiles.add(plTrack, PlaybackProfile(plTrack.file, seekPosition.timeElapsed))
         }
     }
     
     private func deleteProfile() {
         
         if let plTrack = playingTrack?.track {
-            PlaybackProfiles.deleteProfile(plTrack)
+            profiles.remove(plTrack)
         }
     }
     
@@ -636,8 +641,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
             if let plTrack = playingTrack?.track {
                 
-                if preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(plTrack) != nil {
-                    PlaybackProfiles.saveProfile(plTrack, seekPosition.timeElapsed)
+                if preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(plTrack) {
+                    profiles.add(plTrack, PlaybackProfile(plTrack.file, seekPosition.timeElapsed))
                 }
             }
         }

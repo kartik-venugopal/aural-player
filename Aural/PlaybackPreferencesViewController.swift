@@ -43,6 +43,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
     
+    private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
+    
     override var nibName: String? {return "PlaybackPreferences"}
     
     func getView() -> NSView {
@@ -230,7 +232,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let isNowIndividualTracks: Bool = playbackPrefs.rememberLastPositionOption == .individualTracks
         
         if !playbackPrefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
-            PlaybackProfiles.removeAll()
+            playbackProfiles.removeAll()
         }
         
         playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.isOn()
