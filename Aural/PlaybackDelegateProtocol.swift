@@ -107,6 +107,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
         Returns the definition of the current loop, if one is defined, after the execution of this function
      */
     func toggleLoop() -> PlaybackLoop?
+    
+    var profiles: PlaybackProfiles {get set}
 }
 
 // Default function implementations
