@@ -54,10 +54,6 @@ class AsyncMessenger {
             
             for (subscriber, queue) in subscribers! {
                 
-                if message.messageType == .trackChanged {
-                    print("Publishing to", subscriber.getID())
-                }
-                
                 // Notify the subscriber on its notification queue
                 queue.async(execute: { () -> Void in
                     subscriber.consumeAsyncMessage(message)

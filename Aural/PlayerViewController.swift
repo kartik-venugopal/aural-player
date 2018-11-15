@@ -27,7 +27,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         defaultView.setFrameOrigin(NSPoint.zero)
         expandedArtView.setFrameOrigin(NSPoint.zero)
         
-        PlayerViewState.initialize(ObjectGraph.appState.uiState.playerState)
+        PlayerViewState.initialize(ObjectGraph.appState.ui.player)
         showView(PlayerViewState.viewType)
         
         AppModeManager.registerConstituentView(.regular, self)

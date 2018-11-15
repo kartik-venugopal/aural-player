@@ -68,7 +68,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         addSubViews()
         
-        let appState = ObjectGraph.appState.uiState.windowLayoutState
+        let appState = ObjectGraph.appState.ui.windowLayout
         
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)

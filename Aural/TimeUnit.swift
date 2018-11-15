@@ -7,9 +7,9 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     
     init(_ appState: AudioGraphState) {
         
-        let timeState = appState.timeUnitState
+        let timeState = appState.timeUnit
         
-        super.init(.time, timeState.unitState)
+        super.init(.time, timeState.state)
         
         rate = timeState.rate
         overlap = timeState.overlap
@@ -75,7 +75,7 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
 
         let unitState = TimeUnitState()
 
-        unitState.unitState = state
+        unitState.state = state
         unitState.rate = rate
         unitState.overlap = overlap
         unitState.shiftPitch = shiftPitch

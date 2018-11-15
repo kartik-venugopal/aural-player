@@ -7,9 +7,9 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     init(_ appState: AudioGraphState) {
         
-        let delayState = appState.delayUnitState
+        let delayState = appState.delayUnit
         
-        super.init(.delay, delayState.unitState)
+        super.init(.delay, delayState.state)
         
         time = delayState.time
         amount = delayState.amount
@@ -83,7 +83,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
 
         let unitState = DelayUnitState()
 
-        unitState.unitState = state
+        unitState.state = state
         unitState.time = time
         unitState.amount = amount
         unitState.feedback = feedback

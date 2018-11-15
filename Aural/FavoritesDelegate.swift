@@ -1,6 +1,6 @@
 import Foundation
 
-class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
+class FavoritesDelegate: FavoritesDelegateProtocol {
     
     private let favorites: FavoritesProtocol
     
@@ -10,13 +10,13 @@ class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: FavoritesState) {
+    init(_ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: [URL]) {
         
         self.favorites = favorites
         self.player = player
         self.playlist = playlist
         
-        state.favorites.forEach({_ = self.addFavorite($0)})
+        state.forEach({_ = self.addFavorite($0)})
     }
     
     func addFavorite(_ track: Track) -> Favorite {
@@ -83,14 +83,14 @@ class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
         }
     }
     
-    func persistentState() -> PersistentState {
+    func persistentState() -> [URL] {
         
-        let state = FavoritesState()
+        var arr: [URL] = []
         
         favorites.getAllFavorites().forEach({
-            
-            state.favorites.append($0.file)
+            arr.append($0.file)
         })
-        return state
+        
+        return arr
     }
 }

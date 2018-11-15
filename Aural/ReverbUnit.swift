@@ -7,10 +7,10 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     init(_ appState: AudioGraphState) {
         
-        let reverbState = appState.reverbUnitState
+        let reverbState = appState.reverbUnit
         
         avSpace = reverbState.space.avPreset
-        super.init(.reverb, reverbState.unitState)
+        super.init(.reverb, reverbState.state)
         
         amount = reverbState.amount
         presets.addPresets(reverbState.userPresets)
@@ -70,7 +70,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
 
         let unitState = ReverbUnitState()
 
-        unitState.unitState = state
+        unitState.state = state
         unitState.space = space
         unitState.amount = amount
         unitState.userPresets = presets.userDefinedPresets

@@ -44,23 +44,54 @@ class ObjectGraph {
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
+    static var pTypes: Set<String> = Set<String>()
+    static var types: Set<String> = Set<String>()
+    static var map: [String: String] = [:]
+    static var map2: [String: Int] = [:]
+    
+    private static func mirror(_ label: String, _ obj: Any) {
+        
+        let mir = Mirror(reflecting: obj)
+        map[String(describing: mir.subjectType)] = String(describing: mir.displayStyle)
+        map2[String(describing: mir.subjectType)] = mir.children.count
+        
+        if mir.allChildren().count == 0 {
+//        if mir.allChildren().count == 0 && mir.displayStyle != .collection && mir.displayStyle != .dictionary {
+            pTypes.insert(String(describing: mir.subjectType))
+        }
+        
+        for ch in mir.children {
+            mirror(ch.label ?? "<NO-LABEL>", ch.value)
+        }
+    }
+    
     // Performs all necessary object initialization
     static func initialize() {
         
         // Load persistent app state from disk
         appState = AppStateIO.load()
         
+//
+//        for (k, v) in map {
+//            print(k, "->", v, map2[k])
+//        }
+        
         // Use defaults if app state could not be loaded from disk
         if (appState == nil) {
             appState = AppState.defaults
         }
+        
+//        mirror("timeState", appState.historyState)
+//        pTypes.forEach({print($0)})
+        
+//        print(Mapper.map(appState.historyState))
         
         // Preferences (and delegate)
         preferences = Preferences.instance()
         preferencesDelegate = PreferencesDelegate(preferences)
         
         // Audio Graph (and delegate)
-        audioGraph = AudioGraph(appState.audioGraphState)
+        audioGraph = AudioGraph(appState.audioGraph)
         
         // Player
         player = Player(audioGraph)
@@ -74,14 +105,14 @@ class ObjectGraph {
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
         // Playback Sequencer and delegate
-        let repeatMode = appState.playbackSequenceState.repeatMode
-        let shuffleMode = appState.playbackSequenceState.shuffleMode
+        let repeatMode = appState.playbackSequence.repeatMode
+        let shuffleMode = appState.playbackSequence.shuffleMode
         playbackSequencer = PlaybackSequencer(playlist, repeatMode, shuffleMode)
         
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(appState.playbackProfilesState, player, playbackSequencer, playlist, preferences.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, preferences.playbackPreferences)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
@@ -92,7 +123,7 @@ class ObjectGraph {
         let accessor = PlaylistAccessorDelegate(playlist)
         
         let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! PlaybackSequencer, playbackDelegate as! PlaybackDelegate]
-        let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlistState, preferences, changeListeners)
+        let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
         
@@ -100,17 +131,17 @@ class ObjectGraph {
         recorder = Recorder(audioGraph)
         recorderDelegate = RecorderDelegate(recorder)
         
-        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, appState.historyState)
+        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, appState.history)
         
         bookmarks = Bookmarks()
-        bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, appState.bookmarksState)
+        bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, appState.bookmarks)
         
         favorites = Favorites()
-        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState.favoritesState)
+        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState.favorites)
         
-        WindowLayouts.loadUserDefinedLayouts(appState.uiState.windowLayoutState.userWindowLayouts)
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userWindowLayouts)
         
-        layoutManager = LayoutManager(appState.uiState.windowLayoutState, preferences.viewPreferences)
+        layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
     }
     
     // Called when app exits
@@ -118,18 +149,18 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
-        appState.audioGraphState = (audioGraph as! AudioGraph).persistentState() as! AudioGraphState
-        appState.playlistState = (playlist as! Playlist).persistentState() as! PlaylistState
-        appState.playbackSequenceState = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
-        appState.playbackProfilesState.profiles = playbackDelegate.profiles.all()
+        appState.audioGraph = (audioGraph as! AudioGraph).persistentState() as! AudioGraphState
+        appState.playlist = (playlist as! Playlist).persistentState() as! PlaylistState
+        appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
+        appState.playbackProfiles = playbackDelegate.profiles.all()
         
-        appState.uiState = UIState()
-        appState.uiState.windowLayoutState = layoutManager.persistentState()
-        appState.uiState.playerState = PlayerViewState.persistentState()
+        appState.ui = UIState()
+        appState.ui.windowLayout = layoutManager.persistentState()
+        appState.ui.player = PlayerViewState.persistentState()
         
-        appState.historyState = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
-        appState.favoritesState = (favoritesDelegate as! FavoritesDelegate).persistentState() as! FavoritesState
-        appState.bookmarksState = (bookmarksDelegate as! BookmarksDelegate).persistentState() as! BookmarksState
+        appState.history = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
+        appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState()
+        appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)
