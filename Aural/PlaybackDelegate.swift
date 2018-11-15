@@ -21,7 +21,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var profiles: PlaybackProfiles
     
-    init(_ appState: PlaybackProfilesState, _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
+    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.sequencer = sequencer
@@ -29,7 +29,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.preferences = preferences
         
         self.profiles = PlaybackProfiles()
-        appState.profiles.forEach({profiles.add($0.file, $0)})
+        appState.forEach({profiles.add($0.file, $0)})
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)

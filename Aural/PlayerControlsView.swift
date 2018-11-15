@@ -51,7 +51,7 @@ class PlayerControlsView: NSView {
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
-    private let appState: PlayerState = ObjectGraph.appState.uiState.playerState
+    private let appState: PlayerState = ObjectGraph.appState.ui.player
     
     var seekSliderValue: Double {
         return seekSlider.doubleValue

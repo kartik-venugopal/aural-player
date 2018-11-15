@@ -47,7 +47,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
-    private let viewAppState = ObjectGraph.appState.uiState.playerState
+    private let viewAppState = ObjectGraph.appState.ui.player
     
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)

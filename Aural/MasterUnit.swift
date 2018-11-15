@@ -23,8 +23,8 @@ class MasterUnit: FXUnit, MessageSubscriber {
         delayUnit = slaveUnits.first(where: {$0 is DelayUnit})! as! DelayUnit
         filterUnit = slaveUnits.first(where: {$0 is FilterUnit})! as! FilterUnit
         
-        super.init(.master, appState.masterUnitState.unitState)
-        presets.addPresets(appState.masterUnitState.userPresets)
+        super.init(.master, appState.masterUnit.state)
+        presets.addPresets(appState.masterUnit.userPresets)
         
         SyncMessenger.subscribe(messageTypes: [.fxUnitActivatedNotification], subscriber: self)
     }
@@ -93,7 +93,7 @@ class MasterUnit: FXUnit, MessageSubscriber {
 
         let unitState = MasterUnitState()
 
-        unitState.unitState = state
+        unitState.state = state
         unitState.userPresets = presets.userDefinedPresets
 
         return unitState

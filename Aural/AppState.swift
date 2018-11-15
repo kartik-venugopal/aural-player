@@ -36,20 +36,20 @@ extension PersistentState {
  */
 class UIState: PersistentState {
     
-    var windowLayoutState: WindowLayoutState
-    var playerState: PlayerState
+    var windowLayout: WindowLayoutState
+    var player: PlayerState
     
     init() {
-        self.windowLayoutState = WindowLayoutState()
-        self.playerState = PlayerState()
+        self.windowLayout = WindowLayoutState()
+        self.player = PlayerState()
     }
     
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
         
-        map["windowLayout"] = windowLayoutState.toSerializableMap()
-        map["player"] = playerState.toSerializableMap()
+        map["windowLayout"] = windowLayout.toSerializableMap()
+        map["player"] = player.toSerializableMap()
         
         return map as NSDictionary
     }
@@ -59,11 +59,11 @@ class UIState: PersistentState {
         let state = UIState()
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
-            state.windowLayoutState = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
+            state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
         }
         
         if let playerMap = map["player"] as? NSDictionary {
-            state.playerState = PlayerState.deserialize(playerMap) as! PlayerState
+            state.player = PlayerState.deserialize(playerMap) as! PlayerState
         }
         
         return state
@@ -318,7 +318,7 @@ class WindowLayoutState: PersistentState {
 
 class FXUnitState<T: EffectsUnitPreset> {
     
-    var unitState: EffectsUnitState = .bypassed
+    var state: EffectsUnitState = .bypassed
     var userPresets: [T] = [T]()
 }
 
@@ -328,7 +328,7 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
         
         var map = [NSString: AnyObject]()
         
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         
         // Master presets
         var masterUserPresetsArr = [[NSString: AnyObject]]()
@@ -429,7 +429,7 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
         let masterState = MasterUnitState()
         
         if let stateStr = map["state"] as? String, let state = EffectsUnitState(rawValue: stateStr) {
-            masterState.unitState = state
+            masterState.state = state
         }
         
         if let userPresets = map["userPresets"] as? [NSDictionary] {
@@ -670,7 +670,7 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
         
         var map = [NSString: AnyObject]()
         
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         map["type"] = type.rawValue as AnyObject
         map["sync"] = sync as AnyObject
         map["globalGain"] = globalGain as NSNumber
@@ -709,7 +709,7 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
         if let state = map["state"] as? String {
             
             if let unitState = EffectsUnitState(rawValue: state) {
-                eqState.unitState = unitState
+                eqState.state = unitState
             }
         }
         
@@ -796,7 +796,7 @@ class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         map["pitch"] = pitch as NSNumber
         map["overlap"] = overlap as NSNumber
         
@@ -821,7 +821,7 @@ class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
         
         if let unitState = map["state"] as? String {
             if let pitchState = EffectsUnitState(rawValue: unitState) {
-                state.unitState = pitchState
+                state.state = pitchState
             }
         }
         
@@ -874,7 +874,7 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         map["rate"] = rate as NSNumber
         map["overlap"] = overlap as NSNumber
         map["shiftPitch"] = shiftPitch as AnyObject
@@ -900,7 +900,7 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
         let timeState: TimeUnitState = TimeUnitState()
         
         if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            timeState.unitState = unitState
+            timeState.state = unitState
         }
         
         if let rate = map["rate"] as? NSNumber {
@@ -961,7 +961,7 @@ class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
         
         var map = [NSString: AnyObject]()
         
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         map["space"] = space.rawValue as AnyObject
         map["amount"] = amount as NSNumber
         
@@ -986,7 +986,7 @@ class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
         let reverbState: ReverbUnitState = ReverbUnitState()
         
         if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            reverbState.unitState = unitState
+            reverbState.state = unitState
         }
         
         if let spaceStr = map["space"] as? String, let space = ReverbSpaces(rawValue: spaceStr) {
@@ -1041,7 +1041,7 @@ class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
         
         var map = [NSString: AnyObject]()
         
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         map["amount"] = amount as NSNumber
         map["time"] = time as NSNumber
         map["feedback"] = feedback as NSNumber
@@ -1070,7 +1070,7 @@ class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
         let delayState: DelayUnitState = DelayUnitState()
         
         if let stateStr = map["state"] as? String, let state = EffectsUnitState(rawValue: stateStr) {
-            delayState.unitState = state
+            delayState.state = state
         }
         
         if let amount = map["amount"] as? NSNumber {
@@ -1138,7 +1138,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
-        map["state"] = unitState.rawValue as AnyObject
+        map["state"] = state.rawValue as AnyObject
         
         var bandsArr = [[NSString: AnyObject]]()
         for band in bands {
@@ -1197,7 +1197,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
         let filterState: FilterUnitState = FilterUnitState()
         
         if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            filterState.unitState = unitState
+            filterState.state = unitState
         }
         
         if let bands = map["bands"] as? [NSDictionary] {
@@ -1275,13 +1275,13 @@ class AudioGraphState: PersistentState {
     var muted: Bool = AppDefaults.muted
     var balance: Float = AppDefaults.balance
     
-    var masterUnitState: MasterUnitState = MasterUnitState()
-    var eqUnitState: EQUnitState = EQUnitState()
-    var pitchUnitState: PitchUnitState = PitchUnitState()
-    var timeUnitState: TimeUnitState = TimeUnitState()
-    var reverbUnitState: ReverbUnitState = ReverbUnitState()
-    var delayUnitState: DelayUnitState = DelayUnitState()
-    var filterUnitState: FilterUnitState = FilterUnitState()
+    var masterUnit: MasterUnitState = MasterUnitState()
+    var eqUnit: EQUnitState = EQUnitState()
+    var pitchUnit: PitchUnitState = PitchUnitState()
+    var timeUnit: TimeUnitState = TimeUnitState()
+    var reverbUnit: ReverbUnitState = ReverbUnitState()
+    var delayUnit: DelayUnitState = DelayUnitState()
+    var filterUnit: FilterUnitState = FilterUnitState()
     
     var soundProfiles: [SoundProfile] = []
     
@@ -1293,13 +1293,13 @@ class AudioGraphState: PersistentState {
         map["muted"] = muted as AnyObject
         map["balance"] = balance as NSNumber
         
-        map["master"] = masterUnitState.toSerializableMap() as AnyObject
-        map["eq"] = eqUnitState.toSerializableMap() as AnyObject
-        map["pitch"] = pitchUnitState.toSerializableMap() as AnyObject
-        map["time"] = timeUnitState.toSerializableMap() as AnyObject
-        map["reverb"] = reverbUnitState.toSerializableMap() as AnyObject
-        map["delay"] = delayUnitState.toSerializableMap() as AnyObject
-        map["filter"] = filterUnitState.toSerializableMap() as AnyObject
+        map["master"] = masterUnit.toSerializableMap() as AnyObject
+        map["eq"] = eqUnit.toSerializableMap() as AnyObject
+        map["pitch"] = pitchUnit.toSerializableMap() as AnyObject
+        map["time"] = timeUnit.toSerializableMap() as AnyObject
+        map["reverb"] = reverbUnit.toSerializableMap() as AnyObject
+        map["delay"] = delayUnit.toSerializableMap() as AnyObject
+        map["filter"] = filterUnit.toSerializableMap() as AnyObject
         
         var profilesArr = [NSDictionary]()
         soundProfiles.forEach({
@@ -1337,31 +1337,31 @@ class AudioGraphState: PersistentState {
         }
         
         if let masterDict = (map["master"] as? NSDictionary) {
-            audioGraphState.masterUnitState = MasterUnitState.deserialize(masterDict) as! MasterUnitState
+            audioGraphState.masterUnit = MasterUnitState.deserialize(masterDict) as! MasterUnitState
         }
         
         if let eqDict = (map["eq"] as? NSDictionary) {
-            audioGraphState.eqUnitState = EQUnitState.deserialize(eqDict) as! EQUnitState
+            audioGraphState.eqUnit = EQUnitState.deserialize(eqDict) as! EQUnitState
         }
         
         if let pitchDict = (map["pitch"] as? NSDictionary) {
-            audioGraphState.pitchUnitState = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
+            audioGraphState.pitchUnit = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
         }
         
         if let timeDict = (map["time"] as? NSDictionary) {
-            audioGraphState.timeUnitState = TimeUnitState.deserialize(timeDict) as! TimeUnitState
+            audioGraphState.timeUnit = TimeUnitState.deserialize(timeDict) as! TimeUnitState
         }
         
         if let reverbDict = (map["reverb"] as? NSDictionary) {
-            audioGraphState.reverbUnitState = ReverbUnitState.deserialize(reverbDict) as! ReverbUnitState
+            audioGraphState.reverbUnit = ReverbUnitState.deserialize(reverbDict) as! ReverbUnitState
         }
         
         if let delayDict = (map["delay"] as? NSDictionary) {
-            audioGraphState.delayUnitState = DelayUnitState.deserialize(delayDict) as! DelayUnitState
+            audioGraphState.delayUnit = DelayUnitState.deserialize(delayDict) as! DelayUnitState
         }
         
         if let filterDict = (map["filter"] as? NSDictionary) {
-            audioGraphState.filterUnitState = FilterUnitState.deserialize(filterDict) as! FilterUnitState
+            audioGraphState.filterUnit = FilterUnitState.deserialize(filterDict) as! FilterUnitState
         }
         
         if let profilesArr = map["soundProfiles"] as? [NSDictionary] {
@@ -1619,33 +1619,35 @@ class PlaylistState: PersistentState {
     // List of track files
     var tracks: [URL] = [URL]()
     var gaps: [PlaybackGapState] = []
-    private var gapsBeforeMap: [URL: PlaybackGapState] = [:]
-    private var gapsAfterMap: [URL: PlaybackGapState] = [:]
+    
+    private var _transient_gapsBeforeMap: [URL: PlaybackGapState] = [:]
+    private var _transient_gapsAfterMap: [URL: PlaybackGapState] = [:]
     
     func getGapsForTrack(_ track: Track) -> (gapBeforeTrack: PlaybackGapState?, gapAfterTrack: PlaybackGapState?) {
-        return (gapsBeforeMap[track.file], gapsAfterMap[track.file])
+        return (_transient_gapsBeforeMap[track.file], _transient_gapsAfterMap[track.file])
     }
     
     func removeGapsForTrack(_ track: Track) {
-        gapsBeforeMap.removeValue(forKey: track.file)
-        gapsAfterMap.removeValue(forKey: track.file)
+        _transient_gapsBeforeMap.removeValue(forKey: track.file)
+        _transient_gapsAfterMap.removeValue(forKey: track.file)
     }
     
     func toSerializableMap() -> NSDictionary {
         
-        var map = [NSString: AnyObject]()
-        
-        var tracksArr = [String]()
-        tracks.forEach({tracksArr.append($0.path)})
-        map["tracks"] = NSArray(array: tracksArr)
-        
-        var gapsArr = [NSDictionary]()
-        gaps.forEach({
-            gapsArr.append($0.toSerializableMap())
-        })
-        map["gaps"] = NSArray(array: gapsArr)
-        
-        return map as NSDictionary
+//        var map = [NSString: AnyObject]()
+//
+//        var tracksArr = [String]()
+//        tracks.forEach({tracksArr.append($0.path)})
+//        map["tracks"] = NSArray(array: tracksArr)
+//
+//        var gapsArr = [NSDictionary]()
+//        gaps.forEach({
+//            gapsArr.append($0.toSerializableMap())
+//        })
+//        map["gaps"] = NSArray(array: gapsArr)
+//
+//        return map as NSDictionary
+        return Mapper.map(self)
     }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
@@ -1663,9 +1665,9 @@ class PlaylistState: PersistentState {
                 let gap = PlaybackGapState.deserialize($0) as! PlaybackGapState
                 
                 if gap.position == .beforeTrack {
-                    state.gapsBeforeMap[gap.track!] = gap
+                    state._transient_gapsBeforeMap[gap.track!] = gap
                 } else {
-                    state.gapsAfterMap[gap.track!] = gap
+                    state._transient_gapsAfterMap[gap.track!] = gap
                 }
                 
                 state.gaps.append(gap)
@@ -1771,21 +1773,24 @@ class HistoryState: PersistentState {
     
     func toSerializableMap() -> NSDictionary {
         
-        var map = [NSString: AnyObject]()
+//        var map = [NSString: AnyObject]()
+//
+//        var recentlyAddedArr = [NSDictionary]()
+//        recentlyAdded.forEach({
+//            recentlyAddedArr.append(self.itemToMap($0))
+//        })
+//        map["recentlyAdded"] = NSArray(array: recentlyAddedArr)
+//
+//        var recentlyPlayedArr = [NSDictionary]()
+//        recentlyPlayed.forEach({
+//            recentlyPlayedArr.append(self.itemToMap($0))
+//        })
+//        map["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
+//
+//        return map as NSDictionary
         
-        var recentlyAddedArr = [NSDictionary]()
-        recentlyAdded.forEach({
-            recentlyAddedArr.append(self.itemToMap($0))
-        })
-        map["recentlyAdded"] = NSArray(array: recentlyAddedArr)
-        
-        var recentlyPlayedArr = [NSDictionary]()
-        recentlyPlayed.forEach({
-            recentlyPlayedArr.append(self.itemToMap($0))
-        })
-        map["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
-        
-        return map as NSDictionary
+        print("\n\n*** In History State ***\n\n")
+        return Mapper.map(self)
     }
     
     private func itemToMap(_ item: (file: URL, time: Date)) -> NSDictionary {
@@ -1829,98 +1834,29 @@ class HistoryState: PersistentState {
     }
 }
 
-class FavoritesState: PersistentState {
+class BookmarkState {
     
-    var favorites: [URL] = [URL]()
+    var name: String = ""
+    var file: URL
+    var startPosition: Double = 0
+    var endPosition: Double?
     
-    func toSerializableArray() -> NSArray {
-        
-        var favoritesArr = [NSDictionary]()
-        favorites.forEach({
-            
-            var map = [NSString: AnyObject]()
-            map["file"] = $0.path as AnyObject
-            
-            favoritesArr.append(map as NSDictionary)
-        })
-        
-        return NSArray(array: favoritesArr)
+    init(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double?) {
+        self.name = name
+        self.file = file
+        self.startPosition = startPosition
+        self.endPosition = endPosition
     }
     
-    static func deserialize(_ array: NSArray) -> PersistentState {
+    static func deserialize(_ bookmarkMap: NSDictionary) -> BookmarkState? {
         
-        let state = FavoritesState()
-        
-        array.forEach({
+        if let name = bookmarkMap.value(forKey: "name") as? String, let file = bookmarkMap.value(forKey: "file") as? String, let startPosition = bookmarkMap.value(forKey: "startPosition") as? NSNumber {
             
-            if let favoriteMap = $0 as? NSDictionary {
-                
-                if let file = favoriteMap.value(forKey: "file") as? String {
-                    state.favorites.append(URL(fileURLWithPath: file))
-                }
-            }
-        })
+            let endPosition = bookmarkMap.value(forKey: "endPosition") as? NSNumber
+            return BookmarkState(name, URL(fileURLWithPath: file), startPosition.doubleValue, endPosition?.doubleValue)
+        }
         
-        return state
-    }
-    
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
-        // NOT USED
-        return FavoritesState()
-    }
-}
-
-class BookmarksState: PersistentState {
-    
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
-        // NOT USED
-        return BookmarksState()
-    }
-    
-    var bookmarks: [(name: String, file: URL, startPosition: Double, endPosition: Double?)] = [(name: String, file: URL, startPosition: Double, endPosition: Double?)]()
-    
-    func toSerializableArray() -> NSArray {
-        
-        var bookmarksArr = [NSDictionary]()
-        bookmarks.forEach({
-            
-            var map = [NSString: AnyObject]()
-            map["name"] = $0.name as AnyObject
-            map["file"] = $0.file.path as AnyObject
-            map["startPosition"] = $0.startPosition as NSNumber
-            
-            if let endPos = $0.endPosition {
-                map["endPosition"] = endPos as NSNumber
-            }
-            
-            bookmarksArr.append(map as NSDictionary)
-        })
-        
-        return NSArray(array: bookmarksArr)
-    }
-    
-    static func deserialize(_ arr: NSArray) -> PersistentState {
-        
-        let state = BookmarksState()
-        
-        arr.forEach({
-        
-            if let bookmarkMap = $0 as? NSDictionary {
-                
-                if let name = bookmarkMap.value(forKey: "name") as? String,
-                    let file = bookmarkMap.value(forKey: "file") as? String,
-                    let startPosition = bookmarkMap.value(forKey: "startPosition") as? NSNumber {
-                    
-                    if let endPosition = bookmarkMap.value(forKey: "endPosition") as? NSNumber {
-                        state.bookmarks.append((name, URL(fileURLWithPath: file), startPosition.doubleValue, endPosition.doubleValue))
-                    } else {
-                        state.bookmarks.append((name, URL(fileURLWithPath: file), startPosition.doubleValue, nil))
-                    }
-                }
-            }
-        })
-        
-        return state
+        return nil
     }
 }
 
@@ -2009,54 +1945,22 @@ fileprivate func serialize(_ preset: MasterPreset) -> NSDictionary {
     return presetDict as NSDictionary
 }
 
-class PlaybackProfilesState: PersistentState {
+extension PlaybackProfile {
     
-    var profiles: [PlaybackProfile] = []
-    
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
-        // NOT USED
-        return PlaybackProfilesState()
-    }
-    
-    func toSerializableArray() -> NSArray {
+    static func deserialize(_ map: NSDictionary) -> PlaybackProfile? {
         
-        var profilesArr = [NSDictionary]()
-        profiles.forEach({
-            
-            var map = [NSString: AnyObject]()
-            
-            map["file"] = $0.file.path as AnyObject
-            map["lastPosition"] = $0.lastPosition as NSNumber
-            
-            profilesArr.append(map as NSDictionary)
-        })
+        var profileFile: URL?
+        var profileLastPosition: Double = AppDefaults.lastTrackPosition
         
-        return NSArray(array: profilesArr)
-    }
-    
-    static func deserialize(_ arr: NSArray) -> PersistentState {
+        if let file = map["file"] as? String {
+            profileFile = URL(fileURLWithPath: file)
+        }
         
-        let state = PlaybackProfilesState()
+        if let posn = map["lastPosition"] as? NSNumber {
+            profileLastPosition = posn.doubleValue
+        }
         
-        arr.forEach({
-            
-            let map = $0 as! NSDictionary
-            
-            var profileFile: URL?
-            var profileLastPosition: Double = AppDefaults.lastTrackPosition
-            
-            if let file = map["file"] as? String {
-                profileFile = URL(fileURLWithPath: file)
-            }
-            
-            if let posn = map["lastPosition"] as? NSNumber {
-                profileLastPosition = posn.doubleValue
-            }
-            
-            state.profiles.append(PlaybackProfile(profileFile!, profileLastPosition))
-        })
-        
-        return state
+        return PlaybackProfile(profileFile!, profileLastPosition)
     }
 }
 
@@ -2067,32 +1971,40 @@ class PlaybackProfilesState: PersistentState {
  */
 class AppState {
     
-    var uiState: UIState = UIState()
-    var audioGraphState: AudioGraphState = AudioGraphState()
-    var playlistState: PlaylistState = PlaylistState()
-    var playbackSequenceState: PlaybackSequenceState = PlaybackSequenceState()
-    var historyState: HistoryState = HistoryState()
-    var favoritesState: FavoritesState = FavoritesState()
-    var bookmarksState: BookmarksState = BookmarksState()
-    var playbackProfilesState: PlaybackProfilesState = PlaybackProfilesState()
+    var ui: UIState = UIState()
+    var audioGraph: AudioGraphState = AudioGraphState()
+    var playlist: PlaylistState = PlaylistState()
+    var playbackSequence: PlaybackSequenceState = PlaybackSequenceState()
+    var history: HistoryState = HistoryState()
+    
+//    var favorites: FavoritesState = FavoritesState()
+    var favorites: [URL] = [URL]()
+//    var bookmarks: BookmarksState = BookmarksState()
+    var bookmarks: [BookmarkState] = []
+//    var playbackProfiles: PlaybackProfilesState = PlaybackProfilesState()
+    var playbackProfiles: [PlaybackProfile] = []
     
     static let defaults: AppState = AppState()
     
     // Produces an equivalent object suitable for serialization as JSON
     func toSerializableMap() -> NSDictionary {
         
-        var dict = [NSString: AnyObject]()
+//        var dict = [NSString: AnyObject]()
+//
+//        dict["ui"] = uiState.toSerializableMap() as AnyObject
+//        dict["audioGraph"] = audioGraphState.toSerializableMap() as AnyObject
+////        dict["audioGraph"] = Mapper.map(audioGraphState, [])
+//        dict["playbackSequence"] = playbackSequenceState.toSerializableMap() as AnyObject
+////        dict["playlist"] = playlistState.toSerializableMap() as AnyObject
+//        dict["playlist"] = Mapper.map(playlistState)
+//        dict["history"] = historyState.toSerializableMap() as AnyObject
+//        dict["favorites"] = favoritesState.toSerializableArray() as AnyObject
+//        dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
+//        dict["playbackProfiles"] = playbackProfilesState.toSerializableArray() as AnyObject
+//
+//        return dict as NSDictionary
         
-        dict["ui"] = uiState.toSerializableMap() as AnyObject
-        dict["audioGraph"] = audioGraphState.toSerializableMap() as AnyObject
-        dict["playbackSequence"] = playbackSequenceState.toSerializableMap() as AnyObject
-        dict["playlist"] = playlistState.toSerializableMap() as AnyObject
-        dict["history"] = historyState.toSerializableMap() as AnyObject
-        dict["favorites"] = favoritesState.toSerializableArray() as AnyObject
-        dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
-        dict["playbackProfiles"] = playbackProfilesState.toSerializableArray() as AnyObject
-        
-        return dict as NSDictionary
+        return Mapper.map(self)
     }
     
     // Produces an AppState object from deserialized JSON
@@ -2101,35 +2013,52 @@ class AppState {
         let state = AppState()
         
         if let uiDict = (jsonObject["ui"] as? NSDictionary) {
-            state.uiState = UIState.deserialize(uiDict) as! UIState
+            state.ui = UIState.deserialize(uiDict) as! UIState
         }
         
         if let map = (jsonObject["audioGraph"] as? NSDictionary) {
-            state.audioGraphState = AudioGraphState.deserialize(map) as! AudioGraphState
+            state.audioGraph = AudioGraphState.deserialize(map) as! AudioGraphState
         }
         
         if let playbackSequenceDict = (jsonObject["playbackSequence"] as? NSDictionary) {
-            state.playbackSequenceState = PlaybackSequenceState.deserialize(playbackSequenceDict) as! PlaybackSequenceState
+            state.playbackSequence = PlaybackSequenceState.deserialize(playbackSequenceDict) as! PlaybackSequenceState
         }
         
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
-            state.playlistState = PlaylistState.deserialize(playlistDict) as! PlaylistState
+            state.playlist = PlaylistState.deserialize(playlistDict) as! PlaylistState
         }
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {
-            state.historyState = HistoryState.deserialize(historyDict) as! HistoryState
+            state.history = HistoryState.deserialize(historyDict) as! HistoryState
         }
         
-        if let favoritesDict = (jsonObject["favorites"] as? NSArray) {
-            state.favoritesState = FavoritesState.deserialize(favoritesDict) as! FavoritesState
+        if let favoritesArr = (jsonObject["favorites"] as? NSArray) {
+            favoritesArr.forEach({
+                
+                if let file = $0 as? String {
+                    state.favorites.append(URL(fileURLWithPath: file))
+                }
+            })
         }
         
         if let bookmarksArr = (jsonObject["bookmarks"] as? NSArray) {
-            state.bookmarksState = BookmarksState.deserialize(bookmarksArr) as! BookmarksState
+
+            bookmarksArr.forEach({
+
+                if let bookmarkDict = $0 as? NSDictionary, let bookmark = BookmarkState.deserialize(bookmarkDict) {
+                    state.bookmarks.append(bookmark)
+                }
+            })
         }
-        
+
         if let playbackProfilesArr = (jsonObject["playbackProfiles"] as? NSArray) {
-            state.playbackProfilesState = PlaybackProfilesState.deserialize(playbackProfilesArr) as! PlaybackProfilesState
+
+            playbackProfilesArr.forEach({
+                
+                if let dict = $0 as? NSDictionary, let profile = PlaybackProfile.deserialize(dict) {
+                    state.playbackProfiles.append(profile)
+                }
+            })
         }
         
         return state

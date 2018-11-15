@@ -9,9 +9,9 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     init(_ appState: AudioGraphState) {
         
-        let filterState = appState.filterUnitState
+        let filterState = appState.filterUnit
         
-        super.init(.filter, filterState.unitState)
+        super.init(.filter, filterState.state)
         
         node.addBands(filterState.bands)
         presets.addPresets(filterState.userPresets)
@@ -84,7 +84,7 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
         
         let filterState = FilterUnitState()
         
-        filterState.unitState = state
+        filterState.state = state
         filterState.bands = bands
         filterState.userPresets = presets.userDefinedPresets
         

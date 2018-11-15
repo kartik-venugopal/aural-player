@@ -113,13 +113,13 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.muted = muted
         state.balance = playerNode.pan
         
-        state.masterUnitState = masterUnit.persistentState()
-        state.eqUnitState = eqUnit.persistentState()
-        state.pitchUnitState = pitchUnit.persistentState()
-        state.timeUnitState = timeUnit.persistentState()
-        state.reverbUnitState = reverbUnit.persistentState()
-        state.delayUnitState = delayUnit.persistentState()
-        state.filterUnitState = filterUnit.persistentState()
+        state.masterUnit = masterUnit.persistentState()
+        state.eqUnit = eqUnit.persistentState()
+        state.pitchUnit = pitchUnit.persistentState()
+        state.timeUnit = timeUnit.persistentState()
+        state.reverbUnit = reverbUnit.persistentState()
+        state.delayUnit = delayUnit.persistentState()
+        state.filterUnit = filterUnit.persistentState()
         
         state.soundProfiles.append(contentsOf: soundProfiles.all())
         

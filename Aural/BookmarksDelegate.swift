@@ -1,6 +1,6 @@
 import Foundation
 
-class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
+class BookmarksDelegate: BookmarksDelegateProtocol {
     
     private let bookmarks: BookmarksProtocol
     
@@ -10,14 +10,14 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: BookmarksState) {
+    init(_ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: [BookmarkState]) {
         
         self.bookmarks = bookmarks
         self.playlist = playlist
         self.player = player
         
         // Restore the bookmarks model object from persistent state
-        state.bookmarks.forEach({
+        state.forEach({
             
             if let endPos = $0.endPosition {
                 _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, endPos)
@@ -78,14 +78,14 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         bookmarks.deleteBookmarkWithName(name)
     }
     
-    func persistentState() -> PersistentState {
+    func persistentState() -> [BookmarkState] {
         
-        let state = BookmarksState()
+        var arr = [BookmarkState]()
         
         bookmarks.getAllBookmarks().forEach({
-            state.bookmarks.append(($0.name, $0.file, $0.startPosition, $0.endPosition))
+            arr.append(BookmarkState($0.name, $0.file, $0.startPosition, $0.endPosition))
         })
         
-        return state
+        return arr
     }
 }

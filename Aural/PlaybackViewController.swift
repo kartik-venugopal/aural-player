@@ -20,7 +20,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
-    private let appState: PlayerState = ObjectGraph.appState.uiState.playerState
+    private let appState: PlayerState = ObjectGraph.appState.ui.player
     
     override var nibName: String? {return "Player"}
     

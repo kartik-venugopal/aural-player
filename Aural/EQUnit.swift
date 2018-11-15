@@ -7,10 +7,10 @@ class EQUnit: FXUnit, EQUnitProtocol {
     
     init(_ appState: AudioGraphState) {
         
-        let eqState = appState.eqUnitState
+        let eqState = appState.eqUnit
         
         node = ParametricEQ(eqState.type, eqState.sync)
-        super.init(.eq, eqState.unitState)
+        super.init(.eq, eqState.state)
         
         bands = eqState.bands
         globalGain = eqState.globalGain
@@ -106,7 +106,7 @@ class EQUnit: FXUnit, EQUnitProtocol {
 
         let unitState = EQUnitState()
 
-        unitState.unitState = state
+        unitState.state = state
         unitState.type = type
         unitState.bands = bands
         unitState.globalGain = globalGain
