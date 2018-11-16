@@ -71,7 +71,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         WindowState.mainWindow.orderFront(self)
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

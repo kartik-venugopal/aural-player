@@ -367,7 +367,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistReordered(playlistType)})
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return "PlaylistMutatorDelegate"
     }
     

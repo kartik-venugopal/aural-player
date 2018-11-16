@@ -14,7 +14,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     // Helper used for actual scheduling and playback
     private let scheduler: PlaybackScheduler
     
-    private var playbackState: PlaybackState = .noTrack
+    var state: PlaybackState = .noTrack
     
     init(_ graph: PlayerGraphProtocol) {
         
@@ -51,7 +51,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             scheduler.playTrack(session, startPosition)
         }
         
-        playbackState = .playing
+        state = .playing
     }
     
     func pause() {
@@ -59,13 +59,13 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         scheduler.pause()
         graph.clearSoundTails()
         
-        playbackState = .paused
+        state = .paused
     }
     
     func resume() {
         
         scheduler.resume()
-        playbackState = .playing
+        state = .playing
     }
     
     func stop() {
@@ -76,11 +76,11 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         playerNode.reset()
         graph.clearSoundTails()
         
-        playbackState = .noTrack
+        state = .noTrack
     }
     
     func wait() {
-        playbackState = .waiting
+        state = .waiting
     }
     
     func seekToTime(_ track: Track, _ seconds: Double) {
@@ -91,23 +91,18 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         let session = PlaybackSession.start(track, timestamp)
         session.loop = loop
         
-        scheduler.seekToTime(session, seconds, playbackState == .playing)
+        scheduler.seekToTime(session, seconds, state == .playing)
     }
     
-    func getSeekPosition() -> Double {
-        
-        return playbackState.notPlaying() ? 0 : scheduler.getSeekPosition()
-    }
-    
-    func getPlaybackState() -> PlaybackState {
-        return playbackState
+    var seekPosition: Double {
+        return state.notPlaying() ? 0 : scheduler.getSeekPosition()
     }
     
     var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
     
     func toggleLoop() -> PlaybackLoop? {
         
-        let currentTrackTimeElapsed = getSeekPosition()
+        let currentTrackTimeElapsed = seekPosition
         
         let curSession = PlaybackSession.currentSession!
         
@@ -134,7 +129,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
                 let session = PlaybackSession.start(track, timestamp)
                 session.loop = loop
                 
-                scheduler.playLoop(session, playbackState == .playing)
+                scheduler.playLoop(session, state == .playing)
             }
             
         } else {
@@ -154,7 +149,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     // MARK: Message handling
     
-    func getID() -> String {
+    var subscriberId: String {
         return "Player"
     }
     
@@ -170,7 +165,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             
             // Mark the current seek position of the player
             if playingTrack != nil {
-                seekPosn = getSeekPosition()
+                seekPosn = seekPosition
             }
             
             // Restart the audio engine
@@ -192,7 +187,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         let session = PlaybackSession.start(lastSession.track, lastSession.timestamp)
         session.loop = lastSession.loop
         
-        scheduler.seekToTime(session, seconds, playbackState == .playing)
+        scheduler.seekToTime(session, seconds, state == .playing)
     }
     
     func tearDown() {

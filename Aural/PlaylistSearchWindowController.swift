@@ -196,7 +196,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         updateSearch()
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

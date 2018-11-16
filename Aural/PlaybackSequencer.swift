@@ -467,7 +467,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequence.repeatAndShuffleModes}
     
-    func getID() -> String {
+    var subscriberId: String {
         return "PlaybackSequencer"
     }
     

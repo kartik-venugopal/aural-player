@@ -112,7 +112,7 @@ class MasterUnit: FXUnit, MessageSubscriber {
     
     // MARK: Message handling
     
-    func getID() -> String {
+    var subscriberId: String {
         return "MasterFXUnit"
     }
     

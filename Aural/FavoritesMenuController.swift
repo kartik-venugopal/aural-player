@@ -114,7 +114,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // MARK: Message handling
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
 }

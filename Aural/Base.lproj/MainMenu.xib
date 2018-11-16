@@ -121,9 +121,7 @@
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
-                <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
-                <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="489-P9-GSF"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="qqG-bq-Cq8" id="CYm-oo-dP6"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
@@ -1111,31 +1109,6 @@ CA
                             </menuItem>
                             <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Dock Playlist" image="DockBottom-Small" hidden="YES" enabled="NO" id="pRj-Q7-pVQ" userLabel="Dock Playlist">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Dock Playlist" id="G1h-af-dKa">
-                                    <items>
-                                        <menuItem title=" On the left" image="DockLeft-Small" enabled="NO" id="Gwt-jS-t1A">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="dockPlaylistLeftAction:" target="xzd-WN-BuR" id="XBd-Bi-7t2"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title=" On the bottom" image="DockBottom-Small" enabled="NO" id="pzb-V8-2VC">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="dockPlaylistBottomAction:" target="xzd-WN-BuR" id="hJv-Gh-2I3"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title=" On the right" image="DockRight-Small" enabled="NO" id="40b-3l-NdN">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="d3S-bf-W71"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="  Dock Miniature Player" image="DockBottom-Small" hidden="YES" enabled="NO" id="oKL-M2-XnE" userLabel="Dock Miniature Player">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Dock Miniature Player" id="Uys-LW-fQW">
@@ -1162,31 +1135,6 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="dockMiniBarBottomRightAction:" target="xzd-WN-BuR" id="Jz2-i5-tbq"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="  Maximize Playlist" image="Maximize-Small" hidden="YES" enabled="NO" id="Yge-Nz-rQX" userLabel="Maximize Playlist">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Maximize Playlist" id="DdJ-Ly-yuE">
-                                    <items>
-                                        <menuItem title=" Horizontally and vertically" image="Maximize-Small" enabled="NO" id="q3Q-K9-Y23">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="maximizePlaylistAction:" target="xzd-WN-BuR" id="uGv-Yr-8eI"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title=" Horizontally" image="MaximizeHorizontal-Small" enabled="NO" id="1o3-gI-3AQ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="maximizePlaylistHorizontalAction:" target="xzd-WN-BuR" id="F6L-1t-jhp"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title=" Vertically" image="MaximizeVertical-Small" enabled="NO" id="B8c-Jh-6Le">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="maximizePlaylistVerticalAction:" target="xzd-WN-BuR" id="4ec-YD-GAi"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1456,9 +1404,6 @@ CA
         <image name="InvertSelection-Small" width="14.399999618530273" height="14.399999618530273"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="MasterTab-Small" width="14" height="14"/>
-        <image name="Maximize-Small" width="12" height="10"/>
-        <image name="MaximizeHorizontal-Small" width="12" height="10"/>
-        <image name="MaximizeVertical-Small" width="12" height="10"/>
         <image name="MoreInfo-Small" width="2.880000114440918" height="2.880000114440918"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="14" height="8"/>

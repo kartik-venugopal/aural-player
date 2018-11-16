@@ -317,7 +317,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     
     // MARK ----------- Message handling ----------------------------------------------------
     
-    func getID() -> String {
+    var subscriberId: String {
         return "LayoutManager"
     }
     

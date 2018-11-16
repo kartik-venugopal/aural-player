@@ -269,7 +269,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         }
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

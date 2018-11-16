@@ -66,7 +66,7 @@ struct Fonts {
     static let modalDialogNavButtonFont: NSFont = gillSans12BoldFont
     
     // Font used by modal dialog check and radio buttons
-    static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    static let checkRadioButtonFont: NSFont = gillSans11Font
     
     // Fonts used by the track info popover view (key column and view column)
     static let popoverKeyFont: NSFont = gillSans13Font
