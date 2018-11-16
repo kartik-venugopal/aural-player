@@ -64,8 +64,6 @@ class Mapper {
             cs.append(child.label ?? "")
         }
         
-        print("For object", objMirror.subjectType, "Children =", cs)
-        
         return dict as NSDictionary
     }
     
@@ -81,18 +79,6 @@ class Mapper {
         
         return NSArray(array: array)
     }
-//
-//    private static func mapTuple(_ obj: Any) -> NSDictionary {
-//
-//        var dict: [NSString: AnyObject] = [:]
-//        let mir = mirrorFor(obj)
-//
-//        for child in mir.allChildren() {
-//            dict[(child.label ?? "") as NSString] = mapChild(child)
-//        }
-//
-//        return dict as NSDictionary
-//    }
     
     private static func mapDictionary(_ obj: Any) -> NSDictionary {
         

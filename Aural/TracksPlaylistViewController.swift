@@ -513,7 +513,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

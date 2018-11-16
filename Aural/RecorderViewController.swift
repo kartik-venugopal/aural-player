@@ -140,7 +140,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         return AppExitResponse.okToExit
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

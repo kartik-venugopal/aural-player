@@ -9,7 +9,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
     
-    @IBOutlet weak var dockPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var maximizePlaylistMenuItem: NSMenuItem!
     
     @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
@@ -163,36 +162,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         }
     }
  
-    // Docks the playlist window to the left of the main window
-    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
-    }
-    
-    // Docks the playlist window below the main window
-    @IBAction func dockPlaylistBottomAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockBottom, nil))
-    }
-    
-    // Docks the playlist window to the right of the main window
-    @IBAction func dockPlaylistRightAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockRight, nil))
-    }
-    
-    // Maximizes the playlist window, both horizontally and vertically
-    @IBAction func maximizePlaylistAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximize, nil))
-    }
-    
-    // Maximizes the playlist window vertically
-    @IBAction func maximizePlaylistVerticalAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeVertical, nil))
-    }
-    
-    // Maximizes the playlist window horizontally
-    @IBAction func maximizePlaylistHorizontalAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
-    }
-    
     // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))

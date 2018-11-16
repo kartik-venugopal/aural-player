@@ -76,7 +76,7 @@ class AppModeManager: ActionMessageSubscriber {
         statusBarMode.presentMode()
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return "AppModeManager"
     }
     

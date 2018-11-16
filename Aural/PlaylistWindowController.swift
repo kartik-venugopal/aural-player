@@ -297,36 +297,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // MARK: Playlist window actions
     
-    // Docks the playlist window to the left of the main window
-    @IBAction func dockLeftAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
-    }
-    
-    // Docks the playlist window below the main window
-    @IBAction func dockBottomAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockBottom, nil))
-    }
-    
-    // Docks the playlist window to the right of the main window
-    @IBAction func dockRightAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockRight, nil))
-    }
-    
-    // Maximizes the playlist window, both horizontally and vertically
-    @IBAction func maximizeAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximize, nil))
-    }
-    
-    // Maximizes the playlist window vertically
-    @IBAction func maximizeVerticalAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeVertical, nil))
-    }
-    
-    // Maximizes the playlist window horizontally
-    @IBAction func maximizeHorizontalAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
-    }
-    
     // Scrolls the playlist view to the top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToTop, PlaylistViewState.current))
@@ -350,7 +320,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

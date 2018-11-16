@@ -24,7 +24,7 @@ class SyncMessenger {
             }
             
             // Only add if it doesn't already exist
-            if messageSubscriberRegistry[messageType]!.index(where: {$0.getID() == subscriber.getID()}) == nil {
+            if messageSubscriberRegistry[messageType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 messageSubscriberRegistry[messageType]!.append(subscriber)
             }
         })
@@ -41,7 +41,7 @@ class SyncMessenger {
             if let subscribers = messageSubscriberRegistry[messageType] {
             
                 // Find and remove the subscriber from the registry
-                if let subIndex = subscribers.index(where: { $0.getID() == subscriber.getID() }) {
+                if let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
                     (messageSubscriberRegistry[messageType])!.remove(at: subIndex)
                 }
             }
@@ -60,7 +60,7 @@ class SyncMessenger {
                 actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
             }
             
-            if actionMessageSubscriberRegistry[actionType]!.index(where: {$0.getID() == subscriber.getID()}) == nil {
+            if actionMessageSubscriberRegistry[actionType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 actionMessageSubscriberRegistry[actionType]!.append(subscriber)
             }
         })
@@ -76,7 +76,7 @@ class SyncMessenger {
             if let subscribers = actionMessageSubscriberRegistry[actionType] {
             
                 // Find and remove the subscriber from the registry
-                if let subIndex = subscribers.index(where: { $0.getID() == subscriber.getID() }) {
+                if let subIndex = subscribers.index(where: { $0.subscriberId == subscriber.subscriberId}) {
                     (actionMessageSubscriberRegistry[actionType])!.remove(at: subIndex)
                 }
             }

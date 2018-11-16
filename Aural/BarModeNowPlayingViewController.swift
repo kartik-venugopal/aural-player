@@ -333,7 +333,7 @@ import Cocoa
 //        return EmptyResponse.instance
 //    }
 //    
-//    func getID() -> String {
+//    var subscriberId: String {
 //        return self.className
 //    }
 }

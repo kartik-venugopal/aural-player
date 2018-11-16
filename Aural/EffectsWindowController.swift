@@ -103,7 +103,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
 
         // Select EQ tab view by default
-        tabViewAction(filterTabViewButton)
+        tabViewAction(eqTabViewButton)
     }
 
     private func initSubscriptions() {
@@ -131,7 +131,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         fxTabView.selectTabViewItem(at: sender.tag)
     }
 
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
 

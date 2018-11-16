@@ -175,7 +175,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         globalMouseClickMonitor.stop()
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     

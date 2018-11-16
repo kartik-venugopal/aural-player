@@ -759,7 +759,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return String(format: "%@-%@", self.className, String(describing: self.groupType))
     }
     

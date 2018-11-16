@@ -37,7 +37,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: trackPlaybackQueue)
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return "PlaybackDelegate"
     }
     
@@ -326,7 +326,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // Temporarily halts playback
     private func haltPlayback() {
         
-        if (player.getPlaybackState() != .noTrack) {
+        if (state != .noTrack) {
             player.stop()
         }
     }
@@ -335,7 +335,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState().notPlaying()) {
+        if (state.notPlaying()) {
             return
         }
         
@@ -344,9 +344,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekForwardSecondary() {
         
-        if (player.getPlaybackState().notPlaying()) {
-            return
-        }
+        if (state.notPlaying()) {return}
         
         doSeekForward(getSecondarySeekLength())
     }
@@ -354,7 +352,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func doSeekForward(_ increment: Double) {
         
         // Calculate the new start position
-        let curPosn = player.getSeekPosition()
+        let curPosn = player.seekPosition
         
         if let loop = playbackLoop {
             
@@ -412,7 +410,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func doSeekBackward(_ decrement: Double) {
         
         // Calculate the new start position
-        let curPosn = player.getSeekPosition()
+        let curPosn = player.seekPosition
         
         if let loop = playbackLoop {
             
@@ -513,13 +511,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Seeking
     
-    var state: PlaybackState {return player.getPlaybackState()}
+    var state: PlaybackState {return player.state}
     
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
         if playingTrack != nil {
             
-            let seconds = player.getSeekPosition()
+            let seconds = player.seekPosition
             let duration = playingTrack!.track.duration
             return (seconds, seconds * 100 / duration, duration)
         }

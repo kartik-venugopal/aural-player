@@ -31,7 +31,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
-    func getID() -> String {
+    var subscriberId: String {
         return "HistoryDelegate"
     }
     

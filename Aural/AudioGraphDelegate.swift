@@ -114,7 +114,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     // MARK: Message handling
     
-    func getID() -> String {
+    var subscriberId: String {
         return "AudioGraphDelegate"
     }
     

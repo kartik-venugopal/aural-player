@@ -171,7 +171,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     // MARK: Message handling
     
-    func getID() -> String {
+    var subscriberId: String {
         return self.className
     }
     
