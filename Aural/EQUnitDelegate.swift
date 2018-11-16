@@ -22,7 +22,7 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
         set(newValue) {unit.globalGain = newValue}
     }
     
-    var bands: [Int: Float] {
+    var bands: [Float] {
         
         get {return unit.bands}
         set(newValue) {unit.bands = newValue}
@@ -40,37 +40,37 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
         unit.setBand(index, gain: gain)
     }
     
-    func increaseBass() -> [Int : Float] {
+    func increaseBass() -> [Float] {
         
         ensureEQActive()
         return unit.increaseBass(preferences.eqDelta)
     }
     
-    func decreaseBass() -> [Int : Float] {
+    func decreaseBass() -> [Float] {
         
         ensureEQActive()
         return unit.decreaseBass(preferences.eqDelta)
     }
     
-    func increaseMids() -> [Int : Float] {
+    func increaseMids() -> [Float] {
         
         ensureEQActive()
         return unit.increaseMids(preferences.eqDelta)
     }
     
-    func decreaseMids() -> [Int : Float] {
+    func decreaseMids() -> [Float] {
         
         ensureEQActive()
         return unit.decreaseMids(preferences.eqDelta)
     }
     
-    func increaseTreble() -> [Int : Float] {
+    func increaseTreble() -> [Float] {
         
         ensureEQActive()
         return unit.increaseTreble(preferences.eqDelta)
     }
     
-    func decreaseTreble() -> [Int : Float] {
+    func decreaseTreble() -> [Float] {
         
         ensureEQActive()
         return unit.decreaseTreble(preferences.eqDelta)

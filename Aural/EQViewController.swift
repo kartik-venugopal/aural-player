@@ -93,7 +93,7 @@ class EQViewController: FXUnitViewController {
         bandsUpdated(eqUnit.decreaseTreble())
     }
     
-    private func bandsUpdated(_ bands: [Int: Float]) {
+    private func bandsUpdated(_ bands: [Float]) {
         
         btnBypass.on()
         eqView.stateChanged()

@@ -35,7 +35,7 @@ protocol EQUnitProtocol: FXUnitProtocol {
     
     var globalGain: Float {get set}
     
-    var bands: [Int: Float] {get set}
+    var bands: [Float] {get set}
     
     var sync: Bool {get set}
     
@@ -43,22 +43,22 @@ protocol EQUnitProtocol: FXUnitProtocol {
     func setBand(_ index: Int, gain: Float)
     
     // Increases the equalizer bass band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseBass(_ increment: Float) -> [Int: Float]
+    func increaseBass(_ increment: Float) -> [Float]
     
     // Decreases the equalizer bass band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseBass(_ decrement: Float) -> [Int: Float]
+    func decreaseBass(_ decrement: Float) -> [Float]
     
     // Increases the equalizer mid-frequency band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseMids(_ increment: Float) -> [Int: Float]
+    func increaseMids(_ increment: Float) -> [Float]
     
     // Decreases the equalizer mid-frequency band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseMids(_ decrement: Float) -> [Int: Float]
+    func decreaseMids(_ decrement: Float) -> [Float]
     
     // Increases the equalizer treble band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseTreble(_ increment: Float) -> [Int: Float]
+    func increaseTreble(_ increment: Float) -> [Float]
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseTreble(_ decrement: Float) -> [Int: Float]
+    func decreaseTreble(_ decrement: Float) -> [Float]
 }
 
 protocol PitchShiftUnitProtocol: FXUnitProtocol {

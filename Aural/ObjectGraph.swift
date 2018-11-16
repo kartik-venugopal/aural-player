@@ -139,7 +139,7 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState.favorites)
         
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userWindowLayouts)
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
     }
