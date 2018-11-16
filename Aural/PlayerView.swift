@@ -317,6 +317,15 @@ class ExpandedArtPlayerView: PlayerView {
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
     }
     
+    override func clearNowPlayingInfo() {
+        
+        infoView.clearNowPlayingInfo()
+        
+        // Need to hide info box because it is opaque and will obscure art
+        infoBox.hide()
+        artView.image = Images.imgPausedArt
+    }
+    
     override func needsMouseTracking() -> Bool {
         return true
     }
