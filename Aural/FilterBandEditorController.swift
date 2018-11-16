@@ -170,7 +170,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             _ = self.window!
         }
 
-        filterTypeMenu.selectItem(withTitle: band.type.rawValue)
+        filterTypeMenu.selectItem(withTitle: band.type.description)
         
         let filterType = band.type
         if filterType == .bandPass || filterType == .bandStop {

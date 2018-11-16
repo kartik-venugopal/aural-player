@@ -73,22 +73,6 @@ class WindowState {
     }
 }
 
-// Enumerates all possible dock states of the playlist window, in relation to the main window
-enum PlaylistDockState: String {
-    
-    // Playlist has been docked on the bottom of the main window
-    case bottom
-    
-    // Playlist has been docked on the right side of the main window
-    case right
-    
-    // Playlist has been docked on the left side of the main window
-    case left
-    
-    // Playlist is not docked
-    case none
-}
-
 // Accessors for convenience/conciseness
 extension NSWindow {
     

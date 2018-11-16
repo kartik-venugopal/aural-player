@@ -16,7 +16,7 @@ class WindowLayouts {
         
         WindowLayoutPresets.allValues.forEach({
             
-            let presetName = $0.rawValue
+            let presetName = $0.description
             
             map[presetName] = WindowLayout(presetName, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame, true)
         })
@@ -123,20 +123,36 @@ class WindowLayout {
 
 enum WindowLayoutPresets: String {
     
-    case verticalFullStack = "Vertical full stack"
-    case horizontalFullStack = "Horizontal full stack"
-    case compactCornered = "Compact cornered"
-    case bigBottomPlaylist = "Big bottom playlist"
-    case bigLeftPlaylist = "Big left playlist"
-    case bigRightPlaylist = "Big right playlist"
-    case verticalPlayerAndPlaylistStack = "Vertical player and playlist"
-    case horizontalPlayerAndPlaylistStack = "Horizontal player and playlist"
+    case verticalFullStack
+    case horizontalFullStack
+    case compactCornered
+    case bigBottomPlaylist
+    case bigLeftPlaylist
+    case bigRightPlaylist
+    case verticalPlayerAndPlaylistStack
+    case horizontalPlayerAndPlaylistStack
     
     static var allValues: [WindowLayoutPresets] = [.verticalFullStack, .horizontalFullStack, .compactCornered, .bigBottomPlaylist, .bigLeftPlaylist, .bigRightPlaylist, .verticalPlayerAndPlaylistStack, .horizontalPlayerAndPlaylistStack]
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
         return WindowLayoutPresets(rawValue: displayName) ?? .verticalFullStack
+    }
+    
+    var description: String {
+        
+        switch self {
+            
+        case .verticalFullStack: return "Vertical full stack"
+        case .horizontalFullStack: return "Horizontal full stack"
+        case .compactCornered: return "Compact cornered"
+        case .bigBottomPlaylist: return "Big bottom playlist"
+        case .bigLeftPlaylist: return "Big left playlist"
+        case .bigRightPlaylist: return "Big right playlist"
+        case .verticalPlayerAndPlaylistStack: return "Vertical player and playlist"
+        case .horizontalPlayerAndPlaylistStack: return "Horizontal player and playlist"
+            
+        }
     }
     
     var showPlaylist: Bool {
