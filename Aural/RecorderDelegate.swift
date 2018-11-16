@@ -8,6 +8,8 @@ class RecorderDelegate: RecorderDelegateProtocol {
     
     private var recorder: RecorderProtocol
     
+    private let dispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
+    
     init(_ recorder: RecorderProtocol) {
         self.recorder = recorder
     }
@@ -19,7 +21,7 @@ class RecorderDelegate: RecorderDelegateProtocol {
     func stopRecording() {
         
         // Perform asynchronously, to unblock the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
+        dispatchQueue.async {
             self.recorder.stopRecording()
         }
     }
@@ -27,7 +29,7 @@ class RecorderDelegate: RecorderDelegateProtocol {
     func saveRecording(_ url: URL) {
         
         // Perform asynchronously, to unblock the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
+        dispatchQueue.async {
             self.recorder.saveRecording(url)
         }
     }
@@ -35,7 +37,7 @@ class RecorderDelegate: RecorderDelegateProtocol {
     func deleteRecording() {
         
         // Perform asynchronously, to unblock the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
+        dispatchQueue.async {
             self.recorder.deleteRecording()
         }
     }

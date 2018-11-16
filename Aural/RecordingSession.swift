@@ -21,11 +21,10 @@ class RecordingSession {
     private static var currentSession: RecordingSession?
     
     // Used to append timestamps to temp recording files
-    private static var dateFormatter = { () -> DateFormatter in
+    private static var dateFormatter: DateFormatter = {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy_hh-mm-ss"
-        
         return formatter
     }()
     
@@ -51,7 +50,6 @@ class RecordingSession {
     static func start(_ format: RecordingFormat) -> RecordingSession {
         
         let nowString = dateFormatter.string(from: Date())
-        
         let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.FilesAndPaths.recordingDir.path, nowString, format.fileExtension)
         
         currentSession = RecordingSession(format, tempFilePath)
