@@ -194,6 +194,6 @@ func roundedInt(_ float: Float) -> Int {
 @IBDesignable
 class FrequencyRangeMenuItem: NSMenuItem {
     
-    @IBInspectable var minFreq: Float = AppConstants.audibleRangeMin
-    @IBInspectable var maxFreq: Float = AppConstants.audibleRangeMax
+    @IBInspectable var minFreq: Float = AppConstants.Sound.audibleRangeMin
+    @IBInspectable var maxFreq: Float = AppConstants.Sound.audibleRangeMax
 }

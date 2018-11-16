@@ -57,7 +57,7 @@ class PitchView: NSView {
     
     func applyPreset(_ preset: PitchPreset) {
         
-        let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
+        let pitch = preset.pitch * AppConstants.ValueConversions.pitch_audioGraphToUI
         setPitch(pitch, ValueFormatter.formatPitch(pitch))
         setPitchOverlap(preset.overlap, ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)

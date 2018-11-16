@@ -60,8 +60,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     var volume: Float {
         
-        get {return round(graph.volume * AppConstants.volumeConversion_audioGraphToUI)}
-        set(newValue) {graph.volume = round(newValue * AppConstants.volumeConversion_UIToAudioGraph)}
+        get {return round(graph.volume * AppConstants.ValueConversions.volume_audioGraphToUI)}
+        set(newValue) {graph.volume = round(newValue * AppConstants.ValueConversions.volume_UIToAudioGraph)}
     }
     
     var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
@@ -74,8 +74,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     var balance: Float {
         
-        get {return round(graph.balance * AppConstants.panConversion_audioGraphToUI)}
-        set(newValue) {graph.balance = newValue * AppConstants.panConversion_UIToAudioGraph}
+        get {return round(graph.balance * AppConstants.ValueConversions.pan_audioGraphToUI)}
+        set(newValue) {graph.balance = newValue * AppConstants.ValueConversions.pan_UIToAudioGraph}
     }
     
     var formattedBalance: String {return ValueFormatter.formatPan(balance)}

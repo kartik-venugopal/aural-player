@@ -5,84 +5,108 @@ import AVFoundation
 /*
     A collection of app-level constants
 */
-class AppConstants {
+struct AppConstants {
     
-    // Supported playlist file types
-    static let m3u: String = "m3u"
-    static let m3u8: String = "m3u8"
-    static let supportedPlaylistFileExtensions: [String] = [m3u, m3u8]
+    struct SupportedTypes {
+
+        // Supported playlist file types
+        static let m3u: String = "m3u"
+        static let m3u8: String = "m3u8"
+        static let playlistExtensions: [String] = [m3u, m3u8]
+        
+        // Supported audio file types/formats
+        static let audioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
+        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
+        static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
+        
+        // File types allowed in the Open file dialog (extensions and UTIs)
+        static var all: [String] = allTypes()
+        
+        private static func allTypes() -> [String] {
+            
+            var arr = [String]()
+            arr.append(contentsOf: audioExtensions)
+            arr.append(contentsOf: playlistExtensions)
+            arr.append(contentsOf: avFileTypes)
+            return arr
+        }
+    }
     
-    // Supported audio file types/formats
-    static let supportedAudioFileExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
-    static let supportedAudioFileFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
+    struct Sound {
+
+        // Audible range (frequencies)
+        static let audibleRangeMin: Float = 20      // 20 Hz
+        static let audibleRangeMax: Float = 20000   // 20 KHz
+        
+        static let eq10BandFrequencies: [Float] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
+        static let eq15BandFrequencies: [Float] = [25, 40, 63, 100, 160, 250, 400, 630, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
+        
+        // Min/max Equalizer gain
+        static let eqGainMin: Float = -20      // -20 dB
+        static let eqGainMax: Float = 20      // -20 dB
+        
+        static let subBass_min: Float = audibleRangeMin
+        static let subBass_max: Float = 60
+        
+        // Frequency ranges for each of the 3 bands (in Hz)
+        static let bass_min: Float = audibleRangeMin
+        static let bass_max: Float = 250
+        
+        static let mid_min: Float = bass_max
+        static let mid_max: Float = 4000
+        
+        static let treble_min: Float = mid_max
+        static let treble_max: Float = audibleRangeMax
+    }
     
-    // File types allowed in the Open file dialog (extensions and UTIs)
-    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
+    struct Units {
+
+        // Units for different effects parameters
+        
+        static let eqGainDB: String = "dB"
+        static let pitchOctaves: String = "8ve"
+        static let timeStretchRate: String = "x"
+        static let reverbWetAmount: String = "wet"
+        static let reverbDryAmount: String = "dry"
+        static let delayTimeSecs: String = "s"
+        static let delayFeedbackPerc: String = "%"
+        static let frequencyHz: String = "Hz"
+        static let frequencyKHz: String = "KHz"
+        static let screenRealEstatePixel = "px"
+    }
     
-    // Audible range (frequencies)
-    static let audibleRangeMin: Float = 20      // 20 Hz
-    static let audibleRangeMax: Float = 20000   // 20 KHz
+    struct ValueConversions {
+        
+        // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the audio graph uses a volume range of 0-1)
+        
+        static let volume_UIToAudioGraph: Float = (1/100) // Divide by 100
+        static let volume_audioGraphToUI: Float = 100     // Multiply by 100
+        
+        static let pan_UIToAudioGraph: Float = (1/100) // Divide by 100
+        static let pan_audioGraphToUI: Float = 100     // Multiply by 100
+        
+        static let pitch_UIToAudioGraph: Float = 1200     // Multiply by 1200
+        static let pitch_audioGraphToUI: Float = (1/1200) // Divide by 1200
+    }
     
-    static let eq10BandFrequencies: [Float] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
-    static let eq15BandFrequencies: [Float] = [25, 40, 63, 100, 160, 250, 400, 630, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
-    
-    // Min/max Equalizer gain
-    static let eqGainMin: Float = -20      // -20 dB
-    static let eqGainMax: Float = 20      // -20 dB
-    
-    static let subBass_min: Float = audibleRangeMin
-    static let subBass_max: Float = 60
-    
-    // Frequency ranges for each of the 3 bands (in Hz)
-    static let bass_min: Float = audibleRangeMin
-    static let bass_max: Float = 250
-    
-    static let mid_min: Float = bass_max
-    static let mid_max: Float = 4000
-    
-    static let treble_min: Float = mid_max
-    static let treble_max: Float = audibleRangeMax
-    
-    // Units for different effects parameters
-    
-    static let eqGainDBUnit: String = "dB"
-    static let pitchOctavesUnit: String = "8ve"
-    static let timeStretchRateUnit: String = "x"
-    static let reverbWetAmountUnit: String = "wet"
-    static let reverbDryAmountUnit: String = "dry"
-    static let delayTimeSecsUnit: String = "s"
-    static let delayFeedbackPercUnit: String = "%"
-    static let frequencyHzUnit: String = "Hz"
-    static let frequencyKHzUnit: String = "KHz"
-    
-    static let screenRealEstatePixelUnit = "px"
-    
-    // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the audio graph uses a volume range of 0-1)
-    
-    static let volumeConversion_UIToAudioGraph: Float = (1/100) // Divide by 100
-    static let volumeConversion_audioGraphToUI: Float = 100     // Multiply by 100
-    
-    static let panConversion_UIToAudioGraph: Float = (1/100) // Divide by 100
-    static let panConversion_audioGraphToUI: Float = 100     // Multiply by 100
-    
-    static let pitchConversion_UIToAudioGraph: Float = 1200     // Multiply by 1200
-    static let pitchConversion_audioGraphToUI: Float = (1/1200) // Divide by 1200
-    
-    // App state/log files
-    static let stateFileName = "auralPlayer-state.json"
-    static let logFileName = "auralPlayer.log"
-    
-    // Default user's documents directory (where app state and log are written to)
-    static let documentsDirURL: URL = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!)
-    
-    static let appStateFileURL: URL = documentsDirURL.appendingPathComponent(stateFileName)
-    static let logFileURL: URL = documentsDirURL.appendingPathComponent(logFileName)
-    
-    // Default user's music directory (default place to look in, when opening/saving files)
-    static let musicDirURL: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
-    
-    // Directory where recordings are temporarily stored, till the user defines the location
-    static let recordingDirURL: URL = musicDirURL
+    struct FilesAndPaths {
+        
+        // Default user's documents directory (where app state and log are written to)
+        static let documentsDir: URL = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!)
+        
+        // App state/log files
+        static let appStateFileName = "auralPlayer-state.json"
+        static let appStateFile: URL = documentsDir.appendingPathComponent(appStateFileName)
+        
+        static let logFileName = "auralPlayer.log"
+        static let logFile: URL = documentsDir.appendingPathComponent(logFileName)
+        
+        // Default user's music directory (default place to look in, when opening/saving files)
+        static let musicDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
+        
+        // Directory where recordings are temporarily stored, till the user defines the location
+        static let recordingDir: URL = musicDir
+    }
     
     // Link to online user guide
 //    static let onlineUserGuideURL: URL = URL(string: "https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!

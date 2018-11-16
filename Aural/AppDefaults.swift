@@ -46,8 +46,8 @@ class AppDefaults {
 
     static let filterState: EffectsUnitState = .bypassed
     static let filterBandType: FilterBandType = .bandStop
-    static let filterBandMinFreq: Float = AppConstants.audibleRangeMin
-    static let filterBandMaxFreq: Float = AppConstants.subBass_max
+    static let filterBandMinFreq: Float = AppConstants.Sound.audibleRangeMin
+    static let filterBandMaxFreq: Float = AppConstants.Sound.subBass_max
     
     static let lastTrackPosition: Double = 0
     

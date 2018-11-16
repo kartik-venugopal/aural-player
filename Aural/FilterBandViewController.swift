@@ -22,7 +22,7 @@ class FilterBandViewController: NSViewController {
     
     private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
-    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.audibleRangeMin).withMaxFreq(AppConstants.subBass_max)
+    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.Sound.audibleRangeMin).withMaxFreq(AppConstants.Sound.subBass_max)
     var bandIndex: Int!
     
     var bandChangedCallback: (() -> Void) = {() -> Void in
@@ -53,7 +53,7 @@ class FilterBandViewController: NSViewController {
             freqRangeSlider.setFrequencyRange(band.minFreq!, band.maxFreq!)
             lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
             
-            cutoffSlider.setFrequency(AppConstants.audibleRangeMin)
+            cutoffSlider.setFrequency(AppConstants.Sound.audibleRangeMin)
             
         } else {
             
@@ -63,7 +63,7 @@ class FilterBandViewController: NSViewController {
             cutoffSlider.redraw()
             lblFrequencies.stringValue = formatFrequency(cutoffSlider.frequency)
             
-            freqRangeSlider.setFrequencyRange(AppConstants.audibleRangeMin, AppConstants.subBass_max)
+            freqRangeSlider.setFrequencyRange(AppConstants.Sound.audibleRangeMin, AppConstants.Sound.subBass_max)
         }
         
         presetCutoffsMenu.selectItem(at: -1)
