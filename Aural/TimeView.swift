@@ -82,7 +82,7 @@ class TimeView: NSView {
         btnShiftPitch.onIf(preset.pitchShift)
         
         // TODO: Move this calculation to a new util functions class/file
-        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
+        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.ValueConversions.pitch_audioGraphToUI
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
         
         timeSlider.floatValue = preset.rate

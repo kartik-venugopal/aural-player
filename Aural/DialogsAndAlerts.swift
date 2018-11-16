@@ -33,7 +33,7 @@ struct DialogsAndAlerts {
         
         let dialog = NSOpenPanel()
         
-        dialog.message = String(format: "Choose media, playlists (.%@/.%@), or directories", AppConstants.m3u, AppConstants.m3u8)
+        dialog.message = String(format: "Choose media, playlists (.%@/.%@), or directories", AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8)
         
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
@@ -42,11 +42,11 @@ struct DialogsAndAlerts {
         
         dialog.canCreateDirectories    = false
         dialog.allowsMultipleSelection = true
-        dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
+        dialog.allowedFileTypes        = AppConstants.SupportedTypes.all
         
         dialog.resolvesAliases = true;
         
-        dialog.directoryURL = AppConstants.musicDirURL
+        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
         return dialog
     }
@@ -55,14 +55,14 @@ struct DialogsAndAlerts {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = String(format: "Save current playlist as a (.%@) file", AppConstants.m3u)
+        dialog.title                   = String(format: "Save current playlist as a (.%@) file", AppConstants.SupportedTypes.m3u)
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
         
         dialog.canCreateDirectories    = true
-        dialog.allowedFileTypes        = [AppConstants.m3u]
+        dialog.allowedFileTypes        = [AppConstants.SupportedTypes.m3u]
         
-        dialog.directoryURL = AppConstants.musicDirURL
+        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
         return dialog
     }
@@ -71,7 +71,7 @@ struct DialogsAndAlerts {
         
         let dialog = NSOpenPanel()
         
-        dialog.message = String(format: "Choose a (.%@/.%@) playlist file", AppConstants.m3u, AppConstants.m3u8)
+        dialog.message = String(format: "Choose a (.%@/.%@) playlist file", AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8)
         
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
@@ -80,11 +80,11 @@ struct DialogsAndAlerts {
         
         dialog.canCreateDirectories    = false
         dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = [AppConstants.m3u, AppConstants.m3u8]
+        dialog.allowedFileTypes        = AppConstants.SupportedTypes.playlistExtensions
         
         dialog.resolvesAliases = true;
         
-        dialog.directoryURL = AppConstants.musicDirURL
+        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
         return dialog
     }
@@ -106,7 +106,7 @@ struct DialogsAndAlerts {
         
         dialog.resolvesAliases = true;
         
-        dialog.directoryURL = AppConstants.musicDirURL
+        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
         return dialog
     }
@@ -120,7 +120,7 @@ struct DialogsAndAlerts {
         
         dialog.canCreateDirectories    = true
         
-        dialog.directoryURL = AppConstants.musicDirURL
+        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
         return dialog
     }

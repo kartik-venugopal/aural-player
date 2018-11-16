@@ -87,7 +87,7 @@ class AddedItem: HistoryItem {
             // Single file - playlist or track
             let fileExtension = file.pathExtension.lowercased()
             
-            if (AppConstants.supportedPlaylistFileExtensions.contains(fileExtension)) {
+            if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                 
                 // Playlist
                 // Display name is last path component
@@ -95,7 +95,7 @@ class AddedItem: HistoryItem {
                 self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
                 self.art = Images.imgPlaylistOff
                 
-            } else if (AppConstants.supportedAudioFileExtensions.contains(fileExtension)) {
+            } else if (AppConstants.SupportedTypes.audioExtensions.contains(fileExtension)) {
                 
                 // Track
                 super.loadDisplayInfoFromFile()

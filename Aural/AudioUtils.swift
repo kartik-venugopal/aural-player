@@ -33,7 +33,7 @@ class AudioUtils {
         
         // Determine the format to find out if it is supported
         let format = getFormat(assetTrack!)
-        if (!AppConstants.supportedAudioFileFormats.contains(format)) {
+        if (!AppConstants.SupportedTypes.audioFormats.contains(format)) {
             return UnsupportedFormatError(track, format)
         }
         

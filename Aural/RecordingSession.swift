@@ -52,7 +52,7 @@ class RecordingSession {
         
         let nowString = dateFormatter.string(from: Date())
         
-        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.recordingDirURL.path, nowString, format.fileExtension)
+        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.FilesAndPaths.recordingDir.path, nowString, format.fileExtension)
         
         currentSession = RecordingSession(format, tempFilePath)
         return currentSession!

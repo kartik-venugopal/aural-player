@@ -10,7 +10,7 @@ class AppStateIO {
     // Saves app state to default user documents directory
     static func save(_ state: AppState) {
         
-        let outputStream = OutputStream(url: AppConstants.appStateFileURL, append: false)
+        let outputStream = OutputStream(url: AppConstants.FilesAndPaths.appStateFile, append: false)
         outputStream?.open()
         
         JSONSerialization.writeJSONObject(Mapper.map(state), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
@@ -21,7 +21,7 @@ class AppStateIO {
     // Loads app state from default user documents directory
     static func load() -> AppState? {
         
-        let inputStream = InputStream(url: AppConstants.appStateFileURL)
+        let inputStream = InputStream(url: AppConstants.FilesAndPaths.appStateFile)
         inputStream?.open()
         
         do {

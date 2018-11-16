@@ -33,7 +33,7 @@ class ValueFormatter {
     }
     
     static func formatPitch(_ value: Float) -> String {
-        return formatValueWithUnits(NSNumber(value: value), 1, AppConstants.pitchOctavesUnit, true)
+        return formatValueWithUnits(NSNumber(value: value), 1, AppConstants.Units.pitchOctaves, true)
     }
     
     static func formatOverlap(_ value: Float) -> String {
@@ -41,15 +41,15 @@ class ValueFormatter {
     }
     
     static func formatTimeStretchRate(_ value: Float) -> String {
-        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 2, AppConstants.timeStretchRateUnit, false)
+        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 2, AppConstants.Units.timeStretchRate, false)
     }
     
     static func formatReverbAmount(_ value: Float) -> String {
         
         if (value == 0) {
-            return String(format: "100%% %@", AppConstants.reverbDryAmountUnit)
+            return String(format: "100%% %@", AppConstants.Units.reverbDryAmount)
         } else if (value == 100) {
-            return String(format: "100%% %@", AppConstants.reverbWetAmountUnit)
+            return String(format: "100%% %@", AppConstants.Units.reverbWetAmount)
         } else {
             let dry = Int(round(value))
             let wet = 100 - dry
@@ -58,7 +58,7 @@ class ValueFormatter {
     }
     
     static func formatDelayTime(_ value: Double) -> String {
-        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 2, AppConstants.delayTimeSecsUnit, false)
+        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 2, AppConstants.Units.delayTimeSecs, false)
     }
     
     static func formatDelayAmount(_ value: Float) -> String {
@@ -66,7 +66,7 @@ class ValueFormatter {
     }
     
     static func formatDelayFeedback(_ value: Float) -> String {
-        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 0, AppConstants.delayFeedbackPercUnit, false)
+        return ValueFormatter.formatValueWithUnits(NSNumber(value: value), 0, AppConstants.Units.delayFeedbackPerc, false)
     }
     
     static func formatDelayLowPassCutoff(_ value: Float) -> String {
@@ -74,15 +74,15 @@ class ValueFormatter {
     }
     
     static func formatFilterFrequencyRange(_ value1: Double, _ value2: Double) -> String {
-        return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.frequencyHzUnit, Int(value2), AppConstants.frequencyHzUnit)
+        return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.Units.frequencyHz, Int(value2), AppConstants.Units.frequencyHz)
     }
     
     static func formatFilterFrequencyRange(_ value1: Float, _ value2: Float) -> String {
-        return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.frequencyHzUnit, Int(value2), AppConstants.frequencyHzUnit)
+        return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.Units.frequencyHz, Int(value2), AppConstants.Units.frequencyHz)
     }
     
     static func formatFrequency(_ value: Float) -> String {
-        return String(format: "%d %@", Int(value), AppConstants.frequencyHzUnit)
+        return String(format: "%d %@", Int(value), AppConstants.Units.frequencyHz)
     }
     
     static func formatValueWithUnits(_ value: NSNumber, _ decimalDigits: Int, _ unit: String, _ includeSpace: Bool) -> String {
@@ -109,6 +109,6 @@ class ValueFormatter {
     
     static func formatPixels(_ value: Float) -> String {
         
-        return formatValueWithUnits(NSNumber(value: value), 0, AppConstants.screenRealEstatePixelUnit, false)
+        return formatValueWithUnits(NSNumber(value: value), 0, AppConstants.Units.screenRealEstatePixel, false)
     }
 }

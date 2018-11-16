@@ -45,7 +45,7 @@ class EQSubview: NSView {
         // If number of bands doesn't match, need to perform a mapping
         if bands.count != bandSliders.count {
             
-            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, AppConstants.eq15BandFrequencies) : EQMapper.map15BandsTo10Bands(bands, AppConstants.eq10BandFrequencies)
+            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, AppConstants.Sound.eq15BandFrequencies) : EQMapper.map15BandsTo10Bands(bands, AppConstants.Sound.eq10BandFrequencies)
             self.updateBands(mappedBands, globalGain)
             return
         }

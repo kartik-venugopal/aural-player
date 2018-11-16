@@ -44,7 +44,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
+        let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.ValueConversions.volume_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -53,12 +53,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
         startupVolumeSlider.enableIf(btnSpecifyVolume.isOn())
-        startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
+        startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.ValueConversions.volume_audioGraphToUI))
         
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn())
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
-        let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
+        let panDelta = Int(round(soundPrefs.panDelta * AppConstants.ValueConversions.pan_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaAction(self)
         
@@ -150,12 +150,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
+        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.ValueConversions.volume_UIToAudioGraph
         
         soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn() ? .rememberFromLastAppLaunch : .specific
-        soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
+        soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.ValueConversions.volume_UIToAudioGraph
         
-        soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
+        soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.ValueConversions.pan_UIToAudioGraph
         
         soundPrefs.eqDelta = eqDeltaStepper.floatValue
         soundPrefs.pitchDelta = pitchDeltaStepper.integerValue

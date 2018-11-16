@@ -77,9 +77,9 @@ fileprivate enum SystemDefinedFilterPresetParams: String {
 fileprivate struct FilterPresetsBands {
     
     static let passThrough: [FilterBand] = []
-    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(AppConstants.bass_min, AppConstants.bass_max)]
-    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(AppConstants.mid_min, AppConstants.mid_max)]
-    static let noBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.bass_min, AppConstants.bass_max)]
-    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.subBass_min, AppConstants.subBass_max)]
-    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(AppConstants.mid_min, AppConstants.mid_max)]
+    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(AppConstants.Sound.bass_min, AppConstants.Sound.bass_max)]
+    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(AppConstants.Sound.mid_min, AppConstants.Sound.mid_max)]
+    static let noBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.bass_min, AppConstants.Sound.bass_max)]
+    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.subBass_min, AppConstants.Sound.subBass_max)]
+    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.mid_min, AppConstants.Sound.mid_max)]
 }

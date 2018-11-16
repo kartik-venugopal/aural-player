@@ -104,10 +104,10 @@ class EQMapping {
         var targetGain = (srcGain + attenuation) * sign
         
         // Check for upper and lower bounds
-        if targetGain > AppConstants.eqGainMax {
-            targetGain = AppConstants.eqGainMax
-        } else if targetGain < AppConstants.eqGainMin {
-            targetGain = AppConstants.eqGainMin
+        if targetGain > AppConstants.Sound.eqGainMax {
+            targetGain = AppConstants.Sound.eqGainMax
+        } else if targetGain < AppConstants.Sound.eqGainMin {
+            targetGain = AppConstants.Sound.eqGainMin
         }
         
         return targetGain
