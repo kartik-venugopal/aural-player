@@ -45,12 +45,9 @@ class AppDefaults {
     static let delayLowPassCutoff: Float = 15000
 
     static let filterState: EffectsUnitState = .bypassed
-    static let filterBassMin: Float = 32
-    static let filterBassMax: Float = 128
-    static let filterMidMin: Float = 500
-    static let filterMidMax: Float = 1000
-    static let filterTrebleMin: Float = 4000
-    static let filterTrebleMax: Float = 8000
+    static let filterBandType: FilterBandType = .bandStop
+    static let filterBandMinFreq: Float = AppConstants.audibleRangeMin
+    static let filterBandMaxFreq: Float = AppConstants.subBass_max
     
     static let lastTrackPosition: Double = 0
     

@@ -13,7 +13,7 @@ class AppStateIO {
         let outputStream = OutputStream(url: AppConstants.appStateFileURL, append: false)
         outputStream?.open()
         
-        JSONSerialization.writeJSONObject(state.toSerializableMap(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
+        JSONSerialization.writeJSONObject(Mapper.map(state), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
         
         outputStream?.close()
     }

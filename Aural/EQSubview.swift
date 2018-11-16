@@ -40,7 +40,7 @@ class EQSubview: NSView {
         allSliders.forEach({$0.setUnitState(state)})
     }
     
-    func updateBands(_ bands: [Int: Float], _ globalGain: Float) {
+    func updateBands(_ bands: [Float], _ globalGain: Float) {
         
         // If number of bands doesn't match, need to perform a mapping
         if bands.count != bandSliders.count {
@@ -52,7 +52,7 @@ class EQSubview: NSView {
         
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         bandSliders.forEach({
-            $0.floatValue = bands[$0.tag] ?? 0
+            $0.floatValue = bands.count > $0.tag ? bands[$0.tag] : AppDefaults.eqBandGain
         })
         
         globalGainSlider.floatValue = globalGain
@@ -60,17 +60,16 @@ class EQSubview: NSView {
     
     func updateBands(_ bands: [Float: Float], _ globalGain: Float) {
         
-        var indexedBands: [Int: Float] = [:]
-        
-        let sortedBands = bands.sorted(by: {r1, r2 -> Bool in r1.key < r2.key})
+        var sortedBands: [Float] = []
+        let sortedBandsMap = bands.sorted(by: {r1, r2 -> Bool in r1.key < r2.key})
         
         var index = 0
-        for (_, gain) in sortedBands {
+        for (_, gain) in sortedBandsMap {
             
-            indexedBands[index] = gain
+            sortedBands[index] = gain
             index += 1
         }
         
-        updateBands(indexedBands, globalGain)
+        updateBands(sortedBands, globalGain)
     }
 }

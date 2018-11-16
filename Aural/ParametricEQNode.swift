@@ -71,27 +71,27 @@ class ParametricEQ: ParametricEQProtocol {
     
     // Pass-through functions
     
-    func increaseBass(_ increment: Float) -> [Int: Float] {
+    func increaseBass(_ increment: Float) -> [Float] {
         return activeNode.increaseBass(increment)
     }
     
-    func decreaseBass(_ decrement: Float) -> [Int: Float] {
+    func decreaseBass(_ decrement: Float) -> [Float] {
         return activeNode.decreaseBass(decrement)
     }
     
-    func increaseMids(_ increment: Float) -> [Int: Float] {
+    func increaseMids(_ increment: Float) -> [Float] {
         return activeNode.increaseMids(increment)
     }
     
-    func decreaseMids(_ decrement: Float) -> [Int: Float] {
+    func decreaseMids(_ decrement: Float) -> [Float] {
         return activeNode.decreaseMids(decrement)
     }
     
-    func increaseTreble(_ increment: Float) -> [Int: Float] {
+    func increaseTreble(_ increment: Float) -> [Float] {
         return activeNode.increaseTreble(increment)
     }
     
-    func decreaseTreble(_ decrement: Float) -> [Int: Float] {
+    func decreaseTreble(_ decrement: Float) -> [Float] {
         return activeNode.decreaseTreble(decrement)
     }
     
@@ -99,7 +99,7 @@ class ParametricEQ: ParametricEQProtocol {
         activeNode.setBand(index, gain: gain)
     }
     
-    func setBands(_ allBands: [Int: Float]) {
+    func setBands(_ allBands: [Float]) {
         
         if allBands.isEmpty {return}
         
@@ -112,7 +112,7 @@ class ParametricEQ: ParametricEQProtocol {
         }
     }
     
-    func allBands() -> [Int: Float] {
+    func allBands() -> [Float] {
         return activeNode.allBands()
     }
 }
@@ -141,6 +141,7 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
         return nil
     }
     
+    // TODO: Use these values to validate gain values in setBand(index, gain)
     private let maxGain: Float = 20
     private let minGain: Float = -20
     
@@ -169,40 +170,40 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
         }
     }
     
-    func increaseBass(_ increment: Float) -> [Int: Float] {
+    func increaseBass(_ increment: Float) -> [Float] {
         
         let _ = increaseBandGains(bassBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseBass(_ decrement: Float) -> [Int: Float] {
+    func decreaseBass(_ decrement: Float) -> [Float] {
         let _ = decreaseBandGains(bassBandIndexes, decrement)
         return allBands()
     }
     
-    func increaseMids(_ increment: Float) -> [Int: Float] {
+    func increaseMids(_ increment: Float) -> [Float] {
         let _ = increaseBandGains(midBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseMids(_ decrement: Float) -> [Int: Float] {
+    func decreaseMids(_ decrement: Float) -> [Float] {
         let _ = decreaseBandGains(midBandIndexes, decrement)
         return allBands()
     }
     
-    func increaseTreble(_ increment: Float) -> [Int: Float] {
+    func increaseTreble(_ increment: Float) -> [Float] {
         let _ = increaseBandGains(trebleBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseTreble(_ decrement: Float) -> [Int: Float] {
+    func decreaseTreble(_ decrement: Float) -> [Float] {
         let _ = decreaseBandGains(trebleBandIndexes, decrement)
         return allBands()
     }
     
-    private func increaseBandGains(_ bandIndexes: [Int], _ increment: Float) -> [Int: Float] {
+    private func increaseBandGains(_ bandIndexes: [Int], _ increment: Float) -> [Float] {
         
-        var newGainValues = [Int: Float]()
+        var newGainValues = [Float]()
         bandIndexes.forEach({
             
             let band = bands[$0]
@@ -213,9 +214,9 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
         return newGainValues
     }
     
-    private func decreaseBandGains(_ bandIndexes: [Int], _ decrement: Float) -> [Int: Float] {
+    private func decreaseBandGains(_ bandIndexes: [Int], _ decrement: Float) -> [Float] {
         
-        var newGainValues = [Int: Float]()
+        var newGainValues = [Float]()
         bandIndexes.forEach({
             
             let band = bands[$0]
@@ -228,21 +229,21 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
     
     // Helper function to set gain for a band
     func setBand(_ index: Int, gain: Float) {
+        
         if ((0..<numberOfBands).contains(index)) {
             bands[index].gain = gain
         }
     }
     
     // Helper function to set gain for all bands
-    func setBands(_ allBands: [Int: Float]) {
-        
-        for (index, gain) in allBands {
-            if ((0..<numberOfBands).contains(index)) {
-                bands[index].gain = gain
-            }
+    func setBands(_ allBands: [Float]) {
+
+        for index in 0..<allBands.count {
+            bands[index].gain = allBands[index]
         }
     }
     
+    // Frequency -> Gain
     func setBands(_ allBands: [Float: Float]) {
         
         for (freq, gain) in allBands {
@@ -250,13 +251,10 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
         }
     }
     
-    func allBands() -> [Int: Float] {
+    func allBands() -> [Float] {
         
-        var allBands: [Int: Float] = [:]
-        for index in 0..<bands.count {
-            allBands[index] = bands[index].gain
-        }
-        
+        var allBands: [Float] = []
+        bands.forEach({allBands.append($0.gain)})
         return allBands
     }
 }
@@ -277,28 +275,28 @@ class FifteenBandEQNode: ParametricEQNode {
 
 protocol ParametricEQProtocol {
     
-    func increaseBass(_ increment: Float) -> [Int: Float]
+    func increaseBass(_ increment: Float) -> [Float]
     
-    func decreaseBass(_ decrement: Float) -> [Int: Float]
+    func decreaseBass(_ decrement: Float) -> [Float]
     
-    func increaseMids(_ increment: Float) -> [Int: Float]
+    func increaseMids(_ increment: Float) -> [Float]
     
-    func decreaseMids(_ decrement: Float) -> [Int: Float]
+    func decreaseMids(_ decrement: Float) -> [Float]
     
-    func increaseTreble(_ increment: Float) -> [Int: Float]
+    func increaseTreble(_ increment: Float) -> [Float]
     
-    func decreaseTreble(_ decrement: Float) -> [Int: Float]
+    func decreaseTreble(_ decrement: Float) -> [Float]
 
     func setBand(_ index: Int, gain: Float)
     
-    func setBands(_ allBands: [Int: Float])
+    func setBands(_ allBands: [Float])
     
-    func allBands() -> [Int: Float]
+    func allBands() -> [Float]
 }
 
 class EQMapper {
     
-    static func map10BandsTo15Bands(_ srcBands: [Int: Float], _ targetFrequencies: [Float]) -> [Float: Float] {
+    static func map10BandsTo15Bands(_ srcBands: [Float], _ targetFrequencies: [Float]) -> [Float: Float] {
         
         var mappedBands: [Float: Float] = [:]
         
@@ -330,19 +328,19 @@ class EQMapper {
         return mappedBands
     }
     
-    static func map15BandsTo10Bands(_ srcBands: [Int: Float], _ targetFrequencies: [Float]) -> [Float: Float] {
+    static func map15BandsTo10Bands(_ srcBands: [Float], _ targetFrequencies: [Float]) -> [Float: Float] {
         
         var mappedBands: [Float: Float] = [:]
         
-        mappedBands[targetFrequencies[0]] = (srcBands[0]! + srcBands[1]!) / 2
+        mappedBands[targetFrequencies[0]] = (srcBands[0] + srcBands[1]) / 2
         mappedBands[targetFrequencies[1]] = srcBands[2]
-        mappedBands[targetFrequencies[2]] = (srcBands[3]! + srcBands[4]!) / 2
+        mappedBands[targetFrequencies[2]] = (srcBands[3] + srcBands[4]) / 2
         mappedBands[targetFrequencies[3]] = srcBands[5]
-        mappedBands[targetFrequencies[4]] = (srcBands[6]! + srcBands[7]!) / 2
+        mappedBands[targetFrequencies[4]] = (srcBands[6] + srcBands[7]) / 2
         mappedBands[targetFrequencies[5]] = srcBands[8]
-        mappedBands[targetFrequencies[6]] = (srcBands[9]! + srcBands[10]!) / 2
+        mappedBands[targetFrequencies[6]] = (srcBands[9] + srcBands[10]) / 2
         mappedBands[targetFrequencies[7]] = srcBands[11]
-        mappedBands[targetFrequencies[8]] = (srcBands[12]! + srcBands[13]!) / 2
+        mappedBands[targetFrequencies[8]] = (srcBands[12] + srcBands[13]) / 2
         mappedBands[targetFrequencies[9]] = srcBands[14]
 
         return mappedBands

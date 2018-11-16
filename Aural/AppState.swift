@@ -10,25 +10,8 @@ protocol PersistentModelObject {
 // Marks an object as being suitable for persistence, i.e. it is serializable/deserializable
 protocol PersistentState {
     
-    // Produces a serialiable representation of this state object
-    func toSerializableMap() -> NSDictionary
-    
-    // Produces a serialiable representation of this state object
-    func toSerializableArray() -> NSArray
-    
     // Constructs an instance of this state object from the given map
     static func deserialize(_ map: NSDictionary) -> PersistentState
-}
-
-extension PersistentState {
-    
-    func toSerializableArray() -> NSArray {
-        return NSArray(array: [])
-    }
-    
-    func toSerializableMap() -> NSDictionary {
-        return [NSString: AnyObject]() as NSDictionary
-    }
 }
 
 /*
@@ -36,23 +19,8 @@ extension PersistentState {
  */
 class UIState: PersistentState {
     
-    var windowLayout: WindowLayoutState
-    var player: PlayerState
-    
-    init() {
-        self.windowLayout = WindowLayoutState()
-        self.player = PlayerState()
-    }
-    
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["windowLayout"] = windowLayout.toSerializableMap()
-        map["player"] = player.toSerializableMap()
-        
-        return map as NSDictionary
-    }
+    var windowLayout: WindowLayoutState = WindowLayoutState()
+    var player: PlayerState = PlayerState()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -84,175 +52,107 @@ class PlayerState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["viewType"] = viewType.rawValue as AnyObject
-        
-        map["showAlbumArt"] = showAlbumArt as AnyObject
-        map["showTrackInfo"] = showTrackInfo as AnyObject
-        map["showSequenceInfo"] = showSequenceInfo as AnyObject
-        map["showControls"] = showControls as AnyObject
-        map["showTimeElapsedRemaining"] = showTimeElapsedRemaining as AnyObject
-        map["showPlayingTrackFunctions"] = showPlayingTrackFunctions as AnyObject
-        
-        map["timeElapsedDisplayType"] = timeElapsedDisplayType.rawValue as AnyObject
-        map["timeRemainingDisplayType"] = timeRemainingDisplayType.rawValue as AnyObject
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlayerState()
         
-        if let viewTypeStr = map["viewType"] as? String, let viewType = PlayerViewType(rawValue: viewTypeStr) {
-            state.viewType = viewType
-        }
+        state.viewType = mapEnum(map, "viewType", PlayerViewType.defaultView)
         
-        if let showAlbumArt = map["showAlbumArt"] as? Bool {
-            state.showAlbumArt = showAlbumArt
-        }
+        state.showAlbumArt = mapDirectly(map, "showAlbumArt", true)
+        state.showTrackInfo = mapDirectly(map, "showTrackInfo", true)
+        state.showSequenceInfo = mapDirectly(map, "showSequenceInfo", true)
+        state.showControls = mapDirectly(map, "showControls", true)
+        state.showTimeElapsedRemaining = mapDirectly(map, "showTimeElapsedRemaining", true)
+        state.showPlayingTrackFunctions = mapDirectly(map, "showPlayingTrackFunctions", true)
         
-        if let showTrackInfo = map["showTrackInfo"] as? Bool {
-            state.showTrackInfo = showTrackInfo
-        }
-        
-        if let showSequenceInfo = map["showSequenceInfo"] as? Bool {
-            state.showSequenceInfo = showSequenceInfo
-        }
-        
-        if let showControls = map["showControls"] as? Bool {
-            state.showControls = showControls
-        }
-        
-        if let showTimeElapsedRemaining = map["showTimeElapsedRemaining"] as? Bool {
-            state.showTimeElapsedRemaining = showTimeElapsedRemaining
-        }
-        
-        if let showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool {
-            state.showPlayingTrackFunctions = showPlayingTrackFunctions
-        }
-        
-        if let displayTypeStr = map["timeElapsedDisplayType"] as? String, let timeElapsedDisplayType = TimeElapsedDisplayType(rawValue: displayTypeStr) {
-            state.timeElapsedDisplayType = timeElapsedDisplayType
-        }
-        
-        if let displayTypeStr = map["timeRemainingDisplayType"] as? String, let timeRemainingDisplayType = TimeRemainingDisplayType(rawValue: displayTypeStr) {
-            state.timeRemainingDisplayType = timeRemainingDisplayType
-        }
+        state.timeElapsedDisplayType = mapEnum(map, "timeElapsedDisplayType", TimeElapsedDisplayType.formatted)
+        state.timeRemainingDisplayType = mapEnum(map, "timeRemainingDisplayType", TimeRemainingDisplayType.formatted)
         
         return state
     }
+}
+
+fileprivate func mapEnum<T: RawRepresentable>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T where T.RawValue == String {
+    if let rawVal = map[key] as? String, let enumVal = T.self.init(rawValue: rawVal) {return enumVal} else {return defaultValue}
+}
+
+fileprivate func mapBool(_ map: NSDictionary, _ key: String, _ defaultValue: Bool) -> Bool {
+    if let value = map[key] as? Bool {return value} else {return defaultValue}
+}
+
+fileprivate func mapDirectly<T: Any>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T {
+    if let value = map[key] as? T {return value} else {return defaultValue}
+}
+
+fileprivate func mapNumeric<T: Any>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T {
+    
+    if let value = map[key] as? NSNumber {
+        return doMapNumeric(value, T.self)
+    }
+    
+    return defaultValue
+}
+
+fileprivate func doMapNumeric<T: Any>(_ value: NSNumber, _ type: T.Type) -> T {
+    
+    switch String(describing: type) {
+        
+    case "Float", "CGFloat": return value.floatValue as! T
+        
+    case "Double": return value.doubleValue as! T
+        
+    case "Int": return value.intValue as! T
+        
+    // Should not happen
+    default: return value.doubleValue as! T
+        
+    }
+}
+
+// Allows optional values
+fileprivate func mapNumeric<T: Any>(_ map: NSDictionary, _ key: String) -> T? {
+    
+    if let value = map[key] as? NSNumber {
+        return doMapNumeric(value, T.self)
+    }
+    
+    return nil
 }
 
 class WindowLayoutState: PersistentState {
     
     var showEffects: Bool = true
     var showPlaylist: Bool = true
-    
-    // TODO: Revisit this
+
     var mainWindowOrigin: NSPoint = NSPoint.zero
     var effectsWindowOrigin: NSPoint? = nil
     var playlistWindowFrame: NSRect? = nil
     
-    var userWindowLayouts: [WindowLayout] = [WindowLayout]()
-    
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["showPlaylist"] = showPlaylist as AnyObject
-        map["showEffects"] = showEffects as AnyObject
-        
-        map["mainWindow_x"] = mainWindowOrigin.x as NSNumber
-        map["mainWindow_y"] = mainWindowOrigin.y as NSNumber
-        
-        if let origin = effectsWindowOrigin {
-            
-            map["effectsWindow_x"] = origin.x as NSNumber
-            map["effectsWindow_y"] = origin.y as NSNumber
-        }
-        
-        if let frame = playlistWindowFrame {
-            
-            map["playlistWindow_x"] = frame.origin.x as NSNumber
-            map["playlistWindow_y"] = frame.origin.y as NSNumber
-            map["playlistWindow_width"] = frame.width as NSNumber
-            map["playlistWindow_height"] = frame.height as NSNumber
-        }
-        
-        var userWindowLayoutsArr = [[NSString: AnyObject]]()
-        for layout in userWindowLayouts {
-            
-            var layoutDict = [NSString: AnyObject]()
-            
-            layoutDict["name"] = layout.name as AnyObject
-            
-            layoutDict["showPlaylist"] = layout.showPlaylist as AnyObject
-            layoutDict["showEffects"] = layout.showEffects as AnyObject
-            
-            layoutDict["mainWindow_x"] = layout.mainWindowOrigin.x as NSNumber
-            layoutDict["mainWindow_y"] = layout.mainWindowOrigin.y as NSNumber
-            
-            if let origin = layout.effectsWindowOrigin {
-            
-                layoutDict["effectsWindow_x"] = origin.x as NSNumber
-                layoutDict["effectsWindow_y"] = origin.y as NSNumber
-            }
-            
-            if let frame = layout.playlistWindowFrame {
-            
-                layoutDict["playlistWindow_x"] = frame.origin.x as NSNumber
-                layoutDict["playlistWindow_y"] = frame.origin.y as NSNumber
-                layoutDict["playlistWindow_width"] = frame.width as NSNumber
-                layoutDict["playlistWindow_height"] = frame.height as NSNumber
-            }
-            
-            userWindowLayoutsArr.append(layoutDict)
-        }
-        
-        map["userLayouts"] = NSArray(array: userWindowLayoutsArr)
-        
-        return map as NSDictionary
-    }
+    var userLayouts: [WindowLayout] = [WindowLayout]()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = WindowLayoutState()
         
-        if let showPlaylist = map["showPlaylist"] as? Bool {
-            state.showPlaylist = showPlaylist
+        state.showPlaylist = mapDirectly(map, "showPlaylist", true)
+        state.showEffects = mapDirectly(map, "showEffects", true)
+        
+        if let mainWindowOriginDict = map["mainWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(mainWindowOriginDict) {
+            state.mainWindowOrigin = origin
         }
         
-        if let showEffects = map["showEffects"] as? Bool {
-            state.showEffects = showEffects
+        if let effectsWindowOriginDict = map["effectsWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(effectsWindowOriginDict) {
+            state.effectsWindowOrigin = origin
         }
         
-        if let mainWindowX = map["mainWindow_x"] as? NSNumber, let mainWindowY = map["mainWindow_y"] as? NSNumber {
-            state.mainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
-        }
-        
-        if let effectsWindowX = map["effectsWindow_x"] as? NSNumber, let effectsWindowY = map["effectsWindow_y"] as? NSNumber {
-            state.effectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
-        }
-        
-        if let playlistWindowX = map["playlistWindow_x"] as? NSNumber, let playlistWindowY = map["playlistWindow_y"] as? NSNumber {
+        if let frameDict = map["playlistWindowFrame"] as? NSDictionary, let originDict = frameDict["origin"] as? NSDictionary, let origin = mapNSPoint(originDict), let sizeDict = frameDict["size"] as? NSDictionary, let size = mapNSSize(sizeDict) {
             
-            let origin  = NSPoint(x: CGFloat(playlistWindowX.floatValue), y: CGFloat(playlistWindowY.floatValue))
-            
-            if let playlistWindowWidth = map["playlistWindow_width"] as? NSNumber, let playlistWindowHeight = map["playlistWindow_height"] as? NSNumber {
-                
-                state.playlistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
-            }
+            state.playlistWindowFrame = NSRect(origin: origin, size: size)
         }
         
         if let userLayouts = map["userLayouts"] as? [NSDictionary] {
             
-            userLayouts.forEach({
-                
-                let layout = $0
+            for layout in userLayouts {
                 
                 var layoutName: String?
                 
@@ -267,33 +167,21 @@ class WindowLayoutState: PersistentState {
                     layoutName = name
                 }
                 
-                if let showPlaylist = layout["showPlaylist"] as? Bool {
-                    layoutShowPlaylist = showPlaylist
+                // TODO: These are optional. Write a new helper function mapOptionalVal which may return nil
+                layoutShowPlaylist = mapDirectly(layout, "showPlaylist", true)
+                layoutShowEffects = mapDirectly(layout, "showEffects", true)
+                
+                if let mainWindowOriginDict = layout["mainWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(mainWindowOriginDict) {
+                    layoutMainWindowOrigin = origin
                 }
                 
-                if let showEffects = layout["showEffects"] as? Bool {
-                    layoutShowEffects = showEffects
+                if let effectsWindowOriginDict = layout["effectsWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(effectsWindowOriginDict) {
+                    layoutEffectsWindowOrigin = origin
                 }
                 
-                if let mainWindowX = layout["mainWindow_x"] as? NSNumber {
+                if let frameDict = layout["playlistWindowFrame"] as? NSDictionary, let originDict = frameDict["origin"] as? NSDictionary, let origin = mapNSPoint(originDict), let sizeDict = frameDict["size"] as? NSDictionary, let size = mapNSSize(sizeDict) {
                     
-                    if let mainWindowY = layout["mainWindow_y"] as? NSNumber {
-                        layoutMainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
-                    }
-                }
-                
-                if let effectsWindowX = layout["effectsWindow_x"] as? NSNumber, let effectsWindowY = layout["effectsWindow_y"] as? NSNumber {
-                    layoutEffectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
-                }
-                
-                if let playlistWindowX = layout["playlistWindow_x"] as? NSNumber, let playlistWindowY = layout["playlistWindow_y"] as? NSNumber {
-                    
-                    let origin  = NSPoint(x: CGFloat(playlistWindowX.floatValue), y: CGFloat(playlistWindowY.floatValue))
-                    
-                    if let playlistWindowWidth = layout["playlistWindow_width"] as? NSNumber, let playlistWindowHeight = layout["playlistWindow_height"] as? NSNumber {
-                        
-                        layoutPlaylistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
-                    }
+                    layoutPlaylistWindowFrame = NSRect(origin: origin, size: size)
                 }
                 
                 // Make sure you have all the required info
@@ -304,16 +192,35 @@ class WindowLayoutState: PersistentState {
                         if ((layoutShowPlaylist! && layoutPlaylistWindowFrame != nil) || !layoutShowPlaylist!) {
                             
                             let newLayout = WindowLayout(layoutName!, layoutShowEffects!, layoutShowPlaylist!, layoutMainWindowOrigin!, layoutEffectsWindowOrigin, layoutPlaylistWindowFrame, false)
+                            newLayout.name = ""
                             
-                            state.userWindowLayouts.append(newLayout)
+                            state.userLayouts.append(newLayout)
                         }
                     }
                 }
-            })
+            }
         }
         
         return state
     }
+}
+
+fileprivate func mapNSPoint(_ map: NSDictionary) -> NSPoint? {
+    
+    if let px = map["x"] as? NSNumber, let py = map["y"] as? NSNumber {
+        return NSPoint(x: CGFloat(px.floatValue), y: CGFloat(py.floatValue))
+    }
+    
+    return nil
+}
+
+fileprivate func mapNSSize(_ map: NSDictionary) -> NSSize? {
+    
+    if let wd = map["width"] as? NSNumber, let ht = map["height"] as? NSNumber {
+        return NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
+    }
+    
+    return nil
 }
 
 class FXUnitState<T: EffectsUnitPreset> {
@@ -323,106 +230,6 @@ class FXUnitState<T: EffectsUnitPreset> {
 }
 
 class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
-    
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["state"] = state.rawValue as AnyObject
-        
-        // Master presets
-        var masterUserPresetsArr = [[NSString: AnyObject]]()
-        
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            
-            // EQ preset
-            var eqPresetDict = [NSString: AnyObject]()
-            eqPresetDict["state"] = preset.eq.state.rawValue as AnyObject
-            
-            eqPresetDict["globalGain"] = preset.eq.globalGain as NSNumber
-            
-            var presetBandsDict = [NSString: NSNumber]()
-            for (index, gain) in preset.eq.bands {
-                presetBandsDict[String(index) as NSString] = gain as NSNumber
-            }
-            eqPresetDict["bands"] = presetBandsDict as AnyObject
-            
-            presetDict["eq"] = eqPresetDict as AnyObject
-            
-            // Pitch preset
-            var pitchPresetDict = [NSString: AnyObject]()
-            pitchPresetDict["state"] = preset.pitch.state.rawValue as AnyObject
-            
-            pitchPresetDict["pitch"] = preset.pitch.pitch as NSNumber
-            pitchPresetDict["overlap"] = preset.pitch.overlap as NSNumber
-            
-            presetDict["pitch"] = pitchPresetDict as AnyObject
-            
-            // Time preset
-            var timePresetDict = [NSString: AnyObject]()
-            timePresetDict["state"] = preset.time.state.rawValue as AnyObject
-            
-            timePresetDict["rate"] = preset.time.rate as NSNumber
-            timePresetDict["overlap"] = preset.time.overlap as NSNumber
-            timePresetDict["shiftPitch"] = preset.time.pitchShift as AnyObject
-            
-            presetDict["time"] = timePresetDict as AnyObject
-            
-            // Reverb preset
-            var reverbPresetDict = [NSString: AnyObject]()
-            reverbPresetDict["state"] = preset.reverb.state.rawValue as AnyObject
-            
-            reverbPresetDict["space"] = preset.reverb.space.rawValue as AnyObject
-            reverbPresetDict["amount"] = preset.reverb.amount as NSNumber
-            
-            presetDict["reverb"] = reverbPresetDict as AnyObject
-            
-            // Delay preset
-            var delayPresetDict = [NSString: AnyObject]()
-            delayPresetDict["state"] = preset.delay.state.rawValue as AnyObject
-            
-            delayPresetDict["amount"] = preset.delay.amount as NSNumber
-            delayPresetDict["time"] = preset.delay.time as NSNumber
-            delayPresetDict["feedback"] = preset.delay.feedback as NSNumber
-            delayPresetDict["lowPassCutoff"] = preset.delay.cutoff as NSNumber
-            
-            presetDict["delay"] = delayPresetDict as AnyObject
-            
-            // Filter preset
-            var filterPresetDict = [NSString: AnyObject]()
-            filterPresetDict["state"] = preset.filter.state.rawValue as AnyObject
-            
-            var bandsArr = [[NSString: AnyObject]]()
-            for band in preset.filter.bands {
-                
-                var bandDict = [NSString: AnyObject]()
-                bandDict["type"] = band.type.rawValue as AnyObject
-                
-                if let minFreq = band.minFreq {
-                    bandDict["minFreq"] = minFreq as NSNumber
-                }
-                
-                if let maxFreq = band.maxFreq {
-                    bandDict["maxFreq"] = maxFreq as NSNumber
-                }
-                
-                bandsArr.append(bandDict)
-            }
-            
-            filterPresetDict["bands"] = NSArray(array: bandsArr)
-            
-            presetDict["filter"] = filterPresetDict as AnyObject
-            
-            masterUserPresetsArr.append(presetDict)
-        }
-        
-        map["userPresets"] = NSArray(array: masterUserPresetsArr)
-        
-        return map as NSDictionary
-    }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -443,35 +250,12 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     // EQ preset
                     if let eqDict = $0["eq"] as? NSDictionary {
                         
-                        var eqPresetState: EffectsUnitState = .active
-                        var eqPresetGlobalGain: Float = 0
-                        var eqPresetBands: [Int: Float] = [Int: Float]()
+                        let eqPresetState: EffectsUnitState = mapEnum(eqDict, "state", AppDefaults.eqState)
+                        let eqPresetGlobalGain: Float = mapNumeric(eqDict, "globalGain", AppDefaults.eqGlobalGain)
+                        var eqPresetBands: [Float] = [Float]()
                         
-                        if let state = eqDict["state"] as? String {
-                            
-                            if let eqState = EffectsUnitState(rawValue: state) {
-                                eqPresetState = eqState
-                            }
-                        }
-                        
-                        if let globalGain = eqDict["globalGain"] as? NSNumber {
-                            eqPresetGlobalGain = globalGain.floatValue
-                        }
-                        
-                        if let eqBands: NSDictionary = eqDict["bands"] as? NSDictionary {
-                            
-                            for (index, gain) in eqBands {
-                                
-                                if let indexStr = index as? String {
-                                    
-                                    if let indexInt = Int(indexStr) {
-                                        
-                                        if let gainNum = gain as? NSNumber {
-                                            eqPresetBands[indexInt] = gainNum.floatValue
-                                        }
-                                    }
-                                }
-                            }
+                        if let eqBands: NSArray = eqDict["bands"] as? NSArray {
+                            for gain in eqBands {eqPresetBands.append((gain as? NSNumber)?.floatValue ?? AppDefaults.eqBandGain)}
                         }
                         
                         eqPreset = EQPreset("", eqPresetState, eqPresetBands, eqPresetGlobalGain, false)
@@ -483,24 +267,9 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     
                     if let pitchDict = $0["pitch"] as? NSDictionary {
                         
-                        var pitchPresetState: EffectsUnitState = .active
-                        var pitchPresetPitch: Float = 0
-                        var pitchPresetOverlap: Float = 0
-                        
-                        if let state = pitchDict["state"] as? String {
-                            
-                            if let pitchState = EffectsUnitState(rawValue: state) {
-                                pitchPresetState = pitchState
-                            }
-                        }
-                        
-                        if let pitch = pitchDict["pitch"] as? NSNumber {
-                            pitchPresetPitch = pitch.floatValue
-                        }
-                        
-                        if let overlap = pitchDict["overlap"] as? NSNumber {
-                            pitchPresetOverlap = overlap.floatValue
-                        }
+                        let pitchPresetState: EffectsUnitState = mapEnum(pitchDict, "state", AppDefaults.pitchState)
+                        let pitchPresetPitch: Float = mapNumeric(pitchDict, "pitch", AppDefaults.pitch)
+                        let pitchPresetOverlap: Float = mapNumeric(pitchDict, "overlap", AppDefaults.pitchOverlap)
                         
                         pitchPreset = PitchPreset("", pitchPresetState, pitchPresetPitch, pitchPresetOverlap, false)
                     }
@@ -511,29 +280,10 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     
                     if let timeDict = $0["time"] as? NSDictionary {
                         
-                        var timePresetState: EffectsUnitState = .active
-                        var timePresetRate: Float = 0
-                        var timePresetOverlap: Float = 0
-                        var timePresetPitchShift: Bool = false
-                        
-                        if let state = timeDict["state"] as? String {
-                            
-                            if let timeState = EffectsUnitState(rawValue: state) {
-                                timePresetState = timeState
-                            }
-                        }
-                        
-                        if let rate = timeDict["rate"] as? NSNumber {
-                            timePresetRate = rate.floatValue
-                        }
-                        
-                        if let shiftPitch = timeDict["shiftPitch"] as? Bool {
-                            timePresetPitchShift = shiftPitch
-                        }
-                        
-                        if let timeOverlap = timeDict["overlap"] as? NSNumber {
-                            timePresetOverlap = timeOverlap.floatValue
-                        }
+                        let timePresetState: EffectsUnitState = mapEnum(timeDict, "state", AppDefaults.timeState)
+                        let timePresetRate: Float = mapNumeric(timeDict, "rate", AppDefaults.timeStretchRate)
+                        let timePresetOverlap: Float = mapNumeric(timeDict, "overlap", AppDefaults.timeOverlap)
+                        let timePresetPitchShift: Bool = mapDirectly(timeDict, "shiftPitch", AppDefaults.timeShiftPitch)
                         
                         timePreset = TimePreset("", timePresetState, timePresetRate, timePresetOverlap, timePresetPitchShift, false)
                     }
@@ -544,27 +294,9 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     
                     if let reverbDict = $0["reverb"] as? NSDictionary {
                         
-                        var reverbPresetState: EffectsUnitState = .active
-                        var reverbPresetSpace: ReverbSpaces = AppDefaults.reverbSpace
-                        var reverbPresetAmount: Float = AppDefaults.reverbAmount
-                        
-                        if let state = reverbDict["state"] as? String {
-                            
-                            if let reverbState = EffectsUnitState(rawValue: state) {
-                                reverbPresetState = reverbState
-                            }
-                        }
-                        
-                        if let space = reverbDict["space"] as? String {
-                            
-                            if let reverbSpace = ReverbSpaces(rawValue: space) {
-                                reverbPresetSpace = reverbSpace
-                            }
-                        }
-                        
-                        if let amount = reverbDict["amount"] as? NSNumber {
-                            reverbPresetAmount = amount.floatValue
-                        }
+                        let reverbPresetState: EffectsUnitState = mapEnum(reverbDict, "state", AppDefaults.reverbState)
+                        let reverbPresetSpace: ReverbSpaces = mapEnum(reverbDict, "space", AppDefaults.reverbSpace)
+                        let reverbPresetAmount: Float = mapNumeric(reverbDict, "amount", AppDefaults.reverbAmount)
                         
                         reverbPreset = ReverbPreset("", reverbPresetState, reverbPresetSpace, reverbPresetAmount, false)
                     }
@@ -575,34 +307,11 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     
                     if let delayDict = $0["delay"] as? NSDictionary {
                         
-                        var delayPresetState: EffectsUnitState = .active
-                        var delayPresetAmount: Float = AppDefaults.delayAmount
-                        var delayPresetTime: Double = AppDefaults.delayTime
-                        var delayPresetFeedback: Float = AppDefaults.delayFeedback
-                        var delayPresetCutoff: Float = AppDefaults.delayLowPassCutoff
-                        
-                        if let state = delayDict["state"] as? String {
-                            
-                            if let delayState = EffectsUnitState(rawValue: state) {
-                                delayPresetState = delayState
-                            }
-                        }
-                        
-                        if let amount = delayDict["amount"] as? NSNumber {
-                            delayPresetAmount = amount.floatValue
-                        }
-                        
-                        if let time = delayDict["time"] as? NSNumber {
-                            delayPresetTime = time.doubleValue
-                        }
-                        
-                        if let feedback = delayDict["feedback"] as? NSNumber {
-                            delayPresetFeedback = feedback.floatValue
-                        }
-                        
-                        if let cutoff = delayDict["lowPassCutoff"] as? NSNumber {
-                            delayPresetCutoff = cutoff.floatValue
-                        }
+                        let delayPresetState: EffectsUnitState = mapEnum(delayDict, "state", AppDefaults.delayState)
+                        let delayPresetAmount: Float = mapNumeric(delayDict, "amount", AppDefaults.delayAmount)
+                        let delayPresetTime: Double = mapNumeric(delayDict, "time", AppDefaults.delayTime)
+                        let delayPresetFeedback: Float = mapNumeric(delayDict, "feedback", AppDefaults.delayFeedback)
+                        let delayPresetCutoff: Float = mapNumeric(delayDict, "lowPassCutoff", AppDefaults.delayLowPassCutoff)
                         
                         delayPreset = DelayPreset("", delayPresetState, delayPresetAmount, delayPresetTime, delayPresetFeedback, delayPresetCutoff, false)
                     }
@@ -613,35 +322,16 @@ class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
                     
                     if let filterDict = $0["filter"] as? NSDictionary {
                         
+                        let filterPresetState: EffectsUnitState = mapEnum(filterDict, "state", AppDefaults.filterState)
                         var presetBands: [FilterBand] = []
-                        var filterPresetState: EffectsUnitState = .active
-                        
-                        if let state = filterDict["state"] as? String {
-                            
-                            if let filterState = EffectsUnitState(rawValue: state) {
-                                filterPresetState = filterState
-                            }
-                        }
                         
                         if let bands = filterDict["bands"] as? [NSDictionary] {
                             
                             for band in bands {
                                 
-                                var bandType: FilterBandType = .bandStop
-                                var bandMinFreq: Float?
-                                var bandMaxFreq: Float?
-                                
-                                if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
-                                    bandType = type
-                                }
-                                
-                                if let minFreq = band["minFreq"] as? NSNumber {
-                                    bandMinFreq = minFreq.floatValue
-                                }
-                                
-                                if let maxFreq = band["maxFreq"] as? NSNumber {
-                                    bandMaxFreq = maxFreq.floatValue
-                                }
+                                let bandType: FilterBandType = mapEnum(band, "type", AppDefaults.filterBandType)
+                                let bandMinFreq: Float? = mapNumeric(band, "minFreq")
+                                let bandMaxFreq: Float? = mapNumeric(band, "maxFreq")
                                 
                                 presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
                             }
@@ -663,125 +353,40 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
     
     var type: EQType = AppDefaults.eqType
     var globalGain: Float = AppDefaults.eqGlobalGain
-    var bands: [Int: Float] = [Int: Float]() // Index -> Gain
+    var bands: [Float] = [Float]() // Index -> Gain
     var sync: Bool = AppDefaults.eqSync
 
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["state"] = state.rawValue as AnyObject
-        map["type"] = type.rawValue as AnyObject
-        map["sync"] = sync as AnyObject
-        map["globalGain"] = globalGain as NSNumber
-        
-        var eqBandsDict = [NSString: NSNumber]()
-        for (index, gain) in bands {
-            eqBandsDict[String(index) as NSString] = gain as NSNumber
-        }
-        map["bands"] = eqBandsDict as AnyObject
-        
-        var eqUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            
-            presetDict["globalGain"] = preset.globalGain as NSNumber
-            
-            var presetBandsDict = [NSString: NSNumber]()
-            for (index, gain) in preset.bands {
-                presetBandsDict[String(index) as NSString] = gain as NSNumber
-            }
-            presetDict["bands"] = presetBandsDict as AnyObject
-            
-            eqUserPresetsArr.append(presetDict)
-        }
-        map["userPresets"] = NSArray(array: eqUserPresetsArr)
-
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let eqState: EQUnitState = EQUnitState()
         
-        if let state = map["state"] as? String {
-            
-            if let unitState = EffectsUnitState(rawValue: state) {
-                eqState.state = unitState
-            }
-        }
+        eqState.state = mapEnum(map, "state", AppDefaults.eqState)
+        eqState.type = mapEnum(map, "type", AppDefaults.eqType)
+        eqState.sync = mapDirectly(map, "sync", AppDefaults.eqSync)
+        eqState.globalGain = mapNumeric(map, "globalGain", AppDefaults.eqGlobalGain)
         
-        if let typeStr = map["type"] as? String, let type = EQType(rawValue: typeStr) {
-            eqState.type = type
-        }
-        
-        if let sync = map["sync"] as? Bool {
-            eqState.sync = sync
-        }
-        
-        if let globalGain = map["globalGain"] as? NSNumber {
-            eqState.globalGain = globalGain.floatValue
-        }
-        
-        if let eqBands: NSDictionary = map["bands"] as? NSDictionary {
-            
-            for (index, gain) in eqBands {
-                
-                if let indexStr = index as? String {
-                    
-                    if let indexInt = Int(indexStr) {
-                        
-                        if let gainNum = gain as? NSNumber {
-                            eqState.bands[indexInt] = gainNum.floatValue
-                        }
-                    }
-                }
-            }
+        if let bands: NSArray = map["bands"] as? NSArray {
+            for gain in bands {eqState.bands.append((gain as? NSNumber)?.floatValue ?? AppDefaults.eqBandGain)}
         }
         
         // EQ User presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
-                
-                var presetName: String?
-                
-                // TODO: Get this from a default value constant
-                var presetGlobalGain: Float = 0
-                
-                if let name = $0["name"] as? String {
-                    presetName = name
-                }
-                
-                var presetBands: [Int: Float] = [Int: Float]()
-                
-                if let presetBandsDict: NSDictionary = $0["bands"] as? NSDictionary {
-                    
-                    for (index, gain) in presetBandsDict {
-                        
-                        if let indexStr = index as? String {
-                            
-                            if let indexInt = Int(indexStr) {
-                                
-                                if let gainNum = gain as? NSNumber {
-                                    presetBands[indexInt] = gainNum.floatValue
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                if let globalGain = $0["globalGain"] as? NSNumber {
-                    presetGlobalGain = globalGain.floatValue
-                }
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = presetName {
-                    eqState.userPresets.append(EQPreset(presetName, .active, presetBands, presetGlobalGain, false))
+                if let presetName = presetDict["name"] as? String {
+                    
+                    let eqPresetGlobalGain: Float = mapNumeric(presetDict, "globalGain", AppDefaults.eqGlobalGain)
+                    var eqPresetBands: [Float] = [Float]()
+                    
+                    if let eqBands: NSArray = presetDict["bands"] as? NSArray {
+                        for gain in eqBands {eqPresetBands.append((gain as? NSNumber)?.floatValue ?? AppDefaults.eqBandGain)}
+                    }
+                    
+                    eqState.userPresets.append(EQPreset(presetName, .active, eqPresetBands, eqPresetGlobalGain, false))
                 }
-            })
+            }
         }
         
         return eqState
@@ -793,72 +398,28 @@ class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
     var pitch: Float = AppDefaults.pitch
     var overlap: Float = AppDefaults.pitchOverlap
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        map["state"] = state.rawValue as AnyObject
-        map["pitch"] = pitch as NSNumber
-        map["overlap"] = overlap as NSNumber
-        
-        var pitchUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["pitch"] = preset.pitch as NSNumber
-            presetDict["overlap"] = preset.overlap as NSNumber
-            
-            pitchUserPresetsArr.append(presetDict)
-        }
-        map["userPresets"] = NSArray(array: pitchUserPresetsArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state: PitchUnitState = PitchUnitState()
         
-        if let unitState = map["state"] as? String {
-            if let pitchState = EffectsUnitState(rawValue: unitState) {
-                state.state = pitchState
-            }
-        }
-        
-        if let pitch = map["pitch"] as? NSNumber {
-            state.pitch = pitch.floatValue
-        }
-        
-        if let overlap = map["overlap"] as? NSNumber {
-            state.overlap = overlap.floatValue
-        }
+        state.state = mapEnum(map, "state", AppDefaults.pitchState)
+        state.pitch = mapNumeric(map, "pitch", AppDefaults.pitch)
+        state.overlap = mapNumeric(map, "overlap", AppDefaults.pitchOverlap)
         
         // Pitch user presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
-                
-                var presetName: String?
-                var presetPitch: Float?
-                var presetOverlap: Float?
-                
-                if let name = $0["name"] as? String {
-                    presetName = name
-                }
-                
-                if let pitch = $0["pitch"] as? NSNumber {
-                    presetPitch = pitch.floatValue
-                }
-                
-                if let overlap = $0["overlap"] as? NSNumber {
-                    presetOverlap = overlap.floatValue
-                }
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = presetName {
-                    state.userPresets.append(PitchPreset(presetName, .active, presetPitch!, presetOverlap!, false))
+                if let presetName = presetDict["name"] as? String {
+                    
+                    let pitchPresetPitch: Float = mapNumeric(presetDict, "pitch", AppDefaults.pitch)
+                    let pitchPresetOverlap: Float = mapNumeric(presetDict, "overlap", AppDefaults.pitchOverlap)
+                    
+                    state.userPresets.append(PitchPreset(presetName, .active, pitchPresetPitch, pitchPresetOverlap, false))
                 }
-            })
+            }
         }
         
         return state
@@ -871,81 +432,30 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
     var shiftPitch: Bool = AppDefaults.timeShiftPitch
     var overlap: Float = AppDefaults.timeOverlap
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        map["state"] = state.rawValue as AnyObject
-        map["rate"] = rate as NSNumber
-        map["overlap"] = overlap as NSNumber
-        map["shiftPitch"] = shiftPitch as AnyObject
-        
-        var timeUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["rate"] = preset.rate as NSNumber
-            presetDict["overlap"] = preset.overlap as NSNumber
-            presetDict["shiftPitch"] = preset.pitchShift as AnyObject
-            
-            timeUserPresetsArr.append(presetDict)
-        }
-        map["userPresets"] = NSArray(array: timeUserPresetsArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let timeState: TimeUnitState = TimeUnitState()
         
-        if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            timeState.state = unitState
-        }
-        
-        if let rate = map["rate"] as? NSNumber {
-            timeState.rate = rate.floatValue
-        }
-        
-        if let timeOverlap = map["overlap"] as? NSNumber {
-            timeState.overlap = timeOverlap.floatValue
-        }
-        
-        if let shiftPitch = map["shiftPitch"] as? Bool {
-            timeState.shiftPitch = shiftPitch
-        }
+        timeState.state = mapEnum(map, "state", AppDefaults.pitchState)
+        timeState.rate = mapNumeric(map, "rate", AppDefaults.timeStretchRate)
+        timeState.overlap = mapNumeric(map, "overlap", AppDefaults.timeOverlap)
+        timeState.shiftPitch = mapDirectly(map, "shiftPitch", AppDefaults.timeShiftPitch)
         
         // Time user presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
-                
-                var presetName: String?
-                var presetRate: Float?
-                var presetOverlap: Float?
-                var presetPitchShift: Bool?
-                
-                if let name = $0["name"] as? String {
-                    presetName = name
-                }
-                
-                if let rate = $0["rate"] as? NSNumber {
-                    presetRate = rate.floatValue
-                }
-                
-                if let overlap = $0["overlap"] as? NSNumber {
-                    presetOverlap = overlap.floatValue
-                }
-                
-                if let pitchShift = $0["shiftPitch"] as? Bool {
-                    presetPitchShift = pitchShift
-                }
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = presetName {
-                    timeState.userPresets.append(TimePreset(presetName, .active, presetRate!,  presetOverlap!, presetPitchShift!, false))
+                if let presetName = presetDict["name"] as? String {
+                    
+                    let timePresetRate: Float = mapNumeric(presetDict, "rate", AppDefaults.timeStretchRate)
+                    let timePresetOverlap: Float = mapNumeric(presetDict, "overlap", AppDefaults.timeOverlap)
+                    let timePresetPitchShift: Bool = mapDirectly(presetDict, "shiftPitch", AppDefaults.timeShiftPitch)
+                    
+                    timeState.userPresets.append(TimePreset(presetName, .active, timePresetRate, timePresetOverlap, timePresetPitchShift, false))
                 }
-            })
+            }
         }
         
         return timeState
@@ -957,73 +467,28 @@ class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
     var space: ReverbSpaces = AppDefaults.reverbSpace
     var amount: Float = AppDefaults.reverbAmount
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["state"] = state.rawValue as AnyObject
-        map["space"] = space.rawValue as AnyObject
-        map["amount"] = amount as NSNumber
-        
-        var reverbUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["space"] = preset.space.rawValue as AnyObject
-            presetDict["amount"] = preset.amount as NSNumber
-            
-            reverbUserPresetsArr.append(presetDict)
-        }
-
-        map["userPresets"] = NSArray(array: reverbUserPresetsArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let reverbState: ReverbUnitState = ReverbUnitState()
         
-        if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            reverbState.state = unitState
-        }
-        
-        if let spaceStr = map["space"] as? String, let space = ReverbSpaces(rawValue: spaceStr) {
-            reverbState.space = space
-        }
-        
-        if let amount = map["amount"] as? NSNumber {
-            reverbState.amount = amount.floatValue
-        }
+        reverbState.state = mapEnum(map, "state", AppDefaults.reverbState)
+        reverbState.space = mapEnum(map, "space", AppDefaults.reverbSpace)
+        reverbState.amount = mapNumeric(map, "amount", AppDefaults.reverbAmount)
         
         // Reverb user presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
-                
-                var presetName: String?
-                var presetSpace: String?
-                var presetAmount: Float?
-                
-                if let name = $0["name"] as? String {
-                    presetName = name
-                }
-                
-                if let space = $0["space"] as? String {
-                    presetSpace = space
-                }
-                
-                if let amount = $0["amount"] as? NSNumber {
-                    presetAmount = amount.floatValue
-                }
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = presetName {
+                if let presetName = presetDict["name"] as? String {
+                
+                    let reverbPresetSpace: ReverbSpaces = mapEnum(presetDict, "space", AppDefaults.reverbSpace)
+                    let reverbPresetAmount: Float = mapNumeric(presetDict, "amount", AppDefaults.reverbAmount)
                     
-                    reverbState.userPresets.append(ReverbPreset(presetName, .active, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
+                    reverbState.userPresets.append(ReverbPreset(presetName, .active, reverbPresetSpace, reverbPresetAmount, false))
                 }
-            })
+            }
         }
         
         return reverbState
@@ -1037,94 +502,32 @@ class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
     var feedback: Float = AppDefaults.delayFeedback
     var lowPassCutoff: Float = AppDefaults.delayLowPassCutoff
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["state"] = state.rawValue as AnyObject
-        map["amount"] = amount as NSNumber
-        map["time"] = time as NSNumber
-        map["feedback"] = feedback as NSNumber
-        map["lowPassCutoff"] = lowPassCutoff as NSNumber
-        
-        var delayUserPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            presetDict["amount"] = preset.amount as NSNumber
-            presetDict["time"] = preset.time as NSNumber
-            presetDict["feedback"] = preset.feedback as NSNumber
-            presetDict["lowPassCutoff"] = preset.cutoff as NSNumber
-            
-            delayUserPresetsArr.append(presetDict)
-        }
-        
-        map["userPresets"] = NSArray(array: delayUserPresetsArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let delayState: DelayUnitState = DelayUnitState()
         
-        if let stateStr = map["state"] as? String, let state = EffectsUnitState(rawValue: stateStr) {
-            delayState.state = state
-        }
-        
-        if let amount = map["amount"] as? NSNumber {
-            delayState.amount = amount.floatValue
-        }
-        
-        if let time = map["time"] as? NSNumber {
-            delayState.time = time.doubleValue
-        }
-        
-        if let feedback = map["feedback"] as? NSNumber {
-            delayState.feedback = feedback.floatValue
-        }
-        
-        if let cutoff = map["lowPassCutoff"] as? NSNumber {
-            delayState.lowPassCutoff = cutoff.floatValue
-        }
+        delayState.state = mapEnum(map, "state", AppDefaults.delayState)
+        delayState.amount = mapNumeric(map, "amount", AppDefaults.delayAmount)
+        delayState.time = mapNumeric(map, "time", AppDefaults.delayTime)
+        delayState.feedback = mapNumeric(map, "feedback", AppDefaults.delayFeedback)
+        delayState.lowPassCutoff = mapNumeric(map, "lowPassCutoff", AppDefaults.delayLowPassCutoff)
         
         // Delay user presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
-                
-                var presetName: String?
-                var presetAmount: Float?
-                var presetTime: Double?
-                var presetFeedback: Float?
-                var presetCutoff: Float?
-                
-                if let name = $0["name"] as? String {
-                    presetName = name
-                }
-                
-                if let amount = $0["amount"] as? NSNumber {
-                    presetAmount = amount.floatValue
-                }
-                
-                if let time = $0["time"] as? NSNumber {
-                    presetTime = time.doubleValue
-                }
-                
-                if let feedback = $0["feedback"] as? NSNumber {
-                    presetFeedback = feedback.floatValue
-                }
-                
-                if let cutoff = $0["lowPassCutoff"] as? NSNumber {
-                    presetCutoff = cutoff.floatValue
-                }
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = presetName {
-                    delayState.userPresets.append(DelayPreset(presetName, .active, presetAmount!, presetTime!, presetFeedback!, presetCutoff!, false))
+                if let presetName = presetDict["name"] as? String {
+                    
+                    let delayPresetAmount: Float = mapNumeric(presetDict, "amount", AppDefaults.delayAmount)
+                    let delayPresetTime: Double = mapNumeric(presetDict, "time", AppDefaults.delayTime)
+                    let delayPresetFeedback: Float = mapNumeric(presetDict, "feedback", AppDefaults.delayFeedback)
+                    let delayPresetCutoff: Float = mapNumeric(presetDict, "lowPassCutoff", AppDefaults.delayLowPassCutoff)
+                    
+                    delayState.userPresets.append(DelayPreset(presetName, .active, delayPresetAmount, delayPresetTime, delayPresetFeedback, delayPresetCutoff, false))
                 }
-            })
+            }
         }
         
         return delayState
@@ -1135,90 +538,19 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
     
     var bands: [FilterBand] = []
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        map["state"] = state.rawValue as AnyObject
-        
-        var bandsArr = [[NSString: AnyObject]]()
-        for band in bands {
-            
-            var bandDict = [NSString: AnyObject]()
-            bandDict["type"] = band.type.rawValue as AnyObject
-            
-            if let minFreq = band.minFreq {
-                bandDict["minFreq"] = minFreq as NSNumber
-            }
-            
-            if let maxFreq = band.maxFreq {
-                bandDict["maxFreq"] = maxFreq as NSNumber
-            }
-            
-            bandsArr.append(bandDict)
-        }
-        
-        map["bands"] = NSArray(array: bandsArr)
-        
-        var userPresetsArr = [[NSString: AnyObject]]()
-        for preset in userPresets {
-            
-            var presetDict = [NSString: AnyObject]()
-            presetDict["name"] = preset.name as AnyObject
-            
-            var bandsArr = [[NSString: AnyObject]]()
-            for band in preset.bands {
-                
-                var bandDict = [NSString: AnyObject]()
-                bandDict["type"] = band.type.rawValue as AnyObject
-                
-                if let minFreq = band.minFreq {
-                    bandDict["minFreq"] = minFreq as NSNumber
-                }
-                
-                if let maxFreq = band.maxFreq {
-                    bandDict["maxFreq"] = maxFreq as NSNumber
-                }
-                
-                bandsArr.append(bandDict)
-            }
-            
-            presetDict["bands"] = NSArray(array: bandsArr)
-            
-            userPresetsArr.append(presetDict)
-        }
-        
-        map["userPresets"] = NSArray(array: userPresetsArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let filterState: FilterUnitState = FilterUnitState()
         
-        if let stateStr = map["state"] as? String, let unitState = EffectsUnitState(rawValue: stateStr) {
-            filterState.state = unitState
-        }
+        filterState.state = mapEnum(map, "state", AppDefaults.filterState)
         
         if let bands = map["bands"] as? [NSDictionary] {
             
             for band in bands {
                 
-                var bandType: FilterBandType = .bandStop
-                var bandMinFreq: Float?
-                var bandMaxFreq: Float?
-                
-                if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
-                    bandType = type
-                }
-                
-                if let minFreq = band["minFreq"] as? NSNumber {
-                    bandMinFreq = minFreq.floatValue
-                }
-                
-                if let maxFreq = band["maxFreq"] as? NSNumber {
-                    bandMaxFreq = maxFreq.floatValue
-                }
+                let bandType: FilterBandType = mapEnum(band, "type", AppDefaults.filterBandType)
+                let bandMinFreq: Float? = mapNumeric(band, "minFreq")
+                let bandMaxFreq: Float? = mapNumeric(band, "maxFreq")
                 
                 filterState.bands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
             }
@@ -1227,31 +559,19 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
         // Filter user presets
         if let userPresets = map["userPresets"] as? [NSDictionary] {
             
-            userPresets.forEach({
+            for presetDict in userPresets {
                 
                 // Preset must have a name
-                if let presetName = $0["name"] as? String {
+                if let presetName = presetDict["name"] as? String {
                     
                     var presetBands: [FilterBand] = []
-                    if let bands = $0["bands"] as? [NSDictionary] {
+                    if let bands = presetDict["bands"] as? [NSDictionary] {
                         
                         for band in bands {
                             
-                            var bandType: FilterBandType = .bandStop
-                            var bandMinFreq: Float?
-                            var bandMaxFreq: Float?
-                            
-                            if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
-                                bandType = type
-                            }
-                            
-                            if let minFreq = band["minFreq"] as? NSNumber {
-                                bandMinFreq = minFreq.floatValue
-                            }
-                            
-                            if let maxFreq = band["maxFreq"] as? NSNumber {
-                                bandMaxFreq = maxFreq.floatValue
-                            }
+                            let bandType: FilterBandType = mapEnum(band, "type", AppDefaults.filterBandType)
+                            let bandMinFreq: Float? = mapNumeric(band, "minFreq")
+                            let bandMaxFreq: Float? = mapNumeric(band, "maxFreq")
                             
                             presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
                         }
@@ -1259,7 +579,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
                     
                     filterState.userPresets.append(FilterPreset(presetName, .active, presetBands, false))
                 }
-            })
+            }
         }
         
         return filterState
@@ -1285,41 +605,6 @@ class AudioGraphState: PersistentState {
     
     var soundProfiles: [SoundProfile] = []
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["volume"] = volume as NSNumber
-        map["muted"] = muted as AnyObject
-        map["balance"] = balance as NSNumber
-        
-        map["master"] = masterUnit.toSerializableMap() as AnyObject
-        map["eq"] = eqUnit.toSerializableMap() as AnyObject
-        map["pitch"] = pitchUnit.toSerializableMap() as AnyObject
-        map["time"] = timeUnit.toSerializableMap() as AnyObject
-        map["reverb"] = reverbUnit.toSerializableMap() as AnyObject
-        map["delay"] = delayUnit.toSerializableMap() as AnyObject
-        map["filter"] = filterUnit.toSerializableMap() as AnyObject
-        
-        var profilesArr = [NSDictionary]()
-        soundProfiles.forEach({
-            
-            var profileDict = [NSString: AnyObject]()
-            
-            profileDict["file"] = $0.file.path as AnyObject
-            
-            profileDict["volume"] = $0.volume as NSNumber
-            profileDict["balance"] = $0.balance as NSNumber
-            profileDict["effects"] = serialize($0.effects) as AnyObject
-            
-            profilesArr.append(profileDict as NSDictionary)
-        })
-        
-        map["soundProfiles"] = NSArray(array: profilesArr)
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let audioGraphState = AudioGraphState()
@@ -1336,31 +621,31 @@ class AudioGraphState: PersistentState {
             audioGraphState.balance = balance.floatValue
         }
         
-        if let masterDict = (map["master"] as? NSDictionary) {
+        if let masterDict = (map["masterUnit"] as? NSDictionary) {
             audioGraphState.masterUnit = MasterUnitState.deserialize(masterDict) as! MasterUnitState
         }
         
-        if let eqDict = (map["eq"] as? NSDictionary) {
+        if let eqDict = (map["eqUnit"] as? NSDictionary) {
             audioGraphState.eqUnit = EQUnitState.deserialize(eqDict) as! EQUnitState
         }
         
-        if let pitchDict = (map["pitch"] as? NSDictionary) {
+        if let pitchDict = (map["pitchUnit"] as? NSDictionary) {
             audioGraphState.pitchUnit = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
         }
         
-        if let timeDict = (map["time"] as? NSDictionary) {
+        if let timeDict = (map["timeUnit"] as? NSDictionary) {
             audioGraphState.timeUnit = TimeUnitState.deserialize(timeDict) as! TimeUnitState
         }
         
-        if let reverbDict = (map["reverb"] as? NSDictionary) {
+        if let reverbDict = (map["reverbUnit"] as? NSDictionary) {
             audioGraphState.reverbUnit = ReverbUnitState.deserialize(reverbDict) as! ReverbUnitState
         }
         
-        if let delayDict = (map["delay"] as? NSDictionary) {
+        if let delayDict = (map["delayUnit"] as? NSDictionary) {
             audioGraphState.delayUnit = DelayUnitState.deserialize(delayDict) as! DelayUnitState
         }
         
-        if let filterDict = (map["filter"] as? NSDictionary) {
+        if let filterDict = (map["filterUnit"] as? NSDictionary) {
             audioGraphState.filterUnit = FilterUnitState.deserialize(filterDict) as! FilterUnitState
         }
         
@@ -1395,7 +680,7 @@ class AudioGraphState: PersistentState {
                         
                         var eqPresetState: EffectsUnitState = .active
                         var eqPresetGlobalGain: Float = 0
-                        var eqPresetBands: [Int: Float] = [Int: Float]()
+                        var eqPresetBands: [Float] = [Float]()
                         
                         if let state = eqDict["state"] as? String {
                             
@@ -1632,24 +917,6 @@ class PlaylistState: PersistentState {
         _transient_gapsAfterMap.removeValue(forKey: track.file)
     }
     
-    func toSerializableMap() -> NSDictionary {
-        
-//        var map = [NSString: AnyObject]()
-//
-//        var tracksArr = [String]()
-//        tracks.forEach({tracksArr.append($0.path)})
-//        map["tracks"] = NSArray(array: tracksArr)
-//
-//        var gapsArr = [NSDictionary]()
-//        gaps.forEach({
-//            gapsArr.append($0.toSerializableMap())
-//        })
-//        map["gaps"] = NSArray(array: gapsArr)
-//
-//        return map as NSDictionary
-        return Mapper.map(self)
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaylistState()
@@ -1685,18 +952,6 @@ class PlaybackGapState: PersistentState {
     var duration: Double = AppDefaults.playbackGapDuration
     var position: PlaybackGapPosition = AppDefaults.playbackGapPosition
     var type: PlaybackGapType = AppDefaults.playbackGapType
-    
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["track"] = track!.path as AnyObject
-        map["duration"] = duration as NSNumber
-        map["position"] = position.rawValue as AnyObject
-        map["type"] = type.rawValue as AnyObject
-        
-        return map as NSDictionary
-    }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -1736,16 +991,6 @@ class PlaybackSequenceState: PersistentState {
     var repeatMode: RepeatMode = AppDefaults.repeatMode
     var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
     
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["repeatMode"] = repeatMode.rawValue as AnyObject
-        map["shuffleMode"] = shuffleMode.rawValue as AnyObject
-        
-        return map as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaybackSequenceState()
@@ -1771,37 +1016,6 @@ class HistoryState: PersistentState {
     var recentlyAdded: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
     var recentlyPlayed: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
     
-    func toSerializableMap() -> NSDictionary {
-        
-//        var map = [NSString: AnyObject]()
-//
-//        var recentlyAddedArr = [NSDictionary]()
-//        recentlyAdded.forEach({
-//            recentlyAddedArr.append(self.itemToMap($0))
-//        })
-//        map["recentlyAdded"] = NSArray(array: recentlyAddedArr)
-//
-//        var recentlyPlayedArr = [NSDictionary]()
-//        recentlyPlayed.forEach({
-//            recentlyPlayedArr.append(self.itemToMap($0))
-//        })
-//        map["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
-//
-//        return map as NSDictionary
-        
-        print("\n\n*** In History State ***\n\n")
-        return Mapper.map(self)
-    }
-    
-    private func itemToMap(_ item: (file: URL, time: Date)) -> NSDictionary {
-        
-        var itemMap = [NSString: AnyObject]()
-        itemMap["path"] = item.file.path as AnyObject
-        itemMap["timestamp"] = item.time.serializableString() as AnyObject
-        
-        return itemMap as NSDictionary
-    }
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = HistoryState()
@@ -1810,8 +1024,8 @@ class HistoryState: PersistentState {
             
             recentlyAdded.forEach({
                 
-                if let file = $0.value(forKey: "path") as? String,
-                    let timestamp = $0.value(forKey: "timestamp") as? String {
+                if let file = $0.value(forKey: "file") as? String,
+                    let timestamp = $0.value(forKey: "time") as? String {
                     
                     state.recentlyAdded.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
                 }
@@ -1822,8 +1036,8 @@ class HistoryState: PersistentState {
             
             recentlyPlayed.forEach({
                 
-                if let file = $0.value(forKey: "path") as? String,
-                    let timestamp = $0.value(forKey: "timestamp") as? String {
+                if let file = $0.value(forKey: "file") as? String,
+                    let timestamp = $0.value(forKey: "time") as? String {
                     
                     state.recentlyPlayed.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
                 }
@@ -1860,91 +1074,6 @@ class BookmarkState {
     }
 }
 
-fileprivate func serialize(_ preset: MasterPreset) -> NSDictionary {
-    
-    var presetDict = [NSString: AnyObject]()
-    
-    // EQ
-    var eqDict = [NSString: AnyObject]()
-    eqDict["state"] = preset.eq.state.rawValue as AnyObject
-    
-    eqDict["globalGain"] = preset.eq.globalGain as NSNumber
-    
-    var bandsDict = [NSString: NSNumber]()
-    for (index, gain) in preset.eq.bands {
-        bandsDict[String(index) as NSString] = gain as NSNumber
-    }
-    eqDict["bands"] = bandsDict as AnyObject
-    
-    presetDict["eq"] = eqDict as AnyObject
-    
-    // Pitch
-    var pitchDict = [NSString: AnyObject]()
-    pitchDict["state"] = preset.pitch.state.rawValue as AnyObject
-    
-    pitchDict["pitch"] = preset.pitch.pitch as NSNumber
-    pitchDict["overlap"] = preset.pitch.overlap as NSNumber
-    
-    presetDict["pitch"] = pitchDict as AnyObject
-    
-    // Time
-    var timeDict = [NSString: AnyObject]()
-    timeDict["state"] = preset.time.state.rawValue as AnyObject
-    
-    timeDict["rate"] = preset.time.rate as NSNumber
-    timeDict["overlap"] = preset.time.overlap as NSNumber
-    timeDict["shiftPitch"] = preset.time.pitchShift as AnyObject
-    
-    presetDict["time"] = timeDict as AnyObject
-    
-    // Reverb
-    var reverbDict = [NSString: AnyObject]()
-    reverbDict["state"] = preset.reverb.state.rawValue as AnyObject
-    
-    reverbDict["space"] = preset.reverb.space.rawValue as AnyObject
-    reverbDict["amount"] = preset.reverb.amount as NSNumber
-    
-    presetDict["reverb"] = reverbDict as AnyObject
-    
-    // Delay
-    var delayDict = [NSString: AnyObject]()
-    delayDict["state"] = preset.delay.state.rawValue as AnyObject
-    
-    delayDict["amount"] = preset.delay.amount as NSNumber
-    delayDict["time"] = preset.delay.time as NSNumber
-    delayDict["feedback"] = preset.delay.feedback as NSNumber
-    delayDict["lowPassCutoff"] = preset.delay.cutoff as NSNumber
-    
-    presetDict["delay"] = delayDict as AnyObject
-    
-    // Filter
-    var filterDict = [NSString: AnyObject]()
-    filterDict["state"] = preset.filter.state.rawValue as AnyObject
-    
-    var bandsArr = [[NSString: AnyObject]]()
-    for band in preset.filter.bands {
-        
-        var bandDict = [NSString: AnyObject]()
-        bandDict["type"] = band.type.rawValue as AnyObject
-        
-        if let minFreq = band.minFreq {
-            bandDict["minFreq"] = minFreq as NSNumber
-        }
-        
-        if let maxFreq = band.maxFreq {
-            bandDict["maxFreq"] = maxFreq as NSNumber
-        }
-        
-        bandsArr.append(bandDict)
-    }
-    
-    filterDict["bands"] = NSArray(array: bandsArr)
-    
-    presetDict["filter"] = filterDict as AnyObject
-
-    return presetDict as NSDictionary
-}
-
 extension PlaybackProfile {
     
     static func deserialize(_ map: NSDictionary) -> PlaybackProfile? {
@@ -1976,36 +1105,11 @@ class AppState {
     var playlist: PlaylistState = PlaylistState()
     var playbackSequence: PlaybackSequenceState = PlaybackSequenceState()
     var history: HistoryState = HistoryState()
-    
-//    var favorites: FavoritesState = FavoritesState()
     var favorites: [URL] = [URL]()
-//    var bookmarks: BookmarksState = BookmarksState()
     var bookmarks: [BookmarkState] = []
-//    var playbackProfiles: PlaybackProfilesState = PlaybackProfilesState()
     var playbackProfiles: [PlaybackProfile] = []
     
     static let defaults: AppState = AppState()
-    
-    // Produces an equivalent object suitable for serialization as JSON
-    func toSerializableMap() -> NSDictionary {
-        
-//        var dict = [NSString: AnyObject]()
-//
-//        dict["ui"] = uiState.toSerializableMap() as AnyObject
-//        dict["audioGraph"] = audioGraphState.toSerializableMap() as AnyObject
-////        dict["audioGraph"] = Mapper.map(audioGraphState, [])
-//        dict["playbackSequence"] = playbackSequenceState.toSerializableMap() as AnyObject
-////        dict["playlist"] = playlistState.toSerializableMap() as AnyObject
-//        dict["playlist"] = Mapper.map(playlistState)
-//        dict["history"] = historyState.toSerializableMap() as AnyObject
-//        dict["favorites"] = favoritesState.toSerializableArray() as AnyObject
-//        dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
-//        dict["playbackProfiles"] = playbackProfilesState.toSerializableArray() as AnyObject
-//
-//        return dict as NSDictionary
-        
-        return Mapper.map(self)
-    }
     
     // Produces an AppState object from deserialized JSON
     static func deserialize(_ jsonObject: NSDictionary) -> AppState {

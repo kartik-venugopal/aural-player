@@ -45,7 +45,7 @@ class EQView: NSView {
         eq15BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
     }
     
-    func setState(_ eqType: EQType, _ bands: [Int: Float], _ globalGain: Float, _ sync: Bool) {
+    func setState(_ eqType: EQType, _ bands: [Float], _ globalGain: Float, _ sync: Bool) {
 
         chooseType(eqType)
         bandsUpdated(bands, globalGain)
@@ -56,7 +56,7 @@ class EQView: NSView {
         activeView.setState(state)
     }
     
-    func typeChanged(_ bands: [Int: Float], _ globalGain: Float) {
+    func typeChanged(_ bands: [Float], _ globalGain: Float) {
         
         activeView.stateChanged()
         activeView.updateBands(bands, globalGain)
@@ -64,7 +64,7 @@ class EQView: NSView {
         inactiveView.hide()
     }
     
-    func bandsUpdated(_ bands: [Int: Float], _ globalGain: Float) {
+    func bandsUpdated(_ bands: [Float], _ globalGain: Float) {
         activeView.updateBands(bands, globalGain)
     }
     

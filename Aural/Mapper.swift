@@ -50,6 +50,7 @@ class Mapper {
 
     private static func mapObject(_ obj: Any, _ ignoreProps: [String] = []) -> NSDictionary {
         
+        let obj = unwrapOptional(obj)
         var dict: [NSString: AnyObject] = [:]
         let objMirror = mirrorFor(obj)
         
@@ -70,6 +71,7 @@ class Mapper {
     
     private static func mapArray(_ obj: Any) -> NSArray {
         
+        let obj = unwrapOptional(obj)
         var array: [AnyObject] = []
         let mir = mirrorFor(obj)
         
@@ -94,6 +96,7 @@ class Mapper {
     
     private static func mapDictionary(_ obj: Any) -> NSDictionary {
         
+        let obj = unwrapOptional(obj)
         var dict: [NSString: AnyObject] = [:]
         for (key, value) in obj as! NSDictionary {
             // Assume primitive values
@@ -109,6 +112,8 @@ class Mapper {
     }
     
     private static func mapPrimitive(_ obj: Any) -> AnyObject {
+        
+        let obj = unwrapOptional(obj)
         
         // Number
         if obj is Float || obj is CGFloat || obj is Int || obj is Double {
@@ -156,4 +161,15 @@ extension Mirror {
 
 func mirrorFor(_ obj: Any) -> Mirror {
     return Mirror(reflecting: obj)
+}
+
+func unwrapOptional(_ obj: Any) -> Any {
+
+    let mir = mirrorFor(obj)
+    
+    if mir.displayStyle == .optional {
+        return mir.allChildren()[0].value
+    }
+    
+    return obj
 }

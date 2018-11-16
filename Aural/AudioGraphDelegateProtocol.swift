@@ -78,7 +78,7 @@ protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var globalGain: Float {get set}
     
-    var bands: [Int: Float] {get set}
+    var bands: [Float] {get set}
     
     var sync: Bool {get set}
     
@@ -86,22 +86,22 @@ protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     func setBand(_ index: Int, gain: Float)
     
     // Increases the equalizer bass band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseBass() -> [Int: Float]
+    func increaseBass() -> [Float]
     
     // Decreases the equalizer bass band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseBass() -> [Int: Float]
+    func decreaseBass() -> [Float]
     
     // Increases the equalizer mid-frequency band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseMids() -> [Int: Float]
+    func increaseMids() -> [Float]
     
     // Decreases the equalizer mid-frequency band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseMids() -> [Int: Float]
+    func decreaseMids() -> [Float]
     
     // Increases the equalizer treble band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseTreble() -> [Int: Float]
+    func increaseTreble() -> [Float]
     
     // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseTreble() -> [Int: Float]
+    func decreaseTreble() -> [Float]
     
     var presets: EQPresets {get}
 }

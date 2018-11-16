@@ -358,7 +358,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         uiState.effectsWindowOrigin = effectsWindow.origin
         uiState.playlistWindowFrame = playlistWindow.frame
         
-        uiState.userWindowLayouts = WindowLayouts.userDefinedLayouts
+        uiState.userLayouts = WindowLayouts.userDefinedLayouts
         
         return uiState
     }
