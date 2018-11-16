@@ -14,80 +14,58 @@ class SyncMessenger {
     // Called by a subscriber who is interested in a certain type of message
     static func subscribe(messageTypes: [MessageType], subscriber: MessageSubscriber) {
         
-        messageTypes.forEach({
+        for messageType in messageTypes {
             
-            let messageType = $0
-            
-            let subscribers = messageSubscriberRegistry[messageType]
-            if (subscribers == nil) {
-                messageSubscriberRegistry[messageType] = [MessageSubscriber]()
-            }
+            if messageSubscriberRegistry[messageType] == nil {messageSubscriberRegistry[messageType] = [MessageSubscriber]()}
             
             // Only add if it doesn't already exist
             if messageSubscriberRegistry[messageType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 messageSubscriberRegistry[messageType]!.append(subscriber)
             }
-        })
+        }
     }
     
     // Called by a subscriber who is no longer interested in a certain type of message
     static func unsubscribe(messageTypes: [MessageType], subscriber: MessageSubscriber) {
         
-        messageTypes.forEach({
+        for messageType in messageTypes {
             
-            let messageType = $0
-            
-            // Find subscribers for this message type
-            if let subscribers = messageSubscriberRegistry[messageType] {
-            
-                // Find and remove the subscriber from the registry
-                if let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
-                    (messageSubscriberRegistry[messageType])!.remove(at: subIndex)
-                }
+            // Find and remove the subscriber from the registry
+            if let subscribers = messageSubscriberRegistry[messageType], let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
+                messageSubscriberRegistry[messageType]!.remove(at: subIndex)
             }
-        })
+        }
     }
     
     // Called by a subscriber who is interested in a certain type of message
     static func subscribe(actionTypes: [ActionType], subscriber: ActionMessageSubscriber) {
         
-        actionTypes.forEach({
+        for actionType in actionTypes {
             
-            let actionType = $0
-            
-            let subscribers = actionMessageSubscriberRegistry[actionType]
-            if (subscribers == nil) {
-                actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
-            }
+            if actionMessageSubscriberRegistry[actionType] == nil {actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()}
             
             if actionMessageSubscriberRegistry[actionType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 actionMessageSubscriberRegistry[actionType]!.append(subscriber)
             }
-        })
+        }
     }
     
     // Called by a subscriber who is no longer interested in a certain type of message
     static func unsubscribe(actionTypes: [ActionType], subscriber: ActionMessageSubscriber) {
         
-        actionTypes.forEach({
+        for actionType in actionTypes {
             
-            let actionType = $0
-            
-            if let subscribers = actionMessageSubscriberRegistry[actionType] {
-            
-                // Find and remove the subscriber from the registry
-                if let subIndex = subscribers.index(where: { $0.subscriberId == subscriber.subscriberId}) {
-                    (actionMessageSubscriberRegistry[actionType])!.remove(at: subIndex)
-                }
+            // Find and remove the subscriber from the registry
+            if let subscribers = actionMessageSubscriberRegistry[actionType], let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
+                actionMessageSubscriberRegistry[actionType]!.remove(at: subIndex)
             }
-        })
+        }
     }
     
     // Called by a publisher to publish a notification message
     static func publishNotification(_ notification: NotificationMessage) {
         
-        let subscribers = messageSubscriberRegistry[notification.messageType]
-        subscribers?.forEach({
+        messageSubscriberRegistry[notification.messageType]?.forEach({
             $0.consumeNotification(notification)
         })
     }
@@ -95,17 +73,12 @@ class SyncMessenger {
     // Called by a publisher to publish a request message. Returns an array of responses, one per request consumer.
     static func publishRequest(_ request: RequestMessage) -> [ResponseMessage] {
         
-        let messageType = request.messageType
-        let subscribers = messageSubscriberRegistry[messageType]
         var responseMsgs: [ResponseMessage] = [ResponseMessage]()
-        
-        subscribers?.forEach({responseMsgs.append($0.processRequest(request))})
+        messageSubscriberRegistry[request.messageType]?.forEach({responseMsgs.append($0.processRequest(request))})
         return responseMsgs
     }
     
     static func publishActionMessage(_ message: ActionMessage) {
-        
-        let subscribers = actionMessageSubscriberRegistry[message.actionType]
-        subscribers?.forEach({$0.consumeMessage(message)})
+        actionMessageSubscriberRegistry[message.actionType]?.forEach({$0.consumeMessage(message)})
     }
 }

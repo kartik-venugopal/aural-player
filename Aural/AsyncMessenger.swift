@@ -14,45 +14,33 @@ class AsyncMessenger {
     // The queue argument specifies which queue the event notification should be dispatched to (for the UI, this should be the main dispatch queue)
     static func subscribe(_ messageTypes: [AsyncMessageType], subscriber: AsyncMessageSubscriber, dispatchQueue: DispatchQueue) {
         
-        messageTypes.forEach({
+        for messageType in messageTypes {
             
-            let messageType = $0
-        
-            let subscribers = subscriberRegistry[messageType]
-            if (subscribers == nil) {
-                subscriberRegistry[messageType] = [(AsyncMessageSubscriber, DispatchQueue)]()
-            }
+            if subscriberRegistry[messageType] == nil {subscriberRegistry[messageType] = [(AsyncMessageSubscriber, DispatchQueue)]()}
             
             // Only add if it doesn't already exist
             if subscriberRegistry[messageType]!.index(where: {$0.0.subscriberId == subscriber.subscriberId}) == nil {
                 subscriberRegistry[messageType]!.append((subscriber, dispatchQueue))
             }
-        })
+        }
     }
     
     static func unsubscribe(_ messageTypes: [AsyncMessageType], subscriber: AsyncMessageSubscriber) {
 
-        messageTypes.forEach({
+        for messageType in messageTypes {
             
-            let messageType = $0
-            
-            if let subscribers = subscriberRegistry[messageType] {
-                
-                if let subIndex = subscribers.index(where: { $0.0.subscriberId == subscriber.subscriberId}) {
-                    (subscriberRegistry[messageType])!.remove(at: subIndex)
-                }
+            if let subscribers = subscriberRegistry[messageType], let subIndex = subscribers.index(where: {$0.0.subscriberId == subscriber.subscriberId}) {
+                subscriberRegistry[messageType]!.remove(at: subIndex)
             }
-        })
+        }
     }
     
     // Called by a publisher to publish an event
     static func publishMessage(_ message: AsyncMessage) {
         
-        let subscribers = subscriberRegistry[message.messageType]
-        
-        if (subscribers != nil) {
+        if let subscribers = subscriberRegistry[message.messageType] {
             
-            for (subscriber, queue) in subscribers! {
+            for (subscriber, queue) in subscribers {
                 
                 // Notify the subscriber on its notification queue
                 queue.async(execute: { () -> Void in
