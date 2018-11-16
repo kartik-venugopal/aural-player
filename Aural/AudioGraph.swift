@@ -56,6 +56,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         playerVolume = state.volume
         muted = state.muted
+        playerNode.volume = muted ? 0 : playerVolume
         playerNode.pan = state.balance
         
         soundProfiles = SoundProfiles()

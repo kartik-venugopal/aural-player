@@ -745,11 +745,11 @@ class HistoryState: PersistentState {
         let state = HistoryState()
         
         if let recentlyAdded = map["recentlyAdded"] as? [NSDictionary] {
-            recentlyAdded.forEach({state.recentlyAdded.append(deserializeHistoryItem($0)!)})
+            recentlyAdded.forEach({if let item = deserializeHistoryItem($0) {state.recentlyAdded.append(item)}})
         }
         
         if let recentlyPlayed = map["recentlyPlayed"] as? [NSDictionary] {
-            recentlyPlayed.forEach({state.recentlyPlayed.append(deserializeHistoryItem($0)!)})
+            recentlyPlayed.forEach({if let item = deserializeHistoryItem($0) {state.recentlyPlayed.append(item)}})
         }
         
         return state

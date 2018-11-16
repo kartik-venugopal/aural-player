@@ -61,7 +61,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     var volume: Float {
         
         get {return round(graph.volume * AppConstants.ValueConversions.volume_audioGraphToUI)}
-        set(newValue) {graph.volume = round(newValue * AppConstants.ValueConversions.volume_UIToAudioGraph)}
+        set(newValue) {graph.volume = newValue * AppConstants.ValueConversions.volume_UIToAudioGraph}
     }
     
     var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
