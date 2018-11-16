@@ -41,7 +41,7 @@ class FilterBandViewController: NSViewController {
         
         let filterType = band.type
         
-        filterTypeMenu.selectItem(withTitle: filterType.rawValue)
+        filterTypeMenu.selectItem(withTitle: filterType.description)
         
         [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
         [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})

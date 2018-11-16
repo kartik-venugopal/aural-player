@@ -66,7 +66,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
             
         case UIConstants.filterBandsTypeColumnID:
             
-            cellText = band.type.rawValue
+            cellText = band.type.description
             
         default: return nil
             

@@ -220,10 +220,10 @@ protocol FilterNodeProtocol {
 
 enum FilterBandType: String {
     
-    case bandStop = "Band stop"
-    case bandPass = "Band pass"
-    case lowPass = "Low pass"
-    case highPass = "High pass"
+    case bandStop
+    case bandPass
+    case lowPass
+    case highPass
     
     func toAVFilterType() -> AVAudioUnitEQFilterType {
         
@@ -236,6 +236,21 @@ enum FilterBandType: String {
         case .lowPass: return .lowPass
             
         case .highPass: return .highPass
+            
+        }
+    }
+    
+    var description: String {
+        
+        switch self {
+            
+        case .bandPass: return "Band pass"
+            
+        case .bandStop: return "Band stop"
+            
+        case .lowPass: return "Low pass"
+            
+        case .highPass: return "High pass"
             
         }
     }
