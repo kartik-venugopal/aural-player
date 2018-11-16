@@ -49,11 +49,22 @@ class MasterUnit: FXUnit, MessageSubscriber {
     override func savePreset(_ presetName: String) {
         
         let eqPreset = eqUnit.getSettingsAsPreset()
+        eqPreset.name = String(format: "EQ settings for Master preset: '%@'", presetName)
+        
         let pitchPreset = pitchUnit.getSettingsAsPreset()
+        pitchPreset.name = String(format: "Pitch settings for Master preset: '%@'", presetName)
+        
         let timePreset = timeUnit.getSettingsAsPreset()
+        timePreset.name = String(format: "Time settings for Master preset: '%@'", presetName)
+        
         let reverbPreset = reverbUnit.getSettingsAsPreset()
+        reverbPreset.name = String(format: "Reverb settings for Master preset: '%@'", presetName)
+        
         let delayPreset = delayUnit.getSettingsAsPreset()
+        delayPreset.name = String(format: "Delay settings for Master preset: '%@'", presetName)
+        
         let filterPreset = filterUnit.getSettingsAsPreset()
+        filterPreset.name = String(format: "Filter settings for Master preset: '%@'", presetName)
         
         // Save the new preset
         let masterPreset = MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)

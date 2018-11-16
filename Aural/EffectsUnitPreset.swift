@@ -4,7 +4,7 @@ class EffectsUnitPreset {
     
     var name: String
     let systemDefined: Bool
-    let state: EffectsUnitState
+    var state: EffectsUnitState
     
     init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool) {
         
