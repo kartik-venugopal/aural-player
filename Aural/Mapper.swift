@@ -47,21 +47,21 @@ class Mapper {
         // Default to primitive mapping
         return mapPrimitive(child.value)
     }
-
+    
     private static func mapObject(_ obj: Any, _ ignoreProps: [String] = []) -> NSDictionary {
         
-        let obj = unwrapOptional(obj)
+        let unwrapped = unwrapOptional(obj)
+        if unwrapped.isNil {return [:] as NSDictionary}
+        
+        let obj: Any = unwrapped.value!
+        
         var dict: [NSString: AnyObject] = [:]
         let objMirror = mirrorFor(obj)
-        
-        var cs: [String] = []
         
         for child in objMirror.allChildren() {
             
             if let childName = child.label, childName.hasPrefix("_transient_") || ignoreProps.contains(childName) {continue}
             dict[(child.label ?? "") as NSString] = mapChild(child)
-            
-            cs.append(child.label ?? "")
         }
         
         return dict as NSDictionary
@@ -69,7 +69,10 @@ class Mapper {
     
     private static func mapArray(_ obj: Any) -> NSArray {
         
-        let obj = unwrapOptional(obj)
+        let unwrapped = unwrapOptional(obj)
+        if unwrapped.isNil {return [] as NSArray}
+        
+        let obj: Any = unwrapped.value!
         var array: [AnyObject] = []
         let mir = mirrorFor(obj)
         
@@ -82,7 +85,11 @@ class Mapper {
     
     private static func mapDictionary(_ obj: Any) -> NSDictionary {
         
-        let obj = unwrapOptional(obj)
+        let unwrapped = unwrapOptional(obj)
+        if unwrapped.isNil {return [:] as NSDictionary}
+        
+        let obj: Any = unwrapped.value!
+        
         var dict: [NSString: AnyObject] = [:]
         for (key, value) in obj as! NSDictionary {
             // Assume primitive values
@@ -99,7 +106,10 @@ class Mapper {
     
     private static func mapPrimitive(_ obj: Any) -> AnyObject {
         
-        let obj = unwrapOptional(obj)
+        let unwrapped = unwrapOptional(obj)
+        if unwrapped.isNil {return NSNull()}
+        
+        let obj: Any = unwrapped.value!
         
         // Number
         if obj is Float || obj is CGFloat || obj is Int || obj is Double {
@@ -149,13 +159,16 @@ func mirrorFor(_ obj: Any) -> Mirror {
     return Mirror(reflecting: obj)
 }
 
-func unwrapOptional(_ obj: Any) -> Any {
-
+func unwrapOptional(_ obj: Any) -> (isNil: Bool, value: Any?) {
+    
     let mir = mirrorFor(obj)
     
     if mir.displayStyle == .optional {
-        return mir.allChildren()[0].value
+        
+        if mir.allChildren().isEmpty {return (true, nil)}
+        
+        return (false, mir.allChildren()[0].value)
     }
     
-    return obj
+    return (false, obj)
 }
