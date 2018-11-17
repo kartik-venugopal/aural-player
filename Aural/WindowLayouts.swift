@@ -17,7 +17,6 @@ class WindowLayouts {
         WindowLayoutPresets.allValues.forEach({
             
             let presetName = $0.description
-            
             map[presetName] = WindowLayout(presetName, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame, true)
         })
         
@@ -33,7 +32,7 @@ class WindowLayouts {
     }
     
     static var defaultLayout: WindowLayout {
-        return layoutByName(WindowLayoutPresets.verticalFullStack.rawValue)!
+        return layoutByName(WindowLayoutPresets.verticalFullStack.description)!
     }
     
     static func layoutByName(_ name: String, _ acceptDefault: Bool = true) -> WindowLayout? {
@@ -136,7 +135,7 @@ enum WindowLayoutPresets: String {
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
-        return WindowLayoutPresets(rawValue: displayName) ?? .verticalFullStack
+        return WindowLayoutPresets(rawValue: StringUtils.camelCase(displayName)) ?? .verticalFullStack
     }
     
     var description: String {
