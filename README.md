@@ -26,19 +26,19 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 * **Playback:**
   * Bookmarking, so you can mark a specific position within a track and come back to it later with one click, which is great for long tracks like audiobooks
-   * Track segment looping, to allow you to define and loop your favorite parts of a track. Save your loops and play them back at any time with one click **(New!)**
-   * Specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously **(New!)**
-   * Insert timed gaps of silence (up to 24 hours) before or after individual tracks or set a global preference to implicitly insert a gap between all tracks during playback **(New!)**
-   * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful for setup before a track plays (e.g. for a live performance), or if you need time to get to the dance floor **(New!)**
-  * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
-  * "Jump to time" function to quickly skip to a specific position within a track **(New!)**
+   * Track segment looping, to allow you to define and loop your favorite parts of a track. Save your loops and play them back at any time with one click
+   * Specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously 
+   * Insert timed gaps of silence (up to 24 hours) before or after individual tracks or set a global preference to implicitly insert a gap between all tracks during playback
+   * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful for setup before a track plays (e.g. for a live performance), or if you need time to get to the dance floor
+  * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off
+  * "Jump to time" function to quickly skip to a specific position within a track
    * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
    * Graphic equalizer (10-band and 15-band), Pitch shift, Time stretch, Reverb, Delay, Filter (band-stop), and a Master unit to switch on/off all effects from one place
    * Effects unit controls dynamically change their colors to intuitively inform you of the state of the unit (active/bypassed)
-   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember and automatically apply them the next time that track plays. **(New!)**
-   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them. **(New!)**
+   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember and automatically apply them the next time that track plays.
+   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them.
    * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 
 * **Information:**
