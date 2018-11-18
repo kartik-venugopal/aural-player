@@ -8,18 +8,18 @@ import Foundation
  */
 protocol FlatPlaylistAccessorProtocol {
     
+    // Returns the size (i.e. total number of tracks) of the playlist
+    var size: Int {get}
+    
+    // Returns the total duration of the playlist tracks
+    var duration: Double {get}
+    
     // Retrieves all tracks
-    func allTracks() -> [Track]
+    var tracks: [Track] {get}
     
     // Returns the track at a given index. Returns nil if an invalid index is specified.
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
     
-    // Returns the size (i.e. total number of tracks) of the playlist
-    func size() -> Int
-    
-    // Returns the total duration of the playlist tracks
-    func totalDuration() -> Double
- 
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?
     

@@ -20,13 +20,14 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist
-        groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType()] = $0})
+        groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType] = $0})
     }
     
-    func allTracks() -> [Track] {
-        let copy = flatPlaylist.allTracks()
-        return copy
-    }
+    var tracks: [Track] {return flatPlaylist.tracks}
+    
+    var size: Int {return flatPlaylist.size}
+    
+    var duration: Double {return flatPlaylist.duration}
     
     func findTrackByFile(_ file: URL) -> IndexedTrack? {
         
@@ -38,14 +39,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         }
         
         return nil
-    }
-    
-    func size() -> Int {
-        return flatPlaylist.size()
-    }
-    
-    func totalDuration() -> Double {
-        return flatPlaylist.totalDuration()
     }
     
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String {
@@ -62,10 +55,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         if (playlistType == .tracks) {
             
             // Tracks don't have any groups, so numGroups = 0
-            return (size(), totalDuration(), 0)
+            return (size, duration, 0)
             
         } else {
-            return (size(), totalDuration(), groupingPlaylists[playlistType]!.numberOfGroups())
+            return (size, duration, groupingPlaylists[playlistType]!.numberOfGroups)
         }
     }
     
@@ -81,7 +74,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             
             // Add the track to each of the grouping playlists
             var groupingResults = [GroupType: GroupedTrackAddResult]()
-            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups()] = $0.addTrack(track)})
+            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
             
             // Return the results of the add operation
             return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
@@ -204,7 +197,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     func persistentState() -> PersistentState {
         
         let state = PlaylistState()
-        let tracks = allTracks()
         let gaps = getAllGaps()
         
         tracks.forEach({state.tracks.append($0.file)})
@@ -259,7 +251,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Remove tracks from all other playlists
         groupingPlaylists.values.forEach({
-            groupingPlaylistResults[$0.typeOfGroups()] = $0.removeTracksAndGroups(removedTracks, [])
+            groupingPlaylistResults[$0.typeOfGroups] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
         return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
@@ -308,7 +300,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     }
     
     func numberOfGroups(_ type: GroupType) -> Int {
-        return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups()
+        return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
@@ -335,8 +327,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Remove from all other playlists
         
-        groupingPlaylists.values.filter({$0.typeOfGroups() != groupType}).forEach({
-            groupingPlaylistResults[$0.typeOfGroups()] = $0.removeTracksAndGroups(removedTracks, [])
+        groupingPlaylists.values.filter({$0.typeOfGroups != groupType}).forEach({
+            groupingPlaylistResults[$0.typeOfGroups] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)

@@ -231,7 +231,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
-        if (playlist.size() > 0) {
+        if (playlist.size > 0) {
             
             let dialog = DialogsAndAlerts.savePlaylistDialog
             let modalResponse = dialog.runModal()

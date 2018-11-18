@@ -9,13 +9,13 @@ import Foundation
 protocol GroupingPlaylistAccessorProtocol {
     
     // Returns the type of this playlist
-    func playlistType() -> PlaylistType
+    var playlistType: PlaylistType {get}
     
     // Returns the type of each group within this playlist.
-    func typeOfGroups() -> GroupType
+    var typeOfGroups: GroupType {get}
     
     // Returns the total number of groups within this playlist.
-    func numberOfGroups() -> Int
+    var numberOfGroups: Int {get}
     
     // Returns the group at the given index within this playlist. Assumes a valid index.
     func groupAtIndex(_ index: Int) -> Group

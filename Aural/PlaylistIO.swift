@@ -14,7 +14,7 @@ class PlaylistIO {
     // Save current playlist to an output file
     static func savePlaylist(_ file: URL) {
         
-        let tracks = playlist.allTracks()
+        let tracks = playlist.tracks
         
         var contents: String = m3uHeader + "\n"
         

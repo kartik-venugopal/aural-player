@@ -48,7 +48,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if no tracks in playlist
-        if (playlist.size() == 0) {
+        if (playlist.size == 0) {
             return .cancel
         }
         

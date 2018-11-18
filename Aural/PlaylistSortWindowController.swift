@@ -37,7 +37,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if either no tracks or only 1 track in playlist
-        if (playlist.size() < 2) {
+        if (playlist.size < 2) {
             return .cancel
         }
         

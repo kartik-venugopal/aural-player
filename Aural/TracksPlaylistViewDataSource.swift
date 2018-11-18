@@ -16,7 +16,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return playlist.size()
+        return playlist.size
     }
     
     // MARK: Drag n drop

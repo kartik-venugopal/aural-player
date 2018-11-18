@@ -61,7 +61,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        let playlistSize = playlist.size()
+        let playlistSize = playlist.size
         let playlistNotEmpty = playlistSize > 0
         let atLeastOneItemSelected = PlaylistViewState.currentView.selectedRow >= 0
         let numSelectedRows = PlaylistViewState.currentView.numberOfSelectedRows

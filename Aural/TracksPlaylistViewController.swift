@@ -344,7 +344,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         // Update all rows from the first (i.e. smallest index) removed row, down to the end of the playlist
         let minIndex = (indexes.min())!
-        let maxIndex = playlist.size() - 1
+        let maxIndex = playlist.size - 1
         
         // If not all removed rows are contiguous and at the end of the playlist
         if (minIndex <= maxIndex) {
@@ -435,7 +435,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func getInvertedSelection() -> IndexSet {
         
         let selRows = playlistView.selectedRowIndexes
-        let playlistSize = playlist.size()
+        let playlistSize = playlist.size
         var targetSelRows = IndexSet()
         
         for index in 0..<playlistSize {
