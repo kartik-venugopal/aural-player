@@ -57,7 +57,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.type = type
         
         // Reset the sequence, with the size of the playlist
-        sequence.reset(tracksCount: playlist.size())
+        sequence.reset(tracksCount: playlist.size)
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -139,7 +139,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         if (scope.type != .allTracks) {
             scope.type = .allTracks
-            sequence.reset(tracksCount: playlist.size())
+            sequence.reset(tracksCount: playlist.size)
         }
         
         return doSelectIndex(index)
@@ -446,7 +446,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         switch scope.type {
             
         // For any of the allXXX scopes, the sequence size is the total playlist size
-        case .allTracks, .allArtists, .allAlbums, .allGenres: sequenceSize = playlist.size()
+        case .allTracks, .allArtists, .allAlbums, .allGenres: sequenceSize = playlist.size
             
         // For any of the group scopes, the sequence size is the size of the group
         case .artist, .album, .genre: sequenceSize = scope.scope!.size()

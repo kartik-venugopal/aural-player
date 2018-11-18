@@ -12,9 +12,11 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         self.playlist = playlist
     }
     
-    func allTracks() -> [Track] {
-        return playlist.allTracks()
-    }
+    var tracks: [Track] {return playlist.tracks}
+    
+    var size: Int {return playlist.size}
+    
+    var duration: Double {return playlist.duration}
     
     func indexOfTrack(_ track: Track) -> IndexedTrack? {
         
@@ -27,14 +29,6 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         return playlist.trackAtIndex(index)
-    }
-    
-    func size() -> Int {
-        return playlist.size()
-    }
-    
-    func totalDuration() -> Double {
-        return playlist.totalDuration()
     }
     
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {

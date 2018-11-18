@@ -54,7 +54,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // One-time setup
     override func awakeFromNib() {
-        
         playOrPauseMenuItem.off()
     }
     
@@ -69,7 +68,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.enableIf(playlist.size() > 0)
+        playOrPauseMenuItem.enableIf(playlist.size > 0)
         playOrPauseMenuItem.onIf(playbackState == .playing)
         
         stopMenuItem.enableIf(isPlayingPausedOrWaiting)

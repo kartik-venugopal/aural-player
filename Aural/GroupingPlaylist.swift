@@ -25,10 +25,10 @@ import Foundation
 class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     // The type of the playlist describes the criterion used to categorize the tracks within it (for ex, "artists")
-    private let type: PlaylistType
+    let playlistType: PlaylistType
     
     // The type of each group within this playlist (for ex, "artist")
-    private let groupType: GroupType
+    let typeOfGroups: GroupType
     
     // All groups in this playlist
     private var groups: [Group] = [Group]()
@@ -37,23 +37,13 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     private var groupsByName: [String: Group] = [String: Group]()
     
     init(_ type: PlaylistType, _ groupType: GroupType) {
-        self.type = type
-        self.groupType = groupType
+        self.playlistType = type
+        self.typeOfGroups = groupType
     }
     
     // MARK: Accessor functions
    
-    func playlistType() -> PlaylistType {
-        return type
-    }
-    
-    func typeOfGroups() -> GroupType {
-        return groupType
-    }
-    
-    func numberOfGroups() -> Int {
-        return groups.count
-    }
+    var numberOfGroups: Int {return groups.count}
     
     func groupAtIndex(_ index: Int) -> Group {
         return groups[index]
@@ -77,7 +67,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         var groupName: String?
         
-        switch self.groupType {
+        switch self.typeOfGroups {
             
         case .artist: groupName = track.groupingInfo.artist
             
@@ -99,7 +89,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func displayNameForTrack(_ track: Track) -> String {
         
-        switch self.groupType {
+        switch self.typeOfGroups {
             
         case .artist:
             
@@ -120,7 +110,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var results: [SearchResult] = [SearchResult]()
         
         // The name of the "search field" is simply the description of the group type, for ex - "artist"
-        let searchField = groupType.rawValue
+        let searchField = typeOfGroups.rawValue
         
         // Return all tracks whose group name matches the search text
         for group in groups {
@@ -176,7 +166,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Group doesn't already exist, create it
             
-            group = Group(groupType, groupName)
+            group = Group(typeOfGroups, groupName)
             groups.append(group!)
             groupsByName[groupName] = group
             groupIndex = groups.count - 1
@@ -305,7 +295,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMoveResults([], type)
+                return ItemMoveResults([], playlistType)
             }
 
             tracksByGroup.forEach({
@@ -320,7 +310,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Ascending order (by old index)
-            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), type)
+            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), playlistType)
         }
     }
     
@@ -353,7 +343,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Ascending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.groupType.toPlaylistType())
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.typeOfGroups.toPlaylistType())
     }
     
     private func moveGroupUp(_ index: Int) -> Int {
@@ -396,7 +386,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMoveResults([], type)
+                return ItemMoveResults([], playlistType)
             }
             
             tracksByGroup.forEach({
@@ -411,7 +401,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Ascending order (by old index)
-            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), type)
+            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), playlistType)
         }
     }
     
@@ -439,7 +429,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Ascending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.groupType.toPlaylistType())
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.typeOfGroups.toPlaylistType())
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
@@ -468,7 +458,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMoveResults([], type)
+                return ItemMoveResults([], playlistType)
             }
             
             tracksByGroup.forEach({
@@ -483,7 +473,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Descending order (by old index)
-            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), type)
+            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), playlistType)
         }
     }
     
@@ -523,7 +513,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Descending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), type)
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), playlistType)
     }
     
     private func moveGroupDown(_ index: Int) -> Int {
@@ -559,7 +549,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMoveResults([], type)
+                return ItemMoveResults([], playlistType)
             }
             
             tracksByGroup.forEach({
@@ -574,7 +564,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Descending order (by old index)
-            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), type)
+            return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), playlistType)
         }
     }
     
@@ -600,7 +590,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Descending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), type)
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), playlistType)
     }
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
@@ -699,7 +689,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             cursor += 1
         })
         
-        return ItemMoveResults(results, self.groupType.toPlaylistType())
+        return ItemMoveResults(results, self.typeOfGroups.toPlaylistType())
     }
     
     private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) -> ItemMoveResults {
@@ -739,7 +729,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             cursor += 1
         })
         
-        return ItemMoveResults(results, self.groupType.toPlaylistType())
+        return ItemMoveResults(results, self.typeOfGroups.toPlaylistType())
     }
     
     func sort(_ sort: Sort) {

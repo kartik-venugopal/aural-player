@@ -5,23 +5,16 @@ import Foundation
  */
 class FlatPlaylist: FlatPlaylistCRUDProtocol {
  
-    private var tracks: [Track] = [Track]()
+    var tracks: [Track] = [Track]()
     
     // MARK: Accessor functions
     
-    func allTracks() -> [Track] {
-        return tracks
-    }
+    var size: Int {return tracks.count}
     
-    func size() -> Int {
-        return tracks.count
-    }
-    
-    func totalDuration() -> Double {
+    var duration: Double {
         
         var totalDuration: Double = 0
         tracks.forEach({totalDuration += $0.duration})
-        
         return totalDuration
     }
     

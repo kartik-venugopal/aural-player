@@ -5,8 +5,14 @@ import Foundation
  */
 protocol PlaylistAccessorDelegateProtocol {
     
-    // Retrieves all tracks
-    func allTracks() -> [Track]
+    // Retrieves all tracks, in the same order as in the flat playlist
+    var tracks: [Track] {get}
+    
+    // Returns the size (i.e. total number of tracks) of the playlist
+    var size: Int {get}
+    
+    // Returns the total duration of the playlist tracks
+    var duration: Double {get}
     
     // Returns the track at a given index. Returns nil if an invalid index is specified.
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
@@ -17,12 +23,6 @@ protocol PlaylistAccessorDelegateProtocol {
         NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
      */
     func indexOfTrack(_ track: Track) -> IndexedTrack?
-    
-    // Returns the size (i.e. total number of tracks) of the playlist
-    func size() -> Int
-    
-    // Returns the total duration of the playlist tracks
-    func totalDuration() -> Double
     
     // Returns a summary for a specific playlist type - size (number of tracks), total duration, and number of groups. Number of groups will always be 0 for the flat (tracks) playlist.
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int)

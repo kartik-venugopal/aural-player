@@ -355,7 +355,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         var curIndex: Int = 0
         var itemsInspected: Int = 0
         
-        let playlistSize = playlist.size()
+        let playlistSize = playlist.size
         var targetSelRows = IndexSet()
 
         // Iterate through items, till all items have been inspected

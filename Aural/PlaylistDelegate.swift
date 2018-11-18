@@ -16,9 +16,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         self.mutator = mutator
     }
     
-    func allTracks() -> [Track] {
-        return accessor.allTracks()
-    }
+    var tracks: [Track] {return accessor.tracks}
+    
+    var size: Int {return accessor.size}
+    
+    var duration: Double {return accessor.duration}
     
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         return accessor.trackAtIndex(index)
@@ -26,14 +28,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     func indexOfTrack(_ track: Track) -> IndexedTrack? {
         return accessor.indexOfTrack(track)
-    }
-    
-    func size() -> Int {
-        return accessor.size()
-    }
-    
-    func totalDuration() -> Double {
-        return accessor.totalDuration()
     }
     
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {
