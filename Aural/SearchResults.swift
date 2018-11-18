@@ -68,11 +68,7 @@ class SearchResults {
         
         // Sorts in ascending order by track index
         results.sort(by: {r1, r2 -> Bool in
-            
-            let i1 = r1.location.trackIndex!
-            let i2 = r2.location.trackIndex!
-            
-            return i1 < i2
+            return r1.location.trackIndex! < r2.location.trackIndex!
         })
         
         return SearchResults(results)
@@ -88,11 +84,7 @@ class SearchResults {
             let g2 = r2.location.groupInfo!.groupIndex
             
             if (g1 == g2) {
-                
-                let t1 = r1.location.groupInfo!.trackIndex
-                let t2 = r2.location.groupInfo!.trackIndex
-                
-                return t1 < t2
+                return r1.location.groupInfo!.trackIndex < r2.location.groupInfo!.trackIndex
             }
             
             return g1 < g2

@@ -1,6 +1,5 @@
 import Foundation
 
-// TODO: Code duplication with SoundProfiles
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {}
 
 class PlaybackProfile {

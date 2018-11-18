@@ -13,7 +13,7 @@ class AppStateIO {
             
             outputStream.open()
             
-            let jsonObject = Mapper.map(state)
+            let jsonObject = JSONMapper.map(state)
             if !JSONSerialization.isValidJSONObject(jsonObject) {
                 NSLog("Error saving app state config file: Invalid JSON object.")
                 outputStream.close()
