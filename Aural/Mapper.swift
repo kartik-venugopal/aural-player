@@ -1,6 +1,6 @@
 import Foundation
 
-class Mapper {
+class JSONMapper {
     
     static func map(_ obj: Any, _ ignoreProps: [String] = []) -> NSDictionary {
         return mapObject(obj, ignoreProps)

@@ -124,10 +124,7 @@ class MetadataReader {
             
             let discNumItem = discNumItems.first!
             if (!StringUtils.isStringEmpty(discNumItem.stringValue)) {
-                
-                if let discNum = Int(discNumItem.stringValue!) {
-                    return discNum
-                }
+                return StringUtils.parseFirstNumber(discNumItem.stringValue!)
             }
         }
         
