@@ -131,10 +131,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         btnToggleEffects.toggle()
     }
     
-    @IBAction private func layoutAction(_ sender: NSMenuItem) {
-        layoutManager.layout(sender.title)
-    }
-    
     @IBAction func btnLayoutAction(_ sender: NSPopUpButton) {
         layoutManager.layout(sender.titleOfSelectedItem!)
     }
@@ -164,9 +160,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     func windowDidMove(_ notification: Notification) {
         
         // Check if movement was user-initiated (flag on window)
-        if !theWindow.userMovingWindow {
-            return
-        }
+        if !theWindow.userMovingWindow {return}
         
         if preferences.snapToScreen {
             UIUtils.checkForSnapToVisibleFrame(theWindow)
@@ -178,28 +172,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Recreate the custom layout items
-        let itemCount = btnLayout.itemArray.count
-        
-        let customLayoutCount = itemCount - 10  // 1 dummy item, 1 separator, 8 presets
-        
-        if customLayoutCount > 0 {
-        
-            // Need to traverse in descending order because items are going to be removed
-            for index in (1...customLayoutCount).reversed() {
-                btnLayout.removeItem(at: index)
-            }
+        // Remove all custom presets (all items before the first separator)
+        while !btnLayout.item(at: 1)!.isSeparatorItem {
+            btnLayout.removeItem(at: 1)
         }
         
-        // Layout popup button menu
-        let action = #selector(self.layoutAction(_:))
+        // Recreate the custom layout items
         WindowLayouts.userDefinedLayouts.forEach({
-            
-            // The action for the menu item will depend on whether it is a playable item
-            
             self.btnLayout.insertItem(withTitle: $0.name, at: 1)
-            self.btnLayout.item(at: 1)?.action = action
-            self.btnLayout.item(at: 1)?.target = self
         })
         
         btnLayout.selectItem(at: -1)
