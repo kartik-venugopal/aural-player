@@ -15,13 +15,13 @@ class TimePreset: EffectsUnitPreset {
     
     let rate: Float
     let overlap: Float
-    let pitchShift: Bool
+    let shiftPitch: Bool
     
-    init(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ pitchShift: Bool, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ shiftPitch: Bool, _ systemDefined: Bool) {
         
         self.rate = rate
         self.overlap = overlap
-        self.pitchShift = pitchShift
+        self.shiftPitch = shiftPitch
         super.init(name, state, systemDefined)
     }
 }
@@ -32,7 +32,7 @@ fileprivate struct SystemDefinedTimePresets {
         
         var arr: [TimePreset] = []
         SystemDefinedTimePresetParams.allValues.forEach({
-            arr.append(TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.pitchShift, true))
+            arr.append(TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.shiftPitch, true))
         })
         
         return arr
@@ -99,7 +99,7 @@ fileprivate enum SystemDefinedTimePresetParams: String {
         return 8
     }
     
-    var pitchShift: Bool {
+    var shiftPitch: Bool {
         return true
     }
     

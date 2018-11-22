@@ -45,10 +45,10 @@ class TimeView: NSView {
         sliders.forEach({$0.updateState()})
     }
     
-    func setState(_ rate: Float, _ rateString: String, _ overlap: Float, _ overlapString: String, _ shiftPitch: Bool, _ pitchShiftString: String) {
+    func setState(_ rate: Float, _ rateString: String, _ overlap: Float, _ overlapString: String, _ shiftPitch: Bool, _ shiftPitchString: String) {
         
         btnShiftPitch.onIf(shiftPitch)
-        updatePitchShift(pitchShiftString)
+        updatePitchShift(shiftPitchString)
         
         timeSlider.floatValue = rate
         lblTimeStretchRateValue.stringValue = rateString
@@ -58,16 +58,16 @@ class TimeView: NSView {
     }
     
     // Updates the label that displays the pitch shift value
-    func updatePitchShift(_ pitchShiftString: String) {
-        lblPitchShiftValue.stringValue = pitchShiftString
+    func updatePitchShift(_ shiftPitchString: String) {
+        lblPitchShiftValue.stringValue = shiftPitchString
     }
     
     // Sets the playback rate to a specific value
-    func setRate(_ rate: Float, _ rateString: String, _ pitchShiftString: String) {
+    func setRate(_ rate: Float, _ rateString: String, _ shiftPitchString: String) {
         
         lblTimeStretchRateValue.stringValue = rateString
         timeSlider.floatValue = rate
-        updatePitchShift(pitchShiftString)
+        updatePitchShift(shiftPitchString)
     }
     
     func setOverlap(_ overlap: Float, _ overlapString: String) {
@@ -79,11 +79,11 @@ class TimeView: NSView {
     func applyPreset(_ preset: TimePreset) {
         
         setUnitState(preset.state)
-        btnShiftPitch.onIf(preset.pitchShift)
+        btnShiftPitch.onIf(preset.shiftPitch)
         
         // TODO: Move this calculation to a new util functions class/file
-        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.ValueConversions.pitch_audioGraphToUI
-        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
+        let shiftPitch = (preset.shiftPitch ? 1200 * log2(preset.rate) : 0) * AppConstants.ValueConversions.pitch_audioGraphToUI
+        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(shiftPitch)
         
         timeSlider.floatValue = preset.rate
         lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)

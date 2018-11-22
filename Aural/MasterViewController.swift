@@ -65,6 +65,7 @@ class MasterViewController: FXUnitViewController {
     }
     
     private func updateButtons() {
+        btnBypass.updateState()
         masterView.stateChanged()
     }
     
