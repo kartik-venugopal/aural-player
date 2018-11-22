@@ -181,8 +181,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         WindowLayouts.userDefinedLayouts.forEach({
             self.btnLayout.insertItem(withTitle: $0.name, at: 1)
         })
-        
-        btnLayout.selectItem(at: -1)
     }
     
     // MARK: Message handling
