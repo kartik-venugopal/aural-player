@@ -80,7 +80,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         reverbTabViewButton.stateFunction = reverbStateFunction
         delayTabViewButton.stateFunction = delayStateFunction
         filterTabViewButton.stateFunction = filterStateFunction
-
         recorderTabViewButton.stateFunction = recorderStateFunction
     }
 
@@ -102,8 +101,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     private func initTabGroup() {
 
-        // Select EQ tab view by default
-        tabViewAction(eqTabViewButton)
+        // Select Master tab view by default
+        tabViewAction(masterTabViewButton)
     }
 
     private func initSubscriptions() {
