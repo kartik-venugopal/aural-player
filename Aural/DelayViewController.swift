@@ -30,15 +30,12 @@ class DelayViewController: FXUnitViewController {
     override func initControls() {
 
         super.initControls()
-
-        delayView.stateChanged()
         delayView.setState(delayUnit.time, delayUnit.formattedTime, delayUnit.amount, delayUnit.formattedAmount, delayUnit.feedback, delayUnit.formattedFeedback, delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
 
-    // Activates/deactivates the Delay effects unit
-    @IBAction override func bypassAction(_ sender: AnyObject) {
-
-        super.bypassAction(sender)
+    override func stateChanged() {
+        
+        super.stateChanged()
         delayView.stateChanged()
     }
 

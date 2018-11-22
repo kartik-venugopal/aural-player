@@ -93,11 +93,22 @@ class MasterUnit: FXUnit, MessageSubscriber {
     func applyPreset(_ preset: MasterPreset) {
         
         eqUnit.applyPreset(preset.eq)
+        eqUnit.state = preset.eq.state
+        
         pitchUnit.applyPreset(preset.pitch)
+        pitchUnit.state = preset.pitch.state
+        
         timeUnit.applyPreset(preset.time)
+        timeUnit.state = preset.time.state
+        
         reverbUnit.applyPreset(preset.reverb)
+        reverbUnit.state = preset.reverb.state
+        
         delayUnit.applyPreset(preset.delay)
+        delayUnit.state = preset.delay.state
+        
         filterUnit.applyPreset(preset.filter)
+        filterUnit.state = preset.filter.state
     }
     
     func persistentState() -> MasterUnitState {

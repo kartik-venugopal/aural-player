@@ -93,7 +93,6 @@ class EQUnit: FXUnit, EQUnitProtocol {
     
     func applyPreset(_ preset: EQPreset) {
         
-        state = preset.state
         bands = preset.bands
         globalGain = preset.globalGain
     }

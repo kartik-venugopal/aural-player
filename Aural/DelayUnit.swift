@@ -68,11 +68,10 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     func applyPreset(_ preset: DelayPreset) {
         
-        state = preset.state
         time = preset.time
         amount = preset.amount
         feedback = preset.feedback
-        lowPassCutoff = preset.cutoff
+        lowPassCutoff = preset.lowPassCutoff
     }
     
     func getSettingsAsPreset() -> DelayPreset {

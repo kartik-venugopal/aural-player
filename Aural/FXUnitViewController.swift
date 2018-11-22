@@ -38,9 +38,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     func initControls() {
         
-        btnBypass.updateState()
-        // Don't select any items from the presets menu
+        stateChanged()
         presetsMenu.selectItem(at: -1)
+    }
+    
+    func stateChanged() {
+        btnBypass.updateState()
     }
     
     func showThisTab() {
@@ -50,7 +53,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     @IBAction func bypassAction(_ sender: AnyObject) {
 
         _ = fxUnit.toggleState()
-        btnBypass.updateState()
+        stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -120,7 +123,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification.messageType == .effectsUnitStateChangedNotification {
-            initControls()
+            stateChanged()
         }
     }
     

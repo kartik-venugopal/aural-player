@@ -24,21 +24,18 @@ class ReverbViewController: FXUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        
         reverbView.initialize(reverbStateFunction)
     }
    
     override func initControls() {
         
         super.initControls()
-
         reverbView.setState(reverbUnit.space.description, reverbUnit.amount, reverbUnit.formattedAmount)
     }
 
-    // Activates/deactivates the Reverb effects unit
-    @IBAction override func bypassAction(_ sender: AnyObject) {
-
-        super.bypassAction(sender)
+    override func stateChanged() {
+        
+        super.stateChanged()
         reverbView.stateChanged()
     }
 

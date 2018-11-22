@@ -48,9 +48,9 @@ class EQViewController: FXUnitViewController {
         eqUnit.sync = eqView.sync
     }
     
-    @IBAction override func bypassAction(_ sender: AnyObject) {
+    override func stateChanged() {
         
-        super.bypassAction(sender)
+        super.stateChanged()
         eqView.stateChanged()
     }
     
@@ -95,8 +95,7 @@ class EQViewController: FXUnitViewController {
     
     private func bandsUpdated(_ bands: [Float]) {
         
-        btnBypass.on()
-        eqView.stateChanged()
+        stateChanged()
         eqView.bandsUpdated(bands, eqUnit.globalGain)
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
@@ -104,15 +103,6 @@ class EQViewController: FXUnitViewController {
     }
     
     // MARK: Message handling
-    
-    override func consumeNotification(_ notification: NotificationMessage) {
-        
-        super.consumeNotification(notification)
-        
-        if notification is EffectsUnitStateChangedNotification {
-            eqView.stateChanged()
-        }
-    }
     
     override func consumeMessage(_ message: ActionMessage) {
         
@@ -137,7 +127,6 @@ class EQViewController: FXUnitViewController {
             default: return
                 
             }
-            
         }
     }
 }

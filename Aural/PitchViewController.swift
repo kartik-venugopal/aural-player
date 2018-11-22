@@ -39,16 +39,12 @@ class PitchViewController: FXUnitViewController {
     override func initControls() {
         
         super.initControls()
-        
-        pitchView.stateChanged()
         pitchView.setState(pitchUnit.pitch, pitchUnit.formattedPitch, pitchUnit.overlap, pitchUnit.formattedOverlap)
     }
     
-    // Activates/deactivates the Pitch effects unit
-    @IBAction override func bypassAction(_ sender: AnyObject) {
-        super.bypassAction(sender)
+    override func stateChanged() {
         
-        // TODO: Move to generic view
+        super.stateChanged()
         pitchView.stateChanged()
     }
     

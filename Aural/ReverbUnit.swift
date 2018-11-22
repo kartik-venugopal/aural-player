@@ -57,7 +57,6 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     func applyPreset(_ preset: ReverbPreset) {
         
-        state = preset.state
         space = preset.space
         amount = preset.amount
     }

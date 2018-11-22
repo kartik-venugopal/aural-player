@@ -16,14 +16,14 @@ class DelayPreset: EffectsUnitPreset {
     let amount: Float
     let time: Double
     let feedback: Float
-    let cutoff: Float
+    let lowPassCutoff: Float
     
     init(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float, _ systemDefined: Bool) {
         
         self.amount = amount
         self.time = time
         self.feedback = feedback
-        self.cutoff = cutoff
+        self.lowPassCutoff = cutoff
         
         super.init(name, state, systemDefined)
     }

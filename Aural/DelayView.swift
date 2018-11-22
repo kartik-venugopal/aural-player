@@ -93,8 +93,8 @@ class DelayView: NSView {
         feedbackSlider.floatValue = preset.feedback
         lblFeedback.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
         
-        cutoffSlider.floatValue = preset.cutoff
-        lblCutoff.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
+        cutoffSlider.floatValue = preset.lowPassCutoff
+        lblCutoff.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.lowPassCutoff)
         
         sliders.forEach({$0.setUnitState(preset.state)})
     }
