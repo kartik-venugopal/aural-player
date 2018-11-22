@@ -64,7 +64,7 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
         state = preset.state
         rate = preset.rate
         overlap = preset.overlap
-        shiftPitch = preset.pitchShift
+        shiftPitch = preset.shiftPitch
     }
     
     func getSettingsAsPreset() -> TimePreset {
