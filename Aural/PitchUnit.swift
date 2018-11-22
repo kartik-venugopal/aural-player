@@ -49,7 +49,6 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     
     func applyPreset(_ preset: PitchPreset) {
         
-        state = preset.state
         pitch = preset.pitch
         overlap = preset.overlap
     }

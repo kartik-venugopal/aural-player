@@ -47,8 +47,6 @@ class FilterViewController: FXUnitViewController {
 
         super.initControls()
         
-        filterView.refresh()
-
         clearBands()
         let numBands = filterUnit.bands.count
         
@@ -89,10 +87,9 @@ class FilterViewController: FXUnitViewController {
         btnScrollRight.showIf_elseHide(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
     }
     
-    // Activates/deactivates the Filter effects unit
-    @IBAction override func bypassAction(_ sender: AnyObject) {
+    override func stateChanged() {
         
-        super.bypassAction(sender)
+        super.stateChanged()
         filterView.refresh()
     }
     

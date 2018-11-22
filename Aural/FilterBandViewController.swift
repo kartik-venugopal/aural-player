@@ -72,7 +72,7 @@ class FilterBandViewController: NSViewController {
     
     @IBAction func bandTypeAction(_ sender: Any) {
         
-        let filterType = FilterBandType(rawValue: filterTypeMenu.titleOfSelectedItem!)!
+        let filterType = FilterBandType.fromDescription(filterTypeMenu.titleOfSelectedItem!)
         band.type = filterType
         
         [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})

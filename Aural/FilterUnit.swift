@@ -67,8 +67,6 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     func applyPreset(_ preset: FilterPreset) {
         
-        state = preset.state
-        
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         var filterBands: [FilterBand] = []
         preset.bands.forEach({filterBands.append($0.clone())})

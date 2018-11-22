@@ -36,9 +36,13 @@ class TimeViewController: FXUnitViewController {
     override func initControls() {
 
         super.initControls()
-        
-        timeView.stateChanged()
         timeView.setState(timeUnit.rate, timeUnit.formattedRate, timeUnit.overlap, timeUnit.formattedOverlap, timeUnit.shiftPitch, timeUnit.formattedPitch)
+    }
+    
+    override func stateChanged() {
+        
+        super.stateChanged()
+        timeView.stateChanged()
     }
 
     // Activates/deactivates the Time stretch effects unit
@@ -46,11 +50,8 @@ class TimeViewController: FXUnitViewController {
 
         super.bypassAction(sender)
         
-        timeView.stateChanged()
-        let newBypassState = timeUnit.state != .active
-        let newRate = newBypassState ? 1 : timeUnit.rate
-        let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
-        SyncMessenger.publishNotification(playbackRateChangedMsg)
+        // The playback rate may have changed, send out a notification
+        SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.isActive ? timeUnit.rate : 1))
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -67,7 +68,7 @@ class TimeViewController: FXUnitViewController {
         timeView.setRate(timeUnit.rate, timeUnit.formattedRate, timeUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
-        if (timeUnit.state == .active) {
+        if timeUnit.isActive {
             SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.rate))
         }
     }
@@ -77,13 +78,7 @@ class TimeViewController: FXUnitViewController {
 
         timeUnit.rate = rate
         timeUnit.ensureActive()
-        
-        timeView.stateChanged()
-        timeView.setRate(rate, timeUnit.formattedRate, timeUnit.formattedPitch)
-
-        showThisTab()
-
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(rate))
+        rateChange((rate, timeUnit.formattedRate))
     }
 
     // Increases the playback rate by a certain preset increment
@@ -102,9 +97,7 @@ class TimeViewController: FXUnitViewController {
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
 
         timeView.setRate(rateInfo.rate, rateInfo.rateString, timeUnit.formattedPitch)
-
-        btnBypass.on()
-        timeView.stateChanged()
+        stateChanged()
 
         showThisTab()
 
@@ -124,15 +117,6 @@ class TimeViewController: FXUnitViewController {
     }
 
     // MARK: Message handling
-
-    override func consumeNotification(_ notification: NotificationMessage) {
-        
-        super.consumeNotification(notification)
-
-        if notification is EffectsUnitStateChangedNotification {
-            timeView.stateChanged()
-        }
-    }
 
     override func consumeMessage(_ message: ActionMessage) {
         

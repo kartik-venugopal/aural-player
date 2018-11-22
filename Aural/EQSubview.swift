@@ -66,7 +66,7 @@ class EQSubview: NSView {
         var index = 0
         for (_, gain) in sortedBandsMap {
             
-            sortedBands[index] = gain
+            sortedBands.append(gain)
             index += 1
         }
         
