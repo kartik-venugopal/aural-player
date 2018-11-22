@@ -14,32 +14,20 @@ class ParametricEQ: ParametricEQProtocol {
     var allNodes: [ParametricEQNode] { return [eq10Node, eq15Node] }
     
     var bypass: Bool {
-        
-        didSet {
-            activeNode.bypass = self.bypass
-        }
+        didSet {activeNode.bypass = self.bypass}
     }
     
     var type: EQType
     
     var globalGain: Float {
 
-        get {
-            return activeNode.globalGain
-        }
-        
-        set(newGlobalGain) {
-            activeNode.globalGain = newGlobalGain
-        }
+        get {return activeNode.globalGain}
+        set(newGlobalGain) {activeNode.globalGain = newGlobalGain}
     }
     
-    var activeNode: ParametricEQNode {
-        return type == .tenBand ? eq10Node : eq15Node
-    }
+    var activeNode: ParametricEQNode {return type == .tenBand ? eq10Node : eq15Node}
     
-    var inactiveNode: ParametricEQNode {
-        return type == .tenBand ? eq15Node : eq10Node
-    }
+    var inactiveNode: ParametricEQNode {return type == .tenBand ? eq15Node : eq10Node}
     
     init(_ type: EQType, _ sync: Bool) {
         
@@ -58,14 +46,14 @@ class ParametricEQ: ParametricEQProtocol {
         
         self.type = type
         
-        if !self.bypass {
-            eq10Node.bypass = type != .tenBand
-            eq15Node.bypass = type != .fifteenBand
-        }
-        
         if sync {
             setBands(inactiveNode.allBands())
             globalGain = inactiveNode.globalGain
+        }
+        
+        if !self.bypass {
+            eq10Node.bypass = type != .tenBand
+            eq15Node.bypass = type != .fifteenBand
         }
     }
     
@@ -99,6 +87,7 @@ class ParametricEQ: ParametricEQProtocol {
         activeNode.setBand(index, gain: gain)
     }
     
+    // TODO: Convert this function and allBands() to a new var bands {get set}
     func setBands(_ allBands: [Float]) {
         
         if allBands.isEmpty {return}
