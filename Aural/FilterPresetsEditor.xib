@@ -9,7 +9,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FilterPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="bandsTable" destination="dgf-Nq-wZb" id="G7x-sJ-jpn"/>
-                <outlet property="chart" destination="Qtq-wD-MAi" id="QEG-NF-KsJ"/>
                 <outlet property="editorView" destination="Rjd-wU-5ww" id="8UK-Pu-fOb"/>
                 <outlet property="filterView" destination="Fl5-cz-GI5" id="3FF-cY-0hI"/>
                 <outlet property="previewBox" destination="qZl-Pa-jmV" id="HjX-44-e8S"/>
@@ -237,7 +236,7 @@
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4xC-rp-laA">
                                             <rect key="frame" x="96" y="148" width="92" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Band frequencies" id="dqA-wv-U8S">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Band / Cutoff" id="dqA-wv-U8S">
                                                 <font key="font" size="12" name="GillSans"/>
                                                 <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

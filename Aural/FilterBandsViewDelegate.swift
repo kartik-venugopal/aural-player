@@ -79,9 +79,9 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         
         let num = roundedInt(freq)
         if num % 1000 == 0 {
-            return String(format: "%dKHz", num / 1000)
+            return String(format: "%d KHz", num / 1000)
         } else {
-            return String(format: "%dHz", num)
+            return String(format: "%d Hz", num)
         }
     }
     
