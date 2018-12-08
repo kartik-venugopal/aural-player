@@ -78,9 +78,9 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
         let rounded = roundedInt(freq)
         
         if rounded % 1000 == 0 {
-            return String(format: "%dKHz", rounded / 1000)
+            return String(format: "%d KHz", rounded / 1000)
         } else {
-            return String(format: "%dHz", rounded)
+            return String(format: "%d Hz", rounded)
         }
     }
     

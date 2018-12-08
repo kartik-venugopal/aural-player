@@ -515,11 +515,11 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
         
         if let bands = map["bands"] as? [NSDictionary] {
             
-            for band in bands {
+            for bandDict in bands {
                 
-                let bandType: FilterBandType = mapEnum(band, "type", AppDefaults.filterBandType)
-                let bandMinFreq: Float? = mapNumeric(band, "minFreq")
-                let bandMaxFreq: Float? = mapNumeric(band, "maxFreq")
+                let bandType: FilterBandType = mapEnum(bandDict, "type", AppDefaults.filterBandType)
+                let bandMinFreq: Float? = mapNumeric(bandDict, "minFreq")
+                let bandMaxFreq: Float? = mapNumeric(bandDict, "maxFreq")
                 
                 filterState.bands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
             }
@@ -549,11 +549,11 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     var presetBands: [FilterBand] = []
     if let bands = map["bands"] as? [NSDictionary] {
         
-        for band in bands {
+        for bandDict in bands {
             
-            let bandType: FilterBandType = mapEnum(band, "type", AppDefaults.filterBandType)
-            let bandMinFreq: Float? = mapNumeric(band, "minFreq")
-            let bandMaxFreq: Float? = mapNumeric(band, "maxFreq")
+            let bandType: FilterBandType = mapEnum(bandDict, "type", AppDefaults.filterBandType)
+            let bandMinFreq: Float? = mapNumeric(bandDict, "minFreq")
+            let bandMaxFreq: Float? = mapNumeric(bandDict, "maxFreq")
             
             presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
         }
@@ -664,29 +664,24 @@ class PlaylistState: PersistentState {
         
         let state = PlaylistState()
         
-        if let tracks = map["tracks"] as? [String] {
-            tracks.forEach({state.tracks.append(URL(fileURLWithPath: $0))})
-        }
+        (map["tracks"] as? [String])?.forEach({state.tracks.append(URL(fileURLWithPath: $0))})
         
-        if let gaps = map["gaps"] as? [NSDictionary] {
+        (map["gaps"] as? [NSDictionary])?.forEach({
             
-            gaps.forEach({
+            let gap = PlaybackGapState.deserialize($0) as! PlaybackGapState
+            
+            // Gap is useless without an associated track
+            if let track = gap.track {
                 
-                let gap = PlaybackGapState.deserialize($0) as! PlaybackGapState
-                
-                // Gap is useless without an associated track
-                if gap.track != nil {
-                    
-                    if gap.position == .beforeTrack {
-                        state._transient_gapsBeforeMap[gap.track!] = gap
-                    } else {
-                        state._transient_gapsAfterMap[gap.track!] = gap
-                    }
-                    
-                    state.gaps.append(gap)
+                if gap.position == .beforeTrack {
+                    state._transient_gapsBeforeMap[track] = gap
+                } else {
+                    state._transient_gapsAfterMap[track] = gap
                 }
-            })
-        }
+                
+                state.gaps.append(gap)
+            }
+        })
         
         return state
     }
@@ -856,25 +851,19 @@ class AppState {
             favoritesArr.forEach({state.favorites.append(URL(fileURLWithPath: $0))})
         }
         
-        if let bookmarksArr = (jsonObject["bookmarks"] as? NSArray) {
-
-            bookmarksArr.forEach({
-
-                if let bookmarkDict = $0 as? NSDictionary, let bookmark = BookmarkState.deserialize(bookmarkDict) {
-                    state.bookmarks.append(bookmark)
-                }
-            })
-        }
-
-        if let playbackProfilesArr = (jsonObject["playbackProfiles"] as? NSArray) {
-
-            playbackProfilesArr.forEach({
-                
-                if let dict = $0 as? NSDictionary, let profile = PlaybackProfile.deserialize(dict) {
-                    state.playbackProfiles.append(profile)
-                }
-            })
-        }
+        (jsonObject["bookmarks"] as? NSArray)?.forEach({
+            
+            if let bookmarkDict = $0 as? NSDictionary, let bookmark = BookmarkState.deserialize(bookmarkDict) {
+                state.bookmarks.append(bookmark)
+            }
+        })
+        
+        (jsonObject["playbackProfiles"] as? NSArray)?.forEach({
+            
+            if let dict = $0 as? NSDictionary, let profile = PlaybackProfile.deserialize(dict) {
+                state.playbackProfiles.append(profile)
+            }
+        })
         
         return state
     }
