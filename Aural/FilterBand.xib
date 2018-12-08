@@ -46,7 +46,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x6P-iJ-bBt" userLabel="Filter Type Menu">
-                    <rect key="frame" x="106" y="32" width="91" height="22"/>
+                    <rect key="frame" x="65" y="32" width="91" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="yGu-Z6-y1b" id="52N-1P-0VZ" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -76,25 +76,25 @@
                     </connections>
                 </popUpButton>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wzh-Oc-HHf">
-                    <rect key="frame" x="7" y="15" width="95" height="18"/>
+                    <rect key="frame" x="7" y="15" width="50" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff frequency" id="Qpp-3K-VQo">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff" id="Qpp-3K-VQo">
                         <font key="font" size="11" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b5A-Za-rhh">
-                    <rect key="frame" x="7" y="15" width="104" height="18"/>
+                    <rect key="frame" x="7" y="15" width="50" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Frequency range" id="WUh-Ge-BCr">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Band" id="WUh-Ge-BCr">
                         <font key="font" size="11" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWk-mQ-p2Y" userLabel="Bass 20">
-                    <rect key="frame" x="73" y="15" width="30" height="15"/>
+                    <rect key="frame" x="41" y="15" width="22" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="aOt-1X-p0y">
                         <font key="font" size="10" name="GillSans"/>
@@ -103,7 +103,7 @@
                     </textFieldCell>
                 </textField>
                 <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wYO-9x-wjI" userLabel="Cutoff Freq Slider" customClass="CutoffFrequencySlider" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="105" y="15" width="218" height="15"/>
+                    <rect key="frame" x="65" y="15" width="238" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="20" maxValue="20000" doubleValue="20" tickMarkPosition="below" sliderType="linear" id="wfe-Er-w3H" customClass="CutoffFrequencySliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
@@ -111,7 +111,7 @@
                     </connections>
                 </slider>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIm-fO-zcJ" customClass="FilterBandSlider" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="106" y="13" width="215" height="20"/>
+                    <rect key="frame" x="66" y="13" width="235" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="minValue">
@@ -123,7 +123,7 @@
                     </userDefinedRuntimeAttributes>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O34-nB-lgF" userLabel="Lbl Treble Range">
-                    <rect key="frame" x="159" y="2" width="110" height="15"/>
+                    <rect key="frame" x="128" y="2" width="110" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="vtr-FG-se2">
                         <font key="font" size="10" name="GillSans"/>
@@ -132,7 +132,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="usF-eP-Jag" userLabel="Treble 20K">
-                    <rect key="frame" x="324" y="15" width="25" height="15"/>
+                    <rect key="frame" x="304" y="15" width="25" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="pXr-Kg-r44">
                         <font key="font" size="10" name="GillSans"/>
@@ -141,7 +141,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2M-pF-pX4" userLabel="Preset fs">
-                    <rect key="frame" x="357" y="14" width="34" height="18"/>
+                    <rect key="frame" x="320" y="13" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" title="Audible range min (20Hz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="SR9-hB-IXE" id="rz8-x3-uty" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -180,7 +180,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqE-5C-3de" userLabel="Preset ranges">
-                    <rect key="frame" x="357" y="14" width="34" height="18"/>
+                    <rect key="frame" x="320" y="13" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" title="Audible range (20Hz - 20KHz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="s4I-F0-GNs" id="EaR-3r-wR6" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -316,7 +316,7 @@
                     </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="161" y="-342"/>
+            <point key="canvasLocation" x="161" y="-342.5"/>
         </view>
         <button verticalHuggingPriority="750" id="beO-bx-CUM" userLabel="Tab button">
             <rect key="frame" x="0.0" y="0.0" width="50" height="17"/>
