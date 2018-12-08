@@ -5,6 +5,9 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     @IBOutlet weak var filterView: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
+    @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    
     override var nibName: String? {return "FilterPresetsEditor"}
     
     var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
@@ -24,6 +27,9 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
         filterView.initialize({() -> EffectsUnitState in return .active}, bandsDataFunction, bandsDataSource, false)
+        
+        tableViewDelegate.dataSource = bandsDataSource
+        tableViewDelegate.allowSelection = false
     }
     
     override func renderPreview(_ presetName: String) {
@@ -31,6 +37,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         let preset = filterUnit.presets.presetByName(presetName)!
         bandsDataSource.preset = preset
         filterView.refresh()
+        bandsTable.reloadData()
     }
     
     private func getFilterChartBands() -> [FilterBand] {
