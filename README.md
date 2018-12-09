@@ -53,7 +53,6 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Reverb
    * Delay
    * Filter (up to 31 bands: Band stop / Band pass / Low pass / High pass)
-   
    * Effects unit controls dynamically change their colors to intuitively inform you of the state of the unit (active/bypassed)
    * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember and automatically apply them the next time that track plays.
    * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them.
