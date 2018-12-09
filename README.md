@@ -12,15 +12,15 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 NOTE - This project is currently under heavy development as of 10/07/2018. So, please expect frequent updates/releases, and perhaps the occasional bug or two. I might switch to doing Git releases once the code is more stable, after most major updates have been rolled out and tested.
 
-### Latest release
-
-**12/08/2018** 
+### Latest release (12/08/2018)
 
 * New and improved filter effects unit allowing up to 31 bands, with each band performing filtering of any of the following types:
   * Band pass
   * Band stop
   * Low pass
   * High pass
+  
+* Reduced DMG binary size by about 40% (4.4 MB)
 
 * Major code refactoring and simplification, reduction of code duplication. Simplification of app state persistence.
 
