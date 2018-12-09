@@ -177,7 +177,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHM-Qi-ucf" userLabel="Frequencies">
                     <rect key="frame" x="88" y="110" width="247" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32     64    128    256    512    1k      2k     4k      8k    16k" id="8VO-KK-uTU">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="31     63    125    250    500    1k      2k     4k      8k    16k" id="8VO-KK-uTU">
                         <font key="font" size="10" name="GillSans"/>
                         <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
