@@ -163,7 +163,8 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ### Filter effects unit
 
-![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
+![Filter](/Documentation/Screenshots/Filter1.png?raw=true "Filter")
+![Filter](/Documentation/Screenshots/Filter2.png?raw=true "Filter")
 
 ### Delay effects unit
 
