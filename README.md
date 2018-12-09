@@ -16,13 +16,13 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 **12/08/2018** 
 
-- New and improved filter effects unit allowing up to 31 bands, with each band performing filtering of any of the following types:
-* Band pass
-* Band stop
-* Low pass
-* High pass
+* New and improved filter effects unit allowing up to 31 bands, with each band performing filtering of any of the following types:
+  * Band pass
+  * Band stop
+  * Low pass
+  * High pass
 
-- Major code refactoring and simplification, reduction of code duplication. Simplification of app state persistence.
+* Major code refactoring and simplification, reduction of code duplication. Simplification of app state persistence.
 
 ### Compatibility
 
