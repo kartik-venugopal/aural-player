@@ -177,7 +177,6 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ## Planned updates
 
-- An improved Filter effects unit allowing for up to 32 bands of different filter types
 - A new parametric equalizer allowing specification of center frequency and bandwidth per band
 - A new status bar player mode
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
