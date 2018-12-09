@@ -15,6 +15,8 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
 
     @IBOutlet weak var filterSubPreview: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
+    @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
     
     // --------------------------------
     
@@ -47,6 +49,9 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
         filterSubPreview.initialize({() -> EffectsUnitState in return self.getPresetFilterUnitState()}, bandsDataFunction, bandsDataSource, false)
+        
+        tableViewDelegate.dataSource = bandsDataSource
+        tableViewDelegate.allowSelection = false
     }
     
     private func getFilterChartBands() -> [FilterBand] {
@@ -116,6 +121,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         // TODO: Implement applyPreset() in FilterView
         filterSubPreview.refresh()
+        bandsTable.reloadData()
     }
     
     // MARK: View delegate functions
