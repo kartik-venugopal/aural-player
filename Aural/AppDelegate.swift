@@ -70,10 +70,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        PitchViewController.load()
-        
         AppModeManager.presentMode(.regular)
-//        AppModeManager.presentMode(.miniBar)
+//        AppModeManager.presentMode(.statusBar)
         
         // Update the appLaunched flag
         appLaunched = true
