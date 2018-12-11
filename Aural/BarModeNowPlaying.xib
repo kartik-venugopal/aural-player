@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -51,9 +52,6 @@
                         <constraint firstAttribute="height" constant="12" id="9zA-KR-eKN"/>
                         <constraint firstAttribute="width" constant="240" id="WYy-BP-Wge"/>
                     </constraints>
-                    <shadow key="shadow" blurRadius="1">
-                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </shadow>
                     <sliderCell key="cell" controlSize="mini" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="1pQ-vi-GKn" customClass="BarModeSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="seekSliderAction:" target="-2" id="FZP-79-tK7"/>
@@ -76,9 +74,6 @@
             <constraints>
                 <constraint firstAttribute="height" constant="12" id="a2V-yy-utS"/>
             </constraints>
-            <shadow key="shadow" blurRadius="1">
-                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            </shadow>
             <sliderCell key="cell" controlSize="mini" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Qq9-W5-Sfg" userLabel="Seek Slider Clone Cell" customClass="BarModeSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
         </slider>
     </objects>
