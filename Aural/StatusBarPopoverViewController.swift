@@ -13,22 +13,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
-    
-    // The box that encloses the Now Playing info section
-    @IBOutlet weak var nowPlayingBox: NSBox!
-//    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
-    
-    // The box that encloses the player controls
-    @IBOutlet weak var playerBox: NSBox!
-    private lazy var playerView: NSView = ViewFactory.getPlayerView()
-    
-    @IBOutlet weak var effectsBox: NSBox!
-//    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
-    
-    // Buttons to toggle the playlist/effects views
-    @IBOutlet weak var btnToggleEffects: OnOffImageButton!
-    @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
-    
+   
     override var nibName: String? {return "StatusBarPopover"}
     
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!
@@ -52,10 +37,6 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     
     override func viewDidLoad() {
         
-//        nowPlayingBox.addSubview(nowPlayingView)
-        playerBox.addSubview(playerView)
-//        effectsBox.addSubview(effectsView)
-        
         globalMouseClickMonitor = GlobalMouseClickMonitor([.leftMouseDown, .rightMouseDown], {(event: NSEvent!) -> Void in
             
             // If window is non-nil, it means it's the popover window (first time after launching)
@@ -63,12 +44,6 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
                 self.close()
             }
         })
-        
-//        let autoHideHandler = AutoHideHandler(self.view, self.popover)
-//        NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved], handler: {(event: NSEvent!) -> NSEvent in
-//            autoHideHandler.handle(event)
-//            return event;
-//        });
         
         SyncMessenger.subscribe(messageTypes: [.appResignedActiveNotification], subscriber: self)
         
@@ -111,11 +86,6 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
             btn.target = self
         }
         
-        if (nowPlayingBox != nil) {
-//            nowPlayingBox.addSubview(nowPlayingView)
-            playerBox.addSubview(playerView)
-        }
-        
         show(statusItem.button!, NSRectEdge.minY)
     }
     
@@ -139,15 +109,6 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         
         close()
         NSStatusBar.system.removeStatusItem(statusItem)
-    }
-    
-    @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        
-        btnToggleEffects.toggle()
-        effectsBox.showIf_elseHide(effectsBox.isHidden)
-        
-        let newHeight: CGFloat = effectsBox.isHidden ? 211 : 398
-        popover.contentSize = NSMakeSize(popover.contentSize.width, newHeight)
     }
     
     @IBAction func regularModeAction(_ sender: AnyObject) {
