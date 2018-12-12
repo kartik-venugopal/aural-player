@@ -65,7 +65,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
             _ = self.window!
         }
         
-//        resetFields()
+        resetFields()
         
         UIUtils.showModalDialog(self.window!)
         
@@ -75,7 +75,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     func resetFields() {
         
         if let playingTrack = playbackInfo.playingTrack {
-        
+            
             let roundedDuration = round(playingTrack.track.duration)
             let formattedDuration = StringUtils.formatSecondsToHMS(roundedDuration)
             let durationInt = Int(roundedDuration)
@@ -134,27 +134,27 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBAction func okAction(_ sender: Any) {
         
-//        var jumpToTime: Double = 0
-//        
-//        if btnHMS.isOn() {
-//            
-//            // HH : MM : SS
-//            jumpToTime = timePicker.interval
-//            
-//        } else if btnSeconds.isOn() {
-//            
-//            // Seconds
-//            jumpToTime = secondsStepper.doubleValue
-//            
-//        } else {
-//            
-//            // Percentage
-//            // NOTE - secondsStepper.maxValue = track duration
-//            jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
-//        }
-//        
-//        SyncMessenger.publishActionMessage(JumpToTimeActionMessage(jumpToTime))
-//        
+        var jumpToTime: Double = 0
+        
+        if btnHMS.isOn() {
+            
+            // HH : MM : SS
+            jumpToTime = timePicker.interval
+            
+        } else if btnSeconds.isOn() {
+            
+            // Seconds
+            jumpToTime = secondsStepper.doubleValue
+            
+        } else {
+            
+            // Percentage
+            // NOTE - secondsStepper.maxValue = track duration
+            jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
+        }
+        
+        SyncMessenger.publishActionMessage(JumpToTimeActionMessage(jumpToTime))
+        
         modalDialogResponse = .ok
         UIUtils.dismissModalDialog()
     }
