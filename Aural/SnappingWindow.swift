@@ -1,6 +1,6 @@
 import Cocoa
 
-class SnappingWindow: NSWindow {
+class SnappingWindow: NoTitleBarWindow {
     
     var snapped: Bool = false
     var snapLocation: NSPoint?

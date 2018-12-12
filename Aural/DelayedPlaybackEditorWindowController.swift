@@ -18,12 +18,6 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     
     override var windowNibName: String? {return "DelayedPlaybackEditorDialog"}
     
-    override func windowDidLoad() {
-        
-        self.window?.titlebarAppearsTransparent = true
-        super.windowDidLoad()
-    }
-    
     func showDialog() -> ModalDialogResponse {
         
         // Force loading of the window if it hasn't been loaded yet (only once)
