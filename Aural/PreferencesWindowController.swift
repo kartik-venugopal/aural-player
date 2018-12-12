@@ -30,7 +30,6 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     
     override func windowDidLoad() {
         
-        window?.titlebarAppearsTransparent = true
         window?.isMovableByWindowBackground = true
         
         subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView]

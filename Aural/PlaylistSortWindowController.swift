@@ -24,8 +24,6 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     override func windowDidLoad() {
         
-        self.window?.titlebarAppearsTransparent = true
-        
         container.addSubview(tracksPlaylistSortView.getView())
         container.addSubview(artistsPlaylistSortView.getView())
         container.addSubview(albumsPlaylistSortView.getView())

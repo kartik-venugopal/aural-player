@@ -224,3 +224,17 @@ extension NSPopUpButton {
         return count
     }
 }
+
+class NoTitleBarWindow: NSWindow {
+    
+    override func awakeFromNib() {
+        self.titlebarAppearsTransparent = true
+    }
+}
+
+class NoTitleBarPanel: NSPanel {
+    
+    override func awakeFromNib() {
+        self.titlebarAppearsTransparent = true
+    }
+}

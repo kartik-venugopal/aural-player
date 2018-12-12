@@ -40,8 +40,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     override var windowNibName: String? {return "PlaylistSearch"}
     
     override func windowDidLoad() {
-        
-        self.window?.titlebarAppearsTransparent = true
         SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
     }
 

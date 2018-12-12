@@ -154,3 +154,14 @@ class FilterBandViewController: NSViewController {
         }
     }
 }
+
+func roundedInt(_ float: Float) -> Int {
+    return Int(roundf(float))
+}
+
+@IBDesignable
+class FrequencyRangeMenuItem: NSMenuItem {
+    
+    @IBInspectable var minFreq: Float = AppConstants.Sound.audibleRangeMin
+    @IBInspectable var maxFreq: Float = AppConstants.Sound.audibleRangeMax
+}
