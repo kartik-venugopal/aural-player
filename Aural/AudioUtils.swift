@@ -5,6 +5,12 @@ import AVFoundation
  */
 class AudioUtils {
     
+    private static let flacSupported: Bool = {
+        
+        let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
+        return (systemVersion.majorVersion == 10 && systemVersion.minorVersion >= 13) || systemVersion.majorVersion > 10
+    }()
+    
     // Validates a track to determine if it is playable. If the track is not playable, returns an error object describing the problem.
     static func validateTrack(_ track: Track) -> InvalidTrackError? {
         
@@ -12,34 +18,51 @@ class AudioUtils {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.nativelySupported || fileExtension == "flac" {
+            
+            if track.libAVInfo == nil {
+                track.libAVInfo = LibAVWrapper.getMetadata(track.file)
+            }
+            
+            if !track.libAVInfo!.hasValidAudioTrack {
+                return TrackNotPlayableError(track)
+            }
+            
+            return nil
+            
+        } else {
+            
+            if (track.audioAsset == nil) {
+                track.audioAsset = AVURLAsset(url: track.file, options: nil)
+            }
+            
+            let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaType.audio)
+            
+            // Check if the asset has any audio tracks
+            if (assetTracks?.count == 0) {
+                return NoAudioTracksError(track)
+            }
+            
+            // Find out if track is playable
+            // TODO: What does isPlayable actually mean ?
+            if let assetTrack = assetTracks?.first {
+                
+                if !assetTrack.isPlayable {
+                    return TrackNotPlayableError(track)
+                }
+                
+                // Determine the format to find out if it is supported
+                let format = getFormat(assetTrack)
+                if !AppConstants.SupportedTypes.audioFormats.contains(format) {
+                    return UnsupportedFormatError(track, format)
+                }
+            }
+            
+            return nil
+            
         }
-        
-        let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaType.audio)
-        
-        // Check if the asset has any audio tracks
-        if (assetTracks?.count == 0) {
-            return NoAudioTracksError(track)
-        }
-        
-        // Find out if track is playable
-        let assetTrack = assetTracks?.first
-        
-        // TODO: What does isPlayable actually mean ?
-        if (!(assetTrack?.isPlayable)!) {
-            return TrackNotPlayableError(track)
-        }
-        
-        // Determine the format to find out if it is supported
-        let format = getFormat(assetTrack!)
-        if (!AppConstants.SupportedTypes.audioFormats.contains(format)) {
-            return UnsupportedFormatError(track, format)
-        }
-        
-        // TODO: Check if file needs to be transcoded, if so set a flag on Track
-        
-        return nil
     }
     
     // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
@@ -47,12 +70,19 @@ class AudioUtils {
         
         // TODO: Check if need to transcode
         
-//        var trackFile = track.file
-//        if track.file.path.hasSuffix(".wma"), let transFile = Transcoder.transcode(track) {
-//            trackFile = transFile
-//        }
+        var trackFile = track.file
         
-        if let audioFile = AudioIO.createAudioFileForReading(track.file) {
+        if !track.nativelySupported {
+            
+            if let transFile = LibAVWrapper.transcode(track.file) {
+                trackFile = transFile
+            } else {
+                // Transcoding failed. TODO: Show error
+                return false
+            }
+        }
+        
+        if let audioFile = AudioIO.createAudioFileForReading(trackFile) {
         
             let playbackInfo = PlaybackInfo()
             
@@ -82,10 +112,18 @@ class AudioUtils {
         
         let audioInfo = AudioInfo()
         
-        let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
-        
         // TODO: Check if natively supported
-        audioInfo.format = getFormat(assetTracks.first!)
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.nativelySupported || fileExtension == "flac" {
+
+            audioInfo.format = track.libAVInfo!.audioFormat
+            
+        } else {
+            
+            let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
+            audioInfo.format = getFormat(assetTracks.first!)
+        }
         
         let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
         audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
@@ -116,5 +154,19 @@ class AudioUtils {
         codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
         
         return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    static func isAudioFileNativelySupported(_ file: URL) -> Bool {
+        
+        let fileExtension = file.pathExtension.lowercased()
+        
+        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
+            return true
+        }
+        
+        // FLAC is available on 10.13 and higher
+        if fileExtension == "flac" {return flacSupported}
+        
+        return false
     }
 }

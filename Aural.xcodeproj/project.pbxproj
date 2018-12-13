@@ -175,6 +175,7 @@
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8221C1CD3600640450 /* avconv in Resources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8121C1CD3600640450 /* avconv */; };
 		3E6D0F8521C1D43A00640450 /* LibAVWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */; };
+		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
@@ -529,6 +530,7 @@
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8121C1CD3600640450 /* avconv */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = avconv; path = "Aural Player/BUILD/bin/avconv"; sourceTree = SOURCE_ROOT; };
 		3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVWrapper.swift; sourceTree = "<group>"; };
+		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDataSource.swift; sourceTree = "<group>"; };
 		3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-readme.rtf"; sourceTree = "<group>"; };
@@ -1321,6 +1323,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */,
+				3E6D0F8821C2542A00640450 /* LibAVInfo.swift */,
 			);
 			name = LibAV;
 			sourceTree = "<group>";
@@ -1982,6 +1985,7 @@
 				3E850D631FB45BA90017CD02 /* PlaylistWindowController.swift in Sources */,
 				3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */,
 				3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */,
+				3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */,
 				3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */,
 				3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */,
 				3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */,

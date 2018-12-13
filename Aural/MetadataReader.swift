@@ -14,7 +14,11 @@ class MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        if track.nativelySupported {
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
+            
+            track.setDuration(track.libAVInfo!.duration)
+            
+        } else {
             
             var tlenDuration: Double = 0
             
@@ -33,45 +37,22 @@ class MetadataReader {
             let assetDuration = track.audioAsset!.duration.seconds
             
             track.setDuration(max(tlenDuration, assetDuration))
-            
-        } else {
-            
-            if let metadata = track.libAVMetadata, let durStr = metadata["duration"] {
-                
-                let tokens = durStr.split(separator: ":")
-                
-                if tokens.count == 3 {
-                    
-                    let hrsS = tokens[0]
-                    let minsS = tokens[1]
-                    let secsS = tokens[2]
-                    
-                    let hrs = Double(hrsS) ?? 0, mins = Double(minsS) ?? 0, secs = Double(secsS) ?? 0
-                    track.setDuration(hrs * 3600 + mins * 60 + secs)
-                }
-            }
         }
     }
     
     // Helper function that ensures that a track's AVURLAsset has been initialized
     private static func ensureTrackAssetLoaded(_ track: Track) {
         
-        let fileExtension = track.file.pathExtension.lowercased()
-        
-        if track.nativelySupported {
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
             
-            if (track.audioAsset == nil) {
-                track.audioAsset = AVURLAsset(url: track.file, options: nil)
-            }
-            
-            if fileExtension == "flac" && track.libAVMetadata == nil {
-                track.libAVMetadata = LibAVWrapper.getMetadata(track.file)
+            if track.libAVInfo == nil {
+                track.libAVInfo = LibAVWrapper.getMetadata(track.file)
             }
             
         } else {
             
-            if track.libAVMetadata == nil {
-                track.libAVMetadata = LibAVWrapper.getMetadata(track.file)
+            if (track.audioAsset == nil) {
+                track.audioAsset = AVURLAsset(url: track.file, options: nil)
             }
         }
     }
@@ -81,11 +62,9 @@ class MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let fileExtension = track.file.pathExtension.lowercased()
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
 
-        if !track.nativelySupported || fileExtension == "flac" {
-
-            let displayMetadata = track.libAVMetadata!
+            let displayMetadata = track.libAVInfo!.metadata
             
             track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
             DispatchQueue.global(qos: .userInteractive).async {
@@ -109,11 +88,10 @@ class MetadataReader {
         
         track.groupingInfo.artist = track.displayInfo.artist
         
-        let fileExtension = track.file.pathExtension.lowercased()
-        
-        if !track.nativelySupported || fileExtension == "flac" {
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
             
-            let metadata = track.libAVMetadata!
+            let metadata = track.libAVInfo!.metadata
+            
             track.groupingInfo.album = metadata["album"]
             track.groupingInfo.genre = metadata["genre"]
             track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
@@ -201,7 +179,7 @@ class MetadataReader {
             
             let ignoreKeys = ["title", "artist", "duration", "disc", "track", "album", "genre"]
             
-            let metadata = track.libAVMetadata!.filter({!ignoreKeys.contains($0.key)})
+            let metadata = track.libAVInfo!.metadata.filter({!ignoreKeys.contains($0.key)})
             
             for (key, value) in metadata {
                 let capitalizedKey = key.capitalized

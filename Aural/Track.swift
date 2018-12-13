@@ -11,7 +11,7 @@ class Track: NSObject, PlaylistItem {
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?
     
-    var libAVMetadata: [String: String]?
+    var libAVInfo: LibAVInfo?
     
     // All info relating to how this track is displayed
     let displayInfo: DisplayInfo
@@ -36,8 +36,7 @@ class Track: NSObject, PlaylistItem {
     
     init(_ file: URL) {
         
-        let fileExtension = file.pathExtension.lowercased()
-        self.nativelySupported = AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension)
+        self.nativelySupported = AudioUtils.isAudioFileNativelySupported(file)
         
         self.fileSystemInfo = FileSystemInfo(file)
         self.displayInfo = DisplayInfo(file)
