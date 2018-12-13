@@ -172,6 +172,9 @@
 		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
+		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
+		3E6D0F8221C1CD3600640450 /* avconv in Resources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8121C1CD3600640450 /* avconv */; };
+		3E6D0F8521C1D43A00640450 /* LibAVWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
@@ -523,6 +526,9 @@
 		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
+		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
+		3E6D0F8121C1CD3600640450 /* avconv */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = avconv; path = "Aural Player/BUILD/bin/avconv"; sourceTree = SOURCE_ROOT; };
+		3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVWrapper.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDataSource.swift; sourceTree = "<group>"; };
 		3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-readme.rtf"; sourceTree = "<group>"; };
@@ -988,6 +994,7 @@
 		3E2D9E411F662B8D0020B99E /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				3E6D0F7E21C1C80400640450 /* Transcoder */,
 				3E84F8441F5FBFF90010BCDA /* Sequencing */,
 				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
 				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
@@ -1302,6 +1309,22 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		3E6D0F7E21C1C80400640450 /* Transcoder */ = {
+			isa = PBXGroup;
+			children = (
+				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
+			);
+			name = Transcoder;
+			sourceTree = "<group>";
+		};
+		3E6D0F8321C1D42A00640450 /* LibAV */ = {
+			isa = PBXGroup;
+			children = (
+				3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */,
+			);
+			name = LibAV;
+			sourceTree = "<group>";
+		};
 		3E72FCC41F2C0A780020FD20 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1334,6 +1357,7 @@
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E6D0F8121C1CD3600640450 /* avconv */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1543,6 +1567,7 @@
 		3EB20B4F1EFF2C5F008138A4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3E6D0F8321C1D42A00640450 /* LibAV */,
 				3E7CD3FB215B497800DBD249 /* DataStructures */,
 				3E80E66E1F04FA60007480CC /* Size.swift */,
 				3E80E6711F04FA7C007480CC /* SizeUnit.swift */,
@@ -1847,6 +1872,7 @@
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
+				3E6D0F8221C1CD3600640450 /* avconv in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
 				3EB9304921996353008E45F8 /* FilterBand.xib in Resources */,
 				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
@@ -1957,6 +1983,7 @@
 				3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */,
 				3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */,
 				3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */,
+				3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */,
 				3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */,
 				3EB029121FB55EEF00A2D920 /* DockMenuController.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
@@ -2043,6 +2070,7 @@
 				3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */,
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
 				3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */,
+				3E6D0F8521C1D43A00640450 /* LibAVWrapper.swift in Sources */,
 				3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,

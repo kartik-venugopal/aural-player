@@ -6,8 +6,12 @@ import AVFoundation
  */
 class Track: NSObject, PlaylistItem {
     
+    var nativelySupported: Bool
+    
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?
+    
+    var libAVMetadata: [String: String]?
     
     // All info relating to how this track is displayed
     let displayInfo: DisplayInfo
@@ -31,6 +35,9 @@ class Track: NSObject, PlaylistItem {
     var metadata: [String: MetadataEntry] = [String: MetadataEntry]()
     
     init(_ file: URL) {
+        
+        let fileExtension = file.pathExtension.lowercased()
+        self.nativelySupported = AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension)
         
         self.fileSystemInfo = FileSystemInfo(file)
         self.displayInfo = DisplayInfo(file)

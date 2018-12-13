@@ -10,7 +10,14 @@ class TrackIO {
     // Load display metadata (artist/title/art and all grouping info)
     static func loadDisplayInfo(_ track: Track) {
         
-        track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.nativelySupported || fileExtension == "flac" {
+            track.libAVMetadata = LibAVWrapper.getMetadata(track.file)
+        } else {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
         MetadataReader.loadDisplayMetadata(track)
         MetadataReader.loadGroupingMetadata(track)
     }

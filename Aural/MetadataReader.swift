@@ -12,31 +12,67 @@ class MetadataReader {
     // Loads duration metadata for a track, if available
     static func loadDurationMetadata(_ track: Track) {
         
-        var tlenDuration: Double = 0
-        
         ensureTrackAssetLoaded(track)
         
-        let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(tlenID))
-        if (!tlenItems.isEmpty) {
+        if track.nativelySupported {
             
-            let tlenItem = tlenItems.first!
-            if (!StringUtils.isStringEmpty(tlenItem.stringValue)) {
+            var tlenDuration: Double = 0
+            
+            let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(tlenID))
+            if (!tlenItems.isEmpty) {
                 
-                if let durationMsecs = Double(tlenItem.stringValue!) {
-                    tlenDuration = durationMsecs / 1000
+                let tlenItem = tlenItems.first!
+                if (!StringUtils.isStringEmpty(tlenItem.stringValue)) {
+                    
+                    if let durationMsecs = Double(tlenItem.stringValue!) {
+                        tlenDuration = durationMsecs / 1000
+                    }
+                }
+            }
+            
+            let assetDuration = track.audioAsset!.duration.seconds
+            
+            track.setDuration(max(tlenDuration, assetDuration))
+            
+        } else {
+            
+            if let metadata = track.libAVMetadata, let durStr = metadata["duration"] {
+                
+                let tokens = durStr.split(separator: ":")
+                
+                if tokens.count == 3 {
+                    
+                    let hrsS = tokens[0]
+                    let minsS = tokens[1]
+                    let secsS = tokens[2]
+                    
+                    let hrs = Double(hrsS) ?? 0, mins = Double(minsS) ?? 0, secs = Double(secsS) ?? 0
+                    track.setDuration(hrs * 3600 + mins * 60 + secs)
                 }
             }
         }
-        
-        let assetDuration = track.audioAsset!.duration.seconds
-        
-        track.setDuration(max(tlenDuration, assetDuration))
     }
     
     // Helper function that ensures that a track's AVURLAsset has been initialized
     private static func ensureTrackAssetLoaded(_ track: Track) {
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if track.nativelySupported {
+            
+            if (track.audioAsset == nil) {
+                track.audioAsset = AVURLAsset(url: track.file, options: nil)
+            }
+            
+            if fileExtension == "flac" && track.libAVMetadata == nil {
+                track.libAVMetadata = LibAVWrapper.getMetadata(track.file)
+            }
+            
+        } else {
+            
+            if track.libAVMetadata == nil {
+                track.libAVMetadata = LibAVWrapper.getMetadata(track.file)
+            }
         }
     }
     
@@ -45,60 +81,24 @@ class MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let title = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyTitle))
-        let artist = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyArtist))
-        let art = getArtwork(track.audioAsset!)
-        
-        track.setDisplayMetadata(artist, title, art)
-    }
-    
-    // Loads all available metadata for a track
-    static func loadAllMetadata(_ track: Track) {
-        
-        ensureTrackAssetLoaded(track)
-        
-        // Check which metadata formats are available
-        let formats = convertFromAVMetadataFormatArray(track.audioAsset!.availableMetadataFormats)
-        
-        // Iterate through the formats and collect metadata for each one
-        for format in formats {
+        let fileExtension = track.file.pathExtension.lowercased()
+
+        if !track.nativelySupported || fileExtension == "flac" {
+
+            let displayMetadata = track.libAVMetadata!
             
-            let metadataType: MetadataType
-            
-            switch format {
-                
-            case convertFromAVMetadataFormat(AVMetadataFormat.iTunesMetadata): metadataType = .iTunes
-                
-            case convertFromAVMetadataFormat(AVMetadataFormat.id3Metadata): metadataType = .id3
-                
-            default: metadataType = .other
-                
+            track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
+            DispatchQueue.global(qos: .userInteractive).async {
+                track.displayInfo.art = LibAVWrapper.getArtwork(track.file)
             }
             
-            let items = track.audioAsset!.metadata(forFormat: convertToAVMetadataFormat(format))
+        } else {
             
-            // Iterate through all metadata for this format
-            for item in items {
-                
-                let stringValue = item.stringValue
-                
-                if let key = convertFromOptionalAVMetadataKey(item.commonKey) {
-                    
-                    // Ignore the display metadata keys (that have already been loaded)
-                    if (key != convertFromAVMetadataKey(AVMetadataKey.commonKeyTitle) && key != convertFromAVMetadataKey(AVMetadataKey.commonKeyArtist) && key != convertFromAVMetadataKey(AVMetadataKey.commonKeyArtwork)) {
-                        
-                        if (!StringUtils.isStringEmpty(stringValue)) {
-                            track.metadata[key] = MetadataEntry(.common, key, stringValue!)
-                        }
-                    }
-                    
-                } else if let key = item.key as? String {
-                    
-                    if (!StringUtils.isStringEmpty(stringValue)) {
-                        track.metadata[key] = MetadataEntry(metadataType, key, stringValue!)
-                    }
-                }
-            }
+            let title = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyTitle))
+            let artist = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyArtist))
+            let art = getArtwork(track.audioAsset!)
+            
+            track.setDisplayMetadata(artist, title, art)
         }
     }
     
@@ -108,11 +108,25 @@ class MetadataReader {
         ensureTrackAssetLoaded(track)
         
         track.groupingInfo.artist = track.displayInfo.artist
-        track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyAlbumName))
-        track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyType))
         
-        track.groupingInfo.discNumber = getDiscNumber(track)
-        track.groupingInfo.trackNumber = getTrackNumber(track)
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.nativelySupported || fileExtension == "flac" {
+            
+            let metadata = track.libAVMetadata!
+            track.groupingInfo.album = metadata["album"]
+            track.groupingInfo.genre = metadata["genre"]
+            track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
+            track.groupingInfo.trackNumber = Int(metadata["track"] ?? "")
+            
+        } else {
+            
+            track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyAlbumName))
+            track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyType))
+            
+            track.groupingInfo.discNumber = getDiscNumber(track)
+            track.groupingInfo.trackNumber = getTrackNumber(track)
+        }
     }
     
     private static func getDiscNumber(_ track: Track) -> Int? {
@@ -174,6 +188,69 @@ class MetadataReader {
         }
         
         return nil
+    }
+    
+    // Loads all available metadata for a track
+    static func loadAllMetadata(_ track: Track) {
+        
+        ensureTrackAssetLoaded(track)
+        
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.nativelySupported || fileExtension == "flac" {
+            
+            let ignoreKeys = ["title", "artist", "duration", "disc", "track", "album", "genre"]
+            
+            let metadata = track.libAVMetadata!.filter({!ignoreKeys.contains($0.key)})
+            
+            for (key, value) in metadata {
+                let capitalizedKey = key.capitalized
+                track.metadata[capitalizedKey] = MetadataEntry(.other, capitalizedKey, value)
+            }
+            
+        } else {
+            
+            // Display/grouping metadata can be ignored because it is already present
+            let ignoreKeys = [AVMetadataKey.commonKeyTitle.rawValue, AVMetadataKey.commonKeyArtist.rawValue, AVMetadataKey.commonKeyArtwork.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue, AVMetadataKey.commonKeyType.rawValue, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue, AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue]
+            
+            // Check which metadata formats are available
+            let formats = convertFromAVMetadataFormatArray(track.audioAsset!.availableMetadataFormats)
+            
+            // Iterate through the formats and collect metadata for each one
+            for format in formats {
+                
+                let metadataType: MetadataType
+                
+                switch format {
+                    
+                case AVMetadataFormat.iTunesMetadata.rawValue: metadataType = .iTunes
+                    
+                case AVMetadataFormat.id3Metadata.rawValue: metadataType = .id3
+                    
+                default: metadataType = .other
+                    
+                }
+                
+                let items = track.audioAsset!.metadata(forFormat: convertToAVMetadataFormat(format))
+                
+                // Iterate through all metadata for this format
+                for item in items {
+                    
+                    let stringValue = item.stringValue
+                    
+                    if let key = convertFromOptionalAVMetadataKey(item.commonKey) {
+                        
+                        // Ignore the display metadata keys (that have already been loaded)
+                        if !ignoreKeys.contains(key) && !StringUtils.isStringEmpty(stringValue) {
+                            track.metadata[key] = MetadataEntry(.common, key, stringValue!)
+                        }
+                        
+                    } else if let key = item.key as? String, !StringUtils.isStringEmpty(stringValue) {
+                        track.metadata[key] = MetadataEntry(metadataType, key, stringValue!)
+                    }
+                }
+            }
+        }
     }
     
     // Retrieves the common metadata entry for the given track, with the given metadata key, if there is one
