@@ -33,7 +33,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 ## Features
 
 * **Supported file types:**
-   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF
+   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF **(Support for many more file types possibly coming soon !)**
    * Playlist files: M3U/M3U8
 
 * **Playback:**
@@ -183,6 +183,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ## Planned updates
 
+- Support for more audio file types (e.g FLAC, WMA)
 - A new parametric equalizer allowing specification of center frequency and bandwidth per band
 - A new status bar player mode
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
