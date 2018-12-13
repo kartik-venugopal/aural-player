@@ -183,6 +183,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ## Planned updates
 
+- Support for more audio file types (e.g FLAC, WMA)
 - A new parametric equalizer allowing specification of center frequency and bandwidth per band
 - A new status bar player mode
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
