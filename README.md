@@ -33,7 +33,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 ## Features
 
 * **Supported file types:**
-   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF **(Support for many more file types possibly coming soon !)**
+   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF **(Support for more file types possibly coming soon !)**
    * Playlist files: M3U/M3U8
 
 * **Playback:**
