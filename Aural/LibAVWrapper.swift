@@ -6,12 +6,17 @@ class LibAVWrapper {
     
     static let metadataIgnoreKeys: [String] = ["Stream #0.0", "Stream #0.1", "Stream #0.2", "bitrate"]
     
+    static let transcodingFormatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
+    
     static func transcode(_ inputFile: URL) -> URL? {
         
         if let binaryPath = avConvBinaryPath {
             
-            let outputFile = URL(fileURLWithPath: inputFile.path + "-transcoded.mp3")
-            _ = runCommand(cmd: binaryPath, args: "-i", inputFile.path, outputFile.path)
+            let inputFileExtension = inputFile.pathExtension.lowercased()
+            let outputFileExtension = transcodingFormatsMap[inputFileExtension] ?? "mp3"
+            
+            let outputFile = URL(fileURLWithPath: inputFile.path + "-transcoded." + outputFileExtension)
+            _ = runCommand(cmd: binaryPath, args: "-i", inputFile.path, "-ac" , "2" , outputFile.path)
             
             return outputFile
         }
@@ -19,37 +24,77 @@ class LibAVWrapper {
         return nil
     }
     
-    static func getMetadata(_ inputFile: URL) -> [String: String] {
+    static func getMetadata(_ inputFile: URL) -> LibAVInfo {
         
         var map: [String: String] = [:]
+        var streams: [LibAVStream] = []
+        var duration: Double = 0
         
         if let binaryPath = avConvBinaryPath {
             
             let cmdOutput = runCommand(cmd: binaryPath, args: "-i", inputFile.path)
             
             var foundMetadata: Bool = false
-            for line in cmdOutput.error {
+            outerLoop: for line in cmdOutput.error {
+                
+                let trimmedLine = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                
+                // Stream
+                
+                if trimmedLine.hasPrefix("Stream #") {
+                    
+                    let tokens = trimmedLine.split(separator: ":")
+                    
+                    if tokens.count >= 3 {
+                        
+                        let streamTypeStr = tokens[1].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        let type: LibAVStreamType = streamTypeStr == "Audio" ? .audio : .video
+                        
+                        let commaSepTokens = tokens[2].split(separator: ",")
+                        
+                        if commaSepTokens.count > 0 {
+                            let format = commaSepTokens[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                            streams.append(LibAVStream(type, format))
+                        }
+                    }
+                    
+                    continue
+                    
+                } else if trimmedLine.hasPrefix("Duration:") {
+                    
+                    let commaSepTokens = line.split(separator: ",")
+                    
+                    let durKV = commaSepTokens[0]
+                    let tokens = durKV.split(separator: ":")
+                    
+                    if tokens.count >= 4 {
+                        
+                        let hrsS = tokens[1].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        let minsS = tokens[2]
+                        let secsS = tokens[3]
+                        
+                        let hrs = Double(hrsS) ?? 0, mins = Double(minsS) ?? 0, secs = Double(secsS) ?? 0
+                        duration = hrs * 3600 + mins * 60 + secs
+                    }
+                    
+                    continue
+                }
                 
                 if foundMetadata {
                     
-                    // Split line using comma as a delim
-                    let commaSepTokens = line.split(separator: ",")
-                    for token in commaSepTokens {
+                    // Split KV entry into key/value
+                    if let firstColon = trimmedLine.firstIndex(of: ":") {
                         
-                        // Split KV entry into key/value
-                        if let firstColon = token.firstIndex(of: ":") {
-                            
-                            let key = token[..<firstColon].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                            
-                            let colonPlus1 = token.index(after: firstColon)
-                            let value = token[colonPlus1...].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                            
-                            // Avoid any subsequent Metadata fields
-                            if key == "Metadata" {
-                                return map
-                            } else if !metadataIgnoreKeys.contains(key) {
-                                map[key.lowercased()] = value
-                            }
+                        let key = trimmedLine[..<firstColon].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        
+                        let colonPlus1 = trimmedLine.index(after: firstColon)
+                        let value = trimmedLine[colonPlus1...].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        
+                        // Avoid any subsequent Metadata fields
+                        if key == "Metadata" {
+                            break outerLoop
+                        } else if !metadataIgnoreKeys.contains(String(key)) {
+                            map[key.lowercased()] = value
                         }
                     }
                     
@@ -57,7 +102,7 @@ class LibAVWrapper {
             }
         }
         
-        return map
+        return LibAVInfo(duration, streams, map)
     }
     
     static func getArtwork(_ inputFile: URL) -> NSImage? {

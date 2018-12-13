@@ -16,9 +16,9 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "flac"]
+        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
 //        static let nonNativeAudioExtensions: [String] = ["wma"]
-        static let nonNativeAudioExtensions: [String] = []
+        static let nonNativeAudioExtensions: [String] = ["flac", "wma", "ogg"]
         
         static let allAudioExtensions: [String] = computeAllAudioExtensions()
         
@@ -30,7 +30,7 @@ struct AppConstants {
             return all
         }
         
-        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac"]
+        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac", "wma", "vorbis", "ogg"]
         
         static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
         
