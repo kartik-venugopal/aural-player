@@ -95,7 +95,7 @@ class AddedItem: HistoryItem {
                 self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
                 self.art = Images.imgPlaylistOff
                 
-            } else if (AppConstants.SupportedTypes.audioExtensions.contains(fileExtension)) {
+            } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                 
                 // Track
                 super.loadDisplayInfoFromFile()

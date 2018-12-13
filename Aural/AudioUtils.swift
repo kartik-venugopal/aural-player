@@ -37,11 +37,20 @@ class AudioUtils {
             return UnsupportedFormatError(track, format)
         }
         
+        // TODO: Check if file needs to be transcoded, if so set a flag on Track
+        
         return nil
     }
     
     // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
     static func loadPlaybackInfo(_ track: Track) -> Bool {
+        
+        // TODO: Check if need to transcode
+        
+//        var trackFile = track.file
+//        if track.file.path.hasSuffix(".wma"), let transFile = Transcoder.transcode(track) {
+//            trackFile = transFile
+//        }
         
         if let audioFile = AudioIO.createAudioFileForReading(track.file) {
         
@@ -74,6 +83,8 @@ class AudioUtils {
         let audioInfo = AudioInfo()
         
         let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
+        
+        // TODO: Check if natively supported
         audioInfo.format = getFormat(assetTracks.first!)
         
         let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)

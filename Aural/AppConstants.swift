@@ -15,8 +15,23 @@ struct AppConstants {
         static let playlistExtensions: [String] = [m3u, m3u8]
         
         // Supported audio file types/formats
-        static let audioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
-        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
+        
+        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "flac"]
+//        static let nonNativeAudioExtensions: [String] = ["wma"]
+        static let nonNativeAudioExtensions: [String] = []
+        
+        static let allAudioExtensions: [String] = computeAllAudioExtensions()
+        
+        private static func computeAllAudioExtensions() -> [String] {
+            
+            var all: [String] = []
+            all.append(contentsOf: nativeAudioExtensions)
+            all.append(contentsOf: nonNativeAudioExtensions)
+            return all
+        }
+        
+        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac"]
+        
         static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
         
         // File types allowed in the Open file dialog (extensions and UTIs)
@@ -25,7 +40,7 @@ struct AppConstants {
         private static func allTypes() -> [String] {
             
             var arr = [String]()
-            arr.append(contentsOf: audioExtensions)
+            arr.append(contentsOf: allAudioExtensions)
             arr.append(contentsOf: playlistExtensions)
             arr.append(contentsOf: avFileTypes)
             return arr

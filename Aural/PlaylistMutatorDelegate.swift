@@ -155,7 +155,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                         // Playlist
                         addPlaylist(file, autoplayOptions, progress)
                         
-                    } else if (AppConstants.SupportedTypes.audioExtensions.contains(fileExtension)) {
+                    } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                         
                         // Track
                         progress.tracksAdded += 1

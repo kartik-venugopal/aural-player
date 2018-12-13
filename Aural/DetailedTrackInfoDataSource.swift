@@ -81,6 +81,22 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
             info.append((key: "Title", value: title))
         }
         
+        if let album = track.groupingInfo.album {
+            info.append((key: "Album", value: album))
+        }
+        
+        if let discNum = track.groupingInfo.discNumber {
+            info.append((key: "Disc#", value: String(discNum)))
+        }
+        
+        if let trackNum = track.groupingInfo.trackNumber {
+            info.append((key: "Track#", value: String(trackNum)))
+        }
+        
+        if let genre = track.groupingInfo.genre {
+            info.append((key: "Genre", value: genre))
+        }
+        
         for (key, entry) in track.metadata {
             
             // Some tracks have a "Format" metadata entry ... ignore it
