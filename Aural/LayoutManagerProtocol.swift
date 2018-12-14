@@ -15,4 +15,6 @@ protocol LayoutManagerProtocol {
     func getEffectsWindowFrame() -> NSRect
     
     func getPlaylistWindowFrame() -> NSRect
+    
+    func addChildWindow(_ window: NSWindow)
 }

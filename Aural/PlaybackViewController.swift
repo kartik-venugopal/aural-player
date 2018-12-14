@@ -337,19 +337,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         handleTrackNotPlayedError(message.oldTrack, message.error)
     }
     
-    private func performPlayback(_ request: PlaybackRequest) {
-        
-        switch request.type {
-            
-        case .index: playTrackWithIndex(request.index!, request.delay)
-            
-        case .track: playTrack(request.track!, request.delay)
-            
-        case .group: playGroup(request.group!, request.delay)
-            
-        }
-    }
-    
     private func handleTrackNotPlayedError(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
@@ -366,6 +353,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    private func performPlayback(_ request: PlaybackRequest) {
+        
+        switch request.type {
+            
+        case .index: playTrackWithIndex(request.index!, request.delay)
+            
+        case .track: playTrack(request.track!, request.delay)
+            
+        case .group: playGroup(request.group!, request.delay)
+            
+        }
+    }
+    
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         controlsView.gapStarted()
     }
@@ -379,7 +379,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     private func transcodingStarted(_ track: Track) {
-        transcodingPopup.showWindow(self)
+        transcodingPopup.transcodingStarted(track)
     }
     
     private func transcodingFinished(_ track: Track, _ success: Bool) {

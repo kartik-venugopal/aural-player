@@ -46,7 +46,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     private func initSubscriptions() {
         
-        AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Subscribe to various notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
@@ -54,20 +54,32 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?) {
+        trackChanged(newTrack?.track)
+    }
+    
+    private func trackChanged(_ track: Track?) {
         
-        if (newTrack != nil) {
-            theView?.showNowPlayingInfo(newTrack!.track, player.state, player.sequenceInfo)
+        if (track != nil) {
+            theView?.showNowPlayingInfo(track!, player.state, player.sequenceInfo)
         } else {
             
             // No track playing, clear the info fields
             theView?.clearNowPlayingInfo()
         }
+    }
+    
+    private func transcodingStarted(_ track: Track) {
+        theView?.showNowPlayingInfo(track, player.state, player.sequenceInfo)
+    }
+    
+    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+        self.trackChanged(nil as Track?)
     }
     
     // When track info for the playing track changes, display fields need to be updated
@@ -119,6 +131,14 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         case .gapStarted:
             
             gapStarted(message as! PlaybackGapStartedAsyncMessage)
+            
+        case .transcodingStarted:
+            
+            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
+            
+        case .trackNotPlayed:
+            
+            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
             
         default: return
             
