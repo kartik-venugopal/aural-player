@@ -108,6 +108,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func toggleLoop() -> PlaybackLoop?
     
+    func cancelTranscoding()
+    
     var profiles: PlaybackProfiles {get set}
 }
 

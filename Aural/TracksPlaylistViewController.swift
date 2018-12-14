@@ -545,8 +545,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let lastPlayedTrack = history.lastPlayedTrack
         let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
         
-        print("Pl state:", playbackInfo.state, oldTrack?.track.conciseDisplayName, lastPlayedTrack?.conciseDisplayName)
-        
         var refreshIndexes = [Int]()
         
         if (oldTrack != nil) {
