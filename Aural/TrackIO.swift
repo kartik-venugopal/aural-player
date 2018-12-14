@@ -45,11 +45,8 @@ class TrackIO {
         }
         
         // Track is valid, prepare it for playback
-        if AudioUtils.loadPlaybackInfo(track) {
-            
-            lazyLoadInfo.preparedForPlayback = true
-            
-        } else {
+        AudioUtils.loadPlaybackInfo(track)
+        if !lazyLoadInfo.preparedForPlayback && !lazyLoadInfo.needsTranscoding {
             
             // If track couldn't be prepared, mark it as not playable
             lazyLoadInfo.preparationFailed(TrackNotPlayableError(track))

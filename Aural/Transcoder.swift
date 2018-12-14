@@ -1,55 +1,59 @@
 import Foundation
 
-protocol TranscoderProtocol {
-    
-    func transcode(_ track: Track) -> URL
-}
-
 class Transcoder {
     
-    static func transcode(_ track: Track) -> URL? {
+    private static let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
+    
+    private static var transcodedTrack: Track!
+    private static var startTime: Date!
+    
+    static func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
         
-        if let filePath = Bundle.main.url(forResource: "avconv", withExtension: "")?.path {
+        let inputFile = track.file
+        let inputFileExtension = inputFile.pathExtension.lowercased()
+
+        let outputFileExtension = formatsMap[inputFileExtension] ?? "mp3"
+        
+        // File name needs to be unique. Otherwise, command execution will hang (libav will ask if you want to overwrite).
+        
+        let now = Date()
+        let outputFilePath = String(format: "%@-transcoded-%@.%@", inputFile.path, now.serializableString_hms(), outputFileExtension)
+        let outputFile = URL(fileURLWithPath: outputFilePath)
+        
+        AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
+        
+        DispatchQueue.global(qos: .userInteractive).async {
             
-            print("LibAV Binary:", filePath)
+            transcodedTrack = track
+            startTime = Date()
             
-            let srcFile = track.file
-            let origName = srcFile.lastPathComponent
-            let destFile = srcFile.deletingLastPathComponent().appendingPathComponent(origName + "-transcoded.mp3")
+            let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
+            trackPrepBlock(outputFile)
             
-            print(srcFile.path, "->", destFile.path)
+            if !transcodingResult {
+                track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
+            }
             
-            let start = Date()
-            let result = executeCommand(command: filePath, args: ["-i", srcFile.path, destFile.path])
-            let end = Date()
-            let time = end.timeIntervalSince(start)
-            
-            print("\n\n--------- RESULT --------------\n")
-            print(result, result.isEmpty)
-            print("\n\n--------- END RESULT --------------\n")
-            
-            print("\nTranscoding Time:", time)
-            
-            return destFile
+            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, transcodingResult && transcodedTrack.lazyLoadingInfo.preparedForPlayback))
         }
-        
-        return nil
     }
     
-    static func executeCommand(command: String, args: [String]) -> String {
+    private static func transcodingProgress(_ progressStr: String) {
         
-        let task = Process()
-        
-        task.launchPath = command
-        task.arguments = args
-        
-        let pipe = Pipe()
-        task.standardOutput = pipe
-        task.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
-        
-        return output
+        let line = progressStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if line.contains("size=") && line.contains("time=") {
+            
+            let timeStr = line.split(separator: "=")[2].split(separator: " ")[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if let time = Double(timeStr) {
+                
+                let perc = min(time * 100 / transcodedTrack.duration, 100)
+                let timeElapsed = Date().timeIntervalSince(startTime)
+                let totalTime = (100 * timeElapsed) / perc
+                let timeRemaining = totalTime - timeElapsed
+                
+                let msg = TranscodingProgressAsyncMessage(transcodedTrack, time, perc, timeElapsed, timeRemaining)
+                AsyncMessenger.publishMessage(msg)
+            }
+        }
     }
 }

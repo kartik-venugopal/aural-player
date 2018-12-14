@@ -38,7 +38,7 @@ class UIUtils {
     }
     
     // Centers a dialog with respect to the screen
-    private static func centerDialogWRTScreen(_ dialog: NSWindow) {
+    static func centerDialogWRTScreen(_ dialog: NSWindow) {
         
         let xPadding = (screen.width - dialog.width) / 2
         let yPadding = (screen.height - dialog.height) / 2

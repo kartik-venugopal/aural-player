@@ -14,36 +14,26 @@ class JSONMapper {
         
         // Primitive (no children)
         if isPrimitive(child.value) {
-            
-            let val = mapPrimitive(child.value)
-//            print(child.label, "(Primitive)", val)
-            return val
+            return mapPrimitive(child.value)
         }
         
         let childMirror = mirrorFor(child.value)
         
         // Array
         if childMirror.displayStyle == .collection {
-            let val = mapArray(child.value)
-//            print(child.label, "(Array)", val)
-            return val
+            return mapArray(child.value)
         }
         
         // Dictionary
         if childMirror.displayStyle == .dictionary {
-            let val = mapDictionary(child.value)
-//            print(child.label, "(Dict)", val)
-            return val
+            return mapDictionary(child.value)
         }
         
         // Class/struct type or Tuple
         if !childMirror.allChildren().isEmpty || childMirror.displayStyle == .tuple {
-            let val = mapObject(child.value, [])
-//            print(child.label, "(Object or Tuple)", val)
-            return val
+            return mapObject(child.value, [])
         }
         
-//        print(child.label, "Defaulting to primitive")
         // Default to primitive mapping
         return mapPrimitive(child.value)
     }

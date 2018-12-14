@@ -49,6 +49,12 @@ enum AsyncMessageType {
     case audioOutputChanged
     
     case gapStarted
+    
+    case transcodingStarted
+    
+    case transcodingProgress
+    
+    case transcodingFinished
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -285,5 +291,48 @@ struct PlaybackGapStartedAsyncMessage: AsyncMessage {
         
         self.lastPlayedTrack = lastPlayedTrack
         self.nextTrack = nextTrack
+    }
+}
+
+struct TranscodingStartedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .transcodingStarted
+    let track: Track
+    
+    init(_ track: Track) {
+        self.track = track
+    }
+}
+
+struct TranscodingProgressAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .transcodingProgress
+    
+    let track: Track
+    let timeTranscoded: Double
+    let percTranscoded: Double
+    let timeElapsed: Double
+    let timeRemaining: Double
+    
+    init(_ track: Track, _ timeTranscoded: Double, _ percTranscoded: Double, _ timeElapsed: Double, _ timeRemaining: Double) {
+        
+        self.track = track
+        self.timeTranscoded = timeTranscoded
+        self.percTranscoded = percTranscoded
+        self.timeElapsed = timeElapsed
+        self.timeRemaining = timeRemaining
+    }
+}
+
+struct TranscodingFinishedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .transcodingFinished
+    
+    let track: Track
+    let success: Bool
+    
+    init(_ track: Track, _ success: Bool) {
+        self.track = track
+        self.success = success
     }
 }
