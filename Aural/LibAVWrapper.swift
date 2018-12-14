@@ -9,6 +9,14 @@ class LibAVWrapper {
     static let getMetadata_timeout: Double = 1
     static let getArtwork_timeout: Double = 2
     
+    private static var runningTask: Process?
+    
+    static func cancelTask() {
+        
+        runningTask?.terminate()
+        runningTask = nil
+    }
+    
     static func transcode(_ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ output: String) -> Void)) -> Bool {
         
         if let binaryPath = avConvBinaryPath {
@@ -144,7 +152,8 @@ class LibAVWrapper {
             registerCallbackForPipe(outpipe, callback, task)
             registerCallbackForPipe(errpipe, callback, task)
         }
-        
+
+        runningTask = task
         task.launch()
 
         // End task after timeout interval
@@ -156,6 +165,12 @@ class LibAVWrapper {
         }
         
         task.waitUntilExit()
+        
+        if runningTask == nil {
+            // Task may have been canceled
+            return (output, error, -1)
+        }
+        
         let status = task.terminationStatus
         
         // TODO: Don't always read this stuff

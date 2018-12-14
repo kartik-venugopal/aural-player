@@ -7,6 +7,14 @@ class Transcoder {
     private static var transcodedTrack: Track!
     private static var startTime: Date!
     
+    static func cancel() {
+        
+        LibAVWrapper.cancelTask()
+        
+        startTime = nil
+        transcodedTrack = nil
+    }
+    
     static func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
         
         let inputFile = track.file
@@ -28,6 +36,12 @@ class Transcoder {
             startTime = Date()
             
             let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
+            
+            if transcodedTrack == nil {
+                // Transcoding has been canceled. Don't proceed.
+                return
+            }
+            
             trackPrepBlock(outputFile)
             
             if !transcodingResult {
@@ -40,19 +54,23 @@ class Transcoder {
     
     private static func transcodingProgress(_ progressStr: String) {
         
-        let line = progressStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if line.contains("size=") && line.contains("time=") {
+        // If transcoding is canceled, transcodedTrack may be nil
+        if let transcodedTrack = transcodedTrack {
             
-            let timeStr = line.split(separator: "=")[2].split(separator: " ")[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if let time = Double(timeStr) {
+            let line = progressStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if line.contains("size=") && line.contains("time=") {
                 
-                let perc = min(time * 100 / transcodedTrack.duration, 100)
-                let timeElapsed = Date().timeIntervalSince(startTime)
-                let totalTime = (100 * timeElapsed) / perc
-                let timeRemaining = totalTime - timeElapsed
-                
-                let msg = TranscodingProgressAsyncMessage(transcodedTrack, time, perc, timeElapsed, timeRemaining)
-                AsyncMessenger.publishMessage(msg)
+                let timeStr = line.split(separator: "=")[2].split(separator: " ")[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                if let time = Double(timeStr) {
+                    
+                    let perc = min(time * 100 / transcodedTrack.duration, 100)
+                    let timeElapsed = Date().timeIntervalSince(startTime)
+                    let totalTime = (100 * timeElapsed) / perc
+                    let timeRemaining = totalTime - timeElapsed
+                    
+                    let msg = TranscodingProgressAsyncMessage(transcodedTrack, time, perc, timeElapsed, timeRemaining)
+                    AsyncMessenger.publishMessage(msg)
+                }
             }
         }
     }

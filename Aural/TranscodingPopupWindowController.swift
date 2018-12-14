@@ -11,6 +11,8 @@ class TranscodingPopupWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBOutlet weak var bar: NSProgressIndicator!
     
+    private lazy var player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    
     var transcodedTrack: Track?
     
     var subscriberId: String {return self.className}
@@ -83,5 +85,10 @@ class TranscodingPopupWindowController: NSWindowController, AsyncMessageSubscrib
     override func close() {
         bar.stopAnimation(self)
         super.close()
+    }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        player.cancelTranscoding()
+        close()
     }
 }

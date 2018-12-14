@@ -88,7 +88,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         let isPlayingOrPaused = state.playingOrPaused()
         
-        let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : nil)
+        let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
         
         // Make note of which track was playing/waiting
         TrackChangeContext.setCurrentState(curTrack, state)
@@ -329,6 +329,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         prepareForTrackChange()
         TrackChangeContext.setNewTrack(nil)
+        pendingPlaybackBlock = {}
         
         PlaybackGapContext.clear()
         haltPlayback()
@@ -344,8 +345,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             player.stop()
         }
     }
-    
-    
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
@@ -586,6 +585,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func toggleLoop() -> PlaybackLoop? {
         return player.toggleLoop()
+    }
+    
+    func cancelTranscoding() {
+        Transcoder.cancel()
+        stop()
     }
     
     private func removeLoop() {
