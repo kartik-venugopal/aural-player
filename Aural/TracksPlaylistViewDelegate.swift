@@ -85,9 +85,13 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     
                     case .noTrack:
                         
-                        // Otherwise, create a text cell with the track index
-                        return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
-                    
+                        // This is a special case (when the track is being transcoded, but not yet playing)
+                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
+                            return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                        } else {
+                            // Otherwise, create a text cell with the track index
+                            return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                        }
                 }
                 
                 return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)

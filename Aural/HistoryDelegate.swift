@@ -14,6 +14,8 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
+    var lastPlayedTrack: Track?
+    
     init(_ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ historyState: HistoryState) {
         
         self.history = history
@@ -87,6 +89,8 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
+        
+        lastPlayedTrack = message.track
         history.addRecentlyPlayedItem(message.track, Date())
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }

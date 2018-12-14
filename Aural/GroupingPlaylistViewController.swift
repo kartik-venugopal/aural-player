@@ -15,6 +15,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
@@ -705,7 +707,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func transcodingStarted(_ track: Track) {
         
-        let oldTrack = playbackInfo.playingTrack
+        let lastPlayedTrack = history.lastPlayedTrack
+        let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
         
         if (oldTrack != nil) {
             

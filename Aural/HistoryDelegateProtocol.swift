@@ -20,4 +20,6 @@ protocol HistoryDelegateProtocol {
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int)
     
     func clearAllHistory()
+    
+    var lastPlayedTrack: Track? {get}
 }
