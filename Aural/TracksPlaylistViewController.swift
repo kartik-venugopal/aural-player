@@ -16,6 +16,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
@@ -540,7 +542,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func transcodingStarted(_ track: Track) {
         
-        let oldTrack = playbackInfo.playingTrack
+        let lastPlayedTrack = history.lastPlayedTrack
+        let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
+        
+        print("Pl state:", playbackInfo.state, oldTrack?.track.conciseDisplayName, lastPlayedTrack?.conciseDisplayName)
         
         var refreshIndexes = [Int]()
         
