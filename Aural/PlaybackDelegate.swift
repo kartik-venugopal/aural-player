@@ -663,7 +663,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             }
         }
         
-        // No ongoing recording, proceed with exit
+        Transcoder.deleteOutputFiles()
+        
+        // Proceed with exit
         return AppExitResponse.okToExit
     }
     

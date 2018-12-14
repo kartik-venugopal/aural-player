@@ -7,12 +7,21 @@ class Transcoder {
     private static var transcodedTrack: Track!
     private static var startTime: Date!
     
+    private static var outputFiles: [URL] = []
+    
     static func cancel() {
         
         LibAVWrapper.cancelTask()
         
         startTime = nil
         transcodedTrack = nil
+    }
+    
+    static func deleteOutputFiles() {
+        
+        for file in outputFiles {
+            FileSystemUtils.deleteFile(file.path)
+        }
     }
     
     static func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
@@ -36,6 +45,9 @@ class Transcoder {
             startTime = Date()
             
             let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
+            
+            // Used later to delete output files upon app exit
+                outputFiles.append(outputFile)
             
             if transcodedTrack == nil {
                 // Transcoding has been canceled. Don't proceed.
