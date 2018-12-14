@@ -703,6 +703,30 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    private func transcodingStarted(_ track: Track) {
+        
+        let oldTrack = playbackInfo.playingTrack
+        
+        if (oldTrack != nil) {
+            
+            playlistView.reloadItem(oldTrack!.track)
+            //            let row = playlistView.row(forItem: oldTrack!.track)
+            //            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+        }
+        
+        let newTrack = playlist.indexOfTrack(track)!
+        
+        if !newTrack.equals(oldTrack) {
+            
+            playlistView.reloadItem(track)
+            //                let row = playlistView.row(forItem: newTrack.track)
+            //                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+        }
+        
+        // Only need to do this if this playlist view is shown
+        selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
+    }
+    
     // Selects an item within the playlist view, to show a single result of a search
     private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
         
@@ -812,6 +836,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .gapStarted:
             
             gapStarted(message as! PlaybackGapStartedAsyncMessage)
+            
+        case .transcodingStarted:
+            
+            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
             
             
         default: return

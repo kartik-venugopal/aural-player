@@ -38,7 +38,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -538,6 +538,28 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
+    private func transcodingStarted(_ track: Track) {
+        
+        let oldTrack = playbackInfo.playingTrack
+        
+        var refreshIndexes = [Int]()
+        
+        if (oldTrack != nil) {
+            refreshIndexes.append(oldTrack!.index)
+        }
+        
+        let newTrack = playlist.indexOfTrack(track)!
+        
+        if oldTrack == nil || !oldTrack!.equals(newTrack) {
+            refreshIndexes.append(newTrack.index)
+        }
+        
+        selectTrack(newTrack.index)
+        
+        let indexSet: IndexSet = IndexSet(refreshIndexes)
+        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+    }
+    
     var subscriberId: String {
         return self.className
     }
@@ -567,6 +589,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
+            
+        case .transcodingStarted:
+            
+            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
             
         default: return
             
