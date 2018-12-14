@@ -236,6 +236,7 @@
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
 		3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9B104921C32D45008326FE /* TranscodingPopup.xib */; };
 		3E9B104C21C3318A008326FE /* TranscodingPopupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104B21C3318A008326FE /* TranscodingPopupWindowController.swift */; };
+		3E9B104E21C3CB4C008326FE /* TranscoderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */; };
 		3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */; };
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */; };
@@ -597,6 +598,7 @@
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		3E9B104921C32D45008326FE /* TranscodingPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscodingPopup.xib; sourceTree = "<group>"; };
 		3E9B104B21C3318A008326FE /* TranscodingPopupWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscodingPopupWindowController.swift; sourceTree = "<group>"; };
+		3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderStore.swift; sourceTree = "<group>"; };
 		3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -1001,7 +1003,6 @@
 		3E2D9E411F662B8D0020B99E /* Playback */ = {
 			isa = PBXGroup;
 			children = (
-				3E6D0F7E21C1C80400640450 /* Transcoder */,
 				3E84F8441F5FBFF90010BCDA /* Sequencing */,
 				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
 				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
@@ -1316,17 +1317,18 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		3E6D0F7E21C1C80400640450 /* Transcoder */ = {
+		3E6D0F7E21C1C80400640450 /* Transcoding */ = {
 			isa = PBXGroup;
 			children = (
+				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
+				3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */,
 			);
-			name = Transcoder;
+			name = Transcoding;
 			sourceTree = "<group>";
 		};
 		3E6D0F8321C1D42A00640450 /* LibAV */ = {
 			isa = PBXGroup;
 			children = (
-				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
 				3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */,
 				3E6D0F8821C2542A00640450 /* LibAVInfo.swift */,
 			);
@@ -1467,6 +1469,7 @@
 				3EA262671F0EFD9600D9BCD9 /* UI */,
 				3E98477F1F5CF0E6001A2D28 /* Playlist */,
 				3E2D9E411F662B8D0020B99E /* Playback */,
+				3E6D0F7E21C1C80400640450 /* Transcoding */,
 				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
 				3E2D9E421F662BB90020B99E /* Recorder */,
 				3E06C0281FB6B105003EE9AB /* History */,
@@ -2113,6 +2116,7 @@
 				3EF5E5C81FBDBE9C004270A4 /* PlaylistContextMenuController.swift in Sources */,
 				3E066C29216C601500E4FE80 /* PitchPresetsEditorViewController.swift in Sources */,
 				3EA2E648219256BD00FB5BAC /* PitchView.swift in Sources */,
+				3E9B104E21C3CB4C008326FE /* TranscoderStore.swift in Sources */,
 				3EB2A7EA1F04424E001DF748 /* PopupMenuCells.swift in Sources */,
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,
 				3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */,

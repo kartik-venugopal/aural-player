@@ -804,6 +804,28 @@ extension PlaybackProfile {
     }
 }
 
+class TranscoderState: PersistentState {
+    
+    var entries: [URL: URL] = [:]
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = TranscoderState()
+        
+        if let entries = map["entries"] as? NSDictionary {
+            
+            for (inFilePath, outFilePath) in entries {
+                
+                let inFile = URL(fileURLWithPath: String(describing: inFilePath))
+                let outFile = URL(fileURLWithPath: String(describing: outFilePath))
+                state.entries[inFile] = outFile
+            }
+        }
+        
+        return state
+    }
+}
+
 /*
  Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
@@ -815,6 +837,8 @@ class AppState {
     var audioGraph: AudioGraphState = AudioGraphState()
     var playlist: PlaylistState = PlaylistState()
     var playbackSequence: PlaybackSequenceState = PlaybackSequenceState()
+    var transcoder: TranscoderState = TranscoderState()
+    
     var history: HistoryState = HistoryState()
     var favorites: [URL] = [URL]()
     var bookmarks: [BookmarkState] = []
@@ -841,6 +865,10 @@ class AppState {
         
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
             state.playlist = PlaylistState.deserialize(playlistDict) as! PlaylistState
+        }
+        
+        if let transcoderDict = (jsonObject["transcoder"] as? NSDictionary) {
+            state.transcoder = TranscoderState.deserialize(transcoderDict) as! TranscoderState
         }
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {

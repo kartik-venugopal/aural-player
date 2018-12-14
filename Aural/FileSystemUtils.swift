@@ -17,6 +17,22 @@ class FileSystemUtils {
         return fileManager.fileExists(atPath: path)
     }
     
+    static func createDirectory(_ dir: URL) {
+        
+        if fileExists(dir) {
+            return
+        }
+        
+        do
+        {
+            try FileManager.default.createDirectory(atPath: dir.path, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch let error as NSError
+        {
+            NSLog("Unable to create directory '%@' \(error.debugDescription)", dir.path)
+        }
+    }
+    
     // Renames a file
     static func renameFile(_ src: URL, _ target: URL) {
         do {

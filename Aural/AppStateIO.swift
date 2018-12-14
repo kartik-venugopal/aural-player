@@ -9,6 +9,8 @@ class AppStateIO {
     // Saves app state to default user documents directory
     static func save(_ state: AppState) {
         
+        FileSystemUtils.createDirectory(AppConstants.FilesAndPaths.baseDir)
+        
         if let outputStream = OutputStream(url: AppConstants.FilesAndPaths.appStateFile, append: false) {
             
             outputStream.open()

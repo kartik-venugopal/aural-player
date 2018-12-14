@@ -132,6 +132,8 @@ class ObjectGraph {
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
+        
+        Transcoder.initializeStore(appState.transcoder)
     }
     
     // Called when app exits
@@ -143,6 +145,9 @@ class ObjectGraph {
         appState.playlist = (playlist as! Playlist).persistentState() as! PlaylistState
         appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
+        
+        appState.transcoder = TranscoderState()
+        appState.transcoder.entries = Transcoder.store.map
         
         appState.ui = UIState()
         appState.ui.windowLayout = layoutManager.persistentState()

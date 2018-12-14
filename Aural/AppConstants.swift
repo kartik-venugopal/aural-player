@@ -107,20 +107,20 @@ struct AppConstants {
     struct FilesAndPaths {
         
         // Default user's documents directory (where app state and log are written to)
-        static let documentsDir: URL = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!)
+        static let baseDir: URL = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!).appendingPathComponent("aural", isDirectory: true)
         
         // App state/log files
-        static let appStateFileName = "auralPlayer-state.json"
-        static let appStateFile: URL = documentsDir.appendingPathComponent(appStateFileName)
+        static let appStateFileName = "state.json"
+        static let appStateFile: URL = baseDir.appendingPathComponent(appStateFileName)
         
-        static let logFileName = "auralPlayer.log"
-        static let logFile: URL = documentsDir.appendingPathComponent(logFileName)
+        static let logFileName = "aural.log"
+        static let logFile: URL = baseDir.appendingPathComponent(logFileName)
         
         // Default user's music directory (default place to look in, when opening/saving files)
         static let musicDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
         
         // Directory where recordings are temporarily stored, till the user defines the location
-        static let recordingDir: URL = musicDir
+        static let recordingDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
     }
     
     // Link to online user guide
