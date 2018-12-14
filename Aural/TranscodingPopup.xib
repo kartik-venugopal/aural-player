@@ -31,7 +31,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oKi-ma-epY" userLabel="Caption">
                         <rect key="frame" x="3" y="193" width="471" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="bJ8-vE-KH7">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Transcoding ..." id="bJ8-vE-KH7">
                             <font key="font" size="15" name="GillSans"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
