@@ -83,6 +83,11 @@ class TranscodingPopupWindowController: NSWindowController, AsyncMessageSubscrib
     }
     
     override func close() {
+        
+        if (!self.isWindowLoaded) {
+            return
+        }
+        
         bar.stopAnimation(self)
         super.close()
     }

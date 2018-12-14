@@ -663,8 +663,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             }
         }
         
-        Transcoder.deleteOutputFiles()
-        
         // Proceed with exit
         return AppExitResponse.okToExit
     }

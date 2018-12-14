@@ -2,12 +2,20 @@ import Foundation
 
 class Transcoder {
     
+    static let store = TranscoderStore()
+    
     private static let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
     
     private static var transcodedTrack: Track!
     private static var startTime: Date!
     
-    private static var outputFiles: [URL] = []
+    // TODO: Move this init code to TranscoderStore.init()
+    static func initializeStore(_ state: TranscoderState) {
+        
+        state.entries.forEach({
+            store.map[$0.key] = $0.value
+        })
+    }
     
     static func cancel() {
         
@@ -17,16 +25,19 @@ class Transcoder {
         transcodedTrack = nil
     }
     
-    static func deleteOutputFiles() {
-        
-        for file in outputFiles {
-            FileSystemUtils.deleteFile(file.path)
-        }
-    }
-    
     static func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
         
+        // TODO: This method should tell caller that it found a prepared file, no need to wait for playback
+        if let outFile = store.getForTrack(track) {
+            
+            trackPrepBlock(outFile)
+            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, true))
+            return
+        }
+        
         let inputFile = track.file
+        let inputFileName = inputFile.lastPathComponent
+        
         let inputFileExtension = inputFile.pathExtension.lowercased()
 
         let outputFileExtension = formatsMap[inputFileExtension] ?? "mp3"
@@ -34,8 +45,9 @@ class Transcoder {
         // File name needs to be unique. Otherwise, command execution will hang (libav will ask if you want to overwrite).
         
         let now = Date()
-        let outputFilePath = String(format: "%@-transcoded-%@.%@", inputFile.path, now.serializableString_hms(), outputFileExtension)
-        let outputFile = URL(fileURLWithPath: outputFilePath)
+        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, now.serializableString_hms(), outputFileExtension)
+        
+        let outputFile = store.addEntry(track, outputFileName)
         
         AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
         
@@ -45,9 +57,6 @@ class Transcoder {
             startTime = Date()
             
             let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
-            
-            // Used later to delete output files upon app exit
-                outputFiles.append(outputFile)
             
             if transcodedTrack == nil {
                 // Transcoding has been canceled. Don't proceed.
