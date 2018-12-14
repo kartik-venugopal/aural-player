@@ -4,24 +4,20 @@ class LibAVWrapper {
     
     static let avConvBinaryPath: String? = Bundle.main.url(forResource: "avconv", withExtension: "")?.path
     
-    static let metadataIgnoreKeys: [String] = ["Stream #0.0", "Stream #0.1", "Stream #0.2", "bitrate"]
+    static let metadataIgnoreKeys: [String] = ["bitrate"]
     
-    static let transcodingFormatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
-    
-    static func transcode(_ inputFile: URL) -> URL? {
+    static func transcode(_ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ output: String) -> Void)) -> Bool {
         
         if let binaryPath = avConvBinaryPath {
             
-            let inputFileExtension = inputFile.pathExtension.lowercased()
-            let outputFileExtension = transcodingFormatsMap[inputFileExtension] ?? "mp3"
-            
-            let outputFile = URL(fileURLWithPath: inputFile.path + "-transcoded." + outputFileExtension)
-            _ = runCommand(cmd: binaryPath, args: "-i", inputFile.path, "-ac" , "2" , outputFile.path)
-            
-            return outputFile
+            // -vn: Ignore video stream (including album art)
+            // -sn: Ignore subtitles
+            // -ac 2: Convert to stereo audio
+            let result = runCommand(cmd: binaryPath, timeout: nil, callback: progressCallback, args: "-i", inputFile.path, "-vn", "-sn", "-ac", "2" , outputFile.path)
+            return result.exitCode == 0
         }
         
-        return nil
+        return false
     }
     
     static func getMetadata(_ inputFile: URL) -> LibAVInfo {
@@ -32,7 +28,7 @@ class LibAVWrapper {
         
         if let binaryPath = avConvBinaryPath {
             
-            let cmdOutput = runCommand(cmd: binaryPath, args: "-i", inputFile.path)
+            let cmdOutput = runCommand(cmd: binaryPath, timeout: nil, callback: nil, args: "-i", inputFile.path)
             
             var foundMetadata: Bool = false
             outerLoop: for line in cmdOutput.error {
@@ -109,8 +105,9 @@ class LibAVWrapper {
         
         if let binaryPath = avConvBinaryPath {
             
-            let imgPath = inputFile.path + "-albumArt.jpg"
-            let cmdOutput = runCommand(cmd: binaryPath, args: "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath)
+            let now = Date()
+            let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
+            let cmdOutput = runCommand(cmd: binaryPath, timeout: nil, callback: nil, args: "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath)
             if cmdOutput.exitCode == 0 {
                 return NSImage(contentsOf: URL(fileURLWithPath: imgPath))
             }
@@ -119,7 +116,7 @@ class LibAVWrapper {
         return nil
     }
     
-    private static func runCommand(cmd : String, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
+    private static func runCommand(cmd : String, timeout: Double?, callback: ((_ output: String) -> Void)?, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
         
         var output : [String] = []
         var error : [String] = []
@@ -130,11 +127,16 @@ class LibAVWrapper {
         
         let outpipe = Pipe()
         task.standardOutput = outpipe
+        
         let errpipe = Pipe()
         task.standardError = errpipe
         
-        task.launch()
+        if let callback = callback {
+            registerCallbackForPipe(outpipe, callback, task)
+            registerCallbackForPipe(errpipe, callback, task)
+        }
         
+        task.launch()
         task.waitUntilExit()
         let status = task.terminationStatus
         
@@ -153,4 +155,20 @@ class LibAVWrapper {
         return (output, error, status)
     }
     
+    private static func registerCallbackForPipe(_ pipe: Pipe, _ callback: @escaping ((_ output: String) -> Void), _ task: Process) {
+        
+        pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: pipe.fileHandleForReading , queue: nil) {
+            notification in
+            
+            let output = pipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            callback(outputString)
+            
+            if task.isRunning {
+                pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            }
+        }
+    }
 }

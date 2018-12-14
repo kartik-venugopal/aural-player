@@ -78,6 +78,21 @@ extension Date {
         return String(format: "%d_%d_%d_%d_%d", year, month, day, hour, minute)
     }
     
+    // Returns a String suitable for serialization as a timestamp, in the format: YYYY_MM_DD_hh_mm
+    func serializableString_hms() -> String {
+        
+        let calendar = Calendar.current
+        
+        let year = calendar.component(.year, from: self)
+        let month = calendar.component(.month, from: self)
+        let day = calendar.component(.day, from: self)
+        let hour = calendar.component(.hour, from: self)
+        let minute = calendar.component(.minute, from: self)
+        let second = calendar.component(.second, from: self)
+        
+        return String(format: "%d_%d_%d_%d_%d_%d", year, month, day, hour, minute, second)
+    }
+    
     // Constructs a Date from a String of the format: YYYY_MM_DD_hh_mm (created by the serializableString() function)
     static func fromString(_ string: String) -> Date {
         

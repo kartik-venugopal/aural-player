@@ -21,6 +21,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var profiles: PlaybackProfiles
     
+    private var pendingPlaybackBlock: (() -> Void) = {}
+    
     init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
@@ -34,7 +36,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
-        AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: trackPlaybackQueue)
+        AsyncMessenger.subscribe([.playbackCompleted, .transcodingFinished], subscriber: self, dispatchQueue: trackPlaybackQueue)
     }
     
     var subscriberId: String {
@@ -278,15 +280,27 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             return
         }
         
-        SyncMessenger.publishNotification(PreTrackChangeNotification(TrackChangeContext.currentTrack, TrackChangeContext.currentState, TrackChangeContext.newTrack))
+        let playbackBlock = {
+            
+            SyncMessenger.publishNotification(PreTrackChangeNotification(TrackChangeContext.currentTrack, TrackChangeContext.currentState, TrackChangeContext.newTrack))
+            
+            self.player.play(track, startPosition ?? 0, endPosition)
+            
+            // TODO: Can we consolidate these 2 notifications into one ?
+            AsyncMessenger.publishMessage(TrackChangeContext.encapsulate())
+            
+            // Notify observers
+            AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: track))
+        }
         
-        player.play(track, startPosition ?? 0, endPosition)
-        
-        // TODO: Can we consolidate these 2 notifications into one ?
-        AsyncMessenger.publishMessage(TrackChangeContext.encapsulate())
-        
-        // Notify observers
-        AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: track))
+        if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
+            
+            // Defer playback until transcoding finishes
+            pendingPlaybackBlock = playbackBlock
+            
+        } else {
+            playbackBlock()
+        }
     }
     
     // MARK: Other functions
@@ -656,6 +670,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         if (message is PlaybackCompletedAsyncMessage) {
             trackPlaybackCompleted()
             return
+        }
+        
+        if (message is TranscodingFinishedAsyncMessage) {
+            
+            let msg = message as! TranscodingFinishedAsyncMessage
+            
+            if msg.success {
+                pendingPlaybackBlock()
+            } else {
+                // Send out playback error message "transcoding failed"
+                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, msg.track.lazyLoadingInfo.preparationError!))
+            }
         }
     }
     

@@ -174,6 +174,8 @@ class LazyLoadingInfo {
     // Whether or not the track is ready for playback
     var preparedForPlayback: Bool = false
     
+    var needsTranscoding: Bool = false
+    
     // Whether or not track metadata and audio/filesystem info has been loaded
     var detailedInfoLoaded: Bool = false
     

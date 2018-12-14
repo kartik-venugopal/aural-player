@@ -66,45 +66,35 @@ class AudioUtils {
     }
     
     // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
-    static func loadPlaybackInfo(_ track: Track) -> Bool {
+    static func loadPlaybackInfo(_ track: Track) {
         
-        // TODO: Check if need to transcode
-        
-        var trackFile = track.file
+        let preparationBlock = {(file: URL) -> Void in
+            
+            if let audioFile = AudioIO.createAudioFileForReading(file) {
+                
+                let playbackInfo = PlaybackInfo()
+                
+                playbackInfo.audioFile = audioFile
+                playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+                
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+                
+                track.playbackInfo = playbackInfo
+                
+                track.lazyLoadingInfo.preparedForPlayback = true
+            }
+        }
         
         if !track.nativelySupported {
             
-            if let transFile = LibAVWrapper.transcode(track.file) {
-                trackFile = transFile
-            } else {
-                // Transcoding failed. TODO: Show error
-                return false
-            }
+            // Transcode the track and let the transcoder prepare the track for playback
+            track.lazyLoadingInfo.needsTranscoding = true
+            Transcoder.transcodeAsync(track, preparationBlock)
+            
+        } else {
+            preparationBlock(track.file)
         }
-        
-        if let audioFile = AudioIO.createAudioFileForReading(trackFile) {
-        
-            let playbackInfo = PlaybackInfo()
-            
-            playbackInfo.audioFile = audioFile
-            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-            
-            if (!track.hasDuration()) {
-                let duration = track.audioAsset!.duration.seconds
-                track.setDuration(duration)
-                
-                // TODO: Emit track updated event, so that duration is updated in UI
-            }
-            
-            playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-            playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
-            
-            track.playbackInfo = playbackInfo
-            
-            return true
-        }
-        
-        return false
     }
     
     // Loads detailed audio-specific info for the given track

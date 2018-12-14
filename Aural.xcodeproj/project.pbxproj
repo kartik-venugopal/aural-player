@@ -234,6 +234,8 @@
 		3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98CBC6216B3C8F0025A77E /* EQPresetsEditor.xib */; };
 		3E98CBC9216B3D280025A77E /* EQPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CBC8216B3D280025A77E /* EQPresetsEditorViewController.swift */; };
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
+		3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9B104921C32D45008326FE /* TranscodingPopup.xib */; };
+		3E9B104C21C3318A008326FE /* TranscodingPopupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104B21C3318A008326FE /* TranscodingPopupWindowController.swift */; };
 		3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */; };
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */; };
@@ -593,6 +595,8 @@
 		3E98CBC6216B3C8F0025A77E /* EQPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPresetsEditor.xib; sourceTree = "<group>"; };
 		3E98CBC8216B3D280025A77E /* EQPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		3E9B104921C32D45008326FE /* TranscodingPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscodingPopup.xib; sourceTree = "<group>"; };
+		3E9B104B21C3318A008326FE /* TranscodingPopupWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscodingPopupWindowController.swift; sourceTree = "<group>"; };
 		3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -786,6 +790,7 @@
 				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
 				3E309B721FB70B7800C61E72 /* FavoritesPopup */,
+				3E9B104821C32D16008326FE /* TranscodingPopup */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -1314,7 +1319,6 @@
 		3E6D0F7E21C1C80400640450 /* Transcoder */ = {
 			isa = PBXGroup;
 			children = (
-				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
 			);
 			name = Transcoder;
 			sourceTree = "<group>";
@@ -1322,6 +1326,7 @@
 		3E6D0F8321C1D42A00640450 /* LibAV */ = {
 			isa = PBXGroup;
 			children = (
+				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
 				3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */,
 				3E6D0F8821C2542A00640450 /* LibAVInfo.swift */,
 			);
@@ -1511,6 +1516,15 @@
 				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
 			);
 			name = Playlist;
+			sourceTree = "<group>";
+		};
+		3E9B104821C32D16008326FE /* TranscodingPopup */ = {
+			isa = PBXGroup;
+			children = (
+				3E9B104921C32D45008326FE /* TranscodingPopup.xib */,
+				3E9B104B21C3318A008326FE /* TranscodingPopupWindowController.swift */,
+			);
+			name = TranscodingPopup;
 			sourceTree = "<group>";
 		};
 		3EA19C1F1FC16A210072929E /* Controls */ = {
@@ -1871,6 +1885,7 @@
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
+				3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */,
 				3E0ED6B81FBB1C34008268B3 /* Reverb.xib in Resources */,
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
@@ -2053,6 +2068,7 @@
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,
 				3EBA52F51FC2E29E007F902F /* KeyCodeConstants.swift in Sources */,
 				3E0839B02195756F008D84BA /* TimeUnitDelegate.swift in Sources */,
+				3E9B104C21C3318A008326FE /* TranscodingPopupWindowController.swift in Sources */,
 				3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */,
 				3E50DC91219388D200D42373 /* DelayView.swift in Sources */,
 				3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */,

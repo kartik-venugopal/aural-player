@@ -71,20 +71,10 @@ class ObjectGraph {
         // Load persistent app state from disk
         appState = AppStateIO.load()
         
-//
-//        for (k, v) in map {
-//            print(k, "->", v, map2[k])
-//        }
-        
         // Use defaults if app state could not be loaded from disk
         if (appState == nil) {
             appState = AppState.defaults
         }
-        
-//        mirror("timeState", appState.historyState)
-//        pTypes.forEach({print($0)})
-        
-//        print(Mapper.map(appState.historyState))
         
         // Preferences (and delegate)
         preferences = Preferences.instance()
