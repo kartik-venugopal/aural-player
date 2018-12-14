@@ -38,7 +38,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.menu = contextMenu
         
         initSubscriptions()
-        SyncMessenger.subscribe(messageTypes: [.gapUpdatedNotification], subscriber: self)
         
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
@@ -52,7 +51,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -61,7 +60,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -679,6 +678,31 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+        
+        let oldTrack = message.oldTrack
+        let errTrack = playlist.indexOfTrack(message.error.track)!
+        
+        if (oldTrack != nil) {
+            
+            playlistView.reloadItem(oldTrack!.track)
+            //            let row = playlistView.row(forItem: oldTrack!.track)
+            //            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+        }
+        
+        if !errTrack.equals(oldTrack) {
+            
+            playlistView.reloadItem(errTrack.track)
+            //                let row = playlistView.row(forItem: errTrack.track)
+            //                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+        }
+        
+        // Only need to do this if this playlist view is shown
+        if let curViewGroupType = PlaylistViewState.current.toGroupType(), curViewGroupType == self.groupType {
+            selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack.track))
+        }
+    }
+    
     // Selects an item within the playlist view, to show a single result of a search
     private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
         
@@ -780,6 +804,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .tracksRemoved:
             
             tracksRemoved(message as! TracksRemovedAsyncMessage)
+            
+        case .trackNotPlayed:
+            
+            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
             
         case .gapStarted:
             
