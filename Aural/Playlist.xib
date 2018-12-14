@@ -277,7 +277,7 @@
                                         </tabViewItem>
                                         <tabViewItem label="Albums" identifier="" id="4Fq-vE-T4h" userLabel="Albums Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="J1H-q9-Gxc">
-                                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -286,7 +286,7 @@
                                         </tabViewItem>
                                         <tabViewItem label="Genres" identifier="" id="NvB-Mp-ZyB" userLabel="Genres Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="dBa-xP-gyx">
-                                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>

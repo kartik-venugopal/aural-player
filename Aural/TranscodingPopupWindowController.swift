@@ -2,8 +2,16 @@ import Cocoa
 
 class TranscodingPopupWindowController: NSWindowController, AsyncMessageSubscriber {
     
-    @IBOutlet weak var lblProgress: NSTextField!
+    @IBOutlet weak var lblCaption: NSTextField!
+    
+    @IBOutlet weak var lblTrackTime: NSTextField!
+    @IBOutlet weak var lblPercentage: NSTextField!
+    @IBOutlet weak var lblTimeElapsed: NSTextField!
+    @IBOutlet weak var lblTimeRemaining: NSTextField!
+    
     @IBOutlet weak var bar: NSProgressIndicator!
+    
+    var transcodedTrack: Track?
     
     var subscriberId: String {return self.className}
     
@@ -19,38 +27,56 @@ class TranscodingPopupWindowController: NSWindowController, AsyncMessageSubscrib
         AsyncMessenger.subscribe([.transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
-    override func showWindow(_ sender: Any?) {
+    func transcodingStarted(_ track: Track) {
+        
+        transcodedTrack = track
         
         if (!self.isWindowLoaded) {
             _ = self.window!
         }
         
-        lblProgress.stringValue = "Track time transcoded:  0\nPercentage completed:  0 %%\nTime elapsed:   0:00\nEst. time remaining:   (Calculating ...)"
+        lblCaption.stringValue = String(format: "Transcoding track:   %@", transcodedTrack?.conciseDisplayName ?? "")
+        lblTrackTime.stringValue = "0"
+        lblPercentage.stringValue = "0 %"
+        lblTimeElapsed.stringValue = "0:00"
+        lblTimeRemaining.stringValue = "(Calculating ...)"
+        
         bar.doubleValue = 0
         bar.startAnimation(self)
         
         // Offset the dialog from the main window a bit, before showing it
         let mwFrame = layoutManager.getMainWindowFrame()
         var thisFrame = theWindow.frame
-        thisFrame.origin = mwFrame.origin.applying(CGAffineTransform.init(translationX: 50, y: -50))
-        theWindow.setFrame(thisFrame, display: true)
+        thisFrame.origin = mwFrame.origin.applying(CGAffineTransform.init(translationX: 25, y: -150))
         
+        layoutManager.addChildWindow(theWindow)
+        theWindow.setFrame(thisFrame, display: true)
         super.showWindow(self)
+        theWindow.orderFront(self)
+    }
+
+    private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
+        
+        let time = StringUtils.formatSecondsToHMS(msg.timeTranscoded)
+        let trackDuration = StringUtils.formatSecondsToHMS(msg.track.duration)
+        let perc = Int(round(msg.percTranscoded))
+        
+        let elapsed = StringUtils.formatSecondsToHMS(msg.timeElapsed)
+        let remaining = StringUtils.formatSecondsToHMS(msg.timeRemaining)
+        
+        lblTrackTime.stringValue = String(format: "%@ / %@", time, trackDuration)
+        lblPercentage.stringValue = String(format: "%d %%", perc)
+        lblTimeElapsed.stringValue = String(format: "%@", elapsed)
+        lblTimeRemaining.stringValue = String(format: "%@", remaining)
+        
+        bar.doubleValue = msg.percTranscoded
     }
 
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if let msg = message as? TranscodingProgressAsyncMessage {
-            
-            let time = StringUtils.formatSecondsToHMS(msg.timeTranscoded)
-            let trackDur = StringUtils.formatSecondsToHMS(msg.track.duration)
-            let perc = Int(round(msg.percTranscoded))
-            
-            let elapsed = StringUtils.formatSecondsToHMS(msg.timeElapsed)
-            let remaining = StringUtils.formatSecondsToHMS(msg.timeRemaining)
-            
-            lblProgress.stringValue = String(format: "Track time transcoded:  %@ / %@\nPercentage completed:  %d %%\nTime elapsed:   %@\nEst. time remaining:   %@", time, trackDur, perc, elapsed, remaining)
-            bar.doubleValue = msg.percTranscoded
+            transcodingProgress(msg)
+            return
         }
     }
     

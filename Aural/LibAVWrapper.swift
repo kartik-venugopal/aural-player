@@ -6,6 +6,9 @@ class LibAVWrapper {
     
     static let metadataIgnoreKeys: [String] = ["bitrate"]
     
+    static let getMetadata_timeout: Double = 1
+    static let getArtwork_timeout: Double = 2
+    
     static func transcode(_ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ output: String) -> Void)) -> Bool {
         
         if let binaryPath = avConvBinaryPath {
@@ -13,7 +16,7 @@ class LibAVWrapper {
             // -vn: Ignore video stream (including album art)
             // -sn: Ignore subtitles
             // -ac 2: Convert to stereo audio
-            let result = runCommand(cmd: binaryPath, timeout: nil, callback: progressCallback, args: "-i", inputFile.path, "-vn", "-sn", "-ac", "2" , outputFile.path)
+            let result = runCommand(cmd: binaryPath, timeout: nil, callback: progressCallback, readOutput: false, readErr: false, args: "-i", inputFile.path, "-vn", "-sn", "-ac", "2" , outputFile.path)
             return result.exitCode == 0
         }
         
@@ -27,8 +30,10 @@ class LibAVWrapper {
         var duration: Double = 0
         
         if let binaryPath = avConvBinaryPath {
-            
-            let cmdOutput = runCommand(cmd: binaryPath, timeout: nil, callback: nil, args: "-i", inputFile.path)
+
+            let tim = TimerUtils.start("getMetadata")
+            let cmdOutput = runCommand(cmd: binaryPath, timeout: getMetadata_timeout, callback: nil, readOutput: false, readErr: true, args: "-i", inputFile.path)
+            tim.end()
             
             var foundMetadata: Bool = false
             outerLoop: for line in cmdOutput.error {
@@ -107,7 +112,11 @@ class LibAVWrapper {
             
             let now = Date()
             let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
-            let cmdOutput = runCommand(cmd: binaryPath, timeout: nil, callback: nil, args: "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath)
+            
+            let tim = TimerUtils.start("getArtwork")
+            let cmdOutput = runCommand(cmd: binaryPath, timeout: getArtwork_timeout, callback: nil, readOutput: false, readErr: false, args: "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath)
+            tim.end()
+            
             if cmdOutput.exitCode == 0 {
                 return NSImage(contentsOf: URL(fileURLWithPath: imgPath))
             }
@@ -116,7 +125,7 @@ class LibAVWrapper {
         return nil
     }
     
-    private static func runCommand(cmd : String, timeout: Double?, callback: ((_ output: String) -> Void)?, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
+    private static func runCommand(cmd : String, timeout: Double?, callback: ((_ output: String) -> Void)?, readOutput: Bool, readErr: Bool, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
         
         var output : [String] = []
         var error : [String] = []
@@ -137,19 +146,36 @@ class LibAVWrapper {
         }
         
         task.launch()
+
+        // End task after timeout interval
+        if let timeout = timeout {
+            
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + timeout, execute: {
+                task.terminate()
+            })
+        }
+        
         task.waitUntilExit()
         let status = task.terminationStatus
         
-        let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
-        if var string = String(data: outdata, encoding: .utf8) {
-            string = string.trimmingCharacters(in: .newlines)
-            output = string.components(separatedBy: "\n")
+        // TODO: Don't always read this stuff
+        
+        if readOutput {
+            
+            let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
+            if var string = String(data: outdata, encoding: .utf8) {
+                string = string.trimmingCharacters(in: .newlines)
+                output = string.components(separatedBy: "\n")
+            }
         }
         
-        let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
-        if var string = String(data: errdata, encoding: .utf8) {
-            string = string.trimmingCharacters(in: .newlines)
-            error = string.components(separatedBy: "\n")
+        if readErr {
+            
+            let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
+            if var string = String(data: errdata, encoding: .utf8) {
+                string = string.trimmingCharacters(in: .newlines)
+                error = string.components(separatedBy: "\n")
+            }
         }
         
         return (output, error, status)

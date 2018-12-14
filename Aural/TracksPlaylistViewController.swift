@@ -38,7 +38,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -359,9 +359,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func trackChanged(_ message: TrackChangedNotification) {
-        
-        let oldTrack = message.oldTrack
-        let newTrack = message.newTrack
+        trackChanged(message.oldTrack, message.newTrack)
+    }
+    
+    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
         
         var refreshIndexes = [Int]()
         
@@ -405,6 +406,28 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+    }
+    
+    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+        
+        let oldTrack = message.oldTrack
+        let errTrack = playlist.indexOfTrack(message.error.track)!
+        
+        var refreshIndexes = [Int]()
+        
+        if (oldTrack != nil) {
+            refreshIndexes.append(oldTrack!.index)
+        }
+        
+        // If new and old are the same, don't refresh the same row twice
+        if !errTrack.equals(oldTrack) {
+            refreshIndexes.append(errTrack.index)
+        }
+            
+        selectTrack(errTrack.index)
+        
+        let indexSet: IndexSet = IndexSet(refreshIndexes)
+        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single result of a search
@@ -538,6 +561,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .gapStarted:
             
             gapStarted(message as! PlaybackGapStartedAsyncMessage)
+            
+        case .trackNotPlayed:
+            
+            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
             
         default: return
             

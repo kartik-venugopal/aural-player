@@ -158,6 +158,10 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         playlistWindow.setIsVisible(false)
     }
     
+    func addChildWindow(_ window: NSWindow) {
+        mainWindow.addChildWindow(window, ordered: .above)
+    }
+    
     // MARK ----------- Playlist window docking ----------------------------------------------------
     
     // Docks the playlist below the main window
