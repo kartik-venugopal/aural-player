@@ -423,8 +423,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if !errTrack.equals(oldTrack) {
             refreshIndexes.append(errTrack.index)
         }
-            
-        selectTrack(errTrack.index)
+        
+        if PlaylistViewState.current == .tracks {
+            selectTrack(errTrack.index)
+        }
         
         let indexSet: IndexSet = IndexSet(refreshIndexes)
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
