@@ -1,31 +1,26 @@
 import Foundation
 
-class Transcoder {
+protocol TranscoderProtocol {
     
-    static let store = TranscoderStore()
+    func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void))
     
-    private static let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
+    func cancel()
+}
+
+class Transcoder: TranscoderProtocol, PersistentModelObject {
     
-    private static var transcodedTrack: Track!
-    private static var startTime: Date!
+    let store: TranscoderStore
     
-    // TODO: Move this init code to TranscoderStore.init()
-    static func initializeStore(_ state: TranscoderState) {
-        
-        state.entries.forEach({
-            store.map[$0.key] = $0.value
-        })
+    private let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
+    
+    private var transcodedTrack: Track!
+    private var startTime: Date!
+    
+    init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
+        store = TranscoderStore(state, preferences)
     }
     
-    static func cancel() {
-        
-        LibAVWrapper.cancelTask()
-        
-        startTime = nil
-        transcodedTrack = nil
-    }
-    
-    static func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
+    func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
         
         // TODO: This method should tell caller that it found a prepared file, no need to wait for playback
         if let outFile = store.getForTrack(track) {
@@ -53,12 +48,12 @@ class Transcoder {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            transcodedTrack = track
-            startTime = Date()
+            self.transcodedTrack = track
+            self.startTime = Date()
             
             let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
             
-            if transcodedTrack == nil {
+            if self.transcodedTrack == nil {
                 // Transcoding has been canceled. Don't proceed.
                 return
             }
@@ -69,14 +64,14 @@ class Transcoder {
                 track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
             }
             
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, transcodingResult && transcodedTrack.lazyLoadingInfo.preparedForPlayback))
+            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, transcodingResult && self.transcodedTrack.lazyLoadingInfo.preparedForPlayback))
         }
     }
     
-    private static func transcodingProgress(_ progressStr: String) {
+    private func transcodingProgress(_ progressStr: String) {
         
         // If transcoding is canceled, transcodedTrack may be nil
-        if let transcodedTrack = transcodedTrack {
+        if let transcodedTrack = self.transcodedTrack {
             
             let line = progressStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if line.contains("size=") && line.contains("time=") {
@@ -94,5 +89,22 @@ class Transcoder {
                 }
             }
         }
+    }
+    
+    func cancel() {
+        
+        LibAVWrapper.cancelTask()
+        
+        startTime = nil
+        transcodedTrack = nil
+    }
+    
+    // Returns all state for this playlist that needs to be persisted to disk
+    func persistentState() -> PersistentState {
+        
+        let state = TranscoderState()
+        store.map.forEach({state.entries[$0.key] = $0.value})
+        
+        return state
     }
 }

@@ -90,9 +90,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     // Transcoding preferences
     
-    var transcoderPersistenceOption: TranscoderPersistenceOptions
-    var limitTranscoderSpace: Bool
-    var maxTranscoderSpace: Int // in MB
+    var transcodingPreferences: TranscodingPreferences
     
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
@@ -142,14 +140,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         gapBetweenTracks = defaultsDictionary["playback.gapBetweenTracks"] as? Bool ?? PreferencesDefaults.Playback.gapBetweenTracks
         gapBetweenTracksDuration = defaultsDictionary["playback.gapBetweenTracks.duration"] as? Int ?? PreferencesDefaults.Playback.gapBetweenTracksDuration
         
-        if let transcoderPersistenceOptionStr = defaultsDictionary["playback.transcoding.persistence.option"] as? String {
-            transcoderPersistenceOption = TranscoderPersistenceOptions(rawValue: transcoderPersistenceOptionStr) ?? PreferencesDefaults.Playback.Transcoding.persistenceOption
-        } else {
-            transcoderPersistenceOption = PreferencesDefaults.Playback.Transcoding.persistenceOption
-        }
-        
-        limitTranscoderSpace = defaultsDictionary["playback.transcoding.limitSpace"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitSpace
-        maxTranscoderSpace = defaultsDictionary["playback.transcoding.maxSpace"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxSpace
+        transcodingPreferences = TranscodingPreferences(defaultsDictionary)
     }
     
     func persist(defaults: UserDefaults) {
@@ -174,9 +165,33 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(gapBetweenTracks, forKey: "playback.gapBetweenTracks")
         defaults.set(gapBetweenTracksDuration, forKey: "playback.gapBetweenTracks.duration")
         
-        defaults.set(transcoderPersistenceOption.rawValue, forKey: "playback.transcoding.persistence.option")
-        defaults.set(limitTranscoderSpace, forKey: "playback.transcoding.limitSpace")
-        defaults.set(maxTranscoderSpace, forKey: "playback.transcoding.maxSpace")
+        transcodingPreferences.persist(defaults: defaults)
+    }
+}
+
+class TranscodingPreferences {
+    
+    var persistenceOption: TranscoderPersistenceOptions
+    var limitDiskSpaceUsage: Bool
+    var maxDiskSpaceUsage: Int // in MB
+    
+    internal required init(_ defaultsDictionary: [String: Any]) {
+        
+        if let transcoderPersistenceOptionStr = defaultsDictionary["playback.transcoding.persistence.option"] as? String {
+            persistenceOption = TranscoderPersistenceOptions(rawValue: transcoderPersistenceOptionStr) ?? PreferencesDefaults.Playback.Transcoding.persistenceOption
+        } else {
+            persistenceOption = PreferencesDefaults.Playback.Transcoding.persistenceOption
+        }
+        
+        limitDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.limitDiskSpaceUsage"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+        maxDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.maxDiskSpaceUsage"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
+    }
+    
+    func persist(defaults: UserDefaults) {
+        
+        defaults.set(persistenceOption.rawValue, forKey: "playback.transcoding.persistence.option")
+        defaults.set(limitDiskSpaceUsage, forKey: "playback.transcoding.persistence.limitDiskSpaceUsage")
+        defaults.set(maxDiskSpaceUsage, forKey: "playback.transcoding.persistence.maxDiskSpaceUsage")
     }
 }
 
@@ -477,8 +492,8 @@ fileprivate struct PreferencesDefaults {
         struct Transcoding {
             
             static let persistenceOption: TranscoderPersistenceOptions = .save
-            static let limitSpace: Bool = true
-            static let maxSpace: Int = 1000
+            static let limitDiskSpaceUsage: Bool = true
+            static let maxDiskSpaceUsage: Int = 1000
         }
     }
     

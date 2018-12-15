@@ -147,17 +147,20 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         gapDurationPickerAction(self)
         
         // Transcoded files persistence
-        if prefs.transcoderPersistenceOption == .save {
+
+        let transcodingPrefs = prefs.transcodingPreferences
+
+        if transcodingPrefs.persistenceOption == .save {
             btnSaveFiles.on()
         } else {
             btnDeleteFiles.on()
         }
         transcoderPersistenceRadioButtonAction(self)
         
-        btnLimitSpace.onIf(prefs.limitTranscoderSpace)
+        btnLimitSpace.onIf(transcodingPrefs.limitDiskSpaceUsage)
         limitSpaceAction(self)
         
-        maxSpaceSlider.doubleValue = log10(Double(prefs.maxTranscoderSpace)) - log10(100)
+        maxSpaceSlider.doubleValue = log10(Double(transcodingPrefs.maxDiskSpaceUsage)) - log10(100)
         maxSpaceSliderAction(self)
         
         tabView.selectTabViewItem(at: 0)
@@ -234,7 +237,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
 
         let val = maxSpaceSlider.doubleValue
         
-        var amount: Double = 100 * pow(10, val)
+        var amount: Double = round(100 * pow(10, val))
         var unit = "MB"
         
         if amount >= 1000 && amount < 1000 * 1000 {
@@ -299,11 +302,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         prefs.gapBetweenTracks = btnGapBetweenTracks.isOn()
         prefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
         
-        prefs.transcoderPersistenceOption = btnSaveFiles.isOn() ? .save : .delete
-        prefs.limitTranscoderSpace = btnLimitSpace.isOn()
+        prefs.transcodingPreferences.persistenceOption = btnSaveFiles.isOn() ? .save : .delete
+        prefs.transcodingPreferences.limitDiskSpaceUsage = btnLimitSpace.isOn()
         
         let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
-        prefs.maxTranscoderSpace = Int(round(amount))
+        prefs.transcodingPreferences.maxDiskSpaceUsage = Int(round(amount))
     }
 }
 
