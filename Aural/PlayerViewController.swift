@@ -7,6 +7,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
+    @IBOutlet weak var transcoderView: TranscoderView!
     
     private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
     
@@ -23,9 +24,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         self.view.addSubview(defaultView)
         self.view.addSubview(expandedArtView)
+        self.view.addSubview(transcoderView)
         
         defaultView.setFrameOrigin(NSPoint.zero)
         expandedArtView.setFrameOrigin(NSPoint.zero)
+        transcoderView.setFrameOrigin(NSPoint.zero)
         
         PlayerViewState.initialize(ObjectGraph.appState.ui.player)
         showView(PlayerViewState.viewType)
@@ -69,6 +72,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         PlayerViewState.viewType = viewType
         
         theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        
+        transcoderView.hide()
         
         switch viewType {
             

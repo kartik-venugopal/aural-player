@@ -7,8 +7,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBOutlet weak var controlsView: PlayerControlsView!
     
-    private lazy var transcodingPopup: TranscodingPopupWindowController = TranscodingPopupWindowController()
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
@@ -60,7 +58,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted, .transcodingStarted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
@@ -69,7 +67,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged, .gapStarted, .transcodingStarted, .transcodingFinished], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
@@ -378,14 +376,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.showOrHideTimeElapsedRemaining()
     }
     
-    private func transcodingStarted(_ track: Track) {
-        transcodingPopup.transcodingStarted(track)
-    }
-    
-    private func transcodingFinished(_ track: Track, _ success: Bool) {
-        transcodingPopup.close()
-    }
-    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -409,15 +399,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .gapStarted:
             
             gapStarted(message as! PlaybackGapStartedAsyncMessage)
-            
-        case .transcodingStarted:
-            
-            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
-            
-        case .transcodingFinished:
-            
-            let msg = message as! TranscodingFinishedAsyncMessage
-            transcodingFinished(msg.track, msg.success)
             
         default: return
             

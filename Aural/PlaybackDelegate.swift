@@ -67,6 +67,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             // Skip gap and start playback
             playImmediately(waitingTrack!)
+            
+        case .transcoding:
+            
+            // Do nothing if transcoding
+            return
         }
     }
     

@@ -202,6 +202,7 @@ enum PlaybackState {
     case paused
     case noTrack
     case waiting
+    case transcoding
     
     func playingOrPaused() -> Bool {
         return self == .playing || self == .paused

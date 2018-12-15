@@ -71,7 +71,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 switch playbackInfo.state {
                     
-                    case .playing, .paused:
+                    // TODO: Different icon for transcoding state (2 arrows)
+                    
+                    case .playing, .paused, .transcoding:
                         
                         if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
                             return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
