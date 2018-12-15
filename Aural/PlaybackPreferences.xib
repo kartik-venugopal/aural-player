@@ -477,7 +477,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1E4-yq-aas">
-                                        <rect key="frame" x="28" y="367" width="187" height="20"/>
+                                        <rect key="frame" x="33" y="367" width="187" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Save for use across app launches" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="u0L-ha-bTr" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -488,7 +488,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zda-3P-h3e">
-                                        <rect key="frame" x="28" y="282" width="163" height="20"/>
+                                        <rect key="frame" x="33" y="287" width="163" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Delete when app exits" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="hKX-vD-YC7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -499,7 +499,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rq6-vi-8R1" userLabel="Seek Length Label">
-                                        <rect key="frame" x="217" y="368" width="294" height="20"/>
+                                        <rect key="frame" x="222" y="368" width="294" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(better user experience,  takes up disk space)" id="2oR-ac-lNZ">
                                             <font key="font" size="13" name="GillSans"/>
@@ -508,7 +508,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="50a-HB-lbu" userLabel="Seek Length Label">
-                                        <rect key="frame" x="187" y="285" width="426" height="19"/>
+                                        <rect key="frame" x="192" y="290" width="426" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded each time app is launched)" id="cnq-6F-WRI">
                                             <font key="font" size="13" name="GillSans"/>
@@ -566,6 +566,48 @@
                                             <action selector="maxSpaceSliderAction:" target="-2" id="ekN-8S-s4p"/>
                                         </connections>
                                     </slider>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sr5-uK-qZM">
+                                        <rect key="frame" x="15" y="232" width="22" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oQj-F9-fLu" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="GillSans"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="limitSpaceAction:" target="-2" id="RPY-04-7CC"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
+                                        <rect key="frame" x="33" y="233" width="536" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Eager transcoding (automatic transcoding in the background, ahead of time ... will load the CPU)" id="MLX-C0-fMz">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-y7-bg2">
+                                        <rect key="frame" x="32" y="182" width="310" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="Transcode all playlist files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="vAy-7W-kwY" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="GillSans"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="RlQ-jV-Ocg"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
+                                        <rect key="frame" x="33" y="206" width="199" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="6MG-XI-sRg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="GillSans"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="Mk3-7I-Ybk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </view>
                             <connections>
