@@ -8,15 +8,18 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAllFiles" destination="TdO-y7-bg2" id="eaz-y6-cRK"/>
                 <outlet property="btnAutoplayAfterAddingTracks" destination="pTy-Ac-iwY" id="fxO-HN-K5e"/>
                 <outlet property="btnAutoplayAlways" destination="Yrk-jG-tb1" id="Rf6-x4-cdb"/>
                 <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="V5b-6i-R0D"/>
                 <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="cVP-E2-hy2"/>
                 <outlet property="btnDeleteFiles" destination="zda-3P-h3e" id="iVQ-Qx-DwZ"/>
+                <outlet property="btnEagerTranscoding" destination="sr5-uK-qZM" id="X90-DJ-pQy"/>
                 <outlet property="btnGapBetweenTracks" destination="pxF-6N-xpM" id="CIY-2u-co0"/>
                 <outlet property="btnInfo_primarySeekLength" destination="Rka-88-zsT" id="CpA-fk-ARo"/>
                 <outlet property="btnInfo_secondarySeekLength" destination="cds-hi-8Qd" id="fzI-wZ-h92"/>
                 <outlet property="btnLimitSpace" destination="ixK-75-hLM" id="bOT-zw-3qJ"/>
+                <outlet property="btnPredictive" destination="rzK-SV-HSb" id="nwL-pA-A1F"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="9fb-Eh-kMD" id="u7m-0x-5l3"/>
                 <outlet property="btnPrimarySeekLengthPerc" destination="n6f-R3-Ism" id="Hr1-Bl-1QL"/>
                 <outlet property="btnRememberPosition" destination="Mc5-gV-VMh" id="LoP-w6-XJN"/>
@@ -574,7 +577,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="limitSpaceAction:" target="-2" id="RPY-04-7CC"/>
+                                            <action selector="eagerTranscodingAction:" target="-2" id="gwj-c5-y7w"/>
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
@@ -587,25 +590,25 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-y7-bg2">
-                                        <rect key="frame" x="32" y="182" width="310" height="20"/>
+                                        <rect key="frame" x="33" y="202" width="310" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode all playlist files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="vAy-7W-kwY" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="RlQ-jV-Ocg"/>
+                                            <action selector="eagerTranscodingOptionAction:" target="-2" id="djw-tB-kTO"/>
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
-                                        <rect key="frame" x="33" y="206" width="199" height="20"/>
+                                        <rect key="frame" x="33" y="181" width="199" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="6MG-XI-sRg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="6MG-XI-sRg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="Mk3-7I-Ybk"/>
+                                            <action selector="eagerTranscodingOptionAction:" target="-2" id="Y0g-gT-0jK"/>
                                         </connections>
                                     </button>
                                 </subviews>
