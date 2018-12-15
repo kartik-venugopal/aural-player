@@ -62,5 +62,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     
     @IBAction func cancelAction(_ sender: Any) {
         player.cancelTranscoding()
+        theView.transcodingFinished()
+        theView.hide()
     }
 }

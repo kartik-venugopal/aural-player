@@ -36,6 +36,16 @@ class TranscoderStore: MessageSubscriber {
         return outputFile
     }
     
+    // When transcoding is canceled
+    func deleteEntry(_ track: Track) {
+        
+        if let outputFile = map[track.file] {
+            FileSystemUtils.deleteFile(outputFile.path)
+        }
+        
+        map.removeValue(forKey: track.file)
+    }
+    
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
     func fileAddedToStore(_ addedFile: URL) {
         
@@ -99,6 +109,7 @@ class TranscoderStore: MessageSubscriber {
     func getForTrack(_ track: Track) -> URL? {
         
         if let outFile = map[track.file] {
+            
             if FileSystemUtils.fileExists(outFile) {
                 return outFile
             }

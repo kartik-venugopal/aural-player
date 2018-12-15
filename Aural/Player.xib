@@ -619,7 +619,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="118" y="98" width="264" height="28"/>
+                    <rect key="frame" x="133" y="98" width="264" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding into a supported format ..." id="kPq-wv-JLN">
                         <font key="font" size="13" name="GillSans"/>
@@ -628,7 +628,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vf7-58-ptt">
-                    <rect key="frame" x="74" y="102" width="50" height="25"/>
+                    <rect key="frame" x="104" y="102" width="50" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="fTv-4v-cTc"/>
                 </imageView>
@@ -639,7 +639,7 @@ G1BhbiBTbGlkZXI
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPS-v3-qQi" userLabel="Progress caption">
                     <rect key="frame" x="46" y="49" width="147" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Track time encoded:" id="aRF-d4-dMg">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Track time transcoded:" id="aRF-d4-dMg">
                         <font key="font" size="12" name="GillSans"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
