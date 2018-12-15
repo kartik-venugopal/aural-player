@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="defaultView" destination="MHw-PR-9nt" id="onf-KS-q8w"/>
                 <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="tpC-9o-fXo"/>
+                <outlet property="transcoderView" destination="2kf-ao-Oha" id="bdm-ZJ-f1E"/>
                 <outlet property="view" destination="LIp-8K-VJD" id="Yh9-bd-ONw"/>
             </connections>
         </customObject>
@@ -272,6 +273,12 @@
                 <outlet property="defaultView" destination="MHw-PR-9nt" id="2AS-eF-VIN"/>
                 <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="6aj-dD-aTe"/>
                 <outlet property="view" destination="LIp-8K-VJD" id="81g-lK-hiX"/>
+            </connections>
+        </viewController>
+        <viewController id="aD2-gv-PZo" customClass="TranscoderViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theView" destination="2kf-ao-Oha" id="sYh-To-0ur"/>
+                <outlet property="view" destination="LIp-8K-VJD" id="DJ9-xQ-HrH"/>
             </connections>
         </viewController>
         <viewController id="4Js-aK-bND" customClass="PlayingTrackFunctionsViewController" customModule="Aural" customModuleProvider="target">
@@ -589,6 +596,104 @@ G1BhbiBTbGlkZXI
             <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="e8S-Qc-bqn" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="27" y="611"/>
         </slider>
+        <view wantsLayer="YES" id="2kf-ao-Oha" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="YEq-j3-5Be">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
+                    <rect key="frame" x="14" y="130" width="471" height="28"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
+                        <font key="font" size="14" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
+                    <rect key="frame" x="118" y="98" width="264" height="28"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding into a supported format ..." id="kPq-wv-JLN">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vf7-58-ptt">
+                    <rect key="frame" x="74" y="102" width="50" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="fTv-4v-cTc"/>
+                </imageView>
+                <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QQt-lp-x2f">
+                    <rect key="frame" x="42" y="76" width="414" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPS-v3-qQi" userLabel="Progress caption">
+                    <rect key="frame" x="46" y="49" width="147" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Track time encoded:" id="aRF-d4-dMg">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8v-au-vXx" userLabel="Time rem caption">
+                    <rect key="frame" x="22" y="26" width="171" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed / remaining:" id="oN8-wC-v6z">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d3i-h2-dcP" userLabel="Progress caption">
+                    <rect key="frame" x="202" y="49" width="256" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="B9p-8Z-Xcg">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-6Y-Tnp" userLabel="Time rem caption">
+                    <rect key="frame" x="202" y="26" width="171" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="dK1-en-qt2">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEk-Bg-D3b" userLabel="Cancel button">
+                    <rect key="frame" x="393" y="25" width="63" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qsy-rg-9Yz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancelAction:" target="aD2-gv-PZo" id="aWM-QL-OdR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="bar" destination="QQt-lp-x2f" id="4t6-RK-v7M"/>
+                <outlet property="lblTime" destination="P7l-6Y-Tnp" id="94O-GI-ZDd"/>
+                <outlet property="lblTrack" destination="JAC-MY-KsG" id="PgA-Da-Ypa"/>
+                <outlet property="lblTrackTime" destination="d3i-h2-dcP" id="fS0-RS-bL3"/>
+            </connections>
+        </view>
     </objects>
     <resources>
         <image name="Bookmark" width="27" height="27"/>
@@ -605,6 +710,7 @@ G1BhbiBTbGlkZXI
         <image name="SeekForward" width="8.6400003433227539" height="5.5199999809265137"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="ShuffleOff" width="26" height="26"/>
+        <image name="Transcoding" width="154" height="91"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>
