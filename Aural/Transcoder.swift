@@ -2,7 +2,7 @@ import Foundation
 
 protocol TranscoderProtocol {
     
-    func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void))
+    func transcodeTrack(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) -> URL?
     
     func cancel()
 }
@@ -20,14 +20,10 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
         store = TranscoderStore(state, preferences)
     }
     
-    func transcodeAsync(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
-        
-        // TODO: This method should tell caller that it found a prepared file, no need to wait for playback
+    func transcodeTrack(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) -> URL? {
+    
         if let outFile = store.getForTrack(track) {
-            
-            trackPrepBlock(outFile)
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, true))
-            return
+            return outFile
         }
         
         let inputFile = track.file
@@ -67,6 +63,8 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
             
             AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, transcodingResult && self.transcodedTrack.lazyLoadingInfo.preparedForPlayback))
         }
+        
+        return nil
     }
     
     private func transcodingProgress(_ progressStr: String) {

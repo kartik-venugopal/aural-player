@@ -92,7 +92,11 @@ class AudioUtils {
             
             // Transcode the track and let the transcoder prepare the track for playback
             track.lazyLoadingInfo.needsTranscoding = true
-            transcoder.transcodeAsync(track, preparationBlock)
+            
+            // If there is already a transcoded output file for this track, just use it to prepare the track. Otherwise, just return ... the transcoder will produce a file later.
+            if let transFile = transcoder.transcodeTrack(track, preparationBlock) {
+                preparationBlock(transFile)
+            }
             
         } else {
             preparationBlock(track.file)
