@@ -95,6 +95,8 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
         LibAVWrapper.cancelTask()
         
         startTime = nil
+        
+        store.deleteEntry(transcodedTrack)
         transcodedTrack = nil
     }
     
