@@ -87,6 +87,29 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         history.clearAllHistory()
     }
     
+    func compareChronologically(_ track1: URL, _ track2: URL) -> ComparisonResult {
+        
+        let allHistory = history.allRecentlyPlayedItems()
+        
+        let index1 = allHistory.firstIndex(where: {$0.track?.file.path == track1.path})
+        let index2 = allHistory.firstIndex(where: {$0.track?.file.path == track2.path})
+        
+        if index1 == nil && index2 == nil {
+            return .orderedSame
+        }
+        
+        if index1 != nil && index2 != nil {
+            // Assume cannot be equal (that would imply duplicates in history list)
+            return index1! > index2! ? .orderedDescending : .orderedAscending
+        }
+        
+        if index1 != nil {
+            return .orderedAscending
+        }
+        
+        return .orderedDescending
+    }
+    
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
         

@@ -21,5 +21,7 @@ protocol HistoryDelegateProtocol {
     
     func clearAllHistory()
     
+    func compareChronologically(_ track1: URL, _ track2: URL) -> ComparisonResult
+    
     var lastPlayedTrack: Track? {get}
 }

@@ -52,6 +52,7 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
             self.startTime = Date()
             
             let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
+            self.store.fileAddedToStore(outputFile)
             
             if self.transcodedTrack == nil {
                 // Transcoding has been canceled. Don't proceed.
