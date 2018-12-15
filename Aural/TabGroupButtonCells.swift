@@ -67,6 +67,12 @@ class PrefsTabButtonCell: TabGroupButtonCell {
     override var selectionBoxColor: NSColor {return NSColor.black}
 }
 
+class PrefsNestedTabButtonCell: PrefsTabButtonCell {
+    
+    override var borderRadius: CGFloat {return 2.5}
+    override var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
+}
+
 class EQSelectorButtonCell: TabGroupButtonCell {
     
     override var textFont: NSFont {return Fonts.gillSans11Font}

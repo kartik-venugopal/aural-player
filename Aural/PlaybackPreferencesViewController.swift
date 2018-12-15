@@ -2,6 +2,10 @@ import Cocoa
 
 class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
+    @IBOutlet weak var tabView: AuralTabView!
+    
+    // General preferences
+    
     @IBOutlet weak var btnPrimarySeekLengthConstant: NSButton!
     @IBOutlet weak var btnPrimarySeekLengthPerc: NSButton!
     
@@ -43,6 +47,15 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
     
+    // Transcoding preferences
+    
+    @IBOutlet weak var btnSaveFiles: NSButton!
+    @IBOutlet weak var btnDeleteFiles: NSButton!
+    
+    @IBOutlet weak var btnLimitSpace: NSButton!
+    @IBOutlet weak var maxSpaceSlider: NSSlider!
+    @IBOutlet weak var lblMaxSpace: NSTextField!
+    
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
     override var nibName: String? {return "PlaybackPreferences"}
@@ -59,68 +72,68 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields(_ preferences: Preferences) {
         
-        let playbackPrefs = preferences.playbackPreferences
+        let prefs = preferences.playbackPreferences
         
         // Primary seek length
         
-        let primarySeekLength = playbackPrefs.primarySeekLengthConstant
+        let primarySeekLength = prefs.primarySeekLengthConstant
         primarySeekLengthPicker.setInterval(Double(primarySeekLength))
         primarySeekLengthAction(self)
         
-        let primarySeekLengthPerc = playbackPrefs.primarySeekLengthPercentage
+        let primarySeekLengthPerc = prefs.primarySeekLengthPercentage
         primarySeekLengthPercStepper.integerValue = primarySeekLengthPerc
         lblPrimarySeekLengthPerc.stringValue = String(format: "%d%%", primarySeekLengthPerc)
         
-        if playbackPrefs.primarySeekLengthOption == .constant {
+        if prefs.primarySeekLengthOption == .constant {
             btnPrimarySeekLengthConstant.on()
         } else {
             btnPrimarySeekLengthPerc.on()
         }
         
-        primarySeekLengthConstantFields.forEach({$0.enableIf(playbackPrefs.primarySeekLengthOption == .constant)})
-        primarySeekLengthPercStepper.enableIf(playbackPrefs.primarySeekLengthOption == .percentage)
+        primarySeekLengthConstantFields.forEach({$0.enableIf(prefs.primarySeekLengthOption == .constant)})
+        primarySeekLengthPercStepper.enableIf(prefs.primarySeekLengthOption == .percentage)
         
         // Secondary seek length
         
-        let secondarySeekLength = playbackPrefs.secondarySeekLengthConstant
+        let secondarySeekLength = prefs.secondarySeekLengthConstant
         secondarySeekLengthPicker.setInterval(Double(secondarySeekLength))
         secondarySeekLengthAction(self)
         
-        let secondarySeekLengthPerc = playbackPrefs.secondarySeekLengthPercentage
+        let secondarySeekLengthPerc = prefs.secondarySeekLengthPercentage
         secondarySeekLengthPercStepper.integerValue = secondarySeekLengthPerc
         lblSecondarySeekLengthPerc.stringValue = String(format: "%d%%", secondarySeekLengthPerc)
         
-        if playbackPrefs.secondarySeekLengthOption == .constant {
+        if prefs.secondarySeekLengthOption == .constant {
             btnSecondarySeekLengthConstant.on()
         } else {
             btnSecondarySeekLengthPerc.on()
         }
         
-        secondarySeekLengthConstantFields.forEach({$0.enableIf(playbackPrefs.secondarySeekLengthOption == .constant)})
-        secondarySeekLengthPercStepper.enableIf(playbackPrefs.secondarySeekLengthOption == .percentage)
+        secondarySeekLengthConstantFields.forEach({$0.enableIf(prefs.secondarySeekLengthOption == .constant)})
+        secondarySeekLengthPercStepper.enableIf(prefs.secondarySeekLengthOption == .percentage)
         
         // Autoplay
         
-        btnAutoplayOnStartup.onIf(playbackPrefs.autoplayOnStartup)
+        btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup)
         
-        btnAutoplayAfterAddingTracks.onIf(playbackPrefs.autoplayAfterAddingTracks)
+        btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks)
         
-        btnAutoplayIfNotPlaying.enableIf(playbackPrefs.autoplayAfterAddingTracks)
-        btnAutoplayIfNotPlaying.onIf(playbackPrefs.autoplayAfterAddingOption == .ifNotPlaying)
+        btnAutoplayIfNotPlaying.enableIf(prefs.autoplayAfterAddingTracks)
+        btnAutoplayIfNotPlaying.onIf(prefs.autoplayAfterAddingOption == .ifNotPlaying)
         
-        btnAutoplayAlways.enableIf(playbackPrefs.autoplayAfterAddingTracks)
-        btnAutoplayAlways.onIf(playbackPrefs.autoplayAfterAddingOption == .always)
+        btnAutoplayAlways.enableIf(prefs.autoplayAfterAddingTracks)
+        btnAutoplayAlways.onIf(prefs.autoplayAfterAddingOption == .always)
         
         // Show new track
         
-        btnShowNewTrack.onIf(playbackPrefs.showNewTrackInPlaylist)
+        btnShowNewTrack.onIf(prefs.showNewTrackInPlaylist)
         
         // Remember last track position
         
-        btnRememberPosition.onIf(playbackPrefs.rememberLastPosition)
+        btnRememberPosition.onIf(prefs.rememberLastPosition)
         [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.enableIf(btnRememberPosition.isOn())})
         
-        if playbackPrefs.rememberLastPositionOption == .individualTracks {
+        if prefs.rememberLastPositionOption == .individualTracks {
             btnRememberPosition_individualTracks.on()
         } else {
             btnRememberPosition_allTracks.on()
@@ -128,10 +141,26 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Gap between tracks
         
-        btnGapBetweenTracks.onIf(playbackPrefs.gapBetweenTracks)
+        btnGapBetweenTracks.onIf(prefs.gapBetweenTracks)
         [lblGapDuration, gapDurationPicker].forEach({$0?.enableIf(btnGapBetweenTracks.isOn())})
-        gapDurationPicker.setInterval(Double(playbackPrefs.gapBetweenTracksDuration))
+        gapDurationPicker.setInterval(Double(prefs.gapBetweenTracksDuration))
         gapDurationPickerAction(self)
+        
+        // Transcoded files persistence
+        if prefs.transcoderPersistenceOption == .save {
+            btnSaveFiles.on()
+        } else {
+            btnDeleteFiles.on()
+        }
+        transcoderPersistenceRadioButtonAction(self)
+        
+        btnLimitSpace.onIf(prefs.limitTranscoderSpace)
+        limitSpaceAction(self)
+        
+        maxSpaceSlider.doubleValue = log10(Double(prefs.maxTranscoderSpace)) - log10(100)
+        maxSpaceSliderAction(self)
+        
+        tabView.selectTabViewItem(at: 0)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -193,6 +222,38 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         showInfo(Strings.info_seekLengthSecondary)
     }
     
+    @IBAction func transcoderPersistenceRadioButtonAction(_ sender: Any) {
+        [btnLimitSpace, maxSpaceSlider].forEach({$0?.enableIf(btnSaveFiles.isOn())})
+    }
+    
+    @IBAction func limitSpaceAction(_ sender: Any) {
+        maxSpaceSlider.enableIf(btnSaveFiles.isOn() && btnLimitSpace.isOn())
+    }
+    
+    @IBAction func maxSpaceSliderAction(_ sender: Any) {
+
+        let val = maxSpaceSlider.doubleValue
+        
+        var amount: Double = 100 * pow(10, val)
+        var unit = "MB"
+        
+        if amount >= 1000 && amount < 1000 * 1000 {
+            
+            // GB
+            unit = "GB"
+            amount = amount / 1000.0
+            
+        } else if amount >= 1000 * 1000 {
+            
+            // TB
+            unit = "TB"
+            amount = amount / (1000.0 * 1000.0)
+        }
+        
+        let isWholeNumber = amount == round(amount)
+        lblMaxSpace.stringValue = isWholeNumber ? String(format: "%d  %@", Int(amount), unit) : String(format: "%.2lf  %@", amount, unit)
+    }
+    
     private func showInfo(_ text: String) {
         
         let helpManager = NSHelpManager.shared
@@ -206,37 +267,43 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save(_ preferences: Preferences) throws {
         
-        let playbackPrefs = preferences.playbackPreferences
+        let prefs = preferences.playbackPreferences
         
-        playbackPrefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn() ? .constant : .percentage
-        playbackPrefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
-        playbackPrefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
+        prefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn() ? .constant : .percentage
+        prefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
+        prefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
         
-        playbackPrefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn() ? .constant : .percentage
-        playbackPrefs.secondarySeekLengthConstant = Int(round(secondarySeekLengthPicker.interval))
-        playbackPrefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
+        prefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn() ? .constant : .percentage
+        prefs.secondarySeekLengthConstant = Int(round(secondarySeekLengthPicker.interval))
+        prefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
-        playbackPrefs.autoplayOnStartup = btnAutoplayOnStartup.isOn()
+        prefs.autoplayOnStartup = btnAutoplayOnStartup.isOn()
         
-        playbackPrefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn()
-        playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn() ? .ifNotPlaying : .always
+        prefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn()
+        prefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn() ? .ifNotPlaying : .always
      
-        playbackPrefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
+        prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
         
-        playbackPrefs.rememberLastPosition = btnRememberPosition.isOn()
+        prefs.rememberLastPosition = btnRememberPosition.isOn()
         
-        let wasAllTracks: Bool = playbackPrefs.rememberLastPositionOption == .allTracks
+        let wasAllTracks: Bool = prefs.rememberLastPositionOption == .allTracks
         
-        playbackPrefs.rememberLastPositionOption = btnRememberPosition_individualTracks.isOn() ? .individualTracks : .allTracks
+        prefs.rememberLastPositionOption = btnRememberPosition_individualTracks.isOn() ? .individualTracks : .allTracks
         
-        let isNowIndividualTracks: Bool = playbackPrefs.rememberLastPositionOption == .individualTracks
+        let isNowIndividualTracks: Bool = prefs.rememberLastPositionOption == .individualTracks
         
-        if !playbackPrefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
+        if !prefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
             playbackProfiles.removeAll()
         }
         
-        playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.isOn()
-        playbackPrefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
+        prefs.gapBetweenTracks = btnGapBetweenTracks.isOn()
+        prefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
+        
+        prefs.transcoderPersistenceOption = btnSaveFiles.isOn() ? .save : .delete
+        prefs.limitTranscoderSpace = btnLimitSpace.isOn()
+        
+        let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
+        prefs.maxTranscoderSpace = Int(round(amount))
     }
 }
 

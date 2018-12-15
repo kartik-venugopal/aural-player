@@ -67,3 +67,9 @@ enum SeekLengthOptions: String {
     case constant
     case percentage
 }
+
+enum TranscoderPersistenceOptions: String {
+    
+    case save
+    case delete
+}
