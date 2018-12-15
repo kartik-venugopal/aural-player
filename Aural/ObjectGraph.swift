@@ -82,15 +82,15 @@ class ObjectGraph {
         
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
         
+        // History (and delegate)
+        history = History(preferences.historyPreferences)
+        
         transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
-        
-        // History (and delegate)
-        history = History(preferences.historyPreferences)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)
