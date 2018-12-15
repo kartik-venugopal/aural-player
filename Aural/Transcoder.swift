@@ -2,52 +2,57 @@ import Foundation
 
 protocol TranscoderProtocol {
     
-    func transcodeTrack(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) -> URL?
+    func transcode(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void))
     
     func cancel()
 }
 
-class Transcoder: TranscoderProtocol, PersistentModelObject {
+class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, PersistentModelObject {
     
-    let store: TranscoderStore
+    private let store: TranscoderStore
+    private let daemon: TranscoderDaemon
+    
+    private let preferences: TranscodingPreferences
     
     private let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
     
     private var transcodedTrack: Track!
     private var startTime: Date!
     
+    private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
+    
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         store = TranscoderStore(state, preferences)
+        daemon = TranscoderDaemon()
+        self.preferences = preferences
     }
     
-    func transcodeTrack(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) -> URL? {
+    func transcode(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
     
         if let outFile = store.getForTrack(track) {
-            return outFile
+            trackPrepBlock(outFile)
+            return
         }
         
         let inputFile = track.file
         let inputFileName = inputFile.lastPathComponent
-        
         let inputFileExtension = inputFile.pathExtension.lowercased()
-
         let outputFileExtension = formatsMap[inputFileExtension] ?? "mp3"
         
         // File name needs to be unique. Otherwise, command execution will hang (libav will ask if you want to overwrite).
         
         let now = Date()
         let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, now.serializableString_hms(), outputFileExtension)
-        
         let outputFile = store.addEntry(track, outputFileName)
         
         AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        let transcodingTask = {
             
             self.transcodedTrack = track
             self.startTime = Date()
             
-            let transcodingResult = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
+            let success = LibAVWrapper.transcode(inputFile, outputFile, self.transcodingProgress)
             self.store.fileAddedToStore(outputFile)
             
             if self.transcodedTrack == nil {
@@ -55,16 +60,16 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
                 return
             }
             
-            trackPrepBlock(outputFile)
-            
-            if !transcodingResult {
+            if success {
+                trackPrepBlock(outputFile)
+            } else {
                 track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
             }
             
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, transcodingResult && self.transcodedTrack.lazyLoadingInfo.preparedForPlayback))
+            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, success && self.transcodedTrack.lazyLoadingInfo.preparedForPlayback))
         }
         
-        return nil
+        daemon.submitTask(transcodingTask, .immediate)
     }
     
     private func transcodingProgress(_ progressStr: String) {
@@ -107,5 +112,11 @@ class Transcoder: TranscoderProtocol, PersistentModelObject {
         store.map.forEach({state.entries[$0.key] = $0.value})
         
         return state
+    }
+    
+    // MARK: PlaylistChangeListenerProtocol methods
+    
+    func tracksAdded(_ addResults: [TrackAddResult]) {
+        
     }
 }

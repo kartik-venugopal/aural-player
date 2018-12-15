@@ -73,3 +73,9 @@ enum TranscoderPersistenceOptions: String {
     case save
     case delete
 }
+
+enum EagerTranscodingOptions: String {
+    
+    case allFiles
+    case predictive
+}

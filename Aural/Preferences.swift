@@ -175,6 +175,9 @@ class TranscodingPreferences {
     var limitDiskSpaceUsage: Bool
     var maxDiskSpaceUsage: Int // in MB
     
+    var eagerTranscodingEnabled: Bool
+    var eagerTranscodingOption: EagerTranscodingOptions
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         if let transcoderPersistenceOptionStr = defaultsDictionary["playback.transcoding.persistence.option"] as? String {
@@ -185,6 +188,14 @@ class TranscodingPreferences {
         
         limitDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.limitDiskSpaceUsage"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
         maxDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.maxDiskSpaceUsage"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
+        
+        eagerTranscodingEnabled = defaultsDictionary["playback.transcoding.eagerTranscoding.enabled"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+        
+        if let eagerTranscodingOptionStr = defaultsDictionary["playback.transcoding.eagerTranscoding.option"] as? String {
+            eagerTranscodingOption = EagerTranscodingOptions(rawValue: eagerTranscodingOptionStr) ?? PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
+        } else {
+            eagerTranscodingOption = PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
+        }
     }
     
     func persist(defaults: UserDefaults) {
@@ -192,6 +203,9 @@ class TranscodingPreferences {
         defaults.set(persistenceOption.rawValue, forKey: "playback.transcoding.persistence.option")
         defaults.set(limitDiskSpaceUsage, forKey: "playback.transcoding.persistence.limitDiskSpaceUsage")
         defaults.set(maxDiskSpaceUsage, forKey: "playback.transcoding.persistence.maxDiskSpaceUsage")
+        
+        defaults.set(eagerTranscodingEnabled, forKey: "playback.transcoding.eagerTranscoding.enabled")
+        defaults.set(eagerTranscodingOption.rawValue, forKey: "playback.transcoding.eagerTranscoding.option")
     }
 }
 
@@ -494,6 +508,9 @@ fileprivate struct PreferencesDefaults {
             static let persistenceOption: TranscoderPersistenceOptions = .save
             static let limitDiskSpaceUsage: Bool = true
             static let maxDiskSpaceUsage: Int = 1000
+            
+            static let eagerTranscodingEnabled: Bool = true
+            static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
         }
     }
     

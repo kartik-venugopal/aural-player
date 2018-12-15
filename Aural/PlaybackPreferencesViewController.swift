@@ -56,6 +56,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var maxSpaceSlider: NSSlider!
     @IBOutlet weak var lblMaxSpace: NSTextField!
     
+    @IBOutlet weak var btnEagerTranscoding: NSButton!
+    @IBOutlet weak var btnPredictive: NSButton!
+    @IBOutlet weak var btnAllFiles: NSButton!
+    
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
     override var nibName: String? {return "PlaybackPreferences"}
@@ -163,6 +167,15 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         maxSpaceSlider.doubleValue = log10(Double(transcodingPrefs.maxDiskSpaceUsage)) - log10(100)
         maxSpaceSliderAction(self)
         
+        btnEagerTranscoding.onIf(transcodingPrefs.eagerTranscodingEnabled)
+        eagerTranscodingAction(self)
+        
+        if transcodingPrefs.eagerTranscodingOption == .allFiles {
+            btnAllFiles.on()
+        } else {
+            btnPredictive.on()
+        }
+        
         tabView.selectTabViewItem(at: 0)
     }
     
@@ -257,6 +270,14 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         lblMaxSpace.stringValue = isWholeNumber ? String(format: "%d  %@", Int(amount), unit) : String(format: "%.2lf  %@", amount, unit)
     }
     
+    @IBAction func eagerTranscodingAction(_ sender: Any) {
+        [btnPredictive, btnAllFiles].forEach({$0?.enableIf(btnEagerTranscoding.isOn())})
+    }
+    
+    @IBAction func eagerTranscodingOptionAction(_ sender: Any) {
+        // Needed for radio buttons
+    }
+    
     private func showInfo(_ text: String) {
         
         let helpManager = NSHelpManager.shared
@@ -307,6 +328,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
         prefs.transcodingPreferences.maxDiskSpaceUsage = Int(round(amount))
+        
+        prefs.transcodingPreferences.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
+        prefs.transcodingPreferences.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
     }
 }
 
