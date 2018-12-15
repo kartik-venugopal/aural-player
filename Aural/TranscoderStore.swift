@@ -2,13 +2,24 @@ import Foundation
 
 class TranscoderStore {
     
+    let baseDir: URL
     var map: [URL: URL] = [:]
     
-    var baseDir: URL
-    
-    init() {
+    let preferences: TranscodingPreferences
+
+    init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
+        
+        self.preferences = preferences
+        
         baseDir = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
         FileSystemUtils.createDirectory(baseDir)
+        
+        if preferences.persistenceOption == .save {
+            
+            state.entries.forEach({
+                map[$0.key] = $0.value
+            })
+        }
     }
     
     func addEntry(_ track: Track, _ outputFileName: String) -> URL {

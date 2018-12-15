@@ -5,6 +5,8 @@ import AVFoundation
  */
 class AudioUtils {
     
+    private static let transcoder: TranscoderProtocol = ObjectGraph.transcoder
+    
     private static let flacSupported: Bool = {
         
         let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
@@ -90,7 +92,7 @@ class AudioUtils {
             
             // Transcode the track and let the transcoder prepare the track for playback
             track.lazyLoadingInfo.needsTranscoding = true
-            Transcoder.transcodeAsync(track, preparationBlock)
+            transcoder.transcodeAsync(track, preparationBlock)
             
         } else {
             preparationBlock(track.file)

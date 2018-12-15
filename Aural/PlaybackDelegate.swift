@@ -14,6 +14,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol
     
+    private let transcoder: TranscoderProtocol
+    
     // User preferences
     private let preferences: PlaybackPreferences
     
@@ -23,11 +25,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private var pendingPlaybackBlock: (() -> Void) = {}
     
-    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
+    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.sequencer = sequencer
         self.playlist = playlist
+        self.transcoder = transcoder
         self.preferences = preferences
         
         self.profiles = PlaybackProfiles()
@@ -588,7 +591,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func cancelTranscoding() {
-        Transcoder.cancel()
+        transcoder.cancel()
         stop()
     }
     

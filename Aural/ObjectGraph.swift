@@ -41,29 +41,10 @@ class ObjectGraph {
     
     static var layoutManager: LayoutManager!
     
+    static var transcoder: TranscoderProtocol!
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
-    
-    static var pTypes: Set<String> = Set<String>()
-    static var types: Set<String> = Set<String>()
-    static var map: [String: String] = [:]
-    static var map2: [String: Int] = [:]
-    
-    private static func mirror(_ label: String, _ obj: Any) {
-        
-        let mir = Mirror(reflecting: obj)
-        map[String(describing: mir.subjectType)] = String(describing: mir.displayStyle)
-        map2[String(describing: mir.subjectType)] = mir.children.count
-        
-        if mir.allChildren().count == 0 {
-//        if mir.allChildren().count == 0 && mir.displayStyle != .collection && mir.displayStyle != .dictionary {
-            pTypes.insert(String(describing: mir.subjectType))
-        }
-        
-        for ch in mir.children {
-            mirror(ch.label ?? "<NO-LABEL>", ch.value)
-        }
-    }
     
     // Performs all necessary object initialization
     static func initialize() {
@@ -101,8 +82,10 @@ class ObjectGraph {
         
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
         
+        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences)
+        
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, preferences.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
@@ -132,8 +115,6 @@ class ObjectGraph {
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
-        
-        Transcoder.initializeStore(appState.transcoder)
     }
     
     // Called when app exits
@@ -146,8 +127,7 @@ class ObjectGraph {
         appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
         
-        appState.transcoder = TranscoderState()
-        appState.transcoder.entries = Transcoder.store.map
+        appState.transcoder = (transcoder as! Transcoder).persistentState() as! TranscoderState
         
         appState.ui = UIState()
         appState.ui.windowLayout = layoutManager.persistentState()
