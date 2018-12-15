@@ -12,7 +12,7 @@ class TranscoderView: NSView {
     func transcodingStarted(_ track: Track) {
         
         lblTrack.stringValue = track.conciseDisplayName
-        lblTrackTime.stringValue = "0:00  [0 %]"
+        lblTrackTime.stringValue = "0:00  [ 0 % ]"
         lblTime.stringValue = "0:00"
         
         bar.doubleValue = 0
@@ -28,7 +28,7 @@ class TranscoderView: NSView {
         let elapsed = StringUtils.formatSecondsToHMS(msg.timeElapsed)
         let remaining = StringUtils.formatSecondsToHMS(msg.timeRemaining)
         
-        lblTrackTime.stringValue = String(format: "%@ / %@  [%d %%]", trackTime, trackDuration, perc)
+        lblTrackTime.stringValue = String(format: "%@ / %@  [ %d %% ]", trackTime, trackDuration, perc)
         lblTime.stringValue = String(format: "%@  |  %@", elapsed, remaining)
         
         bar.doubleValue = msg.percTranscoded

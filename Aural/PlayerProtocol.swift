@@ -20,6 +20,8 @@ protocol PlayerProtocol {
     // Playback gap
     func wait()
     
+    func transcoding()
+    
     // Seeks to a certain time within the currently playing track
     func seekToTime(_ track: Track, _ seconds: Double)
     
