@@ -752,6 +752,7 @@
 		3E06C0251FB6AF2B003EE9AB /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				3E02739A1FD91B28000F0844 /* StringInputPopover */,
 				3E53A7CF1FBD1C1B0058940D /* Menus */,
 				3E2D9E441F664C000020B99E /* Buttons */,
 				3EF4F86B1F2079F000C45840 /* Sliders */,
@@ -791,6 +792,7 @@
 				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
 				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
+				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E309B721FB70B7800C61E72 /* FavoritesPopup */,
 				3E9B104821C32D16008326FE /* TranscodingPopup */,
 			);
@@ -1301,10 +1303,6 @@
 				3E0ED6AA1FBB1915008268B3 /* Effects */,
 				3E850D611FB45B920017CD02 /* Playlist */,
 				3E850D4E1FB4405C0017CD02 /* Preferences */,
-				3E51F6651FC98C40003A2210 /* StatusBar */,
-				3E3F82831FCD4C9100DC9D11 /* BarMode */,
-				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
-				3E02739A1FD91B28000F0844 /* StringInputPopover */,
 				3E2F1047215562B50099FD06 /* Editors */,
 				3EF18476217C8EE900D24F39 /* Visualizer */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
@@ -1725,6 +1723,8 @@
 				3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */,
 				3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */,
 				3EDA1FBE214F8B77003591FA /* ConstituentView.swift */,
+				3E51F6651FC98C40003A2210 /* StatusBar */,
+				3E3F82831FCD4C9100DC9D11 /* BarMode */,
 			);
 			name = Modes;
 			sourceTree = "<group>";
