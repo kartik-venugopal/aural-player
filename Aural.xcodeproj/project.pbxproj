@@ -173,7 +173,6 @@
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
-		3E6D0F8221C1CD3600640450 /* avconv in Resources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8121C1CD3600640450 /* avconv */; };
 		3E6D0F8521C1D43A00640450 /* LibAVWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
@@ -212,6 +211,7 @@
 		3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */; };
 		3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADC1F25E289006A7626 /* SearchResults.swift */; };
 		3E8A2C8421C4F6A7004AD0DA /* TranscoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */; };
+		3E8A2C8621C51158004AD0DA /* avconv in Resources */ = {isa = PBXBuildFile; fileRef = 3E8A2C8521C51158004AD0DA /* avconv */; };
 		3E93AC17218B14C80055E18E /* NewFilter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E93AC16218B14C80055E18E /* NewFilter.xib */; };
 		3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */; };
 		3E94E85B21549A5800C57AD8 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85A21549A5800C57AD8 /* DelayPresets.swift */; };
@@ -532,7 +532,6 @@
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
-		3E6D0F8121C1CD3600640450 /* avconv */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = avconv; path = "Aural Player/BUILD/bin/avconv"; sourceTree = SOURCE_ROOT; };
 		3E6D0F8421C1D43A00640450 /* LibAVWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
@@ -575,6 +574,7 @@
 		3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E864ADC1F25E289006A7626 /* SearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderView.swift; sourceTree = "<group>"; };
+		3E8A2C8521C51158004AD0DA /* avconv */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = avconv; sourceTree = "<group>"; };
 		3E93AC16218B14C80055E18E /* NewFilter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewFilter.xib; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabGroupButtonCells.swift; sourceTree = "<group>"; };
 		3E94E85A21549A5800C57AD8 /* DelayPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
@@ -1369,7 +1369,7 @@
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E6D0F8121C1CD3600640450 /* avconv */,
+				3E8A2C8521C51158004AD0DA /* avconv */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1896,7 +1896,6 @@
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
-				3E6D0F8221C1CD3600640450 /* avconv in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
 				3EB9304921996353008E45F8 /* FilterBand.xib in Resources */,
 				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
@@ -1942,6 +1941,7 @@
 				3E3F82871FCD4CD800DC9D11 /* BarMode.xib in Resources */,
 				3E36E8651FC00EC60005C62E /* SoundPreferences.xib in Resources */,
 				3E0ED6C11FBB1D21008268B3 /* Recorder.xib in Resources */,
+				3E8A2C8621C51158004AD0DA /* avconv in Resources */,
 				3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */,
 				3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */,
 				3E850D601FB459230017CD02 /* Playlist.xib in Resources */,
