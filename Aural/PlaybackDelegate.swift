@@ -305,6 +305,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             // Defer playback until transcoding finishes
             pendingPlaybackBlock = playbackBlock
+            player.transcoding()
             
         } else {
             playbackBlock()

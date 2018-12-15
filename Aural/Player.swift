@@ -83,6 +83,10 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         state = .waiting
     }
     
+    func transcoding() {
+        state = .transcoding
+    }
+    
     func seekToTime(_ track: Track, _ seconds: Double) {
         
         let timestamp = PlaybackSession.currentSession!.timestamp

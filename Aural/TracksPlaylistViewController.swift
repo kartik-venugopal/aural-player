@@ -70,6 +70,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func playSelectedTrackWithDelay(_ delay: Double?) {
         
+        if playbackInfo.state == .transcoding {
+            return
+        }
+        
         let selRowIndexes = playlistView.selectedRowIndexes
         
         if (!selRowIndexes.isEmpty) {

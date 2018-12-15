@@ -53,7 +53,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -62,7 +62,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -84,6 +84,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func playSelectedItemWithDelay(_ delay: Double?) {
+        
+        if playbackInfo.state == .transcoding {
+            return
+        }
         
         let selRowIndexes = playlistView.selectedRowIndexes
         
@@ -686,17 +690,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let errTrack = playlist.indexOfTrack(message.error.track)!
         
         if (oldTrack != nil) {
-            
             playlistView.reloadItem(oldTrack!.track)
-            //            let row = playlistView.row(forItem: oldTrack!.track)
-            //            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
         if !errTrack.equals(oldTrack) {
-            
             playlistView.reloadItem(errTrack.track)
-            //                let row = playlistView.row(forItem: errTrack.track)
-            //                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
         // Only need to do this if this playlist view is shown
@@ -711,23 +709,19 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
         
         if (oldTrack != nil) {
-            
             playlistView.reloadItem(oldTrack!.track)
-            //            let row = playlistView.row(forItem: oldTrack!.track)
-            //            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
         let newTrack = playlist.indexOfTrack(track)!
         
         if !newTrack.equals(oldTrack) {
-            
             playlistView.reloadItem(track)
-            //                let row = playlistView.row(forItem: newTrack.track)
-            //                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
         // Only need to do this if this playlist view is shown
-        selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
+        if let curViewGroupType = PlaylistViewState.current.toGroupType(), curViewGroupType == self.groupType {
+            selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
+        }
     }
     
     // Selects an item within the playlist view, to show a single result of a search

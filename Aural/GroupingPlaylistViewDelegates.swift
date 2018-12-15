@@ -78,6 +78,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 let isPlayingTrack = track == playbackInfo.playingTrack?.track
                 let isWaitingTrack = track == playbackInfo.waitingTrack?.track
+                
                 let image = isPlayingTrack ? Images.imgPlayingTrack : (isWaitingTrack ? Images.imgWaitingTrack : track.displayInfo.art)
                 
                 let cell = createImageAndTextCell_gaps(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
