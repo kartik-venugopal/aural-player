@@ -117,17 +117,15 @@ class TranscoderDaemon {
             
             // Duplicate the operation and add it to the immediate execution queue.
             let opClone = BlockOperation(block: task.block)
+            opClone.completionBlock = {
+                self.tasks.removeValue(forKey: task.track)
+            }
+            
             immediateExecutionQueue.addOperation(opClone)
         }
         
+        // TODO: ???
         // If op is already executing, let it finish on the background queue. If finished, nothing left to do.
-    }
-    
-    private func cloneOperation(_ operation: BlockOperation) -> BlockOperation {
-        
-        // TODO: Array element error
-        let block = operation.executionBlocks[0]
-        return BlockOperation(block: block)
     }
 }
 
