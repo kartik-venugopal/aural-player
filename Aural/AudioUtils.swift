@@ -28,8 +28,14 @@ class AudioUtils {
                 track.libAVInfo = LibAVWrapper.getMetadata(track)
             }
             
-            if !track.libAVInfo!.hasValidAudioTrack {
+            let avInfo = track.libAVInfo!
+            
+            if !avInfo.hasValidAudioTrack {
                 return TrackNotPlayableError(track)
+            }
+            
+            if avInfo.drmProtected {
+                return DRMProtectionError(track)
             }
             
             return nil

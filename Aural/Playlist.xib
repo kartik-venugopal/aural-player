@@ -472,14 +472,22 @@
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
+                <outlet property="transcodeTrackMenuItem" destination="s9W-FB-XJa" id="NUb-CO-DAG"/>
             </connections>
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
             <items>
-                <menuItem title=" Play this track" image="Play-Padded-Small" id="s9W-FB-XJa" userLabel="Play this track">
+                <menuItem title="Transcode this track (in the background)" image="Transcode" id="s9W-FB-XJa" userLabel="Transcode this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="jRU-hm-HZh"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="ytJ-NM-n08"/>
+                <menuItem title=" Play this track" image="Play-Padded-Small" id="SK1-ql-k4b" userLabel="Play this track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="kO2-0B-15e"/>
                     </connections>
                 </menuItem>
                 <menuItem title=" Play this group" image="Play-Padded-Small" id="FsK-Wf-m1z">
@@ -807,6 +815,7 @@
         <image name="Search" width="26" height="26"/>
         <image name="ShowInFinder" width="11.25" height="11.25"/>
         <image name="Sort" width="32" height="27"/>
+        <image name="Transcode" width="3.5999999046325684" height="3.3599998950958252"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>

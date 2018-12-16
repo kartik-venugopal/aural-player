@@ -8,7 +8,11 @@ protocol TranscoderProtocol {
     
     func cancel(_ track: Track)
     
+    // MARK: Query functions
+    
     var currentDiskSpaceUsage: UInt64 {get}
+    
+    func trackNeedsTranscoding(_ track: Track) -> (needsTranscoding: Bool, alreadyTranscoded: Bool)
     
     // ???
 //    func moveToBackground(_ track: Track)
@@ -143,10 +147,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                 let msg = TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining)
                 AsyncMessenger.publishMessage(msg)
             }
-            
-        } else if line.contains("Error while decoding stream") {
-            // Task failed, set a flag on command to indicate error
-            command.errorDetected = true
         }
     }
 
@@ -157,6 +157,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 //    func moveToBackground(_ track: Track) {
 //        daemon.moveTaskToBackground(track)
 //    }
+    
+    func trackNeedsTranscoding(_ track: Track) -> (needsTranscoding: Bool, alreadyTranscoded: Bool) {
+        return (!track.nativelySupported, store.hasForTrack(track) || daemon.hasTaskForTrack(track))
+    }
     
     func persistentState() -> PersistentState {
         

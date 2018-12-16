@@ -14,6 +14,7 @@ class LibAVWrapper {
         var map: [String: String] = [:]
         var streams: [LibAVStream] = []
         var duration: Double = 0
+        var drmProtected: Bool = false
 
         let inputFile = track.file
         let command = Command.createCommandWithOutput(track: track, cmd: avConvBinaryPath, args: ["-i", inputFile.path], qualityOfService: .userInteractive, timeout: getMetadata_timeout, readOutput: false, readErr: true)
@@ -64,6 +65,11 @@ class LibAVWrapper {
                     }
                     
                     continue
+                    
+                } else if trimmedLine.contains("DRM protected stream detected") {
+                    
+                    drmProtected = true
+                    continue
                 }
                 
                 if foundMetadata {
@@ -87,7 +93,7 @@ class LibAVWrapper {
                 } else if line.contains("Metadata:") {foundMetadata = true}
             }
         
-        return LibAVInfo(duration, streams, map)
+        return LibAVInfo(duration, streams, map, drmProtected)
     }
     
     static func getArtwork(_ track: Track) -> NSImage? {
