@@ -16,7 +16,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
     
     private let preferences: TranscodingPreferences
     
-    private let formatsMap: [String: String] = ["flac": "aiff", "wma": "mp3", "ogg": "mp3"]
+    private let formatsMap: [String: String] = ["flac": "aiff",
+                                                "wma": "mp3",
+                                                "ogg": "mp3"]
+    
     private let defaultOutputFileExtension: String = "mp3"
     
     private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
@@ -55,7 +58,11 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
             AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
         }
         
-        daemon.submitTask(track, command, successHandler, failureHandler, .immediate)
+        let cancellationHandler = {
+            FileSystemUtils.deleteFile(outputFile.path)
+        }
+        
+        daemon.submitTask(track, command, successHandler, failureHandler, cancellationHandler, .immediate)
     }
     
     private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: Command, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> Command {
@@ -105,9 +112,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
     }
 
     func cancel(_ track: Track) {
-
         daemon.cancelTask(track)
-        store.deleteEntry(track)
     }
     
     // Returns all state for this playlist that needs to be persisted to disk
