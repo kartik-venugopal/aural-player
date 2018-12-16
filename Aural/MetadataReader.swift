@@ -46,7 +46,7 @@ class MetadataReader {
         if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
             
             if track.libAVInfo == nil {
-                track.libAVInfo = LibAVWrapper.getMetadata(track.file)
+                track.libAVInfo = LibAVWrapper.getMetadata(track)
             }
             
         } else {
@@ -68,7 +68,7 @@ class MetadataReader {
             
             track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
             DispatchQueue.global(qos: .userInteractive).async {
-                track.displayInfo.art = LibAVWrapper.getArtwork(track.file)
+                track.displayInfo.art = LibAVWrapper.getArtwork(track)
             }
             
         } else {

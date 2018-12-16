@@ -25,7 +25,7 @@ class AudioUtils {
         if !track.nativelySupported || fileExtension == "flac" {
             
             if track.libAVInfo == nil {
-                track.libAVInfo = LibAVWrapper.getMetadata(track.file)
+                track.libAVInfo = LibAVWrapper.getMetadata(track)
             }
             
             if !track.libAVInfo!.hasValidAudioTrack {

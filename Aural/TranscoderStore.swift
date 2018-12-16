@@ -29,11 +29,8 @@ class TranscoderStore: MessageSubscriber {
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
     }
     
-    func addEntry(_ track: Track, _ outputFileName: String) -> URL {
-  
-        let outputFile = baseDir.appendingPathComponent(outputFileName, isDirectory: false)
-        map[track.file] = outputFile
-        return outputFile
+    func createOutputFile(_ track: Track, _ outputFileName: String) -> URL {
+        return baseDir.appendingPathComponent(outputFileName, isDirectory: false)
     }
     
     // When transcoding is canceled
@@ -47,7 +44,9 @@ class TranscoderStore: MessageSubscriber {
     }
     
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
-    func fileAddedToStore(_ addedFile: URL) {
+    func addFileMapping(_ track: Track, _ outputFile: URL) {
+        
+        map[track.file] = outputFile
         
         // Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played " History list (this is needed for the comparison between tracks)
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2, execute: {
@@ -73,7 +72,7 @@ class TranscoderStore: MessageSubscriber {
                         // Delete the oldest file
                         let fileToDelete = outputFiles.removeLast()
                         
-                        if fileToDelete.path == addedFile.path {
+                        if fileToDelete.path == outputFile.path {
                             // Cannot delete playing file, just exit and retry when next file is transcoded
                             return
                         }
