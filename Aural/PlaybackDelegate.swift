@@ -667,6 +667,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             // Send out playback error message "transcoding failed"
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, msg.track.lazyLoadingInfo.preparationError!))
         }
+        
+        pendingPlaybackBlock = {}
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
