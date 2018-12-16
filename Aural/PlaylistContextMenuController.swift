@@ -10,6 +10,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Track-specific menu items
     
+    @IBOutlet weak var transcodeTrackMenuItem: NSMenuItem!
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
     @IBOutlet weak var playTrackDelayedMenuItem: NSMenuItem!
     
@@ -56,6 +57,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
+    
     // Delegate that provides access to History information
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
@@ -98,6 +101,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             let track = getClickedTrack()
+            
+            let trackNeedsTranscoding = transcoder.trackNeedsTranscoding(track)
+            transcodeTrackMenuItem.showIf_elseHide(trackNeedsTranscoding.needsTranscoding && !trackNeedsTranscoding.alreadyTranscoded)
+            
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
             let gaps = playlist.getGapsAroundTrack(track)

@@ -5,12 +5,14 @@ class LibAVInfo {
     var duration: Double
     var streams: [LibAVStream]
     var metadata: [String: String]
+    var drmProtected: Bool
     
-    init(_ duration: Double, _ streams: [LibAVStream], _ metadata: [String: String]) {
+    init(_ duration: Double, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
         
         self.duration = duration
         self.streams = streams
         self.metadata = metadata
+        self.drmProtected = drmProtected
     }
     
     var hasValidAudioTrack: Bool {

@@ -18,6 +18,10 @@ class TranscoderDaemon {
         backgroundExecutionQueue.qualityOfService = .background
     }
     
+    func hasTaskForTrack(_ track: Track) -> Bool {
+        return tasks[track] != nil
+    }
+    
     func submitImmediateTask(_ track: Track, _ command: Command, _ successHandler: @escaping ((_ command: Command) -> Void), _ failureHandler: @escaping ((_ command: Command) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
         
         // Track is already being transcoded

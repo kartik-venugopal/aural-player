@@ -122,6 +122,10 @@ class TranscoderStore: MessageSubscriber {
         return nil
     }
     
+    func hasForTrack(_ track: Track) -> Bool {
+        return getForTrack(track) != nil
+    }
+    
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
