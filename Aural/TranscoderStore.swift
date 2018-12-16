@@ -38,9 +38,8 @@ class TranscoderStore: MessageSubscriber {
         
         if let outputFile = map[track.file] {
             FileSystemUtils.deleteFile(outputFile.path)
+            map.removeValue(forKey: track.file)
         }
-        
-        map.removeValue(forKey: track.file)
     }
     
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
