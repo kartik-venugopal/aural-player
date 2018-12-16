@@ -70,34 +70,34 @@ class AudioUtils {
     // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
     static func loadPlaybackInfo(_ track: Track) {
         
-        let preparationBlock = {(file: URL) -> Void in
-            
-            if let audioFile = AudioIO.createAudioFileForReading(file) {
-                
-                let playbackInfo = PlaybackInfo()
-                
-                playbackInfo.audioFile = audioFile
-                playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-                
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
-                
-                track.playbackInfo = playbackInfo
-                
-                track.lazyLoadingInfo.preparedForPlayback = true
-            }
-        }
-        
         if !track.nativelySupported {
             
             // Transcode the track and let the transcoder prepare the track for playback
             track.lazyLoadingInfo.needsTranscoding = true
             
             // If there is already a transcoded output file for this track, just use it to prepare the track. Otherwise, just return ... the transcoder will produce a file later.
-            transcoder.transcode(track, preparationBlock)
+            transcoder.transcodeImmediately(track)
             
         } else {
-            preparationBlock(track.file)
+            prepareTrackWithFile(track, track.file)
+        }
+    }
+    
+    static func prepareTrackWithFile(_ track: Track, _ audioFile: URL) {
+        
+        if let audioFile = AudioIO.createAudioFileForReading(audioFile) {
+            
+            let playbackInfo = PlaybackInfo()
+            
+            playbackInfo.audioFile = audioFile
+            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+            
+            playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+            playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+            
+            track.playbackInfo = playbackInfo
+            
+            track.lazyLoadingInfo.preparedForPlayback = true
         }
     }
     

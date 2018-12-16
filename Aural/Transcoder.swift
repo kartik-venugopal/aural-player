@@ -2,12 +2,17 @@ import Foundation
 
 protocol TranscoderProtocol {
     
-    func transcode(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void))
+    func transcodeImmediately(_ track: Track)
+    
+    func transcodeInBackground(_ track: Track)
     
     func cancel(_ track: Track)
+    
+    // ???
+//    func moveToBackground(_ track: Track)
 }
 
-class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, PersistentModelObject {
+class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
     private let avConvBinaryPath: String = Bundle.main.url(forResource: "avconv", withExtension: "")!.path
     
@@ -23,20 +28,28 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
     private let defaultOutputFileExtension: String = "mp3"
     
     private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
+    private lazy var sequencer: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
+    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
+    let subscriberId: String = "Transcoder"
     
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         
         store = TranscoderStore(state, preferences)
         daemon = TranscoderDaemon()
         self.preferences = preferences
+        
+        AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
-    func transcode(_ track: Track, _ trackPrepBlock: @escaping ((_ file: URL) -> Void)) {
+    func transcodeImmediately(_ track: Track) {
     
         if let outFile = store.getForTrack(track) {
-            trackPrepBlock(outFile)
+            AudioUtils.prepareTrackWithFile(track, outFile)
             return
         }
+        
+        // Check if this track is already being transcoded in the background. If so, bring it to the foreground (start monitoring it)
         
         let inputFile = track.file
         let outputFile = outputFileForTrack(track)
@@ -45,24 +58,67 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
         
         let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .userInteractive, true)
         
-        let successHandler = {
+        let successHandler = { (command: Command) -> Void in
             
             self.store.addFileMapping(track, outputFile)
-            trackPrepBlock(outputFile)
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
+            
+            // Only do this if task is in the foreground (i.e. monitoring enabled)
+            if command.enableMonitoring {
+                AudioUtils.prepareTrackWithFile(track, outputFile)
+                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
+            }
         }
         
-        let failureHandler = {
+        let failureHandler = { (command: Command) -> Void in
             
-            track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
+            // Only do this if task is in the foreground (i.e. monitoring enabled)
+            if command.enableMonitoring {
+                track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
+                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
+            }
         }
         
         let cancellationHandler = {
             FileSystemUtils.deleteFile(outputFile.path)
         }
         
-        daemon.submitTask(track, command, successHandler, failureHandler, cancellationHandler, .immediate)
+        daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
+    }
+    
+    func transcodeInBackground(_ track: Track) {
+        
+        let inputFile = track.file
+        let outputFile = outputFileForTrack(track)
+        
+        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .background, true)
+        
+        let successHandler = { (command: Command) -> Void in
+            
+            self.store.addFileMapping(track, outputFile)
+            
+            // Only do this if task is in the foreground (i.e. monitoring enabled)
+            if command.enableMonitoring {
+                
+                AudioUtils.prepareTrackWithFile(track, outputFile)
+                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
+            }
+        }
+        
+        let failureHandler = { (command: Command) -> Void in
+            
+            // Only do this if task is in the foreground (i.e. monitoring enabled)
+            if command.enableMonitoring {
+                
+                track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
+                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
+            }
+        }
+        
+        let cancellationHandler = {
+            FileSystemUtils.deleteFile(outputFile.path)
+        }
+        
+        daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler)
     }
     
     private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: Command, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> Command {
@@ -115,7 +171,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
         daemon.cancelTask(track)
     }
     
-    // Returns all state for this playlist that needs to be persisted to disk
+//    func moveToBackground(_ track: Track) {
+//        daemon.moveTaskToBackground(track)
+//    }
+    
     func persistentState() -> PersistentState {
         
         let state = TranscoderState()
@@ -124,7 +183,38 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, Persistent
         return state
     }
     
-    // MARK: PlaylistChangeListenerProtocol methods
+    // MARK: Message handling
+    
+    private func trackChanged() {
+        
+        // TODO: Use a Set to avoid duplicates. Check to make sure playing track is not included.
+        var tracksToTranscode: Set<IndexedTrack> = Set<IndexedTrack>()
+        
+        let playingTrack = player.playingTrack
+        
+        if let next = sequencer.peekNext() {tracksToTranscode.insert(next)}
+        if let prev = sequencer.peekPrevious() {tracksToTranscode.insert(prev)}
+        if let subsequent = sequencer.peekSubsequent() {tracksToTranscode.insert(subsequent)}
+        
+        for track in tracksToTranscode {
+            
+            if !track.equals(playingTrack) && trackNeedsTranscoding(track.track) {
+                transcodeInBackground(track.track)
+            }
+        }
+    }
+    
+    private func trackNeedsTranscoding(_ track: Track) -> Bool {
+        return !track.nativelySupported && store.getForTrack(track) == nil
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if message.messageType == .trackChanged {
+            trackChanged()
+            return
+        }
+    }
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
         

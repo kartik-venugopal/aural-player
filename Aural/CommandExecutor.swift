@@ -60,6 +60,7 @@ class CommandExecutor {
         
         cmd.process.terminate()
         cmd.cancelled = true
+        cmd.enableMonitoring = false
     }
 }
 
@@ -121,6 +122,10 @@ class Command {
         }
     }
     
+    func stopMonitoring() {
+        enableMonitoring = false
+    }
+    
     private func registerCallbackForPipe(_ pipe: Pipe) {
         
         pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -128,11 +133,15 @@ class Command {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: pipe.fileHandleForReading , queue: nil) {
             notification in
             
-            let output = pipe.fileHandleForReading.availableData
-            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-            self.callback!(self, outputString)
-            
-            if self.process.isRunning {
+            if self.process.isRunning && self.enableMonitoring {
+                
+                // Gather output and invoke callback
+                let output = pipe.fileHandleForReading.availableData
+                let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+                
+                self.callback!(self, outputString)
+                
+                // Continue monitoring
                 pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
             }
         }
