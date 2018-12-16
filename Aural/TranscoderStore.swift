@@ -11,7 +11,7 @@ class TranscoderStore: MessageSubscriber {
     
     // TODO: Accessing delegate here ?
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-
+    
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         
         self.preferences = preferences
@@ -47,8 +47,15 @@ class TranscoderStore: MessageSubscriber {
         
         map[track.file] = outputFile
         
-        // Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played " History list (this is needed for the comparison between tracks)
+        // HACK: Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played" History list (this is needed for the comparison between tracks)
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2, execute: {
+            self.checkDiskSpaceUsage()
+        })
+    }
+    
+    func checkDiskSpaceUsage() {
+        
+        DispatchQueue.global(qos: .background).async {
             
             // Do this async, as a background task, so as not to interfere with user-interactive tasks
             if self.preferences.persistenceOption == .save && self.preferences.limitDiskSpaceUsage {
@@ -67,25 +74,20 @@ class TranscoderStore: MessageSubscriber {
                     trackFiles.forEach({outputFiles.append(self.map[$0]!)})
                     
                     while curUsage > maxUsage {
-
+                        
                         // Delete the oldest file
                         let fileToDelete = outputFiles.removeLast()
                         
-                        if fileToDelete.path == outputFile.path {
-                            // Cannot delete playing file, just exit and retry when next file is transcoded
-                            return
-                        }
-                        
                         // Update current usage variable (subtract deleted file's size)
                         curUsage -= UInt64(FileSystemUtils.sizeOfFile(path: fileToDelete.path).sizeBytes)
-
+                        
                         // Delete the file from the filesystem and from the map
                         FileSystemUtils.deleteFile(fileToDelete.path)
                         self.map.removeValue(forKey: trackFiles.removeLast())
                     }
                 }
             }
-        })
+        }
     }
     
     func compareFiles(_ file1: URL, _ file2: URL) -> Bool {
@@ -103,7 +105,7 @@ class TranscoderStore: MessageSubscriber {
         
         return result == .orderedAscending
     }
-
+    
     func getForTrack(_ track: Track) -> URL? {
         
         if let outFile = map[track.file] {
@@ -117,7 +119,7 @@ class TranscoderStore: MessageSubscriber {
         
         return nil
     }
-
+    
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
