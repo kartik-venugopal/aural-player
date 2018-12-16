@@ -597,7 +597,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func cancelTranscoding() {
-        transcoder.cancel()
+        
+        transcoder.cancel(playingTrack!.track)
         stop()
     }
     

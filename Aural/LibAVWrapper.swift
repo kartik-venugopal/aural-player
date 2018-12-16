@@ -2,49 +2,26 @@ import Cocoa
 
 class LibAVWrapper {
     
-    static let avConvBinaryPath: String? = Bundle.main.url(forResource: "avconv", withExtension: "")?.path
+    static let avConvBinaryPath: String = Bundle.main.url(forResource: "avconv", withExtension: "")!.path
     
     static let metadataIgnoreKeys: [String] = ["bitrate"]
     
     static let getMetadata_timeout: Double = 1
     static let getArtwork_timeout: Double = 2
     
-    private static var runningTask: Process?
-    
-    static func cancelTask() {
-        
-        runningTask?.terminate()
-        runningTask = nil
-    }
-    
-    static func transcode(_ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ output: String) -> Void)) -> Bool {
-        
-        if let binaryPath = avConvBinaryPath {
-            
-            // -vn: Ignore video stream (including album art)
-            // -sn: Ignore subtitles
-            // -ac 2: Convert to stereo audio
-            let result = runCommand(cmd: binaryPath, timeout: nil, callback: progressCallback, readOutput: false, readErr: false, args: "-i", inputFile.path, "-vn", "-sn", "-ac", "2" , outputFile.path)
-            return result.exitCode == 0
-        }
-        
-        return false
-    }
-    
-    static func getMetadata(_ inputFile: URL) -> LibAVInfo {
+    static func getMetadata(_ track: Track) -> LibAVInfo {
         
         var map: [String: String] = [:]
         var streams: [LibAVStream] = []
         var duration: Double = 0
-        
-        if let binaryPath = avConvBinaryPath {
 
-            let tim = TimerUtils.start("getMetadata")
-            let cmdOutput = runCommand(cmd: binaryPath, timeout: getMetadata_timeout, callback: nil, readOutput: false, readErr: true, args: "-i", inputFile.path)
-            tim.end()
+        let inputFile = track.file
+        let command = Command.createCommandWithOutput(track: track, cmd: avConvBinaryPath, args: ["-i", inputFile.path], qualityOfService: .userInteractive, timeout: getMetadata_timeout, readOutput: false, readErr: true)
+        
+            let result = CommandExecutor.execute(command)
             
             var foundMetadata: Bool = false
-            outerLoop: for line in cmdOutput.error {
+            outerLoop: for line in result.error {
                 
                 let trimmedLine = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 
@@ -109,107 +86,27 @@ class LibAVWrapper {
                     
                 } else if line.contains("Metadata:") {foundMetadata = true}
             }
-        }
         
         return LibAVInfo(duration, streams, map)
     }
     
-    static func getArtwork(_ inputFile: URL) -> NSImage? {
-        
-        if let binaryPath = avConvBinaryPath {
-            
-            let now = Date()
-            let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
-            
-            let tim = TimerUtils.start("getArtwork")
-            let cmdOutput = runCommand(cmd: binaryPath, timeout: getArtwork_timeout, callback: nil, readOutput: false, readErr: false, args: "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath)
-            tim.end()
-            
-            if cmdOutput.exitCode == 0 {
-                return NSImage(contentsOf: URL(fileURLWithPath: imgPath))
-            }
-        }
-        
-        return nil
-    }
-    
-    private static func runCommand(cmd : String, timeout: Double?, callback: ((_ output: String) -> Void)?, readOutput: Bool, readErr: Bool, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
-        
-        var output : [String] = []
-        var error : [String] = []
-        
-        let task = Process()
-        task.launchPath = cmd
-        task.arguments = args
-        
-        let outpipe = Pipe()
-        task.standardOutput = outpipe
-        
-        let errpipe = Pipe()
-        task.standardError = errpipe
-        
-        if let callback = callback {
-            registerCallbackForPipe(outpipe, callback, task)
-            registerCallbackForPipe(errpipe, callback, task)
-        }
+    static func getArtwork(_ track: Track) -> NSImage? {
 
-        runningTask = task
-        task.launch()
-
-        // End task after timeout interval
-        if let timeout = timeout {
-            
-            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + timeout, execute: {
-                task.terminate()
-            })
+        let inputFile = track.file
+        let now = Date()
+        let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
+        
+        let command = Command.createSimpleCommand(track: track, cmd: avConvBinaryPath, args: ["-i", inputFile.path, "-an", "-vcodec", "copy", imgPath], qualityOfService: .userInteractive, timeout: getArtwork_timeout)
+        
+        let result = CommandExecutor.execute(command)
+        
+        var image: NSImage?
+        if result.exitCode == 0 {
+            image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
         }
         
-        task.waitUntilExit()
+        FileSystemUtils.deleteFile(imgPath)
         
-        if runningTask == nil {
-            // Task may have been canceled
-            return (output, error, -1)
-        }
-        
-        let status = task.terminationStatus
-        
-        // TODO: Don't always read this stuff
-        
-        if readOutput {
-            
-            let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
-            if var string = String(data: outdata, encoding: .utf8) {
-                string = string.trimmingCharacters(in: .newlines)
-                output = string.components(separatedBy: "\n")
-            }
-        }
-        
-        if readErr {
-            
-            let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
-            if var string = String(data: errdata, encoding: .utf8) {
-                string = string.trimmingCharacters(in: .newlines)
-                error = string.components(separatedBy: "\n")
-            }
-        }
-        
-        return (output, error, status)
-    }
-    
-    private static func registerCallbackForPipe(_ pipe: Pipe, _ callback: @escaping ((_ output: String) -> Void), _ task: Process) {
-        
-        pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: pipe.fileHandleForReading , queue: nil) {
-            notification in
-            
-            let output = pipe.fileHandleForReading.availableData
-            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-            callback(outputString)
-            
-            if task.isRunning {
-                pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-            }
-        }
+        return image
     }
 }
