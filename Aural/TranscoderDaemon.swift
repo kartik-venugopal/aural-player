@@ -53,7 +53,7 @@ class TranscoderDaemon {
                 return
             }
             
-            if result.exitCode == 0 {
+            if result.exitCode == 0 && !command.errorDetected {
                 // Success
                 successHandler(command)
             } else {

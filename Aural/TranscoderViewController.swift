@@ -30,14 +30,12 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         theView.transcodingProgress(msg)
     }
     
-    private func transcodingFinished(_ track: Track, _ success: Bool) {
+    private func transcodingFinished() {
         
         theView.transcodingFinished()
         theView.hide()
-        
-        // TODO: Show error if failed !
     }
-
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -52,8 +50,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
             
         case .transcodingFinished:
             
-            let msg = message as! TranscodingFinishedAsyncMessage
-            transcodingFinished(msg.track, msg.success)
+            transcodingFinished()
             
         default: return
             
@@ -61,6 +58,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     }
     
     @IBAction func cancelAction(_ sender: Any) {
+        
         player.cancelTranscoding()
         theView.transcodingFinished()
         theView.hide()
