@@ -74,6 +74,7 @@ class Command {
     var timeout: Double?
     var readOutput: Bool
     var readErr: Bool
+    var errorDetected: Bool = false
     
     var enableMonitoring: Bool
     var callback: ((_ command: Command, _ output: String) -> Void)?

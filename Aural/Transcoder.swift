@@ -49,52 +49,25 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     func transcodeImmediately(_ track: Track) {
     
         if let outFile = store.getForTrack(track) {
+            
             AudioUtils.prepareTrackWithFile(track, outFile)
             return
         }
         
-        // Check if this track is already being transcoded in the background. If so, bring it to the foreground (start monitoring it)
-        
-        let inputFile = track.file
-        let outputFile = outputFileForTrack(track)
-        
         AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
-        
-        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .userInteractive, true)
-        
-        let successHandler = { (command: Command) -> Void in
-            
-            self.store.addFileMapping(track, outputFile)
-            
-            // Only do this if task is in the foreground (i.e. monitoring enabled)
-            if command.enableMonitoring {
-                AudioUtils.prepareTrackWithFile(track, outputFile)
-                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
-            }
-        }
-        
-        let failureHandler = { (command: Command) -> Void in
-            
-            // Only do this if task is in the foreground (i.e. monitoring enabled)
-            if command.enableMonitoring {
-                track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
-                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
-            }
-        }
-        
-        let cancellationHandler = {
-            FileSystemUtils.deleteFile(outputFile.path)
-        }
-        
-        daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
+        doTranscode(track, false)
     }
     
     func transcodeInBackground(_ track: Track) {
+        doTranscode(track, true)
+    }
+    
+    private func doTranscode(_ track: Track, _ inBackground: Bool) {
         
         let inputFile = track.file
         let outputFile = outputFileForTrack(track)
         
-        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .background, false)
+        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
         
         let successHandler = { (command: Command) -> Void in
             
@@ -116,13 +89,15 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                 track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
                 AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
             }
+            
+            FileSystemUtils.deleteFile(outputFile.path)
         }
         
         let cancellationHandler = {
             FileSystemUtils.deleteFile(outputFile.path)
         }
         
-        daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler)
+        inBackground ? daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler) : daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
     }
     
     private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: Command, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> Command {
@@ -168,6 +143,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                 let msg = TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining)
                 AsyncMessenger.publishMessage(msg)
             }
+            
+        } else if line.contains("Error while decoding stream") {
+            // Task failed, set a flag on command to indicate error
+            command.errorDetected = true
         }
     }
 

@@ -103,9 +103,8 @@ class LibAVWrapper {
         var image: NSImage?
         if result.exitCode == 0 {
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
+            FileSystemUtils.deleteFile(imgPath)
         }
-        
-        FileSystemUtils.deleteFile(imgPath)
         
         return image
     }
