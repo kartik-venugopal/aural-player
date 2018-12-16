@@ -14,7 +14,7 @@ class TranscoderDaemon {
         immediateExecutionQueue.qualityOfService = .userInteractive
         
         backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
-        backgroundExecutionQueue.maxConcurrentOperationCount = 3    // TODO: This value should come from preferences
+        backgroundExecutionQueue.maxConcurrentOperationCount = 1    // TODO: This value should come from preferences
         backgroundExecutionQueue.qualityOfService = .background
     }
     
@@ -59,16 +59,18 @@ class TranscoderDaemon {
             } else {
                 failureHandler(command)
             }
+        }
+        
+        let operation = BlockOperation(block: block)
+        operation.completionBlock = {
             
             // Task completed, remove it from the map
             self.tasks.removeValue(forKey: track)
         }
         
-        let operation = BlockOperation(block: block)
-        
         priority == .immediate ? immediateExecutionQueue.addOperation(operation) : backgroundExecutionQueue.addOperation(operation)
         
-        let task = TranscodingTask(track, priority, command, operation)
+        let task = TranscodingTask(track, priority, command, operation, block)
         tasks[track] = task
     }
     
@@ -110,13 +112,12 @@ class TranscoderDaemon {
         
         if !op.isExecuting && !op.isFinished {
             
-            // TODO
-            
             // This should prevent it from executing on the background queue
-//            op.cancel()
-//
-//            // Duplicate the operation and add it to the immediate execution queue.
-//            immediateExecutionQueue.addOperation(cloneOperation(op))
+            op.cancel()
+            
+            // Duplicate the operation and add it to the immediate execution queue.
+            let opClone = BlockOperation(block: task.block)
+            immediateExecutionQueue.addOperation(opClone)
         }
         
         // If op is already executing, let it finish on the background queue. If finished, nothing left to do.
@@ -140,13 +141,15 @@ class TranscodingTask {
     var startTime: Date! {return command.startTime}
     
     var operation: BlockOperation
+    var block: (() -> Void)
     
-    init(_ track: Track, _ priority: TranscoderPriority, _ command: Command, _ operation: BlockOperation) {
+    init(_ track: Track, _ priority: TranscoderPriority, _ command: Command, _ operation: BlockOperation, _ block: @escaping (() -> Void)) {
         
         self.track = track
         self.priority = priority
         self.command = command
         self.operation = operation
+        self.block = block
     }
 }
 
