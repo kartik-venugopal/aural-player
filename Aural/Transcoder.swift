@@ -90,7 +90,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         let inputFile = track.file
         let outputFile = outputFileForTrack(track)
         
-        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .background, true)
+        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, .background, false)
         
         let successHandler = { (command: Command) -> Void in
             
