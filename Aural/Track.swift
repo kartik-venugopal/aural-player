@@ -215,7 +215,7 @@ class MetadataEntry {
 }
 
 // Wrapper around Track that includes its index in the flat playlist
-struct IndexedTrack {
+class IndexedTrack: NSObject {
     
     let track: Track
     let index: Int
