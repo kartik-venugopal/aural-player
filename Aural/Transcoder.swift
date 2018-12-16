@@ -8,6 +8,8 @@ protocol TranscoderProtocol {
     
     func cancel(_ track: Track)
     
+    var currentDiskSpaceUsage: UInt64 {get}
+    
     // ???
 //    func moveToBackground(_ track: Track)
 }
@@ -32,6 +34,8 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     let subscriberId: String = "Transcoder"
+    
+    var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         

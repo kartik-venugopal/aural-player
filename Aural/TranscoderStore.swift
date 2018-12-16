@@ -9,6 +9,8 @@ class TranscoderStore: MessageSubscriber {
     
     let subscriberId: String = "TranscoderStore"
     
+    var currentDiskSpaceUsage: UInt64 {return FileSystemUtils.sizeOfDirectory(baseDir)}
+    
     // TODO: Accessing delegate here ?
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     

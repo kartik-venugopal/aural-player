@@ -55,10 +55,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnLimitSpace: NSButton!
     @IBOutlet weak var maxSpaceSlider: NSSlider!
     @IBOutlet weak var lblMaxSpace: NSTextField!
+    @IBOutlet weak var lblCurrentUsage: NSTextField!
     
     @IBOutlet weak var btnEagerTranscoding: NSButton!
     @IBOutlet weak var btnPredictive: NSButton!
     @IBOutlet weak var btnAllFiles: NSButton!
+    
+    private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
     
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
@@ -163,6 +166,18 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         btnLimitSpace.onIf(transcodingPrefs.limitDiskSpaceUsage)
         limitSpaceAction(self)
+
+        let currentUsageMB: Double = Double(transcoder.currentDiskSpaceUsage) / (1000.0 * 1000)
+        lblCurrentUsage.stringValue = formatSizeMB(currentUsageMB)
+        let percUsed: Double = currentUsageMB * 100 / Double(transcodingPrefs.maxDiskSpaceUsage)
+        
+        if percUsed < 75 {
+            lblCurrentUsage.textColor = NSColor.green
+        } else if percUsed < 90 {
+            lblCurrentUsage.textColor = NSColor.orange
+        } else {
+            lblCurrentUsage.textColor = NSColor.red
+        }
         
         maxSpaceSlider.doubleValue = log10(Double(transcodingPrefs.maxDiskSpaceUsage)) - log10(100)
         maxSpaceSliderAction(self)
@@ -239,18 +254,20 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func transcoderPersistenceRadioButtonAction(_ sender: Any) {
-        [btnLimitSpace, maxSpaceSlider].forEach({$0?.enableIf(btnSaveFiles.isOn())})
+        // Needed for radio button group
     }
     
     @IBAction func limitSpaceAction(_ sender: Any) {
-        maxSpaceSlider.enableIf(btnSaveFiles.isOn() && btnLimitSpace.isOn())
+        maxSpaceSlider.enableIf(btnLimitSpace.isOn())
     }
     
     @IBAction func maxSpaceSliderAction(_ sender: Any) {
-
-        let val = maxSpaceSlider.doubleValue
+        lblMaxSpace.stringValue = formatSizeMB(round(100 * pow(10, maxSpaceSlider.doubleValue)))
+    }
+    
+    private func formatSizeMB(_ size: Double) -> String {
         
-        var amount: Double = round(100 * pow(10, val))
+        var amount: Double = size
         var unit = "MB"
         
         if amount >= 1000 && amount < 1000 * 1000 {
@@ -267,7 +284,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         let isWholeNumber = amount == round(amount)
-        lblMaxSpace.stringValue = isWholeNumber ? String(format: "%d  %@", Int(amount), unit) : String(format: "%.2lf  %@", amount, unit)
+        return isWholeNumber ? String(format: "%d  %@", Int(amount), unit) : (unit == "MB" ? String(format: "%d  %@", UInt(round(amount)), unit) : String(format: "%.2lf  %@", amount, unit))
     }
     
     @IBAction func eagerTranscodingAction(_ sender: Any) {
