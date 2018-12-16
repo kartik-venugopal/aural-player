@@ -98,6 +98,7 @@ class TranscoderDaemon {
         }
     }
     
+    // TODO: Because of the .background QoS, this is not straightforward. Perhaps always cancel the old task and start a new one ? Check time remaining on task and make decision ?
     func doMoveTaskToForeground(_ task: TranscodingTask) {
         
         task.command.startMonitoring()

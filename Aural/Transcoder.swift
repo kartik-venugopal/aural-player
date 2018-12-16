@@ -187,7 +187,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func trackChanged() {
         
-        // TODO: Use a Set to avoid duplicates. Check to make sure playing track is not included.
+        // Use a Set to avoid duplicates
         var tracksToTranscode: Set<IndexedTrack> = Set<IndexedTrack>()
         
         let playingTrack = player.playingTrack
