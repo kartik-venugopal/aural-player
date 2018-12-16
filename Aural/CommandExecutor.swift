@@ -58,7 +58,10 @@ class CommandExecutor {
     
     static func cancel(_ cmd: Command) {
         
-        cmd.process.terminate()
+        if cmd.process.isRunning {
+            cmd.process.terminate()
+        }
+        
         cmd.cancelled = true
         cmd.enableMonitoring = false
     }

@@ -13,8 +13,8 @@ class TranscoderDaemon {
         immediateExecutionQueue.maxConcurrentOperationCount = 1
         immediateExecutionQueue.qualityOfService = .userInteractive
         
-        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        backgroundExecutionQueue.maxConcurrentOperationCount = 1    // TODO: This value should come from preferences
+        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
+        backgroundExecutionQueue.maxConcurrentOperationCount = 3    // TODO: This value should come from preferences
         backgroundExecutionQueue.qualityOfService = .background
     }
     
@@ -105,14 +105,18 @@ class TranscoderDaemon {
         task.priority = .immediate
         
         let op = task.operation
+        op.qualityOfService = .userInteractive
+        task.command.process.qualityOfService = .userInteractive
         
         if !op.isExecuting && !op.isFinished {
             
-            // This should prevent it from executing on the background queue
-            op.cancel()
+            // TODO
             
-            // Duplicate the operation and add it to the immediate execution queue.
-            immediateExecutionQueue.addOperation(cloneOperation(op))
+            // This should prevent it from executing on the background queue
+//            op.cancel()
+//
+//            // Duplicate the operation and add it to the immediate execution queue.
+//            immediateExecutionQueue.addOperation(cloneOperation(op))
         }
         
         // If op is already executing, let it finish on the background queue. If finished, nothing left to do.
@@ -120,6 +124,7 @@ class TranscoderDaemon {
     
     private func cloneOperation(_ operation: BlockOperation) -> BlockOperation {
         
+        // TODO: Array element error
         let block = operation.executionBlocks[0]
         return BlockOperation(block: block)
     }

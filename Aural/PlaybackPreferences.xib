@@ -30,6 +30,7 @@
                 <outlet property="btnSecondarySeekLengthPerc" destination="GQ3-JO-aUl" id="pFY-ZK-mnj"/>
                 <outlet property="btnShowNewTrack" destination="Uxk-4x-fK7" id="dPJ-Ou-FIT"/>
                 <outlet property="gapDurationPicker" destination="lGn-cP-qBg" id="Smf-Vj-GdL"/>
+                <outlet property="lblCurrentUsage" destination="tEa-Zm-hg9" id="dHb-0U-cpf"/>
                 <outlet property="lblGapDuration" destination="GmD-Nk-SNf" id="h73-iP-YbB"/>
                 <outlet property="lblMaxSpace" destination="2ac-zq-sdR" id="TTa-fd-Qp5"/>
                 <outlet property="lblPrimarySeekLength" destination="6FE-mr-ZA4" id="faH-MH-QB1"/>
@@ -491,7 +492,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zda-3P-h3e">
-                                        <rect key="frame" x="33" y="287" width="163" height="20"/>
+                                        <rect key="frame" x="33" y="342" width="163" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Delete when app exits" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="hKX-vD-YC7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -511,18 +512,18 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="50a-HB-lbu" userLabel="Seek Length Label">
-                                        <rect key="frame" x="192" y="290" width="426" height="19"/>
+                                        <rect key="frame" x="222" y="345" width="426" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded each time app is launched)" id="cnq-6F-WRI">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded on app launch)" id="cnq-6F-WRI">
                                             <font key="font" size="13" name="GillSans"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ixK-75-hLM">
-                                        <rect key="frame" x="53" y="342" width="463" height="20"/>
+                                        <rect key="frame" x="20" y="182" width="22" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Limit disk space usage  (oldest files wil be deleted to stay under limit)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="YW8-Id-Ktn" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="YW8-Id-Ktn" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
@@ -531,7 +532,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-5f-s7R">
-                                        <rect key="frame" x="83" y="322" width="111" height="20"/>
+                                        <rect key="frame" x="50" y="157" width="111" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="Max. space to use" id="Es8-gG-b6q">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="tGu-bn-oNm">
@@ -544,7 +545,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ac-zq-sdR" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="470" y="321" width="80" height="20"/>
+                                        <rect key="frame" x="507" y="156" width="80" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="1 GB" id="Xw5-yN-iaq">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dyt-zn-fq2">
@@ -562,7 +563,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sh-Nq-vDL" userLabel="Startup Volume Slider">
-                                        <rect key="frame" x="181" y="319" width="280" height="18"/>
+                                        <rect key="frame" x="148" y="154" width="353" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="5" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="UjW-6w-peE" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         <connections>
@@ -570,7 +571,7 @@
                                         </connections>
                                     </slider>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sr5-uK-qZM">
-                                        <rect key="frame" x="15" y="232" width="22" height="20"/>
+                                        <rect key="frame" x="17" y="287" width="22" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oQj-F9-fLu" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -581,7 +582,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
-                                        <rect key="frame" x="33" y="233" width="536" height="20"/>
+                                        <rect key="frame" x="35" y="288" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Eager transcoding (automatic transcoding in the background, ahead of time ... will load the CPU)" id="MLX-C0-fMz">
                                             <font key="font" size="13" name="GillSans"/>
@@ -590,7 +591,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-y7-bg2">
-                                        <rect key="frame" x="33" y="202" width="310" height="20"/>
+                                        <rect key="frame" x="35" y="257" width="310" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode all playlist files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="vAy-7W-kwY" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -601,7 +602,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
-                                        <rect key="frame" x="33" y="181" width="199" height="20"/>
+                                        <rect key="frame" x="35" y="236" width="199" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="6MG-XI-sRg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -611,6 +612,41 @@
                                             <action selector="eagerTranscodingOptionAction:" target="-2" id="Y0g-gT-0jK"/>
                                         </connections>
                                     </button>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAF-ch-lTv">
+                                        <rect key="frame" x="51" y="131" width="91" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="Current usage" id="VSf-ZG-yp6">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="ldA-fZ-6G0">
+                                                <real key="minimum" value="3"/>
+                                                <real key="maximum" value="300"/>
+                                            </numberFormatter>
+                                            <font key="font" size="11" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEa-Zm-hg9">
+                                        <rect key="frame" x="146" y="131" width="91" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="125 MB" id="caf-gZ-3fY">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="gfA-KA-416">
+                                                <real key="minimum" value="3"/>
+                                                <real key="maximum" value="300"/>
+                                            </numberFormatter>
+                                            <font key="font" size="11" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAw-Ta-lRW" userLabel="Seek Length Label">
+                                        <rect key="frame" x="40" y="183" width="536" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Limit disk space usage  (oldest files wil be deleted to stay under limit)" id="PZD-PT-2oW">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                             <connections>
