@@ -57,10 +57,14 @@ class TranscoderStore: MessageSubscriber {
     
     func checkDiskSpaceUsage() {
         
-        DispatchQueue.global(qos: .background).async {
+        if self.preferences.limitDiskSpaceUsage {
             
-            // Do this async, as a background task, so as not to interfere with user-interactive tasks
-            if self.preferences.persistenceOption == .save && self.preferences.limitDiskSpaceUsage {
+            DispatchQueue.global(qos: .background).async {
+                
+                // Do this async, as a background task, so as not to interfere with user-interactive tasks
+                self.cleanUpOrphanedFiles()
+                
+                if self.map.isEmpty {return}
                 
                 let maxUsage = self.preferences.maxDiskSpaceUsage * (1000 * 1000)
                 var curUsage: UInt64 = FileSystemUtils.sizeOfDirectory(self.baseDir)
@@ -70,24 +74,38 @@ class TranscoderStore: MessageSubscriber {
                     // Gather all files, sort chronologically
                     var trackFiles: [URL] = []
                     trackFiles.append(contentsOf: self.map.keys)
+                    
                     trackFiles.sort(by: self.compareFiles(_:_:))
                     
                     var outputFiles: [URL] = []
                     trackFiles.forEach({outputFiles.append(self.map[$0]!)})
                     
-                    while curUsage > maxUsage {
+                    while curUsage > maxUsage && !trackFiles.isEmpty {
                         
                         // Delete the oldest file
                         let fileToDelete = outputFiles.removeLast()
+                        self.map.removeValue(forKey: trackFiles.removeLast())
                         
                         // Update current usage variable (subtract deleted file's size)
                         curUsage -= UInt64(FileSystemUtils.sizeOfFile(path: fileToDelete.path).sizeBytes)
                         
                         // Delete the file from the filesystem and from the map
                         FileSystemUtils.deleteFile(fileToDelete.path)
-                        self.map.removeValue(forKey: trackFiles.removeLast())
                     }
                 }
+            }
+        }
+    }
+    
+    private func cleanUpOrphanedFiles() {
+        
+        let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
+        let mappedFiles = map.values
+        
+        for file in allFiles {
+            
+            if !mappedFiles.contains(file) {
+                FileSystemUtils.deleteFile(file.path)
             }
         }
     }

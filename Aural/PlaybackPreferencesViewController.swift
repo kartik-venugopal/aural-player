@@ -348,6 +348,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         prefs.transcodingPreferences.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
         prefs.transcodingPreferences.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
+        
+        // Max usage prefs may have changed, so perform a check if user has opted to limit disk space usage
+        if prefs.transcodingPreferences.limitDiskSpaceUsage {
+            transcoder.checkDiskSpaceUsage()
+        }
     }
 }
 

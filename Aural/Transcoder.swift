@@ -12,7 +12,9 @@ protocol TranscoderProtocol {
     
     var currentDiskSpaceUsage: UInt64 {get}
     
-    func trackNeedsTranscoding(_ track: Track) -> (needsTranscoding: Bool, alreadyTranscoded: Bool)
+    func trackNeedsTranscoding(_ track: Track) -> Bool
+    
+    func checkDiskSpaceUsage()
     
     // ???
 //    func moveToBackground(_ track: Track)
@@ -154,13 +156,13 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         daemon.cancelTask(track)
     }
     
+    func checkDiskSpaceUsage() {
+        store.checkDiskSpaceUsage()
+    }
+    
 //    func moveToBackground(_ track: Track) {
 //        daemon.moveTaskToBackground(track)
 //    }
-    
-    func trackNeedsTranscoding(_ track: Track) -> (needsTranscoding: Bool, alreadyTranscoded: Bool) {
-        return (!track.nativelySupported, store.hasForTrack(track) || daemon.hasTaskForTrack(track))
-    }
     
     func persistentState() -> PersistentState {
         
@@ -191,8 +193,8 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
     
-    private func trackNeedsTranscoding(_ track: Track) -> Bool {
-        return !track.nativelySupported && store.getForTrack(track) == nil
+    func trackNeedsTranscoding(_ track: Track) -> Bool {
+        return !track.nativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

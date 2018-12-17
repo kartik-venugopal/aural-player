@@ -102,8 +102,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             let track = getClickedTrack()
             
-            let trackNeedsTranscoding = transcoder.trackNeedsTranscoding(track)
-            transcodeTrackMenuItem.showIf_elseHide(trackNeedsTranscoding.needsTranscoding && !trackNeedsTranscoding.alreadyTranscoded)
+            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(track))
             
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
@@ -118,6 +117,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             trackMenuItems.forEach({$0.hide()})
             groupMenuItems.forEach({$0.show()})
         }
+    }
+    
+    @IBAction func transcodeTrackAction(_ sender: Any) {
+        
+        let track = getClickedTrack()
+        transcoder.transcodeInBackground(track)
     }
     
     // Plays the selected playlist item (track or group)
