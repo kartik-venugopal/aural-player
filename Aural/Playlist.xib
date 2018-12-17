@@ -480,7 +480,7 @@
                 <menuItem title="Transcode this track (in the background)" image="Transcode" id="s9W-FB-XJa" userLabel="Transcode this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="jRU-hm-HZh"/>
+                        <action selector="transcodeTrackAction:" target="TnB-Sk-yOp" id="Kx8-Oz-5BA"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ytJ-NM-n08"/>
