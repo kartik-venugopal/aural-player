@@ -251,7 +251,6 @@ class StringUtils {
     
     // Trims all whitespace from a string and returns the result
     static func trimString(_ string: String) -> String {
-        
         return string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     

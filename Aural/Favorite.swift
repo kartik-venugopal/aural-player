@@ -22,10 +22,10 @@ class Favorite: StringKeyedItem, PlayableItem {
         }
     }
     
-    init(_ file: URL) {
+    init(_ file: URL, _ name: String) {
         
         self.file = file
-        self.name = file.lastPathComponent
+        self.name = name
         loadDisplayInfoFromFile()
     }
     
@@ -35,10 +35,8 @@ class Favorite: StringKeyedItem, PlayableItem {
         // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
         DispatchQueue.global(qos: .background).async {
             
-            let displayInfo = MetadataReader.loadDisplayInfoForFile(self.file)
-            self.name = displayInfo.displayName
-            if (displayInfo.art != nil) {
-                self.art = displayInfo.art!.copy() as! NSImage
+            if let art = MetadataReader.loadArtworkForFile(self.file) {
+                self.art = art.copy() as! NSImage
             }
         }
     }

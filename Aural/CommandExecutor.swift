@@ -11,7 +11,10 @@ class CommandExecutor {
         
         let task = cmd.process
         
-        cmd.startTime = Date()
+        if let monitoredCmd = cmd as? MonitoredCommand {
+            monitoredCmd.startTime = Date()
+        }
+        
         task.launch()
         
         // End task after timeout interval
@@ -24,16 +27,14 @@ class CommandExecutor {
         
         task.waitUntilExit()
         
-        if cmd.cancelled {
+        if let monitoredCmd = cmd as? MonitoredCommand, monitoredCmd.cancelled {
             // Task may have been canceled
             return CommandResult(output, error, cancellationExitCode)
         }
         
         let status = task.terminationStatus
         
-        if cmd.readOutput {
-            
-            let outpipe = task.standardOutput as! Pipe
+        if cmd.readOutput, let outpipe = task.standardOutput as? Pipe {
             
             let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
             if var string = String(data: outdata, encoding: .utf8) {
@@ -42,9 +43,7 @@ class CommandExecutor {
             }
         }
         
-        if cmd.readErr {
-            
-            let errpipe = task.standardError as! Pipe
+        if cmd.readErr, let errpipe = task.standardError as? Pipe {
             
             let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
             if var string = String(data: errdata, encoding: .utf8) {
@@ -56,7 +55,7 @@ class CommandExecutor {
         return CommandResult(output, error, status)
     }
     
-    static func cancel(_ cmd: Command) {
+    static func cancel(_ cmd: MonitoredCommand) {
         
         if cmd.process.isRunning {
             cmd.process.terminate()
@@ -68,49 +67,66 @@ class CommandExecutor {
 }
 
 class Command {
- 
-    var track: Track
+    
     var process: Process
     var timeout: Double?
     var readOutput: Bool
     var readErr: Bool
+    
+    init(_ cmd : String, _ args : [String], _ timeout: Double?, _ readOutput: Bool, _ readErr: Bool) {
+        
+        process = Process()
+        process.launchPath = cmd
+        process.arguments = args
+        process.qualityOfService = .userInteractive
+        
+        let outpipe = Pipe()
+        process.standardOutput = outpipe
+        
+        let errpipe = Pipe()
+        process.standardError = errpipe
+        
+        self.timeout = timeout
+        
+        self.readOutput = readOutput
+        self.readErr = readErr
+    }
+    
+    static func createWithOutput(cmd : String, args : [String], timeout: Double?, readOutput: Bool, readErr: Bool) -> Command {
+        return Command(cmd, args, timeout, readOutput, readErr)
+    }
+    
+    static func createSimpleCommand(cmd : String, args : [String], timeout: Double?) -> Command {
+        return Command(cmd, args, timeout, false, false)
+    }
+}
+
+class MonitoredCommand: Command {
+ 
+    var track: Track
     var errorDetected: Bool = false
     
     var enableMonitoring: Bool
-    var callback: ((_ command: Command, _ output: String) -> Void)?
+    var callback: ((_ command: MonitoredCommand, _ output: String) -> Void)?
     
     var cancelled: Bool = false
     
     var startTime: Date!
     
-    init(_ track: Track, _ cmd : String, _ args : [String], _ qualityOfService: QualityOfService, _ timeout: Double?, _ callback: ((_ command: Command, _ output: String) -> Void)?, _ enableMonitoring: Bool, _ readOutput: Bool, _ readErr: Bool) {
+    init(_ track: Track, _ cmd : String, _ args : [String], _ qualityOfService: QualityOfService, _ timeout: Double?, _ callback: ((_ command: MonitoredCommand, _ output: String) -> Void)?, _ enableMonitoring: Bool, _ readOutput: Bool, _ readErr: Bool) {
         
         self.track = track
-        
-        process = Process()
-        process.launchPath = cmd
-        process.arguments = args
-        process.qualityOfService = qualityOfService
-        
-        self.timeout = timeout
         
         self.enableMonitoring = enableMonitoring
         self.callback = callback
         
-        self.readOutput = readOutput
-        self.readErr = readErr
-        
+        super.init(cmd, args, timeout, readOutput, readErr)
+      
         if callback != nil || (readOutput || readErr) {
             
-            let outpipe = Pipe()
-            process.standardOutput = outpipe
-            
-            let errpipe = Pipe()
-            process.standardError = errpipe
-            
             if enableMonitoring && callback != nil {
-                registerCallbackForPipe(outpipe)
-                registerCallbackForPipe(errpipe)
+                registerCallbackForPipe(process.standardOutput as! Pipe)
+                registerCallbackForPipe(process.standardError as! Pipe)
             }
         }
     }
@@ -151,19 +167,9 @@ class Command {
         }
     }
     
-    static func createMonitoredCommand(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?, callback: @escaping ((_ command: Command, _ output: String) -> Void), enableMonitoring: Bool) -> Command {
+    static func create(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?, callback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), enableMonitoring: Bool) -> MonitoredCommand {
         
-        return Command(track, cmd, args, qualityOfService, timeout, callback, enableMonitoring, false, false)
-    }
-    
-    static func createCommandWithOutput(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?, readOutput: Bool, readErr: Bool) -> Command {
-        
-        return Command(track, cmd, args, qualityOfService, timeout, nil, false, readOutput, readErr)
-    }
-    
-    static func createSimpleCommand(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?) -> Command {
-        
-        return Command(track, cmd, args, qualityOfService, timeout, nil, false, false, false)
+        return MonitoredCommand(track, cmd, args, qualityOfService, timeout, callback, enableMonitoring, false, false)
     }
 }
 

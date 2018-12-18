@@ -13,7 +13,7 @@ class TranscoderDaemon {
         immediateExecutionQueue.maxConcurrentOperationCount = 1
         immediateExecutionQueue.qualityOfService = .userInteractive
         
-        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
+        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
         backgroundExecutionQueue.maxConcurrentOperationCount = 1    // TODO: This value should come from preferences
         backgroundExecutionQueue.qualityOfService = .background
     }
@@ -22,7 +22,7 @@ class TranscoderDaemon {
         return tasks[track] != nil
     }
     
-    func submitImmediateTask(_ track: Track, _ command: Command, _ successHandler: @escaping ((_ command: Command) -> Void), _ failureHandler: @escaping ((_ command: Command) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
+    func submitImmediateTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
         
         // Track is already being transcoded
         if let task = tasks[track] {
@@ -38,7 +38,7 @@ class TranscoderDaemon {
         doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .immediate)
     }
     
-    func submitBackgroundTask(_ track: Track, _ command: Command, _ successHandler: @escaping ((_ command: Command) -> Void), _ failureHandler: @escaping ((_ command: Command) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
+    func submitBackgroundTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
         
         // Track is already being transcoded. Just return.
         if tasks[track] != nil {return}
@@ -46,7 +46,7 @@ class TranscoderDaemon {
         doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .background)
     }
     
-    private func doSubmitTask(_ track: Track, _ command: Command, _ successHandler: @escaping ((_ command: Command) -> Void), _ failureHandler: @escaping ((_ command: Command) -> Void), _ cancellationHandler: @escaping (() -> Void), _ priority: TranscoderPriority) {
+    private func doSubmitTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void), _ priority: TranscoderPriority) {
         
         let block = {
             
@@ -111,8 +111,6 @@ class TranscoderDaemon {
         task.priority = .immediate
         
         let op = task.operation
-        op.qualityOfService = .userInteractive
-        task.command.process.qualityOfService = .userInteractive
         
         if !op.isExecuting && !op.isFinished {
             
@@ -139,13 +137,13 @@ class TranscodingTask {
 
     var priority: TranscoderPriority
     
-    var command: Command
+    var command: MonitoredCommand
     var startTime: Date! {return command.startTime}
     
     var operation: BlockOperation
     var block: (() -> Void)
     
-    init(_ track: Track, _ priority: TranscoderPriority, _ command: Command, _ operation: BlockOperation, _ block: @escaping (() -> Void)) {
+    init(_ track: Track, _ priority: TranscoderPriority, _ command: MonitoredCommand, _ operation: BlockOperation, _ block: @escaping (() -> Void)) {
         
         self.track = track
         self.priority = priority

@@ -732,8 +732,8 @@ class PlaybackSequenceState: PersistentState {
 
 class HistoryState: PersistentState {
     
-    var recentlyAdded: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
-    var recentlyPlayed: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
+    var recentlyAdded: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
+    var recentlyPlayed: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -750,10 +750,10 @@ class HistoryState: PersistentState {
         return state
     }
     
-    private static func deserializeHistoryItem(_ map: NSDictionary) -> (file: URL, time: Date)? {
+    private static func deserializeHistoryItem(_ map: NSDictionary) -> (file: URL, name: String, time: Date)? {
         
-        if let file = map["file"] as? String, let timestamp = map["time"] as? String {
-            return (URL(fileURLWithPath: file), Date.fromString(timestamp))
+        if let file = map["file"] as? String, let name = map["name"] as? String, let timestamp = map["time"] as? String {
+            return (URL(fileURLWithPath: file), name, Date.fromString(timestamp))
         }
         
         return nil
@@ -840,7 +840,7 @@ class AppState {
     var transcoder: TranscoderState = TranscoderState()
     
     var history: HistoryState = HistoryState()
-    var favorites: [URL] = [URL]()
+    var favorites: [(file: URL, name: String)] = [(file: URL, name: String)]()
     var bookmarks: [BookmarkState] = []
     var playbackProfiles: [PlaybackProfile] = []
     
@@ -875,8 +875,12 @@ class AppState {
             state.history = HistoryState.deserialize(historyDict) as! HistoryState
         }
         
-        if let favoritesArr = (jsonObject["favorites"] as? [String]) {
-            favoritesArr.forEach({state.favorites.append(URL(fileURLWithPath: $0))})
+        if let favoritesArr = (jsonObject["favorites"] as? [NSDictionary]) {
+            favoritesArr.forEach({
+                if let file = $0["file"] as? String, let name = $0["name"] as? String {
+                    state.favorites.append((URL(fileURLWithPath: file), name))
+                }
+            })
         }
         
         (jsonObject["bookmarks"] as? NSArray)?.forEach({

@@ -110,7 +110,7 @@ class ObjectGraph {
         bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, appState.bookmarks)
         
         favorites = Favorites()
-        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState.favorites)
+        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
         
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         

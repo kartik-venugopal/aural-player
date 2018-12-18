@@ -9,6 +9,8 @@ class MetadataReader {
     // Identifier for ID3 TLEN metadata item
     private static let tlenID: String = AVMetadataItem.identifier(forKey: convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyLength), keySpace: AVMetadataKeySpace.id3)!.rawValue
     
+    private static let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    
     // Loads duration metadata for a track, if available
     static func loadDurationMetadata(_ track: Track) {
         
@@ -46,7 +48,7 @@ class MetadataReader {
         if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
             
             if track.libAVInfo == nil {
-                track.libAVInfo = LibAVWrapper.getMetadata(track)
+                track.libAVInfo = FFMpegWrapper.getMetadata(track)
             }
             
         } else {
@@ -68,7 +70,7 @@ class MetadataReader {
             
             track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
             DispatchQueue.global(qos: .userInteractive).async {
-                track.displayInfo.art = LibAVWrapper.getArtwork(track)
+                track.displayInfo.art = FFMpegWrapper.getArtwork(track)
             }
             
         } else {
@@ -277,24 +279,18 @@ class MetadataReader {
         }
     }
     
-    // Loads display information (name and artwork, if available) for the track at the given file. If no metadata is available, the display name will be derived from the file name.
-    static func loadDisplayInfoForFile(_ file: URL) -> (displayName: String, art: NSImage?) {
-        
-        let asset = AVURLAsset(url: file, options: nil)
-        
-        let title = getMetadataForCommonKey(asset, convertFromAVMetadataKey(AVMetadataKey.commonKeyTitle))
-        let artist = getMetadataForCommonKey(asset, convertFromAVMetadataKey(AVMetadataKey.commonKeyArtist))
-        
-        // Display name is a function of artist and title, if available. Defaults to filesystem file name.
-        let displayName: String = title != nil ? (artist != nil ? String(format: "%@ - %@", artist!, title!) : title!) : file.deletingPathExtension().lastPathComponent
-        
-        return (displayName, getArtwork(asset))
-    }
-    
     // Loads art for a given file (used by bookmarks)
     static func loadArtworkForFile(_ file: URL) -> NSImage? {
         
-        return getArtwork(AVURLAsset(url: file, options: nil))
+        if let track = playlist.findFile(file) {
+            return track.track.displayInfo.art
+        }
+        
+        if !AudioUtils.isAudioFileNativelySupported(file) || file.pathExtension.lowercased() == "flac" {
+            return FFMpegWrapper.getArtwork(file)
+        } else {
+            return getArtwork(AVURLAsset(url: file, options: nil))
+        }
     }
 }
 

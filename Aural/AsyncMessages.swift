@@ -309,18 +309,24 @@ struct TranscodingProgressAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .transcodingProgress
     
     let track: Track
+    
     let timeTranscoded: Double
     let percTranscoded: Double
     let timeElapsed: Double
     let timeRemaining: Double
     
-    init(_ track: Track, _ timeTranscoded: Double, _ percTranscoded: Double, _ timeElapsed: Double, _ timeRemaining: Double) {
+    let speed: String
+    
+    init(_ track: Track, _ timeTranscoded: Double, _ percTranscoded: Double, _ timeElapsed: Double, _ timeRemaining: Double, _ speed: String) {
         
         self.track = track
+        
         self.timeTranscoded = timeTranscoded
         self.percTranscoded = percTranscoded
         self.timeElapsed = timeElapsed
         self.timeRemaining = timeRemaining
+        
+        self.speed = speed
     }
 }
 

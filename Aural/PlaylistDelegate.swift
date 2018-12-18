@@ -150,4 +150,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?) {
         return accessor.getGapsAroundTrack(track)
     }
+    
+    func findFile(_ file: URL) -> IndexedTrack? {
+        return accessor.findFile(file)
+    }
 }

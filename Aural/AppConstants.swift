@@ -16,7 +16,7 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
+        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "ac3", "dsf", "dts", "snd", "sd2", ]
 //        static let nonNativeAudioExtensions: [String] = ["wma"]
         static let nonNativeAudioExtensions: [String] = ["flac", "wma", "ogg"]
         
@@ -30,9 +30,9 @@ struct AppConstants {
             return all
         }
         
-        static let audioFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac", "wma", "vorbis", "ogg"]
+        static let audioFormats: [String] = ["mp3", "m4a", "aac", "ac-3", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac", "wma", "vorbis", "ogg", "dsf", "dts", "alaw", "ulaw"]
         
-        static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
+        static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue, AVFileType.ac3.rawValue]
         
         // File types allowed in the Open file dialog (extensions and UTIs)
         static var all: [String] = allTypes()

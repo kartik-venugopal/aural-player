@@ -5,6 +5,9 @@ import Foundation
  */
 protocol PlaylistAccessorDelegateProtocol {
     
+    // Searches for a track by file. If it is found, its information is returned. If not, nil is returned.
+    func findFile(_ file: URL) -> IndexedTrack?
+    
     // Retrieves all tracks, in the same order as in the flat playlist
     var tracks: [Track] {get}
     

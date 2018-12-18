@@ -10,25 +10,25 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: [URL]) {
+    init(_ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: [(file: URL, name: String)]) {
         
         self.favorites = favorites
         self.player = player
         self.playlist = playlist
         
-        state.forEach({_ = self.addFavorite($0)})
+        state.forEach({_ = self.addFavorite($0.file, $0.name)})
     }
     
     func addFavorite(_ track: Track) -> Favorite {
         
-        let fav = favorites.addFavorite(track.file)
+        let fav = favorites.addFavorite(track.file, track.conciseDisplayName)
         AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track.file))
         return fav
     }
     
-    func addFavorite(_ file: URL) -> Favorite {
+    func addFavorite(_ file: URL, _ name: String) -> Favorite {
         
-        let fav = favorites.addFavorite(file)
+        let fav = favorites.addFavorite(file, name)
         AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, file))
         return fav
     }
@@ -83,12 +83,12 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         }
     }
     
-    func persistentState() -> [URL] {
+    func persistentState() -> [(URL, String)] {
         
-        var arr: [URL] = []
+        var arr: [(URL, String)] = []
         
         favorites.getAllFavorites().forEach({
-            arr.append($0.file)
+            arr.append(($0.file, $0.name))
         })
         
         return arr

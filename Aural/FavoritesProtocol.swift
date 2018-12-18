@@ -2,7 +2,7 @@ import Foundation
 
 protocol FavoritesProtocol {
     
-    func addFavorite(_ file: URL) -> Favorite
+    func addFavorite(_ file: URL, _ name: String) -> Favorite
     
     func getAllFavorites() -> [Favorite]
     

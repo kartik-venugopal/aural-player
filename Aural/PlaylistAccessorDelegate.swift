@@ -78,4 +78,8 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
         return playlist.getGapAfterTrack(track)
     }
+    
+    func findFile(_ file: URL) -> IndexedTrack? {
+        return playlist.findTrackByFile(file)
+    }
 }
