@@ -4,9 +4,9 @@ class Favorites: FavoritesProtocol {
     
     private var favorites: StringKeyedCollection<Favorite> = StringKeyedCollection<Favorite>()
     
-    func addFavorite(_ file: URL) -> Favorite {
+    func addFavorite(_ file: URL, _ name: String) -> Favorite {
         
-        let favorite = Favorite(file)
+        let favorite = Favorite(file, name)
         favorites.addItem(favorite)
         return favorite
     }

@@ -177,6 +177,7 @@ class TranscodingPreferences {
     
     var eagerTranscodingEnabled: Bool
     var eagerTranscodingOption: EagerTranscodingOptions
+    var maxBackgroundTasks: Int
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
@@ -196,6 +197,8 @@ class TranscodingPreferences {
         } else {
             eagerTranscodingOption = PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
         }
+        
+        maxBackgroundTasks = defaultsDictionary["playback.transcoding.maxBackgroundTasks"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxBackgroundTasks
     }
     
     func persist(defaults: UserDefaults) {
@@ -206,6 +209,8 @@ class TranscodingPreferences {
         
         defaults.set(eagerTranscodingEnabled, forKey: "playback.transcoding.eagerTranscoding.enabled")
         defaults.set(eagerTranscodingOption.rawValue, forKey: "playback.transcoding.eagerTranscoding.option")
+        
+        defaults.set(maxBackgroundTasks, forKey: "playback.transcoding.maxBackgroundTasks")
     }
 }
 
@@ -511,6 +516,8 @@ fileprivate struct PreferencesDefaults {
             
             static let eagerTranscodingEnabled: Bool = true
             static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
+            
+            static let maxBackgroundTasks: Int = 1
         }
     }
     

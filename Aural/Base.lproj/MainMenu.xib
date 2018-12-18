@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -191,7 +191,7 @@
                         <items>
                             <menuItem title="Recently added" image="RecentlyAdded" id="H40-WY-cfa" userLabel="Recently added">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Recently added" autoenablesItems="NO" id="wng-SO-Kcr"/>
+                                <menu key="submenu" title="Recently added" id="wng-SO-Kcr"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4mR-wj-sZv"/>
                             <menuItem title="Recently played" image="RecentlyPlayed" id="pev-lN-gPb" userLabel="Recently played">

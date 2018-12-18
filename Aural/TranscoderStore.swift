@@ -29,6 +29,10 @@ class TranscoderStore: MessageSubscriber {
         }
         
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.cleanUpOrphanedFiles()
+        }
     }
     
     func createOutputFile(_ track: Track, _ outputFileName: String) -> URL {

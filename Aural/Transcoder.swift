@@ -22,7 +22,7 @@ protocol TranscoderProtocol {
 
 class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
-    private let avConvBinaryPath: String = Bundle.main.url(forResource: "avconv", withExtension: "")!.path
+    private let ffmpegBinaryPath: String = Bundle.main.url(forResource: "ffmpeg", withExtension: "")!.path
     
     private let store: TranscoderStore
     private let daemon: TranscoderDaemon
@@ -31,7 +31,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private let formatsMap: [String: String] = ["flac": "aiff",
                                                 "wma": "mp3",
-                                                "ogg": "mp3"]
+                                                "ogg": "mp3",
+                                                "dts": "aiff",
+                                                "dsf": "aiff"]
     
     private let defaultOutputFileExtension: String = "mp3"
     
@@ -75,7 +77,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
         
-        let successHandler = { (command: Command) -> Void in
+        let successHandler = { (command: MonitoredCommand) -> Void in
             
             self.store.addFileMapping(track, outputFile)
             
@@ -87,7 +89,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             }
         }
         
-        let failureHandler = { (command: Command) -> Void in
+        let failureHandler = { (command: MonitoredCommand) -> Void in
             
             // Only do this if task is in the foreground (i.e. monitoring enabled)
             if command.enableMonitoring {
@@ -106,12 +108,12 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         inBackground ? daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler) : daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
     }
     
-    private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: Command, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> Command {
+    private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> MonitoredCommand {
         
         // -vn: Ignore video stream (including album art)
         // -sn: Ignore subtitles
         // -ac 2: Convert to stereo audio
-        return Command.createMonitoredCommand(track: track, cmd: avConvBinaryPath, args: ["-i", inputFile.path, "-vn", "-sn", "-ac", "2", outputFile.path], qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
+        return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: ["-v", "quiet", "-stats", "-i", inputFile.path, "-vn", "-sn", "-ac", "2", outputFile.path], qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
     }
     
     private func outputFileForTrack(_ track: Track) -> URL {
@@ -129,25 +131,35 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         return store.createOutputFile(track, outputFileName)
     }
     
-    private func transcodingProgress(_ command: Command, _ progressStr: String) {
+    private func transcodingProgress(_ command: MonitoredCommand, _ progressStr: String) {
         
         if command.cancelled {return}
 
-        let line = progressStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if line.contains("size=") && line.contains("time=") {
+        let line = progressStr.trim()
+        if line.contains("time=") {
             
-            let timeStr = line.split(separator: "=")[2].split(separator: " ")[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if let time = Double(timeStr) {
+            let tokens = line.split(separator: "=")
+            
+            if tokens.count == 5 {
                 
-                let track = command.track
+                let timeStr = tokens[2].split(separator: " ")[0].trim()
+                let timeTokens = timeStr.split(separator: ":")
                 
-                let perc = min(time * 100 / track.duration, 100)
-                let timeElapsed = Date().timeIntervalSince(command.startTime)
-                let totalTime = (100 * timeElapsed) / perc
-                let timeRemaining = totalTime - timeElapsed
+                if let hrs = Double(timeTokens[0]), let mins = Double(timeTokens[1]), let secs = Double(timeTokens[2]) {
                 
-                let msg = TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining)
-                AsyncMessenger.publishMessage(msg)
+                    let time = hrs * 3600 + mins * 60 + secs
+                    let track = command.track
+                    
+                    let perc = min(time * 100 / track.duration, 100)
+                    let timeElapsed = Date().timeIntervalSince(command.startTime)
+                    let totalTime = (100 * timeElapsed) / perc
+                    let timeRemaining = totalTime - timeElapsed
+                    
+                    let speed = String(tokens.last!).trim()
+                    
+                    let msg = TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining, speed)
+                    AsyncMessenger.publishMessage(msg)
+                }
             }
         }
     }
@@ -220,7 +232,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 //
 //                            let outputFile = self.outputFileForTrack(track)
 //
-//                            if LibAVWrapper.transcode(track.file, outputFile, self.transcodingProgress) {
+//                            if FFMpegWrapper.transcode(track.file, outputFile, self.transcodingProgress) {
 //                                self.store.fileAddedToStore(outputFile)
 //                            }
 //
@@ -236,4 +248,16 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
 }
 
+extension String {
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+}
 
+extension Substring.SubSequence {
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+}

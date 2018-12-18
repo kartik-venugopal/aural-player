@@ -13,7 +13,7 @@ class TrackIO {
         let fileExtension = track.file.pathExtension.lowercased()
         
         if !track.nativelySupported || fileExtension == "flac" {
-            track.libAVInfo = LibAVWrapper.getMetadata(track)
+            track.libAVInfo = FFMpegWrapper.getMetadata(track)
         } else {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }

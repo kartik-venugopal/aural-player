@@ -23,13 +23,14 @@ class HistoryItem: EquatableHistoryItem {
     var displayName: String
     var art: NSImage = Images.imgPlayedTrack
     
-    init(_ file: URL, _ time: Date) {
+    // Used for tracks
+    init(_ file: URL, _ displayName: String, _ time: Date) {
         
         self.file = file
         self.time = time
         
         // Default the displayName to file name (intended to be replaced later)
-        self.displayName = file.lastPathComponent
+        self.displayName = displayName
     }
     
     func equals(_ other: EquatableHistoryItem) -> Bool {
@@ -47,10 +48,8 @@ class HistoryItem: EquatableHistoryItem {
         // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
         DispatchQueue.global(qos: .background).async {
             
-            let displayInfo = MetadataReader.loadDisplayInfoForFile(self.file)
-            self.displayName = displayInfo.displayName
-            if (displayInfo.art != nil) {
-                self.art = displayInfo.art!.copy() as! NSImage
+            if let art = MetadataReader.loadArtworkForFile(self.file) {
+                self.art = art.copy() as! NSImage
             }
         }
     }
@@ -63,13 +62,25 @@ class HistoryItem: EquatableHistoryItem {
 // Either a folder, audio file, or playlist file
 class AddedItem: HistoryItem {
     
-    override init(_ file: URL, _ time: Date) {
+    init(_ file: URL, _ time: Date) {
         
-        super.init(file, time)
-        loadDisplayInfoFromFile()
+        super.init(file, file.lastPathComponent, time)
+        loadDisplayInfoFromFile(true)
     }
     
-    override func loadDisplayInfoFromFile() {
+    override init(_ file: URL, _ displayName: String, _ time: Date) {
+        
+        super.init(file, displayName, time)
+        loadDisplayInfoFromFile(false)
+    }
+    
+    init(_ track: Track, _ time: Date) {
+        
+        super.init(track.file, track.conciseDisplayName, time)
+        loadDisplayInfoFromFile(true)
+    }
+    
+    func loadDisplayInfoFromFile(_ setDisplayName: Bool) {
         
         // Resolve sym links and aliases
         let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
@@ -79,8 +90,12 @@ class AddedItem: HistoryItem {
             
             // Display name is last path component
             // Art is folder icon
-            self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
+            
             self.art = Images.imgGroup
+            
+            if setDisplayName {
+                self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
+            }
             
         } else {
             
@@ -92,8 +107,11 @@ class AddedItem: HistoryItem {
                 // Playlist
                 // Display name is last path component
                 // Art is playlist icon
-                self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
-                self.art = Images.imgPlaylistOff
+                self.art = Images.imgHistory_playlist_padded
+                
+                if setDisplayName {
+                    self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
+                }
                 
             } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                 
@@ -106,28 +124,20 @@ class AddedItem: HistoryItem {
 
 // Item (track) that has been added to the Recently played list.
 class PlayedItem: HistoryItem, PlayableHistoryItem {
-
-    // Optional track information. If the track was added to the Recently played list during the current app execution, this will be non-nil because a corresponding Track instance exists. Otherwise, this item will be loaded from disk as a file object (URL) upon app startup, and this Track object will be nil.
-    let track: Track?
     
-    init(_ file: URL, _ time: Date, _ track: Track? = nil) {
+    init(_ track: Track, _ time: Date) {
         
-        self.track = track
-        super.init(file, time)
+        super.init(track.file, track.conciseDisplayName, time)
         
-        // If track info is available, load display info from it
-        if (track != nil) {
-            
-            // Load display info from the track
-            self.displayName = track!.conciseDisplayName
-            if let trackArt = track?.displayInfo.art {
-                self.art = trackArt.copy() as! NSImage
-            }
-            
-        } else {
-
-            // No track info available, read display info from filesystem
-            loadDisplayInfoFromFile()
+        // If track art is available, load display info from it
+        if let trackArt = track.displayInfo.art {
+            self.art = trackArt.copy() as! NSImage
         }
+    }
+
+    override init(_ file: URL, _ name: String, _ time: Date) {
+        
+        super.init(file, name, time)
+        loadDisplayInfoFromFile()
     }
 }

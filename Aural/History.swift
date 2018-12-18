@@ -22,11 +22,16 @@ class History: HistoryProtocol {
         recentlyPlayedItems = LRUArray<PlayedItem>(preferences.recentlyPlayedListSize)
     }
     
-    func addRecentlyAddedItems(_ items: [(file: URL, time: Date)]) {
-        
-        var recentlyAddedItemsArr: [AddedItem] = []
-        items.forEach({recentlyAddedItemsArr.append(AddedItem($0.file, $0.time))})
-        recentlyAddedItems.addAll(recentlyAddedItemsArr)
+    func addRecentlyAddedItem(_ file: URL, _ name: String, _ time: Date) {
+        recentlyAddedItems.add(AddedItem(file, name, time))
+    }
+    
+    func addRecentlyAddedItem(_ file: URL, _ time: Date) {
+        recentlyAddedItems.add(AddedItem(file, time))
+    }
+    
+    func addRecentlyAddedItem(_ track: Track, _ time: Date) {
+        recentlyAddedItems.add(AddedItem(track, time))
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
@@ -36,11 +41,11 @@ class History: HistoryProtocol {
     }
     
     func addRecentlyPlayedItem(_ item: Track, _ time: Date) {
-        recentlyPlayedItems.add(PlayedItem(item.file, time, item))
+        recentlyPlayedItems.add(PlayedItem(item.file, item.conciseDisplayName, time))
     }
     
-    func addRecentlyPlayedItem(_ file: URL, _ time: Date) {
-        recentlyPlayedItems.add(PlayedItem(file, time, nil))
+    func addRecentlyPlayedItem(_ file: URL, _ name: String, _ time: Date) {
+        recentlyPlayedItems.add(PlayedItem(file, name, time))
     }
     
     func allRecentlyPlayedItems() -> [PlayedItem] {
