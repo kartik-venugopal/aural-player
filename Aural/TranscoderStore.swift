@@ -4,7 +4,7 @@ class TranscoderStore: MessageSubscriber {
     
     let baseDir: URL
     var files: [URL: URL] = [:]
-    var filesBeingTranscoded: [URL] = []
+    var filesBeingTranscoded: [URL: URL] = [:]
     
     let preferences: TranscodingPreferences
     
@@ -14,6 +14,9 @@ class TranscoderStore: MessageSubscriber {
     
     // TODO: Accessing delegate here ?
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
+    private let backgroundQueue: DispatchQueue = DispatchQueue.global(qos: .background)
     
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         
@@ -31,13 +34,24 @@ class TranscoderStore: MessageSubscriber {
         
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         
-        DispatchQueue.global(qos: .background).async {
+        backgroundQueue.async {
             self.cleanUpOrphanedFiles()
         }
     }
     
     func createOutputFile(_ track: Track, _ outputFileName: String) -> URL {
-        return baseDir.appendingPathComponent(outputFileName, isDirectory: false)
+        
+        let file = baseDir.appendingPathComponent(outputFileName, isDirectory: false)
+        filesBeingTranscoded[track.file] = file
+        
+        return file
+    }
+    
+    func transcodingCancelledOrFailed(_ track: Track) {
+        
+        if let outFile = filesBeingTranscoded.removeValue(forKey: track.file) {
+            FileSystemUtils.deleteFile(outFile.path)
+        }
     }
     
     // When transcoding is canceled
@@ -51,12 +65,13 @@ class TranscoderStore: MessageSubscriber {
     }
     
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
-    func addFileMapping(_ track: Track, _ outputFile: URL) {
+    func transcodingFinished(_ track: Track) {
         
-        files[track.file] = outputFile
+        files[track.file] = filesBeingTranscoded[track.file]
+        filesBeingTranscoded.removeValue(forKey: track.file)
         
         // HACK: Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played" History list (this is needed for the comparison between tracks)
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2, execute: {
+        backgroundQueue.asyncAfter(deadline: .now() + 2, execute: {
             self.checkDiskSpaceUsage()
         })
     }
@@ -65,7 +80,7 @@ class TranscoderStore: MessageSubscriber {
         
         if self.preferences.limitDiskSpaceUsage {
             
-            DispatchQueue.global(qos: .background).async {
+            backgroundQueue.async {
                 
                 // Do this async, as a background task, so as not to interfere with user-interactive tasks
                 self.cleanUpOrphanedFiles()
@@ -90,6 +105,13 @@ class TranscoderStore: MessageSubscriber {
                         
                         // Delete the oldest file
                         let fileToDelete = outputFiles.removeLast()
+                        
+                        // Don't delete playing track !
+                        if let plTrack = self.player.playingTrack?.track, let outFile = self.files[plTrack.file], fileToDelete.path == outFile.path {
+                            print("Can't remove playing track", plTrack.conciseDisplayName)
+                            return
+                        }
+                        
                         self.files.removeValue(forKey: trackFiles.removeLast())
                         
                         // Update current usage variable (subtract deleted file's size)
@@ -103,15 +125,15 @@ class TranscoderStore: MessageSubscriber {
         }
     }
     
-    // TODO: This will delete in-progress background transcoded files !!!
     private func cleanUpOrphanedFiles() {
         
         let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
         let mappedFiles = files.values
+        let inProgressFiles = filesBeingTranscoded.values
         
         for file in allFiles {
             
-            if !mappedFiles.contains(file) {
+            if !mappedFiles.contains(file) && !inProgressFiles.contains(file) {
                 FileSystemUtils.deleteFile(file.path)
             }
         }
