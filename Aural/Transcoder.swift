@@ -81,7 +81,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         let successHandler = { (command: MonitoredCommand) -> Void in
             
-            self.store.addFileMapping(track, outputFile)
+            self.store.transcodingFinished(track)
             
             // Only do this if task is in the foreground (i.e. monitoring enabled)
             if command.enableMonitoring {
@@ -100,7 +100,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                 AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
             }
             
-            FileSystemUtils.deleteFile(outputFile.path)
+            self.store.transcodingCancelledOrFailed(track)
         }
         
         let cancellationHandler = {
@@ -177,6 +177,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 
     func cancel(_ track: Track) {
         daemon.cancelTask(track)
+        store.transcodingCancelledOrFailed(track)
     }
     
     func checkDiskSpaceUsage() {

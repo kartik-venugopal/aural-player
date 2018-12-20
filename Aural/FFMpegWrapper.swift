@@ -107,7 +107,6 @@ class FFMpegWrapper {
     static func getArtwork(_ inputFile: URL) -> NSImage? {
         
         if let img = imgCache[inputFile] {
-            print("Cache hit !")
             return img.copy() as! NSImage
         }
         
