@@ -35,9 +35,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                                                 "dsf": "aiff",
                                                 "wma": "m4a",
                                                 "ogg": "m4a",
-                                                "opus": "m4a"]
+                                                "opus": "m4a",
+                                                "mpc": "m4a"]
     
-    private let defaultOutputFileExtension: String = "mp3"
+    private let defaultOutputFileExtension: String = "m4a"
     
     private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
     private lazy var sequencer: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
@@ -104,7 +105,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
         
         let cancellationHandler = {
-            FileSystemUtils.deleteFile(outputFile.path)
+            self.store.transcodingCancelledOrFailed(track)
         }
         
         inBackground ? daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler) : daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
@@ -177,11 +178,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 
     func cancel(_ track: Track) {
         daemon.cancelTask(track)
-        store.transcodingCancelledOrFailed(track)
     }
     
     func checkDiskSpaceUsage() {
-        store.checkDiskSpaceUsage()
+//        store.checkDiskSpaceUsage()
     }
     
     func setMaxBackgroundTasks(_ numTasks: Int) {
@@ -233,12 +233,12 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
     
-    func tracksAdded(_ addResults: [TrackAddResult]) {
-        
-        if preferences.eagerTranscodingEnabled {
-            
-            if preferences.eagerTranscodingOption == .allFiles {
-                
+//    func tracksAdded(_ addResults: [TrackAddResult]) {
+//
+//        if preferences.eagerTranscodingEnabled {
+//
+//            if preferences.eagerTranscodingOption == .allFiles {
+//
 //                let task = {
 //
 //                    let tracks = self.playlist.tracks
@@ -259,9 +259,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 //                }
 //
 //                daemon.submitTask(task, .background)
-            }
-        }
-    }
+//            }
+//        }
+//    }
 }
 
 extension String {

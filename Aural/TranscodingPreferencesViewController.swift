@@ -43,38 +43,38 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         }
         transcoderPersistenceRadioButtonAction(self)
         
-        btnLimitSpace.onIf(prefs.limitDiskSpaceUsage)
-        limitSpaceAction(self)
-        
-        let currentUsageMB: Double = Double(transcoder.currentDiskSpaceUsage) / (1000.0 * 1000)
-        lblCurrentUsage.stringValue = formatSizeMB(currentUsageMB)
-        let percUsed: Double = currentUsageMB * 100 / Double(prefs.maxDiskSpaceUsage)
-        
-        if percUsed < 75 {
-            lblCurrentUsage.textColor = NSColor.green
-        } else if percUsed < 90 {
-            lblCurrentUsage.textColor = NSColor.orange
-        } else {
-            lblCurrentUsage.textColor = NSColor.red
-        }
-        
-        maxSpaceSlider.doubleValue = log10(Double(prefs.maxDiskSpaceUsage)) - log10(100)
-        maxSpaceSliderAction(self)
-        
-        // Eager transcoding
-        
-        btnEagerTranscoding.onIf(prefs.eagerTranscodingEnabled)
-        eagerTranscodingAction(self)
-        
-        if prefs.eagerTranscodingOption == .allFiles {
-            btnAllFiles.on()
-        } else {
-            btnPredictive.on()
-        }
-        
-        // Max background tasks
-        maxTasksStepper.integerValue = prefs.maxBackgroundTasks
-        maxTasksStepperAction(self)
+//        btnLimitSpace.onIf(prefs.limitDiskSpaceUsage)
+//        limitSpaceAction(self)
+//
+//        let currentUsageMB: Double = Double(transcoder.currentDiskSpaceUsage) / (1000.0 * 1000)
+//        lblCurrentUsage.stringValue = formatSizeMB(currentUsageMB)
+//        let percUsed: Double = currentUsageMB * 100 / Double(prefs.maxDiskSpaceUsage)
+//
+//        if percUsed < 75 {
+//            lblCurrentUsage.textColor = NSColor.green
+//        } else if percUsed < 90 {
+//            lblCurrentUsage.textColor = NSColor.orange
+//        } else {
+//            lblCurrentUsage.textColor = NSColor.red
+//        }
+//
+//        maxSpaceSlider.doubleValue = log10(Double(prefs.maxDiskSpaceUsage)) - log10(100)
+//        maxSpaceSliderAction(self)
+//
+//        // Eager transcoding
+//
+//        btnEagerTranscoding.onIf(prefs.eagerTranscodingEnabled)
+//        eagerTranscodingAction(self)
+//
+//        if prefs.eagerTranscodingOption == .allFiles {
+//            btnAllFiles.on()
+//        } else {
+//            btnPredictive.on()
+//        }
+//
+//        // Max background tasks
+//        maxTasksStepper.integerValue = prefs.maxBackgroundTasks
+//        maxTasksStepperAction(self)
     }
     
     @IBAction func transcoderPersistenceRadioButtonAction(_ sender: Any) {
@@ -128,20 +128,20 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         let prefs = preferences.playbackPreferences.transcodingPreferences
         
         prefs.persistenceOption = btnSaveFiles.isOn() ? .save : .delete
-        prefs.limitDiskSpaceUsage = btnLimitSpace.isOn()
-        
-        let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
-        prefs.maxDiskSpaceUsage = Int(round(amount))
-        
-        prefs.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
-        prefs.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
-        
-        prefs.maxBackgroundTasks = maxTasksStepper.integerValue
-        transcoder.setMaxBackgroundTasks(prefs.maxBackgroundTasks)
-        
-        // Max usage prefs may have changed, so perform a check if user has opted to limit disk space usage
-        if prefs.limitDiskSpaceUsage {
-            transcoder.checkDiskSpaceUsage()
-        }
+//        prefs.limitDiskSpaceUsage = btnLimitSpace.isOn()
+//        
+//        let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
+//        prefs.maxDiskSpaceUsage = Int(round(amount))
+//
+//        prefs.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
+//        prefs.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
+//
+//        prefs.maxBackgroundTasks = maxTasksStepper.integerValue
+//        transcoder.setMaxBackgroundTasks(prefs.maxBackgroundTasks)
+//
+//        // Max usage prefs may have changed, so perform a check if user has opted to limit disk space usage
+//        if prefs.limitDiskSpaceUsage {
+//            transcoder.checkDiskSpaceUsage()
+//        }
     }
 }
