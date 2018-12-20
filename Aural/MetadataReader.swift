@@ -293,7 +293,10 @@ class MetadataReader {
         }
         
         if !AudioUtils.isAudioFileNativelySupported(file) || file.pathExtension.lowercased() == "flac" {
-            return FFMpegWrapper.getArtwork(file)
+            
+            // TODO: Need to make this thread-safe and efficient
+//            return FFMpegWrapper.getArtwork(file)
+            return nil
         } else {
             return getArtwork(AVURLAsset(url: file, options: nil))
         }
