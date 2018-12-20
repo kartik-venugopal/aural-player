@@ -32,11 +32,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let preferences: TranscodingPreferences
     
     private let formatsMap: [String: String] = ["flac": "aiff",
+                                                "dsf": "aiff",
                                                 "wma": "m4a",
                                                 "ogg": "m4a",
-                                                "opus": "m4a",
-                                                "dts": "aiff",
-                                                "dsf": "aiff"]
+                                                "opus": "m4a"]
     
     private let defaultOutputFileExtension: String = "mp3"
     
@@ -117,12 +116,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         var args = ["-v", "quiet", "-stats", "-i", inputFile.path]
         
         if outputFileExtension == "m4a" {
-            args.append(contentsOf: ["-codec:a", "aac"])
+            args.append(contentsOf: ["-acodec", "aac"])
         }
         
         args.append(contentsOf: ["-vn", "-sn", "-ac", "2", outputFile.path])
-        
-        print("Args:", args)
         
         // -vn: Ignore video stream (including album art)
         // -sn: Ignore subtitles
