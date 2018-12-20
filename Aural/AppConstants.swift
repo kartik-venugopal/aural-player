@@ -8,6 +8,12 @@ import AVFoundation
 struct AppConstants {
     
     struct SupportedTypes {
+        
+        private static let flacSupported: Bool = {
+            
+            let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
+            return (systemVersion.majorVersion == 10 && systemVersion.minorVersion >= 13) || systemVersion.majorVersion > 10
+        }()
 
         // Supported playlist file types
         static let m3u: String = "m3u"
@@ -16,9 +22,31 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        static let nativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "snd", "sd2"]
-        static let nonNativeAudioExtensions: [String] = ["flac", "wma", "ogg", "opus", "dsf"]
+        private static let globallyNativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "snd", "sd2"]
+        static let nativeAudioExtensions: [String] = computeNativeAudioExtensions()
         
+        private static func computeNativeAudioExtensions() -> [String] {
+            
+            var exts: [String] = []
+            exts.append(contentsOf: globallyNativeAudioExtensions)
+            if flacSupported {exts.append("flac")}
+            
+            return exts
+        }
+        
+        private static let globallyNonNativeAudioExtensions: [String] = ["wma", "ogg", "opus", "dsf", "mpc"]
+        static let nonNativeAudioExtensions: [String] = computeNonNativeAudioExtensions()
+        
+        private static func computeNonNativeAudioExtensions() -> [String] {
+            
+            var exts: [String] = []
+            exts.append(contentsOf: globallyNonNativeAudioExtensions)
+            if !flacSupported {exts.append("flac")}
+            
+            return exts
+        }
+
+        // TODO: MPC (Musepack), DTS (Dolby surround), AC3 (Dolby Surround)
         static let allAudioExtensions: [String] = computeAllAudioExtensions()
         
         private static func computeAllAudioExtensions() -> [String] {
@@ -29,12 +57,22 @@ struct AppConstants {
             return all
         }
         
-        static let audioFormats: [String] = ["mp3", "m4a", "aac", "alac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "flac", "alaw", "ulaw"]
+        private static let globallyNativeFormats: [String] = ["mp3", "aac", "alac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "alaw", "ulaw"]
+        static let audioFormats: [String] = computeAudioFormats()
+        
+        private static func computeAudioFormats() -> [String] {
+            
+            var exts: [String] = []
+            exts.append(contentsOf: globallyNativeFormats)
+            if flacSupported {exts.append("flac")}
+            
+            return exts
+        }
         
         static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue, AVFileType.ac3.rawValue]
         
         // File types allowed in the Open file dialog (extensions and UTIs)
-        static var all: [String] = allTypes()
+        static let all: [String] = allTypes()
         
         private static func allTypes() -> [String] {
             

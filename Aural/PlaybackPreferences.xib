@@ -16,7 +16,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="fBA-Aa-Qne">
+        <view appearanceType="aqua" id="fBA-Aa-Qne">
             <rect key="frame" x="0.0" y="0.0" width="660" height="470"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -42,11 +42,11 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="General" identifier="" id="p1R-Zl-mfb" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="bew-tJ-gAi">
+                            <view key="view" ambiguous="YES" id="bew-tJ-gAi">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="deE-Qa-0v2" userLabel="Actual View">
+                                    <view appearanceType="aqua" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="deE-Qa-0v2" userLabel="Actual View">
                                         <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -435,7 +435,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Transcoding" identifier="" id="d3e-YA-eeF" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="fhR-gT-mjb">
+                            <view key="view" id="fhR-gT-mjb">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -474,7 +474,7 @@
                                         <rect key="frame" x="222" y="368" width="294" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(better user experience,  takes up disk space)" id="2oR-ac-lNZ">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="11" name="GillSans"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -483,12 +483,12 @@
                                         <rect key="frame" x="222" y="345" width="426" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded on app launch)" id="cnq-6F-WRI">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="11" name="GillSans"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ixK-75-hLM">
+                                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ixK-75-hLM">
                                         <rect key="frame" x="20" y="182" width="22" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="YW8-Id-Ktn" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -499,7 +499,7 @@
                                             <action selector="limitSpaceAction:" target="eVi-qL-s5p" id="YTq-OH-jAJ"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-5f-s7R">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-5f-s7R">
                                         <rect key="frame" x="50" y="157" width="111" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="Max. space to use" id="Es8-gG-b6q">
@@ -512,7 +512,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ac-zq-sdR" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ac-zq-sdR" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="507" y="156" width="80" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="1 GB" id="Xw5-yN-iaq">
@@ -530,7 +530,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sh-Nq-vDL" userLabel="Startup Volume Slider">
+                                    <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sh-Nq-vDL" userLabel="Startup Volume Slider">
                                         <rect key="frame" x="148" y="154" width="353" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="5" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="UjW-6w-peE" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -538,7 +538,7 @@
                                             <action selector="maxSpaceSliderAction:" target="eVi-qL-s5p" id="6nc-hX-oZa"/>
                                         </connections>
                                     </slider>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sr5-uK-qZM">
+                                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sr5-uK-qZM">
                                         <rect key="frame" x="17" y="287" width="22" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oQj-F9-fLu" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -549,7 +549,7 @@
                                             <action selector="eagerTranscodingAction:" target="eVi-qL-s5p" id="Bo6-WA-bXP"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
+                                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
                                         <rect key="frame" x="35" y="288" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Eager transcoding (automatic transcoding in the background, ahead of time ... will load the CPU)" id="MLX-C0-fMz">
@@ -558,7 +558,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-y7-bg2">
+                                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-y7-bg2">
                                         <rect key="frame" x="35" y="257" width="310" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode all playlist files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="vAy-7W-kwY" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -569,7 +569,7 @@
                                             <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="ERs-fq-GRV"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
+                                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
                                         <rect key="frame" x="35" y="236" width="199" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="6MG-XI-sRg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -580,7 +580,7 @@
                                             <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="PLx-MT-AWx"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAF-ch-lTv">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAF-ch-lTv">
                                         <rect key="frame" x="51" y="131" width="91" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="Current usage" id="VSf-ZG-yp6">
@@ -593,7 +593,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEa-Zm-hg9">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEa-Zm-hg9">
                                         <rect key="frame" x="146" y="131" width="91" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="125 MB" id="caf-gZ-3fY">
@@ -606,7 +606,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAw-Ta-lRW" userLabel="Seek Length Label">
+                                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAw-Ta-lRW" userLabel="Seek Length Label">
                                         <rect key="frame" x="39" y="183" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Limit disk space usage  (oldest files wil be deleted to stay under limit)" id="PZD-PT-2oW">
@@ -615,7 +615,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-uZ-M78" userLabel="Pan Delta Field">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-uZ-M78" userLabel="Pan Delta Field">
                                         <rect key="frame" x="307" y="84" width="40" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="3" id="SHX-mp-3Yf">
@@ -628,7 +628,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ora-RX-Azv" userLabel="Pan Delta Stepper">
+                                    <stepper hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ora-RX-Azv" userLabel="Pan Delta Stepper">
                                         <rect key="frame" x="348" y="83" width="15" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="20" doubleValue="3" id="vyb-48-4cR"/>
@@ -636,7 +636,7 @@
                                             <action selector="maxTasksStepperAction:" target="eVi-qL-s5p" id="1qb-z1-B0S"/>
                                         </connections>
                                     </stepper>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZg-eS-8TU" userLabel="Seek Length Label">
+                                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZg-eS-8TU" userLabel="Seek Length Label">
                                         <rect key="frame" x="21" y="85" width="292" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Maximum number of background transcoding tasks" id="YRW-h7-VvT">
@@ -645,7 +645,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xyt-Xj-mJM">
+                                    <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xyt-Xj-mJM">
                                         <rect key="frame" x="389" y="85" width="253" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="(Max. recommended on this system:   8)" id="pCm-Zp-K9k">

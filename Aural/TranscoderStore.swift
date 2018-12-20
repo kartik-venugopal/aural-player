@@ -34,9 +34,9 @@ class TranscoderStore: MessageSubscriber {
         
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         
-        backgroundQueue.async {
-            self.cleanUpMappings()
-        }
+//        backgroundQueue.async {
+//            self.cleanUpMappings()
+//        }
     }
     
     func createOutputFile(_ track: Track, _ outputFileName: String) -> URL {
@@ -75,97 +75,97 @@ class TranscoderStore: MessageSubscriber {
         filesBeingTranscoded.removeValue(forKey: track.file)
         
         // HACK: Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played" History list (this is needed for the comparison between tracks)
-        backgroundQueue.asyncAfter(deadline: .now() + 2, execute: {
-            self.checkDiskSpaceUsage()
-        })
+//        backgroundQueue.asyncAfter(deadline: .now() + 2, execute: {
+//            self.checkDiskSpaceUsage()
+//        })
     }
     
-    func checkDiskSpaceUsage() {
-        
-        if self.preferences.limitDiskSpaceUsage {
-            
-            backgroundQueue.async {
-                
-                // Do this async, as a background task, so as not to interfere with user-interactive tasks
-                self.cleanUpMappings()
-                
-                if self.files.isEmpty {return}
-                
-                let maxUsage = self.preferences.maxDiskSpaceUsage * (1000 * 1000)
-                var curUsage: UInt64 = FileSystemUtils.sizeOfDirectory(self.baseDir)
-                
-                if curUsage > maxUsage {
-                    
-                    // Gather all files, sort chronologically
-                    var trackFiles: [URL] = []
-                    trackFiles.append(contentsOf: self.files.keys)
-                    
-                    trackFiles.sort(by: self.compareFiles(_:_:))
-                    
-                    var outputFiles: [URL] = []
-                    trackFiles.forEach({outputFiles.append(self.files[$0]!)})
-                    
-                    while curUsage > maxUsage && !trackFiles.isEmpty {
-                        
-                        // Delete the oldest file
-                        let fileToDelete = outputFiles.removeLast()
-                        
-                        // Don't delete playing track !
-                        if let plTrack = self.player.playingTrack?.track, let outFile = self.files[plTrack.file], fileToDelete.path == outFile.path {
-                            return
-                        }
-                        
-                        self.files.removeValue(forKey: trackFiles.removeLast())
-                        
-                        // Update current usage variable (subtract deleted file's size)
-                        curUsage -= UInt64(FileSystemUtils.sizeOfFile(path: fileToDelete.path).sizeBytes)
-                        
-                        // Delete the file from the filesystem and from the map
-                        FileSystemUtils.deleteFile(fileToDelete.path)
-                    }
-                }
-            }
-        }
-    }
+//    func checkDiskSpaceUsage() {
+//
+//        if self.preferences.limitDiskSpaceUsage {
+//
+//            backgroundQueue.async {
+//
+//                // Do this async, as a background task, so as not to interfere with user-interactive tasks
+//                self.cleanUpMappings()
+//
+//                if self.files.isEmpty {return}
+//
+//                let maxUsage = self.preferences.maxDiskSpaceUsage * (1000 * 1000)
+//                var curUsage: UInt64 = FileSystemUtils.sizeOfDirectory(self.baseDir)
+//
+//                if curUsage > maxUsage {
+//
+//                    // Gather all files, sort chronologically
+//                    var trackFiles: [URL] = []
+//                    trackFiles.append(contentsOf: self.files.keys)
+//
+//                    trackFiles.sort(by: self.compareFiles(_:_:))
+//
+//                    var outputFiles: [URL] = []
+//                    trackFiles.forEach({outputFiles.append(self.files[$0]!)})
+//
+//                    while curUsage > maxUsage && !trackFiles.isEmpty {
+//
+//                        // Delete the oldest file
+//                        let fileToDelete = outputFiles.removeLast()
+//
+//                        // Don't delete playing track !
+//                        if let plTrack = self.player.playingTrack?.track, let outFile = self.files[plTrack.file], fileToDelete.path == outFile.path {
+//                            return
+//                        }
+//
+//                        self.files.removeValue(forKey: trackFiles.removeLast())
+//
+//                        // Update current usage variable (subtract deleted file's size)
+//                        curUsage -= UInt64(FileSystemUtils.sizeOfFile(path: fileToDelete.path).sizeBytes)
+//
+//                        // Delete the file from the filesystem and from the map
+//                        FileSystemUtils.deleteFile(fileToDelete.path)
+//                    }
+//                }
+//            }
+//        }
+//    }
     
-    private func cleanUpMappings() {
-        
-        let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
-        let mappedFiles = files.values
-        let inProgressFiles = filesBeingTranscoded.values
-        
-        // Clean up the store folder
-        for file in allFiles {
-            
-            if !mappedFiles.contains(file) && !inProgressFiles.contains(file) {
-                FileSystemUtils.deleteFile(file.path)
-            }
-        }
-        
-        // Clean up the map
-        for (trackFile, outputFile) in self.files {
-            
-            if !FileSystemUtils.fileExists(outputFile) {
-                self.files.removeValue(forKey: trackFile)
-            }
-        }
-    }
-    
-    func compareFiles(_ file1: URL, _ file2: URL) -> Bool {
-        
-        let result = history.compareChronologically(file1, file2)
-        
-        // If history says they're equal, use file modification date as criteria (oldest modified file gets deleted)
-        if result == .orderedSame {
-            
-            // Use output files for comparison, not input files
-            let f1 = files[file1]!
-            let f2 = files[file2]!
-            return FileSystemUtils.compareFileModificationDates(f1, f2) == .orderedDescending
-        }
-        
-        return result == .orderedAscending
-    }
+//    private func cleanUpMappings() {
+//        
+//        let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
+//        let mappedFiles = files.values
+//        let inProgressFiles = filesBeingTranscoded.values
+//        
+//        // Clean up the store folder
+//        for file in allFiles {
+//            
+//            if !mappedFiles.contains(file) && !inProgressFiles.contains(file) {
+//                FileSystemUtils.deleteFile(file.path)
+//            }
+//        }
+//        
+//        // Clean up the map
+//        for (trackFile, outputFile) in self.files {
+//            
+//            if !FileSystemUtils.fileExists(outputFile) {
+//                self.files.removeValue(forKey: trackFile)
+//            }
+//        }
+//    }
+//    
+//    func compareFiles(_ file1: URL, _ file2: URL) -> Bool {
+//        
+//        let result = history.compareChronologically(file1, file2)
+//        
+//        // If history says they're equal, use file modification date as criteria (oldest modified file gets deleted)
+//        if result == .orderedSame {
+//            
+//            // Use output files for comparison, not input files
+//            let f1 = files[file1]!
+//            let f2 = files[file2]!
+//            return FileSystemUtils.compareFileModificationDates(f1, f2) == .orderedDescending
+//        }
+//        
+//        return result == .orderedAscending
+//    }
     
     func getForTrack(_ track: Track) -> URL? {
         

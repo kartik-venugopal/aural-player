@@ -477,7 +477,7 @@
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
             <items>
-                <menuItem title="Transcode this track (in the background)" image="Transcode" id="s9W-FB-XJa" userLabel="Transcode this track">
+                <menuItem title="Transcode this track (in the background)" image="Transcode-Small" id="s9W-FB-XJa" userLabel="Transcode this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="transcodeTrackAction:" target="TnB-Sk-yOp" id="Kx8-Oz-5BA"/>
@@ -815,7 +815,7 @@
         <image name="Search" width="26" height="26"/>
         <image name="ShowInFinder" width="11.25" height="11.25"/>
         <image name="Sort" width="32" height="27"/>
-        <image name="Transcode" width="3.5999999046325684" height="3.3599998950958252"/>
+        <image name="Transcode-Small" width="17" height="14"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>

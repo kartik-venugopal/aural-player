@@ -187,30 +187,36 @@ class TranscodingPreferences {
             persistenceOption = PreferencesDefaults.Playback.Transcoding.persistenceOption
         }
         
-        limitDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.limitDiskSpaceUsage"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
-        maxDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.maxDiskSpaceUsage"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
+        limitDiskSpaceUsage = PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+        maxDiskSpaceUsage = PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
         
-        eagerTranscodingEnabled = defaultsDictionary["playback.transcoding.eagerTranscoding.enabled"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+//        limitDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.limitDiskSpaceUsage"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+//        maxDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.maxDiskSpaceUsage"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
         
-        if let eagerTranscodingOptionStr = defaultsDictionary["playback.transcoding.eagerTranscoding.option"] as? String {
-            eagerTranscodingOption = EagerTranscodingOptions(rawValue: eagerTranscodingOptionStr) ?? PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
-        } else {
-            eagerTranscodingOption = PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
-        }
+        eagerTranscodingEnabled = PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
         
-        maxBackgroundTasks = defaultsDictionary["playback.transcoding.maxBackgroundTasks"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxBackgroundTasks
+//        if let eagerTranscodingOptionStr = defaultsDictionary["playback.transcoding.eagerTranscoding.option"] as? String {
+//            eagerTranscodingOption = EagerTranscodingOptions(rawValue: eagerTranscodingOptionStr) ?? PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
+//        } else {
+//            eagerTranscodingOption = PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
+//        }
+        
+        eagerTranscodingOption = PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
+        
+//        maxBackgroundTasks = defaultsDictionary["playback.transcoding.maxBackgroundTasks"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxBackgroundTasks
+        maxBackgroundTasks = PreferencesDefaults.Playback.Transcoding.maxBackgroundTasks
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(persistenceOption.rawValue, forKey: "playback.transcoding.persistence.option")
-        defaults.set(limitDiskSpaceUsage, forKey: "playback.transcoding.persistence.limitDiskSpaceUsage")
-        defaults.set(maxDiskSpaceUsage, forKey: "playback.transcoding.persistence.maxDiskSpaceUsage")
-        
-        defaults.set(eagerTranscodingEnabled, forKey: "playback.transcoding.eagerTranscoding.enabled")
-        defaults.set(eagerTranscodingOption.rawValue, forKey: "playback.transcoding.eagerTranscoding.option")
-        
-        defaults.set(maxBackgroundTasks, forKey: "playback.transcoding.maxBackgroundTasks")
+//        defaults.set(limitDiskSpaceUsage, forKey: "playback.transcoding.persistence.limitDiskSpaceUsage")
+//        defaults.set(maxDiskSpaceUsage, forKey: "playback.transcoding.persistence.maxDiskSpaceUsage")
+//
+//        defaults.set(eagerTranscodingEnabled, forKey: "playback.transcoding.eagerTranscoding.enabled")
+//        defaults.set(eagerTranscodingOption.rawValue, forKey: "playback.transcoding.eagerTranscoding.option")
+//
+//        defaults.set(maxBackgroundTasks, forKey: "playback.transcoding.maxBackgroundTasks")
     }
 }
 
@@ -511,17 +517,25 @@ fileprivate struct PreferencesDefaults {
         struct Transcoding {
             
             static let persistenceOption: TranscoderPersistenceOptions = .save
-            static let limitDiskSpaceUsage: Bool = true
-            static let maxDiskSpaceUsage: Int = 1000
+            static let limitDiskSpaceUsage: Bool = false
+            static let maxDiskSpaceUsage: Int = 10000000
+            
+//            static let limitDiskSpaceUsage: Bool = true
+//            static let maxDiskSpaceUsage: Int = 1000
             
             static let eagerTranscodingEnabled: Bool = true
-            static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
+            static let eagerTranscodingOption: EagerTranscodingOptions = .predictive
             
-            static let maxBackgroundTasks: Int = {
-                
-                let processorCount = ProcessInfo.processInfo.activeProcessorCount
-                return processorCount > 2 ? (processorCount / 2) - 1 : 1
-            }()
+//            static let eagerTranscodingEnabled: Bool = true
+//            static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
+            
+            static let maxBackgroundTasks: Int = 2
+            
+//            static let maxBackgroundTasks: Int = {
+//
+//                let processorCount = ProcessInfo.processInfo.activeProcessorCount
+//                return processorCount > 2 ? (processorCount / 2) - 1 : 1
+//            }()
         }
     }
     

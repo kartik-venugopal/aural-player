@@ -607,10 +607,10 @@ G1BhbiBTbGlkZXI
                         <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vf7-58-ptt">
-                                <rect key="frame" x="26" y="116" width="59" height="45"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML">
+                                <rect key="frame" x="26" y="112" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="fTv-4v-cTc"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
                             </imageView>
                         </subviews>
                     </view>
@@ -741,7 +741,7 @@ Gw
         <image name="SeekForward" width="8.6400003433227539" height="5.5199999809265137"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="ShuffleOff" width="26" height="26"/>
-        <image name="Transcoding" width="96" height="78"/>
+        <image name="Transcoding" width="71" height="78"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>
