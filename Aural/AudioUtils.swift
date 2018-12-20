@@ -7,12 +7,6 @@ class AudioUtils {
     
     private static let transcoder: TranscoderProtocol = ObjectGraph.transcoder
     
-    private static let flacSupported: Bool = {
-        
-        let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
-        return (systemVersion.majorVersion == 10 && systemVersion.minorVersion >= 13) || systemVersion.majorVersion > 10
-    }()
-    
     // Validates a track to determine if it is playable. If the track is not playable, returns an error object describing the problem.
     static func validateTrack(_ track: Track) -> InvalidTrackError? {
         
@@ -157,16 +151,6 @@ class AudioUtils {
     }
     
     static func isAudioFileNativelySupported(_ file: URL) -> Bool {
-        
-        let fileExtension = file.pathExtension.lowercased()
-        
-        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return true
-        }
-        
-        // FLAC is available on 10.13 and higher
-        if fileExtension == "flac" {return flacSupported}
-        
-        return false
+        return AppConstants.SupportedTypes.nativeAudioExtensions.contains(file.pathExtension.lowercased())
     }
 }
