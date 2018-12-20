@@ -24,13 +24,16 @@ class HistoryItem: EquatableHistoryItem {
     var art: NSImage = Images.imgPlayedTrack
     
     // Used for tracks
-    init(_ file: URL, _ displayName: String, _ time: Date) {
+    init(_ file: URL, _ displayName: String, _ time: Date, _ art: NSImage? = nil) {
         
         self.file = file
         self.time = time
         
         // Default the displayName to file name (intended to be replaced later)
         self.displayName = displayName
+        if art != nil {
+            self.art = art!
+        }
     }
     
     func equals(_ other: EquatableHistoryItem) -> Bool {
@@ -46,12 +49,14 @@ class HistoryItem: EquatableHistoryItem {
     fileprivate func loadDisplayInfoFromFile() {
         
         // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
-        DispatchQueue.global(qos: .background).async {
-            
-            if let art = MetadataReader.loadArtworkForFile(self.file) {
-                self.art = art.copy() as! NSImage
-            }
-        }
+        
+        // TODO: Temporarily disabled
+//        DispatchQueue.global(qos: .background).async {
+//
+//            if let art = MetadataReader.loadArtworkForFile(self.file) {
+//                self.art = art.copy() as! NSImage
+//            }
+//        }
     }
     
     func validateFile() -> Bool {
@@ -68,7 +73,7 @@ class AddedItem: HistoryItem {
         loadDisplayInfoFromFile(true)
     }
     
-    override init(_ file: URL, _ displayName: String, _ time: Date) {
+    init(_ file: URL, _ displayName: String, _ time: Date) {
         
         super.init(file, displayName, time)
         loadDisplayInfoFromFile(false)
@@ -76,8 +81,12 @@ class AddedItem: HistoryItem {
     
     init(_ track: Track, _ time: Date) {
         
-        super.init(track.file, track.conciseDisplayName, time)
-        loadDisplayInfoFromFile(true)
+        var trackArt: NSImage? = nil
+        if let art = track.displayInfo.art {
+            trackArt = art.copy() as? NSImage
+        }
+        super.init(track.file, track.conciseDisplayName, time, trackArt)
+        
     }
     
     func loadDisplayInfoFromFile(_ setDisplayName: Bool) {
@@ -135,7 +144,7 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
         }
     }
 
-    override init(_ file: URL, _ name: String, _ time: Date) {
+    init(_ file: URL, _ name: String, _ time: Date) {
         
         super.init(file, name, time)
         loadDisplayInfoFromFile()

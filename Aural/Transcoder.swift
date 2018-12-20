@@ -16,6 +16,8 @@ protocol TranscoderProtocol {
     
     func checkDiskSpaceUsage()
     
+    func setMaxBackgroundTasks(_ numTasks: Int)
+    
     // ???
 //    func moveToBackground(_ track: Track)
 }
@@ -30,8 +32,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let preferences: TranscodingPreferences
     
     private let formatsMap: [String: String] = ["flac": "aiff",
-                                                "wma": "mp3",
-                                                "ogg": "mp3",
+                                                "wma": "m4a",
+                                                "ogg": "m4a",
+                                                "opus": "m4a",
                                                 "dts": "aiff",
                                                 "dsf": "aiff"]
     
@@ -48,7 +51,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
         
         store = TranscoderStore(state, preferences)
-        daemon = TranscoderDaemon()
+        daemon = TranscoderDaemon(preferences)
         self.preferences = preferences
         
         AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
@@ -110,10 +113,21 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> MonitoredCommand {
         
+        let outputFileExtension = outputFile.pathExtension.lowercased()
+        var args = ["-v", "quiet", "-stats", "-i", inputFile.path]
+        
+        if outputFileExtension == "m4a" {
+            args.append(contentsOf: ["-codec:a", "aac"])
+        }
+        
+        args.append(contentsOf: ["-vn", "-sn", "-ac", "2", outputFile.path])
+        
+        print("Args:", args)
+        
         // -vn: Ignore video stream (including album art)
         // -sn: Ignore subtitles
         // -ac 2: Convert to stereo audio
-        return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: ["-v", "quiet", "-stats", "-i", inputFile.path, "-vn", "-sn", "-ac", "2", outputFile.path], qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
+        return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: args, qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
     }
     
     private func outputFileForTrack(_ track: Track) -> URL {
@@ -172,6 +186,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         store.checkDiskSpaceUsage()
     }
     
+    func setMaxBackgroundTasks(_ numTasks: Int) {
+        daemon.setMaxBackgroundTasks(numTasks)
+    }
+    
 //    func moveToBackground(_ track: Track) {
 //        daemon.moveTaskToBackground(track)
 //    }
@@ -179,7 +197,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     func persistentState() -> PersistentState {
         
         let state = TranscoderState()
-        store.map.forEach({state.entries[$0.key] = $0.value})
+        store.files.forEach({state.entries[$0.key] = $0.value})
         
         return state
     }

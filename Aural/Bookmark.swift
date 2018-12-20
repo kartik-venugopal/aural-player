@@ -37,12 +37,14 @@ class Bookmark: StringKeyedItem, PlayableItem {
     private func loadArtworkFromFile() {
         
         // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
-        DispatchQueue.global(qos: .background).async {
-            
-            if let artwork = MetadataReader.loadArtworkForFile(self.file) {
-                self.art = artwork.copy() as! NSImage
-            }
-        }
+        
+         // TODO: Temporarily disabled
+//        DispatchQueue.global(qos: .background).async {
+//            
+//            if let artwork = MetadataReader.loadArtworkForFile(self.file) {
+//                self.art = artwork.copy() as! NSImage
+//            }
+//        }
     }
     
     func validateFile() -> Bool {
