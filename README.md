@@ -34,7 +34,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 * **Supported file types:**
    * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF 
-     * **(Support for FLAC, WMA, OGG, OPUS, DSF, DTS, and other formats coming soon !)**
+     * **(Support for FLAC, WMA, OGG, OPUS, and other formats coming soon !)**
    * Playlist files: M3U/M3U8
 
 * **Playback:**
