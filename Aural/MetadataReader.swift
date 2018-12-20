@@ -65,13 +65,19 @@ class MetadataReader {
         ensureTrackAssetLoaded(track)
         
         if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
-
+            
             let displayMetadata = track.libAVInfo!.metadata
             
             track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
+            
             DispatchQueue.global(qos: .userInteractive).async {
+            
+//                print("Starting async task")
                 track.displayInfo.art = FFMpegWrapper.getArtwork(track)
+//                print("\n*** Set track image data: %@, %@", track.conciseDisplayName, String(describing: track.displayInfo.art != nil))
             }
+        
+//            print("Async art dispatched for", track.conciseDisplayName)
             
         } else {
             

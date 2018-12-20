@@ -8,41 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAllFiles" destination="TdO-y7-bg2" id="eaz-y6-cRK"/>
-                <outlet property="btnAutoplayAfterAddingTracks" destination="pTy-Ac-iwY" id="fxO-HN-K5e"/>
-                <outlet property="btnAutoplayAlways" destination="Yrk-jG-tb1" id="Rf6-x4-cdb"/>
-                <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="V5b-6i-R0D"/>
-                <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="cVP-E2-hy2"/>
-                <outlet property="btnDeleteFiles" destination="zda-3P-h3e" id="iVQ-Qx-DwZ"/>
-                <outlet property="btnEagerTranscoding" destination="sr5-uK-qZM" id="X90-DJ-pQy"/>
-                <outlet property="btnGapBetweenTracks" destination="pxF-6N-xpM" id="CIY-2u-co0"/>
-                <outlet property="btnInfo_primarySeekLength" destination="Rka-88-zsT" id="CpA-fk-ARo"/>
-                <outlet property="btnInfo_secondarySeekLength" destination="cds-hi-8Qd" id="fzI-wZ-h92"/>
-                <outlet property="btnLimitSpace" destination="ixK-75-hLM" id="bOT-zw-3qJ"/>
-                <outlet property="btnPredictive" destination="rzK-SV-HSb" id="nwL-pA-A1F"/>
-                <outlet property="btnPrimarySeekLengthConstant" destination="9fb-Eh-kMD" id="u7m-0x-5l3"/>
-                <outlet property="btnPrimarySeekLengthPerc" destination="n6f-R3-Ism" id="Hr1-Bl-1QL"/>
-                <outlet property="btnRememberPosition" destination="Mc5-gV-VMh" id="LoP-w6-XJN"/>
-                <outlet property="btnRememberPosition_allTracks" destination="d1q-GJ-IXH" id="PIk-7l-LVE"/>
-                <outlet property="btnRememberPosition_individualTracks" destination="58Z-Ev-mgi" id="8Qm-kl-X2t"/>
-                <outlet property="btnSaveFiles" destination="1E4-yq-aas" id="Iap-Ag-QBG"/>
-                <outlet property="btnSecondarySeekLengthConstant" destination="vxb-3c-7Vu" id="VaA-Zl-QJj"/>
-                <outlet property="btnSecondarySeekLengthPerc" destination="GQ3-JO-aUl" id="pFY-ZK-mnj"/>
-                <outlet property="btnShowNewTrack" destination="Uxk-4x-fK7" id="dPJ-Ou-FIT"/>
-                <outlet property="gapDurationPicker" destination="lGn-cP-qBg" id="Smf-Vj-GdL"/>
-                <outlet property="lblCurrentUsage" destination="tEa-Zm-hg9" id="dHb-0U-cpf"/>
-                <outlet property="lblGapDuration" destination="GmD-Nk-SNf" id="h73-iP-YbB"/>
-                <outlet property="lblMaxSpace" destination="2ac-zq-sdR" id="TTa-fd-Qp5"/>
-                <outlet property="lblPrimarySeekLength" destination="6FE-mr-ZA4" id="faH-MH-QB1"/>
-                <outlet property="lblPrimarySeekLengthPerc" destination="yPQ-2g-KWZ" id="722-TF-eyL"/>
-                <outlet property="lblSecondarySeekLength" destination="PCt-zb-UQa" id="YIt-di-bZB"/>
-                <outlet property="lblSecondarySeekLengthPerc" destination="Qk8-qL-Vu1" id="TGL-hf-pzp"/>
-                <outlet property="maxSpaceSlider" destination="9sh-Nq-vDL" id="WCz-TR-kxk"/>
-                <outlet property="primarySeekLengthPercStepper" destination="x5B-Yh-1Ok" id="f8I-jd-Uc2"/>
-                <outlet property="primarySeekLengthPicker" destination="rEV-z2-p07" id="kVB-ff-O1Z"/>
-                <outlet property="secondarySeekLengthPercStepper" destination="J6n-UQ-U6E" id="M4R-T8-Z5j"/>
-                <outlet property="secondarySeekLengthPicker" destination="JHO-5d-vQ1" id="Kvz-RC-Qbx"/>
+                <outlet property="generalPrefsView" destination="Uko-LS-fAN" id="DJ5-6B-Jg1"/>
                 <outlet property="tabView" destination="jIC-i8-j1B" id="h7M-mo-to6"/>
+                <outlet property="transcodingPrefsView" destination="eVi-qL-s5p" id="0f1-K9-3ps"/>
                 <outlet property="view" destination="fBA-Aa-Qne" id="bEU-1Z-jc8"/>
             </connections>
         </customObject>
@@ -79,7 +47,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="deE-Qa-0v2" userLabel="Actual View">
-                                        <rect key="frame" x="0.0" y="0.0" width="668" height="462"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pm3-wa-xhF" userLabel="Seek Length Label">
@@ -99,7 +67,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="Kzd-dq-OEG"/>
+                                                    <action selector="primarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="Ip2-wJ-xhY"/>
                                                 </connections>
                                             </button>
                                             <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEV-z2-p07" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
@@ -120,7 +88,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="primarySeekLengthAction:" target="-2" id="1O1-ll-fpR"/>
+                                                    <action selector="primarySeekLengthAction:" target="Uko-LS-fAN" id="vqe-eA-yO9"/>
                                                 </connections>
                                             </datePicker>
                                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6FE-mr-ZA4" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
@@ -149,7 +117,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="4SO-M5-kkL"/>
+                                                    <action selector="primarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="V1F-19-13e"/>
                                                 </connections>
                                             </button>
                                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yPQ-2g-KWZ" userLabel="Primary Seek % Label">
@@ -170,7 +138,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="VT8-rV-1QJ"/>
                                                 <connections>
-                                                    <action selector="primarySeekLengthPercAction:" target="-2" id="CX0-YY-47D"/>
+                                                    <action selector="primarySeekLengthPercAction:" target="Uko-LS-fAN" id="ETo-rg-rgp"/>
                                                 </connections>
                                             </stepper>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Up-Ya-gho" userLabel="Seek Length Label">
@@ -190,7 +158,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="ndh-Eh-C9H"/>
+                                                    <action selector="secondarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="0XH-lp-M0r"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQ3-JO-aUl">
@@ -201,7 +169,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="Ixi-Bc-xtl"/>
+                                                    <action selector="secondarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="dcU-vL-RRu"/>
                                                 </connections>
                                             </button>
                                             <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHO-5d-vQ1" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
@@ -222,7 +190,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="secondarySeekLengthAction:" target="-2" id="YzK-OO-hLZ"/>
+                                                    <action selector="secondarySeekLengthAction:" target="Uko-LS-fAN" id="sPS-eR-ucV"/>
                                                 </connections>
                                             </datePicker>
                                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCt-zb-UQa" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
@@ -261,7 +229,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="Si8-hW-Hqb"/>
                                                 <connections>
-                                                    <action selector="secondarySeekLengthPercAction:" target="-2" id="8N7-yc-hqj"/>
+                                                    <action selector="secondarySeekLengthPercAction:" target="Uko-LS-fAN" id="7ym-6Q-nGL"/>
                                                 </connections>
                                             </stepper>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVd-VN-HEx" userLabel="Autoplay on startup">
@@ -289,7 +257,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="autoplayAfterAddingAction:" target="-2" id="Bdd-dK-ro1"/>
+                                                    <action selector="autoplayAfterAddingAction:" target="Uko-LS-fAN" id="MLw-fV-Qet"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="izk-F1-oh2">
@@ -300,7 +268,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="slX-i8-q0w"/>
+                                                    <action selector="autoplayAfterAddingRadioButtonAction:" target="Uko-LS-fAN" id="klY-zb-YNR"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yrk-jG-tb1">
@@ -311,7 +279,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="i0t-Om-WQx"/>
+                                                    <action selector="autoplayAfterAddingRadioButtonAction:" target="Uko-LS-fAN" id="bfl-du-COc"/>
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4I6-pD-wVT">
@@ -331,7 +299,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="rememberLastPositionAction:" target="-2" id="tJs-MY-Ciq"/>
+                                                    <action selector="rememberLastPositionAction:" target="Uko-LS-fAN" id="7Sn-l8-MqP"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uxk-4x-fK7">
@@ -350,7 +318,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="I3u-41-3VO"/>
+                                                    <action selector="rememberLastPositionRadioButtonAction:" target="Uko-LS-fAN" id="Kft-ZP-gWE"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d1q-GJ-IXH">
@@ -361,7 +329,7 @@
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="l9i-EQ-wZv"/>
+                                                    <action selector="rememberLastPositionRadioButtonAction:" target="Uko-LS-fAN" id="7Ma-Ai-09G"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rka-88-zsT" userLabel="Info - Seek length primary">
@@ -372,7 +340,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="seekLengthPrimary_infoAction:" target="-2" id="glU-oY-C7R"/>
+                                                    <action selector="seekLengthPrimary_infoAction:" target="Uko-LS-fAN" id="LRp-54-rC1"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cds-hi-8Qd" userLabel="Info - Seek length primary">
@@ -383,7 +351,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="seekLengthSecondary_infoAction:" target="-2" id="nQi-vs-Mtb"/>
+                                                    <action selector="seekLengthSecondary_infoAction:" target="Uko-LS-fAN" id="1KH-5M-hr1"/>
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Yj-BP-jvV" userLabel="Insert gap">
@@ -403,7 +371,7 @@
                                                     <font key="font" size="13" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="gapDurationAction:" target="-2" id="WVX-ur-1Fq"/>
+                                                    <action selector="gapDurationAction:" target="Uko-LS-fAN" id="Tsh-sd-OJc"/>
                                                 </connections>
                                             </button>
                                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wNC-dN-42p">
@@ -437,7 +405,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="gapDurationPickerAction:" target="-2" id="qKM-aW-91m"/>
+                                                    <action selector="gapDurationPickerAction:" target="Uko-LS-fAN" id="lf5-Og-D4P"/>
                                                 </connections>
                                             </datePicker>
                                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GmD-Nk-SNf" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
@@ -488,7 +456,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="ErM-0A-BxU"/>
+                                            <action selector="transcoderPersistenceRadioButtonAction:" target="eVi-qL-s5p" id="5bu-wo-Nga"/>
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zda-3P-h3e">
@@ -499,7 +467,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="transcoderPersistenceRadioButtonAction:" target="-2" id="1e3-nu-ptX"/>
+                                            <action selector="transcoderPersistenceRadioButtonAction:" target="eVi-qL-s5p" id="G5n-nC-bzy"/>
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rq6-vi-8R1" userLabel="Seek Length Label">
@@ -528,7 +496,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="limitSpaceAction:" target="-2" id="jJq-HS-H0Y"/>
+                                            <action selector="limitSpaceAction:" target="eVi-qL-s5p" id="YTq-OH-jAJ"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-5f-s7R">
@@ -567,7 +535,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="5" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="UjW-6w-peE" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         <connections>
-                                            <action selector="maxSpaceSliderAction:" target="-2" id="ekN-8S-s4p"/>
+                                            <action selector="maxSpaceSliderAction:" target="eVi-qL-s5p" id="6nc-hX-oZa"/>
                                         </connections>
                                     </slider>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sr5-uK-qZM">
@@ -578,7 +546,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="eagerTranscodingAction:" target="-2" id="gwj-c5-y7w"/>
+                                            <action selector="eagerTranscodingAction:" target="eVi-qL-s5p" id="Bo6-WA-bXP"/>
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWz-ty-Zzf" userLabel="Seek Length Label">
@@ -598,7 +566,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="eagerTranscodingOptionAction:" target="-2" id="djw-tB-kTO"/>
+                                            <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="ERs-fq-GRV"/>
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzK-SV-HSb">
@@ -609,7 +577,7 @@
                                             <font key="font" size="11" name="GillSans"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="eagerTranscodingOptionAction:" target="-2" id="Y0g-gT-0jK"/>
+                                            <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="PLx-MT-AWx"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAF-ch-lTv">
@@ -639,7 +607,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAw-Ta-lRW" userLabel="Seek Length Label">
-                                        <rect key="frame" x="40" y="183" width="536" height="20"/>
+                                        <rect key="frame" x="39" y="183" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Limit disk space usage  (oldest files wil be deleted to stay under limit)" id="PZD-PT-2oW">
                                             <font key="font" size="13" name="GillSans"/>
@@ -648,9 +616,9 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-uZ-M78" userLabel="Pan Delta Field">
-                                        <rect key="frame" x="13" y="62" width="40" height="20"/>
+                                        <rect key="frame" x="307" y="84" width="40" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="SHX-mp-3Yf">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="3" id="SHX-mp-3Yf">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Fqy-Zl-ECu">
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="30"/>
@@ -661,10 +629,35 @@
                                         </textFieldCell>
                                     </textField>
                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ora-RX-Azv" userLabel="Pan Delta Stepper">
-                                        <rect key="frame" x="53" y="61" width="15" height="22"/>
+                                        <rect key="frame" x="348" y="83" width="15" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="vyb-48-4cR"/>
+                                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="20" doubleValue="3" id="vyb-48-4cR"/>
+                                        <connections>
+                                            <action selector="maxTasksStepperAction:" target="eVi-qL-s5p" id="1qb-z1-B0S"/>
+                                        </connections>
                                     </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZg-eS-8TU" userLabel="Seek Length Label">
+                                        <rect key="frame" x="21" y="85" width="292" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Maximum number of background transcoding tasks" id="YRW-h7-VvT">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xyt-Xj-mJM">
+                                        <rect key="frame" x="389" y="85" width="253" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="(Max. recommended on this system:   8)" id="pCm-Zp-K9k">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="emD-Rd-jle">
+                                                <real key="minimum" value="3"/>
+                                                <real key="maximum" value="300"/>
+                                            </numberFormatter>
+                                            <font key="font" size="12" name="GillSans"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                             <connections>
@@ -675,6 +668,53 @@
                 </tabView>
             </subviews>
         </view>
+        <viewController id="Uko-LS-fAN" customClass="GeneralPlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAutoplayAfterAddingTracks" destination="pTy-Ac-iwY" id="P7j-aJ-J1C"/>
+                <outlet property="btnAutoplayAlways" destination="Yrk-jG-tb1" id="zxM-8A-fsh"/>
+                <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="XpU-t9-xmv"/>
+                <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="NtT-0s-wuv"/>
+                <outlet property="btnGapBetweenTracks" destination="pxF-6N-xpM" id="Js0-qq-nbJ"/>
+                <outlet property="btnInfo_primarySeekLength" destination="Rka-88-zsT" id="1qk-sJ-oEr"/>
+                <outlet property="btnInfo_secondarySeekLength" destination="cds-hi-8Qd" id="J2F-Ff-qE8"/>
+                <outlet property="btnPrimarySeekLengthConstant" destination="9fb-Eh-kMD" id="ulk-DQ-MdS"/>
+                <outlet property="btnPrimarySeekLengthPerc" destination="n6f-R3-Ism" id="dZc-B4-MKX"/>
+                <outlet property="btnRememberPosition" destination="Mc5-gV-VMh" id="7QK-oV-2Fj"/>
+                <outlet property="btnRememberPosition_allTracks" destination="d1q-GJ-IXH" id="DGl-bh-KEm"/>
+                <outlet property="btnRememberPosition_individualTracks" destination="58Z-Ev-mgi" id="Jom-JV-26N"/>
+                <outlet property="btnSecondarySeekLengthConstant" destination="vxb-3c-7Vu" id="X2J-px-PUa"/>
+                <outlet property="btnSecondarySeekLengthPerc" destination="GQ3-JO-aUl" id="Z4S-DM-nWg"/>
+                <outlet property="btnShowNewTrack" destination="Uxk-4x-fK7" id="Yfc-g3-zC1"/>
+                <outlet property="gapDurationPicker" destination="lGn-cP-qBg" id="C75-N0-Lbq"/>
+                <outlet property="lblGapDuration" destination="GmD-Nk-SNf" id="hgL-tJ-WMl"/>
+                <outlet property="lblPrimarySeekLength" destination="6FE-mr-ZA4" id="nmV-3I-d6O"/>
+                <outlet property="lblPrimarySeekLengthPerc" destination="yPQ-2g-KWZ" id="DXx-xc-9y1"/>
+                <outlet property="lblSecondarySeekLength" destination="PCt-zb-UQa" id="fZe-up-bRy"/>
+                <outlet property="lblSecondarySeekLengthPerc" destination="Qk8-qL-Vu1" id="oYO-qe-b8Z"/>
+                <outlet property="primarySeekLengthPercStepper" destination="x5B-Yh-1Ok" id="uWh-gy-ZWy"/>
+                <outlet property="primarySeekLengthPicker" destination="rEV-z2-p07" id="WMC-Sg-fW8"/>
+                <outlet property="secondarySeekLengthPercStepper" destination="J6n-UQ-U6E" id="6aN-62-hNq"/>
+                <outlet property="secondarySeekLengthPicker" destination="JHO-5d-vQ1" id="xeR-mY-Tx8"/>
+                <outlet property="view" destination="deE-Qa-0v2" id="t8l-P3-ae0"/>
+            </connections>
+        </viewController>
+        <viewController id="eVi-qL-s5p" customClass="TranscodingPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAllFiles" destination="TdO-y7-bg2" id="YDj-nj-txl"/>
+                <outlet property="btnDeleteFiles" destination="zda-3P-h3e" id="oXB-aH-K0E"/>
+                <outlet property="btnEagerTranscoding" destination="sr5-uK-qZM" id="LNd-Do-qHA"/>
+                <outlet property="btnLimitSpace" destination="ixK-75-hLM" id="oXD-t1-MRB"/>
+                <outlet property="btnPredictive" destination="rzK-SV-HSb" id="emf-Zm-mRl"/>
+                <outlet property="btnSaveFiles" destination="1E4-yq-aas" id="zdG-st-EXK"/>
+                <outlet property="lblCurrentUsage" destination="tEa-Zm-hg9" id="3fE-8P-z1u"/>
+                <outlet property="lblMaxRecommendedTasks" destination="Xyt-Xj-mJM" id="UG3-Xa-8dw"/>
+                <outlet property="lblMaxSpace" destination="2ac-zq-sdR" id="0uh-h4-xMk"/>
+                <outlet property="lblMaxTasks" destination="okQ-uZ-M78" id="bog-yS-jSa"/>
+                <outlet property="maxSpaceSlider" destination="9sh-Nq-vDL" id="l3C-Sm-zxX"/>
+                <outlet property="maxTasksStepper" destination="Ora-RX-Azv" id="7IP-0g-ucn"/>
+                <outlet property="view" destination="fhR-gT-mjb" id="D18-w8-gaS"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
         <image name="WhatIsThis" width="26" height="26"/>

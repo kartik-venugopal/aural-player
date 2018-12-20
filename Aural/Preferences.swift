@@ -517,7 +517,11 @@ fileprivate struct PreferencesDefaults {
             static let eagerTranscodingEnabled: Bool = true
             static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
             
-            static let maxBackgroundTasks: Int = 1
+            static let maxBackgroundTasks: Int = {
+                
+                let processorCount = ProcessInfo.processInfo.activeProcessorCount
+                return processorCount > 2 ? (processorCount / 2) - 1 : 1
+            }()
         }
     }
     

@@ -3,7 +3,8 @@ import Foundation
 class TranscoderStore: MessageSubscriber {
     
     let baseDir: URL
-    var map: [URL: URL] = [:]
+    var files: [URL: URL] = [:]
+    var filesBeingTranscoded: [URL] = []
     
     let preferences: TranscodingPreferences
     
@@ -24,7 +25,7 @@ class TranscoderStore: MessageSubscriber {
         if preferences.persistenceOption == .save {
             
             state.entries.forEach({
-                map[$0.key] = $0.value
+                files[$0.key] = $0.value
             })
         }
         
@@ -42,16 +43,17 @@ class TranscoderStore: MessageSubscriber {
     // When transcoding is canceled
     func deleteEntry(_ track: Track) {
         
-        if let outputFile = map[track.file] {
+        if let outputFile = files[track.file] {
+            
             FileSystemUtils.deleteFile(outputFile.path)
-            map.removeValue(forKey: track.file)
+            files.removeValue(forKey: track.file)
         }
     }
     
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
     func addFileMapping(_ track: Track, _ outputFile: URL) {
         
-        map[track.file] = outputFile
+        files[track.file] = outputFile
         
         // HACK: Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played" History list (this is needed for the comparison between tracks)
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2, execute: {
@@ -68,7 +70,7 @@ class TranscoderStore: MessageSubscriber {
                 // Do this async, as a background task, so as not to interfere with user-interactive tasks
                 self.cleanUpOrphanedFiles()
                 
-                if self.map.isEmpty {return}
+                if self.files.isEmpty {return}
                 
                 let maxUsage = self.preferences.maxDiskSpaceUsage * (1000 * 1000)
                 var curUsage: UInt64 = FileSystemUtils.sizeOfDirectory(self.baseDir)
@@ -77,18 +79,18 @@ class TranscoderStore: MessageSubscriber {
                     
                     // Gather all files, sort chronologically
                     var trackFiles: [URL] = []
-                    trackFiles.append(contentsOf: self.map.keys)
+                    trackFiles.append(contentsOf: self.files.keys)
                     
                     trackFiles.sort(by: self.compareFiles(_:_:))
                     
                     var outputFiles: [URL] = []
-                    trackFiles.forEach({outputFiles.append(self.map[$0]!)})
+                    trackFiles.forEach({outputFiles.append(self.files[$0]!)})
                     
                     while curUsage > maxUsage && !trackFiles.isEmpty {
                         
                         // Delete the oldest file
                         let fileToDelete = outputFiles.removeLast()
-                        self.map.removeValue(forKey: trackFiles.removeLast())
+                        self.files.removeValue(forKey: trackFiles.removeLast())
                         
                         // Update current usage variable (subtract deleted file's size)
                         curUsage -= UInt64(FileSystemUtils.sizeOfFile(path: fileToDelete.path).sizeBytes)
@@ -101,10 +103,11 @@ class TranscoderStore: MessageSubscriber {
         }
     }
     
+    // TODO: This will delete in-progress background transcoded files !!!
     private func cleanUpOrphanedFiles() {
         
         let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
-        let mappedFiles = map.values
+        let mappedFiles = files.values
         
         for file in allFiles {
             
@@ -122,8 +125,8 @@ class TranscoderStore: MessageSubscriber {
         if result == .orderedSame {
             
             // Use output files for comparison, not input files
-            let f1 = map[file1]!
-            let f2 = map[file2]!
+            let f1 = files[file1]!
+            let f2 = files[file2]!
             return FileSystemUtils.compareFileModificationDates(f1, f2) == .orderedDescending
         }
         
@@ -132,13 +135,13 @@ class TranscoderStore: MessageSubscriber {
     
     func getForTrack(_ track: Track) -> URL? {
         
-        if let outFile = map[track.file] {
+        if let outFile = files[track.file] {
             
             if FileSystemUtils.fileExists(outFile) {
                 return outFile
             }
             
-            map.removeValue(forKey: track.file)
+            files.removeValue(forKey: track.file)
         }
         
         return nil
@@ -153,7 +156,7 @@ class TranscoderStore: MessageSubscriber {
         
         if preferences.persistenceOption == .delete {
             FileSystemUtils.deleteContentsOfDirectory(baseDir)
-            map.removeAll()
+            files.removeAll()
         }
         
         // Proceed with exit

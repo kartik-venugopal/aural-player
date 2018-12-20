@@ -18,8 +18,13 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
     
     @IBOutlet weak var lblMaxTasks: NSTextField!
     @IBOutlet weak var maxTasksStepper: NSStepper!
+    @IBOutlet weak var lblMaxRecommendedTasks: NSTextField!
     
     private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
+    
+    override func viewDidLoad() {
+        lblMaxRecommendedTasks.stringValue = String(format: "( Max. recommended value on this system:   %d )", ProcessInfo.processInfo.activeProcessorCount - 1)
+    }
     
     func getView() -> NSView {
         return self.view
@@ -68,6 +73,8 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         }
         
         // Max background tasks
+        maxTasksStepper.integerValue = prefs.maxBackgroundTasks
+        maxTasksStepperAction(self)
     }
     
     @IBAction func transcoderPersistenceRadioButtonAction(_ sender: Any) {
@@ -112,6 +119,10 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         // Needed for radio buttons
     }
     
+    @IBAction func maxTasksStepperAction(_ sender: Any) {
+        lblMaxTasks.stringValue = String(maxTasksStepper.integerValue)
+    }
+    
     func save(_ preferences: Preferences) throws {
         
         let prefs = preferences.playbackPreferences.transcodingPreferences
@@ -125,20 +136,12 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         prefs.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
         prefs.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
         
-        
+        prefs.maxBackgroundTasks = maxTasksStepper.integerValue
+        transcoder.setMaxBackgroundTasks(prefs.maxBackgroundTasks)
         
         // Max usage prefs may have changed, so perform a check if user has opted to limit disk space usage
         if prefs.limitDiskSpaceUsage {
             transcoder.checkDiskSpaceUsage()
         }
     }
-}
-
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-    return input.rawValue
-}
-
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-    guard let input = input else { return nil }
-    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

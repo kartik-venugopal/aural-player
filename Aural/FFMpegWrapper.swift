@@ -10,6 +10,8 @@ class FFMpegWrapper {
     static let getMetadata_timeout: Double = 1
     static let getArtwork_timeout: Double = 2
     
+    private static var imgCache: [URL: NSImage] = [:]
+    
     static func getMetadata(_ track: Track) -> LibAVInfo {
         
         var map: [String: String] = [:]
@@ -104,6 +106,11 @@ class FFMpegWrapper {
     
     static func getArtwork(_ inputFile: URL) -> NSImage? {
         
+        if let img = imgCache[inputFile] {
+            print("Cache hit !")
+            return img.copy() as! NSImage
+        }
+        
         let now = Date()
         let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
         
@@ -115,7 +122,11 @@ class FFMpegWrapper {
         if result.exitCode == 0 {
             
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
-            FileSystemUtils.deleteFile(imgPath)
+            imgCache[inputFile] = image!.copy() as! NSImage
+            
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 5, execute: {
+                FileSystemUtils.deleteFile(imgPath)
+            })
         }
         
         return image

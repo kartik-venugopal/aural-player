@@ -7,14 +7,18 @@ class TranscoderDaemon {
     
     var tasks: [Track: TranscodingTask] = [:]
     
-    init() {
+    private let preferences: TranscodingPreferences
+    
+    init(_ preferences: TranscodingPreferences) {
+        
+        self.preferences = preferences
         
         immediateExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
         immediateExecutionQueue.maxConcurrentOperationCount = 1
         immediateExecutionQueue.qualityOfService = .userInteractive
         
         backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        backgroundExecutionQueue.maxConcurrentOperationCount = 1    // TODO: This value should come from preferences
+        backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks    // TODO: This value should come from preferences
         backgroundExecutionQueue.qualityOfService = .background
     }
     
@@ -50,7 +54,11 @@ class TranscoderDaemon {
         
         let block = {
             
+            NSLog("Started transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+            
             let result = CommandExecutor.execute(command)
+            
+            NSLog("Finished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
             
             if command.cancelled {
                 cancellationHandler()
@@ -128,6 +136,10 @@ class TranscoderDaemon {
         
         // TODO: ???
         // If op is already executing, let it finish on the background queue. If finished, nothing left to do.
+    }
+    
+    func setMaxBackgroundTasks(_ numTasks: Int) {
+        backgroundExecutionQueue.maxConcurrentOperationCount = numTasks
     }
 }
 
