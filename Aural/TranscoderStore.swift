@@ -35,11 +35,15 @@ class TranscoderStore: MessageSubscriber {
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         
         backgroundQueue.async {
-            self.cleanUpOrphanedFiles()
+            self.cleanUpMappings()
         }
     }
     
     func createOutputFile(_ track: Track, _ outputFileName: String) -> URL {
+        
+        if let existingFile = filesBeingTranscoded[track.file] {
+            return existingFile
+        }
         
         let file = baseDir.appendingPathComponent(outputFileName, isDirectory: false)
         filesBeingTranscoded[track.file] = file
@@ -83,7 +87,7 @@ class TranscoderStore: MessageSubscriber {
             backgroundQueue.async {
                 
                 // Do this async, as a background task, so as not to interfere with user-interactive tasks
-                self.cleanUpOrphanedFiles()
+                self.cleanUpMappings()
                 
                 if self.files.isEmpty {return}
                 
@@ -108,7 +112,6 @@ class TranscoderStore: MessageSubscriber {
                         
                         // Don't delete playing track !
                         if let plTrack = self.player.playingTrack?.track, let outFile = self.files[plTrack.file], fileToDelete.path == outFile.path {
-                            print("Can't remove playing track", plTrack.conciseDisplayName)
                             return
                         }
                         
@@ -125,16 +128,25 @@ class TranscoderStore: MessageSubscriber {
         }
     }
     
-    private func cleanUpOrphanedFiles() {
+    private func cleanUpMappings() {
         
         let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
         let mappedFiles = files.values
         let inProgressFiles = filesBeingTranscoded.values
         
+        // Clean up the store folder
         for file in allFiles {
             
             if !mappedFiles.contains(file) && !inProgressFiles.contains(file) {
                 FileSystemUtils.deleteFile(file.path)
+            }
+        }
+        
+        // Clean up the map
+        for (trackFile, outputFile) in self.files {
+            
+            if !FileSystemUtils.fileExists(outputFile) {
+                self.files.removeValue(forKey: trackFile)
             }
         }
     }

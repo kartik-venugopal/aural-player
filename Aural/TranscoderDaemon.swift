@@ -18,7 +18,7 @@ class TranscoderDaemon {
         immediateExecutionQueue.qualityOfService = .userInteractive
         
         backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks    // TODO: This value should come from preferences
+        backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks
         backgroundExecutionQueue.qualityOfService = .background
     }
     
