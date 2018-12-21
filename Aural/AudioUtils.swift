@@ -85,19 +85,28 @@ class AudioUtils {
     
     static func prepareTrackWithFile(_ track: Track, _ audioFile: URL) {
         
+        let playbackInfo = PlaybackInfo()
+        
         if let audioFile = AudioIO.createAudioFileForReading(audioFile) {
             
-            let playbackInfo = PlaybackInfo()
-            
             playbackInfo.audioFile = audioFile
-            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-            
-            playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-            playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
-            
             track.playbackInfo = playbackInfo
-            
             track.lazyLoadingInfo.preparedForPlayback = true
+            
+            if !track.nativelySupported {
+                
+                let stream = track.libAVInfo!.stream!
+                
+                playbackInfo.sampleRate = stream.sampleRate
+                playbackInfo.numChannels = stream.channelCount
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+                
+            } else {
+                
+                playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+            }
         }
     }
     

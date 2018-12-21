@@ -3,44 +3,40 @@ import Foundation
 class LibAVInfo {
     
     var duration: Double
-    var streams: [LibAVStream]
+    var stream: LibAVStream?
     var metadata: [String: String]
     var drmProtected: Bool
     
-    init(_ duration: Double, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
+    init(_ duration: Double, _ stream: LibAVStream?, _ metadata: [String: String], _ drmProtected: Bool) {
         
         self.duration = duration
-        self.streams = streams
+        self.stream = stream
         self.metadata = metadata
         self.drmProtected = drmProtected
     }
     
     var hasValidAudioTrack: Bool {
-        
-        let numAudioTracks = streams.filter({$0.type == .audio}).count
-        return numAudioTracks > 0
-        
-        // TODO: Also check format of audio tracks
+        return stream != nil
+        // TODO: Also check codec/format of audio tracks
     }
     
     var audioFormat: String {
-        return streams.filter({$0.type == .audio})[0].format
+        return stream?.format ?? ""
     }
 }
 
 class LibAVStream {
     
-    var type: LibAVStreamType
     var format: String
+    var bitRate: Double?
+    var channelCount: Int
+    var sampleRate: Double
     
-    init(_ type: LibAVStreamType, _ format: String) {
-        self.type = type
+    init(_ format: String, _ bitRate: Double?, _ channelCount: Int, _ sampleRate: Double) {
+        
         self.format = format
+        self.bitRate = bitRate
+        self.channelCount = channelCount
+        self.sampleRate = sampleRate
     }
-}
-
-enum LibAVStreamType {
-    
-    case audio
-    case video
 }
