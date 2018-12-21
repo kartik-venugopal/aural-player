@@ -3,7 +3,7 @@ import Foundation
 /*
     A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
  */
-class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
+class Playlist: PlaylistCRUDProtocol, PersistentModelObject, AsyncMessageSubscriber {
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistCRUDProtocol
@@ -17,10 +17,14 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     private var gapsBefore: [Track: PlaybackGap] = [:]
     private var gapsAfter: [Track: PlaybackGap] = [:]
     
+    let subscriberId: String = "Playlist"
+    
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType] = $0})
+        
+        AsyncMessenger.subscribe([.trackMetadataUpdated], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
     var tracks: [Track] {return flatPlaylist.tracks}
@@ -73,11 +77,11 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             let index = flatPlaylist.addTrack(track)
             
             // Add the track to each of the grouping playlists
-            var groupingResults = [GroupType: GroupedTrackAddResult]()
-            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+//            var groupingResults = [GroupType: GroupedTrackAddResult]()
+//            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
             
             // Return the results of the add operation
-            return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
+            return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: [:])
         }
         
         return nil
@@ -303,6 +307,16 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups
     }
     
+    func groupTrack(_ track: Track) -> [GroupType: GroupedTrackAddResult] {
+        
+        // Add the track to each of the grouping playlists
+        var groupingResults = [GroupType: GroupedTrackAddResult]()
+        groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+        
+        // Return the results of the add operation
+        return groupingResults
+    }
+    
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
         
         // Remove file/track mappings
@@ -356,5 +370,12 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if let msg = message as? TrackMetadataUpdatedAsyncMessage {
+            groupTrack(msg.track)
+        }
     }
 }

@@ -28,6 +28,10 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Returns the number of children for a given item
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
+//        if self.groupType == .album {
+//        print("NOC\n")
+//        }
+        
         if (item == nil) {
             
             // Root

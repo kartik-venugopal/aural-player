@@ -79,6 +79,8 @@ class PlayerControlsView: NSView {
         btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
 
         btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        
+        // TODO: BUG - When tracks are added/removed from the playlist, tool tip needs to be updated bcoz playback sequence might have changed
 
         // Button tool tips
         btnPreviousTrack.toolTipFunction = {
@@ -375,6 +377,10 @@ class PlayerControlsView: NSView {
 
         PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
+    }
+    
+    func sequenceChanged() {
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.

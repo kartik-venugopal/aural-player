@@ -60,7 +60,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
     }
@@ -376,6 +376,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.showOrHideTimeElapsedRemaining()
     }
     
+    private func sequenceChanged() {
+        controlsView.sequenceChanged()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -416,6 +420,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
+            
+        case .sequenceChangedNotification:
+            
+            sequenceChanged()
             
         default: return
             

@@ -51,6 +51,8 @@ enum MessageType {
     
     case trackGroupUpdatedNotification
     
+    case trackGroupedNotification
+    
     case preTrackChangeNotification
     
     case trackChangedNotification
@@ -540,5 +542,18 @@ struct PlaybackGapUpdatedNotification: NotificationMessage {
     
     init(_ updatedTrack: Track) {
         self.updatedTrack = updatedTrack
+    }
+}
+
+struct TrackGroupedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .trackGroupedNotification
+    
+    let grouping: GroupedTrack
+    let groupCreated: Bool
+    
+    init(_ grouping: GroupedTrack, _ groupCreated: Bool) {
+        self.grouping = grouping
+        self.groupCreated = groupCreated
     }
 }
