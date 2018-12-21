@@ -5,7 +5,8 @@ class TranscoderView: NSView {
     @IBOutlet weak var lblTrack: NSTextField!
     
     @IBOutlet weak var lblTrackTime: NSTextField!
-    @IBOutlet weak var lblTime: NSTextField!
+    @IBOutlet weak var lblTimeElapsed: NSTextField!
+    @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var lblSpeed: NSTextField!
     
     @IBOutlet weak var bar: NSProgressIndicator!
@@ -14,7 +15,8 @@ class TranscoderView: NSView {
         
         lblTrack.stringValue = track.conciseDisplayName
         lblTrackTime.stringValue = "0:00  [ 0 % ]"
-        lblTime.stringValue = "0:00"
+        lblTimeElapsed.stringValue = "0:00"
+        lblTimeRemaining.stringValue = "0:00"
         lblSpeed.stringValue = "0x"
         
         bar.doubleValue = 0
@@ -30,8 +32,9 @@ class TranscoderView: NSView {
         let elapsed = StringUtils.formatSecondsToHMS(msg.timeElapsed)
         let remaining = StringUtils.formatSecondsToHMS(msg.timeRemaining)
         
-        lblTrackTime.stringValue = String(format: "%@ / %@  [ %d %% ]", trackTime, trackDuration, perc)
-        lblTime.stringValue = String(format: "%@  |  %@", elapsed, remaining)
+        lblTrackTime.stringValue = String(format: "%@  /  %@  [ %d %% ]", trackTime, trackDuration, perc)
+        lblTimeElapsed.stringValue = elapsed
+        lblTimeRemaining.stringValue = remaining
         lblSpeed.stringValue = msg.speed
         
         bar.doubleValue = msg.percTranscoded
