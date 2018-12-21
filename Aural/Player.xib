@@ -596,7 +596,7 @@ G1BhbiBTbGlkZXI
             <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="e8S-Qc-bqn" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="27" y="611"/>
         </slider>
-        <view wantsLayer="YES" id="2kf-ao-Oha" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
+        <view wantsLayer="YES" appearanceType="aqua" id="2kf-ao-Oha" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -617,7 +617,7 @@ G1BhbiBTbGlkZXI
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i35-Df-NJq" userLabel="Time rem caption">
-                    <rect key="frame" x="123" y="16" width="81" height="20"/>
+                    <rect key="frame" x="165" y="10" width="81" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Speed:" id="XgY-Nz-F96">
                         <font key="font" size="12" name="GillSans"/>
@@ -626,7 +626,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2s7-8c-Aou" userLabel="Speed">
-                    <rect key="frame" x="212" y="16" width="132" height="20"/>
+                    <rect key="frame" x="254" y="10" width="114" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="3yk-B4-Ikd">
                         <font key="font" size="12" name="GillSans"/>
@@ -638,7 +638,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="82" y="130" width="337" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
-                        <font key="font" size="14" name="GillSans"/>
+                        <font key="font" size="14" name="GillSans-SemiBold"/>
                         <color key="textColor" white="0.70074231523863029" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -653,12 +653,12 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QQt-lp-x2f">
-                    <rect key="frame" x="31" y="85" width="437" height="20"/>
+                    <rect key="frame" x="31" y="86" width="437" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
                             <configuration>
-                                <ciColor key="inputColor0" red="0.5490196078431373" green="0.5490196078431373" blue="0.5490196078431373" alpha="1"/>
+                                <ciColor key="inputColor0" red="0.65079450607299805" green="0.65079450607299805" blue="0.65079450607299805" alpha="1"/>
                                 <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
                                 <null key="inputImage"/>
                             </configuration>
@@ -666,7 +666,7 @@ G1BhbiBTbGlkZXI
                     </contentFilters>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPS-v3-qQi" userLabel="Progress caption">
-                    <rect key="frame" x="56" y="61" width="147" height="20"/>
+                    <rect key="frame" x="98" y="64" width="147" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Track time transcoded:" id="aRF-d4-dMg">
                         <font key="font" size="12" name="GillSans"/>
@@ -675,16 +675,16 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8v-au-vXx" userLabel="Time rem caption">
-                    <rect key="frame" x="32" y="38" width="171" height="20"/>
+                    <rect key="frame" x="74" y="46" width="171" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed / remaining:" id="oN8-wC-v6z">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:" id="oN8-wC-v6z">
                         <font key="font" size="12" name="GillSans"/>
                         <color key="textColor" white="0.70074231523863029" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d3i-h2-dcP" userLabel="Progress caption">
-                    <rect key="frame" x="212" y="61" width="256" height="20"/>
+                    <rect key="frame" x="254" y="64" width="192" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="B9p-8Z-Xcg">
                         <font key="font" size="12" name="GillSans"/>
@@ -693,7 +693,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-6Y-Tnp" userLabel="Time rem caption">
-                    <rect key="frame" x="212" y="38" width="171" height="20"/>
+                    <rect key="frame" x="254" y="46" width="192" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="dK1-en-qt2">
                         <font key="font" size="12" name="GillSans"/>
@@ -701,8 +701,26 @@ G1BhbiBTbGlkZXI
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOa-MZ-8U1" userLabel="Time rem caption">
+                    <rect key="frame" x="74" y="28" width="171" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:" id="7Ns-wU-2uP">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ds0-c3-8eu" userLabel="Time rem caption">
+                    <rect key="frame" x="254" y="28" width="192" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="97E-tL-er4">
+                        <font key="font" size="12" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEk-Bg-D3b" userLabel="Cancel button">
-                    <rect key="frame" x="404" y="15" width="63" height="19"/>
+                    <rect key="frame" x="404" y="10" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qsy-rg-9Yz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -719,7 +737,8 @@ Gw
             <connections>
                 <outlet property="bar" destination="QQt-lp-x2f" id="4t6-RK-v7M"/>
                 <outlet property="lblSpeed" destination="2s7-8c-Aou" id="pHc-pO-NxQ"/>
-                <outlet property="lblTime" destination="P7l-6Y-Tnp" id="94O-GI-ZDd"/>
+                <outlet property="lblTimeElapsed" destination="P7l-6Y-Tnp" id="KbD-O9-gcC"/>
+                <outlet property="lblTimeRemaining" destination="Ds0-c3-8eu" id="Xe9-gQ-OkG"/>
                 <outlet property="lblTrack" destination="JAC-MY-KsG" id="PgA-Da-Ypa"/>
                 <outlet property="lblTrackTime" destination="d3i-h2-dcP" id="fS0-RS-bL3"/>
             </connections>
