@@ -15,89 +15,85 @@ class FFMpegWrapper {
     static func getMetadata(_ track: Track) -> LibAVInfo {
         
         var map: [String: String] = [:]
-        var streams: [LibAVStream] = []
+        var stream: LibAVStream?
         var duration: Double = 0
-        var drmProtected: Bool = false
+        
+        // TODO:
+        let drmProtected: Bool = false
+        
+        // ./ffprobe -v error -show_format -show_streams -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration" -of default=noprint_wrappers=1 <inputFile>
         
         let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-hide_banner", inputFile.path], timeout: getMetadata_timeout, readOutput: false, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_streams", "-show_format", "-select_streams", "a:0", "-show_entries", "stream=codec_name,bit_rate,channels,sample_rate:format=duration", "-of", "default=noprint_wrappers=1", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
         
         let result = CommandExecutor.execute(command)
         
-        var foundMetadata: Bool = false
-        outerLoop: for line in result.error {
+        if result.exitCode != 0 {
+            return LibAVInfo(0, nil, [:], false)
+        }
+        
+        for line in result.output {
             
-            let trimmedLine = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            
-            // Stream
-            
-            if trimmedLine.hasPrefix("Stream #") {
-                
-                let tokens = trimmedLine.split(separator: ":")
-                
-                if tokens.count >= 4 {
-                    
-                    let streamTypeStr = tokens[2].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    let type: LibAVStreamType = streamTypeStr == "Audio" ? .audio : .video
-                    
-                    let commaSepTokens = tokens[3].split(separator: ",")
-                    
-                    if commaSepTokens.count > 0 {
-                        
-                        let format = commaSepTokens[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).split(separator: " ")[0]
-                        streams.append(LibAVStream(type, String(format)))
-                    }
-                }
-                
-                continue
-                
-            } else if trimmedLine.hasPrefix("Duration:") {
-                
-                let commaSepTokens = line.split(separator: ",")
-                
-                let durKV = commaSepTokens[0]
-                let tokens = durKV.split(separator: ":")
-                
-                if tokens.count >= 4 {
-                    
-                    let hrsS = tokens[1].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    let minsS = tokens[2]
-                    let secsS = tokens[3]
-                    
-                    let hrs = Double(hrsS) ?? 0, mins = Double(minsS) ?? 0, secs = Double(secsS) ?? 0
-                    duration = hrs * 3600 + mins * 60 + secs
-                }
-                
-                continue
-                
-            } else if trimmedLine.contains("DRM protected stream detected") {
-                
-                drmProtected = true
+            // Ignore DISPOSITION entries
+            if line.hasPrefix("DISPOSITION:") {
                 continue
             }
             
-            if foundMetadata {
+            // Split the line into key and value
+            
+            let trimmedLine = line.trim()
+            if trimmedLine.isEmpty {continue}
+            
+            let tokens = trimmedLine.split(separator: "=")
+            if tokens.count < 2 {continue}
+            
+            let key = tokens[0].trim()
+            let value = tokens[1].trim()
+            
+            // Put metadata in the map
+            
+            if key.hasPrefix("TAG:") {
                 
-                // Split KV entry into key/value
-                if let firstColon = trimmedLine.firstIndex(of: ":") {
-                    
-                    let key = trimmedLine[..<firstColon].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    
-                    let colonPlus1 = trimmedLine.index(after: firstColon)
-                    let value = trimmedLine[colonPlus1...].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    
-                    // Avoid any subsequent Metadata fields
-                    if key == "Metadata" {
-                        break outerLoop
-                    } else if !metadataIgnoreKeys.contains(String(key)) {
-                        map[key.lowercased()] = value
-                    }
+                let kvTokens = key.split(separator: ":")
+                if kvTokens.count >= 2 {
+                    map[kvTokens[1].lowercased()] = value
                 }
                 
-            } else if line.contains("Metadata:") {foundMetadata = true}
+            } else {
+                map[key.lowercased()] = value
+            }
         }
         
-        return LibAVInfo(duration, streams, map, drmProtected)
+        var format: String?
+        var bitRate: Double = 128
+        var channelCount: Int = 2
+        var sampleRate: Double = 44100
+        
+        if let codecName = map.removeValue(forKey: "codec_name") {
+            format = codecName
+        }
+        
+        if let bitRateStr = map.removeValue(forKey: "bit_rate"), let num = Double(bitRateStr) {
+            bitRate = num
+        }
+        
+        if let channelCountStr = map.removeValue(forKey: "channels"), let count = Int(channelCountStr) {
+            channelCount = count
+        }
+        
+        if let sampleRateStr = map.removeValue(forKey: "sample_rate"), let rate = Double(sampleRateStr) {
+            sampleRate = rate
+        }
+        
+        if let durationStr = map.removeValue(forKey: "duration"), let num = Double(durationStr) {
+            duration = num
+        }
+        
+        if format != nil {
+            stream = LibAVStream(format!, bitRate, channelCount, sampleRate)
+        }
+        
+        return LibAVInfo(duration, stream, map, drmProtected)
     }
     
     static func getArtwork(_ track: Track) -> NSImage? {
