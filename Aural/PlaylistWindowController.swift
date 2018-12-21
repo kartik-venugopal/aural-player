@@ -135,6 +135,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         playlistWorkSpinner.hide()
         
         sequenceChanged()
+        
+//        // Tell all playlist views to refresh themselves
+//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
     
     // When the playback sequence has changed, the UI needs to show the updated info

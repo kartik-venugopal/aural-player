@@ -21,10 +21,10 @@ class FFMpegWrapper {
         // TODO:
         let drmProtected: Bool = false
         
-        // ./ffprobe -v error -show_format -show_streams -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration" -of default=noprint_wrappers=1 <inputFile>
+        // ./ffprobe -v error -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration : format_tags" -of default=noprint_wrappers=1 Song.mp3
         
         let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_streams", "-show_format", "-select_streams", "a:0", "-show_entries", "stream=codec_name,bit_rate,channels,sample_rate:format=duration", "-of", "default=noprint_wrappers=1", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-select_streams", "a:0", "-show_entries", "stream=codec_name,bit_rate,channels,sample_rate:format=duration:stream_tags:format_tags", "-of", "default=noprint_wrappers=1", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
         
         let result = CommandExecutor.execute(command)
         
@@ -33,11 +33,6 @@ class FFMpegWrapper {
         }
         
         for line in result.output {
-            
-            // Ignore DISPOSITION entries
-            if line.hasPrefix("DISPOSITION:") {
-                continue
-            }
             
             // Split the line into key and value
             

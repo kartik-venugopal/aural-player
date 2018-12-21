@@ -210,7 +210,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress) -> TrackAddResult? {
         
         let track = Track(file)
-        TrackIO.loadDisplayInfo(track)
+        
+//        TrackIO.loadDisplayInfo(track)
+        
+//        if track.nativelySupported {
+//            TrackIO.loadDisplayInfo(track)
+//        } else {
+//            DispatchQueue.global(qos: .userInitiated).async {
+//                TrackIO.loadDisplayInfo(track)
+//            }
+//        }
         
         // Non-nil result indicates success
         if let result = playlist.addTrack(track) {
@@ -221,15 +230,23 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
             playlistState.removeGapsForTrack(track)
-
+            
             // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
             
-            // Load duration async
             DispatchQueue.global(qos: .userInitiated).async {
                 
+                TrackIO.loadDisplayInfo(track)
                 TrackIO.loadDuration(track)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
+                
+//                let groupingResults: [GroupType: GroupedTrackAddResult] = self.playlist.groupTrack(track)
+//                AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(groupingResults))
+
+                var groupInfo = [GroupType: GroupedTrack]()
+//                groupingResults.forEach({groupInfo[$0.key] = $0.value.track})
+
+                let msg = TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo)
+                AsyncMessenger.publishMessage(msg)
             }
             
             return result

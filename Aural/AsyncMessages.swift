@@ -24,7 +24,11 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
+    case trackMetadataUpdated
+    
     case trackAdded
+    
+    case trackGrouped
     
     case itemsAdded
     
@@ -116,6 +120,17 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     }
 }
 
+struct TrackMetadataUpdatedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .trackMetadataUpdated
+    
+    let track: Track
+    
+    init(_ track: Track) {
+        self.track = track
+    }
+}
+
 // AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedAsyncMessage: AsyncMessage {
     
@@ -139,6 +154,17 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     static func fromTrackAddResult(_ result: TrackAddResult, _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
     
         return TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progress)
+    }
+}
+
+struct TrackGroupedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .trackGrouped
+    
+    let grouping: GroupedTrackAddResult
+    
+    init(_ grouping: GroupedTrackAddResult) {
+        self.grouping = grouping
     }
 }
 

@@ -36,9 +36,16 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()
     
+    private let opQueue = OperationQueue()
+    
     init(_ type: PlaylistType, _ groupType: GroupType) {
+        
         self.playlistType = type
         self.typeOfGroups = groupType
+        
+        opQueue.maxConcurrentOperationCount = 1
+        opQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
+        opQueue.qualityOfService = .userInitiated
     }
     
     // MARK: Accessor functions
@@ -153,37 +160,62 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
+//        NSLog("Adding %@ (%@)", track.conciseDisplayName, self.typeOfGroups.rawValue)
+        
         // Determine the name of the group this track belongs in (the group may not already exist)
         let groupName = getGroupNameForTrack(track)
         
         // Information that will form the result that is returned
         var group: Group?
         var groupCreated: Bool = false
-        var groupIndex: Int
+        var groupIndex: Int = -1
+        var trackIndex: Int = -1
         
-        group = groupsByName[groupName]
-        if (group == nil) {
+        var groupedTrack: GroupedTrack?
+        var result: GroupedTrackAddResult?
+        
+        let block = {
             
-            // Group doesn't already exist, create it
+            group = self.groupsByName[groupName]
             
-            group = Group(typeOfGroups, groupName)
-            groups.append(group!)
-            groupsByName[groupName] = group
-            groupIndex = groups.count - 1
+            if (group == nil) {
+                
+//                NSLog("Group %@ doesn't exist, creating it ...", groupName)
+                // Group doesn't already exist, create it
+                
+                group = Group(self.typeOfGroups, groupName)
+                self.groups.append(group!)
+                self.groupsByName[groupName] = group
+                groupIndex = self.groups.count - 1
+                
+                if self.typeOfGroups == .album {
+                    NSLog("Created %@ %@ at index %d", self.typeOfGroups.rawValue, groupName, groupIndex)
+                }
+                
+                groupCreated = true
+                
+            } else {
+                // Group exists, get its index
+                groupIndex = self.groups.index(of: group!)!
+            }
+
+            // Add the track to the group
+            trackIndex = group!.addTrack(track)
             
-            groupCreated = true
+            // UI notification here
+            groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
             
-        } else {
+            result = GroupedTrackAddResult(track: groupedTrack!, groupCreated: groupCreated)
             
-            // Group exists, get its index
-            groupIndex = groups.index(of: group!)!
+            AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(result!))
         }
         
-        // Add the track to the group
-        let trackIndex = group!.addTrack(track)
-        let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
+        let blockOp = BlockOperation(block: block)
+        opQueue.addOperation(blockOp)
         
-        return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
+        blockOp.waitUntilFinished()
+        
+        return result!
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [ItemRemovalResult] {

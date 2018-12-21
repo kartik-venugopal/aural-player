@@ -47,24 +47,24 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .background
+        playlistUpdateQueue.qualityOfService = .userInitiated
     }
     
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
@@ -192,7 +192,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func refresh() {
-        playlistView.reloadData()
+        DispatchQueue.main.async {
+            self.playlistView.reloadData()
+        }
     }
     
     private func moveTracksUp() {
@@ -580,27 +582,39 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
-    private func trackAdded(_ message: TrackAddedAsyncMessage) {
+    private func trackGrouped(_ msg: TrackGroupedAsyncMessage) {
         
-        if let result = message.groupInfo[self.groupType] {
+        let grouping = msg.grouping.track
 
-            if result.groupCreated {
+        if grouping.group.type == self.groupType {
+
+            if msg.grouping.groupCreated {
                 
-                // If a new parent group was created, for this new track, insert the new group under the root
-                playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: .effectFade)
+//                playlistUpdateQueue.addOperation {
+
+                    let newGroupIndex = grouping.groupIndex
+                    print(String(format: "\nNew = %d (%@)", newGroupIndex, grouping.group.name))
+
+                    self.playlistView.insertItems(at: IndexSet(integer: newGroupIndex), inParent: nil, withAnimation: .effectFade)
+                    print("Inserted at", newGroupIndex, "\n")
+//                }
                 
             } else {
                 
-                // Insert the new track under its parent group, and reload the parent group
-                let group = result.track.group
+//                playlistUpdateQueue.addOperation {
                 
-                playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
-                playlistView.reloadItem(group)
+                    // Insert the new track under its parent group, and reload the parent group
+                    let group = grouping.group
+                    let newTrackIndex = grouping.groupIndex
+                    
+                    self.playlistView.insertItems(at: IndexSet(integer: newTrackIndex), inParent: group, withAnimation: .effectGap)
+                    self.playlistView.reloadItem(group)
+//                }
             }
         }
     }
     
-    // Refreshes the playlist view in response to a track being updated with new information
+    // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
         if let groupInfo = message.groupInfo[self.groupType] {
@@ -616,25 +630,25 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         let removals = message.results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
-        
+
         for removal in removals {
-            
+
             if let tracksRemoval = removal as? GroupedTracksRemovalResult {
-                
+
                 // Remove tracks from their parent group
                 playlistView.removeItems(at: tracksRemoval.trackIndexesInGroup, inParent: tracksRemoval.parentGroup, withAnimation: .effectFade)
-                
+
                 // Make note of the parent group for later
                 groupsToReload.append(tracksRemoval.parentGroup)
-                
+
             } else {
-                
+
                 // Remove group from the root
                 let groupRemoval = removal as! GroupRemovalResult
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
             }
         }
-        
+
         // For all groups from which tracks were removed, reload them
         groupsToReload.forEach({playlistView.reloadItem($0)})
     }
@@ -814,9 +828,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         switch message.messageType {
             
-        case .trackAdded:
-            
-            trackAdded(message as! TrackAddedAsyncMessage)
+        case .trackGrouped:
+
+            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .trackInfoUpdated:
             
@@ -855,6 +869,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .gapUpdatedNotification:
             
             gapUpdated(notification as! PlaybackGapUpdatedNotification)
+            
+//        case .trackGroupedNotification:
+//
+//            trackGrouped(notification as! TrackGroupedNotification)
             
         default: return
             

@@ -119,7 +119,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func refresh() {
-        playlistView.reloadData()
+        DispatchQueue.main.async {
+            self.playlistView.reloadData()
+        }
     }
     
     private func moveTracksUp() {
