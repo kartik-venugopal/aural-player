@@ -115,21 +115,28 @@ class AudioUtils {
         
         let audioInfo = AudioInfo()
         
-        // TODO: Check if natively supported
         let fileExtension = track.file.pathExtension.lowercased()
         
         if !track.nativelySupported || fileExtension == "flac" {
 
             audioInfo.format = track.libAVInfo!.audioFormat
             
+            if let bitRate = track.libAVInfo!.stream?.bitRate {
+                audioInfo.bitRate = Int(round(bitRate))
+            } else {
+            
+                let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+                audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
+            }
+            
         } else {
             
             let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
             audioInfo.format = getFormat(assetTracks.first!)
+            
+            let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+            audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
         }
-        
-        let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-        audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
         
         track.audioInfo = audioInfo
     }
