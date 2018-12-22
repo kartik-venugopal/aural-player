@@ -67,7 +67,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.playlistIndexColumnID:
                 
-                let indexText: String = String(format: "%d.", row + 1)
+                let indexText: String = String(format: "%d", row + 1)
                 
                 switch playbackInfo.state {
                     
@@ -76,7 +76,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     case .playing, .paused, .transcoding:
                         
                         if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
-                            return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                            return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, "▶", gapB, gapA, row)
                         }
                     
                     case .waiting:

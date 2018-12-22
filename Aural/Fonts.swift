@@ -39,6 +39,10 @@ struct Fonts {
     static let playlistSelectedTextFont: NSFont = gillSans12Font
     static let playlistTextFont: NSFont = gillSans12LightFont
     
+    // Fonts used by the playlist view
+    static let playlistSelectedIndexTextFont: NSFont = gillSans12SemiBoldFont
+    static let playlistIndexTextFont: NSFont = gillSans12SemiBoldFont
+    
     static let playlistSelectedGapTextFont: NSFont = gillSans11Font
     static let playlistGapTextFont: NSFont = gillSans11LightFont
     

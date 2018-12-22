@@ -16,7 +16,10 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         
         theView.transcodingStarted(track)
         bringViewToFront(theView)
-        theView.show()
+        
+        if player.state != .waiting {
+            theView.show()
+        }
     }
     
     fileprivate func bringViewToFront(_ aView: NSView) {
@@ -28,6 +31,10 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
 
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
         theView.transcodingProgress(msg)
+        
+        if player.state == .transcoding && theView.isHidden {
+            theView.show()
+        }
     }
     
     private func transcodingFinished() {

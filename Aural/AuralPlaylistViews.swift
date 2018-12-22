@@ -162,12 +162,22 @@ class DurationCellView: BasicFlatPlaylistCellView {
     @IBInspectable @IBOutlet weak var gapBeforeTextField: NSTextField!
     @IBInspectable @IBOutlet weak var gapAfterTextField: NSTextField!
     
+    override func backgroundStyleChanged() {
+        
+        // Check if this row is selected, change font and color accordingly
+        if let textField = self.textField {
+            
+            textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
+            textField.font = isSelRow ? Fonts.playlistSelectedIndexTextFont : Fonts.playlistIndexTextFont
+        }
+    }
+    
     override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
             // Check if this row is selected
-            super.backgroundStyleChanged()
+//            backgroundStyleChanged()
             
             if let gapField = self.gapBeforeTextField {
                 
@@ -182,12 +192,61 @@ class DurationCellView: BasicFlatPlaylistCellView {
             }
         }
     }
+    
+    override func placeTextFieldOnTop() {
+        
+        let textField = self.textField!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .top {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+                break
+            }
+        }
+        
+        // textField.top == self.top
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 2)
+        textFieldOnTopConstraint.isActive = true
+        self.addConstraint(textFieldOnTopConstraint)
+    }
+    
+    override func placeTextFieldBelowView(_ view: NSView) {
+        
+        let textField = self.textField!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .top {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+                break
+            }
+        }
+        
+        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 3)
+        textFieldBelowViewConstraint.isActive = true
+        self.addConstraint(textFieldBelowViewConstraint)
+    }
 }
 
 /*
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class IndexCellView: BasicFlatPlaylistCellView {
+    
+    override func backgroundStyleChanged() {
+        
+        // Check if this row is selected, change font and color accordingly
+        if let textField = self.textField {
+            
+            textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
+            textField.font = isSelRow ? Fonts.playlistSelectedIndexTextFont : Fonts.playlistIndexTextFont
+        }
+    }
     
     func adjustIndexConstraints_beforeGapOnly() {
         
@@ -207,7 +266,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -11)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
@@ -236,7 +295,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -30)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -28)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
@@ -265,7 +324,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -1)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
