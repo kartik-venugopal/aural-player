@@ -45,18 +45,18 @@ class MetadataReader {
     // Helper function that ensures that a track's AVURLAsset has been initialized
     private static func ensureTrackAssetLoaded(_ track: Track) {
         
-//        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
-//
-//            if track.libAVInfo == nil {
-//                track.libAVInfo = FFMpegWrapper.getMetadata(track)
-//            }
-//
-//        } else {
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
+
+            if track.libAVInfo == nil {
+                track.libAVInfo = FFMpegWrapper.getMetadata(track)
+            }
+
+        } else {
         
             if (track.audioAsset == nil) {
                 track.audioAsset = AVURLAsset(url: track.file, options: nil)
             }
-//        }
+        }
     }
     
     // Loads the required display metadata (artist/title/art) for a track
@@ -64,58 +64,43 @@ class MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-//        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
-//
-//            let displayMetadata = track.libAVInfo!.metadata
-//
-//            track.setDisplayMetadata(displayMetadata["artist"], displayMetadata["title"], nil)
-//
+        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
+
+            let metadata = track.libAVInfo!.metadata
+            
+            track.setDisplayMetadata(metadata["artist"], metadata["title"], nil)
+            
+            track.groupingInfo.artist = track.displayInfo.artist
+            track.groupingInfo.album = metadata["album"]
+            track.groupingInfo.genre = metadata["genre"]
+            
+//            print(track.groupingInfo.artist)
+            
+//            track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
+//            track.groupingInfo.trackNumber = Int(metadata["track"] ?? "")
+
+            // TODO: Create an op queue for this and limit the op count
 //            DispatchQueue.global(qos: .userInteractive).async {
-//
-////                print("Starting async task")
 //                track.displayInfo.art = FFMpegWrapper.getArtwork(track)
-////                print("\n*** Set track image data: %@, %@", track.conciseDisplayName, String(describing: track.displayInfo.art != nil))
 //            }
-//
-////            print("Async art dispatched for", track.conciseDisplayName)
-//
-//        } else {
+
+        } else {
         
             let title = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyTitle.rawValue)
             let artist = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyArtist.rawValue)
         
-        track.groupingInfo.artist = artist
-        track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyAlbumName.rawValue)
-        track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyType.rawValue)
+            track.groupingInfo.artist = artist
+            track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyAlbumName.rawValue)
+            track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyType.rawValue)
+            
+            track.setDisplayMetadata(artist, title, nil)
+            
 //            let art = getArtwork(track.audioAsset!)
-        
 //            track.setDisplayMetadata(artist, title, art)
-        track.setDisplayMetadata(artist, title, nil)
-//        }
-        
-        // ******** COPIED FROM loadGroupingMD() *************
-        
-        //        ensureTrackAssetLoaded(track)
-        
-        //        track.groupingInfo.artist = track.displayInfo.artist
-        
-        //        if !track.nativelySupported || track.file.pathExtension.lowercased() == "flac" {
-        //
-        //            let metadata = track.libAVInfo!.metadata
-        //
-        //            track.groupingInfo.album = metadata["album"]
-        //            track.groupingInfo.genre = metadata["genre"]
-        //            track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
-        //            track.groupingInfo.trackNumber = Int(metadata["track"] ?? "")
-        //
-        //        } else {
-        
-//        track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyAlbumName.rawValue)
-//        track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyType.rawValue)
-        
-        //            track.groupingInfo.discNumber = getDiscNumber(track)
-        //            track.groupingInfo.trackNumber = getTrackNumber(track)
-        //        }
+            
+//            track.groupingInfo.discNumber = getDiscNumber(track)
+//            track.groupingInfo.trackNumber = getTrackNumber(track)
+        }
     }
     
     private static func getDiscNumber(_ track: Track) -> Int? {
