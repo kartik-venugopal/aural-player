@@ -36,11 +36,6 @@ struct Colors {
     static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
-//    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
-//    static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
-//    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
-//    static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
-    
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
     
