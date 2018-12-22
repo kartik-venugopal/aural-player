@@ -23,6 +23,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // User preferences (used for autoplay)
     private let preferences: Preferences
     
+    private let trackAddQueue: OperationQueue = OperationQueue()
+    
     init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
@@ -34,6 +36,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         self.preferences = preferences
         
         self.changeListeners = changeListeners
+        
+        trackAddQueue.maxConcurrentOperationCount = 10
+        trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appLoadedNotification, .appReopenedNotification], subscriber: self)
@@ -210,48 +215,37 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress) -> TrackAddResult? {
         
         let track = Track(file)
-        
-//        TrackIO.loadDisplayInfo(track)
-        
-//        if track.nativelySupported {
-//            TrackIO.loadDisplayInfo(track)
-//        } else {
-//            DispatchQueue.global(qos: .userInitiated).async {
-//                TrackIO.loadDisplayInfo(track)
-//            }
-//        }
-        
+
         // Non-nil result indicates success
         if let result = playlist.addTrack(track) {
-            
+
             // Add gaps around this track (persistent ones)
             let gapsForTrack = playlistState.getGapsForTrack(track)
             playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
-            
+
             // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
             playlistState.removeGapsForTrack(track)
-            
-            // Inform the UI of the new track
+        
+//             Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
+        
+//            DispatchQueue.global(qos: .userInitiated).async {
             
-            DispatchQueue.global(qos: .userInitiated).async {
+            trackAddQueue.addOperation {
                 
                 TrackIO.loadDisplayInfo(track)
-                TrackIO.loadDuration(track)
+                //                TrackIO.loadDuration(track)
                 
-//                let groupingResults: [GroupType: GroupedTrackAddResult] = self.playlist.groupTrack(track)
-//                AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(groupingResults))
-
-                var groupInfo = [GroupType: GroupedTrack]()
-//                groupingResults.forEach({groupInfo[$0.key] = $0.value.track})
-
-                let msg = TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo)
-                AsyncMessenger.publishMessage(msg)
+                _ = self.playlist.groupTrack(track)
             }
+
+//            }
+        
+//            NSLog("\nSubmitted track: %@", track.conciseDisplayName)
             
             return result
         }
-        
+//
         return nil
     }
     

@@ -250,6 +250,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view by rearranging the items that were moved
     private func removeAndInsertItems(_ results: ItemMoveResults) {
         
+        // TODO: Temporary
+        if self.groupType != .album {
+            return
+        }
+        
         for result in results.results {
             
             if let trackMovedResult = result as? TrackMoveResult {
@@ -582,36 +587,45 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
-    private func trackGrouped(_ msg: TrackGroupedAsyncMessage) {
+    private func trackGrouped(_ msg: TrackGroupedNotification) {
         
-        let grouping = msg.grouping.track
-
-        if grouping.group.type == self.groupType {
-
-            if msg.grouping.groupCreated {
-                
-//                playlistUpdateQueue.addOperation {
-
+//        DispatchQueue.main.async {
+        
+            let grouping = msg.grouping
+            
+//            if grouping.group.type == self.groupType {
+        
+        if self.groupType == grouping.group.type {
+        
+                if msg.groupCreated {
+                    
+                    //                playlistUpdateQueue.addOperation {
+                    
                     let newGroupIndex = grouping.groupIndex
-                    print(String(format: "\nNew = %d (%@)", newGroupIndex, grouping.group.name))
-
+//                    print(String(format: "\nNew = %d (%@)", newGroupIndex, grouping.group.name))
+                    
                     self.playlistView.insertItems(at: IndexSet(integer: newGroupIndex), inParent: nil, withAnimation: .effectFade)
-                    print("Inserted at", newGroupIndex, "\n")
-//                }
-                
-            } else {
-                
-//                playlistUpdateQueue.addOperation {
-                
+//                    print("Inserted at", newGroupIndex, "\n")
+                    //                }
+                    
+                } else {
+                    
+                    //                playlistUpdateQueue.addOperation {
+                    
                     // Insert the new track under its parent group, and reload the parent group
                     let group = grouping.group
-                    let newTrackIndex = grouping.groupIndex
+                    let newTrackIndex = grouping.trackIndex
                     
                     self.playlistView.insertItems(at: IndexSet(integer: newTrackIndex), inParent: group, withAnimation: .effectGap)
                     self.playlistView.reloadItem(group)
-//                }
+                    
+//                    print("Updated group:", group.name, "\n")
+                    //                }
+                }
             }
-        }
+//        }
+        
+//
     }
     
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
@@ -628,13 +642,18 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
     private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
         
+        // TODO: Temporary
+//        if self.groupType != .album {
+//            return
+//        }
+        
         let removals = message.results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
 
         for removal in removals {
 
             if let tracksRemoval = removal as? GroupedTracksRemovalResult {
-
+                
                 // Remove tracks from their parent group
                 playlistView.removeItems(at: tracksRemoval.trackIndexesInGroup, inParent: tracksRemoval.parentGroup, withAnimation: .effectFade)
 
@@ -642,7 +661,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 groupsToReload.append(tracksRemoval.parentGroup)
 
             } else {
-
+                
                 // Remove group from the root
                 let groupRemoval = removal as! GroupRemovalResult
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
@@ -828,9 +847,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         switch message.messageType {
             
-        case .trackGrouped:
-
-            trackGrouped(message as! TrackGroupedAsyncMessage)
+//        case .trackGrouped:
+//
+//            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .trackInfoUpdated:
             
@@ -870,9 +889,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             gapUpdated(notification as! PlaybackGapUpdatedNotification)
             
-//        case .trackGroupedNotification:
-//
-//            trackGrouped(notification as! TrackGroupedNotification)
+        case .trackGroupedNotification:
+
+            trackGrouped(notification as! TrackGroupedNotification)
             
         default: return
             
