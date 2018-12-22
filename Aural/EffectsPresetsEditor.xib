@@ -114,7 +114,7 @@
                         <action selector="tabViewAction:" target="-2" id="xSg-oz-PvX"/>
                     </connections>
                 </button>
-                <tabView focusRingType="none" fixedFrame="YES" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-sf-5uJ" userLabel="Tab View">
+                <tabView focusRingType="none" appearanceType="aqua" fixedFrame="YES" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-sf-5uJ" userLabel="Tab View">
                     <rect key="frame" x="3" y="28" width="832" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
