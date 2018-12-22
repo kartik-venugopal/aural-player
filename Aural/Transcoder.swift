@@ -17,9 +17,6 @@ protocol TranscoderProtocol {
     func checkDiskSpaceUsage()
     
     func setMaxBackgroundTasks(_ numTasks: Int)
-    
-    // ???
-//    func moveToBackground(_ track: Track)
 }
 
 class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
@@ -188,10 +185,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         daemon.setMaxBackgroundTasks(numTasks)
     }
     
-//    func moveToBackground(_ track: Track) {
-//        daemon.moveTaskToBackground(track)
-//    }
-    
     func persistentState() -> PersistentState {
         
         let state = TranscoderState()
@@ -203,6 +196,8 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     // MARK: Message handling
     
     private func trackChanged() {
+        
+        // TODO: Check preference "eagerTranscodingEnabled" first
         
         // Use a Set to avoid duplicates
         var tracksToTranscode: Set<IndexedTrack> = Set<IndexedTrack>()

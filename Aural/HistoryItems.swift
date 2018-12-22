@@ -20,8 +20,26 @@ class HistoryItem: EquatableHistoryItem {
     var time: Date
     
     // Display information used in menu items
-    var displayName: String
+    private var _displayName: String
     var art: NSImage = Images.imgPlayedTrack
+    
+    var track: Track?
+    
+    var displayName: String {
+        
+        get {
+            
+            if let track = self.track {
+                return track.conciseDisplayName
+            }
+            
+            return _displayName
+        }
+        
+        set(newValue) {
+            self._displayName = newValue
+        }
+    }
     
     // Used for tracks
     init(_ file: URL, _ displayName: String, _ time: Date, _ art: NSImage? = nil) {
@@ -30,7 +48,7 @@ class HistoryItem: EquatableHistoryItem {
         self.time = time
         
         // Default the displayName to file name (intended to be replaced later)
-        self.displayName = displayName
+        self._displayName = displayName
         if art != nil {
             self.art = art!
         }
@@ -86,7 +104,7 @@ class AddedItem: HistoryItem {
             trackArt = art.copy() as? NSImage
         }
         super.init(track.file, track.conciseDisplayName, time, trackArt)
-        
+        self.track = track
     }
     
     func loadDisplayInfoFromFile(_ setDisplayName: Bool) {
@@ -125,7 +143,7 @@ class AddedItem: HistoryItem {
             } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                 
                 // Track
-                super.loadDisplayInfoFromFile()
+//                super.loadDisplayInfoFromFile()
             }
         }
     }
@@ -137,6 +155,8 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
     init(_ track: Track, _ time: Date) {
         
         super.init(track.file, track.conciseDisplayName, time)
+        
+        self.track = track
         
         // If track art is available, load display info from it
         if let trackArt = track.displayInfo.art {
