@@ -589,43 +589,24 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view in response to a new track being added to the playlist
     private func trackGrouped(_ msg: TrackGroupedNotification) {
         
-//        DispatchQueue.main.async {
-        
-            let grouping = msg.grouping
-            
-//            if grouping.group.type == self.groupType {
+        let grouping = msg.grouping
         
         if self.groupType == grouping.group.type {
-        
-                if msg.groupCreated {
-                    
-                    //                playlistUpdateQueue.addOperation {
-                    
-                    let newGroupIndex = grouping.groupIndex
-//                    print(String(format: "\nNew = %d (%@)", newGroupIndex, grouping.group.name))
-                    
-                    self.playlistView.insertItems(at: IndexSet(integer: newGroupIndex), inParent: nil, withAnimation: .effectFade)
-//                    print("Inserted at", newGroupIndex, "\n")
-                    //                }
-                    
-                } else {
-                    
-                    //                playlistUpdateQueue.addOperation {
-                    
-                    // Insert the new track under its parent group, and reload the parent group
-                    let group = grouping.group
-                    let newTrackIndex = grouping.trackIndex
-                    
-                    self.playlistView.insertItems(at: IndexSet(integer: newTrackIndex), inParent: group, withAnimation: .effectGap)
-                    self.playlistView.reloadItem(group)
-                    
-//                    print("Updated group:", group.name, "\n")
-                    //                }
-                }
+            
+            if msg.groupCreated {
+                
+                // Insert the new group
+                self.playlistView.insertItems(at: IndexSet(integer: grouping.groupIndex), inParent: nil, withAnimation: .effectFade)
+                
+            } else {
+                
+                // Insert the new track under its parent group, and reload the parent group
+                let group = grouping.group
+                
+                self.playlistView.insertItems(at: IndexSet(integer: grouping.trackIndex), inParent: group, withAnimation: .effectGap)
+                self.playlistView.reloadItem(group)
             }
-//        }
-        
-//
+        }
     }
     
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
@@ -641,11 +622,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
     private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
-        
-        // TODO: Temporary
-//        if self.groupType != .album {
-//            return
-//        }
         
         let removals = message.results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
@@ -846,10 +822,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-//        case .trackGrouped:
-//
-//            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .trackInfoUpdated:
             

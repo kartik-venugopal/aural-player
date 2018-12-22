@@ -226,26 +226,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
             playlistState.removeGapsForTrack(track)
         
-//             Inform the UI of the new track
+            // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
         
-//            DispatchQueue.global(qos: .userInitiated).async {
-            
+            // Load metadata/duration in the background
             trackAddQueue.addOperation {
                 
                 TrackIO.loadDisplayInfo(track)
-                //                TrackIO.loadDuration(track)
-                
                 _ = self.playlist.groupTrack(track)
+                
+                TrackIO.loadDuration(track)
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
             }
-//            print(trackAddQueue.operationCount)
-//            }
-        
-//            NSLog("\nSubmitted track: %@", track.conciseDisplayName)
             
             return result
         }
-//
+
         return nil
     }
     
