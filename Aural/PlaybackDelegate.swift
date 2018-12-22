@@ -255,16 +255,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let gapEndTime_dt = DispatchTime.now() + delay
         let gapEndTime: Date = DateUtils.addToDate(Date(), delay)
         
-        trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
+        DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
             
             // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track)
             if PlaybackGapContext.isCurrent(gapContextId) {
                 
                 // Override the current state of the context, because there was a delay
                 TrackChangeContext.setCurrentState(TrackChangeContext.newTrack, .waiting)
+                
                 self.doPlay(track, startPosition, endPosition)
             }
         }
+        
+        // Prepare the track for playback ahead of time (esp. transcoding)
+        TrackIO.prepareForPlayback(track)
         
         // Let observers know that a playback gap has begun
         AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, TrackChangeContext.currentTrack, TrackChangeContext.newTrack!))

@@ -9,6 +9,8 @@ class TranscoderDaemon {
     
     private let preferences: TranscodingPreferences
     
+    // TODO: On app exit, cancel all tasks (and delete the files)
+    
     init(_ preferences: TranscodingPreferences) {
         
         self.preferences = preferences
@@ -54,11 +56,11 @@ class TranscoderDaemon {
         
         let block = {
             
-            NSLog("Started transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+            NSLog("\nStarted transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
             
             let result = CommandExecutor.execute(command)
             
-            NSLog("Finished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+            NSLog("\nFinished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
             
             if command.cancelled {
                 cancellationHandler()

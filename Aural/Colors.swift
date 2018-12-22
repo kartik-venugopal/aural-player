@@ -12,12 +12,16 @@ struct Colors {
     static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
     
     // Color of text inside the playlist (non-selected items)
-    static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
-    
-    static let overlayBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
-    
+    static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
+    // Color of text inside the playlist (non-selected items)
+    static let playlistIndexTextColor: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
+    // Color of selected item text inside the playlist
+    static let playlistSelectedIndexTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    
+    static let overlayBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
     
     static let playlistGapTextColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
     static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
