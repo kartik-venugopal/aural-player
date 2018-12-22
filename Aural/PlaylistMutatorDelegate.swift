@@ -238,7 +238,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 _ = self.playlist.groupTrack(track)
             }
-
+//            print(trackAddQueue.operationCount)
 //            }
         
 //            NSLog("\nSubmitted track: %@", track.conciseDisplayName)
