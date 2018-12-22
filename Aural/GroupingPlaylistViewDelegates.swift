@@ -56,7 +56,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Returns a view for a single column
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        switch convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier) {
+        switch tableColumn!.identifier.rawValue {
             
         case UIConstants.playlistNameColumnID:
             
@@ -64,7 +64,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             if let group = item as? Group {
                 
-                let cell = createImageAndTextCell(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier.rawValue, true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -76,12 +76,36 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 let gapA = playlist.getGapAfterTrack(track)
                 let gapB = playlist.getGapBeforeTrack(track)
                 
-                let isPlayingTrack = track == playbackInfo.playingTrack?.track
-                let isWaitingTrack = track == playbackInfo.waitingTrack?.track
+                var image: NSImage?
                 
-                let image = isPlayingTrack ? Images.imgPlayingTrack : (isWaitingTrack ? Images.imgWaitingTrack : track.displayInfo.art)
+                let isPlayingTrack: Bool = track == playbackInfo.playingTrack?.track
                 
-                let cell = createImageAndTextCell_gaps(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
+                switch playbackInfo.state {
+                    
+                case .playing, .paused:
+                    
+                    if isPlayingTrack {
+                        image = Images.imgPlayingTrack
+                    }
+                    
+                case .transcoding:
+                    
+                    if isPlayingTrack {
+                        image = Images.imgTranscodingTrack
+                    }
+                    
+                case .waiting:
+                    
+                    if track == playbackInfo.waitingTrack?.track {
+                        image = Images.imgWaitingTrack
+                    }
+                    
+                case .noTrack:
+                    
+                    image = track.displayInfo.art
+                }
+                
+                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
                 
                 cell?.item = track
                 cell?.playlistType = self.playlistType
@@ -184,9 +208,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
-        mainFieldOnTop.isActive = true
-        cell.addConstraint(mainFieldOnTop)
+        let mainFieldCentered = NSLayoutConstraint(item: main, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        mainFieldCentered.isActive = true
+        cell.addConstraint(mainFieldCentered)
         
         if let imgView = cell.imageView {
         
@@ -215,7 +239,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
+        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 2 : 0
+        
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: CGFloat(offset))
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
         
@@ -246,7 +272,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 3 : 0
+        
+        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: CGFloat(offset))
         befFieldOnTop.isActive = true
         cell.addConstraint(befFieldOnTop)
         
@@ -380,11 +408,6 @@ class GenresPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     @objc init() {
         super.init(.genres)
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
-	return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
