@@ -74,16 +74,48 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        if let img = AlbumArtManager.getArtForFile(item.file) {
-            menuItem.image = img.copy() as! NSImage
-        } else {
-            menuItem.image = Images.imgPlayedTrack
-        }
-        
+        menuItem.image = artForFile(item.file)
         menuItem.image?.size = Images.historyMenuItemImageSize
         menuItem.historyItem = item
         
         return menuItem
+    }
+    
+    private func artForFile(_ _file: URL) -> NSImage? {
+        
+        // Resolve sym links and aliases
+        let resolvedFileInfo = FileSystemUtils.resolveTruePath(_file)
+        let file = resolvedFileInfo.resolvedURL
+        
+        if (resolvedFileInfo.isDirectory) {
+            
+            // Display name is last path component
+            // Art is folder icon
+            return Images.imgGroup
+            
+        } else {
+            
+            // Single file - playlist or track
+            let fileExtension = file.pathExtension.lowercased()
+            
+            if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
+                
+                // Playlist
+                // Display name is last path component
+                // Art is playlist icon
+                return Images.imgHistory_playlist_padded
+                
+            } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
+                
+                if let img = AlbumArtManager.getArtForFile(file) {
+                    return img.copy() as! NSImage
+                } else {
+                    return Images.imgPlayedTrack
+                }
+            }
+        }
+        
+        return Images.imgPlayedTrack
     }
     
     // When a "Recently added" menu item is clicked, the item is added to the playlist
