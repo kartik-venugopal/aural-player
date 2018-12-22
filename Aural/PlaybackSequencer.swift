@@ -187,7 +187,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         }
         
         // Get the parent group of the selected track, and set it as the playback scope
-        let groupInfo = playlist.groupingInfoForTrack(groupType, track)
+        let groupInfo = playlist.groupingInfoForTrack(groupType, track)!
         let group = groupInfo.group
         scope.scope = group
         
@@ -416,7 +416,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
                 
                 // Recalculate the absolute index of the playing track, given its parent group and track index within that group
                 
-                let groupInfo = playlist.groupingInfoForTrack(scope.type.toGroupType()!, playingTrack)
+                let groupInfo = playlist.groupingInfoForTrack(scope.type.toGroupType()!, playingTrack)!
                 
                 return getAbsoluteIndexForGroupedTrack(scope.type.toGroupType()!, groupInfo.groupIndex, groupInfo.trackIndex)
                 

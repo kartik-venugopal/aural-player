@@ -289,7 +289,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingPlaylists[type.toPlaylistType()]!.groupAtIndex(index)
     }
     
-    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack? {
         return groupingPlaylists[type.toPlaylistType()]!.groupingInfoForTrack(track)
     }
     
@@ -308,6 +308,22 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Add the track to each of the grouping playlists
         groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+        
+        // Return the results of the add operation
+        return groupingResults
+    }
+    
+    func allGroupingInfoForTrack(_ track: Track) -> [GroupType : GroupedTrack] {
+        
+        var groupingResults = [GroupType: GroupedTrack]()
+        
+        // Add the track to each of the grouping playlists
+        groupingPlaylists.values.forEach({
+
+            if let info = $0.groupingInfoForTrack(track) {
+                groupingResults[$0.typeOfGroups] = info
+            }
+        })
         
         // Return the results of the add operation
         return groupingResults

@@ -37,7 +37,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        trackAddQueue.maxConcurrentOperationCount = 10
+        trackAddQueue.maxConcurrentOperationCount = 15
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         
         // Subscribe to message notifications
@@ -228,22 +228,25 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
             // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
-        
+            
             // Load metadata/duration in the background
-            trackAddQueue.addOperation {
+            let displayInfoLoadingOp = BlockOperation(block: {
                 
                 // Metadata
                 TrackIO.loadDisplayInfo(track)
-                let groupingInfo = self.playlist.groupTrack(track)
+                _ = self.playlist.groupTrack(track)
+            })
+            
+            let durationLoadOp = BlockOperation(block: {
                 
                 // Duration
                 TrackIO.loadDuration(track)
-                
-                var groupInfo: [GroupType: GroupedTrack] = [:]
-                groupingInfo.forEach({groupInfo[$0.key] = $0.value.track})
-                
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo))
-            }
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, [:]))
+            })
+            
+//            durationLoadOp.addDependency(displayInfoLoadingOp)
+            
+            trackAddQueue.addOperations([displayInfoLoadingOp, durationLoadOp], waitUntilFinished: false)
             
             return result
         }
