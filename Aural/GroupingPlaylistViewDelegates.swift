@@ -84,21 +84,15 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     
                 case .playing, .paused:
                     
-                    if isPlayingTrack {
-                        image = Images.imgPlayingTrack
-                    }
+                    image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
                     
                 case .transcoding:
                     
-                    if isPlayingTrack {
-                        image = Images.imgTranscodingTrack
-                    }
+                    image = isPlayingTrack ? Images.imgTranscodingTrack : track.displayInfo.art
                     
                 case .waiting:
                     
-                    if track == playbackInfo.waitingTrack?.track {
-                        image = Images.imgWaitingTrack
-                    }
+                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack : track.displayInfo.art
                     
                 case .noTrack:
                     

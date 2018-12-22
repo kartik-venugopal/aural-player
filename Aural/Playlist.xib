@@ -45,7 +45,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-40-ayp" userLabel="Tracks Button">
-                                    <rect key="frame" x="2" y="2" width="50" height="22"/>
+                                    <rect key="frame" x="2" y="2" width="50" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Tracks" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -58,7 +58,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
-                                    <rect key="frame" x="55" y="2" width="50" height="22"/>
+                                    <rect key="frame" x="55" y="2" width="50" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -71,7 +71,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
-                                    <rect key="frame" x="108" y="2" width="55" height="22"/>
+                                    <rect key="frame" x="108" y="2" width="55" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -84,7 +84,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
-                                    <rect key="frame" x="166" y="2" width="55" height="22"/>
+                                    <rect key="frame" x="166" y="2" width="55" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -815,7 +815,7 @@
         <image name="Search" width="26" height="26"/>
         <image name="ShowInFinder" width="11.25" height="11.25"/>
         <image name="Sort" width="32" height="27"/>
-        <image name="Transcode-Small" width="17" height="14"/>
+        <image name="Transcode-Small" width="15" height="15"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>
