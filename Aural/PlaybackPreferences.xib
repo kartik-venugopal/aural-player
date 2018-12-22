@@ -36,13 +36,13 @@
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
-                <tabView fixedFrame="YES" type="noTabsNoBorder" initialItem="p1R-Zl-mfb" translatesAutoresizingMaskIntoConstraints="NO" id="jIC-i8-j1B" userLabel="TabView" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                <tabView appearanceType="aqua" fixedFrame="YES" type="noTabsNoBorder" initialItem="p1R-Zl-mfb" translatesAutoresizingMaskIntoConstraints="NO" id="jIC-i8-j1B" userLabel="TabView" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="General" identifier="" id="p1R-Zl-mfb" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="bew-tJ-gAi">
+                            <view key="view" appearanceType="aqua" ambiguous="YES" id="bew-tJ-gAi">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -435,7 +435,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Transcoding" identifier="" id="d3e-YA-eeF" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="fhR-gT-mjb">
+                            <view key="view" appearanceType="aqua" id="fhR-gT-mjb">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
