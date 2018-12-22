@@ -59,17 +59,24 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return groups[index]
     }
     
+    // Assumes group exists in groups array
     func indexOfGroup(_ group: Group) -> Int {
         return groups.index(of: group)!
     }
     
-    func groupingInfoForTrack(_ track: Track) -> GroupedTrack {
+    func groupingInfoForTrack(_ track: Track) -> GroupedTrack? {
         
-        let group = getGroupForTrack(track)
-        let groupIndex = indexOfGroup(group)
-        let trackIndex = group.indexOfTrack(track)
+        if let group = getGroupForTrack(track) {
+            
+            let groupIndex = indexOfGroup(group)
+            
+            // Track may not have been added to group yet
+            if let trackIndex = group.indexOfTrack(track) {
+                return GroupedTrack(track, group, trackIndex, groupIndex)
+            }
+        }
         
-        return GroupedTrack(track, group, trackIndex!, groupIndex)
+        return nil
     }
     
     // Track may or may not already exist in playlist
@@ -91,10 +98,10 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     // Assumes track already exists in playlist, i.e. return value cannot be nil
-    private func getGroupForTrack(_ track: Track) -> Group {
+    private func getGroupForTrack(_ track: Track) -> Group? {
         
         let name = getGroupNameForTrack(track)
-        return groupsByName[name]!
+        return groupsByName[name]
     }
     
     func displayNameForTrack(_ track: Track) -> String {
@@ -229,7 +236,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         // Categorize tracks by group
         for track in tracks {
             
-            let group = getGroupForTrack(track)
+            let group = getGroupForTrack(track)!
             
             // Ignore tracks whose parent groups are being removed
             if (!_groups.contains(group)) {
@@ -319,7 +326,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             // Categorize tracks by group
             for track in tracks {
                 
-                let group = getGroupForTrack(track)
+                let group = getGroupForTrack(track)!
                 
                 if tracksByGroup[group] == nil {
                     tracksByGroup[group] = [Int]()
@@ -410,7 +417,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             // Categorize tracks by group
             for track in tracks {
                 
-                let group = getGroupForTrack(track)
+                let group = getGroupForTrack(track)!
                 
                 if tracksByGroup[group] == nil {
                     tracksByGroup[group] = [Int]()
@@ -482,7 +489,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             // Categorize tracks by group
             for track in tracks {
                 
-                let group = getGroupForTrack(track)
+                let group = getGroupForTrack(track)!
                 
                 if tracksByGroup[group] == nil {
                     tracksByGroup[group] = [Int]()
@@ -573,7 +580,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             // Categorize tracks by group
             for track in tracks {
                 
-                let group = getGroupForTrack(track)
+                let group = getGroupForTrack(track)!
                 
                 if tracksByGroup[group] == nil {
                     tracksByGroup[group] = [Int]()

@@ -114,9 +114,9 @@ class FFMpegWrapper {
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
             imgCache[inputFile] = image!.copy() as! NSImage
             
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 5, execute: {
+            DispatchQueue.global(qos: .background).async {
                 FileSystemUtils.deleteFile(imgPath)
-            })
+            }
         }
         
         return image

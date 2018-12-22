@@ -158,9 +158,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if (playlistView.numberOfRows > 0) {
             
-            if let _track = track {
-                
-                let group = playlist.groupingInfoForTrack(self.groupType, _track).group
+            if let _track = track, let group = playlist.groupingInfoForTrack(self.groupType, _track)?.group {
                 
                 // Need to expand the parent group to make the child track visible
                 playlistView.expandItem(group)
@@ -612,8 +610,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
-        if let groupInfo = message.groupInfo[self.groupType] {
-            
+        if let track = playlist.trackAtIndex(message.trackIndex), let groupInfo = playlist.groupingInfoForTrack(self.groupType, track.track) {
+        
             // Reload the parent group and the track
             self.playlistView.reloadItem(groupInfo.group, reloadChildren: false)
             self.playlistView.reloadItem(groupInfo.track)

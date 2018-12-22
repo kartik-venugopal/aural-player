@@ -24,7 +24,7 @@ protocol GroupingPlaylistAccessorProtocol {
     func indexOfGroup(_ group: Group) -> Int
     
     // Given a track, returns all grouping information, such as the parent group and the index of the track within that group.
-    func groupingInfoForTrack(_ track: Track) -> GroupedTrack
+    func groupingInfoForTrack(_ track: Track) -> GroupedTrack?
     
     // Returns the display name for a track within this playlist.
     func displayNameForTrack(_ track: Track) -> String

@@ -39,7 +39,7 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.search(searchQuery, playlistType)
     }
     
-    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
+    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack? {
         return playlist.groupingInfoForTrack(groupType, track)
     }
     
@@ -51,7 +51,7 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.groupAtIndex(type, index)
     }
     
-    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack? {
         return playlist.groupingInfoForTrack(type, track)
     }
     
