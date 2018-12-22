@@ -74,9 +74,13 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        menuItem.image = item.art
-        menuItem.image?.size = Images.historyMenuItemImageSize
+        if let img = AlbumArtManager.getArtForFile(item.file) {
+            menuItem.image = img.copy() as! NSImage
+        } else {
+            menuItem.image = Images.imgPlayedTrack
+        }
         
+        menuItem.image?.size = Images.historyMenuItemImageSize
         menuItem.historyItem = item
         
         return menuItem

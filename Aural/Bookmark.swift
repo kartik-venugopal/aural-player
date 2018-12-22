@@ -3,10 +3,29 @@ import Cocoa
 class Bookmark: StringKeyedItem, PlayableItem {
     
     // A name or description (e.g. "2nd chapter of audiobook")
-    var name: String
+    private var _name: String
+    
+    // Used by the UI (track.conciseDisplayName)
+    var name: String {
+        
+        get {
+            
+            if let track = self.track {
+                return track.conciseDisplayName
+            }
+            
+            return _name
+        }
+        
+        set(newValue) {
+            _name = newValue
+        }
+    }
     
     // The file of the track being bookmarked
     let file: URL
+    
+    var track: Track?
     
     // Seek position within track, expressed in seconds
     let startPosition: Double
@@ -25,12 +44,23 @@ class Bookmark: StringKeyedItem, PlayableItem {
     
     init(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double?) {
         
-        self.name = name
+        self._name = name
         self.file = file
         self.startPosition = startPosition
         self.endPosition = endPosition
         
-        loadArtworkFromFile()
+//        loadArtworkFromFile()
+    }
+    
+    init(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double?) {
+        
+        self._name = name
+        self.track = track
+        self.file = track.file
+        self.startPosition = startPosition
+        self.endPosition = endPosition
+        
+//        loadArtworkFromFile()
     }
     
     // Loads display information (name and art) from the filesystem file

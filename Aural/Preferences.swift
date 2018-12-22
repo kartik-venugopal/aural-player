@@ -193,7 +193,7 @@ class TranscodingPreferences {
 //        limitDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.limitDiskSpaceUsage"] as? Bool ?? PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
 //        maxDiskSpaceUsage = defaultsDictionary["playback.transcoding.persistence.maxDiskSpaceUsage"] as? Int ?? PreferencesDefaults.Playback.Transcoding.maxDiskSpaceUsage
         
-        eagerTranscodingEnabled = PreferencesDefaults.Playback.Transcoding.limitDiskSpaceUsage
+        eagerTranscodingEnabled = PreferencesDefaults.Playback.Transcoding.eagerTranscodingEnabled
         
 //        if let eagerTranscodingOptionStr = defaultsDictionary["playback.transcoding.eagerTranscoding.option"] as? String {
 //            eagerTranscodingOption = EagerTranscodingOptions(rawValue: eagerTranscodingOptionStr) ?? PreferencesDefaults.Playback.Transcoding.eagerTranscodingOption
@@ -523,7 +523,7 @@ fileprivate struct PreferencesDefaults {
 //            static let limitDiskSpaceUsage: Bool = true
 //            static let maxDiskSpaceUsage: Int = 1000
             
-            static let eagerTranscodingEnabled: Bool = true
+            static let eagerTranscodingEnabled: Bool = false
             static let eagerTranscodingOption: EagerTranscodingOptions = .predictive
             
 //            static let eagerTranscodingEnabled: Bool = true
