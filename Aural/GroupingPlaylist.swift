@@ -38,14 +38,17 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private let opQueue = OperationQueue()
     
+    private var opsAdded: Int = 0
+    private var opsFinished: Int = 0
+    
     init(_ type: PlaylistType, _ groupType: GroupType) {
         
         self.playlistType = type
         self.typeOfGroups = groupType
         
         opQueue.maxConcurrentOperationCount = 1
-        opQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
-        opQueue.qualityOfService = .userInitiated
+        opQueue.underlyingQueue = DispatchQueue.global(qos: .background)
+        opQueue.qualityOfService = .background
     }
     
     // MARK: Accessor functions
@@ -160,8 +163,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
-//        NSLog("Adding %@ (%@)", track.conciseDisplayName, self.typeOfGroups.rawValue)
-        
         // Determine the name of the group this track belongs in (the group may not already exist)
         let groupName = getGroupNameForTrack(track)
         
@@ -180,40 +181,42 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             if (group == nil) {
                 
-//                NSLog("Group %@ doesn't exist, creating it ...", groupName)
                 // Group doesn't already exist, create it
                 
                 group = Group(self.typeOfGroups, groupName)
                 self.groups.append(group!)
+                
                 self.groupsByName[groupName] = group
                 groupIndex = self.groups.count - 1
-                
-                if self.typeOfGroups == .album {
-                    NSLog("Created %@ %@ at index %d", self.typeOfGroups.rawValue, groupName, groupIndex)
-                }
                 
                 groupCreated = true
                 
             } else {
+                
                 // Group exists, get its index
                 groupIndex = self.groups.index(of: group!)!
             }
-
+            
             // Add the track to the group
             trackIndex = group!.addTrack(track)
             
-            // UI notification here
             groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
-            
             result = GroupedTrackAddResult(track: groupedTrack!, groupCreated: groupCreated)
             
-            AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(result!))
+            // UI notification
+            DispatchQueue.main.async {
+                SyncMessenger.publishNotification(TrackGroupedNotification(groupedTrack!, groupCreated))
+            }
         }
         
         let blockOp = BlockOperation(block: block)
         opQueue.addOperation(blockOp)
         
+        opsAdded += 1
+        
         blockOp.waitUntilFinished()
+        
+        opsFinished += 1
         
         return result!
     }

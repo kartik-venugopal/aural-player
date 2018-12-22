@@ -29,20 +29,25 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
 //        if self.groupType == .album {
-//        print("NOC\n")
+//            print("NOC", item is Group ? (item as! Group).name : item)
 //        }
         
         if (item == nil) {
+            
+//            print(playlist.numberOfGroups(groupType))
             
             // Root
             return playlist.numberOfGroups(groupType)
             
         } else if let group = item as? Group {
             
+//            print(group.size())
+            
             // Group
             return group.size()
         }
         
+//        print(0)
         // Tracks don't have children
         return 0
     }

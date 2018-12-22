@@ -3,7 +3,7 @@ import Foundation
 /*
     A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
  */
-class Playlist: PlaylistCRUDProtocol, PersistentModelObject, AsyncMessageSubscriber {
+class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistCRUDProtocol
@@ -23,8 +23,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject, AsyncMessageSubscri
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType] = $0})
-        
-        AsyncMessenger.subscribe([.trackMetadataUpdated], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
     var tracks: [Track] {return flatPlaylist.tracks}
@@ -311,7 +309,9 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject, AsyncMessageSubscri
         
         // Add the track to each of the grouping playlists
         var groupingResults = [GroupType: GroupedTrackAddResult]()
-        groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+        groupingPlaylists.values.forEach({_ = $0.addTrack(track)})
+        
+//        groupingPlaylists[.albums]?.addTrack(track)
         
         // Return the results of the add operation
         return groupingResults
@@ -370,12 +370,5 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject, AsyncMessageSubscri
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let msg = message as? TrackMetadataUpdatedAsyncMessage {
-            groupTrack(msg.track)
-        }
     }
 }

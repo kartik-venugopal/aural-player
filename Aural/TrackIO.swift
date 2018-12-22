@@ -7,27 +7,43 @@ import AVFoundation
 
 class TrackIO {
     
-    // Load display metadata (artist/title/art and all grouping info)
+    static var c: Int = 0
+    
     static func loadDisplayInfo(_ track: Track) {
         
-        let fileExtension = track.file.pathExtension.lowercased()
-        
-        if !track.nativelySupported || fileExtension == "flac" {
-            let tim = TimerUtils.start("GM")
-            track.libAVInfo = FFMpegWrapper.getMetadata(track)
-            tim.end()
-        } else {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
+        track.audioAsset = AVURLAsset(url: track.file, options: nil)
         
         MetadataReader.loadDisplayMetadata(track)
-        MetadataReader.loadGroupingMetadata(track)
     }
     
-    // Load duration metadata
     static func loadDuration(_ track: Track) {
-        MetadataReader.loadDurationMetadata(track)
+//        MetadataReader.loadDurationMetadata(track)
     }
+    
+//    // Load display metadata (artist/title/art and all grouping info)
+//    static func loadDisplayInfo(_ track: Track) {
+//
+//        let fileExtension = track.file.pathExtension.lowercased()
+//
+////        if !track.nativelySupported || fileExtension == "flac" {
+////            let tim = TimerUtils.start("GM")
+////            track.libAVInfo = FFMpegWrapper.getMetadata(track)
+////            tim.end()
+////        } else {
+//            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+////        }
+//
+//        MetadataReader.loadDisplayMetadata(track)
+//        MetadataReader.loadGroupingMetadata(track)
+//
+//        c += 1
+//        print("\nLOAD:", c, "\n")
+//    }
+//
+//    // Load duration metadata
+//    static func loadDuration(_ track: Track) {
+//        MetadataReader.loadDurationMetadata(track)
+//    }
     
     // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
