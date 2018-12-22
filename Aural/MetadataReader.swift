@@ -11,6 +11,16 @@ class MetadataReader {
     
     private static let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
+    private static let artLoadingQueue: OperationQueue = {
+        
+        let q = OperationQueue()
+        
+        q.maxConcurrentOperationCount = 5
+        q.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
+        
+        return q
+    }()
+    
     // Loads duration metadata for a track, if available
     static func loadDurationMetadata(_ track: Track) {
         
@@ -74,32 +84,30 @@ class MetadataReader {
             track.groupingInfo.album = metadata["album"]
             track.groupingInfo.genre = metadata["genre"]
             
-//            print(track.groupingInfo.artist)
-            
-//            track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
-//            track.groupingInfo.trackNumber = Int(metadata["track"] ?? "")
+            track.groupingInfo.discNumber = Int(metadata["disc"] ?? "")
+            track.groupingInfo.trackNumber = Int(metadata["track"] ?? "")
 
-            // TODO: Create an op queue for this and limit the op count
-//            DispatchQueue.global(qos: .userInteractive).async {
-//                track.displayInfo.art = FFMpegWrapper.getArtwork(track)
-//            }
+            artLoadingQueue.addOperation {
+                track.displayInfo.art = FFMpegWrapper.getArtwork(track)
+            }
 
         } else {
         
             let title = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyTitle.rawValue)
             let artist = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyArtist.rawValue)
+            
+            track.setDisplayMetadata(artist, title, nil)
         
             track.groupingInfo.artist = artist
             track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyAlbumName.rawValue)
             track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, AVMetadataKey.commonKeyType.rawValue)
             
-            track.setDisplayMetadata(artist, title, nil)
+            track.groupingInfo.discNumber = getDiscNumber(track)
+            track.groupingInfo.trackNumber = getTrackNumber(track)
             
-//            let art = getArtwork(track.audioAsset!)
-//            track.setDisplayMetadata(artist, title, art)
-            
-//            track.groupingInfo.discNumber = getDiscNumber(track)
-//            track.groupingInfo.trackNumber = getTrackNumber(track)
+            artLoadingQueue.addOperation {
+                track.displayInfo.art = getArtwork(track.audioAsset!)
+            }
         }
     }
     
