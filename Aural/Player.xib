@@ -608,7 +608,7 @@ G1BhbiBTbGlkZXI
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML">
-                                <rect key="frame" x="26" y="112" width="44" height="44"/>
+                                <rect key="frame" x="31" y="108" width="73" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
                             </imageView>
@@ -635,7 +635,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
-                    <rect key="frame" x="82" y="130" width="337" height="28"/>
+                    <rect key="frame" x="112" y="131" width="337" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
                         <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -644,7 +644,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="135" y="106" width="231" height="28"/>
+                    <rect key="frame" x="165" y="108" width="231" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Converting to a supported format ..." id="kPq-wv-JLN">
                         <font key="font" size="13" name="GillSans"/>
@@ -760,7 +760,7 @@ Gw
         <image name="SeekForward" width="8.6400003433227539" height="5.5199999809265137"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="ShuffleOff" width="26" height="26"/>
-        <image name="Transcoding" width="71" height="78"/>
+        <image name="Transcoding" width="154" height="91"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>

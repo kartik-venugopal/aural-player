@@ -21,16 +21,25 @@ struct Colors {
     // Color of selected item text inside the playlist
     static let playlistSelectedIndexTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     
-    static let overlayBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
+    static let playlistGroupIndexTextColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
+    // Color of selected item text inside the playlist
+    static let playlistGroupSelectedIndexTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
-    static let playlistGapTextColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
-    static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
+    static let overlayBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
+
+    static let playlistGapTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Color for playlist grouped views
     static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
+//    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+//    static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+//    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+//    static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)

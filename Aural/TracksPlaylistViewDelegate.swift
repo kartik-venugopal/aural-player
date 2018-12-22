@@ -71,12 +71,16 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 switch playbackInfo.state {
                     
-                    // TODO: Different icon for transcoding state (2 arrows)
-                    
-                    case .playing, .paused, .transcoding:
+                    case .playing, .paused:
                         
                         if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
-                            return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, "▶", gapB, gapA, row)
+                            return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                        }
+                    
+                    case .transcoding:
+                    
+                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
+                            return createTranscodingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     
                     case .waiting:
@@ -87,13 +91,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     
                     case .noTrack:
                         
-                        // This is a special case (when the track is being transcoded, but not yet playing)
-                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
-                            return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
-                        } else {
-                            // Otherwise, create a text cell with the track index
-                            return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
-                        }
+                        // Otherwise, create a text cell with the track index
+                        return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                 }
                 
                 return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
@@ -265,6 +264,12 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
         
         return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgPlayingTrack)
+    }
+    
+    // Creates a cell view containing the animation for the currently playing track
+    private func createTranscodingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
+        
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgTranscodingTrack)
     }
     
     // Creates a cell view containing the animation for the currently playing track
