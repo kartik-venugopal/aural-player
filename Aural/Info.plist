@@ -122,7 +122,5 @@
 	<string>None</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
-	<key>NSRequiresAquaSystemAppearance</key>
-	<true/>
 </dict>
 </plist>

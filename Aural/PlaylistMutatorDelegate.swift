@@ -232,11 +232,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // Load metadata/duration in the background
             trackAddQueue.addOperation {
                 
+                // Metadata
                 TrackIO.loadDisplayInfo(track)
-                _ = self.playlist.groupTrack(track)
+                let groupingInfo = self.playlist.groupTrack(track)
                 
+                // Duration
                 TrackIO.loadDuration(track)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
+                
+                var groupInfo: [GroupType: GroupedTrack] = [:]
+                groupingInfo.forEach({groupInfo[$0.key] = $0.value.track})
+                
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo))
             }
             
             return result

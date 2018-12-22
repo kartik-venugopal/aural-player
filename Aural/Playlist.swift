@@ -74,10 +74,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             // Add the track to the flat playlist
             let index = flatPlaylist.addTrack(track)
             
-            // Add the track to each of the grouping playlists
-//            var groupingResults = [GroupType: GroupedTrackAddResult]()
-//            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
-            
             // Return the results of the add operation
             return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: [:])
         }
@@ -309,9 +305,9 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Add the track to each of the grouping playlists
         var groupingResults = [GroupType: GroupedTrackAddResult]()
-        groupingPlaylists.values.forEach({_ = $0.addTrack(track)})
         
-//        groupingPlaylists[.albums]?.addTrack(track)
+        // Add the track to each of the grouping playlists
+        groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
         
         // Return the results of the add operation
         return groupingResults
