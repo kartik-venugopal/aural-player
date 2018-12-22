@@ -95,7 +95,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Playlist" identifier="0" id="TYN-PH-4OO" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" ambiguous="YES" id="EFS-Lg-2eG">
+                                <view key="view" id="EFS-Lg-2eG">
                                     <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -104,7 +104,7 @@
                                 </connections>
                             </tabViewItem>
                             <tabViewItem label="Playback" identifier="1" id="qD8-pP-ieh" userLabel="Playback" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" id="KWv-RK-uzg">
+                                <view key="view" ambiguous="YES" id="KWv-RK-uzg">
                                     <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
