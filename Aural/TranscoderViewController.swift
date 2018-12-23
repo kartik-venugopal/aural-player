@@ -32,15 +32,15 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
         theView.transcodingProgress(msg)
         
-        if player.state == .transcoding && theView.isHidden {
+        if theView.isHidden && player.state == .transcoding {
             theView.show()
         }
     }
     
     private func transcodingFinished() {
-        
-        theView.transcodingFinished()
+
         theView.hide()
+        theView.transcodingFinished()
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

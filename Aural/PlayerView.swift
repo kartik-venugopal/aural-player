@@ -79,10 +79,16 @@ class PlayerView: NSView {
     }
     
     func mouseEntered() {
+        
+        if player.state == .transcoding {return}
+        
         autoHideFields_showing = true
     }
     
     func mouseExited() {
+        
+        if player.state == .transcoding {return}
+        
         autoHideFields_showing = false
     }
     
@@ -99,6 +105,14 @@ class PlayerView: NSView {
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt! : (playbackState == .playing ? Images.imgPlayingArt : Images.imgPausedArt)
+    }
+    
+    func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
+        
+        infoView.showNowPlayingInfo(track, sequence)
+        
+        let trackArt = track.displayInfo.art
+        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
     }
     
     func clearNowPlayingInfo() {
@@ -191,6 +205,8 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseEntered()
         
+        if player.state == .transcoding {return}
+        
         if !PlayerViewState.showControls {
             autoHideControls_show()
         }
@@ -199,6 +215,8 @@ class DefaultPlayerView: PlayerView {
     override func mouseExited() {
         
         super.mouseExited()
+        
+        if player.state == .transcoding {return}
         
         if !PlayerViewState.showControls {
             autoHideControls_hide()
@@ -262,6 +280,8 @@ class ExpandedArtPlayerView: PlayerView {
         
         super.mouseEntered()
         
+        if player.state == .transcoding {return}
+        
         autoHideControls_show()
         
         if !PlayerViewState.showTrackInfo {
@@ -272,6 +292,8 @@ class ExpandedArtPlayerView: PlayerView {
     override func mouseExited() {
         
         super.mouseExited()
+        
+        if player.state == .transcoding {return}
         
         if !PlayerViewState.showTrackInfo {
             autoHideInfo_hide()
