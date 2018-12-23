@@ -7,8 +7,8 @@ class FFMpegWrapper {
     
     static let metadataIgnoreKeys: [String] = ["bitrate"]
     
-    static let getMetadata_timeout: Double = 1
-    static let getArtwork_timeout: Double = 2
+    static let getMetadata_timeout: Double = 3
+    static let getArtwork_timeout: Double = 3
     
     private static var imgCache: [URL: NSImage] = [:]
     

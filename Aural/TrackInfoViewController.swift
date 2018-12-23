@@ -65,7 +65,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     private func trackChanged(_ track: Track?) {
         
-        if (track != nil) {
+        if (track != nil && player.state != .transcoding) {
             theView?.showNowPlayingInfo(track!, player.state, player.sequenceInfo)
         } else {
             
@@ -75,7 +75,24 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     }
     
     private func transcodingStarted(_ track: Track) {
-        theView?.showNowPlayingInfo(track, player.state, player.sequenceInfo)
+        
+        if let track = player.playingTrack?.track {
+            theView?.setPlayingInfo_dontShow(track, player.sequenceInfo)
+        }
+    }
+    
+    private func transcodingFinished() {
+        
+        let track = player.playingTrack?.track
+        
+        if (track != nil) {
+            theView?.showNowPlayingInfo(track!, player.state, player.sequenceInfo)
+        } else {
+         
+            // IMPOSSIBLE
+            // No track playing, clear the info fields
+            theView?.clearNowPlayingInfo()
+        }
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
@@ -135,6 +152,10 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         case .transcodingStarted:
             
             transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
+            
+        case .transcodingFinished:
+            
+            transcodingFinished()
             
         case .trackNotPlayed:
             

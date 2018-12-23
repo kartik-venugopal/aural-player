@@ -21,7 +21,11 @@ class CommandExecutor {
         if let timeout = cmd.timeout {
             
             DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + timeout, execute: {
-                task.terminate()
+                
+                if task.isRunning {
+                    task.terminate()
+                    NSLog("Task timed out: %@", cmd.process.arguments!)
+                }
             })
         }
         

@@ -241,12 +241,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Duration
                 TrackIO.loadDuration(track)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, [:]))
             })
             
-//            durationLoadOp.addDependency(displayInfoLoadingOp)
+            let uiUpdateOp = BlockOperation(block: {
+                 AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, [:]))
+            })
             
-            trackAddQueue.addOperations([displayInfoLoadingOp, durationLoadOp], waitUntilFinished: false)
+            uiUpdateOp.addDependency(displayInfoLoadingOp)
+            uiUpdateOp.addDependency(durationLoadOp)
+            
+            trackAddQueue.addOperations([displayInfoLoadingOp, durationLoadOp, uiUpdateOp], waitUntilFinished: false)
             
             return result
         }

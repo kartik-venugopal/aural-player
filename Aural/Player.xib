@@ -635,7 +635,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
-                    <rect key="frame" x="112" y="131" width="337" height="28"/>
+                    <rect key="frame" x="107" y="131" width="337" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
                         <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -644,7 +644,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="165" y="108" width="231" height="28"/>
+                    <rect key="frame" x="160" y="108" width="231" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Converting to a supported format ..." id="kPq-wv-JLN">
                         <font key="font" size="13" name="GillSans"/>
