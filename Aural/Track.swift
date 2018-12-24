@@ -127,7 +127,10 @@ class DisplayInfo {
         
         self.artist = artist
         self.title = title
-        self.art = art
+        
+        if art != nil {
+            self.art = art
+        }
         
         if (title != nil) {
             
