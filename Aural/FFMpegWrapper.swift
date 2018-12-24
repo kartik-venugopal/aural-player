@@ -91,14 +91,14 @@ class FFMpegWrapper {
         return LibAVInfo(duration, stream, map, drmProtected)
     }
     
-    static func getArtwork(_ track: Track) -> NSImage? {
-        return getArtwork(track.file)
+    static func getArt(_ track: Track) -> NSImage? {
+        return getArt(track.file)
     }
     
-    static func getArtwork(_ inputFile: URL) -> NSImage? {
+    static func getArt(_ inputFile: URL) -> NSImage? {
         
-        if let img = imgCache[inputFile] {
-            return img.copy() as! NSImage
+        if let img = imgCache[inputFile], let imgCopy = img.copy() as? NSImage {
+            return imgCopy
         }
         
         let now = Date()
@@ -112,7 +112,9 @@ class FFMpegWrapper {
         if result.exitCode == 0 {
             
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
-            imgCache[inputFile] = image!.copy() as! NSImage
+            if let imgCopy = image?.copy() as? NSImage {
+                imgCache[inputFile] = imgCopy
+            }
             
             DispatchQueue.global(qos: .background).async {
                 FileSystemUtils.deleteFile(imgPath)
