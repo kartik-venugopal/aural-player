@@ -124,12 +124,52 @@ class AVAssetReader: MetadataReader {
         return getArtwork(AVURLAsset(url: file, options: nil))
     }
     
-    func getAllMetadata() -> [String : String] {
-        return [:]
-    }
-    
-    func getPlaybackInfo() -> PlaybackInfo {
-        return PlaybackInfo()
+    func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
+        
+        ensureTrackAssetLoaded(track)
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        // Check which metadata formats are available
+        let formats = track.audioAsset!.availableMetadataFormats
+        
+        // Iterate through the formats and collect metadata for each one
+        for format in formats {
+            
+            let metadataType: MetadataType
+            
+            switch format {
+                
+            case AVMetadataFormat.iTunesMetadata: metadataType = .iTunes
+                
+            case AVMetadataFormat.id3Metadata: metadataType = .id3
+                
+            default: metadataType = .other
+                
+            }
+            
+            let items = track.audioAsset!.metadata(forFormat: format)
+            
+            
+            // Iterate through all metadata for this format
+            for item in items {
+                
+                let stringValue = item.stringValue
+                
+                if let key = item.commonKey?.rawValue {
+                    
+                    // Ignore the display metadata keys (that have already been loaded)
+                    if !genericMetadata_ignoreKeys.contains(key) && !StringUtils.isStringEmpty(stringValue) {
+                        metadata[key] = MetadataEntry(.common, key, stringValue!)
+                    }
+                    
+                } else if let key = item.key as? String, !StringUtils.isStringEmpty(stringValue) {
+                    metadata[key] = MetadataEntry(metadataType, key, stringValue!)
+                }
+            }
+        }
+        
+        return metadata
     }
     
     private func getDiscNumber(_ track: Track) -> Int? {
@@ -166,52 +206,9 @@ class AVAssetReader: MetadataReader {
         return nil
     }
     
-    // Loads all available metadata for a track
-    func loadAllMetadata(_ track: Track) {
+    func getDurationForFile(_ file: URL) -> Double {
         
-        ensureTrackAssetLoaded(track)
-        
-        // Check which metadata formats are available
-        let formats = track.audioAsset!.availableMetadataFormats
-        
-        // Iterate through the formats and collect metadata for each one
-        for format in formats {
-            
-            let metadataType: MetadataType
-            
-            switch format.rawValue {
-                
-            case AVMetadataFormat.iTunesMetadata.rawValue: metadataType = .iTunes
-                
-            case AVMetadataFormat.id3Metadata.rawValue: metadataType = .id3
-                
-            default: metadataType = .other
-                
-            }
-            
-            let items = track.audioAsset!.metadata(forFormat: format)
-            
-            // Iterate through all metadata for this format
-            for item in items {
-                
-                let stringValue = item.stringValue
-                
-                if let key = item.commonKey?.rawValue {
-                    
-                    // Ignore the display metadata keys (that have already been loaded)
-                    if !genericMetadata_ignoreKeys.contains(key) && !StringUtils.isStringEmpty(stringValue) {
-                        track.metadata[key] = MetadataEntry(.common, key, stringValue!)
-                    }
-                    
-                } else if let key = item.key as? String, !StringUtils.isStringEmpty(stringValue) {
-                    track.metadata[key] = MetadataEntry(metadataType, key, stringValue!)
-                }
-            }
-        }
-    }
-    
-    // Loads art for a given file (used by bookmarks)
-    func loadArtworkForFile(_ file: URL) -> NSImage? {
-        return getArtwork(AVURLAsset(url: file, options: nil))
+        let asset = AVURLAsset(url: file, options: nil)
+        return asset.duration.seconds
     }
 }

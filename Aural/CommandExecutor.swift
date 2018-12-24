@@ -18,7 +18,6 @@ class CommandExecutor {
         task.launch()
         
         if cmd.process.arguments!.contains("/ffmpeg/Test/PerfectWorld.wma") && cmd.process.arguments!.contains("-show_entries") {
-            print("Here")
             NSLog("Launched command: %@, with args: %@", cmd.process.launchPath!, cmd.process.arguments!)
         }
         

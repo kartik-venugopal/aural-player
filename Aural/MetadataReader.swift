@@ -6,13 +6,13 @@ protocol MetadataReader {
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata
     
+    func getDurationForFile(_ file: URL) -> Double
+    
     func getArt(_ track: Track) -> NSImage?
     
     func getArt(_ file: URL) -> NSImage?
     
-    func getAllMetadata() -> [String: String]
-    
-    func getPlaybackInfo() -> PlaybackInfo
+    func getAllMetadata(_ track: Track) -> [String: MetadataEntry]
 }
 
 class PrimaryMetadata {

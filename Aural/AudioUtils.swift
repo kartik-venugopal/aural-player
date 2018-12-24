@@ -87,11 +87,18 @@ class AudioUtils {
         }
     }
     
-    static func prepareTrackWithFile(_ track: Track, _ audioFile: URL) {
+    static func prepareTrackWithFile(_ track: Track, _ file: URL) {
         
         let playbackInfo = PlaybackInfo()
         
-        if let audioFile = AudioIO.createAudioFileForReading(audioFile) {
+        if let audioFile = AudioIO.createAudioFileForReading(file) {
+            
+            if track.duration == 0 {
+                
+                // Load duration from transcoded output file
+                track.setDuration(MetadataUtils.durationForFile(file))
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+            }
             
             playbackInfo.audioFile = audioFile
             track.playbackInfo = playbackInfo
