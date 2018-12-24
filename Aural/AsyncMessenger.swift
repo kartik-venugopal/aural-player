@@ -43,9 +43,9 @@ class AsyncMessenger {
             for (subscriber, queue) in subscribers {
                 
                 // Notify the subscriber on its notification queue
-                queue.async(execute: { () -> Void in
+                queue.async {
                     subscriber.consumeAsyncMessage(message)
-                })
+                }
             }
         }
     }

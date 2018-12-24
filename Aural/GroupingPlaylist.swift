@@ -36,7 +36,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()
     
-    private let trackAddQueue = DispatchQueue(label: "threadSafeGroupsArray", attributes: .concurrent)
+//    private let trackAddQueue = DispatchQueue(label: "threadSafeGroupsArray", attributes: .concurrent)
     
     private var opsAdded: Int = 0
     private var opsFinished: Int = 0
@@ -164,7 +164,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     // MARK: Mutator functions
     
-    func addTrack(_ track: Track) {
+    func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
         // Determine the name of the group this track belongs in (the group may not already exist)
         let groupName = getGroupNameForTrack(track)
@@ -173,42 +173,39 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var group: Group?
         var groupCreated: Bool = false
         var groupIndex: Int = -1
-        var trackIndex: Int = -1
         
-        var groupedTrack: GroupedTrack?
+        //        trackAddQueue.async(flags: .barrier) {
         
-        trackAddQueue.async(flags: .barrier) {
+        group = self.groupsByName[groupName]
+        
+        if (group == nil) {
             
-            group = self.groupsByName[groupName]
+            // Group doesn't already exist, create it
             
-            if (group == nil) {
-                
-                // Group doesn't already exist, create it
-                
-                group = Group(self.typeOfGroups, groupName)
-                self.groups.append(group!)
-                
-                self.groupsByName[groupName] = group
-                groupIndex = self.groups.count - 1
-                
-                groupCreated = true
-                
-            } else {
-                
-                // Group exists, get its index
-                groupIndex = self.groups.index(of: group!)!
-            }
+            group = Group(self.typeOfGroups, groupName)
+            self.groups.append(group!)
+            
+            self.groupsByName[groupName] = group
+            groupIndex = self.groups.count - 1
+            
+            groupCreated = true
+            
+        } else {
+            
+            // Group exists, get its index
+            groupIndex = self.groups.index(of: group!)!
+        }
             
             // Add the track to the group
-            trackIndex = group!.addTrack(track)
-            
-            groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
+        let trackIndex: Int = group!.addTrack(track)
+        let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
             
             // UI notification
-            DispatchQueue.main.async {
-                SyncMessenger.publishNotification(TrackGroupedNotification(groupedTrack!, groupCreated))
-            }
-        }
+//            DispatchQueue.main.async {
+//                SyncMessenger.publishNotification(TrackGroupedNotification(groupedTrack!, groupCreated))
+//            }
+        
+        return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [ItemRemovalResult] {

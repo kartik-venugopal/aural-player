@@ -51,6 +51,8 @@ enum MessageType {
     
     case trackGroupUpdatedNotification
     
+    case trackAddedNotification
+    
     case trackGroupedNotification
     
     case preTrackChangeNotification
@@ -555,5 +557,29 @@ struct TrackGroupedNotification: NotificationMessage {
     init(_ grouping: GroupedTrack, _ groupCreated: Bool) {
         self.grouping = grouping
         self.groupCreated = groupCreated
+    }
+}
+
+struct TrackAddedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .trackAddedNotification
+    
+    // The index of the newly added track
+    let trackIndex: Int
+    
+    let groupInfo: [GroupType: GroupedTrackAddResult]
+    
+    // The current progress of the track add operation (See TrackAddedMessageProgress)
+    let progress: TrackAddedMessageProgress
+    
+    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
+        
+        self.trackIndex = trackIndex
+        self.groupInfo = groupInfo
+        self.progress = progress
+    }
+    
+    static func fromTrackAddResult(_ result: TrackAddResult, _ progress: TrackAddedMessageProgress) -> TrackAddedNotification {
+        return TrackAddedNotification(result.flatPlaylistResult, result.groupingPlaylistResults, progress)
     }
 }

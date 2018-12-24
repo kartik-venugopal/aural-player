@@ -138,9 +138,9 @@ struct TrackAddedAsyncMessage: AsyncMessage {
         self.progress = progress
     }
     
-    static func fromTrackAddResult(_ result: TrackAddResult, _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
+    static func fromTrackAddResult(_ result: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
     
-        return TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progress)
+        return TrackAddedAsyncMessage(result, groupInfo, progress)
     }
 }
 

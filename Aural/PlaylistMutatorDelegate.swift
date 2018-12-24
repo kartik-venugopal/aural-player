@@ -40,13 +40,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        trackAddQueue.maxConcurrentOperationCount = 15
+        trackAddQueue.maxConcurrentOperationCount = 10
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         trackAddQueue.qualityOfService = .userInitiated
         
-        trackUpdateQueue.maxConcurrentOperationCount = 5
-        trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        trackUpdateQueue.qualityOfService = .background
+        trackUpdateQueue.maxConcurrentOperationCount = 10
+        trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
+        trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appLoadedNotification, .appReopenedNotification], subscriber: self)
@@ -77,6 +77,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             self.addFiles_sync(files, autoplayOptions, progress)
             
+//            AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(1, progress))
+            
             print("\n")
             NSLog("Finished adding to flat playlist, now waiting for grouping to finish: %d tasks", self.trackAddQueue.operationCount)
             
@@ -96,19 +98,33 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // Wait for addQueue to finish execution, update tracks with secondary info
             self.trackAddQueue.waitUntilAllOperationsAreFinished()
             
-            // ------------------ UPDATE --------------------
-            
             print("\n")
-            NSLog("Finished grouping, now updating with 2ndary info")
-            
-            for track in self.addedTracks {
+            NSLog("Finished grouping, now waiting to update with 2ndary info ...")
+
+            // ------------------ UPDATE --------------------
+
+            DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 5, execute: {
                 
-                self.trackUpdateQueue.addOperation {
+                print("\n")
+                NSLog("Now updating with 2ndary info")
+                
+                for track in self.addedTracks {
                     
-                    TrackIO.loadSecondaryInfo(track)
-                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                    self.trackUpdateQueue.addOperation {
+                        
+                        TrackIO.loadSecondaryInfo(track)
+                        AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                    }
                 }
-            }
+                
+                print("\n")
+                NSLog("Waiting for 2ndary updates to finish")
+                
+                self.trackUpdateQueue.waitUntilAllOperationsAreFinished()
+                
+                print("\n")
+                NSLog("All done !")
+            })
         }
     }
     
@@ -137,34 +153,31 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // Non-nil result indicates success
         let result = playlist.addTrack(track)!
+//
+//        // Add gaps around this track (persistent ones)
+//        let gapsForTrack = playlistState.getGapsForTrack(track)
+//        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
+//
+//        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+//        playlistState.removeGapsForTrack(track)
+//
+//        // Metadata
+//        TrackIO.loadPrimaryInfo(track)
+//
+//        let groupingResults = self.playlist.groupTrack(track)
+//
+//        trackUpdateQueue.addOperation {
+//
+//            // Duration
+//            TrackIO.loadSecondaryInfo(track)
+//            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+//        }
+//
+//        // Notify change listeners
+//        self.changeListeners.forEach({$0.tracksAdded([result])})
+//        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
         
-        // Add gaps around this track (persistent ones)
-        let gapsForTrack = playlistState.getGapsForTrack(track)
-        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
-        
-        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-        playlistState.removeGapsForTrack(track)
-        
-        // Metadata
-        TrackIO.loadPrimaryInfo(track)
-        
-        // Inform the UI of the new track
-        AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, TrackAddedMessageProgress(1, 1)))
-        
-        _ = self.playlist.groupTrack(track)
-        
-        trackUpdateQueue.addOperation {
-
-            // Duration
-            TrackIO.loadSecondaryInfo(track)
-            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-        }
-        
-        // Notify change listeners
-        self.changeListeners.forEach({$0.tracksAdded([result])})
-        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
-        
-        return IndexedTrack(track, result.flatPlaylistResult)
+        return IndexedTrack(track, result)
     }
     
     /*
@@ -261,7 +274,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let track = Track(file)
 
         // Non-nil result indicates success
-        if let result = playlist.addTrack(track) {
+        if let index = playlist.addTrack(track) {
 
             // Add gaps around this track (persistent ones)
             let gapsForTrack = playlistState.getGapsForTrack(track)
@@ -269,35 +282,20 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
 
             // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
             playlistState.removeGapsForTrack(track)
-        
-            // Inform the UI of the new track
-            AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
             
             // TODO: Can we group tracks in batches or all at once ?
             
             // Load metadata/duration in the background
             trackAddQueue.addOperation {
-                
+
                 // Metadata
                 TrackIO.loadPrimaryInfo(track)
-                
-//                print("\n")
-//                NSLog("Loaded PM for %@", track.conciseDisplayName)
-                
-                _ = self.playlist.groupTrack(track)
-                
-//                print("\n")
-//                NSLog("Grouped %@", track.conciseDisplayName)
-                
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-                
-//                print("\n")
-//                NSLog("Notified for %@", track.conciseDisplayName)
+                _ = self.playlist.groupTrack(track, index, progress)
             }
             
             addedTracks.append(track)
             
-            return result
+            return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: [:])
         }
 
         return nil
