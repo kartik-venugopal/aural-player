@@ -24,6 +24,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let preferences: Preferences
     
     private let trackAddQueue: OperationQueue = OperationQueue()
+    private let trackUpdateQueue: OperationQueue = OperationQueue()
+    
+    private var addedTracks: [Track] = []
     
     init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
@@ -39,6 +42,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         trackAddQueue.maxConcurrentOperationCount = 15
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
+        trackAddQueue.qualityOfService = .userInitiated
+        
+        trackUpdateQueue.maxConcurrentOperationCount = 5
+        trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .background)
+        trackUpdateQueue.qualityOfService = .background
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appLoadedNotification, .appReopenedNotification], subscriber: self)
@@ -49,6 +57,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let autoplay: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
         
+        addedTracks.removeAll()
         addFiles_async(files, AutoplayOptions(autoplay, interruptPlayback))
     }
     
@@ -58,24 +67,48 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
             
-            // Progress
+            NSLog("Started adding")
+            
+            // ------------------ ADD --------------------
+            
             let progress = TrackAddOperationProgress(0, files.count, [TrackAddResult](), [InvalidTrackError](), false)
             
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
             self.addFiles_sync(files, autoplayOptions, progress)
             
+            print("\n")
+            NSLog("Finished adding to flat playlist, now waiting for grouping to finish: %d tasks", self.trackAddQueue.operationCount)
+            
             AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
             // If errors > 0, send AsyncMessage to UI
+            // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if (progress.errors.count > 0) {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
             }
             
             // Notify change listeners
             self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
+            
+            // Wait for addQueue to finish execution, update tracks with secondary info
+            self.trackAddQueue.waitUntilAllOperationsAreFinished()
+            
+            // ------------------ UPDATE --------------------
+            
+            print("\n")
+            NSLog("Finished grouping, now updating with 2ndary info")
+            
+            for track in self.addedTracks {
+                
+                self.trackUpdateQueue.addOperation {
+                    
+                    TrackIO.loadSecondaryInfo(track)
+                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                }
+            }
         }
     }
     
@@ -101,19 +134,30 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // Load display info
         let track = Track(file)
-        TrackIO.loadDisplayInfo(track)
         
         // Non-nil result indicates success
         let result = playlist.addTrack(track)!
         
+        // Add gaps around this track (persistent ones)
+        let gapsForTrack = playlistState.getGapsForTrack(track)
+        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
+        
+        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+        playlistState.removeGapsForTrack(track)
+        
+        // Metadata
+        TrackIO.loadPrimaryInfo(track)
+        
         // Inform the UI of the new track
         AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, TrackAddedMessageProgress(1, 1)))
         
-        // Load duration async
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            TrackIO.loadDuration(track)
-            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
+        _ = self.playlist.groupTrack(track)
+        
+        trackUpdateQueue.addOperation {
+
+            // Duration
+            TrackIO.loadSecondaryInfo(track)
+            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
         }
         
         // Notify change listeners
@@ -229,28 +273,29 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
             
+            // TODO: Can we group tracks in batches or all at once ?
+            
             // Load metadata/duration in the background
-            let displayInfoLoadingOp = BlockOperation(block: {
+            trackAddQueue.addOperation {
                 
                 // Metadata
-                TrackIO.loadDisplayInfo(track)
-                _ = self.playlist.groupTrack(track)
-            })
-            
-            let durationLoadOp = BlockOperation(block: {
+                TrackIO.loadPrimaryInfo(track)
                 
-                // Duration
-                TrackIO.loadDuration(track)
-            })
+//                print("\n")
+//                NSLog("Loaded PM for %@", track.conciseDisplayName)
+                
+                _ = self.playlist.groupTrack(track)
+                
+//                print("\n")
+//                NSLog("Grouped %@", track.conciseDisplayName)
+                
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                
+//                print("\n")
+//                NSLog("Notified for %@", track.conciseDisplayName)
+            }
             
-            let uiUpdateOp = BlockOperation(block: {
-                 AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(result.flatPlaylistResult, [:]))
-            })
-            
-            uiUpdateOp.addDependency(displayInfoLoadingOp)
-            uiUpdateOp.addDependency(durationLoadOp)
-            
-            trackAddQueue.addOperations([displayInfoLoadingOp, durationLoadOp, uiUpdateOp], waitUntilFinished: false)
+            addedTracks.append(track)
             
             return result
         }

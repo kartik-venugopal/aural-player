@@ -217,7 +217,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
     
     func trackNeedsTranscoding(_ track: Track) -> Bool {
-        return !track.nativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
+        return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -239,7 +239,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 //                    let tracks = self.playlist.tracks
 //                    for track in tracks {
 //
-//                        if !track.nativelySupported && self.store.getForTrack(track) == nil {
+//                        if !track.playbackNativelySupported && self.store.getForTrack(track) == nil {
 //
 //                            let outputFile = self.outputFileForTrack(track)
 //

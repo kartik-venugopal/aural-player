@@ -36,7 +36,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()
     
-    private let opQueue = OperationQueue()
+    private let trackAddQueue = DispatchQueue(label: "threadSafeGroupsArray", attributes: .concurrent)
     
     private var opsAdded: Int = 0
     private var opsFinished: Int = 0
@@ -45,10 +45,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         self.playlistType = type
         self.typeOfGroups = groupType
-        
-        opQueue.maxConcurrentOperationCount = 1
-        opQueue.underlyingQueue = DispatchQueue.global(qos: .background)
-        opQueue.qualityOfService = .background
     }
     
     // MARK: Accessor functions
@@ -168,7 +164,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     // MARK: Mutator functions
     
-    func addTrack(_ track: Track) -> GroupedTrackAddResult {
+    func addTrack(_ track: Track) {
         
         // Determine the name of the group this track belongs in (the group may not already exist)
         let groupName = getGroupNameForTrack(track)
@@ -180,9 +176,8 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var trackIndex: Int = -1
         
         var groupedTrack: GroupedTrack?
-        var result: GroupedTrackAddResult?
         
-        let block = {
+        trackAddQueue.async(flags: .barrier) {
             
             group = self.groupsByName[groupName]
             
@@ -208,24 +203,12 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             trackIndex = group!.addTrack(track)
             
             groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
-            result = GroupedTrackAddResult(track: groupedTrack!, groupCreated: groupCreated)
             
             // UI notification
             DispatchQueue.main.async {
                 SyncMessenger.publishNotification(TrackGroupedNotification(groupedTrack!, groupCreated))
             }
         }
-        
-        let blockOp = BlockOperation(block: block)
-        opQueue.addOperation(blockOp)
-        
-        opsAdded += 1
-        
-        blockOp.waitUntilFinished()
-        
-        opsFinished += 1
-        
-        return result!
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [ItemRemovalResult] {

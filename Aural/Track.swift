@@ -6,7 +6,8 @@ import AVFoundation
  */
 class Track: NSObject, PlaylistItem {
     
-    var nativelySupported: Bool
+    let playbackNativelySupported: Bool
+    let metadataNativelySupported: Bool
     
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?
@@ -36,7 +37,8 @@ class Track: NSObject, PlaylistItem {
     
     init(_ file: URL) {
         
-        self.nativelySupported = AudioUtils.isAudioFileNativelySupported(file)
+        self.playbackNativelySupported = AudioUtils.isAudioFilePlaybackNativelySupported(file)
+        self.metadataNativelySupported = MetadataUtils.isFileMetadataNativelySupported(file)
         
         self.fileSystemInfo = FileSystemInfo(file)
         self.displayInfo = DisplayInfo(file)
@@ -66,6 +68,27 @@ class Track: NSObject, PlaylistItem {
     
     func setDuration(_ duration: Double) {
         displayInfo.duration = duration
+    }
+    
+    func setPrimaryMetadata(_ artist: String?, _ title: String?, _ album: String?, _ genre: String?, _ duration: Double) {
+        
+        displayInfo.setMetadata(artist, title, nil)
+        
+        groupingInfo.artist = artist
+        groupingInfo.album = album
+        groupingInfo.genre = genre
+        
+        if duration > 0 {
+            displayInfo.duration = duration
+        }
+    }
+    
+    func setSecondaryMetadata(_ art: NSImage?, _ discNum: Int?, _ trackNum: Int?) {
+        
+        displayInfo.art = art
+        
+        groupingInfo.discNumber = discNum
+        groupingInfo.trackNumber = trackNum
     }
     
     // Sets all metadata used for display within the playlist and Now Playing box
@@ -210,7 +233,7 @@ class MetadataEntry {
     // Computes a user-friendly human-readable key, from the original format-specific key.
     // For example the ID3 tag "TALB" is formatted to "Album Name".
     func formattedKey() -> String {
-        return MetadataReader.formattedKey(self)
+        return MetadataUtils.formattedKey(self)
     }
 }
 

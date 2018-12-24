@@ -39,7 +39,7 @@ protocol GroupingPlaylistAccessorProtocol {
 protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Adds a single track to the playlist, and returns its location within the playlist.
-    func addTrack(_ track: Track) -> GroupedTrackAddResult
+    func addTrack(_ track: Track)
     
     /*
         Given a set of tracks and groups, removes them from the playlist. Removal of all tracks within a group will result in the removal of the group. Removal of a group will result in the removal of all its child tracks.

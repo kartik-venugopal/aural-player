@@ -328,9 +328,15 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-        DispatchQueue.main.async {
+        
+//        DispatchQueue.main.async {
+        
+//            NSLog("Playlist VC:")
             self.playlistView.noteNumberOfRowsChanged()
-        }
+            
+//            let i: Int = self.playlistView.numberOfRows - 1
+//            self.playlistView.reloadData(forRowIndexes: IndexSet([i]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+//        }
     }
     
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
@@ -338,7 +344,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         DispatchQueue.main.async {
             
             // NOTE - In the future, if gap info is updated, also need to update row height
-            self.playlistView.reloadData(forRowIndexes: IndexSet(integer: message.trackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            let updatedTrackIndex = self.playlist.indexOfTrack(message.track)!.index
+            self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
