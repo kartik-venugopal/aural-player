@@ -301,16 +301,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups
     }
     
-    func groupTrack(_ track: Track) -> [GroupType: GroupedTrackAddResult] {
-        
+    func groupTrack(_ track: Track) {
+
         // Add the track to each of the grouping playlists
-        var groupingResults = [GroupType: GroupedTrackAddResult]()
-        
-        // Add the track to each of the grouping playlists
-        groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
-        
-        // Return the results of the add operation
-        return groupingResults
+        groupingPlaylists.values.forEach({$0.addTrack(track)})
     }
     
     func allGroupingInfoForTrack(_ track: Track) -> [GroupType : GroupedTrack] {

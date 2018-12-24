@@ -100,23 +100,10 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .trackInfoUpdated
     
     // The index of the track that has been updated
-    let trackIndex: Int
+    let track: Track
     
-    let groupInfo: [GroupType: GroupedTrack]
-    
-    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrack]) {
-        
-        self.trackIndex = trackIndex
-        self.groupInfo = groupInfo
-    }
-    
-    // Factory method
-    static func fromTrackAddResult(_ result: TrackAddResult) -> TrackUpdatedAsyncMessage {
-        
-        var groupInfo = [GroupType: GroupedTrack]()
-        result.groupingPlaylistResults.forEach({groupInfo[$0.key] = $0.value.track})
-        
-        return TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo)
+    init(_ track: Track) {
+        self.track = track
     }
 }
 

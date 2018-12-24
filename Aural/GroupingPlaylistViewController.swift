@@ -610,8 +610,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
-        if let track = playlist.trackAtIndex(message.trackIndex), let groupInfo = playlist.groupingInfoForTrack(self.groupType, track.track) {
-        
+        let track = message.track
+        if let groupInfo = playlist.groupingInfoForTrack(self.groupType, track) {
+            
             // Reload the parent group and the track
             self.playlistView.reloadItem(groupInfo.group, reloadChildren: false)
             self.playlistView.reloadItem(groupInfo.track)

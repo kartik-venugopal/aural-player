@@ -17,10 +17,10 @@ class AlbumArtManager {
             return track.track.displayInfo.art
         }
         
-        if let img = MetadataReader.loadArtworkForFile(file) {
-            cache[file] = img
-            return img
-        }
+//        if let img = MetadataUtils.loadArtworkForFile(file) {
+//            cache[file] = img
+//            return img
+//        }
         
         return nil
     }

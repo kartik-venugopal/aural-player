@@ -16,7 +16,7 @@ class AudioUtils {
         
         let fileExtension = track.file.pathExtension.lowercased()
         
-        if !track.nativelySupported || fileExtension == "flac" {
+        if !track.playbackNativelySupported || fileExtension == "flac" {
             
             if track.libAVInfo == nil {
                 track.libAVInfo = FFMpegWrapper.getMetadata(track)
@@ -70,7 +70,7 @@ class AudioUtils {
     // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
     static func loadPlaybackInfo(_ track: Track) {
         
-        if !track.nativelySupported {
+        if !track.playbackNativelySupported {
             
             // Transcode the track and let the transcoder prepare the track for playback
             track.lazyLoadingInfo.needsTranscoding = true
@@ -93,7 +93,7 @@ class AudioUtils {
             track.playbackInfo = playbackInfo
             track.lazyLoadingInfo.preparedForPlayback = true
             
-            if !track.nativelySupported {
+            if !track.playbackNativelySupported {
                 
                 let stream = track.libAVInfo!.stream!
                 
@@ -117,7 +117,7 @@ class AudioUtils {
         
         let fileExtension = track.file.pathExtension.lowercased()
         
-        if !track.nativelySupported || fileExtension == "flac" {
+        if !track.playbackNativelySupported || fileExtension == "flac" {
 
             audioInfo.format = track.libAVInfo!.audioFormat
             
@@ -166,7 +166,7 @@ class AudioUtils {
         return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     
-    static func isAudioFileNativelySupported(_ file: URL) -> Bool {
+    static func isAudioFilePlaybackNativelySupported(_ file: URL) -> Bool {
         return AppConstants.SupportedTypes.nativeAudioExtensions.contains(file.pathExtension.lowercased())
     }
 }

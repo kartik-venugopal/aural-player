@@ -54,12 +54,12 @@ class Favorite: StringKeyedItem, PlayableItem {
         // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
         
          // TODO: Temporarily disabled
-        DispatchQueue.global(qos: .background).async {
-
-            if let art = MetadataReader.loadArtworkForFile(self.file) {
-                self.art = art.copy() as! NSImage
-            }
-        }
+//        DispatchQueue.global(qos: .background).async {
+//
+//            if let art = MetadataUtils.loadArtworkForFile(self.file) {
+//                self.art = art.copy() as! NSImage
+//            }
+//        }
     }
     
     func validateFile() -> Bool {

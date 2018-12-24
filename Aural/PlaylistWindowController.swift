@@ -172,7 +172,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             // If this is the playing track, tell other views that info has been updated
             let playingTrackIndex = self.playbackInfo.playingTrack?.index
-            if (playingTrackIndex == message.trackIndex) {
+            let updatedTrackIndex = self.playlist.indexOfTrack(message.track)!.index
+            
+            if (playingTrackIndex == updatedTrackIndex) {
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
