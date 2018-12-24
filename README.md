@@ -6,6 +6,18 @@
 
 Aural Player is an audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with some sound tuning capabilities for audio enthusiasts.
 
+### What it is:
+* A simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible
+* (I hope) A decent macOS alternative for Winamp (you be the judge).
+
+### What it is not (at the moment):
+* A streaming audio player that connects to internet radio stations/services
+* A scrobbler
+
+### How Aural Player came to be
+
+A lifelong lover and user of Winamp on Windows, I started using my Mac computer a lot more and was looking for a simple audio player like Winamp to play local files that had an equalizer. Astonishingly, I found none (and let's not even talk about iTunes) that matched the simplicity I was looking for. So, having never done any macOS programming before, I saw an opportunity to learn to do that, and here we are :)
+
 ## Download
 
 Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
@@ -98,6 +110,14 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
       * Configure the increment/decrement for volume/pan and effects unit adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
       * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
+      
+## Planned updates
+
+- Support for more audio file types (e.g FLAC, WMA, OGG Vorbis) ... **Work in progress !**
+- A new parametric equalizer allowing specification of center frequency and bandwidth per band
+- A new status bar player mode
+- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+- New color schemes
 
 ## Screenshots
 
@@ -182,20 +202,8 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
 
-## Planned updates
-
-- Support for more audio file types (e.g FLAC, WMA, OGG Vorbis) ... **Work in progress !**
-- A new parametric equalizer allowing specification of center frequency and bandwidth per band
-- A new status bar player mode
-- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
-- New color schemes
-
 ## Third party code and contributor attributions
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
 Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant contributions towards this project - performance optimizations, UX improvements, etc.
-
-## Background
-
-Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the macOS platform. No feature bloat or unnecessary annoyances like iTunes.
