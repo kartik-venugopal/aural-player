@@ -328,15 +328,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-        
-//        DispatchQueue.main.async {
-        
-//            NSLog("Playlist VC:")
+        DispatchQueue.main.async {
             self.playlistView.noteNumberOfRowsChanged()
-            
-//            let i: Int = self.playlistView.numberOfRows - 1
-//            self.playlistView.reloadData(forRowIndexes: IndexSet([i]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-//        }
+        }
     }
     
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {

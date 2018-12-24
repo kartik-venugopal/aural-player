@@ -53,7 +53,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -62,7 +62,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -585,23 +585,21 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
-    private func trackGrouped(_ msg: TrackGroupedNotification) {
+    private func trackGrouped(_ msg: TrackAddedAsyncMessage) {
         
-        let grouping = msg.grouping
-        
-        if self.groupType == grouping.group.type {
+        if let grouping = msg.groupInfo[self.groupType] {
             
-            if msg.groupCreated {
+            if grouping.groupCreated {
                 
                 // Insert the new group
-                self.playlistView.insertItems(at: IndexSet(integer: grouping.groupIndex), inParent: nil, withAnimation: .effectFade)
+                self.playlistView.insertItems(at: IndexSet(integer: grouping.track.groupIndex), inParent: nil, withAnimation: .effectFade)
                 
             } else {
                 
                 // Insert the new track under its parent group, and reload the parent group
-                let group = grouping.group
+                let group = grouping.track.group
                 
-                self.playlistView.insertItems(at: IndexSet(integer: grouping.trackIndex), inParent: group, withAnimation: .effectGap)
+                self.playlistView.insertItems(at: IndexSet(integer: grouping.track.trackIndex), inParent: group, withAnimation: .effectGap)
                 self.playlistView.reloadItem(group)
             }
         }
@@ -822,6 +820,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         switch message.messageType {
             
+        case .trackAdded:
+            
+            trackGrouped(message as! TrackAddedAsyncMessage)
+            
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
@@ -860,9 +862,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             gapUpdated(notification as! PlaybackGapUpdatedNotification)
             
-        case .trackGroupedNotification:
-
-            trackGrouped(notification as! TrackGroupedNotification)
+//        case .trackGroupedNotification:
+//
+//            trackGrouped(notification as! TrackGroupedNotification)
             
         default: return
             
