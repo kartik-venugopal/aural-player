@@ -70,4 +70,12 @@ class History: HistoryProtocol {
         recentlyAddedItems.clear()
         recentlyPlayedItems.clear()
     }
+    
+    func deleteItem(_ item: PlayedItem) {
+        recentlyPlayedItems.remove(item)
+    }
+    
+    func deleteItem(_ item: AddedItem) {
+        recentlyAddedItems.remove(item)
+    }
 }

@@ -122,6 +122,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 self.trackUpdateQueue.waitUntilAllOperationsAreFinished()
                 
+                self.addedTracks.removeAll()
+                
                 print("\n")
                 NSLog("All done !")
             })

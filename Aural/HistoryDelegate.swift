@@ -45,13 +45,19 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         return history.allRecentlyPlayedItems()
     }
     
-    func addItem(_ item: URL) {
+    func addItem(_ item: URL) throws {
+        
+        if !FileSystemUtils.fileExists(item) {
+            throw FileNotFoundError(item)
+        }
+        
         playlist.addFiles([item])
     }
     
-    func playItem(_ item: URL, _ playlistType: PlaylistType) {
+    func playItem(_ item: URL, _ playlistType: PlaylistType) throws {
         
         do {
+            
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(item)
             
@@ -60,11 +66,21 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
             
         } catch let error {
             
-            // TODO: Handle FileNotFoundError
             if let fnfError = error as? FileNotFoundError {
+                
+                // Log and rethrow error
                 NSLog("Unable to play History item. Details: %@", fnfError.message)
+                throw fnfError
             }
         }
+    }
+    
+    func deleteItem(_ item: PlayedItem) {
+        history.deleteItem(item)
+    }
+    
+    func deleteItem(_ item: AddedItem) {
+        history.deleteItem(item)
     }
     
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {

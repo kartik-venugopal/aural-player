@@ -129,28 +129,52 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     
     // When a "Recently added" menu item is clicked, the item is added to the playlist
     @IBAction fileprivate func addSelectedItemAction(_ sender: HistoryMenuItem) {
-        history.addItem(sender.historyItem.file)
+        
+        if let item = sender.historyItem as? AddedItem {
+            
+            do {
+                
+                try history.addItem(item.file)
+                
+            } catch let error {
+                
+                if let fnfError = error as? FileNotFoundError {
+                    
+                    // This needs to be done async. Otherwise, other open dialogs could hang.
+                    DispatchQueue.main.async {
+                        
+                        // Position and display an alert with error info
+                        _ = UIUtils.showAlert(DialogsAndAlerts.historyItemNotAddedAlertWithError(fnfError, "Remove item from history"))
+                        self.history.deleteItem(item)
+                    }
+                }
+            }
+        }
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
         
-//        let item = sender.historyItem!
-//        
-//        if item.validateFile() {
-        
-            history.playItem(sender.historyItem!.file, PlaylistViewState.current)
+        if let item = sender.historyItem as? PlayedItem {
             
-//        } else {
-//            
-//            // Display an error alert
-//            
-//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(item.file), "Ok"))
-//            
-//            // TODO: Remove from Recently Played list (add function to HistoryDelegate)
-//            
-//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
-//        }
+            do {
+                
+                try history.playItem(item.file, PlaylistViewState.current)
+                
+            } catch let error {
+                
+                if let fnfError = error as? FileNotFoundError {
+                    
+                    // This needs to be done async. Otherwise, other open dialogs could hang.
+                    DispatchQueue.main.async {
+                        
+                        // Position and display an alert with error info
+                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item"))
+                        self.history.deleteItem(item)
+                    }
+                }
+            }
+        }
     }
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
