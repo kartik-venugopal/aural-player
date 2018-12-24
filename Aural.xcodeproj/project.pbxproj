@@ -1595,8 +1595,8 @@
 		3EA2F8F321CF6D4F007D0264 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				3EA2F8F421CF6D88007D0264 /* MetadataReader.swift */,
 				3E582E7A1F6A5B440040A092 /* MetadataUtils.swift */,
+				3EA2F8F421CF6D88007D0264 /* MetadataReader.swift */,
 				3EA2F8F621D03B9A007D0264 /* AVAssetReader.swift */,
 				3EA2F8F821D03FC3007D0264 /* FFMpegReader.swift */,
 			);

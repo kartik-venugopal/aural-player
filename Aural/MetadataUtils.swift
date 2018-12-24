@@ -26,16 +26,12 @@ class MetadataUtils {
         
         let metadata: PrimaryMetadata = track.metadataNativelySupported ? avAssetReader.getPrimaryMetadata(track) : ffMpegReader.getPrimaryMetadata(track)
         track.setPrimaryMetadata(metadata.artist, metadata.title, metadata.album, metadata.genre, metadata.duration)
-        
-        track.lazyLoadingInfo.primaryMetadataLoaded = true
     }
     
     static func loadSecondaryMetadata(_ track: Track) {
         
         let metadata: SecondaryMetadata = track.metadataNativelySupported ? avAssetReader.getSecondaryMetadata(track) : ffMpegReader.getSecondaryMetadata(track)
         track.setSecondaryMetadata(metadata.art, metadata.discNum, metadata.trackNum)
-        
-        track.lazyLoadingInfo.secondaryMetadataLoaded = true
     }
     
     static func loadArt(_ track: Track) {
@@ -47,13 +43,12 @@ class MetadataUtils {
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
-        // TODO
-        
-        if !isFileMetadataNativelySupported(track.file) {
-        } else {
-        }
-        
-        track.lazyLoadingInfo.allMetadataLoaded = true
+        let metadata = isFileMetadataNativelySupported(track.file) ? avAssetReader.getAllMetadata(track) : ffMpegReader.getAllMetadata(track)
+        track.metadata = metadata
+    }
+    
+    static func durationForFile(_ file: URL) -> Double {
+        return isFileMetadataNativelySupported(file) ? avAssetReader.getDurationForFile(file) : ffMpegReader.getDurationForFile(file)
     }
     
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
@@ -74,23 +69,6 @@ class MetadataUtils {
             
         }
     }
-    
-//    // Loads art for a given file (used by bookmarks)
-//    static func loadArtworkForFile(_ file: URL) -> NSImage? {
-//
-//        if let track = playlist.findFile(file) {
-//            return track.track.displayInfo.art
-//        }
-//
-//        if !isFileMetadataNativelySupported(file) {
-//
-//            // TODO: Need to make this thread-safe and efficient
-////            return FFMpegWrapper.getArtwork(file)
-//            return nil
-//        } else {
-//            return getArtwork(AVURLAsset(url: file, options: nil))
-//        }
-//    }
     
     static func isFileMetadataNativelySupported(_ file: URL) -> Bool {
         

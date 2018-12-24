@@ -202,11 +202,10 @@ class LazyLoadingInfo {
     
     var needsTranscoding: Bool = false
     
-    var primaryMetadataLoaded: Bool = false
-    var secondaryMetadataLoaded: Bool = false
-    var allMetadataLoaded: Bool = false
+    var primaryInfoLoaded: Bool = false
+    var secondaryInfoLoaded: Bool = false
     
-    // Whether or not track metadata and audio/filesystem info has been loaded
+    // Whether or not optional track metadata and audio/filesystem info has been loaded
     var detailedInfoLoaded: Bool = false
     
     // Error info if track prep fails

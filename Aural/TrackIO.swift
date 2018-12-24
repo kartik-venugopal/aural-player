@@ -10,10 +10,12 @@ class TrackIO {
     // Load display metadata (artist/title/art and all grouping info)
     static func loadPrimaryInfo(_ track: Track) {
         MetadataUtils.loadPrimaryMetadata(track)
+        track.lazyLoadingInfo.primaryInfoLoaded = true
     }
     
     static func loadSecondaryInfo(_ track: Track) {
         MetadataUtils.loadSecondaryMetadata(track)
+        track.lazyLoadingInfo.secondaryInfoLoaded = true
     }
 
     // Load duration metadata
@@ -52,7 +54,7 @@ class TrackIO {
     static func prepareForPlayback(_ track: Track) {
         
         // Art
-        if !track.lazyLoadingInfo.secondaryMetadataLoaded {
+        if track.displayInfo.art == nil && !track.lazyLoadingInfo.secondaryInfoLoaded {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 

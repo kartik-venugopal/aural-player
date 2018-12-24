@@ -2,6 +2,8 @@ import Cocoa
 
 class FFMpegReader: MetadataReader {
     
+    private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
+    
     private func ensureTrackAssetLoaded(_ track: Track) {
         
         if track.libAVInfo == nil {
@@ -47,11 +49,24 @@ class FFMpegReader: MetadataReader {
         return FFMpegWrapper.getArt(file)
     }
     
-    func getAllMetadata() -> [String: String] {
-        return [:]
+    func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        let rawMetadata = track.libAVInfo!.metadata.filter({!genericMetadata_ignoreKeys.contains($0.key)})
+        
+        for (key, value) in rawMetadata {
+            
+            let capitalizedKey = key.capitalized
+            metadata[capitalizedKey] = MetadataEntry(.other, capitalizedKey, value)
+        }
+        
+        return metadata
     }
     
-    func getPlaybackInfo() -> PlaybackInfo {
-        return PlaybackInfo()
+    func getDurationForFile(_ file: URL) -> Double {
+        
+        // TODO (not needed yet)
+        return 0
     }
 }

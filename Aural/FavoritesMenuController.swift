@@ -63,8 +63,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         let menuItem = FavoritesMenuItem(title: "  " + item.name, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        if let img = AlbumArtManager.getArtForFile(item.file) {
-            menuItem.image = img.copy() as! NSImage
+        if let img = AlbumArtManager.getArtForFile(item.file), let imgCopy = img.copy() as? NSImage {
+            menuItem.image = imgCopy
         } else {
             menuItem.image = Images.imgPlayedTrack
         }
