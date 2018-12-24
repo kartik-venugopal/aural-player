@@ -9,7 +9,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     var subscriberId: String {return self.className}
     
     override func viewDidLoad() {
-        AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress, .transcodingCancelled, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     func transcodingStarted(_ track: Track) {
@@ -43,6 +43,10 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         theView.transcodingFinished()
     }
     
+    private func transcodingCancelled() {
+        transcodingFinished()
+    }
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -54,6 +58,10 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         case .transcodingProgress:
             
             transcodingProgress(message as! TranscodingProgressAsyncMessage)
+            
+        case .transcodingCancelled:
+            
+            transcodingCancelled()
             
         case .transcodingFinished:
             

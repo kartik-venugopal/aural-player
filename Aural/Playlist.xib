@@ -467,7 +467,7 @@
                 <outlet property="playGroupDelayedMenuItem" destination="0Iq-rK-reF" id="oIb-GL-Umt"/>
                 <outlet property="playGroupMenuItem" destination="FsK-Wf-m1z" id="nWG-FT-vqB"/>
                 <outlet property="playTrackDelayedMenuItem" destination="gko-SZ-rGu" id="OVY-q5-eSP"/>
-                <outlet property="playTrackMenuItem" destination="s9W-FB-XJa" id="1ar-9p-zIl"/>
+                <outlet property="playTrackMenuItem" destination="SK1-ql-k4b" id="UfO-D4-mdg"/>
                 <outlet property="removeGapsMenuItem" destination="9i8-3l-G5u" id="8hZ-9U-qrK"/>
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
