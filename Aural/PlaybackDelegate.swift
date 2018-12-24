@@ -92,6 +92,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareForTrackChange() {
         
+        // TODO: If transcoding, cancel it and stop(), before proceeding
+        
         let isPlayingOrPaused = state.playingOrPaused()
         
         let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
@@ -604,6 +606,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         stop()
     }
     
+    private func cancelTranscoding(_ track: Track) {
+        
+        transcoder.cancel(track)
+        stop()
+    }
+    
     private func removeLoop() {
         player.removeLoop()
     }
@@ -732,10 +740,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
     
-    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {
+    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
         if (playingTrackRemoved) {
-            stop()
+            
+            if state == .transcoding {
+                cancelTranscoding(removedPlayingTrack!)
+            } else {
+                stop()
+            }
         }
     }
     

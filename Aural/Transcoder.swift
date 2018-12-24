@@ -175,6 +175,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 
     func cancel(_ track: Track) {
         daemon.cancelTask(track)
+        AsyncMessenger.publishMessage(TranscodingCancelledAsyncMessage(track))
     }
     
     func checkDiskSpaceUsage() {
@@ -217,7 +218,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
     
     func trackNeedsTranscoding(_ track: Track) -> Bool {
-        return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
+        let needs = !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
+        print(track.conciseDisplayName, "needs", needs)
+        return needs
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

@@ -58,6 +58,8 @@ enum AsyncMessageType {
     
     case transcodingProgress
     
+    case transcodingCancelled
+    
     case transcodingFinished
 }
 
@@ -310,6 +312,16 @@ struct PlaybackGapStartedAsyncMessage: AsyncMessage {
 struct TranscodingStartedAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .transcodingStarted
+    let track: Track
+    
+    init(_ track: Track) {
+        self.track = track
+    }
+}
+
+struct TranscodingCancelledAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .transcodingCancelled
     let track: Track
     
     init(_ track: Track) {

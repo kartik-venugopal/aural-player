@@ -327,7 +327,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, playingTrack?.track)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
@@ -339,7 +339,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, playingTrack?.track)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
