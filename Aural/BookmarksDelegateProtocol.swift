@@ -19,5 +19,5 @@ protocol BookmarksDelegateProtocol {
     
     func bookmarkWithNameExists(_ name: String) -> Bool
     
-    func playBookmark(_ bookmark: Bookmark)
+    func playBookmark(_ bookmark: Bookmark) throws
 }

@@ -51,7 +51,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         return bookmarks.bookmarkWithNameExists(name)
     }
     
-    func playBookmark(_ bookmark: Bookmark) {
+    func playBookmark(_ bookmark: Bookmark) throws {
         
         do {
             // First, find or add the given file
@@ -63,9 +63,11 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
             
         } catch let error {
             
-            // TODO: Handle FileNotFoundError
             if let fnfError = error as? FileNotFoundError {
+                
+                // Log and rethrow error
                 NSLog("Unable to play Bookmark item. Details: %@", fnfError.message)
+                throw fnfError
             }
         }
     }

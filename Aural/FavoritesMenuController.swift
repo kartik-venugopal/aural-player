@@ -63,13 +63,21 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         let menuItem = FavoritesMenuItem(title: "  " + item.name, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        if let img = AlbumArtManager.getArtForFile(item.file), let imgCopy = img.copy() as? NSImage {
-            menuItem.image = imgCopy
-        } else {
-            menuItem.image = Images.imgPlayedTrack
+        menuItem.image = Images.imgPlayedTrack
+        menuItem.image?.size = Images.historyMenuItemImageSize
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            if let img = AlbumArtManager.getArtForFile(item.file), let imgCopy = img.copy() as? NSImage {
+                
+                DispatchQueue.main.async {
+                    
+                    imgCopy.size = Images.historyMenuItemImageSize
+                    menuItem.image = imgCopy
+                }
+            }
         }
         
-        menuItem.image?.size = Images.historyMenuItemImageSize
         menuItem.favorite = item
         
         return menuItem
@@ -93,22 +101,25 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     // When a "Favorites" menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: FavoritesMenuItem) {
         
-//        let fav = sender.favorite!
-//        
-//        if fav.validateFile() {
+        let fav = sender.favorite!
         
-            favorites.playFavorite(sender.favorite!)
+        do {
             
-//        } else {
-//            
-//            // Display an error alert
-//            
-//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(fav.file), "Remove track from Favorites list"))
-//            
-//            favorites.deleteFavoriteWithFile(fav.file)
-//            
-//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
-//        }
+            try favorites.playFavorite(fav)
+            
+        } catch let error {
+            
+            if let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite"))
+                    self.favorites.deleteFavoriteWithFile(fav.file)
+                }
+            }
+        }
     }
     
     // Opens the editor to manage favorites

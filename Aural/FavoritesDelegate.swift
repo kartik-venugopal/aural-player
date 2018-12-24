@@ -65,7 +65,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         return favorites.favoriteWithPathExists(file.path)
     }
     
-    func playFavorite(_ favorite: Favorite) {
+    func playFavorite(_ favorite: Favorite) throws {
         
         do {
             // First, find or add the given file
@@ -78,7 +78,10 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
             
             // TODO: Handle FileNotFoundError
             if let fnfError = error as? FileNotFoundError {
+                
+                // Log and rethrow error
                 NSLog("Unable to play Favorites item. Details: %@", fnfError.message)
+                throw fnfError
             }
         }
     }
