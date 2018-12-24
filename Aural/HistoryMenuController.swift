@@ -74,8 +74,17 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        menuItem.image = artForFile(item.file)
-        menuItem.image?.size = Images.historyMenuItemImageSize
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            let art = self.artForFile(item.file)
+            
+            DispatchQueue.main.async {
+                
+                menuItem.image = art
+                menuItem.image?.size = Images.historyMenuItemImageSize
+            }
+        }
+        
         menuItem.historyItem = item
         
         return menuItem

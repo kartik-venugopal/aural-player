@@ -67,7 +67,27 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     @IBAction func playSelectedBookmarkAction(_ sender: AnyObject) {
         
         if editorView.numberOfSelectedRows == 1 {
-            bookmarks.playBookmark(bookmarks.getBookmarkAtIndex(editorView.selectedRow))
+            
+            let bookmark = bookmarks.getBookmarkAtIndex(editorView.selectedRow)
+            
+            do {
+
+                try bookmarks.playBookmark(bookmark)
+                
+            } catch let error {
+                
+                if let fnfError = error as? FileNotFoundError {
+                    
+                    // This needs to be done async. Otherwise, other open dialogs could hang.
+                    DispatchQueue.main.async {
+                        
+                        // Position and display an alert with error info
+                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark"))
+                        self.bookmarks.deleteBookmarkWithName(bookmark.name)
+                        self.editorView.reloadData()
+                    }
+                }
+            }
         }
     }
     

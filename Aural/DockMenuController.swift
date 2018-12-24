@@ -126,7 +126,26 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     }
     
     @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
-        favorites.playFavorite(sender.favorite)
+        
+        let fav = sender.favorite!
+        
+        do {
+            
+            try favorites.playFavorite(fav)
+            
+        } catch let error {
+            
+            if let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite"))
+                    self.favorites.deleteFavoriteWithFile(fav.file)
+                }
+            }
+        }
     }
     
     // Pauses or resumes playback

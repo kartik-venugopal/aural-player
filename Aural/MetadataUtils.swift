@@ -51,6 +51,10 @@ class MetadataUtils {
         return isFileMetadataNativelySupported(file) ? avAssetReader.getDurationForFile(file) : ffMpegReader.getDurationForFile(file)
     }
     
+    static func artForFile(_ file: URL) -> NSImage? {
+        return isFileMetadataNativelySupported(file) ? avAssetReader.getArt(file) : ffMpegReader.getArt(file)
+    }
+    
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
     static func formattedKey(_ entry: MetadataEntry) -> String {
         

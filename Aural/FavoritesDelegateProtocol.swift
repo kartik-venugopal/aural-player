@@ -20,5 +20,5 @@ protocol FavoritesDelegateProtocol {
     
     func favoriteWithFileExists(_ file: URL) -> Bool
     
-    func playFavorite(_ favorite: Favorite)
+    func playFavorite(_ favorite: Favorite) throws
 }

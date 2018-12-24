@@ -59,13 +59,21 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         let menuItem = BookmarksMenuItem(title: "  " + bookmark.name, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        if let img = AlbumArtManager.getArtForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
-            menuItem.image = imgCopy
-        } else {
-            menuItem.image = Images.imgPlayedTrack
+        menuItem.image = Images.imgPlayedTrack
+        menuItem.image?.size = Images.historyMenuItemImageSize
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            if let img = AlbumArtManager.getArtForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
+                
+                DispatchQueue.main.async {
+                    
+                    imgCopy.size = Images.historyMenuItemImageSize
+                    menuItem.image = imgCopy
+                }
+            }
         }
         
-        menuItem.image?.size = Images.historyMenuItemImageSize
         menuItem.bookmark = bookmark
         
         return menuItem
@@ -84,21 +92,25 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     // When a bookmark menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: BookmarksMenuItem) {
         
-//        let bookmark = sender.bookmark!
-//        
-//        if bookmark.validateFile() {
-        
-            bookmarks.playBookmark(sender.bookmark!)
+        do {
             
-//        } else {
-//            
-//            // Display an error alert
-//            
-//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(bookmark.file), "Remove bookmark"))
-//            bookmarks.deleteBookmarkWithName(bookmark.name)
-//            
-//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
-//        }
+            try bookmarks.playBookmark(sender.bookmark!)
+            
+        } catch let error {
+            
+            if let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark"))
+                    self.bookmarks.deleteBookmarkWithName(sender.bookmark.name)
+                }
+            }
+        }
+        
+        // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {

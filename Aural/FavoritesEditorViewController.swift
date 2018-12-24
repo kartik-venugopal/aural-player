@@ -73,7 +73,25 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         if editorView.numberOfSelectedRows == 1 {
             
             let fav = favorites.getFavoriteAtIndex(editorView.selectedRow)
-            favorites.playFavorite(fav)
+            
+            do {
+                
+                try favorites.playFavorite(fav)
+                
+            } catch let error {
+                
+                if let fnfError = error as? FileNotFoundError {
+                    
+                    // This needs to be done async. Otherwise, other open dialogs could hang.
+                    DispatchQueue.main.async {
+                        
+                        // Position and display an alert with error info
+                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite"))
+                        self.favorites.deleteFavoriteWithFile(fav.file)
+                        self.editorView.reloadData()
+                    }
+                }
+            }
         }
     }
     
