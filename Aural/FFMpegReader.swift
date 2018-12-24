@@ -17,10 +17,10 @@ class FFMpegReader: MetadataReader {
         
         let libAVInfo = track.libAVInfo!
         
-        let artist = libAVInfo.metadata["artist"]
-        let title = libAVInfo.metadata["title"]
-        let album = libAVInfo.metadata["album"]
-        let genre = libAVInfo.metadata["genre"]
+        let artist = libAVInfo.metadata["artist"]?.trim()
+        let title = libAVInfo.metadata["title"]?.trim()
+        let album = libAVInfo.metadata["album"]?.trim()
+        let genre = libAVInfo.metadata["genre"]?.trim()
         
         let duration = libAVInfo.duration
         

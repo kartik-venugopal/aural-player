@@ -60,7 +60,7 @@ class FFMpegWrapper {
         }
         
         var format: String?
-        var bitRate: Double = 128
+        var bitRate: Double?
         var channelCount: Int = 2
         var sampleRate: Double = 44100
         
@@ -69,7 +69,7 @@ class FFMpegWrapper {
         }
         
         if let bitRateStr = map.removeValue(forKey: "bit_rate"), let num = Double(bitRateStr) {
-            bitRate = num
+            bitRate = num / 1024
         }
         
         if let channelCountStr = map.removeValue(forKey: "channels"), let count = Int(channelCountStr) {

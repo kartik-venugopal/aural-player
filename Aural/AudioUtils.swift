@@ -137,7 +137,7 @@ class AudioUtils {
             } else {
             
                 let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-                audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
+                audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
             }
             
         } else {
@@ -146,16 +146,16 @@ class AudioUtils {
             audioInfo.format = getFormat(assetTracks.first!)
             
             let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-            audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
+            audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
         }
         
         track.audioInfo = audioInfo
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
-    private static func normalizeBitRate(_ rate: Double) -> Int {
-        return Int(round(rate/32)) * 32
-    }
+//    private static func normalizeBitRate(_ rate: Double) -> Int {
+//        return Int(round(rate/32)) * 32
+//    }
     
     // Computes a readable format string for an audio track
     private static func getFormat(_ assetTrack: AVAssetTrack) -> String {

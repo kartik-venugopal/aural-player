@@ -76,10 +76,10 @@ class AVAssetReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let title = getMetadataForId(track.audioAsset!, commonId_title)
-        let artist = getMetadataForId(track.audioAsset!, commonId_artist)
-        let album = getMetadataForId(track.audioAsset!, commonId_album)
-        let genre = getMetadataForId(track.audioAsset!, commonId_genre)
+        let title = getMetadataForId(track.audioAsset!, commonId_title)?.trim()
+        let artist = getMetadataForId(track.audioAsset!, commonId_artist)?.trim()
+        let album = getMetadataForId(track.audioAsset!, commonId_album)?.trim()
+        let genre = getMetadataForId(track.audioAsset!, commonId_genre)?.trim()
         
         let duration = getDuration(track)
         
