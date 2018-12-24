@@ -26,6 +26,8 @@ struct DialogsAndAlerts {
     // Used to inform the user that a certain track cannot be played back
     private static let trackNotPlayedAlert: NSAlert = DialogsAndAlerts.createTrackNotPlayedAlert()
     
+    private static let historyItemNotAddedAlert: NSAlert = DialogsAndAlerts.createHistoryItemNotAddedAlert()
+    
     // Used to warn the user that certain files were not added to the playlist
     private static let tracksNotAddedAlert: NSAlert = DialogsAndAlerts.createTracksNotAddedAlert()
     
@@ -179,6 +181,34 @@ struct DialogsAndAlerts {
         let alert = trackNotPlayedAlert
         
         alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
+        alert.informativeText = error.message
+        
+        if let msg = actionMessage {
+            alert.buttons[0].title = msg
+        }
+        
+        return alert
+    }
+    
+    private static func createHistoryItemNotAddedAlert() -> NSAlert {
+        
+        let alert = NSAlert()
+        
+        alert.window.title = "History item not found"
+        
+        alert.alertStyle = .warning
+        alert.icon = Images.imgError
+        
+        alert.addButton(withTitle: "Remove item from history")
+        
+        return alert
+    }
+    
+    static func historyItemNotAddedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
+        
+        let alert = historyItemNotAddedAlert
+        
+        alert.messageText = String(format: "The item '%@' cannot be added to the playlist !", error.file.lastPathComponent)
         alert.informativeText = error.message
         
         if let msg = actionMessage {

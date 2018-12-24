@@ -8,9 +8,10 @@ import Cocoa
         - No actions are directly handled by this class. Action messages are published to other app components that are responsible for these functions.
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
- 
  */
 class DockMenuController: NSObject, AsyncMessageSubscriber {
+    
+    // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     
     // Menu items whose states are toggled when they (or others) are clicked
     
@@ -122,7 +123,27 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
     @IBAction func playSelectedHistoryItemAction(_ sender: HistoryMenuItem) {
-        history.playItem(sender.historyItem.file, PlaylistViewState.current)
+        
+        if let item = sender.historyItem as? PlayedItem {
+            
+            do {
+                
+                try history.playItem(item.file, PlaylistViewState.current)
+                
+            } catch let error {
+                
+                if let fnfError = error as? FileNotFoundError {
+                    
+                    // This needs to be done async. Otherwise, other open dialogs could hang.
+                    DispatchQueue.main.async {
+                        
+                        // Position and display an alert with error info
+                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item"))
+                        self.history.deleteItem(item)
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {

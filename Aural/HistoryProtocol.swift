@@ -30,4 +30,8 @@ protocol HistoryProtocol {
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int)
     
     func clearAllHistory()
+    
+    func deleteItem(_ item: PlayedItem)
+    
+    func deleteItem(_ item: AddedItem)
 }
