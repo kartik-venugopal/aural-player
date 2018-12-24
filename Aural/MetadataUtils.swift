@@ -45,6 +45,12 @@ class MetadataUtils {
         }
     }
     
+    static func loadArt(_ track: Track) {
+        
+        let art = avAssetReader.getArt(track)
+        track.displayInfo.art = art
+    }
+    
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         

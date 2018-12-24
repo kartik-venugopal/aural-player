@@ -51,6 +51,10 @@ class TrackIO {
     // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
+        if track.displayInfo.art == nil {
+            MetadataUtils.loadArt(track)
+        }
+        
         let lazyLoadInfo = track.lazyLoadingInfo
         
         if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {

@@ -66,7 +66,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             let groupIndex = indexOfGroup(group)
             
-            // Track may not have been added to group yet
+            // Track may not have been added to group yet, or track may have been removed from playlist
             if let trackIndex = group.indexOfTrack(track) {
                 return GroupedTrack(track, group, trackIndex, groupIndex)
             }
