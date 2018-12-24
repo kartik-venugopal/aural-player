@@ -152,32 +152,28 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let track = Track(file)
         
         // Non-nil result indicates success
-        let result = playlist.addTrack(track)!
-//
-//        // Add gaps around this track (persistent ones)
-//        let gapsForTrack = playlistState.getGapsForTrack(track)
-//        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
-//
-//        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-//        playlistState.removeGapsForTrack(track)
-//
-//        // Metadata
-//        TrackIO.loadPrimaryInfo(track)
-//
-//        let groupingResults = self.playlist.groupTrack(track)
-//
-//        trackUpdateQueue.addOperation {
-//
-//            // Duration
-//            TrackIO.loadSecondaryInfo(track)
-//            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-//        }
-//
-//        // Notify change listeners
-//        self.changeListeners.forEach({$0.tracksAdded([result])})
-//        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+        let index = playlist.addTrack(track)!
+
+        // Add gaps around this track (persistent ones)
+        let gapsForTrack = playlistState.getGapsForTrack(track)
+        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
+
+        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+        playlistState.removeGapsForTrack(track)
+
+        // Metadata
+        TrackIO.loadPrimaryInfo(track)
         
-        return IndexedTrack(track, result)
+        // Art
+        TrackIO.loadSecondaryInfo(track)
+
+        let groupingResults = self.playlist.groupTrack(track, index, TrackAddedMessageProgress(1, 1))
+
+        // Notify change listeners
+        self.changeListeners.forEach({$0.tracksAdded([TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)])})
+        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+        
+        return IndexedTrack(track, index)
     }
     
     /*
