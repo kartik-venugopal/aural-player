@@ -40,6 +40,10 @@ class AudioUtils {
                 track.audioAsset = AVURLAsset(url: track.file, options: nil)
             }
             
+            if track.audioAsset!.hasProtectedContent {
+                return DRMProtectionError(track)
+            }
+            
             let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaType.audio)
             
             // Check if the asset has any audio tracks

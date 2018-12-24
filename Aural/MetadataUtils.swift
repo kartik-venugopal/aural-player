@@ -9,6 +9,7 @@ class MetadataUtils {
     private static let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     private static let avAssetReader: AVAssetReader = AVAssetReader()
+    private static let ffMpegReader: FFMpegReader = FFMpegReader()
     
     private static let secondaryMetadataLoadingQueue: OperationQueue = {
         
@@ -23,45 +24,36 @@ class MetadataUtils {
     // Loads the required display metadata (artist/title/art) for a track
     static func loadPrimaryMetadata(_ track: Track) {
         
-        if track.metadataNativelySupported {
-            
-            let metadata = avAssetReader.getPrimaryMetadata(track)
-            track.setPrimaryMetadata(metadata.artist, metadata.title, metadata.album, metadata.genre, metadata.duration)
-
-        } else {
-            
-        }
+        let metadata: PrimaryMetadata = track.metadataNativelySupported ? avAssetReader.getPrimaryMetadata(track) : ffMpegReader.getPrimaryMetadata(track)
+        track.setPrimaryMetadata(metadata.artist, metadata.title, metadata.album, metadata.genre, metadata.duration)
+        
+        track.lazyLoadingInfo.primaryMetadataLoaded = true
     }
     
     static func loadSecondaryMetadata(_ track: Track) {
         
-        if track.metadataNativelySupported {
-            
-            let metadata = avAssetReader.getSecondaryMetadata(track)
-            track.setSecondaryMetadata(metadata.art, metadata.discNum, metadata.trackNum)
-            
-        } else {
-            
-        }
+        let metadata: SecondaryMetadata = track.metadataNativelySupported ? avAssetReader.getSecondaryMetadata(track) : ffMpegReader.getSecondaryMetadata(track)
+        track.setSecondaryMetadata(metadata.art, metadata.discNum, metadata.trackNum)
+        
+        track.lazyLoadingInfo.secondaryMetadataLoaded = true
     }
     
     static func loadArt(_ track: Track) {
         
-        let art = avAssetReader.getArt(track)
+        let art = track.metadataNativelySupported ? avAssetReader.getArt(track) : ffMpegReader.getArt(track)
         track.displayInfo.art = art
     }
     
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
+        // TODO
+        
         if !isFileMetadataNativelySupported(track.file) {
-            
-           
-            
         } else {
-            
-            
         }
+        
+        track.lazyLoadingInfo.allMetadataLoaded = true
     }
     
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
@@ -114,40 +106,4 @@ enum MetadataType: String {
     case iTunes
     case id3
     case other
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVMetadataKey(_ input: AVMetadataKey) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToAVMetadataIdentifier(_ input: String) -> AVMetadataIdentifier {
-	return AVMetadataIdentifier(rawValue: input)
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVMetadataFormatArray(_ input: [AVMetadataFormat]) -> [String] {
-	return input.map { key in key.rawValue }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVMetadataFormat(_ input: AVMetadataFormat) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToAVMetadataFormat(_ input: String) -> AVMetadataFormat {
-	return AVMetadataFormat(rawValue: input)
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromOptionalAVMetadataKey(_ input: AVMetadataKey?) -> String? {
-	guard let input = input else { return nil }
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToAVMetadataKeySpace(_ input: String) -> AVMetadataKeySpace {
-	return AVMetadataKeySpace(rawValue: input)
 }
