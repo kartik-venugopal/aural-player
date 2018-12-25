@@ -67,6 +67,15 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
     
     func transcodeInBackground(_ track: Track) {
+        
+        if let prepError = AudioUtils.validateTrack(track) {
+            
+            // Note any error encountered
+            track.lazyLoadingInfo.preparationFailed(prepError)
+            AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, prepError))
+            return
+        }
+        
         doTranscode(track, true)
     }
     

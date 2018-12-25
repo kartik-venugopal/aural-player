@@ -5,28 +5,28 @@ import Cocoa
 */
 struct DialogsAndAlerts {
     
+    // TODO: Reuse some of these alerts/panels
+    
     // Used to add tracks/playlists
-    static let openDialog: NSOpenPanel = DialogsAndAlerts.createOpenDialog()
+    static let openDialog: NSOpenPanel = createOpenDialog()
     
     // Used to load a single playlist file (on startup)
-    static let openPlaylistDialog: NSOpenPanel = DialogsAndAlerts.createOpenPlaylistDialog()
+    static let openPlaylistDialog: NSOpenPanel = createOpenPlaylistDialog()
     
     // Used to load a single playlist file (on startup)
-    static let openFolderDialog: NSOpenPanel = DialogsAndAlerts.createOpenFolderDialog()
+    static let openFolderDialog: NSOpenPanel = createOpenFolderDialog()
     
     // Used to save current playlist to a file
-    static let savePlaylistDialog: NSSavePanel = DialogsAndAlerts.createSavePlaylistDialog()
+    static let savePlaylistDialog: NSSavePanel = createSavePlaylistDialog()
     
     // Used to save a recording to a file
-    private static let saveRecordingDialog: NSSavePanel = DialogsAndAlerts.createSaveRecordingDialog()
+    private static let saveRecordingDialog: NSSavePanel = createSaveRecordingDialog()
     
     // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
-    static let saveRecordingAlert: NSAlert = DialogsAndAlerts.createSaveRecordingAlert()
+    static let saveRecordingAlert: NSAlert = createSaveRecordingAlert()
     
-    // Used to inform the user that a certain track cannot be played back
-    private static let trackNotPlayedAlert: NSAlert = DialogsAndAlerts.createTrackNotPlayedAlert()
-    
-    private static let historyItemNotAddedAlert: NSAlert = DialogsAndAlerts.createHistoryItemNotAddedAlert()
+    // Used to inform the user of an error condition
+    private static let errorAlert: NSAlert = createErrorAlert()
     
     // Used to warn the user that certain files were not added to the playlist
     private static let tracksNotAddedAlert: NSAlert = DialogsAndAlerts.createTracksNotAddedAlert()
@@ -152,7 +152,7 @@ struct DialogsAndAlerts {
         return alert
     }
     
-    private static func createTrackNotPlayedAlert() -> NSAlert {
+    private static func createErrorAlert() -> NSAlert {
         
         let alert = NSAlert()
         
@@ -168,8 +168,9 @@ struct DialogsAndAlerts {
     
     static func trackNotPlayedAlertWithError(_ error: InvalidTrackError) -> NSAlert {
         
-        let alert = trackNotPlayedAlert
+        let alert = errorAlert
         
+        alert.window.title = "Track not played"
         alert.messageText = String(format: "The track '%@' cannot be played back !", error.track.file.lastPathComponent)
         alert.informativeText = error.message
         
@@ -178,8 +179,9 @@ struct DialogsAndAlerts {
     
     static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
-        let alert = trackNotPlayedAlert
+        let alert = errorAlert
         
+        alert.window.title = "Track not played"
         alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
         alert.informativeText = error.message
         
@@ -190,25 +192,27 @@ struct DialogsAndAlerts {
         return alert
     }
     
-    private static func createHistoryItemNotAddedAlert() -> NSAlert {
+    static func trackNotTranscodedAlertWithError(_ error: InvalidTrackError, _ actionMessage: String?) -> NSAlert {
         
-        let alert = NSAlert()
+        let alert = errorAlert
         
-        alert.window.title = "History item not found"
+        alert.window.title = "Track not transcoded"
+        alert.messageText = String(format: "The track '%@' cannot be transcoded !", error.track.conciseDisplayName)
+        alert.informativeText = error.message
         
-        alert.alertStyle = .warning
-        alert.icon = Images.imgError
-        
-        alert.addButton(withTitle: "Remove item from history")
+        if let msg = actionMessage {
+            alert.buttons[0].title = msg
+        }
         
         return alert
     }
     
     static func historyItemNotAddedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
-        let alert = historyItemNotAddedAlert
+        let alert = errorAlert
         
-        alert.messageText = String(format: "The item '%@' cannot be added to the playlist !", error.file.lastPathComponent)
+        alert.window.title = "History item not found"
+        alert.messageText = String(format: "The history item '%@' cannot be added to the playlist !", error.file.lastPathComponent)
         alert.informativeText = error.message
         
         if let msg = actionMessage {

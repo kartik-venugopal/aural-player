@@ -38,6 +38,8 @@ enum AsyncMessageType {
     
     case trackNotPlayed
     
+    case trackNotTranscoded
+    
     case tracksNotAdded
     
     case startedAddingTracks
@@ -199,7 +201,8 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
  
     let messageType: AsyncMessageType = .trackNotPlayed
     
-    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    // The track that could not be played
+    // TODO: Why is this optional ???
     let oldTrack: IndexedTrack?
     
     // An error object containing detailed information such as the track file and the root cause
@@ -207,6 +210,22 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
     
     init(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
         self.oldTrack = oldTrack
+        self.error = error
+    }
+}
+
+struct TrackNotTranscodedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .trackNotTranscoded
+    
+    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    let track: Track
+    
+    // An error object containing detailed information such as the track file and the root cause
+    let error: InvalidTrackError
+    
+    init(_ track: Track, _ error: InvalidTrackError) {
+        self.track = track
         self.error = error
     }
 }
