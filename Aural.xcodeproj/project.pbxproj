@@ -1342,14 +1342,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		3E67BEC121D273120091DC6C /* ffmpeg */ = {
+		3E67BEC121D273120091DC6C /* ffmpeg_4_1 */ = {
 			isa = PBXGroup;
 			children = (
 				3E67BEC221D273290091DC6C /* ffmpeg */,
 				3E67BEC321D2732A0091DC6C /* ffprobe */,
 				3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */,
 			);
-			path = ffmpeg;
+			path = ffmpeg_4_1;
 			sourceTree = "<group>";
 		};
 		3E6D0F7E21C1C80400640450 /* Transcoding */ = {
@@ -1404,7 +1404,7 @@
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E67BEC121D273120091DC6C /* ffmpeg */,
+				3E67BEC121D273120091DC6C /* ffmpeg_4_1 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
