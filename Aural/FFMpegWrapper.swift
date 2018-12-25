@@ -7,8 +7,8 @@ class FFMpegWrapper {
     
     static let metadataIgnoreKeys: [String] = ["bitrate"]
     
-    static let getMetadata_timeout: Double = 3
-    static let getArtwork_timeout: Double = 10
+    static let getMetadata_timeout: Double = 2
+    static let getArtwork_timeout: Double = 2
     
     private static var imgCache: [URL: NSImage] = [:]
     
@@ -19,7 +19,7 @@ class FFMpegWrapper {
         var duration: Double = 0
         
         // TODO:
-        let drmProtected: Bool = false
+        var drmProtected: Bool = false
         
         // ./ffprobe -v error -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration : format_tags" -of default=noprint_wrappers=1 Song.mp3
         
@@ -82,6 +82,10 @@ class FFMpegWrapper {
         
         if let durationStr = map.removeValue(forKey: "duration"), let num = Double(durationStr) {
             duration = num
+        }
+        
+        if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = map["asf_protection_type"], value == "DRM" {
+            drmProtected = true
         }
         
         if format != nil {

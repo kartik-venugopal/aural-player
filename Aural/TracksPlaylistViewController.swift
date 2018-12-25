@@ -27,6 +27,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     override var nibName: String? {return "Tracks"}
     
+    var rows: Int = 0
+    
     convenience init() {
         self.init(nibName: "Tracks", bundle: Bundle.main)
     }
@@ -328,9 +330,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-        DispatchQueue.main.async {
-            self.playlistView.noteNumberOfRowsChanged()
-        }
+//        DispatchQueue.main.async {
+            self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
+//        }
     }
     
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {

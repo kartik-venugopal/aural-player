@@ -74,7 +74,7 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      
             - All playlist types will be affected by this operation. i.e. the track will be added to all playlist types.
      */
-    func addTrack(_ track: Track) -> Int?
+    func addTrack(_ track: Track, _ progress: TrackAddedMessageProgress) -> TrackAddResult?
     
     func groupTrack(_ track: Track, _ index: Int, _ progress: TrackAddedMessageProgress) -> [GroupType: GroupedTrackAddResult]
     

@@ -218,14 +218,13 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
     
     func trackNeedsTranscoding(_ track: Track) -> Bool {
-        let needs = !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
-        print(track.conciseDisplayName, "needs", needs)
-        return needs
+        return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if message.messageType == .trackChanged {
+            
             trackChanged()
             return
         }
