@@ -42,7 +42,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -71,10 +71,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func playSelectedTrackWithDelay(_ delay: Double?) {
-        
-        if playbackInfo.state == .transcoding {
-            return
-        }
         
         let selRowIndexes = playlistView.selectedRowIndexes
         
@@ -573,6 +569,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
+    private func transcodingCancelled(_ track: Track) {
+        
+        let index = playlist.indexOfTrack(track)!.index
+        playlistView.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+    }
+    
     var subscriberId: String {
         return self.className
     }
@@ -606,6 +608,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .transcodingStarted:
             
             transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
+            
+        case .transcodingCancelled:
+            
+            transcodingCancelled((message as! TranscodingCancelledAsyncMessage).track)
             
         default: return
             

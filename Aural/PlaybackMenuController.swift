@@ -65,22 +65,23 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let isRegularMode = AppModeManager.mode == .regular
         let playbackState = playbackInfo.state
         let isPlayingOrPaused = playbackState.playingOrPaused()
-        let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
+        let isPlayingPausedOrTranscoding = isPlayingOrPaused || playbackState == .transcoding
+        let noTrack = playbackState == .noTrack
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.enableIf(playlist.size > 0 && playbackState != .transcoding)
         playOrPauseMenuItem.onIf(playbackState == .playing)
         
-        stopMenuItem.enableIf(isPlayingPausedOrWaiting)
+        stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only in regular mode if playing/paused
-        showInPlaylistMenuItem.enableIf(isPlayingOrPaused && layoutManager.isShowingPlaylist() && isRegularMode)
+        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && layoutManager.isShowingPlaylist() && isRegularMode)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused && isRegularMode)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(isPlayingPausedOrWaiting && !showingDialogOrPopover)})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingDialogOrPopover)})
         
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
         

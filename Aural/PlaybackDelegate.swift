@@ -92,7 +92,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareForTrackChange() {
         
-        // TODO: If transcoding, cancel it and stop(), before proceeding
+        if state == .transcoding {
+            transcoder.cancel(playingTrack!.track)
+            pendingPlaybackBlock = {}
+        }
         
         let isPlayingOrPaused = state.playingOrPaused()
         

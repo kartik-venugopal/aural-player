@@ -53,7 +53,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -62,7 +62,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -84,10 +84,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func playSelectedItemWithDelay(_ delay: Double?) {
-        
-        if playbackInfo.state == .transcoding {
-            return
-        }
         
         let selRowIndexes = playlistView.selectedRowIndexes
         
@@ -730,6 +726,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    private func transcodingCancelled(_ track: Track) {
+        playlistView.reloadItem(track)
+    }
+    
     // Selects an item within the playlist view, to show a single result of a search
     private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
         
@@ -844,6 +844,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
             
+        case .transcodingCancelled:
+            
+            transcodingCancelled((message as! TranscodingCancelledAsyncMessage).track)
             
         default: return
             

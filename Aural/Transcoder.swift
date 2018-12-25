@@ -67,12 +67,19 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
     
     func transcodeInBackground(_ track: Track) {
+        doTranscodeInBackground(track)
+    }
+    
+    private func doTranscodeInBackground(_ track: Track, _ userAction: Bool = true) {
         
         if let prepError = AudioUtils.validateTrack(track) {
             
             // Note any error encountered
             track.lazyLoadingInfo.preparationFailed(prepError)
-            AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, prepError))
+            
+            if userAction {
+                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, prepError))
+            }
             return
         }
         
@@ -221,7 +228,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         for track in tracksToTranscode {
             
             if !track.equals(playingTrack) && trackNeedsTranscoding(track.track) {
-                transcodeInBackground(track.track)
+                doTranscodeInBackground(track.track, false)
             }
         }
     }
