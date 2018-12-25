@@ -262,3 +262,10 @@ class FileSystemUtils {
         NSWorkspace.shared.activateFileViewerSelecting([file])
     }
 }
+
+class SystemUtils {
+    
+    static var numberOfActiveCores: Int {
+        return ProcessInfo.processInfo.activeProcessorCount
+    }
+}
