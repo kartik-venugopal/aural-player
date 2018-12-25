@@ -6,6 +6,8 @@ import Foundation
 // Contains the aggregated results of adding a track to each of the playlist types
 struct TrackAddResult {
     
+    let track: Track
+    
     // Index of the added track, within the flat playlist
     let flatPlaylistResult: Int
     

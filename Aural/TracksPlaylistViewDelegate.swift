@@ -67,7 +67,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.playlistIndexColumnID:
                 
-                let indexText: String = String(format: "%d", row + 1)
+                let indexText: String = String(describing: row + 1)
                 
                 switch playbackInfo.state {
                     
