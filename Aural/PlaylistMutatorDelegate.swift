@@ -254,6 +254,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         trackAddQueue.addOperation {
             
+            // No duplicate tracks allowed
+            if self.playlist.hasTrack(track) {return}
+            
             // Metadata
             TrackIO.loadPrimaryInfo(track)
             
