@@ -28,6 +28,13 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         aView.removeFromSuperview()
         superView?.addSubview(aView, positioned: .above, relativeTo: nil)
     }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        
+        player.cancelTranscoding()
+        theView.transcodingFinished()
+        theView.hide()
+    }
 
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
         theView.transcodingProgress(msg)
@@ -70,12 +77,5 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         default: return
             
         }
-    }
-    
-    @IBAction func cancelAction(_ sender: Any) {
-        
-        player.cancelTranscoding()
-        theView.transcodingFinished()
-        theView.hide()
     }
 }
