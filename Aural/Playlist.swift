@@ -17,7 +17,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     private var gapsBefore: [Track: PlaybackGap] = [:]
     private var gapsAfter: [Track: PlaybackGap] = [:]
     
-    private let trackAddQueue = DispatchQueue(label: "threadSafeGroupsArray", attributes: .concurrent)
+    private let trackAddQueue = DispatchQueue(label: "threadSafePlaylistAccess", attributes: .concurrent)
     
     let subscriberId: String = "Playlist"
     
