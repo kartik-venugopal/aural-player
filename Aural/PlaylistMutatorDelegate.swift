@@ -38,11 +38,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        trackAddQueue.maxConcurrentOperationCount = 10
+        let numThreads = Int(Double(SystemUtils.numberOfActiveCores) * 1.5)
+        
+        trackAddQueue.maxConcurrentOperationCount = numThreads
+        
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         trackAddQueue.qualityOfService = .userInitiated
         
-        trackUpdateQueue.maxConcurrentOperationCount = 10
+        trackUpdateQueue.maxConcurrentOperationCount = numThreads
         trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
         trackUpdateQueue.qualityOfService = .utility
         
@@ -86,40 +89,27 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
+            // Notify change listeners
+            self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
+            
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if (progress.errors.count > 0) {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
             }
             
-            // Notify change listeners
-            self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
-            
             // ------------------ UPDATE --------------------
-
-//            DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 5, execute: {
             
-                for result in progress.addResults {
+            for result in progress.addResults {
+                
+                let track = result.track
+                
+                self.trackUpdateQueue.addOperation {
                     
-                    let track = result.track
-                    
-                    self.trackUpdateQueue.addOperation {
-                        
-                        TrackIO.loadSecondaryInfo(track)
-//                        NSLog("Loaded info: %@", track.conciseDisplayName)
-                        AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-//                        NSLog("Notified: %@", track.conciseDisplayName)
-                    }
+                    TrackIO.loadSecondaryInfo(track)
+                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
                 }
-                
-                print("\n")
-                NSLog("Waiting for 2ndary updates to finish ... %d tasks", self.trackUpdateQueue.operationCount)
-                
-                self.trackUpdateQueue.waitUntilAllOperationsAreFinished()
-                
-                print("\n")
-                NSLog("All done !")
-//            })
+            }
         }
     }
     
