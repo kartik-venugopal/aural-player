@@ -240,6 +240,10 @@ class FileSystemUtils {
         
         let comps = url.deletingLastPathComponent().pathComponents
         
+        if comps.count <= numComponents {
+            return url.path
+        }
+        
         var cur = comps.count - 1
         var compCount = 0
         var path: String = "/" + url.lastPathComponent
@@ -250,7 +254,7 @@ class FileSystemUtils {
             compCount += 1
         }
         
-        return path
+        return "..." + path
     }
 
     // Opens a Finder window, with the given file selected within it
