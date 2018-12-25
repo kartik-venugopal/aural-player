@@ -104,7 +104,7 @@ class PlayerView: NSView {
         showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt! : (playbackState == .playing ? Images.imgPlayingArt : Images.imgPausedArt)
+        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
     }
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
@@ -120,7 +120,7 @@ class PlayerView: NSView {
         infoView.clearNowPlayingInfo()
         showPlayingTrackInfo()
         
-        artView.image = Images.imgPausedArt
+        artView.image = Images.imgPlayingArt
     }
     
     func sequenceChanged(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
@@ -133,7 +133,7 @@ class PlayerView: NSView {
         
         let track = msg.nextTrack.track
         let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt! : Images.imgPausedArt
+        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
         
         gapView.gapStarted(msg)
     }
@@ -345,7 +345,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Need to hide info box because it is opaque and will obscure art
         infoBox.hide()
-        artView.image = Images.imgPausedArt
+        artView.image = Images.imgPlayingArt
     }
     
     override func needsMouseTracking() -> Bool {
