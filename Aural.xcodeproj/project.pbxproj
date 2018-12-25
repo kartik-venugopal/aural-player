@@ -546,7 +546,7 @@
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
 		3E67BEC221D273290091DC6C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
 		3E67BEC321D2732A0091DC6C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
-		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
+		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg_4_1/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
