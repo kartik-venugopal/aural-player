@@ -24,7 +24,6 @@ class AlbumArtManager {
             return nil
         }
         
-        
         if let img = MetadataUtils.artForFile(file) {
         
             // Read from file

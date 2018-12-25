@@ -67,7 +67,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         
         resetFields()
         
-        UIUtils.showModalDialog(self.window!)
+        UIUtils.showDialog(self.window!)
         
         return .ok
     }
@@ -156,13 +156,13 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         SyncMessenger.publishActionMessage(JumpToTimeActionMessage(jumpToTime))
         
         modalDialogResponse = .ok
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
     
     @IBAction func cancelAction(_ sender: Any) {
         
         modalDialogResponse = .cancel
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
     
     private func trackChanged(_ msg: TrackChangedAsyncMessage) {

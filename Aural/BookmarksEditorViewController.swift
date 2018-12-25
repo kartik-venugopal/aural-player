@@ -101,9 +101,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        
-        WindowState.showingPopover = false
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.view.window!)
     }
     
     // MARK: View delegate functions

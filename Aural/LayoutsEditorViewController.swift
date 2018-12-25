@@ -99,9 +99,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        
-        WindowState.showingPopover = false
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.view.window!)
     }
     
     private func updatePreview() {

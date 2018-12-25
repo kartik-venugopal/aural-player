@@ -69,7 +69,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             genresPlaylistSortView.resetFields()
         }
         
-        UIUtils.showModalDialog(self.window!)
+        UIUtils.showDialog(self.window!)
         return modalDialogResponse
     }
     
@@ -101,12 +101,12 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         }
         
         modalDialogResponse = .ok
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
         modalDialogResponse = .cancel
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
 }
 
