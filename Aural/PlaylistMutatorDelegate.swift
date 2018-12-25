@@ -59,7 +59,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions) {
+    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
@@ -80,7 +80,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             print("\n")
             NSLog("Finished adding to playlist, now updating ...")
             
-            AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
+            if userAction {
+                AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
+            }
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
@@ -92,7 +94,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // Notify change listeners
             self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
-            print("Added:", progress.addResults.count)
             
             // ------------------ UPDATE --------------------
 
@@ -433,23 +434,23 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if (!filesToOpen.isEmpty) {
                 
                 // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-                addFiles_async(filesToOpen, AutoplayOptions(true, true))
+                addFiles_async(filesToOpen, AutoplayOptions(true, true), false)
                 
             } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
                 
             } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
                 
                 if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
                 }
                 
             } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
                 
                 if let folder: URL = preferences.playlistPreferences.tracksFolder {
-                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
                 }
             }
             
