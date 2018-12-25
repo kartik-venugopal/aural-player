@@ -72,7 +72,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         trackAddQueue.sync(flags: .barrier) {
             
-            if (!trackExists(track)) {
+            if (!hasTrack(track)) {
                 
                 var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
                 
@@ -91,10 +91,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         }
         
         return result
-    }
-    
-    func groupTrack(_ track: Track, _ index: Int, _ progress: TrackAddedMessageProgress) -> [GroupType: GroupedTrackAddResult] {
-        return [:]
     }
     
     func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
@@ -125,11 +121,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
         return (gapsBefore, gapsAfter)
-    }
-    
-    // Checks whether or not a track with the given absolute file path already exists.
-    private func trackExists(_ track: Track) -> Bool {
-        return tracksByFilePath[track.file.path] != nil
     }
     
     func clear() {
@@ -272,7 +263,14 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
+        
+        if tracksByFilePath[track.file.path] == nil {return nil}
+        
         return flatPlaylist.indexOfTrack(track)
+    }
+    
+    func hasTrack(_ track: Track) -> Bool {
+        return tracksByFilePath[track.file.path] != nil
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
