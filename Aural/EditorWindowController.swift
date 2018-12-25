@@ -38,8 +38,7 @@ class EditorWindowController: NSWindowController {
         layoutsEditorView.hide()
         effectsPresetsEditorView.hide()
         
-        WindowState.showingPopover = true
-        UIUtils.showModalDialog(theWindow)
+        UIUtils.showDialog(theWindow)
     }
     
     func showFavoritesEditor() {
@@ -54,8 +53,7 @@ class EditorWindowController: NSWindowController {
         layoutsEditorView.hide()
         effectsPresetsEditorView.hide()
         
-        WindowState.showingPopover = true
-        UIUtils.showModalDialog(theWindow)
+        UIUtils.showDialog(theWindow)
     }
     
     func showLayoutsEditor() {
@@ -70,8 +68,7 @@ class EditorWindowController: NSWindowController {
         bookmarksEditorView.hide()
         effectsPresetsEditorView.hide()
         
-        WindowState.showingPopover = true
-        UIUtils.showModalDialog(theWindow)
+        UIUtils.showDialog(theWindow)
     }
     
     func showEffectsPresetsEditor() {
@@ -86,7 +83,6 @@ class EditorWindowController: NSWindowController {
         favoritesEditorView.hide()
         bookmarksEditorView.hide()
         
-        WindowState.showingPopover = true
-        UIUtils.showModalDialog(theWindow)
+        UIUtils.showDialog(theWindow)
     }
 }

@@ -61,7 +61,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         resetSearchFields()
         self.window?.makeFirstResponder(searchField)
         
-        UIUtils.showModalDialog(self.window!)
+        UIUtils.showDialog(self.window!)
         return modalDialogResponse
     }
     
@@ -124,7 +124,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     @IBAction func searchDoneAction(_ sender: Any) {
         modalDialogResponse = .ok
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
     
     private func searchTextChanged() {

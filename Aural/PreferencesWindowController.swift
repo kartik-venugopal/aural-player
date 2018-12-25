@@ -51,7 +51,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         // Select the playlist prefs tab
         tabView.selectTabViewItem(at: 0)
         
-        UIUtils.showModalDialog(window!)
+        UIUtils.showDialog(window!)
         
         return modalDialogResponse
     }
@@ -89,13 +89,13 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
             
             delegate.savePreferences(preferences)
             modalDialogResponse = .ok
-            UIUtils.dismissModalDialog()
+            UIUtils.dismissDialog(self.window!)
         }
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
         modalDialogResponse = .cancel
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
 }
 

@@ -82,9 +82,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        
-        WindowState.showingPopover = false
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.view.window!)
     }
     
     private func updateButtonStates(_ selRows: Int) {

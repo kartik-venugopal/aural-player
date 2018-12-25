@@ -16,18 +16,20 @@ class UIUtils {
     
     private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     
-    // Dismisses the currently displayed modal dialog
-    static func dismissModalDialog() {
-        NSApp.stopModal()
+    // Dismisses the given dialog
+    static func dismissDialog(_ dialog: NSWindow) {
+
+        dialog.close()
+        WindowState.showingPopover = false
     }
     
-    // Centers a modal dialog with respect to the main app window, and shows it
-    static func showModalDialog(_ dialog: NSWindow) {
+    // Centers a dialog with respect to the main app window, and shows it
+    static func showDialog(_ dialog: NSWindow) {
         
+        WindowState.showingPopover = true
+
         centerDialogWRTScreen(dialog)
-        
-        NSApp.runModal(for: dialog)
-        dialog.close()
+        dialog.makeKeyAndOrderFront(dialog)
     }
     
     // Centers an alert with respect to the main app window, and shows it. Returns the modal response from the alert.

@@ -96,9 +96,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        
-        WindowState.showingPopover = false
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.view.window!)
     }
     
     // MARK: View delegate functions
@@ -168,3 +166,4 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
 fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
 	return input.rawValue
 }
+

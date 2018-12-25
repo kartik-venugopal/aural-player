@@ -38,7 +38,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         
         resetFields()
         
-        UIUtils.showModalDialog(self.window!)
+        UIUtils.showDialog(self.window!)
         return modalDialogResponse
     }
     
@@ -184,11 +184,11 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBeforeTrack, gapAfterTrack, PlaylistViewState.current))
         
         modalDialogResponse = .ok
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
     
     @IBAction func cancelAction(_ sender: Any) {
         modalDialogResponse = .cancel
-        UIUtils.dismissModalDialog()
+        UIUtils.dismissDialog(self.window!)
     }
 }
