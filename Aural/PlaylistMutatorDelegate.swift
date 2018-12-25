@@ -38,7 +38,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        trackAddQueue.maxConcurrentOperationCount = 12
+        trackAddQueue.maxConcurrentOperationCount = 10
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         trackAddQueue.qualityOfService = .userInitiated
         
