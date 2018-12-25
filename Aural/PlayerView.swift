@@ -153,7 +153,7 @@ class PlayerView: NSView {
             gapView.endGap()
         }
         
-        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
+        infoBox.showIf_elseHide(player.state.playingOrPaused() && (PlayerViewState.showTrackInfo || autoHideFields_showing))
         functionsBox.showIf_elseHide(player.state.playingOrPaused() && PlayerViewState.showPlayingTrackFunctions)
     }
     

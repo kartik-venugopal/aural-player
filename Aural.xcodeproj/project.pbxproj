@@ -176,8 +176,8 @@
 		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
-		3E67BEB521D26CCF0091DC6C /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEB321D26CCF0091DC6C /* ffmpeg */; };
-		3E67BEB621D26CCF0091DC6C /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEB421D26CCF0091DC6C /* ffprobe */; };
+		3E67BEC521D2732A0091DC6C /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEC221D273290091DC6C /* ffmpeg */; };
+		3E67BEC621D2732A0091DC6C /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEC321D2732A0091DC6C /* ffprobe */; };
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
@@ -545,8 +545,9 @@
 		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
-		3E67BEB321D26CCF0091DC6C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
-		3E67BEB421D26CCF0091DC6C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
+		3E67BEC221D273290091DC6C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
+		3E67BEC321D2732A0091DC6C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
+		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
@@ -1341,6 +1342,16 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		3E67BEC121D273120091DC6C /* ffmpeg */ = {
+			isa = PBXGroup;
+			children = (
+				3E67BEC221D273290091DC6C /* ffmpeg */,
+				3E67BEC321D2732A0091DC6C /* ffprobe */,
+				3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */,
+			);
+			path = ffmpeg;
+			sourceTree = "<group>";
+		};
 		3E6D0F7E21C1C80400640450 /* Transcoding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1393,8 +1404,7 @@
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E67BEB321D26CCF0091DC6C /* ffmpeg */,
-				3E67BEB421D26CCF0091DC6C /* ffprobe */,
+				3E67BEC121D273120091DC6C /* ffmpeg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1929,7 +1939,7 @@
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
-				3E67BEB621D26CCF0091DC6C /* ffprobe in Resources */,
+				3E67BEC621D2732A0091DC6C /* ffprobe in Resources */,
 				3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */,
 				3E0ED6B81FBB1C34008268B3 /* Reverb.xib in Resources */,
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
@@ -1956,7 +1966,7 @@
 				3EB1700C2173F5C200B82D3A /* DelayedPlaybackEditorDialog.xib in Resources */,
 				3E0ED6B21FBB1B0B008268B3 /* Pitch.xib in Resources */,
 				3E36E86B1FC0108F0005C62E /* HistoryPreferences.xib in Resources */,
-				3E67BEB521D26CCF0091DC6C /* ffmpeg in Resources */,
+				3E67BEC521D2732A0091DC6C /* ffmpeg in Resources */,
 				3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */,
 				3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */,
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
