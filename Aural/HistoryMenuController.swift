@@ -82,7 +82,6 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
                 
                 art?.size = Images.historyMenuItemImageSize
                 menuItem.image = art
-                
             }
         }
         
