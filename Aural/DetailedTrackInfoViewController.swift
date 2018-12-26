@@ -3,7 +3,7 @@
 */
 import Cocoa
 
-class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
+class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, AsyncMessageSubscriber {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -20,7 +20,13 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
     
+    let subscriberId: String = "DetailedTrackInfoViewController"
+    
     override var nibName: String? {return "DetailedTrackInfo"}
+    
+    override func awakeFromNib() {
+        AsyncMessenger.subscribe([.trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+    }
     
     static func create() -> DetailedTrackInfoViewController {
         
@@ -78,5 +84,17 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     
     @IBAction func closePopoverAction(_ sender: Any) {
         close()
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+    
+        if popover.isShown && message.messageType == .trackInfoUpdated {
+            
+            let msg = message as! TrackUpdatedAsyncMessage
+                
+            if msg.track == DetailedTrackInfoViewController.shownTrack {
+                artView.image = msg.track.displayInfo.art
+            }
+        }
     }
 }
