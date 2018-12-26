@@ -7,8 +7,8 @@ class FFMpegWrapper {
     
     static let metadataIgnoreKeys: [String] = ["bitrate"]
     
-    static let getMetadata_timeout: Double = 2
-    static let getArtwork_timeout: Double = 2
+    static let getMetadata_timeout: Double = 5
+    static let getArtwork_timeout: Double = 10
     
     static func getMetadata(_ track: Track) -> LibAVInfo {
         
