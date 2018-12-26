@@ -87,6 +87,39 @@ class AudioUtils {
         }
     }
     
+    static func loadPlaybackInfo_noPlayback(_ track: Track) {
+        
+        if !track.playbackNativelySupported {
+            
+            if let stream = track.libAVInfo?.stream {
+                
+                let playbackInfo = PlaybackInfo()
+                
+                playbackInfo.sampleRate = stream.sampleRate
+                playbackInfo.numChannels = stream.channelCount
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+                
+                track.playbackInfo = playbackInfo
+            }
+            
+        } else {
+            
+            if let audioFile = AudioIO.createAudioFileForReading(track.file) {
+                
+                let playbackInfo = PlaybackInfo()
+                
+                playbackInfo.audioFile = audioFile
+                track.lazyLoadingInfo.preparedForPlayback = true
+                
+                playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+                
+                track.playbackInfo = playbackInfo
+            }
+        }
+    }
+    
     static func prepareTrackWithFile(_ track: Track, _ file: URL) {
         
         let playbackInfo = PlaybackInfo()
@@ -124,32 +157,42 @@ class AudioUtils {
     // Loads detailed audio-specific info for the given track
     static func loadAudioInfo(_ track: Track) {
         
-        let audioInfo = AudioInfo()
-        
         let fileExtension = track.file.pathExtension.lowercased()
         
         if !track.playbackNativelySupported || fileExtension == "flac" {
-
-            audioInfo.format = track.libAVInfo!.audioFormat
             
-            if let bitRate = track.libAVInfo!.stream?.bitRate {
-                audioInfo.bitRate = Int(round(bitRate))
-            } else {
-            
-                let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-                audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+            if let avInfo = track.libAVInfo {
+                
+                let audioInfo = AudioInfo()
+                
+                audioInfo.format = avInfo.audioFormat
+                
+                if let bitRate = avInfo.stream?.bitRate {
+                    audioInfo.bitRate = Int(round(bitRate))
+                } else {
+                    
+                    let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+                    audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+                }
+                
+                track.audioInfo = audioInfo
             }
             
         } else {
             
-            let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
-            audioInfo.format = getFormat(assetTracks.first!)
-            
-            let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-            audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+            if let asset = track.audioAsset {
+                
+                let audioInfo = AudioInfo()
+                
+                let assetTracks = asset.tracks(withMediaType: AVMediaType.audio)
+                audioInfo.format = getFormat(assetTracks.first!)
+                
+                let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+                audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+                
+                track.audioInfo = audioInfo
+            }
         }
-        
-        track.audioInfo = audioInfo
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.

@@ -49,7 +49,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
-    private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
+    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.getInfoPopup()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -124,6 +124,16 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         let track = getClickedTrack()
         transcoder.transcodeInBackground(track)
+        
+        if !track.lazyLoadingInfo.preparationFailed {
+            
+            let rowView = getPlaylistSelectedRowView()
+            
+            infoPopup.showMessage("Transcoding track ...", rowView, NSRectEdge.maxX)
+            
+            // If this isn't done, the app windows are hidden when the popover is displayed
+            WindowState.mainWindow.orderFront(self)
+        }
     }
     
     // Plays the selected playlist item (track or group)
@@ -196,13 +206,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
             // Remove from Favorites list and display notification
             favorites.deleteFavoriteWithFile(track.file)
-            favoritesPopup.showRemovedMessage(rowView, NSRectEdge.maxX)
+            infoPopup.showMessage("Track removed from Favorites !", rowView, NSRectEdge.maxX)
             
         } else {
             
             // Add to Favorites list and display notification
             _ = favorites.addFavorite(track)
-            favoritesPopup.showAddedMessage(rowView, NSRectEdge.maxX)
+            infoPopup.showMessage("Track added to Favorites !", rowView, NSRectEdge.maxX)
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed

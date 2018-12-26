@@ -30,7 +30,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
-    private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
+    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.getInfoPopup()
     
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -183,9 +183,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                     btnFavorite.on()
                     
                     if btnFavorite.isVisible {
-                        favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
+                        infoPopup.showMessage("Track added to Favorites !", btnFavorite, NSRectEdge.maxX)
                     } else {
-                        favoritesPopup.showAddedMessage(self.view.window!.contentView!, NSRectEdge.maxX)
+                        infoPopup.showMessage("Track added to Favorites !", self.view.window!.contentView!, NSRectEdge.maxX)
                     }
                     
                 } else {
@@ -193,9 +193,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                     btnFavorite.off()
                     
                     if btnFavorite.isVisible {
-                        favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
+                        infoPopup.showMessage("Track removed from Favorites !", btnFavorite, NSRectEdge.maxX)
                     } else {
-                        favoritesPopup.showRemovedMessage(self.view.window!.contentView!, NSRectEdge.maxX)
+                        infoPopup.showMessage("Track removed from Favorites !", self.view.window!.contentView!, NSRectEdge.maxX)
                     }
                 }
             }

@@ -33,6 +33,8 @@ struct TrackRemovalResults {
     
     // Result from the flat playlist (indexes)
     let flatPlaylistResults: IndexSet
+    
+    let tracks: [Track]
 }
 
 // Marker protocol for a track/group removal result

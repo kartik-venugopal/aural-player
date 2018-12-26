@@ -71,8 +71,8 @@ struct ViewFactory {
         }()
         
         // The view that displays a brief info message when a track is added to or removed from Favorites
-        fileprivate static var favoritesPopup: FavoritesPopupViewController = {
-            return FavoritesPopupViewController.create()
+        fileprivate static var infoPopup: InfoPopupViewController = {
+            return InfoPopupViewController.create()
         }()
         
         fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
@@ -183,8 +183,8 @@ struct ViewFactory {
         return PopoverViews.detailedTrackInfoPopover
     }
     
-    static func getFavoritesPopup() -> FavoritesPopupProtocol {
-        return PopoverViews.favoritesPopup
+    static func getInfoPopup() -> InfoPopupProtocol {
+        return PopoverViews.infoPopup
     }
     
     static func getPlaylistPreferencesView() -> PreferencesViewProtocol {

@@ -116,7 +116,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
                 
             } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                 
-                if let img = AlbumArtManager.getArtForFile(file), let imgCopy = img.copy() as? NSImage {
+                if let img = MetadataUtils.artForFile(file), let imgCopy = img.copy() as? NSImage {
                     return imgCopy
                 } else {
                     return Images.imgPlayedTrack

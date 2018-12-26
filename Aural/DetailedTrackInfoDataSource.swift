@@ -66,11 +66,12 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
         
         info.append((key: "Filename", value: track.file.path))
         
-        let audioInfo = track.audioInfo!
-        let playbackInfo = track.playbackInfo!
+        if let audioInfo = track.audioInfo {
+            info.append((key: "Format", value: audioInfo.format!))
+        }
         
         info.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
-        info.append((key: "Format", value: audioInfo.format!))
+        
         info.append((key: "Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
         
         if let artist = track.displayInfo.artist {
@@ -105,10 +106,16 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
             }
         }
         
-        info.append((key: "Bit Rate", value: String(format: "%d kbps", audioInfo.bitRate!)))
-        info.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
-        info.append((key: "Channels", value: String(playbackInfo.numChannels!)))
-        info.append((key: "Frames", value: StringUtils.readableLongInteger(playbackInfo.frames!)))
+        if let audioInfo = track.audioInfo {
+            info.append((key: "Bit Rate", value: String(format: "%d kbps", audioInfo.bitRate!)))
+        }
+        
+        if let playbackInfo = track.playbackInfo {
+            
+            info.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
+            info.append((key: "Channels", value: String(playbackInfo.numChannels!)))
+            info.append((key: "Frames", value: StringUtils.readableLongInteger(playbackInfo.frames!)))
+        }
         
         return info.count
     }

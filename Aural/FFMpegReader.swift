@@ -31,7 +31,20 @@ class FFMpegReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let art = FFMpegWrapper.getArt(track)
+        var art: NSImage? = nil
+        
+        let cachedArt = AlbumArtCache.forFile(track.file)
+        
+        if let cachedArtImg = cachedArt.art {
+            
+            art = cachedArtImg
+            
+        } else if !cachedArt.fileHasNoArt {
+            
+            // File may have art, need to read it
+            art = FFMpegWrapper.getArt(track)
+            AlbumArtCache.addEntry(track.file, art)
+        }
         
         let metadata = track.libAVInfo!.metadata
         

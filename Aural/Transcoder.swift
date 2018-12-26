@@ -51,7 +51,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         daemon = TranscoderDaemon(preferences)
         self.preferences = preferences
         
-        AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+        AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
     func transcodeImmediately(_ track: Track) {
@@ -190,8 +190,23 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     }
 
     func cancel(_ track: Track) {
-        daemon.cancelTask(track)
-        AsyncMessenger.publishMessage(TranscodingCancelledAsyncMessage(track))
+        doCancel(track)
+    }
+    
+    private func doCancel(_ track: Track, _ notifyFrontEnd: Bool = true) {
+        
+        if daemon.hasTaskForTrack(track) {
+            
+            daemon.cancelTask(track)
+            
+            if notifyFrontEnd {
+                AsyncMessenger.publishMessage(TranscodingCancelledAsyncMessage(track))
+            }
+        }
+    }
+    
+    func trackNeedsTranscoding(_ track: Track) -> Bool {
+        return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
     }
     
     func checkDiskSpaceUsage() {
@@ -233,16 +248,34 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
     
-    func trackNeedsTranscoding(_ track: Track) -> Bool {
-        return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
+    private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
+        
+        let tracks = message.results.tracks
+        
+        for track in tracks {
+            doCancel(track, false)
+        }
+    }
+    
+    private func doneAddingTracks() {
+        trackChanged()
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if message.messageType == .trackChanged {
+        switch message.messageType {
             
+        case .trackChanged:
             trackChanged()
-            return
+            
+        case .tracksRemoved:
+            tracksRemoved(message as! TracksRemovedAsyncMessage)
+            
+        case .doneAddingTracks:
+            doneAddingTracks()
+            
+        default: return
+            
         }
     }
     

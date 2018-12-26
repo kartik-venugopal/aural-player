@@ -36,7 +36,21 @@ class MetadataUtils {
     
     static func loadArt(_ track: Track) {
         
-        let art = track.metadataNativelySupported ? avAssetReader.getArt(track) : ffMpegReader.getArt(track)
+        var art: NSImage? = nil
+        
+        let cachedArt = AlbumArtCache.forFile(track.file)
+        
+        if let cachedArtImg = cachedArt.art {
+            
+            art = cachedArtImg
+            
+        } else if !cachedArt.fileHasNoArt {
+            
+            // File may have art, need to read it
+            art = track.metadataNativelySupported ? avAssetReader.getArt(track) : ffMpegReader.getArt(track)
+            AlbumArtCache.addEntry(track.file, art)
+        }
+        
         track.displayInfo.art = art
     }
     
@@ -52,7 +66,34 @@ class MetadataUtils {
     }
     
     static func artForFile(_ file: URL) -> NSImage? {
-        return isFileMetadataNativelySupported(file) ? avAssetReader.getArt(file) : ffMpegReader.getArt(file)
+        
+        // If playlist has this track, get art from there
+        if let track = playlist.findFile(file)?.track {
+            
+            if track.lazyLoadingInfo.secondaryInfoLoaded {
+                AlbumArtCache.addEntry(file, track.displayInfo.art)
+            } else {
+                loadArt(track)
+            }
+            
+            return track.displayInfo.art
+        }
+        
+        let cachedArt = AlbumArtCache.forFile(file)
+        
+        if let cachedArtImg = cachedArt.art {
+            
+            return cachedArtImg
+            
+        } else if !cachedArt.fileHasNoArt {
+            
+            // File may have art, need to read it
+            let art = isFileMetadataNativelySupported(file) ? avAssetReader.getArt(file) : ffMpegReader.getArt(file)
+            AlbumArtCache.addEntry(file, art)
+            return art
+        }
+        
+        return nil
     }
     
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)

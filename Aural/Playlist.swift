@@ -259,7 +259,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             groupingPlaylistResults[$0.typeOfGroups] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes, tracks: removedTracks)
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -361,7 +361,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
         
-        let results = TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
+        let results = TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes, tracks: removedTracks)
         
         return results
     }
