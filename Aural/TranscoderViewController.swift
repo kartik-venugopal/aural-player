@@ -3,6 +3,7 @@ import Cocoa
 class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     
     @IBOutlet weak var theView: TranscoderView!
+    @IBOutlet weak var playerView: NSView!
     
     private lazy var player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
@@ -18,6 +19,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         bringViewToFront(theView)
         
         if player.state != .waiting {
+            playerView.hide()
             theView.show()
         }
     }
@@ -34,18 +36,21 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         player.cancelTranscoding()
         theView.transcodingFinished()
         theView.hide()
+        playerView.show()
     }
 
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
         theView.transcodingProgress(msg)
         
         if theView.isHidden && player.state == .transcoding {
+            playerView.hide()
             theView.show()
         }
     }
     
     private func transcodingFinished() {
 
+        playerView.show()
         theView.hide()
         theView.transcodingFinished()
     }

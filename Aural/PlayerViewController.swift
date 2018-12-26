@@ -5,6 +5,7 @@ import Cocoa
 
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
+    @IBOutlet weak var playerView: NSView!
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var transcoderView: TranscoderView!
@@ -22,8 +23,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     override func viewDidLoad() {
         
-        self.view.addSubview(defaultView)
-        self.view.addSubview(expandedArtView)
+        playerView.addSubview(defaultView)
+        playerView.addSubview(expandedArtView)
+        
+        self.view.addSubview(playerView)
         self.view.addSubview(transcoderView)
         
         defaultView.setFrameOrigin(NSPoint.zero)

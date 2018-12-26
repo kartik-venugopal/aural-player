@@ -975,7 +975,7 @@ CA
                         <items>
                             <menuItem title=" Player" image="PlayPause-Small" id="af4-4E-1QV" userLabel="Player">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Player" id="y9u-HE-dXj">
+                                <menu key="submenu" title=" Player" autoenablesItems="NO" id="y9u-HE-dXj">
                                     <items>
                                         <menuItem title="Default view" state="on" keyEquivalent="3" id="0Vx-5M-0eg">
                                             <connections>
@@ -1095,6 +1095,9 @@ CA
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="xzd-WN-BuR" id="ucR-g3-fEH"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="0PH-nx-xo9" userLabel="Playlist">

@@ -55,6 +55,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
     override func awakeFromNib() {
         
         switchViewMenuItem.off()
@@ -65,6 +67,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        playerMenuItem.isEnabled = player.state != .transcoding
         
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
         dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
