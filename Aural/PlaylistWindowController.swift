@@ -83,7 +83,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         });
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
@@ -134,6 +134,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.hide()
         
+        updatePlaylistSummary()
+        
         sequenceChanged()
     }
     
@@ -176,6 +178,20 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 if (playingTrackIndex == updatedTrackIndex) {
                     SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
                 }
+            }
+        }
+    }
+    
+    private func trackGrouped(_ message: TrackGroupedAsyncMessage) {
+        
+        DispatchQueue.main.async {
+            
+            // Track duration may have changed, affecting the total playlist duration
+            self.updatePlaylistSummary()
+            
+            // If this is the playing track, tell other views that info has been updated
+            if let playingTrackIndex = self.playbackInfo.playingTrack?.index, playingTrackIndex == message.index {
+                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
     }
@@ -335,6 +351,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .trackAdded:
             
             trackAdded(message as! TrackAddedAsyncMessage)
+            
+        case .trackGrouped:
+            
+            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .trackInfoUpdated:
             
