@@ -62,20 +62,24 @@ class TrackIO {
     
     static func prepareForInfo(_ track: Track) {
         
-        let lazyLoadInfo = track.lazyLoadingInfo
-        
-        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
-            return
-        }
-        
         // Art
-        if track.displayInfo.art == nil && !track.lazyLoadingInfo.secondaryInfoLoaded {
+        if track.displayInfo.art == nil {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 
                 MetadataUtils.loadArt(track)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                
+                // Only do this if there is art to show
+                if track.displayInfo.art != nil {
+                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                }
             }
+        }
+        
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
+            return
         }
         
         // Validate the audio track
