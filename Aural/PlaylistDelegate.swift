@@ -62,7 +62,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack {
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
         return try mutator.findOrAddFile(file)
     }
     

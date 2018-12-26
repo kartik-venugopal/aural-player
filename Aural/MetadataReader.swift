@@ -39,11 +39,9 @@ class SecondaryMetadata {
     
     let discNum: Int?
     let trackNum: Int?
-    let art: NSImage?
     
-    init(_ art: NSImage?, _ discNum: Int?, _ trackNum: Int?) {
+    init(_ discNum: Int?, _ trackNum: Int?) {
         
-        self.art = art
         self.discNum = discNum
         self.trackNum = trackNum
     }

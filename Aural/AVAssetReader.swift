@@ -89,26 +89,7 @@ class AVAssetReader: MetadataReader {
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {
         
         ensureTrackAssetLoaded(track)
-        
-        var art: NSImage? = nil
-        
-        let cachedArt = AlbumArtCache.forFile(track.file)
-        
-        if let cachedArtImg = cachedArt.art {
-            
-            art = cachedArtImg
-            
-        } else if !cachedArt.fileHasNoArt {
-            
-            // File may have art, need to read it
-            art = getArt(track.audioAsset!)
-            AlbumArtCache.addEntry(track.file, art)
-        }
-        
-        let discNum = getDiscNumber(track)
-        let trackNum = getTrackNumber(track)
-        
-        return SecondaryMetadata(art, discNum, trackNum)
+        return SecondaryMetadata(getDiscNumber(track), getTrackNumber(track))
     }
     
     // Loads duration metadata for a track, if available

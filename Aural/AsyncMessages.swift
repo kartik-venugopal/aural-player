@@ -152,10 +152,12 @@ struct TrackGroupedAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .trackGrouped
     
-    let grouping: GroupedTrackAddResult
+    let index: Int
+    let groupingResults: [GroupType: GroupedTrackAddResult]
     
-    init(_ grouping: GroupedTrackAddResult) {
-        self.grouping = grouping
+    init(_ index: Int, _ groupingResults: [GroupType: GroupedTrackAddResult]) {
+        self.index = index
+        self.groupingResults = groupingResults
     }
 }
 

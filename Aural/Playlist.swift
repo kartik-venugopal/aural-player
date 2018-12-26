@@ -17,7 +17,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     private var gapsBefore: [Track: PlaybackGap] = [:]
     private var gapsAfter: [Track: PlaybackGap] = [:]
     
-    private let trackAddQueue = DispatchQueue(label: "threadSafePlaylistAccess", attributes: .concurrent)
+    private let trackAddQueue = DispatchQueue(label: "threadSafeAccess-playlist", attributes: .concurrent)
     
     let subscriberId: String = "Playlist"
     
@@ -66,31 +66,35 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         }
     }
     
-    func addTrack(_ track: Track, _ progress: TrackAddedMessageProgress) -> TrackAddResult? {
+    func addTrack(_ track: Track, _ progress: TrackAddedMessageProgress) -> Int? {
         
-        var result: TrackAddResult? = nil
+        var index: Int? = nil
+        
+        if (!hasTrack(track)) {
+            
+            // Add a mapping by track's file path
+            tracksByFilePath[track.file.path] = track
+            
+            // Add the track to the flat playlist and return the new track's index
+            index = flatPlaylist.addTrack(track)
+            AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(index!, [:], progress))
+        }
+        
+        return index
+    }
+    
+    func groupTrack(_ track: Track, _ index: Int) -> [GroupType: GroupedTrackAddResult] {
+        
+        var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
         
         trackAddQueue.sync(flags: .barrier) {
             
-            if (!hasTrack(track)) {
-                
-                var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
-                
-                // Add a mapping by track's file path
-                tracksByFilePath[track.file.path] = track
-                
-                // Add the track to the flat playlist and return the new track's index
-                let index = flatPlaylist.addTrack(track)
-                
-                // Add the track to each of the grouping playlists
-                groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
-                AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(index, groupingResults, progress))
-                
-                result = TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
-            }
+            // Add the track to each of the grouping playlists
+            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
+            AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(index, groupingResults))
         }
         
-        return result
+        return groupingResults
     }
     
     func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {

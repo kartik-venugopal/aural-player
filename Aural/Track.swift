@@ -83,9 +83,7 @@ class Track: NSObject, PlaylistItem {
         }
     }
     
-    func setSecondaryMetadata(_ art: NSImage?, _ discNum: Int?, _ trackNum: Int?) {
-        
-        displayInfo.art = art
+    func setSecondaryMetadata(_ discNum: Int?, _ trackNum: Int?) {
         
         groupingInfo.discNumber = discNum
         groupingInfo.trackNumber = trackNum

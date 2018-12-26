@@ -31,7 +31,7 @@ class MetadataUtils {
     static func loadSecondaryMetadata(_ track: Track) {
         
         let metadata: SecondaryMetadata = track.metadataNativelySupported ? avAssetReader.getSecondaryMetadata(track) : ffMpegReader.getSecondaryMetadata(track)
-        track.setSecondaryMetadata(metadata.art, metadata.discNum, metadata.trackNum)
+        track.setSecondaryMetadata(metadata.discNum, metadata.trackNum)
     }
     
     static func loadArt(_ track: Track) {
@@ -69,10 +69,8 @@ class MetadataUtils {
         
         // If playlist has this track, get art from there
         if let track = playlist.findFile(file)?.track {
-            
-            if track.lazyLoadingInfo.secondaryInfoLoaded {
-                AlbumArtCache.addEntry(file, track.displayInfo.art)
-            } else {
+
+            if track.displayInfo.art == nil {
                 loadArt(track)
             }
             

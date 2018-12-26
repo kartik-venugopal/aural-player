@@ -9,11 +9,13 @@ class TrackIO {
     
     // Load display metadata (artist/title/art and all grouping info)
     static func loadPrimaryInfo(_ track: Track) {
+        
         MetadataUtils.loadPrimaryMetadata(track)
         track.lazyLoadingInfo.primaryInfoLoaded = true
     }
     
     static func loadSecondaryInfo(_ track: Track) {
+        
         MetadataUtils.loadSecondaryMetadata(track)
         track.lazyLoadingInfo.secondaryInfoLoaded = true
     }
@@ -21,20 +23,24 @@ class TrackIO {
     // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
-        let lazyLoadInfo = track.lazyLoadingInfo
-        
-        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
-            return
-        }
-        
         // Art
-        if track.displayInfo.art == nil && !track.lazyLoadingInfo.secondaryInfoLoaded {
+        if track.displayInfo.art == nil {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 
                 MetadataUtils.loadArt(track)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                
+                // Only do this if there is art to show
+                if track.displayInfo.art != nil {
+                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                }
             }
+        }
+        
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
+            return
         }
         
         // Validate the audio track

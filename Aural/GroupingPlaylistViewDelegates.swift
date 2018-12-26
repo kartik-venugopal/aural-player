@@ -84,19 +84,19 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     
                 case .playing, .paused:
                     
-                    image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
+                    image = isPlayingTrack ? Images.imgPlayingTrack : nil
                     
                 case .transcoding:
                     
-                    image = isPlayingTrack ? Images.imgTranscodingTrack : track.displayInfo.art
+                    image = isPlayingTrack ? Images.imgTranscodingTrack : nil
                     
                 case .waiting:
                     
-                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack : track.displayInfo.art
+                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack : nil
                     
                 case .noTrack:
                     
-                    image = track.displayInfo.art
+                    image = nil
                 }
                 
                 let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
