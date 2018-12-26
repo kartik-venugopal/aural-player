@@ -17,8 +17,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     private var gapsBefore: [Track: PlaybackGap] = [:]
     private var gapsAfter: [Track: PlaybackGap] = [:]
     
-    private let trackAddQueue = DispatchQueue(label: "threadSafeAccess-playlist", attributes: .concurrent)
-    
     let subscriberId: String = "Playlist"
     
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
@@ -66,9 +64,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         }
     }
     
-    func addTrack(_ track: Track, _ progress: TrackAddedMessageProgress) -> Int? {
-        
-        var index: Int? = nil
+    func addTrack(_ track: Track) -> TrackAddResult? {
         
         if (!hasTrack(track)) {
             
@@ -76,25 +72,17 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             tracksByFilePath[track.file.path] = track
             
             // Add the track to the flat playlist and return the new track's index
-            index = flatPlaylist.addTrack(track)
-            AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(index!, [:], progress))
-        }
-        
-        return index
-    }
-    
-    func groupTrack(_ track: Track, _ index: Int) -> [GroupType: GroupedTrackAddResult] {
-        
-        var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
-        
-        trackAddQueue.sync(flags: .barrier) {
+            let index = flatPlaylist.addTrack(track)
+            
+            var groupingResults: [GroupType: GroupedTrackAddResult] = [:]
             
             // Add the track to each of the grouping playlists
             groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups] = $0.addTrack(track)})
-            AsyncMessenger.publishMessage(TrackGroupedAsyncMessage(index, groupingResults))
+            
+            return TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
         }
         
-        return groupingResults
+        return nil
     }
     
     func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {

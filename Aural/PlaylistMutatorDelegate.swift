@@ -26,6 +26,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let trackAddQueue: OperationQueue = OperationQueue()
     private let trackUpdateQueue: OperationQueue = OperationQueue()
     
+    private var addSession: TrackAddSession!
+    
+    private let concurrentAddOpCount = Int(Double(SystemUtils.numberOfActiveCores) * 1.5)
+    
     init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
@@ -38,14 +42,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        let numThreads = Int(Double(SystemUtils.numberOfActiveCores) * 1.5)
-        
-        trackAddQueue.maxConcurrentOperationCount = numThreads
+        trackAddQueue.maxConcurrentOperationCount = concurrentAddOpCount
         
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
         trackAddQueue.qualityOfService = .userInitiated
         
-        trackUpdateQueue.maxConcurrentOperationCount = numThreads
+        trackUpdateQueue.maxConcurrentOperationCount = concurrentAddOpCount
         trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
         trackUpdateQueue.qualityOfService = .utility
         
@@ -64,19 +66,20 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
     private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
         
+        addSession = TrackAddSession(files.count, autoplayOptions)
+        
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
             
             // ------------------ ADD --------------------
             
-            let progress = TrackAddOperationProgress(0, files.count, [TrackAddResult](), [InvalidTrackError](), false)
-            
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
-            self.addFiles_sync(files, autoplayOptions, progress)
+            self.collectTracks(files)
+            
+            self.addSessionTracks()
             
             // Wait for addQueue to finish execution, update tracks with secondary info
-            self.trackAddQueue.waitUntilAllOperationsAreFinished()
             
             if userAction {
                 AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
@@ -85,79 +88,23 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
             // Notify change listeners
-            self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
+            self.changeListeners.forEach({$0.tracksAdded(self.addSession.opProgress.addResults)})
             
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
-            if (progress.errors.count > 0) {
-                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
+            if (self.addSession.opProgress.errors.count > 0) {
+                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.opProgress.errors))
             }
             
             // ------------------ UPDATE --------------------
             
-            for result in progress.addResults {
+            for result in self.addSession.opProgress.addResults {
                 
                 self.trackUpdateQueue.addOperation {
                     TrackIO.loadSecondaryInfo(result.track)
                 }
             }
         }
-    }
-    
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
-        
-        // TODO: Code duplication with addTrack()
-
-        // If track exists, return it
-        if let foundTrack = playlist.findTrackByFile(file) {
-            return foundTrack
-        }
-
-        // Track doesn't exist, need to add it
-
-        // If the file points to an invalid location, throw an error
-        if (!FileSystemUtils.fileExists(file)) {
-            throw FileNotFoundError(file)
-        }
-
-        // Always resolve sym links and aliases before reading the file
-        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
-        let file = resolvedFileInfo.resolvedURL
-
-        let progress = TrackAddedMessageProgress(1, 1)
-
-        // Load display info
-        let track = Track(file)
-        
-        var iTrack: IndexedTrack?
-        
-        // Non-nil result indicates success
-        // TODO: Check if track was added
-        // TODO: Can we group tracks in batches or all at once ?
-        if let index = self.playlist.addTrack(track, progress) {
-            
-            iTrack = IndexedTrack(track, index)
-            
-            // Add gaps around this track (persistent ones)
-            let gapsForTrack = self.playlistState.getGapsForTrack(track)
-            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
-            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-            
-            trackAddQueue.addOperation {
-                
-                // Metadata
-                TrackIO.loadPrimaryInfo(track)
-                let groupingResults = self.playlist.groupTrack(track, index)
-                
-                let result = TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
-                
-                // Notify change listeners
-                self.changeListeners.forEach({$0.tracksAdded([result])})
-                AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
-            }
-        }
-        
-        return iTrack
     }
     
     /*
@@ -167,7 +114,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
      
         The progress argument indicates current progress.
      */
-    private func addFiles_sync(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
+    private func collectTracks(_ files: [URL]) {
         
         if (files.count > 0) {
             
@@ -175,7 +122,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-                    progress.errors.append(FileNotFoundError(_file))
+                    addSession.opProgress.errors.append(FileNotFoundError(_file))
                     continue
                 }
                 
@@ -186,7 +133,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 if (resolvedFileInfo.isDirectory) {
                     
                     // Directory
-                    addDirectory(file, autoplayOptions, progress)
+                    addDirectory(file)
                     
                 } else {
                     
@@ -196,21 +143,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                         
                         // Playlist
-                        addPlaylist(file, autoplayOptions, progress)
+                        addPlaylist(file)
                         
                     } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                         
                         // Track
-                        progress.tracksAdded += 1
                         
-                        let progressMsg = TrackAddedMessageProgress(progress.tracksAdded, progress.totalTracks)
-                        if let index = addTrack(file, progressMsg, progress, autoplayOptions) {
-                            
-                            if (autoplayOptions.autoplay && !progress.autoplayed) {
-                                
-                                self.autoplay(index, autoplayOptions.interruptPlayback)
-                                progress.autoplayed = true
-                            }
+                        let track = Track(file)
+                        
+                        if !playlist.hasTrack(track) {
+                            addSession.tracks.append(track)
                         }
                     }
                 }
@@ -219,63 +161,141 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Expands a playlist into individual tracks
-    private func addPlaylist(_ playlistFile: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
+    private func addPlaylist(_ playlistFile: URL) {
         
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
             
-            progress.totalTracks -= 1
-            progress.totalTracks += (loadedPlaylist?.tracks.count)!
+            addSession.opProgress.totalTracks -= 1
+            addSession.opProgress.totalTracks += (loadedPlaylist?.tracks.count)!
             
-            addFiles_sync(loadedPlaylist!.tracks, autoplayOptions, progress)
+            collectTracks(loadedPlaylist!.tracks)
         }
     }
     
     // Expands a directory into individual tracks (and subdirectories)
-    private func addDirectory(_ dir: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
+    private func addDirectory(_ dir: URL) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
             
-            progress.totalTracks -= 1
-            progress.totalTracks += (dirContents?.count)!
+            addSession.opProgress.totalTracks -= 1
+            addSession.opProgress.totalTracks += (dirContents?.count)!
             
-            addFiles_sync(dirContents!, autoplayOptions, progress)
+            collectTracks(dirContents!)
         }
     }
     
-    // Adds a single track to the playlist. Returns index of newly added track
-    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress, _ opProgress: TrackAddOperationProgress, _ autoplayOptions: AutoplayOptions) -> Int? {
+    private func addSessionTracks() {
         
-        let track = Track(file)
+        if addSession.tracks.isEmpty {return}
         
-            // Non-nil result indicates success
-            // TODO: Check if track was added
-        // TODO: Can we group tracks in batches or all at once ?
-        if let index = self.playlist.addTrack(track, progress) {
+        var firstIndex: Int = 0
+        while addSession.processed < addSession.tracks.count {
             
-            // Add gaps around this track (persistent ones)
-            let gapsForTrack = self.playlistState.getGapsForTrack(track)
-            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
-            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+            let remainingTracks = addSession.tracks.count - addSession.processed
+            let lastIndex = firstIndex + min(remainingTracks, concurrentAddOpCount) - 1
+            
+            let batch = AddBatch()
+            batch.indexes = firstIndex...lastIndex
+            
+            processBatch(batch)
+            addSession.processed += batch.indexes.count
+            firstIndex = lastIndex + 1
+        }
+    }
+    
+    private func processBatch(_ batch: AddBatch) {
+        
+        for index in batch.indexes {
             
             trackAddQueue.addOperation {
-                
-                // Metadata
-                TrackIO.loadPrimaryInfo(track)
-                let groupingResults = self.playlist.groupTrack(track, index)
-                
-                // --------
-                
-                opProgress.addResults.append(TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults))
+                TrackIO.loadPrimaryInfo(self.addSession.tracks[index])
             }
-            
-            return index
         }
         
-        return nil
+        trackAddQueue.waitUntilAllOperationsAreFinished()
+        
+        for batchIndex in batch.indexes {
+            
+            let track = addSession.tracks[batchIndex]
+            
+            if let result = self.playlist.addTrack(track) {
+                
+                // Add gaps around this track (persistent ones)
+                let gapsForTrack = self.playlistState.getGapsForTrack(track)
+                self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
+                self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+                
+                addSession.opProgress.tracksAdded += 1
+                addSession.opProgress.addResults.append(result)
+                
+                let progressMsg = TrackAddedMessageProgress(addSession.opProgress.tracksAdded, addSession.opProgress.totalTracks)
+                AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progressMsg))
+                
+                if batchIndex == 0 && addSession.autoplayOptions.autoplay {
+                    autoplay(result.flatPlaylistResult, addSession.autoplayOptions.interruptPlayback)
+                }
+            }
+        }
     }
     
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
+        
+        // TODO: Code duplication with addTrack()
+        
+        // If track exists, return it
+        if let foundTrack = playlist.findTrackByFile(file) {
+            return foundTrack
+        }
+        
+        // Track doesn't exist, need to add it
+        
+        // If the file points to an invalid location, throw an error
+        if (!FileSystemUtils.fileExists(file)) {
+            throw FileNotFoundError(file)
+        }
+        
+        // Always resolve sym links and aliases before reading the file
+        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
+        let file = resolvedFileInfo.resolvedURL
+        
+        let progress = TrackAddedMessageProgress(1, 1)
+        
+        // Load display info
+        let track = Track(file)
+        
+        var iTrack: IndexedTrack = IndexedTrack(track, 0)
+        
+        //        // Non-nil result indicates success
+        //        // TODO: Check if track was added
+        //        // TODO: Can we group tracks in batches or all at once ?
+        //        if let index = self.playlist.addTrack(track, progress) {
+        //
+        //            iTrack = IndexedTrack(track, index)
+        //
+        //            // Add gaps around this track (persistent ones)
+        //            let gapsForTrack = self.playlistState.getGapsForTrack(track)
+        //            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
+        //            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+        //
+        //            trackAddQueue.addOperation {
+        //
+        //                // Metadata
+        //                TrackIO.loadPrimaryInfo(track)
+        //                let groupingResults = self.playlist.groupTrack(track, index)
+        //
+        //                let result = TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
+        //
+        //                // Notify change listeners
+        //                self.changeListeners.forEach({$0.tracksAdded([result])})
+        //                AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+        //            }
+        //        }
+        
+        return iTrack
+    }
+        
     private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {
         
         if gapState == nil {
@@ -483,16 +503,14 @@ class TrackAddOperationProgress {
     var totalTracks: Int
     var addResults: [TrackAddResult]
     var errors: [DisplayableError]
-    var autoplayed: Bool
 
-    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [DisplayableError], _ autoplayed: Bool) {
+    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [DisplayableError]) {
         
         self.tracksAdded = tracksAdded
         self.totalTracks = totalTracks
         
         self.addResults = addResults
         self.errors = errors
-        self.autoplayed = autoplayed
     }
 }
 
@@ -511,4 +529,24 @@ class AutoplayOptions {
         self.autoplay = autoplay
         self.interruptPlayback = interruptPlayback
     }
+}
+
+class TrackAddSession {
+    
+    var tracks: [Track] = []
+    var processed: Int = 0
+    
+    var opProgress: TrackAddOperationProgress
+    var autoplayOptions: AutoplayOptions
+
+    init(_ numTracks: Int, _ autoplayOptions: AutoplayOptions) {
+        
+        opProgress = TrackAddOperationProgress(0, numTracks, [], [])
+        self.autoplayOptions = autoplayOptions
+    }
+}
+
+class AddBatch {
+    
+    var indexes: ClosedRange<Int> = 0...0
 }
