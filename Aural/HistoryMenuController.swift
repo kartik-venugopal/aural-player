@@ -80,8 +80,9 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
             
             DispatchQueue.main.async {
                 
+                art?.size = Images.historyMenuItemImageSize
                 menuItem.image = art
-                menuItem.image?.size = Images.historyMenuItemImageSize
+                
             }
         }
         
