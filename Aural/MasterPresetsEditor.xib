@@ -34,7 +34,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="vdp-if-TVN">
                         <rect key="frame" x="0.0" y="0.0" width="230" height="280"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="Oib-QJ-T7y" userLabel="Master Presets Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="230" height="275"/>

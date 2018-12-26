@@ -244,9 +244,7 @@
                                         </textField>
                                     </subviews>
                                     <connections>
-                                        <outlet property="bandsTable" destination="dgf-Nq-wZb" id="yL6-gu-L10"/>
                                         <outlet property="chart" destination="Qtq-wD-MAi" id="i7Z-7o-k5y"/>
-                                        <outlet property="tableViewDelegate" destination="8fN-CM-kh9" id="CTV-YP-ENY"/>
                                     </connections>
                                 </view>
                                 <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
