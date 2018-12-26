@@ -17,7 +17,9 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
     // Before the menu opens, re-create the menu items from the model
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        print("\nHIST will open ...")
         
         // Clear the menus
         recentlyAddedMenu.removeAllItems()

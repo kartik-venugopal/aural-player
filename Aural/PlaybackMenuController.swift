@@ -60,8 +60,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        updateRepeatAndShuffleMenuItemStates()
-        
         let isRegularMode = AppModeManager.mode == .regular
         let playbackState = playbackInfo.state
         let isPlayingOrPaused = playbackState.playingOrPaused()
@@ -70,7 +68,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.enableIf(playlist.size > 0 && playbackState != .transcoding)
-        playOrPauseMenuItem.onIf(playbackState == .playing)
         
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
@@ -85,9 +82,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
         
-        rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
-        
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        updateRepeatAndShuffleMenuItemStates()
+        
+        // Play/pause enabled if at least one track available
+        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
+        rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.playingTrack?.track {
             rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))

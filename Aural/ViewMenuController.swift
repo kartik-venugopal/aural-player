@@ -9,35 +9,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
     
-    @IBOutlet weak var maximizePlaylistMenuItem: NSMenuItem!
-    
     @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
     
     @IBOutlet weak var playerMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!
-    @IBOutlet weak var playerExpandedArtViewMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var showArtMenuItem: NSMenuItem!
-    @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
-    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
-    @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
-    @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
-    @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var timeElapsedFormatMenuItem: NSMenuItem!
-    @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
-    @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
-    @IBOutlet weak var timeElapsedMenuItem_percentage: NSMenuItem!
-    private var timeElapsedDisplayFormats: [NSMenuItem] = []
-    
-    @IBOutlet weak var timeRemainingFormatMenuItem: NSMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem_hms: NSMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem_seconds: NSMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem_percentage: NSMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem_durationHMS: NSMenuItem!
-    @IBOutlet weak var timeRemainingMenuItem_durationSeconds: NSMenuItem!
-    private var timeRemainingDisplayFormats: [NSMenuItem] = []
     
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
@@ -58,18 +32,22 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func awakeFromNib() {
-        
         switchViewMenuItem.off()
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
         
-        timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
-        timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
+        print("\nVIEW -update ")
+        
+        playerMenuItem.enableIf(player.state != .transcoding)
+        manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    func menuWillOpen(_ menu: NSMenu) {
         
-        playerMenuItem.isEnabled = player.state != .transcoding
-        
+        print("\nVIEW -open ")
+     
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
         dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
         
@@ -87,17 +65,16 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
-        
+            
             if $0 is CustomLayoutMenuItem {
-                 windowLayoutsMenu.removeItem($0)
+                windowLayoutsMenu.removeItem($0)
             }
         })
         
         // Add custom window layouts
         let customLayouts = WindowLayouts.userDefinedLayouts
-            
         customLayouts.forEach({
-        
+            
             // The action for the menu item will depend on whether it is a playable item
             let action = #selector(self.windowLayoutAction(_:))
             
@@ -106,64 +83,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             self.windowLayoutsMenu.insertItem(menuItem, at: 0)
         })
-    
-        manageLayoutsMenuItem.enableIf(!customLayouts.isEmpty)
         
         playerMenuItem.off()
-        
-        // Player view:
-        playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
-        playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
-        
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
-        
-        showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
-        
-        let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
-        showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
-        
-        showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
-        showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
-        showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
-        
-        showMainControlsMenuItem.onIf(PlayerViewState.showControls)
-        showTimeElapsedRemainingMenuItem.onIf(PlayerViewState.showTimeElapsedRemaining)
-        
-        timeElapsedFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
-        timeRemainingFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
-        
-        if defaultViewAndShowingControls {
-            
-            timeElapsedDisplayFormats.forEach({$0.off()})
-            
-            switch PlayerViewState.timeElapsedDisplayType {
-                
-            case .formatted:    timeElapsedMenuItem_hms.on()
-                
-            case .seconds:      timeElapsedMenuItem_seconds.on()
-                
-            case .percentage:   timeElapsedMenuItem_percentage.on()
-                
-            }
-            
-            timeRemainingDisplayFormats.forEach({$0.off()})
-            
-            switch PlayerViewState.timeRemainingDisplayType {
-                
-            case .formatted:    timeRemainingMenuItem_hms.on()
-                
-            case .seconds:      timeRemainingMenuItem_seconds.on()
-                
-            case .percentage:   timeRemainingMenuItem_percentage.on()
-                
-            case .duration_formatted:   timeRemainingMenuItem_durationHMS.on()
-                
-            case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
-                
-            }
-        }
     }
  
     // Shows/hides the playlist window
@@ -206,80 +127,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
         editorWindowController.showLayoutsEditor()
-    }
-    
-    @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
-    }
-    
-    @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
-    }
-    
-    @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
-    }
-    
-    @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
-    }
-    
-    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
-    }
-    
-    @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
-    }
-    
-    @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
-    }
-    
-    @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTimeElapsedRemaining))
-    }
-    
-    @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
-
-        var format: TimeElapsedDisplayType
-        
-        switch sender.tag {
-            
-        case 0: format = .formatted
-            
-        case 1: format = .seconds
-            
-        case 2: format = .percentage
-            
-        default: format = .formatted
-            
-        }
-        
-        SyncMessenger.publishActionMessage(SetTimeElapsedDisplayFormatActionMessage(format))
-    }
-    
-    @IBAction func timeRemainingDisplayFormatAction(_ sender: NSMenuItem) {
-        
-        var format: TimeRemainingDisplayType
-        
-        switch sender.tag {
-            
-        case 0: format = .formatted
-            
-        case 1: format = .seconds
-            
-        case 2: format = .percentage
-            
-        case 3: format = .duration_formatted
-            
-        case 4: format = .duration_seconds
-            
-        default: format = .formatted
-            
-        }
-        
-        SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
     }
     
     // MARK - StringInputClient functions

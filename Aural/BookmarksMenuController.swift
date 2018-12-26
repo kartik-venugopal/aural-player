@@ -31,11 +31,16 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         bookmarkTrackSegmentLoopMenuItem.enableIf(playingOrPaused && hasCompleteLoop)
         
         manageBookmarksMenuItem.enableIf(bookmarks.countBookmarks() > 0)
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        print("\nBOOKMARKS will open ...")
         
         // Clear the menu first (except the topmost item)
         let items = menu.items
         items.forEach({
-        
+            
             if $0 is BookmarksMenuItem {
                 menu.removeItem($0)
             }

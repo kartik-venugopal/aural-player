@@ -23,6 +23,23 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        // These menu item actions are only available when a track is currently playing/paused
+        addRemoveFavoritesMenuItem.enableIf(playbackInfo.state.playingOrPaused())
+        
+        // Menu has 3 static items
+        manageFavoritesMenuItem.enableIf(favoritesMenu.items.count > 3)
+    }
+
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        print("\nFAV will open ...")
+        
+        if let playingTrackFile = playbackInfo.playingTrack?.track.file {
+            addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
+        } else {
+            addRemoveFavoritesMenuItem.off()
+        }
+        
         // Recreate the custom layout items
         let itemCount = favoritesMenu.items.count
         
@@ -40,18 +57,6 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         
         // Recreate the menu
         favorites.getAllFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
-        
-        if let playingTrackFile = playbackInfo.playingTrack?.track.file {
-            addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
-        } else {
-            addRemoveFavoritesMenuItem.off()
-        }
-        
-        // These menu item actions are only available when a track is currently playing/paused
-        addRemoveFavoritesMenuItem.enableIf(playbackInfo.state.playingOrPaused())
-        
-        // Menu has 3 static items
-        manageFavoritesMenuItem.enableIf(favoritesMenu.items.count > 3)
     }
     
     // Factory method to create a single Favorites menu item, given a model object (FavoritesItem)

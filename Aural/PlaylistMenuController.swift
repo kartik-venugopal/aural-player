@@ -109,6 +109,42 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
     }
     
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        if (!theMenu.isEnabled) {
+            return
+        }
+        
+        let playlistSize = playlist.size
+        let playlistNotEmpty = playlistSize > 0
+        let numSelectedRows = PlaylistViewState.currentView.numberOfSelectedRows
+        
+        // Make sure it's a track, not a group, and that only one track is selected
+        if numSelectedRows == 1 {
+            
+            if PlaylistViewState.selectedItem.type != .group {
+                
+                let track = selectedTrack()
+                
+                let gaps = playlist.getGapsAroundTrack(track)
+                insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
+                removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
+                editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
+                
+            } else {
+                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
+            }
+            
+        } else {
+            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
+        }
+        
+        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
+        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
+        
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
+    }
+    
     private func areOnlyGroupsSelected() -> Bool {
         
         let items = PlaylistViewState.selectedItems
