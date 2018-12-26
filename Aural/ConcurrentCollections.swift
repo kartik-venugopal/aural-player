@@ -39,7 +39,7 @@ class ConcurrentMap<T: Hashable, U: Any> {
     
     func put(_ key: T, _ value: U) {
         
-        syncQueue.sync(flags: .barrier) {
+        _ = syncQueue.sync(flags: .barrier) {
             map[key] = value
         }
     }
@@ -70,7 +70,7 @@ class ConcurrentSet<T: Hashable> {
     
     func insert(_ value: T) {
         
-        syncQueue.sync(flags: .barrier) {
+        _ = syncQueue.sync(flags: .barrier) {
             set.insert(value)
         }
     }

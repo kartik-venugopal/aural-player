@@ -21,7 +21,6 @@ class HistoryItem: EquatableHistoryItem {
     
     // Display information used in menu items
     private var _displayName: String
-    var art: NSImage = Images.imgPlayedTrack
     
     var track: Track?
     
@@ -42,16 +41,13 @@ class HistoryItem: EquatableHistoryItem {
     }
     
     // Used for tracks
-    init(_ file: URL, _ displayName: String, _ time: Date, _ art: NSImage? = nil) {
+    init(_ file: URL, _ displayName: String, _ time: Date) {
         
         self.file = file
         self.time = time
         
         // Default the displayName to file name (intended to be replaced later)
         self._displayName = displayName
-        if art != nil {
-            self.art = art!
-        }
     }
     
     func equals(_ other: EquatableHistoryItem) -> Bool {
@@ -62,48 +58,24 @@ class HistoryItem: EquatableHistoryItem {
         
         return false
     }
-    
-    // Loads display information (name and art) from the filesystem file
-    fileprivate func loadDisplayInfoFromFile() {
-        
-        // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
-        
-        // TODO: Temporarily disabled
-//        DispatchQueue.global(qos: .background).async {
-//
-//            if let art = MetadataUtils.loadArtworkForFile(self.file) {
-//                self.art = art.copy() as! NSImage
-//            }
-//        }
-    }
-    
-    func validateFile() -> Bool {
-        return FileSystemUtils.fileExists(file)
-    }
 }
 
 // Either a folder, audio file, or playlist file
 class AddedItem: HistoryItem {
     
+    // Folder or playlist added for the first time
     init(_ file: URL, _ time: Date) {
         
         super.init(file, file.lastPathComponent, time)
         loadDisplayInfoFromFile(true)
     }
     
-    init(_ file: URL, _ displayName: String, _ time: Date) {
-        
+    override init(_ file: URL, _ displayName: String, _ time: Date) {
         super.init(file, displayName, time)
-        loadDisplayInfoFromFile(false)
     }
     
     init(_ track: Track, _ time: Date) {
-        
-        var trackArt: NSImage? = nil
-        if let art = track.displayInfo.art {
-            trackArt = art.copy() as? NSImage
-        }
-        super.init(track.file, track.conciseDisplayName, time, trackArt)
+        super.init(track.file, track.conciseDisplayName, time)
         self.track = track
     }
     
@@ -117,8 +89,6 @@ class AddedItem: HistoryItem {
             
             // Display name is last path component
             // Art is folder icon
-            
-            self.art = Images.imgGroup
             
             if setDisplayName {
                 self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
@@ -134,16 +104,9 @@ class AddedItem: HistoryItem {
                 // Playlist
                 // Display name is last path component
                 // Art is playlist icon
-                self.art = Images.imgHistory_playlist_padded
-                
                 if setDisplayName {
                     self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
                 }
-                
-            } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
-                
-                // Track
-//                super.loadDisplayInfoFromFile()
             }
         }
     }
@@ -155,18 +118,10 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
     init(_ track: Track, _ time: Date) {
         
         super.init(track.file, track.conciseDisplayName, time)
-        
         self.track = track
-        
-        // If track art is available, load display info from it
-        if let trackArt = track.displayInfo.art {
-            self.art = trackArt.copy() as! NSImage
-        }
     }
-
-    init(_ file: URL, _ name: String, _ time: Date) {
-        
-        super.init(file, name, time)
-        loadDisplayInfoFromFile()
+    
+    override init(_ file: URL, _ displayName: String, _ time: Date) {
+        super.init(file, displayName, time)
     }
 }

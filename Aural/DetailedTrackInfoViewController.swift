@@ -48,7 +48,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         trackInfoView?.reloadData()
         trackInfoView?.scrollRowToVisible(0)
-        artView?.image = track.displayInfo.art ?? nil
+        artView?.image = track.displayInfo.art
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -59,7 +59,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
         }
         
-        artView.image = track.displayInfo.art ?? nil
+        artView.image = track.displayInfo.art
     }
     
     func isShown() -> Bool {
