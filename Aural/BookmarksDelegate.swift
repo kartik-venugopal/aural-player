@@ -55,11 +55,12 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         
         do {
             // First, find or add the given file
-            let newTrack = try playlist.findOrAddFile(bookmark.file)
+            if let newTrack = try playlist.findOrAddFile(bookmark.file) {
             
-            // Play it immediately. Don't allow a gap/delay.
-            let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition).withAllowDelay(false)
-            player.play(newTrack.track, params)
+                // Play it immediately. Don't allow a gap/delay.
+                let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition).withAllowDelay(false)
+                player.play(newTrack.track, params)
+            }
             
         } catch let error {
             

@@ -42,7 +42,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -325,9 +325,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
-//        DispatchQueue.main.async {
-            self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
-//        }
+        self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
+    }
+    
+    private func trackGrouped(_ message: TrackGroupedAsyncMessage) {
+        self.playlistView.reloadData(forRowIndexes: IndexSet(integer: message.index), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
@@ -588,6 +590,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackAdded:
             
             trackAdded(message as! TrackAddedAsyncMessage)
+            
+        case .trackGrouped:
+            
+            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .tracksRemoved:
             

@@ -53,7 +53,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -581,9 +581,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
-    private func trackGrouped(_ msg: TrackAddedAsyncMessage) {
+    private func trackGrouped(_ msg: TrackGroupedAsyncMessage) {
         
-        if let grouping = msg.groupInfo[self.groupType] {
+        if let grouping = msg.groupingResults[self.groupType] {
             
             if grouping.groupCreated {
                 
@@ -820,9 +820,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         switch message.messageType {
             
-        case .trackAdded:
+        case .trackGrouped:
             
-            trackGrouped(message as! TrackAddedAsyncMessage)
+            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .trackInfoUpdated:
             

@@ -59,10 +59,11 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         do {
             
             // First, find or add the given file
-            let newTrack = try playlist.findOrAddFile(item)
+            if let newTrack = try playlist.findOrAddFile(item) {
             
-            // Play it
-            player.play(newTrack.track)
+                // Play it
+                player.play(newTrack.track)
+            }
             
         } catch let error {
             

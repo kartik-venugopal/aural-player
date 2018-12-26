@@ -97,63 +97,67 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             for result in progress.addResults {
                 
-                let track = result.track
-                
                 self.trackUpdateQueue.addOperation {
-                    
-                    TrackIO.loadSecondaryInfo(track)
-                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                    TrackIO.loadSecondaryInfo(result.track)
                 }
             }
         }
     }
     
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack {
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
         
         // TODO: Code duplication with addTrack()
-        
+
         // If track exists, return it
         if let foundTrack = playlist.findTrackByFile(file) {
             return foundTrack
         }
-    
+
         // Track doesn't exist, need to add it
-        
+
         // If the file points to an invalid location, throw an error
         if (!FileSystemUtils.fileExists(file)) {
             throw FileNotFoundError(file)
         }
-        
+
         // Always resolve sym links and aliases before reading the file
         let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
         let file = resolvedFileInfo.resolvedURL
-        
+
         let progress = TrackAddedMessageProgress(1, 1)
-        
+
         // Load display info
         let track = Track(file)
         
-        // Metadata
-        TrackIO.loadPrimaryInfo(track)
+        var iTrack: IndexedTrack?
         
         // Non-nil result indicates success
-        let result = playlist.addTrack(track, progress)
-
-        // Add gaps around this track (persistent ones)
-        let gapsForTrack = playlistState.getGapsForTrack(track)
-        playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
-
-        // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-        playlistState.removeGapsForTrack(track)
+        // TODO: Check if track was added
+        // TODO: Can we group tracks in batches or all at once ?
+        if let index = self.playlist.addTrack(track, progress) {
+            
+            iTrack = IndexedTrack(track, index)
+            
+            // Add gaps around this track (persistent ones)
+            let gapsForTrack = self.playlistState.getGapsForTrack(track)
+            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
+            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+            
+            trackAddQueue.addOperation {
+                
+                // Metadata
+                TrackIO.loadPrimaryInfo(track)
+                let groupingResults = self.playlist.groupTrack(track, index)
+                
+                let result = TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
+                
+                // Notify change listeners
+                self.changeListeners.forEach({$0.tracksAdded([result])})
+                AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+            }
+        }
         
-        // Art
-        TrackIO.loadSecondaryInfo(track)
-
-        // Notify change listeners
-        self.changeListeners.forEach({$0.tracksAdded([result!])})
-        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
-        
-        return IndexedTrack(track, result!.flatPlaylistResult)
+        return iTrack
     }
     
     /*
@@ -198,9 +202,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                         
                         // Track
                         progress.tracksAdded += 1
-                            
+                        
                         let progressMsg = TrackAddedMessageProgress(progress.tracksAdded, progress.totalTracks)
-                        addTrack(file, progressMsg, progress, autoplayOptions)
+                        if let index = addTrack(file, progressMsg, progress, autoplayOptions) {
+                            
+                            if (autoplayOptions.autoplay && !progress.autoplayed) {
+                                
+                                self.autoplay(index, autoplayOptions.interruptPlayback)
+                                progress.autoplayed = true
+                            }
+                        }
                     }
                 }
             }
@@ -234,42 +245,35 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Adds a single track to the playlist. Returns index of newly added track
-    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress, _ opProgress: TrackAddOperationProgress, _ autoplayOptions: AutoplayOptions) {
+    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress, _ opProgress: TrackAddOperationProgress, _ autoplayOptions: AutoplayOptions) -> Int? {
         
         let track = Track(file)
         
-        trackAddQueue.addOperation {
-            
-            // No duplicate tracks allowed
-            if self.playlist.hasTrack(track) {return}
-            
-            // Metadata
-            TrackIO.loadPrimaryInfo(track)
-            
             // Non-nil result indicates success
             // TODO: Check if track was added
-            // TODO: Can we group tracks in batches or all at once ?
-            if let result = self.playlist.addTrack(track, progress) {
+        // TODO: Can we group tracks in batches or all at once ?
+        if let index = self.playlist.addTrack(track, progress) {
+            
+            // Add gaps around this track (persistent ones)
+            let gapsForTrack = self.playlistState.getGapsForTrack(track)
+            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
+            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+            
+            trackAddQueue.addOperation {
                 
-                // Add gaps around this track (persistent ones)
-                let gapsForTrack = self.playlistState.getGapsForTrack(track)
-                self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
-                
-                // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-                self.playlistState.removeGapsForTrack(track)
+                // Metadata
+                TrackIO.loadPrimaryInfo(track)
+                let groupingResults = self.playlist.groupTrack(track, index)
                 
                 // --------
                 
-                let index = result.flatPlaylistResult
-                if (autoplayOptions.autoplay && !opProgress.autoplayed) {
-                    
-                    self.autoplay(index, autoplayOptions.interruptPlayback)
-                    opProgress.autoplayed = true
-                }
-                
-                opProgress.addResults.append(result)
+                opProgress.addResults.append(TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults))
             }
+            
+            return index
         }
+        
+        return nil
     }
     
     private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {

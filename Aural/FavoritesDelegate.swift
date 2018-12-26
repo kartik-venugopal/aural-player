@@ -69,10 +69,11 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         do {
             // First, find or add the given file
-            let newTrack = try playlist.findOrAddFile(favorite.file)
+            if let newTrack = try playlist.findOrAddFile(favorite.file) {
             
-            // Try playing it
-            player.play(newTrack.track)
+                // Try playing it
+                player.play(newTrack.track)
+            }
             
         } catch let error {
             
