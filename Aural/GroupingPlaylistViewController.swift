@@ -581,7 +581,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
-    private func trackGrouped(_ msg: TrackAddedAsyncMessage) {
+    private func trackAdded(_ msg: TrackAddedAsyncMessage) {
         
         if let grouping = msg.groupInfo[self.groupType] {
             
@@ -822,7 +822,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
         case .trackAdded:
             
-            trackGrouped(message as! TrackAddedAsyncMessage)
+            trackAdded(message as! TrackAddedAsyncMessage)
             
         case .trackInfoUpdated:
             
@@ -864,10 +864,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .gapUpdatedNotification:
             
             gapUpdated(notification as! PlaybackGapUpdatedNotification)
-            
-//        case .trackGroupedNotification:
-//
-//            trackGrouped(notification as! TrackGroupedNotification)
             
         default: return
             
