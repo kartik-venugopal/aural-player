@@ -607,22 +607,20 @@ G1BhbiBTbGlkZXI
             <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx">
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx" userLabel="Black Box">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="YEq-j3-5Be">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML">
-                                <rect key="frame" x="31" y="108" width="73" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
-                            </imageView>
-                        </subviews>
                     </view>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML" userLabel="Icon">
+                    <rect key="frame" x="116" y="112" width="30" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
+                </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i35-Df-NJq" userLabel="Time rem caption">
                     <rect key="frame" x="165" y="10" width="81" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -642,7 +640,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
-                    <rect key="frame" x="107" y="131" width="337" height="28"/>
+                    <rect key="frame" x="30" y="131" width="440" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
                         <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -651,7 +649,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="160" y="108" width="231" height="28"/>
+                    <rect key="frame" x="144" y="106" width="213" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Converting to a supported format ..." id="kPq-wv-JLN">
                         <font key="font" size="13" name="GillSans"/>
@@ -660,7 +658,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QQt-lp-x2f">
-                    <rect key="frame" x="31" y="86" width="437" height="20"/>
+                    <rect key="frame" x="31" y="85" width="437" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
@@ -671,6 +669,15 @@ G1BhbiBTbGlkZXI
                             </configuration>
                         </ciFilter>
                     </contentFilters>
+                    <backgroundFilters>
+                        <ciFilter name="CIFalseColor">
+                            <configuration>
+                                <ciColor key="inputColor0" red="0.12758505344390869" green="0.12758505344390869" blue="0.12758505344390869" alpha="1"/>
+                                <ciColor key="inputColor1" red="0.25747370719909668" green="0.25747370719909668" blue="0.25747370719909668" alpha="1"/>
+                                <null key="inputImage"/>
+                            </configuration>
+                        </ciFilter>
+                    </backgroundFilters>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPS-v3-qQi" userLabel="Progress caption">
                     <rect key="frame" x="98" y="64" width="147" height="20"/>
@@ -767,7 +774,7 @@ Gw
         <image name="SeekForward" width="8.6400003433227539" height="5.5199999809265137"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="ShuffleOff" width="26" height="26"/>
-        <image name="Transcoding" width="154" height="91"/>
+        <image name="Transcoding" width="53" height="36"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>
