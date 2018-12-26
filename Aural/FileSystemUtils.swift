@@ -112,7 +112,7 @@ class FileSystemUtils {
             return (attr[FileAttributeKey.type] as! FileAttributeType) == FileAttributeType.typeDirectory
             
         } catch let error as NSError {
-            NSLog("Error getting type of file at url '%@': %@", url.path, error.description)
+//            NSLog("Error getting type of file at url '%@': %@", url.path, error.description)
             return false
         }
     }

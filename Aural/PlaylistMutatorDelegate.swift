@@ -67,8 +67,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
             
-            NSLog("Started adding")
-            
             // ------------------ ADD --------------------
             
             let progress = TrackAddOperationProgress(0, files.count, [TrackAddResult](), [InvalidTrackError](), false)
@@ -79,9 +77,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // Wait for addQueue to finish execution, update tracks with secondary info
             self.trackAddQueue.waitUntilAllOperationsAreFinished()
-            
-            print("\n")
-            NSLog("Finished adding to playlist, now updating ...")
             
             if userAction {
                 AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))

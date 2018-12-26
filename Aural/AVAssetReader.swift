@@ -42,7 +42,7 @@ class AVAssetReader: MetadataReader {
     }
     
     // Retrieves artwork for a given track, if available
-    private func getArtwork(_ asset: AVURLAsset) -> NSImage? {
+    private func getArt(_ asset: AVURLAsset) -> NSImage? {
         
         let items = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: commonId_art)
         
@@ -90,7 +90,21 @@ class AVAssetReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let art = getArtwork(track.audioAsset!)
+        var art: NSImage? = nil
+        
+        let cachedArt = AlbumArtCache.forFile(track.file)
+        
+        if let cachedArtImg = cachedArt.art {
+            
+            art = cachedArtImg
+            
+        } else if !cachedArt.fileHasNoArt {
+            
+            // File may have art, need to read it
+            art = getArt(track.audioAsset!)
+            AlbumArtCache.addEntry(track.file, art)
+        }
+        
         let discNum = getDiscNumber(track)
         let trackNum = getTrackNumber(track)
         
@@ -117,11 +131,11 @@ class AVAssetReader: MetadataReader {
     func getArt(_ track: Track) -> NSImage? {
         
         ensureTrackAssetLoaded(track)
-        return getArtwork(track.audioAsset!)
+        return getArt(track.audioAsset!)
     }
     
     func getArt(_ file: URL) -> NSImage? {
-        return getArtwork(AVURLAsset(url: file, options: nil))
+        return getArt(AVURLAsset(url: file, options: nil))
     }
     
     func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
@@ -163,7 +177,7 @@ class AVAssetReader: MetadataReader {
                         metadata[key] = MetadataEntry(.common, key, stringValue!)
                     }
                     
-                } else if let key = item.key as? String, !StringUtils.isStringEmpty(stringValue) {
+                } else if let key = item.key as? String, !genericMetadata_ignoreKeys.contains(key), !StringUtils.isStringEmpty(stringValue) {
                     metadata[key] = MetadataEntry(metadataType, key, stringValue!)
                 }
             }

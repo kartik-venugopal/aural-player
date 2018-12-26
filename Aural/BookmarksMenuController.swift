@@ -64,7 +64,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            if let img = AlbumArtManager.getArtForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
+            if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
                 
                 DispatchQueue.main.async {
                     

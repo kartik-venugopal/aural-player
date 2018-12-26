@@ -325,7 +325,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
-        
 //        DispatchQueue.main.async {
             self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
 //        }
@@ -571,8 +570,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func transcodingCancelled(_ track: Track) {
         
-        let index = playlist.indexOfTrack(track)!.index
-        playlistView.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        if let index = playlist.indexOfTrack(track)?.index {
+            playlistView.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        }
     }
     
     var subscriberId: String {
