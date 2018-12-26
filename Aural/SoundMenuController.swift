@@ -86,22 +86,21 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
-        
         let isRegularMode = AppModeManager.mode == .regular
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
+        
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !showingDialogOrPopover)})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
+        rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
         
+        masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
         rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
         
         if let playingTrack = player.playingTrack?.track {
-            
-            rememberSettingsMenuItem.enable()
             rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
-            
-        } else {
-            rememberSettingsMenuItem.disable()
         }
     }
     
