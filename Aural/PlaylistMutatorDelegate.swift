@@ -84,8 +84,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
-            if self.addSession.opProgress.errors.count > 0 {
-                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.opProgress.errors))
+            if self.addSession.progress.errors.count > 0 {
+                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.progress.errors))
             }
             
             if !self.addSession.tracks.isEmpty {
@@ -94,12 +94,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: self.addSession.addedItems))
                 }
                 
+                let results = self.addSession.progress.results
+                
                 // Notify change listeners
-                self.changeListeners.forEach({$0.tracksAdded(self.addSession.opProgress.addResults)})
+                self.changeListeners.forEach({$0.tracksAdded(results)})
                 
                 // ------------------ UPDATE --------------------
                 
-                for result in self.addSession.opProgress.addResults {
+                for result in results {
                     
                     self.trackUpdateQueue.addOperation {
                         TrackIO.loadSecondaryInfo(result.track)
@@ -124,7 +126,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-                    addSession.opProgress.errors.append(FileNotFoundError(_file))
+                    addSession.progress.errors.append(FileNotFoundError(_file))
                     continue
                 }
                 
@@ -175,8 +177,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
             
-            addSession.opProgress.totalTracks -= 1
-            addSession.opProgress.totalTracks += (loadedPlaylist?.tracks.count)!
+            addSession.progress.totalTracks -= 1
+            addSession.progress.totalTracks += (loadedPlaylist?.tracks.count)!
             
             collectTracks(loadedPlaylist!.tracks, true)
         }
@@ -188,8 +190,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
             
-            addSession.opProgress.totalTracks -= 1
-            addSession.opProgress.totalTracks += (dirContents?.count)!
+            addSession.progress.totalTracks -= 1
+            addSession.progress.totalTracks += (dirContents?.count)!
             
             collectTracks(dirContents!, true)
         }
@@ -236,10 +238,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
                 self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
                 
-                addSession.opProgress.tracksAdded += 1
-                addSession.opProgress.addResults.append(result)
+                addSession.progress.tracksAdded += 1
+                addSession.progress.results.append(result)
                 
-                let progressMsg = TrackAddedMessageProgress(addSession.opProgress.tracksAdded, addSession.opProgress.totalTracks)
+                let progressMsg = TrackAddedMessageProgress(addSession.progress.tracksAdded, addSession.progress.totalTracks)
                 AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progressMsg))
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
@@ -281,6 +283,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, TrackAddedMessageProgress(1, 1)))
             AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+            
+            self.changeListeners.forEach({$0.tracksAdded([result])})
             
             return IndexedTrack(track, result.flatPlaylistResult)
         }
@@ -493,15 +497,15 @@ class TrackAddOperationProgress {
 
     var tracksAdded: Int
     var totalTracks: Int
-    var addResults: [TrackAddResult]
+    var results: [TrackAddResult]
     var errors: [DisplayableError]
 
-    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [DisplayableError]) {
+    init(_ tracksAdded: Int, _ totalTracks: Int, _ results: [TrackAddResult], _ errors: [DisplayableError]) {
         
         self.tracksAdded = tracksAdded
         self.totalTracks = totalTracks
         
-        self.addResults = addResults
+        self.results = results
         self.errors = errors
     }
 }
@@ -528,14 +532,14 @@ class TrackAddSession {
     var tracks: [Track] = []
     var processed: Int = 0
     
-    var opProgress: TrackAddOperationProgress
+    var progress: TrackAddOperationProgress
     var autoplayOptions: AutoplayOptions
     
     var addedItems: [URL] = []
 
     init(_ numTracks: Int, _ autoplayOptions: AutoplayOptions) {
         
-        opProgress = TrackAddOperationProgress(0, numTracks, [], [])
+        progress = TrackAddOperationProgress(0, numTracks, [], [])
         self.autoplayOptions = autoplayOptions
     }
 }
