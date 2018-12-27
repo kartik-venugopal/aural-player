@@ -17,10 +17,6 @@ class CommandExecutor {
         
         task.launch()
         
-//        if cmd.process.arguments!.contains("/ffmpeg/Test/PerfectWorld.wma") && cmd.process.arguments!.contains("-show_entries") {
-//            NSLog("Launched command: %@, with args: %@", cmd.process.launchPath!, cmd.process.arguments!)
-//        }
-        
         // End task after timeout interval
         if let timeout = cmd.timeout {
             
@@ -34,8 +30,6 @@ class CommandExecutor {
         }
         
         task.waitUntilExit()
-        
-//        NSLog("Finished command: %@, with args: %@", cmd.process.launchPath!, cmd.process.arguments!)
         
         if let monitoredCmd = cmd as? MonitoredCommand, monitoredCmd.cancelled {
             // Task may have been canceled

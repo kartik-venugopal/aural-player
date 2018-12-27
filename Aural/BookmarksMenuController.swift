@@ -20,7 +20,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         
         let queue = OperationQueue()
         queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        queue.maxConcurrentOperationCount = SystemUtils.numberOfActiveCores
+        queue.maxConcurrentOperationCount = max(SystemUtils.numberOfActiveCores / 2, 2)
         
         return queue
     }()
