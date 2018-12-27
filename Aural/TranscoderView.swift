@@ -3,50 +3,40 @@ import Cocoa
 class TranscoderView: NSView {
     
     @IBOutlet weak var lblTrack: NSTextField!
-//    @IBOutlet weak var lblPercentage: NSTextField!
     
     @IBOutlet weak var lblTrackTime: NSTextField!
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var lblSpeed: NSTextField!
     
-    @IBOutlet weak var bar: NSProgressIndicator!
-    
-    @IBOutlet weak var arc: ProgressArc!
+    @IBOutlet weak var progressView: ProgressArc!
     
     func transcodingStarted(_ track: Track) {
-        
-        lblTrack.stringValue = track.conciseDisplayName
-        
-        lblTrackTime.stringValue = "Track time:   0:00  /  0:00"
-        lblTimeElapsed.stringValue = "Time elapsed:   0:00"
-        lblTimeRemaining.stringValue = "Time remaining:   0:00"
-        lblSpeed.stringValue = "Speed:   0x"
-        
-        bar.doubleValue = 0
-        arc.perc = 0
-        bar.startAnimation(self)
+        updateFields(track.conciseDisplayName, 0, track.duration, 0, 0, 0, "0x")
     }
     
     func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
+        updateFields(msg.track.conciseDisplayName, msg.timeTranscoded, msg.track.duration, msg.timeElapsed, msg.timeRemaining, msg.percTranscoded, msg.speed)
+    }
+    
+    private func updateFields(_ trackName: String, _ timeTranscoded: Double, _ trackDuration: Double, _ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double, _ speed: String) {
         
-        let trackTime = StringUtils.formatSecondsToHMS(msg.timeTranscoded)
-        let trackDuration = StringUtils.formatSecondsToHMS(msg.track.duration)
+        lblTrack.stringValue = trackName
         
-        let elapsed = StringUtils.formatSecondsToHMS(msg.timeElapsed)
-        let remaining = StringUtils.formatSecondsToHMS(msg.timeRemaining)
+        let trackTime = StringUtils.formatSecondsToHMS(timeTranscoded)
+        let trackDuration = StringUtils.formatSecondsToHMS(trackDuration)
+        
+        let elapsed = StringUtils.formatSecondsToHMS(timeElapsed)
+        let remaining = StringUtils.formatSecondsToHMS(timeRemaining)
         
         lblTrackTime.stringValue = String(format: "Track time:   %@  /  %@", trackTime, trackDuration)
         lblTimeElapsed.stringValue = String(format: "Time elapsed:   %@", elapsed)
         lblTimeRemaining.stringValue = String(format: "Time remaining:   %@", remaining)
-        lblSpeed.stringValue = String(format: "Speed:   %@", msg.speed)
+        lblSpeed.stringValue = String(format: "Speed:   %@", speed)
         
-//        bar.doubleValue = msg.percTranscoded
-        
-        arc.perc = msg.percTranscoded
+        progressView.percentage = percentage
     }
     
     func transcodingFinished() {
-        bar.stopAnimation(self)
     }
 }

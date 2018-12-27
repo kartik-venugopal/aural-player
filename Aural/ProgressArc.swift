@@ -1,26 +1,20 @@
 import Cocoa
 
+// TODO: Make this more reusable
 class ProgressArc: NSView {
     
-    var perc: Double = 0 {
+    var percentage: Double = 0 {
         
         didSet {
             self.redraw()
         }
     }
     
-    var textFont: NSFont = Fonts.progressBarFont
-    
     var radius: CGFloat = 30
-    
-    var barColoredGradient: NSGradient {return Colors.progressBarColoredGradient}
-    var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
-    
-    var barRadius: CGFloat {return 1.3}
-    var barInsetX: CGFloat {return 0}
-    var barInsetY: CGFloat {return 8}
+    var lineWidth: CGFloat = 4
     
     let backColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
+    var textFont: NSFont = Fonts.progressBarFont
     
     override func draw(_ dirtyRect: NSRect) {
         
@@ -29,39 +23,43 @@ class ProgressArc: NSView {
         let backgroundCirclePath: NSBezierPath = NSBezierPath()
         backgroundCirclePath.appendArc(withCenter: p0, radius: radius, startAngle: 0, endAngle: 360, clockwise: false)
         backColor.setStroke()
-        backgroundCirclePath.lineWidth = 5
+        backgroundCirclePath.lineWidth = lineWidth
         backgroundCirclePath.stroke()
         
+        // Clear any previously added sublayers (otherwise, previously drawn arcs will remain)
         layer?.sublayers?.removeAll()
    
-        //Add gradient layer
-        let gl = CAGradientLayer()
-        gl.frame = dirtyRect
-        gl.colors = [NSColor.white.cgColor, NSColor.white.cgColor]
-        layer?.addSublayer(gl)
+        // Add a gradient layer
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = dirtyRect
+        gradientLayer.colors = [NSColor.white.cgColor, NSColor.lightGray.cgColor]
         
-        //create mask in the shape of arc
-        let sl = CAShapeLayer()
-        sl.frame = dirtyRect
-        sl.lineWidth = 5.0
-        sl.strokeColor = NSColor.white.cgColor
+        layer?.addSublayer(gradientLayer)
         
-        let path = NSBezierPath()
+        // Create a mask in the shape of arc
+        let mask = CAShapeLayer()
+        mask.frame = dirtyRect
+        mask.lineWidth = lineWidth
+        mask.strokeColor = NSColor.gray.cgColor
         
-        if perc == 100 {perc = 99.95}
-        let endAngle: CGFloat = 540 - (CGFloat(perc) * 3.6)
-        path.appendArc(withCenter: p0, radius: radius, startAngle: 180, endAngle: endAngle, clockwise: true)
+        let arcPath = NSBezierPath()
         
-        sl.fillColor = NSColor.clear.cgColor
-        sl.lineCap = CAShapeLayerLineCap.round
-        sl.path = path.CGPath
+        // To prevent the arc from disappearing when we hit 100%
+        if percentage >= 100 {percentage = 99.98}
         
-        //Add mask to gradient layer
-        gl.mask = sl
+        let endAngle: CGFloat = 540 - (CGFloat(percentage) * 3.6)
+        arcPath.appendArc(withCenter: p0, radius: radius, startAngle: 180, endAngle: endAngle, clockwise: true)
+        
+        mask.fillColor = NSColor.clear.cgColor
+        mask.lineCap = CAShapeLayerLineCap.round
+        mask.path = arcPath.CGPath
+        
+        // Add the mask to the gradient layer
+        gradientLayer.mask = mask
         
         // ---------------------- PERCENTAGE TEXT ----------------------
         
-        let text = String(format: "%d %%", Int(round(perc)))
+        let text = String(format: "%d %%", Int(round(percentage)))
         
         let attrs: [String: AnyObject] = [
             NSAttributedString.Key.font.rawValue: textFont,
@@ -72,7 +70,7 @@ class ProgressArc: NSView {
         let size: CGSize = text.size(withAttributes: dict)
         
         // Draw title (adjacent to image)
-        text.draw(in: NSRect(x: (dirtyRect.width / 2) - (size.width / 2), y: (dirtyRect.height / 2) - (size.height / 2) + 2, width: size.width, height: size.height), withAttributes: dict)
+        text.draw(in: NSRect(x: (dirtyRect.width / 2) - (size.width / 2) + 2, y: (dirtyRect.height / 2) - (size.height / 2) + 2, width: size.width, height: size.height), withAttributes: dict)
     }
 }
 
