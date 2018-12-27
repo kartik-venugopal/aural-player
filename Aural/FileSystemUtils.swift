@@ -236,22 +236,21 @@ class FileSystemUtils {
         return (resolvedFile2, isDir)
     }
     
-    static func getLastPathComponents(_ url: URL, _ numComponents: Int) -> String {
+    static func getLastPathComponents(_ url: URL, _ numDesiredComponents: Int) -> String {
         
-        let comps = url.deletingLastPathComponent().pathComponents
+        let actualComponents = url.pathComponents
         
-        if comps.count <= numComponents {
+        if actualComponents.count <= numDesiredComponents + 1 {
             return url.path
         }
         
-        var cur = comps.count - 1
-        var compCount = 0
-        var path: String = "/" + url.lastPathComponent
+        var path: String = ""
         
-        while cur >= 0 && compCount < numComponents {
-            path = "/" + comps[cur] + path
-            cur -= 1
-            compCount += 1
+        let lastIndex = actualComponents.count - 1
+        let firstIndex = lastIndex - numDesiredComponents + 1
+        
+        for index in (firstIndex...lastIndex).reversed() {
+            path = String(format: "/%@%@", actualComponents[index], path)
         }
         
         return "..." + path

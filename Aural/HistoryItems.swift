@@ -91,7 +91,7 @@ class AddedItem: HistoryItem {
             // Art is folder icon
             
             if setDisplayName {
-                self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
+                self.displayName = FileSystemUtils.getLastPathComponents(file, 4)
             }
             
         } else {
@@ -105,7 +105,7 @@ class AddedItem: HistoryItem {
                 // Display name is last path component
                 // Art is playlist icon
                 if setDisplayName {
-                    self.displayName = FileSystemUtils.getLastPathComponents(file, 3)
+                    self.displayName = FileSystemUtils.getLastPathComponents(file, 4)
                 }
             }
         }
