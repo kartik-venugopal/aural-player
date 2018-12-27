@@ -76,32 +76,34 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
             self.collectTracks(files)
-            
             self.addSessionTracks()
             
-            // Wait for addQueue to finish execution, update tracks with secondary info
-            
-            if userAction {
-                AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
-            }
+            // ------------------ NOTIFY ------------------
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
-            // Notify change listeners
-            self.changeListeners.forEach({$0.tracksAdded(self.addSession.opProgress.addResults)})
-            
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
-            if (self.addSession.opProgress.errors.count > 0) {
+            if self.addSession.opProgress.errors.count > 0 {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.opProgress.errors))
             }
             
-            // ------------------ UPDATE --------------------
-            
-            for result in self.addSession.opProgress.addResults {
+            if !self.addSession.tracks.isEmpty {
+
+                if userAction {
+                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
+                }
                 
-                self.trackUpdateQueue.addOperation {
-                    TrackIO.loadSecondaryInfo(result.track)
+                // Notify change listeners
+                self.changeListeners.forEach({$0.tracksAdded(self.addSession.opProgress.addResults)})
+                
+                // ------------------ UPDATE --------------------
+                
+                for result in self.addSession.opProgress.addResults {
+                    
+                    self.trackUpdateQueue.addOperation {
+                        TrackIO.loadSecondaryInfo(result.track)
+                    }
                 }
             }
         }
@@ -133,7 +135,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 if (resolvedFileInfo.isDirectory) {
                     
                     // Directory
-                    addDirectory(file)
+                    expandDirectory(file)
                     
                 } else {
                     
@@ -143,7 +145,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                         
                         // Playlist
-                        addPlaylist(file)
+                        expandPlaylist(file)
                         
                     } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                         
@@ -161,7 +163,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Expands a playlist into individual tracks
-    private func addPlaylist(_ playlistFile: URL) {
+    private func expandPlaylist(_ playlistFile: URL) {
         
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
@@ -174,7 +176,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Expands a directory into individual tracks (and subdirectories)
-    private func addDirectory(_ dir: URL) {
+    private func expandDirectory(_ dir: URL) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
