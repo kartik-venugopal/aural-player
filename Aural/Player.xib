@@ -618,15 +618,15 @@ G1BhbiBTbGlkZXI
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML" userLabel="Icon">
-                    <rect key="frame" x="15" y="117" width="50" height="50"/>
+                    <rect key="frame" x="15" y="115" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="150" y="4" width="220" height="28"/>
+                    <rect key="frame" x="186" y="4" width="137" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="kPq-wv-JLN">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="GillSans-SemiBold"/>
                         <color key="textColor" white="0.70074231523863029" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
