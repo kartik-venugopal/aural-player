@@ -110,8 +110,6 @@ class FFMpegWrapper {
         let now = Date()
         let imgPath = String(format: "%@-albumArt-%@.jpg", artBaseDir.appendingPathComponent(inputFile.lastPathComponent).path, now.serializableString_hms())
         
-        print("ImgPath:", imgPath)
-        
         let command = Command.createSimpleCommand(cmd: ffmpegBinaryPath, args: ["-v", "0", "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath], timeout: getArtwork_timeout)
         
         let result = CommandExecutor.execute(command)
