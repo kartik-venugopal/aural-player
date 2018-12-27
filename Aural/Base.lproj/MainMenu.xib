@@ -38,7 +38,6 @@
                 <outlet property="bookmarkTrackPositionMenuItem" destination="qCe-8O-8ky" id="rH6-15-UwN"/>
                 <outlet property="bookmarkTrackSegmentLoopMenuItem" destination="ISR-D7-7Vu" id="783-3S-lV9"/>
                 <outlet property="manageBookmarksMenuItem" destination="rFK-no-hcx" id="ZZd-2F-ntX"/>
-                <outlet property="theMenu" destination="6PU-OL-7xn" id="mTh-Bf-jxD"/>
             </connections>
         </customObject>
         <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
