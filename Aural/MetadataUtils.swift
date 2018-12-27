@@ -69,7 +69,7 @@ class MetadataUtils {
         
         // If playlist has this track, get art from there
         if let track = playlist.findFile(file)?.track {
-
+            
             if track.displayInfo.art == nil {
                 loadArt(track)
             }
@@ -88,6 +88,7 @@ class MetadataUtils {
             // File may have art, need to read it
             let art = isFileMetadataNativelySupported(file) ? avAssetReader.getArt(file) : ffMpegReader.getArt(file)
             AlbumArtCache.addEntry(file, art)
+            
             return art
         }
         

@@ -10,13 +10,20 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    @IBOutlet weak var theMenu: NSMenu!
-    
     @IBOutlet weak var bookmarkTrackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
+    
+    fileprivate lazy var artLoadingQueue: OperationQueue = {
+        
+        let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.maxConcurrentOperationCount = SystemUtils.numberOfActiveCores
+        
+        return queue
+    }()
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -35,24 +42,17 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        print("\nBOOKMARKS will open ...")
-        
-        // Clear the menu first (except the topmost item)
-        let items = menu.items
-        items.forEach({
-            
-            if $0 is BookmarksMenuItem {
-                menu.removeItem($0)
-            }
-        })
+        // Remove existing (possibly stale) items, starting after the static items
+        while menu.items.count > 4 {
+            menu.removeItem(at: 4)
+        }
         
         // Recreate the bookmarks menu
-        let allBookmarks = bookmarks.getAllBookmarks()
-        allBookmarks.forEach({
-            
-            let item = createBookmarkMenuItem($0)
-            theMenu.addItem(item)
-        })
+        bookmarks.getAllBookmarks().forEach({menu.addItem(createBookmarkMenuItem($0))})
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        artLoadingQueue.cancelAllOperations()
     }
     
     // Factory method to create a single history menu item, given a model object (HistoryItem)
@@ -67,13 +67,13 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         menuItem.image = Images.imgPlayedTrack
         menuItem.image?.size = Images.historyMenuItemImageSize
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        artLoadingQueue.addOperation {
             
             if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
                 
+                imgCopy.size = Images.historyMenuItemImageSize
+                
                 DispatchQueue.main.async {
-                    
-                    imgCopy.size = Images.historyMenuItemImageSize
                     menuItem.image = imgCopy
                 }
             }
