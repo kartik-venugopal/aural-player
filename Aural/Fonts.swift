@@ -27,6 +27,8 @@ struct Fonts {
     static let gillSansSemiBold10Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
     static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
     
+    static let gillSans14Font: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    
     static let helpInfoTextFont: NSFont = gillSans12Font
     
     static let barModePlayingTrackTextFont: NSFont = gillSansSemiBold10Font
@@ -62,6 +64,8 @@ struct Fonts {
     // FX tab view buttons
     static let tabViewButtonFont_small: NSFont = gillSans11Font
     static let tabViewButtonBoldFont_small: NSFont = gillSansSemiBold11Font
+    
+    static let progressBarFont: NSFont = gillSans14Font
     
     // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = gillSans12Font

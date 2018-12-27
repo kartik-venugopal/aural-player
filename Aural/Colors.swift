@@ -156,6 +156,15 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
+    static let progressBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.3, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
     static let seekBarColoredGradient: NSGradient = Colors.neutralSliderBarColoredGradient
     
     // Color of the ticks/notches on sliders
