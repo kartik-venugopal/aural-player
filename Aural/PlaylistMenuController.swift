@@ -78,35 +78,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
         
-        // Make sure it's a track, not a group, and that only one track is selected
-        if numSelectedRows == 1 {
-            
-            if PlaylistViewState.selectedItem.type != .group {
-                
-                let track = selectedTrack()
-                
-                let gaps = playlist.getGapsAroundTrack(track)
-                insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
-                removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-                editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-                
-            } else {
-                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
-            }
-            
-        } else {
-            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
-        }
-        
         playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
-        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
         expandSelectedGroupsMenuItem.enableIf(atLeastOneItemSelected && areOnlyGroupsSelected())
-        
-        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
         collapseSelectedItemsMenuItem.enableIf(atLeastOneItemSelected)
-        
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -115,8 +90,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        let playlistSize = playlist.size
-        let playlistNotEmpty = playlistSize > 0
+        let playlistNotEmpty = playlist.size > 0
         let numSelectedRows = PlaylistViewState.currentView.numberOfSelectedRows
         
         // Make sure it's a track, not a group, and that only one track is selected

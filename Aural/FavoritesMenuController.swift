@@ -15,6 +15,15 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
+    fileprivate lazy var artLoadingQueue: OperationQueue = {
+        
+        let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.maxConcurrentOperationCount = SystemUtils.numberOfActiveCores
+        
+        return queue
+    }()
+    
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         addRemoveFavoritesMenuItem.off()
@@ -27,12 +36,10 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         addRemoveFavoritesMenuItem.enableIf(playbackInfo.state.playingOrPaused())
         
         // Menu has 3 static items
-        manageFavoritesMenuItem.enableIf(favoritesMenu.items.count > 3)
+        manageFavoritesMenuItem.enableIf(favorites.countFavorites() > 0)
     }
 
     func menuWillOpen(_ menu: NSMenu) {
-        
-        print("\nFAV will open ...")
         
         if let playingTrackFile = playbackInfo.playingTrack?.track.file {
             addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
@@ -40,23 +47,17 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
             addRemoveFavoritesMenuItem.off()
         }
         
-        // Recreate the custom layout items
-        let itemCount = favoritesMenu.items.count
-        
-        let favsCount = itemCount - 3  // 1 separator, 2 static items
-        
-        if favsCount > 0 {
-            
-            let lastIndex = 2 + favsCount
-            
-            // Need to traverse in descending order because items are going to be removed
-            for index in (3...lastIndex).reversed() {
-                favoritesMenu.removeItem(at: index)
-            }
+        // Remove existing (possibly stale) items, starting after the static items
+        while favoritesMenu.items.count > 3 {
+            favoritesMenu.removeItem(at: 3)
         }
         
         // Recreate the menu
         favorites.getAllFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        artLoadingQueue.cancelAllOperations()
     }
     
     // Factory method to create a single Favorites menu item, given a model object (FavoritesItem)
@@ -71,13 +72,13 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         menuItem.image = Images.imgPlayedTrack
         menuItem.image?.size = Images.historyMenuItemImageSize
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        artLoadingQueue.addOperation {
             
             if let img = MetadataUtils.artForFile(item.file), let imgCopy = img.copy() as? NSImage {
                 
+                imgCopy.size = Images.historyMenuItemImageSize
+                
                 DispatchQueue.main.async {
-                    
-                    imgCopy.size = Images.historyMenuItemImageSize
                     menuItem.image = imgCopy
                 }
             }

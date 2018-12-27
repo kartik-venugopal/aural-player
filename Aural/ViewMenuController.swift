@@ -37,8 +37,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        print("\nVIEW -update ")
-        
         playerMenuItem.enableIf(player.state != .transcoding)
         manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
     }
@@ -46,8 +44,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
         
-        print("\nVIEW -open ")
-     
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
         dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
         
