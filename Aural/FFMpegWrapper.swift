@@ -10,6 +10,14 @@ class FFMpegWrapper {
     static let getMetadata_timeout: Double = 3
     static let getArtwork_timeout: Double = 10
     
+    static let artBaseDir: URL = {
+        
+        let dir = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("albumArt", isDirectory: true)
+        FileSystemUtils.createDirectory(dir)
+        return dir
+        
+    }()
+    
     static func getMetadata(_ track: Track) -> LibAVInfo {
         
         var map: [String: String] = [:]
@@ -100,7 +108,9 @@ class FFMpegWrapper {
     static func getArt(_ inputFile: URL) -> NSImage? {
         
         let now = Date()
-        let imgPath = String(format: "%@-albumArt-%@.jpg", inputFile.path, now.serializableString_hms())
+        let imgPath = String(format: "%@-albumArt-%@.jpg", artBaseDir.appendingPathComponent(inputFile.lastPathComponent).path, now.serializableString_hms())
+        
+        print("ImgPath:", imgPath)
         
         let command = Command.createSimpleCommand(cmd: ffmpegBinaryPath, args: ["-v", "0", "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath], timeout: getArtwork_timeout)
         
