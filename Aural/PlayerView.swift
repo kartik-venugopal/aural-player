@@ -79,16 +79,10 @@ class PlayerView: NSView {
     }
     
     func mouseEntered() {
-        
-        if player.state == .transcoding {return}
-        
         autoHideFields_showing = true
     }
     
     func mouseExited() {
-        
-        if player.state == .transcoding {return}
-        
         autoHideFields_showing = false
     }
     
@@ -205,8 +199,6 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseEntered()
         
-        if player.state == .transcoding {return}
-        
         if !PlayerViewState.showControls {
             autoHideControls_show()
         }
@@ -215,8 +207,6 @@ class DefaultPlayerView: PlayerView {
     override func mouseExited() {
         
         super.mouseExited()
-        
-        if player.state == .transcoding {return}
         
         if !PlayerViewState.showControls {
             autoHideControls_hide()
@@ -280,8 +270,6 @@ class ExpandedArtPlayerView: PlayerView {
         
         super.mouseEntered()
         
-        if player.state == .transcoding {return}
-        
         autoHideControls_show()
         
         if !PlayerViewState.showTrackInfo {
@@ -292,8 +280,6 @@ class ExpandedArtPlayerView: PlayerView {
     override func mouseExited() {
         
         super.mouseExited()
-        
-        if player.state == .transcoding {return}
         
         if !PlayerViewState.showTrackInfo {
             autoHideInfo_hide()

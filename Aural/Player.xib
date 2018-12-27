@@ -626,7 +626,7 @@ G1BhbiBTbGlkZXI
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="kPq-wv-JLN">
                         <font key="font" size="13" name="GillSans-SemiBold"/>
-                        <color key="textColor" white="0.70074231523863029" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
