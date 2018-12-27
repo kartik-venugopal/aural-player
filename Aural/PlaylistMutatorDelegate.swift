@@ -75,7 +75,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
-            self.collectTracks(files)
+            self.collectTracks(files, false)
             self.addSessionTracks()
             
             // ------------------ NOTIFY ------------------
@@ -91,7 +91,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if !self.addSession.tracks.isEmpty {
 
                 if userAction {
-                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
+                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: self.addSession.addedItems))
                 }
                 
                 // Notify change listeners
@@ -116,7 +116,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
      
         The progress argument indicates current progress.
      */
-    private func collectTracks(_ files: [URL]) {
+    private func collectTracks(_ files: [URL], _ isRecursiveCall: Bool) {
         
         if (files.count > 0) {
             
@@ -134,6 +134,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 if (resolvedFileInfo.isDirectory) {
                     
+                    if !isRecursiveCall {addSession.addedItems.append(file)}
+                    
                     // Directory
                     expandDirectory(file)
                     
@@ -144,8 +146,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     
                     if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                         
+                        if !isRecursiveCall {addSession.addedItems.append(file)}
+                        
                         // Playlist
                         expandPlaylist(file)
+                        
                         
                     } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
                         
@@ -154,7 +159,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                         let track = Track(file)
                         
                         if !playlist.hasTrack(track) {
+                            
                             addSession.tracks.append(track)
+                            if !isRecursiveCall {addSession.addedItems.append(file)}
                         }
                     }
                 }
@@ -171,7 +178,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             addSession.opProgress.totalTracks -= 1
             addSession.opProgress.totalTracks += (loadedPlaylist?.tracks.count)!
             
-            collectTracks(loadedPlaylist!.tracks)
+            collectTracks(loadedPlaylist!.tracks, true)
         }
     }
     
@@ -184,7 +191,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             addSession.opProgress.totalTracks -= 1
             addSession.opProgress.totalTracks += (dirContents?.count)!
             
-            collectTracks(dirContents!)
+            collectTracks(dirContents!, true)
         }
     }
     
@@ -523,6 +530,8 @@ class TrackAddSession {
     
     var opProgress: TrackAddOperationProgress
     var autoplayOptions: AutoplayOptions
+    
+    var addedItems: [URL] = []
 
     init(_ numTracks: Int, _ autoplayOptions: AutoplayOptions) {
         
