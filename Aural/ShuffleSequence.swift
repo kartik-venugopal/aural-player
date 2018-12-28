@@ -140,7 +140,7 @@ class ShuffleSequence {
     
     // Checks if it is possible to advance the cursor
     func hasNext() -> Bool {
-        return cursor < sequence.count - 1
+        return sequence.count > 0 && cursor < sequence.count - 1
     }
     
     // Checks if it is possible to retreat the cursor
