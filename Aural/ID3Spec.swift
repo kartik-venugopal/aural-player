@@ -32,7 +32,7 @@ class ID3Spec: MetadataSpec {
         map[convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyComments)] = "Comments"
         
         // COMR
-        map[convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyCommerical)] = "Commercial Frame"
+        map[convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyCommercial)] = "Commercial Frame"
         
         // ENCR
         map[convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyEncryption)] = "Encryption Method Registration"
