@@ -85,7 +85,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         });
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks, .cannotRemoveTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
@@ -101,7 +101,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks, .cannotRemoveTracks], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
@@ -390,14 +390,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
-    private func cannotRemoveTracks() {
-        
-        DispatchQueue.main.async {
-            // Position and display an alert with error info
-            _ = UIUtils.showAlert_nonModal(DialogsAndAlerts.cannotRemoveTracksAlertWithError())
-        }
-    }
-    
     var subscriberId: String {
         return self.className
     }
@@ -435,10 +427,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .doneAddingTracks:
             
             doneAddingTracks()
-            
-        case .cannotRemoveTracks:
-            
-            cannotRemoveTracks()
             
         default: return
             
