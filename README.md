@@ -6,17 +6,13 @@
 
 Aural Player is an audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with some sound tuning capabilities for audio enthusiasts.
 
-### What it is:
+#### What it is:
 * A simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible
 * (I hope) A decent macOS alternative for Winamp (you be the judge).
 
-### What it is not (at the moment):
+#### What it is not (at the moment):
 * A streaming audio player that connects to internet radio stations/services
 * A scrobbler
-
-### How Aural Player came to be
-
-A lifelong lover and user of Winamp on Windows, I started using my Mac computer a lot more and was looking for a simple audio player like Winamp to play local files that had an equalizer. Astonishingly, I found none (and let's not even talk about iTunes) that matched the simplicity I was looking for. So, having never done any macOS programming before, I saw an opportunity to learn to do that, and here we are :)
 
 ## Download
 
@@ -38,7 +34,9 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ### Compatibility
 
-**User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
+**User**: Running Aural Player requires macOS 10.12 (Sierra) or later versions.
+
+NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no further support for those systems is planned. If you would really like support for Yosemite or El Capitan, please file an issue and I may consider it.
 
 **Developer**: To develop Aural Player with Swift 4.2 (master branch) requires macOS 10.13.4 or later (High Sierra) and XCode 10. The old "swift2" branch has been deleted.
 
