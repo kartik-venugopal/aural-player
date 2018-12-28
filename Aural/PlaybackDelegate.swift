@@ -191,6 +191,21 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Stop if currently playing
         haltPlayback()
         
+        // Validate track before attempting to play it
+        if let prepError = AudioUtils.validateTrack(indexedTrack.track) {
+            
+            // Note any error encountered
+            indexedTrack.track.lazyLoadingInfo.preparationFailed(prepError)
+            
+            // Playback is halted, and the playback sequence has ended
+            sequencer.end()
+            
+            // Send out an async error message instead of throwing
+            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, prepError))
+            return
+        }
+        
+        // Track is valid, OK to proceed
         TrackChangeContext.setNewTrack(indexedTrack)
         
         // Figure out start and end position

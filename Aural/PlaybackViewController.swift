@@ -337,17 +337,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func handleTrackNotPlayedError(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
         
-        // This needs to be done async. Otherwise, other open dialogs could hang.
+        self.trackChanged(oldTrack, .playing, nil, true)
+        
         DispatchQueue.main.async {
-            
-            let errorTrack = error.track
-            self.trackChanged(oldTrack, .playing, nil, true)
-            
             // Position and display an alert with error info
             _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
-            
-            // Remove the bad track from the playlist and update the UI
-            _ = SyncMessenger.publishRequest(RemoveTrackRequest(errorTrack))
         }
     }
     
@@ -385,13 +379,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // This needs to be done async. Otherwise, other open dialogs could hang.
         DispatchQueue.main.async {
             
-            let errorTrack = msg.track
-            
             // Position and display an alert with error info
-            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "Remove track from playlist"))
-            
-            // Remove the bad track from the playlist and update the UI
-            _ = SyncMessenger.publishRequest(RemoveTrackRequest(errorTrack))
+            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
         }
     }
     

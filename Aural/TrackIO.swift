@@ -43,14 +43,6 @@ class TrackIO {
             return
         }
         
-        // Validate the audio track
-        if let prepError = AudioUtils.validateTrack(track) {
-            
-            // Note any error encountered
-            lazyLoadInfo.preparationFailed(prepError)
-            return
-        }
-        
         // Track is valid, prepare it for playback
         AudioUtils.loadPlaybackInfo(track)
         if !lazyLoadInfo.preparedForPlayback && !lazyLoadInfo.needsTranscoding {

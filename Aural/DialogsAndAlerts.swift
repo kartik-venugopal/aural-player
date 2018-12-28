@@ -156,12 +156,10 @@ struct DialogsAndAlerts {
         
         let alert = NSAlert()
         
-        alert.window.title = "Track not playable"
-        
         alert.alertStyle = .warning
         alert.icon = Images.imgError
 
-        alert.addButton(withTitle: "Remove track from playlist")
+        alert.addButton(withTitle: "OK")
         
         return alert
     }
