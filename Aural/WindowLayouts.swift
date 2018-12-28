@@ -1,8 +1,8 @@
 import Cocoa
 
-fileprivate var visibleFrame: NSRect = {
+fileprivate var screenVisibleFrame: NSRect {
     return NSScreen.main!.visibleFrame
-}()
+}
 
 fileprivate let mainWindow: NSWindow = WindowFactory.getMainWindow()
 fileprivate let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
@@ -184,6 +184,9 @@ enum WindowLayoutPresets: String {
         var x: CGFloat = 0
         var y: CGFloat = 0
         
+        // Compute this only once
+        let visibleFrame = screenVisibleFrame
+        
         switch self {
             
         // Top left corner
@@ -300,6 +303,9 @@ enum WindowLayoutPresets: String {
         let gap = gapBetweenWindows()
         let twoGaps = 2 * gap
         
+        // Compute this only once
+        let visibleFrame = screenVisibleFrame
+        
         switch self {
             
         case .verticalFullStack:    return visibleFrame.height - (mainWindow.height + effectsWindow.height + twoGaps)
@@ -320,6 +326,9 @@ enum WindowLayoutPresets: String {
         let gap = gapBetweenWindows()
         let twoGaps = 2 * gap
         let minWidth = playlistWindow.minSize.width
+        
+        // Compute this only once
+        let visibleFrame = screenVisibleFrame
         
         switch self {
             
@@ -346,6 +355,9 @@ enum WindowLayoutPresets: String {
         
         var x: CGFloat = 0
         var y: CGFloat = 0
+        
+        // Compute this only once
+        let visibleFrame = screenVisibleFrame
         
         switch self {
             

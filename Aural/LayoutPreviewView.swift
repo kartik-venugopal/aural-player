@@ -6,15 +6,15 @@ class LayoutPreviewView: NSView {
     private var layout: WindowLayout?
     private let idealImgSize: CGFloat = 15
     
-    private lazy var screen: NSRect = {
+    private var screen: NSRect {
         return NSScreen.main!.frame
-    }()
+    }
     
-    private lazy var visibleFrame: NSRect = {
+    private var screenVisibleFrame: NSRect {
         return NSScreen.main!.visibleFrame
-    }()
+    }
     
-    private var drawRatio: CGFloat {
+    private var scale: CGFloat {
        return self.frame.width / screen.width
     }
     
@@ -29,6 +29,9 @@ class LayoutPreviewView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
+        
+        let visibleFrame = screenVisibleFrame
+        let drawRatio = scale
         
         // Draw screen
         var path = NSBezierPath.init(rect: dirtyRect)
@@ -69,7 +72,7 @@ class LayoutPreviewView: NSView {
     
     private func renderPreview(_ frame: NSRect, _ image: NSImage) {
         
-        let drawRect = frame.shrink(drawRatio)
+        let drawRect = frame.shrink(scale)
         let path = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
         
         NSColor.black.setFill()
