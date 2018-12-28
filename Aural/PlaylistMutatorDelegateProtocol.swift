@@ -5,6 +5,9 @@ import Cocoa
  */
 protocol PlaylistMutatorDelegateProtocol {
     
+    // Whether or not tracks are being added to the playlist
+    var isBeingModified: Bool {get}
+    
     /* 
         Adds a set of files to the playlist, asynchronously, if they are valid and supported by the app.
      

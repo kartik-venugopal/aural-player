@@ -16,6 +16,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         self.mutator = mutator
     }
     
+    var isBeingModified: Bool {return mutator.isBeingModified}
+    
     var tracks: [Track] {return accessor.tracks}
     
     var size: Int {return accessor.size}
@@ -67,7 +69,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
     
     func removeTracks(_ indexes: IndexSet) {
-        return mutator.removeTracks(indexes)
+        mutator.removeTracks(indexes)
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {

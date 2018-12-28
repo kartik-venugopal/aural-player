@@ -100,6 +100,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func clearPlaylist() {
+        
         playlist.clear()
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
@@ -147,7 +148,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             return
         }
         
-        playlist.removeTracksAndGroups(tracks, groups, groupType)
+        _ = playlist.removeTracksAndGroups(tracks, groups, groupType)
     }
     
     private func selectTrack(_ track: Track?) {
@@ -450,7 +451,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 return
             }
             
-            playlist.removeTracksAndGroups(tracks, groups, groupType)
+            _ = playlist.removeTracksAndGroups(tracks, groups, groupType)
         }
     }
     

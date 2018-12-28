@@ -30,6 +30,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     private let concurrentAddOpCount = Int(Double(SystemUtils.numberOfActiveCores) * 1.5)
     
+    var isBeingModified: Bool {
+        return addSession != nil
+    }
+    
     init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
@@ -100,6 +104,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if self.addSession.progress.errors.count > 0 {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.progress.errors))
             }
+            
+            self.addSession = nil
 
             // ------------------ UPDATE --------------------
             
@@ -317,6 +323,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: IndexSet) {
         
+        // TODO: Do the remove on a background thread
+        
         let playingTrack = playbackSequencer.playingTrack
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         
@@ -329,6 +337,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
+        // TODO: Do the remove on a background thread
+        
         let playingTrack = playbackSequencer.playingTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
@@ -340,6 +350,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
+        
         let results = playlist.moveTracksUp(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
         return results

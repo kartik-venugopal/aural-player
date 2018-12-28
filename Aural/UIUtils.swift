@@ -39,6 +39,14 @@ class UIUtils {
         return alert.runModal()
     }
     
+    static func showAlert_nonModal(_ alert: NSAlert) {
+        
+        centerDialogWRTScreen(alert.window)
+        alert.showsHelp = false
+        alert.showsSuppressionButton = false
+        alert.window.makeKeyAndOrderFront(alert)
+    }
+    
     // Centers a dialog with respect to the screen
     static func centerDialogWRTScreen(_ dialog: NSWindow) {
         

@@ -43,7 +43,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var pageUpMenuItem: NSMenuItem!
     @IBOutlet weak var pageDownMenuItem: NSMenuItem!
     
-    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -53,9 +53,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
     
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        theMenu.enableIf(AppModeManager.mode == .regular && layoutManager.isShowingPlaylist())
+        theMenu.enableIf(layoutManager.isShowingPlaylist())
         
         if (!theMenu.isEnabled) {
             return
@@ -140,11 +142,25 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addFilesAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.addTracks, nil))
     }
     
     // Removes any selected playlist items from the playlist
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
         sequenceChanged()
     }
@@ -156,34 +172,75 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.clearPlaylist, nil))
     }
     
     // Moves any selected playlist items up one row in the playlist
     @IBAction func moveItemsUpAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
         sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
     @IBAction func moveItemsToTopAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToTop, PlaylistViewState.current))
         sequenceChanged()
     }
     
     // Moves any selected playlist items down one row in the playlist
     @IBAction func moveItemsDownAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
     @IBAction func moveItemsToBottomAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
         sequenceChanged()
     }
     
     @IBAction func insertGapsAction(_ sender: NSMenuItem) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
         
         // Sender's tag is gap duration in seconds
         let tag = sender.tag
@@ -210,6 +267,12 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func editGapsAction(_ sender: NSMenuItem) {
         
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         // Custom gap dialog
         let gaps = playlist.getGapsAroundTrack(selectedTrack())
         
@@ -219,6 +282,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func removeGapsAction(_ sender: NSMenuItem) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(PlaylistViewState.current))
     }
     
@@ -229,6 +299,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func playlistSortAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.sort, nil))
     }
     
@@ -261,6 +338,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.cropSelection, PlaylistViewState.current))
         sequenceChanged()
     }

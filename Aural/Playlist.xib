@@ -815,7 +815,7 @@
         <image name="Search" width="26" height="26"/>
         <image name="ShowInFinder" width="11.25" height="11.25"/>
         <image name="Sort" width="32" height="27"/>
-        <image name="Transcode-Small" width="15" height="15"/>
+        <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>

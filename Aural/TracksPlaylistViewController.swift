@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    View controller for the flat ("Tracks") playlist view
+ View controller for the flat ("Tracks") playlist view
  */
 class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
@@ -84,6 +84,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func clearPlaylist() {
+        
         playlist.clear()
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
@@ -117,6 +118,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func refresh() {
+        
         DispatchQueue.main.async {
             self.playlistView.reloadData()
         }
@@ -128,9 +130,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let numRows = playlistView.numberOfRows
         
         /*
-            If playlist empty or has only 1 row OR
-            no tracks selected OR
-            all tracks selected, don't do anything
+         If playlist empty or has only 1 row OR
+         no tracks selected OR
+         all tracks selected, don't do anything
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
             
@@ -186,9 +188,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let numRows = playlistView.numberOfRows
         
         /*
-            If playlist empty or has only 1 row OR
-            no tracks selected OR
-            all tracks selected, don't do anything
+         If playlist empty or has only 1 row OR
+         no tracks selected OR
+         all tracks selected, don't do anything
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
             
@@ -294,9 +296,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func removeAndInsertItems(_ results: ItemMoveResults) {
         
         for result in results.results {
-
+            
             if let trackMovedResult = result as? TrackMoveResult {
-
+                
                 playlistView.removeRows(at: IndexSet([trackMovedResult.oldTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
                 playlistView.insertRows(at: IndexSet([trackMovedResult.newTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
             }
@@ -312,7 +314,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             playlistView.reloadData(forRowIndexes: IndexSet([result.oldTrackIndex, result.newTrackIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
-
+    
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         selectTrack(playbackInfo.playingTrack?.index)
@@ -487,6 +489,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let tracksToDelete = getInvertedSelection()
         
         if (tracksToDelete.count > 0) {
+            
             playlist.removeTracks(tracksToDelete)
             playlistView.reloadData()
         }
@@ -772,5 +775,5 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
-	return input.map { key in NSPasteboard.PasteboardType(key) }
+    return input.map { key in NSPasteboard.PasteboardType(key) }
 }
