@@ -24,6 +24,10 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Writes source information to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
         
+        if playlist.isBeingModified {
+            return false
+        }
+        
         let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
         let item = NSPasteboardItem()
         item.setData(data, forType: convertToNSPasteboardPasteboardType("public.data"))
@@ -48,6 +52,10 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
     // Validates the proposed drag/drop operation
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        
+        if playlist.isBeingModified {
+            return invalidDragOperation
+        }
         
         // If the source is the tableView, that means playlist tracks are being reordered
         if (info.draggingSource is NSTableView) {
@@ -81,6 +89,10 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
     // Performs the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        
+        if playlist.isBeingModified {
+            return false
+        }
         
         if (info.draggingSource is NSTableView) {
             

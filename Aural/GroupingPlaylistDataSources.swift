@@ -73,6 +73,10 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Writes source information to the pasteboard
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
+        if playlist.isBeingModified {
+            return false
+        }
+        
         var srcRows = [Int]()
         items.forEach({srcRows.append(outlineView.row(forItem: $0))})
         
@@ -100,6 +104,10 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     
     // Validates the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        
+        if playlist.isBeingModified {
+            return invalidDragOperation
+        }
         
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
         if (info.draggingSource is NSOutlineView) {
@@ -208,6 +216,10 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     
     // Performs the drop
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        
+        if playlist.isBeingModified {
+            return false
+        }
         
         if (info.draggingSource is NSOutlineView) {
             

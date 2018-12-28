@@ -29,6 +29,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Sort dialog
     private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
     
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
+    
     // For gesture handling
     private var eventMonitor: Any?
     
@@ -83,7 +85,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         });
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks, .cannotRemoveTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
@@ -99,7 +101,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks, .cannotRemoveTracks], subscriber: self)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
@@ -109,6 +111,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addTracksAction(_ sender: AnyObject) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
         
         let dialog = DialogsAndAlerts.openDialog
         
@@ -199,7 +207,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Handles a request to remove a single track from the playlist
     private func removeTrack(_ request: RemoveTrackRequest) {
         
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         let indexedTrack = playlist.indexOfTrack(request.track)
+        
         playlist.removeTracks([indexedTrack!.index])
         
         sequenceChanged()
@@ -239,6 +254,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Removes selected items from the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
         
         sequenceChanged()
@@ -247,6 +268,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
         
         // Make sure there is at least one track to save
         if (playlist.size > 0) {
@@ -263,6 +290,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         playlist.clear()
         
         // Tell all playlist views to refresh themselves
@@ -274,12 +307,24 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Moves any selected playlist items up one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
         sequenceChanged()
     }
     
     // Moves any selected playlist items down one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
@@ -310,6 +355,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func sortAction(_ sender: AnyObject) {
+        
+        if playlist.isBeingModified {
+            
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+            return
+        }
+        
         _ = playlistSortDialog.showDialog()
     }
     
@@ -336,6 +388,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
+    }
+    
+    private func cannotRemoveTracks() {
+        
+        DispatchQueue.main.async {
+            // Position and display an alert with error info
+            _ = UIUtils.showAlert_nonModal(DialogsAndAlerts.cannotRemoveTracksAlertWithError())
+        }
     }
     
     var subscriberId: String {
@@ -375,6 +435,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .doneAddingTracks:
             
             doneAddingTracks()
+            
+        case .cannotRemoveTracks:
+            
+            cannotRemoveTracks()
             
         default: return
             

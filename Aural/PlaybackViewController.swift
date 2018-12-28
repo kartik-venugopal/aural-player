@@ -18,6 +18,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
     private let appState: PlayerState = ObjectGraph.appState.ui.player
@@ -339,10 +340,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         self.trackChanged(oldTrack, .playing, nil, true)
         
-        DispatchQueue.main.async {
-            // Position and display an alert with error info
-            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
-        }
+//        DispatchQueue.main.async {
+//            // Position and display an alert with error info
+//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
+//        }
+        
+        alertDialog.showAlert(.error, "Track not played", error.track.conciseDisplayName, error.message)
     }
     
     private func performPlayback(_ request: PlaybackRequest) {
@@ -377,11 +380,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
-        DispatchQueue.main.async {
-            
-            // Position and display an alert with error info
-            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
-        }
+//        DispatchQueue.main.async {
+//
+//            // Position and display an alert with error info
+//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
+//        }
+        
+        alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
     }
     
     // MARK: Message handling
