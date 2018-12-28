@@ -31,16 +31,26 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         }
     }
     
+    // Force knobRect and barRect to NOT be flipped
+    
+    override func knobRect(flipped: Bool) -> NSRect {
+        return super.knobRect(flipped: false)
+    }
+    
+    override func barRect(flipped: Bool) -> NSRect {
+        return super.barRect(flipped: false)
+    }
+    
     override internal func drawKnob(_ knobRect: NSRect) {
         
         let rectHeight = knobRect.height
-        let bar = barRect(flipped: true).insetBy(dx: barInsetX, dy: barInsetY)
+        let bar = barRect(flipped: false).insetBy(dx: barInsetX, dy: barInsetY)
         let yCenter = knobRect.minY + (rectHeight / 2)
-        
+
         let knobWidth: CGFloat = bar.width + knobWidthOutsideBar
         let knobMinY = yCenter - (knobHeight / 2)
         let rect = NSRect(x: bar.minX - ((knobWidth - bar.width) / 2), y: knobMinY, width: knobWidth, height: knobHeight)
-        
+
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()

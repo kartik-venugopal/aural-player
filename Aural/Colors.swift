@@ -43,7 +43,7 @@ struct Colors {
     
     // Fill color of all slider knobs
     static let neutralKnobColor: NSColor = NSColor(white: 0.5, alpha: 1.0)
-    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
+    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
     static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
     
@@ -100,7 +100,7 @@ struct Colors {
     
     static let activeSliderBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
+        let backgroundStart = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0, green: 0.2, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
@@ -159,7 +159,7 @@ struct Colors {
     static let progressBarColoredGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.3, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
