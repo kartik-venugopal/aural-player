@@ -20,10 +20,6 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     override var nibName: String? {return "LayoutsEditor"}
     
-    private lazy var visibleFrame: NSRect = {
-        return NSScreen.main!.visibleFrame
-    }()
-    
     override func viewDidAppear() {
         
         editorView.reloadData()
