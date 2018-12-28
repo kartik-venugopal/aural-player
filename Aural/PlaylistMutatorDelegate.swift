@@ -80,6 +80,19 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // ------------------ NOTIFY ------------------
             
+            let atLeastOneTrackAdded: Bool = !self.addSession.tracks.isEmpty
+            let results = self.addSession.progress.results
+            
+            if atLeastOneTrackAdded {
+
+                if userAction {
+                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: self.addSession.addedItems))
+                }
+                
+                // Notify change listeners
+                self.changeListeners.forEach({$0.tracksAdded(results)})
+            }
+            
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
             // If errors > 0, send AsyncMessage to UI
@@ -87,19 +100,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if self.addSession.progress.errors.count > 0 {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.progress.errors))
             }
-            
-            if !self.addSession.tracks.isEmpty {
 
-                if userAction {
-                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: self.addSession.addedItems))
-                }
-                
-                let results = self.addSession.progress.results
-                
-                // Notify change listeners
-                self.changeListeners.forEach({$0.tracksAdded(results)})
-                
-                // ------------------ UPDATE --------------------
+            // ------------------ UPDATE --------------------
+            
+            if atLeastOneTrackAdded {
                 
                 for result in results {
                     
