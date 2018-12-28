@@ -36,7 +36,14 @@ class WindowLayouts {
     }
     
     static func layoutByName(_ name: String, _ acceptDefault: Bool = true) -> WindowLayout? {
-        return layouts[name] ?? (acceptDefault ? defaultLayout : nil)
+        
+        let layout = layouts[name] ?? (acceptDefault ? defaultLayout : nil)
+        
+        if let lt = layout, lt.systemDefined {
+            lt.recompute()
+        }
+        
+        return layout
     }
     
     static func deleteLayout(_ name: String) {
