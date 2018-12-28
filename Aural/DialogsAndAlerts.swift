@@ -29,7 +29,7 @@ struct DialogsAndAlerts {
     private static let errorAlert: NSAlert = createErrorAlert()
     
     // Used to warn the user that certain files were not added to the playlist
-    private static let tracksNotAddedAlert: NSAlert = DialogsAndAlerts.createTracksNotAddedAlert()
+    private static let tracksNotAddedAlert: NSAlert = createTracksNotAddedAlert()
     
     private static func createOpenDialog() -> NSOpenPanel {
         
