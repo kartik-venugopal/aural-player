@@ -92,14 +92,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareForTrackChange() {
         
-        if state == .transcoding {
-            
-            if let track = playingTrack?.track {
-                transcoder.cancel(track)
-            }
-            pendingPlaybackBlock = {}
-        }
-        
         let isPlayingOrPaused = state.playingOrPaused()
         
         let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
@@ -147,6 +139,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // MARK: play()
     
     private func forcedTrackChange(_ indexedTrack: IndexedTrack?, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+        
+        // If trying to play/transcode the same track that is already playing, don't do anything
+        if let playingTrack = TrackChangeContext.currentTrack, let newTrack = indexedTrack, playingTrack.track == newTrack.track, state != .waiting {
+            return
+        }
+        
+        if state == .transcoding {
+            
+            if let track = TrackChangeContext.currentTrack?.track {
+                transcoder.cancel(track)
+            }
+            pendingPlaybackBlock = {}
+        }
         
         if let track = indexedTrack {
             
@@ -362,6 +367,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func stop() {
         
         prepareForTrackChange()
+        
+        if state == .transcoding {
+            
+            if let track = playingTrack?.track {
+                transcoder.cancel(track)
+            }
+            pendingPlaybackBlock = {}
+        }
+        
         TrackChangeContext.setNewTrack(nil)
         pendingPlaybackBlock = {}
         
