@@ -221,8 +221,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                     
                     let speed = String(tokens.last!).trim()
                     
-                    let msg = TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining, speed)
-                    AsyncMessenger.publishMessage(msg)
+                    AsyncMessenger.publishMessage(TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining, speed))
                 }
             }
         }
