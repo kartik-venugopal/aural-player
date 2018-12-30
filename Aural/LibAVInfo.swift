@@ -16,8 +16,14 @@ class LibAVInfo {
     }
     
     var hasValidAudioTrack: Bool {
-        return !streams.isEmpty && streams.filter({$0.type == .audio}).count > 0
-        // TODO: Also check codec/format of audio tracks
+        
+        if streams.isEmpty {return false}
+        
+        if let stream = streams.filter({$0.type == .audio}).first {
+            return AppConstants.SupportedTypes.nonNativeAudioFormats.contains(stream.format)
+        }
+        
+        return false
     }
     
     var hasArt: Bool {
