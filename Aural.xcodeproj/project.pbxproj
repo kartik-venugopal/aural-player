@@ -222,6 +222,7 @@
 		3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */; };
 		3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADC1F25E289006A7626 /* SearchResults.swift */; };
 		3E8A2C8421C4F6A7004AD0DA /* TranscoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */; };
+		3E8A51D021D856FB0014C185 /* build-ffmpeg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E8A51CF21D856FB0014C185 /* build-ffmpeg.sh */; };
 		3E93AC17218B14C80055E18E /* NewFilter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E93AC16218B14C80055E18E /* NewFilter.xib */; };
 		3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */; };
 		3E94E85B21549A5800C57AD8 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85A21549A5800C57AD8 /* DelayPresets.swift */; };
@@ -553,7 +554,7 @@
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
 		3E67BEC221D273290091DC6C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
 		3E67BEC321D2732A0091DC6C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
-		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg_4_1/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
+		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
@@ -601,6 +602,7 @@
 		3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E864ADC1F25E289006A7626 /* SearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderView.swift; sourceTree = "<group>"; };
+		3E8A51CF21D856FB0014C185 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
 		3E93AC16218B14C80055E18E /* NewFilter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewFilter.xib; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabGroupButtonCells.swift; sourceTree = "<group>"; };
 		3E94E85A21549A5800C57AD8 /* DelayPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
@@ -1355,14 +1357,15 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		3E67BEC121D273120091DC6C /* ffmpeg_4_1 */ = {
+		3E67BEC121D273120091DC6C /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
 				3E67BEC221D273290091DC6C /* ffmpeg */,
 				3E67BEC321D2732A0091DC6C /* ffprobe */,
+				3E8A51CF21D856FB0014C185 /* build-ffmpeg.sh */,
 				3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */,
 			);
-			path = ffmpeg_4_1;
+			path = ffmpeg;
 			sourceTree = "<group>";
 		};
 		3E6D0F7E21C1C80400640450 /* Transcoding */ = {
@@ -1418,7 +1421,7 @@
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E67BEC121D273120091DC6C /* ffmpeg_4_1 */,
+				3E67BEC121D273120091DC6C /* ffmpeg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1995,6 +1998,7 @@
 				3E67BEC521D2732A0091DC6C /* ffmpeg in Resources */,
 				3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */,
 				3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */,
+				3E8A51D021D856FB0014C185 /* build-ffmpeg.sh in Resources */,
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
 				3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */,
