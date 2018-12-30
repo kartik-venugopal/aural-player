@@ -14,7 +14,27 @@ class AudioUtils {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        if track.metadataNativelySupported {
+        let fileExtension = track.file.pathExtension.lowercased()
+        
+        if !track.playbackNativelySupported || fileExtension == "flac" {
+            
+            if track.libAVInfo == nil {
+                track.libAVInfo = FFMpegWrapper.getMetadata(track)
+            }
+            
+            let avInfo = track.libAVInfo!
+            
+            if !avInfo.hasValidAudioTrack {
+                return TrackNotPlayableError(track)
+            }
+            
+            if avInfo.drmProtected {
+                return DRMProtectionError(track)
+            }
+            
+            return nil
+            
+        } else {
             
             if (track.audioAsset == nil) {
                 track.audioAsset = AVURLAsset(url: track.file, options: nil)
@@ -47,24 +67,6 @@ class AudioUtils {
             }
             
             return nil
-            
-        } else {
-            
-            if track.libAVInfo == nil {
-                track.libAVInfo = FFMpegWrapper.getMetadata(track)
-            }
-            
-            let avInfo = track.libAVInfo!
-            
-            if !avInfo.hasValidAudioTrack {
-                return TrackNotPlayableError(track)
-            }
-            
-            if avInfo.drmProtected {
-                return DRMProtectionError(track)
-            }
-            
-            return nil
         }
     }
     
@@ -86,20 +88,7 @@ class AudioUtils {
     
     static func loadPlaybackInfo_noPlayback(_ track: Track) {
         
-        if !track.playbackNativelySupported {
-            
-            if let stream = track.libAVInfo?.audioStream {
-                
-                let playbackInfo = PlaybackInfo()
-                
-                playbackInfo.sampleRate = stream.sampleRate
-                playbackInfo.numChannels = stream.channelCount
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                
-                track.playbackInfo = playbackInfo
-            }
-            
-        } else {
+        if track.playbackNativelySupported {
             
             if let audioFile = AudioIO.createAudioFileForReading(track.file) {
                 
@@ -111,6 +100,19 @@ class AudioUtils {
                 playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
                 playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
                 playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+                
+                track.playbackInfo = playbackInfo
+            }
+            
+        } else {
+            
+            if let stream = track.libAVInfo?.audioStream {
+                
+                let playbackInfo = PlaybackInfo()
+                
+                playbackInfo.sampleRate = stream.sampleRate
+                playbackInfo.numChannels = stream.channelCount
+                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
                 
                 track.playbackInfo = playbackInfo
             }

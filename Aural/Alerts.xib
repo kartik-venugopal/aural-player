@@ -53,16 +53,16 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1a-Tt-XRU" userLabel="Message label">
                         <rect key="frame" x="64" y="118" width="415" height="51"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Track 'Ace of Base - Perfect World' cannot be played back" id="1cq-yU-Xp4">
+                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="1cq-yU-Xp4">
                             <font key="font" size="15" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.44812412892957748" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nP1-Th-7wW" userLabel="Info label">
-                        <rect key="frame" x="19" y="44" width="460" height="67"/>
+                        <rect key="frame" x="19" y="54" width="460" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="This track has Digital Rights Management (DRM) protection and cannot be transcoded or played back" id="fbw-j9-4fy">
+                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="fbw-j9-4fy">
                             <font key="font" size="13" name="GillSans"/>
                             <color key="textColor" white="0.54864129442253529" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
