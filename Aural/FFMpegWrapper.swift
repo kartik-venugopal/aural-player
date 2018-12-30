@@ -20,85 +20,97 @@ class FFMpegWrapper {
     
     static func getMetadata(_ track: Track) -> LibAVInfo {
         
-        var map: [String: String] = [:]
-        var stream: LibAVStream?
+        var tags: [String: String] = [:]
+        var streams: [LibAVStream] = []
         var duration: Double = 0
         
         // TODO:
         var drmProtected: Bool = false
         
-        // ./ffprobe -v error -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration : format_tags" -of default=noprint_wrappers=1 Song.mp3
+        // ./ffprobe -v error -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration,bit_rate : format_tags : stream_tags" -of default=noprint_wrappers=1 Song.mp3
         
         let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-select_streams", "a:0", "-show_entries", "stream=codec_name,bit_rate,channels,sample_rate:format=duration:stream_tags:format_tags", "-of", "default=noprint_wrappers=1", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_type,bit_rate,channels,sample_rate:format=duration:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
         
         let result = CommandExecutor.execute(command)
         
         if result.exitCode != 0 {
-            return LibAVInfo(0, nil, [:], false)
+            return LibAVInfo(0, streams, [:], false)
         }
         
-        for line in result.output {
+        if let dict = result.output {
             
-            // Split the line into key and value
-            
-            let trimmedLine = line.trim()
-            if trimmedLine.isEmpty {continue}
-            
-            let tokens = trimmedLine.split(separator: "=")
-            if tokens.count < 2 {continue}
-            
-            let key = tokens[0].trim()
-            let value = tokens[1].trim()
-            
-            // Put metadata in the map
-            
-            if key.hasPrefix("TAG:") {
+            if let streamsArr = dict["streams"] as? [NSDictionary] {
                 
-                let kvTokens = key.split(separator: ":")
-                if kvTokens.count >= 2 {
-                    map[kvTokens[1].lowercased()] = value
+                for streamDict in streamsArr {
+                    
+                    // Stream info must have type and format. Otherwise, we cannot process it
+                    if let typeStr = streamDict["codec_type"] as? String, let codecName = streamDict["codec_name"] as? String {
+                        
+                        if typeStr == "audio" {
+                            
+                            // Audio track
+                            
+                            var bitRate: Double?
+                            var channelCount: Int = 2
+                            var sampleRate: Double = 44100
+                            
+                            if let bitRateStr = streamDict["bit_rate"] as? String, let num = Double(bitRateStr) {
+                                bitRate = num / 1024
+                            }
+                            
+                            if let channelCountStr = streamDict["channels"] as? String, let count = Int(channelCountStr) {
+                                channelCount = count
+                            }
+                            
+                            if let sampleRateStr = streamDict["sample_rate"] as? String, let rate = Double(sampleRateStr) {
+                                sampleRate = rate
+                            }
+                            
+                            if let tagsDict = streamDict["tags"] as? [String: String] {
+                                
+                                for (key, value) in tagsDict {
+                                    tags[key.lowercased()] = value
+                                }
+                                
+                                // DRM check
+                                if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
+                                    drmProtected = true
+                                }
+                            }
+                            
+                            streams.append(LibAVStream(codecName, bitRate, channelCount, sampleRate))
+                            
+                        } else if typeStr == "video" {
+                            
+                            // Art
+                            streams.append(LibAVStream(codecName))
+                        }
+                    }
+                }
+            }
+            
+            if let formatDict = dict["format"] as? NSDictionary {
+                
+                if let tagsDict = formatDict["tags"] as? [String: String] {
+                    
+                    for (key, value) in tagsDict {
+                        tags[key.lowercased()] = value
+                    }
+                    
+                    // DRM check
+                    if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
+                        drmProtected = true
+                    }
                 }
                 
-            } else {
-                map[key.lowercased()] = value
+                if let durationStr = formatDict["duration"] as? String, let num = Double(durationStr) {
+                    duration = num
+                }
             }
         }
         
-        var format: String?
-        var bitRate: Double?
-        var channelCount: Int = 2
-        var sampleRate: Double = 44100
-        
-        if let codecName = map.removeValue(forKey: "codec_name") {
-            format = codecName
-        }
-        
-        if let bitRateStr = map.removeValue(forKey: "bit_rate"), let num = Double(bitRateStr) {
-            bitRate = num / 1024
-        }
-        
-        if let channelCountStr = map.removeValue(forKey: "channels"), let count = Int(channelCountStr) {
-            channelCount = count
-        }
-        
-        if let sampleRateStr = map.removeValue(forKey: "sample_rate"), let rate = Double(sampleRateStr) {
-            sampleRate = rate
-        }
-        
-        if let durationStr = map.removeValue(forKey: "duration"), let num = Double(durationStr) {
-            duration = num
-        }
-        
-        if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = map["asf_protection_type"], value == "DRM" {
-            drmProtected = true
-        }
-        
-        if format != nil {
-            stream = LibAVStream(format!, bitRate, channelCount, sampleRate)
-        }
-        
-        return LibAVInfo(duration, stream, map, drmProtected)
+        return LibAVInfo(duration, streams, tags, drmProtected)
     }
     
     static func getArt(_ track: Track) -> NSImage? {
@@ -117,11 +129,15 @@ class FFMpegWrapper {
         var image: NSImage?
         if result.exitCode == 0 {
             
+            print("SUCCESS art for", inputFile.lastPathComponent)
+            
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
 
             DispatchQueue.global(qos: .background).async {
                 FileSystemUtils.deleteFile(imgPath)
             }
+        } else {
+            print("FAILED art for", inputFile.lastPathComponent)
         }
         
         return image

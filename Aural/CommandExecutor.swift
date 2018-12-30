@@ -6,8 +6,8 @@ class CommandExecutor {
     
     static func execute(_ cmd: Command) -> CommandResult {
         
-        var output : [String] = []
-        var error : [String] = []
+        var output: NSDictionary? = nil
+        var error: [String] = []
         
         let task = cmd.process
         
@@ -33,7 +33,7 @@ class CommandExecutor {
         
         if let monitoredCmd = cmd as? MonitoredCommand, monitoredCmd.cancelled {
             // Task may have been canceled
-            return CommandResult(output, error, cancellationExitCode)
+            return CommandResult(nil, error, cancellationExitCode)
         }
         
         let status = task.terminationStatus
@@ -41,9 +41,15 @@ class CommandExecutor {
         if cmd.readOutput, let outpipe = task.standardOutput as? Pipe {
             
             let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
-            if var string = String(data: outdata, encoding: .utf8) {
-                string = string.trimmingCharacters(in: .newlines)
-                output = string.components(separatedBy: "\n")
+            
+            do {
+                
+                if let dict = try JSONSerialization.jsonObject(with: outdata, options: JSONSerialization.ReadingOptions()) as? NSDictionary {
+                    output = dict
+                }
+                
+            } catch let error as NSError {
+                NSLog("Error reading JSON output for command: %@, with args: %@. \nCause:", cmd.process.launchPath!, cmd.process.arguments!, error.description)
             }
         }
         
@@ -178,12 +184,12 @@ class MonitoredCommand: Command {
 }
 
 class CommandResult {
-
-    var output: [String]
+    
+    var output: NSDictionary?
     var error: [String]
     var exitCode: Int32
     
-    init(_ output: [String], _ error: [String], _ exitCode: Int32) {
+    init(_ output: NSDictionary?, _ error: [String], _ exitCode: Int32) {
         
         self.output = output
         self.error = error

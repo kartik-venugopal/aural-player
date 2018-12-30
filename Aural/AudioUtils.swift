@@ -91,7 +91,7 @@ class AudioUtils {
         
         if !track.playbackNativelySupported {
             
-            if let stream = track.libAVInfo?.stream {
+            if let stream = track.libAVInfo?.audioStream {
                 
                 let playbackInfo = PlaybackInfo()
                 
@@ -137,9 +137,7 @@ class AudioUtils {
             track.playbackInfo = playbackInfo
             track.lazyLoadingInfo.preparedForPlayback = true
             
-            if !track.playbackNativelySupported {
-                
-                let stream = track.libAVInfo!.stream!
+            if !track.playbackNativelySupported, let stream = track.libAVInfo?.audioStream {
                 
                 playbackInfo.sampleRate = stream.sampleRate
                 playbackInfo.numChannels = stream.channelCount
@@ -167,9 +165,11 @@ class AudioUtils {
                 
                 audioInfo.format = avInfo.audioFormat
                 
-                if let bitRate = avInfo.stream?.bitRate {
+                if let bitRate = avInfo.audioStream?.bitRate {
                     audioInfo.bitRate = Int(round(bitRate))
                 } else {
+                    
+                    // TODO: What if this is a Matroska/MP4 container that also contains video ? This will be overestimated
                     
                     let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
                     audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
@@ -186,6 +186,8 @@ class AudioUtils {
                 
                 let assetTracks = asset.tracks(withMediaType: AVMediaType.audio)
                 audioInfo.format = getFormat(assetTracks.first!)
+                
+                // TODO: What if this is a Matroska/MP4 container that also contains video ? This will be overestimated
                 
                 let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
                 audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
