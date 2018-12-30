@@ -14,27 +14,7 @@ class AudioUtils {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        let fileExtension = track.file.pathExtension.lowercased()
-        
-        if !track.playbackNativelySupported || fileExtension == "flac" {
-            
-            if track.libAVInfo == nil {
-                track.libAVInfo = FFMpegWrapper.getMetadata(track)
-            }
-            
-            let avInfo = track.libAVInfo!
-            
-            if !avInfo.hasValidAudioTrack {
-                return TrackNotPlayableError(track)
-            }
-            
-            if avInfo.drmProtected {
-                return DRMProtectionError(track)
-            }
-            
-            return nil
-            
-        } else {
+        if track.metadataNativelySupported {
             
             if (track.audioAsset == nil) {
                 track.audioAsset = AVURLAsset(url: track.file, options: nil)
@@ -68,6 +48,23 @@ class AudioUtils {
             
             return nil
             
+        } else {
+            
+            if track.libAVInfo == nil {
+                track.libAVInfo = FFMpegWrapper.getMetadata(track)
+            }
+            
+            let avInfo = track.libAVInfo!
+            
+            if !avInfo.hasValidAudioTrack {
+                return TrackNotPlayableError(track)
+            }
+            
+            if avInfo.drmProtected {
+                return DRMProtectionError(track)
+            }
+            
+            return nil
         }
     }
     

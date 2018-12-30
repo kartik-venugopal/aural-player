@@ -267,4 +267,8 @@ class SystemUtils {
     static var numberOfActiveCores: Int {
         return ProcessInfo.processInfo.activeProcessorCount
     }
+    
+    static var osVersion: OperatingSystemVersion {
+        return ProcessInfo.processInfo.operatingSystemVersion
+    }
 }
