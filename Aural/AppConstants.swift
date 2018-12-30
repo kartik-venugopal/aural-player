@@ -36,7 +36,7 @@ struct AppConstants {
         
         // TODO: Need to define container formats
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv", "mka"]
+        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv"]
         static let nonNativeAudioExtensions: [String] = computeNonNativeAudioExtensions()
         
         private static func computeNonNativeAudioExtensions() -> [String] {
@@ -62,15 +62,27 @@ struct AppConstants {
         // TODO: Add non-native supported formats (e.g. vorbis, opus, wmav1, wavpack, etc)
         
         private static let globallyNativeFormats: [String] = ["mp3", "aac", "alac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "alaw", "ulaw"]
-        static let audioFormats: [String] = computeAudioFormats()
+        static let nativeAudioFormats: [String] = computeNativeFormats()
         
-        private static func computeAudioFormats() -> [String] {
+        private static func computeNativeFormats() -> [String] {
             
             var exts: [String] = []
             exts.append(contentsOf: globallyNativeFormats)
             if flacSupported {exts.append("flac")}
             
             return exts
+        }
+        
+        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice"]
+        static let nonNativeAudioFormats: [String] = computeNonNativeFormats()
+        
+        private static func computeNonNativeFormats() -> [String] {
+            
+            var formats: [String] = []
+            formats.append(contentsOf: globallyNonNativeFormats)
+            if !flacSupported {formats.append("flac")}
+            
+            return formats
         }
         
         static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue, AVFileType.ac3.rawValue]
