@@ -11,8 +11,8 @@ struct AppConstants {
         
         private static let flacSupported: Bool = {
             
-            let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
-            return (systemVersion.majorVersion == 10 && systemVersion.minorVersion >= 13) || systemVersion.majorVersion > 10
+            let osVersion = SystemUtils.osVersion
+            return (osVersion.majorVersion == 10 && osVersion.minorVersion >= 13) || osVersion.majorVersion > 10
         }()
 
         // Supported playlist file types
@@ -22,8 +22,7 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", ".m4a", "snd", "au", "sd2", "wav"]
-//        private static let globallyNativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "snd", "sd2", "au"]
+        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp3", "m4a", "snd", "au", "sd2", "wav"]
         static let nativeAudioExtensions: [String] = computeNativeAudioExtensions()
         
         private static func computeNativeAudioExtensions() -> [String] {
