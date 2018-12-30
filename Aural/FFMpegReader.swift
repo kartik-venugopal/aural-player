@@ -46,12 +46,10 @@ class FFMpegReader: MetadataReader {
         if let avInfo = track.libAVInfo {
         
             if avInfo.hasArt {
-                print("HAS Art for", track.conciseDisplayName)
                 return FFMpegWrapper.getArt(track)
             }
         }
         
-        print("NO Art for", track.conciseDisplayName)
         return nil
     }
     

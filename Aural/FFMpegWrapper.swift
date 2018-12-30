@@ -129,15 +129,11 @@ class FFMpegWrapper {
         var image: NSImage?
         if result.exitCode == 0 {
             
-            print("SUCCESS art for", inputFile.lastPathComponent)
-            
             image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
 
             DispatchQueue.global(qos: .background).async {
                 FileSystemUtils.deleteFile(imgPath)
             }
-        } else {
-            print("FAILED art for", inputFile.lastPathComponent)
         }
         
         return image
