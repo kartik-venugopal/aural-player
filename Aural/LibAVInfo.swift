@@ -17,10 +17,8 @@ class LibAVInfo {
     
     var hasValidAudioTrack: Bool {
         
-        if streams.isEmpty {return false}
-        
-        if let stream = streams.filter({$0.type == .audio}).first {
-            return AppConstants.SupportedTypes.nonNativeAudioFormats.contains(stream.format) || stream.format == "flac"
+        if let format = audioFormat {
+            return AppConstants.SupportedTypes.nonNativeAudioFormats.contains(format) || format == "flac"
         }
         
         return false

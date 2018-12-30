@@ -36,7 +36,7 @@ struct AppConstants {
         
         // TODO: Need to define container formats
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv"]
+        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "oga", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv"]
         static let nonNativeAudioExtensions: [String] = computeNonNativeAudioExtensions()
         
         private static func computeNonNativeAudioExtensions() -> [String] {

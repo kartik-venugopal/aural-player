@@ -29,11 +29,39 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let preferences: TranscodingPreferences
     
     private let formatsMap: [String: String] = ["flac": "aiff",
+                                                "ape": "aiff",
+                                                "dsd_lsbf": "aiff",
+                                                "dsd_lsbf_planar": "aiff",
+                                                "dsd_msbf": "aiff",
+                                                "dsd_msbf_planar": "aiff",
+                                                "wmav1": "m4a",
+                                                "wmav2": "m4a",
+                                                "wmalossless": "m4a",
+                                                "wmapro": "m4a",
+                                                "wmavoice": "m4a",
+                                                "opus": "m4a",
+                                                "vorbis": "m4a",
+                                                "mpc": "m4a",
+                                                "mpc7": "m4a",
+                                                "mpc8": "m4a",
+                                                "musepack": "m4a",
+                                                "musepack7": "m4a",
+                                                "musepack8": "m4a",
+                                                "mp2": "m4a",
+                                                "mp2_at": "m4a",
+                                                "mp2float": "m4a",
+                                                "wavpack": "m4a"]
+    
+    private let extensionsMap: [String: String] = ["flac": "aiff",
+                                                "ape": "aiff",
                                                 "dsf": "aiff",
                                                 "wma": "m4a",
-                                                "ogg": "m4a",
                                                 "opus": "m4a",
-                                                "mpc": "m4a"]
+                                                "ogg": "m4a",
+                                                "oga": "m4a",
+                                                "mpc": "m4a",
+                                                "mp2": "m4a",
+                                                "wv": "m4a"]
     
     private let defaultOutputFileExtension: String = "m4a"
     
@@ -129,6 +157,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         let outputFileExtension = outputFile.pathExtension.lowercased()
         var args = ["-v", "quiet", "-stats", "-i", inputFile.path]
         
+        // TODO: m4a could mean alac codec
         if outputFileExtension == "m4a" {
             args.append(contentsOf: ["-acodec", "aac"])
         }
@@ -145,13 +174,23 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         let inputFile = track.file
         let inputFileName = inputFile.lastPathComponent
-        let inputFileExtension = inputFile.pathExtension.lowercased()
-        let outputFileExtension = formatsMap[inputFileExtension] ?? defaultOutputFileExtension
+        
+        var outputFileExtension: String? = nil
+        
+        if let inputFormat = track.libAVInfo?.audioFormat {
+            outputFileExtension = formatsMap[inputFormat]
+        }
+        
+        if outputFileExtension == nil {
+            
+            let inputFileExtension = inputFile.pathExtension.lowercased()
+            outputFileExtension = extensionsMap[inputFileExtension] ?? defaultOutputFileExtension
+        }
         
         // File name needs to be unique. Otherwise, command execution will hang (libav will ask if you want to overwrite).
         
         let now = Date()
-        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, now.serializableString_hms(), outputFileExtension)
+        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, now.serializableString_hms(), outputFileExtension!)
         
         return store.createOutputFile(track, outputFileName)
     }
