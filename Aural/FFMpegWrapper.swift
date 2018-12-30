@@ -47,7 +47,7 @@ class FFMpegWrapper {
                     // Stream info must have type and format. Otherwise, we cannot process it
                     if let typeStr = streamDict["codec_type"] as? String, let codecName = streamDict["codec_name"] as? String {
                         
-                        if typeStr == "audio" {
+                        if typeStr.lowercased() == "audio" {
                             
                             // Audio track
                             
@@ -79,12 +79,12 @@ class FFMpegWrapper {
                                 }
                             }
                             
-                            streams.append(LibAVStream(codecName, bitRate, channelCount, sampleRate))
+                            streams.append(LibAVStream(codecName.lowercased(), bitRate, channelCount, sampleRate))
                             
-                        } else if typeStr == "video" {
+                        } else if typeStr.lowercased() == "video" {
                             
                             // Art
-                            streams.append(LibAVStream(codecName))
+                            streams.append(LibAVStream(codecName.lowercased()))
                         }
                     }
                 }
