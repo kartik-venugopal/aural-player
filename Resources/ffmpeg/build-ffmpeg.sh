@@ -45,7 +45,7 @@ echo "Configuring FFmpeg ..."
 --disable-postproc \
 --disable-avfoundation \
 --disable-appkit \
---enable-audiotoolbox \
+--disable-audiotoolbox \
 --disable-coreimage \
 --disable-protocols \
 --disable-zlib \
@@ -60,15 +60,21 @@ echo "Configuring FFmpeg ..."
 --disable-filters \
 --enable-filter=aresample \
 --disable-demuxers \
---enable-demuxer=ape,asf,dsf,flac,matroska,mjpeg,mjpeg_2000,mpjpeg,mp3,mpc,mpc8,ogg,wv \
+--enable-demuxer=ape,asf,dsf,flac,mjpeg,mjpeg_2000,mpjpeg,mp3,mpc,mpc8,ogg,wv \
 --disable-decoders \
---enable-decoder=ape,flac,jpeg2000,jpegls,mjpeg,mjpegb,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2 \
+--enable-decoder=ape,flac,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice \
+--enable-decoder=bmp,png,jpeg2000,jpegls,mjpeg,mjpegb \
 --disable-parsers \
---enable-parser=bmp,flac,mjpeg,mpegaudio,opus,png,vorbis \
+--enable-parser=flac,mpegaudio,opus,vorbis \
+--enable-parser=bmp,mjpeg,png \
 --disable-muxers \
---enable-muxer=aiff,ipod,image2,image2pipe \
+--enable-muxer=aiff,ipod \
+--enable-muxer=image2,image2pipe \
 --disable-encoders \
---enable-encoder=aac,aac_at,alac,pcm_s16be,jpeg2000,jpegls
+--enable-encoder=aac,alac,pcm_s16be \
+--enable-encoder=jpeg2000,jpegls
+
+# TODO: Add wmalossless and wmapro and wmavoice
 
 echo "Done configuring FFmpeg.\n"
 

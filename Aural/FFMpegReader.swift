@@ -40,7 +40,19 @@ class FFMpegReader: MetadataReader {
     }
     
     func getArt(_ track: Track) -> NSImage? {
-        return FFMpegWrapper.getArt(track)
+        
+        ensureTrackAssetLoaded(track)
+        
+        if let avInfo = track.libAVInfo {
+        
+            if avInfo.hasArt {
+                print("HAS Art for", track.conciseDisplayName)
+                return FFMpegWrapper.getArt(track)
+            }
+        }
+        
+        print("NO Art for", track.conciseDisplayName)
+        return nil
     }
     
     func getArt(_ file: URL) -> NSImage? {

@@ -22,7 +22,8 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        private static let globallyNativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "snd", "sd2"]
+        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", ".m4a", "snd", "au", "sd2", "wav"]
+//        private static let globallyNativeAudioExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "snd", "sd2", "au"]
         static let nativeAudioExtensions: [String] = computeNativeAudioExtensions()
         
         private static func computeNativeAudioExtensions() -> [String] {
@@ -34,7 +35,9 @@ struct AppConstants {
             return exts
         }
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["wma", "ogg", "opus", "dsf", "mpc"]
+        // TODO: Need to define container formats
+        
+        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv", "mka"]
         static let nonNativeAudioExtensions: [String] = computeNonNativeAudioExtensions()
         
         private static func computeNonNativeAudioExtensions() -> [String] {
@@ -56,6 +59,8 @@ struct AppConstants {
             all.append(contentsOf: nonNativeAudioExtensions)
             return all
         }
+        
+        // TODO: Add non-native supported formats (e.g. vorbis, opus, wmav1, wavpack, etc)
         
         private static let globallyNativeFormats: [String] = ["mp3", "aac", "alac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "alaw", "ulaw"]
         static let audioFormats: [String] = computeAudioFormats()
