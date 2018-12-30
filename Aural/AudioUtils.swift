@@ -53,17 +53,8 @@ class AudioUtils {
             
             // Find out if track is playable
             // TODO: What does isPlayable actually mean ?
-            if let assetTrack = assetTracks?.first {
-                
-                if !assetTrack.isPlayable {
-                    return TrackNotPlayableError(track)
-                }
-                
-                // Determine the format to find out if it is supported
-                let format = getFormat(assetTrack)
-                if !AppConstants.SupportedTypes.nativeAudioFormats.contains(format) {
-                    return UnsupportedFormatError(track, format)
-                }
+            if let assetTrack = assetTracks?.first, !assetTrack.isPlayable {
+                return TrackNotPlayableError(track)
             }
             
             return nil
