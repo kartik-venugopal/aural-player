@@ -59,20 +59,6 @@ struct AppConstants {
             return all
         }
         
-        // TODO: Add non-native supported formats (e.g. vorbis, opus, wmav1, wavpack, etc)
-        
-        private static let globallyNativeFormats: [String] = ["mp3", "aac", "alac", "aif", "aiff", "aifc", "caf", "wav", "lpcm", "alaw", "ulaw"]
-        static let nativeAudioFormats: [String] = computeNativeFormats()
-        
-        private static func computeNativeFormats() -> [String] {
-            
-            var exts: [String] = []
-            exts.append(contentsOf: globallyNativeFormats)
-            if flacSupported {exts.append("flac")}
-            
-            return exts
-        }
-        
         private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice"]
         static let nonNativeAudioFormats: [String] = computeNonNativeFormats()
         
