@@ -156,8 +156,8 @@ class WindowLayoutState: PersistentState {
                 
                 if let layoutName = layout["name"] as? String {
                     
-                    let layoutShowEffects: Bool? = mapDirectly(layout, "showPlaylist")
-                    let layoutShowPlaylist: Bool? = mapDirectly(layout, "showEffects")
+                    let layoutShowEffects: Bool? = mapDirectly(layout, "showEffects")
+                    let layoutShowPlaylist: Bool? = mapDirectly(layout, "showPlaylist")
                     
                     var layoutMainWindowOrigin: NSPoint?
                     var layoutEffectsWindowOrigin: NSPoint?
