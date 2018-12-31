@@ -16,21 +16,24 @@ Aural Player is an audio player application for the macOS platform. Inspired by 
 
 ## Download
 
-Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
+Download the latest app bundle [here](https://github.com/maculateConception/aural-player/releases/download/v1.0.0/AuralPlayer-1.0.0.dmg).
 
-NOTE - This project is currently under heavy development as of 10/07/2018. So, please expect frequent updates/releases, and perhaps the occasional bug or two. I might switch to doing Git releases once the code is more stable, after most major updates have been rolled out and tested.
+[See all releases](https://github.com/maculateConception/aural-player/releases)
 
-#### Latest release (12/08/2018)
+### Installation
 
-* New and improved filter effects unit allowing up to 31 bands, with each band performing filtering of any of the following types:
-  * Band pass
-  * Band stop
-  * Low pass
-  * High pass
-  
-* Reduced DMG binary size by about 40% (4.4 MB)
+1. Mount the *Aural-x.y.z.dmg* image file
+2. Copy Aural.app to your local drive (e.g. Applications folder)
+3. Run the copied app !
 
-* Major code refactoring and simplification, reduction of code duplication. Simplification of app state persistence.
+NOTE - Please don't run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+
+#### Latest release (12/31/2018) - v1.0.0
+
+* Added support for several popular audio formats - FLAC, OGG (Vorbis and Opus), WMA, APE, Musepack, DSF, MP2, and Wavpack ! Files of these formats will be automatically transcoded prior to playback.
+* Optimized playlist track add performance and reliability
+* Minor UI refinements
+* First formal GitHub release
 
 ### Compatibility
 
@@ -43,48 +46,56 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 ## Features
 
 * **Supported file types:**
-   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF 
-     * **(Support for FLAC, WMA, OGG, OPUS, and other formats coming soon !)**
+   * Audio formats: 
+     * Supported natively - MP3, AAC, ALAC, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
+     * Supported via transcoding<sup>*</sup> - FLAC<sup>**</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
+   * Container formats: M4A (for AAC and ALAC audio streams), OGG (for Vorbis and Opus audio streams)
    * Playlist files: M3U/M3U8
+   
+   <sup>*</sup> Aural Player will detect and automatically transcode (i.e. convert) the file, prior to playback, leaving the original file unmodified. Metadata, including cover art, will be read and displayed, if available. This whole process is seamless and effortless to the user.
+   
+   <sup>**</sup> FLAC is natively supported on macOS High Sierra and later versions, and is supported via transcoding on macOS Sierra and older versions.
 
 * **Playback:**
-  * Bookmarking, so you can mark a specific position within a track and come back to it later with one click, which is great for long tracks like audiobooks
-   * Track segment looping, to allow you to define and loop your favorite parts of a track. Save your loops and play them back at any time with one click
-   * Specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously 
-   * Insert timed gaps of silence (up to 24 hours) before or after individual tracks or set a global preference to implicitly insert a gap between all tracks during playback
-   * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful for setup before a track plays (e.g. for a live performance), or if you need time to get to the dance floor
-  * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off
-  * "Jump to time" function to quickly skip to a specific position within a track
-   * Configurable autoplay (on app startup and/or when tracks are added)
+  * Bookmarking - mark a single position or a segment loop between two track positions
+  * Track segment looping - define two loop points and loop between them indefinitely
+  * Specify 2 different custom seek lengths (fine-grained and coarse-grained seeking)
+  * Insert timed gaps of silence (up to 24 hours) before/after tracks ... either per track or for all tracks
+  * Delayed track playback, with up to a 24 hour delay
+  * Option to remember last playback position ... either per track or for all tracks
+  * "Jump to time" function - quickly skip to a specific track position
+  * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
-   * Graphic equalizer: 10-band and 15-band
-   * Pitch shift
-   * Time stretch
-   * Reverb
-   * Delay
+   * Graphic equalizer - 10-band and 15-band
+   * Pitch shift - Range: -2 octaves to +2 octaves
+   * Time stretch (playback rate) - Range: 0.25x to 4x
+   * Reverb - space preset and amount
+   * Delay - time, amount, feedback, and low pass cutoff
    * Filter (up to 31 bands: Band stop / Band pass / Low pass / High pass)
-   * Effects unit controls dynamically change their colors to intuitively inform you of the state of the unit (active/bypassed)
-   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember and automatically apply them the next time that track plays.
-   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them.
-   * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
+   * Dynamic control coloring to indicate unit state
+   * Option to remember sound settings ... either per track or for all tracks
+   * Save effects settings as presets ... per effects unit or all effects as a whole
+   * Recording of clips in AAC/ALAC/AIFF formats - captures applied effects
 
 * **Information:**
-   * Display of ID3 and iTunes metadata, including artwork (when available)
-   * Display of file system information and audio information
+   * ID3, iTunes, WMA and other metadata (i.e. tags), including artwork (when available)
+   * File system information and technical audio data
 
 * **Playlist:**
    * Grouping of tracks by artist/album/genre for convenient browsing
-   * Searching and sorting
-   * Type selection: Just start typing the name of a track to try to find it within the playlist
-   * Functions to conveniently crop/invert track selection, reorder tracks, and scroll through the playlist view
+   * Searching and sorting by multiple criteria (e.g. artist/title/album/disc#/track#)
+   * Type selection: Type the name of a track to try to find it
+   * Functions to conveniently crop/invert track selection, reorder tracks, and scroll through the playlist
    
 * **History:**
-   * Favorites list and chronologically ordered recent items lists for added convenience. Find tracks you recently added/played or favorited, and add or play them with one click.
+   * *Favorites* list 
+   * Chronologically ordered *recently added* and *recently played* lists for added convenience. 
+   * Play favorites and add/play recent items with one click
 
 * **View:**
-   * Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
-   * Save your customized window layouts as presets so you can use them again at any time. **(New!)**
+   * Several built-in window layout presets, window snapping with configurable spacing, collapsible views.
+   * Save your customized window layouts as presets so you can use them again at any time
    * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
 
 * **Usability:**
@@ -94,29 +105,30 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
    	  * Three finger horizontal swipe to change tracks
    	  * Three finger vertical swipe to scroll to top/bottom of playlist
 
-   * Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
-      * Simply press the < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
-   	  * Simply press + / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
-   	  * Press Shift/Alt+1 to increase/decrease Equalizer bass
+   * Keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
+      * < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
+   	  * \+ / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+   	  * Shift/Alt+1 to increase/decrease Equalizer bass
 
 * **Customization:**
-   * Numerous preferences to allow user to customize functionality. Examples:
-   
-      * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
-      * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
-   	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
-      * Configure the increment/decrement for volume/pan and effects unit adjustments
-   	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
-      * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
+      
+  * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
+  * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
+  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
+  * Configure the increment/decrement for volume/pan and effects unit adjustments
+  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
+  * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
       
 ## Planned updates
 
-- Support for more audio file types (e.g FLAC, WMA, OGG Vorbis) ... **Work in progress !**
-- A new parametric equalizer allowing specification of center frequency and bandwidth per band
-- A new status bar player mode
-- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
-- New color schemes
-
+* Support for more container formats - e.g. Matroska, ASF, MP4, etc.
+* Support for surround sound (AC3 and Dolby DTS)
+* Enhanced eager transcoding and more advanced control over transcoding behavior
+* A new status bar player mode
+* A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+* A new parametric equalizer allowing specification of center frequency and bandwidth per band
+* New color schemes
+      
 ## Screenshots
 
 ### Default view
