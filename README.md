@@ -26,7 +26,7 @@ Download the latest app bundle [here](https://github.com/maculateConception/aura
 2. Copy Aural.app to your local drive (e.g. Applications folder)
 3. Run the copied app !
 
-NOTE - Please don't run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
 #### Latest release (12/31/2018) - v1.0.0
 
