@@ -16,21 +16,22 @@ Aural Player is an audio player application for the macOS platform. Inspired by 
 
 ## Download
 
-Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
+Download the latest release from the ["releases" section]: (https://github.com/maculateConception/aural-player/releases/download/v1.0.0/AuralPlayer-1.0.0.dmg). 
 
-NOTE - This project is currently under heavy development as of 10/07/2018. So, please expect frequent updates/releases, and perhaps the occasional bug or two. I might switch to doing Git releases once the code is more stable, after most major updates have been rolled out and tested.
+### Installation
 
-#### Latest release (12/08/2018)
+1 - Mount the .dmg image
+2 - Copy Aural.app to your local drive (e.g. Applications folder)
+3 - Run the copied app !
 
-* New and improved filter effects unit allowing up to 31 bands, with each band performing filtering of any of the following types:
-  * Band pass
-  * Band stop
-  * Low pass
-  * High pass
-  
-* Reduced DMG binary size by about 40% (4.4 MB)
+NOTE - Please don't run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-* Major code refactoring and simplification, reduction of code duplication. Simplification of app state persistence.
+#### Latest release (12/31/2018) - v1.0.0
+
+* Added support for several popular audio formats - FLAC, OGG (Vorbis and Opus), WMA, APE, Musepack, DSF, MP2, and Wavpack ! Files of these formats will be automatically transcoded prior to playback.
+* Optimized playlist track add performance and reliability
+* Minor UI refinements
+* First formal GitHub release
 
 ### Compatibility
 
@@ -43,9 +44,13 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 ## Features
 
 * **Supported file types:**
-   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF 
-     * **(Support for FLAC, WMA, OGG, OPUS, and other formats coming soon !)**
+   * Audio formats: 
+     * Supported natively - MP3, AAC, ALAC, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
+     * Supported via transcoding: FLAC<sup>*</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
+   * Container formats: M4A, OGG (provided that the contained audio stream format is one of the above)
    * Playlist files: M3U/M3U8
+   
+   <sup>*</sup> FLAC is natively supported on macOS High Sierra and later versions, and is supported via transcoding on macOS Sierra and older versions.
 
 * **Playback:**
   * Bookmarking, so you can mark a specific position within a track and come back to it later with one click, which is great for long tracks like audiobooks
@@ -111,12 +116,14 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
       
 ## Planned updates
 
-- Support for more audio file types (e.g FLAC, WMA, OGG Vorbis) ... **Work in progress !**
-- A new parametric equalizer allowing specification of center frequency and bandwidth per band
-- A new status bar player mode
-- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
-- New color schemes
-
+* Support for more container formats - e.g. Matroska, ASF, MP4, etc.
+* Support for surround sound (AC3 and Dolby DTS)
+* Enhanced eager transcoding and more advanced control over transcoding behavior
+* A new status bar player mode
+* A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+* A new parametric equalizer allowing specification of center frequency and bandwidth per band
+* New color schemes
+      
 ## Screenshots
 
 ### Default view
