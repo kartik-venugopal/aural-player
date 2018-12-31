@@ -1,12 +1,17 @@
 #!/bin/sh
 
-# Pre-requisites:
+# Pre-requisites (need to be installed on this system to build FFmpeg) :
 #
 # nasm - assembler for x86 (Run "brew install nasm" ... requires Homebrew)
 # clang - C compiler (Run "xcode-select --install")
 
-export binDir=".."  # Binaries will be placed one level above the source folder (i.e. in the same location as this script)
+# Binaries will be placed one level above the source folder (i.e. in the same location as this script)
+export binDir=".."
+
+# The name of the FFmpeg source code archive (which will be expanded)
 export sourceArchiveName="ffmpeg-sourceCode.bz2"
+
+# The name of the FFmpeg source directory (once the archive has been uncompressed)
 export sourceDirectoryName="ffmpeg-4.1"
 
 # Extract source code from archive
@@ -14,7 +19,7 @@ echo "\nExtracting FFmpeg sources from archive ..."
 tar xjf $sourceArchiveName
 echo "Done extracting FFmpeg sources from archive.\n"
 
-# Configure FFmpeg
+# CD to the source directory and configure FFmpeg
 cd $sourceDirectoryName
 echo "Configuring FFmpeg ..."
 
