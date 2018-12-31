@@ -16,11 +16,13 @@ Aural Player is an audio player application for the macOS platform. Inspired by 
 
 ## Download
 
-Download the latest release from the ["releases" section]: (https://github.com/maculateConception/aural-player/releases/download/v1.0.0/AuralPlayer-1.0.0.dmg). 
+Download the latest app bundle [here](https://github.com/maculateConception/aural-player/releases/download/v1.0.0/AuralPlayer-1.0.0.dmg).
+
+[See all releases](https://github.com/maculateConception/aural-player/releases)
 
 ### Installation
 
-1. Mount the .dmg image
+1. Mount the *Aural-x.y.z.dmg* image file
 2. Copy Aural.app to your local drive (e.g. Applications folder)
 3. Run the copied app !
 
