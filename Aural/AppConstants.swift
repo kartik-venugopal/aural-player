@@ -84,6 +84,8 @@ struct AppConstants {
             arr.append(contentsOf: avFileTypes)
             return arr
         }
+        
+        static let artFormats: [String] = ["mjpeg", "mjpegb", "mjpeg_2000", "mpjpeg", "jpeg2000", "jpegls", "bmp", "png"]
     }
     
     struct Sound {

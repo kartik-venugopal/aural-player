@@ -25,7 +25,12 @@ class LibAVInfo {
     }
     
     var hasArt: Bool {
-        return !streams.isEmpty && streams.filter({$0.type == .art}).count > 0
+        
+        if let stream = streams.filter({$0.type == .art}).first {
+            return AppConstants.SupportedTypes.artFormats.contains(stream.format)
+        }
+        
+        return false
     }
     
     var audioStream: LibAVStream? {

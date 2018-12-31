@@ -27,7 +27,7 @@ class FFMpegWrapper {
         // TODO:
         var drmProtected: Bool = false
         
-        // ./ffprobe -v error -select_streams a:0 -show_entries "stream=codec_name,bit_rate,channels,sample_rate : format=duration,bit_rate : format_tags : stream_tags" -of default=noprint_wrappers=1 Song.mp3
+        // ffprobe -v error -show_entries "stream=codec_name,codec_type,bit_rate,channels,sample_rate : format=duration :  stream_tags : format_tags" -of json Song.mp3
         
         let inputFile = track.file
         let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_type,bit_rate,channels,sample_rate:format=duration:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
