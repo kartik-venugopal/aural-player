@@ -22,7 +22,7 @@ Download the latest app bundle [here](https://github.com/maculateConception/aura
 
 ### Installation
 
-1. Mount the *Aural-x.y.z.dmg* image file
+1. Mount the *AuralPlayer-x.y.z.dmg* image file
 2. Copy Aural.app to your local drive (e.g. Applications folder)
 3. Run the copied app !
 
