@@ -46,7 +46,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 * **Supported file types:**
    * Audio formats: 
      * Supported natively - MP3, AAC, ALAC, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
-     * Supported via transcoding<sup>*</sup>: FLAC<sup>**</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
+     * Supported via transcoding<sup>*</sup> - FLAC<sup>**</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
    * Container formats: M4A, OGG (provided that the contained audio stream format is one of the above)
    * Playlist files: M3U/M3U8
    
@@ -105,16 +105,17 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
    * Keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
       * < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
-   	  * + / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+   	  * \+ / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
    	  * Shift/Alt+1 to increase/decrease Equalizer bass
 
 * **Customization:**
-      * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
-      * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
-   	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
-      * Configure the increment/decrement for volume/pan and effects unit adjustments
-   	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
-      * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
+      
+  * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
+  * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
+  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
+  * Configure the increment/decrement for volume/pan and effects unit adjustments
+  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
+  * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
       
 ## Planned updates
 
