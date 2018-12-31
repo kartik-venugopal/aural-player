@@ -88,7 +88,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
    
 * **History:**
    * *Favorites* list 
-   * Chronologically ordered *recent added* and *recently played* lists for added convenience. 
+   * Chronologically ordered *recently added* and *recently played* lists for added convenience. 
    * Play favorites and add/play recent items with one click
 
 * **View:**
