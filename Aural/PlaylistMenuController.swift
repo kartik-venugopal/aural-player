@@ -70,7 +70,15 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
+        [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
+        
+        playSelectedItemMenuItem.enableIf(!showingDialogOrPopover && numSelectedRows == 1)
+        playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
+        
+        if numSelectedRows == 1 && !areOnlyGroupsSelected() && playbackInfo.state == .transcoding && (selectedTrack() == playbackInfo.playingTrack?.track) {
+            playSelectedItemMenuItem.disable()
+            playSelectedItemDelayedMenuItem.disable()
+        }
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
         [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.enableIf(playlistNotEmpty)})
@@ -79,8 +87,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.enableIf(playlistSize > 1 && atLeastOneItemSelected)})
         
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
-        
-        playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
         expandSelectedGroupsMenuItem.enableIf(atLeastOneItemSelected && areOnlyGroupsSelected())
         collapseSelectedItemsMenuItem.enableIf(atLeastOneItemSelected)
