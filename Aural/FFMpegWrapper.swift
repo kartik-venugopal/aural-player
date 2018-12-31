@@ -45,22 +45,24 @@ class FFMpegWrapper {
                 for streamDict in streamsArr {
                     
                     // Stream info must have type and format. Otherwise, we cannot process it
-                    if let typeStr = streamDict["codec_type"] as? String, let codecName = streamDict["codec_name"] as? String {
+                    if var codecType = streamDict["codec_type"] as? String, let codecName = streamDict["codec_name"] as? String {
                         
-                        if typeStr.lowercased() == "audio" {
+                        codecType = codecType.lowercased()
+                        
+                        if codecType == "audio" {
                             
                             // Audio track
                             
                             var bitRate: Double?
-                            var channelCount: Int = 2
-                            var sampleRate: Double = 44100
+                            var channelCount: Int = 0
+                            var sampleRate: Double = 0
                             
                             if let bitRateStr = streamDict["bit_rate"] as? String, let num = Double(bitRateStr) {
                                 bitRate = num / 1024
                             }
                             
-                            if let channelCountStr = streamDict["channels"] as? String, let count = Int(channelCountStr) {
-                                channelCount = count
+                            if let channelCountInt = streamDict["channels"] as? Int {
+                                channelCount = channelCountInt
                             }
                             
                             if let sampleRateStr = streamDict["sample_rate"] as? String, let rate = Double(sampleRateStr) {
@@ -81,7 +83,7 @@ class FFMpegWrapper {
                             
                             streams.append(LibAVStream(codecName.lowercased(), bitRate, channelCount, sampleRate))
                             
-                        } else if typeStr.lowercased() == "video" {
+                        } else if codecType == "video" {
                             
                             // Art
                             streams.append(LibAVStream(codecName.lowercased()))
