@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
-        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -61,7 +60,7 @@
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                 <!--1982-02-12 16:00:00 +0000-->
                             </date>
-                            <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
                         </datePickerCell>
@@ -100,7 +99,7 @@
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                 <!--1982-02-12 16:00:00 +0000-->
                             </date>
-                            <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
                         </datePickerCell>

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
-        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -85,7 +84,7 @@
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="gUh-FE-y7I">
                             <font key="font" size="11" name="GillSans"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="0.99837698063380287" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textFieldCell>
                         <connections>
                             <outlet property="formatter" destination="4cF-sk-vOX" id="m3v-1r-8ny"/>
@@ -105,7 +104,7 @@
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="yVC-us-AYd">
                             <font key="font" size="11" name="GillSans"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="0.998872139084507" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textFieldCell>
                         <connections>
                             <outlet property="formatter" destination="Hhe-p9-9Po" id="lbk-U8-rT1"/>
@@ -130,7 +129,7 @@
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                 <!--1982-02-12 16:00:00 +0000-->
                             </date>
-                            <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
                         </datePickerCell>
