@@ -214,6 +214,8 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ## Third party code and contributor attributions
 
+Aural Player uses [FFmpeg](https://www.ffmpeg.org/) which, in the binary form used by Aural Player, is licensed under GPL v3. In compliance with the license, I have made the FFmpeg source code available as an archive in the source code under /Resources/ffmpeg, and also as an asset with each release of Aural Player.
+
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
 Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant contributions towards this project - performance optimizations, UX improvements, etc.
