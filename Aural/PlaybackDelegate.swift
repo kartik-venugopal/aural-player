@@ -140,16 +140,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func forcedTrackChange(_ indexedTrack: IndexedTrack?, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
-        // If trying to play/transcode the same track that is already playing, don't do anything
-        if let playingTrack = TrackChangeContext.currentTrack, let newTrack = indexedTrack, playingTrack.track == newTrack.track, state != .waiting {
-            return
-        }
-        
         if state == .transcoding {
             
-            if let track = TrackChangeContext.currentTrack?.track {
-                transcoder.cancel(track)
+            // Don't cancel transcoding if same track will play next (but with different params e.g. delay or start position)
+            if let trackBeingTranscoded = TrackChangeContext.currentTrack?.track, let newTrack = indexedTrack?.track, trackBeingTranscoded != newTrack {
+                transcoder.cancel(trackBeingTranscoded)
             }
+            
             pendingPlaybackBlock = {}
         }
         
