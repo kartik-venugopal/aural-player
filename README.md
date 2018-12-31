@@ -47,7 +47,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
    * Audio formats: 
      * Supported natively - MP3, AAC, ALAC, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
      * Supported via transcoding<sup>*</sup> - FLAC<sup>**</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
-   * Container formats: M4A, OGG (provided that the contained audio stream format is one of the above)
+   * Container formats: M4A (for AAC and ALAC audio streams), OGG (for Vorbis and Opus audio streams)
    * Playlist files: M3U/M3U8
    
    <sup>*</sup> Aural Player will detect and automatically transcode (i.e. convert) the file, prior to playback, leaving the original file unmodified. Metadata, including cover art, will be read and displayed, if available. This whole process is seamless and effortless to the user.
