@@ -75,7 +75,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         // Compute text size and position
         let size: CGSize = self.title.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         let sx: CGFloat = self.image != nil ? imgRect.maxX + 4 : (rectWidth - size.width) / 2
-        let sy = cellFrame.height - size.height - 5
+        let sy = cellFrame.height - size.height - 7
         
         // Draw title (adjacent to image)
         self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))

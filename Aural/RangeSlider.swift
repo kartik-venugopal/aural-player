@@ -30,6 +30,11 @@ enum DraggedSlider {
     case end
 }
 
+fileprivate let bandStopColor: NSColor = NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
+fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
+fileprivate let bypassedColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
+fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
+
 @IBDesignable
 class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
@@ -199,28 +204,17 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         return barBackgroundGradient!
     }()
     
-    var knobColor: NSColor {
-        
-        switch self.unitState {
-            
-        case .active:   return Colors.activeKnobColor
-            
-        case .bypassed: return Colors.bypassedKnobColor
-            
-        case .suppressed:   return Colors.suppressedKnobColor
-            
-        }
-    }
+    var knobColor: NSColor = Colors.neutralKnobColor
     
     var barFillColor: NSColor {
         
         switch unitState {
             
-        case .active:   return NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
+        case .active:   return bandPassColor
             
-        case .bypassed: return NSColor(calibratedWhite: 0.35, alpha: 1)
+        case .bypassed: return bypassedColor
             
-        case .suppressed:   return NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
+        case .suppressed:   return suppressedColor
             
         }
     }
@@ -435,13 +429,13 @@ class FilterBandSlider: RangeSlider {
     
     override var barFillColor: NSColor {
         
-        switch filterType {
+        switch unitState {
             
-        case .bandStop: return NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
+        case .active:   return filterType == .bandPass ? bandPassColor : bandStopColor
             
-        case .bandPass: return NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
+        case .bypassed: return bypassedColor
             
-        default: return NSColor.lightGray
+        case .suppressed:   return suppressedColor
             
         }
     }

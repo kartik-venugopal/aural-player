@@ -4,7 +4,7 @@ class DelayView: NSView {
     
     @IBOutlet weak var timeSlider: EffectsUnitSlider!
     @IBOutlet weak var amountSlider: EffectsUnitSlider!
-    @IBOutlet weak var cutoffSlider: EffectsUnitSlider!
+    @IBOutlet weak var cutoffSlider: CutoffFrequencySlider!
     @IBOutlet weak var feedbackSlider: EffectsUnitSlider!
     
     private var sliders: [EffectsUnitSlider] = []
@@ -23,7 +23,7 @@ class DelayView: NSView {
     }
     
     var cutoff: Float {
-        return cutoffSlider.floatValue
+        return cutoffSlider.frequency
     }
     
     var feedback: Float {
@@ -40,6 +40,8 @@ class DelayView: NSView {
             $0.stateFunction = stateFunction
             $0.updateState()
         })
+        
+        (cutoffSlider.cell as? CutoffFrequencySliderCell)?.filterType = .lowPass
     }
     
     func setState(_ time: Double, _ timeString: String, _ amount: Float, _ amountString: String, _ feedback: Float, _ feedbackString: String, _ cutoff: Float, _ cutoffString: String) {
@@ -74,7 +76,7 @@ class DelayView: NSView {
     
     func setCutoff(_ cutoff: Float, _ cutoffString: String) {
         
-        cutoffSlider.floatValue = cutoff
+        cutoffSlider.setFrequency(cutoff)
         lblCutoff.stringValue = cutoffString
     }
     
@@ -93,7 +95,7 @@ class DelayView: NSView {
         feedbackSlider.floatValue = preset.feedback
         lblFeedback.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
         
-        cutoffSlider.floatValue = preset.lowPassCutoff
+        cutoffSlider.setFrequency(preset.lowPassCutoff)
         lblCutoff.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.lowPassCutoff)
         
         sliders.forEach({$0.setUnitState(preset.state)})
