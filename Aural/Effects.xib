@@ -319,7 +319,7 @@
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" id="3tH-T8-1bs">
+                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
                                                             <rect key="frame" x="10" y="7" width="572" height="174"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
@@ -361,7 +361,7 @@
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Recorder" identifier="7" id="ypp-aq-NNF">
-                                                        <view key="view" ambiguous="YES" id="536-2K-vSO">
+                                                        <view key="view" id="536-2K-vSO">
                                                             <rect key="frame" x="10" y="7" width="572" height="174"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
@@ -379,7 +379,7 @@
                         <color key="fillColor" white="0.0" alpha="0.90103274830000002" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Hide the effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDE-AU-hEg" userLabel="Close Button">
-                        <rect key="frame" x="12" y="204" width="10" height="10"/>
+                        <rect key="frame" x="14" y="205" width="9" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LZT-fd-SBv">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
