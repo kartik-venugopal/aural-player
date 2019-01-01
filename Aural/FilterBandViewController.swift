@@ -31,6 +31,8 @@ class FilterBandViewController: NSViewController {
     
     override func awakeFromNib() {
         freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
+        freqRangeSlider.stateFunction = filterStateFunction
+        cutoffSlider.stateFunction = filterStateFunction
     }
     
     override func viewDidLoad() {
@@ -65,6 +67,9 @@ class FilterBandViewController: NSViewController {
             
             freqRangeSlider.setFrequencyRange(AppConstants.Sound.audibleRangeMin, AppConstants.Sound.subBass_max)
         }
+        
+        freqRangeSlider.updateState()
+        cutoffSlider.updateState()
         
         presetCutoffsMenu.selectItem(at: -1)
         presetRangesMenu.selectItem(at: -1)
@@ -152,6 +157,12 @@ class FilterBandViewController: NSViewController {
         } else {
             return String(format: "%d Hz", rounded)
         }
+    }
+    
+    func stateChanged() {
+        
+        freqRangeSlider.updateState()
+        cutoffSlider.updateState()
     }
 }
 

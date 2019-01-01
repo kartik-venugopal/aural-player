@@ -91,6 +91,7 @@ class FilterViewController: FXUnitViewController {
         
         super.stateChanged()
         filterView.refresh()
+        bandControllers.forEach({$0.stateChanged()})
     }
     
     @IBAction func addBandAction(_ sender: AnyObject) {
