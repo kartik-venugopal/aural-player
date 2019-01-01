@@ -109,6 +109,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
     }
     
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
+    }
+    
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addTracksAction(_ sender: AnyObject) {
         

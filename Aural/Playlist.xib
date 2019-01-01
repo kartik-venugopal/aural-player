@@ -34,6 +34,19 @@
                         <view key="contentView" id="ew4-md-MxP">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button toolTip="Hide the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button">
+                                    <rect key="frame" x="12" y="251" width="10" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UvB-YL-0pm">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
@@ -798,6 +811,7 @@
     <resources>
         <image name="Add" width="25" height="25"/>
         <image name="Clear" width="5.1999998092651367" height="6"/>
+        <image name="Close" width="16" height="16"/>
         <image name="DelayedPlayback" width="15" height="15"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
