@@ -165,6 +165,8 @@
 		3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */; };
 		3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */; };
 		3E5D708821D9EBFA00491D6C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E5D708721D9EBFA00491D6C /* README.txt */; };
+		3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */; };
+		3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */; };
 		3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C021536CF000A76C23 /* PitchPresets.swift */; };
 		3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C2215386CA00A76C23 /* TimePresets.swift */; };
 		3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C52153986700A76C23 /* Bookmark.swift */; };
@@ -541,6 +543,8 @@
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
 		3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
 		3E5D708721D9EBFA00491D6C /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutDialog.xib; sourceTree = "<group>"; };
+		3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialogController.swift; sourceTree = "<group>"; };
 		3E5F00C021536CF000A76C23 /* PitchPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PitchPresets.swift; sourceTree = "<group>"; };
 		3E5F00C2215386CA00A76C23 /* TimePresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePresets.swift; sourceTree = "<group>"; };
 		3E5F00C52153986700A76C23 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -1325,6 +1329,15 @@
 			name = Menus;
 			sourceTree = "<group>";
 		};
+		3E5E1E5121DB566E007C62B7 /* AboutDialog */ = {
+			isa = PBXGroup;
+			children = (
+				3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */,
+				3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */,
+			);
+			name = AboutDialog;
+			sourceTree = "<group>";
+		};
 		3E5F00C4215397D700A76C23 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1351,6 +1364,7 @@
 				3E2F1047215562B50099FD06 /* Editors */,
 				3EF18476217C8EE900D24F39 /* Visualizer */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
+				3E5E1E5121DB566E007C62B7 /* AboutDialog */,
 				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
 				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
@@ -1987,6 +2001,7 @@
 				3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */,
 				3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */,
 				3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */,
+				3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */,
 				3E5D708821D9EBFA00491D6C /* README.txt in Resources */,
 				3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */,
 				3E066C27216C5FEF00E4FE80 /* PitchPresetsEditor.xib in Resources */,
@@ -2268,6 +2283,7 @@
 				3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */,
 				3EDD4CD42193FAE300C15D5A /* PitchUnit.swift in Sources */,
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
+				3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */,
 				3E7DCBDD2196E8B700C6D6D3 /* FilterUnit.swift in Sources */,
 				3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */,
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,

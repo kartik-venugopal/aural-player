@@ -175,12 +175,19 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Aural" systemMenu="apple" id="hQO-jN-9ss">
                         <items>
-                            <menuItem title="Preferences" keyEquivalent="," id="S2h-Uk-bNq">
+                            <menuItem title="About Aural" id="S2h-Uk-bNq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="preferencesAction:" target="8vj-V6-ug7" id="Cos-sD-omt"/>
+                                    <action selector="aboutAction:" target="8vj-V6-ug7" id="4qc-YY-Ltk"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="KCy-Jo-pWQ"/>
+                            <menuItem title="Preferences" keyEquivalent="," id="pv8-7h-JBP">
+                                <connections>
+                                    <action selector="preferencesAction:" target="8vj-V6-ug7" id="W84-hc-zZd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Kfg-zr-eSi"/>
                             <menuItem title="Hide Aural" keyEquivalent="h" id="Q8U-5t-wnF" userLabel="Hide Aural">
                                 <connections>
                                     <action selector="hideAction:" target="8vj-V6-ug7" id="kNW-IG-cOL"/>

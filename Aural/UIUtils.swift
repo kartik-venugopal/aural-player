@@ -58,7 +58,7 @@ class UIUtils {
     }
     
     // Centers a dialog with respect to the main window
-    private static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
+    static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
         
         let window = WindowState.mainWindow!
         
