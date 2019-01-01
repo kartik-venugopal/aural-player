@@ -10,8 +10,6 @@ class AuralMenuController: NSObject {
     private lazy var aboutDialog: AboutDialogController = AboutDialogController()
     
     @IBAction func aboutAction(_ sender: AnyObject) {
-
-        aboutDialog.showWindow(self)
         UIUtils.centerDialogWRTMainWindow(aboutDialog.window!)
     }
     
