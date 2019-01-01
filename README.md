@@ -1,6 +1,6 @@
 # Aural Player
 
-![App demo](/Documentation/Demos/newDemo.gif?raw=true "App demo")
+![App demo](/Documentation/Demos/demo.gif?raw=true "App demo")
 
 ## Overview
 
@@ -22,11 +22,11 @@ Download the latest app bundle [here](https://github.com/maculateConception/aura
 
 ### Installation
 
-1. Mount the *Aural-x.y.z.dmg* image file
+1. Mount the *AuralPlayer-x.y.z.dmg* image file
 2. Copy Aural.app to your local drive (e.g. Applications folder)
 3. Run the copied app !
 
-NOTE - Please don't run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
 #### Latest release (12/31/2018) - v1.0.0
 
@@ -91,7 +91,6 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 * **History:**
    * *Favorites* list 
    * Chronologically ordered *recently added* and *recently played* lists for added convenience. 
-   * Play favorites and add/play recent items with one click
 
 * **View:**
    * Several built-in window layout presets, window snapping with configurable spacing, collapsible views.
@@ -213,6 +212,8 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 ![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
 
 ## Third party code and contributor attributions
+
+Aural Player uses [FFmpeg](https://www.ffmpeg.org/) which, in the binary form used by Aural Player, is licensed under GPL v3. In compliance with the license, I have made the FFmpeg source code (and instructions to compile it) available under [/Resources/ffmpeg](https://github.com/maculateConception/aural-player/tree/master/Resources/ffmpeg), and also included it as an asset with each release of Aural Player.
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
