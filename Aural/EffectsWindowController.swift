@@ -129,6 +129,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         // Button tag is the tab index
         fxTabView.selectTabViewItem(at: sender.tag)
     }
+    
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+    }
 
     var subscriberId: String {
         return self.className
