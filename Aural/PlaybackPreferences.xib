@@ -46,11 +46,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wRN-LW-IsG">
-                                        <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
+                                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="wRN-LW-IsG">
+                                        <rect key="frame" x="-10" y="-10" width="680" height="450"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" ambiguous="YES" id="PD4-oV-mRm">
-                                            <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="680" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -442,11 +442,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Nio-le-Ohn">
-                                        <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
+                                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Nio-le-Ohn">
+                                        <rect key="frame" x="-10" y="-10" width="680" height="450"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" ambiguous="YES" id="lle-5r-qaL">
-                                            <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="680" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
