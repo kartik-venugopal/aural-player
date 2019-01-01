@@ -36,7 +36,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
-                                    <rect key="frame" x="12" y="204" width="10" height="10"/>
+                                    <rect key="frame" x="14" y="205" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -47,7 +47,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
-                                    <rect key="frame" x="26" y="204" width="10" height="10"/>
+                                    <rect key="frame" x="27" y="205" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
