@@ -4,8 +4,11 @@ class FormatMapper {
     
     private static let nativeFormatsMap: [String: String] = {
 
-        var map =
-            ["aac": "m4a",
+        var map = [
+            
+             "aac": "m4a",
+             "alac": "m4a",
+             "aiff": "aiff",
              "mp3": "mp3",
              "ac3": "ac3",
              
@@ -30,6 +33,9 @@ class FormatMapper {
              "pcm_s32be": "caf",
              "pcm_s32le": "caf",
              
+             "adpcm_ima_wav": "caf",
+             "gsm_ms": "caf",
+             
              "pcm_u16be": "wav",
              "pcm_u16le": "wav",
              
@@ -37,13 +43,9 @@ class FormatMapper {
              "pcm_u24le": "wav",
              
              "pcm_u32be": "wav",
-             "pcm_u32le": "wav",
-             
-             "adpcm_ima_wav": "caf",
-             "gsm_ms": "caf",
-             
-             "aiff": "aiff",
-             "alac": "m4a"]
+             "pcm_u32le": "wav"
+            
+             ]
         
         if AudioUtils.flacSupported {
             map["flac"] = "flac"
@@ -57,8 +59,9 @@ class FormatMapper {
     
     private static let nonNativeFormatsMap: [String: String] = {
         
-        var map =
-            ["ape": "aiff",
+        var map = [
+            
+             "ape": "aiff",
              "dsd_lsbf": "aiff",
              "dsd_lsbf_planar": "aiff",
              "dsd_msbf": "aiff",
@@ -80,7 +83,8 @@ class FormatMapper {
              "mp2_at": "m4a",
              "mp2float": "m4a",
              "wavpack": "m4a",
-             "dts": "ac3"]
+             "dts": "ac3"
+        ]
         
         if !AudioUtils.flacSupported {
             map["flac"] = "aiff"
@@ -91,8 +95,9 @@ class FormatMapper {
     
     private static let extensionsMap: [String: String] = {
         
-        var map =
-            ["ape": "aiff",
+        var map = [
+            
+             "ape": "aiff",
              "dsf": "aiff",
              "wma": "m4a",
              "opus": "m4a",
@@ -101,7 +106,8 @@ class FormatMapper {
              "mpc": "m4a",
              "mp2": "m4a",
              "wv": "m4a",
-             "mka": "m4a"]
+             "mka": "m4a"
+        ]
         
         if !AudioUtils.flacSupported {
             map["flac"] = "aiff"
