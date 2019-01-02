@@ -153,6 +153,43 @@ class FileSystemUtils {
         return Size.ZERO
     }
     
+    static func fileAttributes(path: String) -> (size: Size?, lastModified: Date?, creationDate: Date?, kindOfFile: String?, lastOpened: Date?) {
+        
+        var fileSize : Size?
+        var lastModified: Date?
+        var creationDate: Date?
+        var kindOfFile: String?
+        var lastOpened: Date?
+        
+        if let mditem = MDItemCreate(nil, path as CFString),
+            
+            let mdnames = MDItemCopyAttributeNames(mditem),
+            let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String:Any] {
+            
+            kindOfFile = mdattrs[kMDItemKind as String] as? String
+            lastOpened = mdattrs[kMDItemLastUsedDate as String] as? Date
+        }
+        
+        do {
+
+            let attr = try fileManager.attributesOfItem(atPath: path)
+            fileSize = Size(sizeBytes: attr[FileAttributeKey.size] as! UInt)
+            
+            if let modDate = attr[FileAttributeKey.modificationDate] as? Date {
+                lastModified = modDate
+            }
+            
+            if let cDate = attr[FileAttributeKey.creationDate] as? Date {
+                creationDate = cDate
+            }
+            
+        } catch let error as NSError {
+            NSLog("Error getting size of file '%@': %@", path, error.description)
+        }
+        
+        return (fileSize, lastModified, creationDate, kindOfFile, lastOpened)
+    }
+    
     // Computes a relative path of a target, relative to a source
     // For example, if src = /A/B/C/D.m3u, and target = /A/E.mp3, then the relative path = ../../../E.mp3
     static func relativePath(_ src: URL, _ target: URL) -> String {

@@ -8,11 +8,19 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     // The actual popover that is shown
     private var popover: NSPopover!
     
+    @IBOutlet weak var tabView: AuralTabView!
+    
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
     
     // The table view that displays the track info
-    @IBOutlet weak var trackInfoView: NSTableView!
+    @IBOutlet weak var metadataTable: NSTableView!
+    
+    // The table view that displays the track info
+    @IBOutlet weak var audioTable: NSTableView!
+    
+    // The table view that displays the track info
+    @IBOutlet weak var fileSystemTable: NSTableView!
     
     // Temporary holder for the currently shown track
     static var shownTrack: Track?
@@ -46,8 +54,11 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         DetailedTrackInfoViewController.shownTrack = track
         
-        trackInfoView?.reloadData()
-        trackInfoView?.scrollRowToVisible(0)
+        [metadataTable, audioTable, fileSystemTable].forEach({
+            $0?.reloadData()
+            $0?.scrollRowToVisible(0)
+        })
+        
         artView?.image = track.displayInfo.art
     }
     
@@ -57,6 +68,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         if (!popover.isShown) {
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
+            tabView.selectTabViewItem(at: 0)
         }
         
         artView.image = track.displayInfo.art

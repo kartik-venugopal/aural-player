@@ -191,6 +191,10 @@ class FileSystemInfo {
     
     // Filesystem size
     var size: Size?
+    var lastModified: Date?
+    var creationDate: Date?
+    var kindOfFile: String?
+    var lastOpened: Date?
 }
 
 class LazyLoadingInfo {
