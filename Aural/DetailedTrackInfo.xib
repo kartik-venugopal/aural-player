@@ -57,7 +57,7 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="" id="34C-E7-hHn" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="3E2-ZF-Ncj">
+                            <view key="view" ambiguous="YES" id="3E2-ZF-Ncj">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -174,7 +174,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3WW-YR-rKc">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="ihr-iH-Cyj" userLabel="Audio Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
@@ -273,7 +273,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="File System" identifier="" id="cm2-Kz-0Ck" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="hkE-cO-V9m">
+                            <view key="view" id="hkE-cO-V9m">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -282,7 +282,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cpf-ey-pul">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="GrA-Ht-F0j" userLabel="File system Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
@@ -397,7 +397,7 @@
             <point key="canvasLocation" x="300" y="298.5"/>
         </customView>
         <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="nfR-av-vN1" userLabel="Virtual Key Field">
-            <rect key="frame" x="0.0" y="0.0" width="125" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="135" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="YQG-Fa-9nG">
                 <font key="font" size="13" name="GillSans"/>
@@ -407,7 +407,7 @@
             <point key="canvasLocation" x="-13" y="-36"/>
         </textField>
         <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="bWc-Mq-OlE" userLabel="Virtual Value Field">
-            <rect key="frame" x="0.0" y="0.0" width="315" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="PM9-we-s9f">
                 <font key="font" size="13" name="GillSans-Light"/>
