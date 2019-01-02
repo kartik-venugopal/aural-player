@@ -178,6 +178,10 @@ class AudioInfo {
     
     // Audio format (e.g. "mp3", "aac", or "lpcm")
     var format: String?
+    
+    var codec: String?
+    
+    var channelLayout: String?
 }
 
 class FileSystemInfo {

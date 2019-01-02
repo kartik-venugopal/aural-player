@@ -7,6 +7,24 @@ class AudioUtils {
     
     private static let transcoder: TranscoderProtocol = ObjectGraph.transcoder
     
+    private static let formatDescriptions: [String: String] = [
+    
+        "mp3": "MPEG Audio Layer III (mp3)",
+        "m4a": "MPEG-4 Audio (m4a)",
+        "aac": "Advanced Audio Coding (aac)",
+        "caf": "Apple Core Audio Format (caf)",
+        "ac3": "Dolby Digital Audio Coding 3 (ac3)",
+        "ac-3": "Dolby Digital Audio Coding 3 (ac3)",
+        "wav": "Waveform Audio (wav / wave)",
+        "au": "NeXT/Sun Audio (au)",
+        "snd": "NeXT/Sun Audio (snd)",
+        "sd2": "Sound Designer II (sd2)",
+        "aiff": "Audio Interchange File Format (aiff)",
+        "aif": "Audio Interchange File Format (aiff)",
+        "aifc": "Audio Interchange File Format - Compressed (aiff-c)",
+        "adts": "Audio Data Transport Stream (adts)"
+    ]
+    
     static let flacSupported: Bool = {
         
         let osVersion = SystemUtils.osVersion
@@ -159,7 +177,8 @@ class AudioUtils {
                 
                 let audioInfo = AudioInfo()
                 
-                audioInfo.format = avInfo.audioFormat
+                audioInfo.format = avInfo.fileFormatDescription
+                audioInfo.codec = avInfo.audioStream?.formatDescription
                 
                 if let bitRate = avInfo.audioStream?.bitRate {
                     audioInfo.bitRate = Int(round(bitRate))
@@ -176,20 +195,21 @@ class AudioUtils {
             
         } else {
             
-            if let asset = track.audioAsset {
-                
+//            if let asset = track.audioAsset {
+            
                 let audioInfo = AudioInfo()
                 
-                let assetTracks = asset.tracks(withMediaType: AVMediaType.audio)
-                audioInfo.format = getFormat(assetTracks.first!)
+//                let assetTracks = asset.tracks(withMediaType: AVMediaType.audio)
+//                audioInfo.format = getFormat(assetTracks.first!)
+                audioInfo.format = formatDescriptions[track.file.pathExtension.lowercased()]
                 
-                // TODO: What if this is a Matroska/MP4 container that also contains video ? This will be overestimated
+                // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
                 
                 let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
                 audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
                 
                 track.audioInfo = audioInfo
-            }
+//            }
         }
     }
     

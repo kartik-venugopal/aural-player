@@ -52,7 +52,7 @@
                     </buttonCell>
                 </button>
                 <tabView appearanceType="aqua" fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="LN2-cv-nc6" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="14" y="10" width="518" height="260"/>
+                    <rect key="frame" x="14" y="15" width="518" height="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>

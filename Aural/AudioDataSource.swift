@@ -67,16 +67,44 @@ class AudioDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
         info.removeAll()
         
         info.append((key: "Format", value: track.audioInfo?.format ?? value_unknown))
-        info.append((key: "Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
+        
+        if let codec = track.audioInfo?.codec {
+            info.append((key: "Codec", value: codec))
+        }
+        
+        info.append((key: "Track Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
         info.append((key: "Bit Rate", value: String(format: "%d kbps", track.audioInfo?.bitRate ?? value_unknown)))
         
         info.append((key: "Sample Rate", value: track.playbackInfo?.sampleRate != nil ? String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(track.playbackInfo!.sampleRate!))) : value_unknown))
         
-        info.append((key: "Channels", value: track.playbackInfo?.numChannels != nil ? String(track.playbackInfo!.numChannels!) : value_unknown))
+        if let layout = track.audioInfo?.channelLayout {
+            info.append((key: "Channel Layout", value: layout.capitalized))
+        } else {
+            info.append((key: "Channel Layout", value: track.playbackInfo?.numChannels != nil ? channelLayout(track.playbackInfo!.numChannels!) : value_unknown))
+        }
         
         info.append((key: "Frames", value: track.playbackInfo?.frames != nil ? StringUtils.readableLongInteger(track.playbackInfo!.frames!) : value_unknown))
         
         return info.count
+    }
+    
+    private func channelLayout(_ numChannels: Int) -> String {
+        
+        switch numChannels {
+            
+        case 1: return "Mono (1 ch)"
+            
+        case 2: return "Stereo (2 ch)"
+            
+        case 6: return "5.1 (6 ch)"
+            
+        case 8: return "7.1 (8 ch)"
+            
+        case 10: return "9.1 (10 ch)"
+            
+        default: return String(format: "%d channels", numChannels)
+            
+        }
     }
     
     // Each track info view row contains one key-value pair
