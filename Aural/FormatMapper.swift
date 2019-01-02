@@ -2,16 +2,48 @@ import Cocoa
 
 class FormatMapper {
     
-    //    .mka : Used for audio only files, can contain any supported audio compresion format, such as MP2, MP3, Vorbis, AAC, AC3, DTS, or PCM
-    
     private static let nativeFormatsMap: [String: String] = {
-        
+
         var map =
             ["aac": "m4a",
              "mp3": "mp3",
              "ac3": "ac3",
-             "wav": "wav",
-             "aiff": "aiff"]
+             
+             "pcm_u8": "aiff",
+             "pcm_s8": "caf",
+             
+             "pcm_mulaw": "caf",
+             "pcm_alaw": "caf",
+             
+             "pcm_f32be": "caf",
+             "pcm_f32le": "caf",
+             
+             "pcm_f64be": "caf",
+             "pcm_f64le": "caf",
+             
+             "pcm_s16be": "caf",
+             "pcm_s16le": "caf",
+             
+             "pcm_s24be": "caf",
+             "pcm_s24le": "caf",
+             
+             "pcm_s32be": "caf",
+             "pcm_s32le": "caf",
+             
+             "pcm_u16be": "wav",
+             "pcm_u16le": "wav",
+             
+             "pcm_u24be": "wav",
+             "pcm_u24le": "wav",
+             
+             "pcm_u32be": "wav",
+             "pcm_u32le": "wav",
+             
+             "adpcm_ima_wav": "caf",
+             "gsm_ms": "caf",
+             
+             "aiff": "aiff",
+             "alac": "m4a"]
         
         if AudioUtils.flacSupported {
             map["flac"] = "flac"
@@ -106,6 +138,8 @@ class FormatMapper {
         if audioFormat == "dts" {
             sampleRate = dtsToAC3SampleRate
         }
+        
+        print("Mapped:", action, encodersMap[outputFileExtension!], outputFileExtension!, sampleRate)
         
         return FormatMapping(action, encodersMap[outputFileExtension!], outputFileExtension!, sampleRate)
     }

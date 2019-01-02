@@ -54,8 +54,8 @@ struct AppConstants {
             return all
         }
         
-        // TODO: Add all the supported formats from the Apple page
-        private static let globallyNativeFormats: [String] = ["aac", "mp3", "ac-3", "ac3", "alac"]
+        // TODO: Separate AVFoundation formats from FFmpeg ones
+        private static let globallyNativeFormats: [String] = ["aac", "mp3", "ac-3", "ac3", "alac", "pcm_alaw", "pcm_s16le", "pcm_f32be", "pcm_f32le", "pcm_f64be", "pcm_f64le", "pcm_s16be", "pcm_u8", "pcm_mulaw", "pcm_s24be", "pcm_s24le", "pcm_s32be", "pcm_s32le", "pcm_s8", "pcm_u16be", "pcm_u16le", "pcm_u24be", "pcm_u24le", "pcm_u32be", "pcm_u32le", "adpcm_ima_wav", "gsm_ms"]
         
         static let nativeAudioFormats: [String] = computeNativeFormats()
         
