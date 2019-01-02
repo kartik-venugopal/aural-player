@@ -100,8 +100,14 @@ class TrackIO {
         // Audio info
         AudioUtils.loadAudioInfo(track)
         
+        let attrs = FileSystemUtils.fileAttributes(path: track.file.path)
+        
         // Filesystem info
-        track.fileSystemInfo.size = FileSystemUtils.sizeOfFile(path: track.file.path)
+        track.fileSystemInfo.size = attrs.size
+        track.fileSystemInfo.creationDate = attrs.creationDate
+        track.fileSystemInfo.kindOfFile = attrs.kindOfFile
+        track.fileSystemInfo.lastModified = attrs.lastModified
+        track.fileSystemInfo.lastOpened = attrs.lastOpened
         
         // ID3 / ITunes / other metadata
         MetadataUtils.loadAllMetadata(track)

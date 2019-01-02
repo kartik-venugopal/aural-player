@@ -9,13 +9,15 @@ class DetailedTrackInfoRowView: NSTableRowView {
     // A single key-value pair
     var key: String?
     var value: String?
+    var tableId: TrackInfoTab?
     
     // Factory method
-    static func fromKeyAndValue(_ key: String, _ value: String) -> DetailedTrackInfoRowView {
+    static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab) -> DetailedTrackInfoRowView {
         
         let view = DetailedTrackInfoRowView()
         view.key = key
         view.value = value
+        view.tableId = tableId
         
         return view
     }
@@ -36,7 +38,7 @@ class DetailedTrackInfoRowView: NSTableRowView {
     
     private func createCell(_ id: String, _ text: String) -> NSTableCellView? {
         
-        if let cell = TrackInfoViewHolder.trackInfoView!.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
+        if let cell = TrackInfoViewHolder.tablesMap[tableId!]!.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             return cell

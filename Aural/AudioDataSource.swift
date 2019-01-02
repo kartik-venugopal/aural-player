@@ -1,12 +1,12 @@
 import Cocoa
 
 /*
-    Data source and delegate for the Detailed Track Info popover view
+ Data source and delegate for the Detailed Track Info popover view
  */
-class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+class AudioDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     // The table view that displays the track info
-    @IBOutlet weak var trackInfoView: NSTableView!
+    @IBOutlet weak var table: NSTableView!
     
     // Used to measure table row height
     @IBOutlet var virtualKeyField: NSTextField!
@@ -27,12 +27,14 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     
     private let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
+    private let value_unknown: String = "<Unknown>"
+    
     override func awakeFromNib() {
         
         // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.trackInfoView = trackInfoView
+        TrackInfoViewHolder.tablesMap[.audio] = table
     }
- 
+    
     // Compares two tracks for equality. True if and only if both are non-nil and their file paths are the same.
     private func compareTracks(_ track1: Track?, _ track2: Track?) -> Bool {
         
@@ -64,65 +66,22 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
         
         info.removeAll()
         
-        info.append((key: "Filename", value: track.file.path))
-        
-        if let audioInfo = track.audioInfo {
-            info.append((key: "Format", value: audioInfo.format!))
-        }
-        
-        info.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
-        
+        info.append((key: "Format", value: track.audioInfo?.format ?? value_unknown))
         info.append((key: "Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
+        info.append((key: "Bit Rate", value: String(format: "%d kbps", track.audioInfo?.bitRate ?? value_unknown)))
         
-        if let artist = track.displayInfo.artist {
-            info.append((key: "Artist", value: artist))
-        }
+        info.append((key: "Sample Rate", value: track.playbackInfo?.sampleRate != nil ? String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(track.playbackInfo!.sampleRate!))) : value_unknown))
         
-        if let title = track.displayInfo.title {
-            info.append((key: "Title", value: title))
-        }
+        info.append((key: "Channels", value: track.playbackInfo?.numChannels != nil ? String(track.playbackInfo!.numChannels!) : value_unknown))
         
-        if let album = track.groupingInfo.album {
-            info.append((key: "Album", value: album))
-        }
-        
-        if let discNum = track.groupingInfo.discNumber {
-            info.append((key: "Disc#", value: String(discNum)))
-        }
-        
-        if let trackNum = track.groupingInfo.trackNumber {
-            info.append((key: "Track#", value: String(trackNum)))
-        }
-        
-        if let genre = track.groupingInfo.genre {
-            info.append((key: "Genre", value: genre))
-        }
-        
-        for (key, entry) in track.metadata {
-            
-            // Some tracks have a "Format" metadata entry ... ignore it
-            if (key.lowercased() != "format") {
-                info.append((key: entry.formattedKey(), value: entry.value))
-            }
-        }
-        
-        if let audioInfo = track.audioInfo {
-            info.append((key: "Bit Rate", value: String(format: "%d kbps", audioInfo.bitRate!)))
-        }
-        
-        if let playbackInfo = track.playbackInfo {
-            
-            info.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
-            info.append((key: "Channels", value: String(playbackInfo.numChannels!)))
-            info.append((key: "Frames", value: StringUtils.readableLongInteger(playbackInfo.frames!)))
-        }
+        info.append((key: "Frames", value: track.playbackInfo?.frames != nil ? StringUtils.readableLongInteger(track.playbackInfo!.frames!) : value_unknown))
         
         return info.count
     }
     
     // Each track info view row contains one key-value pair
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value)
+        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value, .audio)
     }
     
     // Adjust row height based on if the text wraps over to the next line
@@ -147,10 +106,4 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
     }
-}
-
-// Place to hold a reference to the trackInfoView object (used in DetailedTrackInfoRowView class)
-class TrackInfoViewHolder {
-    
-    static var trackInfoView: NSTableView?
 }
