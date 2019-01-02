@@ -23,6 +23,7 @@ class FFMpegWrapper {
         var tags: [String: String] = [:]
         var streams: [LibAVStream] = []
         var duration: Double = 0
+        var fileFormatDescription: String?
         
         // TODO:
         var drmProtected: Bool = false
@@ -30,12 +31,12 @@ class FFMpegWrapper {
         // ffprobe -v error -show_entries "stream=codec_name,codec_type,bit_rate,channels,sample_rate : format=duration :  stream_tags : format_tags" -of json Song.mp3
         
         let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_type,bit_rate,channels,sample_rate:format=duration:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
         
         let result = CommandExecutor.execute(command)
         
         if result.exitCode != 0 {
-            return LibAVInfo(0, streams, [:], false)
+            return LibAVInfo(0, "", streams, [:], false)
         }
         
         if let dict = result.output {
@@ -52,6 +53,8 @@ class FFMpegWrapper {
                         if codecType == "audio" {
                             
                             // Audio track
+                            
+                            let codecDescription: String? = streamDict["codec_long_name"] as? String
                             
                             var bitRate: Double?
                             var channelCount: Int = 0
@@ -81,7 +84,7 @@ class FFMpegWrapper {
                                 }
                             }
                             
-                            streams.append(LibAVStream(codecName.lowercased(), bitRate, channelCount, sampleRate))
+                            streams.append(LibAVStream(codecName.lowercased(), codecDescription, bitRate, channelCount, sampleRate))
                             
                         } else if codecType == "video" {
                             
@@ -109,10 +112,12 @@ class FFMpegWrapper {
                 if let durationStr = formatDict["duration"] as? String, let num = Double(durationStr) {
                     duration = num
                 }
+                
+                fileFormatDescription = formatDict["format_long_name"] as? String
             }
         }
         
-        return LibAVInfo(duration, streams, tags, drmProtected)
+        return LibAVInfo(duration, fileFormatDescription, streams, tags, drmProtected)
     }
     
     static func getArt(_ track: Track) -> NSImage? {

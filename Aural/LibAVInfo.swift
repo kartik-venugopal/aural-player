@@ -3,6 +3,7 @@ import Foundation
 class LibAVInfo {
     
     let duration: Double
+    let fileFormatDescription: String?
     let streams: [LibAVStream]
     let metadata: [String: String]
     let drmProtected: Bool
@@ -13,9 +14,10 @@ class LibAVInfo {
     let audioStream: LibAVStream?
     let audioFormat: String?
     
-    init(_ duration: Double, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
+    init(_ duration: Double, _ fileFormatDescription: String?, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
         
         self.duration = duration
+        self.fileFormatDescription = fileFormatDescription
         self.streams = streams
         self.metadata = metadata
         self.drmProtected = drmProtected
@@ -51,15 +53,17 @@ class LibAVStream {
     var format: String
     
     // These properties only apply to audio streams
+    var formatDescription: String?
     var bitRate: Double?
     var channelCount: Int?
     var sampleRate: Double?
     
     // For audio streams
-    init(_ format: String, _ bitRate: Double?, _ channelCount: Int, _ sampleRate: Double) {
+    init(_ format: String, _ formatDescription: String?, _ bitRate: Double?, _ channelCount: Int, _ sampleRate: Double) {
         
         self.type = .audio
         self.format = format
+        self.formatDescription = formatDescription
         
         self.bitRate = bitRate
         self.channelCount = channelCount
