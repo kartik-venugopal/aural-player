@@ -3,7 +3,7 @@ import Cocoa
 /*
     Data source and delegate for the Detailed Track Info popover view
  */
-class MetadataDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     // The table view that displays the track info
     @IBOutlet weak var table: NSTableView!
@@ -13,30 +13,23 @@ class MetadataDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     @IBOutlet var virtualValueField: NSTextField!
     
     // Container for the key-value pairs of info displayed
-    private var info: [(key: String, value: String)] = [(key: String, value: String)]()
+    var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
     // Cached playing track instance (to avoid reloading the same data)
-    private var playingTrack: Track?
+    var displayedTrack: Track?
     
-    // Delegate that retrieves playing track info
-    private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    var tableId: TrackInfoTab {return .metadata}
     
     // Constants used to calculate row height
     
-    private let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
-    private let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
-    private let value_unknown: String = "<Unknown>"
+    let value_unknown: String = "<Unknown>"
     
-    override func awakeFromNib() {
-        
-        // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.tablesMap[.metadata] = table
-    }
- 
     // Compares two tracks for equality. True if and only if both are non-nil and their file paths are the same.
-    private func compareTracks(_ track1: Track?, _ track2: Track?) -> Bool {
+    func compareTracks(_ track1: Track?, _ track2: Track?) -> Bool {
         
         if (track1 == nil || track2 == nil) {
             return false
@@ -55,37 +48,17 @@ class MetadataDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
         }
         
         // If it's the same track playing (as last time view was refreshed), no need to reload the track info
-        if (compareTracks(_track, playingTrack)) {
+        if (compareTracks(_track, displayedTrack)) {
             return info.count
         }
         
         // A track is playing, add its info to the info array, as key-value pairs
         
         let track = _track!
-        self.playingTrack = _track!
+        self.displayedTrack = _track!
         
         info.removeAll()
-        
-            info.append((key: "Artist", value: track.displayInfo.artist ?? value_unknown))
-            info.append((key: "Title", value: track.displayInfo.title ?? value_unknown))
-            info.append((key: "Album", value: track.groupingInfo.album ?? value_unknown))
-        
-            let discNum = track.groupingInfo.discNumber
-            info.append((key: "Disc#", value: discNum != nil ? String(discNum!) : value_unknown))
-        
-        
-            let trackNum = track.groupingInfo.trackNumber
-            info.append((key: "Track#", value: trackNum != nil ? String(trackNum!) : value_unknown))
-        
-            info.append((key: "Genre", value: track.groupingInfo.genre ?? value_unknown))
-        
-        for (key, entry) in track.metadata {
-            
-            // Some tracks have a "Format" metadata entry ... ignore it
-            if (key.lowercased() != "format") {
-                info.append((key: entry.formattedKey(), value: entry.value))
-            }
-        }
+        info.append(contentsOf: infoForTrack(track))
         
         return info.count
     }
@@ -117,6 +90,10 @@ class MetadataDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
     }
+    
+    func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
+        return []
+    }
 }
 
 // Place to hold a reference to the trackInfoView object (used in DetailedTrackInfoRowView class)
@@ -130,4 +107,44 @@ enum TrackInfoTab {
     case metadata
     case audio
     case fileSystem
+}
+
+class MetadataDataSource: TrackInfoDataSource {
+    
+    override var tableId: TrackInfoTab {return .metadata}
+    
+    override func awakeFromNib() {
+        
+        // Store a reference to trackInfoView that is easily accessible
+        TrackInfoViewHolder.tablesMap[.metadata] = table
+    }
+    
+    override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
+        
+        var trackInfo: [(key: String, value: String)] = []
+        
+        trackInfo.append((key: "Artist", value: track.displayInfo.artist ?? value_unknown))
+        trackInfo.append((key: "Title", value: track.displayInfo.title ?? value_unknown))
+        trackInfo.append((key: "Album", value: track.groupingInfo.album ?? value_unknown))
+        
+        if let discNum = track.groupingInfo.discNumber {
+            trackInfo.append((key: "Disc#", value: String(discNum)))
+        }
+        
+        if let trackNum = track.groupingInfo.trackNumber {
+            trackInfo.append((key: "Track#", value: String(trackNum)))
+        }
+        
+        trackInfo.append((key: "Genre", value: track.groupingInfo.genre ?? value_unknown))
+        
+        for (key, entry) in track.metadata {
+            
+            // Some tracks have a "Format" metadata entry ... ignore it
+            if (key.lowercased() != "format") {
+                trackInfo.append((key: entry.formattedKey(), value: entry.value))
+            }
+        }
+        
+        return trackInfo
+    }
 }

@@ -7,8 +7,8 @@ struct Dimensions {
     static let trackNameLabelHeight_twoLines: CGFloat = 40
     
     // Values used to determine the row height of table rows in the detailed track info popover view
-    static let trackInfoKeyColumnWidth: CGFloat = 125
-    static let trackInfoValueColumnWidth: CGFloat = 315
+    static let trackInfoKeyColumnWidth: CGFloat = 135
+    static let trackInfoValueColumnWidth: CGFloat = 365
     
     // Window width (never changes)
     static let windowWidth: CGFloat = 480

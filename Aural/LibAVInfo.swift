@@ -49,17 +49,18 @@ class LibAVInfo {
 
 class LibAVStream {
     
-    var type: LibAVStreamType
-    var format: String
+    let type: LibAVStreamType
+    let format: String
     
     // These properties only apply to audio streams
     var formatDescription: String?
     var bitRate: Double?
     var channelCount: Int?
+    var channelLayout: String?
     var sampleRate: Double?
     
     // For audio streams
-    init(_ format: String, _ formatDescription: String?, _ bitRate: Double?, _ channelCount: Int, _ sampleRate: Double) {
+    init(_ format: String, _ formatDescription: String?, _ bitRate: Double?, _ channelCount: Int, _ channelLayout: String?, _ sampleRate: Double) {
         
         self.type = .audio
         self.format = format
@@ -67,6 +68,7 @@ class LibAVStream {
         
         self.bitRate = bitRate
         self.channelCount = channelCount
+        self.channelLayout = channelLayout
         self.sampleRate = sampleRate
     }
     

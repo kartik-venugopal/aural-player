@@ -179,6 +179,7 @@ class AudioUtils {
                 
                 audioInfo.format = avInfo.fileFormatDescription
                 audioInfo.codec = avInfo.audioStream?.formatDescription
+                audioInfo.channelLayout = avInfo.audioStream?.channelLayout
                 
                 if let bitRate = avInfo.audioStream?.bitRate {
                     audioInfo.bitRate = Int(round(bitRate))
@@ -195,12 +196,8 @@ class AudioUtils {
             
         } else {
             
-//            if let asset = track.audioAsset {
-            
                 let audioInfo = AudioInfo()
                 
-//                let assetTracks = asset.tracks(withMediaType: AVMediaType.audio)
-//                audioInfo.format = getFormat(assetTracks.first!)
                 audioInfo.format = formatDescriptions[track.file.pathExtension.lowercased()]
                 
                 // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
@@ -209,7 +206,6 @@ class AudioUtils {
                 audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
                 
                 track.audioInfo = audioInfo
-//            }
         }
     }
     
@@ -219,24 +215,24 @@ class AudioUtils {
 //    }
     
     // Computes a readable format string for an audio track
-    private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
-        
-        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
-        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
-    }
-    
-    // Converts a four character media type code to a readable string
-    private static func codeToString(_ code: FourCharCode) -> String {
-        
-        let numericCode = Int(code)
-        
-        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
-        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
-        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
-        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
-        
-        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
-    }
+//    private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
+//
+//        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
+//        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
+//    }
+//
+//    // Converts a four character media type code to a readable string
+//    private static func codeToString(_ code: FourCharCode) -> String {
+//
+//        let numericCode = Int(code)
+//
+//        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
+//        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
+//        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
+//        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
+//
+//        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
+//    }
     
     static func isAudioFilePlaybackNativelySupported(_ file: URL) -> Bool {
         return AppConstants.SupportedTypes.nativeAudioExtensions.contains(file.pathExtension.lowercased())
