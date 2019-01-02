@@ -16,7 +16,7 @@ Aural Player is an audio player application for the macOS platform. Inspired by 
 
 ## Download
 
-Download the latest app bundle [here](https://github.com/maculateConception/aural-player/releases/download/v1.0.0/AuralPlayer-1.0.0.dmg).
+Download the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
