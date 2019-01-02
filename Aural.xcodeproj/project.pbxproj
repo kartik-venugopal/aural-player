@@ -167,6 +167,7 @@
 		3E5D708821D9EBFA00491D6C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E5D708721D9EBFA00491D6C /* README.txt */; };
 		3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */; };
 		3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */; };
+		3E5E1E5521DB677D007C62B7 /* FormatMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */; };
 		3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C021536CF000A76C23 /* PitchPresets.swift */; };
 		3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C2215386CA00A76C23 /* TimePresets.swift */; };
 		3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C52153986700A76C23 /* Bookmark.swift */; };
@@ -545,6 +546,7 @@
 		3E5D708721D9EBFA00491D6C /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutDialog.xib; sourceTree = "<group>"; };
 		3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialogController.swift; sourceTree = "<group>"; };
+		3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatMapper.swift; sourceTree = "<group>"; };
 		3E5F00C021536CF000A76C23 /* PitchPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PitchPresets.swift; sourceTree = "<group>"; };
 		3E5F00C2215386CA00A76C23 /* TimePresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePresets.swift; sourceTree = "<group>"; };
 		3E5F00C52153986700A76C23 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -1389,6 +1391,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
+				3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */,
 				3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */,
 				3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */,
 			);
@@ -2236,6 +2239,7 @@
 				3E8A2C8421C4F6A7004AD0DA /* TranscoderView.swift in Sources */,
 				3E047B0E1F01436700ADE0F1 /* ReverbSpaces.swift in Sources */,
 				3E1E970F1FA44671006C8629 /* PlaybackSequencerProtocol.swift in Sources */,
+				3E5E1E5521DB677D007C62B7 /* FormatMapper.swift in Sources */,
 				3E1E970D1FA42AE5006C8629 /* GroupAccessorProtocol.swift in Sources */,
 				3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */,
 				3EB2F1FF1FB311760031B6C1 /* Fonts.swift in Sources */,

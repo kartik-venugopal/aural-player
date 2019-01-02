@@ -65,19 +65,21 @@ echo "Configuring FFmpeg ..."
 --disable-filters \
 --enable-filter=aresample \
 --disable-demuxers \
---enable-demuxer=ape,asf,dsf,flac,mp3,mpc,mpc8,ogg,wv \
+--enable-demuxer=ape,asf,dsf,flac,mp3,mpc,mpc8,wv,dts,dtshd \
+--enable-demuxer=ogg,matroska \
 --enable-demuxer=mjpeg,mjpeg_2000,mpjpeg \
 --disable-decoders \
---enable-decoder=ape,flac,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice \
+--enable-decoder=ape,flac,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,dca \
 --enable-decoder=bmp,png,jpeg2000,jpegls,mjpeg,mjpegb \
 --disable-parsers \
---enable-parser=flac,mpegaudio,opus,vorbis \
+--enable-parser=flac,mpegaudio,opus,vorbis,dca,ac3 \
 --enable-parser=bmp,mjpeg,png \
 --disable-muxers \
---enable-muxer=aiff,ipod \
+--enable-muxer=aiff,ipod,ac3 \
+--enable-muxer=matroska_audio \
 --enable-muxer=image2,image2pipe \
 --disable-encoders \
---enable-encoder=aac,alac,pcm_s16be \
+--enable-encoder=aac,alac,ac3,pcm_s16be \
 --enable-encoder=jpeg2000,jpegls
 
 # TODO: Add wmalossless and wmapro and wmavoice

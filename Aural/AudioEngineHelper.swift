@@ -59,6 +59,11 @@ class AudioEngineHelper {
         
         // Connect last node to main mixer
         audioEngine.connect(nodes.last!, to: audioEngine.mainMixerNode, format: nil)
+        
+        // Connect the main mixer to the output node with the right format corresponding to the output hardware
+        let outputNode = audioEngine.outputNode
+        let outputFormat = outputNode.outputFormat(forBus: 0)
+        audioEngine.connect(audioEngine.mainMixerNode, to: outputNode, format: outputFormat)
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)
