@@ -704,13 +704,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
         if msg.success {
+            
             pendingPlaybackBlock()
+            pendingPlaybackBlock = {}
+            
         } else {
+            
+            stop()
+            
             // Send out playback error message "transcoding failed"
-            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, msg.track.lazyLoadingInfo.preparationError!))
+            AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(msg.track, msg.track.lazyLoadingInfo.preparationError!))
         }
-        
-        pendingPlaybackBlock = {}
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.

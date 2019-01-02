@@ -52,6 +52,14 @@ class TrackNotPlayableError: InvalidTrackError {
     }
 }
 
+class TranscodingFailedError: InvalidTrackError {
+    
+    override init(_ track: Track) {
+        super.init(track)
+        self.message = "Aural Player is unable to transcode this file into a supported format."
+    }
+}
+
 // Denotes a file that has an unsupported audio format (e.g. WMA)
 class UnsupportedFormatError: InvalidTrackError {
     

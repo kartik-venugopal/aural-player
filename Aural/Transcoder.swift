@@ -81,7 +81,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             // Only do this if task is in the foreground (i.e. monitoring enabled)
             if command.enableMonitoring {
                 
-                track.lazyLoadingInfo.preparationError = TrackNotPlayableError(track)
+                track.lazyLoadingInfo.preparationError = TranscodingFailedError(track)
                 AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
             }
             

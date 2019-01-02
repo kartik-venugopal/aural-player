@@ -75,14 +75,12 @@ echo "Configuring FFmpeg ..."
 --enable-parser=flac,mpegaudio,opus,vorbis,dca,ac3 \
 --enable-parser=bmp,mjpeg,png \
 --disable-muxers \
---enable-muxer=aiff,ipod,ac3 \
+--enable-muxer=aiff,ipod,ac3,caf,flac,wav,mp3 \
 --enable-muxer=matroska_audio \
 --enable-muxer=image2,image2pipe \
 --disable-encoders \
 --enable-encoder=aac,alac,ac3,pcm_s16be \
 --enable-encoder=jpeg2000,jpegls
-
-# TODO: Add wmalossless and wmapro and wmavoice
 
 echo "Done configuring FFmpeg.\n"
 
