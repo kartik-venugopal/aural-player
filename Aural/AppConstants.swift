@@ -9,12 +9,6 @@ struct AppConstants {
     
     struct SupportedTypes {
         
-        private static let flacSupported: Bool = {
-            
-            let osVersion = SystemUtils.osVersion
-            return (osVersion.majorVersion == 10 && osVersion.minorVersion >= 13) || osVersion.majorVersion > 10
-        }()
-
         // Supported playlist file types
         static let m3u: String = "m3u"
         static let m3u8: String = "m3u8"
@@ -29,21 +23,22 @@ struct AppConstants {
             
             var exts: [String] = []
             exts.append(contentsOf: globallyNativeAudioExtensions)
-            if flacSupported {exts.append("flac")}
+            if AudioUtils.flacSupported {exts.append("flac")}
             
             return exts
         }
         
-        // TODO: Need to define container formats
+        static let nonNativeAudioContainerExtensions: [String] = ["mka", "ogg"]
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["ogg", "oga", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv"]
+        private static let globallyNonNativeAudioExtensions: [String] = ["oga", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv", "dts"]
         static let nonNativeAudioExtensions: [String] = computeNonNativeAudioExtensions()
         
         private static func computeNonNativeAudioExtensions() -> [String] {
             
             var exts: [String] = []
+            exts.append(contentsOf: nonNativeAudioContainerExtensions)
             exts.append(contentsOf: globallyNonNativeAudioExtensions)
-            if !flacSupported {exts.append("flac")}
+            if !AudioUtils.flacSupported {exts.append("flac")}
             
             return exts
         }
@@ -59,17 +54,42 @@ struct AppConstants {
             return all
         }
         
-        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice"]
+        // TODO: Add all the supported formats from the Apple page
+        private static let globallyNativeFormats: [String] = ["aac", "mp3", "ac-3", "ac3", "alac"]
+        
+        static let nativeAudioFormats: [String] = computeNativeFormats()
+        
+        private static func computeNativeFormats() -> [String] {
+            
+            var formats: [String] = []
+            formats.append(contentsOf: globallyNativeFormats)
+            if AudioUtils.flacSupported {formats.append("flac")}
+            
+            return formats
+        }
+        
+        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts"]
         static let nonNativeAudioFormats: [String] = computeNonNativeFormats()
         
         private static func computeNonNativeFormats() -> [String] {
             
             var formats: [String] = []
             formats.append(contentsOf: globallyNonNativeFormats)
-            if !flacSupported {formats.append("flac")}
+            if !AudioUtils.flacSupported {formats.append("flac")}
             
             return formats
         }
+        
+        static let allAudioFormats: [String] = computeAllFormats()
+        
+        private static func computeAllFormats() -> [String] {
+            
+            var formats: [String] = []
+            formats.append(contentsOf: nativeAudioFormats)
+            formats.append(contentsOf: nonNativeAudioFormats)
+            return formats
+        }
+        
         
         static let avFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue, AVFileType.ac3.rawValue]
         

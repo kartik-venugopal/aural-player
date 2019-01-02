@@ -140,4 +140,28 @@ class FFMpegWrapper {
         
         return image
     }
+    
+    static func createTranscoderCommand(_ track: Track, _ outputFile: URL, _ mapping: FormatMapping, _ progressCallback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> MonitoredCommand {
+        
+        var args = ["-v", "quiet", "-stats", "-i", track.file.path]
+        
+        if mapping.action == .transmux {
+            args.append(contentsOf: ["-acodec", "copy"])
+        } else if let encoder = mapping.encoder {
+            args.append(contentsOf: ["-acodec", encoder])
+        }
+        
+        if let sampleRate = mapping.sampleRate {
+            args.append(contentsOf: ["-ar", String(describing: sampleRate)])
+        }
+
+        // -vn: Ignore video stream (including album art)
+        // -sn: Ignore subtitles
+        // -ac 2: Convert to stereo audio (i.e. "downmix")
+        args.append(contentsOf: ["-vn", "-sn", outputFile.path])
+        
+        print("Created transcoder cmd with args:", args)
+        
+        return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: args, qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
+    }
 }

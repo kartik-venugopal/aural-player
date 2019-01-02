@@ -7,6 +7,12 @@ class AudioUtils {
     
     private static let transcoder: TranscoderProtocol = ObjectGraph.transcoder
     
+    static let flacSupported: Bool = {
+        
+        let osVersion = SystemUtils.osVersion
+        return (osVersion.majorVersion == 10 && osVersion.minorVersion >= 13) || osVersion.majorVersion > 10
+    }()
+    
     // Validates a track to determine if it is playable. If the track is not playable, returns an error object describing the problem.
     static func validateTrack(_ track: Track) -> InvalidTrackError? {
         

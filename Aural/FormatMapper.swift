@@ -1,0 +1,134 @@
+import Cocoa
+
+class FormatMapper {
+    
+    //    .mka : Used for audio only files, can contain any supported audio compresion format, such as MP2, MP3, Vorbis, AAC, AC3, DTS, or PCM
+    
+    private static let nativeFormatsMap: [String: String] = {
+        
+        var map =
+            ["aac": "m4a",
+             "mp3": "mp3",
+             "ac3": "ac3",
+             "wav": "wav",
+             "aiff": "aiff"]
+        
+        if AudioUtils.flacSupported {
+            map["flac"] = "flac"
+        }
+        
+        return map
+    }()
+    
+    // Container -> encoder
+    private static let encodersMap: [String: String] = ["m4a": "aac"]
+    
+    private static let nonNativeFormatsMap: [String: String] = {
+        
+        var map =
+            ["ape": "aiff",
+             "dsd_lsbf": "aiff",
+             "dsd_lsbf_planar": "aiff",
+             "dsd_msbf": "aiff",
+             "dsd_msbf_planar": "aiff",
+             "wmav1": "m4a",
+             "wmav2": "m4a",
+             "wmalossless": "m4a",
+             "wmapro": "m4a",
+             "wmavoice": "m4a",
+             "opus": "m4a",
+             "vorbis": "m4a",
+             "mpc": "m4a",
+             "mpc7": "m4a",
+             "mpc8": "m4a",
+             "musepack": "m4a",
+             "musepack7": "m4a",
+             "musepack8": "m4a",
+             "mp2": "m4a",
+             "mp2_at": "m4a",
+             "mp2float": "m4a",
+             "wavpack": "m4a",
+             "dts": "ac3"]
+        
+        if !AudioUtils.flacSupported {
+            map["flac"] = "aiff"
+        }
+        
+        return map
+    }()
+    
+    private static let extensionsMap: [String: String] = {
+        
+        var map =
+            ["ape": "aiff",
+             "dsf": "aiff",
+             "wma": "m4a",
+             "opus": "m4a",
+             "ogg": "m4a",
+             "oga": "m4a",
+             "mpc": "m4a",
+             "mp2": "m4a",
+             "wv": "m4a",
+             "mka": "m4a"]
+        
+        if !AudioUtils.flacSupported {
+            map["flac"] = "aiff"
+        }
+        
+        return map
+    }()
+    
+    private static let defaultOutputFileExtension: String = "m4a"
+    
+    private static let dtsToAC3SampleRate: Int = 48000
+    
+    static func outputFormatForTrack(_ track: Track) -> FormatMapping {
+        
+        let inputFileExtension = track.file.pathExtension.lowercased()
+        let audioFormat = track.libAVInfo!.audioFormat!
+        var sampleRate: Int?
+        
+        var outputFileExtension: String?
+        var action: TranscoderAction = .transcode
+        
+        if AppConstants.SupportedTypes.nonNativeAudioContainerExtensions.contains(inputFileExtension), let outExt = nativeFormatsMap[audioFormat] {
+            
+            // It is a natively supported format, simply extract it from the container
+            outputFileExtension = outExt
+            action = .transmux
+            
+        } else {
+            
+            // Need to transcode
+            outputFileExtension = nonNativeFormatsMap[audioFormat] ?? (extensionsMap[inputFileExtension] ?? defaultOutputFileExtension)
+        }
+        
+        if audioFormat == "dts" {
+            sampleRate = dtsToAC3SampleRate
+        }
+        
+        return FormatMapping(action, encodersMap[outputFileExtension!], outputFileExtension!, sampleRate)
+    }
+}
+
+class FormatMapping {
+    
+    let outputExtension: String
+    let encoder: String?
+    let action: TranscoderAction
+    let sampleRate: Int?
+    
+    init(_ action: TranscoderAction, _ encoder: String?, _ outputExtension: String, _ sampleRate: Int?) {
+        
+        self.action = action
+        self.encoder = encoder
+        self.outputExtension = outputExtension
+        self.sampleRate = sampleRate
+    }
+}
+
+enum TranscoderAction {
+    
+    case transmux
+    case transcode
+}

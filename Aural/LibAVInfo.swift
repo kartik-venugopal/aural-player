@@ -2,10 +2,16 @@ import Foundation
 
 class LibAVInfo {
     
-    var duration: Double
-    var streams: [LibAVStream]
-    var metadata: [String: String]
-    var drmProtected: Bool
+    let duration: Double
+    let streams: [LibAVStream]
+    let metadata: [String: String]
+    let drmProtected: Bool
+    
+    // Computed values
+    let hasValidAudioTrack: Bool
+    let hasArt: Bool
+    let audioStream: LibAVStream?
+    let audioFormat: String?
     
     init(_ duration: Double, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
         
@@ -13,33 +19,29 @@ class LibAVInfo {
         self.streams = streams
         self.metadata = metadata
         self.drmProtected = drmProtected
-    }
-    
-    var hasValidAudioTrack: Bool {
+        
+        self.audioStream = streams.isEmpty ? nil : streams.filter({$0.type == .audio}).first
         
         if let stream = audioStream {
             
-            return (duration > 0) && (stream.channelCount ?? 0 > 0) && (stream.sampleRate ?? 0 > 0) && (AppConstants.SupportedTypes.nonNativeAudioFormats.contains(stream.format) || stream.format == "flac")
+            hasValidAudioTrack =
+                (duration > 0) &&
+                (stream.channelCount ?? 0) > 0 &&
+                (stream.sampleRate ?? 0) > 0 &&
+                AppConstants.SupportedTypes.allAudioFormats.contains(stream.format)
+            
+        } else {
+            
+            hasValidAudioTrack = false
         }
-        
-        return false
-    }
-    
-    var hasArt: Bool {
         
         if let stream = streams.filter({$0.type == .art}).first {
-            return AppConstants.SupportedTypes.artFormats.contains(stream.format)
+            hasArt = AppConstants.SupportedTypes.artFormats.contains(stream.format)
+        } else {
+            hasArt = false
         }
         
-        return false
-    }
-    
-    var audioStream: LibAVStream? {
-        return streams.isEmpty ? nil : streams.filter({$0.type == .audio}).first
-    }
-    
-    var audioFormat: String? {
-        return audioStream?.format
+        audioFormat = audioStream?.format
     }
 }
 

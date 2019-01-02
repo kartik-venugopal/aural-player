@@ -1,24 +1,5 @@
 import Foundation
 
-protocol TranscoderProtocol {
-    
-    func transcodeImmediately(_ track: Track)
-    
-    func transcodeInBackground(_ track: Track)
-    
-    func cancel(_ track: Track)
-    
-    // MARK: Query functions
-    
-    var currentDiskSpaceUsage: UInt64 {get}
-    
-    func trackNeedsTranscoding(_ track: Track) -> Bool
-    
-    func checkDiskSpaceUsage()
-    
-    func setMaxBackgroundTasks(_ numTasks: Int)
-}
-
 class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
     private let ffmpegBinaryPath: String = Bundle.main.url(forResource: "ffmpeg", withExtension: "")!.path
@@ -27,43 +8,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let daemon: TranscoderDaemon
     
     private let preferences: TranscodingPreferences
-    
-    private let formatsMap: [String: String] = ["flac": "aiff",
-                                                "ape": "aiff",
-                                                "dsd_lsbf": "aiff",
-                                                "dsd_lsbf_planar": "aiff",
-                                                "dsd_msbf": "aiff",
-                                                "dsd_msbf_planar": "aiff",
-                                                "wmav1": "m4a",
-                                                "wmav2": "m4a",
-                                                "wmalossless": "m4a",
-                                                "wmapro": "m4a",
-                                                "wmavoice": "m4a",
-                                                "opus": "m4a",
-                                                "vorbis": "m4a",
-                                                "mpc": "m4a",
-                                                "mpc7": "m4a",
-                                                "mpc8": "m4a",
-                                                "musepack": "m4a",
-                                                "musepack7": "m4a",
-                                                "musepack8": "m4a",
-                                                "mp2": "m4a",
-                                                "mp2_at": "m4a",
-                                                "mp2float": "m4a",
-                                                "wavpack": "m4a"]
-    
-    private let extensionsMap: [String: String] = ["flac": "aiff",
-                                                "ape": "aiff",
-                                                "dsf": "aiff",
-                                                "wma": "m4a",
-                                                "opus": "m4a",
-                                                "ogg": "m4a",
-                                                "oga": "m4a",
-                                                "mpc": "m4a",
-                                                "mp2": "m4a",
-                                                "wv": "m4a"]
-    
-    private let defaultOutputFileExtension: String = "m4a"
     
     private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
     private lazy var sequencer: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
@@ -116,10 +60,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func doTranscode(_ track: Track, _ inBackground: Bool) {
         
-        let inputFile = track.file
-        let outputFile = outputFileForTrack(track)
-        
-        let command = createCommand(track, inputFile, outputFile, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
+        let formatMapping = FormatMapper.outputFormatForTrack(track)
+        let outputFile = outputFileForTrack(track, formatMapping.outputExtension)
+        let command = FFMpegWrapper.createTranscoderCommand(track, outputFile, formatMapping, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
         
         let successHandler = { (command: MonitoredCommand) -> Void in
             
@@ -152,45 +95,14 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         inBackground ? daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler) : daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
     }
     
-    private func createCommand(_ track: Track, _ inputFile: URL, _ outputFile: URL, _ progressCallback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> MonitoredCommand {
+    private func outputFileForTrack(_ track: Track, _ outputFileExtension: String) -> URL {
         
-        let outputFileExtension = outputFile.pathExtension.lowercased()
-        var args = ["-v", "quiet", "-stats", "-i", inputFile.path]
-        
-        // TODO: m4a could mean alac codec
-        if outputFileExtension == "m4a" {
-            args.append(contentsOf: ["-acodec", "aac"])
-        }
-        
-        args.append(contentsOf: ["-vn", "-sn", "-ac", "2", outputFile.path])
-        
-        // -vn: Ignore video stream (including album art)
-        // -sn: Ignore subtitles
-        // -ac 2: Convert to stereo audio
-        return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: args, qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
-    }
-    
-    private func outputFileForTrack(_ track: Track) -> URL {
-        
-        let inputFile = track.file
-        let inputFileName = inputFile.lastPathComponent
-        
-        var outputFileExtension: String? = nil
-        
-        if let inputFormat = track.libAVInfo?.audioFormat {
-            outputFileExtension = formatsMap[inputFormat]
-        }
-        
-        if outputFileExtension == nil {
-            
-            let inputFileExtension = inputFile.pathExtension.lowercased()
-            outputFileExtension = extensionsMap[inputFileExtension] ?? defaultOutputFileExtension
-        }
-        
-        // File name needs to be unique. Otherwise, command execution will hang (libav will ask if you want to overwrite).
-        
-        let now = Date()
-        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, now.serializableString_hms(), outputFileExtension!)
+        // File name needs to be unique. Otherwise, command execution will hang (ffmpeg will ask if you want to overwrite).
+        // TODO: To make this foolproof, add a loop: while(fileNameExists()) {generate a unique name}
+
+        let inputFileName = track.file.lastPathComponent
+        let nowString = Date().serializableString_hms()
+        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, nowString, outputFileExtension)
         
         return store.createOutputFile(track, outputFileName)
     }
@@ -317,35 +229,54 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
     
-//    func tracksAdded(_ addResults: [TrackAddResult]) {
-//
-//        if preferences.eagerTranscodingEnabled {
-//
-//            if preferences.eagerTranscodingOption == .allFiles {
-//
-//                let task = {
-//
-//                    let tracks = self.playlist.tracks
-//                    for track in tracks {
-//
-//                        if !track.playbackNativelySupported && self.store.getForTrack(track) == nil {
-//
-//                            let outputFile = self.outputFileForTrack(track)
-//
-//                            if FFMpegWrapper.transcode(track.file, outputFile, self.transcodingProgress) {
-//                                self.store.fileAddedToStore(outputFile)
-//                            }
-//
-//                            // TODO: How to continue transcoding more tracks ???
-//                            return
-//                        }
-//                    }
-//                }
-//
-//                daemon.submitTask(task, .background)
-//            }
-//        }
-//    }
+    //    func tracksAdded(_ addResults: [TrackAddResult]) {
+    //
+    //        if preferences.eagerTranscodingEnabled {
+    //
+    //            if preferences.eagerTranscodingOption == .allFiles {
+    //
+    //                let task = {
+    //
+    //                    let tracks = self.playlist.tracks
+    //                    for track in tracks {
+    //
+    //                        if !track.playbackNativelySupported && self.store.getForTrack(track) == nil {
+    //
+    //                            let outputFile = self.outputFileForTrack(track)
+    //
+    //                            if FFMpegWrapper.transcode(track.file, outputFile, self.transcodingProgress) {
+    //                                self.store.fileAddedToStore(outputFile)
+    //                            }
+    //
+    //                            // TODO: How to continue transcoding more tracks ???
+    //                            return
+    //                        }
+    //                    }
+    //                }
+    //
+    //                daemon.submitTask(task, .background)
+    //            }
+    //        }
+    //    }
+}
+
+protocol TranscoderProtocol {
+    
+    func transcodeImmediately(_ track: Track)
+    
+    func transcodeInBackground(_ track: Track)
+    
+    func cancel(_ track: Track)
+    
+    // MARK: Query functions
+    
+    var currentDiskSpaceUsage: UInt64 {get}
+    
+    func trackNeedsTranscoding(_ track: Track) -> Bool
+    
+    func checkDiskSpaceUsage()
+    
+    func setMaxBackgroundTasks(_ numTasks: Int)
 }
 
 extension String {
