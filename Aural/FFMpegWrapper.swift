@@ -31,7 +31,7 @@ class FFMpegWrapper {
         // ffprobe -v error -show_entries "stream=codec_name,codec_type,bit_rate,channels,sample_rate : format=duration :  stream_tags : format_tags" -of json Song.mp3
         
         let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
         
         let result = CommandExecutor.execute(command)
         
@@ -58,6 +58,7 @@ class FFMpegWrapper {
                             
                             var bitRate: Double?
                             var channelCount: Int = 0
+                            let channelLayout: String? = streamDict["channel_layout"] as? String
                             var sampleRate: Double = 0
                             
                             if let bitRateStr = streamDict["bit_rate"] as? String, let num = Double(bitRateStr) {
@@ -84,7 +85,7 @@ class FFMpegWrapper {
                                 }
                             }
                             
-                            streams.append(LibAVStream(codecName.lowercased(), codecDescription, bitRate, channelCount, sampleRate))
+                            streams.append(LibAVStream(codecName.lowercased(), codecDescription, bitRate, channelCount, channelLayout, sampleRate))
                             
                         } else if codecType == "video" {
                             
