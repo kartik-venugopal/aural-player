@@ -20,6 +20,10 @@ class FFMpegWrapper {
     }()
     
     static func getMetadata(_ track: Track) -> LibAVInfo {
+        return getMetadata(track.file)
+    }
+        
+    static func getMetadata(_ inputFile: URL) -> LibAVInfo {
         
         var tags: [String: String] = [:]
         var streams: [LibAVStream] = []
@@ -31,8 +35,7 @@ class FFMpegWrapper {
         
         // ffprobe -v error -show_entries "stream=codec_name,codec_type,bit_rate,channels,sample_rate : format=duration :  stream_tags : format_tags" -of json Song.mp3
         
-        let inputFile = track.file
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true, .json)
         
         let result = CommandExecutor.execute(command)
         
@@ -40,7 +43,7 @@ class FFMpegWrapper {
             return LibAVInfo(0, "", streams, [:], false)
         }
         
-        if let dict = result.output {
+        if let dict = result.outputAsObject {
             
             if let streamsArr = dict["streams"] as? [NSDictionary] {
                 
@@ -175,8 +178,8 @@ class FFMpegWrapper {
         // -vn: Ignore video stream (including album art)
         // -sn: Ignore subtitles
         // -ac 2: Convert to stereo audio (i.e. "downmix")
-        let args = ["-v", "0", "-i", inFile.path, "-vn", "-sn", "-acodec", "copy", outputFile.path]
+        let args = ["-v", "quiet", "-stats", "-i", inFile.path, "-vn", "-sn", "-acodec", "copy", outputFile.path]
         
-        return Command.createSimpleCommand(cmd: ffmpegBinaryPath, args: args, timeout: muxer_timeout)
+        return Command.createWithOutput(cmd: ffmpegBinaryPath, args: args, timeout: muxer_timeout, readOutput: false, readErr: true, nil)
     }
 }

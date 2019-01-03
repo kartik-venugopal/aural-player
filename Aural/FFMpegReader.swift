@@ -4,6 +4,8 @@ class FFMpegReader: MetadataReader {
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
     
+    private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
+    
     private func ensureTrackAssetLoaded(_ track: Track) {
         
         if track.libAVInfo == nil {
@@ -22,9 +24,18 @@ class FFMpegReader: MetadataReader {
         let album = libAVInfo.metadata["album"]?.trim()
         let genre = libAVInfo.metadata["genre"]?.trim()
         
-        let duration = libAVInfo.duration
+        let duration = getDuration(track)
         
         return PrimaryMetadata(title, artist, album, genre, duration)
+    }
+    
+    func getDuration(_ track: Track) -> Double {
+        
+        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.mux(track) {
+            return trackDuration
+        }
+        
+        return track.libAVInfo!.duration
     }
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {

@@ -101,8 +101,8 @@ class AVAssetReader: MetadataReader {
     func getDuration(_ track: Track) -> Double {
         
         // Mux raw streams into containers to get accurate duration data (necessary for proper playback)
-        if muxer.trackNeedsMuxing(track), let containerFile = muxer.mux(track) {
-            return AVURLAsset(url: containerFile, options: nil).duration.seconds
+        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.mux(track) {
+            return trackDuration
         }
         
         var tlenDuration: Double = 0

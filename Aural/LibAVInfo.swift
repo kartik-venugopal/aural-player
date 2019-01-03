@@ -27,7 +27,6 @@ class LibAVInfo {
         if let stream = audioStream {
             
             hasValidAudioTrack =
-                (duration > 0) &&
                 (stream.channelCount ?? 0) > 0 &&
                 (stream.sampleRate ?? 0) > 0 &&
                 AppConstants.SupportedTypes.allAudioFormats.contains(stream.format)
