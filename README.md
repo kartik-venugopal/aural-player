@@ -163,10 +163,6 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
 
-### Previewing and managing effects presets
-
-![App screenshot w/ effects presets editor](/Documentation/Screenshots/FXPresetsEditor.png?raw=true "Previewing and managing effects presets")
-
 ### Changing the window layout with one click
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
@@ -187,10 +183,6 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ![EQ](/Documentation/Screenshots/EQ.png?raw=true "Equalizer")
 
-### Time stretch effects unit
-
-![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
-
 ### Filter effects unit
 
 ![Filter](/Documentation/Screenshots/Filter1.png?raw=true "Filter")
@@ -202,15 +194,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ### Playlist search
 
-![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Delay")
-
-### Playlist sort
-
-![Playlist sort](/Documentation/Screenshots/Sort.png?raw=true "Delay")
-
-### Preferences (Playback tab selected)
-
-![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
+![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Playlist Search")
 
 ## Third party code and contributor attributions
 
