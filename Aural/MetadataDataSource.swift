@@ -139,6 +139,10 @@ class MetadataDataSource: TrackInfoDataSource {
         
         for (key, entry) in track.metadata {
             
+            if entry.formattedKey().trim().isEmpty {
+                continue
+            }
+            
             // Some tracks have a "Format" metadata entry ... ignore it
             if (key.lowercased() != "format") {
                 trackInfo.append((key: entry.formattedKey(), value: entry.value))
