@@ -166,8 +166,6 @@ class FFMpegWrapper {
         // -ac 2: Convert to stereo audio (i.e. "downmix")
         args.append(contentsOf: ["-vn", "-sn", outputFile.path])
         
-        print("Created transcoder cmd with args:", args)
-        
         return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: args, qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
     }
 }
