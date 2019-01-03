@@ -171,17 +171,9 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
 
-### Compact app view, default player view with controls shown
+### Customizing the player view (through the *View* menu)
 
-![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
-
-### Compact app view, default player view with controls hidden
-
-![App screenshot4](/Documentation/Screenshots/Compact-default-noControls.png?raw=true "App screenshot4")
-
-### Compact app view, expanded art player view
-
-![App screenshot4](/Documentation/Screenshots/Compact-ExpandedArt.png?raw=true "App screenshot4")
+![Player view](/Documentation/Demos/playerView.gif?raw=true "Player view")
 
 ### Equalizer effects unit
 
