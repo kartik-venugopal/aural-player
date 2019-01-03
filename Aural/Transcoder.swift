@@ -60,7 +60,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func doTranscode(_ track: Track, _ inBackground: Bool) {
         
-        let formatMapping = FormatMapper.outputFormatForTrack(track)
+        let formatMapping = FormatMapper.outputFormatForTranscoding(track)
         let outputFile = outputFileForTrack(track, formatMapping.outputExtension)
         let command = FFMpegWrapper.createTranscoderCommand(track, outputFile, formatMapping, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
         
@@ -102,7 +102,8 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 
         let inputFileName = track.file.lastPathComponent
         let nowString = Date().serializableString_hms()
-        let outputFileName = String(format: "%@-transcoded-%@.%@", inputFileName, nowString, outputFileExtension)
+        let randomNum = Int.random(in: 0..<Int.max)
+        let outputFileName = String(format: "%@-transcoded-%@-%d.%@", inputFileName, nowString, randomNum, outputFileExtension)
         
         return store.createOutputFile(track, outputFileName)
     }

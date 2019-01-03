@@ -9,27 +9,31 @@ open class TimerUtils {
     static var instance: TimerUtils = TimerUtils()
     
     // Map of method/operation name -> array of timers for that method/operation
-    private var timers: [String: [CodeTimer]] = [String: [CodeTimer]]()
+    private var timers: ConcurrentMap<String, [CodeTimer]> = ConcurrentMap<String, [CodeTimer]>("TimerUtils")
+//    private var timers: [String: [CodeTimer]] = [String: [CodeTimer]]()
     
     static func start(_ tag: String) -> CodeTimer {
         
-        var timersForTag: [CodeTimer]? = instance.timers[tag]
+        var timersForTag: [CodeTimer]? = instance.timers.getForKey(tag)
         
         if timersForTag == nil  {
             timersForTag = [CodeTimer]()
-            instance.timers[tag] = timersForTag
+            instance.timers.put(tag, timersForTag!)
         }
         
         let timer: CodeTimer = CodeTimer()
         timer.start()
-        instance.timers[tag]!.append(timer)
+        
+        timersForTag!.append(timer)
+        
+        instance.timers.put(tag, timersForTag!)
         
         return timer
     }
     
     static func printStats() {
         
-        for (tag, timersForTag) in instance.timers {
+        for (tag, timersForTag) in instance.timers.kvPairs() {
             
             print("\nFor tag '" + tag + "' ...")
             let avg = avgForTimers(timersForTag)
@@ -41,10 +45,10 @@ open class TimerUtils {
     
     static func printStats(_ forTag: String) {
         
-        for (tag, timersForTag) in instance.timers {
+        for (tag, timersForTag) in instance.timers.kvPairs() {
             
             if (tag == forTag) {
-            
+                
                 print("\nFor tag '" + tag + "' ...")
                 let avg = avgForTimers(timersForTag)
                 print("    Count / AvgTime", timersForTag.count, String(format: "%.3lf", avg) + " msec")

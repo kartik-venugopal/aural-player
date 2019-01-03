@@ -77,8 +77,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Tell app components that the app has finished loading, and pass along any launch parameters (set of files to open)
         SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))
-        
-        print(FileSystemUtils.fileAttributes(path: "/ffmpeg/Test/WMA/PerfectWorld.wma"))
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
