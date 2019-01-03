@@ -9,6 +9,11 @@ class ConcurrentMap<T: Hashable, U: Any> {
         syncQueue = DispatchQueue(label: id, attributes: .concurrent)
     }
     
+    func kvPairs() -> [T: U] {
+        let copy = map
+        return copy
+    }
+    
     func hasForKey(_ key: T) -> Bool {
         
         var hasValue: Bool = false

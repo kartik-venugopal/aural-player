@@ -9,6 +9,7 @@ class FFMpegWrapper {
     
     static let getMetadata_timeout: Double = 3
     static let getArtwork_timeout: Double = 10
+    static let muxer_timeout: Double = 3
     
     static let artBaseDir: URL = {
         
@@ -167,5 +168,15 @@ class FFMpegWrapper {
         args.append(contentsOf: ["-vn", "-sn", outputFile.path])
         
         return MonitoredCommand.create(track: track, cmd: ffmpegBinaryPath, args: args, qualityOfService: qualityOfService, timeout: nil, callback: progressCallback, enableMonitoring: enableMonitoring)
+    }
+    
+    static func createMuxerCommand(_ inFile: URL, _ outputFile: URL) -> Command {
+        
+        // -vn: Ignore video stream (including album art)
+        // -sn: Ignore subtitles
+        // -ac 2: Convert to stereo audio (i.e. "downmix")
+        let args = ["-v", "0", "-i", inFile.path, "-vn", "-sn", "-acodec", "copy", outputFile.path]
+        
+        return Command.createSimpleCommand(cmd: ffmpegBinaryPath, args: args, timeout: muxer_timeout)
     }
 }

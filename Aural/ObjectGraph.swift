@@ -42,6 +42,7 @@ class ObjectGraph {
     static var layoutManager: LayoutManager!
     
     static var transcoder: TranscoderProtocol!
+    static var muxer: MuxerProtocol!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -116,6 +117,8 @@ class ObjectGraph {
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
+        
+        muxer = Muxer()
     }
     
     // Called when app exits

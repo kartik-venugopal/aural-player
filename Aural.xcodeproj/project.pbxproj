@@ -139,6 +139,7 @@
 		3E3FB7F9215B590A00974A59 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7F8215B590A00974A59 /* Favorites.swift */; };
 		3E3FB7FB215B5B4800974A59 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */; };
 		3E3FB7FD215B5BBB00974A59 /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */; };
+		3E4045D421DDEFF300F4708C /* Muxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4045D321DDEFF300F4708C /* Muxer.swift */; };
 		3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
@@ -520,6 +521,7 @@
 		3E3FB7F8215B590A00974A59 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
+		3E4045D321DDEFF300F4708C /* Muxer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Muxer.swift; sourceTree = "<group>"; };
 		3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsEditorGenericViewController.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -1276,6 +1278,24 @@
 			name = Favorites;
 			sourceTree = "<group>";
 		};
+		3E4045D121DDEFC700F4708C /* Transcoder */ = {
+			isa = PBXGroup;
+			children = (
+				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
+				3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */,
+				3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */,
+			);
+			name = Transcoder;
+			sourceTree = "<group>";
+		};
+		3E4045D221DDEFE700F4708C /* Muxer */ = {
+			isa = PBXGroup;
+			children = (
+				3E4045D321DDEFF300F4708C /* Muxer.swift */,
+			);
+			name = Muxer;
+			sourceTree = "<group>";
+		};
 		3E44DDC91FD8A6C000C6566C /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,15 +1411,14 @@
 			path = ffmpeg;
 			sourceTree = "<group>";
 		};
-		3E6D0F7E21C1C80400640450 /* Transcoding */ = {
+		3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */ = {
 			isa = PBXGroup;
 			children = (
-				3E6D0F7F21C1C81900640450 /* Transcoder.swift */,
 				3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */,
-				3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */,
-				3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */,
+				3E4045D221DDEFE700F4708C /* Muxer */,
+				3E4045D121DDEFC700F4708C /* Transcoder */,
 			);
-			name = Transcoding;
+			name = TranscodingAndMuxing;
 			sourceTree = "<group>";
 		};
 		3E6D0F8321C1D42A00640450 /* FFMpeg */ = {
@@ -1547,7 +1566,7 @@
 				3EA262671F0EFD9600D9BCD9 /* UI */,
 				3E98477F1F5CF0E6001A2D28 /* Playlist */,
 				3E2D9E411F662B8D0020B99E /* Playback */,
-				3E6D0F7E21C1C80400640450 /* Transcoding */,
+				3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */,
 				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
 				3E2D9E421F662BB90020B99E /* Recorder */,
 				3E06C0281FB6B105003EE9AB /* History */,
@@ -2150,6 +2169,7 @@
 				3E76C9FE21D4471000B45D27 /* PlayerViewMenuController.swift in Sources */,
 				3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */,
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
+				3E4045D421DDEFF300F4708C /* Muxer.swift in Sources */,
 				3EA2F8F921D03FC3007D0264 /* FFMpegReader.swift in Sources */,
 				3E0ED6C31FBB1E18008268B3 /* EQViewController.swift in Sources */,
 				3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */,

@@ -21,6 +21,11 @@ class AVAssetReader: MetadataReader {
     
     private let genericMetadata_ignoreKeys: [String] = [AVMetadataKey.commonKeyTitle.rawValue, AVMetadataKey.commonKeyArtist.rawValue, AVMetadataKey.commonKeyArtwork.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue, AVMetadataKey.commonKeyType.rawValue, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue, AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue]
     
+    private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
+    
+    private var sum: Double = 0
+    private var c: Int = 0
+    
     // Helper function that ensures that a track's AVURLAsset has been initialized
     private func ensureTrackAssetLoaded(_ track: Track) {
         
@@ -94,6 +99,11 @@ class AVAssetReader: MetadataReader {
     
     // Loads duration metadata for a track, if available
     func getDuration(_ track: Track) -> Double {
+        
+        // Mux raw streams into containers to get accurate duration data (necessary for proper playback)
+        if muxer.trackNeedsMuxing(track), let containerFile = muxer.mux(track) {
+            return AVURLAsset(url: containerFile, options: nil).duration.seconds
+        }
         
         var tlenDuration: Double = 0
         

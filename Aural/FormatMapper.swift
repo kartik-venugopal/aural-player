@@ -122,7 +122,7 @@ class FormatMapper {
         "ac3": 48000
     ]
     
-    static func outputFormatForTrack(_ track: Track) -> FormatMapping {
+    static func outputFormatForTranscoding(_ track: Track) -> FormatMapping {
         
         let inputFileExtension = track.file.pathExtension.lowercased()
         let audioFormat = track.libAVInfo!.audioFormat!
