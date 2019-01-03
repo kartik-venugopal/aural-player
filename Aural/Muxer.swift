@@ -2,7 +2,7 @@ import Foundation
 
 class Muxer: MuxerProtocol {
     
-    private let containers: [String: String] = ["aac": "m4a"]
+    private let containers: [String: String] = ["aac": "m4a", "dts": "mka"]
     
     private let baseDir = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
     
@@ -12,7 +12,7 @@ class Muxer: MuxerProtocol {
         return containers[inFileExt] != nil
     }
     
-    func mux(_ track: Track) -> URL? {
+    func mux(_ track: Track) -> Double? {
         
         let inFileExt = track.file.pathExtension.lowercased()
         
@@ -28,7 +28,21 @@ class Muxer: MuxerProtocol {
             let result = CommandExecutor.execute(cmd)
             
             if result.exitCode == 0 {
-                return outFile
+                
+                if let line = result.error.last, line.contains("time=") {
+                    
+                    let tokens = line.split(separator: "=")
+                    
+                    if tokens.count >= 3 {
+                        
+                        let timeStr = tokens[2].split(separator: " ")[0].trim()
+                        let timeTokens = timeStr.split(separator: ":")
+                        
+                        if let hrs = Double(timeTokens[0]), let mins = Double(timeTokens[1]), let secs = Double(timeTokens[2]) {
+                            return hrs * 3600 + mins * 60 + secs
+                        }
+                    }
+                }
             }
         }
 
@@ -40,5 +54,5 @@ protocol MuxerProtocol {
     
     func trackNeedsMuxing(_ track: Track) -> Bool
     
-    func mux(_ track: Track) -> URL?
+    func mux(_ track: Track) -> Double?
 }

@@ -6,7 +6,8 @@ class CommandExecutor {
     
     static func execute(_ cmd: Command) -> CommandResult {
         
-        var output: NSDictionary? = nil
+        var outputAsLines: [String]?
+        var outputAsObject: NSDictionary? = nil
         var error: [String] = []
         
         let task = cmd.process
@@ -33,7 +34,7 @@ class CommandExecutor {
         
         if let monitoredCmd = cmd as? MonitoredCommand, monitoredCmd.cancelled {
             // Task may have been canceled
-            return CommandResult(nil, error, cancellationExitCode)
+            return CommandResult(nil as [String]?, error, cancellationExitCode)
         }
         
         let status = task.terminationStatus
@@ -42,14 +43,25 @@ class CommandExecutor {
             
             let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
             
-            do {
+            if let outputType = cmd.outputType, outputType == .json {
                 
-                if let dict = try JSONSerialization.jsonObject(with: outdata, options: JSONSerialization.ReadingOptions()) as? NSDictionary {
-                    output = dict
+                do {
+                    
+                    if let dict = try JSONSerialization.jsonObject(with: outdata, options: JSONSerialization.ReadingOptions()) as? NSDictionary {
+                        outputAsObject = dict
+                    }
+                    
+                } catch let error as NSError {
+                    NSLog("Error reading JSON output for command: %@, with args: %@. \nCause:", cmd.process.launchPath!, cmd.process.arguments!, error.description)
                 }
                 
-            } catch let error as NSError {
-                NSLog("Error reading JSON output for command: %@, with args: %@. \nCause:", cmd.process.launchPath!, cmd.process.arguments!, error.description)
+            } else {
+                
+                if var string = String(data: outdata, encoding: .utf8) {
+                    
+                    string = string.trimmingCharacters(in: .newlines)
+                    outputAsLines = string.components(separatedBy: "\n")
+                }
             }
         }
         
@@ -57,12 +69,17 @@ class CommandExecutor {
             
             let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
             if var string = String(data: errdata, encoding: .utf8) {
+                
                 string = string.trimmingCharacters(in: .newlines)
                 error = string.components(separatedBy: "\n")
             }
         }
         
-        return CommandResult(output, error, status)
+        if let outputType = cmd.outputType, outputType == .json {
+            return CommandResult(outputAsObject, error, status)
+        } else {
+            return CommandResult(outputAsLines, error, status)
+        }
     }
     
     static func cancel(_ cmd: MonitoredCommand) {
@@ -82,8 +99,9 @@ class Command {
     var timeout: Double?
     var readOutput: Bool
     var readErr: Bool
+    var outputType: CommandOutputType?
     
-    init(_ cmd : String, _ args : [String], _ timeout: Double?, _ readOutput: Bool, _ readErr: Bool) {
+    init(_ cmd : String, _ args : [String], _ timeout: Double?, _ readOutput: Bool, _ readErr: Bool, _ outputType: CommandOutputType?) {
         
         process = Process()
         process.launchPath = cmd
@@ -100,15 +118,22 @@ class Command {
         
         self.readOutput = readOutput
         self.readErr = readErr
+        self.outputType = outputType
     }
     
-    static func createWithOutput(cmd : String, args : [String], timeout: Double?, readOutput: Bool, readErr: Bool) -> Command {
-        return Command(cmd, args, timeout, readOutput, readErr)
+    static func createWithOutput(cmd : String, args : [String], timeout: Double?, readOutput: Bool, readErr: Bool, _ outputFormat: CommandOutputType?) -> Command {
+        return Command(cmd, args, timeout, readOutput, readErr, outputFormat)
     }
     
     static func createSimpleCommand(cmd : String, args : [String], timeout: Double?) -> Command {
-        return Command(cmd, args, timeout, false, false)
+        return Command(cmd, args, timeout, false, false, nil)
     }
+}
+
+enum CommandOutputType {
+    
+    case lines
+    case json
 }
 
 class MonitoredCommand: Command {
@@ -123,14 +148,14 @@ class MonitoredCommand: Command {
     
     var startTime: Date!
     
-    init(_ track: Track, _ cmd : String, _ args : [String], _ qualityOfService: QualityOfService, _ timeout: Double?, _ callback: ((_ command: MonitoredCommand, _ output: String) -> Void)?, _ enableMonitoring: Bool, _ readOutput: Bool, _ readErr: Bool) {
+    init(_ track: Track, _ cmd : String, _ args : [String], _ qualityOfService: QualityOfService, _ timeout: Double?, _ callback: ((_ command: MonitoredCommand, _ output: String) -> Void)?, _ enableMonitoring: Bool, _ readOutput: Bool, _ readErr: Bool, _ outputType: CommandOutputType?) {
         
         self.track = track
         
         self.enableMonitoring = enableMonitoring
         self.callback = callback
         
-        super.init(cmd, args, timeout, readOutput, readErr)
+        super.init(cmd, args, timeout, readOutput, readErr, outputType)
       
         if callback != nil || (readOutput || readErr) {
             
@@ -179,19 +204,27 @@ class MonitoredCommand: Command {
     
     static func create(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?, callback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), enableMonitoring: Bool) -> MonitoredCommand {
         
-        return MonitoredCommand(track, cmd, args, qualityOfService, timeout, callback, enableMonitoring, false, false)
+        return MonitoredCommand(track, cmd, args, qualityOfService, timeout, callback, enableMonitoring, false, false, nil)
     }
 }
 
 class CommandResult {
     
-    var output: NSDictionary?
+    var output: [String]?
+    var outputAsObject: NSDictionary?
     var error: [String]
     var exitCode: Int32
     
-    init(_ output: NSDictionary?, _ error: [String], _ exitCode: Int32) {
+    init(_ output: [String]?, _ error: [String], _ exitCode: Int32) {
         
         self.output = output
+        self.error = error
+        self.exitCode = exitCode
+    }
+    
+    init(_ outputAsObject: NSDictionary?, _ error: [String], _ exitCode: Int32) {
+        
+        self.outputAsObject = outputAsObject
         self.error = error
         self.exitCode = exitCode
     }
