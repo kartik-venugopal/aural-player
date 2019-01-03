@@ -143,6 +143,12 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 ![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
 
+### Transcoding of non-natively supported tracks (e.g. WMA/OGG)
+
+![Transcoding](/Documentation/Demos/Transcoding.gif?raw=true "Transcoding")
+
+![Background transcoding](/Documentation/Screenshots/BGTranscoding.png?raw=true "Background transcoding")
+
 ### Delayed track playback
 
 ![App screenshot2](/Documentation/Demos/delayedPlayback.gif?raw=true "Delayed playback")
