@@ -118,12 +118,15 @@ class FormatMapper {
     
     private static let defaultOutputFileExtension: String = "m4a"
     
-    private static let dtsToAC3SampleRate: Int = 48000
+    private static let maxSampleRatesMap: [String: Int] = [
+        "ac3": 48000
+    ]
     
     static func outputFormatForTrack(_ track: Track) -> FormatMapping {
         
         let inputFileExtension = track.file.pathExtension.lowercased()
         let audioFormat = track.libAVInfo!.audioFormat!
+        var encoder: String?
         var sampleRate: Int?
         
         var outputFileExtension: String?
@@ -141,13 +144,10 @@ class FormatMapper {
             outputFileExtension = nonNativeFormatsMap[audioFormat] ?? (extensionsMap[inputFileExtension] ?? defaultOutputFileExtension)
         }
         
-        if audioFormat == "dts" {
-            sampleRate = dtsToAC3SampleRate
-        }
+        encoder = encodersMap[outputFileExtension!]
+        sampleRate = maxSampleRatesMap[outputFileExtension!]
         
-        print("Mapped:", action, encodersMap[outputFileExtension!], outputFileExtension!, sampleRate)
-        
-        return FormatMapping(action, encodersMap[outputFileExtension!], outputFileExtension!, sampleRate)
+        return FormatMapping(action, encoder, outputFileExtension!, sampleRate)
     }
 }
 

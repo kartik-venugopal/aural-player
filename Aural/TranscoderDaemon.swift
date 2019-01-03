@@ -11,8 +11,6 @@ class TranscoderDaemon: MessageSubscriber {
     
     private let preferences: TranscodingPreferences
     
-    // TODO: On app exit, cancel all tasks (and delete the files)
-    
     init(_ preferences: TranscodingPreferences) {
         
         self.preferences = preferences
@@ -153,6 +151,8 @@ class TranscoderDaemon: MessageSubscriber {
         for (_, task) in tasks {
             CommandExecutor.cancel(task.command)
         }
+        
+        tasks.removeAll()
         
         // Proceed with exit
         return AppExitResponse.okToExit
