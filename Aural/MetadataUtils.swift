@@ -107,25 +107,23 @@ class MetadataUtils {
             
         } else {
             
+            // Key type == ID
+            
             // Use the metadata spec to format the key
             switch entry.type {
                 
             // Common space keys (camel cased) need to be split up into separate words
             case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
 
-//            case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
+            case .id3:  return ID3Spec.readableKeyByID(entry.key) ?? entry.key
                 
             case .iTunes: return ITunesSpec.readableKeyByID(entry.key) ?? entry.key
                 
             // Unrecognized entry type, return key as is
             case .other: return entry.key
                 
-            default: return "_key_"
-                
             }
         }
-        
-        return "_key_"
     }
     
     static func isFileMetadataNativelySupported(_ file: URL) -> Bool {
