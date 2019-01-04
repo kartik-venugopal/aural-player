@@ -126,16 +126,27 @@ class MetadataDataSource: TrackInfoDataSource {
         trackInfo.append((key: "Artist", value: track.displayInfo.artist ?? value_unknown))
         trackInfo.append((key: "Title", value: track.displayInfo.title ?? value_unknown))
         trackInfo.append((key: "Album", value: track.groupingInfo.album ?? value_unknown))
-        
-        if let discNum = track.groupingInfo.discNumber {
-            trackInfo.append((key: "Disc#", value: String(discNum)))
-        }
+        trackInfo.append((key: "Genre", value: track.groupingInfo.genre ?? value_unknown))
         
         if let trackNum = track.groupingInfo.trackNumber {
-            trackInfo.append((key: "Track#", value: String(trackNum)))
+            
+            if let totalTracks = track.groupingInfo.totalTracks {
+                trackInfo.append((key: "Track#", value: String(format: "%d / %d", trackNum, totalTracks)))
+            } else {
+                trackInfo.append((key: "Track#", value: String(trackNum)))
+            }
         }
         
-        trackInfo.append((key: "Genre", value: track.groupingInfo.genre ?? value_unknown))
+        if let discNum = track.groupingInfo.discNumber {
+            
+            if let totalDiscs = track.groupingInfo.totalDiscs {
+                trackInfo.append((key: "Disc#", value: String(format: "%d / %d", discNum, totalDiscs)))
+            } else {
+                trackInfo.append((key: "Disc#", value: String(discNum)))
+            }
+        }
+        
+        // TODO: Find a way to sort the generic metadata so that junk comes last (e.g. iTunesNORM and UPC's, etc)
         
         for (key, entry) in track.metadata {
             

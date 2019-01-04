@@ -283,13 +283,17 @@ protocol TranscoderProtocol {
 extension String {
     
     func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        var trimmed = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        trimmed = trimmed.trimmingCharacters(in: CharacterSet(charactersIn: "\r\n"))
+        return trimmed
     }
 }
 
 extension Substring.SubSequence {
     
     func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        var trimmed = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+//        trimmed = trimmed.trimmingCharacters(in: CharacterSet(charactersIn: "\r\n"))
+        return trimmed
     }
 }

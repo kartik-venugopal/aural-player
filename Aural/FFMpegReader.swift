@@ -31,7 +31,7 @@ class FFMpegReader: MetadataReader {
     
     func getDuration(_ track: Track) -> Double {
         
-        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.mux(track) {
+        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.muxForDuration(track) {
             return trackDuration
         }
         
@@ -44,10 +44,44 @@ class FFMpegReader: MetadataReader {
         
         let metadata = track.libAVInfo!.metadata
         
-        let discNumber = Int(metadata["disc"] ?? "")
-        let trackNumber = Int(metadata["track"] ?? "")
+        let discNumMapValue = metadata["disc"]
+        let discNumber = discNumMapValue != nil ? parseDiscOrTrackNumber(discNumMapValue!) : nil
         
-        return SecondaryMetadata(discNumber, trackNumber)
+        let trackNumMapValue = metadata["track"]
+        let trackNumber = trackNumMapValue != nil ? parseDiscOrTrackNumber(trackNumMapValue!) : nil
+
+        let lyrics = metadata["lyrics"]
+        
+        return SecondaryMetadata(discNumber?.number, discNumber?.total, trackNumber?.number, trackNumber?.total, lyrics)
+    }
+    
+    private func parseDiscOrTrackNumber(_ string: String) -> (number: Int?, total: Int?)? {
+        
+        // Parse string (e.g. "2 / 13")
+        
+        if let num = Int(string) {
+            return (num, nil)
+        }
+        
+        let tokens = string.split(separator: "/")
+        
+        if !tokens.isEmpty {
+            
+            let s1 = tokens[0].trim()
+            var s2: String?
+            
+            let n1: Int? = Int(s1)
+            var n2: Int?
+            
+            if tokens.count > 1 {
+                s2 = tokens[1].trim()
+                n2 = Int(s2!)
+            }
+            
+            return (n1, n2)
+        }
+        
+        return nil
     }
     
     func getArt(_ track: Track) -> NSImage? {
@@ -77,7 +111,7 @@ class FFMpegReader: MetadataReader {
         for (key, value) in rawMetadata {
             
             let capitalizedKey = key.capitalized
-            metadata[capitalizedKey] = MetadataEntry(.other, capitalizedKey, value)
+            metadata[capitalizedKey] = MetadataEntry(.other, .key, capitalizedKey, value)
         }
         
         return metadata

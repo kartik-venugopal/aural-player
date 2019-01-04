@@ -20,9 +20,9 @@ class FileSystemDataSource: TrackInfoDataSource {
         
         var trackInfo: [(key: String, value: String)] = []
         
-        trackInfo.append((key: "Filename", value: track.file.path))
-        trackInfo.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
+        trackInfo.append((key: "Location", value: track.file.path))
         trackInfo.append((key: "Kind", value: track.fileSystemInfo.kindOfFile!))
+        trackInfo.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
         trackInfo.append((key: "Created", value: dateFormatter.string(from: track.fileSystemInfo.creationDate!)))
         trackInfo.append((key: "Last Modified", value: dateFormatter.string(from: track.fileSystemInfo.lastModified!)))
         

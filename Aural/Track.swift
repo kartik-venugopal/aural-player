@@ -35,6 +35,8 @@ class Track: NSObject, PlaylistItem {
     // ID3/iTunes metadata
     var metadata: [String: MetadataEntry] = [String: MetadataEntry]()
     
+    var lyrics: String?
+    
     init(_ file: URL) {
         
         self.playbackNativelySupported = AudioUtils.isAudioFilePlaybackNativelySupported(file)
@@ -83,10 +85,15 @@ class Track: NSObject, PlaylistItem {
         }
     }
     
-    func setSecondaryMetadata(_ discNum: Int?, _ trackNum: Int?) {
+    func setSecondaryMetadata(_ discNum: Int?, _ totalDiscs: Int?, _ trackNum: Int?, _ totalTracks: Int?, _ lyrics: String?) {
         
         groupingInfo.discNumber = discNum
+        groupingInfo.totalDiscs = totalDiscs
+        
         groupingInfo.trackNumber = trackNum
+        groupingInfo.totalTracks = totalTracks
+        
+        self.lyrics = lyrics
     }
     
     // Sets all metadata used for display within the playlist and Now Playing box
@@ -153,7 +160,10 @@ class GroupingInfo {
     var genre: String?
     
     var discNumber: Int?
+    var totalDiscs: Int?
+    
     var trackNumber: Int?
+    var totalTracks: Int?
 }
 
 class PlaybackInfo {
@@ -230,14 +240,17 @@ class MetadataEntry {
     // Type: e.g. ID3 or iTunes
     let type: MetadataType
     
+    let keyType: MetadataKeyType
+    
     // Key or "tag"
     let key: String
     
     let value: String
     
-    init(_ type: MetadataType, _ key: String, _ value: String) {
+    init(_ type: MetadataType, _ keyType: MetadataKeyType, _ key: String, _ value: String) {
         
         self.type = type
+        self.keyType = keyType
         self.key = key
         self.value = value
     }

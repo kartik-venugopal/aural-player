@@ -13,6 +13,13 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
     
+    @IBOutlet weak var lyricsView: NSTextView! {
+        
+        didSet {
+            lyricsView.font = Fonts.gillSans13LightFont
+        }
+    }
+    
     // The table view that displays the track info
     @IBOutlet weak var metadataTable: NSTableView!
     
@@ -60,6 +67,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         })
         
         artView?.image = track.displayInfo.art
+        lyricsView?.string = track.lyrics ?? "< No lyrics available for this track >"
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -72,6 +80,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
         
         artView.image = track.displayInfo.art
+        lyricsView?.string = track.lyrics ?? "< No lyrics available for this track >"
     }
     
     func isShown() -> Bool {
