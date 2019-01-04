@@ -11,16 +11,6 @@ class MetadataUtils {
     private static let avAssetReader: AVAssetReader = AVAssetReader()
     private static let ffMpegReader: FFMpegReader = FFMpegReader()
     
-    private static let secondaryMetadataLoadingQueue: OperationQueue = {
-        
-        let q = OperationQueue()
-        
-        q.maxConcurrentOperationCount = 10
-        q.underlyingQueue = DispatchQueue.global(qos: .background)
-        
-        return q
-    }()
-    
     // Loads the required display metadata (artist/title/art) for a track
     static func loadPrimaryMetadata(_ track: Track) {
         
@@ -31,7 +21,7 @@ class MetadataUtils {
     static func loadSecondaryMetadata(_ track: Track) {
         
         let metadata: SecondaryMetadata = track.metadataNativelySupported ? avAssetReader.getSecondaryMetadata(track) : ffMpegReader.getSecondaryMetadata(track)
-        track.setSecondaryMetadata(metadata.discNum, metadata.trackNum)
+        track.setSecondaryMetadata(metadata.discNum, metadata.totalDiscs, metadata.trackNum, metadata.totalTracks, metadata.lyrics)
     }
     
     static func loadArt(_ track: Track) {
@@ -98,20 +88,44 @@ class MetadataUtils {
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
     static func formattedKey(_ entry: MetadataEntry) -> String {
         
-        // Use the metadata spec to format the key
-        switch entry.type {
-        
-        // Common space keys (camel cased) need to be split up into separate words
-        case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
+        if entry.keyType == .key {
             
-        case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
+            // Use the metadata spec to format the key
+            switch entry.type {
+                
+            // Common space keys (camel cased) need to be split up into separate words
+            case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
+                
+            case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
+                
+            case .iTunes: return ITunesSpec.readableKey(entry.key) ?? entry.key
+                
+            // Unrecognized entry type, return key as is
+            case .other: return entry.key
+                
+            }
             
-        case .iTunes: return ITunesSpec.readableKey(entry.key) ?? entry.key
+        } else {
             
-        // Unrecognized entry type, return key as is
-        case .other: return entry.key
-            
+            // Use the metadata spec to format the key
+            switch entry.type {
+                
+            // Common space keys (camel cased) need to be split up into separate words
+            case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
+
+//            case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
+                
+            case .iTunes: return ITunesSpec.readableKeyByID(entry.key) ?? entry.key
+                
+            // Unrecognized entry type, return key as is
+            case .other: return entry.key
+                
+            default: return "_key_"
+                
+            }
         }
+        
+        return "_key_"
     }
     
     static func isFileMetadataNativelySupported(_ file: URL) -> Bool {
@@ -128,4 +142,10 @@ enum MetadataType: String {
     case iTunes
     case id3
     case other
+}
+
+enum MetadataKeyType: String {
+    
+    case key
+    case id
 }

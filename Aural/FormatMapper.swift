@@ -130,22 +130,25 @@ class FormatMapper {
         var sampleRate: Int?
         
         var outputFileExtension: String?
-        var action: TranscoderAction = .transcode
+        var action: TranscoderAction
         
         if AppConstants.SupportedTypes.nonNativeAudioContainerExtensions.contains(inputFileExtension), let outExt = nativeFormatsMap[audioFormat] {
             
             // It is a natively supported format, simply extract it from the container
-            outputFileExtension = outExt
             action = .transmux
+            outputFileExtension = outExt
             
         } else {
             
             // Need to transcode
+            action = .transcode
             outputFileExtension = nonNativeFormatsMap[audioFormat] ?? (extensionsMap[inputFileExtension] ?? defaultOutputFileExtension)
+            encoder = encodersMap[outputFileExtension!]
         }
         
-        encoder = encodersMap[outputFileExtension!]
         sampleRate = maxSampleRatesMap[outputFileExtension!]
+        
+        print("\nMapping:", track.conciseDisplayName, action, encoder, outputFileExtension!, sampleRate)
         
         return FormatMapping(action, encoder, outputFileExtension!, sampleRate)
     }

@@ -12,9 +12,11 @@ class Muxer: MuxerProtocol {
         return containers[inFileExt] != nil
     }
     
-    func mux(_ track: Track) -> Double? {
+    func muxForDuration(_ track: Track) -> Double? {
         
         let inFileExt = track.file.pathExtension.lowercased()
+        
+        var duration: Double? = nil
         
         if let outFileExt = containers[inFileExt] {
             
@@ -39,14 +41,18 @@ class Muxer: MuxerProtocol {
                         let timeTokens = timeStr.split(separator: ":")
                         
                         if let hrs = Double(timeTokens[0]), let mins = Double(timeTokens[1]), let secs = Double(timeTokens[2]) {
-                            return hrs * 3600 + mins * 60 + secs
+                            duration = hrs * 3600 + mins * 60 + secs
                         }
                     }
                 }
             }
+            
+            DispatchQueue.global(qos: .background).async {
+                FileSystemUtils.deleteFile(outFile.path)
+            }
         }
 
-        return nil
+        return duration
     }
 }
 
@@ -54,5 +60,5 @@ protocol MuxerProtocol {
     
     func trackNeedsMuxing(_ track: Track) -> Bool
     
-    func mux(_ track: Track) -> Double?
+    func muxForDuration(_ track: Track) -> Double?
 }

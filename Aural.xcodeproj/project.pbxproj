@@ -140,6 +140,8 @@
 		3E3FB7FB215B5B4800974A59 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */; };
 		3E3FB7FD215B5BBB00974A59 /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */; };
 		3E4045D421DDEFF300F4708C /* Muxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4045D321DDEFF300F4708C /* Muxer.swift */; };
+		3E4045D921DE1FA500F4708C /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E4045D721DE1FA500F4708C /* ffmpeg */; };
+		3E4045DA21DE1FA500F4708C /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E4045D821DE1FA500F4708C /* ffprobe */; };
 		3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
@@ -184,8 +186,6 @@
 		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
-		3E67BEC521D2732A0091DC6C /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEC221D273290091DC6C /* ffmpeg */; };
-		3E67BEC621D2732A0091DC6C /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E67BEC321D2732A0091DC6C /* ffprobe */; };
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
@@ -253,7 +253,6 @@
 		3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98CBC6216B3C8F0025A77E /* EQPresetsEditor.xib */; };
 		3E98CBC9216B3D280025A77E /* EQPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CBC8216B3D280025A77E /* EQPresetsEditorViewController.swift */; };
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
-		3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9B104921C32D45008326FE /* TranscodingPopup.xib */; };
 		3E9B104C21C3318A008326FE /* TranscoderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104B21C3318A008326FE /* TranscoderViewController.swift */; };
 		3E9B104E21C3CB4C008326FE /* TranscoderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */; };
 		3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */; };
@@ -522,6 +521,8 @@
 		3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
 		3E4045D321DDEFF300F4708C /* Muxer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Muxer.swift; sourceTree = "<group>"; };
+		3E4045D721DE1FA500F4708C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
+		3E4045D821DE1FA500F4708C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
 		3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsEditorGenericViewController.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -566,8 +567,6 @@
 		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
-		3E67BEC221D273290091DC6C /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
-		3E67BEC321D2732A0091DC6C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
 		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
@@ -640,7 +639,6 @@
 		3E98CBC6216B3C8F0025A77E /* EQPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPresetsEditor.xib; sourceTree = "<group>"; };
 		3E98CBC8216B3D280025A77E /* EQPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
-		3E9B104921C32D45008326FE /* TranscodingPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscodingPopup.xib; sourceTree = "<group>"; };
 		3E9B104B21C3318A008326FE /* TranscoderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderViewController.swift; sourceTree = "<group>"; };
 		3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderStore.swift; sourceTree = "<group>"; };
 		3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
@@ -849,7 +847,6 @@
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E309B721FB70B7800C61E72 /* InfoPopup */,
-				3E9B104821C32D16008326FE /* TranscodingPopup */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -1402,8 +1399,8 @@
 		3E67BEC121D273120091DC6C /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
-				3E67BEC221D273290091DC6C /* ffmpeg */,
-				3E67BEC321D2732A0091DC6C /* ffprobe */,
+				3E4045D721DE1FA500F4708C /* ffmpeg */,
+				3E4045D821DE1FA500F4708C /* ffprobe */,
 				3E8A51CF21D856FB0014C185 /* build-ffmpeg.sh */,
 				3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */,
 				3E5D708721D9EBFA00491D6C /* README.txt */,
@@ -1616,14 +1613,6 @@
 				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
 			);
 			name = Playlist;
-			sourceTree = "<group>";
-		};
-		3E9B104821C32D16008326FE /* TranscodingPopup */ = {
-			isa = PBXGroup;
-			children = (
-				3E9B104921C32D45008326FE /* TranscodingPopup.xib */,
-			);
-			name = TranscodingPopup;
 			sourceTree = "<group>";
 		};
 		3EA19C1F1FC16A210072929E /* Controls */ = {
@@ -2012,8 +2001,6 @@
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
-				3E67BEC621D2732A0091DC6C /* ffprobe in Resources */,
-				3E9B104A21C32D45008326FE /* TranscodingPopup.xib in Resources */,
 				3E0ED6B81FBB1C34008268B3 /* Reverb.xib in Resources */,
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
@@ -2021,6 +2008,7 @@
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
 				3EB9304921996353008E45F8 /* FilterBand.xib in Resources */,
 				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
+				3E4045D921DE1FA500F4708C /* ffmpeg in Resources */,
 				3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */,
 				3E3F296B215A395A00581EFE /* Filter.xib in Resources */,
 				3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */,
@@ -2042,13 +2030,13 @@
 				3EB1700C2173F5C200B82D3A /* DelayedPlaybackEditorDialog.xib in Resources */,
 				3E0ED6B21FBB1B0B008268B3 /* Pitch.xib in Resources */,
 				3E36E86B1FC0108F0005C62E /* HistoryPreferences.xib in Resources */,
-				3E67BEC521D2732A0091DC6C /* ffmpeg in Resources */,
 				3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */,
 				3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */,
 				3E8A51D021D856FB0014C185 /* build-ffmpeg.sh in Resources */,
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
 				3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */,
+				3E4045DA21DE1FA500F4708C /* ffprobe in Resources */,
 				3E066C2D216C6FB500E4FE80 /* TimePresetsEditor.xib in Resources */,
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
 				3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */,

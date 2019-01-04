@@ -70,7 +70,7 @@ echo "Configuring FFmpeg ..."
 --enable-demuxer=ogg,matroska \
 --enable-demuxer=mjpeg,mjpeg_2000,mpjpeg \
 --disable-decoders \
---enable-decoder=aac,ape,flac,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,dca \
+--enable-decoder=aac,ape,flac,mp1,mp1_at,mp1float,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,dca \
 --enable-decoder=bmp,png,jpeg2000,jpegls,mjpeg,mjpegb \
 --disable-parsers \
 --enable-parser=aac,flac,mpegaudio,opus,vorbis,dca,ac3 \

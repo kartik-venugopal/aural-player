@@ -38,11 +38,21 @@ class PrimaryMetadata {
 class SecondaryMetadata {
     
     let discNum: Int?
-    let trackNum: Int?
+    let totalDiscs: Int?
     
-    init(_ discNum: Int?, _ trackNum: Int?) {
+    let trackNum: Int?
+    let totalTracks: Int?
+    
+    let lyrics: String?
+    
+    init(_ discNum: Int?, _ totalDiscs: Int?, _ trackNum: Int?, _ totalTracks: Int?, _ lyrics: String?) {
         
         self.discNum = discNum
+        self.totalDiscs = totalDiscs
+        
         self.trackNum = trackNum
+        self.totalTracks = totalTracks
+        
+        self.lyrics = lyrics
     }
 }
