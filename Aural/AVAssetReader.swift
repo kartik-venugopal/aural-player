@@ -88,9 +88,9 @@ class AVAssetReader: MetadataReader {
             
             return String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, ckey)
             
-        } else if let skey = item.key as? String {
+        } else if let skey = item.key as? String, let itemKeySpace = item.keySpace {
             
-            return skey
+            return String(format: "%@/%@", itemKeySpace.rawValue, skey)
             
         } else if let ikey = item.key as? Int, let itemKeySpace = item.keySpace, let id = AVMetadataItem.identifier(forKey: ikey, keySpace: itemKeySpace) {
             
@@ -362,7 +362,7 @@ class AVAssetReader: MetadataReader {
                     metadata[key] = MetadataEntry(metadataType, .key, key, stringValue!)
 
                 } else if let key = item.key as? Int, let keySpace = item.keySpace, !StringUtils.isStringEmpty(stringValue), let id = AVMetadataItem.identifier(forKey: key, keySpace: keySpace), !genericMetadata_ignoreIDs.contains(id.rawValue) {
-
+                    
                     metadata[id.rawValue] = MetadataEntry(metadataType, .id, id.rawValue, stringValue!)
                 }
             }
@@ -459,6 +459,8 @@ class AVAssetReader: MetadataReader {
                 
                 return (n1, n2)
             }
+            
+            print("Invalid hex string:", hexString, hexString.count)
         }
         
         return nil
@@ -513,6 +515,7 @@ extension String {
 }
 
 extension Data {
+    
     func hexEncodedString() -> String {
         return map { String(format: "%02hhx", $0) }.joined()
     }

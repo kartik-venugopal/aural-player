@@ -10,15 +10,205 @@ class ID3Spec: MetadataSpec {
     
     // Mappings of format-specific keys to readable keys
     private static var map: [String: String] = initMap()
+    private static var mapByID: [String: String] = initMapByID()
     
     static func readableKey(_ key: String) -> String? {
         return map[key]
     }
     
     static func readableKeyByID(_ id: String) -> String? {
+        return mapByID[id]
+    }
+    
+    static func initMapByID() -> [String: String] {
         
-        // TODO
-        return nil
+        var map: [String: String] = [String: String]()
+        
+        map[AVMetadataIdentifier.id3MetadataAlbumSortOrder.rawValue] = "Album Sort Order"
+        
+        map[AVMetadataIdentifier.id3MetadataAlbumTitle.rawValue] = "Album"
+        
+        map[AVMetadataIdentifier.id3MetadataAttachedPicture.rawValue] = "Attached Picture"
+        
+        map[AVMetadataIdentifier.id3MetadataAudioEncryption.rawValue] = "Audio Encryption"
+        
+        map[AVMetadataIdentifier.id3MetadataAudioSeekPointIndex.rawValue] = "Audio Seek Point Index"
+        
+        map[AVMetadataIdentifier.id3MetadataBand.rawValue] = "Band"
+        
+        map[AVMetadataIdentifier.id3MetadataBeatsPerMinute.rawValue] = "Beats Per Minute"
+        
+        map[AVMetadataIdentifier.id3MetadataComments.rawValue] = "Comments"
+        
+        map[AVMetadataIdentifier.id3MetadataCommercial.rawValue] = "Commercial"
+        
+        map[AVMetadataIdentifier.id3MetadataCommercialInformation.rawValue] = "Commercial Information"
+        
+        map[AVMetadataIdentifier.id3MetadataComposer.rawValue] = "Composer"
+        
+        map[AVMetadataIdentifier.id3MetadataConductor.rawValue] = "Conductor"
+        
+        map[AVMetadataIdentifier.id3MetadataContentGroupDescription.rawValue] = "Content Group Description"
+        
+        map[AVMetadataIdentifier.id3MetadataContentType.rawValue] = "Genre"
+        
+        map[AVMetadataIdentifier.id3MetadataCopyright.rawValue] = "Copyright"
+        
+        map[AVMetadataIdentifier.id3MetadataCopyrightInformation.rawValue] = "Copyright Information"
+        
+        map[AVMetadataIdentifier.id3MetadataDate.rawValue] = "Date"
+        
+        map[AVMetadataIdentifier.id3MetadataEncodedBy.rawValue] = "Encoded By"
+        
+        map[AVMetadataIdentifier.id3MetadataEncodedWith.rawValue] = "Encoded With"
+        
+        map[AVMetadataIdentifier.id3MetadataEncodingTime.rawValue] = "Encoding Time"
+        
+        map[AVMetadataIdentifier.id3MetadataEncryption.rawValue] = "Encryption"
+        
+        map[AVMetadataIdentifier.id3MetadataEqualization.rawValue] = "Equalization"
+        
+        map[AVMetadataIdentifier.id3MetadataEqualization2.rawValue] = "Equalization"
+        
+        map[AVMetadataIdentifier.id3MetadataEventTimingCodes.rawValue] = "Event Timing Codes"
+        
+        map[AVMetadataIdentifier.id3MetadataFileOwner.rawValue] = "File Owner"
+        
+        map[AVMetadataIdentifier.id3MetadataFileType.rawValue] = "File Type"
+        
+        map[AVMetadataIdentifier.id3MetadataGeneralEncapsulatedObject.rawValue] = "General Encapsulated Object"
+        
+        map[AVMetadataIdentifier.id3MetadataGroupIdentifier.rawValue] = "Group Identifier"
+        
+        map[AVMetadataIdentifier.id3MetadataInitialKey.rawValue] = "Initial Key"
+        
+        map[AVMetadataIdentifier.id3MetadataInternationalStandardRecordingCode.rawValue] = "International Standard Recording Code"
+        
+        map[AVMetadataIdentifier.id3MetadataInternetRadioStationName.rawValue] = "Internet Radio Station Name"
+        
+        map[AVMetadataIdentifier.id3MetadataInternetRadioStationOwner.rawValue] = "Internet Radio Station Owner"
+        
+        map[AVMetadataIdentifier.id3MetadataInvolvedPeopleList_v23.rawValue] = "Involved People List"
+        
+        map[AVMetadataIdentifier.id3MetadataInvolvedPeopleList_v24.rawValue] = "Involved People List"
+        
+        map[AVMetadataIdentifier.id3MetadataLanguage.rawValue] = "Language"
+        
+        map[AVMetadataIdentifier.id3MetadataLeadPerformer.rawValue] = "Lead Performer"
+        
+        map[AVMetadataIdentifier.id3MetadataLength.rawValue] = "Length"
+        
+        map[AVMetadataIdentifier.id3MetadataLink.rawValue] = "Link"
+        
+        map[AVMetadataIdentifier.id3MetadataLyricist.rawValue] = "Lyricist"
+        
+        map[AVMetadataIdentifier.id3MetadataMPEGLocationLookupTable.rawValue] = "MPEG Location Lookup Table"
+        
+        map[AVMetadataIdentifier.id3MetadataMediaType.rawValue] = "Media Type"
+        
+        map[AVMetadataIdentifier.id3MetadataModifiedBy.rawValue] = "Modified By"
+        
+        map[AVMetadataIdentifier.id3MetadataMood.rawValue] = "Mood"
+        
+        map[AVMetadataIdentifier.id3MetadataMusicCDIdentifier.rawValue] = "Music CD Identifier"
+        
+        map[AVMetadataIdentifier.id3MetadataMusicianCreditsList.rawValue] = "Musician Credits List"
+        
+        map[AVMetadataIdentifier.id3MetadataOfficialArtistWebpage.rawValue] = "Official Artist Webpage"
+        
+        map[AVMetadataIdentifier.id3MetadataOfficialAudioFileWebpage.rawValue] = "Official Audio File Webpage"
+        
+        map[AVMetadataIdentifier.id3MetadataOfficialAudioSourceWebpage.rawValue] = "Official Audio Source Webpage"
+        
+        map[AVMetadataIdentifier.id3MetadataOfficialInternetRadioStationHomepage.rawValue] = "Official Internet Radio Station Homepage"
+        
+        map[AVMetadataIdentifier.id3MetadataOfficialPublisherWebpage.rawValue] = "Official Publisher Webpage"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalAlbumTitle.rawValue] = "Album"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalArtist.rawValue] = "Artist"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalFilename.rawValue] = "Original Filename"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalLyricist.rawValue] = "Original Lyricist"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalReleaseTime.rawValue] = "Original Release Time"
+        
+        map[AVMetadataIdentifier.id3MetadataOriginalReleaseYear.rawValue] = "Original Release Year"
+        
+        map[AVMetadataIdentifier.id3MetadataOwnership.rawValue] = "Ownership"
+        
+        map[AVMetadataIdentifier.id3MetadataPartOfASet.rawValue] = "Disc#"
+        
+        map[AVMetadataIdentifier.id3MetadataPayment.rawValue] = "Payment"
+        
+        map[AVMetadataIdentifier.id3MetadataPerformerSortOrder.rawValue] = "Performer Sort Order"
+        
+        map[AVMetadataIdentifier.id3MetadataPlayCounter.rawValue] = "Play Counter"
+        
+        map[AVMetadataIdentifier.id3MetadataPlaylistDelay.rawValue] = "Playlist Delay"
+        
+        map[AVMetadataIdentifier.id3MetadataPopularimeter.rawValue] = "Popularimeter"
+        
+        map[AVMetadataIdentifier.id3MetadataPositionSynchronization.rawValue] = "Position Synchronization"
+        
+        map[AVMetadataIdentifier.id3MetadataPrivate.rawValue] = "Private"
+        
+        map[AVMetadataIdentifier.id3MetadataProducedNotice.rawValue] = "Produced Notice"
+        
+        map[AVMetadataIdentifier.id3MetadataPublisher.rawValue] = "Publisher"
+        
+        map[AVMetadataIdentifier.id3MetadataRecommendedBufferSize.rawValue] = "Recommended Buffer Size"
+        
+        map[AVMetadataIdentifier.id3MetadataRecordingDates.rawValue] = "Recording Dates"
+        
+        map[AVMetadataIdentifier.id3MetadataRecordingTime.rawValue] = "Recording Time"
+        
+        map[AVMetadataIdentifier.id3MetadataRelativeVolumeAdjustment.rawValue] = "Relative Volume Adjustment"
+        
+        map[AVMetadataIdentifier.id3MetadataRelativeVolumeAdjustment2.rawValue] = "Relative Volume Adjustment"
+        
+        map[AVMetadataIdentifier.id3MetadataReleaseTime.rawValue] = "Release Time"
+        
+        map[AVMetadataIdentifier.id3MetadataReverb.rawValue] = "Reverb"
+        
+        map[AVMetadataIdentifier.id3MetadataSeek.rawValue] = "Seek"
+        
+        map[AVMetadataIdentifier.id3MetadataSetSubtitle.rawValue] = "Set Subtitle"
+        
+        map[AVMetadataIdentifier.id3MetadataSignature.rawValue] = "Signature"
+        
+        map[AVMetadataIdentifier.id3MetadataSize.rawValue] = "Size"
+        
+        map[AVMetadataIdentifier.id3MetadataSubTitle.rawValue] = "Sub Title"
+        
+        map[AVMetadataIdentifier.id3MetadataSynchronizedLyric.rawValue] = "Synchronized Lyric"
+        
+        map[AVMetadataIdentifier.id3MetadataSynchronizedTempoCodes.rawValue] = "Synchronized Tempo Codes"
+        
+        map[AVMetadataIdentifier.id3MetadataTaggingTime.rawValue] = "Tagging Time"
+        
+        map[AVMetadataIdentifier.id3MetadataTermsOfUse.rawValue] = "Terms Of Use"
+        
+        map[AVMetadataIdentifier.id3MetadataTime.rawValue] = "Time"
+        
+        map[AVMetadataIdentifier.id3MetadataTitleDescription.rawValue] = "Title"
+        
+        map[AVMetadataIdentifier.id3MetadataTitleSortOrder.rawValue] = "Title Sort Order"
+        
+        map[AVMetadataIdentifier.id3MetadataTrackNumber.rawValue] = "Track#"
+        
+        map[AVMetadataIdentifier.id3MetadataUniqueFileIdentifier.rawValue] = "Unique File Identifier"
+        
+        map[AVMetadataIdentifier.id3MetadataUnsynchronizedLyric.rawValue] = "Lyrics"
+        
+        map[AVMetadataIdentifier.id3MetadataUserText.rawValue] = "User Text"
+        
+        map[AVMetadataIdentifier.id3MetadataUserURL.rawValue] = "User URL"
+        
+        map[AVMetadataIdentifier.id3MetadataYear.rawValue] = "Year"
+        
+        return map
     }
     
     private static func initMap() -> [String: String] {
@@ -110,7 +300,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeySynchronizedTempoCodes.rawValue] = "Synchronized Tempo Codes"
         
         // TALB
-        map[AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue] = "Album Name"
+        map[AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue] = "Album"
         
         // TBPM
         map[AVMetadataKey.id3MetadataKeyBeatsPerMinute.rawValue] = "BPM (Beats Per Minute)"
@@ -119,7 +309,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeyComposer.rawValue] = "Composer"
         
         // TCON
-        map[AVMetadataKey.id3MetadataKeyContentType.rawValue] = "Content Type"
+        map[AVMetadataKey.id3MetadataKeyContentType.rawValue] = "Genre"
         
         // TCOP
         map[AVMetadataKey.id3MetadataKeyCopyright.rawValue] = "Copyright Message"
@@ -197,7 +387,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeyOriginalLyricist.rawValue] = "Original Lyricist(s)"
         
         // TOPE
-        map[AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue] = "Original Artist(s)"
+        map[AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue] = "Artist"
         
         // TORY
         map[AVMetadataKey.id3MetadataKeyOriginalReleaseYear.rawValue] = "Original Release Year"
@@ -272,7 +462,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeyTermsOfUse.rawValue] = "Terms Of Use"
         
         // USLT
-        map[AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue] = "Unsychronized Lyric"
+        map[AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue] = "Lyrics"
         
         // WCOM
         map[AVMetadataKey.id3MetadataKeyCommercialInformation.rawValue] = "Commercial Information"

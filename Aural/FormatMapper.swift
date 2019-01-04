@@ -148,8 +148,6 @@ class FormatMapper {
         
         sampleRate = maxSampleRatesMap[outputFileExtension!]
         
-        print("\nMapping:", track.conciseDisplayName, action, encoder, outputFileExtension!, sampleRate)
-        
         return FormatMapping(action, encoder, outputFileExtension!, sampleRate)
     }
 }
