@@ -2,7 +2,7 @@ import Foundation
 
 class Muxer: MuxerProtocol {
     
-    private let containers: [String: String] = ["aac": "m4a", "dts": "mka"]
+    private let containers: [String: String] = ["aac": "m4a", "adts": "m4a", "dts": "mka"]
     
     private let baseDir = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
     

@@ -17,6 +17,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         didSet {
             lyricsView.font = Fonts.gillSans13LightFont
+            lyricsView.alignment = .center
         }
     }
     
@@ -36,6 +37,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     private let positioningRect = NSZeroRect
     
     let subscriberId: String = "DetailedTrackInfoViewController"
+    
+    private let noLyricsText: String = "< No lyrics available for this track >"
     
     override var nibName: String? {return "DetailedTrackInfo"}
     
@@ -67,7 +70,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         })
         
         artView?.image = track.displayInfo.art
-        lyricsView?.string = track.lyrics ?? "< No lyrics available for this track >"
+        lyricsView?.string = "\n" + (track.lyrics ?? noLyricsText)
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -80,7 +83,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
         
         artView.image = track.displayInfo.art
-        lyricsView?.string = track.lyrics ?? "< No lyrics available for this track >"
+        lyricsView?.string = "\n" + (track.lyrics ?? noLyricsText)
     }
     
     func isShown() -> Bool {
