@@ -272,6 +272,8 @@ class AVAssetReader: MetadataReader {
             if let genreItem = map[id3Key], let str = genreItem.stringValue {
                 return str
             }
+            
+            // TODO: If ID3 genre is numerical (data value), map it to a string (need to define genres in ID3 spec)
         }
         
         return nil

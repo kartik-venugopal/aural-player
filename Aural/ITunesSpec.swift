@@ -273,7 +273,11 @@ class ITunesSpec: MetadataSpec {
     }
 }
 
+// TODO: Implement this
 class ITunesLongFormSpec: MetadataSpec {
+    
+    static let keySpaceID: String = "itlk"
+    static let formatID: String = "org.mp4ra"
     
     // Mappings of format-specific keys to readable keys
     private static var mapByKey: [String: String] = initMapByKey()
@@ -288,16 +292,51 @@ class ITunesLongFormSpec: MetadataSpec {
     }
     
     private static func initMapByID() -> [String: String] {
-        
-        var map: [String: String] = [:]
-        
-        map["com.apple.iTunes;iTunSMPB"] = "Album"
-        
-        return map
+        return [:]
     }
     
     private static func initMapByKey() -> [String: String] {
         
-        return [:]
+        var map: [String: String] = [:]
+        
+        // TODO: Store these keys in lower case
+        
+        map["com.apple.iTunes:iTunSMPB"] = "iTunes Gapless Playback"
+        map["com.apple.iTunes:iTunNORM"] = "iTunes Sound Check"
+        map["com.apple.iTunes:iTunPGAP"] = "iTunes Gapless Playback"
+        map["com.apple.iTunes:EncodingParams"] = "iTunes Encoding Parameters"
+        
+        map["com.apple.iTunes:iTunes_CDDB_IDs"] = "CDDB IDs"
+        map["com.apple.iTunes:iTunes_CDDB_1"] = "CDDB 1"
+        map["com.apple.iTunes:iTunes_CDDB_TrackNumber"] = "CDDB Track Number"
+        
+        map["com.apple.iTunes:AccurateRipDiscID"] = "AccurateRip Disc ID"
+        map["com.apple.iTunes:AccurateRipResult"] = "AccurateRip Result"
+        
+        map["com.apple.iTunes.UPC"] = "UPC"
+        map["com.apple.iTunes:ISRC"] = "ISRC"
+        map["com.apple.iTunes:iTunMOVI"] = "Movie info"
+        
+        map["com.apple.iTunes:MusicIPPUID"] = "MusicIP PUID"
+        map["com.apple.iTunes:MusicBrainzArtistId"] = "MusicBrainz Artist ID"
+        map["com.apple.iTunes:MusicBrainzAlbumArtistId"] = "MusicBrainz Album Artist ID"
+        map["com.apple.iTunes:MusicBrainzAlbumId"] = "MusicBrainz Album ID"
+        map["com.apple.iTunes:MusicBrainzTrackId"] = "MusicBrainz Track ID"
+        map["com.apple.iTunes:MusicBrainzAlbumReleaseCountry"] = "MusicBrainz Album Release Country"
+        map["com.apple.iTunes:MusicBrainzAlbumType"] = "MusicBrainz Album Type"
+        map["com.apple.iTunes:MusicBrainzAlbumStatus"] = "MusicBrainz Album Status"
+        
+        map["com.apple.iTunes:CATALOGNUMBER"] = "Catalog Number"
+        map["com.apple.iTunes:Label"] = "Label"
+        map["com.apple.iTunes:Source"] = "Source"
+        map["com.apple.iTunes:ASIN"] = "ASIN"
+        map["com.apple.iTunes:BARCODE"] = "Barcode"
+        
+        map["com.apple.iTunes:ENGINEER"] = "Engineer"
+        map["com.apple.iTunes:PRODUCER"] = "Producer"
+        map["com.apple.iTunes:MIXER"] = "Mixer"
+        map["com.apple.iTunes:tool"] = "Tool"
+        
+        return map
     }
 }

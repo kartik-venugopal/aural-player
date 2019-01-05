@@ -100,8 +100,12 @@ class MetadataUtils {
                 
             case .iTunes: return ITunesSpec.readableKey(entry.key) ?? entry.key
                 
+//            case .iTunesLongForm: return ITunesLongFormSpec.readableKey(entry.key) ?? entry.key
+                
             // Unrecognized entry type, return key as is
-            case .other: return entry.key
+//            case .other: return entry.key
+                
+            default: return entry.key
                 
             }
             
@@ -119,8 +123,12 @@ class MetadataUtils {
                 
             case .iTunes: return ITunesSpec.readableKeyByID(entry.key) ?? entry.key
                 
+//            case .iTunesLongForm: return ITunesLongFormSpec.readableKeyByID(entry.key) ?? entry.key
+                
             // Unrecognized entry type, return key as is
-            case .other: return entry.key
+//            case .other: return entry.key
+                
+            default: return entry.key
                 
             }
         }
@@ -138,6 +146,7 @@ enum MetadataType: String {
     
     case common
     case iTunes
+    case iTunesLongForm
     case id3
     case other
 }
