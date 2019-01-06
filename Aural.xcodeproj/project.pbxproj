@@ -1426,6 +1426,14 @@
 			name = FFMpeg;
 			sourceTree = "<group>";
 		};
+		3E6F673721E19B86002219E6 /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E599A1F74E78800C18182 /* Main.swift */,
+			);
+			name = Testing;
+			sourceTree = "<group>";
+		};
 		3E72FCC41F2C0A780020FD20 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1574,9 +1582,9 @@
 				3EFFE6BC1F0373B7003728BD /* IO */,
 				3EB20B4F1EFF2C5F008138A4 /* Utils */,
 				3ECD17451F6BBF0F00492F56 /* MetadataSpecs */,
+				3E6F673721E19B86002219E6 /* Testing */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
-				3E4E599A1F74E78800C18182 /* Main.swift */,
 			);
 			path = Aural;
 			sourceTree = "<group>";
