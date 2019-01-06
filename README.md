@@ -116,8 +116,9 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
       
 ## Planned updates
 
-* Support for more container formats - e.g. Matroska, ASF, MP4, etc.
-* Support for surround sound (AC3 and Dolby DTS)
+* Support for more container formats - e.g. ASF, MP4, etc.
+* Better parsing of FLAC/Ogg/WMA metadata tags
+* Support for surround sound (AC3 and DTS)
 * Enhanced eager transcoding and more advanced control over transcoding behavior
 * A new status bar player mode
 * A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
@@ -153,6 +154,10 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
 ### Detailed track info popover
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
+
+#### Lyrics display
+
+![App screenshot w/ lyrics view](/Documentation/Screenshots/Lyrics.png?raw=true "Lyrics")
 
 ### Bookmarking
 
