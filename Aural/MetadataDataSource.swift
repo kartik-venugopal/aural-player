@@ -65,7 +65,7 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     
     // Each track info view row contains one key-value pair
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value, .metadata)
+        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value, self.tableId)
     }
     
     // Adjust row height based on if the text wraps over to the next line
