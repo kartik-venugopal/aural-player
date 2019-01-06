@@ -16,7 +16,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     @IBOutlet weak var lyricsView: NSTextView! {
         
         didSet {
-            lyricsView.font = Fonts.gillSans13LightFont
+            lyricsView.font = Fonts.gillSans13Font
             lyricsView.alignment = .center
         }
     }
@@ -70,7 +70,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         })
         
         artView?.image = track.displayInfo.art
-        lyricsView?.string = "\n" + (track.lyrics ?? noLyricsText)
+        lyricsView?.string = track.lyrics ?? noLyricsText
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -83,7 +83,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
         
         artView.image = track.displayInfo.art
-        lyricsView?.string = "\n" + (track.lyrics ?? noLyricsText)
+        lyricsView?.string = track.lyrics ?? noLyricsText
     }
     
     func isShown() -> Bool {
