@@ -54,7 +54,7 @@ class PlaybackScheduler {
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
         let playingFile: AVAudioFile = playbackInfo.audioFile!
-        let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
+        let sampleRate = playingFile.processingFormat.sampleRate
         
         // Can assume loop is non-null and complete (Player will take care of that)
         let loop = playbackSession.loop!
@@ -88,7 +88,7 @@ class PlaybackScheduler {
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
         let playingFile: AVAudioFile = playbackInfo.audioFile!
-        let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
+        let sampleRate = playingFile.processingFormat.sampleRate
         
         //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
         let firstFrame = Int64(loopEndTime * sampleRate) + 1
@@ -109,7 +109,7 @@ class PlaybackScheduler {
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
         let playingFile: AVAudioFile = playbackInfo.audioFile!
-        let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
+        let sampleRate = playingFile.processingFormat.sampleRate
         
         //  Multiply sample rate by the new seek time in seconds. This will produce the exact start frame.
         let firstFrame = Int64(seconds * sampleRate)
