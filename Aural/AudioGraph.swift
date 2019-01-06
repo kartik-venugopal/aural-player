@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Wrapper around AVAudioEngine. Manages the AVAudioEngine audio graph.
  */
-class AudioGraph: AudioGraphProtocol, PersistentModelObject {
+class AudioGraph: AudioGraphProtocol, MessageSubscriber, PersistentModelObject {
     
     private let audioEngine: AVAudioEngine
     private let mainMixer: AVAudioMixerNode
@@ -12,6 +12,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     private let audioEngineHelper: AudioEngineHelper
     internal let nodeForRecorderTap: AVAudioNode
+    
+    let subscriberId: String = "AudioGraph"
     
     // FX units
     var masterUnit: MasterUnit
@@ -65,6 +67,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         })
         
         soundProfiles.audioGraph = self
+        
+        SyncMessenger.subscribe(messageTypes: [.appLoadedNotification], subscriber: self)
     }
     
     var volume: Float {
@@ -135,6 +139,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         // Release the audio engine resources
         audioEngine.stop()
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if (notification is AppLoadedNotification) {
+            restartAudioEngine()
+            return
+        }
     }
 }
 
