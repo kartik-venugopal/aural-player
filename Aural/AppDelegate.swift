@@ -70,7 +70,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         AppModeManager.presentMode(.regular)
-//        AppModeManager.presentMode(.statusBar)
         
         // Update the appLaunched flag
         appLaunched = true
