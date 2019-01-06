@@ -1391,7 +1391,6 @@
 				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
 				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
-				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1855,6 +1854,7 @@
 			children = (
 				3E2188AB1F0781970085BAB3 /* DetailedTrackInfo.xib */,
 				3E2188A71F0771390085BAB3 /* DetailedTrackInfoViewController.swift */,
+				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
 				3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */,
 				3E154D7821DCC206006DBD22 /* AudioDataSource.swift */,
 				3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */,

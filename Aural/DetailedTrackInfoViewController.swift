@@ -18,6 +18,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         didSet {
             lyricsView.font = Fonts.gillSans13Font
             lyricsView.alignment = .center
+            lyricsView.backgroundColor = Colors.popoverBackgroundColor
+            lyricsView.textColor = Colors.boxTextColor
         }
     }
     
