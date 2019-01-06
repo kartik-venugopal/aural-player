@@ -131,7 +131,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
                     let timeElapsed = Date().timeIntervalSince(command.startTime)
                     var totalTime = perc == 0 ? 0 : (100 * timeElapsed) / perc
                     
-                    if totalTime == Double.infinity {totalTime = 0}
+                    if totalTime == Double.infinity || totalTime == Double.nan || totalTime == Double.greatestFiniteMagnitude {totalTime = 0}
                     let timeRemaining = abs(totalTime - timeElapsed)
                     
                     let speed = String(tokens.last!).trim()
