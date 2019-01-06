@@ -29,18 +29,11 @@ Download the latest release [here](https://github.com/maculateConception/aural-p
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-#### Latest release (12/31/2018) - v1.0.0
-
-* Added support for several popular audio formats - FLAC, OGG (Vorbis and Opus), WMA, APE, Musepack, DSF, MP2, and Wavpack ! Files of these formats will be automatically transcoded prior to playback.
-* Optimized playlist track add performance and reliability
-* Minor UI refinements
-* First formal GitHub release
-
 ### Compatibility
 
 **User**: Running Aural Player requires macOS 10.12 (Sierra) or later versions.
 
-NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no further support for those systems is planned. If you would really like support for Yosemite or El Capitan, please file an issue and I may consider it.
+NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would really like support for Yosemite or El Capitan, please file an issue and I may consider it.
 
 **Developer**: To develop Aural Player with Swift 4.2 (master branch) requires macOS 10.13.4 or later (High Sierra) and XCode 10. The old "swift2" branch has been deleted.
 
@@ -48,14 +41,14 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
 
 * **Supported file types:**
    * Audio formats: 
-     * Supported natively - MP3, AAC, ALAC, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
-     * Supported via transcoding<sup>*</sup> - FLAC<sup>**</sup>, WMA, Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), and DSD Streaming File (DSF) **(New!)**
-   * Container formats: M4A (for AAC and ALAC audio streams), OGG (for Vorbis and Opus audio streams)
+     * Supported natively - MP3, AAC, ALAC, FLAC<sup>*</sup>, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
+     * Supported via transcoding<sup>**</sup> - Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Windows Media Audio (WMA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), DSD Streaming File (DSF), and Digital Theater Systems (DTS) **(New!)**
+   * Container formats: M4A (AAC/ALAC), OGG (Vorbis/Opus), Matroska Audio (MKA) for streams of any of the above audio formats
    * Playlist files: M3U/M3U8
    
-   <sup>*</sup> Aural Player will detect and automatically transcode (i.e. convert) the file, prior to playback, leaving the original file unmodified. Metadata, including cover art, will be read and displayed, if available. This whole process is seamless and effortless to the user.
+   <sup>*</sup> FLAC is natively supported on macOS High Sierra and later versions, and is supported via transcoding on macOS Sierra and older versions.
    
-   <sup>**</sup> FLAC is natively supported on macOS High Sierra and later versions, and is supported via transcoding on macOS Sierra and older versions.
+   <sup>**</sup> Aural Player will detect and automatically transcode (i.e. convert) the file, prior to playback, leaving the original file unmodified. Metadata, including cover art, will be read and displayed, if available. This whole process is seamless and effortless to the user.
 
 * **Playback:**
   * Bookmarking - mark a single position or a segment loop between two track positions
@@ -80,7 +73,9 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
    * Recording of clips in AAC/ALAC/AIFF formats - captures applied effects
 
 * **Information:**
-   * ID3, iTunes, WMA and other metadata (i.e. tags), including artwork (when available)
+   * ID3, iTunes, WMA, and other metadata (when available)
+   * Cover art (when available)
+   * Lyrics (when available)
    * File system information and technical audio data
 
 * **Playlist:**
@@ -89,9 +84,9 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan, and no furth
    * Type selection: Type the name of a track to try to find it
    * Functions to conveniently crop/invert track selection, reorder tracks, and scroll through the playlist
    
-* **History:**
+* **Track lists:**
    * *Favorites* list 
-   * Chronologically ordered *recently added* and *recently played* lists for added convenience. 
+   * Chronologically ordered *recently added* and *recently played* lists for added convenience.
 
 * **View:**
    * Several built-in window layout presets, window snapping with configurable spacing, collapsible views.
