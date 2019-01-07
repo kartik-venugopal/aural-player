@@ -123,6 +123,15 @@ class MetadataUtils {
                 entry.type = .other
                 return entry.key
                 
+            case .wma:
+                
+                if let rKey = WMSpec.readableKey(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
             case .other: return entry.key
                 
             }
@@ -164,6 +173,15 @@ class MetadataUtils {
                 entry.type = .other
                 return entry.key
                 
+            case .wma:
+                
+                if let rKey = WMSpec.readableKeyByID(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
             case .other: return entry.key
                 
             }
@@ -184,6 +202,7 @@ enum MetadataType: String {
     case iTunes
     case iTunesLongForm
     case id3
+    case wma
     case other
     
     // Smaller the number, higher the sort order
@@ -197,7 +216,9 @@ enum MetadataType: String {
             
         case .id3:  return 2
             
-        case .other:    return 3
+        case .wma:  return 3
+            
+        case .other:    return 4
             
         }
     }
