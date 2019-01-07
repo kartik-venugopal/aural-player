@@ -11,6 +11,7 @@ class ID3Spec: MetadataSpec {
     // Mappings of format-specific keys to readable keys
     private static var map: [String: String] = initMap()
     private static var mapByID: [String: String] = initMapByID()
+    private static var genresMap: [Int: String] = initGenresMap()
     
     static func readableKey(_ key: String) -> String? {
         return map[key]
@@ -18,6 +19,10 @@ class ID3Spec: MetadataSpec {
     
     static func readableKeyByID(_ id: String) -> String? {
         return mapByID[id]
+    }
+    
+    static func genreForCode(_ code: Int) -> String? {
+        return genresMap[code]
     }
     
     static func initMapByID() -> [String: String] {
@@ -273,7 +278,8 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation Frame"
         
         // PRIV
-        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
+//        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
+        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = ""
         
         // RBUF
         map[AVMetadataKey.id3MetadataKeyRecommendedBufferSize.rawValue] = "Recommended Buffer Size"
@@ -490,6 +496,163 @@ class ID3Spec: MetadataSpec {
         
         // WXXX
         map[AVMetadataKey.id3MetadataKeyUserURL.rawValue] = "User Defined URL Link Frame"
+        
+        return map
+    }
+    
+    private static func initGenresMap() -> [Int: String] {
+        
+        var map: [Int: String] = [:]
+        
+        map[0] = "Blues"
+        map[1] = "Classic Rock"
+        map[2] = "Country"
+        map[3] = "Dance"
+        map[4] = "Disco"
+        map[5] = "Funk"
+        map[6] = "Grunge"
+        map[7] = "Hip"
+        map[8] = "Jazz"
+        map[9] = "Metal"
+        map[10] = "New Age"
+        map[11] = "Oldies"
+        map[12] = "Other"
+        map[13] = "Pop"
+        map[14] = "R&B"
+        map[15] = "Rap"
+        map[16] = "Reggae"
+        map[17] = "Rock"
+        map[18] = "Techno"
+        map[19] = "Industrial"
+        map[20] = "Alternative"
+        map[21] = "Ska"
+        map[22] = "Death Metal"
+        map[23] = "Pranks"
+        map[24] = "Soundtrack"
+        map[25] = "Euro"
+        map[26] = "Ambient"
+        map[27] = "Trip"
+        map[28] = "Vocal"
+        map[29] = "Jazz & Funk"
+        map[30] = "Fusion"
+        map[31] = "Trance"
+        map[32] = "Classical"
+        map[33] = "Instrumental"
+        map[34] = "Acid"
+        map[35] = "House"
+        map[36] = "Game"
+        map[37] = "Sound Clip"
+        map[38] = "Gospel"
+        map[39] = "Noise"
+        map[40] = "Alternative Rock"
+        map[41] = "Bass"
+        map[42] = "Soul"
+        map[43] = "Punk"
+        map[44] = "Space"
+        map[45] = "Meditative"
+        map[46] = "Instrumental Pop"
+        map[47] = "Instrumental Rock"
+        map[48] = "Ethnic"
+        map[49] = "Gothic"
+        map[50] = "Darkwave"
+        map[51] = "Techno"
+        map[52] = "Electronic"
+        map[53] = "Pop"
+        map[54] = "Eurodance"
+        map[55] = "Dream"
+        map[56] = "Southern Rock"
+        map[57] = "Comedy"
+        map[58] = "Cult"
+        map[59] = "Gangsta"
+        map[60] = "Top 40"
+        map[61] = "Christian Rap"
+        map[62] = "Pop/Funk"
+        map[63] = "Jungle"
+        map[64] = "Native US"
+        map[65] = "Cabaret"
+        map[66] = "New Wave"
+        map[67] = "Psychadelic"
+        map[68] = "Rave"
+        map[69] = "Showtunes"
+        map[70] = "Trailer"
+        map[71] = "Lo"
+        map[72] = "Tribal"
+        map[73] = "Acid Punk"
+        map[74] = "Acid Jazz"
+        map[75] = "Polka"
+        map[76] = "Retro"
+        map[77] = "Musical"
+        map[78] = "Rock & Roll"
+        map[79] = "Hard Rock"
+        map[80] = "Folk"
+        map[81] = "Folk"
+        map[82] = "National Folk"
+        map[83] = "Swing"
+        map[84] = "Fast Fusion"
+        map[85] = "Bebob"
+        map[86] = "Latin"
+        map[87] = "Revival"
+        map[88] = "Celtic"
+        map[89] = "Bluegrass"
+        map[90] = "Avantgarde"
+        map[91] = "Gothic Rock"
+        map[92] = "Progressive Rock"
+        map[93] = "Psychedelic Rock"
+        map[94] = "Symphonic Rock"
+        map[95] = "Slow Rock"
+        map[96] = "Big Band"
+        map[97] = "Chorus"
+        map[98] = "Easy Listening"
+        map[99] = "Acoustic"
+        map[100] = "Humour"
+        map[101] = "Speech"
+        map[102] = "Chanson"
+        map[103] = "Opera"
+        map[104] = "Chamber Music"
+        map[105] = "Sonata"
+        map[106] = "Symphony"
+        map[107] = "Booty Bass"
+        map[108] = "Primus"
+        map[109] = "Porn Groove"
+        map[110] = "Satire"
+        map[111] = "Slow Jam"
+        map[112] = "Club"
+        map[113] = "Tango"
+        map[114] = "Samba"
+        map[115] = "Folklore"
+        map[116] = "Ballad"
+        map[117] = "Power Ballad"
+        map[118] = "Rhythmic Soul"
+        map[119] = "Freestyle"
+        map[120] = "Duet"
+        map[121] = "Punk Rock"
+        map[122] = "Drum Solo"
+        map[123] = "Acapella"
+        map[124] = "Euro"
+        map[125] = "Dance Hall"
+        map[126] = "Goa"
+        map[127] = "Drum & Bass"
+        map[128] = "Club"
+        map[129] = "Hardcore"
+        map[130] = "Terror"
+        map[131] = "Indie"
+        map[132] = "BritPop"
+        map[133] = "Negerpunk"
+        map[134] = "Polsk Punk"
+        map[135] = "Beat"
+        map[136] = "Christian Gangsta Rap"
+        map[137] = "Heavy Metal"
+        map[138] = "Black Metal"
+        map[139] = "Crossover"
+        map[140] = "Contemporary Christian"
+        map[141] = "Christian Rock"
+        map[142] = "Merengue"
+        map[143] = "Salsa"
+        map[144] = "Thrash Metal"
+        map[145] = "Anime"
+        map[146] = "JPop"
+        map[147] = "Synthpop"
+        map[148] = "Unknown"
         
         return map
     }

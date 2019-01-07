@@ -1,53 +1,57 @@
 import Cocoa
 import AVFoundation
 
+// Duration
+fileprivate let id3Key_duration: String = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyLength.rawValue)
+
+// Title
+fileprivate let commonKey_title = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyTitle.rawValue)
+fileprivate let iTunesKey_title = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeySongName.rawValue)
+fileprivate let id3Key_title = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
+
+// Artist
+fileprivate let commonKey_artist = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyArtist.rawValue)
+fileprivate let iTunesKey_artist = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyArtist.rawValue)
+fileprivate let id3Key_artist = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue)
+fileprivate let id3Key_band = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyBand.rawValue)
+
+// Album
+fileprivate let commonKey_album = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue)
+fileprivate let iTunesKey_album = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyAlbum.rawValue)
+fileprivate let id3Key_album = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
+fileprivate let id3Key_origAlbum = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyOriginalAlbumTitle.rawValue)
+
+// Genre
+fileprivate let commonKey_genre = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyType.rawValue)
+fileprivate let iTunesKey_genre = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyUserGenre.rawValue)
+fileprivate let iTunesKey_predefGenre = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue)
+fileprivate let id3Key_genre = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyContentType.rawValue)
+
+// Disc number
+fileprivate let iTunesKey_discNumber = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue)
+fileprivate let id3Key_discNumber = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue)
+
+// Track number
+fileprivate let iTunesKey_trackNumber = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue)
+fileprivate let id3Key_trackNumber = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue)
+
+// Lyrics
+fileprivate let iTunesKey_lyrics = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyLyrics.rawValue)
+fileprivate let id3Key_lyrics = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue)
+fileprivate let id3Key_syncLyrics = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
+
+// Art
+fileprivate let commonKey_art: String = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyArtwork.rawValue)
+fileprivate let iTunesKey_art: String = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue)
+fileprivate let id3Key_art: String = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
+
+fileprivate let commonId_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
+fileprivate let iTunesId_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
+fileprivate let id3Id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
+
 class AVAssetReader: MetadataReader {
     
-    // Title
-    private let commonId_title: AVMetadataIdentifier = AVMetadataIdentifier.commonIdentifierTitle
-    private let iTunesId_title: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataSongName
-    private let id3Id_title: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataTitleDescription
-    
-    // Artist
-    private let commonId_artist: AVMetadataIdentifier = AVMetadataIdentifier.commonIdentifierArtist
-    private let iTunesId_artist: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataArtist
-    private let iTunesId_albumArtist: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataAlbumArtist
-    private let id3Id_artist: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataOriginalArtist
-    private let id3Id_band: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataBand
-    
-    // Album
-    private let commonId_album: AVMetadataIdentifier = AVMetadataIdentifier.commonIdentifierAlbumName
-    private let iTunesId_album: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataAlbum
-    private let id3Id_album: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataAlbumTitle
-    private let id3Id_origAlbum: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataOriginalAlbumTitle
-    
-    // Genre
-    private let commonId_genre: AVMetadataIdentifier = AVMetadataIdentifier.commonIdentifierType
-    private let iTunesId_genre: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataUserGenre
-    private let iTunesId_predefinedGenre: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataPredefinedGenre
-    private let id3Id_genre: AVMetadataIdentifier = AVMetadataIdentifier.id3MetadataContentType
-    
-    private let commonId_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
-    
-    // Identifier for ID3 TLEN metadata item
-    private let id3Id_TLEN: AVMetadataIdentifier = AVMetadataIdentifier(rawValue: AVMetadataKey.id3MetadataKeyLength.rawValue)
-    
-    private let id3Id_discNum: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyPartOfASet.rawValue, keySpace: AVMetadataKeySpace.id3)!
-
-    private let id3Id_trackNum: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyTrackNumber.rawValue, keySpace: AVMetadataKeySpace.id3)!
-    
-        private let id3Id_lyrics: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue, keySpace: AVMetadataKeySpace.id3)!
-    
-    private let id3Id_syncLyrics: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue, keySpace: AVMetadataKeySpace.id3)!
-    
-    private let iTunesId_lyrics: AVMetadataIdentifier = AVMetadataIdentifier.iTunesMetadataLyrics
-    
-    private let iTunesId_discNum: AVMetadataIdentifier = AVMetadataIdentifier(rawValue: AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue)
-    private let iTunesId_trackNum: AVMetadataIdentifier = AVMetadataIdentifier(rawValue: AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue)
-    
-    private let genericMetadata_ignoreKeys: [String] = [AVMetadataKey.commonKeyTitle.rawValue, AVMetadataKey.commonKeyArtist.rawValue, AVMetadataKey.commonKeyArtwork.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue, AVMetadataKey.commonKeyType.rawValue, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue, AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue, AVMetadataKey.iTunesMetadataKeyLyrics.rawValue, AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue]
-    
-    private let genericMetadata_ignoreIDs: [String] = [AVMetadataIdentifier.commonIdentifierTitle.rawValue, AVMetadataIdentifier.commonIdentifierArtist.rawValue, AVMetadataIdentifier.commonIdentifierArtwork.rawValue, AVMetadataIdentifier.commonIdentifierAlbumName.rawValue, AVMetadataIdentifier.commonIdentifierType.rawValue, AVMetadataIdentifier.iTunesMetadataDiscNumber.rawValue, AVMetadataIdentifier.iTunesMetadataTrackNumber.rawValue, AVMetadataIdentifier.id3MetadataPartOfASet.rawValue, AVMetadataIdentifier.id3MetadataTrackNumber.rawValue, AVMetadataIdentifier.iTunesMetadataAlbumArtist.rawValue, AVMetadataIdentifier.iTunesMetadataUserGenre.rawValue, AVMetadataIdentifier.iTunesMetadataLyrics.rawValue, AVMetadataIdentifier.id3MetadataUnsynchronizedLyric.rawValue, AVMetadataIdentifier.id3MetadataSynchronizedLyric.rawValue]
+    private let genericMetadata_ignoreKeys: Set<String> = [commonKey_title, commonKey_artist, commonKey_art, commonKey_album, commonKey_genre, iTunesKey_title, iTunesKey_artist, iTunesKey_album, iTunesKey_genre, iTunesKey_predefGenre, iTunesKey_discNumber, iTunesKey_trackNumber, iTunesKey_lyrics, id3Key_title, id3Key_artist, id3Key_album, id3Key_genre, id3Key_discNumber, id3Key_trackNumber, id3Key_lyrics, id3Key_syncLyrics]
     
     private var metadataMap: ConcurrentMap<Track, MappedMetadata> = ConcurrentMap<Track, MappedMetadata>("metadataMap")
     
@@ -66,25 +70,27 @@ class AVAssetReader: MetadataReader {
     private func mapMetadata(_ track: Track) {
         
         let items = track.audioAsset!.metadata
-        
-        var map: [String: AVMetadataItem] = [:]
+        print(track.conciseDisplayName, items.count)
+        let mapForTrack = MappedMetadata()
         
         for item in items {
             
             if let mapKey = mapKeyForItem(item) {
-                map[mapKey] = item
+                
+                if genericMetadata_ignoreKeys.contains(mapKey) {
+                    mapForTrack.map[mapKey] = item
+                } else {
+                    mapForTrack.genericMap[mapKey] = item
+                }
             }
-            
-            let mapForTrack = MappedMetadata()
-            mapForTrack.map = map
-            
-            metadataMap.put(track, mapForTrack)
         }
+        
+        metadataMap.put(track, mapForTrack)
     }
     
     private func mapKeyForItem(_ item: AVMetadataItem) -> String? {
         
-        if let ckey = item.commonKey?.rawValue {
+        if let ckey = item.commonKeyAsString {
             
             return String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, ckey)
             
@@ -92,9 +98,13 @@ class AVAssetReader: MetadataReader {
             
             return String(format: "%@/%@", itemKeySpace.rawValue, skey)
             
-        } else if let ikey = item.key as? Int, let itemKeySpace = item.keySpace, let id = AVMetadataItem.identifier(forKey: ikey, keySpace: itemKeySpace) {
+        } else if let id = item.identifier {
             
             return id.rawValue.replacingOccurrences(of: "%A9", with: "@")
+            
+        } else if item.key != nil {
+            
+            print("\nWeird item key is:", String(describing: item.key))
         }
         
         return nil
@@ -120,10 +130,11 @@ class AVAssetReader: MetadataReader {
     // Retrieves artwork for a given track, if available
     private func getArt(_ asset: AVURLAsset) -> NSImage? {
         
-        let items = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: commonId_art)
-        
-        if let first = items.first, let imgData = first.dataValue {
-            return NSImage(data: imgData)
+        for id in [commonId_art, iTunesId_art, id3Id_art] {
+
+            if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id).first, let imgData = item.dataValue {
+                return NSImage(data: imgData)
+            }
         }
         
         return nil
@@ -138,145 +149,106 @@ class AVAssetReader: MetadataReader {
         let album = getAlbum(track)?.trim()
         let genre = getGenre(track)?.trim()
         
+//        print("Genre for", track.file.lastPathComponent, "=", genre != nil ? genre! : "nil")
+        
         let duration = getDuration(track)
         
         return PrimaryMetadata(title, artist, album, genre, duration)
     }
     
-    private func getArtist(_ track: Track) -> String? {
-     
+    private func stringValueForKeys(_ track: Track, _ keys: [String]) -> String? {
+        
         if let map = metadataMap.getForKey(track)?.map {
             
-            // Common
-            
-            let commonKey = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyArtist.rawValue)
-            
-            if let artistItem = map[commonKey], let str = artistItem.stringValue {
-                return str
-            }
-            
-            // iTunes
-            
-            var iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyArtist.rawValue)
-            
-            if let artistItem = map[iTunesKey], let str = artistItem.stringValue {
-                return str
-            }
-            
-            iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyAlbumArtist.rawValue)
-            
-            if let artistItem = map[iTunesKey], let str = artistItem.stringValue {
-                return str
-            }
-            
-            // ID3
-            
-            var id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue)
-            
-            if let artistItem = map[id3Key], let str = artistItem.stringValue {
-                return str
-            }
-            
-            id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyBand.rawValue)
-            
-            if let artistItem = map[id3Key], let str = artistItem.stringValue {
-                return str
+            for key in keys {
+                
+                if let item = map[key], let str = item.stringValue {
+                    return str
+                }
             }
         }
         
         return nil
+    }
+    
+    private func getArtist(_ track: Track) -> String? {
+        return stringValueForKeys(track, [commonKey_artist, iTunesKey_artist, id3Key_artist, id3Key_band])
     }
     
     private func getTitle(_ track: Track) -> String? {
-        
-        if let map = metadataMap.getForKey(track)?.map {
-            
-            let commonKey = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyTitle.rawValue)
-            
-            if let titleItem = map[commonKey], let str = titleItem.stringValue {
-                return str
-            }
-            
-            let iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeySongName.rawValue)
-            
-            if let titleItem = map[iTunesKey], let str = titleItem.stringValue {
-                return str
-            }
-            
-            let id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
-            
-            if let titleItem = map[id3Key], let str = titleItem.stringValue {
-                return str
-            }
-        }
-        
-        return nil
+        return stringValueForKeys(track, [commonKey_title, iTunesKey_title, id3Key_title])
     }
     
     private func getAlbum(_ track: Track) -> String? {
-        
-        if let map = metadataMap.getForKey(track)?.map {
-            
-            let commonKey = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue)
-            
-            if let albumItem = map[commonKey], let str = albumItem.stringValue {
-                return str
-            }
-            
-            let iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyAlbum.rawValue)
-            
-            if let albumItem = map[iTunesKey], let str = albumItem.stringValue {
-                return str
-            }
-            
-            var id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
-            
-            if let albumItem = map[id3Key], let str = albumItem.stringValue {
-                return str
-            }
-            
-            id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyOriginalAlbumTitle.rawValue)
-            
-            if let albumItem = map[id3Key], let str = albumItem.stringValue {
-                return str
-            }
-        }
-        
-        return nil
+        return stringValueForKeys(track, [commonKey_album, iTunesKey_album, id3Key_album, id3Key_origAlbum])
     }
     
     private func getGenre(_ track: Track) -> String? {
         
         if let map = metadataMap.getForKey(track)?.map {
             
-            let commonKey = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyType.rawValue)
+            for key in [commonKey_genre, iTunesKey_genre, iTunesKey_predefGenre] {
             
-            if let genreItem = map[commonKey], let str = genreItem.stringValue {
-                return str
+                if let genreItem = map[key] {
+                    
+                    if let str = genreItem.stringValue {
+                        
+                        return parseGenreNumericString(str)
+                        
+                    } else if let number = genreItem.numberValue {
+                        
+                        print("\n*** Number !!!", number, "for track", track.conciseDisplayName)
+                        return ID3Spec.genreForCode(number.intValue)
+                        
+                    } else if let data = genreItem.dataValue {
+                        
+                        let code = Int(data.hexEncodedString(), radix: 16)!
+                        return ID3Spec.genreForCode(code - 1)
+                    }
+                }
             }
             
-            var iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyUserGenre.rawValue)
-            
-            if let genreItem = map[iTunesKey], let str = genreItem.stringValue {
-                return str
+            if let genreItem = map[id3Key_genre] {
+                
+                if let str = genreItem.stringValue {
+                    
+                    return parseGenreNumericString(str)
+                    
+                } else if let number = genreItem.numberValue {
+                    
+                    print("\n*** Number !!!", number, "for track", track.conciseDisplayName)
+                    return ID3Spec.genreForCode(number.intValue)
+                    
+                }  else if let data = genreItem.dataValue {
+                    
+                    print("\n *** ID3 DATA value for Genre !!! ***", track.conciseDisplayName, data.hexEncodedString())
+                    let code = Int(data.hexEncodedString(), radix: 16)!
+                    return ID3Spec.genreForCode(code)
+                }
             }
-            
-            iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue)
-            
-            if let genreItem = map[iTunesKey], let str = genreItem.stringValue {
-                return str
-            }
-            
-            let id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyContentType.rawValue)
-            
-            if let genreItem = map[id3Key], let str = genreItem.stringValue {
-                return str
-            }
-            
-            // TODO: If ID3 genre is numerical (data value), map it to a string (need to define genres in ID3 spec)
         }
         
         return nil
+    }
+    
+    private func parseGenreNumericString(_ string: String) -> String {
+        
+        let decimalChars = CharacterSet.decimalDigits
+        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
+        
+        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
+        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
+            
+            // Need to parse the number
+            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
+            if let genreCode = Int(numberStr) {
+                
+                // Look up genreId in ID3 table
+                return ID3Spec.genreForCode(genreCode) ?? string
+            }
+        }
+        
+        return string
     }
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {
@@ -299,11 +271,8 @@ class AVAssetReader: MetadataReader {
         
         var tlenDuration: Double = 0
         
-        if let tlenValue = getMetadataForId(track.audioAsset!, id3Id_TLEN) {
-            
-            if let durationMsecs = Double(tlenValue) {
-                tlenDuration = durationMsecs / 1000
-            }
+        if let map = metadataMap.getForKey(track)?.map, let tlenItem = map[id3Key_duration], let tlenValue = tlenItem.stringValue, let durationMsecs = Double(tlenValue) {
+            tlenDuration = durationMsecs / 1000
         }
         
         let assetDuration = track.audioAsset!.duration.seconds
@@ -314,7 +283,18 @@ class AVAssetReader: MetadataReader {
     func getArt(_ track: Track) -> NSImage? {
         
         ensureTrackAssetLoaded(track)
-        return getArt(track.audioAsset!)
+        
+        if let map = metadataMap.getForKey(track)?.map {
+            
+            for key in [commonKey_art, iTunesKey_art, id3Key_art] {
+                
+                if let artItem = map[key], let data = artItem.dataValue {
+                    return NSImage(data: data)
+                }
+            }
+        }
+        
+        return nil
     }
     
     func getArt(_ file: URL) -> NSImage? {
@@ -327,47 +307,13 @@ class AVAssetReader: MetadataReader {
         
         var metadata: [String: MetadataEntry] = [:]
 
-        // Check which metadata formats are available
-        let formats = track.audioAsset!.availableMetadataFormats
-
-        // Iterate through the formats and collect metadata for each one
-        for format in formats {
-
-            let metadataType: MetadataType
-            
-            switch format.rawValue {
-
-            case AVMetadataFormat.iTunesMetadata.rawValue: metadataType = .iTunes
-
-            case AVMetadataFormat.id3Metadata.rawValue: metadataType = .id3
-                
-            case ITunesLongFormSpec.formatID:   metadataType = .iTunesLongForm
-
-            default: metadataType = .other
-
-            }
-
-            let items = track.audioAsset!.metadata(forFormat: format)
+        if let map = metadataMap.getForKey(track)?.genericMap {
 
             // Iterate through all metadata for this format
-            for item in items {
+            for (_, item) in map {
                 
-                let stringValue = item.stringValue?.trim()
-
-                if let key = item.commonKey?.rawValue {
-
-                    // Ignore the display metadata keys (that have already been loaded)
-                    if !genericMetadata_ignoreKeys.contains(key) && !StringUtils.isStringEmpty(stringValue) {
-                        metadata[key] = MetadataEntry(.common, .key, key, stringValue!)
-                    }
-
-                } else if let key = item.key as? String, !genericMetadata_ignoreKeys.contains(key), !StringUtils.isStringEmpty(stringValue) {
-
-                    metadata[key] = MetadataEntry(metadataType, .key, key, stringValue!)
-
-                } else if let key = item.key as? Int, let keySpace = item.keySpace, !StringUtils.isStringEmpty(stringValue), let id = AVMetadataItem.identifier(forKey: key, keySpace: keySpace), !genericMetadata_ignoreIDs.contains(id.rawValue) {
-                    
-                    metadata[id.rawValue] = MetadataEntry(metadataType, .id, id.rawValue, stringValue!)
+                if let key = item.keyAsString, let value = item.valueAsString {
+                    metadata[key] = MetadataEntry(item.metadataType, .key, key, value)
                 }
             }
         }
@@ -379,16 +325,11 @@ class AVAssetReader: MetadataReader {
         
         if let map = metadataMap.getForKey(track)?.map {
             
-            let iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue)
+            for key in [iTunesKey_discNumber, id3Key_discNumber] {
             
-            if let item = map[iTunesKey], let discNum = parseDiscOrTrackNumber(item) {
-                return discNum
-            }
-            
-            let id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue)
-            
-            if let item = map[id3Key], let discNum = parseDiscOrTrackNumber(item) {
-                return discNum
+                if let item = map[key], let discNum = parseDiscOrTrackNumber(item) {
+                    return discNum
+                }
             }
         }
         
@@ -399,16 +340,11 @@ class AVAssetReader: MetadataReader {
         
         if let map = metadataMap.getForKey(track)?.map {
             
-            let iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue)
-            
-            if let item = map[iTunesKey], let trackNum = parseDiscOrTrackNumber(item) {
-                return trackNum
-            }
-            
-            let id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue)
-            
-            if let item = map[id3Key], let trackNum = parseDiscOrTrackNumber(item) {
-                return trackNum
+            for key in [iTunesKey_trackNumber, id3Key_trackNumber] {
+                
+                if let item = map[key], let trackNum = parseDiscOrTrackNumber(item) {
+                    return trackNum
+                }
             }
         }
         
@@ -416,6 +352,10 @@ class AVAssetReader: MetadataReader {
     }
     
     private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
+        
+        if let number = item.numberValue {
+            return (number.intValue, nil)
+        }
         
         if let stringValue = item.stringValue {
             
@@ -469,50 +409,11 @@ class AVAssetReader: MetadataReader {
     }
     
     private func getLyrics(_ track: Track) -> String? {
-        
-        if let map = metadataMap.getForKey(track)?.map {
-            
-            let iTunesKey = String(format: "%@/%@", AVMetadataKeySpace.iTunes.rawValue, AVMetadataKey.iTunesMetadataKeyLyrics.rawValue)
-            
-            if let genreItem = map[iTunesKey], let str = genreItem.stringValue {
-                return str
-            }
-            
-            var id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue)
-            
-            if let genreItem = map[id3Key], let str = genreItem.stringValue {
-                return str
-            }
-            
-            id3Key = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
-            
-            if let genreItem = map[id3Key], let str = genreItem.stringValue {
-                return str
-            }
-        }
-        
-        return nil
+        return stringValueForKeys(track, [iTunesKey_lyrics, id3Key_lyrics, id3Key_syncLyrics])
     }
     
     func getDurationForFile(_ file: URL) -> Double {
-        
-        let asset = AVURLAsset(url: file, options: nil)
-        return asset.duration.seconds
-    }
-}
-
-extension String {
-    
-    func fromBase64() -> String? {
-        guard let data = Data(base64Encoded: self) else {
-            return nil
-        }
-        
-        return String(data: data, encoding: .utf8)
-    }
-    
-    func toBase64() -> String {
-        return Data(self.utf8).base64EncodedString()
+        return AVURLAsset(url: file, options: nil).duration.seconds
     }
 }
 
@@ -526,4 +427,80 @@ extension Data {
 class MappedMetadata {
     
     var map: [String: AVMetadataItem] = [:]
+    var genericMap: [String: AVMetadataItem] = [:]
+}
+
+extension AVMetadataItem {
+    
+    var commonKeyAsString: String? {
+        return commonKey?.rawValue ?? nil
+    }
+    
+    var keyAsString: String? {
+        
+        if let key = commonKeyAsString {
+            return key
+        }
+        
+        if let key = self.key as? String {
+            return key
+        }
+        
+        if let keySpace = self.keySpace, let id = AVMetadataItem.identifier(forKey: key as Any, keySpace: keySpace) {
+            
+            let tokens = id.rawValue.split(separator: "/")
+            if tokens.count == 2 {
+                return String(tokens[1].trim().replacingOccurrences(of: "%A9", with: "@"))
+            }
+        }
+        
+        return nil
+    }
+    
+    var valueAsString: String? {
+
+        if !StringUtils.isStringEmpty(self.stringValue) {
+            return self.stringValue
+        }
+        
+        if let number = self.numberValue {
+            return String(describing: number)
+        }
+        
+        if let data = self.dataValue {
+            return String(data: data, encoding: .utf8)
+        }
+        
+        if let date = self.dateValue {
+            return String(describing: date)
+        }
+        
+        return nil
+    }
+    
+    var metadataType: MetadataType {
+        
+        if commonKey != nil {
+            return .common
+        }
+        
+        if let keyspace = self.keySpace {
+            
+            switch keyspace.rawValue {
+                
+            case AVMetadataKeySpace.common.rawValue:     return .common
+                
+            case AVMetadataKeySpace.iTunes.rawValue:     return .iTunes
+                
+            case ITunesLongFormSpec.keySpaceID:     return .iTunesLongForm
+                
+            case AVMetadataKeySpace.id3.rawValue:        return .id3
+                
+            default:    return .other
+                
+            }
+        }
+        
+        return .other
+    }
 }
