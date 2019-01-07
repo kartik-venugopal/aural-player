@@ -334,12 +334,14 @@ class AVAssetReader: MetadataReader {
         for format in formats {
 
             let metadataType: MetadataType
+            
+            switch format.rawValue {
 
-            switch format {
+            case AVMetadataFormat.iTunesMetadata.rawValue: metadataType = .iTunes
 
-            case AVMetadataFormat.iTunesMetadata: metadataType = .iTunes
-
-            case AVMetadataFormat.id3Metadata: metadataType = .id3
+            case AVMetadataFormat.id3Metadata.rawValue: metadataType = .id3
+                
+            case ITunesLongFormSpec.formatID:   metadataType = .iTunesLongForm
 
             default: metadataType = .other
 
@@ -461,8 +463,6 @@ class AVAssetReader: MetadataReader {
                 
                 return (n1, n2)
             }
-            
-            print("Invalid hex string:", hexString, hexString.count)
         }
         
         return nil

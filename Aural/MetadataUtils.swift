@@ -96,16 +96,34 @@ class MetadataUtils {
             // Common space keys (camel cased) need to be split up into separate words
             case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
                 
-            case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
+            case .id3:
                 
-            case .iTunes: return ITunesSpec.readableKey(entry.key) ?? entry.key
+                if let rKey = ID3Spec.readableKey(entry.key) {
+                    return rKey
+                }
                 
-//            case .iTunesLongForm: return ITunesLongFormSpec.readableKey(entry.key) ?? entry.key
+                entry.type = .other
+                return entry.key
                 
-            // Unrecognized entry type, return key as is
-//            case .other: return entry.key
+            case .iTunes:
                 
-            default: return entry.key
+                if let rKey = ITunesSpec.readableKey(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
+            case .iTunesLongForm:
+                
+                if let rKey = ITunesLongFormSpec.readableKey(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
+            case .other: return entry.key
                 
             }
             
@@ -119,16 +137,34 @@ class MetadataUtils {
             // Common space keys (camel cased) need to be split up into separate words
             case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
 
-            case .id3:  return ID3Spec.readableKeyByID(entry.key) ?? entry.key
+            case .id3:
                 
-            case .iTunes: return ITunesSpec.readableKeyByID(entry.key) ?? entry.key
+                if let rKey = ID3Spec.readableKeyByID(entry.key) {
+                    return rKey
+                }
                 
-//            case .iTunesLongForm: return ITunesLongFormSpec.readableKeyByID(entry.key) ?? entry.key
+                entry.type = .other
+                return entry.key
                 
-            // Unrecognized entry type, return key as is
-//            case .other: return entry.key
+            case .iTunes:
                 
-            default: return entry.key
+                if let rKey = ITunesSpec.readableKeyByID(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
+            case .iTunesLongForm:
+                
+                if let rKey = ITunesLongFormSpec.readableKeyByID(entry.key) {
+                    return rKey
+                }
+                
+                entry.type = .other
+                return entry.key
+                
+            case .other: return entry.key
                 
             }
         }
@@ -149,6 +185,22 @@ enum MetadataType: String {
     case iTunesLongForm
     case id3
     case other
+    
+    // Smaller the number, higher the sort order
+    var sortOrder: Int {
+        
+        switch self {
+            
+        case .common:   return 0
+            
+        case .iTunes, .iTunesLongForm:  return 1
+            
+        case .id3:  return 2
+            
+        case .other:    return 3
+            
+        }
+    }
 }
 
 enum MetadataKeyType: String {
