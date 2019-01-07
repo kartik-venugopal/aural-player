@@ -171,7 +171,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
 
-### Customizing the player view (through the *View* menu)
+### Customizing the player view
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true "Player view")
 
