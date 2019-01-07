@@ -352,7 +352,7 @@ class AVAssetReader: MetadataReader {
             // Iterate through all metadata for this format
             for item in items {
                 
-                let stringValue = item.stringValue
+                let stringValue = item.stringValue?.trim()
 
                 if let key = item.commonKey?.rawValue {
 

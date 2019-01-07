@@ -310,9 +310,14 @@ class ITunesLongFormSpec: MetadataSpec {
         
         var map: [String: String] = [:]
         
-        map["itunsmpb"] = "Gapless Playback"
-        map["itunnorm"] = "Sound Check"
+//        map["itunsmpb"] = "Gapless Playback"
+//        map["itunnorm"] = "Sound Check"
+        
+        // TODO: Find a better way to exclude these 2 keys
+        map["itunsmpb"] = ""
+        map["itunnorm"] = ""
         map["itunpgap"] = "Playlist Delay"
+        
         map["encodingparams"] = "Encoding Parameters"
 
         map["itunes_cddb_ids"] = "CDDB IDs"
