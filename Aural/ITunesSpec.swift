@@ -11,11 +11,21 @@ class ITunesSpec: MetadataSpec {
     private static var mapByID: [String: String] = initMapByID()
     
     static func readableKey(_ key: String) -> String? {
-        return mapByKey[key]
+        
+        if let rKey = mapByKey[key] {
+            return rKey
+        }
+        
+        return ITunesLongFormSpec.readableKey(key)
     }
     
     static func readableKeyByID(_ id: String) -> String? {
-        return mapByID[id]
+        
+        if let rKey = mapByID[id] {
+            return rKey
+        }
+        
+        return ITunesLongFormSpec.readableKeyByID(id)
     }
     
     private static func initMapByID() -> [String: String] {
@@ -273,7 +283,6 @@ class ITunesSpec: MetadataSpec {
     }
 }
 
-// TODO: Implement this
 class ITunesLongFormSpec: MetadataSpec {
     
     static let keySpaceID: String = "itlk"
@@ -281,61 +290,345 @@ class ITunesLongFormSpec: MetadataSpec {
     
     // Mappings of format-specific keys to readable keys
     private static var mapByKey: [String: String] = initMapByKey()
-    private static var mapByID: [String: String] = initMapByID()
     
     static func readableKey(_ key: String) -> String? {
-        return mapByKey[key]
+        
+        let trimmedKeyTokens = key.lowercased().replacingOccurrences(of: "com.apple.itunes", with: "|").split(separator: "|")
+        
+        if let trimmedKey = trimmedKeyTokens.last {
+            return mapByKey[trimmedKey.trim().trimmingCharacters(in: CharacterSet(charactersIn: ":;."))]
+        }
+        
+        return nil
     }
     
     static func readableKeyByID(_ id: String) -> String? {
-        return mapByID[id]
-    }
-    
-    private static func initMapByID() -> [String: String] {
-        return [:]
+        return readableKey(id)
     }
     
     private static func initMapByKey() -> [String: String] {
         
         var map: [String: String] = [:]
         
-        // TODO: Store these keys in lower case
+        map["itunsmpb"] = "Gapless Playback"
+        map["itunnorm"] = "Sound Check"
+        map["itunpgap"] = "Playlist Delay"
+        map["encodingparams"] = "Encoding Parameters"
+
+        map["itunes_cddb_ids"] = "CDDB IDs"
+        map["itunes_cddb_1"] = "CDDB 1"
+        map["itunes_cddb_tracknumber"] = "CDDB Track Number"
+
+        map["accurateripdiscid"] = "AccurateRip Disc ID"
+        map["accurateripresult"] = "AccurateRip Result"
+
+        map["musicippuid"] = "MusicIP PUID"
+        map["musicbrainzartistId"] = "MusicBrainz Artist ID"
+        map["musicbrainzalbumartistId"] = "MusicBrainz Album Artist ID"
+        map["musicbrainzalbumid"] = "MusicBrainz Album ID"
+        map["musicbrainztrackid"] = "MusicBrainz Track ID"
+        map["musicbrainzalbumreleasecountry"] = "MusicBrainz Album Release Country"
+        map["musicbrainzalbumtype"] = "MusicBrainz Album Type"
+        map["musicbrainzalbumstatus"] = "MusicBrainz Album Status"
+
+        map["source"] = "Source"
+        map["asin"] = "ASIN"
+        map["tool"] = "Tool"
+        map["upc"] = "UPC"
         
-        map["com.apple.iTunes:iTunSMPB"] = "iTunes Gapless Playback"
-        map["com.apple.iTunes:iTunNORM"] = "iTunes Sound Check"
-        map["com.apple.iTunes:iTunPGAP"] = "iTunes Gapless Playback"
-        map["com.apple.iTunes:EncodingParams"] = "iTunes Encoding Parameters"
+        map["acousticbrainz data"] = "AcousticBrainz Data"
         
-        map["com.apple.iTunes:iTunes_CDDB_IDs"] = "CDDB IDs"
-        map["com.apple.iTunes:iTunes_CDDB_1"] = "CDDB 1"
-        map["com.apple.iTunes:iTunes_CDDB_TrackNumber"] = "CDDB Track Number"
+        map["acoustid data"] = "Acoustid Data"
         
-        map["com.apple.iTunes:AccurateRipDiscID"] = "AccurateRip Disc ID"
-        map["com.apple.iTunes:AccurateRipResult"] = "AccurateRip Result"
+        map["acoustid fingerprint"] = "Acoustid Fingerprint"
         
-        map["com.apple.iTunes.UPC"] = "UPC"
-        map["com.apple.iTunes:ISRC"] = "ISRC"
-        map["com.apple.iTunes:iTunMOVI"] = "Movie info"
+        map["acoustid fingerprint fault"] = "Acoustid Fingerprint Fault"
         
-        map["com.apple.iTunes:MusicIPPUID"] = "MusicIP PUID"
-        map["com.apple.iTunes:MusicBrainzArtistId"] = "MusicBrainz Artist ID"
-        map["com.apple.iTunes:MusicBrainzAlbumArtistId"] = "MusicBrainz Album Artist ID"
-        map["com.apple.iTunes:MusicBrainzAlbumId"] = "MusicBrainz Album ID"
-        map["com.apple.iTunes:MusicBrainzTrackId"] = "MusicBrainz Track ID"
-        map["com.apple.iTunes:MusicBrainzAlbumReleaseCountry"] = "MusicBrainz Album Release Country"
-        map["com.apple.iTunes:MusicBrainzAlbumType"] = "MusicBrainz Album Type"
-        map["com.apple.iTunes:MusicBrainzAlbumStatus"] = "MusicBrainz Album Status"
+        map["acoustid id"] = "Acoustid Id"
         
-        map["com.apple.iTunes:CATALOGNUMBER"] = "Catalog Number"
-        map["com.apple.iTunes:Label"] = "Label"
-        map["com.apple.iTunes:Source"] = "Source"
-        map["com.apple.iTunes:ASIN"] = "ASIN"
-        map["com.apple.iTunes:BARCODE"] = "Barcode"
+        map["acoustid status"] = "Acoustid Status"
         
-        map["com.apple.iTunes:ENGINEER"] = "Engineer"
-        map["com.apple.iTunes:PRODUCER"] = "Producer"
-        map["com.apple.iTunes:MIXER"] = "Mixer"
-        map["com.apple.iTunes:tool"] = "Tool"
+        map["apiseeds artist"] = "APISEEDS Artist"
+        
+        map["apiseeds probability"] = "APISEEDS Probability"
+        
+        map["apiseeds status"] = "APISEEDS Status"
+        
+        map["apiseeds text"] = "APISEEDS Text"
+        
+        map["apiseeds title"] = "APISEEDS Title"
+        
+        map["autosearch_artwork_url"] = "Autosearch Artwork URL"
+        
+        map["barcode"] = "Barcode"
+        
+        map["beatport_album_url"] = "Beatport Album URL"
+        
+        map["beatport_artist_url"] = "Beatport Artist URLs"
+        
+        map["beatport import time"] = "Beatport Import Time"
+        
+        map["beatport_label_url"] = "Beatport Label URL"
+        
+        map["beatport release id"] = "Beatport Release Id"
+        
+        map["beatport track id"] = "Beatport Track Id"
+        
+        map["ufid"] = "Beatport Track Id"
+        
+        map["beatport_track_url"] = "Beatport Track URL"
+        
+        map["catalognumber"] = "Catalog Number"
+        
+        map["category"] = "Category"
+        
+        map["itunextc"] = "Classification"
+        
+        map["commercial_info_url"] = "Commercial Information Webpage"
+        
+        map["conductor"] = "Conductor"
+        
+        map["copyright url"] = "Copyright/Legal Information Webpage"
+        
+        map["country"] = "Country"
+        
+        map["cuesheet"] = "CUESHEET"
+        
+        map["user configurable"] = "Custom 0...99"
+        
+        map["discogs_albumartist_url"] = "Discogs Album Artist URLs"
+        
+        map["discogs_artist_list"] = "Discogs Artist List"
+        
+        map["discogs_anv_list"] = "Discogs Artist Name Variations"
+        
+        map["discogs_artist_url"] = "Discogs Artist URLs"
+        
+        map["discogs_artwork_url"] = "Discogs Artwork URL"
+        
+        map["discogs_catalog_number"] = "Discogs Catalog Number"
+        
+        map["discogs_import_settings"] = "Discogs Import Settings"
+        
+        map["discogs_exception_mask"] = "Discogs Exception Mask"
+        
+        map["discogs_import_time"] = "Discogs Import Time"
+        
+        map["discogs_label_url"] = "Discogs Label URLs"
+        
+        map["discogs_master_id"] = "Discogs Master Id"
+        
+        map["discogs_master_url"] = "Discogs Master URL"
+        
+        map["discogs album release country"] = "Discogs Release Country"
+        
+        map["discogs_release_id"] = "Discogs Release Id"
+        
+        map["discogs release notes"] = "Discogs Release Notes"
+        
+        map["discogs release ordinal position"] = "Discogs Release Ordinal Position"
+        
+        map["discogs_release_url"] = "Discogs Release URL"
+        
+        map["encoding"] = "Encoder Settings"
+        
+        map["encodingtime"] = "Encoding Time"
+        
+        map["filetype"] = "File Type"
+        
+        map["imdb id"] = "IMDB ID"
+        
+        map["key"] = "Initial Key"
+        
+        map["involvedpeople"] = "Involved People"
+        
+        map["djmixer"] = "DJ Mixer"
+        
+        map["engineer"] = "Engineer"
+        
+        map["mixer"] = "Mixer"
+        
+        map["producer"] = "Producer"
+        
+        map["instrumental"] = "Instrumental"
+        
+        map["isrc"] = "ISRC"
+        
+        map["itunes pid"] = "iTunes PID"
+        
+        map["label"] = "Label"
+        
+        map["language"] = "Language"
+        
+        map["length"] = "Length (ms)"
+        
+        map["love-dislike rating"] = "Love"
+        
+        map["lyricist"] = "Lyricist"
+        
+        map["lyricwiki takedown status"] = "LyricWiki Takedown Status id"
+        
+        map["lyricwiki url"] = "LyricWiki URL"
+        
+        map["media"] = "Media Type"
+        
+        map["mood"] = "Mood"
+        
+        map["music_cd_identifier"] = "Music CD Identifier"
+        
+        map["musicbrainz album artist id"] = "MusicBrainz Album Artist Id"
+        
+        map["musicbrainz_albumartist_url"] = "MusicBrainz Album Artist URLs"
+        
+        map["musicbrainz artist id"] = "MusicBrainz Artist Id"
+        
+        map["musicbrainz_artist_url"] = "MusicBrainz Artist URLs"
+        
+        map["musicbrainz_artwork_url_type"] = "MusicBrainz Artwork URLs"
+        
+        map["musicbrainz_catalog_number"] = "MusicBrainz Catalog Number"
+        
+        map["musicbrainz disc id"] = "MusicBrainz Disc Id"
+        
+        map["musicbrainz_exception_mask"] = "MusicBrainz Exception Mask"
+        
+        map["musicbrainz_import_settings"] = "MusicBrainz Import Settings"
+        
+        map["musicbrainz_import_time"] = "MusicBrainz Import Time"
+        
+        map["musicbrainz_label_url"] = "MusicBrainz label URLs"
+        
+        map["musicbrainz original album id"] = "MusicBrainz Original Album Id"
+        
+        map["musicbrainz_original_album_url"] = "MusicBrainz Original Album URL"
+        
+        map["musicbrainz track id"] = "MusicBrainz Recording Id"
+        
+        map["musicbrainz_relationship_url_name}"] = "MusicBrainz Relationship URLs"
+        
+        map["musicbrainz album release country"] = "MusicBrainz Release Country"
+        
+        map["musicbrainz release group id"] = "MusicBrainz Release Group Id"
+        
+        map["musicbrainz_release_group_url"] = "MusicBrainz Release Group URL"
+        
+        map["musicbrainz album id"] = "MusicBrainz Release Id"
+        
+        map["musicbrainz album status"] = "MusicBrainz Release Status"
+        
+        map["musicbrainz release track id"] = "MusicBrainz Release Track Id"
+        
+        map["musicbrainz album type"] = "MusicBrainz Release Type"
+        
+        map["musicbrainz_album_url"] = "MusicBrainz Release URL"
+        
+        map["musicbrainz trm id"] = "MusicBrainz TRM Id"
+        
+        map["script"] = "MusicBrainz Script"
+        
+        map["musicbrainz work id"] = "MusicBrainz Work Id"
+        
+        map["musiciancredits"] = "Musician Credits"
+        
+        map["url_official_artist_site"] = "Official Artist/Performer Webpage"
+        
+        map["official_audio_file_url"] = "Official Audio File Webpage"
+        
+        map["official_audio_source_url"] = "Official Audio Source Webpage"
+        
+        map["official_radio_url"] = "Official Internet Radio Station Webpage"
+        
+        map["original album"] = "Original Album"
+        
+        map["original artist"] = "Original Artist"
+        
+        map["original filename"] = "Original Filename"
+        
+        map["original lyricist"] = "Original Lyricist"
+        
+        map["original year"] = "Original Release Time"
+        
+        map["payment_url"] = "Payment Webpage"
+        
+        map["playcount"] = "Play Count"
+        
+        map["pricepaid"] = "Price Paid"
+        
+        map["produced_notice"] = "Produced Notice"
+        
+        map["publisher"] = "Publisher"
+        
+        map["label_url"] = "Publisher's Official Webpage"
+        
+        map["radio_station"] = "Radio Station"
+        
+        map["rating"] = "Rating"
+        
+        map["releasetime"] = "Release Time"
+        
+        map["rememberplaybackposition"] = "Remember Position"
+        
+        map["remixer"] = "Remixer"
+        
+        map["replaygain_album_gain"] = "ReplayGain Album Gain"
+        
+        map["replaygain_album_peak"] = "ReplayGain Album Peak"
+        
+        map["replaygain_track_gain"] = "ReplayGain Track Gain"
+        
+        map["replaygain_track_peak"] = "ReplayGain Track Peak"
+        
+        map["set subtitle"] = "Set Subtitle"
+        
+        map["skipwhenshuffling"] = "Skip When Shuffling"
+        
+        map["itunes_start_time"] = "Start Time"
+        
+        map["station_owner"] = "Station Owner"
+        
+        map["itunes_stop_time"] = "Stop Time"
+        
+        map["taggingtime"] = "Tagging Time"
+        
+        map["termsofuse"] = "Terms of Use"
+        
+        map["tmdb adult content"] = "tMDb Adult Content"
+        
+        map["tmdb name url"] = "tMDb Artwork URLs"
+        
+        map["tmdb budget"] = "tMDb Budget"
+        
+        map["tmdb collection name"] = "tMDb Collection Name"
+        
+        map["commercial_info_url"] = "tMDb Homepage"
+        
+        map["tmdb movie id"] = "tMDb Movie ID"
+        
+        map["tmdb original language"] = "tMDb Original Language (ISO)"
+        
+        map["tmdb original language (iso)"] = "tMDb Original Language (ISO)"
+        
+        map["tmdb production countries"] = "tMDb Production Countries"
+        
+        map["tmdb production countries (iso)"] = "tMDb Production Countries (ISO)"
+        
+        map["tmdb revenue"] = "tMDb Revenue"
+        
+        map["tmdb spoken languages"] = "tMDb Spoken Languages"
+        
+        map["tmdb spoken languages (iso)"] = "tMDb Spoken Languages (ISO)"
+        
+        map["tmdb tv id"] = "tMDb TV ID"
+        
+        map["track number text"] = "Track Position"
+        
+        map["ufid"] = "Unique File Identifier"
+        
+        map["itunes_volume_adjustment"] = "Volume Adjustment"
+        
+        map["yate album id"] = "Yate Album ID"
+        
+        map["yate track id"] = "Yate Track ID"
         
         return map
     }

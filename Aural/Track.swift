@@ -238,7 +238,7 @@ class LazyLoadingInfo {
 class MetadataEntry {
     
     // Type: e.g. ID3 or iTunes
-    let type: MetadataType
+    var type: MetadataType
     
     let keyType: MetadataKeyType
     
