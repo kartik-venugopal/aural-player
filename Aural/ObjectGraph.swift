@@ -44,9 +44,12 @@ class ObjectGraph {
     static var transcoder: TranscoderProtocol!
     static var muxer: MuxerProtocol!
     
-    static var commonMetadataParser: CommonMetadataParser!
+    static var commonAVAssetParser: CommonAVAssetParser!
     static var id3Parser: ID3Parser!
     static var iTunesParser: ITunesParser!
+    
+    static var wmParser: WMParser!
+    
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -124,9 +127,10 @@ class ObjectGraph {
         
         muxer = Muxer()
         
-        commonMetadataParser = CommonMetadataParser()
+        commonAVAssetParser = CommonAVAssetParser()
         id3Parser = ID3Parser()
         iTunesParser = ITunesParser()
+        wmParser = WMParser()
     }
     
     // Called when app exits

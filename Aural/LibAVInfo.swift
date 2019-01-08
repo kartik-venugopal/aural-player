@@ -5,7 +5,7 @@ class LibAVInfo {
     let duration: Double
     let fileFormatDescription: String?
     let streams: [LibAVStream]
-    let metadata: [String: String]
+    let metadata: LibAVMetadata
     let drmProtected: Bool
     
     // Computed values
@@ -19,7 +19,7 @@ class LibAVInfo {
         self.duration = duration
         self.fileFormatDescription = fileFormatDescription
         self.streams = streams
-        self.metadata = metadata
+        self.metadata = LibAVMetadata(metadata)
         self.drmProtected = drmProtected
         
         self.audioStream = streams.isEmpty ? nil : streams.filter({$0.type == .audio}).first
@@ -43,6 +43,15 @@ class LibAVInfo {
         }
         
         audioFormat = audioStream?.format
+    }
+}
+
+class LibAVMetadata {
+    
+    let map: [String: String]
+    
+    init(_ map: [String: String]) {
+        self.map = map
     }
 }
 

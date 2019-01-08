@@ -98,7 +98,7 @@ class MetadataUtils {
             
         case .iTunes:   return ITunesParser.readableKey(entry.key)
             
-        case .wma:  return WMSpec.readableKey(entry.key)
+        case .wma:  return WMParser.readableKey(entry.key)
             
         case .other: return entry.key
             
