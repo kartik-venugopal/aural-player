@@ -74,10 +74,6 @@ class CommonMetadataParser: MetadataParser {
         return nil
     }
     
-    func getLyrics(mapForTrack: MappedMetadata) -> String? {
-        return nil
-    }
-    
     func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
         return nil
     }
@@ -102,6 +98,24 @@ class CommonMetadataParser: MetadataParser {
         }
         
         return nil
+    }
+    
+    func getLyrics(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .common}) {
+            
+            if let key = item.keyAsString, let value = item.valueAsString {
+                metadata[key] = MetadataEntry(.common, key, value)
+            }
+        }
+        
+        return metadata
     }
     
     static func readableKey(_ key: String) -> String {

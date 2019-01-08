@@ -28,7 +28,7 @@ fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKe
 fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
 
-fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_band, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
+fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
 /*  
  Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
@@ -714,5 +714,19 @@ class ID3Parser: MetadataParser {
         }
         
         return nil
+    }
+    
+    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .id3}) {
+            
+            if let key = item.keyAsString, let value = item.valueAsString {
+                metadata[key] = MetadataEntry(.id3, key, value)
+            }
+        }
+        
+        return metadata
     }
 }

@@ -28,6 +28,8 @@ protocol MetadataParser {
     
     func getArt(_ asset: AVURLAsset) -> NSImage?
     
+    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry]
+    
     // For a format-specific key, return a descriptive user-friendly key
     static func readableKey(_ key: String) -> String
 }
