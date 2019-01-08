@@ -8,6 +8,8 @@ protocol MetadataParser {
     
     func mapTrack(_ track: Track, _ mapForTrack: MappedMetadata)
     
+    func getDuration(mapForTrack: MappedMetadata) -> Double?
+    
     func getTitle(mapForTrack: MappedMetadata) -> String?
     
     func getArtist(mapForTrack: MappedMetadata) -> String?

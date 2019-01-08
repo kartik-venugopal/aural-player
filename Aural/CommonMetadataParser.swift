@@ -34,6 +34,10 @@ class CommonMetadataParser: MetadataParser {
         }
     }
     
+    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+        return nil
+    }
+    
     func getTitle(mapForTrack: MappedMetadata) -> String? {
         
         if let titleItem = mapForTrack.map[key_title] {
