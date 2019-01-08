@@ -214,6 +214,10 @@ class ITunesParser: MetadataParser {
         }
     }
     
+    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+        return nil
+    }
+    
     func getTitle(mapForTrack: MappedMetadata) -> String? {
         
         for key in [commonKey_title, key_title] {
@@ -789,6 +793,10 @@ class ITunesLongFormSpec: MetadataParser {
 //                }
 //            }
 //        }
+    }
+    
+    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+        return nil
     }
     
     func getTitle(mapForTrack: MappedMetadata) -> String? {

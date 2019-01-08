@@ -28,7 +28,7 @@ fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKe
 fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
 
-fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_band, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
+fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_band, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
 /*  
  Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
@@ -511,6 +511,15 @@ class ID3Parser: MetadataParser {
                 }
             }
         }
+    }
+    
+    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+        
+        if let item = mapForTrack.map[key_duration], let durationStr = item.stringValue, let durationMsecs = Double(durationStr) {
+            return durationMsecs / 1000
+        }
+        
+        return nil
     }
     
     func getTitle(mapForTrack: MappedMetadata) -> String? {

@@ -4,7 +4,6 @@ import AVFoundation
 class AVAssetReader: MetadataReader {
     
     private let parsers: [MetadataParser] = [ObjectGraph.commonMetadataParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
-//    private let parsers: [MetadataParser] = [ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
     
     private var metadataMap: ConcurrentMap<Track, MappedMetadata> = ConcurrentMap<Track, MappedMetadata>("metadataMap")
     
@@ -43,6 +42,25 @@ class AVAssetReader: MetadataReader {
     
     private func nilIfEmpty(_ string: String?) -> String? {
         return StringUtils.isStringEmpty(string) ? nil : string
+    }
+    
+    func getDuration(_ track: Track) -> Double {
+        
+        // Mux raw streams into containers to get accurate duration data (necessary for proper playback)
+        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.muxForDuration(track) {
+            return trackDuration
+        }
+        
+        var maxDuration: Double = track.audioAsset!.duration.seconds
+        
+        for parser in parsers {
+            
+            if let map = metadataMap.getForKey(track), let duration = parser.getDuration(mapForTrack: map), duration > maxDuration {
+                maxDuration = duration
+            }
+        }
+        
+        return maxDuration
     }
     
     private func getTitle(_ track: Track) -> String? {
@@ -114,27 +132,6 @@ class AVAssetReader: MetadataReader {
         let lyrics = nilIfEmpty(getLyrics(track))
         
         return SecondaryMetadata(discInfo?.number, discInfo?.total, trackInfo?.number, trackInfo?.total, lyrics)
-    }
-    
-    // Loads duration metadata for a track, if available
-    func getDuration(_ track: Track) -> Double {
-        
-        // Mux raw streams into containers to get accurate duration data (necessary for proper playback)
-        if muxer.trackNeedsMuxing(track), let trackDuration = muxer.muxForDuration(track) {
-            return trackDuration
-        }
-        
-//        var tlenDuration: Double = 0
-//
-//        if let map = metadataMap.getForKey(track)?.map, let tlenItem = map[id3Key_duration], let tlenValue = tlenItem.stringValue, let durationMsecs = Double(tlenValue) {
-//            tlenDuration = durationMsecs / 1000
-//        }
-//
-//        let assetDuration = track.audioAsset!.duration.seconds
-//
-//        return max(tlenDuration, assetDuration)
-        
-        return 5
     }
     
     func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
