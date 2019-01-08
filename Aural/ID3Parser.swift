@@ -28,6 +28,12 @@ fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKe
 fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
 
+// Special keys
+fileprivate let key_TXXX: String = AVMetadataKey.id3MetadataKeyUserText.rawValue
+fileprivate let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist", "compatible_brands": "Compatible Brands", "gn_extdata": "Gracenote Data"]
+
+fileprivate let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue
+
 fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
 /*  
@@ -50,6 +56,316 @@ class ID3Parser: MetadataParser {
     static func genreForCode(_ code: Int) -> String? {
         return genresMap[code]
     }
+    
+    func mapTrack(_ track: Track, _ mapForTrack: MappedMetadata) {
+        
+        let items = track.audioAsset!.metadata
+        
+        for item in items {
+            
+            if item.keySpace == AVMetadataKeySpace.id3, let key = item.keyAsString {
+                
+                let mapKey = String(format: "%@/%@", keySpace, key)
+                
+                if essentialFieldKeys.contains(mapKey) {
+                    mapForTrack.map[mapKey] = item
+                } else {
+                    // Generic field
+                    mapForTrack.genericMap[mapKey] = item
+                }
+            }
+        }
+    }
+    
+    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+        
+        if let item = mapForTrack.map[key_duration], let durationStr = item.stringValue, let durationMsecs = Double(durationStr) {
+            return durationMsecs / 1000
+        }
+        
+        return nil
+    }
+    
+    func getTitle(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [commonKey_title, key_title] {
+            
+            if let titleItem = mapForTrack.map[key] {
+                return titleItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getArtist(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [commonKey_artist, key_artist] {
+            
+            if let artistItem = mapForTrack.map[key] {
+                return artistItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getAlbum(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [commonKey_album, key_album] {
+            
+            if let albumItem = mapForTrack.map[key] {
+                return albumItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getGenre(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [commonKey_genre, key_genre] {
+            
+            if let genreItem = mapForTrack.map[key] {
+                
+                if let str = genreItem.stringValue {
+                    
+                    return parseGenreNumericString(str)
+                    
+                } else if let data = genreItem.dataValue {
+                    
+                    // Parse as hex string
+                    let code = Int(data.hexEncodedString(), radix: 16)!
+                    return ID3Parser.genreForCode(code)
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    private func parseGenreNumericString(_ string: String) -> String {
+        
+        let decimalChars = CharacterSet.decimalDigits
+        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
+        
+        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
+        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
+            
+            // Need to parse the number
+            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
+            if let genreCode = Int(numberStr) {
+                
+                // Look up genreId in ID3 table
+                return ID3Parser.genreForCode(genreCode) ?? string
+            }
+        }
+        
+        return string
+    }
+    
+    func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_discNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
+        return nil
+    }
+    
+    func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_trackNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
+        return nil
+    }
+    
+    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
+        
+        if let number = item.numberValue {
+            return (number.intValue, nil)
+        }
+        
+        if let stringValue = item.stringValue {
+            
+            // Parse string (e.g. "2 / 13")
+            
+            if let num = Int(stringValue) {
+                return (num, nil)
+            }
+            
+            let tokens = stringValue.split(separator: "/")
+            
+            if !tokens.isEmpty {
+                
+                let s1 = tokens[0].trim()
+                var s2: String?
+                
+                let n1: Int? = Int(s1)
+                var n2: Int?
+                
+                if tokens.count > 1 {
+                    s2 = tokens[1].trim()
+                    n2 = Int(s2!)
+                }
+                
+                return (n1, n2)
+            }
+            
+        } else if let dataValue = item.dataValue {
+            
+            // Parse data
+            let hexString = dataValue.hexEncodedString()
+            
+            if hexString.count >= 8 {
+                
+                let s1: String = hexString.substring(range: 4..<8)
+                let n1: Int? = Int(s1, radix: 16)
+                
+                var s2: String?
+                var n2: Int?
+                
+                if hexString.count >= 12 {
+                    s2 = hexString.substring(range: 8..<12)
+                    n2 = Int(s2!, radix: 16)
+                }
+                
+                return (n1, n2)
+                
+            } else if hexString.count >= 4 {
+                
+                // Only one number
+                
+                let s1: String = String(hexString.prefix(4))
+                let n1: Int? = Int(s1, radix: 16)
+                return (n1, nil)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getArt(mapForTrack: MappedMetadata) -> NSImage? {
+        
+        for key in [commonKey_art, key_art] {
+            
+            if let item = mapForTrack.map[key], let imgData = item.dataValue {
+                return NSImage(data: imgData)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getArt(_ asset: AVURLAsset) -> NSImage? {
+        
+        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
+            return NSImage(data: imgData)
+        }
+        
+        return nil
+    }
+    
+    func getLyrics(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [key_lyrics, key_syncLyrics] {
+            
+            if let lyricsItem = mapForTrack.map[key] {
+                return lyricsItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .id3}) {
+            
+            if let key = item.keyAsString, let value = item.valueAsString {
+                
+                var entryKey = key
+                var entryValue = value
+                
+                // Special fields
+                if key == key_TXXX, let attrs = item.extraAttributes, !attrs.isEmpty {
+                    
+                    // TXXX
+                    
+                    if let infoKey = mapTXXX(attrs) {
+                        entryKey = infoKey
+                    }
+                    
+                } else if key == key_GEOB, let attrs = item.extraAttributes, !attrs.isEmpty {
+                    
+                    // GEOB
+                    
+                    let kv = mapGEOB(attrs)
+                    if let infoKey = kv.key {
+                        entryKey = infoKey
+                    }
+                    
+                    if let objVal = kv.value {
+                        entryValue = objVal
+                    }
+                }
+                
+                metadata[entryKey] = MetadataEntry(.id3, entryKey, entryValue)
+            }
+        }
+        
+        return metadata
+    }
+    
+    private func mapGEOB(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> (key: String?, value: String?) {
+     
+        var info: String?
+        var value: String = ""
+        
+        for (k, v) in attrs {
+            
+            let key = k.rawValue
+            let aValue = String(describing: v)
+            
+            if key == "info" {
+                info = aValue
+            } else if !StringUtils.isStringEmpty(aValue) {
+                value += String(format: "%@ = %@, ", key, aValue)
+            }
+        }
+        
+        if value.count > 2 {
+            value = value.substring(range: 0..<(value.count - 2))
+        }
+        
+        return (info?.capitalizingFirstLetter(), value.isEmpty ? nil : value)
+    }
+    
+    private func mapTXXX(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> String? {
+        
+        for (k, v) in attrs {
+            
+            let key = k.rawValue
+            let aValue = String(describing: v)
+            
+            if key == "info" {
+                
+                if let rKey = infoKeys_TXXX[aValue.lowercased()] {
+                    return rKey
+                }
+                
+                return aValue.capitalizingFirstLetter()
+            }
+        }
+        
+        return nil
+    }
+    
+    // ------------------------------------------ KEY MAPPINGS -------------------------------------------------
     
     private static func initMap() -> [String: String] {
         
@@ -491,242 +807,5 @@ class ID3Parser: MetadataParser {
         map[148] = "Unknown"
         
         return map
-    }
-    
-    func mapTrack(_ track: Track, _ mapForTrack: MappedMetadata) {
-        
-        let items = track.audioAsset!.metadata
-        
-        for item in items {
-            
-            if item.keySpace == AVMetadataKeySpace.id3, let key = item.keyAsString {
-                
-                let mapKey = String(format: "%@/%@", keySpace, key)
-                
-                if essentialFieldKeys.contains(mapKey) {
-                    mapForTrack.map[mapKey] = item
-                } else {
-                    // Generic field
-                    mapForTrack.genericMap[mapKey] = item
-                }
-            }
-        }
-    }
-    
-    func getDuration(mapForTrack: MappedMetadata) -> Double? {
-        
-        if let item = mapForTrack.map[key_duration], let durationStr = item.stringValue, let durationMsecs = Double(durationStr) {
-            return durationMsecs / 1000
-        }
-        
-        return nil
-    }
-    
-    func getTitle(mapForTrack: MappedMetadata) -> String? {
-        
-        for key in [commonKey_title, key_title] {
-            
-            if let titleItem = mapForTrack.map[key] {
-                return titleItem.stringValue
-            }
-        }
-        
-        return nil
-    }
-    
-    func getArtist(mapForTrack: MappedMetadata) -> String? {
-        
-        for key in [commonKey_artist, key_artist] {
-            
-            if let artistItem = mapForTrack.map[key] {
-                return artistItem.stringValue
-            }
-        }
-        
-        return nil
-    }
-    
-    func getAlbum(mapForTrack: MappedMetadata) -> String? {
-        
-        for key in [commonKey_album, key_album] {
-            
-            if let albumItem = mapForTrack.map[key] {
-                return albumItem.stringValue
-            }
-        }
-        
-        return nil
-    }
-    
-    func getGenre(mapForTrack: MappedMetadata) -> String? {
-        
-        for key in [commonKey_genre, key_genre] {
-            
-            if let genreItem = mapForTrack.map[key] {
-                
-                if let str = genreItem.stringValue {
-                    
-                    return parseGenreNumericString(str)
-                    
-                } else if let data = genreItem.dataValue {
-                    
-                    // Parse as hex string
-                    let code = Int(data.hexEncodedString(), radix: 16)!
-                    return ID3Parser.genreForCode(code)
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-    private func parseGenreNumericString(_ string: String) -> String {
-        
-        let decimalChars = CharacterSet.decimalDigits
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return ID3Parser.genreForCode(genreCode) ?? string
-            }
-        }
-        
-        return string
-    }
-    
-    func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
-        
-        if let item = mapForTrack.map[key_discNumber] {
-            return parseDiscOrTrackNumber(item)
-        }
-        
-        return nil
-    }
-    
-    func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
-        
-        if let item = mapForTrack.map[key_trackNumber] {
-            return parseDiscOrTrackNumber(item)
-        }
-        
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
-        
-        if let number = item.numberValue {
-            return (number.intValue, nil)
-        }
-        
-        if let stringValue = item.stringValue {
-            
-            // Parse string (e.g. "2 / 13")
-            
-            if let num = Int(stringValue) {
-                return (num, nil)
-            }
-            
-            let tokens = stringValue.split(separator: "/")
-            
-            if !tokens.isEmpty {
-                
-                let s1 = tokens[0].trim()
-                var s2: String?
-                
-                let n1: Int? = Int(s1)
-                var n2: Int?
-                
-                if tokens.count > 1 {
-                    s2 = tokens[1].trim()
-                    n2 = Int(s2!)
-                }
-                
-                return (n1, n2)
-            }
-            
-        } else if let dataValue = item.dataValue {
-            
-            // Parse data
-            let hexString = dataValue.hexEncodedString()
-            
-            if hexString.count >= 8 {
-                
-                let s1: String = hexString.substring(range: 4..<8)
-                let n1: Int? = Int(s1, radix: 16)
-                
-                var s2: String?
-                var n2: Int?
-                
-                if hexString.count >= 12 {
-                    s2 = hexString.substring(range: 8..<12)
-                    n2 = Int(s2!, radix: 16)
-                }
-                
-                return (n1, n2)
-                
-            } else if hexString.count >= 4 {
-                
-                // Only one number
-                
-                let s1: String = String(hexString.prefix(4))
-                let n1: Int? = Int(s1, radix: 16)
-                return (n1, nil)
-            }
-        }
-        
-        return nil
-    }
-    
-    func getArt(mapForTrack: MappedMetadata) -> NSImage? {
-        
-        for key in [commonKey_art, key_art] {
-            
-            if let item = mapForTrack.map[key], let imgData = item.dataValue {
-                return NSImage(data: imgData)
-            }
-        }
-        
-        return nil
-    }
-    
-    func getArt(_ asset: AVURLAsset) -> NSImage? {
-        
-        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
-            return NSImage(data: imgData)
-        }
-        
-        return nil
-    }
-    
-    func getLyrics(mapForTrack: MappedMetadata) -> String? {
-        
-        for key in [key_lyrics, key_syncLyrics] {
-            
-            if let lyricsItem = mapForTrack.map[key] {
-                return lyricsItem.stringValue
-            }
-        }
-        
-        return nil
-    }
-    
-    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry] {
-        
-        var metadata: [String: MetadataEntry] = [:]
-        
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .id3}) {
-            
-            if let key = item.keyAsString, let value = item.valueAsString {
-                metadata[key] = MetadataEntry(.id3, key, value)
-            }
-        }
-        
-        return metadata
     }
 }
