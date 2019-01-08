@@ -29,10 +29,11 @@ fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMeta
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
 
 // Special keys
-fileprivate let key_TXXX: String = AVMetadataKey.id3MetadataKeyUserText.rawValue
+fileprivate let replaceableKeyFields: [String] = [AVMetadataKey.id3MetadataKeyUserText.rawValue, AVMetadataKey.id3MetadataKeyComments.rawValue]
 fileprivate let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist", "compatible_brands": "Compatible Brands", "gn_extdata": "Gracenote Data"]
 
 fileprivate let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue
+fileprivate let key_playCounter: String = AVMetadataKey.id3MetadataKeyPlayCounter.rawValue
 
 fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
@@ -292,11 +293,11 @@ class ID3Parser: MetadataParser {
                 var entryValue = value
                 
                 // Special fields
-                if key == key_TXXX, let attrs = item.extraAttributes, !attrs.isEmpty {
+                if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
                     
-                    // TXXX
+                    // TXXX or COMM
                     
-                    if let infoKey = mapTXXX(attrs) {
+                    if let infoKey = mapReplaceableKeyField(attrs) {
                         entryKey = infoKey
                     }
                     
@@ -312,7 +313,15 @@ class ID3Parser: MetadataParser {
                     if let objVal = kv.value {
                         entryValue = objVal
                     }
+                    
+                } else if key == key_playCounter {
+                    
+                    // PCNT
+                    entryValue = item.valueAsNumericalString
                 }
+                
+                entryKey = StringUtils.cleanUpString(entryKey)
+                entryValue = StringUtils.cleanUpString(entryValue)
                 
                 metadata[entryKey] = MetadataEntry(.id3, entryKey, entryValue)
             }
@@ -345,7 +354,7 @@ class ID3Parser: MetadataParser {
         return (info?.capitalizingFirstLetter(), value.isEmpty ? nil : value)
     }
     
-    private func mapTXXX(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> String? {
+    private func mapReplaceableKeyField(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> String? {
         
         for (k, v) in attrs {
             
