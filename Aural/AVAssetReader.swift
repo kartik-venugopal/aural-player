@@ -36,8 +36,6 @@ class AVAssetReader: MetadataReader {
         let album = nilIfEmpty(getAlbum(track)?.trim())
         let genre = nilIfEmpty(getGenre(track)?.trim())
         
-//        print("Genre for", track.file.lastPathComponent, "=", genre != nil ? genre! : "nil")
-        
         let duration = getDuration(track)
         
         return PrimaryMetadata(title, artist, album, genre, duration)

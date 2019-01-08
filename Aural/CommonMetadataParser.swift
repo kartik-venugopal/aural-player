@@ -83,10 +83,20 @@ class CommonMetadataParser: MetadataParser {
     }
     
     func getArt(mapForTrack: MappedMetadata) -> NSImage? {
+        
+        if let item = mapForTrack.map[key_art], let imgData = item.dataValue {
+            return NSImage(data: imgData)
+        }
+        
         return nil
     }
     
     func getArt(_ asset: AVURLAsset) -> NSImage? {
+        
+        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
+            return NSImage(data: imgData)
+        }
+        
         return nil
     }
     

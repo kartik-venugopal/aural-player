@@ -14,18 +14,21 @@ fileprivate let key_band = String(format: "%@/%@", keySpace, AVMetadataKey.id3Me
 
 fileprivate let key_album = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
 fileprivate let commonKey_album = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyAlbumName.rawValue)
-fileprivate let key_origAlbum = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyOriginalAlbumTitle.rawValue)
 
 fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyContentType.rawValue)
 fileprivate let commonKey_genre = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyType.rawValue)
 
 fileprivate let key_discNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue)
 fileprivate let key_trackNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue)
+
 fileprivate let key_lyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue)
 fileprivate let key_syncLyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
-fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
 
-fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_band, key_album, commonKey_album, key_origAlbum, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
+fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
+fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
+fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
+
+fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_band, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
 /*  
  Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
@@ -588,10 +591,6 @@ class ID3Parser: MetadataParser {
         return string
     }
     
-    func getLyrics(mapForTrack: MappedMetadata) -> String? {
-        return nil
-    }
-    
     func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_discNumber] {
@@ -676,10 +675,35 @@ class ID3Parser: MetadataParser {
     }
     
     func getArt(mapForTrack: MappedMetadata) -> NSImage? {
+        
+        for key in [commonKey_art, key_art] {
+            
+            if let item = mapForTrack.map[key], let imgData = item.dataValue {
+                return NSImage(data: imgData)
+            }
+        }
+        
         return nil
     }
     
     func getArt(_ asset: AVURLAsset) -> NSImage? {
+        
+        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
+            return NSImage(data: imgData)
+        }
+        
+        return nil
+    }
+    
+    func getLyrics(mapForTrack: MappedMetadata) -> String? {
+        
+        for key in [key_lyrics, key_syncLyrics] {
+            
+            if let lyricsItem = mapForTrack.map[key] {
+                return lyricsItem.stringValue
+            }
+        }
+        
         return nil
     }
 }
