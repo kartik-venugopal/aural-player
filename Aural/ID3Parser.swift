@@ -593,10 +593,20 @@ class ID3Parser: MetadataParser {
     }
     
     func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_discNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
         return nil
     }
     
     func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_trackNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
         return nil
     }
     
@@ -651,6 +661,14 @@ class ID3Parser: MetadataParser {
                 }
                 
                 return (n1, n2)
+                
+            } else if hexString.count >= 4 {
+                
+                // Only one number
+                
+                let s1: String = String(hexString.prefix(4))
+                let n1: Int? = Int(s1, radix: 16)
+                return (n1, nil)
             }
         }
         
