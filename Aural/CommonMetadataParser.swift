@@ -20,7 +20,7 @@ class CommonMetadataParser: MetadataParser {
         
         for item in items {
             
-            if let key = item.commonKeyAsString {
+            if item.keySpace == AVMetadataKeySpace.common, let key = item.commonKeyAsString {
                 
                 let mapKey = String(format: "%@/%@", keySpace, key)
                 

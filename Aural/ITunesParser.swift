@@ -22,7 +22,7 @@ fileprivate let key_lyrics = String(format: "%@/%@", keySpace, AVMetadataKey.iTu
 fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue)
 fileprivate let iTunesId_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
 
-fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_art]
+fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_art]
 
 /*
     Specification for the iTunes metadata format.
@@ -290,15 +290,86 @@ class ITunesParser: MetadataParser {
         return string
     }
     
-    func getLyrics(mapForTrack: MappedMetadata) -> String? {
-        return nil
-    }
-    
     func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_discNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
         return nil
     }
     
     func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        
+        if let item = mapForTrack.map[key_trackNumber] {
+            return parseDiscOrTrackNumber(item)
+        }
+        
+        return nil
+    }
+    
+    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
+        
+        if let number = item.numberValue {
+            return (number.intValue, nil)
+        }
+        
+        if let stringValue = item.stringValue {
+            
+            // Parse string (e.g. "2 / 13")
+            
+            if let num = Int(stringValue) {
+                return (num, nil)
+            }
+            
+            let tokens = stringValue.split(separator: "/")
+            
+            if !tokens.isEmpty {
+                
+                let s1 = tokens[0].trim()
+                var s2: String?
+                
+                let n1: Int? = Int(s1)
+                var n2: Int?
+                
+                if tokens.count > 1 {
+                    s2 = tokens[1].trim()
+                    n2 = Int(s2!)
+                }
+                
+                return (n1, n2)
+            }
+            
+        } else if let dataValue = item.dataValue {
+            
+            // Parse data
+            let hexString = dataValue.hexEncodedString()
+            
+            if hexString.count >= 8 {
+                
+                let s1: String = hexString.substring(range: 4..<8)
+                let n1: Int? = Int(s1, radix: 16)
+                
+                var s2: String?
+                var n2: Int?
+                
+                if hexString.count >= 12 {
+                    s2 = hexString.substring(range: 8..<12)
+                    n2 = Int(s2!, radix: 16)
+                }
+                
+                return (n1, n2)
+                
+            } else if hexString.count >= 4 {
+                
+                // Only one number
+                
+                let s1: String = String(hexString.prefix(4))
+                let n1: Int? = Int(s1, radix: 16)
+                return (n1, nil)
+            }
+        }
+        
         return nil
     }
     
@@ -307,6 +378,10 @@ class ITunesParser: MetadataParser {
     }
     
     func getArt(_ asset: AVURLAsset) -> NSImage? {
+        return nil
+    }
+    
+    func getLyrics(mapForTrack: MappedMetadata) -> String? {
         return nil
     }
 }
