@@ -1,11 +1,13 @@
 import Cocoa
 import AVFoundation
 
-fileprivate let key_title = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyTitle.rawValue)
-fileprivate let key_artist = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyArtist.rawValue)
-fileprivate let key_album = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyAlbumName.rawValue)
-fileprivate let key_genre = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyType.rawValue)
-fileprivate let key_art: String = String(format: "%@/%@", AVMetadataKeySpace.common.rawValue, AVMetadataKey.commonKeyArtwork.rawValue)
+fileprivate let keySpace: String = AVMetadataKeySpace.common.rawValue
+
+fileprivate let key_title = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyTitle.rawValue)
+fileprivate let key_artist = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtist.rawValue)
+fileprivate let key_album = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyAlbumName.rawValue)
+fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyType.rawValue)
+fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
 
 fileprivate let essentialFieldKeys: [String] = [key_title, key_artist, key_album, key_genre, key_art]
@@ -20,29 +22,51 @@ class CommonMetadataParser: MetadataParser {
             
             if let key = item.commonKeyAsString {
                 
-                if essentialFieldKeys.contains(key) {
-                    mapForTrack.map[key] = item
+                let mapKey = String(format: "%@/%@", keySpace, key)
+                
+                if essentialFieldKeys.contains(mapKey) {
+                    mapForTrack.map[mapKey] = item
                 } else {
                     // Generic field
-                    mapForTrack.genericMap[key] = item
+                    mapForTrack.genericMap[mapKey] = item
                 }
             }
         }
     }
     
     func getTitle(mapForTrack: MappedMetadata) -> String? {
+        
+        if let titleItem = mapForTrack.map[key_title] {
+            return titleItem.stringValue
+        }
+        
         return nil
     }
     
     func getArtist(mapForTrack: MappedMetadata) -> String? {
+        
+        if let artistItem = mapForTrack.map[key_artist] {
+            return artistItem.stringValue
+        }
+        
         return nil
     }
     
     func getAlbum(mapForTrack: MappedMetadata) -> String? {
+        
+        if let albumItem = mapForTrack.map[key_album] {
+            return albumItem.stringValue
+        }
+        
         return nil
     }
     
     func getGenre(mapForTrack: MappedMetadata) -> String? {
+        
+        if let genreItem = mapForTrack.map[key_genre] {
+            return genreItem.stringValue
+        }
+        
         return nil
     }
     
