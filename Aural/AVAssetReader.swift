@@ -140,22 +140,13 @@ class AVAssetReader: MetadataReader {
         
         var metadata: [String: MetadataEntry] = [:]
 
-        if let map = metadataMap.getForKey(track)?.genericMap {
+        if let map = metadataMap.getForKey(track) {
 
-//            for (_, item) in map {
-//
-//                if let key = item.keyAsString, let value = item.valueAsString {
-//                    metadata[key] = MetadataEntry(item.metadataType, key, value)
-//                }
-//
-//                if let extras = item.extraAttributes, !extras.isEmpty {
-//
-//                    print("\nTrack", track.conciseDisplayName, item.keyAsString, "has", extras.count, "EXTRAS !!!")
-//                    for (k, v) in extras {
-//                        print("\tEXTRA:", k.rawValue, v)
-//                    }
-//                }
-//            }
+            for parser in parsers {
+                
+                let parserMetadata = parser.getGenericMetadata(mapForTrack: map)
+                parserMetadata.forEach({(k,v) in metadata[k] = v})
+            }
         }
         
         return metadata
@@ -305,29 +296,5 @@ extension AVMetadataItem {
         }
         
         return nil
-    }
-    
-    var metadataType: MetadataType {
-        
-        if commonKey != nil {
-            return .common
-        }
-        
-        if let keyspace = self.keySpace {
-            
-            switch keyspace.rawValue {
-                
-            case AVMetadataKeySpace.common.rawValue:     return .common
-                
-            case AVMetadataKeySpace.iTunes.rawValue, ITunesLongFormSpec.keySpaceID:     return .iTunes
-                
-            case AVMetadataKeySpace.id3.rawValue:        return .id3
-                
-            default:    return .other
-                
-            }
-        }
-        
-        return .other
     }
 }
