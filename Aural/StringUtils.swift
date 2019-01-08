@@ -249,6 +249,13 @@ class StringUtils {
         return string!.trim().isEmpty
     }
     
+    static func cleanUpString(_ string: String) -> String {
+        
+        var cleanStr = string.removingPercentEncoding ?? string
+        cleanStr = cleanStr.replacingOccurrences(of: "\0", with: "")    // Remove null characters
+        return cleanStr
+    }
+    
     // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label) 
     static func numberOfLines(_ text: String, _ font: NSFont, _ lineWidth: CGFloat) -> Int {
         

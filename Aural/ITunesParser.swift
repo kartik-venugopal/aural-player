@@ -56,7 +56,7 @@ class ITunesParser: MetadataParser {
                 
                 let finalKey = trimmedKey.trim().trimmingCharacters(in: CharacterSet(charactersIn: ":;|-."))
                 
-                if let rKey = map[finalKey] {
+                if let rKey = map_longForm[finalKey] {
                     
                     return rKey
                     
@@ -101,6 +101,18 @@ class ITunesParser: MetadataParser {
                 // Generic field
                 mapForTrack.genericMap[key] = item
             }
+            
+//            if let attrs = item.extraAttributes, attrs.count > 0 {
+//
+//                for (a,v) in attrs {
+//
+//                    let s = String(describing: v)
+//
+//                    if !StringUtils.isStringEmpty(s) {
+//                        print("Xtra for", item.keyAsString, a.rawValue, s)
+//                    }
+//                }
+//            }
         }
     }
     
@@ -306,7 +318,7 @@ class ITunesParser: MetadataParser {
         for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == ITunesParser.longForm_keySpaceID}) {
             
             if let key = item.keyAsString, let value = item.valueAsString {
-                metadata[key] = MetadataEntry(.iTunes, key, value)
+                metadata[key] = MetadataEntry(.iTunes, StringUtils.cleanUpString(key), StringUtils.cleanUpString(value))
             }
         }
         
@@ -557,9 +569,7 @@ class ITunesParser: MetadataParser {
         
         map["country"] = "Country"
         
-        map["cuesheet"] = "CUESHEET"
-        
-        map["user configurable"] = "Custom 0...99"
+        map["cuesheet"] = "Cuesheet"
         
         map["discogs_albumartist_url"] = "Discogs Album Artist URLs"
         

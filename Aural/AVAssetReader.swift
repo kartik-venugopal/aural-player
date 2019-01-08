@@ -297,4 +297,21 @@ extension AVMetadataItem {
         
         return nil
     }
+    
+    var valueAsNumericalString: String {
+        
+        if !StringUtils.isStringEmpty(self.stringValue), let num = Int(self.stringValue!) {
+            return String(describing: num)
+        }
+        
+        if let number = self.numberValue {
+            return String(describing: number)
+        }
+        
+        if let data = self.dataValue, let num = Int(data.hexEncodedString(), radix: 16) {
+            return String(describing: num)
+        }
+        
+        return "0"
+    }
 }
