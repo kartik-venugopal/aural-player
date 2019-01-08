@@ -3,6 +3,7 @@ import AVFoundation
 
 class AVAssetReader: MetadataReader {
     
+//    private let parsers: [MetadataParser] = [ObjectGraph.commonMetadataParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
     private let parsers: [MetadataParser] = [ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
     
     private var metadataMap: ConcurrentMap<Track, MappedMetadata> = ConcurrentMap<Track, MappedMetadata>("metadataMap")

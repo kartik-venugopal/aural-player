@@ -44,6 +44,7 @@ class ObjectGraph {
     static var transcoder: TranscoderProtocol!
     static var muxer: MuxerProtocol!
     
+    static var commonMetadataParser: CommonMetadataParser!
     static var id3Parser: ID3Parser!
     static var iTunesParser: ITunesParser!
     
@@ -123,6 +124,7 @@ class ObjectGraph {
         
         muxer = Muxer()
         
+        commonMetadataParser = CommonMetadataParser()
         id3Parser = ID3Parser()
         iTunesParser = ITunesParser()
     }
