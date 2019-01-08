@@ -3,9 +3,9 @@ import AVFoundation
 
 class AVAssetReader: MetadataReader {
     
-    private let parsers: [MetadataParser] = [ObjectGraph.commonMetadataParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
+    private let parsers: [AVAssetParser] = [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
     
-    private var metadataMap: ConcurrentMap<Track, MappedMetadata> = ConcurrentMap<Track, MappedMetadata>("metadataMap")
+    private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
     
     private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
     
@@ -21,7 +21,7 @@ class AVAssetReader: MetadataReader {
     
     private func mapMetadata(_ track: Track) {
         
-        let mapForTrack = MappedMetadata()
+        let mapForTrack = AVAssetMetadata()
         parsers.forEach({$0.mapTrack(track, mapForTrack)})
         metadataMap.put(track, mapForTrack)
     }
@@ -30,10 +30,10 @@ class AVAssetReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let title = nilIfEmpty(getTitle(track)?.trim())
-        let artist = nilIfEmpty(getArtist(track)?.trim())
-        let album = nilIfEmpty(getAlbum(track)?.trim())
-        let genre = nilIfEmpty(getGenre(track)?.trim())
+        let title = nilIfEmpty(getTitle(track))
+        let artist = nilIfEmpty(getArtist(track))
+        let album = nilIfEmpty(getAlbum(track))
+        let genre = nilIfEmpty(getGenre(track))
         
         let duration = getDuration(track)
         
@@ -244,7 +244,7 @@ extension Data {
     }
 }
 
-class MappedMetadata {
+class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
     var genericMap: [String: AVMetadataItem] = [:]

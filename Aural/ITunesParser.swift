@@ -29,7 +29,7 @@ fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_
 /*
  Specification for the iTunes metadata format.
  */
-class ITunesParser: MetadataParser {
+class ITunesParser: AVAssetParser {
     
     static let longForm_keySpaceID: String = "itlk"
     private static let iTunesPrefix: String = "com.apple.itunes"
@@ -79,7 +79,7 @@ class ITunesParser: MetadataParser {
         return lastToken == nil ? nil : String(lastToken!)
     }
     
-    func mapTrack(_ track: Track, _ mapForTrack: MappedMetadata) {
+    func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
         let items = track.audioAsset!.metadata
         
@@ -116,11 +116,11 @@ class ITunesParser: MetadataParser {
         }
     }
     
-    func getDuration(mapForTrack: MappedMetadata) -> Double? {
+    func getDuration(mapForTrack: AVAssetMetadata) -> Double? {
         return nil
     }
     
-    func getTitle(mapForTrack: MappedMetadata) -> String? {
+    func getTitle(mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_title, key_title] {
             
@@ -132,7 +132,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getArtist(mapForTrack: MappedMetadata) -> String? {
+    func getArtist(mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_artist, key_artist] {
             
@@ -144,7 +144,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getAlbum(mapForTrack: MappedMetadata) -> String? {
+    func getAlbum(mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_album, key_album] {
             
@@ -156,7 +156,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getGenre(mapForTrack: MappedMetadata) -> String? {
+    func getGenre(mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_genre, key_genre, key_predefGenre] {
             
@@ -198,7 +198,7 @@ class ITunesParser: MetadataParser {
         return string
     }
     
-    func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_discNumber] {
             return parseDiscOrTrackNumber(item)
@@ -207,7 +207,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_trackNumber] {
             return parseDiscOrTrackNumber(item)
@@ -281,7 +281,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getArt(mapForTrack: MappedMetadata) -> NSImage? {
+    func getArt(mapForTrack: AVAssetMetadata) -> NSImage? {
         
         for key in [commonKey_art, key_art] {
             
@@ -302,7 +302,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getLyrics(mapForTrack: MappedMetadata) -> String? {
+    func getLyrics(mapForTrack: AVAssetMetadata) -> String? {
         
         if let lyricsItem = mapForTrack.map[key_lyrics] {
             return lyricsItem.stringValue
@@ -311,7 +311,7 @@ class ITunesParser: MetadataParser {
         return nil
     }
     
-    func getGenericMetadata(mapForTrack: MappedMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
