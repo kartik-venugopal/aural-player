@@ -238,3 +238,14 @@ class NoTitleBarPanel: NSPanel {
         self.titlebarAppearsTransparent = true
     }
 }
+
+extension String {
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + (self.count > 1 ? self.substring(range: 1..<self.count) : "")
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}

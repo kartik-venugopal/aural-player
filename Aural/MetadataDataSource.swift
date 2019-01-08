@@ -161,6 +161,7 @@ class MetadataDataSource: TrackInfoDataSource {
             
             // If both entries are of the same metadata type (e.g. both are iTunes), compare their formatted keys (ascending order)
             if t1 == t2 {
+                // TODO: Format key only once
                 return e1.entry.formattedKey() < e2.entry.formattedKey()
             }
             

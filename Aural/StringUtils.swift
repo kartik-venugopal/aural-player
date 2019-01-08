@@ -246,12 +246,7 @@ class StringUtils {
             return true
         }
         
-        return trimString(string!).isEmpty
-    }
-    
-    // Trims all whitespace from a string and returns the result
-    static func trimString(_ string: String) -> String {
-        return string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return string!.trim().isEmpty
     }
     
     // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label) 
@@ -304,22 +299,6 @@ class StringUtils {
         }
         
         return str
-    }
-    
-    static func parseFirstNumber(_ string: String) -> Int? {
-        
-        // No separator in string
-        if let num = Int(string) {
-            return num
-        }
-        
-        // Separator '/' in string
-        let tokens = string.split(separator: Character("/"))
-        if let token = tokens.first, let num = Int(trimString(token + "")) {
-            return num
-        }
-        
-        return nil
     }
 }
 

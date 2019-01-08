@@ -8,127 +8,14 @@ class ITunesSpec: MetadataSpec {
     
     // Mappings of format-specific keys to readable keys
     private static var mapByKey: [String: String] = initMapByKey()
-    private static var mapByID: [String: String] = initMapByID()
     
-    static func readableKey(_ key: String) -> String? {
+    static func readableKey(_ key: String) -> String {
         
         if let rKey = mapByKey[key] {
             return rKey
         }
         
         return ITunesLongFormSpec.readableKey(key)
-    }
-    
-    static func readableKeyByID(_ id: String) -> String? {
-        
-        if let rKey = mapByID[id] {
-            return rKey
-        }
-        
-        return ITunesLongFormSpec.readableKeyByID(id)
-    }
-    
-    private static func initMapByID() -> [String: String] {
-        
-        var map: [String: String] = [:]
-        
-        map[AVMetadataIdentifier.iTunesMetadataAlbum.rawValue] = "Album"
-        
-        map[AVMetadataIdentifier.iTunesMetadataArtist.rawValue] = "Artist"
-        
-        map[AVMetadataIdentifier.iTunesMetadataUserComment.rawValue] = "User Comment"
-        
-        map[AVMetadataIdentifier.iTunesMetadataCoverArt.rawValue] = "Cover Art"
-        
-        map[AVMetadataIdentifier.iTunesMetadataCopyright.rawValue] = "Copyright"
-        
-        map[AVMetadataIdentifier.iTunesMetadataReleaseDate.rawValue] = "Release Date"
-        
-        map[AVMetadataIdentifier.iTunesMetadataEncodedBy.rawValue] = "Encoded By"
-        
-        map[AVMetadataIdentifier.iTunesMetadataPredefinedGenre.rawValue] = "Predefined Genre"
-        
-        map[AVMetadataIdentifier.iTunesMetadataUserGenre.rawValue] = "User Genre"
-        
-        map[AVMetadataIdentifier.iTunesMetadataSongName.rawValue] = "Song Name"
-        
-        map[AVMetadataIdentifier.iTunesMetadataTrackSubTitle.rawValue] = "Track Sub Title"
-        
-        map[AVMetadataIdentifier.iTunesMetadataEncodingTool.rawValue] = "Encoding Tool"
-        
-        map[AVMetadataIdentifier.iTunesMetadataComposer.rawValue] = "Composer"
-        
-        map[AVMetadataIdentifier.iTunesMetadataAlbumArtist.rawValue] = "Album Artist"
-        
-        map[AVMetadataIdentifier.iTunesMetadataAccountKind.rawValue] = "Account Kind"
-        
-        map[AVMetadataIdentifier.iTunesMetadataAppleID.rawValue] = "Apple ID"
-        
-        map[AVMetadataIdentifier.iTunesMetadataArtistID.rawValue] = "Artist ID"
-        
-        map[AVMetadataIdentifier.iTunesMetadataSongID.rawValue] = "Song ID"
-        
-        map[AVMetadataIdentifier.iTunesMetadataDiscCompilation.rawValue] = "Disc Compilation"
-        
-        map[AVMetadataIdentifier.iTunesMetadataDiscNumber.rawValue] = "Disc Number"
-        
-        map[AVMetadataIdentifier.iTunesMetadataGenreID.rawValue] = "Genre ID"
-        
-        map[AVMetadataIdentifier.iTunesMetadataGrouping.rawValue] = "Grouping"
-        
-        map[AVMetadataIdentifier.iTunesMetadataPlaylistID.rawValue] = "Playlist ID"
-        
-        map[AVMetadataIdentifier.iTunesMetadataContentRating.rawValue] = "Content Rating"
-        
-        map[AVMetadataIdentifier.iTunesMetadataBeatsPerMin.rawValue] = "Beats Per Min"
-        
-        map[AVMetadataIdentifier.iTunesMetadataTrackNumber.rawValue] = "Track Number"
-        
-        map[AVMetadataIdentifier.iTunesMetadataArtDirector.rawValue] = "Art Director"
-        
-        map[AVMetadataIdentifier.iTunesMetadataArranger.rawValue] = "Arranger"
-        
-        map[AVMetadataIdentifier.iTunesMetadataAuthor.rawValue] = "Author"
-        
-        map[AVMetadataIdentifier.iTunesMetadataLyrics.rawValue] = "Lyrics"
-        
-        map[AVMetadataIdentifier.iTunesMetadataAcknowledgement.rawValue] = "Acknowledgement"
-        
-        map[AVMetadataIdentifier.iTunesMetadataConductor.rawValue] = "Conductor"
-        
-        map[AVMetadataIdentifier.iTunesMetadataDescription.rawValue] = "Description"
-        
-        map[AVMetadataIdentifier.iTunesMetadataDirector.rawValue] = "Director"
-        
-        map[AVMetadataIdentifier.iTunesMetadataEQ.rawValue] = "EQ"
-        
-        map[AVMetadataIdentifier.iTunesMetadataLinerNotes.rawValue] = "Liner Notes"
-        
-        map[AVMetadataIdentifier.iTunesMetadataRecordCompany.rawValue] = "Record Company"
-        
-        map[AVMetadataIdentifier.iTunesMetadataOriginalArtist.rawValue] = "Original Artist"
-        
-        map[AVMetadataIdentifier.iTunesMetadataPhonogramRights.rawValue] = "Phonogram Rights"
-        
-        map[AVMetadataIdentifier.iTunesMetadataProducer.rawValue] = "Producer"
-        
-        map[AVMetadataIdentifier.iTunesMetadataPerformer.rawValue] = "Performer"
-        
-        map[AVMetadataIdentifier.iTunesMetadataPublisher.rawValue] = "Publisher"
-        
-        map[AVMetadataIdentifier.iTunesMetadataSoundEngineer.rawValue] = "Sound Engineer"
-        
-        map[AVMetadataIdentifier.iTunesMetadataSoloist.rawValue] = "Soloist"
-        
-        map[AVMetadataIdentifier.iTunesMetadataCredits.rawValue] = "Credits"
-        
-        map[AVMetadataIdentifier.iTunesMetadataThanks.rawValue] = "Thanks"
-        
-        map[AVMetadataIdentifier.iTunesMetadataOnlineExtras.rawValue] = "Online Extras"
-        
-        map[AVMetadataIdentifier.iTunesMetadataExecProducer.rawValue] = "Exec Producer"
-        
-        return map
     }
     
     private static func initMapByKey() -> [String: String] {
@@ -286,24 +173,36 @@ class ITunesSpec: MetadataSpec {
 class ITunesLongFormSpec: MetadataSpec {
     
     static let keySpaceID: String = "itlk"
-    static let formatID: String = "org.mp4ra"
     
     // Mappings of format-specific keys to readable keys
     private static var mapByKey: [String: String] = initMapByKey()
     
-    static func readableKey(_ key: String) -> String? {
-        
-        let trimmedKeyTokens = key.lowercased().replacingOccurrences(of: "com.apple.itunes", with: "|").split(separator: "|")
-        
-        if let trimmedKey = trimmedKeyTokens.last {
-            return mapByKey[trimmedKey.trim().trimmingCharacters(in: CharacterSet(charactersIn: ":;."))]
+    static func readableKey(_ key: String) -> String {
+
+        let lcKey = key.lowercased()
+        if lcKey.contains("com.apple.itunes") {
+            
+            if let trimmedKey = removeITunesPrefix(lcKey) {
+                
+                let finalKey = trimmedKey.trim().trimmingCharacters(in: CharacterSet(charactersIn: ":;|-."))
+                
+                if let rKey = mapByKey[finalKey] {
+                    return rKey
+                } else {
+                    // Return trimmed key
+                    // TODO: The trimmed part will lose upper case after the first letter
+                    return finalKey.capitalizingFirstLetter()
+                }
+            }
         }
         
-        return nil
+        return key.capitalizingFirstLetter()
     }
     
-    static func readableKeyByID(_ id: String) -> String? {
-        return readableKey(id)
+    private static func removeITunesPrefix(_ key: String) -> String? {
+        
+        let lastToken = key.replacingOccurrences(of: "com.apple.itunes", with: "|").split(separator: "|").last
+        return lastToken == nil ? nil : String(lastToken!)
     }
     
     private static func initMapByKey() -> [String: String] {

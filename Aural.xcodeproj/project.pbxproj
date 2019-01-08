@@ -187,6 +187,8 @@
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
 		3E688ABF21E3842800164E84 /* WMSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688ABE21E3842800164E84 /* WMSpec.swift */; };
+		3E688AC121E3967400164E84 /* VorbisCommentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */; };
+		3E688AC321E3978600164E84 /* ApeV2Spec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC221E3978600164E84 /* ApeV2Spec.swift */; };
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
@@ -570,6 +572,8 @@
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
 		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E688ABE21E3842800164E84 /* WMSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMSpec.swift; sourceTree = "<group>"; };
+		3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VorbisCommentSpec.swift; sourceTree = "<group>"; };
+		3E688AC221E3978600164E84 /* ApeV2Spec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApeV2Spec.swift; sourceTree = "<group>"; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
@@ -1583,7 +1587,6 @@
 				3E2D9E431F664B860020B99E /* Preferences */,
 				3EFFE6BC1F0373B7003728BD /* IO */,
 				3EB20B4F1EFF2C5F008138A4 /* Utils */,
-				3ECD17451F6BBF0F00492F56 /* MetadataSpecs */,
 				3E6F673721E19B86002219E6 /* Testing */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
@@ -1667,6 +1670,7 @@
 				3EA2F8F421CF6D88007D0264 /* MetadataReader.swift */,
 				3EA2F8F621D03B9A007D0264 /* AVAssetReader.swift */,
 				3EA2F8F821D03FC3007D0264 /* FFMpegReader.swift */,
+				3ECD17451F6BBF0F00492F56 /* MetadataSpecs */,
 			);
 			name = Metadata;
 			sourceTree = "<group>";
@@ -1757,6 +1761,8 @@
 				3ECD17431F6BBEE400492F56 /* ID3Spec.swift */,
 				3ECD17461F6BBF3600492F56 /* ITunesSpec.swift */,
 				3E688ABE21E3842800164E84 /* WMSpec.swift */,
+				3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */,
+				3E688AC221E3978600164E84 /* ApeV2Spec.swift */,
 			);
 			name = MetadataSpecs;
 			sourceTree = "<group>";
@@ -2196,6 +2202,7 @@
 				3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */,
 				3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
+				3E688AC121E3967400164E84 /* VorbisCommentSpec.swift in Sources */,
 				3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
 				3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */,
@@ -2370,6 +2377,7 @@
 				3EC947B11F5DDECC00FDBE25 /* PlaylistAccessorDelegateProtocol.swift in Sources */,
 				3E357B541F9C7DFB00C8F7B1 /* FlatPlaylist.swift in Sources */,
 				3E3FB7F7215B58C900974A59 /* FavoritesProtocol.swift in Sources */,
+				3E688AC321E3978600164E84 /* ApeV2Spec.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
 				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
 				3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */,

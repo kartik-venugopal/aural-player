@@ -4,12 +4,8 @@ class WMSpec: MetadataSpec {
     
     private static var map: [String: String] = initMap()
     
-    static func readableKey(_ key: String) -> String? {
-        return map[key]
-    }
-    
-    static func readableKeyByID(_ id: String) -> String? {
-        return map[id]
+    static func readableKey(_ key: String) -> String {
+        return map[key] ?? key.capitalizingFirstLetter()
     }
     
     static func initMap() -> [String: String] {
