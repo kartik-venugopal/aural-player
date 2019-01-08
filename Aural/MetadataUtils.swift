@@ -88,103 +88,20 @@ class MetadataUtils {
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
     static func formattedKey(_ entry: MetadataEntry) -> String {
         
-        if entry.keyType == .key {
+        // Use the metadata spec to format the key
+        switch entry.type {
             
-            // Use the metadata spec to format the key
-            switch entry.type {
-                
-            // Common space keys (camel cased) need to be split up into separate words
-            case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
-                
-            case .id3:
-                
-                if let rKey = ID3Spec.readableKey(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .iTunes:
-                
-                if let rKey = ITunesSpec.readableKey(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .iTunesLongForm:
-                
-                if let rKey = ITunesLongFormSpec.readableKey(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .wma:
-                
-                if let rKey = WMSpec.readableKey(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .other: return entry.key
-                
-            }
+        // Common space keys (camel cased) need to be split up into separate words
+        case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
             
-        } else {
+        case .id3:  return ID3Spec.readableKey(entry.key)
             
-            // Key type == ID
+        case .iTunes:   return ITunesSpec.readableKey(entry.key)
             
-            // Use the metadata spec to format the key
-            switch entry.type {
-                
-            // Common space keys (camel cased) need to be split up into separate words
-            case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
-
-            case .id3:
-                
-                if let rKey = ID3Spec.readableKeyByID(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .iTunes:
-                
-                if let rKey = ITunesSpec.readableKeyByID(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .iTunesLongForm:
-                
-                if let rKey = ITunesLongFormSpec.readableKeyByID(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .wma:
-                
-                if let rKey = WMSpec.readableKeyByID(entry.key) {
-                    return rKey
-                }
-                
-                entry.type = .other
-                return entry.key
-                
-            case .other: return entry.key
-                
-            }
+        case .wma:  return WMSpec.readableKey(entry.key)
+            
+        case .other: return entry.key
+            
         }
     }
     
@@ -200,7 +117,6 @@ enum MetadataType: String {
     
     case common
     case iTunes
-    case iTunesLongForm
     case id3
     case wma
     case other
@@ -212,7 +128,7 @@ enum MetadataType: String {
             
         case .common:   return 0
             
-        case .iTunes, .iTunesLongForm:  return 1
+        case .iTunes:  return 1
             
         case .id3:  return 2
             
@@ -222,10 +138,4 @@ enum MetadataType: String {
             
         }
     }
-}
-
-enum MetadataKeyType: String {
-    
-    case key
-    case id
 }

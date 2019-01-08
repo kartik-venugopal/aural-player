@@ -187,8 +187,12 @@ class AudioUtils {
                     
                     // TODO: What if this is a Matroska/MP4 container that also contains video ? This will be overestimated
                     
-                    let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-                    audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+                    if track.duration == 0 {
+                        audioInfo.bitRate = 0
+                    } else {
+                        let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+                        audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+                    }
                 }
                 
                 track.audioInfo = audioInfo
@@ -196,16 +200,20 @@ class AudioUtils {
             
         } else {
             
-                let audioInfo = AudioInfo()
-                
-                audioInfo.format = formatDescriptions[track.file.pathExtension.lowercased()]
-                
-                // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
-                
+            let audioInfo = AudioInfo()
+            
+            audioInfo.format = formatDescriptions[track.file.pathExtension.lowercased()]
+            
+            // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
+            
+            if track.duration == 0 {
+                audioInfo.bitRate = 0
+            } else {
                 let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
                 audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
-                
-                track.audioInfo = audioInfo
+            }
+            
+            track.audioInfo = audioInfo
         }
     }
     

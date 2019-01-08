@@ -240,17 +240,14 @@ class MetadataEntry {
     // Type: e.g. ID3 or iTunes
     var type: MetadataType
     
-    let keyType: MetadataKeyType
-    
     // Key or "tag"
     let key: String
     
     let value: String
     
-    init(_ type: MetadataType, _ keyType: MetadataKeyType, _ key: String, _ value: String) {
+    init(_ type: MetadataType, _ key: String, _ value: String) {
         
         self.type = type
-        self.keyType = keyType
         self.key = key
         self.value = value
     }

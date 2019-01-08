@@ -110,8 +110,8 @@ class FFMpegReader: MetadataReader {
         
         for (key, value) in rawMetadata {
             
-            let capitalizedKey = key.capitalized
-            metadata[capitalizedKey] = MetadataEntry(.other, .key, capitalizedKey, value)
+            let capitalizedKey = key.capitalizingFirstLetter()
+            metadata[capitalizedKey] = MetadataEntry(.other, capitalizedKey, value)
         }
         
         return metadata
