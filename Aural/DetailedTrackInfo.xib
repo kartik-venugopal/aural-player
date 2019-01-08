@@ -167,7 +167,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Lyrics" identifier="1" id="k1F-JH-yb8" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="7MA-iq-xHx">
+                            <view key="view" id="7MA-iq-xHx">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -211,7 +211,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3WW-YR-rKc">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="ihr-iH-Cyj" userLabel="Audio Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
@@ -311,7 +311,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="File System" identifier="3" id="cm2-Kz-0Ck" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="hkE-cO-V9m">
+                            <view key="view" ambiguous="YES" id="hkE-cO-V9m">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -320,7 +320,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cpf-ey-pul">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="GrA-Ht-F0j" userLabel="File system Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
@@ -380,7 +380,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRS-ix-0zO">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="200"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="9vq-kO-xxI">
                                                                                 <font key="font" size="13" name="GillSans-Light"/>
