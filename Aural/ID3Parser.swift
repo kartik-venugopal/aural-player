@@ -1,12 +1,32 @@
-import Foundation
+import Cocoa
 import AVFoundation
 
+// Duration
+fileprivate let keySpace: String = AVMetadataKeySpace.id3.rawValue
+
+fileprivate let key_duration: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyLength.rawValue)
+fileprivate let key_title = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
+fileprivate let key_artist = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue)
+fileprivate let key_band = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyBand.rawValue)
+fileprivate let key_album = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
+fileprivate let key_origAlbum = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyOriginalAlbumTitle.rawValue)
+fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyContentType.rawValue)
+fileprivate let key_discNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue)
+fileprivate let key_trackNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue)
+fileprivate let key_lyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue)
+fileprivate let key_syncLyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
+fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
+
+fileprivate let essentialFieldKeys: [String] = [key_title, key_artist, key_band, key_album, key_origAlbum, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
+
 /*  
-    Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
+ Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
  
-    See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
+ See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
  */
-class ID3Spec: MetadataSpec {
+class ID3Parser: MetadataParser {
+    
+    fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
     
     // Mappings of format-specific keys to readable keys
     private static var map: [String: String] = initMap()
@@ -82,7 +102,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation Frame"
         
         // PRIV
-//        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
+        //        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
         map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = ""
         
         // RBUF
@@ -259,6 +279,7 @@ class ID3Spec: MetadataSpec {
         // TSST
         map[AVMetadataKey.id3MetadataKeySetSubtitle.rawValue] = "Set Subtitle"
         
+        // TODO: Use extra attributes to elaborate on TXXX fields (e.g. ALBUMARTIST)
         // TXXX
         map[AVMetadataKey.id3MetadataKeyUserText.rawValue] = "User Defined Text Information Frame"
         
@@ -459,5 +480,175 @@ class ID3Spec: MetadataSpec {
         map[148] = "Unknown"
         
         return map
+    }
+    
+    func mapTrack(_ track: Track, _ mapForTrack: MappedMetadata) {
+        
+        let items = track.audioAsset!.metadata
+        
+        for item in items {
+            
+            if item.commonKey == nil, item.keySpace == AVMetadataKeySpace.id3, let key = item.keyAsString {
+                
+                if essentialFieldKeys.contains(key) {
+                    mapForTrack.map[key] = item
+                } else {
+                    // Generic field
+                    mapForTrack.genericMap[key] = item
+                }
+            }
+        }
+    }
+    
+    func getTitle(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    func getArtist(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    func getAlbum(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    func getGenre(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    private func getGenre(_ track: Track) -> String? {
+        
+//        if let map = metadataMap.getForKey(track)?.map {
+//
+//            for key in genre_keys {
+//
+//                if let genreItem = map[key] {
+//
+//                    // TODO: What about newer iTunes genre codes ???
+//                    let requiresOffsetByOne: Bool = genreItem.keySpace == AVMetadataKeySpace.iTunes || genreItem.keySpace?.rawValue == ITunesLongFormSpec.keySpaceID
+//
+//                    if let str = genreItem.stringValue {
+//
+//                        return parseGenreNumericString(str, requiresOffsetByOne)
+//
+//                    } else if let data = genreItem.dataValue {
+//
+//                        // Parse as hex string
+//                        var code = Int(data.hexEncodedString(), radix: 16)!
+//
+//                        if requiresOffsetByOne {
+//                            code -= 1
+//                        }
+//
+//                        return ID3Parser.genreForCode(code)
+//                    }
+//                }
+//            }
+//        }
+        
+        // TODO: If nothing found, check Apple "Genre ID" (need to add a spec for that table)
+        
+        return nil
+    }
+    
+    private func parseGenreNumericString(_ string: String, _ requiresOffsetByOne: Bool) -> String {
+        
+        let decimalChars = CharacterSet.decimalDigits
+        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
+        
+        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
+        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
+            
+            // Need to parse the number
+            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
+            if var genreCode = Int(numberStr) {
+                
+                if requiresOffsetByOne {
+                    genreCode -= 1
+                }
+                
+                // Look up genreId in ID3 table
+                return ID3Parser.genreForCode(genreCode) ?? string
+            }
+        }
+        
+        return string
+    }
+    
+    func getLyrics(mapForTrack: MappedMetadata) -> String? {
+        return nil
+    }
+    
+    func getDiscNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        return nil
+    }
+    
+    func getTrackNumber(mapForTrack: MappedMetadata) -> (number: Int?, total: Int?)? {
+        return nil
+    }
+    
+    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
+        
+        if let number = item.numberValue {
+            return (number.intValue, nil)
+        }
+        
+        if let stringValue = item.stringValue {
+            
+            // Parse string (e.g. "2 / 13")
+            
+            if let num = Int(stringValue) {
+                return (num, nil)
+            }
+            
+            let tokens = stringValue.split(separator: "/")
+            
+            if !tokens.isEmpty {
+                
+                let s1 = tokens[0].trim()
+                var s2: String?
+                
+                let n1: Int? = Int(s1)
+                var n2: Int?
+                
+                if tokens.count > 1 {
+                    s2 = tokens[1].trim()
+                    n2 = Int(s2!)
+                }
+                
+                return (n1, n2)
+            }
+            
+        } else if let dataValue = item.dataValue {
+            
+            // Parse data
+            let hexString = dataValue.hexEncodedString()
+            
+            if hexString.count >= 8 {
+                
+                let s1: String = hexString.substring(range: 4..<8)
+                let n1: Int? = Int(s1, radix: 16)
+                
+                var s2: String?
+                var n2: Int?
+                
+                if hexString.count >= 12 {
+                    s2 = hexString.substring(range: 8..<12)
+                    n2 = Int(s2!, radix: 16)
+                }
+                
+                return (n1, n2)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getArt(mapForTrack: MappedMetadata) -> NSImage? {
+        return nil
+    }
+    
+    func getArt(_ asset: AVURLAsset) -> NSImage? {
+        return nil
     }
 }

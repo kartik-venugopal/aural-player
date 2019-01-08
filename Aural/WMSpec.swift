@@ -1,6 +1,6 @@
 import Foundation
 
-class WMSpec: MetadataSpec {
+class WMSpec {
     
     private static var map: [String: String] = initMap()
     
