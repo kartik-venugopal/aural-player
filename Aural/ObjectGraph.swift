@@ -44,6 +44,9 @@ class ObjectGraph {
     static var transcoder: TranscoderProtocol!
     static var muxer: MuxerProtocol!
     
+    static var id3Parser: ID3Parser!
+    static var iTunesParser: ITunesParser!
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -119,6 +122,9 @@ class ObjectGraph {
         layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
         
         muxer = Muxer()
+        
+        id3Parser = ID3Parser()
+        iTunesParser = ITunesParser()
     }
     
     // Called when app exits
