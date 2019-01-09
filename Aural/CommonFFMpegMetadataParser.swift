@@ -42,7 +42,7 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
         key_encodedBy: "Encoded By",
         key_encoder: "Encoder",
         key_language: "Language",
-        key_date: "Release Date"
+        key_date: "Date"
     ]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {

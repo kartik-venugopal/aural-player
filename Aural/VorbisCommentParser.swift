@@ -42,14 +42,10 @@ class VorbisCommentParser: FFMpegMetadataParser {
                 metadata.essentialFields[lcKey] = value
                 map.removeValue(forKey: key)
                 
-                print("Vorbis - mapped:", lcKey)
-                
             } else if genericKeys[lcKey] != nil {
                 
                 metadata.genericFields[lcKey] = value
                 map.removeValue(forKey: key)
-                
-                print("Vorbis - mapped genericKey:", lcKey)
             }
         }
     }
@@ -198,6 +194,23 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         var map: [String: String] = [:]
         
+        map["copyright"] = "Copyright"
+        map["ean/upn"] = "EAN / UPN"
+        map["labelno"] = "Catalog Number"
+        map["license"] = "License"
+        map["opus"] = "Opus Number"
+        map["version"] = "Version"
+        map["encoded-by"] = "Encoded By"
+        map["encoding"] = "Encoder Settings"
+        map["composer"] = "Composer"
+        map["arranger"] = "Arranger"
+        map["author"] = "Author"
+        map["ensemble"] = "Ensemble"
+        map["part"] = "Part"
+        map["partnumber"] = "Part Number"
+        map["date"] = "Date"
+        map["location"] = "Location"
+        
         map["acousticbrainz_data"] = "AcousticBrainz Data"
         
         map["acoustid data"] = "Acoustid Data"
@@ -241,6 +254,8 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["catalognumber"] = "Catalog Number"
         
         map["category"] = "Category"
+        
+        map["comment"] = "Comments"
         
         map["commercial_info_url"] = "Commercial Information Webpage"
         
