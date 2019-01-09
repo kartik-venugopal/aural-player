@@ -24,7 +24,13 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     }
     
     // The table view that displays the track info
-    @IBOutlet weak var metadataTable: NSTableView!
+    @IBOutlet weak var metadataTable: NSTableView! {
+        
+        didSet {
+            metadataTable.enclosingScrollView?.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+            metadataTable.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: -19)
+        }
+    }
     
     // The table view that displays the track info
     @IBOutlet weak var audioTable: NSTableView!

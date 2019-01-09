@@ -53,6 +53,7 @@ class LibAVMetadata {
     var commonMetadata: LibAVParserMetadata?
     var wmMetadata: LibAVParserMetadata?
     var vorbisMetadata: LibAVParserMetadata?
+    var apeMetadata: LibAVParserMetadata?
     
     init(_ map: [String: String]) {
         self.map = map
