@@ -67,6 +67,7 @@
 		3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */; };
 		3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */; };
 		3E17A8B721871D7700CADE89 /* EQSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17A8B621871D7700CADE89 /* EQSubview.swift */; };
+		3E17D03021E5AC3800951F81 /* CommonFFMpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17D02F21E5AC3800951F81 /* CommonFFMpegMetadataParser.swift */; };
 		3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
@@ -189,7 +190,7 @@
 		3E688ABF21E3842800164E84 /* WMParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688ABE21E3842800164E84 /* WMParser.swift */; };
 		3E688AC121E3967400164E84 /* VorbisCommentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */; };
 		3E688AC321E3978600164E84 /* ApeV2Spec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC221E3978600164E84 /* ApeV2Spec.swift */; };
-		3E688AC521E462C400164E84 /* CommonMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC421E462C400164E84 /* CommonMetadataParser.swift */; };
+		3E688AC521E462C400164E84 /* CommonAVAssetParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC421E462C400164E84 /* CommonAVAssetParser.swift */; };
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
@@ -452,6 +453,7 @@
 		3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistsPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksPlaylistSortViewController.swift; sourceTree = "<group>"; };
 		3E17A8B621871D7700CADE89 /* EQSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSubview.swift; sourceTree = "<group>"; };
+		3E17D02F21E5AC3800951F81 /* CommonFFMpegMetadataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFFMpegMetadataParser.swift; sourceTree = "<group>"; };
 		3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtCache.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
@@ -575,7 +577,7 @@
 		3E688ABE21E3842800164E84 /* WMParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMParser.swift; sourceTree = "<group>"; };
 		3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VorbisCommentSpec.swift; sourceTree = "<group>"; };
 		3E688AC221E3978600164E84 /* ApeV2Spec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApeV2Spec.swift; sourceTree = "<group>"; };
-		3E688AC421E462C400164E84 /* CommonMetadataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMetadataParser.swift; sourceTree = "<group>"; };
+		3E688AC421E462C400164E84 /* CommonAVAssetParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAVAssetParser.swift; sourceTree = "<group>"; };
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
@@ -1760,9 +1762,10 @@
 			isa = PBXGroup;
 			children = (
 				3EBD20071F6C6EC300E1354C /* ParserProtocols.swift */,
-				3E688AC421E462C400164E84 /* CommonMetadataParser.swift */,
+				3E688AC421E462C400164E84 /* CommonAVAssetParser.swift */,
 				3ECD17431F6BBEE400492F56 /* ID3Parser.swift */,
 				3ECD17461F6BBF3600492F56 /* ITunesParser.swift */,
+				3E17D02F21E5AC3800951F81 /* CommonFFMpegMetadataParser.swift */,
 				3E688ABE21E3842800164E84 /* WMParser.swift */,
 				3E688AC021E3967400164E84 /* VorbisCommentSpec.swift */,
 				3E688AC221E3978600164E84 /* ApeV2Spec.swift */,
@@ -2134,7 +2137,7 @@
 				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,
-				3E688AC521E462C400164E84 /* CommonMetadataParser.swift in Sources */,
+				3E688AC521E462C400164E84 /* CommonAVAssetParser.swift in Sources */,
 				3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */,
 				3EF6A0021FA313120050F0D2 /* SortComparator.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
@@ -2336,6 +2339,7 @@
 				3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */,
 				3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
+				3E17D03021E5AC3800951F81 /* CommonFFMpegMetadataParser.swift in Sources */,
 				3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */,
 				3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */,
 				3E0839B2219591AB008D84BA /* ReverbUnit.swift in Sources */,

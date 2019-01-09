@@ -2,7 +2,7 @@ import Cocoa
 
 class FFMpegReader: MetadataReader {
     
-    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.wmParser]
+    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser]
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
     
@@ -12,6 +12,7 @@ class FFMpegReader: MetadataReader {
         
         if track.libAVInfo == nil {
             track.libAVInfo = FFMpegWrapper.getMetadata(track)
+            parsers.forEach({$0.mapTrack(track.libAVInfo!.metadata)})
         }
     }
     
@@ -39,7 +40,7 @@ class FFMpegReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let title = parser.getTitle(mapForTrack: metadata) {
+                if let title = parser.getTitle(metadata) {
                     return title
                 }
             }
@@ -54,7 +55,7 @@ class FFMpegReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let artist = parser.getArtist(mapForTrack: metadata) {
+                if let artist = parser.getArtist(metadata) {
                     return artist
                 }
             }
@@ -69,7 +70,7 @@ class FFMpegReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let album = parser.getAlbum(mapForTrack: metadata) {
+                if let album = parser.getAlbum(metadata) {
                     return album
                 }
             }
@@ -84,7 +85,7 @@ class FFMpegReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let genre = parser.getGenre(mapForTrack: metadata) {
+                if let genre = parser.getGenre(metadata) {
                     return genre
                 }
             }
@@ -106,44 +107,53 @@ class FFMpegReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-//        let metadata = track.libAVInfo!.metadata
-//
-//        let discNumMapValue = metadata["disc"]
-//        let discNumber = discNumMapValue != nil ? parseDiscOrTrackNumber(discNumMapValue!) : nil
-//
-//        let trackNumMapValue = metadata["track"]
-//        let trackNumber = trackNumMapValue != nil ? parseDiscOrTrackNumber(trackNumMapValue!) : nil
-//
-//        let lyrics = metadata["lyrics"]
+        let discNumber = getDiscNumber(track)
+        let trackNumber = getTrackNumber(track)
+        let lyrics = getLyrics(track)
         
-//        return SecondaryMetadata(discNumber?.number, discNumber?.total, trackNumber?.number, trackNumber?.total, lyrics)
-        return SecondaryMetadata(0, 0, 0, 0, "")
+        return SecondaryMetadata(discNumber?.number, discNumber?.total, trackNumber?.number, trackNumber?.total, lyrics)
     }
     
-    private func parseDiscOrTrackNumber(_ string: String) -> (number: Int?, total: Int?)? {
+    private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
-        // Parse string (e.g. "2 / 13")
-        
-        if let num = Int(string) {
-            return (num, nil)
+        if let map = track.libAVInfo?.metadata {
+            
+            for parser in parsers {
+                
+                if let discNum = parser.getDiscNumber(map) {
+                    return discNum
+                }
+            }
         }
         
-        let tokens = string.split(separator: "/")
+        return nil
+    }
+    
+    private func getTrackNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
-        if !tokens.isEmpty {
+        if let map = track.libAVInfo?.metadata {
             
-            let s1 = tokens[0].trim()
-            var s2: String?
-            
-            let n1: Int? = Int(s1)
-            var n2: Int?
-            
-            if tokens.count > 1 {
-                s2 = tokens[1].trim()
-                n2 = Int(s2!)
+            for parser in parsers {
+                
+                if let trackNum = parser.getTrackNumber(map) {
+                    return trackNum
+                }
             }
+        }
+        
+        return nil
+    }
+    
+    private func getLyrics(_ track: Track) -> String? {
+        
+        if let map = track.libAVInfo?.metadata {
             
-            return (n1, n2)
+            for parser in parsers {
+                
+                if let lyrics = parser.getLyrics(map) {
+                    return lyrics
+                }
+            }
         }
         
         return nil
@@ -171,13 +181,13 @@ class FFMpegReader: MetadataReader {
         
         var metadata: [String: MetadataEntry] = [:]
         
-//        let rawMetadata = track.libAVInfo!.metadata.filter({!genericMetadata_ignoreKeys.contains($0.key)})
-        let rawMetadata: [String: String] = [:]
-        
-        for (key, value) in rawMetadata {
+        if let map = track.libAVInfo?.metadata {
             
-            let capitalizedKey = key.capitalizingFirstLetter()
-            metadata[capitalizedKey] = MetadataEntry(.other, capitalizedKey, value)
+            for parser in parsers {
+                
+                let parserMetadata = parser.getGenericMetadata(map)
+                parserMetadata.forEach({(k,v) in metadata[k] = v})
+            }
         }
         
         return metadata

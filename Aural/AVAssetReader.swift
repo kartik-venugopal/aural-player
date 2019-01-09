@@ -55,7 +55,7 @@ class AVAssetReader: MetadataReader {
         
         for parser in parsers {
             
-            if let map = metadataMap.getForKey(track), let duration = parser.getDuration(mapForTrack: map), duration > maxDuration {
+            if let map = metadataMap.getForKey(track), let duration = parser.getDuration(map), duration > maxDuration {
                 maxDuration = duration
             }
         }
@@ -69,7 +69,7 @@ class AVAssetReader: MetadataReader {
         
             for parser in parsers {
                 
-                if let title = parser.getTitle(mapForTrack: map) {
+                if let title = parser.getTitle(map) {
                     return title
                 }
             }
@@ -84,7 +84,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let artist = parser.getArtist(mapForTrack: map) {
+                if let artist = parser.getArtist(map) {
                     return artist
                 }
             }
@@ -99,7 +99,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let album = parser.getAlbum(mapForTrack: map) {
+                if let album = parser.getAlbum(map) {
                     return album
                 }
             }
@@ -114,7 +114,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let genre = parser.getGenre(mapForTrack: map) {
+                if let genre = parser.getGenre(map) {
                     return genre
                 }
             }
@@ -144,7 +144,7 @@ class AVAssetReader: MetadataReader {
 
             for parser in parsers {
                 
-                let parserMetadata = parser.getGenericMetadata(mapForTrack: map)
+                let parserMetadata = parser.getGenericMetadata(map)
                 parserMetadata.forEach({(k,v) in metadata[k] = v})
             }
         }
@@ -158,7 +158,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let discNum = parser.getDiscNumber(mapForTrack: map) {
+                if let discNum = parser.getDiscNumber(map) {
                     return discNum
                 }
             }
@@ -173,7 +173,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let trackNum = parser.getTrackNumber(mapForTrack: map) {
+                if let trackNum = parser.getTrackNumber(map) {
                     return trackNum
                 }
             }
@@ -188,7 +188,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let lyrics = parser.getLyrics(mapForTrack: map) {
+                if let lyrics = parser.getLyrics(map) {
                     return lyrics
                 }
             }
@@ -210,7 +210,7 @@ class AVAssetReader: MetadataReader {
             
             for parser in parsers {
                 
-                if let art = parser.getArt(mapForTrack: map) {
+                if let art = parser.getArt(map) {
                     return art
                 }
             }

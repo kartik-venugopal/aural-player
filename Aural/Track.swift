@@ -251,12 +251,6 @@ class MetadataEntry {
         self.key = key
         self.value = value
     }
-    
-    // Computes a user-friendly human-readable key, from the original format-specific key.
-    // For example the ID3 tag "TALB" is formatted to "Album Name".
-    func formattedKey() -> String {
-        return MetadataUtils.formattedKey(self)
-    }
 }
 
 // Wrapper around Track that includes its index in the flat playlist

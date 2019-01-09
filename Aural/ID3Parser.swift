@@ -47,10 +47,9 @@ class ID3Parser: AVAssetParser {
     fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
     
     // Mappings of format-specific keys to readable keys
-    private static var map: [String: String] = initMap()
     private static var genresMap: [Int: String] = initGenresMap()
     
-    static func readableKey(_ key: String) -> String {
+    private func readableKey(_ key: String) -> String {
         return map[key] ?? key.capitalizingFirstLetter()
     }
     
@@ -78,7 +77,7 @@ class ID3Parser: AVAssetParser {
         }
     }
     
-    func getDuration(mapForTrack: AVAssetMetadata) -> Double? {
+    func getDuration(_ mapForTrack: AVAssetMetadata) -> Double? {
         
         if let item = mapForTrack.map[key_duration], let durationStr = item.stringValue, let durationMsecs = Double(durationStr) {
             return durationMsecs / 1000
@@ -87,7 +86,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getTitle(mapForTrack: AVAssetMetadata) -> String? {
+    func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_title, key_title] {
             
@@ -99,7 +98,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getArtist(mapForTrack: AVAssetMetadata) -> String? {
+    func getArtist(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_artist, key_artist] {
             
@@ -111,7 +110,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getAlbum(mapForTrack: AVAssetMetadata) -> String? {
+    func getAlbum(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_album, key_album] {
             
@@ -123,7 +122,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getGenre(mapForTrack: AVAssetMetadata) -> String? {
+    func getGenre(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_genre, key_genre] {
             
@@ -165,7 +164,7 @@ class ID3Parser: AVAssetParser {
         return string
     }
     
-    func getDiscNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_discNumber] {
             return parseDiscOrTrackNumber(item)
@@ -174,7 +173,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getTrackNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_trackNumber] {
             return parseDiscOrTrackNumber(item)
@@ -248,7 +247,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getArt(mapForTrack: AVAssetMetadata) -> NSImage? {
+    func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage? {
         
         for key in [commonKey_art, key_art] {
             
@@ -269,7 +268,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getLyrics(mapForTrack: AVAssetMetadata) -> String? {
+    func getLyrics(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [key_lyrics, key_syncLyrics] {
             
@@ -281,7 +280,7 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getGenericMetadata(mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
@@ -323,7 +322,7 @@ class ID3Parser: AVAssetParser {
                 entryKey = StringUtils.cleanUpString(entryKey)
                 entryValue = StringUtils.cleanUpString(entryValue)
                 
-                metadata[entryKey] = MetadataEntry(.id3, entryKey, entryValue)
+                metadata[entryKey] = MetadataEntry(.id3, readableKey(entryKey), entryValue)
             }
         }
         
@@ -376,7 +375,7 @@ class ID3Parser: AVAssetParser {
     
     // ------------------------------------------ KEY MAPPINGS -------------------------------------------------
     
-    private static func initMap() -> [String: String] {
+    private var map: [String: String] = {
         
         var map: [String: String] = [String: String]()
         
@@ -659,7 +658,7 @@ class ID3Parser: AVAssetParser {
         map[AVMetadataKey.id3MetadataKeyUserURL.rawValue] = "User Defined URL Link Frame"
         
         return map
-    }
+    }()
     
     private static func initGenresMap() -> [Int: String] {
         

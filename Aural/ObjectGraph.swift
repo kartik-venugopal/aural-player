@@ -48,6 +48,7 @@ class ObjectGraph {
     static var id3Parser: ID3Parser!
     static var iTunesParser: ITunesParser!
     
+    static var commonFFMpegParser: CommonFFMpegMetadataParser!
     static var wmParser: WMParser!
     
     
@@ -130,6 +131,8 @@ class ObjectGraph {
         commonAVAssetParser = CommonAVAssetParser()
         id3Parser = ID3Parser()
         iTunesParser = ITunesParser()
+        
+        commonFFMpegParser = CommonFFMpegMetadataParser()
         wmParser = WMParser()
     }
     
