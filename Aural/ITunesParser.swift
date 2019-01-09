@@ -31,14 +31,10 @@ fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_
  */
 class ITunesParser: AVAssetParser {
     
-    static let longForm_keySpaceID: String = "itlk"
-    private static let iTunesPrefix: String = "com.apple.itunes"
+    private let longForm_keySpaceID: String = "itlk"
+    private let iTunesPrefix: String = "com.apple.itunes"
     
-    // Mappings of format-specific keys to readable keys
-    private static var map: [String: String] = initKeyMap()
-    private static var map_longForm: [String: String] = initKeyMap_longForm()
-    
-    static func readableKey(_ key: String) -> String {
+    private func readableKey(_ key: String) -> String {
         
         if let rKey = map[key] {
             return rKey
@@ -47,7 +43,7 @@ class ITunesParser: AVAssetParser {
         return readableKey_longForm(key)
     }
     
-    private static func readableKey_longForm(_ key: String) -> String {
+    private func readableKey_longForm(_ key: String) -> String {
         
         let lcKey = key.lowercased()
         if lcKey.contains(iTunesPrefix) {
@@ -73,7 +69,7 @@ class ITunesParser: AVAssetParser {
         return key.capitalizingFirstLetter()
     }
     
-    private static func removeITunesPrefix(_ key: String) -> String? {
+    private func removeITunesPrefix(_ key: String) -> String? {
         
         let lastToken = key.replacingOccurrences(of: iTunesPrefix, with: "|").split(separator: "|").last
         return lastToken == nil ? nil : String(lastToken!)
@@ -96,7 +92,7 @@ class ITunesParser: AVAssetParser {
                     mapForTrack.genericMap[mapKey] = item
                 }
                 
-            } else if item.keySpace?.rawValue == ITunesParser.longForm_keySpaceID, let key = item.keyAsString { // Long form
+            } else if item.keySpace?.rawValue == longForm_keySpaceID, let key = item.keyAsString { // Long form
                 
                 // Generic field
                 mapForTrack.genericMap[key] = item
@@ -116,11 +112,11 @@ class ITunesParser: AVAssetParser {
         }
     }
     
-    func getDuration(mapForTrack: AVAssetMetadata) -> Double? {
+    func getDuration(_ mapForTrack: AVAssetMetadata) -> Double? {
         return nil
     }
     
-    func getTitle(mapForTrack: AVAssetMetadata) -> String? {
+    func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_title, key_title] {
             
@@ -132,7 +128,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getArtist(mapForTrack: AVAssetMetadata) -> String? {
+    func getArtist(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_artist, key_artist] {
             
@@ -144,7 +140,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getAlbum(mapForTrack: AVAssetMetadata) -> String? {
+    func getAlbum(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_album, key_album] {
             
@@ -156,7 +152,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getGenre(mapForTrack: AVAssetMetadata) -> String? {
+    func getGenre(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in [commonKey_genre, key_genre, key_predefGenre] {
             
@@ -198,7 +194,7 @@ class ITunesParser: AVAssetParser {
         return string
     }
     
-    func getDiscNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_discNumber] {
             return parseDiscOrTrackNumber(item)
@@ -207,7 +203,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getTrackNumber(mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[key_trackNumber] {
             return parseDiscOrTrackNumber(item)
@@ -281,7 +277,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getArt(mapForTrack: AVAssetMetadata) -> NSImage? {
+    func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage? {
         
         for key in [commonKey_art, key_art] {
             
@@ -302,7 +298,7 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getLyrics(mapForTrack: AVAssetMetadata) -> String? {
+    func getLyrics(_ mapForTrack: AVAssetMetadata) -> String? {
         
         if let lyricsItem = mapForTrack.map[key_lyrics] {
             return lyricsItem.stringValue
@@ -311,14 +307,16 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getGenericMetadata(mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == ITunesParser.longForm_keySpaceID}) {
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == longForm_keySpaceID}) {
             
             if let key = item.keyAsString, let value = item.valueAsString {
-                metadata[key] = MetadataEntry(.iTunes, StringUtils.cleanUpString(key), StringUtils.cleanUpString(value))
+                
+                let rKey = readableKey(StringUtils.cleanUpString(key))
+                metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
             }
         }
         
@@ -327,7 +325,8 @@ class ITunesParser: AVAssetParser {
     
     // ------------------------------------------ KEY MAPPINGS -------------------------------------------------
     
-    private static func initKeyMap() -> [String: String] {
+    // Mappings of format-specific keys to readable keys
+    private var map: [String: String] = {
         
         var map: [String: String] = [String: String]()
         
@@ -476,9 +475,9 @@ class ITunesParser: AVAssetParser {
         map[AVMetadataKey.iTunesMetadataKeyExecProducer.rawValue] = "Exec Producer"
         
         return map
-    }
+    }()
     
-    private static func initKeyMap_longForm() -> [String: String] {
+    private var map_longForm: [String: String] = {
         
         var map: [String: String] = [:]
         
@@ -806,5 +805,5 @@ class ITunesParser: AVAssetParser {
         map["yate track id"] = "Yate Track ID"
         
         return map
-    }
+    }()
 }

@@ -85,26 +85,6 @@ class MetadataUtils {
         return nil
     }
     
-    // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
-    static func formattedKey(_ entry: MetadataEntry) -> String {
-        
-        // Use the metadata spec to format the key
-        switch entry.type {
-            
-        // Common space keys (camel cased) need to be split up into separate words
-        case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
-            
-        case .id3:  return ID3Parser.readableKey(entry.key)
-            
-        case .iTunes:   return ITunesParser.readableKey(entry.key)
-            
-        case .wma:  return WMParser.readableKey(entry.key)
-            
-        case .other: return entry.key
-            
-        }
-    }
-    
     static func isFileMetadataNativelySupported(_ file: URL) -> Bool {
         
         let ext = file.pathExtension.lowercased()

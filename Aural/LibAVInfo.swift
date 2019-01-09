@@ -48,11 +48,20 @@ class LibAVInfo {
 
 class LibAVMetadata {
     
-    let map: [String: String]
+    var map: [String: String]
+    
+    var commonMetadata: LibAVParserMetadata?
+    var wmMetadata: LibAVParserMetadata?
     
     init(_ map: [String: String]) {
         self.map = map
     }
+}
+
+class LibAVParserMetadata {
+    
+    var essentialFields: [String: String] = [:]
+    var genericFields: [String: String] = [:]
 }
 
 class LibAVStream {

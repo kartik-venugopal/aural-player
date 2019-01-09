@@ -162,7 +162,7 @@ class MetadataDataSource: TrackInfoDataSource {
             // If both entries are of the same metadata type (e.g. both are iTunes), compare their formatted keys (ascending order)
             if t1 == t2 {
                 // TODO: Format key only once
-                return e1.entry.formattedKey() < e2.entry.formattedKey()
+                return e1.entry.key < e2.entry.key
             }
             
             // Entries have different metadata types, compare by their sort order
@@ -171,7 +171,7 @@ class MetadataDataSource: TrackInfoDataSource {
         
         for (_, entry) in sortedArr {
             
-            let fKey = entry.formattedKey().trim()
+            let fKey = entry.key.trim()
             
             if !fKey.isEmpty {
                 trackInfo.append((key: fKey, value: entry.value))

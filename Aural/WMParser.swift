@@ -3,23 +3,44 @@ import AVFoundation
 
 class WMParser: FFMpegMetadataParser {
     
+    private let keyPrefix = "wm/"
+    
     private let key_title = "title"
+    
+    private let key_duration = "duration"
     
     private let key_author = "author"
     private let key_artist = "artist"
     private let key_artists = "artists"
+    private let keys_artist: [String] = ["author", "artist", "artists"]
     
     private let key_album = "album"
     private let key_albumTitle = "albumtitle"
+    private let keys_album: [String] = ["album", "albumtitle"]
     
     private let key_genre = "genre"
     private let key_genreId = "genreid"
     
-    func getDuration(mapForTrack: LibAVMetadata) -> Double? {
-        return 5
+    private let key_disc = "disc"
+    private let key_partOfSet = "partofset"
+    private let key_discsTotal = "disctotal"
+    
+    func mapTrack(_ mapForTrack: LibAVMetadata) {
+        
+        // Remove all "wm/" prefixes from metadata keys
+        for (key, value) in mapForTrack.map {
+            
+//            if key.trim().hasPrefix(keyPrefix) {
+//
+//                mapForTrack.map.removeValue(forKey: key)
+//
+//                let newKey = key.replacingOccurrences(of: keyPrefix, with: "").trim()
+//                mapForTrack.map[newKey] = value
+//            }
+        }
     }
     
-    func getTitle(mapForTrack: LibAVMetadata) -> String? {
+    func getTitle(_ mapForTrack: LibAVMetadata) -> String? {
         
         for key in [key_title] {
             
@@ -31,9 +52,9 @@ class WMParser: FFMpegMetadataParser {
         return nil
     }
     
-    func getArtist(mapForTrack: LibAVMetadata) -> String? {
+    func getArtist(_ mapForTrack: LibAVMetadata) -> String? {
         
-        for key in [key_author, key_artist, key_artists] {
+        for key in keys_artist {
             
             if let artist = mapForTrack.map[key] {
                 return artist
@@ -43,9 +64,9 @@ class WMParser: FFMpegMetadataParser {
         return nil
     }
     
-    func getAlbum(mapForTrack: LibAVMetadata) -> String? {
+    func getAlbum(_ mapForTrack: LibAVMetadata) -> String? {
         
-        for key in [key_album, key_albumTitle] {
+        for key in keys_album {
             
             if let album = mapForTrack.map[key] {
                 return album
@@ -55,7 +76,7 @@ class WMParser: FFMpegMetadataParser {
         return nil
     }
     
-    func getGenre(mapForTrack: LibAVMetadata) -> String? {
+    func getGenre(_ mapForTrack: LibAVMetadata) -> String? {
         
         if let genre = mapForTrack.map[key_genre] {
             return genre
@@ -88,42 +109,55 @@ class WMParser: FFMpegMetadataParser {
         return string
     }
     
-    func getLyrics(mapForTrack: LibAVMetadata) -> String? {
-        return "Yay Muthu !"
+    func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
+        
+//        if let discNumStr = mapForTrack.map[]
+        return (nil, nil)
     }
     
-    func getDiscNumber(mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
-        return (2, 3)
-    }
-    
-    func getTrackNumber(mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         return (13, 22)
     }
     
-    func getArt(mapForTrack: LibAVMetadata) -> NSImage? {
+    private func parseDiscOrTrackNumber(_ string: String) -> (number: Int?, total: Int?)? {
+        
+        // Parse string (e.g. "2 / 13")
+        
+        if let num = Int(string) {
+            return (num, nil)
+        }
+        
+        let tokens = string.split(separator: "/")
+        
+        if !tokens.isEmpty {
+            
+            let s1 = tokens[0].trim()
+            var s2: String?
+            
+            let n1: Int? = Int(s1)
+            var n2: Int?
+            
+            if tokens.count > 1 {
+                s2 = tokens[1].trim()
+                n2 = Int(s2!)
+            }
+            
+            return (n1, n2)
+        }
+        
         return nil
     }
     
-    func getArt(_ asset: AVURLAsset) -> NSImage? {
-        return nil
+    func getLyrics(_ mapForTrack: LibAVMetadata) -> String? {
+        return "Yay Muthu !"
     }
     
-    func getGenericMetadata(mapForTrack: LibAVMetadata) -> [String : MetadataEntry] {
+    func getGenericMetadata(_ mapForTrack: LibAVMetadata) -> [String : MetadataEntry] {
         return [:]
     }
     
-    private static var map: [String: String] = initMap()
+    private var map: [String: String] = {
     
-    static func readableKey(_ key: String) -> String {
-        
-        let lcKey = key.lowercased()
-        let trimmedKey = lcKey.replacingOccurrences(of: "wm/", with: "").trim()
-        
-        return map[trimmedKey] ?? key.replacingOccurrences(of: "wm/", with: "").trim().capitalizingFirstLetter()
-    }
-    
-    static func initMap() -> [String: String] {
-        
         var map: [String: String] = [:]
         
         map["title"] = "Title"
@@ -321,5 +355,13 @@ class WMParser: FFMpegMetadataParser {
         map["wikipediareleaseurl"] = "Wikipedia Release Site Url"
 
         return map
+    }()
+    
+    func readableKey(_ key: String) -> String {
+        
+        let lcKey = key.lowercased()
+        let trimmedKey = lcKey.replacingOccurrences(of: "wm/", with: "").trim()
+        
+        return map[trimmedKey] ?? key.replacingOccurrences(of: "wm/", with: "").trim().capitalizingFirstLetter()
     }
 }
