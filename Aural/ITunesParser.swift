@@ -24,7 +24,8 @@ fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKe
 fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
 
-fileprivate let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, key_predefGenre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_art, commonKey_art]
+fileprivate let key_language = "language"
+fileprivate let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue
 
 /*
  Specification for the iTunes metadata format.
@@ -33,6 +34,8 @@ class ITunesParser: AVAssetParser {
     
     private let longForm_keySpaceID: String = "itlk"
     private let iTunesPrefix: String = "com.apple.itunes"
+    
+    private let essentialFieldKeys: [String] = [key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, key_predefGenre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_art, commonKey_art]
     
     private func readableKey(_ key: String) -> String {
         
@@ -57,10 +60,10 @@ class ITunesParser: AVAssetParser {
                     return rKey
                     
                 } else {
-
+                    
                     // Return trimmed key, properly capitalized
                     if let range = lcKey.range(of: finalKey) {
-                        return key.substring(range: range.lowerBound.encodedOffset..<range.upperBound.encodedOffset).capitalizingFirstLetter()
+                        return String(key[range.lowerBound..<range.upperBound]).capitalizingFirstLetter()
                     }
                 }
             }
@@ -218,7 +221,7 @@ class ITunesParser: AVAssetParser {
             return (number.intValue, nil)
         }
         
-        if let stringValue = item.stringValue {
+        if let stringValue = item.stringValue?.trim() {
             
             // Parse string (e.g. "2 / 13")
             
@@ -313,7 +316,14 @@ class ITunesParser: AVAssetParser {
         
         for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == longForm_keySpaceID}) {
             
-            if let key = item.keyAsString, let value = item.valueAsString {
+            if let key = item.keyAsString, var value = item.valueAsString {
+                
+                if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                    value = langName
+                } else if key == key_compilation, let numVal = item.numberValue {
+                    // Number to boolean
+                    value = numVal == 0 ? "No" : "Yes"
+                }
                 
                 let rKey = readableKey(StringUtils.cleanUpString(key))
                 metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
@@ -385,7 +395,7 @@ class ITunesParser: AVAssetParser {
         map[AVMetadataKey.iTunesMetadataKeySongID.rawValue] = "Song ID"
         
         // cpil
-        map[AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue] = "Disc Compilation"
+        map[AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue] = "Is Compilation?"
         
         // disk
         map[AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue] = "Disc Number"

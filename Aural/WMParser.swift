@@ -1,52 +1,84 @@
 import Cocoa
 import AVFoundation
 
+fileprivate let key_title = "title"
+fileprivate let key_artist = "author"
+fileprivate let key_album = "albumtitle"
+fileprivate let key_genre = "genre"
+fileprivate let key_genreId = "genreid"
+
+fileprivate let key_duration = "duration"
+fileprivate let key_totalDuration = "totalduration"
+
+fileprivate let key_disc = "partofset"
+fileprivate let key_track = "tracknumber"
+fileprivate let key_track_zeroBased = "track"
+fileprivate let key_lyrics = "lyrics"
+fileprivate let key_syncLyrics = "lyrics_synchronised"
+
+fileprivate let key_encodingTime = "encodingtime"
+fileprivate let key_isVBR = "isvbr"
+fileprivate let key_isCompilation = "iscompilation"
+
+fileprivate let key_language = "language"
+
+//fileprivate let fileTime_baseTime: Date = {
+//
+//    var calendar = Calendar(identifier: .gregorian)
+//    let components = DateComponents(year: 1601, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+//    return calendar.date(from: components)!
+//}()
+
+fileprivate let dateFormatter: DateFormatter = {
+   
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
+    return formatter
+}()
+
 class WMParser: FFMpegMetadataParser {
     
     private let keyPrefix = "wm/"
     
-    private let key_title = "title"
-    
-    private let key_duration = "duration"
-    
-    private let key_author = "author"
-    private let key_artist = "artist"
-    private let key_artists = "artists"
-    private let keys_artist: [String] = ["author", "artist", "artists"]
-    
-    private let key_album = "album"
-    private let key_albumTitle = "albumtitle"
-    private let keys_album: [String] = ["album", "albumtitle"]
-    
-    private let key_genre = "genre"
-    private let key_genreId = "genreid"
-    
-    private let key_disc = "disc"
-    private let key_partOfSet = "partofset"
-    private let key_discsTotal = "disctotal"
+    private let essentialKeys: [String: String] = [
+        
+        key_title: "Title",
+        key_artist: "Artist",
+        key_album: "Album",
+        key_genre: "Genre",
+        key_disc: "Disc#",
+        key_track: "Track#",
+        key_lyrics: "Lyrics"
+    ]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        // Remove all "wm/" prefixes from metadata keys
-        for (key, value) in mapForTrack.map {
+        var map = mapForTrack.map
+        
+        let metadata = LibAVParserMetadata()
+        mapForTrack.wmMetadata = metadata
+        
+        for (key, value) in map {
             
-//            if key.trim().hasPrefix(keyPrefix) {
-//
-//                mapForTrack.map.removeValue(forKey: key)
-//
-//                let newKey = key.replacingOccurrences(of: keyPrefix, with: "").trim()
-//                mapForTrack.map[newKey] = value
-//            }
+            let lcKey = key.lowercased().replacingOccurrences(of: keyPrefix, with: "").trim()
+            
+            if essentialKeys[lcKey] != nil {
+                
+                metadata.essentialFields[lcKey] = value
+                map.removeValue(forKey: key)
+                
+            } else if genericKeys[lcKey] != nil {
+                
+                metadata.genericFields[lcKey] = value
+                map.removeValue(forKey: key)
+            }
         }
     }
     
     func getTitle(_ mapForTrack: LibAVMetadata) -> String? {
         
-        for key in [key_title] {
-            
-            if let title = mapForTrack.map[key] {
-                return title
-            }
+        if let title = mapForTrack.wmMetadata?.essentialFields[key_title] {
+            return title
         }
         
         return nil
@@ -54,11 +86,8 @@ class WMParser: FFMpegMetadataParser {
     
     func getArtist(_ mapForTrack: LibAVMetadata) -> String? {
         
-        for key in keys_artist {
-            
-            if let artist = mapForTrack.map[key] {
-                return artist
-            }
+        if let artist = mapForTrack.wmMetadata?.essentialFields[key_artist] {
+            return artist
         }
         
         return nil
@@ -66,11 +95,8 @@ class WMParser: FFMpegMetadataParser {
     
     func getAlbum(_ mapForTrack: LibAVMetadata) -> String? {
         
-        for key in keys_album {
-            
-            if let album = mapForTrack.map[key] {
-                return album
-            }
+        if let album = mapForTrack.wmMetadata?.essentialFields[key_album] {
+            return album
         }
         
         return nil
@@ -78,11 +104,11 @@ class WMParser: FFMpegMetadataParser {
     
     func getGenre(_ mapForTrack: LibAVMetadata) -> String? {
         
-        if let genre = mapForTrack.map[key_genre] {
+        if let genre = mapForTrack.wmMetadata?.essentialFields[key_genre] {
             return genre
         }
         
-        if let genreId = mapForTrack.map[key_genreId]?.trim() {
+        if let genreId = mapForTrack.wmMetadata?.essentialFields[key_genreId]?.trim() {
             return parseGenreNumericString(genreId)
         }
         
@@ -111,17 +137,32 @@ class WMParser: FFMpegMetadataParser {
     
     func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
-//        if let discNumStr = mapForTrack.map[]
-        return (nil, nil)
+        if let discNumStr = mapForTrack.wmMetadata?.essentialFields[key_disc] {
+            return parseDiscOrTrackNumber(discNumStr)
+        }
+        
+        return nil
     }
     
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
-        return (13, 22)
+        
+        if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track] {
+            return parseDiscOrTrackNumber(trackNumStr)
+        }
+        
+        // Zero-based track number
+        if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track_zeroBased] {
+            return parseDiscOrTrackNumber(trackNumStr, 1)
+        }
+        
+        return nil
     }
     
-    private func parseDiscOrTrackNumber(_ string: String) -> (number: Int?, total: Int?)? {
+    private func parseDiscOrTrackNumber(_ _string: String, _ offset: Int = 0) -> (number: Int?, total: Int?)? {
         
         // Parse string (e.g. "2 / 13")
+        
+        let string = _string.trim()
         
         if let num = Int(string) {
             return (num, nil)
@@ -134,7 +175,11 @@ class WMParser: FFMpegMetadataParser {
             let s1 = tokens[0].trim()
             var s2: String?
             
-            let n1: Int? = Int(s1)
+            var n1: Int? = Int(s1)
+            if n1 != nil {
+                n1! += offset
+            }
+            
             var n2: Int?
             
             if tokens.count > 1 {
@@ -149,46 +194,48 @@ class WMParser: FFMpegMetadataParser {
     }
     
     func getLyrics(_ mapForTrack: LibAVMetadata) -> String? {
-        return "Yay Muthu !"
+        
+        if let lyrics = mapForTrack.wmMetadata?.essentialFields[key_lyrics] {
+            return lyrics
+        }
+        
+        if let lyrics = mapForTrack.wmMetadata?.essentialFields[key_syncLyrics] {
+            return lyrics
+        }
+        
+        return nil
     }
     
     func getGenericMetadata(_ mapForTrack: LibAVMetadata) -> [String : MetadataEntry] {
-        return [:]
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        if let fields = mapForTrack.wmMetadata?.genericFields {
+            
+            for (key, var value) in fields {
+                
+                // Check special fields (TODO: Check special fields (e.g. encoding time))
+                
+                if key == key_isVBR || key == key_isCompilation, let boolVal = numericStringToBoolean(value) {
+                    value = boolVal ? "Yes" : "No"
+                } else if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                    value = langName
+                }
+                
+                metadata[key] = MetadataEntry(.wma, readableKey(key), value)
+            }
+        }
+        
+        return metadata
     }
     
-    private var map: [String: String] = {
-    
+    private let genericKeys: [String: String] = {
+        
         var map: [String: String] = [:]
         
-        map["title"] = "Title"
-        
-        map["author"] = "Artist"
-        
-        map["artists"] = "Artists"
+        map["description"] = "Comment"
         
         map["albumartist"] = "Album Artist"
-        
-        map["albumtitle"] = "Album"
-        
-        map["genre"] = "Genre"
-        
-        map["genreid"] = "Genre ID"
-        
-        map["track"] = "Track Number"    // Deprecated 0-based track number
-        
-        map["tracknumber"] = "Track Number"  // 1-based track number
-        
-        map["partofset"] = "Disc Number"
-        
-        map["tracktotal"] = "Total Tracks"
-        
-        map["disctotal"] = "Total Discs"
-        
-        map["lyrics"] = "Lyrics"
-        
-        map["picture"] = "Cover Art"
-        
-        // ----------
         
         map["provider"] = "Provider"
         
@@ -230,6 +277,8 @@ class WMParser: FFMpegMetadataParser {
         
         map["asin"] = "ASIN"
         
+        map["authorurl"] = "Official Artist Site Url"
+        
         map["barcode"] = "Barcode"
         
         map["beatsperminute"] = "BPM"
@@ -238,7 +287,7 @@ class WMParser: FFMpegMetadataParser {
         
         map["comments"] = "Comment"
         
-        map["iscompilation"] = "Compilation"
+        map["iscompilation"] = "Is Compilation?"
         
         map["composer"] = "Composer"
         
@@ -250,25 +299,17 @@ class WMParser: FFMpegMetadataParser {
         
         map["country"] = "Country"
         
-        map["custom1"] = "Custom 1"
-        
-        map["custom2"] = "Custom 2"
-        
-        map["custom3"] = "Custom 3"
-        
-        map["custom4"] = "Custom 4"
-        
-        map["custom5"] = "Custom 5"
-        
         map["year"] = "Year"
         
         map["discogsartisturl"] = "Discogs Artist Site Url"
         
         map["discogsreleaseurl"] = "Discogs Release Site Url"
         
-        map["musicbrainz_albumstatus"] = "DJ Mixer"
+        map["musicbrainz_albumstatus"] = "MusicBrainz Album Status"
         
         map["encodedby"] = "Encoded By"
+        
+        map["encodingsettings"] = "Encoder"
         
         map["engineer"] = "Engineer"
         
@@ -290,6 +331,12 @@ class WMParser: FFMpegMetadataParser {
         
         map["media"] = "Media"
         
+        map["mediastationcallsign"] = "Service Provider"
+        
+        map["mediastationname"] = "Service Name"
+        
+        map["media"] = "Media"
+        
         map["mixer"] = "Mixer"
         
         map["mood"] = "Mood"
@@ -306,19 +353,25 @@ class WMParser: FFMpegMetadataParser {
         
         map["musicbrainz/album id"] = "MusicBrainz Release Id"
         
+        map["musicbrainz/album release country"] = "MusicBrainz Release Country"
+        
+        map["musicbrainz/album status"] = "MusicBrainz Release Status"
+        
+        map["musicbrainz/album type"] = "MusicBrainz Release Type"
+        
         map["musicbrainz/track id"] = "MusicBrainz Track Id"
         
         map["musicbrainz/work id"] = "MusicBrainz Work Id"
         
         map["occasion"] = "Occasion"
         
-        map["authorurl"] = "Official Artist Site Url"
-        
         map["officialreleaseurl"] = "Official Release Site Url"
         
         map["originalalbumtitle"] = "Original Album"
         
         map["originalartist"] = "Original Artist"
+        
+        map["originalfilename"] = "Original Filename"
         
         map["originallyricist"] = "Original Lyricist"
         
@@ -334,12 +387,6 @@ class WMParser: FFMpegMetadataParser {
         
         map["shareduserrating"] = "Rating"
         
-        map["musicbrainz/album release country"] = "Release Country"
-        
-        map["musicbrainz/album status"] = "Release Status"
-        
-        map["musicbrainz/album type"] = "Release Type"
-        
         map["modifiedby"] = "Remixer"
         
         map["script"] = "Script"
@@ -350,18 +397,48 @@ class WMParser: FFMpegMetadataParser {
         
         map["titlesortorder"] = "Title Sort Order"
         
+        map["tool"] = "Encoder"
+        
         map["wikipediaartisturl"] = "Wikipedia Artist Site Url"
         
         map["wikipediareleaseurl"] = "Wikipedia Release Site Url"
-
+        
+        map["deviceconformancetemplate"] = "Device Conformance Template"
+        
+        map["isvbr"] = "Is VBR?"
+        
+        map["mediaprimaryclassid"] = "Primary Media Class ID"
+        
+        map["codec"] = "Codec"
+        
+        map["category"] = "Category"
+        
         return map
     }()
     
-    func readableKey(_ key: String) -> String {
+    private func readableKey(_ key: String) -> String {
         
         let lcKey = key.lowercased()
-        let trimmedKey = lcKey.replacingOccurrences(of: "wm/", with: "").trim()
+        let trimmedKey = lcKey.replacingOccurrences(of: keyPrefix, with: "").trim()
         
-        return map[trimmedKey] ?? key.replacingOccurrences(of: "wm/", with: "").trim().capitalizingFirstLetter()
+        if let rKey = genericKeys[trimmedKey] {
+            
+            return rKey
+            
+        } else if let range = lcKey.range(of: trimmedKey) {
+            
+            return String(key[range.lowerBound..<range.upperBound]).capitalizingFirstLetter()
+        }
+        
+        return key.capitalizingFirstLetter()
+    }
+    
+    private func numericStringToBoolean(_ string: String) -> Bool? {
+        
+        if let num = Int(string.trim()) {
+            return num != 0
+        }
+        
+        return nil
     }
 }

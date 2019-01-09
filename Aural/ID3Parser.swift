@@ -34,6 +34,7 @@ fileprivate let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist"
 
 fileprivate let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue
 fileprivate let key_playCounter: String = AVMetadataKey.id3MetadataKeyPlayCounter.rawValue
+fileprivate let key_language: String = AVMetadataKey.id3MetadataKeyLanguage.rawValue
 
 fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
 
@@ -188,7 +189,7 @@ class ID3Parser: AVAssetParser {
             return (number.intValue, nil)
         }
         
-        if let stringValue = item.stringValue {
+        if let stringValue = item.stringValue?.trim() {
             
             // Parse string (e.g. "2 / 13")
             
@@ -317,6 +318,11 @@ class ID3Parser: AVAssetParser {
                     
                     // PCNT
                     entryValue = item.valueAsNumericalString
+                    
+                } else if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                    
+                    // TLAN
+                    entryValue = langName
                 }
                 
                 entryKey = StringUtils.cleanUpString(entryKey)
