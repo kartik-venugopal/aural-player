@@ -20,6 +20,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             lyricsView.alignment = .center
             lyricsView.backgroundColor = Colors.popoverBackgroundColor
             lyricsView.textColor = Colors.boxTextColor
+            lyricsView.enclosingScrollView?.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+            lyricsView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: -9)
         }
     }
     
@@ -70,6 +72,11 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh(_ track: Track) {
         
+        // Force the view to load
+        if !self.isViewLoaded {
+            _ = self.view
+        }
+        
         DetailedTrackInfoViewController.shownTrack = track
         
         [metadataTable, audioTable, fileSystemTable].forEach({
@@ -89,9 +96,6 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
             tabView.selectTabViewItem(at: 0)
         }
-        
-        artView.image = track.displayInfo.art
-        lyricsView?.string = track.lyrics ?? noLyricsText
     }
     
     func isShown() -> Bool {
@@ -125,7 +129,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             let msg = message as! TrackUpdatedAsyncMessage
                 
             if msg.track == DetailedTrackInfoViewController.shownTrack {
-                artView.image = msg.track.displayInfo.art
+                artView?.image = msg.track.displayInfo.art
             }
         }
     }
