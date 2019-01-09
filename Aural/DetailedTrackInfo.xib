@@ -53,24 +53,24 @@
                     </buttonCell>
                 </button>
                 <tabView appearanceType="darkAqua" fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="LN2-cv-nc6" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="14" y="15" width="518" height="260"/>
+                    <rect key="frame" x="14" y="15" width="525" height="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="0" id="34C-E7-hHn" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="3E2-ZF-Ncj">
-                                <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
+                            <view key="view" ambiguous="YES" id="3E2-ZF-Ncj">
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa" userLabel="Metadata Table">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                    <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa" userLabel="Metadata Table">
+                                        <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="hYB-5h-Z23">
-                                            <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0" userLabel="Metadata Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="506" height="255"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -151,12 +151,13 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.099406517622336529" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="fUa-Lw-Nwh">
+                                        <edgeInsets key="contentInsets" left="0.0" right="20" top="0.0" bottom="0.0"/>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="fUa-Lw-Nwh" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="-100" y="-100" width="0.0" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jt0-zB-nfH">
-                                            <rect key="frame" x="-100" y="-100" width="16" height="282"/>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jt0-zB-nfH" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
+                                            <rect key="frame" x="495" y="0.0" width="15" height="255"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -168,30 +169,32 @@
                         </tabViewItem>
                         <tabViewItem label="Lyrics" identifier="1" id="k1F-JH-yb8" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="7MA-iq-xHx">
-                                <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mch-Xa-EwX">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                    <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="mch-Xa-EwX">
+                                        <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="ww9-G2-wcK">
-                                            <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BrD-vm-ynW">
-                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="255"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256606760154" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866213885826" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="510" height="255"/>
-                                                    <size key="maxSize" width="510" height="10000000"/>
+                                                    <size key="minSize" width="515" height="255"/>
+                                                    <size key="maxSize" width="515" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099036337628" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.099406517622336529" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </clipView>
-                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Gsa-1T-Ijh">
-                                            <rect key="frame" x="-100" y="-100" width="15" height="255"/>
+                                        <edgeInsets key="contentInsets" left="0.0" right="10" top="0.0" bottom="0.0"/>
+                                        <edgeInsets key="scrollerInsets" left="0.0" right="-9" top="0.0" bottom="0.0"/>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Gsa-1T-Ijh" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
+                                            <rect key="frame" x="509" y="0.0" width="15" height="255"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -311,7 +314,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="File System" identifier="3" id="cm2-Kz-0Ck" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="hkE-cO-V9m">
+                            <view key="view" id="hkE-cO-V9m">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -320,7 +323,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cpf-ey-pul">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="GrA-Ht-F0j" userLabel="File system Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
@@ -451,7 +454,7 @@
                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             </textFieldCell>
-            <point key="canvasLocation" x="-13" y="-36"/>
+            <point key="canvasLocation" x="-87" y="-270"/>
         </textField>
         <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="bWc-Mq-OlE" userLabel="Virtual Value Field">
             <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>

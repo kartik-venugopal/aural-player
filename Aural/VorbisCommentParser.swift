@@ -114,6 +114,8 @@ class VorbisCommentParser: FFMpegMetadataParser {
             return parseDiscOrTrackNumber(discNumStr)
         }
         
+        // TODO: Check if total present, if not, check for tracktotal or totaltracks field
+        
         return nil
     }
     
@@ -269,17 +271,17 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["user configurable"] = "Custom 0...99"
         
-        map["discogs_albumartist_url{-n}"] = "Discogs Album Artist URLs"
+        map["discogs_albumartist_url"] = "Discogs Album Artist URLs"
         
         map["discogs_artist_list"] = "Discogs Artist List"
         
         map["discogs_anv_list"] = "Discogs Artist Name Variations"
         
-        map["discogs_artist_url{-n}"] = "Discogs Artist URLs"
+        map["discogs_artist_url"] = "Discogs Artist URLs"
         
         map["discogs_artwork_url"] = "Discogs Artwork URL"
         
-        map["discogs_catalog_number{-n}"] = "Discogs Catalog Number"
+        map["discogs_catalog_number"] = "Discogs Catalog Number"
         
         map["discogs_import_settings"] = "Discogs Import Settings"
         
@@ -287,7 +289,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["discogs_import_time"] = "Discogs Import Time"
         
-        map["discogs_label_url{-n}"] = "Discogs Label URLs"
+        map["discogs_label_url"] = "Discogs Label URLs"
         
         map["discogs_master_id"] = "Discogs Master Id"
         
@@ -315,7 +317,17 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["key"] = "Initial Key"
         
-        map["involvedpeople<br>arranger<br>dxmixer<br>engineer<br>mixer<br>producer<sup>3</sup><br>yate-ip<sup>20</sup>"] = "Involved People"
+        map["involvedpeople"] = "Involved People"
+        
+        map["djmixer"] = "DJ Mixer"
+        
+        map["engineer"] = "Engineer"
+        
+        map["mixer"] = "Mixer"
+        
+        map["producer"] = "Producer"
+        
+        map["yate-ip"] = "Involved People"
         
         map["instrumental"] = "Instrumental"
         

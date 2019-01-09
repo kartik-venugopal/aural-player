@@ -151,6 +151,8 @@ class WMParser: FFMpegMetadataParser {
             return parseDiscOrTrackNumber(trackNumStr)
         }
         
+        // TODO: Check if total present, if not, check for tracktotal or totaltracks field
+        
         // Zero-based track number
         if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track_zeroBased] {
             return parseDiscOrTrackNumber(trackNumStr, 1)
