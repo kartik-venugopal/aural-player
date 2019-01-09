@@ -22,6 +22,7 @@ fileprivate let key_isCompilation = "iscompilation"
 
 fileprivate let key_language = "language"
 
+// Used for parsing "Encoding time" field
 //fileprivate let fileTime_baseTime: Date = {
 //
 //    var calendar = Calendar(identifier: .gregorian)
@@ -29,12 +30,12 @@ fileprivate let key_language = "language"
 //    return calendar.date(from: components)!
 //}()
 
-fileprivate let dateFormatter: DateFormatter = {
-   
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
-    return formatter
-}()
+//fileprivate let dateFormatter: DateFormatter = {
+//   
+//    let formatter = DateFormatter()
+//    formatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
+//    return formatter
+//}()
 
 class WMParser: FFMpegMetadataParser {
     

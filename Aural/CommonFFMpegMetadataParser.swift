@@ -19,6 +19,7 @@ fileprivate let key_copyright = "copyright"
 fileprivate let key_encodedBy = "encoded_by"
 fileprivate let key_encoder = "encoder"
 fileprivate let key_language = "language"
+fileprivate let key_date = "date"
 
 class CommonFFMpegMetadataParser: FFMpegMetadataParser {
 
@@ -40,7 +41,8 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
         key_copyright: "Copyright",
         key_encodedBy: "Encoded By",
         key_encoder: "Encoder",
-        key_language: "Language"
+        key_language: "Language",
+        key_date: "Release Date"
     ]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
