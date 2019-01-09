@@ -99,6 +99,8 @@ enum MetadataType: String {
     case iTunes
     case id3
     case wma
+    case vorbis
+    case ape
     case other
     
     // Smaller the number, higher the sort order
@@ -114,7 +116,11 @@ enum MetadataType: String {
             
         case .wma:  return 3
             
-        case .other:    return 4
+        case .vorbis:  return 4
+            
+        case .ape:  return 5
+            
+        case .other:    return 6
             
         }
     }

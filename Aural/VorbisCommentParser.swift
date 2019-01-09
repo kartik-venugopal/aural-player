@@ -185,7 +185,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
                     value = langName
                 }
                 
-                metadata[key] = MetadataEntry(.wma, readableKey(key), value)
+                metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
             }
         }
         
