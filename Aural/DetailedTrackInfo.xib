@@ -58,7 +58,7 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="0" id="34C-E7-hHn" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="3E2-ZF-Ncj">
+                            <view key="view" id="3E2-ZF-Ncj">
                                 <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -168,7 +168,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Lyrics" identifier="1" id="k1F-JH-yb8" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="7MA-iq-xHx">
+                            <view key="view" ambiguous="YES" id="7MA-iq-xHx">
                                 <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -177,14 +177,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="ww9-G2-wcK">
                                             <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BrD-vm-ynW">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="255"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256606760154" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866213885826" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="525" height="255"/>
+                                                    <size key="minSize" width="500" height="255"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099036337628" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
