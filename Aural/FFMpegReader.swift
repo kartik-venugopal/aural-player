@@ -2,7 +2,11 @@ import Cocoa
 
 class FFMpegReader: MetadataReader {
     
-    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser]
+    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.vorbisParser]
+    
+    // TODO: Is this useful/necessary ?
+    private let wmFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.vorbisParser]
+    private let vorbisCommentFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.wmParser]
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
     
@@ -12,7 +16,7 @@ class FFMpegReader: MetadataReader {
         
         if track.libAVInfo == nil {
             track.libAVInfo = FFMpegWrapper.getMetadata(track)
-            parsers.forEach({$0.mapTrack(track.libAVInfo!.metadata)})
+            parsersForTrack(track).forEach({$0.mapTrack(track.libAVInfo!.metadata)})
         }
     }
     
@@ -34,11 +38,27 @@ class FFMpegReader: MetadataReader {
         return PrimaryMetadata(title, artist, album, genre, duration)
     }
     
+    // TODO: Is this useful/necessary ?
+    private func parsersForTrack(_ track: Track) -> [FFMpegMetadataParser] {
+        
+        let ext = track.file.pathExtension
+        
+        switch ext {
+            
+        case "wma":     return wmFileParsers
+            
+        case "flac", "ogg", "opus":     return vorbisCommentFileParsers
+            
+        default: return parsers
+            
+        }
+    }
+    
     private func getTitle(_ track: Track) -> String? {
         
         if let metadata = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let title = parser.getTitle(metadata) {
                     return title
@@ -53,7 +73,7 @@ class FFMpegReader: MetadataReader {
         
         if let metadata = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let artist = parser.getArtist(metadata) {
                     return artist
@@ -68,7 +88,7 @@ class FFMpegReader: MetadataReader {
         
         if let metadata = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let album = parser.getAlbum(metadata) {
                     return album
@@ -83,7 +103,7 @@ class FFMpegReader: MetadataReader {
         
         if let metadata = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let genre = parser.getGenre(metadata) {
                     return genre
@@ -118,7 +138,7 @@ class FFMpegReader: MetadataReader {
         
         if let map = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let discNum = parser.getDiscNumber(map) {
                     return discNum
@@ -133,7 +153,7 @@ class FFMpegReader: MetadataReader {
         
         if let map = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let trackNum = parser.getTrackNumber(map) {
                     return trackNum
@@ -148,7 +168,7 @@ class FFMpegReader: MetadataReader {
         
         if let map = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 if let lyrics = parser.getLyrics(map) {
                     return lyrics
@@ -183,7 +203,7 @@ class FFMpegReader: MetadataReader {
         
         if let map = track.libAVInfo?.metadata {
             
-            for parser in parsers {
+            for parser in parsersForTrack(track) {
                 
                 let parserMetadata = parser.getGenericMetadata(map)
                 parserMetadata.forEach({(k,v) in metadata[k] = v})

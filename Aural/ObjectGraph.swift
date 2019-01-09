@@ -50,6 +50,7 @@ class ObjectGraph {
     
     static var commonFFMpegParser: CommonFFMpegMetadataParser!
     static var wmParser: WMParser!
+    static var vorbisParser: VorbisCommentParser!
     
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
@@ -134,6 +135,7 @@ class ObjectGraph {
         
         commonFFMpegParser = CommonFFMpegMetadataParser()
         wmParser = WMParser()
+        vorbisParser = VorbisCommentParser()
     }
     
     // Called when app exits
