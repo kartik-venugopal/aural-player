@@ -10,6 +10,8 @@ fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.comm
 fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
 
+fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
+
 fileprivate let essentialFieldKeys: [String] = [key_title, key_artist, key_album, key_genre, key_art]
 
 class CommonAVAssetParser: AVAssetParser {
@@ -107,18 +109,19 @@ class CommonAVAssetParser: AVAssetParser {
     func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
-        
+
         for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .common}) {
             
-            if let key = item.keyAsString, let value = item.valueAsString {
+            if let key = item.keyAsString, var value = item.valueAsString {
+                
+                if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                    value = langName
+                }
+                
                 metadata[key] = MetadataEntry(.common, StringUtils.splitCamelCaseWord(key, true), value)
             }
         }
         
         return metadata
-    }
-    
-    static func readableKey(_ key: String) -> String {
-        return ""
     }
 }
