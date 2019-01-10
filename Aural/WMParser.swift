@@ -123,7 +123,7 @@ class WMParser: FFMpegMetadataParser {
             if let genreCode = Int(numberStr) {
                 
                 // Look up genreId in ID3 table
-                return ID3Parser.genreForCode(genreCode) ?? string
+                return GenreMap.forId(genreCode) ?? string
             }
         }
         
@@ -231,7 +231,7 @@ class WMParser: FFMpegMetadataParser {
                 
                 if key == key_isVBR || key == key_isCompilation, let boolVal = numericStringToBoolean(value) {
                     value = boolVal ? "Yes" : "No"
-                } else if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                } else if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
                 }
                 

@@ -258,15 +258,11 @@ extension AVMetadataItem {
     
     var keyAsString: String? {
         
-        if let key = commonKeyAsString {
-            return key
-        }
-        
         if let key = self.key as? String {
             return key
         }
         
-        if let _ = self.keySpace, let id = self.identifier {
+        if let id = self.identifier {
             
             let tokens = id.rawValue.split(separator: "/")
             if tokens.count == 2 {

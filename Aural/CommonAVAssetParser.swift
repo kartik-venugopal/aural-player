@@ -22,7 +22,9 @@ class CommonAVAssetParser: AVAssetParser {
         
         for item in items {
             
-            if let key = item.commonKeyAsString {
+            if item.keySpace == AVMetadataKeySpace.common, let key = item.commonKeyAsString {
+                
+                print("Common:", key)
                 
                 let mapKey = String(format: "%@/%@", keySpace, key)
                 
@@ -110,11 +112,11 @@ class CommonAVAssetParser: AVAssetParser {
         
         var metadata: [String: MetadataEntry] = [:]
 
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.commonKey != nil}) {
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .common}) {
             
             if let key = item.keyAsString, var value = item.valueAsString {
                 
-                if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
                 }
                 

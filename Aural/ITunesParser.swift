@@ -169,7 +169,7 @@ class ITunesParser: AVAssetParser {
                     
                     // Parse as hex string
                     let code = Int(data.hexEncodedString(), radix: 16)!
-                    return ID3Parser.genreForCode(code - 1)
+                    return GenreMap.forId(code - 1)
                 }
             }
         }
@@ -190,7 +190,7 @@ class ITunesParser: AVAssetParser {
             if let genreCode = Int(numberStr) {
                 
                 // Look up genreId in ID3 table
-                return ID3Parser.genreForCode(genreCode - 1) ?? string
+                return GenreMap.forId(genreCode - 1) ?? string
             }
         }
         
@@ -318,7 +318,7 @@ class ITunesParser: AVAssetParser {
             
             if let key = item.keyAsString, var value = item.valueAsString {
                 
-                if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
                 } else if key == key_compilation, let numVal = item.numberValue {
                     // Number to boolean
