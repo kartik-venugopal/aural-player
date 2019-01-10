@@ -330,6 +330,7 @@
 		3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */; };
 		3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */; };
 		3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */; };
+		3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257721E7EB4B00E202AB /* JSONWriter.swift */; };
 		3ED43339216CA387000617A3 /* PlaybackGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43338216CA387000617A3 /* PlaybackGap.swift */; };
 		3ED5264F1F2FA27200001A97 /* ChangeListenerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
@@ -727,6 +728,7 @@
 		3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageAndTextButtonCell.swift; sourceTree = "<group>"; };
 		3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
+		3ED4257721E7EB4B00E202AB /* JSONWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWriter.swift; sourceTree = "<group>"; };
 		3ED43338216CA387000617A3 /* PlaybackGap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackGap.swift; sourceTree = "<group>"; };
 		3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListenerProtocols.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
@@ -1727,6 +1729,7 @@
 				3EBA52F61FC2E6A2007F902F /* StateMachine.swift */,
 				3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */,
 				3EB1700F21748B7600B82D3A /* TimeIntervalFormatter.swift */,
+				3ED4257721E7EB4B00E202AB /* JSONWriter.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2429,6 +2432,7 @@
 				3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 				3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */,
+				3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */,
 				3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

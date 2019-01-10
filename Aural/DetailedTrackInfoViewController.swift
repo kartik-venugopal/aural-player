@@ -118,6 +118,58 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
     }
     
+    @IBAction func exportAction(_ sender: AnyObject) {
+        
+        if let track = DetailedTrackInfoViewController.shownTrack {
+            
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "json")
+            
+            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+                
+                let metadataDict = serializeTable(metadataTable)
+                let audioDict = serializeTable(audioTable)
+                let fileSystemDict = serializeTable(fileSystemTable)
+                
+                var dict = [NSString: AnyObject]()
+                
+                dict["metadata"] = metadataDict
+                dict["lyrics"] = lyricsView.string as AnyObject
+                dict["audio"] = audioDict
+                dict["fileSystem"] = fileSystemDict
+                
+                do {
+                    
+                    try JSONWriter.writeObject(dict as NSDictionary, outFile)
+                    
+                } catch let error {
+                    
+                    if let error = error as? JSONWriteError {
+                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description))
+                    }
+                }
+            }
+        }
+    }
+    
+    private func serializeTable(_ table: NSTableView) -> NSDictionary {
+        
+        var dict: [NSString: AnyObject] = [:]
+        
+        for index in 0..<table.numberOfRows {
+            
+            let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as! NSTableCellView
+            if let key = keyCell.textField?.stringValue {
+                
+                let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
+                if let value = valueCell.textField?.stringValue {
+                    dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
+                }
+            }
+        }
+        
+        return dict as NSDictionary
+    }
+    
     @IBAction func closePopoverAction(_ sender: Any) {
         close()
     }
