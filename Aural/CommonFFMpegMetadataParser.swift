@@ -22,16 +22,8 @@ fileprivate let key_language = "language"
 fileprivate let key_date = "date"
 
 class CommonFFMpegMetadataParser: FFMpegMetadataParser {
-
-    private let essentialKeys: [String: String] = [
-        key_title: "Title",
-        key_artist: "Artist",
-        key_album: "Album",
-        key_genre: "Genre",
-        key_disc: "Disc#",
-        key_track: "Track#",
-        key_lyrics: "Lyrics"
-    ]
+    
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_track, key_lyrics]
     
     private let genericKeys: [String: String] = [
         key_albumArtist: "Album Artist",
@@ -47,7 +39,7 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        var map = mapForTrack.map
+        let map = mapForTrack.map
         
         let metadata = LibAVParserMetadata()
         mapForTrack.commonMetadata = metadata
@@ -56,15 +48,15 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
             
             let lcKey = key.lowercased().trim()
             
-            if essentialKeys[lcKey] != nil {
+            if essentialKeys.contains(lcKey) {
                 
                 metadata.essentialFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
                 
             } else if genericKeys[lcKey] != nil {
                 
                 metadata.genericFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
             }
         }
     }
@@ -180,10 +172,6 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     func readableKey(_ key: String) -> String {
         
         if let rKey = genericKeys[key] {
-            return rKey
-        }
-        
-        if let rKey = essentialKeys[key] {
             return rKey
         }
         
