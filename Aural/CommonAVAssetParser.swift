@@ -22,7 +22,7 @@ class CommonAVAssetParser: AVAssetParser {
         
         for item in items {
             
-            if item.keySpace == AVMetadataKeySpace.common, let key = item.commonKeyAsString {
+            if item.keySpace == .common, let key = item.commonKeyAsString {
                 
                 print("Common:", key)
                 

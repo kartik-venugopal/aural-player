@@ -3,30 +3,30 @@ import AVFoundation
 
 class ID3Parser: AVAssetParser {
     
-    private let keys_duration: [String] = [V22Spec.key_duration, V24Spec.key_duration]
+    private let keys_duration: [String] = [ID3_V22Spec.key_duration, ID3_V24Spec.key_duration]
     
-    private let keys_title: [String] = [V1Spec.key_title, V22Spec.key_title, V24Spec.key_title]
-    private let keys_artist: [String] = [V1Spec.key_artist, V22Spec.key_artist, V24Spec.key_artist]
-    private let keys_album: [String] = [V1Spec.key_album, V22Spec.key_album, V24Spec.key_album]
-    private let keys_genre: [String] = [V1Spec.key_genre, V22Spec.key_genre, V24Spec.key_genre]
+    private let keys_title: [String] = [ID3_V1Spec.key_title, ID3_V22Spec.key_title, ID3_V24Spec.key_title]
+    private let keys_artist: [String] = [ID3_V1Spec.key_artist, ID3_V22Spec.key_artist, ID3_V24Spec.key_artist]
+    private let keys_album: [String] = [ID3_V1Spec.key_album, ID3_V22Spec.key_album, ID3_V24Spec.key_album]
+    private let keys_genre: [String] = [ID3_V1Spec.key_genre, ID3_V22Spec.key_genre, ID3_V24Spec.key_genre]
     
-    private let keys_discNumber: [String] = [V22Spec.key_discNumber, V24Spec.key_discNumber]
-    private let keys_trackNumber: [String] = [V1Spec.key_trackNumber, V22Spec.key_trackNumber, V24Spec.key_trackNumber]
+    private let keys_discNumber: [String] = [ID3_V22Spec.key_discNumber, ID3_V24Spec.key_discNumber]
+    private let keys_trackNumber: [String] = [ID3_V1Spec.key_trackNumber, ID3_V22Spec.key_trackNumber, ID3_V24Spec.key_trackNumber]
     
-    private let keys_lyrics: [String] = [V22Spec.key_lyrics, V22Spec.key_syncLyrics, V24Spec.key_lyrics, V24Spec.key_syncLyrics]
-    private let keys_art: [String] = [V22Spec.key_art, V24Spec.key_art]
-    private let ids_art: [AVMetadataIdentifier] = [V22Spec.id_art, V24Spec.id_art]
+    private let keys_lyrics: [String] = [ID3_V22Spec.key_lyrics, ID3_V22Spec.key_syncLyrics, ID3_V24Spec.key_lyrics, ID3_V24Spec.key_syncLyrics]
+    private let keys_art: [String] = [ID3_V22Spec.key_art, ID3_V24Spec.key_art]
     
-    private let keys_GEOB: [String] = [V22Spec.key_GEO, V24Spec.key_GEOB]
-    private let keys_language: [String] = [V22Spec.key_language, V24Spec.key_language]
-    private let keys_playCounter: [String] = [V22Spec.key_playCounter, V24Spec.key_playCounter]
+    private let keys_GEOB: [String] = [ID3_V22Spec.key_GEO, ID3_V24Spec.key_GEOB]
+    private let keys_language: [String] = [ID3_V22Spec.key_language, ID3_V24Spec.key_language]
+    private let keys_playCounter: [String] = [ID3_V22Spec.key_playCounter, ID3_V24Spec.key_playCounter]
+    private let keys_compilation: [String] = [ID3_V22Spec.key_compilation, ID3_V24Spec.key_compilation]
     
     private let essentialFieldKeys: Set<String> = {
         
         var keys: Set<String> = Set<String>()
-        keys = keys.union(V1Spec.essentialFieldKeys)
-        keys = keys.union(V22Spec.essentialFieldKeys)
-        keys = keys.union(V24Spec.essentialFieldKeys)
+        keys = keys.union(ID3_V1Spec.essentialFieldKeys)
+        keys = keys.union(ID3_V22Spec.essentialFieldKeys)
+        keys = keys.union(ID3_V24Spec.essentialFieldKeys)
         
         return keys
     }()
@@ -34,8 +34,8 @@ class ID3Parser: AVAssetParser {
     private let genericFields: [String: String] = {
         
         var map: [String: String] = [:]
-        V22Spec.genericFields.forEach({(k,v) in map[k] = v})
-        V24Spec.genericFields.forEach({(k,v) in map[k] = v})
+        ID3_V22Spec.genericFields.forEach({(k,v) in map[k] = v})
+        ID3_V24Spec.genericFields.forEach({(k,v) in map[k] = v})
         
         return map
     }()
@@ -45,8 +45,8 @@ class ID3Parser: AVAssetParser {
     private let replaceableKeyFields: Set<String> = {
         
         var keys: Set<String> = Set<String>()
-        keys = keys.union(V22Spec.replaceableKeyFields)
-        keys = keys.union(V24Spec.replaceableKeyFields)
+        keys = keys.union(ID3_V22Spec.replaceableKeyFields)
+        keys = keys.union(ID3_V24Spec.replaceableKeyFields)
         
         return keys
     }()
@@ -63,7 +63,7 @@ class ID3Parser: AVAssetParser {
         
         for item in items {
             
-            if item.keySpace == AVMetadataKeySpace.id3, let key = item.keyAsString {
+            if item.keySpace == .id3, let key = item.keyAsString {
                 
                 let mapKey = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, key)
                 
@@ -270,9 +270,15 @@ class ID3Parser: AVAssetParser {
     
     func getArt(_ asset: AVURLAsset) -> NSImage? {
         
-        for id in ids_art {
+        // V2.3/2.4
+        if let item = AVMetadataItem.metadataItems(from: asset.metadata, filteredByIdentifier: ID3_V24Spec.id_art).first, let imgData = item.dataValue {
+            return NSImage(data: imgData)
+        }
+        
+        // V2.2
+        for item in asset.metadata {
             
-            if let item = AVMetadataItem.metadataItems(from: asset.metadata, filteredByIdentifier: id).first, let imgData = item.dataValue {
+            if item.keySpace == .id3 && item.keyAsString == ID3_V22Spec.key_art, let imgData = item.dataValue {
                 return NSImage(data: imgData)
             }
         }
@@ -332,6 +338,11 @@ class ID3Parser: AVAssetParser {
 
                     // TLAN
                     entryValue = langName
+                    
+                } else if keys_compilation.contains(key), let numVal = item.numberValue {
+                    
+                    // Number to boolean
+                    entryValue = numVal == 0 ? "No" : "Yes"
                 }
 
                 entryKey = StringUtils.cleanUpString(entryKey)

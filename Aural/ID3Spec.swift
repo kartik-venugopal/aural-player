@@ -12,7 +12,7 @@ import AVFoundation
 
 fileprivate let id3KeySpace: String = AVMetadataKeySpace.id3.rawValue
 
-struct V1Spec {
+struct ID3_V1Spec {
     
     static let key_title = String(format: "%@/%@", id3KeySpace, "Title")
     static let key_artist = String(format: "%@/%@", id3KeySpace, "Artist")
@@ -26,7 +26,7 @@ struct V1Spec {
     static let genericFields: [String: String] = ["Year": "Year", "Comment": "Comment"]
 }
 
-struct V22Spec {
+struct ID3_V22Spec {
     
     static let key_duration: String = String(format: "%@/%@", id3KeySpace, "TLE")
     
@@ -43,12 +43,12 @@ struct V22Spec {
     static let key_syncLyrics = String(format: "%@/%@", id3KeySpace, "SLT")
     
     static let key_art: String = String(format: "%@/%@", id3KeySpace, "PIC")
-    static let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: "PIC", keySpace: AVMetadataKeySpace.id3)!
     
     static let key_language: String = "TLA"
     static let key_playCounter: String = "CNT"
     static let replaceableKeyFields: [String] = ["TXX", "COM", "WXX"]
     static let key_GEO: String = "GEO"
+    static let key_compilation: String = "TCP"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
@@ -56,9 +56,16 @@ struct V22Spec {
         
         var map: [String: String] = [:]
         
+        /*
+         
+         'ITU'    iTunesU?    no
+         'PCS'    Podcast?    no
+         
+         */
+        
         map["BUF"] = "Recommended Buffer Size"
         map["CRA"] = "Audio Encryption"
-        map["COM"] = "Comments"
+        map["COM"] = "Comment"
         map["EQU"] = "Equalization"
         map["ETC"] = "Event Timing Codes"
         map["GEO"] = "General Encapsulated Object"
@@ -73,7 +80,8 @@ struct V22Spec {
         map["STC"] = "Synchronized Tempo Codes"
         map["TBP"] = "BPM (Beats Per Minute)"
         map["TCM"] = "Composer"
-        map["TCR"] = "Copyright Message"
+        map["TCP"] = "Is Compilation?"
+        map["TCR"] = "Copyright"
         map["TDA"] = "Date"
         map["TDY"] = "Playlist Delay"
         map["TOR"] = "Original Release Time"
@@ -81,7 +89,7 @@ struct V22Spec {
         map["TXT"] = "Lyricist"
         map["TFT"] = "File Type"
         map["TIM"] = "Time"
-        map["TT1"] = "Content Group Description"
+        map["TT1"] = "Grouping"
         map["TT3"] = "Subtitle"
         map["TKE"] = "Initial Key"
         map["TLA"] = "Language(s)"
@@ -100,6 +108,12 @@ struct V22Spec {
         map["TRC"] = "ISRC (International Standard Recording Code)"
         map["TSS"] = "Encoding Software / Hardware"
         
+        map["TS2"] = "Album Artist Sort Order"
+        map["TSA"] = "Album Sort Order"
+        map["TSC"] = "Composer Sort Order"
+        map["TSP"] = "Performer Sort Order"
+        map["TST"] = "Title Sort Order"
+        
         // TODO: Use extra attributes to elaborate on TXXX fields (e.g. ALBUMARTIST)
         map["TXX"] = "User Defined Text Information Frame"
         
@@ -115,16 +129,19 @@ struct V22Spec {
         // TODO: Use extra attributes to elaborate on TXXX fields (e.g. ALBUMARTIST)
         map["WXX"] = "User Defined URL Link Frame"
         
+        // TODO: ???
+        map["PCS"] = "Podcast"
+        
         return map
     }()
 }
 
-struct V24Spec {
+struct ID3_V24Spec {
     
     static let key_duration: String = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyLength.rawValue)
     
     static let key_title = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
-    static let key_artist = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue)
+    static let key_artist = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue)
     static let key_band = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyBand.rawValue)
     static let key_album = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
     static let key_genre = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyContentType.rawValue)
@@ -136,7 +153,7 @@ struct V24Spec {
     static let key_syncLyrics = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
     
     static let key_art: String = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
-    static let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
+    static let id_art: AVMetadataIdentifier = AVMetadataIdentifier.commonIdentifierArtwork
     
     static let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue
     static let key_playCounter: String = AVMetadataKey.id3MetadataKeyPlayCounter.rawValue
@@ -144,6 +161,7 @@ struct V24Spec {
     static let replaceableKeyFields: [String] = [AVMetadataKey.id3MetadataKeyUserText.rawValue, AVMetadataKey.id3MetadataKeyComments.rawValue, AVMetadataKey.id3MetadataKeyUserURL.rawValue]
     
     static let key_language: String = AVMetadataKey.id3MetadataKeyLanguage.rawValue
+    static let key_compilation: String = "TCMP"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
@@ -158,10 +176,10 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyAudioSeekPointIndex.rawValue] = "Audio Seek Point Index"
         
         // COMM
-        map[AVMetadataKey.id3MetadataKeyComments.rawValue] = "Comments"
+        map[AVMetadataKey.id3MetadataKeyComments.rawValue] = "Comment"
         
         // COMR
-        map[AVMetadataKey.id3MetadataKeyCommercial.rawValue] = "Commercial Frame"
+        map[AVMetadataKey.id3MetadataKeyCommercial.rawValue] = "Commercial"
         
         // ENCR
         map[AVMetadataKey.id3MetadataKeyEncryption.rawValue] = "Encryption Method Registration"
@@ -194,7 +212,7 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyMPEGLocationLookupTable.rawValue] = "MPEG Location Lookup Table"
         
         // OWNE
-        map[AVMetadataKey.id3MetadataKeyOwnership.rawValue] = "Ownership Frame"
+        map[AVMetadataKey.id3MetadataKeyOwnership.rawValue] = "Ownership"
         
         // PCNT
         map[AVMetadataKey.id3MetadataKeyPlayCounter.rawValue] = "Play Counter"
@@ -203,7 +221,7 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyPopularimeter.rawValue] = "Popularimeter"
         
         // POSS
-        map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation Frame"
+        map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation"
         
         // PRIV
         //        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
@@ -246,7 +264,7 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyContentType.rawValue] = "Genre"
         
         // TCOP
-        map[AVMetadataKey.id3MetadataKeyCopyright.rawValue] = "Copyright Message"
+        map[AVMetadataKey.id3MetadataKeyCopyright.rawValue] = "Copyright"
         
         // TDAT
         map[AVMetadataKey.id3MetadataKeyDate.rawValue] = "Date"
@@ -285,7 +303,7 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyInvolvedPeopleList_v24.rawValue] = "Involved People List"
         
         // TIT1
-        map[AVMetadataKey.id3MetadataKeyContentGroupDescription.rawValue] = "Content Group Description"
+        map[AVMetadataKey.id3MetadataKeyContentGroupDescription.rawValue] = "Grouping"
         
         // TIT2
         map[AVMetadataKey.id3MetadataKeyTitleDescription.rawValue] = "Title"
@@ -321,16 +339,13 @@ struct V24Spec {
         map[AVMetadataKey.id3MetadataKeyOriginalLyricist.rawValue] = "Original Lyricist(s)"
         
         // TOPE
-        map[AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue] = "Artist"
+        map[AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue] = "Original Artist"
         
         // TORY
         map[AVMetadataKey.id3MetadataKeyOriginalReleaseYear.rawValue] = "Original Release Year"
         
         // TOWN
         map[AVMetadataKey.id3MetadataKeyFileOwner.rawValue] = "File Owner"
-        
-        // TPE1
-        map[AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue] = "Lead Performer(s)"
         
         // TPE2
         map[AVMetadataKey.id3MetadataKeyBand.rawValue] = "Band"
@@ -425,6 +440,8 @@ struct V24Spec {
         
         // WXXX
         map[AVMetadataKey.id3MetadataKeyUserURL.rawValue] = "User Defined URL Link Frame"
+        
+        map["TCMP"] = "Is Compilation?"
         
         return map
     }()

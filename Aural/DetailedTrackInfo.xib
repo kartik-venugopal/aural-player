@@ -20,16 +20,16 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView wantsLayer="YES" appearanceType="darkAqua" id="c22-O7-iKe" customClass="PopoverContentView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="546" height="341"/>
+            <rect key="frame" x="0.0" y="0.0" width="546" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7P-5I-7H0" userLabel="Artwork">
-                    <rect key="frame" x="14" y="287" width="40" height="40"/>
+                    <rect key="frame" x="14" y="292" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4tG-Jk-wDf"/>
                 </imageView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LME-UP-unx" userLabel="Metadata tab button">
-                    <rect key="frame" x="129" y="293" width="76" height="30"/>
+                    <rect key="frame" x="129" y="298" width="76" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Metadata" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="KVw-8U-lQv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -37,7 +37,7 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="XXJ-o0-tSk" userLabel="Audio tab button">
-                    <rect key="frame" x="275" y="293" width="56" height="30"/>
+                    <rect key="frame" x="275" y="298" width="56" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Audio" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gPU-C5-RCR" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -45,7 +45,7 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="s28-h4-rsc" userLabel="File system tab button">
-                    <rect key="frame" x="338" y="293" width="84" height="30"/>
+                    <rect key="frame" x="338" y="298" width="84" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="File System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -53,24 +53,24 @@
                     </buttonCell>
                 </button>
                 <tabView appearanceType="darkAqua" fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="LN2-cv-nc6" userLabel="Tab group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="14" y="15" width="525" height="260"/>
+                    <rect key="frame" x="14" y="15" width="525" height="265"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="0" id="34C-E7-hHn" userLabel="Metadata" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="3E2-ZF-Ncj">
-                                <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
+                            <view key="view" ambiguous="YES" id="3E2-ZF-Ncj">
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa" userLabel="Metadata Table">
-                                        <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="hYB-5h-Z23">
-                                            <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0" userLabel="Metadata Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -168,23 +168,23 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Lyrics" identifier="1" id="k1F-JH-yb8" userLabel="Lyrics" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="7MA-iq-xHx">
-                                <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
+                            <view key="view" id="7MA-iq-xHx">
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="mch-Xa-EwX">
-                                        <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="ww9-G2-wcK">
-                                            <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BrD-vm-ynW">
-                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="260"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256606760154" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866213885826" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="500" height="255"/>
+                                                    <size key="minSize" width="515" height="260"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099036337628" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
@@ -206,18 +206,18 @@
                         </tabViewItem>
                         <tabViewItem label="Audio" identifier="2" id="xis-8b-TW4" userLabel="Audio" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="h3p-so-iL6">
-                                <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSx-Dm-RQW" userLabel="Audio Table">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3WW-YR-rKc">
-                                            <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="ihr-iH-Cyj" userLabel="Audio Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -315,18 +315,18 @@
                         </tabViewItem>
                         <tabViewItem label="File System" identifier="3" id="cm2-Kz-0Ck" userLabel="File System" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                             <view key="view" id="hkE-cO-V9m">
-                                <rect key="frame" x="0.0" y="0.0" width="518" height="260"/>
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FT-oL-aXy" userLabel="File System Table">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cpf-ey-pul">
-                                            <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="GrA-Ht-F0j" userLabel="File system Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="255"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -425,7 +425,7 @@
                     </tabViewItems>
                 </tabView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bz-6T-Vw4" userLabel="Close button">
-                    <rect key="frame" x="526" y="321" width="10" height="10"/>
+                    <rect key="frame" x="526" y="326" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6zC-Ob-fI1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -436,7 +436,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-XH-2Fx" userLabel="Audio tab button">
-                    <rect key="frame" x="210" y="293" width="56" height="30"/>
+                    <rect key="frame" x="210" y="298" width="56" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Lyrics" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="YBd-7n-SFv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
