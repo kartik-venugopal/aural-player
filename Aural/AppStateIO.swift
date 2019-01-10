@@ -11,31 +11,10 @@ class AppStateIO {
         
         FileSystemUtils.createDirectory(AppConstants.FilesAndPaths.baseDir)
         
-        if let outputStream = OutputStream(url: AppConstants.FilesAndPaths.appStateFile, append: false) {
-            
-            outputStream.open()
-            
-            let jsonObject = JSONMapper.map(state)
-            if !JSONSerialization.isValidJSONObject(jsonObject) {
-                NSLog("Error saving app state config file: Invalid JSON object.")
-                outputStream.close()
-                return
-            }
-            
-            var ioError: NSError?
-            let bytesWritten = JSONSerialization.writeJSONObject(jsonObject, to: outputStream, options: JSONSerialization.WritingOptions.prettyPrinted, error: &ioError)
-            
-            if let error = ioError {
-                NSLog("Error saving app state config file: %@", error.description)
-            } else if bytesWritten == 0 {
-                NSLog("Error saving app state config file: No bytes written to the stream.")
-            }
-            
-            outputStream.close()
-            
-        } else {
-            NSLog("Error saving app state config file: Unable to create output stream.")
-        }
+        let jsonObject = JSONMapper.map(state)
+        let file = AppConstants.FilesAndPaths.appStateFile
+        
+        do { try JSONWriter.writeObject(jsonObject, file, true) } catch {}
     }
     
     // Loads app state from default user documents directory

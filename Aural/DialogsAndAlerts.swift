@@ -20,7 +20,7 @@ struct DialogsAndAlerts {
     static let savePlaylistDialog: NSSavePanel = createSavePlaylistDialog()
     
     // Used to save a recording to a file
-    private static let saveRecordingDialog: NSSavePanel = createSaveRecordingDialog()
+    private static let saveDialog: NSSavePanel = createSaveDialog()
     
     // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
     static let saveRecordingAlert: NSAlert = createSaveRecordingAlert()
@@ -113,7 +113,7 @@ struct DialogsAndAlerts {
         return dialog
     }
     
-    private static func createSaveRecordingDialog() -> NSSavePanel {
+    private static func createSaveDialog() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         
@@ -129,10 +129,20 @@ struct DialogsAndAlerts {
     
     static func saveRecordingPanel(_ fileExtension: String) -> NSSavePanel {
         
-        saveRecordingDialog.title = String(format: "Save recording as a (.%@) file", fileExtension)
-        saveRecordingDialog.allowedFileTypes = [fileExtension]
+        saveDialog.title = String(format: "Save recording as a (.%@) file", fileExtension)
+        saveDialog.allowedFileTypes = [fileExtension]
         
-        return saveRecordingDialog
+        return saveDialog
+    }
+    
+    static func exportMetadataPanel(_ fileName: String, _ fileExtension: String) -> NSSavePanel {
+        
+        saveDialog.nameFieldStringValue = fileName + "." + fileExtension
+        
+        saveDialog.title = String(format: "Export metadata as a (.%@) file", fileExtension)
+        saveDialog.allowedFileTypes = [fileExtension]
+        
+        return saveDialog
     }
     
     private static func createSaveRecordingAlert() -> NSAlert {
@@ -160,6 +170,17 @@ struct DialogsAndAlerts {
         alert.icon = Images.imgError
 
         alert.addButton(withTitle: "OK")
+        
+        return alert
+    }
+    
+    static func genericErrorAlert(_ title: String, _ message: String, _ info: String) -> NSAlert {
+        
+        let alert = errorAlert
+        
+        alert.window.title = title
+        alert.messageText = message
+        alert.informativeText = info
         
         return alert
     }
