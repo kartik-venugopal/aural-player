@@ -1,10 +1,10 @@
 import Foundation
 
-class LanguageCodes {
+class LanguageMap {
     
     private init() {}
     
-    static func languageNameForCode(_ code: String) -> String? {
+    static func forCode(_ code: String) -> String? {
         return map[code]
     }
     

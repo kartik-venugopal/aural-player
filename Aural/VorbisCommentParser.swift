@@ -98,7 +98,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
             if let genreCode = Int(numberStr) {
                 
                 // Look up genreId in ID3 table
-                return ID3Parser.genreForCode(genreCode) ?? string
+                return GenreMap.forId(genreCode) ?? string
             }
         }
         
@@ -200,7 +200,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
             for (key, var value) in fields {
                 
                 // Check special fields
-                if key == key_language, let langName = LanguageCodes.languageNameForCode(value.trim()) {
+                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
                 }
                 
