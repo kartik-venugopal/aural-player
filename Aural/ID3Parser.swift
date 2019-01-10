@@ -6,17 +6,10 @@ fileprivate let keySpace: String = AVMetadataKeySpace.id3.rawValue
 fileprivate let key_duration: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyLength.rawValue)
 
 fileprivate let key_title = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
-fileprivate let commonKey_title = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyTitle.rawValue)
-
 fileprivate let key_artist = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue)
-fileprivate let commonKey_artist = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtist.rawValue)
 fileprivate let key_band = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyBand.rawValue)
-
 fileprivate let key_album = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)
-fileprivate let commonKey_album = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyAlbumName.rawValue)
-
 fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyContentType.rawValue)
-fileprivate let commonKey_genre = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyType.rawValue)
 
 fileprivate let key_discNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyPartOfASet.rawValue)
 fileprivate let key_trackNumber = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyTrackNumber.rawValue)
@@ -25,7 +18,6 @@ fileprivate let key_lyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3
 fileprivate let key_syncLyrics = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue)
 
 fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue)
-fileprivate let commonKey_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
 fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
 
 // Special keys
@@ -36,7 +28,9 @@ fileprivate let key_GEOB: String = AVMetadataKey.id3MetadataKeyGeneralEncapsulat
 fileprivate let key_playCounter: String = AVMetadataKey.id3MetadataKeyPlayCounter.rawValue
 fileprivate let key_language: String = AVMetadataKey.id3MetadataKeyLanguage.rawValue
 
-fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
+//fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, commonKey_title, key_artist, commonKey_artist, key_album, commonKey_album, key_genre, commonKey_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art, commonKey_art]
+
+fileprivate let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
 
 /*  
  Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
@@ -64,7 +58,7 @@ class ID3Parser: AVAssetParser {
         
         for item in items {
             
-            if item.keySpace == AVMetadataKeySpace.id3, let key = item.keyAsString {
+            if item.keySpace == AVMetadataKeySpace.id3, item.commonKey == nil, let key = item.keyAsString {
                 
                 let mapKey = String(format: "%@/%@", keySpace, key)
                 
@@ -89,11 +83,8 @@ class ID3Parser: AVAssetParser {
     
     func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {
         
-        for key in [commonKey_title, key_title] {
-            
-            if let titleItem = mapForTrack.map[key] {
-                return titleItem.stringValue
-            }
+        if let titleItem = mapForTrack.map[key_title] {
+            return titleItem.stringValue
         }
         
         return nil
@@ -101,11 +92,8 @@ class ID3Parser: AVAssetParser {
     
     func getArtist(_ mapForTrack: AVAssetMetadata) -> String? {
         
-        for key in [commonKey_artist, key_artist] {
-            
-            if let artistItem = mapForTrack.map[key] {
-                return artistItem.stringValue
-            }
+        if let artistItem = mapForTrack.map[key_artist] {
+            return artistItem.stringValue
         }
         
         return nil
@@ -113,11 +101,8 @@ class ID3Parser: AVAssetParser {
     
     func getAlbum(_ mapForTrack: AVAssetMetadata) -> String? {
         
-        for key in [commonKey_album, key_album] {
-            
-            if let albumItem = mapForTrack.map[key] {
-                return albumItem.stringValue
-            }
+        if let albumItem = mapForTrack.map[key_album] {
+            return albumItem.stringValue
         }
         
         return nil
@@ -125,20 +110,17 @@ class ID3Parser: AVAssetParser {
     
     func getGenre(_ mapForTrack: AVAssetMetadata) -> String? {
         
-        for key in [commonKey_genre, key_genre] {
+        if let genreItem = mapForTrack.map[key_genre] {
             
-            if let genreItem = mapForTrack.map[key] {
+            if let str = genreItem.stringValue {
                 
-                if let str = genreItem.stringValue {
-                    
-                    return parseGenreNumericString(str)
-                    
-                } else if let data = genreItem.dataValue {
-                    
-                    // Parse as hex string
-                    let code = Int(data.hexEncodedString(), radix: 16)!
-                    return ID3Parser.genreForCode(code)
-                }
+                return parseGenreNumericString(str)
+                
+            } else if let data = genreItem.dataValue {
+                
+                // Parse as hex string
+                let code = Int(data.hexEncodedString(), radix: 16)!
+                return ID3Parser.genreForCode(code)
             }
         }
         
@@ -250,11 +232,8 @@ class ID3Parser: AVAssetParser {
     
     func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage? {
         
-        for key in [commonKey_art, key_art] {
-            
-            if let item = mapForTrack.map[key], let imgData = item.dataValue {
-                return NSImage(data: imgData)
-            }
+        if let item = mapForTrack.map[key_art], let imgData = item.dataValue {
+            return NSImage(data: imgData)
         }
         
         return nil
@@ -285,7 +264,7 @@ class ID3Parser: AVAssetParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .id3}) {
+        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == AVMetadataKeySpace.id3 && item.commonKey == nil}) {
             
             if let key = item.keyAsString, let value = item.valueAsString {
                 
