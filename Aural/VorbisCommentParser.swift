@@ -7,7 +7,13 @@ fileprivate let key_album = "album"
 fileprivate let key_genre = "genre"
 
 fileprivate let key_disc = "discnumber"
+fileprivate let key_discTotal = "disctotal"
+fileprivate let key_totalDiscs = "totaldiscs"
+
 fileprivate let key_track = "tracknumber"
+fileprivate let key_trackTotal = "tracktotal"
+fileprivate let key_totalTracks = "totaltracks"
+
 fileprivate let key_lyrics = "lyrics"
 
 fileprivate let key_encodingTime = "encodingtime"
@@ -15,7 +21,7 @@ fileprivate let key_language = "language"
 
 class VorbisCommentParser: FFMpegMetadataParser {
     
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_track, key_lyrics]
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks, key_lyrics]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
@@ -105,7 +111,17 @@ class VorbisCommentParser: FFMpegMetadataParser {
             return parseDiscOrTrackNumber(discNumStr)
         }
         
-        // TODO: Check if total present, if not, check for tracktotal or totaltracks field
+        return nil
+    }
+    
+    func getTotalDiscs(_ mapForTrack: LibAVMetadata) -> Int? {
+        
+        for key in [key_discTotal, key_totalDiscs] {
+            
+            if let totalDiscsStr = mapForTrack.vorbisMetadata?.essentialFields[key]?.trim(), let totalDiscs = Int(totalDiscsStr) {
+                return totalDiscs
+            }
+        }
         
         return nil
     }
@@ -114,6 +130,18 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         if let trackNumStr = mapForTrack.vorbisMetadata?.essentialFields[key_track] {
             return parseDiscOrTrackNumber(trackNumStr)
+        }
+        
+        return nil
+    }
+    
+    func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int? {
+        
+        for key in [key_trackTotal, key_totalTracks] {
+
+            if let totalTracksStr = mapForTrack.vorbisMetadata?.essentialFields[key]?.trim(), let totalTracks = Int(totalTracksStr) {
+                return totalTracks
+            }
         }
         
         return nil

@@ -109,12 +109,20 @@ class ApeV2Parser: FFMpegMetadataParser {
         return nil
     }
     
+    func getTotalDiscs(_ mapForTrack: LibAVMetadata) -> Int? {
+        return nil
+    }
+    
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumStr = mapForTrack.apeMetadata?.essentialFields[key_track] {
             return parseDiscOrTrackNumber(trackNumStr)
         }
         
+        return nil
+    }
+    
+    func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int? {
         return nil
     }
     
