@@ -259,7 +259,7 @@ extension AVMetadataItem {
     var keyAsString: String? {
         
         if let key = self.key as? String {
-            return key
+            return key.replacingOccurrences(of: "\0", with: "")
         }
         
         if let id = self.identifier {

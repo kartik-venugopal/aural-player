@@ -84,7 +84,7 @@ class ITunesParser: AVAssetParser {
         
         for item in items {
             
-            if item.keySpace == AVMetadataKeySpace.iTunes, let key = item.keyAsString {
+            if item.keySpace == .iTunes, let key = item.keyAsString {
                 
                 let mapKey = String(format: "%@/%@", keySpace, key)
                 

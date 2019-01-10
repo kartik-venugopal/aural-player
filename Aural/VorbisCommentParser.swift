@@ -276,7 +276,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["category"] = "Category"
         
-        map["comment"] = "Comments"
+        map["comment"] = "Comment"
         
         map["commercial_info_url"] = "Commercial Information Webpage"
         
