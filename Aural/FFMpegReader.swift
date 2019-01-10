@@ -128,11 +128,19 @@ class FFMpegReader: MetadataReader {
         
         ensureTrackAssetLoaded(track)
         
-        let discNumber = getDiscNumber(track)
-        let trackNumber = getTrackNumber(track)
+        var discNumberAndTotal = getDiscNumber(track)
+        if let discNum = discNumberAndTotal?.number, discNumberAndTotal?.total == nil, let totalDiscs = getTotalDiscs(track) {
+            discNumberAndTotal = (discNum, totalDiscs)
+        }
+        
+        var trackNumberAndTotal = getTrackNumber(track)
+        if let trackNum = trackNumberAndTotal?.number, trackNumberAndTotal?.total == nil, let totalTracks = getTotalTracks(track) {
+            trackNumberAndTotal = (trackNum, totalTracks)
+        }
+        
         let lyrics = getLyrics(track)
         
-        return SecondaryMetadata(discNumber?.number, discNumber?.total, trackNumber?.number, trackNumber?.total, lyrics)
+        return SecondaryMetadata(discNumberAndTotal?.number, discNumberAndTotal?.total, trackNumberAndTotal?.number, trackNumberAndTotal?.total, lyrics)
     }
     
     private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
@@ -150,6 +158,21 @@ class FFMpegReader: MetadataReader {
         return nil
     }
     
+    private func getTotalDiscs(_ track: Track) -> Int? {
+        
+        if let map = track.libAVInfo?.metadata {
+            
+            for parser in parsersForTrack(track) {
+                
+                if let totalDiscs = parser.getTotalDiscs(map) {
+                    return totalDiscs
+                }
+            }
+        }
+        
+        return nil
+    }
+    
     private func getTrackNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
         if let map = track.libAVInfo?.metadata {
@@ -158,6 +181,21 @@ class FFMpegReader: MetadataReader {
                 
                 if let trackNum = parser.getTrackNumber(map) {
                     return trackNum
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    private func getTotalTracks(_ track: Track) -> Int? {
+        
+        if let map = track.libAVInfo?.metadata {
+            
+            for parser in parsersForTrack(track) {
+                
+                if let totalTracks = parser.getTotalTracks(map) {
+                    return totalTracks
                 }
             }
         }

@@ -47,7 +47,11 @@ protocol FFMpegMetadataParser {
     
     func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)?
     
+    func getTotalDiscs(_ mapForTrack: LibAVMetadata) -> Int?
+    
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)?
+    
+    func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int?
     
     func getGenericMetadata(_ mapForTrack: LibAVMetadata) -> [String: MetadataEntry]
 }

@@ -11,8 +11,11 @@ fileprivate let key_duration = "duration"
 fileprivate let key_totalDuration = "totalduration"
 
 fileprivate let key_disc = "partofset"
+fileprivate let key_discTotal = "disctotal"
 fileprivate let key_track = "tracknumber"
 fileprivate let key_track_zeroBased = "track"
+fileprivate let key_trackTotal = "tracktotal"
+
 fileprivate let key_lyrics = "lyrics"
 fileprivate let key_syncLyrics = "lyrics_synchronised"
 
@@ -41,7 +44,7 @@ class WMParser: FFMpegMetadataParser {
     
     private let keyPrefix = "wm/"
     
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_genreId, key_disc, key_track, key_lyrics]
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_genreId, key_disc, key_discTotal, key_track, key_trackTotal, key_lyrics]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
@@ -136,17 +139,33 @@ class WMParser: FFMpegMetadataParser {
         return nil
     }
     
+    func getTotalDiscs(_ mapForTrack: LibAVMetadata) -> Int? {
+        
+        if let totalDiscsStr = mapForTrack.wmMetadata?.essentialFields[key_discTotal]?.trim(), let totalDiscs = Int(totalDiscsStr) {
+            return totalDiscs
+        }
+        
+        return nil
+    }
+    
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track] {
             return parseDiscOrTrackNumber(trackNumStr)
         }
         
-        // TODO: Check if total present, if not, check for tracktotal or totaltracks field
-        
         // Zero-based track number
         if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track_zeroBased] {
             return parseDiscOrTrackNumber(trackNumStr, 1)
+        }
+        
+        return nil
+    }
+    
+    func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int? {
+        
+        if let totalTracksStr = mapForTrack.wmMetadata?.essentialFields[key_trackTotal]?.trim(), let totalTracks = Int(totalTracksStr) {
+            return totalTracks
         }
         
         return nil
