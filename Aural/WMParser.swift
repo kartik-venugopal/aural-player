@@ -41,20 +41,11 @@ class WMParser: FFMpegMetadataParser {
     
     private let keyPrefix = "wm/"
     
-    private let essentialKeys: [String: String] = [
-        
-        key_title: "Title",
-        key_artist: "Artist",
-        key_album: "Album",
-        key_genre: "Genre",
-        key_disc: "Disc#",
-        key_track: "Track#",
-        key_lyrics: "Lyrics"
-    ]
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_genreId, key_disc, key_track, key_lyrics]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        var map = mapForTrack.map
+        let map = mapForTrack.map
         
         let metadata = LibAVParserMetadata()
         mapForTrack.wmMetadata = metadata
@@ -63,15 +54,15 @@ class WMParser: FFMpegMetadataParser {
             
             let lcKey = key.lowercased().replacingOccurrences(of: keyPrefix, with: "").trim()
             
-            if essentialKeys[lcKey] != nil {
+            if essentialKeys.contains(lcKey) {
                 
                 metadata.essentialFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
                 
             } else if genericKeys[lcKey] != nil {
                 
                 metadata.genericFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
             }
         }
     }

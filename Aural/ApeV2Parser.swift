@@ -18,7 +18,7 @@ class ApeV2Parser: FFMpegMetadataParser {
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        var map = mapForTrack.map
+        let map = mapForTrack.map
         
         let metadata = LibAVParserMetadata()
         mapForTrack.apeMetadata = metadata
@@ -30,12 +30,12 @@ class ApeV2Parser: FFMpegMetadataParser {
             if essentialKeys.contains(lcKey) {
                 
                 metadata.essentialFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
                 
             } else if genericKeys[lcKey] != nil {
                 
                 metadata.genericFields[lcKey] = value
-                map.removeValue(forKey: key)
+                mapForTrack.map.removeValue(forKey: key)
             }
         }
     }
