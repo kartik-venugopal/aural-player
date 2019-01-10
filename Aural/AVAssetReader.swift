@@ -1,13 +1,19 @@
 import Cocoa
 import AVFoundation
 
-class AVAssetReader: MetadataReader {
+class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private let parsers: [AVAssetParser] = [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
     
     private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
     
     private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
+    
+    let subscriberId: String = "AVAssetReader"
+    
+    init() {
+        AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+    }
     
     // Helper function that ensures that a track's AVURLAsset has been initialized
     private func ensureTrackAssetLoaded(_ track: Track) {
@@ -235,6 +241,17 @@ class AVAssetReader: MetadataReader {
         
         return nil
     }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if message.messageType == .tracksRemoved {
+            
+            let msg = message as! TracksRemovedAsyncMessage
+            for track in msg.results.tracks {
+                metadataMap.remove(track)
+            }
+        }
+    }
 }
 
 extension Data {
@@ -247,7 +264,7 @@ extension Data {
 class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
-    var genericMap: [String: AVMetadataItem] = [:]
+    var genericItems: [AVMetadataItem] = []
 }
 
 extension AVMetadataItem {

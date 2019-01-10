@@ -169,7 +169,12 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
         
         if let fields = mapForTrack.commonMetadata?.genericFields {
             
-            for (key, value) in fields {
+            for (key, var value) in fields {
+                
+                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
+                    value = langName
+                }
+                
                 metadata[key] = MetadataEntry(.common, readableKey(key), value)
             }
         }

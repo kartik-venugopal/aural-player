@@ -92,13 +92,13 @@ class ITunesParser: AVAssetParser {
                     mapForTrack.map[mapKey] = item
                 } else {
                     // Generic field
-                    mapForTrack.genericMap[mapKey] = item
+                    mapForTrack.genericItems.append(item)
                 }
                 
-            } else if item.keySpace?.rawValue == longForm_keySpaceID, let key = item.keyAsString { // Long form
+            } else if item.keySpace?.rawValue == longForm_keySpaceID { // Long form
                 
                 // Generic field
-                mapForTrack.genericMap[key] = item
+                mapForTrack.genericItems.append(item)
             }
             
 //            if let attrs = item.extraAttributes, attrs.count > 0 {
@@ -314,7 +314,7 @@ class ITunesParser: AVAssetParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == longForm_keySpaceID}) {
+        for item in mapForTrack.genericItems.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == longForm_keySpaceID}) {
             
             if let key = item.keyAsString, var value = item.valueAsString {
                 
