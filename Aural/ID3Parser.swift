@@ -71,7 +71,7 @@ class ID3Parser: AVAssetParser {
                     mapForTrack.map[mapKey] = item
                 } else {
                     // Generic field
-                    mapForTrack.genericMap[mapKey] = item
+                    mapForTrack.genericItems.append(item)
                 }
             }
         }
@@ -302,7 +302,7 @@ class ID3Parser: AVAssetParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .id3}) {
+        for item in mapForTrack.genericItems.filter({item -> Bool in item.keySpace == .id3}) {
 
             if let key = item.keyAsString, let value = item.valueAsString {
 

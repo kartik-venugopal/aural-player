@@ -48,6 +48,13 @@ class ConcurrentMap<T: Hashable, U: Any> {
             map[key] = value
         }
     }
+    
+    func remove(_ key: T) {
+        
+        _ = syncQueue.sync(flags: .barrier) {
+            map.removeValue(forKey: key)
+        }
+    }
 }
 
 class ConcurrentSet<T: Hashable> {

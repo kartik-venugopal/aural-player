@@ -24,15 +24,13 @@ class CommonAVAssetParser: AVAssetParser {
             
             if item.keySpace == .common, let key = item.commonKeyAsString {
                 
-                print("Common:", key)
-                
                 let mapKey = String(format: "%@/%@", keySpace, key)
                 
                 if essentialFieldKeys.contains(mapKey) {
                     mapForTrack.map[mapKey] = item
                 } else {
                     // Generic field
-                    mapForTrack.genericMap[mapKey] = item
+                    mapForTrack.genericItems.append(item)
                 }
             }
         }
@@ -112,7 +110,7 @@ class CommonAVAssetParser: AVAssetParser {
         
         var metadata: [String: MetadataEntry] = [:]
 
-        for item in mapForTrack.genericMap.values.filter({item -> Bool in item.keySpace == .common}) {
+        for item in mapForTrack.genericItems.filter({item -> Bool in item.keySpace == .common}) {
             
             if let key = item.keyAsString, var value = item.valueAsString {
                 

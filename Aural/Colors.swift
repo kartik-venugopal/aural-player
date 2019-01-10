@@ -89,7 +89,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let scrollerKnobColor: NSColor = NSColor(white: 0.3, alpha: 1.0)
+    static let scrollerKnobColor: NSColor = NSColor(white: 0.4, alpha: 1.0)
     static let scrollerBarColor: NSColor = NSColor(white: 0.25, alpha: 1.0)
     
     static let neutralSliderBarColoredGradient: NSGradient = {
