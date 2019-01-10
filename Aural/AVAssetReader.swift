@@ -134,24 +134,6 @@ class AVAssetReader: MetadataReader {
         return SecondaryMetadata(discInfo?.number, discInfo?.total, trackInfo?.number, trackInfo?.total, lyrics)
     }
     
-    func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
-        
-        ensureTrackAssetLoaded(track)
-        
-        var metadata: [String: MetadataEntry] = [:]
-
-        if let map = metadataMap.getForKey(track) {
-
-            for parser in parsers {
-                
-                let parserMetadata = parser.getGenericMetadata(map)
-                parserMetadata.forEach({(k,v) in metadata[k] = v})
-            }
-        }
-        
-        return metadata
-    }
-    
     private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
         if let map = metadataMap.getForKey(track) {
@@ -200,6 +182,24 @@ class AVAssetReader: MetadataReader {
     // TODO: Revisit this func and the use cases needing it
     func getDurationForFile(_ file: URL) -> Double {
         return AVURLAsset(url: file, options: nil).duration.seconds
+    }
+    
+    func getAllMetadata(_ track: Track) -> [String: MetadataEntry] {
+        
+        ensureTrackAssetLoaded(track)
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        if let map = metadataMap.getForKey(track) {
+            
+            for parser in parsers {
+                
+                let parserMetadata = parser.getGenericMetadata(map)
+                parserMetadata.forEach({(k,v) in metadata[k] = v})
+            }
+        }
+        
+        return metadata
     }
     
     func getArt(_ track: Track) -> NSImage? {
