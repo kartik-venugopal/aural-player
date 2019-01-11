@@ -24,7 +24,6 @@ class ITunesSpec {
     static let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue)
     static let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
 
-    
     static let key_language = "language"
     static let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue
     static let key_contentRating = AVMetadataKey.iTunesMetadataKeyContentRating.rawValue
