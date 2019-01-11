@@ -166,8 +166,11 @@ class ITunesParser: AVAssetParser {
     
     func getDiscNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
-        if let item = mapForTrack.map[ITunesSpec.key_discNumber] {
-            return parseDiscOrTrackNumber(item)
+        for key in [ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2] {
+            
+            if let item = mapForTrack.map[key] {
+                return parseDiscOrTrackNumber(item)
+            }
         }
         
         return nil
