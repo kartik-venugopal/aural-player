@@ -273,13 +273,15 @@ class ITunesParser: AVAssetParser {
         
         for item in mapForTrack.genericItems.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == ITunesSpec.longForm_keySpaceID}) {
             
-            if let key = item.keyAsString, var value = item.valueAsString {
+            if let key = item.keyAsString {
+                
+                var value: String = ""
                 
                 if key == ITunesSpec.key_language, let langName = LanguageMap.forCode(value.trim()) {
                     
                     value = langName
                     
-                } else if key == ITunesSpec.key_compilation, let numVal = item.numberValue {
+                } else if key == ITunesSpec.key_compilation || key == ITunesSpec.key_isPodcast, let numVal = item.numberValue {
                     
                     // Number to boolean
                     value = numVal == 0 ? "No" : "Yes"
@@ -294,9 +296,35 @@ class ITunesParser: AVAssetParser {
                     } else if let data = item.dataValue {
                         
                         // Parse as hex string
-                        if let code = Int(data.hexEncodedString(), radix: 16) {
-                            value = GenreMap.forID3Code(code - 1) ?? value
+                        if let code = Int(data.hexEncodedString(), radix: 16), let genre = GenreMap.forID3Code(code - 1) {
+                            value = genre
+                        } else {
+                            continue
                         }
+                    }
+                    
+                } else if key == ITunesSpec.key_mediaType {
+
+                    if let mediaTypeCode = item.numberValue?.intValue, let mediaType = ITunesSpec.mediaTypes[mediaTypeCode] {
+                        value = mediaType
+                    } else {
+                        continue
+                    }
+                    
+                } else if key == ITunesSpec.key_contentRating {
+                    
+                    if let ratingCode = item.numberValue?.intValue, let rating = ITunesSpec.contentRating[ratingCode] {
+                        value = rating
+                    } else {
+                        continue
+                    }
+                    
+                } else {
+                    
+                    if let strValue = item.valueAsString {
+                        value = strValue
+                    } else {
+                        continue
                     }
                 }
                 

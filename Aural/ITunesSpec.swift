@@ -26,6 +26,10 @@ class ITunesSpec {
     static let key_predefGenre = AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue
     static let key_language = "language"
     static let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue
+    static let key_contentRating = AVMetadataKey.iTunesMetadataKeyContentRating.rawValue
+    
+    static let key_mediaType = "stik"
+    static let key_isPodcast = "pcst"
     
     static func readableKey(_ key: String) -> String {
         
@@ -491,7 +495,7 @@ class ITunesSpec {
         
         map["payment_url"] = "Payment Webpage"
         
-        map["pcst"] = "Podcast"
+        map["pcst"] = "Is Podcast?"
         
         map["playcount"] = "Play Count"
         
@@ -526,8 +530,6 @@ class ITunesSpec {
         map["replaygain_track_gain"] = "ReplayGain Track Gain"
         
         map["replaygain_track_peak"] = "ReplayGain Track Peak"
-        
-        map["rtng"] = "Content Advisory"
         
         map["script"] = "MusicBrainz Script"
         
@@ -607,6 +609,33 @@ class ITunesSpec {
         
         map["yate track id"] = "Yate Track ID"
         
+        /*
+         
+         */
+        
         return map
     }()
+    
+    static let mediaTypes: [Int: String] = [
+        
+        0: "Movie",
+        1: "Music",
+        2: "Audiobook",
+        5: "Whacked Bookmark",
+        6: "Music Video",
+        9: "Movie",
+        10: "TV Show",
+        11: "Booklet",
+        14: "Ringtone",
+        21: "Podcast",
+        23: "iTunes U"
+    ]
+    
+    static let contentRating: [Int: String] = [
+        
+        0: "None",
+        1: "Explicit",
+        2: "Clean",
+        4: "Explicit"
+    ]
 }
