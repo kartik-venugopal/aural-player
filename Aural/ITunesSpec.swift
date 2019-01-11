@@ -112,7 +112,7 @@ class ITunesSpec {
         map[AVMetadataKey.iTunesMetadataKeyTrackSubTitle.rawValue] = "Track Sub Title"
         
         // @too
-        map[AVMetadataKey.iTunesMetadataKeyEncodingTool.rawValue] = "Encoded By"
+        map[AVMetadataKey.iTunesMetadataKeyEncodingTool.rawValue] = "Encoding Tool"
         
         // @wrt
         map[AVMetadataKey.iTunesMetadataKeyComposer.rawValue] = "Composer"
@@ -121,7 +121,7 @@ class ITunesSpec {
         map[AVMetadataKey.iTunesMetadataKeyAlbumArtist.rawValue] = "Album Artist"
         
         // akID
-        map[AVMetadataKey.iTunesMetadataKeyAccountKind.rawValue] = "Account Kind"
+        map[AVMetadataKey.iTunesMetadataKeyAccountKind.rawValue] = "Account Type"
         
         // apID
         map[AVMetadataKey.iTunesMetadataKeyAppleID.rawValue] = "Apple ID"
@@ -130,7 +130,7 @@ class ITunesSpec {
         map[AVMetadataKey.iTunesMetadataKeyArtistID.rawValue] = "Artist ID"
         
         // cnID
-        map[AVMetadataKey.iTunesMetadataKeySongID.rawValue] = "Song ID"
+        map[AVMetadataKey.iTunesMetadataKeySongID.rawValue] = "Catalog ID"
         
         // cpil
         map[AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue] = "Part of a Compilation?"
@@ -299,6 +299,8 @@ class ITunesSpec {
         map["cuesheet"] = "Cuesheet"
         
         map["desc"] = "Description"
+        
+        map["ldes"] = "Long Description"
         
         map["discogs album release country"] = "Discogs Release Country"
         
@@ -506,6 +508,10 @@ class ITunesSpec {
         map["producer"] = "Producer"
         
         map["publisher"] = "Publisher"
+        
+        map["keyw"] = "Keywords"
+        
+        map["catg"] = "Category"
         
         map["purd"] = "Purchase Date"
         

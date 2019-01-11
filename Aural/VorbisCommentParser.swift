@@ -223,14 +223,30 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["version"] = "Version"
         map["encoded-by"] = "Encoded By"
         map["encoding"] = "Encoder Settings"
+        map["encodersettings"] = "Encoder Settings"
+        map["encodingtime"] = "Encoding Time"
+        map["encoder"] = "Encoder"
         map["composer"] = "Composer"
         map["arranger"] = "Arranger"
         map["author"] = "Author"
+        map["writer"] = "Writer"
         map["ensemble"] = "Ensemble"
         map["part"] = "Part"
         map["partnumber"] = "Part Number"
         map["date"] = "Date"
         map["location"] = "Location"
+        map["albumartist"] = "Album Artist"
+        
+        map["grouping"] = "Grouping"
+        
+        map["albumartistsort"] = "Album Artist Sort Order"
+        map["artistsort"] = "Track Artist Sort Order"
+        map["albumsort"] = "Album Title Sort Order"
+        map["titlesort"] = "Track Title Sort Order"
+        
+        map["subtitle"] = "Track Subtitle"
+        
+        map["upc"] = "UPC"
         
         map["acousticbrainz_data"] = "AcousticBrainz Data"
         
@@ -275,6 +291,10 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["catalognumber"] = "Catalog Number"
         
         map["category"] = "Category"
+        
+        map["description"] = "Description"
+        
+        map["contact"] = "Contact"
         
         map["comment"] = "Comment"
         
@@ -324,10 +344,6 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["discogs_release_url"] = "Discogs Release URL"
         
-        map["encoding"] = "Encoder Settings"
-        
-        map["encodingtime"] = "Encoding Time"
-        
         map["filetype"] = "File Type"
         
         map["fmps_playcount"] = "FMPS Play Count"
@@ -346,9 +362,15 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["producer"] = "Producer"
         
+        map["productnumber"] = "Product Number"
+        
+        map["organization"] = "Organization"
+        
         map["yate-ip"] = "Involved People"
         
         map["instrumental"] = "Instrumental"
+        
+        map["instrument"] = "Instrument"
         
         map["isrc"] = "ISRC"
         
@@ -369,6 +391,8 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["media"] = "Media Type"
         
         map["mood"] = "Mood"
+        map["style"] = "Style"
+        map["bpm"] = "Beats Per Minute"
         
         map["music_cd_identifier"] = "Music CD Identifier"
         
@@ -420,11 +444,14 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["musicbrainz_trmid"] = "MusicBrainz TRM Id"
         
-        map["script"] = "MusicBrainz Script"
+        map["script"] = "Script"
         
         map["musicbrainz_workid"] = "MusicBrainz Work Id"
         
-        map["performer (r/w)<sup>45</sup><br>musiciancredits (r/o)<br>yate-mc<sup>20</sup>"] = "Musician Credits"
+        map["accurateripresult"] = "AccurateRip Result"
+        
+        map["performer"] = "Performer"
+        map["musiciancredits"] = "Musician Credits"
         
         map["url_official_artist_site"] = "Official Artist/Performer Webpage"
         
@@ -442,7 +469,12 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["original lyricist"] = "Original Lyricist"
         
-        map["originaldate (r/w)<br>original year (r/o)<br>originalreleasedate (r/o&gt;)<br>original_year (r/o)"] = "Original Release Time"
+        map["originaldate"] = "Original Release Date"
+        map["original year"] = "Original Release Date"
+        map["originalreleasedate"] = "Original Release Date"
+        map["original_year"] = "Original Release Date"
+        
+        map["period"] = "Period"
         
         map["payment_url"] = "Payment Webpage"
         
@@ -458,9 +490,13 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["rating"] = "Rating"
         
+        map["rights"] = "Rights"
+        
         map["releasetime"] = "Release Time"
         
         map["remixer"] = "Remixer"
+        
+        map["soloists"] = "Soloists"
         
         map["replaygain_album_gain"] = "ReplayGain Album Gain"
         
@@ -471,6 +507,8 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["replaygain_track_peak"] = "ReplayGain Track Peak"
         
         map["set subtitle"] = "Set Subtitle"
+        
+        map["discsubtitle"] = "Disc Subtitle"
         
         map["skipwhenshuffling"] = "Skip When Shuffling"
         
