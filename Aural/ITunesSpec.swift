@@ -14,6 +14,7 @@ class ITunesSpec {
     
     static let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyUserGenre.rawValue)
     static let key_genreID = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyGenreID.rawValue)
+    static let key_predefGenre = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue)
     
     static let key_discNumber = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue)
     static let key_discNumber2 = String(format: "%@/%@", keySpace, "disc")
@@ -23,7 +24,7 @@ class ITunesSpec {
     static let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue)
     static let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
 
-    static let key_predefGenre = AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue
+    
     static let key_language = "language"
     static let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue
     static let key_contentRating = AVMetadataKey.iTunesMetadataKeyContentRating.rawValue

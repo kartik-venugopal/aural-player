@@ -49,6 +49,7 @@ struct ID3_V22Spec {
     static let replaceableKeyFields: [String] = ["TXX", "COM", "WXX"]
     static let key_GEO: String = "GEO"
     static let key_compilation: String = "TCP"
+    static let key_UFI: String = "UFI"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
@@ -162,6 +163,9 @@ struct ID3_V24Spec {
     
     static let key_language: String = AVMetadataKey.id3MetadataKeyLanguage.rawValue
     static let key_compilation: String = "TCMP"
+    
+    static let key_UFID: String = "UFID"
+    static let key_termsOfUse: String = "USER"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
