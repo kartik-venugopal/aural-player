@@ -392,7 +392,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["mood"] = "Mood"
         map["style"] = "Style"
-        map["bpm"] = "Beats Per Minute"
+        map["bpm"] = "BPM (Beats Per Minute)"
         
         map["music_cd_identifier"] = "Music CD Identifier"
         
