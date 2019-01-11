@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Aural/ITunesParser.swift"
-            timestampString = "568892779.326085"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "parseID3GenreNumericString(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aural/GenreMap.swift"
-            timestampString = "568892779.326364"
+            filePath = "Aural/ID3Parser.swift"
+            timestampString = "568898696.704476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10"
-            endingLineNumber = "10"
-            landmarkName = "forITunesCode(_:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "mapTrack(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
