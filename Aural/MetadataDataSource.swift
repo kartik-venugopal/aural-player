@@ -174,7 +174,7 @@ class MetadataDataSource: TrackInfoDataSource {
             let fKey = entry.key.trim()
             
             if !fKey.isEmpty {
-                trackInfo.append((key: fKey, value: entry.value))
+                trackInfo.append((key: fKey, value: entry.value.trim()))
             }
         }
         

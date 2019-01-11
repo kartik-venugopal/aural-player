@@ -46,6 +46,13 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
     
+    private lazy var dateFormatter: DateFormatter = {
+    
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
+        return formatter
+    }()
+    
     let subscriberId: String = "DetailedTrackInfoViewController"
     
     private let noLyricsText: String = "< No lyrics available for this track >"
@@ -118,7 +125,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
     }
     
-    @IBAction func exportAction(_ sender: AnyObject) {
+    @IBAction func exportJSONAction(_ sender: AnyObject) {
         
         if let track = DetailedTrackInfoViewController.shownTrack {
             
@@ -126,9 +133,9 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
-                let metadataDict = serializeTable(metadataTable)
-                let audioDict = serializeTable(audioTable)
-                let fileSystemDict = serializeTable(fileSystemTable)
+                let metadataDict = tableToJSON(metadataTable)
+                let audioDict = tableToJSON(audioTable)
+                let fileSystemDict = tableToJSON(fileSystemTable)
                 
                 var dict = [NSString: AnyObject]()
                 
@@ -151,7 +158,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
     }
     
-    private func serializeTable(_ table: NSTableView) -> NSDictionary {
+    private func tableToJSON(_ table: NSTableView) -> NSDictionary {
         
         var dict: [NSString: AnyObject] = [:]
         
@@ -168,6 +175,72 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
         
         return dict as NSDictionary
+    }
+    
+    @IBAction func exportHTMLAction(_ sender: AnyObject) {
+        
+        if let track = DetailedTrackInfoViewController.shownTrack {
+            
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "html")
+            
+            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+                
+                let html = HTMLWriter()
+                
+                html.addTitle(track.conciseDisplayName)
+                html.addHeading(track.conciseDisplayName, 2, false)
+                
+                let text = String(format: "Export date: %@", dateFormatter.string(from: Date()))
+                let exportDate = HTMLText(text, true, false, false, nil)
+                html.addParagraph(exportDate)
+                
+                let horizPadding: Int = 20
+                let vertPadding: Int = 5
+                
+                html.addTable("Metadata:", 3, nil, tableToHTML(metadataTable), horizPadding, vertPadding)
+                
+                html.addHeading("Lyrics:", 3, true)
+                
+                let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
+                html.addParagraph(lyrics)
+                
+                html.addTable("Audio:", 3, nil, tableToHTML(audioTable), horizPadding, vertPadding)
+                html.addTable("File System:", 3, nil, tableToHTML(fileSystemTable), horizPadding, vertPadding)
+                
+                do {
+                    
+                    try html.writeToFile(outFile)
+                    
+                } catch let error {
+                    
+                    if let error = error as? HTMLWriteError {
+                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description))
+                    }
+                }
+            }
+        }
+    }
+    
+    private func tableToHTML(_ table: NSTableView) -> [[HTMLText]] {
+        
+        var grid: [[HTMLText]] = [[]]
+        
+        for index in 0..<table.numberOfRows {
+            
+            let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as! NSTableCellView
+            if let key = keyCell.textField?.stringValue {
+                
+                let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
+                if let value = valueCell.textField?.stringValue {
+                    
+                    let keyCol = HTMLText(String(key.prefix(key.count - 1)), true, false, false, 300)
+                    let valueCol = HTMLText(value, false, false, false, nil)
+                    grid.append([keyCol, valueCol])
+                }
+            }
+        }
+        
+        return grid
     }
     
     @IBAction func closePopoverAction(_ sender: Any) {

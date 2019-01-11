@@ -129,7 +129,7 @@ struct DialogsAndAlerts {
     
     static func saveRecordingPanel(_ fileExtension: String) -> NSSavePanel {
         
-        saveDialog.title = String(format: "Save recording as a (.%@) file", fileExtension)
+        saveDialog.message = String(format: "Save recording as a (.%@) file", fileExtension)
         saveDialog.allowedFileTypes = [fileExtension]
         
         return saveDialog
@@ -139,7 +139,7 @@ struct DialogsAndAlerts {
         
         saveDialog.nameFieldStringValue = fileName + "." + fileExtension
         
-        saveDialog.title = String(format: "Export metadata as a (.%@) file", fileExtension)
+        saveDialog.message = String(format: "Export metadata as a (.%@) file", fileExtension)
         saveDialog.allowedFileTypes = [fileExtension]
         
         return saveDialog
