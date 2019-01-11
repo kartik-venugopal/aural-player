@@ -343,6 +343,12 @@ class ID3Parser: AVAssetParser {
                     
                     // Number to boolean
                     entryValue = numVal == 0 ? "No" : "Yes"
+                    
+                } else if key == ID3_V24Spec.key_UFID || key == ID3_V22Spec.key_UFI, let data = item.dataValue {
+                    
+                    if let str = String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\0", with: "\n") {
+                        entryValue = str
+                    }
                 }
 
                 entryKey = StringUtils.cleanUpString(entryKey)

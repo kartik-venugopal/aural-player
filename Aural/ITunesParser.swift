@@ -6,7 +6,7 @@ import AVFoundation
  */
 class ITunesParser: AVAssetParser {
     
-    private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_album, ITunesSpec.key_genre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_lyrics, ITunesSpec.key_art]
+    private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_album, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_lyrics, ITunesSpec.key_art]
     
     func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
@@ -84,17 +84,24 @@ class ITunesParser: AVAssetParser {
     
     func getGenre(_ mapForTrack: AVAssetMetadata) -> String? {
         
-        if let genreItem = mapForTrack.map[ITunesSpec.key_genre] {
+        for key in [ITunesSpec.key_genre, ITunesSpec.key_predefGenre] {
             
-            if let str = genreItem.stringValue {
+            if let genreItem = mapForTrack.map[key] {
                 
-                return parseID3GenreNumericString(str)
-                
-            } else if let data = genreItem.dataValue {
-                
-                // Parse as hex string
-                if let code = Int(data.hexEncodedString(), radix: 16) {
-                    return GenreMap.forID3Code(code - 1)
+                if let num = genreItem.numberValue?.intValue {
+                    
+                    return GenreMap.forID3Code(num - 1)
+                    
+                } else if let str = genreItem.stringValue {
+                    
+                    return parseID3GenreNumericString(str)
+                    
+                } else if let data = genreItem.dataValue {
+                    
+                    // Parse as hex string
+                    if let code = Int(data.hexEncodedString(), radix: 16) {
+                        return GenreMap.forID3Code(code - 1)
+                    }
                 }
             }
         }
@@ -285,23 +292,6 @@ class ITunesParser: AVAssetParser {
                     
                     // Number to boolean
                     value = numVal == 0 ? "No" : "Yes"
-                    
-                } else if key == ITunesSpec.key_predefGenre {
-                    
-                    // Parse genre
-                    if let str = item.stringValue {
-                        
-                        value = parseID3GenreNumericString(str)
-                        
-                    } else if let data = item.dataValue {
-                        
-                        // Parse as hex string
-                        if let code = Int(data.hexEncodedString(), radix: 16), let genre = GenreMap.forID3Code(code - 1) {
-                            value = genre
-                        } else {
-                            continue
-                        }
-                    }
                     
                 } else if key == ITunesSpec.key_mediaType {
 
