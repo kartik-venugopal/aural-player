@@ -80,7 +80,7 @@ struct ID3_V22Spec {
         map["STC"] = "Synchronized Tempo Codes"
         map["TBP"] = "BPM (Beats Per Minute)"
         map["TCM"] = "Composer"
-        map["TCP"] = "Is Compilation?"
+        map["TCP"] = "Part of a Compilation?"
         map["TCR"] = "Copyright"
         map["TDA"] = "Date"
         map["TDY"] = "Playlist Delay"
@@ -441,7 +441,7 @@ struct ID3_V24Spec {
         // WXXX
         map[AVMetadataKey.id3MetadataKeyUserURL.rawValue] = "User Defined URL Link Frame"
         
-        map["TCMP"] = "Is Compilation?"
+        map["TCMP"] = "Part of a Compilation?"
         
         return map
     }()

@@ -276,14 +276,14 @@ extension AVMetadataItem {
     var keyAsString: String? {
         
         if let key = self.key as? String {
-            return key.replacingOccurrences(of: "\0", with: "")
+            return StringUtils.cleanUpString(key).trim()
         }
         
         if let id = self.identifier {
             
             let tokens = id.rawValue.split(separator: "/")
             if tokens.count == 2 {
-                return String(tokens[1].trim().replacingOccurrences(of: "%A9", with: "@"))
+                return StringUtils.cleanUpString(String(tokens[1].trim().replacingOccurrences(of: "%A9", with: "@"))).trim()
             }
         }
         

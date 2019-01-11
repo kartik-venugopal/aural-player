@@ -332,6 +332,7 @@
 		3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */; };
 		3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257721E7EB4B00E202AB /* JSONWriter.swift */; };
 		3ED4257A21E803E000E202AB /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257921E803E000E202AB /* HTMLWriter.swift */; };
+		3ED4257C21E8414000E202AB /* ITunesSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257B21E8414000E202AB /* ITunesSpec.swift */; };
 		3ED43339216CA387000617A3 /* PlaybackGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43338216CA387000617A3 /* PlaybackGap.swift */; };
 		3ED5264F1F2FA27200001A97 /* ChangeListenerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
@@ -731,6 +732,7 @@
 		3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
 		3ED4257721E7EB4B00E202AB /* JSONWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWriter.swift; sourceTree = "<group>"; };
 		3ED4257921E803E000E202AB /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
+		3ED4257B21E8414000E202AB /* ITunesSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSpec.swift; sourceTree = "<group>"; };
 		3ED43338216CA387000617A3 /* PlaybackGap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackGap.swift; sourceTree = "<group>"; };
 		3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListenerProtocols.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
@@ -1782,6 +1784,7 @@
 				3E688AC421E462C400164E84 /* CommonAVAssetParser.swift */,
 				3ED0C40021E73E21002757A7 /* ID3Spec.swift */,
 				3ECD17431F6BBEE400492F56 /* ID3Parser.swift */,
+				3ED4257B21E8414000E202AB /* ITunesSpec.swift */,
 				3ECD17461F6BBF3600492F56 /* ITunesParser.swift */,
 				3E17D02F21E5AC3800951F81 /* CommonFFMpegMetadataParser.swift */,
 				3E688ABE21E3842800164E84 /* WMParser.swift */,
@@ -2325,6 +2328,7 @@
 				3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */,
 				3EF1847C217C8F6C00D24F39 /* Spectrogram.swift in Sources */,
 				3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */,
+				3ED4257C21E8414000E202AB /* ITunesSpec.swift in Sources */,
 				3EB9304B21996376008E45F8 /* FilterBandViewController.swift in Sources */,
 				3E3A636B1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift in Sources */,
 				3E3A63691F690EA200F72A60 /* PreferencesDelegate.swift in Sources */,
