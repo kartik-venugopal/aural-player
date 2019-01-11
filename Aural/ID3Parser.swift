@@ -139,7 +139,7 @@ class ID3Parser: AVAssetParser {
 
                     // Parse as hex string
                     let code = Int(data.hexEncodedString(), radix: 16)!
-                    return GenreMap.forId(code)
+                    return GenreMap.forID3Code(code)
                 }
             }
         }
@@ -160,7 +160,7 @@ class ID3Parser: AVAssetParser {
             if let genreCode = Int(numberStr) {
                 
                 // Look up genreId in ID3 table
-                return GenreMap.forId(genreCode) ?? string
+                return GenreMap.forID3Code(genreCode) ?? string
             }
         }
         

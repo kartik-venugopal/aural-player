@@ -123,7 +123,7 @@ class WMParser: FFMpegMetadataParser {
             if let genreCode = Int(numberStr) {
                 
                 // Look up genreId in ID3 table
-                return GenreMap.forId(genreCode) ?? string
+                return GenreMap.forID3Code(genreCode) ?? string
             }
         }
         
@@ -300,7 +300,7 @@ class WMParser: FFMpegMetadataParser {
         
         map["comments"] = "Comment"
         
-        map["iscompilation"] = "Is Compilation?"
+        map["iscompilation"] = "Part of a Compilation?"
         
         map["composer"] = "Composer"
         
