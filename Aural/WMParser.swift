@@ -294,7 +294,7 @@ class WMParser: FFMpegMetadataParser {
         
         map["barcode"] = "Barcode"
         
-        map["beatsperminute"] = "BPM"
+        map["beatsperminute"] = "BPM (Beats Per Minute)"
         
         map["catalogno"] = "Catalog Number"
         
@@ -411,6 +411,10 @@ class WMParser: FFMpegMetadataParser {
         map["titlesortorder"] = "Title Sort Order"
         
         map["tool"] = "Encoder"
+        
+        map["toolname"] = "Encoder"
+        
+        map["toolversion"] = "Encoder Version"
         
         map["wikipediaartisturl"] = "Wikipedia Artist Site Url"
         
