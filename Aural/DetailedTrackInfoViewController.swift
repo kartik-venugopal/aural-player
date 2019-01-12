@@ -29,8 +29,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     @IBOutlet weak var metadataTable: NSTableView! {
         
         didSet {
-            metadataTable.enclosingScrollView?.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-            metadataTable.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: -19)
+            metadataTable.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 1)
         }
     }
     
