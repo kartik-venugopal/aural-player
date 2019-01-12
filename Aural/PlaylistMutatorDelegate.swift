@@ -296,6 +296,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
             
+            TrackIO.loadSecondaryInfo(track)
             return IndexedTrack(track, result.flatPlaylistResult)
         }
         
