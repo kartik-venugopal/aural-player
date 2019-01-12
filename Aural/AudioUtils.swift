@@ -12,6 +12,7 @@ class AudioUtils {
         "mp3": "MPEG Audio Layer III (mp3)",
         "m4a": "MPEG-4 Audio (m4a)",
         "aac": "Advanced Audio Coding (aac)",
+        "alac": "Apple Lossless Audio Codec (alac)",
         "caf": "Apple Core Audio Format (caf)",
         "ac3": "Dolby Digital Audio Coding 3 (ac3)",
         "ac-3": "Dolby Digital Audio Coding 3 (ac3)",
@@ -22,7 +23,9 @@ class AudioUtils {
         "aiff": "Audio Interchange File Format (aiff)",
         "aif": "Audio Interchange File Format (aiff)",
         "aifc": "Audio Interchange File Format - Compressed (aiff-c)",
-        "adts": "Audio Data Transport Stream (adts)"
+        "adts": "Audio Data Transport Stream (adts)",
+        "lpcm": "Linear Pulse-Code Modulation (LPCM)",
+        "pcm": "Pulse-Code Modulation (PCM)"
     ]
     
     static let flacSupported: Bool = {
@@ -178,7 +181,11 @@ class AudioUtils {
                 let audioInfo = AudioInfo()
                 
                 audioInfo.format = avInfo.fileFormatDescription
-                audioInfo.codec = avInfo.audioStream?.formatDescription
+                
+                if let codec = avInfo.audioStream?.formatDescription, codec != audioInfo.format {
+                    audioInfo.codec = codec
+                }
+                
                 audioInfo.channelLayout = avInfo.audioStream?.channelLayout
                 
                 if let bitRate = avInfo.audioStream?.bitRate {
@@ -202,7 +209,12 @@ class AudioUtils {
             
             let audioInfo = AudioInfo()
             
-            audioInfo.format = formatDescriptions[track.file.pathExtension.lowercased()]
+            let ext = track.file.pathExtension.lowercased()
+            audioInfo.format = formatDescriptions[ext]
+            
+            if let audioTrack = track.audioAsset?.tracks.first, let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
+                audioInfo.codec = codec
+            }
             
             // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
             
@@ -223,24 +235,24 @@ class AudioUtils {
 //    }
     
     // Computes a readable format string for an audio track
-//    private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
-//
-//        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
-//        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
-//    }
-//
-//    // Converts a four character media type code to a readable string
-//    private static func codeToString(_ code: FourCharCode) -> String {
-//
-//        let numericCode = Int(code)
-//
-//        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
-//        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
-//        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
-//        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
-//
-//        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
-//    }
+    private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
+
+        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
+        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
+    }
+
+    // Converts a four character media type code to a readable string
+    private static func codeToString(_ code: FourCharCode) -> String {
+
+        let numericCode = Int(code)
+
+        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
+        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
+
+        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
     
     static func isAudioFilePlaybackNativelySupported(_ file: URL) -> Bool {
         return AppConstants.SupportedTypes.nativeAudioExtensions.contains(file.pathExtension.lowercased())
