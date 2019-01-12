@@ -31,6 +31,8 @@ class ID3Parser: AVAssetParser {
         return keys
     }()
     
+    private let ignoredKeys: Set<String> = [ID3_V24Spec.key_private]
+    
     private let genericFields: [String: String] = {
         
         var map: [String: String] = [:]
@@ -64,6 +66,10 @@ class ID3Parser: AVAssetParser {
         for item in items {
             
             if item.keySpace == .id3, let key = item.keyAsString {
+                
+                if ignoredKeys.contains(key) {
+                    continue
+                }
                 
                 let mapKey = String(format: "%@/%@", AVMetadataKeySpace.id3.rawValue, key)
                 

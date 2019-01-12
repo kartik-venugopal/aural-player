@@ -167,6 +167,8 @@ struct ID3_V24Spec {
     static let key_UFID: String = "UFID"
     static let key_termsOfUse: String = "USER"
     
+    static let key_private: String = AVMetadataKey.id3MetadataKeyPrivate.rawValue
+    
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
     static let genericFields: [String: String] = {
@@ -226,10 +228,6 @@ struct ID3_V24Spec {
         
         // POSS
         map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation"
-        
-        // PRIV
-        //        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
-        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = ""
         
         // RBUF
         map[AVMetadataKey.id3MetadataKeyRecommendedBufferSize.rawValue] = "Recommended Buffer Size"

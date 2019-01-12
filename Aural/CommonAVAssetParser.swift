@@ -112,7 +112,7 @@ class CommonAVAssetParser: AVAssetParser {
 
         for item in mapForTrack.genericItems.filter({item -> Bool in item.keySpace == .common}) {
             
-            if let key = item.keyAsString, var value = item.valueAsString {
+            if let key = item.commonKeyAsString, var value = item.valueAsString {
                 
                 if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
