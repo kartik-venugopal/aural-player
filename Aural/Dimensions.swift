@@ -15,11 +15,5 @@ struct Dimensions {
     static let minPlaylistWidth: CGFloat = 480
     static let minPlaylistHeight: CGFloat = 180
     
-    // Window heights for different views
-    static let windowHeight_compact: CGFloat = 230
-    static let windowHeight_playlistAndEffects: CGFloat = 408
-    static let windowHeight_playlistOnly: CGFloat = 218
-    static let windowHeight_effectsOnly: CGFloat = 420
-    
     static let snapProximity: CGFloat = 15
 }
