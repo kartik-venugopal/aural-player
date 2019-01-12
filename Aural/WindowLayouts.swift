@@ -135,10 +135,10 @@ enum WindowLayoutPresets: String {
     case bigBottomPlaylist
     case bigLeftPlaylist
     case bigRightPlaylist
-    case verticalPlayerAndPlaylistStack
-    case horizontalPlayerAndPlaylistStack
+    case verticalPlayerAndPlaylist
+    case horizontalPlayerAndPlaylist
     
-    static var allValues: [WindowLayoutPresets] = [.verticalFullStack, .horizontalFullStack, .compactCornered, .bigBottomPlaylist, .bigLeftPlaylist, .bigRightPlaylist, .verticalPlayerAndPlaylistStack, .horizontalPlayerAndPlaylistStack]
+    static var allValues: [WindowLayoutPresets] = [.verticalFullStack, .horizontalFullStack, .compactCornered, .bigBottomPlaylist, .bigLeftPlaylist, .bigRightPlaylist, .verticalPlayerAndPlaylist, .horizontalPlayerAndPlaylist]
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
@@ -155,8 +155,8 @@ enum WindowLayoutPresets: String {
         case .bigBottomPlaylist: return "Big bottom playlist"
         case .bigLeftPlaylist: return "Big left playlist"
         case .bigRightPlaylist: return "Big right playlist"
-        case .verticalPlayerAndPlaylistStack: return "Vertical player and playlist"
-        case .horizontalPlayerAndPlaylistStack: return "Horizontal player and playlist"
+        case .verticalPlayerAndPlaylist: return "Vertical player and playlist"
+        case .horizontalPlayerAndPlaylist: return "Horizontal player and playlist"
             
         }
     }
@@ -169,7 +169,7 @@ enum WindowLayoutPresets: String {
         
         switch self {
             
-        case .compactCornered, .verticalPlayerAndPlaylistStack, .horizontalPlayerAndPlaylistStack:
+        case .compactCornered, .verticalPlayerAndPlaylist, .horizontalPlayerAndPlaylist:
             
             return false
             
@@ -244,13 +244,13 @@ enum WindowLayoutPresets: String {
             let yPadding = visibleFrame.height - (mainWindow.height + gap + effectsWindow.height)
             y = visibleFrame.minY + (yPadding / 2) + effectsWindow.height + gap
             
-        case .verticalPlayerAndPlaylistStack:
+        case .verticalPlayerAndPlaylist:
             
             let xPadding = visibleFrame.width - mainWindow.width
             x = visibleFrame.minX + (xPadding / 2)
             y = visibleFrame.maxY - mainWindow.height
             
-        case .horizontalPlayerAndPlaylistStack:
+        case .horizontalPlayerAndPlaylist:
             
             x = visibleFrame.minX
             
@@ -317,11 +317,11 @@ enum WindowLayoutPresets: String {
             
         case .verticalFullStack:    return visibleFrame.height - (mainWindow.height + effectsWindow.height + twoGaps)
             
-        case .horizontalFullStack, .horizontalPlayerAndPlaylistStack:  return mainWindow.height
+        case .horizontalFullStack, .horizontalPlayerAndPlaylist:  return mainWindow.height
             
         case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindow.height + gap + effectsWindow.height
             
-        case .verticalPlayerAndPlaylistStack:   return visibleFrame.height - (mainWindow.height + gap)
+        case .verticalPlayerAndPlaylist:   return visibleFrame.height - (mainWindow.height + gap)
             
         default:    return 500
             
@@ -339,7 +339,7 @@ enum WindowLayoutPresets: String {
         
         switch self {
             
-        case .verticalFullStack, .verticalPlayerAndPlaylistStack:    return mainWindow.width
+        case .verticalFullStack, .verticalPlayerAndPlaylist:    return mainWindow.width
             
         case .horizontalFullStack:    return max(visibleFrame.width - (mainWindow.width + effectsWindow.width + twoGaps), minWidth)
             
@@ -347,7 +347,7 @@ enum WindowLayoutPresets: String {
             
         case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindow.width
             
-        case .horizontalPlayerAndPlaylistStack: return visibleFrame.width - (mainWindow.width + gap)
+        case .horizontalPlayerAndPlaylist: return visibleFrame.width - (mainWindow.width + gap)
             
         default:    return 500
             
@@ -393,12 +393,12 @@ enum WindowLayoutPresets: String {
             x = mwo.x + mainWindow.width + gap
             y = mwo.y - gap - effectsWindow.height
             
-        case .verticalPlayerAndPlaylistStack:
+        case .verticalPlayerAndPlaylist:
             
             x = mwo.x
             y = visibleFrame.minY
             
-        case .horizontalPlayerAndPlaylistStack:
+        case .horizontalPlayerAndPlaylist:
             
             x = mwo.x + mainWindow.width + gap
             y = mwo.y
