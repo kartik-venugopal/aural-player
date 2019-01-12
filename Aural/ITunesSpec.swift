@@ -31,6 +31,9 @@ class ITunesSpec {
     static let key_mediaType = "stik"
     static let key_isPodcast = "pcst"
     
+    static let key_normalization = "itunnorm"
+    static let key_soundCheck = "itunsmpb"
+    
     static func readableKey(_ key: String) -> String {
         
         if let rKey = keys[key] {
@@ -372,13 +375,7 @@ class ITunesSpec {
         
         map["itunextc"] = "Classification"
         
-        // TODO: Find a better way to exclude this key
-        map["itunnorm"] = ""
-        
         map["itunpgap"] = "Playlist Delay"
-        
-        // TODO: Find a better way to exclude this key
-        map["itunsmpb"] = ""
         
         map["key"] = "Initial Key"
         

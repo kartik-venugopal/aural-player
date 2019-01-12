@@ -8,6 +8,8 @@ class ITunesParser: AVAssetParser {
     
     private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_album, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_lyrics, ITunesSpec.key_art]
     
+    private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
+    
     func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
         let items = track.audioAsset!.metadata
@@ -322,7 +324,10 @@ class ITunesParser: AVAssetParser {
                 }
                 
                 let rKey = ITunesSpec.readableKey(StringUtils.cleanUpString(key))
-                metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
+                
+                if !ignoredKeys.contains(rKey.lowercased()) {
+                    metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
+                }
             }
         }
         
