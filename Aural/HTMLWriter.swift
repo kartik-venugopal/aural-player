@@ -27,23 +27,27 @@ class HTMLWriter {
     private var data: String = "<html>\n"
     
     func addTitle(_ title: String) {
-        data.append(String(format: "\t<head><title>%@</title></head>\n", title))
+        data.append(String(format: "\t<head><title>%@</title></head>\n", textToHTML(title)))
     }
     
     func addHeading(_ heading: String, _ size: Int, _ underlined: Bool = false) {
         
         if underlined {
-            data.append(String(format: "\t<h%d><u>%@</u></h%d>\n", size, heading, size))
+            data.append(String(format: "\t<h%d><u>%@</u></h%d>\n", size, textToHTML(heading), size))
         } else {
-            data.append(String(format: "\t<h%d>%@</h%d>\n", size, heading, size))
+            data.append(String(format: "\t<h%d>%@</h%d>\n", size, textToHTML(heading), size))
         }
     }
     
     func addParagraph(_ text: HTMLText) {
         
-        let _text = String(format: "\t\t\t%@%@%@%@%@%@%@\n", text.underlined ? "<u>" : "", text.bold ? "<b>" : "", text.italic ? "<i>" : "", text.text.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;"), text.underlined ? "</u>" : "", text.bold ? "</b>" : "", text.italic ? "</i>" : "").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>")
+        let _text = String(format: "\t\t\t%@%@%@%@%@%@%@\n", text.underlined ? "<u>" : "", text.bold ? "<b>" : "", text.italic ? "<i>" : "", textToHTML(text.text), text.underlined ? "</u>" : "", text.bold ? "</b>" : "", text.italic ? "</i>" : "")
         
         data.append(String(format: "\t<p>%@</p>\n", _text))
+    }
+    
+    private func textToHTML(_ string: String) -> String {
+        return string.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>")
     }
     
     func addLineBreak() {
@@ -82,9 +86,7 @@ class HTMLWriter {
                 
                 let tdMarkup = String(format: " style=\"%@%@%@\"", widthMarkup, hPaddingMarkup, vPaddingMarkup)
                 
-                column.text = column.text.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;")
-                
-                data.append(String(format: "\t\t\t<td%@>%@%@%@%@%@%@%@</td>\n", tdMarkup, column.underlined ? "<u>" : "", column.bold ? "<b>" : "", column.italic ? "<i>" : "", column.text, column.underlined ? "</u>" : "", column.bold ? "</b>" : "", column.italic ? "</i>" : ""))
+                data.append(String(format: "\t\t\t<td%@>%@%@%@%@%@%@%@</td>\n", tdMarkup, column.underlined ? "<u>" : "", column.bold ? "<b>" : "", column.italic ? "<i>" : "", textToHTML(column.text), column.underlined ? "</u>" : "", column.bold ? "</b>" : "", column.italic ? "</i>" : ""))
             }
             
             data.append(String(format: "\t\t</tr>\n"))

@@ -134,6 +134,11 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             
             var dict = [NSString: AnyObject]()
             
+            var appDict = [NSString: AnyObject]()
+            appDict["version"] = AppConstants.appVersion  as AnyObject
+            appDict["exportDate"] = dateFormatter.string(from: Date()) as AnyObject
+            
+            dict["appInfo"] = appDict as NSDictionary
             dict["metadata"] = metadataDict
             dict["lyrics"] = lyricsView.string as AnyObject
             dict["audio"] = audioDict
@@ -185,7 +190,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             html.addTitle(track.conciseDisplayName)
             html.addHeading(track.conciseDisplayName, 2, false)
             
-            let text = String(format: "Export date: %@", dateFormatter.string(from: Date()))
+            let text = String(format: "Metadata exported by Aural Player v%@ on: %@", AppConstants.appVersion, dateFormatter.string(from: Date()))
             let exportDate = HTMLText(text, true, false, false, nil)
             html.addParagraph(exportDate)
             
