@@ -330,6 +330,7 @@
 		3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */; };
 		3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */; };
 		3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */; };
+		3ED35D2F21E960CB00A5904F /* AudioToolboxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */; };
 		3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257721E7EB4B00E202AB /* JSONWriter.swift */; };
 		3ED4257A21E803E000E202AB /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257921E803E000E202AB /* HTMLWriter.swift */; };
 		3ED4257C21E8414000E202AB /* ITunesSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257B21E8414000E202AB /* ITunesSpec.swift */; };
@@ -730,6 +731,7 @@
 		3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageAndTextButtonCell.swift; sourceTree = "<group>"; };
 		3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
+		3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioToolboxParser.swift; sourceTree = "<group>"; };
 		3ED4257721E7EB4B00E202AB /* JSONWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWriter.swift; sourceTree = "<group>"; };
 		3ED4257921E803E000E202AB /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
 		3ED4257B21E8414000E202AB /* ITunesSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSpec.swift; sourceTree = "<group>"; };
@@ -1790,6 +1792,7 @@
 				3E688ABE21E3842800164E84 /* WMParser.swift */,
 				3E688AC021E3967400164E84 /* VorbisCommentParser.swift */,
 				3E688AC221E3978600164E84 /* ApeV2Parser.swift */,
+				3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */,
 			);
 			name = Parsers;
 			sourceTree = "<group>";
@@ -2235,6 +2238,7 @@
 				3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
 				3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */,
+				3ED35D2F21E960CB00A5904F /* AudioToolboxParser.swift in Sources */,
 				3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
 				3EB1700E2173F5DA00B82D3A /* DelayedPlaybackEditorWindowController.swift in Sources */,
