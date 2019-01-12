@@ -129,20 +129,20 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         if let track = DetailedTrackInfoViewController.shownTrack {
             
+            let metadataDict = tableToJSON(metadataTable)
+            let audioDict = tableToJSON(audioTable)
+            let fileSystemDict = tableToJSON(fileSystemTable)
+            
+            var dict = [NSString: AnyObject]()
+            
+            dict["metadata"] = metadataDict
+            dict["lyrics"] = lyricsView.string as AnyObject
+            dict["audio"] = audioDict
+            dict["fileSystem"] = fileSystemDict
+            
             let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "json")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
-                
-                let metadataDict = tableToJSON(metadataTable)
-                let audioDict = tableToJSON(audioTable)
-                let fileSystemDict = tableToJSON(fileSystemTable)
-                
-                var dict = [NSString: AnyObject]()
-                
-                dict["metadata"] = metadataDict
-                dict["lyrics"] = lyricsView.string as AnyObject
-                dict["audio"] = audioDict
-                dict["fileSystem"] = fileSystemDict
                 
                 do {
                     
@@ -181,31 +181,31 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         if let track = DetailedTrackInfoViewController.shownTrack {
             
+            let html = HTMLWriter()
+            
+            html.addTitle(track.conciseDisplayName)
+            html.addHeading(track.conciseDisplayName, 2, false)
+            
+            let text = String(format: "Export date: %@", dateFormatter.string(from: Date()))
+            let exportDate = HTMLText(text, true, false, false, nil)
+            html.addParagraph(exportDate)
+            
+            let horizPadding: Int = 20
+            let vertPadding: Int = 5
+            
+            html.addTable("Metadata:", 3, nil, tableToHTML(metadataTable), horizPadding, vertPadding)
+            
+            html.addHeading("Lyrics:", 3, true)
+            
+            let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
+            html.addParagraph(lyrics)
+            
+            html.addTable("Audio:", 3, nil, tableToHTML(audioTable), horizPadding, vertPadding)
+            html.addTable("File System:", 3, nil, tableToHTML(fileSystemTable), horizPadding, vertPadding)
+            
             let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "html")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
-                
-                let html = HTMLWriter()
-                
-                html.addTitle(track.conciseDisplayName)
-                html.addHeading(track.conciseDisplayName, 2, false)
-                
-                let text = String(format: "Export date: %@", dateFormatter.string(from: Date()))
-                let exportDate = HTMLText(text, true, false, false, nil)
-                html.addParagraph(exportDate)
-                
-                let horizPadding: Int = 20
-                let vertPadding: Int = 5
-                
-                html.addTable("Metadata:", 3, nil, tableToHTML(metadataTable), horizPadding, vertPadding)
-                
-                html.addHeading("Lyrics:", 3, true)
-                
-                let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
-                html.addParagraph(lyrics)
-                
-                html.addTable("Audio:", 3, nil, tableToHTML(audioTable), horizPadding, vertPadding)
-                html.addTable("File System:", 3, nil, tableToHTML(fileSystemTable), horizPadding, vertPadding)
                 
                 do {
                     
