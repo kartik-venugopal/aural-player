@@ -171,7 +171,6 @@ class ID3Parser: AVAssetParser {
         for key in keys_art {
         
             if let item = mapForTrack.map[key], let imgData = item.dataValue {
-                ParserUtils.getImageMetadata(imgData as NSData)
                 return NSImage(data: imgData)
             }
         }

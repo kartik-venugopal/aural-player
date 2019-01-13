@@ -1,15 +1,6 @@
 import Cocoa
 import AVFoundation
 
-//fileprivate let keySpace: String = AVMetadataKeySpace.audioFile.rawValue
-
-//fileprivate let key_title = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyTitle.rawValue)
-//fileprivate let key_artist = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtist.rawValue)
-//fileprivate let key_album = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyAlbumName.rawValue)
-//fileprivate let key_genre = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyType.rawValue)
-//fileprivate let key_art: String = String(format: "%@/%@", keySpace, AVMetadataKey.commonKeyArtwork.rawValue)
-//fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
-
 class AudioToolboxParser: AVAssetParser {
     
     @available(OSX 10.13, *)
@@ -228,7 +219,6 @@ class AudioToolboxParser: AVAssetParser {
 //                        value = langName
 //                    }
                     let rKey = AudioToolboxParser.readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
-                    print(key, rKey, value)
                     
                     metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
                 }

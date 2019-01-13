@@ -102,36 +102,16 @@ class WMParser: FFMpegMetadataParser {
         }
         
         if let genreId = mapForTrack.wmMetadata?.essentialFields[key_genreId]?.trim() {
-            return parseGenreNumericString(genreId)
+            return ParserUtils.parseID3GenreNumericString(genreId)
         }
         
         return nil
     }
     
-    private func parseGenreNumericString(_ string: String) -> String {
-        
-        let decimalChars = CharacterSet.decimalDigits
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return GenreMap.forID3Code(genreCode) ?? string
-            }
-        }
-        
-        return string
-    }
-    
     func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let discNumStr = mapForTrack.wmMetadata?.essentialFields[key_disc] {
-            return parseDiscOrTrackNumber(discNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
         
         return nil
@@ -149,12 +129,18 @@ class WMParser: FFMpegMetadataParser {
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track] {
-            return parseDiscOrTrackNumber(trackNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
         
         // Zero-based track number
-        if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track_zeroBased] {
-            return parseDiscOrTrackNumber(trackNumStr, 1)
+        if let trackNumStr = mapForTrack.wmMetadata?.essentialFields[key_track_zeroBased], let trackNum = ParserUtils.parseDiscOrTrackNumberString(trackNumStr) {
+            
+            // Offset the track number by 1
+            if let number = trackNum.number {
+                return (number + 1, trackNum.total)
+            }
+            
+            return trackNum
         }
         
         return nil
@@ -164,41 +150,6 @@ class WMParser: FFMpegMetadataParser {
         
         if let totalTracksStr = mapForTrack.wmMetadata?.essentialFields[key_trackTotal]?.trim(), let totalTracks = Int(totalTracksStr) {
             return totalTracks
-        }
-        
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ _string: String, _ offset: Int = 0) -> (number: Int?, total: Int?)? {
-        
-        // Parse string (e.g. "2 / 13")
-        
-        let string = _string.trim()
-        
-        if let num = Int(string) {
-            return (num, nil)
-        }
-        
-        let tokens = string.split(separator: "/")
-        
-        if !tokens.isEmpty {
-            
-            let s1 = tokens[0].trim()
-            var s2: String?
-            
-            var n1: Int? = Int(s1)
-            if n1 != nil {
-                n1! += offset
-            }
-            
-            var n2: Int?
-            
-            if tokens.count > 1 {
-                s2 = tokens[1].trim()
-                n2 = Int(s2!)
-            }
-            
-            return (n1, n2)
         }
         
         return nil
