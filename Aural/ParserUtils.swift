@@ -5,7 +5,6 @@ class ParserUtils {
     static func getID3Genre(_ item: AVMetadataItem, _ offset: Int = 0) -> String? {
         
         if let num = item.numberValue {
-            print("ACTUAL NUMBER !!!", GenreMap.forID3Code(num.intValue + offset))
             return GenreMap.forID3Code(num.intValue + offset)
         }
         
@@ -83,21 +82,7 @@ class ParserUtils {
             
             // Parse string (e.g. "2 / 13")
             
-            if let num = Int(stringValue) {
-                return (num, nil)
-            }
-            
-            let tokens = stringValue.split(separator: "/")
-            
-            switch tokens.count {
-                
-            case 0: return (nil, nil)
-                
-            case 1: return (Int(tokens[0].trim()), nil)
-                
-            default:    return (Int(tokens[0].trim()), Int(tokens[1].trim()))
-                
-            }
+           return parseDiscOrTrackNumberString(stringValue)
 
         } else if let dataValue = item.dataValue {
             
@@ -117,16 +102,34 @@ class ParserUtils {
         return nil
     }
     
-    static func getImageMetadata(_ image: NSData) -> NSDictionary {
+    static func parseDiscOrTrackNumberString(_ stringValue: String) -> (number: Int?, total: Int?)? {
         
-        let imageSourceRef = CGImageSourceCreateWithData(image, nil);
+        // Parse string (e.g. "2 / 13")
         
-        let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef!, 0, nil)
+        if let num = Int(stringValue) {
+            return (num, nil)
+        }
         
-        let mutableDict = NSMutableDictionary(dictionary: currentProperties!)
-        print(mutableDict)
+        let tokens = stringValue.split(separator: "/")
         
-        return mutableDict
+        switch tokens.count {
+            
+        case 0: return (nil, nil)
+            
+        case 1: return (Int(tokens[0].trim()), nil)
+            
+        default:    return (Int(tokens[0].trim()), Int(tokens[1].trim()))
+            
+        }
+    }
+    
+    static func getImageMetadata(_ image: NSData) -> NSDictionary? {
         
+        if let imageSourceRef = CGImageSourceCreateWithData(image, nil), let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) {
+        
+            return NSMutableDictionary(dictionary: currentProperties)
+        }
+        
+        return nil
     }
 }

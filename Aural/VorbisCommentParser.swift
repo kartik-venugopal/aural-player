@@ -81,32 +81,10 @@ class VorbisCommentParser: FFMpegMetadataParser {
         return nil
     }
     
-    private func parseGenreNumericString(_ string: String) -> String {
-        
-        let decimalChars = CharacterSet.decimalDigits
-        
-        // TODO: Declare this char set as a global constant somewhere
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return GenreMap.forID3Code(genreCode) ?? string
-            }
-        }
-        
-        return string
-    }
-    
     func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let discNumStr = mapForTrack.vorbisMetadata?.essentialFields[key_disc] {
-            return parseDiscOrTrackNumber(discNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
         
         return nil
@@ -127,7 +105,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumStr = mapForTrack.vorbisMetadata?.essentialFields[key_track] {
-            return parseDiscOrTrackNumber(trackNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
         
         return nil
@@ -140,41 +118,6 @@ class VorbisCommentParser: FFMpegMetadataParser {
             if let totalTracksStr = mapForTrack.vorbisMetadata?.essentialFields[key]?.trim(), let totalTracks = Int(totalTracksStr) {
                 return totalTracks
             }
-        }
-        
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ _string: String, _ offset: Int = 0) -> (number: Int?, total: Int?)? {
-        
-        // Parse string (e.g. "2 / 13")
-        
-        let string = _string.trim()
-        
-        if let num = Int(string) {
-            return (num, nil)
-        }
-        
-        let tokens = string.split(separator: "/")
-        
-        if !tokens.isEmpty {
-            
-            let s1 = tokens[0].trim()
-            var s2: String?
-            
-            var n1: Int? = Int(s1)
-            if n1 != nil {
-                n1! += offset
-            }
-            
-            var n2: Int?
-            
-            if tokens.count > 1 {
-                s2 = tokens[1].trim()
-                n2 = Int(s2!)
-            }
-            
-            return (n1, n2)
         }
         
         return nil
