@@ -2,7 +2,7 @@ import Cocoa
 import AVFoundation
 
 /*
- Specification for the iTunes metadata format.
+    Specification for the iTunes metadata format.
  */
 class ITunesParser: AVAssetParser {
     
@@ -12,9 +12,7 @@ class ITunesParser: AVAssetParser {
     
     func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
-        let items = track.audioAsset!.metadata
-        
-        for item in items {
+        for item in track.audioAsset!.metadata {
             
             if item.keySpace == .iTunes, let key = item.keyAsString {
                 
@@ -38,22 +36,15 @@ class ITunesParser: AVAssetParser {
                     mapForTrack.genericItems.append(item)
                 }
             }
-            
-//            if let attrs = item.extraAttributes, attrs.count > 0 {
-//
-//                for (a,v) in attrs {
-//
-//                    let s = String(describing: v)
-//
-//                    if !StringUtils.isStringEmpty(s) {
-//                        print("Xtra for", item.keyAsString, a.rawValue, s)
-//                    }
-//                }
-//            }
         }
     }
     
     func getDuration(_ mapForTrack: AVAssetMetadata) -> Double? {
+        
+        if let item = mapForTrack.map[ITunesSpec.key_duration], let durationStr = item.stringValue, let durationMsecs = Double(durationStr) {
+            return durationMsecs / 1000
+        }
+        
         return nil
     }
     
@@ -89,37 +80,31 @@ class ITunesParser: AVAssetParser {
         for key in [ITunesSpec.key_genre, ITunesSpec.key_predefGenre] {
             
             if let genreItem = mapForTrack.map[key] {
-                
-                if let num = genreItem.numberValue?.intValue {
-                    
-                    return GenreMap.forID3Code(num - 1)
-                    
-                } else if let str = genreItem.stringValue {
-                    
-                    return parseID3GenreNumericString(str)
-                    
-                } else if let data = genreItem.dataValue {
-                    
-                    // Parse as hex string
-                    if let code = Int(data.hexEncodedString(), radix: 16) {
-                        return GenreMap.forID3Code(code - 1)
-                    }
-                }
+                return ParserUtils.getID3Genre(genreItem, -1)
             }
         }
         
         if let genreItem = mapForTrack.map[ITunesSpec.key_genreID] {
+            return getITunesGenre(genreItem)
+        }
+        
+        return nil
+    }
+    
+    private func getITunesGenre(_ genreItem: AVMetadataItem) -> String? {
+        
+        if let num = genreItem.numberValue {
+            return GenreMap.forITunesCode(num.intValue)
+        }
+        
+        if let str = genreItem.stringValue {
+            return parseITunesGenreNumericString(str)
             
-            if let str = genreItem.stringValue {
-                
-                return parseITunesGenreNumericString(str)
-                
-            } else if let data = genreItem.dataValue {
-                
-                // Parse as hex string
-                if let code = Int(data.hexEncodedString(), radix: 16) {
-                    return GenreMap.forITunesCode(code)
-                }
+        } else if let data = genreItem.dataValue {
+            
+            // Parse as hex string
+            if let code = Int(data.hexEncodedString(), radix: 16) {
+                return GenreMap.forITunesCode(code)
             }
         }
         
@@ -128,39 +113,9 @@ class ITunesParser: AVAssetParser {
     
     private func parseITunesGenreNumericString(_ string: String) -> String {
         
-        let decimalChars = CharacterSet.decimalDigits
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return GenreMap.forITunesCode(genreCode) ?? string
-            }
-        }
-        
-        return string
-    }
-    
-    private func parseID3GenreNumericString(_ string: String) -> String {
-        
-        let decimalChars = CharacterSet.decimalDigits
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return GenreMap.forID3Code(genreCode - 1) ?? string
-            }
+        if let genreCode = ParserUtils.parseNumericString(string) {
+            // Look up genreId in ID3 table
+            return GenreMap.forITunesCode(genreCode) ?? string
         }
         
         return string
@@ -171,7 +126,7 @@ class ITunesParser: AVAssetParser {
         for key in [ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2] {
             
             if let item = mapForTrack.map[key] {
-                return parseDiscOrTrackNumber(item)
+                return ParserUtils.parseDiscOrTrackNumber(item)
             }
         }
         
@@ -181,72 +136,7 @@ class ITunesParser: AVAssetParser {
     func getTrackNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = mapForTrack.map[ITunesSpec.key_trackNumber] {
-            return parseDiscOrTrackNumber(item)
-        }
-        
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
-        
-        if let number = item.numberValue {
-            return (number.intValue, nil)
-        }
-        
-        if let stringValue = item.stringValue?.trim() {
-            
-            // Parse string (e.g. "2 / 13")
-            
-            if let num = Int(stringValue) {
-                return (num, nil)
-            }
-            
-            let tokens = stringValue.split(separator: "/")
-            
-            if !tokens.isEmpty {
-                
-                let s1 = tokens[0].trim()
-                var s2: String?
-                
-                let n1: Int? = Int(s1)
-                var n2: Int?
-                
-                if tokens.count > 1 {
-                    s2 = tokens[1].trim()
-                    n2 = Int(s2!)
-                }
-                
-                return (n1, n2)
-            }
-            
-        } else if let dataValue = item.dataValue {
-            
-            // Parse data
-            let hexString = dataValue.hexEncodedString()
-            
-            if hexString.count >= 8 {
-                
-                let s1: String = hexString.substring(range: 4..<8)
-                let n1: Int? = Int(s1, radix: 16)
-                
-                var s2: String?
-                var n2: Int?
-                
-                if hexString.count >= 12 {
-                    s2 = hexString.substring(range: 8..<12)
-                    n2 = Int(s2!, radix: 16)
-                }
-                
-                return (n1, n2)
-                
-            } else if hexString.count >= 4 {
-                
-                // Only one number
-                
-                let s1: String = String(hexString.prefix(4))
-                let n1: Int? = Int(s1, radix: 16)
-                return (n1, nil)
-            }
+            return ParserUtils.parseDiscOrTrackNumber(item)
         }
         
         return nil

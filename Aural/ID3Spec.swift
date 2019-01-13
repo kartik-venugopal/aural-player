@@ -50,6 +50,7 @@ struct ID3_V22Spec {
     static let key_GEO: String = "GEO"
     static let key_compilation: String = "TCP"
     static let key_UFI: String = "UFI"
+    static let key_mediaType: String = "TMT"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
@@ -168,6 +169,8 @@ struct ID3_V24Spec {
     static let key_termsOfUse: String = "USER"
     
     static let key_private: String = AVMetadataKey.id3MetadataKeyPrivate.rawValue
+    
+    static let key_mediaType: String = "TMED"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
     
@@ -448,3 +451,232 @@ struct ID3_V24Spec {
         return map
     }()
 }
+
+struct ID3MediaTypes {
+    
+    static func mediaType(_ codeString: String) -> String {
+        
+        let tokens = codeString.split(separator: "/")
+        
+        if let codeToken = tokens.first {
+            
+            let code = String(codeToken)
+            
+            if let codeDesc = mediaTypes[code] {
+                
+                let desc = codeDesc.0
+                var subTypes: [String] = []
+                var subTypesDesc: String = ""
+                
+                if tokens.count > 1 {
+                    
+                    let numSubTypes = tokens.count - 1
+                    for index in 1...numSubTypes {
+                        
+                        let subTypeCode = String(tokens[index])
+                        let subTypeDesc: String = codeDesc.1[subTypeCode] ?? subTypeCode
+                        subTypes.append(subTypeDesc)
+                    }
+                    
+                    subTypesDesc = String(format: " (%@)", subTypes.joined(separator: ","))
+                }
+                
+                return String(format: "%@%@", desc, subTypesDesc)
+            }
+        }
+        
+        return codeString
+    }
+    
+    private static let mediaTypes: [String: (String, [String: String])] = {
+        
+        /*
+         TMED
+         The 'Media type' frame describes from which media the sound
+         originated. This may be a text string or a reference to the
+         predefined media types found in the list below. Example:
+         "VID/PAL/VHS" $00.
+         
+         DIG    Other digital media
+         /A    Analogue transfer from media
+         
+         ANA    Other analogue media
+         /WAC  Wax cylinder
+         /8CA  8-track tape cassette
+         
+         CD     CD
+         /A    Analogue transfer from media
+         /DD   DDD
+         /AD   ADD
+         /AA   AAD
+         
+         LD     Laserdisc
+         
+         TT     Turntable records
+         /33    33.33 rpm
+         /45    45 rpm
+         /71    71.29 rpm
+         /76    76.59 rpm
+         /78    78.26 rpm
+         /80    80 rpm
+         
+         MD     MiniDisc
+         /A    Analogue transfer from media
+         
+         DAT    DAT
+         /A    Analogue transfer from media
+         /1    standard, 48 kHz/16 bits, linear
+         /2    mode 2, 32 kHz/16 bits, linear
+         /3    mode 3, 32 kHz/12 bits, non-linear, low speed
+         /4    mode 4, 32 kHz/12 bits, 4 channels
+         /5    mode 5, 44.1 kHz/16 bits, linear
+         /6    mode 6, 44.1 kHz/16 bits, 'wide track' play
+         
+         DCC    DCC
+         /A    Analogue transfer from media
+         
+         DVD    DVD
+         /A    Analogue transfer from media
+         
+         TV     Television
+         /PAL    PAL
+         /NTSC   NTSC
+         /SECAM  SECAM
+         
+         VID    Video
+         /PAL    PAL
+         /NTSC   NTSC
+         /SECAM  SECAM
+         /VHS    VHS
+         /SVHS   S-VHS
+         /BETA   BETAMAX
+         
+         RAD    Radio
+         /FM   FM
+         /AM   AM
+         /LW   LW
+         /MW   MW
+         
+         TEL    Telephone
+         /I    ISDN
+         
+         MC     MC (normal cassette)
+         /4    4.75 cm/s (normal speed for a two sided cassette)
+         /9    9.5 cm/s
+         /I    Type I cassette (ferric/normal)
+         /II   Type II cassette (chrome)
+         /III  Type III cassette (ferric chrome)
+         /IV   Type IV cassette (metal)
+         
+         REE    Reel
+         /9    9.5 cm/s
+         /19   19 cm/s
+         /38   38 cm/s
+         /76   76 cm/s
+         /I    Type I cassette (ferric/normal)
+         /II   Type II cassette (chrome)
+         /III  Type III cassette (ferric chrome)
+         /IV   Type IV cassette (metal)
+         */
+        var map: [String: (String, [String: String])] = [:]
+        
+        map["DIG"] = ("Other digital media", [
+            "A": "Analogue transfer from media"
+            ])
+        
+        map["ANA"] = ("Other analogue media", [
+            "WAC": "Wax cylinder",
+            "8CA": "8-track tape cassette"
+            ])
+        
+        map["CD"] = ("CD", [
+            "A": "Analogue transfer from media",
+            "DD": "DDD",
+            "AD": "ADD",
+            "AA": "AAD"
+            ])
+        
+        map["LD"] = ("Laserdisc", [:])
+        
+        map["TT"] = ("Turntable records", [
+            "78": "78.26 rpm",
+            "45": "45 rpm",
+            "76": "76.59 rpm",
+            "71": "71.29 rpm",
+            "80": "80 rpm",
+            "33": "33.33 rpm"
+            ])
+        
+        map["MD"] = ("MiniDisc", [
+            "A": "Analogue transfer from media"
+            ])
+        
+        map["DAT"] = ("DAT", [
+            "6": "mode 6, 44.1 kHz16 bits, 'wide track' play",
+            "3": "mode 3, 32 kHz12 bits, non-linear, low speed",
+            "A": "Analogue transfer from media",
+            "5": "mode 5, 44.1 kHz16 bits, linear",
+            "2": "mode 2, 32 kHz16 bits, linear",
+            "1": "standard, 48 kHz16 bits, linear",
+            "4": "mode 4, 32 kHz12 bits, 4 channels"
+            ])
+        
+        map["DCC"] = ("DCC", [
+            "A": "Analogue transfer from media"
+            ])
+        
+        map["DVD"] = ("DVD", [
+            "A": "Analogue transfer from media"
+            ])
+        
+        map["TV"] = ("Television", [
+            "SECAM": "SECAM",
+            "PAL": "PAL",
+            "NTSC": "NTSC"
+            ])
+        
+        map["VID"] = ("Video", [
+            "BETA": "BETAMAX",
+            "VHS": "VHS",
+            "NTSC": "NTSC",
+            "SECAM": "SECAM",
+            "SVHS": "S-VHS",
+            "PAL": "PAL"
+            ])
+        
+        map["RAD"] = ("Radio", [
+            "LW": "LW",
+            "FM": "FM",
+            "AM": "AM",
+            "MW": "MW"
+            ])
+        
+        map["TEL"] = ("Telephone", [
+            "I": "ISDN"
+            ])
+        
+        map["MC"] = ("MC (normal cassette)", [
+            "I": "Type I cassette (ferricnormal)",
+            "II": "Type II cassette (chrome)",
+            "9": "9.5 cms",
+            "4": "4.75 cms (normal speed for a two sided cassette)",
+            "III": "Type III cassette (ferric chrome)",
+            "IV": "Type IV cassette (metal)"
+            ])
+        
+        map["REE"] = ("Reel", [
+            "IV": "Type IV cassette (metal)",
+            "II": "Type II cassette (chrome)",
+            "I": "Type I cassette (ferricnormal)",
+            "19": "19 cms",
+            "9": "9.5 cms",
+            "38": "38 cms",
+            "76": "76 cms",
+            "III": "Type III cassette (ferric chrome)"
+            ])
+        
+        return map
+        
+    }()
+}
+

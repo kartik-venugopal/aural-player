@@ -20,6 +20,7 @@ class ID3Parser: AVAssetParser {
     private let keys_language: [String] = [ID3_V22Spec.key_language, ID3_V24Spec.key_language]
     private let keys_playCounter: [String] = [ID3_V22Spec.key_playCounter, ID3_V24Spec.key_playCounter]
     private let keys_compilation: [String] = [ID3_V22Spec.key_compilation, ID3_V24Spec.key_compilation]
+    private let keys_mediaType: [String] = [ID3_V22Spec.key_mediaType, ID3_V24Spec.key_mediaType]
     
     private let essentialFieldKeys: Set<String> = {
         
@@ -61,9 +62,7 @@ class ID3Parser: AVAssetParser {
     
     func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
-        let items = track.audioAsset!.metadata
-        
-        for item in items {
+        for item in track.audioAsset!.metadata {
             
             if item.keySpace == .id3, let key = item.keyAsString {
                 
@@ -136,41 +135,11 @@ class ID3Parser: AVAssetParser {
         for key in keys_genre {
 
             if let genreItem = mapForTrack.map[key] {
-
-                if let str = genreItem.stringValue {
-
-                    return parseGenreNumericString(str)
-
-                } else if let data = genreItem.dataValue {
-
-                    // Parse as hex string
-                    let code = Int(data.hexEncodedString(), radix: 16)!
-                    return GenreMap.forID3Code(code)
-                }
+                return ParserUtils.getID3Genre(genreItem)
             }
         }
         
         return nil
-    }
-    
-    private func parseGenreNumericString(_ string: String) -> String {
-        
-        let decimalChars = CharacterSet.decimalDigits
-        let alphaChars = CharacterSet.lowercaseLetters.union(CharacterSet.uppercaseLetters)
-        
-        // If no alphabetic characters are present, and numeric characters are present, treat this as a numerical genre code
-        if string.rangeOfCharacter(from: alphaChars) == nil, string.rangeOfCharacter(from: decimalChars) != nil {
-            
-            // Need to parse the number
-            let numberStr = string.trimmingCharacters(in: decimalChars.inverted)
-            if let genreCode = Int(numberStr) {
-                
-                // Look up genreId in ID3 table
-                return GenreMap.forID3Code(genreCode) ?? string
-            }
-        }
-        
-        return string
     }
     
     func getDiscNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
@@ -178,7 +147,7 @@ class ID3Parser: AVAssetParser {
         for key in keys_discNumber {
             
             if let item = mapForTrack.map[key] {
-                return parseDiscOrTrackNumber(item)
+                return ParserUtils.parseDiscOrTrackNumber(item)
             }
         }
         
@@ -190,72 +159,7 @@ class ID3Parser: AVAssetParser {
         for key in keys_trackNumber {
             
             if let item = mapForTrack.map[key] {
-                return parseDiscOrTrackNumber(item)
-            }
-        }
-        
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ item: AVMetadataItem) -> (number: Int?, total: Int?)? {
-        
-        if let number = item.numberValue {
-            return (number.intValue, nil)
-        }
-        
-        if let stringValue = item.stringValue?.trim() {
-            
-            // Parse string (e.g. "2 / 13")
-            
-            if let num = Int(stringValue) {
-                return (num, nil)
-            }
-            
-            let tokens = stringValue.split(separator: "/")
-            
-            if !tokens.isEmpty {
-                
-                let s1 = tokens[0].trim()
-                var s2: String?
-                
-                let n1: Int? = Int(s1)
-                var n2: Int?
-                
-                if tokens.count > 1 {
-                    s2 = tokens[1].trim()
-                    n2 = Int(s2!)
-                }
-                
-                return (n1, n2)
-            }
-            
-        } else if let dataValue = item.dataValue {
-            
-            // Parse data
-            let hexString = dataValue.hexEncodedString()
-            
-            if hexString.count >= 8 {
-                
-                let s1: String = hexString.substring(range: 4..<8)
-                let n1: Int? = Int(s1, radix: 16)
-                
-                var s2: String?
-                var n2: Int?
-                
-                if hexString.count >= 12 {
-                    s2 = hexString.substring(range: 8..<12)
-                    n2 = Int(s2!, radix: 16)
-                }
-                
-                return (n1, n2)
-                
-            } else if hexString.count >= 4 {
-                
-                // Only one number
-                
-                let s1: String = String(hexString.prefix(4))
-                let n1: Int? = Int(s1, radix: 16)
-                return (n1, nil)
+                return ParserUtils.parseDiscOrTrackNumber(item)
             }
         }
         
@@ -267,6 +171,7 @@ class ID3Parser: AVAssetParser {
         for key in keys_art {
         
             if let item = mapForTrack.map[key], let imgData = item.dataValue {
+                ParserUtils.getImageMetadata(imgData as NSData)
                 return NSImage(data: imgData)
             }
         }
@@ -355,6 +260,10 @@ class ID3Parser: AVAssetParser {
                     if let str = String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\0", with: "\n") {
                         entryValue = str
                     }
+                    
+                } else if keys_mediaType.contains(key) {
+                    
+                    entryValue = ID3MediaTypes.mediaType(value)
                 }
 
                 entryKey = StringUtils.cleanUpString(entryKey)
