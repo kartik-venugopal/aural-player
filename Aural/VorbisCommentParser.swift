@@ -3,6 +3,7 @@ import AVFoundation
 
 fileprivate let key_title = "title"
 fileprivate let key_artist = "artist"
+fileprivate let key_artists = "artists"
 fileprivate let key_album = "album"
 fileprivate let key_genre = "genre"
 
@@ -56,8 +57,11 @@ class VorbisCommentParser: FFMpegMetadataParser {
     
     func getArtist(_ mapForTrack: LibAVMetadata) -> String? {
         
-        if let artist = mapForTrack.vorbisMetadata?.essentialFields[key_artist] {
-            return artist
+        for key in [key_artist, key_artists] {
+            
+            if let artist = mapForTrack.vorbisMetadata?.essentialFields[key] {
+                return artist
+            }
         }
         
         return nil
@@ -164,6 +168,9 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["version"] = "Version"
         map["encoded-by"] = "Encoded By"
         map["encoding"] = "Encoder Settings"
+        map["encodedby"] = "EncodedBy"
+        map["encodedusing"] = "EncodedUsing"
+        map["encoderoptions"] = "EncoderOptions"
         map["encodersettings"] = "Encoder Settings"
         map["encodingtime"] = "Encoding Time"
         map["encoder"] = "Encoder"
@@ -177,6 +184,15 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["date"] = "Date"
         map["location"] = "Location"
         map["albumartist"] = "Album Artist"
+        
+        map["actor"] = "Actor"
+        map["director"] = "Director"
+        
+        map["replaygainalbumgain"] = "ReplayGain Album Gain"
+        map["replaygainalbumpeak"] = "ReplayGain Album Peak"
+        map["replaygaintrackgain"] = "ReplayGain Track Gain"
+        map["replaygaintrackpeak"] = "ReplayGain Track Peak"
+        map["vendor"] = "Vendor"
         
         map["grouping"] = "Grouping"
         
@@ -470,6 +486,23 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["yate_album_id"] = "Yate Album ID"
         
         map["yate_track_id"] = "Yate Track ID"
+        
+        map["work"] = "Work"
+        
+        map["originalyear"] = "Original Release Date"
+        map["composersort"] = "Composer Sort Order"
+        map["movementname"] = "Movement Name"
+        map["movement"] = "Movement"
+        map["movementtotal"] = "Movement Total"
+        map["showmovement"] = "Show Movement"
+        map["compilation"] = "Part of a Compilation?"
+        map["releasestatus"] = "Release Status"
+        map["releasetype"] = "Release Type"
+        map["releasecountry"] = "Release Country"
+        map["asin"] = "ASIN"
+        map["musicip_puid"] = "MusicIP PUID"
+        map["fingerprint"] = "MusicIP Fingerprint"
+        map["website"] = "Official Artist Website"
         
         return map
     }()
