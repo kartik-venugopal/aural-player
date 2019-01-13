@@ -132,7 +132,7 @@ class MetadataDataSource: TrackInfoDataSource {
             
             if let totalTracks = track.groupingInfo.totalTracks, totalTracks > 0 {
                 trackInfo.append((key: "Track#", value: String(format: "%d / %d", trackNum, totalTracks)))
-            } else {
+            } else if trackNum > 0 {
                 trackInfo.append((key: "Track#", value: String(trackNum)))
             }
         }
@@ -141,7 +141,7 @@ class MetadataDataSource: TrackInfoDataSource {
             
             if let totalDiscs = track.groupingInfo.totalDiscs, totalDiscs > 0 {
                 trackInfo.append((key: "Disc#", value: String(format: "%d / %d", discNum, totalDiscs)))
-            } else {
+            } else if discNum > 0 {
                 trackInfo.append((key: "Disc#", value: String(discNum)))
             }
         }

@@ -48,12 +48,10 @@ class WMParser: FFMpegMetadataParser {
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        let map = mapForTrack.map
-        
         let metadata = LibAVParserMetadata()
         mapForTrack.wmMetadata = metadata
         
-        for (key, value) in map {
+        for (key, value) in mapForTrack.map {
             
             let lcKey = key.lowercased().replacingOccurrences(of: keyPrefix, with: "").trim()
             

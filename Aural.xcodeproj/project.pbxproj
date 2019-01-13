@@ -331,6 +331,7 @@
 		3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */; };
 		3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */; };
 		3ED35D2F21E960CB00A5904F /* AudioToolboxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */; };
+		3ED35D3121EAAB3D00A5904F /* ParserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED35D3021EAAB3D00A5904F /* ParserUtils.swift */; };
 		3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257721E7EB4B00E202AB /* JSONWriter.swift */; };
 		3ED4257A21E803E000E202AB /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257921E803E000E202AB /* HTMLWriter.swift */; };
 		3ED4257C21E8414000E202AB /* ITunesSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4257B21E8414000E202AB /* ITunesSpec.swift */; };
@@ -732,6 +733,7 @@
 		3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
 		3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioToolboxParser.swift; sourceTree = "<group>"; };
+		3ED35D3021EAAB3D00A5904F /* ParserUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserUtils.swift; sourceTree = "<group>"; };
 		3ED4257721E7EB4B00E202AB /* JSONWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWriter.swift; sourceTree = "<group>"; };
 		3ED4257921E803E000E202AB /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
 		3ED4257B21E8414000E202AB /* ITunesSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSpec.swift; sourceTree = "<group>"; };
@@ -1784,6 +1786,7 @@
 				3E17D03121E604D800951F81 /* LanguageMap.swift */,
 				3ED0C3FE21E73C88002757A7 /* GenreMap.swift */,
 				3E688AC421E462C400164E84 /* CommonAVAssetParser.swift */,
+				3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */,
 				3ED0C40021E73E21002757A7 /* ID3Spec.swift */,
 				3ECD17431F6BBEE400492F56 /* ID3Parser.swift */,
 				3ED4257B21E8414000E202AB /* ITunesSpec.swift */,
@@ -1792,7 +1795,7 @@
 				3E688ABE21E3842800164E84 /* WMParser.swift */,
 				3E688AC021E3967400164E84 /* VorbisCommentParser.swift */,
 				3E688AC221E3978600164E84 /* ApeV2Parser.swift */,
-				3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */,
+				3ED35D3021EAAB3D00A5904F /* ParserUtils.swift */,
 			);
 			name = Parsers;
 			sourceTree = "<group>";
@@ -2379,6 +2382,7 @@
 				3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */,
 				3E9847841F5CF3F6001A2D28 /* AuralMenuController.swift in Sources */,
 				3ED4257A21E803E000E202AB /* HTMLWriter.swift in Sources */,
+				3ED35D3121EAAB3D00A5904F /* ParserUtils.swift in Sources */,
 				3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */,
 				3EDD4CD72194155E00C15D5A /* FXUnitDelegate.swift in Sources */,
 				3E357B501F9C798500C8F7B1 /* FlatPlaylistProtocols.swift in Sources */,

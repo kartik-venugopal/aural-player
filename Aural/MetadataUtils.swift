@@ -98,6 +98,7 @@ enum MetadataType: String {
     case common
     case iTunes
     case id3
+    case audioToolbox
     case wma
     case vorbis
     case ape
@@ -114,13 +115,15 @@ enum MetadataType: String {
             
         case .id3:  return 2
             
-        case .wma:  return 3
+        case .audioToolbox: return 3
             
-        case .vorbis:  return 4
+        case .wma:  return 4
             
-        case .ape:  return 5
+        case .vorbis:  return 5
             
-        case .other:    return 6
+        case .ape:  return 6
+            
+        case .other:    return 7
             
         }
     }

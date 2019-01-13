@@ -34,6 +34,8 @@ class ITunesSpec {
     static let key_normalization = "itunnorm"
     static let key_soundCheck = "itunsmpb"
     
+    static let key_duration = String(format: "%@/%@", keySpace, "length")
+    
     static func readableKey(_ key: String) -> String {
         
         if let rKey = keys[key] {

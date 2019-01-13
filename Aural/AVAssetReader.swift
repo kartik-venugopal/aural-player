@@ -3,7 +3,18 @@ import AVFoundation
 
 class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
-    private let parsers: [AVAssetParser] = [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
+    private let parsers: [AVAssetParser] = {
+        
+        // Audio Toolbox metadata is available >= macOS 10.13
+        
+        let osVersion = SystemUtils.osVersion
+        
+        if (osVersion.majorVersion == 10 && osVersion.minorVersion >= 13) || osVersion.majorVersion > 10 {
+            return [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser, ObjectGraph.audioToolboxParser]
+        } else {
+            return [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
+        }
+    }()
     
     private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
     
@@ -171,6 +182,10 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     }
     
     private func getLyrics(_ track: Track) -> String? {
+        
+        if let lyrics = track.audioAsset?.lyrics {
+            return lyrics
+        }
         
         if let map = metadataMap.getForKey(track) {
             

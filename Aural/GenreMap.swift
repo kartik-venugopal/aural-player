@@ -19,7 +19,7 @@ class GenreMap {
         4: "Disco",
         5: "Funk",
         6: "Grunge",
-        7: "Hip",
+        7: "Hip-Hop",
         8: "Jazz",
         9: "Metal",
         10: "New Age",

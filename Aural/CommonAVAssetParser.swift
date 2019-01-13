@@ -18,9 +18,7 @@ class CommonAVAssetParser: AVAssetParser {
     
     func mapTrack(_ track: Track, _ mapForTrack: AVAssetMetadata) {
         
-        let items = track.audioAsset!.metadata
-        
-        for item in items {
+        for item in track.audioAsset!.metadata {
             
             if item.keySpace == .common, let key = item.commonKeyAsString {
                 

@@ -25,12 +25,10 @@ class VorbisCommentParser: FFMpegMetadataParser {
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        let map = mapForTrack.map
-        
         let metadata = LibAVParserMetadata()
         mapForTrack.vorbisMetadata = metadata
         
-        for (key, value) in map {
+        for (key, value) in mapForTrack.map {
             
             let lcKey = key.lowercased().trim()
             

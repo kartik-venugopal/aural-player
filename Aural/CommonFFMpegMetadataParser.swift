@@ -26,6 +26,7 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_track, key_lyrics]
     
     private let genericKeys: [String: String] = [
+        
         key_albumArtist: "Album Artist",
         key_composer: "Composer",
         key_performer: "Performer",
@@ -39,12 +40,10 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
-        let map = mapForTrack.map
-        
         let metadata = LibAVParserMetadata()
         mapForTrack.commonMetadata = metadata
         
-        for (key, value) in map {
+        for (key, value) in mapForTrack.map {
             
             let lcKey = key.lowercased().trim()
             

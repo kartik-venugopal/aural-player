@@ -24,8 +24,8 @@ class AudioUtils {
         "aif": "Audio Interchange File Format (aiff)",
         "aifc": "Audio Interchange File Format - Compressed (aiff-c)",
         "adts": "Audio Data Transport Stream (adts)",
-        "lpcm": "Linear Pulse-Code Modulation (LPCM)",
-        "pcm": "Pulse-Code Modulation (PCM)"
+        "lpcm": "Linear Pulse-Code Modulation (lpcm)",
+        "pcm": "Pulse-Code Modulation (pcm)"
     ]
     
     static let flacSupported: Bool = {
