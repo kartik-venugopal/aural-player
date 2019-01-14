@@ -141,7 +141,7 @@ class FFMpegWrapper {
         
         if result.exitCode == 0, let image = NSImage(contentsOf: imgFile) {
             
-            var metadata: NSDictionary?
+            var metadata: ImageMetadata?
             
             do {
                 

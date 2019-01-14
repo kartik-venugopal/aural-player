@@ -115,13 +115,37 @@ class Track: NSObject, PlaylistItem {
 class CoverArt {
     
     var image: NSImage
-    var metadata: NSDictionary?
+    var metadata: ImageMetadata?
     
-    init(_ image: NSImage, _ metadata: NSDictionary?) {
+    init(_ image: NSImage, _ metadata: ImageMetadata?) {
         
         self.image = image
         self.metadata = metadata
     }
+}
+
+class ImageMetadata {
+    
+    // e.g. JPEG/PNG
+    var type: String? = nil
+    
+    // e.g. 1680x1050
+    var dimensions: NSSize? = nil
+    
+    // e.g. 72x72 DPI
+    var resolution: NSSize? = nil
+    
+    // e.g. RGB
+    var colorSpace: String? = nil
+    
+    // e.g. "sRGB IEC61966-2.1"
+    var colorProfile: String? = nil
+    
+    // e.g. 8 bit
+    var bitDepth: Int? = nil
+
+    // True for transparent images like PNGs
+    var hasAlpha: Bool? = nil
 }
 
 class DisplayInfo {

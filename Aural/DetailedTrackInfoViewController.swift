@@ -262,8 +262,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             if msg.track == DetailedTrackInfoViewController.shownTrack {
                 
                 artView?.image = msg.track.displayInfo.art?.image
-                print("UPDATED cover art for", msg.track.conciseDisplayName)
-                coverArtTable.reloadData()
+                coverArtTable?.reloadData()
             }
         }
     }

@@ -7,12 +7,6 @@ class AudioDataSource: TrackInfoDataSource {
     
     override var tableId: TrackInfoTab {return .audio}
     
-    override func awakeFromNib() {
-        
-        // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.tablesMap[.audio] = table
-    }
-    
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         
         var trackInfo: [(key: String, value: String)] = []
