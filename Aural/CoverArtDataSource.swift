@@ -39,13 +39,13 @@ class CoverArtDataSource: TrackInfoDataSource {
             
             if let dimensions = artInfo.dimensions {
                 
-                let dimStr = String(format: "%.0f x %.0f", dimensions.width, dimensions.height)
+                let dimStr = String(format: "%.0f x %.0f", round(dimensions.width), round(dimensions.height))
                 trackInfo.append((key: "Dimensions", value: dimStr))
             }
             
             if let resolution = artInfo.resolution {
                 
-                let resStr = String(format: "%.0f x %.0f DPI", resolution.width, resolution.height)
+                let resStr = String(format: "%.0f x %.0f DPI", round(resolution.width), round(resolution.height))
                 trackInfo.append((key: "Resolution", value: resStr))
             }
             

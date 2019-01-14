@@ -73,6 +73,16 @@ class PrefsTabButtonCell: TabGroupButtonCell {
     override var selectionBoxColor: NSColor {return NSColor.black}
 }
 
+class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
+    
+    private let _selectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
+    
+    override var fillBeforeBorder: Bool {return false}
+    override var borderRadius: CGFloat {return 4}
+    override var borderLineWidth: CGFloat {return 1.5}
+    override var selectionBoxColor: NSColor {return _selectionBoxColor}
+}
+
 class PrefsNestedTabButtonCell: PrefsTabButtonCell {
     
     override var borderRadius: CGFloat {return 2.5}

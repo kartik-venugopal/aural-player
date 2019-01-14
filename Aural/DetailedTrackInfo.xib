@@ -11,6 +11,8 @@
                 <outlet property="artView" destination="S7P-5I-7H0" id="zW0-cW-G5d"/>
                 <outlet property="audioTable" destination="ihr-iH-Cyj" id="jDs-Ok-N2C"/>
                 <outlet property="coverArtTable" destination="Gmd-J7-D9V" id="2qx-SY-RsK"/>
+                <outlet property="exportArtMenuItem" destination="W8s-HZ-bzw" id="oEH-1g-W7b"/>
+                <outlet property="exportHTMLWithArtMenuItem" destination="Vmp-83-cAp" id="kIs-Zf-hI3"/>
                 <outlet property="fileSystemTable" destination="GrA-Ht-F0j" id="Eyp-AV-wnp"/>
                 <outlet property="lblNoArt" destination="I3q-AJ-eXW" id="mik-GN-Led"/>
                 <outlet property="lyricsView" destination="BrD-vm-ynW" id="57U-dd-4AQ"/>
@@ -25,71 +27,115 @@
             <rect key="frame" x="0.0" y="0.0" width="546" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LME-UP-unx" userLabel="Metadata tab button">
-                    <rect key="frame" x="9" y="303" width="76" height="30"/>
+                <box fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ueN-ja-zCu">
+                    <rect key="frame" x="65" y="302" width="431" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Metadata" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="KVw-8U-lQv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" ambiguous="YES" id="jnm-TE-3wQ">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="37"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.071908010563380281" alpha="0.80072623239436624" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LME-UP-unx" userLabel="Metadata tab button">
+                    <rect key="frame" x="70" y="305" width="76" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Metadata" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="KVw-8U-lQv" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-XH-2Fx" userLabel="Lyrics tab button">
-                    <rect key="frame" x="90" y="303" width="56" height="30"/>
+                    <rect key="frame" x="156" y="305" width="56" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Lyrics" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="YBd-7n-SFv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Lyrics" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="YBd-7n-SFv" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="keT-Ct-Jbc" userLabel="Cover Art tab button">
-                    <rect key="frame" x="155" y="303" width="76" height="30"/>
+                    <rect key="frame" x="226" y="305" width="76" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Cover Art" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="wgR-ap-naD" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Cover Art" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="wgR-ap-naD" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="XXJ-o0-tSk" userLabel="Audio tab button">
-                    <rect key="frame" x="235" y="303" width="56" height="30"/>
+                    <rect key="frame" x="306" y="305" width="56" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Audio" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gPU-C5-RCR" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Audio" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gPU-C5-RCR" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="s28-h4-rsc" userLabel="File system tab button">
-                    <rect key="frame" x="288" y="303" width="84" height="30"/>
+                    <rect key="frame" x="369" y="305" width="84" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="File System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="File System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>
                 </button>
-                <popUpButton toolTip="Export metadata to file" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-AB-Zo5" userLabel="Export menu">
-                    <rect key="frame" x="434" y="306" width="35" height="20"/>
+                <popUpButton toolTip="Export metadata to file" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-AB-Zo5" userLabel="Export metadata">
+                    <rect key="frame" x="463" y="310" width="25" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" altersStateOfSelectedItem="NO" id="dKg-3e-zTt">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="12" name="GillSans"/>
                         <menu key="menu" showsStateColumn="NO" id="TUq-Vr-VGD">
                             <items>
                                 <menuItem image="ExportMetadata" hidden="YES" id="Hr1-YM-8Ac" userLabel="Icon">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem isSeparatorItem="YES" id="T1F-b9-vBw"/>
-                                <menuItem title="Export as HTML file" id="Vmp-83-cAp">
+                                <menuItem title="Export metadata ..." id="0VH-UM-YWW" userLabel="Export metadata ...">
                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="exportHTMLAction:" target="-2" id="DfL-Ke-dwJ"/>
-                                    </connections>
+                                    <menu key="submenu" title="Export metadata ..." id="QK1-jF-rLk" userLabel="Metadata menu">
+                                        <items>
+                                            <menuItem title="As HTML file (with cover art)" id="Vmp-83-cAp">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="exportHTMLWithArtAction:" target="-2" id="NtL-Dl-LGH"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="As HTML file" id="nBI-w6-AJu">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="exportHTMLAction:" target="-2" id="5GT-Me-8Ou"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="As JSON file" id="3Rt-j6-nlj">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="exportJSONAction:" target="-2" id="j1a-P1-IeZ"/>
+                                                </connections>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
                                 </menuItem>
-                                <menuItem title="Export as JSON file" id="3Rt-j6-nlj">
+                                <menuItem title="Export cover art ..." id="W8s-HZ-bzw" userLabel="Export cover art ...">
                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="exportJSONAction:" target="-2" id="j1a-P1-IeZ"/>
-                                    </connections>
+                                    <menu key="submenu" title="Export metadata ..." id="mVH-aT-JHf" userLabel="Metadata menu">
+                                        <items>
+                                            <menuItem title="As JPEG file" id="00y-oZ-lhn">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="exportJPEGAction:" target="-2" id="Dpc-79-abD"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="As PNG file" id="RRh-b2-Fzz">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="exportPNGAction:" target="-2" id="AQB-Le-CT4"/>
+                                                </connections>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="ijO-OM-3ZP"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
@@ -229,14 +275,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="ww9-G2-wcK">
                                             <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BrD-vm-ynW">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="260"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256606760154" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866213885826" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="500" height="260"/>
+                                                    <size key="minSize" width="525" height="260"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099036337628" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
@@ -262,14 +308,14 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView appearanceType="darkAqua" fixedFrame="YES" borderType="none" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhF-ES-Jmy" userLabel="Cover Art Table">
-                                        <rect key="frame" x="275" y="3" width="245" height="260"/>
+                                        <rect key="frame" x="280" y="33" width="245" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="v2F-3d-t06">
-                                            <rect key="frame" x="0.0" y="0.0" width="245" height="260"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="245" height="200"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="Gmd-J7-D9V" userLabel="Cover Art Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="260"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="202"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
