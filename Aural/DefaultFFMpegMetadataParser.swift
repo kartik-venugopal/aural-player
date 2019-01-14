@@ -14,10 +14,7 @@ class DefaultFFMpegMetadataParser: FFMpegMetadataParser {
             for iKey in ignoredKeys {
                 
                 if !key.lowercased().contains(iKey) {
-                    
-                    let fKey = formatKey(key)
-                    
-                    metadata.genericFields[fKey] = value
+                    metadata.genericFields[formatKey(key)] = value
                 }
             }
             
@@ -30,10 +27,9 @@ class DefaultFFMpegMetadataParser: FFMpegMetadataParser {
         let tokens = key.split(separator: "_")
         var fTokens = [String]()
         
-        tokens.forEach({fTokens.append($0.lowercased().capitalizingFirstLetter())})
+        tokens.forEach({fTokens.append(String($0).capitalizingFirstLetter())})
         
-        let joined = fTokens.joined(separator: " ")
-        return joined
+        return fTokens.joined(separator: " ")
     }
     
     func getGenericMetadata(_ mapForTrack: LibAVMetadata) -> [String : MetadataEntry] {

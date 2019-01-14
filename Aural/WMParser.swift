@@ -60,13 +60,19 @@ class WMParser: FFMpegMetadataParser {
             if !ignoredKeys.contains(lcKey) {
                 
                 if essentialKeys.contains(lcKey) {
+                    
                     metadata.essentialFields[lcKey] = value
+                    mapForTrack.map.removeValue(forKey: key)
+                    
                 } else if genericKeys[lcKey] != nil {
+                    
                     metadata.genericFields[lcKey] = value
+                    mapForTrack.map.removeValue(forKey: key)
                 }
+                
+            } else {
+                mapForTrack.map.removeValue(forKey: key)
             }
-            
-            mapForTrack.map.removeValue(forKey: key)
         }
     }
     
@@ -198,6 +204,10 @@ class WMParser: FFMpegMetadataParser {
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["averagelevel"] = "Avg. Volume Level"
+        
+        map["peakvalue"] = "Peak Volume Level"
         
         map["description"] = "Comment"
         
