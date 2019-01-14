@@ -8,11 +8,9 @@ protocol MetadataReader {
     
     func getDurationForFile(_ file: URL) -> Double
     
-    func getArt(_ track: Track) -> NSImage?
+    func getArt(_ track: Track) -> CoverArt?
     
-    func getArt(_ file: URL) -> NSImage?
-    
-    func getArtMetadata(_ track: Track) -> NSDictionary?
+    func getArt(_ file: URL) -> CoverArt?
     
     func getAllMetadata(_ track: Track) -> [String: MetadataEntry]
 }

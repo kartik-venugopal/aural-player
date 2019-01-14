@@ -34,7 +34,6 @@ class Track: NSObject, PlaylistItem {
     
     // ID3/iTunes metadata
     var metadata: [String: MetadataEntry] = [String: MetadataEntry]()
-    var artMetadata: NSDictionary?
     
     var lyrics: String?
     
@@ -98,7 +97,7 @@ class Track: NSObject, PlaylistItem {
     }
     
     // Sets all metadata used for display within the playlist and Now Playing box
-    func setDisplayMetadata(_ artist: String?, _ title: String?, _ art: NSImage?) {
+    func setDisplayMetadata(_ artist: String?, _ title: String?, _ art: CoverArt?) {
         displayInfo.setMetadata(artist, title, art)
     }
     
@@ -113,6 +112,18 @@ class Track: NSObject, PlaylistItem {
     }
 }
 
+class CoverArt {
+    
+    var image: NSImage
+    var metadata: NSDictionary?
+    
+    init(_ image: NSImage, _ metadata: NSDictionary?) {
+        
+        self.image = image
+        self.metadata = metadata
+    }
+}
+
 class DisplayInfo {
     
     var duration: Double    // seconds
@@ -120,7 +131,7 @@ class DisplayInfo {
     // The following three fields are read from the track's metadata
     var artist: String?
     var title: String?
-    var art: NSImage?
+    var art: CoverArt?
     
     var conciseName: String
     
@@ -129,7 +140,7 @@ class DisplayInfo {
         self.conciseName = file.deletingPathExtension().lastPathComponent
     }
     
-    func setMetadata(_ artist: String?, _ title: String?, _ art: NSImage?) {
+    func setMetadata(_ artist: String?, _ title: String?, _ art: CoverArt?) {
         
         self.artist = artist
         self.title = title

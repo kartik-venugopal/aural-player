@@ -209,9 +209,6 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         ensureTrackAssetLoaded(track)
         
-        let asset = track.audioAsset!
-        print("Creation Date:", asset.creationDate)
-        
         var metadata: [String: MetadataEntry] = [:]
         
         if let map = metadataMap.getForKey(track) {
@@ -226,7 +223,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return metadata
     }
     
-    func getArt(_ track: Track) -> NSImage? {
+    func getArt(_ track: Track) -> CoverArt? {
         
         ensureTrackAssetLoaded(track)
         
@@ -243,12 +240,12 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return nil
     }
     
-    func getArt(_ file: URL) -> NSImage? {
+    func getArt(_ file: URL) -> CoverArt? {
         return getArt(AVURLAsset(url: file, options: nil))
     }
     
     // Retrieves artwork for a given track, if available
-    private func getArt(_ asset: AVURLAsset) -> NSImage? {
+    private func getArt(_ asset: AVURLAsset) -> CoverArt? {
         
         for parser in parsers {
             
@@ -257,10 +254,6 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             }
         }
         
-        return nil
-    }
-    
-    func getArtMetadata(_ track: Track) -> NSDictionary? {
         return nil
     }
     
@@ -287,18 +280,6 @@ class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
     var genericItems: [AVMetadataItem] = []
-}
-
-class CoverArt {
-    
-    var image: NSImage
-    var metadata: NSDictionary?
-    
-    init(_ image: NSImage, _ metadata: NSDictionary?) {
-        
-        self.image = image
-        self.metadata = metadata
-    }
 }
 
 extension AVMetadataItem {

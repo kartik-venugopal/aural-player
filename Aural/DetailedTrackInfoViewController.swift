@@ -33,6 +33,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
     }
     
+    @IBOutlet weak var coverArtTable: NSTableView!
+    
     // The table view that displays the track info
     @IBOutlet weak var audioTable: NSTableView!
     
@@ -85,12 +87,12 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         
         DetailedTrackInfoViewController.shownTrack = track
         
-        [metadataTable, audioTable, fileSystemTable].forEach({
+        [metadataTable, coverArtTable, audioTable, fileSystemTable].forEach({
             $0?.reloadData()
             $0?.scrollRowToVisible(0)
         })
         
-        artView?.image = track.displayInfo.art
+        artView?.image = track.displayInfo.art?.image
         lyricsView?.string = track.lyrics ?? noLyricsText
     }
     
@@ -258,7 +260,10 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             let msg = message as! TrackUpdatedAsyncMessage
                 
             if msg.track == DetailedTrackInfoViewController.shownTrack {
-                artView?.image = msg.track.displayInfo.art
+                
+                artView?.image = msg.track.displayInfo.art?.image
+                print("UPDATED cover art for", msg.track.conciseDisplayName)
+                coverArtTable.reloadData()
             }
         }
     }

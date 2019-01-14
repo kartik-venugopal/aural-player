@@ -71,6 +71,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         AppModeManager.presentMode(.regular)
         
+        do {
+            
+            let tim = TimerUtils.start("imgData")
+            
+            // Macintosh HD⁩ ▸ ⁨Users⁩ ▸ ⁨kven⁩ ▸ ⁨Pictures⁩ ▸ ⁨Chks⁩ ▸ ⁨Best⁩
+            let data = try Data(contentsOf: URL(fileURLWithPath: "/Users/kven/Pictures/Chks/Best/0nora.jpg"))
+            print("IMG DATA:", data)
+            
+            let md = ParserUtils.getImageMetadata(data as NSData)
+            
+            tim.end()
+            
+            print(tim.durationSecs, "ms to read and parse img MD")
+            
+        } catch {print("FUCK !")}
+        
         // Update the appLaunched flag
         appLaunched = true
         

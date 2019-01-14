@@ -98,7 +98,7 @@ class PlayerView: NSView {
         showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
+        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
     }
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
@@ -106,7 +106,7 @@ class PlayerView: NSView {
         infoView.showNowPlayingInfo(track, sequence)
         
         let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
+        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
     }
     
     func clearNowPlayingInfo() {
@@ -127,7 +127,7 @@ class PlayerView: NSView {
         
         let track = msg.nextTrack.track
         let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt! : Images.imgPlayingArt
+        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
         
         gapView.gapStarted(msg)
     }

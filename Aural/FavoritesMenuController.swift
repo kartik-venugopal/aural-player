@@ -74,7 +74,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         
         artLoadingQueue.addOperation {
             
-            if let img = MetadataUtils.artForFile(item.file), let imgCopy = img.copy() as? NSImage {
+            if let img = MetadataUtils.artForFile(item.file), let imgCopy = img.image.copy() as? NSImage {
                 
                 imgCopy.size = Images.historyMenuItemImageSize
                 
