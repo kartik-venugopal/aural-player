@@ -82,19 +82,23 @@ class CommonAVAssetParser: AVAssetParser {
         return nil
     }
     
-    func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage? {
+    func getArt(_ mapForTrack: AVAssetMetadata) -> CoverArt? {
         
-        if let item = mapForTrack.map[key_art], let imgData = item.dataValue {
-            return NSImage(data: imgData)
+        if let item = mapForTrack.map[key_art], let imgData = item.dataValue, let image = NSImage(data: imgData) {
+            
+            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            return CoverArt(image, metadata)
         }
         
         return nil
     }
     
-    func getArt(_ asset: AVURLAsset) -> NSImage? {
+    func getArt(_ asset: AVURLAsset) -> CoverArt? {
         
-        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
-            return NSImage(data: imgData)
+        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue, let image = NSImage(data: imgData) {
+            
+            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            return CoverArt(image, metadata)
         }
         
         return nil

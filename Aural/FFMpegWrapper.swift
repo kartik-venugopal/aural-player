@@ -125,30 +125,41 @@ class FFMpegWrapper {
         return LibAVInfo(duration, fileFormatDescription, streams, tags, drmProtected)
     }
     
-    static func getArt(_ track: Track) -> NSImage? {
+    static func getArt(_ track: Track) -> CoverArt? {
         return getArt(track.file)
     }
     
-    static func getArt(_ inputFile: URL) -> NSImage? {
+    static func getArt(_ inputFile: URL) -> CoverArt? {
         
         let now = Date()
         let imgPath = String(format: "%@-albumArt-%@.jpg", artBaseDir.appendingPathComponent(inputFile.lastPathComponent).path, now.serializableString_hms())
+        let imgFile = URL(fileURLWithPath: imgPath)
         
         let command = Command.createSimpleCommand(cmd: ffmpegBinaryPath, args: ["-v", "0", "-i", inputFile.path, "-an", "-vcodec", "copy", imgPath], timeout: getArtwork_timeout)
         
         let result = CommandExecutor.execute(command)
         
-        var image: NSImage?
-        if result.exitCode == 0 {
+        if result.exitCode == 0, let image = NSImage(contentsOf: imgFile) {
             
-            image = NSImage(contentsOf: URL(fileURLWithPath: imgPath))
-
+            var metadata: NSDictionary?
+            
+            do {
+                
+                let imgData: Data = try Data(contentsOf: imgFile)
+                metadata = ParserUtils.getImageMetadata(imgData as NSData)
+                
+                return CoverArt(image, metadata)
+                
+            } catch let e {
+                NSLog("Error reading image file. Description: %@", e.localizedDescription)
+            }
+            
             DispatchQueue.global(qos: .background).async {
                 FileSystemUtils.deleteFile(imgPath)
             }
         }
         
-        return image
+        return nil
     }
     
     static func createTranscoderCommand(_ track: Track, _ outputFile: URL, _ mapping: FormatMapping, _ progressCallback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), _ qualityOfService: QualityOfService, _ enableMonitoring: Bool) -> MonitoredCommand {

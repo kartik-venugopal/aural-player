@@ -24,9 +24,9 @@ protocol AVAssetParser {
     
     func getTrackNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)?
     
-    func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage?
+    func getArt(_ mapForTrack: AVAssetMetadata) -> CoverArt?
     
-    func getArt(_ asset: AVURLAsset) -> NSImage?
+    func getArt(_ asset: AVURLAsset) -> CoverArt?
     
     func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry]
 }

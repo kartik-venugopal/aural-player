@@ -13,14 +13,37 @@ class CoverArtDataSource: TrackInfoDataSource {
         TrackInfoViewHolder.tablesMap[.coverArt] = table
     }
     
+    // Overriden to force table refresh (needed because cover art may be refreshed after table has loaded once)
+    override func numberOfRows(in tableView: NSTableView) -> Int {
+        
+        // If no track is playing, no rows to display
+        
+        if let track = DetailedTrackInfoViewController.shownTrack {
+            
+            // A track is playing, add its info to the info array, as key-value pairs
+            
+            self.displayedTrack = track
+            
+            info.removeAll()
+            info.append(contentsOf: infoForTrack(track))
+            
+            return info.count
+        }
+        
+        return 0
+    }
+    
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         
-        let imgData = track.displayInfo.art?.tiffRepresentation as! NSData
-        if let info = ParserUtils.getImageMetadata(imgData) {
+        print("Reloading cover art MD for", track.conciseDisplayName)
         
-        for (k, v) in info {
-            print(k, v)
-        }
+        if let artInfo = track.displayInfo.art?.metadata {
+            
+            print("\tHAS MD", track.conciseDisplayName)
+        
+            for (k, v) in artInfo {
+                print(k, v)
+            }
         }
         
         var trackInfo: [(key: String, value: String)] = []

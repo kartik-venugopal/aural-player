@@ -26,7 +26,7 @@ class MetadataUtils {
     
     static func loadArt(_ track: Track) {
         
-        var art: NSImage? = nil
+        var art: CoverArt? = nil
         
         let cachedArt = AlbumArtCache.forFile(track.file)
         
@@ -47,20 +47,14 @@ class MetadataUtils {
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
-        let metadata = isFileMetadataNativelySupported(track.file) ? avAssetReader.getAllMetadata(track) : ffMpegReader.getAllMetadata(track)
-        
-        track.metadata = metadata
-        
-        if track.displayInfo.art != nil {
-            
-        }
+        track.metadata = isFileMetadataNativelySupported(track.file) ? avAssetReader.getAllMetadata(track) : ffMpegReader.getAllMetadata(track)
     }
     
     static func durationForFile(_ file: URL) -> Double {
         return isFileMetadataNativelySupported(file) ? avAssetReader.getDurationForFile(file) : ffMpegReader.getDurationForFile(file)
     }
     
-    static func artForFile(_ file: URL) -> NSImage? {
+    static func artForFile(_ file: URL) -> CoverArt? {
         
         // If playlist has this track, get art from there
         if let track = playlist.findFile(file)?.track {

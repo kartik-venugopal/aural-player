@@ -218,7 +218,7 @@ class FFMpegReader: MetadataReader {
         return nil
     }
     
-    func getArt(_ track: Track) -> NSImage? {
+    func getArt(_ track: Track) -> CoverArt? {
         
         ensureTrackAssetLoaded(track)
         
@@ -232,11 +232,7 @@ class FFMpegReader: MetadataReader {
         return nil
     }
     
-    func getArtMetadata(_ track: Track) -> NSDictionary? {
-        return nil
-    }
-    
-    func getArt(_ file: URL) -> NSImage? {
+    func getArt(_ file: URL) -> CoverArt? {
         return FFMpegWrapper.getArt(file)
     }
     

@@ -166,30 +166,36 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
-    func getArt(_ mapForTrack: AVAssetMetadata) -> NSImage? {
+    func getArt(_ mapForTrack: AVAssetMetadata) -> CoverArt? {
         
         for key in keys_art {
-        
-            if let item = mapForTrack.map[key], let imgData = item.dataValue {
-                return NSImage(data: imgData)
+            
+            if let item = mapForTrack.map[key], let imgData = item.dataValue, let image = NSImage(data: imgData) {
+                
+                let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+                return CoverArt(image, metadata)
             }
         }
         
         return nil
     }
     
-    func getArt(_ asset: AVURLAsset) -> NSImage? {
+    func getArt(_ asset: AVURLAsset) -> CoverArt? {
         
         // V2.3/2.4
-        if let item = AVMetadataItem.metadataItems(from: asset.metadata, filteredByIdentifier: ID3_V24Spec.id_art).first, let imgData = item.dataValue {
-            return NSImage(data: imgData)
+        if let item = AVMetadataItem.metadataItems(from: asset.metadata, filteredByIdentifier: ID3_V24Spec.id_art).first, let imgData = item.dataValue, let image = NSImage(data: imgData) {
+            
+            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            return CoverArt(image, metadata)
         }
         
         // V2.2
         for item in asset.metadata {
             
-            if item.keySpace == .id3 && item.keyAsString == ID3_V22Spec.key_art, let imgData = item.dataValue {
-                return NSImage(data: imgData)
+            if item.keySpace == .id3 && item.keyAsString == ID3_V22Spec.key_art, let imgData = item.dataValue, let image = NSImage(data: imgData) {
+                
+                let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+                return CoverArt(image, metadata)
             }
         }
         

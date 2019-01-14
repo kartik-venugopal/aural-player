@@ -69,7 +69,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         
         artLoadingQueue.addOperation {
             
-            if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.copy() as? NSImage {
+            if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.image.copy() as? NSImage {
                 
                 imgCopy.size = Images.historyMenuItemImageSize
                 

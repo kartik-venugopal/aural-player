@@ -1911,10 +1911,10 @@
 				3E2188A71F0771390085BAB3 /* DetailedTrackInfoViewController.swift */,
 				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
 				3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */,
+				3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */,
 				3E154D7821DCC206006DBD22 /* AudioDataSource.swift */,
 				3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */,
 				3E2188A51F0767290085BAB3 /* DetailedTrackInfoRowView.swift */,
-				3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */,
 			);
 			name = DetailedTrackInfo;
 			sourceTree = "<group>";

@@ -42,25 +42,24 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
         
         // If no track is playing, no rows to display
         
-        let _track = DetailedTrackInfoViewController.shownTrack
-        if (_track == nil) {
-            return 0
-        }
-        
-        // If it's the same track playing (as last time view was refreshed), no need to reload the track info
-        if (compareTracks(_track, displayedTrack)) {
+        if let track = DetailedTrackInfoViewController.shownTrack {
+            
+            // If it's the same track playing (as last time view was refreshed), no need to reload the track info
+            if (compareTracks(track, displayedTrack)) {
+                return info.count
+            }
+            
+            // A track is playing, add its info to the info array, as key-value pairs
+            
+            self.displayedTrack = track
+            
+            info.removeAll()
+            info.append(contentsOf: infoForTrack(track))
+            
             return info.count
         }
         
-        // A track is playing, add its info to the info array, as key-value pairs
-        
-        let track = _track!
-        self.displayedTrack = _track!
-        
-        info.removeAll()
-        info.append(contentsOf: infoForTrack(track))
-        
-        return info.count
+        return 0
     }
     
     // Each track info view row contains one key-value pair

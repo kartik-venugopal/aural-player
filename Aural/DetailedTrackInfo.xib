@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="artView" destination="S7P-5I-7H0" id="zW0-cW-G5d"/>
                 <outlet property="audioTable" destination="ihr-iH-Cyj" id="jDs-Ok-N2C"/>
+                <outlet property="coverArtTable" destination="Gmd-J7-D9V" id="2qx-SY-RsK"/>
                 <outlet property="fileSystemTable" destination="GrA-Ht-F0j" id="Eyp-AV-wnp"/>
                 <outlet property="lyricsView" destination="BrD-vm-ynW" id="57U-dd-4AQ"/>
                 <outlet property="metadataTable" destination="FNS-yf-Iy0" id="eQI-DF-P6g"/>
