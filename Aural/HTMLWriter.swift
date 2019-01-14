@@ -46,6 +46,10 @@ class HTMLWriter {
         data.append(String(format: "\t<p>%@</p>\n", _text))
     }
     
+    func addImage(_ srcPath: String, _ altText: String) {
+        data.append(String(format: "\t<img src=\"%@\" alt=\"%@\">\n", srcPath, altText))
+    }
+    
     private func textToHTML(_ string: String) -> String {
         return string.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>")
     }

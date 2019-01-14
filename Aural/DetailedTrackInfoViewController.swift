@@ -3,7 +3,7 @@
 */
 import Cocoa
 
-class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, AsyncMessageSubscriber {
+class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, AsyncMessageSubscriber {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -14,6 +14,9 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
+    
+    @IBOutlet weak var exportArtMenuItem: NSMenuItem!
+    @IBOutlet weak var exportHTMLWithArtMenuItem: NSMenuItem!
     
     @IBOutlet weak var lyricsView: NSTextView! {
         
@@ -61,6 +64,9 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     private let noLyricsText: String = "< No lyrics available for this track >"
     
     override var nibName: String? {return "DetailedTrackInfo"}
+    
+    private let horizHTMLTablePadding: Int = 20
+    private let vertHTMLTablePadding: Int = 5
     
     override func awakeFromNib() {
         AsyncMessenger.subscribe([.trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -130,6 +136,48 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         }
     }
     
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        if let track = DetailedTrackInfoViewController.shownTrack, track.displayInfo.art?.image != nil {
+            exportArtMenuItem.show()
+            exportHTMLWithArtMenuItem.show()
+        } else {
+            exportArtMenuItem.hide()
+            exportHTMLWithArtMenuItem.hide()
+        }
+    }
+    
+    @IBAction func exportJPEGAction(_ sender: AnyObject) {
+        doExportArt(.jpeg, "jpg")
+    }
+    
+    @IBAction func exportPNGAction(_ sender: AnyObject) {
+        doExportArt(.png, "png")
+    }
+    
+    private func doExportArt(_ type: NSBitmapImageRep.FileType, _ fileExtension: String) {
+        
+        if let track = DetailedTrackInfoViewController.shownTrack, let image = track.displayInfo.art?.image {
+            
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-coverArt", fileExtension)
+            
+            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+                
+                if let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
+                    
+                    do {
+                        
+                        try data.write(to: outFile)
+                        
+                    } catch let error {
+                        
+                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription))
+                    }
+                }
+            }
+        }
+    }
+    
     @IBAction func exportJSONAction(_ sender: AnyObject) {
         
         if let track = DetailedTrackInfoViewController.shownTrack {
@@ -187,37 +235,54 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         return dict as NSDictionary
     }
     
+    @IBAction func exportHTMLWithArtAction(_ sender: AnyObject) {
+        doExportHTML(true)
+    }
+    
     @IBAction func exportHTMLAction(_ sender: AnyObject) {
+        doExportHTML(false)
+    }
+        
+    private func doExportHTML(_ withArt: Bool) {
         
         if let track = DetailedTrackInfoViewController.shownTrack {
             
-            let html = HTMLWriter()
-            
-            html.addTitle(track.conciseDisplayName)
-            html.addHeading(track.conciseDisplayName, 2, false)
-            
-            let text = String(format: "Metadata exported by Aural Player v%@ on: %@", AppConstants.appVersion, dateFormatter.string(from: Date()))
-            let exportDate = HTMLText(text, true, false, false, nil)
-            html.addParagraph(exportDate)
-            
-            let horizPadding: Int = 20
-            let vertPadding: Int = 5
-            
-            html.addTable("Metadata:", 3, nil, tableToHTML(metadataTable), horizPadding, vertPadding)
-            
-            html.addHeading("Lyrics:", 3, true)
-            
-            let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
-            html.addParagraph(lyrics)
-            
-            html.addTable("Audio:", 3, nil, tableToHTML(audioTable), horizPadding, vertPadding)
-            html.addTable("File System:", 3, nil, tableToHTML(fileSystemTable), horizPadding, vertPadding)
+            let metadataHTML = tableToHTML(metadataTable)
+            let audioHTML = tableToHTML(audioTable)
+            let fileSystemHTML = tableToHTML(fileSystemTable)
             
             let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "html")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
                 do {
+                    
+                    let html = HTMLWriter()
+                    
+                    html.addTitle(track.conciseDisplayName)
+                    html.addHeading(track.conciseDisplayName, 2, false)
+                    
+                    let text = String(format: "Metadata exported by Aural Player v%@ on: %@", AppConstants.appVersion, dateFormatter.string(from: Date()))
+                    let exportDate = HTMLText(text, true, false, false, nil)
+                    html.addParagraph(exportDate)
+                    
+                    // Embed art in HTML
+                    if withArt, let image = track.displayInfo.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
+                        
+                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.conciseDisplayName + "-coverArt.jpg")
+                        try data.write(to: imgFile)
+                        html.addImage(imgFile.lastPathComponent, "(Cover Art)")
+                    }
+                    
+                    html.addTable("Metadata:", 3, nil, metadataHTML, horizHTMLTablePadding, vertHTMLTablePadding)
+                    
+                    html.addHeading("Lyrics:", 3, true)
+                    
+                    let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
+                    html.addParagraph(lyrics)
+                    
+                    html.addTable("Audio:", 3, nil, audioHTML, horizHTMLTablePadding, vertHTMLTablePadding)
+                    html.addTable("File System:", 3, nil, fileSystemHTML, horizHTMLTablePadding, vertHTMLTablePadding)
                     
                     try html.writeToFile(outFile)
                     
