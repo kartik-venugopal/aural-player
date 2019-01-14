@@ -10,6 +10,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
     
     @IBOutlet weak var tabView: AuralTabView!
     
+    @IBOutlet weak var lblNoArt: NSTextField!
+    
     // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
     
@@ -93,6 +95,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
         })
         
         artView?.image = track.displayInfo.art?.image
+        lblNoArt.showIf_elseHide(artView?.image == nil)
+        
         lyricsView?.string = track.lyrics ?? noLyricsText
     }
     
@@ -262,6 +266,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate, As
             if msg.track == DetailedTrackInfoViewController.shownTrack {
                 
                 artView?.image = msg.track.displayInfo.art?.image
+                lblNoArt.showIf_elseHide(artView?.image == nil)
                 coverArtTable?.reloadData()
             }
         }
