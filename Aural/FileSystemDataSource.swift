@@ -12,7 +12,6 @@ class FileSystemDataSource: TrackInfoDataSource {
     override func awakeFromNib() {
         
         // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.tablesMap[.fileSystem] = table
         dateFormatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
     }
     

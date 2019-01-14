@@ -6,7 +6,12 @@ import Cocoa
 class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     // The table view that displays the track info
-    @IBOutlet weak var table: NSTableView!
+    @IBOutlet weak var table: NSTableView! {
+        
+        didSet {
+            TrackInfoViewHolder.tablesMap[self.tableId] = table
+        }
+    }
     
     // Used to measure table row height
     @IBOutlet var virtualKeyField: NSTextField!
@@ -19,6 +24,9 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     var displayedTrack: Track?
     
     var tableId: TrackInfoTab {return .metadata}
+    
+    var keyTextAlignment: NSTextAlignment? {return nil}
+    var valueTextAlignment: NSTextAlignment? {return nil}
     
     // Constants used to calculate row height
     
@@ -64,7 +72,7 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     
     // Each track info view row contains one key-value pair
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value, self.tableId)
+        return DetailedTrackInfoRowView.fromKeyAndValue(info[row].key, info[row].value, self.tableId, keyTextAlignment, valueTextAlignment)
     }
     
     // Adjust row height based on if the text wraps over to the next line
@@ -112,12 +120,6 @@ enum TrackInfoTab {
 class MetadataDataSource: TrackInfoDataSource {
     
     override var tableId: TrackInfoTab {return .metadata}
-    
-    override func awakeFromNib() {
-        
-        // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.tablesMap[.metadata] = table
-    }
     
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         

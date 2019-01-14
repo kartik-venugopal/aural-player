@@ -11,13 +11,18 @@ class DetailedTrackInfoRowView: NSTableRowView {
     var value: String?
     var tableId: TrackInfoTab?
     
+    var keyTextAlignment: NSTextAlignment?
+    var valueTextAlignment: NSTextAlignment?
+    
     // Factory method
-    static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab) -> DetailedTrackInfoRowView {
+    static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab, _ keyTextAlignment: NSTextAlignment? = nil, _ valueTextAlignment: NSTextAlignment? = nil) -> DetailedTrackInfoRowView {
         
         let view = DetailedTrackInfoRowView()
         view.key = key
         view.value = value
         view.tableId = tableId
+        view.keyTextAlignment = keyTextAlignment
+        view.valueTextAlignment = valueTextAlignment
         
         return view
     }
@@ -27,20 +32,25 @@ class DetailedTrackInfoRowView: NSTableRowView {
         if (column == 0) {
             
             // Key
-            return createCell(UIConstants.trackInfoKeyColumnID, key! + ":")
+            return createCell(UIConstants.trackInfoKeyColumnID, key! + ":", keyTextAlignment)
             
         } else {
             
             // Value
-            return createCell(UIConstants.trackInfoValueColumnID, value!)
+            return createCell(UIConstants.trackInfoValueColumnID, value!, valueTextAlignment)
         }
     }
     
-    private func createCell(_ id: String, _ text: String) -> NSTableCellView? {
+    private func createCell(_ id: String, _ text: String, _ alignment: NSTextAlignment?) -> NSTableCellView? {
         
         if let cell = TrackInfoViewHolder.tablesMap[tableId!]!.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
+            
+            if let alignment = alignment {
+                cell.textField?.alignment = alignment
+            }
+            
             return cell
         }
         

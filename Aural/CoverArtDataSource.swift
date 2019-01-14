@@ -5,13 +5,7 @@ import Cocoa
  */
 class CoverArtDataSource: TrackInfoDataSource {
     
-    override var tableId: TrackInfoTab {return .audio}
-    
-    override func awakeFromNib() {
-        
-        // Store a reference to trackInfoView that is easily accessible
-        TrackInfoViewHolder.tablesMap[.coverArt] = table
-    }
+    override var tableId: TrackInfoTab {return .coverArt}
     
     // Overriden to force table refresh (needed because cover art may be refreshed after table has loaded once)
     override func numberOfRows(in tableView: NSTableView) -> Int {
@@ -35,37 +29,42 @@ class CoverArtDataSource: TrackInfoDataSource {
     
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         
-        print("Reloading cover art MD for", track.conciseDisplayName)
+        var trackInfo: [(key: String, value: String)] = []
         
         if let artInfo = track.displayInfo.art?.metadata {
             
-            print("\tHAS MD", track.conciseDisplayName)
-        
-            for (k, v) in artInfo {
-                print(k, v)
+            if let type = artInfo.type {
+                trackInfo.append((key: "Type", value: type))
+            }
+            
+            if let dimensions = artInfo.dimensions {
+                
+                let dimStr = String(format: "%.0f x %.0f", dimensions.width, dimensions.height)
+                trackInfo.append((key: "Dimensions", value: dimStr))
+            }
+            
+            if let resolution = artInfo.resolution {
+                
+                let resStr = String(format: "%.0f x %.0f DPI", resolution.width, resolution.height)
+                trackInfo.append((key: "Resolution", value: resStr))
+            }
+            
+            if let colorSpace = artInfo.colorSpace {
+                trackInfo.append((key: "Color Space", value: colorSpace))
+            }
+            
+            if let colorProfile = artInfo.colorProfile {
+                trackInfo.append((key: "Color Profile", value: colorProfile))
+            }
+            
+            if let bitDepth = artInfo.bitDepth {
+                trackInfo.append((key: "Bit Depth", value: String(format: "%d-bit", bitDepth)))
+            }
+            
+            if let hasAlpha = artInfo.hasAlpha {
+                trackInfo.append((key: "Has Alpha?", value: hasAlpha ? "Yes" : "No"))
             }
         }
-        
-        var trackInfo: [(key: String, value: String)] = []
-        
-//        trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
-//
-//        if let codec = track.audioInfo?.codec {
-//            trackInfo.append((key: "Codec", value: codec))
-//        }
-//
-//        trackInfo.append((key: "Track Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
-//        trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", track.audioInfo?.bitRate ?? value_unknown)))
-//
-//        trackInfo.append((key: "Sample Rate", value: track.playbackInfo?.sampleRate != nil ? String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(track.playbackInfo!.sampleRate!))) : value_unknown))
-//
-//        if let layout = track.audioInfo?.channelLayout {
-//            trackInfo.append((key: "Channel Layout", value: layout.capitalized))
-//        } else {
-//            trackInfo.append((key: "Channel Layout", value: track.playbackInfo?.numChannels != nil ? channelLayout(track.playbackInfo!.numChannels!) : value_unknown))
-//        }
-//
-//        trackInfo.append((key: "Frames", value: track.playbackInfo?.frames != nil ? StringUtils.readableLongInteger(track.playbackInfo!.frames!) : value_unknown))
         
         return trackInfo
     }
