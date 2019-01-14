@@ -12,7 +12,7 @@ fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey:
 
 fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
 
-fileprivate let essentialFieldKeys: [String] = [key_title, key_artist, key_album, key_genre, key_art]
+fileprivate let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_art]
 
 class CommonAVAssetParser: AVAssetParser {
     
