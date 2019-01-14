@@ -51,7 +51,7 @@ class HTMLWriter {
     }
     
     private func textToHTML(_ string: String) -> String {
-        return string.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>")
+        return string.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>").replacingOccurrences(of: "'", with: "&apos;").replacingOccurrences(of: "©", with: "&copy;").replacingOccurrences(of: "®", with: "&reg;").replacingOccurrences(of: "’", with: "&apos;")
     }
     
     func addLineBreak() {
