@@ -34,6 +34,7 @@ class Track: NSObject, PlaylistItem {
     
     // ID3/iTunes metadata
     var metadata: [String: MetadataEntry] = [String: MetadataEntry]()
+    var artMetadata: NSDictionary?
     
     var lyrics: String?
     

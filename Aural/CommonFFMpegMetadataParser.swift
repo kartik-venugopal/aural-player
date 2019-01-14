@@ -108,7 +108,7 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let discNumStr = mapForTrack.commonMetadata?.essentialFields[key_disc] {
-            return parseDiscOrTrackNumber(discNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
         
         return nil
@@ -121,44 +121,13 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
     func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumStr = mapForTrack.commonMetadata?.essentialFields[key_track] {
-            return parseDiscOrTrackNumber(trackNumStr)
+            return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
         
         return nil
     }
     
     func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int? {
-        return nil
-    }
-    
-    private func parseDiscOrTrackNumber(_ _string: String) -> (number: Int?, total: Int?)? {
-        
-        // Parse string (e.g. "2 / 13")
-        
-        let string = _string.trim()
-        
-        if let num = Int(string) {
-            return (num, nil)
-        }
-        
-        let tokens = string.split(separator: "/")
-        
-        if !tokens.isEmpty {
-            
-            let s1 = tokens[0].trim()
-            var s2: String?
-            
-            let n1: Int? = Int(s1)
-            var n2: Int?
-            
-            if tokens.count > 1 {
-                s2 = tokens[1].trim()
-                n2 = Int(s2!)
-            }
-            
-            return (n1, n2)
-        }
-        
         return nil
     }
     
@@ -173,6 +142,8 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
                 if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
                 }
+                
+                value = StringUtils.cleanUpString(value)
                 
                 metadata[key] = MetadataEntry(.common, readableKey(key), value)
             }

@@ -209,6 +209,9 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         ensureTrackAssetLoaded(track)
         
+        let asset = track.audioAsset!
+        print("Creation Date:", asset.creationDate)
+        
         var metadata: [String: MetadataEntry] = [:]
         
         if let map = metadataMap.getForKey(track) {
@@ -257,6 +260,10 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return nil
     }
     
+    func getArtMetadata(_ track: Track) -> NSDictionary? {
+        return nil
+    }
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if message.messageType == .tracksRemoved {
@@ -280,6 +287,18 @@ class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
     var genericItems: [AVMetadataItem] = []
+}
+
+class CoverArt {
+    
+    var image: NSImage
+    var metadata: NSDictionary?
+    
+    init(_ image: NSImage, _ metadata: NSDictionary?) {
+        
+        self.image = image
+        self.metadata = metadata
+    }
 }
 
 extension AVMetadataItem {

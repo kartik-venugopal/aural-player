@@ -204,6 +204,10 @@ class ITunesParser: AVAssetParser {
                         continue
                     }
                     
+                } else if key == ITunesSpec.key_bpm {
+                    
+                    value = item.valueAsNumericalString
+                    
                 } else {
                     
                     if let strValue = item.valueAsString {
