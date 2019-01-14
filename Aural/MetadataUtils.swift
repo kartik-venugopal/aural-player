@@ -48,7 +48,12 @@ class MetadataUtils {
     static func loadAllMetadata(_ track: Track) {
         
         let metadata = isFileMetadataNativelySupported(track.file) ? avAssetReader.getAllMetadata(track) : ffMpegReader.getAllMetadata(track)
+        
         track.metadata = metadata
+        
+        if track.displayInfo.art != nil {
+            
+        }
     }
     
     static func durationForFile(_ file: URL) -> Double {

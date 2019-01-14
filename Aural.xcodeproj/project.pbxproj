@@ -73,6 +73,8 @@
 		3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
+		3E1AE56E21EB79DA00664152 /* CoverArtDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */; };
+		3E1AE57021EC008D00664152 /* DefaultFFMpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AE56F21EC008D00664152 /* DefaultFFMpegMetadataParser.swift */; };
 		3E1CB54621C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CB54521C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift */; };
 		3E1CB54821C8A42700A19AAE /* TranscodingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CB54721C8A42700A19AAE /* TranscodingPreferencesViewController.swift */; };
 		3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */; };
@@ -468,6 +470,8 @@
 		3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtCache.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
+		3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtDataSource.swift; sourceTree = "<group>"; };
+		3E1AE56F21EC008D00664152 /* DefaultFFMpegMetadataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFFMpegMetadataParser.swift; sourceTree = "<group>"; };
 		3E1CB54521C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPlaybackPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E1CB54721C8A42700A19AAE /* TranscodingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscodingPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
@@ -1795,6 +1799,7 @@
 				3E688ABE21E3842800164E84 /* WMParser.swift */,
 				3E688AC021E3967400164E84 /* VorbisCommentParser.swift */,
 				3E688AC221E3978600164E84 /* ApeV2Parser.swift */,
+				3E1AE56F21EC008D00664152 /* DefaultFFMpegMetadataParser.swift */,
 				3ED35D3021EAAB3D00A5904F /* ParserUtils.swift */,
 			);
 			name = Parsers;
@@ -1909,6 +1914,7 @@
 				3E154D7821DCC206006DBD22 /* AudioDataSource.swift */,
 				3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */,
 				3E2188A51F0767290085BAB3 /* DetailedTrackInfoRowView.swift */,
+				3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */,
 			);
 			name = DetailedTrackInfo;
 			sourceTree = "<group>";
@@ -2258,6 +2264,7 @@
 				3E50DC91219388D200D42373 /* DelayView.swift in Sources */,
 				3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */,
 				3EDA1FBF214F8B77003591FA /* ConstituentView.swift in Sources */,
+				3E1AE56E21EB79DA00664152 /* CoverArtDataSource.swift in Sources */,
 				3E3F296D215A3E4A00581EFE /* MasterViewController.swift in Sources */,
 				3E50DC962193A36000D42373 /* MasterUnit.swift in Sources */,
 				3E981EA91F7A0C8A003DDA38 /* RecordingSession.swift in Sources */,
@@ -2287,6 +2294,7 @@
 				3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */,
 				3EDA1FBB214F305C003591FA /* PlaybackSequencerInfoDelegateProtocol.swift in Sources */,
 				3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */,
+				3E1AE57021EC008D00664152 /* DefaultFFMpegMetadataParser.swift in Sources */,
 				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
 				3E3FB7F9215B590A00974A59 /* Favorites.swift in Sources */,
 				3E4F9FD51FC9158100FA4096 /* VariableRateNode.swift in Sources */,

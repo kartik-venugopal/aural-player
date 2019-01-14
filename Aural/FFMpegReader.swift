@@ -2,12 +2,12 @@ import Cocoa
 
 class FFMpegReader: MetadataReader {
     
-    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.wmParser]
+    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
     
     // TODO: Is this useful/necessary ?
-    private let wmFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser]
-    private let vorbisCommentFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.wmParser]
-    private let apeTagFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.apeParser, ObjectGraph.vorbisParser, ObjectGraph.wmParser]
+    private let wmFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.defaultParser]
+    private let vorbisCommentFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
+    private let apeTagFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.apeParser, ObjectGraph.vorbisParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
     
@@ -229,6 +229,10 @@ class FFMpegReader: MetadataReader {
             }
         }
         
+        return nil
+    }
+    
+    func getArtMetadata(_ track: Track) -> NSDictionary? {
         return nil
     }
     

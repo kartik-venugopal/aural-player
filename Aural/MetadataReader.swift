@@ -12,6 +12,8 @@ protocol MetadataReader {
     
     func getArt(_ file: URL) -> NSImage?
     
+    func getArtMetadata(_ track: Track) -> NSDictionary?
+    
     func getAllMetadata(_ track: Track) -> [String: MetadataEntry]
 }
 

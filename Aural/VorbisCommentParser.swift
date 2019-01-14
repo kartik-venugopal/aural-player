@@ -17,12 +17,13 @@ fileprivate let key_totalTracks = "totaltracks"
 
 fileprivate let key_lyrics = "lyrics"
 
-fileprivate let key_encodingTime = "encodingtime"
-fileprivate let key_language = "language"
-
 class VorbisCommentParser: FFMpegMetadataParser {
     
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks, key_lyrics]
+    private let key_encodingTime = "encodingtime"
+    private let key_language = "language"
+    private let key_compilation = "compilation"
+    
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_artists, key_album, key_genre, key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks, key_lyrics]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
@@ -147,7 +148,11 @@ class VorbisCommentParser: FFMpegMetadataParser {
                 // Check special fields
                 if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
+                } else if key == key_compilation, let bVal = numericStringToBoolean(value) {
+                    value = bVal ? "Yes" : "No"
                 }
+                
+                value = StringUtils.cleanUpString(value)
                 
                 metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
             }
@@ -197,53 +202,15 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["grouping"] = "Grouping"
         
         map["albumartistsort"] = "Album Artist Sort Order"
-        map["artistsort"] = "Track Artist Sort Order"
-        map["albumsort"] = "Album Title Sort Order"
-        map["titlesort"] = "Track Title Sort Order"
+        map["artistsort"] = "Artist Sort Order"
+        map["albumsort"] = "Album Sort Order"
+        map["titlesort"] = "Title Sort Order"
         
         map["subtitle"] = "Track Subtitle"
         
         map["upc"] = "UPC"
         
-        map["acousticbrainz_data"] = "AcousticBrainz Data"
-        
-        map["acoustid data"] = "Acoustid Data"
-        
-        map["acoustid_fingerprint"] = "Acoustid Fingerprint"
-        
-        map["acoustid_fingerprint_fault"] = "Acoustid Fingerprint Fault"
-        
-        map["acoustid_id"] = "Acoustid Id"
-        
-        map["acoustid status"] = "Acoustid Status"
-        
-        map["apiseeds_artist"] = "APISEEDS Artist"
-        
-        map["apiseeds_probability"] = "APISEEDS Probability"
-        
-        map["apiseeds_status"] = "APISEEDS Status"
-        
-        map["apiseeds_text"] = "APISEEDS Text"
-        
-        map["apiseeds_title"] = "APISEEDS Title"
-        
-        map["autosearch_artwork_url"] = "Autosearch Artwork URL"
-        
         map["barcode"] = "Barcode"
-        
-        map["beatport_album_url"] = "Beatport Album URL"
-        
-        map["beatport_artist_url{-n}"] = "Beatport Artist URLs"
-        
-        map["beatport_import_time"] = "Beatport Import Time"
-        
-        map["beatport_label_url"] = "Beatport Label URL"
-        
-        map["beatport_release_id"] = "Beatport Release Id"
-        
-        map["beatport_track_id"] = "Beatport Track Id"
-        
-        map["beatport_track_url"] = "Beatport Track URL"
         
         map["catalognumber"] = "Catalog Number"
         
@@ -259,7 +226,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["conductor"] = "Conductor"
         
-        map["copyright url"] = "Copyright/Legal Information Webpage"
+        map["copyright_url"] = "Copyright/Legal Information Webpage"
         
         map["country"] = "Country"
         
@@ -267,45 +234,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["user configurable"] = "Custom 0...99"
         
-        map["discogs_albumartist_url"] = "Discogs Album Artist URLs"
-        
-        map["discogs_artist_list"] = "Discogs Artist List"
-        
-        map["discogs_anv_list"] = "Discogs Artist Name Variations"
-        
-        map["discogs_artist_url"] = "Discogs Artist URLs"
-        
-        map["discogs_artwork_url"] = "Discogs Artwork URL"
-        
-        map["discogs_catalog_number"] = "Discogs Catalog Number"
-        
-        map["discogs_import_settings"] = "Discogs Import Settings"
-        
-        map["discogs_exception_mask"] = "Discogs Exception Mask"
-        
-        map["discogs_import_time"] = "Discogs Import Time"
-        
-        map["discogs_label_url"] = "Discogs Label URLs"
-        
-        map["discogs_master_id"] = "Discogs Master Id"
-        
-        map["discogs_master_url"] = "Discogs Master URL"
-        
-        map["discogs_album_releasecountry"] = "Discogs Release Country"
-        
-        map["discogs_release_id"] = "Discogs Release Id"
-        
-        map["discogs_release_notes"] = "Discogs Release Notes"
-        
-        map["discogs_release_ordinal_position"] = "Discogs Release Ordinal Position"
-        
-        map["discogs_release_url"] = "Discogs Release URL"
-        
         map["filetype"] = "File Type"
-        
-        map["fmps_playcount"] = "FMPS Play Count"
-        
-        map["fmps_rating_amarok_score"] = "FMPS Rating Amarok Score"
         
         map["key"] = "Initial Key"
         
@@ -323,8 +252,6 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["organization"] = "Organization"
         
-        map["yate-ip"] = "Involved People"
-        
         map["instrumental"] = "Instrumental"
         
         map["instrument"] = "Instrument"
@@ -341,10 +268,6 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["lyricist"] = "Lyricist"
         
-        map["lyricwiki takedown status"] = "LyricWiki Takedown Status id"
-        
-        map["lyricwiki url"] = "LyricWiki URL"
-        
         map["media"] = "Media Type"
         
         map["mood"] = "Mood"
@@ -353,59 +276,7 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["music_cd_identifier"] = "Music CD Identifier"
         
-        map["musicbrainz_albumartistid"] = "MusicBrainz Album Artist Id"
-        
-        map["musicbrainz_albumartist_url{-n}"] = "MusicBrainz Album Artist URLs"
-        
-        map["musicbrainz_artistid"] = "MusicBrainz Artist Id"
-        
-        map["musicbrainz_artist_url{-n}"] = "MusicBrainz Artist URLs"
-        
-        map["musicbrainz_artwork_url_type{-n}"] = "MusicBrainz Artwork URLs"
-        
-        map["musicbrainz_catalog_number{-n}"] = "MusicBrainz Catalog Number"
-        
-        map["musicbrainz_discid"] = "MusicBrainz Disc Id"
-        
-        map["musicbrainz_exception_mask"] = "MusicBrainz Exception Mask"
-        
-        map["musicbrainz_import_settings"] = "MusicBrainz Import Settings"
-        
-        map["musicbrainz_import_time"] = "MusicBrainz Import Time"
-        
-        map["musicbrainz_label_url{-n}"] = "MusicBrainz label URLs"
-        
-        map["musicbrainz_originalalbumid"] = "MusicBrainz Original Album Id"
-        
-        map["musicbrainz_original_album_url"] = "MusicBrainz Original Album URL"
-        
-        map["musicbrainz_trackid"] = "MusicBrainz Recording Id"
-        
-        map["musicbrainz_relationship_url_name}"] = "MusicBrainz Relationship URLs"
-        
-        map["musicbrainz_album_releasecountry"] = "MusicBrainz Release Country"
-        
-        map["musicbrainz_release_groupid"] = "MusicBrainz Release Group Id"
-        
-        map["musicbrainz_release_group_url"] = "MusicBrainz Release Group URL"
-        
-        map["musicbrainz_albumid"] = "MusicBrainz Release Id"
-        
-        map["musicbrainz_albumstatus"] = "MusicBrainz Release Status"
-        
-        map["musicbrainz_releasetrackid"] = "MusicBrainz Release Track Id"
-        
-        map["musicbrainz_albumtype"] = "MusicBrainz Release Type"
-        
-        map["musicbrainz_album_url"] = "MusicBrainz Release URL"
-        
-        map["musicbrainz_trmid"] = "MusicBrainz TRM Id"
-        
         map["script"] = "Script"
-        
-        map["musicbrainz_workid"] = "MusicBrainz Work Id"
-        
-        map["accurateripresult"] = "AccurateRip Result"
         
         map["performer"] = "Performer"
         map["musiciancredits"] = "Musician Credits"
@@ -427,9 +298,9 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["original lyricist"] = "Original Lyricist"
         
         map["originaldate"] = "Original Release Date"
-        map["original year"] = "Original Release Date"
-        map["originalreleasedate"] = "Original Release Date"
-        map["original_year"] = "Original Release Date"
+        map["original year"] = "Original Release Year"
+        map["originalreleasedate"] = "Original Release Year"
+        map["original_year"] = "Original Release Year"
         
         map["period"] = "Period"
         
@@ -483,13 +354,9 @@ class VorbisCommentParser: FFMpegMetadataParser {
         
         map["ufid"] = "Unique File Identifier"
         
-        map["yate_album_id"] = "Yate Album ID"
-        
-        map["yate_track_id"] = "Yate Track ID"
-        
         map["work"] = "Work"
         
-        map["originalyear"] = "Original Release Date"
+        map["originalyear"] = "Original Release Year"
         map["composersort"] = "Composer Sort Order"
         map["movementname"] = "Movement Name"
         map["movement"] = "Movement"
@@ -500,8 +367,6 @@ class VorbisCommentParser: FFMpegMetadataParser {
         map["releasetype"] = "Release Type"
         map["releasecountry"] = "Release Country"
         map["asin"] = "ASIN"
-        map["musicip_puid"] = "MusicIP PUID"
-        map["fingerprint"] = "MusicIP Fingerprint"
         map["website"] = "Official Artist Website"
         
         return map

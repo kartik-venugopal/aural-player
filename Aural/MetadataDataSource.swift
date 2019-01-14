@@ -106,6 +106,7 @@ enum TrackInfoTab {
     
     case metadata
     case audio
+    case coverArt
     case fileSystem
 }
 

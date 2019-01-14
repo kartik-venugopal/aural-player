@@ -44,7 +44,9 @@ class WMParser: FFMpegMetadataParser {
     
     private let keyPrefix = "wm/"
     
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_genreId, key_disc, key_discTotal, key_track, key_trackTotal, key_lyrics]
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_genreId, key_disc, key_discTotal, key_track, key_track_zeroBased, key_trackTotal, key_lyrics]
+    
+    private let ignoredKeys: Set<String> = ["wmfsdkneeded"]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
@@ -55,16 +57,16 @@ class WMParser: FFMpegMetadataParser {
             
             let lcKey = key.lowercased().replacingOccurrences(of: keyPrefix, with: "").trim()
             
-            if essentialKeys.contains(lcKey) {
+            if !ignoredKeys.contains(lcKey) {
                 
-                metadata.essentialFields[lcKey] = value
-                mapForTrack.map.removeValue(forKey: key)
-                
-            } else if genericKeys[lcKey] != nil {
-                
-                metadata.genericFields[lcKey] = value
-                mapForTrack.map.removeValue(forKey: key)
+                if essentialKeys.contains(lcKey) {
+                    metadata.essentialFields[lcKey] = value
+                } else if genericKeys[lcKey] != nil {
+                    metadata.genericFields[lcKey] = value
+                }
             }
+            
+            mapForTrack.map.removeValue(forKey: key)
         }
     }
     
@@ -184,6 +186,8 @@ class WMParser: FFMpegMetadataParser {
                     value = langName
                 }
                 
+                value = StringUtils.cleanUpString(value)
+                
                 metadata[key] = MetadataEntry(.wma, readableKey(key), value)
             }
         }
@@ -225,10 +229,6 @@ class WMParser: FFMpegMetadataParser {
         
         map["contentgroupdescription"] = "Grouping"
         
-        map["acoustid/fingerprint"] = "AcoustId Fingerprint"
-        
-        map["acoustid/id"] = "AcoustId Id"
-        
         map["albumartistsortorder"] = "Album Artist Sort Order"
         
         map["albumsortorder"] = "Album Sort Order"
@@ -263,12 +263,6 @@ class WMParser: FFMpegMetadataParser {
         
         map["year"] = "Year"
         
-        map["discogsartisturl"] = "Discogs Artist Site Url"
-        
-        map["discogsreleaseurl"] = "Discogs Release Site Url"
-        
-        map["musicbrainz_albumstatus"] = "MusicBrainz Album Status"
-        
         map["encodedby"] = "Encoded By"
         
         map["encodingsettings"] = "Encoder"
@@ -287,7 +281,7 @@ class WMParser: FFMpegMetadataParser {
         
         map["language"] = "Language"
         
-        map["writer"] = "Lyricist"
+        map["writer"] = "Writer"
         
         map["lyricsurl"] = "Lyrics Site Url"
         
@@ -303,28 +297,6 @@ class WMParser: FFMpegMetadataParser {
         
         map["mood"] = "Mood"
         
-        map["musicbrainz/artist id"] = "MusicBrainz Artist Id"
-        
-        map["musicbrainz/disc id"] = "MusicBrainz Disc Id"
-        
-        map["musicbrainz/original album id"] = "MusicBrainz Original Release Id"
-        
-        map["musicbrainz/album artist id"] = "MusicBrainz Release Artist Id"
-        
-        map["musicbrainz/release group id"] = "MusicBrainz Release Group Id"
-        
-        map["musicbrainz/album id"] = "MusicBrainz Release Id"
-        
-        map["musicbrainz/album release country"] = "MusicBrainz Release Country"
-        
-        map["musicbrainz/album status"] = "MusicBrainz Release Status"
-        
-        map["musicbrainz/album type"] = "MusicBrainz Release Type"
-        
-        map["musicbrainz/track id"] = "MusicBrainz Track Id"
-        
-        map["musicbrainz/work id"] = "MusicBrainz Work Id"
-        
         map["occasion"] = "Occasion"
         
         map["officialreleaseurl"] = "Official Release Site Url"
@@ -337,11 +309,9 @@ class WMParser: FFMpegMetadataParser {
         
         map["originallyricist"] = "Original Lyricist"
         
-        map["originalreleaseyear"] = "Original Release Date"
+        map["originalreleaseyear"] = "Original Release Year"
         
-        map["url_wikipedia_release_site"] = "Podcast"
-        
-        map["url_official_artist_site"] = "Podcast URL"
+        map["url_official_artist_site"] = "Official Artist Website"
         
         map["producer"] = "Producer"
         
@@ -364,10 +334,6 @@ class WMParser: FFMpegMetadataParser {
         map["toolname"] = "Encoder"
         
         map["toolversion"] = "Encoder Version"
-        
-        map["wikipediaartisturl"] = "Wikipedia Artist Site Url"
-        
-        map["wikipediareleaseurl"] = "Wikipedia Release Site Url"
         
         map["deviceconformancetemplate"] = "Device Conformance Template"
         

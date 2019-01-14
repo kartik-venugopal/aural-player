@@ -3,6 +3,7 @@ import AVFoundation
 
 fileprivate let key_title = "title"
 fileprivate let key_artist = "artist"
+fileprivate let key_artists = "artists"
 fileprivate let key_album = "album"
 fileprivate let key_genre = "genre"
 
@@ -10,11 +11,12 @@ fileprivate let key_disc = "disc"
 fileprivate let key_track = "track"
 fileprivate let key_lyrics = "lyrics"
 
-fileprivate let key_language = "language"
-
 class ApeV2Parser: FFMpegMetadataParser {
-    
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_disc, key_track, key_lyrics]
+
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_artists, key_album, key_genre, key_disc, key_track, key_lyrics]
+
+    private let key_language = "language"
+    private let key_compilation = "compilation"
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
         
@@ -49,8 +51,11 @@ class ApeV2Parser: FFMpegMetadataParser {
     
     func getArtist(_ mapForTrack: LibAVMetadata) -> String? {
         
-        if let artist = mapForTrack.apeMetadata?.essentialFields[key_artist] {
-            return artist
+        for key in [key_artist, key_artists] {
+            
+            if let artist = mapForTrack.apeMetadata?.essentialFields[key] {
+                return artist
+            }
         }
         
         return nil
@@ -120,7 +125,11 @@ class ApeV2Parser: FFMpegMetadataParser {
                 // Check special fields
                 if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName
+                } else if key == key_compilation, let bVal = numericStringToBoolean(value) {
+                    value = bVal ? "Yes" : "No"
                 }
+                
+                value = StringUtils.cleanUpString(value)
                 
                 metadata[key] = MetadataEntry(.ape, readableKey(key), value)
             }
@@ -159,6 +168,45 @@ class ApeV2Parser: FFMpegMetadataParser {
         map["introplay"] = "Introplay"
         map["tool name"] = "Tool Name"
         map["tool version"] = "Tool Version"
+        
+        map["albumsort"] = "Album Sort Order"
+        map["titlesort"] = "Title Sort Order"
+        map["work"] = "Work Name"
+        map["artistsort"] = "Artist Sort Order"
+        map["albumartist"] = "Album Artist"
+        map["albumartistsort"] = "Album Artist Sort Order"
+        
+        map["original artist"] = "Original Artist"
+        map["originalyear"] = "Original Release Year"
+        map["composersort"] = "Composer Sort Order"
+        map["lyricist"] = "Original Lyricist"
+        map["writer"] = "Writer"
+        map["performer"] = "Performer"
+        map["mixartist"] = "Remixer"
+        map["arranger"] = "Arranger"
+        map["engineer"] = "Engineer"
+        map["producer"] = "Producer"
+        map["djmixer"] = "DJ Mixer"
+        map["mixer"] = "Mixer"
+        map["label"] = "Label"
+        map["movementname"] = "Movement Name"
+        map["movement"] = "Movement"
+        map["movementtotal"] = "Movement Count"
+        map["showmovement"] = "Show Movement"
+        map["grouping"] = "Grouping"
+        map["discsubtitle"] = "Disc Subtitle"
+        map["compilation"] = "Part of a Compilation?"
+        map["bpm"] = "BPM"
+        map["mood"] = "Mood"
+        map["catalognumber"] = "Catalog Number"
+        map["releasecountry"] = "Release Country"
+        map["script"] = "Script"
+        map["license"] = "License"
+        map["encodedby"] = "Encoded By"
+        map["encodersettings"] = "Encoder Settings"
+        map["barcode"] = "Barcode"
+        map["asin"] = "ASIN"
+        map["weblink"] = "Official Artist Website"
         
         return map
     }()
