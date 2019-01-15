@@ -24,6 +24,27 @@ class HTMLText {
 
 class HTMLWriter {
     
+    private static let entities: [(text: String, entity: String)] = [
+        
+        ("&", "&amp;"),
+        ("<", "&lt;"),
+        (">", "&gt;"),
+        ("\r", ""),
+        ("\n", "<br>"),
+        ("'", "&apos;"),
+        ("©", "&copy;"),
+        ("®", "&reg;"),
+        ("™", "&tm;"),
+        ("’", "&prime;"),
+        ("´", "&acute;"),
+        ("\"", "&quot;"),
+        ("`", "&grave;"),
+        ("—", "&#45;"),
+        ("-", "&#8209;"),
+        ("–", "&#8210;")
+        
+        ]
+    
     private var data: String = "<html>\n"
     
     func addTitle(_ title: String) {
@@ -51,7 +72,14 @@ class HTMLWriter {
     }
     
     private func textToHTML(_ string: String) -> String {
-        return string.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\r", with: "").replacingOccurrences(of: "\n", with: "<br>").replacingOccurrences(of: "'", with: "&apos;").replacingOccurrences(of: "©", with: "&copy;").replacingOccurrences(of: "®", with: "&reg;").replacingOccurrences(of: "’", with: "&apos;")
+        
+        var htmlString = string
+        
+        for (text, entity) in HTMLWriter.entities {
+            htmlString = htmlString.replacingOccurrences(of: text, with: entity)
+        }
+        
+        return htmlString
     }
     
     func addLineBreak() {
