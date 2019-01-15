@@ -73,8 +73,8 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
    * Recording of clips in AAC/ALAC/AIFF formats - captures applied effects
 
 * **Information:**
-   * ID3, iTunes, WMA, and other metadata (when available)
-   * Cover art (when available)
+   * ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Option to export textual metadata as HTML/JSON.
+   * Cover art (when available). Option to export cover art as JPEG/PNG.
    * Lyrics (when available)
    * File system information and technical audio data
 
