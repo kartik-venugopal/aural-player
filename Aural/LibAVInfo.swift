@@ -51,6 +51,7 @@ class LibAVMetadata {
     var map: [String: String]
     
     var commonMetadata: LibAVParserMetadata?
+    var id3Metadata: LibAVParserMetadata?
     var wmMetadata: LibAVParserMetadata?
     var vorbisMetadata: LibAVParserMetadata?
     var apeMetadata: LibAVParserMetadata?

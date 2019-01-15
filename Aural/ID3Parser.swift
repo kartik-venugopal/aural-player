@@ -1,7 +1,7 @@
 import Cocoa
 import AVFoundation
 
-class ID3Parser: AVAssetParser {
+class ID3Parser: AVAssetParser, FFMpegMetadataParser {
     
     private let keys_duration: [String] = [ID3_V22Spec.key_duration, ID3_V24Spec.key_duration]
     
@@ -82,6 +82,34 @@ class ID3Parser: AVAssetParser {
         }
     }
     
+    func mapTrack(_ mapForTrack: LibAVMetadata) {
+        
+        let metadata = LibAVParserMetadata()
+        mapForTrack.id3Metadata = metadata
+        
+        for (key, value) in mapForTrack.map {
+            
+            let ucKey = key.uppercased()
+            
+            if !ignoredKeys.contains(ucKey) {
+                
+                if essentialFieldKeys.contains(ucKey) {
+                    
+                    metadata.essentialFields[ucKey] = value
+                    mapForTrack.map.removeValue(forKey: key)
+                    
+                } else if genericFields[ucKey] != nil {
+                    
+                    metadata.genericFields[ucKey] = value
+                    mapForTrack.map.removeValue(forKey: key)
+                }
+                
+            } else {
+                mapForTrack.map.removeValue(forKey: key)
+            }
+        }
+    }
+    
     func getDuration(_ mapForTrack: AVAssetMetadata) -> Double? {
         
         for key in keys_duration {
@@ -106,12 +134,36 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
+    func getTitle(_ mapForTrack: LibAVMetadata) -> String? {
+        
+        for key in keys_title {
+            
+            if let title = mapForTrack.id3Metadata?.essentialFields[key] {
+                return title
+            }
+        }
+        
+        return nil
+    }
+    
     func getArtist(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in keys_artist {
 
             if let artistItem = mapForTrack.map[key] {
                 return artistItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getArtist(_ mapForTrack: LibAVMetadata) -> String? {
+        
+        for key in keys_artist {
+            
+            if let artist = mapForTrack.id3Metadata?.essentialFields[key] {
+                return artist
             }
         }
         
@@ -130,12 +182,36 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
+    func getAlbum(_ mapForTrack: LibAVMetadata) -> String? {
+        
+        for key in keys_album {
+            
+            if let album = mapForTrack.id3Metadata?.essentialFields[key] {
+                return album
+            }
+        }
+        
+        return nil
+    }
+    
     func getGenre(_ mapForTrack: AVAssetMetadata) -> String? {
         
         for key in keys_genre {
 
             if let genreItem = mapForTrack.map[key] {
                 return ParserUtils.getID3Genre(genreItem)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getGenre(_ mapForTrack: LibAVMetadata) -> String? {
+        
+        for key in keys_genre {
+            
+            if let genre = mapForTrack.id3Metadata?.essentialFields[key] {
+                return genre
             }
         }
         
@@ -154,6 +230,22 @@ class ID3Parser: AVAssetParser {
         return nil
     }
     
+    func getDiscNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
+        
+        for key in keys_discNumber {
+            
+            if let discNumStr = mapForTrack.id3Metadata?.essentialFields[key] {
+                return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getTotalDiscs(_ mapForTrack: LibAVMetadata) -> Int? {
+        return nil
+    }
+    
     func getTrackNumber(_ mapForTrack: AVAssetMetadata) -> (number: Int?, total: Int?)? {
         
         for key in keys_trackNumber {
@@ -163,6 +255,22 @@ class ID3Parser: AVAssetParser {
             }
         }
         
+        return nil
+    }
+    
+    func getTrackNumber(_ mapForTrack: LibAVMetadata) -> (number: Int?, total: Int?)? {
+        
+        for key in keys_trackNumber {
+            
+            if let trackNumStr = mapForTrack.id3Metadata?.essentialFields[key] {
+                return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
+            }
+        }
+        
+        return nil
+    }
+    
+    func getTotalTracks(_ mapForTrack: LibAVMetadata) -> Int? {
         return nil
     }
     
@@ -208,6 +316,18 @@ class ID3Parser: AVAssetParser {
 
             if let lyricsItem = mapForTrack.map[key] {
                 return lyricsItem.stringValue
+            }
+        }
+        
+        return nil
+    }
+    
+    func getLyrics(_ mapForTrack: LibAVMetadata) -> String? {
+        
+        for key in keys_lyrics {
+            
+            if let lyrics = mapForTrack.id3Metadata?.essentialFields[key] {
+                return lyrics
             }
         }
         
@@ -323,5 +443,39 @@ class ID3Parser: AVAssetParser {
         }
         
         return nil
+    }
+    
+    func getGenericMetadata(_ mapForTrack: LibAVMetadata) -> [String : MetadataEntry] {
+
+        var metadata: [String: MetadataEntry] = [:]
+        
+        if let fields = mapForTrack.id3Metadata?.genericFields {
+            
+            for (var key, var value) in fields {
+                
+                // Special fields
+                if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
+                    
+                    // TLAN
+                    value = langName
+                    
+                } else if keys_compilation.contains(key), let numVal = Int(value) {
+                    
+                    // Number to boolean
+                    value = numVal == 0 ? "No" : "Yes"
+                    
+                } else if keys_mediaType.contains(key) {
+                    
+                    value = ID3MediaTypes.mediaType(value)
+                }
+                
+                key = StringUtils.cleanUpString(key)
+                value = StringUtils.cleanUpString(value)
+                
+                metadata[key] = MetadataEntry(.id3, readableKey(key), value)
+            }
+        }
+        
+        return metadata
     }
 }

@@ -11,6 +11,7 @@ fileprivate let key_track = "track"
 fileprivate let key_lyrics = "lyrics"
 
 fileprivate let key_albumArtist = "album_artist"
+fileprivate let key_comment = "comment"
 fileprivate let key_composer = "composer"
 fileprivate let key_performer = "performer"
 fileprivate let key_publisher = "publisher"
@@ -35,7 +36,8 @@ class CommonFFMpegMetadataParser: FFMpegMetadataParser {
         key_encodedBy: "Encoded By",
         key_encoder: "Encoder",
         key_language: "Language",
-        key_date: "Date"
+        key_date: "Date",
+        key_comment: "Comment"
     ]
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
