@@ -108,8 +108,8 @@ struct ID3_V22Spec {
         map["TPB"] = "Publisher"
         map["TRD"] = "Recording Dates"
         map["TSI"] = "Size"
-        map["TRC"] = "ISRC (International Standard Recording Code)"
-        map["TSS"] = "Encoding Software / Hardware"
+        map["TRC"] = "ISRC"
+        map["TSS"] = "Encoding Tool"
         
         map["TS2"] = "Album Artist Sort Order"
         map["TSA"] = "Album Sort Order"
@@ -396,10 +396,10 @@ struct ID3_V24Spec {
         map[AVMetadataKey.id3MetadataKeyTitleSortOrder.rawValue] = "Title Sort Order"
         
         // TSRC
-        map[AVMetadataKey.id3MetadataKeyInternationalStandardRecordingCode.rawValue] = "ISRC (International Standard Recording Code)"
+        map[AVMetadataKey.id3MetadataKeyInternationalStandardRecordingCode.rawValue] = "ISRC"
         
         // TSSE
-        map[AVMetadataKey.id3MetadataKeyEncodedWith.rawValue] = "Encoding Software / Hardware"
+        map[AVMetadataKey.id3MetadataKeyEncodedWith.rawValue] = "Encoding Tool"
         
         // TSST
         map[AVMetadataKey.id3MetadataKeySetSubtitle.rawValue] = "Set Subtitle"

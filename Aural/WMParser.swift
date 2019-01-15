@@ -165,12 +165,11 @@ class WMParser: FFMpegMetadataParser {
     
     func getLyrics(_ mapForTrack: LibAVMetadata) -> String? {
         
-        if let lyrics = mapForTrack.wmMetadata?.essentialFields[key_lyrics] {
-            return lyrics
-        }
+        for key in [key_lyrics, key_syncLyrics] {
         
-        if let lyrics = mapForTrack.wmMetadata?.essentialFields[key_syncLyrics] {
-            return lyrics
+            if let lyrics = mapForTrack.wmMetadata?.essentialFields[key] {
+                return lyrics
+            }
         }
         
         return nil
