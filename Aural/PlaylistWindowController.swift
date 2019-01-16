@@ -584,6 +584,8 @@ class PlaylistViewState {
                     // Track
                     items.append(SelectedItem(track: item as! Track))
                 }
+                
+                // TODO: else if Chapter
             }
             
         } else {
