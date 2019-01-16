@@ -14,6 +14,8 @@ class Track: NSObject, PlaylistItem {
     
     var libAVInfo: LibAVInfo?
     
+    var chapters: [Chapter]
+    
     // All info relating to how this track is displayed
     let displayInfo: DisplayInfo
     
@@ -46,6 +48,8 @@ class Track: NSObject, PlaylistItem {
         self.displayInfo = DisplayInfo(file)
         self.groupingInfo = GroupingInfo()
         self.lazyLoadingInfo = LazyLoadingInfo()
+        
+        self.chapters = []
     }
     
     // Filesystem URL
@@ -72,7 +76,7 @@ class Track: NSObject, PlaylistItem {
         displayInfo.duration = duration
     }
     
-    func setPrimaryMetadata(_ artist: String?, _ title: String?, _ album: String?, _ genre: String?, _ duration: Double) {
+    func setPrimaryMetadata(_ artist: String?, _ title: String?, _ album: String?, _ genre: String?, _ duration: Double, _ chapters: [Chapter]) {
         
         displayInfo.setMetadata(artist, title, nil)
         
@@ -82,6 +86,10 @@ class Track: NSObject, PlaylistItem {
         
         if duration > 0 {
             displayInfo.duration = duration
+        }
+        
+        if !chapters.isEmpty {
+            self.chapters = chapters
         }
     }
     

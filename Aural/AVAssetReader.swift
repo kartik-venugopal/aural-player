@@ -53,8 +53,9 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         let genre = nilIfEmpty(getGenre(track))
         
         let duration = getDuration(track)
+        let chapters = getChapters(track)
         
-        return PrimaryMetadata(title, artist, album, genre, duration)
+        return PrimaryMetadata(title, artist, album, genre, duration, chapters)
     }
     
     private func nilIfEmpty(_ string: String?) -> String? {
@@ -138,6 +139,39 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         }
         
         return nil
+    }
+    
+    func getChapters(_ track: Track) -> [Chapter] {
+        
+        let asset = track.audioAsset!
+        
+        var chapters: [Chapter] = []
+        
+        if let langCode = asset.availableChapterLocales.first?.languageCode {
+            
+            let chGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
+            
+            var cnt = 0
+            for grp in chGroups {
+                
+                if let item = grp.items.first {
+                    
+                    let title = item.stringValue ?? String(format: "Chapter %d", cnt + 1)
+                    let start = item.time.seconds
+                    let dur = item.duration.seconds
+                    let end = start + dur
+                    
+                    let chapter = Chapter(title, start, end)
+                    chapters.append(chapter)
+                    
+                    cnt += 1
+                    
+                    print(title, start, end, "\n")
+                }
+            }
+        }
+        
+        return chapters
     }
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {

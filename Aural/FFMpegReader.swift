@@ -36,7 +36,7 @@ class FFMpegReader: MetadataReader {
         
         let duration = getDuration(track)
         
-        return PrimaryMetadata(title, artist, album, genre, duration)
+        return PrimaryMetadata(title, artist, album, genre, duration, [])
     }
     
     // TODO: Is this useful/necessary ?

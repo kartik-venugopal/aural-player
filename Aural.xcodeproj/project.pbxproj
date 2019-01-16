@@ -355,6 +355,8 @@
 		3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */; };
 		3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */; };
 		3EDEADB5216360980071C660 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */; };
+		3EDEB33E21EEB7850035299F /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EDEB33D21EEB7850035299F /* View.xib */; };
+		3EDEB34021EEDB0D0035299F /* Tracks-old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EDEB33F21EEDB0D0035299F /* Tracks-old.xib */; };
 		3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA041FC0239F00158177 /* PlaybackPreferencesViewController.swift */; };
 		3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA061FC0263E00158177 /* PlaylistPreferencesViewController.swift */; };
 		3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */; };
@@ -759,6 +761,8 @@
 		3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackMenuController.swift; sourceTree = "<group>"; };
 		3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitTabButtonCell.swift; sourceTree = "<group>"; };
+		3EDEB33D21EEB7850035299F /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		3EDEB33F21EEDB0D0035299F /* Tracks-old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Tracks-old.xib"; sourceTree = SOURCE_ROOT; };
 		3EDFFA041FC0239F00158177 /* PlaybackPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA061FC0263E00158177 /* PlaylistPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -1935,9 +1939,11 @@
 			isa = PBXGroup;
 			children = (
 				3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */,
+				3EDEB33F21EEDB0D0035299F /* Tracks-old.xib */,
 				3E3AEB0F1F9D361A00E9BEDE /* TracksPlaylistViewController.swift */,
 				3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */,
 				3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */,
+				3EDEB33D21EEB7850035299F /* View.xib */,
 			);
 			name = TracksPlaylist;
 			sourceTree = "<group>";
@@ -2073,6 +2079,7 @@
 				3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */,
 				3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */,
 				3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */,
+				3EDEB34021EEDB0D0035299F /* Tracks-old.xib in Resources */,
 				3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */,
 				3E5D708821D9EBFA00491D6C /* README.txt in Resources */,
 				3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */,
@@ -2103,6 +2110,7 @@
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E066C2F216C796B00E4FE80 /* ReverbPresetsEditor.xib in Resources */,
 				3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */,
+				3EDEB33E21EEB7850035299F /* View.xib in Resources */,
 				3EB1701321748DBC00B82D3A /* JumpToTimeEditorDialog.xib in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
 				3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */,
@@ -2594,7 +2602,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
