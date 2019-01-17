@@ -67,7 +67,9 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Returns a view for a single column
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        if let track = item as? Track, let colID = tableColumn?.identifier, let row = playlist.indexOfTrack(track)?.index {
+        let row = outlineView.row(forItem: item)
+        
+        if let track = item as? Track, let colID = tableColumn?.identifier {
             
             switch colID.rawValue {
                 
@@ -94,11 +96,11 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
             case UIConstants.playlistNameColumnID:
                 
-                return createNameCell(outlineView, colID, chapter.title, 0)
+                return createNameCell(outlineView, colID, chapter.title, row)
                 
             case UIConstants.playlistDurationColumnID:
                 
-                return createDurationCell(outlineView, colID, StringUtils.formatSecondsToHMS(chapter.duration), 0)
+                return createDurationCell(outlineView, colID, StringUtils.formatSecondsToHMS(chapter.duration), row)
                 
             default:
                 
@@ -120,7 +122,7 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             cell.imageView?.hide()
             cell.row = row
             
-            print("Created cell:", text)
+//            print("Created cell:", text)
             
             return cell
         }
@@ -142,7 +144,7 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             cell.placeTextFieldOnTop()
             
-            print("Created Name cell:", text, cell.textField?.isHidden, cell.textField?.textColor, cell.frame)
+//            print("Created Name cell:", text, cell.textField?.isHidden, cell.textField?.textColor, cell.frame)
             
             return cell
         }
@@ -163,7 +165,7 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             cell.placeTextFieldOnTop()
             
-            print("Created Duration cell:", text)
+//            print("Created Duration cell:", text)
             
             return cell
         }
