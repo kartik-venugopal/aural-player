@@ -63,7 +63,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .replayChapter, .previousChapter, .nextChapter, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -72,7 +72,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .replayChapter, .previousChapter, .nextChapter, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
     }
     
     private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
@@ -208,6 +208,29 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.nextTrack()
     }
     
+    private func previousChapter() {
+        player.previousChapter()
+    }
+    
+    private func nextChapter() {
+        player.nextChapter()
+    }
+    
+    private func replayChapter() {
+        
+        if let _ = player.playingTrack {
+            
+            let wasPaused: Bool = player.state == .paused
+            
+            player.replayChapter()
+            controlsView.updateSeekPosition()
+            
+            if (wasPaused) {
+                playbackStateChanged()
+            }
+        }
+    }
+    
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
         seekBackward(.discrete)
@@ -264,6 +287,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let params = PlaybackParams.defaultParams().withDelay(delay)
         player.play(group, params)
+    }
+    
+    private func playChapter(_ track: Track, _ chapter: Chapter, _ delay: Double?) {
+        
+//        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(track, chapter)
     }
 
     // Toggles the repeat mode
@@ -357,6 +386,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .track: playTrack(request.track!, request.delay)
             
         case .group: playGroup(request.group!, request.delay)
+            
+        case .chapter: playChapter(request.track!, request.chapter!, request.delay)
             
         }
     }
@@ -476,6 +507,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .previousTrack: previousTrackAction(self)
             
         case .nextTrack: nextTrackAction(self)
+            
+        case .previousChapter: previousChapter()
+            
+        case .nextChapter: nextChapter()
+            
+        case .replayChapter:    replayChapter()
             
         case .seekBackward:
             

@@ -72,17 +72,30 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func playSelectedTrackWithDelay(_ delay: Double?) {
         
-//        let selRowIndexes = playlistView.selectedRowIndexes
-//
-//        if (!selRowIndexes.isEmpty) {
-//
-//            var request = PlaybackRequest(index: selRowIndexes.min()!)
-//            request.delay = delay
-//
-//            _ = SyncMessenger.publishRequest(request)
-//        }
-        
-        
+        let selRowIndexes = playlistView.selectedRowIndexes
+
+        if (!selRowIndexes.isEmpty) {
+
+            let item = playlistView.item(atRow: selRowIndexes.min()!)
+            
+            var request: PlaybackRequest!
+            
+            if let track = item as? Track {
+                
+                request = PlaybackRequest(track: track)
+                
+            } else if let group = item as? Group {
+                
+                request = PlaybackRequest(group: group)
+                
+            } else if let chapter = item as? Chapter, let track = playlistView.parent(forItem: chapter) as? Track {
+                
+                request = PlaybackRequest(track: track, chapter: chapter)
+            }
+            
+            request.delay = delay
+            _ = SyncMessenger.publishRequest(request)
+        }
     }
     
     private func clearPlaylist() {

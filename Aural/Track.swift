@@ -313,6 +313,19 @@ class IndexedTrack: NSObject {
     }
 }
 
+class PlayingTrack: IndexedTrack {
+    
+    let chapter: Chapter
+    let chapterIndex: Int
+    
+    init(_ track: Track, _ index: Int, _ chapter: Chapter, _ chapterIndex: Int) {
+
+        self.chapter = chapter
+        self.chapterIndex = chapterIndex
+        super.init(track, index)
+    }
+}
+
 // Wrapper around Track that includes its location within a group in a hierarchical playlist
 struct GroupedTrack {
     

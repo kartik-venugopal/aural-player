@@ -126,6 +126,78 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         forcedTrackChange(sequencer.previous())
     }
     
+    func nextChapter() {
+        
+        var nextChapter: Chapter? = nil
+        
+        if let track = playingTrack?.track, !track.chapters.isEmpty {
+            
+            // TODO: Make this a binary search
+            
+            let curPosn = seekPosition.timeElapsed
+            for index in 0..<track.chapters.count {
+                
+                let chapter = track.chapters[index]
+                if (chapter.startTime..<chapter.endTime).contains(curPosn), index < track.chapters.count - 1 {
+                    nextChapter = track.chapters[index + 1]
+                    break
+                }
+            }
+        }
+        
+        if let chapter = nextChapter {
+            seekToTime(chapter.startTime)
+        }
+    }
+    
+    func previousChapter() {
+        
+        var prevChapter: Chapter? = nil
+        
+        if let track = playingTrack?.track, !track.chapters.isEmpty {
+            
+            // TODO: Make this a binary search
+            
+            let curPosn = seekPosition.timeElapsed
+            for index in 0..<track.chapters.count {
+                
+                let chapter = track.chapters[index]
+                if (chapter.startTime..<chapter.endTime).contains(curPosn), index >= 1 {
+                    prevChapter = track.chapters[index - 1]
+                    break
+                }
+            }
+        }
+        
+        if let chapter = prevChapter {
+            seekToTime(chapter.startTime)
+        }
+    }
+    
+    func replayChapter() {
+        
+        var curChapter: Chapter? = nil
+        
+        if let track = playingTrack?.track, !track.chapters.isEmpty {
+            
+            // TODO: Make this a binary search
+            
+            let curPosn = seekPosition.timeElapsed
+            for index in 0..<track.chapters.count {
+                
+                let chapter = track.chapters[index]
+                if (chapter.startTime..<chapter.endTime).contains(curPosn), index >= 1 {
+                    curChapter = chapter
+                    break
+                }
+            }
+        }
+        
+        if let chapter = curChapter {
+            seekToTime(chapter.startTime)
+        }
+    }
+    
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     private func subsequentTrack() {
         
@@ -173,6 +245,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             prepareForTrackChange()
             forcedTrackChange(sequencer.select(track), params)
         }
+    }
+    
+    func play(_ track: Track, _ chapter: Chapter) {
+        
+        let params: PlaybackParams = PlaybackParams().withStartPosition(chapter.startTime)
+        
+        prepareForTrackChange()
+        forcedTrackChange(sequencer.select(track), params)
     }
     
     func play(_ group: Group, _ params: PlaybackParams) {

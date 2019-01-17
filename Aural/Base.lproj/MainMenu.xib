@@ -622,6 +622,24 @@ CA
                                     <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="qNh-j6-Ufh"/>
+                            <menuItem title=" Previous chapter" image="SeekBackward-Small" keyEquivalent="" id="vIT-oq-l0t">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="previousChapterAction:" target="IvK-xG-TCa" id="dUX-1n-30a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Next chapter" image="SeekForward-Small" keyEquivalent="" id="gze-6H-ZeK">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="nextChapterAction:" target="IvK-xG-TCa" id="aMM-ja-JlW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Replay current chapter" image="Replay" keyEquivalent="R" id="vZc-bS-i7i" userLabel="Replay current track">
+                                <connections>
+                                    <action selector="replayChapterAction:" target="IvK-xG-TCa" id="sbn-YI-KTv"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="xhK-cx-FFJ"/>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -652,7 +670,7 @@ CA
                                     <action selector="jumpToTimeAction:" target="IvK-xG-TCa" id="88e-o4-bXj"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="qNh-j6-Ufh"/>
+                            <menuItem isSeparatorItem="YES" id="D4V-wo-Yk7"/>
                             <menuItem title=" Repeat Mode" image="RepeatMode-Small" id="EsD-fI-URV" userLabel="Repeat Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Repeat Mode" id="5hN-Xu-czo">
