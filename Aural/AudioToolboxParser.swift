@@ -69,6 +69,10 @@ class AudioToolboxParser: AVAssetParser {
         return nil
     }
     
+    func getChapters(_ mapForTrack: AVAssetMetadata) -> [Chapter]? {
+        return nil
+    }
+    
     func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {
         
         if #available(OSX 10.13, *), let titleItem = mapForTrack.map[AudioToolboxParser.key_title] {
