@@ -143,26 +143,17 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     func getChapters(_ track: Track) -> [Chapter] {
         
-        let asset = track.audioAsset!
-        
-        var chapters: [Chapter] = []
-        
-        if let langCode = asset.availableChapterLocales.first?.languageCode {
+        if let map = metadataMap.getForKey(track) {
             
-            for grp in asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode]) {
+            for parser in parsers {
                 
-                if let item = grp.items.first {
-                    
-                    let title = item.stringValue ?? String(format: "Chapter %d", chapters.count + 1)
-                    let start = item.time.seconds
-                    let end = start + item.duration.seconds
-                    
-                    chapters.append(Chapter(title, start, end))
+                if let chapters = parser.getChapters(map) {
+                    return chapters
                 }
             }
         }
         
-        return chapters
+        return []
     }
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {
@@ -299,12 +290,37 @@ extension Data {
     func hexEncodedString() -> String {
         return map { String(format: "%02hhx", $0) }.joined()
     }
+    
+    func utf8String() -> String {
+        return String(data: self, encoding: .utf8) ?? ""
+    }
+    
+    func utf16BEString() -> String {
+        return String(data: self, encoding: .utf16BigEndian) ?? ""
+    }
+    
+    func utf16LEString() -> String {
+        return String(data: self, encoding: .utf16LittleEndian) ?? ""
+    }
+    
+    func asciiString() -> String {
+        return String(data: self, encoding: .isoLatin1) ?? ""
+    }
 }
 
 class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
+    var chapters: [ChapterMetadata] = []
     var genericItems: [AVMetadataItem] = []
+}
+
+class ChapterMetadata {
+    
+    var timedGroup: AVTimedMetadataGroup?
+    var map: [String: AVMetadataItem] = [:]
+    
+    var item: AVMetadataItem?
 }
 
 extension AVMetadataItem {

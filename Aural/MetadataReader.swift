@@ -40,17 +40,23 @@ class PrimaryMetadata {
 
 class Chapter {
     
-    let title: String
+    var id: String
+    
     let startTime: Double
     let endTime: Double
     let duration: Double
     
-    init(_ title: String, _ startTime: Double, _ endTime: Double) {
+    var title: String?
+    var artist: String?
+    var genre: String?
+    var art: CoverArt?
+    
+    init(_ id: String, _ startTime: Double, _ endTime: Double) {
         
-        self.title = title
+        self.id = id
+        
         self.startTime = startTime
         self.endTime = endTime
-        
         self.duration = max(endTime - startTime, 0)
     }
 }

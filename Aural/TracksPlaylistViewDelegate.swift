@@ -96,7 +96,7 @@ class TracksPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
             case UIConstants.playlistNameColumnID:
                 
-                return createNameCell(outlineView, colID, chapter.title, row)
+                return createNameCell(outlineView, colID, chapter.title!, row)
                 
             case UIConstants.playlistDurationColumnID:
                 
