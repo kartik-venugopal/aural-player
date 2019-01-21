@@ -22,9 +22,8 @@ class PrimaryMetadata {
     let album: String?
     let genre: String?
     
-    let chapters: [Chapter]
-    
     let duration: Double
+    let chapters: [Chapter]
     
     init(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double, _ chapters: [Chapter]) {
         
@@ -35,29 +34,6 @@ class PrimaryMetadata {
         
         self.duration = duration
         self.chapters = chapters
-    }
-}
-
-class Chapter {
-    
-    var id: String
-    
-    let startTime: Double
-    let endTime: Double
-    let duration: Double
-    
-    var title: String?
-    var artist: String?
-    var genre: String?
-    var art: CoverArt?
-    
-    init(_ id: String, _ startTime: Double, _ endTime: Double) {
-        
-        self.id = id
-        
-        self.startTime = startTime
-        self.endTime = endTime
-        self.duration = max(endTime - startTime, 0)
     }
 }
 
