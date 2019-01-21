@@ -342,3 +342,22 @@ struct GroupedTrack {
         self.groupIndex = groupIndex
     }
 }
+
+class Chapter: PlaylistItem {
+    
+    let startTime: Double
+    let endTime: Double
+    let duration: Double
+    
+    var title: String?
+    var artist: String?
+    var album: String?
+    var art: CoverArt?
+    
+    init(_ startTime: Double, _ endTime: Double) {
+        
+        self.startTime = startTime
+        self.endTime = endTime
+        self.duration = max(endTime - startTime, 0)
+    }
+}

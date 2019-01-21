@@ -119,6 +119,11 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             // Show all group-specific menu items, hide track-specific ones
             trackMenuItems.forEach({$0.hide()})
             groupMenuItems.forEach({$0.show()})
+            
+        case .chapter:
+            
+            // TODO
+            print("Chapter right-clicked !")
         }
     }
     

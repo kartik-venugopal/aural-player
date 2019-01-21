@@ -66,17 +66,6 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
             
             if item.keySpace == .id3, let key = item.keyAsString {
                 
-//                if key == "CHAP" {
-//
-//                    print("\nID3 key:", key, item.valueAsString, item.dataValue?.asciiString(), item.dataValue?.count, item.dataValue?.hexEncodedString())
-//                    var arr: [Int] = []
-//                    for num in item.dataValue! {arr.append(Int(num))}
-//                    print(arr)
-//
-//                    let ch = readChapter(item.dataValue!)
-//                    print(ch.id, ch.title, ch.startTime, ch.endTime)
-//                }
-                
                 if ignoredKeys.contains(key) {
                     continue
                 }
@@ -108,14 +97,9 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
             arr.append(Int(num))
         }
 
-        var chId: String?
-        
         var metadata: [String: String] = [:]
 
         let firstZeroIndex = arr.firstIndex(of: 0)!
-        let chIdData: Data = data.subdata(in: 0..<firstZeroIndex)
-        chId = chIdData.asciiString()
-
         let startTimeData = Array(arr[(firstZeroIndex + 1)..<(firstZeroIndex + 5)])
         let startTime: Double = Double(compute4ByteNumber(startTimeData)) / 1000.0
 
@@ -131,6 +115,10 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
             let frameId = frameIdData.asciiString()
             
             cur += 4
+            
+            if frameId == "APIC" {
+                break
+            }
             
             let frameSizeData = Array(arr[cur..<(cur + 4)])
             var frameSize = compute4ByteNumber(frameSizeData)
@@ -205,33 +193,29 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
                 value = "<Unknown>"
             }
             
-            print("\nSubFrame:", frameId, "=", value)
             metadata[frameId] = value
         }
         
         var title: String? = nil
         var artist: String? = nil
-        var genre: String? = nil
+        var album: String? = nil
         
         for (key, value) in metadata {
             
             if key == AVMetadataKey.id3MetadataKeyTitleDescription.rawValue {
                 title = value
-            }
-            
-            if key == AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue {
+            } else if key == AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue {
                 artist = value
-            }
-            
-            if key == AVMetadataKey.id3MetadataKeyContentType.rawValue {
-                genre = value
+            } else if key == AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue {
+                album = value
             }
         }
         
-        let chapter = Chapter(chId!, startTime, endTime)
+        let chapter = Chapter(startTime, endTime)
+        
         chapter.title = title
         chapter.artist = artist
-        chapter.genre = genre
+        chapter.album = album
         
         return chapter
     }

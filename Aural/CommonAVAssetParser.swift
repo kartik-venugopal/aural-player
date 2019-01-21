@@ -70,35 +70,53 @@ class CommonAVAssetParser: AVAssetParser {
         
         var chapters: [Chapter] = []
         
-//        for chp in mapForTrack.chapters {
-//
-//            if let grp = chp.timedGroup {
-//
-//                let start = grp.timeRange.start.seconds
-//                let end = grp.timeRange.end.seconds
-//
-//                var title: String? = nil
-//                var art: CoverArt? = nil
-//
-//                if let titleItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyTitle.rawValue, keySpace: AVMetadataKeySpace.common).first {
-//
-//                    title = titleItem.stringValue
-//                }
-//
-//                if let artItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common).first, let imgData = artItem.dataValue, let image = NSImage(data: imgData) {
-//
-//                    art = CoverArt(image, ParserUtils.getImageMetadata(imgData as NSData))
-//                }
-//
-//                // TODO: Other metadata
-//
-//                let chapter = Chapter("chid", start, end)
-//                chapter.title = title ?? String(format: "Chapter %d", chapters.count + 1)
-//                chapter.art = art
-//
-//                chapters.append(chapter)
-//            }
-//        }
+        for chp in mapForTrack.chapters {
+
+            if let grp = chp.timedGroup {
+
+                let start = grp.timeRange.start.seconds
+                let end = grp.timeRange.end.seconds
+                
+                // TODO: Validate start and end times ?
+
+                var title: String? = nil
+                var artist: String? = nil
+                var album: String? = nil
+                
+                var art: CoverArt? = nil
+
+                if let titleItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyTitle.rawValue, keySpace: AVMetadataKeySpace.common).first {
+
+                    title = titleItem.stringValue
+                }
+                
+                if let artistItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyArtist.rawValue, keySpace: AVMetadataKeySpace.common).first {
+                    
+                    artist = artistItem.stringValue
+                }
+                
+                if let albumItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyAlbumName.rawValue, keySpace: AVMetadataKeySpace.common).first {
+                    
+                    album = albumItem.stringValue
+                }
+
+                if let artItem = AVMetadataItem.metadataItems(from: grp.items, withKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common).first, let imgData = artItem.dataValue, let image = NSImage(data: imgData) {
+
+                    art = CoverArt(image, ParserUtils.getImageMetadata(imgData as NSData))
+                }
+
+                let chapter = Chapter(start, end)
+                
+                chapter.title = title ?? String(format: "Chapter %d", chapters.count + 1)
+                chapter.artist = artist
+                chapter.album = album
+                chapter.art = art
+
+                chapters.append(chapter)
+            }
+            
+            // TODO: Sort by start time ???
+        }
         
         return chapters.isEmpty ? nil : chapters
     }
