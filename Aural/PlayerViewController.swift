@@ -153,6 +153,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     func changeTextSize(_ textSize: TextSizeScheme) {
         
+        PlayerViewState.textSize = textSize
+        
         defaultView.changeTextSize(textSize)
         expandedArtView.changeTextSize(textSize)
     }
@@ -225,13 +227,15 @@ class PlayerViewState {
     
     static var showAlbumArt: Bool = true
     static var showTrackInfo: Bool = true
-    static var showSequenceInfo: Bool = true
+    static var showSequenceInfo: Bool = false
     static var showPlayingTrackFunctions: Bool = true
     static var showControls: Bool = true
     static var showTimeElapsedRemaining: Bool = true
     
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    
+    static var textSize: TextSizeScheme = .normal
     
     static func initialize(_ appState: PlayerState) {
         

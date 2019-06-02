@@ -110,9 +110,6 @@
                                                 </menuItem>
                                                 <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="showOrHideSequenceInfoAction:" target="gF1-jg-yeJ" id="g8A-Mb-aoc"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Playing track functions" id="Yhs-qW-5Tg">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -351,10 +348,12 @@
                 <outlet property="playerExpandedArtViewMenuItem" destination="P5U-AN-0cd" id="Bfo-1I-nwk"/>
                 <outlet property="showArtMenuItem" destination="1PV-wr-DCy" id="JTH-65-x6h"/>
                 <outlet property="showMainControlsMenuItem" destination="5JO-9V-Tpl" id="RGL-eZ-Qup"/>
-                <outlet property="showSequenceInfoMenuItem" destination="4O6-OC-jAh" id="vDm-KG-YpH"/>
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="qVo-UC-jVo" id="Qd6-R2-zYB"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Yhs-qW-5Tg" id="9hA-X9-zhj"/>
                 <outlet property="showTrackInfoMenuItem" destination="fVd-mV-11I" id="963-7n-J5M"/>
+                <outlet property="textSizeLargerMenuItem" destination="i0Q-3C-2D1" id="qlk-FW-cmO"/>
+                <outlet property="textSizeLargestMenuItem" destination="zms-M0-3gJ" id="htA-0c-DoL"/>
+                <outlet property="textSizeNormalMenuItem" destination="WMi-DW-j1p" id="OSz-v3-iti"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="eFE-oQ-dY3" id="zwz-oU-17W"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="eWc-7F-XQe" id="xuU-mo-QsP"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="U8Y-9v-cIm" id="QvX-Kw-ZUY"/>

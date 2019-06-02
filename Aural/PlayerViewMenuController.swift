@@ -33,6 +33,11 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var timeRemainingMenuItem_durationSeconds: NSMenuItem!
     private var timeRemainingDisplayFormats: [NSMenuItem] = []
     
+    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
+    private var textSizes: [NSMenuItem] = []
+    
     private let viewAppState = ObjectGraph.appState.ui.player
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -41,6 +46,7 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
         timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
+        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -102,6 +108,20 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
             case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
                 
             }
+        }
+        
+        textSizes.forEach({
+            $0.off()
+        })
+        
+        switch PlayerViewState.textSize {
+            
+        case .normal:   textSizeNormalMenuItem.on()
+            
+        case .larger:   textSizeLargerMenuItem.on()
+            
+        case .largest:  textSizeLargestMenuItem.on()
+            
         }
     }
    
@@ -177,5 +197,11 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        TextSizes.setScheme(TextSizeScheme(rawValue: sender.tag)!)
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(TextSizeScheme(rawValue: sender.tag)!))
     }
 }
