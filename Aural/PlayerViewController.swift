@@ -35,6 +35,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.setFrameOrigin(NSPoint.zero)
         
         PlayerViewState.initialize(ObjectGraph.appState.ui.player)
+        
+        TextSizes.setScheme(PlayerViewState.textSize)
+        changeTextSize(PlayerViewState.textSize)
+        
         showView(PlayerViewState.viewType)
         
         AppModeManager.registerConstituentView(.regular, self)
@@ -250,6 +254,8 @@ class PlayerViewState {
         
         timeElapsedDisplayType = appState.timeElapsedDisplayType
         timeRemainingDisplayType = appState.timeRemainingDisplayType
+        
+        textSize = appState.textSize
     }
     
     static func persistentState() -> PlayerState {
@@ -267,6 +273,8 @@ class PlayerViewState {
         
         state.timeElapsedDisplayType = timeElapsedDisplayType
         state.timeRemainingDisplayType = timeRemainingDisplayType
+        
+        state.textSize = textSize
         
         return state
     }

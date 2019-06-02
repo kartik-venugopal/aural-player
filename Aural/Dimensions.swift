@@ -18,11 +18,11 @@ struct Dimensions {
     static let snapProximity: CGFloat = 15
 }
 
-enum TextSizeScheme: Int {
+enum TextSizeScheme: String {
     
-    case normal = 0
-    case larger = 1
-    case largest = 2
+    case normal
+    case larger
+    case largest
 }
 
 class TextSizes {
