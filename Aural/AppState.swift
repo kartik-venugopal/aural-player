@@ -52,7 +52,7 @@ class PlayerState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    static var textSize: TextSizeScheme = .normal
+    var textSize: TextSizeScheme = .normal
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -69,6 +69,8 @@ class PlayerState: PersistentState {
         
         state.timeElapsedDisplayType = mapEnum(map, "timeElapsedDisplayType", TimeElapsedDisplayType.formatted)
         state.timeRemainingDisplayType = mapEnum(map, "timeRemainingDisplayType", TimeRemainingDisplayType.formatted)
+        
+        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
         
         return state
     }

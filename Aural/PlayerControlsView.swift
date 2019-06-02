@@ -116,10 +116,13 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
+        TextSizes.setScheme(appState.textSize)
+        changeTextSize(appState.textSize)
+        
         lblTimeElapsed.vAlign = .bottom
         lblTimeRemaining.vAlign = .bottom
         
-        lblVolume.vAlign = .bottom
+        lblVolume.vAlign = .center
         lblPan.vAlign = .top
     }
 
@@ -406,8 +409,6 @@ class PlayerControlsView: NSView {
     }
     
     func changeTextSize(_ textSize: TextSizeScheme) {
-        
-        print("\nChanged text size to:", textSize)
         
         lblTimeElapsed.font = TextSizes.trackTimesFont
         lblTimeRemaining.font = TextSizes.trackTimesFont

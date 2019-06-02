@@ -369,8 +369,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        TextSizes.setScheme(TextSizeScheme(rawValue: sender.tag)!)
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(TextSizeScheme(rawValue: sender.tag)!))
+        let senderTitle: String = sender.title.lowercased()
+        TextSizes.setScheme(TextSizeScheme(rawValue: senderTitle)!)
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(TextSizeScheme(rawValue: senderTitle)!))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {

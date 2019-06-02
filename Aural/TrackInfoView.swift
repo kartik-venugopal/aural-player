@@ -178,8 +178,6 @@ class TrackInfoView: NSView {
     
     func changeTextSize(_ textSize: TextSizeScheme) {
         
-        print("\nChanged text size to:", textSize)
-        
         lblTitle.font = TextSizes.titleFont
         lblName.font = TextSizes.titleFont
         lblArtist.font = TextSizes.artistFont
