@@ -3,8 +3,8 @@ import Cocoa
 class PlayerControlsView: NSView {
     
     // Fields that display/control seek position within the playing track
-    @IBOutlet weak var lblTimeElapsed: NSTextField!
-    @IBOutlet weak var lblTimeRemaining: NSTextField!
+    @IBOutlet weak var lblTimeElapsed: VATextField!
+    @IBOutlet weak var lblTimeRemaining: VATextField!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
@@ -115,6 +115,9 @@ class PlayerControlsView: NSView {
 
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
+        
+        lblTimeElapsed.vAlign = .bottom
+        lblTimeRemaining.vAlign = .bottom
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -397,6 +400,14 @@ class PlayerControlsView: NSView {
             
             setSeekTimerState(playbackState == .playing)
         }
+    }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        print("\nChanged text size to:", textSize)
+        
+        lblTimeElapsed.font = TextSizes.trackTimesFont
+        lblTimeRemaining.font = TextSizes.trackTimesFont
     }
 }
 

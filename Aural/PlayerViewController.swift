@@ -6,6 +6,7 @@ import Cocoa
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     @IBOutlet weak var playerView: NSView!
+    
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var transcoderView: TranscoderView!
@@ -52,14 +53,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changeTextSize], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changeTextSize], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -150,6 +151,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         theView.mouseExited()
     }
     
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        defaultView.changeTextSize(textSize)
+        expandedArtView.changeTextSize(textSize)
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -200,6 +207,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .showOrHideSequenceInfo:
             
             showOrHideSequenceInfo()
+            
+        case .changeTextSize:
+            
+            changeTextSize((message as! TextSizeActionMessage).textSize)
             
         default: return
             

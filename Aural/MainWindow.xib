@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -131,6 +131,32 @@
                                                     <connections>
                                                         <action selector="showOrHideTimeElapsedRemainingAction:" target="gF1-jg-yeJ" id="68i-0Z-ouj"/>
                                                     </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="poS-7C-6hH"/>
+                                                <menuItem title="Text size" id="tGm-Ku-PMk">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Text size" id="yiL-Aw-PVn">
+                                                        <items>
+                                                            <menuItem title="Normal" id="WMi-DW-j1p">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="jwH-Pm-p40"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Larger" tag="1" id="i0Q-3C-2D1">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="3jp-e9-IEI"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Largest" tag="2" id="zms-M0-3gJ">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="GeF-aM-s48"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="QIK-XF-WQD"/>
                                                 <menuItem title="Time elapsed display" id="eFE-oQ-dY3">
@@ -347,7 +373,7 @@
         <image name="Close" width="16" height="16"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>
-        <image name="FloatingBarMode" width="24" height="24"/>
+        <image name="FloatingBarMode" width="32" height="32"/>
         <image name="Hide" width="14" height="14"/>
         <image name="PlayerView-Menu" width="12" height="12"/>
         <image name="PlaylistView-Off" width="28" height="24"/>

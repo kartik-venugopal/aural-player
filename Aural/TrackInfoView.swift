@@ -63,12 +63,12 @@ class TrackInfoView: NSView {
         if PlayerViewState.showSequenceInfo {
         
             lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
-            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 2
+            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
             
         } else {
         
             lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
-            lblTitle.frame.origin.y = lblArtist.frame.maxY - 2
+            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
         }
         
         positionTrackNameLabel()
@@ -89,7 +89,8 @@ class TrackInfoView: NSView {
         var origin = lblName.frame.origin
         
         // Center it wrt artist/title labels
-        origin.y = numLines == 1 ? lblArtist.frame.minY + ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2) : lblArtist.frame.minY - 5
+        let adjustment = ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2)
+        origin.y = numLines == 1 ? lblArtist.frame.minY + adjustment : lblArtist.frame.minY - 5
         
         // Resize the label
         lblName.setFrameSize(lblFrameSize)
@@ -173,6 +174,16 @@ class TrackInfoView: NSView {
         
         otherView.positionTrackInfoLabels()
         otherView.positionScopeImage()
+    }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        print("\nChanged text size to:", textSize)
+        
+        lblTitle.font = TextSizes.titleFont
+        lblName.font = TextSizes.titleFont
+        lblArtist.font = TextSizes.artistFont
+        lblScope.font = TextSizes.scopeFont
     }
 }
 
