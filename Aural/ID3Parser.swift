@@ -74,160 +74,12 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
                 
                 if essentialFieldKeys.contains(mapKey) {
                     mapForTrack.map[mapKey] = item
-                    
-                } else if key == "CHAP" {
-                    
-                    let chm = ChapterMetadata()
-                    chm.item = item
-                    mapForTrack.chapters.append(chm)
-                    
                 } else {
                     // Generic field
                     mapForTrack.genericItems.append(item)
                 }
             }
         }
-    }
-    
-    private func readChapter(_ data: Data) -> Chapter {
-
-        var arr: [Int] = []
-
-        for num in data {
-            arr.append(Int(num))
-        }
-
-        var metadata: [String: String] = [:]
-
-        let firstZeroIndex = arr.firstIndex(of: 0)!
-        let startTimeData = Array(arr[(firstZeroIndex + 1)..<(firstZeroIndex + 5)])
-        let startTime: Double = Double(compute4ByteNumber(startTimeData)) / 1000.0
-
-        let endTimeData = Array(arr[(firstZeroIndex + 5)..<(firstZeroIndex + 9)])
-        let endTime: Double = Double(compute4ByteNumber(endTimeData)) / 1000.0
-        
-        var cur = firstZeroIndex + 17
-        
-        while cur < arr.count - 1 {
-            
-            // Read subframe
-            let frameIdData: Data = data.subdata(in: cur..<(cur + 4))
-            let frameId = frameIdData.asciiString()
-            
-            cur += 4
-            
-            if frameId == "APIC" {
-                break
-            }
-            
-            let frameSizeData = Array(arr[cur..<(cur + 4)])
-            var frameSize = compute4ByteNumber(frameSizeData)
-            
-            // Skip size and flags
-            cur += 6
-            
-            let encoding = arr[cur]
-            var value: String
-            
-            switch encoding {
-                
-            case 0, 3:
-                
-                // UTF-8 or ISO-8859-1 (LATIN-1)
-                
-                frameSize -= 1
-                cur += 1
-                
-                var subArray = data.subdata(in: cur..<arr.count)
-                let indexOfTerminator = subArray.firstIndex(of: 0)!
-                subArray = subArray.subdata(in: 0..<indexOfTerminator)
-                
-                cur += indexOfTerminator + 1
-                value = subArray.utf8String()
-                
-            case 1:
-                
-                // UCS-2 encoded Unicode with BOM, in ID3v2.2 and ID3v2.3.
-                
-                frameSize -= 3
-                
-                // Little-endian or big-endian ?
-                if arr[cur + 1] == 255 && arr[cur + 2] == 254 {
-                    
-                    // Little-endian
-                    cur += 3
-                    let valData = data.subdata(in: cur..<(cur + frameSize))
-                    value = valData.utf16LEString()
-                    
-                } else if arr[cur + 1] == 254 && arr[cur + 2] == 255 {
-                    
-                    // Big-endian
-                    cur += 3
-                    let valData = data.subdata(in: cur..<(cur + frameSize))
-                    value = valData.utf16BEString()
-                    
-                } else {
-                
-                    cur += 3
-                    value = "<Unknown>"
-                }
-                
-                cur += frameSize
-                
-            case 2:
-                
-                // UTF-16BE encoded Unicode without BOM, in ID3v2.4.
-                
-                frameSize -= 1
-                cur += 1
-                
-                let valData = data.subdata(in: cur..<(cur + frameSize))
-                value = valData.utf16BEString()
-                
-                cur += frameSize
-                
-            default:
-                
-                // IMPOSSIBLE
-                cur += frameSize
-                value = "<Unknown>"
-            }
-            
-            metadata[frameId] = value
-        }
-        
-        var title: String? = nil
-        var artist: String? = nil
-        var album: String? = nil
-        
-        for (key, value) in metadata {
-            
-            if key == AVMetadataKey.id3MetadataKeyTitleDescription.rawValue {
-                title = value
-            } else if key == AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue {
-                artist = value
-            } else if key == AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue {
-                album = value
-            }
-        }
-        
-        let chapter = Chapter(startTime, endTime)
-        
-        chapter.title = title
-        chapter.artist = artist
-        chapter.album = album
-        
-        return chapter
-    }
-    
-    private func compute4ByteNumber(_ arr: [Int]) -> Int {
-        
-        let d0 = arr[0] * (256 * 256 * 256)
-        let d1 = arr[1] * (256 * 256)
-        let d2 = arr[2] * 256
-        let d3 = arr[3]
-        
-        return d0 + d1 + d2 + d3
     }
     
     func mapTrack(_ mapForTrack: LibAVMetadata) {
@@ -268,24 +120,6 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
         }
         
         return nil
-    }
-    
-    func getChapters(_ mapForTrack: AVAssetMetadata) -> [Chapter]? {
-        
-        if mapForTrack.chapters.isEmpty {
-            return nil
-        }
-        
-        var chapters: [Chapter] = []
-        
-        for chapterMetadata in mapForTrack.chapters {
-            
-            if let item = chapterMetadata.item, let data = item.dataValue {
-                chapters.append(readChapter(data))
-            }
-        }
-        
-        return chapters
     }
     
     func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {

@@ -15,7 +15,7 @@ class MetadataUtils {
     static func loadPrimaryMetadata(_ track: Track) {
         
         let metadata: PrimaryMetadata = track.metadataNativelySupported ? avAssetReader.getPrimaryMetadata(track) : ffMpegReader.getPrimaryMetadata(track)
-        track.setPrimaryMetadata(metadata.artist, metadata.title, metadata.album, metadata.genre, metadata.duration, metadata.chapters)
+        track.setPrimaryMetadata(metadata.artist, metadata.title, metadata.album, metadata.genre, metadata.duration)
     }
     
     static func loadSecondaryMetadata(_ track: Track) {

@@ -48,10 +48,6 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
-    func getChapters(_ mapForTrack: AVAssetMetadata) -> [Chapter]? {
-        return nil
-    }
-    
     func getTitle(_ mapForTrack: AVAssetMetadata) -> String? {
         
         if let titleItem = mapForTrack.map[ITunesSpec.key_title] {

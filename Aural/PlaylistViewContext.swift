@@ -60,7 +60,6 @@ struct SelectedItem {
     // Only one of these will be non-nil, depending on the type of item
     var index: Int?
     var track: Track?
-    var chapter: Chapter?
     var group: Group?
     
     // Initialize the object with a track index. This represents an item from the Tracks playlist.
@@ -75,13 +74,6 @@ struct SelectedItem {
         self.type = .track
     }
     
-    // Initialize the object with a track. This represents an item from a grouping/hierarchical playlist.
-    init(track: Track, chapter: Chapter) {
-        self.track = track
-        self.chapter = chapter
-        self.type = .chapter
-    }
-    
     // Initialize the object with a group. This represents an item from a grouping/hierarchical playlist.
     init(group: Group) {
         self.group = group
@@ -94,6 +86,5 @@ enum SelectedItemType {
     
     case index
     case track
-    case chapter
     case group
 }

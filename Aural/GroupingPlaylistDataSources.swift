@@ -37,13 +37,9 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             
             // Group
             return group.size()
-            
-        } else if let track = item as? Track {
-            
-            return track.chapters.count
         }
         
-        // Track chapters don't have children
+        // Tracks don't have children
         return 0
     }
     
@@ -59,10 +55,6 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             
             // Child of a group is a track
             return group.trackAtIndex(index)
-        
-        } else if let track = item as? Track {
-            
-            return track.chapters[index]
         }
         
         // Impossible
@@ -72,8 +64,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Determines if a given item is expandable
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         
-        // Only groups and tracks with defined chapters are expandable
-        return item is Group || (item is Track && (item as! Track).chapters.count > 0)
+        // Only groups are expandable
+        return item is Group
     }
     
     // MARK: Drag n Drop

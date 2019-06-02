@@ -5,7 +5,7 @@ import Cocoa
  */
 class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
-    @IBOutlet weak var playlistView: NSOutlineView!
+    @IBOutlet weak var playlistView: NSTableView!
     private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
     
     @IBOutlet weak var scrollView: NSScrollView!
@@ -73,27 +73,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func playSelectedTrackWithDelay(_ delay: Double?) {
         
         let selRowIndexes = playlistView.selectedRowIndexes
-
+        
         if (!selRowIndexes.isEmpty) {
-
-            let item = playlistView.item(atRow: selRowIndexes.min()!)
             
-            var request: PlaybackRequest!
-            
-            if let track = item as? Track {
-                
-                request = PlaybackRequest(track: track)
-                
-            } else if let group = item as? Group {
-                
-                request = PlaybackRequest(group: group)
-                
-            } else if let chapter = item as? Chapter, let track = playlistView.parent(forItem: chapter) as? Track {
-                
-                request = PlaybackRequest(track: track, chapter: chapter)
-            }
-            
+            var request = PlaybackRequest(index: selRowIndexes.min()!)
             request.delay = delay
+            
             _ = SyncMessenger.publishRequest(request)
         }
     }
@@ -310,24 +295,24 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Refreshes the playlist view by rearranging the items that were moved
     private func removeAndInsertItems(_ results: ItemMoveResults) {
         
-//        for result in results.results {
-//
-//            if let trackMovedResult = result as? TrackMoveResult {
-//
-//                playlistView.removeRows(at: IndexSet([trackMovedResult.oldTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
-//                playlistView.insertRows(at: IndexSet([trackMovedResult.newTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
-//            }
-//        }
+        for result in results.results {
+            
+            if let trackMovedResult = result as? TrackMoveResult {
+                
+                playlistView.removeRows(at: IndexSet([trackMovedResult.oldTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
+                playlistView.insertRows(at: IndexSet([trackMovedResult.newTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
+            }
+        }
     }
     
     // Rearranges tracks within the view that have been reordered
     private func moveItems(_ results: ItemMoveResults) {
         
-//        for result in results.results as! [TrackMoveResult] {
-//
-//            playlistView.moveRow(at: result.oldTrackIndex, to: result.newTrackIndex)
-//            playlistView.reloadData(forRowIndexes: IndexSet([result.oldTrackIndex, result.newTrackIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-//        }
+        for result in results.results as! [TrackMoveResult] {
+            
+            playlistView.moveRow(at: result.oldTrackIndex, to: result.newTrackIndex)
+            playlistView.reloadData(forRowIndexes: IndexSet([result.oldTrackIndex, result.newTrackIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        }
     }
     
     // Shows the currently playing track, within the playlist view
@@ -342,8 +327,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
-//        self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
-        self.playlistView.insertItems(at: IndexSet([message.trackIndex]), inParent: nil, withAnimation: .slideDown)
+        self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
     }
     
     private func trackGrouped(_ message: TrackGroupedAsyncMessage) {
@@ -357,7 +341,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             // NOTE - In the future, if gap info is updated, also need to update row height
             if let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index {
                 self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-//                self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: [0,1])
             }
         }
     }
@@ -433,7 +416,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let indexSet: IndexSet = IndexSet(refreshIndexes)
         
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-//        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: [0,1])
         playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
     }
     

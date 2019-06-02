@@ -148,14 +148,6 @@ enum ActionType {
     // Play the next track in the current playback sequence
     case nextTrack
     
-    case replayChapter
-    
-    // Play the previous track in the current playback sequence
-    case previousChapter
-    
-    // Play the next track in the current playback sequence
-    case nextChapter
-    
     // Seek backward within the currently playing track
     case seekBackward
     

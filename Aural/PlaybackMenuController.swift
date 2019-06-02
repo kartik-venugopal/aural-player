@@ -131,20 +131,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextTrack))
     }
     
-    // Plays the previous track in the current playback sequence
-    @IBAction func previousChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousChapter))
-    }
-    
-    // Plays the next track in the current playback sequence
-    @IBAction func nextChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextChapter))
-    }
-    
-    @IBAction func replayChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayChapter))
-    }
-    
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekBackward))

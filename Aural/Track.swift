@@ -14,8 +14,6 @@ class Track: NSObject, PlaylistItem {
     
     var libAVInfo: LibAVInfo?
     
-    var chapters: [Chapter]
-    
     // All info relating to how this track is displayed
     let displayInfo: DisplayInfo
     
@@ -48,8 +46,6 @@ class Track: NSObject, PlaylistItem {
         self.displayInfo = DisplayInfo(file)
         self.groupingInfo = GroupingInfo()
         self.lazyLoadingInfo = LazyLoadingInfo()
-        
-        self.chapters = []
     }
     
     // Filesystem URL
@@ -76,7 +72,7 @@ class Track: NSObject, PlaylistItem {
         displayInfo.duration = duration
     }
     
-    func setPrimaryMetadata(_ artist: String?, _ title: String?, _ album: String?, _ genre: String?, _ duration: Double, _ chapters: [Chapter]) {
+    func setPrimaryMetadata(_ artist: String?, _ title: String?, _ album: String?, _ genre: String?, _ duration: Double) {
         
         displayInfo.setMetadata(artist, title, nil)
         
@@ -86,10 +82,6 @@ class Track: NSObject, PlaylistItem {
         
         if duration > 0 {
             displayInfo.duration = duration
-        }
-        
-        if !chapters.isEmpty {
-            self.chapters = chapters
         }
     }
     
@@ -313,19 +305,6 @@ class IndexedTrack: NSObject {
     }
 }
 
-class PlayingTrack: IndexedTrack {
-    
-    let chapter: Chapter
-    let chapterIndex: Int
-    
-    init(_ track: Track, _ index: Int, _ chapter: Chapter, _ chapterIndex: Int) {
-
-        self.chapter = chapter
-        self.chapterIndex = chapterIndex
-        super.init(track, index)
-    }
-}
-
 // Wrapper around Track that includes its location within a group in a hierarchical playlist
 struct GroupedTrack {
     
@@ -340,24 +319,5 @@ struct GroupedTrack {
         self.group = group
         self.trackIndex = trackIndex
         self.groupIndex = groupIndex
-    }
-}
-
-class Chapter: PlaylistItem {
-    
-    let startTime: Double
-    let endTime: Double
-    let duration: Double
-    
-    var title: String?
-    var artist: String?
-    var album: String?
-    var art: CoverArt?
-    
-    init(_ startTime: Double, _ endTime: Double) {
-        
-        self.startTime = startTime
-        self.endTime = endTime
-        self.duration = max(endTime - startTime, 0)
     }
 }

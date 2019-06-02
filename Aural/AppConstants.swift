@@ -18,7 +18,7 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp3", "m4a", "m4b", "snd", "au", "sd2", "wav"]
+        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp3", "m4a", "snd", "au", "sd2", "wav"]
         static let nativeAudioExtensions: [String] = computeNativeAudioExtensions()
         
         private static func computeNativeAudioExtensions() -> [String] {

@@ -23,9 +23,8 @@ class PrimaryMetadata {
     let genre: String?
     
     let duration: Double
-    let chapters: [Chapter]
     
-    init(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double, _ chapters: [Chapter]) {
+    init(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double) {
         
         self.title = title
         self.artist = artist
@@ -33,7 +32,6 @@ class PrimaryMetadata {
         self.genre = genre
         
         self.duration = duration
-        self.chapters = chapters
     }
 }
 
