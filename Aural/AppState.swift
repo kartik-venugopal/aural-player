@@ -52,6 +52,8 @@ class PlayerState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
+    static var textSize: TextSizeScheme = .normal
+    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlayerState()

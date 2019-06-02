@@ -331,7 +331,7 @@
                         </connections>
                     </slider>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="VATextField" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="463" y="37" width="27" height="15"/>
+                        <rect key="frame" x="463" y="36" width="27" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="8" name="GillSans-SemiBold"/>

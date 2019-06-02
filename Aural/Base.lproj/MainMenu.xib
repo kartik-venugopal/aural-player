@@ -144,6 +144,9 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="4VY-Qb-AZX"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="2cf-O0-zCm"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="jPu-nS-wrS"/>
+                <outlet property="textSizeLargerMenuItem" destination="gaS-ki-GLO" id="mFv-Zq-bIc"/>
+                <outlet property="textSizeLargestMenuItem" destination="MjJ-p4-Tva" id="400-jx-lcW"/>
+                <outlet property="textSizeNormalMenuItem" destination="cl4-6q-Fid" id="KYz-RM-33g"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="nsK-2D-RCp" id="DJW-7O-Smr"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="Rvh-jG-Yy7"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="NqT-Cd-LnJ"/>
@@ -1044,6 +1047,32 @@ CA
                                             <connections>
                                                 <action selector="showOrHideTimeElapsedRemainingAction:" target="YVQ-JN-BbP" id="w4c-CF-lOI"/>
                                             </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="5LP-yb-jlg"/>
+                                        <menuItem title="Text size" id="Az8-kp-Ux2">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Text size" id="lM5-OP-Yvx">
+                                                <items>
+                                                    <menuItem title="Normal" id="cl4-6q-Fid">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="McE-6I-e9Y"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Larger" tag="1" id="gaS-ki-GLO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="ElA-O4-0Av"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Largest" tag="2" id="MjJ-p4-Tva">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="qUs-kb-lJw"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Yvf-AY-f2r"/>
                                         <menuItem title="Time elapsed display" id="nsK-2D-RCp">
