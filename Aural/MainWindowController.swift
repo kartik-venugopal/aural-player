@@ -347,6 +347,12 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTimeElapsedRemaining))
     }
     
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        TextSizes.setScheme(TextSizeScheme(rawValue: sender.tag)!)
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(TextSizeScheme(rawValue: sender.tag)!))
+    }
+    
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
         
         var format: TimeElapsedDisplayType

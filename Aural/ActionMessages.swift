@@ -311,6 +311,8 @@ enum ActionType {
     case setTimeElapsedDisplayFormat
     case setTimeRemainingDisplayFormat
     case showOrHideTimeElapsedRemaining
+    
+    case changeTextSize
 }
 
 enum ActionMode {
@@ -379,6 +381,17 @@ struct ViewActionMessage: ActionMessage {
     
     init(_ actionType: ActionType) {
         self.actionType = actionType
+    }
+}
+
+// An action message sent to a view to change the size of its text
+struct TextSizeActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .changeTextSize
+    let textSize: TextSizeScheme
+    
+    init(_ textSize: TextSizeScheme) {
+        self.textSize = textSize
     }
 }
 

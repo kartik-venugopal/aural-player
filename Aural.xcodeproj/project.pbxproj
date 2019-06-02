@@ -268,6 +268,7 @@
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */; };
 		3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA19C221FC174A30072929E /* ControlsPreferences.xib */; };
+		3EA2215722A3CA9500D7365C /* VAlignedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2215622A3CA9500D7365C /* VAlignedTextField.swift */; };
 		3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */; };
 		3EA2E648219256BD00FB5BAC /* PitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E647219256BD00FB5BAC /* PitchView.swift */; };
 		3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */; };
@@ -670,6 +671,7 @@
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EA19C221FC174A30072929E /* ControlsPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
+		3EA2215622A3CA9500D7365C /* VAlignedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAlignedTextField.swift; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessenger.swift; sourceTree = "<group>"; };
 		3EA2E647219256BD00FB5BAC /* PitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchView.swift; sourceTree = "<group>"; };
 		3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitView.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				3E12AF892176FC2F00692391 /* IntervalPicker.swift */,
 				3E76C9FF21D4811A00B45D27 /* TranscoderProgressBar.swift */,
 				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
+				3EA2215622A3CA9500D7365C /* VAlignedTextField.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -2036,6 +2039,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -2149,6 +2153,7 @@
 				3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */,
 				3E1CB54621C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift in Sources */,
 				3E9847821F5CF23D001A2D28 /* HelpMenuController.swift in Sources */,
+				3EA2215722A3CA9500D7365C /* VAlignedTextField.swift in Sources */,
 				3E76CA0021D4811A00B45D27 /* TranscoderProgressBar.swift in Sources */,
 				3E24ED451FBB2B430023F9F9 /* ReverbViewController.swift in Sources */,
 				3E17A8B721871D7700CADE89 /* EQSubview.swift in Sources */,

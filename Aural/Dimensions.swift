@@ -17,3 +17,87 @@ struct Dimensions {
     
     static let snapProximity: CGFloat = 15
 }
+
+enum TextSizeScheme: Int {
+    
+    case normal = 0
+    case larger = 1
+    case largest = 2
+}
+
+class TextSizes {
+    
+    private static var scheme: TextSizeScheme = .normal
+    
+    static func setScheme(_ scheme: TextSizeScheme) {
+        TextSizes.scheme = scheme
+    }
+    
+    private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let titleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
+    private static let titleFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!
+    
+    static var titleFont: NSFont {
+        
+        switch scheme {
+            
+        case .normal: return titleFont_normal
+            
+        case .larger: return titleFont_larger
+            
+        case .largest: return titleFont_largest
+            
+        }
+    }
+    
+    private static let artistFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let artistFont_larger: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let artistFont_largest: NSFont = NSFont(name: "Gill Sans", size: 16)!
+    
+    static var artistFont: NSFont {
+        
+        switch scheme {
+            
+        case .normal: return artistFont_normal
+            
+        case .larger: return artistFont_larger
+            
+        case .largest: return artistFont_largest
+            
+        }
+    }
+    
+    private static let scopeFont_normal: NSFont = NSFont(name: "Gill Sans", size: 10)!
+    private static let scopeFont_larger: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let scopeFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    
+    static var scopeFont: NSFont {
+        
+        switch scheme {
+            
+        case .normal: return scopeFont_normal
+            
+        case .larger: return scopeFont_larger
+            
+        case .largest: return scopeFont_largest
+            
+        }
+    }
+    
+    private static let trackTimesFont_normal: NSFont = NSFont(name: "Gill Sans", size: 10)!
+    private static let trackTimesFont_larger: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    private static let trackTimesFont_largest: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    
+    static var trackTimesFont: NSFont {
+        
+        switch scheme {
+            
+        case .normal: return trackTimesFont_normal
+            
+        case .larger: return trackTimesFont_larger
+            
+        case .largest: return trackTimesFont_largest
+            
+        }
+    }
+}
