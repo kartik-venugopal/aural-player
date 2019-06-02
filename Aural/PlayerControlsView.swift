@@ -26,8 +26,8 @@ class PlayerControlsView: NSView {
     @IBOutlet weak var panSlider: NSSlider!
     
     // These are feedback labels that are shown briefly and automatically hidden
-    @IBOutlet weak var lblVolume: NSTextField!
-    @IBOutlet weak var lblPan: NSTextField!
+    @IBOutlet weak var lblVolume: VATextField!
+    @IBOutlet weak var lblPan: VATextField!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!
@@ -118,6 +118,9 @@ class PlayerControlsView: NSView {
         
         lblTimeElapsed.vAlign = .bottom
         lblTimeRemaining.vAlign = .bottom
+        
+        lblVolume.vAlign = .bottom
+        lblPan.vAlign = .top
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -408,6 +411,9 @@ class PlayerControlsView: NSView {
         
         lblTimeElapsed.font = TextSizes.trackTimesFont
         lblTimeRemaining.font = TextSizes.trackTimesFont
+        
+        lblVolume.font = TextSizes.feedbackFont
+        lblPan.font = TextSizes.feedbackFont
     }
 }
 

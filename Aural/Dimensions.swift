@@ -100,4 +100,21 @@ class TextSizes {
             
         }
     }
+    
+    private static let feedbackFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 8)!
+    private static let feedbackFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 9)!
+    private static let feedbackFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    
+    static var feedbackFont: NSFont {
+        
+        switch scheme {
+            
+        case .normal: return feedbackFont_normal
+            
+        case .larger: return feedbackFont_larger
+            
+        case .largest: return feedbackFont_largest
+            
+        }
+    }
 }

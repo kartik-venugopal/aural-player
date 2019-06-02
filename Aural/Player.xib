@@ -330,19 +330,19 @@
                             <action selector="volumeAction:" target="RSE-vv-5aa" id="7dD-Iw-agO"/>
                         </connections>
                     </slider>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label">
-                        <rect key="frame" x="463" y="40" width="27" height="10"/>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="463" y="37" width="27" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="8" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label">
-                        <rect key="frame" x="447" y="4" width="40" height="11"/>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="447" y="0.0" width="40" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="8" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
