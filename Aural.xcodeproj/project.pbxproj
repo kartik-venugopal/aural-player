@@ -83,6 +83,45 @@
 		3E1CF7F31F5CBAD500613724 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */; };
 		3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D93511F626BF9008AC59E /* Playlist.swift */; };
 		3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */; };
+		3E1E149A22A42005001311A4 /* RecordClip.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147322A42004001311A4 /* RecordClip.mp4 */; };
+		3E1E149B22A42005001311A4 /* UsingFXUnit.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147422A42004001311A4 /* UsingFXUnit.gif */; };
+		3E1E149C22A42005001311A4 /* gaps.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147522A42004001311A4 /* gaps.gif */; };
+		3E1E149D22A42005001311A4 /* Preferences.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147622A42004001311A4 /* Preferences.mp4 */; };
+		3E1E149E22A42005001311A4 /* masterDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147722A42004001311A4 /* masterDemo.gif */; };
+		3E1E149F22A42005001311A4 /* playerView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147822A42004001311A4 /* playerView.gif */; };
+		3E1E14A022A42005001311A4 /* EffectsPanel.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147922A42004001311A4 /* EffectsPanel.mp4 */; };
+		3E1E14A122A42005001311A4 /* Seeking.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147A22A42004001311A4 /* Seeking.mp4 */; };
+		3E1E14A222A42005001311A4 /* MoveAndRemoveTracks.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147B22A42004001311A4 /* MoveAndRemoveTracks.mp4 */; };
+		3E1E14A322A42005001311A4 /* ShortGeneralDemo4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147C22A42004001311A4 /* ShortGeneralDemo4.gif */; };
+		3E1E14A422A42005001311A4 /* ShortGeneralDemo5.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147D22A42004001311A4 /* ShortGeneralDemo5.gif */; };
+		3E1E14A522A42005001311A4 /* LaunchingFromFinder.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147E22A42004001311A4 /* LaunchingFromFinder.mp4 */; };
+		3E1E14A622A42005001311A4 /* DetailedTrackInfo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E147F22A42004001311A4 /* DetailedTrackInfo.mp4 */; };
+		3E1E14A722A42005001311A4 /* Transcoding.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148022A42004001311A4 /* Transcoding.gif */; };
+		3E1E14A822A42005001311A4 /* AddingFiles.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148122A42004001311A4 /* AddingFiles.mp4 */; };
+		3E1E14A922A42005001311A4 /* ShortGeneralDemo6.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148222A42004001311A4 /* ShortGeneralDemo6.gif */; };
+		3E1E14AA22A42005001311A4 /* PlaylistResize.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148322A42004001311A4 /* PlaylistResize.gif */; };
+		3E1E14AB22A42005001311A4 /* newDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148422A42004001311A4 /* newDemo.gif */; };
+		3E1E14AC22A42005001311A4 /* ShortGeneralDemo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148522A42004001311A4 /* ShortGeneralDemo2.gif */; };
+		3E1E14AD22A42005001311A4 /* ShortGeneralDemo3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148622A42004001311A4 /* ShortGeneralDemo3.gif */; };
+		3E1E14AE22A42005001311A4 /* WindowLayout copy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148722A42004001311A4 /* WindowLayout copy.gif */; };
+		3E1E14AF22A42005001311A4 /* newestDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148822A42004001311A4 /* newestDemo.gif */; };
+		3E1E14B022A42005001311A4 /* PlayingGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148922A42004001311A4 /* PlayingGIF.gif */; };
+		3E1E14B122A42005001311A4 /* Aural-mainDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148A22A42004001311A4 /* Aural-mainDemo.gif */; };
+		3E1E14B222A42005001311A4 /* DemoNew.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148B22A42004001311A4 /* DemoNew.gif */; };
+		3E1E14B322A42005001311A4 /* SaveAndLoadPlaylist.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148C22A42004001311A4 /* SaveAndLoadPlaylist.mp4 */; };
+		3E1E14B422A42005001311A4 /* ShortDemo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148D22A42004001311A4 /* ShortDemo2.gif */; };
+		3E1E14B522A42005001311A4 /* WindowLayout.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148E22A42004001311A4 /* WindowLayout.gif */; };
+		3E1E14B622A42005001311A4 /* delayedPlayback.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E148F22A42004001311A4 /* delayedPlayback.gif */; };
+		3E1E14B722A42005001311A4 /* ToggleViews.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149022A42004001311A4 /* ToggleViews.mp4 */; };
+		3E1E14B822A42005001311A4 /* RepeatAndShuffle.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149122A42004001311A4 /* RepeatAndShuffle.mp4 */; };
+		3E1E14B922A42005001311A4 /* mainDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149222A42004001311A4 /* mainDemo.gif */; };
+		3E1E14BA22A42005001311A4 /* textSizes.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149322A42004001311A4 /* textSizes.gif */; };
+		3E1E14BB22A42005001311A4 /* demo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149422A42004001311A4 /* demo2.gif */; };
+		3E1E14BC22A42005001311A4 /* SearchPlaylist.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149522A42004001311A4 /* SearchPlaylist.mp4 */; };
+		3E1E14BD22A42005001311A4 /* ShortGeneralDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149622A42004001311A4 /* ShortGeneralDemo.gif */; };
+		3E1E14BE22A42005001311A4 /* GeneralDemo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149722A42004001311A4 /* GeneralDemo.gif */; };
+		3E1E14BF22A42005001311A4 /* demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149822A42004001311A4 /* demo.gif */; };
+		3E1E14C022A42005001311A4 /* SortPlaylist.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E149922A42004001311A4 /* SortPlaylist.mp4 */; };
 		3E1E970D1FA42AE5006C8629 /* GroupAccessorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */; };
 		3E1E970F1FA44671006C8629 /* PlaybackSequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */; };
 		3E1E97111FA44833006C8629 /* PlaybackSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */; };
@@ -481,6 +520,45 @@
 		3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraph.swift; sourceTree = "<group>"; };
 		3E1D93511F626BF9008AC59E /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRUDOperationResults.swift; sourceTree = "<group>"; };
+		3E1E147322A42004001311A4 /* RecordClip.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = RecordClip.mp4; sourceTree = "<group>"; };
+		3E1E147422A42004001311A4 /* UsingFXUnit.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = UsingFXUnit.gif; sourceTree = "<group>"; };
+		3E1E147522A42004001311A4 /* gaps.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gaps.gif; sourceTree = "<group>"; };
+		3E1E147622A42004001311A4 /* Preferences.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Preferences.mp4; sourceTree = "<group>"; };
+		3E1E147722A42004001311A4 /* masterDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = masterDemo.gif; sourceTree = "<group>"; };
+		3E1E147822A42004001311A4 /* playerView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = playerView.gif; sourceTree = "<group>"; };
+		3E1E147922A42004001311A4 /* EffectsPanel.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = EffectsPanel.mp4; sourceTree = "<group>"; };
+		3E1E147A22A42004001311A4 /* Seeking.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Seeking.mp4; sourceTree = "<group>"; };
+		3E1E147B22A42004001311A4 /* MoveAndRemoveTracks.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = MoveAndRemoveTracks.mp4; sourceTree = "<group>"; };
+		3E1E147C22A42004001311A4 /* ShortGeneralDemo4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo4.gif; sourceTree = "<group>"; };
+		3E1E147D22A42004001311A4 /* ShortGeneralDemo5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo5.gif; sourceTree = "<group>"; };
+		3E1E147E22A42004001311A4 /* LaunchingFromFinder.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = LaunchingFromFinder.mp4; sourceTree = "<group>"; };
+		3E1E147F22A42004001311A4 /* DetailedTrackInfo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DetailedTrackInfo.mp4; sourceTree = "<group>"; };
+		3E1E148022A42004001311A4 /* Transcoding.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Transcoding.gif; sourceTree = "<group>"; };
+		3E1E148122A42004001311A4 /* AddingFiles.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = AddingFiles.mp4; sourceTree = "<group>"; };
+		3E1E148222A42004001311A4 /* ShortGeneralDemo6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo6.gif; sourceTree = "<group>"; };
+		3E1E148322A42004001311A4 /* PlaylistResize.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PlaylistResize.gif; sourceTree = "<group>"; };
+		3E1E148422A42004001311A4 /* newDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = newDemo.gif; sourceTree = "<group>"; };
+		3E1E148522A42004001311A4 /* ShortGeneralDemo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo2.gif; sourceTree = "<group>"; };
+		3E1E148622A42004001311A4 /* ShortGeneralDemo3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo3.gif; sourceTree = "<group>"; };
+		3E1E148722A42004001311A4 /* WindowLayout copy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "WindowLayout copy.gif"; sourceTree = "<group>"; };
+		3E1E148822A42004001311A4 /* newestDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = newestDemo.gif; sourceTree = "<group>"; };
+		3E1E148922A42004001311A4 /* PlayingGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = PlayingGIF.gif; sourceTree = "<group>"; };
+		3E1E148A22A42004001311A4 /* Aural-mainDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Aural-mainDemo.gif"; sourceTree = "<group>"; };
+		3E1E148B22A42004001311A4 /* DemoNew.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = DemoNew.gif; sourceTree = "<group>"; };
+		3E1E148C22A42004001311A4 /* SaveAndLoadPlaylist.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SaveAndLoadPlaylist.mp4; sourceTree = "<group>"; };
+		3E1E148D22A42004001311A4 /* ShortDemo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortDemo2.gif; sourceTree = "<group>"; };
+		3E1E148E22A42004001311A4 /* WindowLayout.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = WindowLayout.gif; sourceTree = "<group>"; };
+		3E1E148F22A42004001311A4 /* delayedPlayback.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = delayedPlayback.gif; sourceTree = "<group>"; };
+		3E1E149022A42004001311A4 /* ToggleViews.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ToggleViews.mp4; sourceTree = "<group>"; };
+		3E1E149122A42004001311A4 /* RepeatAndShuffle.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = RepeatAndShuffle.mp4; sourceTree = "<group>"; };
+		3E1E149222A42004001311A4 /* mainDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = mainDemo.gif; sourceTree = "<group>"; };
+		3E1E149322A42004001311A4 /* textSizes.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = textSizes.gif; sourceTree = "<group>"; };
+		3E1E149422A42004001311A4 /* demo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = demo2.gif; sourceTree = "<group>"; };
+		3E1E149522A42004001311A4 /* SearchPlaylist.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SearchPlaylist.mp4; sourceTree = "<group>"; };
+		3E1E149622A42004001311A4 /* ShortGeneralDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ShortGeneralDemo.gif; sourceTree = "<group>"; };
+		3E1E149722A42004001311A4 /* GeneralDemo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = GeneralDemo.gif; sourceTree = "<group>"; };
+		3E1E149822A42004001311A4 /* demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = demo.gif; sourceTree = "<group>"; };
+		3E1E149922A42004001311A4 /* SortPlaylist.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SortPlaylist.mp4; sourceTree = "<group>"; };
 		3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAccessorProtocol.swift; sourceTree = "<group>"; };
 		3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequencerProtocol.swift; sourceTree = "<group>"; };
 		3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequencer.swift; sourceTree = "<group>"; };
@@ -1009,6 +1087,52 @@
 			name = ArtistsPlaylist;
 			sourceTree = "<group>";
 		};
+		3E1E147222A42004001311A4 /* Demos */ = {
+			isa = PBXGroup;
+			children = (
+				3E1E147322A42004001311A4 /* RecordClip.mp4 */,
+				3E1E147422A42004001311A4 /* UsingFXUnit.gif */,
+				3E1E147522A42004001311A4 /* gaps.gif */,
+				3E1E147622A42004001311A4 /* Preferences.mp4 */,
+				3E1E147722A42004001311A4 /* masterDemo.gif */,
+				3E1E147822A42004001311A4 /* playerView.gif */,
+				3E1E147922A42004001311A4 /* EffectsPanel.mp4 */,
+				3E1E147A22A42004001311A4 /* Seeking.mp4 */,
+				3E1E147B22A42004001311A4 /* MoveAndRemoveTracks.mp4 */,
+				3E1E147C22A42004001311A4 /* ShortGeneralDemo4.gif */,
+				3E1E147D22A42004001311A4 /* ShortGeneralDemo5.gif */,
+				3E1E147E22A42004001311A4 /* LaunchingFromFinder.mp4 */,
+				3E1E147F22A42004001311A4 /* DetailedTrackInfo.mp4 */,
+				3E1E148022A42004001311A4 /* Transcoding.gif */,
+				3E1E148122A42004001311A4 /* AddingFiles.mp4 */,
+				3E1E148222A42004001311A4 /* ShortGeneralDemo6.gif */,
+				3E1E148322A42004001311A4 /* PlaylistResize.gif */,
+				3E1E148422A42004001311A4 /* newDemo.gif */,
+				3E1E148522A42004001311A4 /* ShortGeneralDemo2.gif */,
+				3E1E148622A42004001311A4 /* ShortGeneralDemo3.gif */,
+				3E1E148722A42004001311A4 /* WindowLayout copy.gif */,
+				3E1E148822A42004001311A4 /* newestDemo.gif */,
+				3E1E148922A42004001311A4 /* PlayingGIF.gif */,
+				3E1E148A22A42004001311A4 /* Aural-mainDemo.gif */,
+				3E1E148B22A42004001311A4 /* DemoNew.gif */,
+				3E1E148C22A42004001311A4 /* SaveAndLoadPlaylist.mp4 */,
+				3E1E148D22A42004001311A4 /* ShortDemo2.gif */,
+				3E1E148E22A42004001311A4 /* WindowLayout.gif */,
+				3E1E148F22A42004001311A4 /* delayedPlayback.gif */,
+				3E1E149022A42004001311A4 /* ToggleViews.mp4 */,
+				3E1E149122A42004001311A4 /* RepeatAndShuffle.mp4 */,
+				3E1E149222A42004001311A4 /* mainDemo.gif */,
+				3E1E149322A42004001311A4 /* textSizes.gif */,
+				3E1E149422A42004001311A4 /* demo2.gif */,
+				3E1E149522A42004001311A4 /* SearchPlaylist.mp4 */,
+				3E1E149622A42004001311A4 /* ShortGeneralDemo.gif */,
+				3E1E149722A42004001311A4 /* GeneralDemo.gif */,
+				3E1E149822A42004001311A4 /* demo.gif */,
+				3E1E149922A42004001311A4 /* SortPlaylist.mp4 */,
+			);
+			path = Demos;
+			sourceTree = "<group>";
+		};
 		3E24F4CE21699E0600B9CDA6 /* EffectsPresets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1473,6 +1597,7 @@
 		3E72FCC41F2C0A780020FD20 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				3E1E147222A42004001311A4 /* Demos */,
 				3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */,
 				3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */,
 				3EF08DCC21571BD8000C7F11 /* ReleaseNotes.rtf */,
@@ -2060,17 +2185,28 @@
 			files = (
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
+				3E1E14C022A42005001311A4 /* SortPlaylist.mp4 in Resources */,
+				3E1E14B022A42005001311A4 /* PlayingGIF.gif in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
+				3E1E14BB22A42005001311A4 /* demo2.gif in Resources */,
+				3E1E14B522A42005001311A4 /* WindowLayout.gif in Resources */,
 				3E0ED6B81FBB1C34008268B3 /* Reverb.xib in Resources */,
+				3E1E149E22A42005001311A4 /* masterDemo.gif in Resources */,
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
+				3E1E149A22A42005001311A4 /* RecordClip.mp4 in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
 				3EB9304921996353008E45F8 /* FilterBand.xib in Resources */,
 				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
 				3E4045D921DE1FA500F4708C /* ffmpeg in Resources */,
+				3E1E14B422A42005001311A4 /* ShortDemo2.gif in Resources */,
+				3E1E14A522A42005001311A4 /* LaunchingFromFinder.mp4 in Resources */,
+				3E1E14B222A42005001311A4 /* DemoNew.gif in Resources */,
+				3E1E14A422A42005001311A4 /* ShortGeneralDemo5.gif in Resources */,
 				3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */,
 				3E3F296B215A395A00581EFE /* Filter.xib in Resources */,
+				3E1E14AF22A42005001311A4 /* newestDemo.gif in Resources */,
 				3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */,
 				3EF18478217C8EFF00D24F39 /* Visualizer.xib in Resources */,
 				3E850D571FB4461E0017CD02 /* PlaylistSortDialog.xib in Resources */,
@@ -2078,12 +2214,20 @@
 				3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */,
 				3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */,
 				3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */,
+				3E1E149F22A42005001311A4 /* playerView.gif in Resources */,
 				3E5D708821D9EBFA00491D6C /* README.txt in Resources */,
+				3E1E14A322A42005001311A4 /* ShortGeneralDemo4.gif in Resources */,
+				3E1E14A122A42005001311A4 /* Seeking.mp4 in Resources */,
+				3E1E14A822A42005001311A4 /* AddingFiles.mp4 in Resources */,
+				3E1E14BC22A42005001311A4 /* SearchPlaylist.mp4 in Resources */,
 				3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */,
+				3E1E14A922A42005001311A4 /* ShortGeneralDemo6.gif in Resources */,
 				3E066C27216C5FEF00E4FE80 /* PitchPresetsEditor.xib in Resources */,
 				3E2188AC1F0781970085BAB3 /* DetailedTrackInfo.xib in Resources */,
 				3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */,
 				3EB7F461217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib in Resources */,
+				3E1E149C22A42005001311A4 /* gaps.gif in Resources */,
+				3E1E14AE22A42005001311A4 /* WindowLayout copy.gif in Resources */,
 				3E98CBC5216B0D990025A77E /* MasterPresetsEditor.xib in Resources */,
 				3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */,
 				3EF7EFCC215075DD00E582CB /* BarModeNowPlaying.xib in Resources */,
@@ -2091,11 +2235,19 @@
 				3E0ED6B21FBB1B0B008268B3 /* Pitch.xib in Resources */,
 				3E36E86B1FC0108F0005C62E /* HistoryPreferences.xib in Resources */,
 				3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */,
+				3E1E14AD22A42005001311A4 /* ShortGeneralDemo3.gif in Resources */,
 				3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */,
 				3E8A51D021D856FB0014C185 /* build-ffmpeg.sh in Resources */,
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
+				3E1E14B122A42005001311A4 /* Aural-mainDemo.gif in Resources */,
+				3E1E14AB22A42005001311A4 /* newDemo.gif in Resources */,
+				3E1E14BF22A42005001311A4 /* demo.gif in Resources */,
+				3E1E14BD22A42005001311A4 /* ShortGeneralDemo.gif in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
+				3E1E14B622A42005001311A4 /* delayedPlayback.gif in Resources */,
 				3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */,
+				3E1E14BE22A42005001311A4 /* GeneralDemo.gif in Resources */,
+				3E1E149D22A42005001311A4 /* Preferences.mp4 in Resources */,
 				3E4045DA21DE1FA500F4708C /* ffprobe in Resources */,
 				3E066C2D216C6FB500E4FE80 /* TimePresetsEditor.xib in Resources */,
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
@@ -2103,23 +2255,35 @@
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
 				3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */,
 				3E93AC17218B14C80055E18E /* NewFilter.xib in Resources */,
+				3E1E14A222A42005001311A4 /* MoveAndRemoveTracks.mp4 in Resources */,
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
+				3E1E14A022A42005001311A4 /* EffectsPanel.mp4 in Resources */,
+				3E1E14B322A42005001311A4 /* SaveAndLoadPlaylist.mp4 in Resources */,
+				3E1E14AC22A42005001311A4 /* ShortGeneralDemo2.gif in Resources */,
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E066C2F216C796B00E4FE80 /* ReverbPresetsEditor.xib in Resources */,
 				3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */,
+				3E1E14BA22A42005001311A4 /* textSizes.gif in Resources */,
 				3EB1701321748DBC00B82D3A /* JumpToTimeEditorDialog.xib in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
 				3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */,
 				3E02739D1FD91B46000F0844 /* StringInputPopover.xib in Resources */,
+				3E1E14AA22A42005001311A4 /* PlaylistResize.gif in Resources */,
 				3E36E8681FC00F450005C62E /* ViewPreferences.xib in Resources */,
+				3E1E149B22A42005001311A4 /* UsingFXUnit.gif in Resources */,
 				3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */,
+				3E1E14B722A42005001311A4 /* ToggleViews.mp4 in Resources */,
+				3E1E14B822A42005001311A4 /* RepeatAndShuffle.mp4 in Resources */,
+				3E1E14B922A42005001311A4 /* mainDemo.gif in Resources */,
 				3E3F82871FCD4CD800DC9D11 /* BarMode.xib in Resources */,
 				3E36E8651FC00EC60005C62E /* SoundPreferences.xib in Resources */,
 				3E0ED6C11FBB1D21008268B3 /* Recorder.xib in Resources */,
 				3E309B741FB70BB800C61E72 /* InfoPopup.xib in Resources */,
+				3E1E14A622A42005001311A4 /* DetailedTrackInfo.mp4 in Resources */,
 				3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */,
 				3E850D601FB459230017CD02 /* Playlist.xib in Resources */,
 				3EBD557D21590B9A00286439 /* Master.xib in Resources */,
+				3E1E14A722A42005001311A4 /* Transcoding.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
