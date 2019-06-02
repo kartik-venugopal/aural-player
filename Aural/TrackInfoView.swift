@@ -2,13 +2,19 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var lblArtist: NSTextField!
-    @IBOutlet weak var lblTitle: NSTextField!
+    @IBOutlet weak var lblArtist: VATextField!
+    @IBOutlet weak var lblTitle: VATextField!
     @IBOutlet weak var lblName: NSTextField!
     
     // Fields that display information about the current playback sequence
     @IBOutlet weak var lblScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
+    
+    override func awakeFromNib() {
+        
+        lblTitle.vAlign = .bottom
+        lblArtist.vAlign = .top
+    }
     
     func showView(_ playbackState: PlaybackState) {
         
