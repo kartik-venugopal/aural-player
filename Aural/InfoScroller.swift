@@ -9,7 +9,7 @@ class InfoScroller: NSScroller {
     let knobInsetX: CGFloat = 5
     let knobInsetY: CGFloat = 0
     let knobRadius: CGFloat = 1
-    
+
     var knobColor: NSColor = NSColor.gray
     
     override func drawKnob() {
