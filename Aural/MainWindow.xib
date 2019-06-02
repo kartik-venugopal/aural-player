@@ -108,7 +108,7 @@
                                                         <action selector="showOrHidePlayingTrackInfoAction:" target="gF1-jg-yeJ" id="QKj-gQ-Bv5"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Playback sequence info" id="4O6-OC-jAh">
+                                                <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="showOrHideSequenceInfoAction:" target="gF1-jg-yeJ" id="g8A-Mb-aoc"/>

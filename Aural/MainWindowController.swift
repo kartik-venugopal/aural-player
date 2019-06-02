@@ -223,7 +223,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
-    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
+//    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
@@ -267,14 +267,14 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
+//        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
         
         let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
         showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
+//        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
@@ -331,9 +331,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
-    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
-    }
+//    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
+//        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
+//    }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))

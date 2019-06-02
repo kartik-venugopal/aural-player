@@ -57,19 +57,19 @@ class TrackInfoView: NSView {
         
         // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
         
-        let top: CGFloat = self.frame.height
-        let midPoint: CGFloat = self.frame.height / 2
-        
-        if PlayerViewState.showSequenceInfo {
-        
-            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
-            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
-            
-        } else {
-        
-            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
-            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
-        }
+//        let top: CGFloat = self.frame.height
+//        let midPoint: CGFloat = self.frame.height / 2
+//
+//        if PlayerViewState.showSequenceInfo {
+//
+//            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
+//            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
+//
+//        } else {
+//
+//            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
+//            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
+//        }
         
         positionTrackNameLabel()
     }

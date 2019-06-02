@@ -57,14 +57,14 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
+//        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
         
         let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
         showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
+//        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
