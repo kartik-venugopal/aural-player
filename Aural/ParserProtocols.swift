@@ -10,8 +10,6 @@ protocol AVAssetParser {
     
     func getDuration(_ mapForTrack: AVAssetMetadata) -> Double?
     
-    func getChapters(_ mapForTrack: AVAssetMetadata) -> [Chapter]?
-    
     func getTitle(_ mapForTrack: AVAssetMetadata) -> String?
     
     func getArtist(_ mapForTrack: AVAssetMetadata) -> String?

@@ -319,7 +319,7 @@ struct PlaylistTypeChangedNotification: NotificationMessage {
 }
 
 // Request to the playback controller to initiate playback for a particular track/group
-class PlaybackRequest: RequestMessage {
+struct PlaybackRequest: RequestMessage {
     
     let messageType: MessageType = .playbackRequest
     
@@ -332,7 +332,6 @@ class PlaybackRequest: RequestMessage {
     var index: Int? = nil
     var track: Track? = nil
     var group: Group? = nil
-    var chapter: Chapter? = nil
     
     // Initialize the request with a track index. This will be done from the Tracks playlist.
     init(index: Int) {
@@ -344,12 +343,6 @@ class PlaybackRequest: RequestMessage {
     init(track: Track) {
         self.track = track
         self.type = .track
-    }
-    
-    init(track: Track, chapter: Chapter) {
-        self.track = track
-        self.type = .chapter
-        self.chapter = chapter
     }
     
     // Initialize the request with a group. This will be done from a grouping/hierarchical playlist.
@@ -365,7 +358,6 @@ enum PlaybackRequestType {
     case index
     case track
     case group
-    case chapter
 }
 
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.

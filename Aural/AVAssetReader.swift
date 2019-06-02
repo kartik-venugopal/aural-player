@@ -53,9 +53,8 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         let genre = nilIfEmpty(getGenre(track))
         
         let duration = getDuration(track)
-        let chapters = getChapters(track)
         
-        return PrimaryMetadata(title, artist, album, genre, duration, chapters)
+        return PrimaryMetadata(title, artist, album, genre, duration)
     }
     
     private func nilIfEmpty(_ string: String?) -> String? {
@@ -139,21 +138,6 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         }
         
         return nil
-    }
-    
-    func getChapters(_ track: Track) -> [Chapter] {
-        
-        if let map = metadataMap.getForKey(track) {
-            
-            for parser in parsers {
-                
-                if let chapters = parser.getChapters(map) {
-                    return chapters
-                }
-            }
-        }
-        
-        return []
     }
     
     func getSecondaryMetadata(_ track: Track) -> SecondaryMetadata {
@@ -290,37 +274,12 @@ extension Data {
     func hexEncodedString() -> String {
         return map { String(format: "%02hhx", $0) }.joined()
     }
-    
-    func utf8String() -> String {
-        return String(data: self, encoding: .utf8) ?? ""
-    }
-    
-    func utf16BEString() -> String {
-        return String(data: self, encoding: .utf16BigEndian) ?? ""
-    }
-    
-    func utf16LEString() -> String {
-        return String(data: self, encoding: .utf16LittleEndian) ?? ""
-    }
-    
-    func asciiString() -> String {
-        return String(data: self, encoding: .isoLatin1) ?? ""
-    }
 }
 
 class AVAssetMetadata {
     
     var map: [String: AVMetadataItem] = [:]
-    var chapters: [ChapterMetadata] = []
     var genericItems: [AVMetadataItem] = []
-}
-
-class ChapterMetadata {
-    
-    var timedGroup: AVTimedMetadataGroup?
-    var map: [String: AVMetadataItem] = [:]
-    
-    var item: AVMetadataItem?
 }
 
 extension AVMetadataItem {

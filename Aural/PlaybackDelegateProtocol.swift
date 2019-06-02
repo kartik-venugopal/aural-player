@@ -30,14 +30,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func play(_ track: Track, _ params: PlaybackParams)
     
-    func play(_ track: Track, _ chapter: Chapter)
-    
-    func nextChapter()
-    
-    func previousChapter()
-    
-    func replayChapter()
-    
     /*
         Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
  

@@ -69,7 +69,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell?.playlistType = self.playlistType
                 return cell
                 
-            } else if let track = item as? Track {
+            } else {
+                
+                let track = item as! Track
                 
                 let gapA = playlist.getGapAfterTrack(track)
                 let gapB = playlist.getGapBeforeTrack(track)
@@ -102,14 +104,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell?.item = track
                 cell?.playlistType = self.playlistType
                 return cell
-                
-            } else if let chapter = item as? Chapter {
-                
-                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, false, chapter.title!, nil, false, nil, nil)
-                
-                cell?.item = chapter
-                cell?.playlistType = self.playlistType
-                return cell
             }
             
         case UIConstants.playlistDurationColumnID:
@@ -123,7 +117,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell?.playlistType = self.playlistType
                 return cell
                 
-            } else if let track = item as? Track {
+            } else {
+                
+                let track = item as! Track
                 
                 let gapA = playlist.getGapAfterTrack(track)
                 let gapB = playlist.getGapBeforeTrack(track)
@@ -132,20 +128,11 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell?.item = track
                 cell?.playlistType = self.playlistType
                 return cell
-                
-            } else if let chapter = item as? Chapter {
-                
-                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(chapter.duration), nil, nil)
-                cell?.item = chapter
-                cell?.playlistType = self.playlistType
-                return cell
             }
             
         default: return nil
             
         }
-        
-        return nil
     }
     
     private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {

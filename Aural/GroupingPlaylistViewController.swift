@@ -91,23 +91,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             let item = playlistView.item(atRow: selRowIndexes.min()!)
             
-            // The selected item is either a track or a group or a chapter
-            var request: PlaybackRequest!
-            
-            if let track = item as? Track {
-                
-                request = PlaybackRequest(track: track)
-                
-            } else if let group = item as? Group {
-                
-                request = PlaybackRequest(group: group)
-                
-            } else if let chapter = item as? Chapter, let track = playlistView.parent(forItem: chapter) as? Track {
-                
-                request = PlaybackRequest(track: track, chapter: chapter)
-            }
-            
+            // The selected item is either a track or a group
+            var request: PlaybackRequest = item is Track ? PlaybackRequest(track: item as! Track) : PlaybackRequest(group: item as! Group)
             request.delay = delay
+            
             _ = SyncMessenger.publishRequest(request)
         }
     }

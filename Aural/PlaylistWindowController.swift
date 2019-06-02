@@ -526,7 +526,7 @@ class PlaylistViewState {
     static var current: PlaylistType = .tracks
     
     // The current playlist view displayed within the playlist tab group
-    static var currentView: NSOutlineView!
+    static var currentView: NSTableView!
     
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
@@ -571,19 +571,26 @@ class PlaylistViewState {
         let selRows = currentView.selectedRowIndexes
         var items: [SelectedItem] = []
         
-        // Grouping view
-        for row in selRows {
+        if let outlineView = currentView as? AuralPlaylistOutlineView {
             
-            let item = currentView.item(atRow: row)
+            // Grouping view
+            for row in selRows {
+                
+                let item = outlineView.item(atRow: row)
+                
+                if let group = item as? Group {
+                    items.append(SelectedItem(group: group))
+                } else {
+                    // Track
+                    items.append(SelectedItem(track: item as! Track))
+                }
+            }
             
-            if let group = item as? Group {
-                items.append(SelectedItem(group: group))
-            } else if let track = item as? Track {
-                // Track
-                items.append(SelectedItem(track: track))
-            } else if let chapter = item as? Chapter, let track = currentView.parent(forItem: chapter) as? Track {
-                // Chapter
-                items.append(SelectedItem(track: track, chapter: chapter))
+        } else {
+            
+            for row in selRows {
+                // Tracks view
+                items.append(SelectedItem(index: row))
             }
         }
         
