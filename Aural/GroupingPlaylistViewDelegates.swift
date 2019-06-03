@@ -267,8 +267,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-//        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 2 : 0
-        
         let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: offset)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
