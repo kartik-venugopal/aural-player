@@ -360,8 +360,6 @@ class IndexCellView: BasicFlatPlaylistCellView {
             
         }
         
-        print("\nOffset now:", offset)
-        
         let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: offset)
         indexTF.isActive = true
         self.addConstraint(indexTF)

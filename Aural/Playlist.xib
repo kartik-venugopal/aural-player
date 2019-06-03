@@ -63,22 +63,25 @@
                                                             <menuItem title="Normal" id="m2K-Zl-YNW">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="textSizeAction:" target="-2" id="MHT-qJ-qLf"/>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="DrH-nR-BdV"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Larger" tag="1" id="WHr-gt-cVC">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="textSizeAction:" target="-2" id="FvP-n2-ctu"/>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="sxU-Gl-Xdd"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Largest" tag="2" id="ehX-FT-LYF">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="textSizeAction:" target="-2" id="iha-bf-LO5"/>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="cn2-8m-o6s"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BRL-5h-wH5" id="9EN-CO-Pof"/>
+                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                             </items>
@@ -529,6 +532,13 @@
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
                 <outlet property="transcodeTrackMenuItem" destination="s9W-FB-XJa" id="NUb-CO-DAG"/>
+            </connections>
+        </customObject>
+        <customObject id="BRL-5h-wH5" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textSizeLargerMenuItem" destination="WHr-gt-cVC" id="AJy-BM-viX"/>
+                <outlet property="textSizeLargestMenuItem" destination="ehX-FT-LYF" id="WcU-MX-e0Z"/>
+                <outlet property="textSizeNormalMenuItem" destination="m2K-Zl-YNW" id="0wC-3k-SQF"/>
             </connections>
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">

@@ -59,6 +59,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         setUpTabGroup()
         initSubscriptions()
+        
+        PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
+        changeTextSize(PlaylistViewState.textSize)
     }
     
     private func setUpTabGroup() {
@@ -389,11 +392,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
-    @IBAction func textSizeAction(_ sender: AnyObject) {
+    private func changeTextSize(_ size: TextSizeScheme) {
         
-        let senderTitle: String = sender.title.lowercased()
-        TextSizes.playlistScheme = TextSizeScheme(rawValue: senderTitle)!
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, TextSizeScheme(rawValue: senderTitle)!))
+        // TODO: Do we need both of these variables ???
+        TextSizes.playlistScheme = size
+        PlaylistViewState.textSize = size
+        
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
     }
     
     // Updates the summary in response to a change in the tab group selected tab
@@ -535,6 +540,20 @@ class PlaylistViewState {
     // The current playlist view displayed within the playlist tab group
     static var currentView: NSTableView!
     
+    static var textSize: TextSizeScheme = .normal
+    
+    static func initialize(_ appState: PlaylistUIState) {
+        textSize = appState.textSize
+    }
+    
+    static func persistentState() -> PlaylistUIState {
+        
+        let state = PlaylistUIState()
+        state.textSize = textSize
+        
+        return state
+    }
+    
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
         
@@ -602,5 +621,47 @@ class PlaylistViewState {
         }
         
         return items
+    }
+}
+
+class PlaylistViewPopupMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
+    
+    private var textSizes: [NSMenuItem] = []
+    
+    override func awakeFromNib() {
+        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
+    }
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        textSizes.forEach({
+            $0.off()
+        })
+        
+        switch PlaylistViewState.textSize {
+            
+        case .normal:   textSizeNormalMenuItem.on()
+            
+        case .larger:   textSizeLargerMenuItem.on()
+            
+        case .largest:  textSizeLargestMenuItem.on()
+            
+        }
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        let senderTitle: String = sender.title.lowercased()
+        let size = TextSizeScheme(rawValue: senderTitle)!
+        
+        TextSizes.playlistScheme = size
+        PlaylistViewState.textSize = size
+        
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
     }
 }

@@ -158,6 +158,7 @@ class ObjectGraph {
         appState.ui = UIState()
         appState.ui.windowLayout = layoutManager.persistentState()
         appState.ui.player = PlayerViewState.persistentState()
+        appState.ui.playlist = PlaylistViewState.persistentState()
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState()
