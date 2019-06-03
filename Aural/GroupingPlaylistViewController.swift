@@ -813,9 +813,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func changeTextSize() {
         
-//        let selRows = playlistView.selectedRowIndexes
+        let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
-//        playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+        playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
     // MARK: Message handlers

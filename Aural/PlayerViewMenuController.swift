@@ -202,7 +202,15 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
         let senderTitle: String = sender.title.lowercased()
-        TextSizes.playerScheme = TextSizeScheme(rawValue: senderTitle)!
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, TextSizeScheme(rawValue: senderTitle)!))
+        let size = TextSizeScheme(rawValue: senderTitle)!
+        
+        if TextSizes.playerScheme != size {
+            
+            TextSizes.playerScheme = size
+            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+            
+        } else {
+            print("\nSAME !!!")
+        }
     }
 }

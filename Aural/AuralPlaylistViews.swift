@@ -194,13 +194,13 @@ class DurationCellView: BasicFlatPlaylistCellView {
             if let gapField = self.gapBeforeTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
+                gapField.font = TextSizes.playlistIndexFont
             }
             
             if let gapField = self.gapAfterTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
+                gapField.font = TextSizes.playlistIndexFont
             }
         }
     }
