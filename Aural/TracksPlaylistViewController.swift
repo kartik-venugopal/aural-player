@@ -582,24 +582,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func changeTextSize() {
         
-//        for row in 0..<playlistView.numberOfRows {
-//
-//            let rv = playlistView.rowView(atRow: row, makeIfNecessary: true)
-//
-//            // Index
-//            var col: NSTableCellView = rv!.view(atColumn: 0) as! NSTableCellView
-//            col.textField!.font = TextSizes.playlistIndexFont
-//
-//            // Track name
-//            col = rv!.view(atColumn: 1) as! NSTableCellView
-//            col.textField!.font = playlistView.selectedRowIndexes.contains(row) ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
-//
-//            // Duration
-//            col = rv!.view(atColumn: 2) as! NSTableCellView
-//            col.textField!.font = TextSizes.playlistIndexFont
-//        }
-        
+        let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
+        playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
     // MARK: Message handling
