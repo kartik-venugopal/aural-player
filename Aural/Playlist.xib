@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -46,6 +46,46 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
+                                <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mzj-Ix-G6c" userLabel="Player View Menu">
+                                    <rect key="frame" x="33" y="255" width="25" height="7"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9uL-zG-dgf">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                        <menu key="menu" autoenablesItems="NO" id="NNt-P7-zna">
+                                            <items>
+                                                <menuItem image="PlayerView-Menu" hidden="YES" id="RWd-cM-ppk">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Text size" id="O7r-qv-G9t">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Text size" id="jSz-GN-QV5">
+                                                        <items>
+                                                            <menuItem title="Normal" id="m2K-Zl-YNW">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="textSizeAction:" target="-2" id="MHT-qJ-qLf"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Larger" tag="1" id="WHr-gt-cVC">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="textSizeAction:" target="-2" id="FvP-n2-ctu"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Largest" tag="2" id="ehX-FT-LYF">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="textSizeAction:" target="-2" id="iha-bf-LO5"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -810,24 +850,25 @@
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
-        <image name="Clear" width="5.1999998092651367" height="6"/>
+        <image name="Clear" width="26" height="30"/>
         <image name="Close" width="16" height="16"/>
         <image name="DelayedPlayback" width="15" height="15"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Gap-Padded-Small" width="15" height="15"/>
-        <image name="MoreInfo-Padded-Small" width="3.5999999046325684" height="3.5999999046325684"/>
+        <image name="MoreInfo-Padded-Small" width="15" height="15"/>
         <image name="PageDown" width="32" height="24"/>
         <image name="PageUp" width="32" height="24"/>
         <image name="Play-Padded-Small" width="15" height="15"/>
+        <image name="PlayerView-Menu" width="12" height="12"/>
         <image name="Remove" width="27" height="27"/>
         <image name="Remove-Small" width="10" height="10"/>
         <image name="Save" width="26" height="26"/>
         <image name="ScrollToBottom" width="27" height="27"/>
         <image name="ScrollToTop" width="27" height="27"/>
         <image name="Search" width="26" height="26"/>
-        <image name="ShowInFinder" width="11.25" height="11.25"/>
+        <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>

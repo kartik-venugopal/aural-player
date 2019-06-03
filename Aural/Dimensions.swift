@@ -27,10 +27,16 @@ enum TextSizeScheme: String {
 
 class TextSizes {
     
-    private static var scheme: TextSizeScheme = .normal
+    private static var playerScheme: TextSizeScheme = .normal
     
-    static func setScheme(_ scheme: TextSizeScheme) {
-        TextSizes.scheme = scheme
+    static func setPlayerScheme(_ scheme: TextSizeScheme) {
+        TextSizes.playerScheme = scheme
+    }
+    
+    private static var playlistScheme: TextSizeScheme = .normal
+    
+    static func setPlaylistScheme(_ scheme: TextSizeScheme) {
+        TextSizes.playlistScheme = scheme
     }
     
     private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
@@ -39,7 +45,7 @@ class TextSizes {
     
     static var titleFont: NSFont {
         
-        switch scheme {
+        switch playerScheme {
             
         case .normal: return titleFont_normal
             
@@ -56,7 +62,7 @@ class TextSizes {
     
     static var artistFont: NSFont {
         
-        switch scheme {
+        switch playerScheme {
             
         case .normal: return artistFont_normal
             
@@ -73,7 +79,7 @@ class TextSizes {
     
     static var scopeFont: NSFont {
         
-        switch scheme {
+        switch playerScheme {
             
         case .normal: return scopeFont_normal
             
@@ -90,7 +96,7 @@ class TextSizes {
     
     static var trackTimesFont: NSFont {
         
-        switch scheme {
+        switch playerScheme {
             
         case .normal: return trackTimesFont_normal
             
@@ -107,13 +113,64 @@ class TextSizes {
     
     static var feedbackFont: NSFont {
         
-        switch scheme {
+        switch playerScheme {
             
         case .normal: return feedbackFont_normal
             
         case .larger: return feedbackFont_larger
             
         case .largest: return feedbackFont_largest
+            
+        }
+    }
+    
+    private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    private static let playlistIndexFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let playlistIndexFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var playlistIndexFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistIndexFont_normal
+            
+        case .larger: return playlistIndexFont_larger
+            
+        case .largest: return playlistIndexFont_largest
+            
+        }
+    }
+    
+    private static let playlistTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let playlistTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let playlistTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    
+    static var playlistTrackNameFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistTrackNameFont_normal
+            
+        case .larger: return playlistTrackNameFont_larger
+            
+        case .largest: return playlistTrackNameFont_largest
+            
+        }
+    }
+    
+    private static let playlistSelectedTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    private static let playlistSelectedTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let playlistSelectedTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var playlistSelectedTrackNameFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistSelectedTrackNameFont_normal
+            
+        case .larger: return playlistSelectedTrackNameFont_larger
+            
+        case .largest: return playlistSelectedTrackNameFont_largest
             
         }
     }

@@ -36,7 +36,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         PlayerViewState.initialize(ObjectGraph.appState.ui.player)
         
-        TextSizes.setScheme(PlayerViewState.textSize)
+        TextSizes.setPlayerScheme(PlayerViewState.textSize)
         changeTextSize(PlayerViewState.textSize)
         
         showView(PlayerViewState.viewType)
@@ -57,14 +57,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changeTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changeTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -214,7 +214,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             showOrHideSequenceInfo()
             
-        case .changeTextSize:
+        case .changePlayerTextSize:
             
             changeTextSize((message as! TextSizeActionMessage).textSize)
             

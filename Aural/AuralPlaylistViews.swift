@@ -99,7 +99,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-            textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            textField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
         }
     }
     
@@ -168,7 +168,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
-            textField.font = isSelRow ? Fonts.playlistSelectedIndexTextFont : Fonts.playlistIndexTextFont
+            textField.font = TextSizes.playlistIndexFont
         }
     }
     
@@ -182,13 +182,13 @@ class DurationCellView: BasicFlatPlaylistCellView {
             if let gapField = self.gapBeforeTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                gapField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
             }
             
             if let gapField = self.gapAfterTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                gapField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
             }
         }
     }
@@ -244,7 +244,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
-            textField.font = isSelRow ? Fonts.playlistSelectedIndexTextFont : Fonts.playlistIndexTextFont
+            textField.font = TextSizes.playlistIndexFont
         }
     }
     
