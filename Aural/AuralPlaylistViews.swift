@@ -370,38 +370,38 @@ class IndexCellView: BasicFlatPlaylistCellView {
     }
 }
 
-/*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-class GroupedTrackCellView: NSTableCellView {
-    
-    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
-    var isGroup: Bool = false
-    
-    // This is used to determine which NSOutlineView contains this cell
-    var playlistType: PlaylistType = .artists
-    
-    // The item represented by the row containing this cell
-    var item: PlaylistItem?
-    
-    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
-                
-                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
-            }
-        }
-    }
-}
+///*
+// Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+// */
+//class GroupedTrackCellView: NSTableCellView {
+//
+//    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
+//    var isGroup: Bool = false
+//
+//    // This is used to determine which NSOutlineView contains this cell
+//    var playlistType: PlaylistType = .artists
+//
+//    // The item represented by the row containing this cell
+//    var item: PlaylistItem?
+//
+//    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
+//    override var backgroundStyle: NSView.BackgroundStyle {
+//
+//        didSet {
+//
+//            // Check if this row is selected
+//            let outlineView = OutlineViewHolder.instances[self.playlistType]!
+//            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
+//
+//            if let textField = self.textField {
+//
+//                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
+//
+//                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
+//            }
+//        }
+//    }
+//}
 
 @IBDesignable
 class GroupedTrackNameCellView: NSTableCellView {
@@ -434,7 +434,9 @@ class GroupedTrackNameCellView: NSTableCellView {
                 
                 textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
                 
-                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
+//                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
+                
+                textField.font = isSelRow ? (isGroup ? TextSizes.playlistSelectedGroupNameFont : TextSizes.playlistSelectedTrackNameFont) : (isGroup ? TextSizes.playlistGroupNameFont : TextSizes.playlistTrackNameFont)
             }
         }
     }
@@ -470,7 +472,7 @@ class GroupedTrackDurationCellView: NSTableCellView {
                 
                 textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupSelectedIndexTextColor : Colors.playlistSelectedIndexTextColor) : (isGroup ? Colors.playlistGroupIndexTextColor : Colors.playlistIndexTextColor)
                 
-                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupSelectedIndexTextFont : Fonts.playlistSelectedIndexTextFont) : (isGroup ? Fonts.playlistGroupIndexTextFont : Fonts.playlistIndexTextFont)
+                textField.font = isGroup ? TextSizes.playlistGroupDurationFont : TextSizes.playlistIndexFont
             }
             
             if !isGroup {
@@ -478,13 +480,13 @@ class GroupedTrackDurationCellView: NSTableCellView {
                 if let gapField = self.gapBeforeTextField {
                     
                     gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                    gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                    gapField.font = TextSizes.playlistIndexFont
                 }
                 
                 if let gapField = self.gapAfterTextField {
                     
                     gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                    gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                    gapField.font = TextSizes.playlistIndexFont
                 }
                 
             }
