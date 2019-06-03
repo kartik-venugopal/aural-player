@@ -57,11 +57,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         WindowState.playlistWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         
+        PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
+        TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
+        
         setUpTabGroup()
         initSubscriptions()
-        
-        PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
-        changeTextSize(PlaylistViewState.textSize)
     }
     
     private func setUpTabGroup() {
