@@ -44,7 +44,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 return 40
             }
 
-            return 22
+            return 24
 
         } else {
 
@@ -139,7 +139,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
+//            cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
+            cell.textField?.setNeedsDisplay()
+            
             cell.imageView?.image = image
             cell.isGroup = isGroup
             
@@ -284,6 +287,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
+//            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.isGroup = isGroup
@@ -348,6 +352,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
+//            cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
             cell.imageView?.image = image
             cell.isGroup = isGroup
@@ -370,6 +375,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
+//            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.isGroup = isGroup
             

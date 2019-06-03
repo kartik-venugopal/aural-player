@@ -132,6 +132,57 @@ class TextSizes {
         }
     }
     
+    private static let playlistGroupNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12.5)!
+    private static let playlistGroupNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
+    private static let playlistGroupNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14.5)!
+    
+    static var playlistGroupNameFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistGroupNameFont_normal
+            
+        case .larger: return playlistGroupNameFont_larger
+            
+        case .largest: return playlistGroupNameFont_largest
+            
+        }
+    }
+    
+    private static let playlistGroupDurationFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12.5)!
+    private static let playlistGroupDurationFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13.5)!
+    private static let playlistGroupDurationFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14.5)!
+    
+    static var playlistGroupDurationFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistGroupDurationFont_normal
+            
+        case .larger: return playlistGroupDurationFont_larger
+            
+        case .largest: return playlistGroupDurationFont_largest
+            
+        }
+    }
+    
+    private static let playlistSelectedGroupNameFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12.5)!
+    private static let playlistSelectedGroupNameFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13.5)!
+    private static let playlistSelectedGroupNameFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14.5)!
+    
+    static var playlistSelectedGroupNameFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistSelectedGroupNameFont_normal
+            
+        case .larger: return playlistSelectedGroupNameFont_larger
+            
+        case .largest: return playlistSelectedGroupNameFont_largest
+            
+        }
+    }
+    
     private static let playlistTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
     private static let playlistTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let playlistTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
