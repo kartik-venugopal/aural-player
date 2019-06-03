@@ -116,7 +116,7 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        TextSizes.setPlayerScheme(appState.textSize)
+        TextSizes.playerScheme = appState.textSize
         changeTextSize(appState.textSize)
         
         lblTimeElapsed.vAlign = .bottom

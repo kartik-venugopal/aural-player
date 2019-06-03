@@ -27,17 +27,8 @@ enum TextSizeScheme: String {
 
 class TextSizes {
     
-    private static var playerScheme: TextSizeScheme = .normal
-    
-    static func setPlayerScheme(_ scheme: TextSizeScheme) {
-        TextSizes.playerScheme = scheme
-    }
-    
-    private static var playlistScheme: TextSizeScheme = .normal
-    
-    static func setPlaylistScheme(_ scheme: TextSizeScheme) {
-        TextSizes.playlistScheme = scheme
-    }
+    static var playerScheme: TextSizeScheme = .normal
+    static var playlistScheme: TextSizeScheme = .normal
     
     private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
     private static let titleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
