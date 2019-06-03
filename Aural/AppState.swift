@@ -21,6 +21,7 @@ class UIState: PersistentState {
     
     var windowLayout: WindowLayoutState = WindowLayoutState()
     var player: PlayerState = PlayerState()
+    var playlist: PlaylistUIState = PlaylistUIState()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -33,6 +34,23 @@ class UIState: PersistentState {
         if let playerMap = map["player"] as? NSDictionary {
             state.player = PlayerState.deserialize(playerMap) as! PlayerState
         }
+        
+        if let playlistMap = map["playlist"] as? NSDictionary {
+            state.playlist = PlaylistUIState.deserialize(playlistMap) as! PlaylistUIState
+        }
+        
+        return state
+    }
+}
+
+class PlaylistUIState: PersistentState {
+    
+    var textSize: TextSizeScheme = .normal
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = PlaylistUIState()
+        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
         
         return state
     }
