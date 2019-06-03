@@ -117,8 +117,20 @@ class BasicFlatPlaylistCellView: NSTableCellView {
             }
         }
         
+        var offset: CGFloat = 0
+        
+        switch TextSizes.playlistScheme {
+            
+        case .normal:   offset = -0.4
+            
+        case .larger:   offset = -0.6
+            
+        case .largest:  offset = 0
+            
+        }
+        
         // textField.top == self.top
-        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: offset)
         textFieldOnTopConstraint.isActive = true
         self.addConstraint(textFieldOnTopConstraint)
     }
@@ -207,8 +219,20 @@ class DurationCellView: BasicFlatPlaylistCellView {
             }
         }
         
+        var offset: CGFloat = 0
+        
+        switch TextSizes.playlistScheme {
+            
+        case .normal:   offset = 0
+            
+        case .larger:   offset = 0
+            
+        case .largest:  offset = -0.5
+            
+        }
+        
         // textField.top == self.top
-        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 2)
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: offset)
         textFieldOnTopConstraint.isActive = true
         self.addConstraint(textFieldOnTopConstraint)
     }
@@ -324,7 +348,21 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
+        var offset: CGFloat = 0
+        
+        switch TextSizes.playlistScheme {
+            
+        case .normal:   offset = -0.8
+            
+        case .larger:   offset = -0.75
+            
+        case .largest:  offset = -1.5
+            
+        }
+        
+        print("\nOffset now:", offset)
+        
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: offset)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         

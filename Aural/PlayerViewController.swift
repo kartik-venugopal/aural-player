@@ -36,7 +36,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         PlayerViewState.initialize(ObjectGraph.appState.ui.player)
         
-        TextSizes.setPlayerScheme(PlayerViewState.textSize)
+        TextSizes.playerScheme = PlayerViewState.textSize
         changeTextSize(PlayerViewState.textSize)
         
         showView(PlayerViewState.viewType)

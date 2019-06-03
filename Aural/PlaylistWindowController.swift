@@ -392,7 +392,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBAction func textSizeAction(_ sender: AnyObject) {
         
         let senderTitle: String = sender.title.lowercased()
-        TextSizes.setPlaylistScheme(TextSizeScheme(rawValue: senderTitle)!)
+        TextSizes.playlistScheme = TextSizeScheme(rawValue: senderTitle)!
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, TextSizeScheme(rawValue: senderTitle)!))
     }
     

@@ -52,7 +52,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             }
         }
 
-        return 22
+        return 24
     }
     
     // Returns a view for a single column
@@ -117,6 +117,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
      
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
             
+            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.imageView?.hide()
@@ -149,6 +150,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     private func createTrackNameCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> TrackNameCellView? {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
+            
+            cell.textField?.font = tableView.selectedRowIndexes.contains(row) ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
             
             cell.textField?.stringValue = text
             cell.textField?.show()
@@ -200,6 +203,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? DurationCellView {
             
+            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.row = row
