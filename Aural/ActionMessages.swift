@@ -312,7 +312,8 @@ enum ActionType {
     case setTimeRemainingDisplayFormat
     case showOrHideTimeElapsedRemaining
     
-    case changeTextSize
+    case changePlayerTextSize
+    case changePlaylistTextSize
 }
 
 enum ActionMode {
@@ -331,6 +332,7 @@ struct PlaylistActionMessage: ActionMessage {
     let playlistType: PlaylistType?
     
     init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
+        
         self.actionType = actionType
         self.playlistType = playlistType
     }
@@ -387,10 +389,12 @@ struct ViewActionMessage: ActionMessage {
 // An action message sent to a view to change the size of its text
 struct TextSizeActionMessage: ActionMessage {
     
-    let actionType: ActionType = .changeTextSize
+    let actionType: ActionType
     let textSize: TextSizeScheme
     
-    init(_ textSize: TextSizeScheme) {
+    init(_ actionType: ActionType, _ textSize: TextSizeScheme) {
+        
+        self.actionType = actionType
         self.textSize = textSize
     }
 }

@@ -389,6 +389,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
+    @IBAction func textSizeAction(_ sender: AnyObject) {
+        
+        let senderTitle: String = sender.title.lowercased()
+        TextSizes.setPlaylistScheme(TextSizeScheme(rawValue: senderTitle)!)
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, TextSizeScheme(rawValue: senderTitle)!))
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()

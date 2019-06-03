@@ -122,6 +122,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.imageView?.hide()
             cell.row = row
             
+            (cell.textField as! VATextField).vAlign = .center
+            
             let aOnly = gapAfter != nil && gapBefore == nil
             let bOnly = gapBefore != nil && gapAfter == nil
             
@@ -151,6 +153,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.row = row
+            
+            (cell.textField as! VATextField).vAlign = .center
             
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
@@ -199,6 +203,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.row = row
+            
+            (cell.textField as! VATextField).vAlign = .center
             
             if cell.gapAfterTextField == nil {
                 return cell
