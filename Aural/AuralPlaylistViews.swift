@@ -99,7 +99,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-            textField.font = isSelRow ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
+            textField.font = TextSizes.playlistTrackNameFont
         }
     }
     
@@ -436,7 +436,7 @@ class GroupedTrackNameCellView: NSTableCellView {
                 
 //                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
                 
-                textField.font = isSelRow ? (isGroup ? TextSizes.playlistSelectedGroupNameFont : TextSizes.playlistSelectedTrackNameFont) : (isGroup ? TextSizes.playlistGroupNameFont : TextSizes.playlistTrackNameFont)
+                textField.font = isGroup ? TextSizes.playlistGroupNameFont : TextSizes.playlistTrackNameFont
             }
         }
     }

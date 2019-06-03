@@ -236,9 +236,40 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 2 : 0
+        var offset: CGFloat = 0
         
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: CGFloat(offset))
+        if cell.identifier!.rawValue != UIConstants.playlistDurationColumnID {
+            
+            // Track/Group name
+            
+            switch TextSizes.playlistScheme {
+                
+            case .normal:   offset = 2
+                
+            case .larger:   offset = 1
+                
+            case .largest:  offset = 0
+                
+            }
+            
+        } else {
+            
+            // Duration
+            
+            switch TextSizes.playlistScheme {
+                
+            case .normal:   offset = 2
+                
+            case .larger:   offset = 2
+                
+            case .largest:  offset = 0
+                
+            }
+        }
+        
+//        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 2 : 0
+        
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: offset)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
         
