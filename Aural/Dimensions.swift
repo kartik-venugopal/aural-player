@@ -166,23 +166,6 @@ class TextSizes {
         }
     }
     
-    private static let playlistSelectedGroupNameFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12.5)!
-    private static let playlistSelectedGroupNameFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13.5)!
-    private static let playlistSelectedGroupNameFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14.5)!
-    
-    static var playlistSelectedGroupNameFont: NSFont {
-        
-        switch playlistScheme {
-            
-        case .normal: return playlistSelectedGroupNameFont_normal
-            
-        case .larger: return playlistSelectedGroupNameFont_larger
-            
-        case .largest: return playlistSelectedGroupNameFont_largest
-            
-        }
-    }
-    
     private static let playlistTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
     private static let playlistTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let playlistTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
@@ -196,23 +179,6 @@ class TextSizes {
         case .larger: return playlistTrackNameFont_larger
             
         case .largest: return playlistTrackNameFont_largest
-            
-        }
-    }
-    
-    private static let playlistSelectedTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
-    private static let playlistSelectedTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
-    private static let playlistSelectedTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
-    
-    static var playlistSelectedTrackNameFont: NSFont {
-        
-        switch playlistScheme {
-            
-        case .normal: return playlistSelectedTrackNameFont_normal
-            
-        case .larger: return playlistSelectedTrackNameFont_larger
-            
-        case .largest: return playlistSelectedTrackNameFont_largest
             
         }
     }

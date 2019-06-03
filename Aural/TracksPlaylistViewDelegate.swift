@@ -151,7 +151,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
             
-            cell.textField?.font = tableView.selectedRowIndexes.contains(row) ? TextSizes.playlistSelectedTrackNameFont : TextSizes.playlistTrackNameFont
+            cell.textField?.font = TextSizes.playlistTrackNameFont
             
             cell.textField?.stringValue = text
             cell.textField?.show()
