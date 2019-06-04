@@ -79,6 +79,12 @@ public class MediaKeyTap {
             print(error.description)
         } catch {}
     }
+    
+    open func stop() {
+        
+        internals.stopWatchingMediaKeys()
+        mediaApplicationWatcher.stop()
+    }
 
     private func keycodeToMediaKey(_ keycode: Keycode) -> MediaKey? {
         switch keycode {
