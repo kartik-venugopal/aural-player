@@ -55,6 +55,8 @@ class ObjectGraph {
     static var apeParser: ApeV2Parser!
     static var defaultParser: DefaultFFMpegMetadataParser!
     
+    static var mediaKeyHandler: MediaKeyHandler!
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -141,6 +143,8 @@ class ObjectGraph {
         vorbisParser = VorbisCommentParser()
         apeParser = ApeV2Parser()
         defaultParser = DefaultFFMpegMetadataParser()
+        
+        mediaKeyHandler = MediaKeyHandler()
     }
     
     // Called when app exits

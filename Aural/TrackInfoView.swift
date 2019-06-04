@@ -89,7 +89,8 @@ class TrackInfoView: NSView {
         var origin = lblName.frame.origin
         
         // Center it wrt artist/title labels
-        origin.y = numLines == 1 ? lblArtist.frame.minY + ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2) : lblArtist.frame.minY - 5
+        let adjustment: CGFloat = ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2)
+        origin.y = numLines == 1 ? lblArtist.frame.minY + adjustment : lblArtist.frame.minY - 5
         
         // Resize the label
         lblName.setFrameSize(lblFrameSize)
