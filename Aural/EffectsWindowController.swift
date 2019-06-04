@@ -102,8 +102,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
 
         // Select Master tab view by default
-//        tabViewAction(masterTabViewButton)
-        tabViewAction(eqTabViewButton)
+        tabViewAction(masterTabViewButton)
     }
 
     private func initSubscriptions() {
@@ -236,70 +235,4 @@ enum EffectsUnit {
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
 	return NSControl.StateValue(rawValue: input)
-}
-
-// Convenient accessor for information about the current playlist view
-class EffectsViewState {
-    
-    static var textSize: TextSizeScheme = .normal
-    
-    static func initialize(_ appState: PlaylistUIState) {
-        textSize = appState.textSize
-    }
-    
-    static func persistentState() -> PlaylistUIState {
-        
-        let state = PlaylistUIState()
-        state.textSize = textSize
-        
-        return state
-    }
-}
-
-class EffectsViewPopupMenuController: NSObject, NSMenuDelegate {
-    
-    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
-    
-    private var textSizes: [NSMenuItem] = []
-    
-    override func awakeFromNib() {
-        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
-    }
-    
-    // When the menu is about to open, set the menu item states according to the current window/view state
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        textSizes.forEach({
-            $0.off()
-        })
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:   textSizeNormalMenuItem.on()
-            
-        case .larger:   textSizeLargerMenuItem.on()
-            
-        case .largest:  textSizeLargestMenuItem.on()
-            
-        }
-    }
-    
-    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
-        
-        let senderTitle: String = sender.title.lowercased()
-        let size = TextSizeScheme(rawValue: senderTitle)!
-        
-        if TextSizes.effectsScheme != size {
-            
-            TextSizes.effectsScheme = size
-            EffectsViewState.textSize = size
-            
-             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
-            
-        } else {
-            print("\nSAME !!!")
-        }
-    }
 }

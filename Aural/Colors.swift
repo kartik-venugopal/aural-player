@@ -12,7 +12,7 @@ struct Colors {
     static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
     
     // Color of text inside the playlist (non-selected items)
-    static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
@@ -31,10 +31,9 @@ struct Colors {
     static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Color for playlist grouped views
-    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
-    
-    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Fill color of box drawn around selected playlist item

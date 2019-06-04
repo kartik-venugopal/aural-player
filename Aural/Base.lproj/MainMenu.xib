@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -144,9 +144,6 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="4VY-Qb-AZX"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="2cf-O0-zCm"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="jPu-nS-wrS"/>
-                <outlet property="textSizeLargerMenuItem" destination="gaS-ki-GLO" id="mFv-Zq-bIc"/>
-                <outlet property="textSizeLargestMenuItem" destination="MjJ-p4-Tva" id="400-jx-lcW"/>
-                <outlet property="textSizeNormalMenuItem" destination="cl4-6q-Fid" id="KYz-RM-33g"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="nsK-2D-RCp" id="DJW-7O-Smr"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="Rvh-jG-Yy7"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="NqT-Cd-LnJ"/>
@@ -1024,7 +1021,7 @@ CA
                                                 <action selector="showOrHidePlayingTrackInfoAction:" target="YVQ-JN-BbP" id="xXB-sz-m1M"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="aFP-Tg-nvW">
+                                        <menuItem title="Playback sequence info" id="aFP-Tg-nvW">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideSequenceInfoAction:" target="YVQ-JN-BbP" id="R2W-NN-i5s"/>
@@ -1047,32 +1044,6 @@ CA
                                             <connections>
                                                 <action selector="showOrHideTimeElapsedRemainingAction:" target="YVQ-JN-BbP" id="w4c-CF-lOI"/>
                                             </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="5LP-yb-jlg"/>
-                                        <menuItem title="Text size" id="Az8-kp-Ux2">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Text size" id="lM5-OP-Yvx">
-                                                <items>
-                                                    <menuItem title="Normal" id="cl4-6q-Fid">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="McE-6I-e9Y"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Larger" tag="1" id="gaS-ki-GLO">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="ElA-O4-0Av"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Largest" tag="2" id="MjJ-p4-Tva">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="qUs-kb-lJw"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Yvf-AY-f2r"/>
                                         <menuItem title="Time elapsed display" id="nsK-2D-RCp">
@@ -1432,26 +1403,26 @@ CA
     <resources>
         <image name="Add-Small" width="12" height="12"/>
         <image name="Bookmark-Dark" width="15" height="15"/>
-        <image name="Bookmarks-Editor" width="15" height="15"/>
-        <image name="Clear-Small" width="13" height="15"/>
+        <image name="Bookmarks-Editor" width="3" height="3"/>
+        <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="CollapseGroups" width="15" height="15"/>
-        <image name="CropSelection-Small" width="14" height="14"/>
+        <image name="CropSelection-Small" width="11.199999809265137" height="11.199999809265137"/>
         <image name="DelayedPlayback-Menu" width="9" height="14"/>
         <image name="DockBottom-Small" width="12" height="10"/>
         <image name="DockLeft-Small" width="12" height="10"/>
         <image name="DockRight-Small" width="12" height="10"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
-        <image name="EffectsPresets-Editor" width="14" height="14"/>
+        <image name="EffectsPresets-Editor" width="2.7999999523162842" height="2.7999999523162842"/>
         <image name="ExpandGroups" width="15" height="15"/>
         <image name="Favorites" width="15" height="15"/>
-        <image name="Favorites-Editor" width="15" height="15"/>
+        <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
         <image name="Gap-Small" width="12" height="15"/>
-        <image name="InvertSelection-Small" width="15" height="15"/>
-        <image name="LoopOff-Small" width="15" height="13"/>
+        <image name="InvertSelection-Small" width="14.399999618530273" height="14.399999618530273"/>
+        <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="MasterTab-Small" width="14" height="14"/>
-        <image name="MoreInfo-Small" width="12" height="12"/>
+        <image name="MoreInfo-Small" width="2.880000114440918" height="2.880000114440918"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="14" height="8"/>
         <image name="PageDown-Small" width="12" height="9"/>
@@ -1470,7 +1441,7 @@ CA
         <image name="RepeatAll-Small" width="17" height="17"/>
         <image name="RepeatMode-Small" width="14" height="13"/>
         <image name="RepeatOne-Small" width="17" height="17"/>
-        <image name="Replay" width="14" height="14"/>
+        <image name="Replay" width="10.5" height="10.5"/>
         <image name="Save-Small" width="12" height="12"/>
         <image name="ScrollToBottom-Small" width="12" height="12"/>
         <image name="ScrollToTop-Small" width="12" height="12"/>
@@ -1493,7 +1464,7 @@ CA
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
-        <image name="WindowLayout-Editor" width="15" height="15"/>
+        <image name="WindowLayout-Editor" width="3" height="3"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
         <image name="WindowLayout-Save" width="15" height="15"/>

@@ -33,7 +33,9 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 **User**: Running Aural Player requires macOS 10.12 (Sierra) or later versions.
 
-**Developer**: To develop Aural Player with Swift 4.2 requires macOS 10.13.4 or later (High Sierra) and XCode 10.
+NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would really like support for Yosemite or El Capitan, please file an issue and I may consider it.
+
+**Developer**: To develop Aural Player with Swift 4.2 (master branch) requires macOS 10.13.4 or later (High Sierra) and XCode 10. The old "swift2" branch has been deleted.
 
 ## Features
 

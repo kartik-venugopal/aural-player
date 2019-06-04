@@ -55,8 +55,6 @@ class ObjectGraph {
     static var apeParser: ApeV2Parser!
     static var defaultParser: DefaultFFMpegMetadataParser!
     
-    static var mediaKeyHandler: MediaKeyHandler!
-    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -143,8 +141,6 @@ class ObjectGraph {
         vorbisParser = VorbisCommentParser()
         apeParser = ApeV2Parser()
         defaultParser = DefaultFFMpegMetadataParser()
-        
-        mediaKeyHandler = MediaKeyHandler()
     }
     
     // Called when app exits
@@ -162,7 +158,6 @@ class ObjectGraph {
         appState.ui = UIState()
         appState.ui.windowLayout = layoutManager.persistentState()
         appState.ui.player = PlayerViewState.persistentState()
-        appState.ui.playlist = PlaylistViewState.persistentState()
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState()
