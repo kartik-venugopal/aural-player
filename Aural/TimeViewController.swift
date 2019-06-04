@@ -7,6 +7,9 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
+    // Labels
+    @IBOutlet weak var lblCaption: NSTextField!
+    
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
@@ -115,6 +118,11 @@ class TimeViewController: FXUnitViewController {
     private func updatePitchShift() {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
+    
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+    }
 
     // MARK: Message handling
 
@@ -135,6 +143,10 @@ class TimeViewController: FXUnitViewController {
             default: return
 
             }
+        }
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
         }
     }
 }

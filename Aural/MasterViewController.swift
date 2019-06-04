@@ -3,6 +3,20 @@ import Cocoa
 class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
+    
+    // Labels
+    @IBOutlet weak var lblCaption: VATextField!
+    
+    @IBOutlet weak var lblEQSwitch: VATextField!
+    @IBOutlet weak var lblPitchSwitch: VATextField!
+    @IBOutlet weak var lblTimeSwitch: VATextField!
+    @IBOutlet weak var lblReverbSwitch: VATextField!
+    @IBOutlet weak var lblDelaySwitch: VATextField!
+    @IBOutlet weak var lblFilterSwitch: VATextField!
+    
+    @IBOutlet weak var lblPresets: VATextField!
+    
+    private var functionLabels: [VATextField] = []
 
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
@@ -34,6 +48,11 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
+        
+        lblCaption.vAlign = .top
+        
+        functionLabels = [lblEQSwitch, lblPitchSwitch, lblTimeSwitch, lblReverbSwitch, lblDelaySwitch, lblFilterSwitch, lblPresets]
+        functionLabels.forEach({$0.vAlign = .center})
     }
     
     override func initSubscriptions() {
@@ -134,6 +153,12 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -161,6 +186,9 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
+            
+        case .changeEffectsTextSize:
+            changeTextSize()
             
         default: return
             

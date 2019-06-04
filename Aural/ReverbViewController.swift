@@ -7,6 +7,9 @@ class ReverbViewController: FXUnitViewController {
     
     @IBOutlet weak var reverbView: ReverbView!
     
+    // Labels
+    @IBOutlet weak var lblCaption: NSTextField!
+    
     override var nibName: String? {return "Reverb"}
     
     var reverbUnit: ReverbUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.reverbUnit
@@ -26,7 +29,7 @@ class ReverbViewController: FXUnitViewController {
         super.oneTimeSetup()
         reverbView.initialize(reverbStateFunction)
     }
-   
+    
     override func initControls() {
         
         super.initControls()
@@ -49,5 +52,21 @@ class ReverbViewController: FXUnitViewController {
         
         reverbUnit.amount = reverbView.amount
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
+    }
+    
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+    }
+    
+    // MARK: Message handling
+    
+    override func consumeMessage(_ message: ActionMessage) {
+        
+        super.consumeMessage(message)
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
+        }
     }
 }
