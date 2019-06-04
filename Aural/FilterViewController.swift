@@ -7,6 +7,9 @@ class FilterViewController: FXUnitViewController {
     
     @IBOutlet weak var filterView: FilterView!
     
+    // Labels
+    @IBOutlet weak var lblCaption: NSTextField!
+    
     @IBOutlet weak var btnAdd: NSButton!
     @IBOutlet weak var btnRemove: NSButton!
     @IBOutlet weak var btnScrollLeft: NSButton!
@@ -239,6 +242,22 @@ class FilterViewController: FXUnitViewController {
             selTab = index
             filterView.selectTab(index)
             tabButtons.forEach({$0.state = $0.tag == selTab ? UIConstants.onState : UIConstants.offState})
+        }
+    }
+    
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+    }
+    
+    // MARK: Message handling
+    
+    override func consumeMessage(_ message: ActionMessage) {
+        
+        super.consumeMessage(message)
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
         }
     }
 }

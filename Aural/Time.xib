@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="btnBypass" destination="0b3-aI-4fr" id="b9o-1J-3tO"/>
                 <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
+                <outlet property="lblCaption" destination="Z5I-8h-u4p" id="zia-Ly-THn"/>
                 <outlet property="presetsMenu" destination="jID-iV-7XK" id="Z0Y-xG-h8D"/>
                 <outlet property="timeView" destination="qyk-i5-HuE" id="2u0-6D-ArB"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
@@ -24,7 +25,7 @@
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5I-8h-u4p" userLabel="Time Desc">
                     <rect key="frame" x="60" y="140" width="365" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Changes the playback rate (aka time stretching)" id="gtf-5P-DNN">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Changes the playback rate (aka &quot;time stretching&quot;)" id="gtf-5P-DNN">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

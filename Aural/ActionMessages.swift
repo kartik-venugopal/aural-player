@@ -313,6 +313,7 @@ enum ActionType {
     case showOrHideTimeElapsedRemaining
     
     case changePlayerTextSize
+    case changeEffectsTextSize
     case changePlaylistTextSize
 }
 

@@ -33,7 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize], subscriber: self)
     }
     
     func initControls() {

@@ -28,6 +28,7 @@ enum TextSizeScheme: String {
 class TextSizes {
     
     static var playerScheme: TextSizeScheme = .normal
+    static var effectsScheme: TextSizeScheme = .normal
     static var playlistScheme: TextSizeScheme = .normal
     
     private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
@@ -179,6 +180,40 @@ class TextSizes {
         case .larger: return playlistTrackNameFont_larger
             
         case .largest: return playlistTrackNameFont_largest
+            
+        }
+    }
+    
+    private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15)!
+    private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!
+    
+    static var fxUnitCaptionFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return fxUnitCaptionFont_normal
+            
+        case .larger: return fxUnitCaptionFont_larger
+            
+        case .largest: return fxUnitCaptionFont_largest
+            
+        }
+    }
+    
+    private static let fxUnitFunctionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    private static let fxUnitFunctionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 12.5)!
+    private static let fxUnitFunctionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    
+    static var fxUnitFunctionFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return fxUnitFunctionFont_normal
+            
+        case .larger: return fxUnitFunctionFont_larger
+            
+        case .largest: return fxUnitFunctionFont_largest
             
         }
     }

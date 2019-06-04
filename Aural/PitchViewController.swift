@@ -8,6 +8,23 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
     
+    // Labels
+    @IBOutlet weak var lblCaption: VATextField!
+    
+    @IBOutlet weak var lblPitch: VATextField!
+    @IBOutlet weak var lblPitchMin: VATextField!
+    @IBOutlet weak var lblPitchMax: VATextField!
+    @IBOutlet weak var lblPitchValue: VATextField!
+    
+    @IBOutlet weak var lblOverlap: VATextField!
+    @IBOutlet weak var lblOverlapMin: VATextField!
+    @IBOutlet weak var lblOverlapMax: VATextField!
+    @IBOutlet weak var lblPitchOverlapValue: VATextField!
+    
+    @IBOutlet weak var lblPresets: VATextField!
+    
+    private var functionLabels: [VATextField] = []
+    
     override var nibName: String? {return "Pitch"}
     
     var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
@@ -34,6 +51,11 @@ class PitchViewController: FXUnitViewController {
         super.oneTimeSetup()
         // TODO: Move this to generic view
         pitchView.initialize(unitStateFunction)
+        
+        lblCaption.vAlign = .top
+        
+        functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
+        functionLabels.forEach({$0.vAlign = .center})
     }
     
     override func initControls() {
@@ -105,6 +127,12 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -133,6 +161,10 @@ class PitchViewController: FXUnitViewController {
             default: return
                 
             }
+        }
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
         }
     }
 }
