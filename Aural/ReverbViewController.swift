@@ -26,7 +26,7 @@ class ReverbViewController: FXUnitViewController {
         super.oneTimeSetup()
         reverbView.initialize(reverbStateFunction)
     }
-   
+    
     override func initControls() {
         
         super.initControls()
@@ -49,5 +49,21 @@ class ReverbViewController: FXUnitViewController {
         
         reverbUnit.amount = reverbView.amount
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
+    }
+    
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+    }
+    
+    // MARK: Message handling
+    
+    override func consumeMessage(_ message: ActionMessage) {
+        
+        super.consumeMessage(message)
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
+        }
     }
 }

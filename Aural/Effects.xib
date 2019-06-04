@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,7 +41,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-zz-laJ" userLabel="Tab Buttons Box">
-                                    <rect key="frame" x="14" y="189" width="504" height="35"/>
+                                    <rect key="frame" x="9" y="189" width="504" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="b0o-w1-EZ9">
                                         <rect key="frame" x="0.0" y="0.0" width="504" height="35"/>
@@ -50,7 +50,7 @@
                                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j0D-uE-fqF" userLabel="Master button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="24" y="5" width="58" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Master" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C73-6p-sLz" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="square" title="Master" bezelStyle="shadowlessSquare" image="MasterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C73-6p-sLz" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                     <userDefinedRuntimeAttributes>
@@ -373,6 +373,49 @@
                                     <color key="borderColor" white="0.1031358507" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
+                                <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">
+                                    <rect key="frame" x="502" y="201" width="27" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="g9l-VG-eGh" id="wQk-S7-HzL">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                        <menu key="menu" autoenablesItems="NO" id="sa9-1G-FgT">
+                                            <items>
+                                                <menuItem image="Settings" hidden="YES" id="g9l-VG-eGh">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Text size" id="tm3-Xt-foa">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Text size" id="DLF-Wt-2Oj">
+                                                        <items>
+                                                            <menuItem title="Normal" id="0ib-xQ-hyZ">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="I8n-tl-rZz"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Larger" tag="1" id="CdO-LF-kgA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="qr1-6V-xQ6"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Largest" tag="2" id="ZVY-CZ-bqO">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="E19-AT-2hg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="7Tn-eo-O8X" id="CHZ-PR-oFe"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,6 +444,13 @@
             </connections>
             <point key="canvasLocation" x="-99" y="342"/>
         </window>
+        <customObject id="7Tn-eo-O8X" customClass="EffectsViewPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textSizeLargerMenuItem" destination="CdO-LF-kgA" id="UIv-KH-oeZ"/>
+                <outlet property="textSizeLargestMenuItem" destination="ZVY-CZ-bqO" id="WCt-fc-NMv"/>
+                <outlet property="textSizeNormalMenuItem" destination="0ib-xQ-hyZ" id="SMO-8E-bre"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="Close" width="16" height="16"/>
@@ -414,15 +464,16 @@
         <image name="FilterTab-Mixed" width="26" height="26"/>
         <image name="FilterTab-On" width="26" height="26"/>
         <image name="MasterTab" width="19" height="25"/>
-        <image name="MasterTab-On" width="4.559999942779541" height="6"/>
+        <image name="MasterTab-On" width="19" height="25"/>
         <image name="PitchTab" width="17" height="13"/>
         <image name="PitchTab-Mixed" width="17" height="13"/>
         <image name="PitchTab-On" width="17" height="13"/>
-        <image name="RecorderTab" width="19.5" height="19.5"/>
-        <image name="RecorderTab-On" width="19.5" height="19.5"/>
+        <image name="RecorderTab" width="26" height="26"/>
+        <image name="RecorderTab-On" width="26" height="26"/>
         <image name="ReverbTab" width="25" height="25"/>
         <image name="ReverbTab-Mixed" width="25" height="25"/>
         <image name="ReverbTab-On" width="25" height="25"/>
+        <image name="Settings" width="12" height="12"/>
         <image name="TimeTab" width="12" height="12"/>
         <image name="TimeTab-Mixed" width="12" height="12"/>
         <image name="TimeTab-On" width="12" height="12"/>

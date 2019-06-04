@@ -7,6 +7,23 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
+    @IBOutlet weak var lblRate: VATextField!
+    @IBOutlet weak var lblRateMin: VATextField!
+    @IBOutlet weak var lblRateMax: VATextField!
+    @IBOutlet weak var lblRateValue: VATextField!
+    
+    @IBOutlet weak var lblOverlap: VATextField!
+    @IBOutlet weak var lblOverlapMin: VATextField!
+    @IBOutlet weak var lblOverlapMax: VATextField!
+    @IBOutlet weak var lblOverlapValue: VATextField!
+    
+    @IBOutlet weak var lblPitchShiftValue: VATextField!
+    @IBOutlet weak var btnShiftPitch: NSButton!
+    
+    @IBOutlet weak var lblPresets: VATextField!
+    
+    private var functionLabels: [VATextField] = []
+    
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
@@ -31,6 +48,11 @@ class TimeViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         timeView.initialize(unitStateFunction)
+        
+        lblCaption.vAlign = .top
+        
+        functionLabels = [lblRate, lblOverlap, lblPresets, lblRateMin, lblRateMax, lblRateValue, lblOverlapMin, lblOverlapMax, lblOverlapValue, lblPitchShiftValue]
+        functionLabels.forEach({$0.vAlign = .center})
     }
 
     override func initControls() {
@@ -115,6 +137,14 @@ class TimeViewController: FXUnitViewController {
     private func updatePitchShift() {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
+    
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        btnShiftPitch.redraw()
+        presetsMenu.font = TextSizes.fxUnitFunctionFont
+    }
 
     // MARK: Message handling
 
@@ -135,6 +165,10 @@ class TimeViewController: FXUnitViewController {
             default: return
 
             }
+        }
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
         }
     }
 }

@@ -2,13 +2,19 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var lblArtist: NSTextField!
-    @IBOutlet weak var lblTitle: NSTextField!
+    @IBOutlet weak var lblArtist: VATextField!
+    @IBOutlet weak var lblTitle: VATextField!
     @IBOutlet weak var lblName: NSTextField!
     
     // Fields that display information about the current playback sequence
     @IBOutlet weak var lblScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
+    
+    override func awakeFromNib() {
+        
+        lblTitle.vAlign = .bottom
+        lblArtist.vAlign = .top
+    }
     
     func showView(_ playbackState: PlaybackState) {
         
@@ -57,19 +63,19 @@ class TrackInfoView: NSView {
         
         // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
         
-        let top: CGFloat = self.frame.height
-        let midPoint: CGFloat = self.frame.height / 2
-        
-        if PlayerViewState.showSequenceInfo {
-        
-            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
-            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 2
-            
-        } else {
-        
-            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
-            lblTitle.frame.origin.y = lblArtist.frame.maxY - 2
-        }
+//        let top: CGFloat = self.frame.height
+//        let midPoint: CGFloat = self.frame.height / 2
+//
+//        if PlayerViewState.showSequenceInfo {
+//
+//            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
+//            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
+//
+//        } else {
+//
+//            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
+//            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
+//        }
         
         positionTrackNameLabel()
     }
@@ -89,7 +95,8 @@ class TrackInfoView: NSView {
         var origin = lblName.frame.origin
         
         // Center it wrt artist/title labels
-        origin.y = numLines == 1 ? lblArtist.frame.minY + ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2) : lblArtist.frame.minY - 5
+        let adjustment = ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2)
+        origin.y = numLines == 1 ? lblArtist.frame.minY + adjustment : lblArtist.frame.minY - 5
         
         // Resize the label
         lblName.setFrameSize(lblFrameSize)
@@ -173,6 +180,14 @@ class TrackInfoView: NSView {
         
         otherView.positionTrackInfoLabels()
         otherView.positionScopeImage()
+    }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        lblTitle.font = TextSizes.titleFont
+        lblName.font = TextSizes.titleFont
+        lblArtist.font = TextSizes.artistFont
+        lblScope.font = TextSizes.scopeFont
     }
 }
 

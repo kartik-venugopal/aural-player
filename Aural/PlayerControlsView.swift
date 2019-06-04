@@ -3,8 +3,8 @@ import Cocoa
 class PlayerControlsView: NSView {
     
     // Fields that display/control seek position within the playing track
-    @IBOutlet weak var lblTimeElapsed: NSTextField!
-    @IBOutlet weak var lblTimeRemaining: NSTextField!
+    @IBOutlet weak var lblTimeElapsed: VATextField!
+    @IBOutlet weak var lblTimeRemaining: VATextField!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
@@ -26,8 +26,8 @@ class PlayerControlsView: NSView {
     @IBOutlet weak var panSlider: NSSlider!
     
     // These are feedback labels that are shown briefly and automatically hidden
-    @IBOutlet weak var lblVolume: NSTextField!
-    @IBOutlet weak var lblPan: NSTextField!
+    @IBOutlet weak var lblVolume: VATextField!
+    @IBOutlet weak var lblPan: VATextField!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!
@@ -115,6 +115,15 @@ class PlayerControlsView: NSView {
 
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
+        
+        TextSizes.playerScheme = appState.textSize
+        changeTextSize(appState.textSize)
+        
+        lblTimeElapsed.vAlign = .bottom
+        lblTimeRemaining.vAlign = .bottom
+        
+        lblVolume.vAlign = .center
+        lblPan.vAlign = .top
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -397,6 +406,15 @@ class PlayerControlsView: NSView {
             
             setSeekTimerState(playbackState == .playing)
         }
+    }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        lblTimeElapsed.font = TextSizes.trackTimesFont
+        lblTimeRemaining.font = TextSizes.trackTimesFont
+        
+        lblVolume.font = TextSizes.feedbackFont
+        lblPan.font = TextSizes.feedbackFont
     }
 }
 

@@ -157,6 +157,10 @@ class PlayerView: NSView {
         gapView.handOff(otherView.gapView)
         otherView.artView.image = artView.image
     }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        infoView.changeTextSize(textSize)
+    }
 }
 
 @IBDesignable

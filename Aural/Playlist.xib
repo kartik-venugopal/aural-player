@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -46,7 +46,53 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
+                                <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mzj-Ix-G6c" userLabel="Playlist View Menu">
+                                    <rect key="frame" x="446" y="248" width="27" height="19"/>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9uL-zG-dgf">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                        <menu key="menu" autoenablesItems="NO" id="NNt-P7-zna">
+                                            <items>
+                                                <menuItem image="Settings" hidden="YES" id="RWd-cM-ppk">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="Text size" id="O7r-qv-G9t">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Text size" id="jSz-GN-QV5">
+                                                        <items>
+                                                            <menuItem title="Normal" id="m2K-Zl-YNW">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="DrH-nR-BdV"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Larger" tag="1" id="WHr-gt-cVC">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="sxU-Gl-Xdd"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Largest" tag="2" id="ehX-FT-LYF">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="cn2-8m-o6s"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BRL-5h-wH5" id="9EN-CO-Pof"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="Mzj-Ix-G6c" firstAttribute="top" secondItem="ew4-md-MxP" secondAttribute="top" constant="10" id="4dS-hY-2dT"/>
+                                <constraint firstAttribute="trailing" secondItem="Mzj-Ix-G6c" secondAttribute="trailing" constant="7" id="Igz-Mt-ir9"/>
+                            </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
@@ -125,7 +171,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add">
-                                    <rect key="frame" x="162" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="128" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Gsk-oE-I67"/>
                                     </constraints>
@@ -138,7 +184,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove">
-                                    <rect key="frame" x="175" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="145" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="D7m-Dm-CG2"/>
                                     </constraints>
@@ -151,7 +197,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="Save">
-                                    <rect key="frame" x="200" y="7" width="10" height="10"/>
+                                    <rect key="frame" x="179" y="7" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Cf2-uf-ZBs"/>
                                     </constraints>
@@ -164,7 +210,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear">
-                                    <rect key="frame" x="212" y="7" width="11" height="11"/>
+                                    <rect key="frame" x="196" y="7" width="11" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="11" id="Geq-bs-kJ7"/>
                                     </constraints>
@@ -177,7 +223,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up">
-                                    <rect key="frame" x="231" y="7" width="12" height="11"/>
+                                    <rect key="frame" x="239" y="7" width="12" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="Q5B-Xt-Wnq"/>
                                     </constraints>
@@ -190,7 +236,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down">
-                                    <rect key="frame" x="243" y="5" width="12" height="12"/>
+                                    <rect key="frame" x="254" y="5" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="VP8-VV-4Ga"/>
                                     </constraints>
@@ -203,7 +249,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search">
-                                    <rect key="frame" x="265" y="6" width="10" height="10"/>
+                                    <rect key="frame" x="281" y="6" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="ixN-fc-tcV"/>
                                     </constraints>
@@ -216,7 +262,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort">
-                                    <rect key="frame" x="279" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="298" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="g1n-xy-5Gh"/>
                                         <constraint firstAttribute="height" constant="14" id="nfG-kV-Zuk"/>
@@ -232,27 +278,27 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="Qk9-zq-mea" secondAttribute="bottom" constant="1" id="2hC-hp-rSe"/>
-                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="trailing" secondItem="Qk9-zq-mea" secondAttribute="leading" constant="-8" id="8a4-Pu-47R"/>
+                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="trailing" secondItem="Qk9-zq-mea" secondAttribute="leading" constant="-32" id="8a4-Pu-47R"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="8sm-w3-Gbf" secondAttribute="top" id="BkA-cF-ngE"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="wWy-mP-FPA" secondAttribute="centerY" constant="1.5" id="Fsz-Ac-i2O"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="ypp-e2-yVa" secondAttribute="top" id="I7O-1b-MYs"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="mCM-I4-fro" secondAttribute="bottom" constant="1" id="JKV-LT-v5W"/>
-                                <constraint firstItem="APX-AI-8pn" firstAttribute="leading" secondItem="9Cd-oK-b1c" secondAttribute="trailing" constant="10" id="JyL-ST-bFz"/>
-                                <constraint firstItem="8sm-w3-Gbf" firstAttribute="leading" secondItem="ypp-e2-yVa" secondAttribute="trailing" constant="3" id="OWk-5X-Iw5"/>
+                                <constraint firstItem="APX-AI-8pn" firstAttribute="leading" secondItem="9Cd-oK-b1c" secondAttribute="trailing" constant="15" id="JyL-ST-bFz"/>
+                                <constraint firstItem="8sm-w3-Gbf" firstAttribute="leading" secondItem="ypp-e2-yVa" secondAttribute="trailing" constant="7" id="OWk-5X-Iw5"/>
                                 <constraint firstItem="9Cd-oK-b1c" firstAttribute="bottom" secondItem="Fch-nI-JUY" secondAttribute="bottom" id="OhQ-2b-6tx"/>
-                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="leading" secondItem="Qk9-zq-mea" secondAttribute="trailing" id="QSh-Hd-rsn"/>
-                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="leading" secondItem="mCM-I4-fro" secondAttribute="trailing" constant="2" id="T7m-Nn-mz0"/>
+                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="leading" secondItem="Qk9-zq-mea" secondAttribute="trailing" constant="3" id="QSh-Hd-rsn"/>
+                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="leading" secondItem="mCM-I4-fro" secondAttribute="trailing" constant="7" id="T7m-Nn-mz0"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="mCM-I4-fro" secondAttribute="top" constant="1" id="TLP-2f-pAa"/>
                                 <constraint firstItem="Qk9-zq-mea" firstAttribute="top" secondItem="Fch-nI-JUY" secondAttribute="top" constant="1" id="TWE-rL-R9c"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="8sm-w3-Gbf" secondAttribute="bottom" constant="1" id="VJf-75-o1P"/>
-                                <constraint firstItem="Qk9-zq-mea" firstAttribute="centerX" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="12" id="VU2-BS-58P"/>
+                                <constraint firstItem="Qk9-zq-mea" firstAttribute="centerX" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="20" id="VU2-BS-58P"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="wWy-mP-FPA" secondAttribute="top" constant="9" id="Wth-uU-yGf"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="9Cd-oK-b1c" secondAttribute="top" constant="1" id="e7h-gS-C8T"/>
-                                <constraint firstItem="mCM-I4-fro" firstAttribute="leading" secondItem="8sm-w3-Gbf" secondAttribute="trailing" constant="15" id="ePZ-Zn-5pa"/>
+                                <constraint firstItem="mCM-I4-fro" firstAttribute="leading" secondItem="8sm-w3-Gbf" secondAttribute="trailing" constant="24" id="ePZ-Zn-5pa"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="Fch-nI-JUY" secondAttribute="centerY" constant="1" id="egN-pS-dHw"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="Rcf-sJ-PsH" secondAttribute="centerY" constant="1.5" id="fD7-IA-zzI"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="ypp-e2-yVa" secondAttribute="bottom" constant="1" id="qka-eT-Dtg"/>
-                                <constraint firstItem="Fch-nI-JUY" firstAttribute="leading" secondItem="APX-AI-8pn" secondAttribute="trailing" constant="4" id="v8T-0o-nWk"/>
+                                <constraint firstItem="Fch-nI-JUY" firstAttribute="leading" secondItem="APX-AI-8pn" secondAttribute="trailing" constant="7" id="v8T-0o-nWk"/>
                                 <constraint firstItem="Rcf-sJ-PsH" firstAttribute="top" secondItem="wWy-mP-FPA" secondAttribute="top" constant="7" id="zmQ-RE-j7m"/>
                             </constraints>
                         </view>
@@ -486,6 +532,13 @@
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
                 <outlet property="transcodeTrackMenuItem" destination="s9W-FB-XJa" id="NUb-CO-DAG"/>
+            </connections>
+        </customObject>
+        <customObject id="BRL-5h-wH5" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textSizeLargerMenuItem" destination="WHr-gt-cVC" id="AJy-BM-viX"/>
+                <outlet property="textSizeLargestMenuItem" destination="ehX-FT-LYF" id="WcU-MX-e0Z"/>
+                <outlet property="textSizeNormalMenuItem" destination="m2K-Zl-YNW" id="0wC-3k-SQF"/>
             </connections>
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
@@ -810,14 +863,14 @@
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
-        <image name="Clear" width="5.1999998092651367" height="6"/>
+        <image name="Clear" width="26" height="30"/>
         <image name="Close" width="16" height="16"/>
         <image name="DelayedPlayback" width="15" height="15"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Gap-Padded-Small" width="15" height="15"/>
-        <image name="MoreInfo-Padded-Small" width="3.5999999046325684" height="3.5999999046325684"/>
+        <image name="MoreInfo-Padded-Small" width="15" height="15"/>
         <image name="PageDown" width="32" height="24"/>
         <image name="PageUp" width="32" height="24"/>
         <image name="Play-Padded-Small" width="15" height="15"/>
@@ -827,7 +880,8 @@
         <image name="ScrollToBottom" width="27" height="27"/>
         <image name="ScrollToTop" width="27" height="27"/>
         <image name="Search" width="26" height="26"/>
-        <image name="ShowInFinder" width="11.25" height="11.25"/>
+        <image name="Settings" width="12" height="12"/>
+        <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>
