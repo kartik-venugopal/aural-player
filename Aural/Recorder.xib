@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,7 +10,6 @@
             <connections>
                 <outlet property="btnRecord" destination="SeT-Td-HFB" id="Lqa-s6-ptk"/>
                 <outlet property="formatMenu" destination="qaf-yf-lNI" id="TvC-c7-Rmt"/>
-                <outlet property="lblCaption" destination="0UX-B8-M5x" id="1PT-yc-t5D"/>
                 <outlet property="lblRecorderDuration" destination="nmg-jN-vJt" id="cX0-Lx-5WM"/>
                 <outlet property="lblRecorderFileSize" destination="FOY-Ai-hdi" id="m3n-6j-SUA"/>
                 <outlet property="recordingInfoBox" destination="Acc-ym-OC5" id="x3v-dE-HnK"/>

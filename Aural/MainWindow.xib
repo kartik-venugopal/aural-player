@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -74,14 +74,14 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                 </imageView>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Player View Menu">
-                                    <rect key="frame" x="426" y="202" width="25" height="15"/>
+                                    <rect key="frame" x="426" y="202" width="25" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" autoenablesItems="NO" id="drC-pX-0Rs">
                                             <items>
-                                                <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z">
+                                                <menuItem image="PlayerView-Menu" hidden="YES" id="HM2-5O-u4Z">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
@@ -108,8 +108,11 @@
                                                         <action selector="showOrHidePlayingTrackInfoAction:" target="gF1-jg-yeJ" id="QKj-gQ-Bv5"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
+                                                <menuItem title="Playback sequence info" id="4O6-OC-jAh">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideSequenceInfoAction:" target="gF1-jg-yeJ" id="g8A-Mb-aoc"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem title="Playing track functions" id="Yhs-qW-5Tg">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -128,32 +131,6 @@
                                                     <connections>
                                                         <action selector="showOrHideTimeElapsedRemainingAction:" target="gF1-jg-yeJ" id="68i-0Z-ouj"/>
                                                     </connections>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="poS-7C-6hH"/>
-                                                <menuItem title="Text size" id="tGm-Ku-PMk">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="yiL-Aw-PVn">
-                                                        <items>
-                                                            <menuItem title="Normal" id="WMi-DW-j1p">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="jwH-Pm-p40"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="i0Q-3C-2D1">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="3jp-e9-IEI"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="zms-M0-3gJ">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="GeF-aM-s48"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="QIK-XF-WQD"/>
                                                 <menuItem title="Time elapsed display" id="eFE-oQ-dY3">
@@ -230,7 +207,7 @@
                                     </connections>
                                 </popUpButton>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="461" y="204" width="15" height="10"/>
+                                    <rect key="frame" x="456" y="204" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -247,7 +224,7 @@
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="480" y="204" width="15" height="10"/>
+                                    <rect key="frame" x="475" y="204" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -348,12 +325,10 @@
                 <outlet property="playerExpandedArtViewMenuItem" destination="P5U-AN-0cd" id="Bfo-1I-nwk"/>
                 <outlet property="showArtMenuItem" destination="1PV-wr-DCy" id="JTH-65-x6h"/>
                 <outlet property="showMainControlsMenuItem" destination="5JO-9V-Tpl" id="RGL-eZ-Qup"/>
+                <outlet property="showSequenceInfoMenuItem" destination="4O6-OC-jAh" id="vDm-KG-YpH"/>
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="qVo-UC-jVo" id="Qd6-R2-zYB"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Yhs-qW-5Tg" id="9hA-X9-zhj"/>
                 <outlet property="showTrackInfoMenuItem" destination="fVd-mV-11I" id="963-7n-J5M"/>
-                <outlet property="textSizeLargerMenuItem" destination="i0Q-3C-2D1" id="qlk-FW-cmO"/>
-                <outlet property="textSizeLargestMenuItem" destination="zms-M0-3gJ" id="htA-0c-DoL"/>
-                <outlet property="textSizeNormalMenuItem" destination="WMi-DW-j1p" id="OSz-v3-iti"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="eFE-oQ-dY3" id="zwz-oU-17W"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="eWc-7F-XQe" id="xuU-mo-QsP"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="U8Y-9v-cIm" id="QvX-Kw-ZUY"/>
@@ -372,11 +347,11 @@
         <image name="Close" width="16" height="16"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>
-        <image name="FloatingBarMode" width="32" height="32"/>
+        <image name="FloatingBarMode" width="24" height="24"/>
         <image name="Hide" width="14" height="14"/>
+        <image name="PlayerView-Menu" width="12" height="12"/>
         <image name="PlaylistView-Off" width="28" height="24"/>
         <image name="PlaylistView-On" width="28" height="24"/>
-        <image name="Settings" width="12" height="12"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>

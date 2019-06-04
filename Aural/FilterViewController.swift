@@ -241,20 +241,4 @@ class FilterViewController: FXUnitViewController {
             tabButtons.forEach({$0.state = $0.tag == selTab ? UIConstants.onState : UIConstants.offState})
         }
     }
-    
-    private func changeTextSize() {
-        
-        lblCaption.font = TextSizes.fxUnitCaptionFont
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
-    }
 }

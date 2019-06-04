@@ -33,11 +33,6 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var timeRemainingMenuItem_durationSeconds: NSMenuItem!
     private var timeRemainingDisplayFormats: [NSMenuItem] = []
     
-    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
-    private var textSizes: [NSMenuItem] = []
-    
     private let viewAppState = ObjectGraph.appState.ui.player
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -46,7 +41,6 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
         timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
-        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -63,14 +57,14 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-//        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
+        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
         
         let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
         showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-//        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
+        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
@@ -108,20 +102,6 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
             case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
                 
             }
-        }
-        
-        textSizes.forEach({
-            $0.off()
-        })
-        
-        switch PlayerViewState.textSize {
-            
-        case .normal:   textSizeNormalMenuItem.on()
-            
-        case .larger:   textSizeLargerMenuItem.on()
-            
-        case .largest:  textSizeLargestMenuItem.on()
-            
         }
     }
    
@@ -197,20 +177,5 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
-    }
-    
-    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
-        
-        let senderTitle: String = sender.title.lowercased()
-        let size = TextSizeScheme(rawValue: senderTitle)!
-        
-        if TextSizes.playerScheme != size {
-            
-            TextSizes.playerScheme = size
-            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
-            
-        } else {
-            print("\nSAME !!!")
-        }
     }
 }

@@ -46,7 +46,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -580,15 +580,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func changeTextSize() {
-        
-        let selRows = playlistView.selectedRowIndexes
-        playlistView.reloadData()
-        playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
-    }
-    
-    // MARK: Message handling
-    
     var subscriberId: String {
         return self.className
     }
@@ -753,10 +744,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             }
             
             return
-        }
-        
-        if message is TextSizeActionMessage {
-            changeTextSize()
         }
         
         if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {

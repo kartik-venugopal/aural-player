@@ -3,8 +3,6 @@ import Cocoa
 class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
-    
-    @IBOutlet weak var lblCaption: VATextField!
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -35,7 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
     
     func initControls() {
