@@ -1,0 +1,346 @@
+/*
+    screen.css
+    for the Moniker theme 
+*/
+
+/* content styles */
+
+html {
+	background-color: white;
+	color: black;
+	font-family: Arial, Lucida Grande, sans-serif;
+	font-size: 0.85em;
+	line-height: 1.25em;
+}
+
+
+a:link, a:visited, a.interwiki { text-decoration: none; color: #0044B3; }
+#page a:link:hover, #page a:visited:hover { text-decoration: underline; background-color: #d0e6ff; }
+a.nonexistent, a.badinterwiki {color: gray;}
+
+
+a.www:before {content: url(../img/moin-www.png); margin: 0 0.2em;}
+a.http:before {content: url(../img/moin-www.png); margin: 0 0.2em;}
+a.https:before {content: url(../img/moin-www.png); margin: 0 0.2em;}
+a.file:before {content: url(../img/moin-ftp.png); margin: 0 0.2em;}
+a.ftp:before {content: url(../img/moin-ftp.png); margin: 0 0.2em;}
+a.nntp:before {content: url(../img/moin-news.png); margin: 0 0.2em;}
+a.news:before {content: url(../img/moin-news.png); margin: 0 0.2em;}
+a.telnet:before, a.ssh:before {content: url(../img/moin-telnet.png); margin: 0 0.2em;}
+a.irc:before, a.ircs:before  {content: url(../img/moin-telnet.png); margin: 0 0.2em;}
+a.mailto:before {content: url(../img/moin-email.png); margin: 0 0.2em;}
+a.attachment:before {content: url(../img/moin-attach.png); margin: 0 0.2em;}
+a.badinterwiki:before {content: url(../img/moin-inter.png); margin: 0 0.2em;}
+a.interwiki:before {content: url(../img/moin-inter.png); margin: 0 0.2em; }
+
+
+/* headings */
+
+h1 a {
+	text-decoration: none;    
+	color: black;
+}
+li p {
+	margin: .25em 0;
+}
+li.gap {
+	margin-top: 0.5em;
+}
+a, img, img.drawing {
+	border: 0;
+}
+
+
+
+dt {	font-weight: bold; 
+	margin-top: 15px; 
+	margin-left: 15px;
+	}
+	
+
+pre {
+	padding: 0.5em;
+	font-family: courier, monospace;
+	border: 1pt solid #c0c0c0;
+	color: #8b0000;
+	background: #F0ECE6;
+	white-space: pre;
+	/* begin css 3 or browser specific rules - do not remove!
+	see: http://forums.techguy.org/archive/index.php/t-249849.html */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* end css 3 or browser specific rules */
+}
+table {
+	margin: 0.5em 0;
+	border-collapse: collapse;
+}
+td {
+	padding: 0.25em;
+	border: 1px solid #ADB9CC;
+}
+td p {
+	margin: 0;
+	padding: 0;
+}
+
+/* standard rule ---- */
+hr {
+	height: 1px;
+	background-color: #c0c0c0;
+	border: none;
+}
+
+/* custom rules ----- to ---------- */
+.hr1 {height: 1px;}
+.hr2 {height: 3px;}
+.hr3 {height: 4px;}
+.hr4 {height: 5px;}
+.hr5 {height: 6px;}
+.hr6 {height: 7px;}
+
+/* replacement for html 3 u tag */
+.u {text-decoration: underline;}
+
+/* new in version 1.5 */
+.strike {text-decoration: line-through;}
+
+/* TableOfContents macro */
+.table-of-contents { 
+	background: #FAFAFA;
+	border-color: #9c9c9c;
+	border-style: dotted;
+	border-width: 1px;
+	font-size: small;
+	text-align:left;
+	margin: 3px;
+	width: 60%;
+}
+.table-of-contents-heading { 
+	background: #808080;
+	color: white;
+	font-weight: bold;
+	padding: 1px;
+	padding-left: 5px;
+	margin: 0px;
+}
+
+footnotes ul {
+	padding: 0 2em;
+	margin: 0 0 1em;
+}
+.footnotes li {
+	list-style: none;
+}
+.info {
+    color: gray;
+}
+
+/* eye catchers */
+.warning, .error {
+	color: red;
+}
+strong.highlight {
+	background-color: #CCE0FF;
+	padding: 1pt;
+}
+
+/* recent changes */
+.recentchanges p {
+	margin: 0.25em;
+}
+.recentchanges td {
+	vertical-align: top;
+	border: none;
+	border-bottom: 1pt solid #F0ECE6;
+	background: #F7F6F2;
+}
+.rcdaybreak td {
+	background: #B8C5D9;
+	border: none;
+}
+.rcdaybreak td a {
+	font-size: 0.88em;
+}
+.rcicon1, .rcicon2 {
+	text-align: center;
+}
+.rcpagelink {
+	width: 33%;
+}
+.rctime {
+	font-size: 0.88em;
+	white-space: nowrap;
+}
+.rceditor {
+	white-space: nowrap;
+	font-size: 0.88em;
+}
+.rccomment {
+	width: 66%;
+	color: gray;
+	font-size: 0.88em;
+}
+.rcrss {
+	float: right;
+}
+.recentchanges[dir="rtl"] .rcrss {
+	float: left;
+}
+
+/* user preferences */
+.userpref table, .userpref td {
+	border: none;
+}
+
+/* new code_area markup used by Colorizer and ParserBase */
+div.codearea { /* the div makes the border */
+	margin: 0.5em 0;
+	padding: 0;
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	color: black;
+}
+div.codearea pre { /* the pre has no border and is inside the div */
+	margin: 0;
+	padding: 10pt;
+	border: none;
+}
+a.codenumbers { /* format of the line numbering link */
+	margin: 0 10pt;
+	font-size: 0.85em;
+	color: gray;
+}
+
+/* format of certain syntax spans */
+div.codearea pre span.LineNumber {color: gray;}
+div.codearea pre span.ID         {color: #000000;}
+div.codearea pre span.Operator   {color: #0000C0;}
+div.codearea pre span.Char       {color: #004080;}
+div.codearea pre span.Comment    {color: #008000;}
+div.codearea pre span.Number     {color: #0080C0;}
+div.codearea pre span.String     {color: #004080;}
+div.codearea pre span.SPChar     {color: #0000C0;}
+div.codearea pre span.ResWord    {color: #A00000;}
+div.codearea pre span.ConsWord   {color: #008080; font-weight: bold;}
+div.codearea pre span.Error      {color: #FF8080; border: solid 1.5pt #FF0000;}
+div.codearea pre span.ResWord2   {color: #0080ff; font-weight: bold;}
+div.codearea pre span.Special    {color: #0000ff;}
+div.codearea pre span.Preprc     {color: #803999;}
+
+#pageinfo {
+    margin-top: 80px;
+}
+#credits img {
+	vertical-align: middle;
+}
+#preview {
+	border: 2px solid #e5e5e5;
+	padding: .5em;
+	background: url(../img/draft.png);
+}
+
+/* diffs */
+.diff {
+	width:99%;
+}
+.diff-title {
+	background-color: #c0c0c0;
+}
+.diff-added {
+	background-color: #e0ffe0;
+	vertical-align: sub;
+}
+.diff-removed {
+	background-color: #ffffe0;
+	vertical-align: sub;
+}
+.diff-added span {
+	background-color: #80ff80;
+}
+.diff-removed span {
+	background-color: #ffff80;
+}
+
+/* dialog */
+form.dialog {
+	margin: 0 15px;
+}
+.dialog td {
+	border: none;
+	padding: 5px;
+}
+.dialog td.label {
+	text-align: right;
+	font-weight: bold;
+	width: 25%;
+}
+*[dir="rtl"] .dialog td.label {
+	text-align: left;
+}
+.dialog td.content input {
+	width: 100%;
+}
+
+/* message */
+#message p {
+	margin: 5px;
+	font-weight: bold;
+}
+
+#message div.buttons {
+	font-weight: normal;
+}
+
+
+/* ---- admonition start ---- */
+#content div.caution, 
+#content div.important, 
+#content div.note, 
+#content div.tip, 
+#content div.warning {
+    border: 1pt solid #E5E5E5;
+    background-color: #F9F9FF;
+    color: black;
+    
+    margin: 10pt 30pt 10pt 30pt;
+    background-repeat: no-repeat;
+    background-position: 8px 8px;
+    min-height: 64px; /*64=48+8+8 but doesn't work with IE*/
+    padding-left: 64px;
+}
+ 
+#content div.caution p, 
+#content div.important p, 
+#content div.note p, 
+#content div.tip p, 
+#content div.warning p {
+    margin-top: 8px; /*to align text with bg graphic*/
+}
+
+#content div.tip { background-image: url("../img/admon-tip.png"); }
+#content div.note { background-image: url("../img/admon-note.png"); }
+#content div.important { background-image: url("../img/admon-important.png"); }
+#content div.caution { background-image: url("../img/admon-caution.png"); }
+#content div.warning { background-image: url("../img/admon-warning.png"); }
+/* ---- admonition end ---- */
+
+
+
+/* AttachmentTable */
+.attachmentTable {
+}
+
+.attachmentTable td {
+    padding-bottom: 6px;
+    vertical-align: bottom;
+}
+    
+/* fixes the upload table on the upload page */
+
+.attachfiletable td {
+     border-width: 0px
+     }

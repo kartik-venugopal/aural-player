@@ -1,0 +1,580 @@
+/* iTunes Affiliate Site Styles */
+
+/* FONTS */
+
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: normal;
+	font-weight: 100;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_ultralight.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_ultralight.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: italic;
+	font-weight: 100;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_ultralight-italic.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_ultralight-italic.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro 100';
+	src: url("../font/Myriad-Set-Pro/v1/myriad-set-pro_ultralight.eot");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: normal;
+	font-weight: 200;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_thin.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_thin.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: italic;
+	font-weight: 200;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_thin-italic.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_thin-italic.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro 200';
+	src: url("../font/Myriad-Set-Pro/v1/myriad-set-pro_thin.eot");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: italic;
+	font-weight: 400;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_text-italic.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_text-italic.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: normal;
+	font-weight: 600;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_semibold.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_semibold.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: italic;
+	font-weight: 600;
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_semibold-italic.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_semibold-italic.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro 600';
+	src: url("../font/Myriad-Set-Pro/v1/myriad-set-pro_semibold.eot");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+@font-face {
+	font-family: 'Myriad Set Pro';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../font/Myriad-Set-Pro/v1/myriad-set-pro_text.eot");
+	src: local('☺︎'), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_text.woff") format("woff"), url("../font/Myriad-Set-Pro/v1/myriad-set-pro_text.ttf") format("truetype");/* Copyright (c) 1992 Adobe Systems Incorporated. All Rights Reserved. Myriad is a trademark of Adobe Systems Incorporated. */
+}
+
+/* apple icons */
+@font-face {
+    font-family: 'appleicons text';
+    src: url('../font/appleicons_text.eot');
+    src: url('../font/appleicons_text.eot?#iefix') format('embedded-opentype'),
+         url('../font/appleicons_text.woff2') format('woff2'),
+         url('../font/appleicons_text.woff') format('woff'),
+         url('../font/appleicons_text.ttf') format('truetype'),
+         url('../font/appleicons_text.svg#appleicons textregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'appleicons thin';
+    src: url('../font/appleicons_thin.eot');
+    src: url('../font/appleicons_thin.eot?#iefix') format('embedded-opentype'),
+         url('../font/appleicons_thin.woff2') format('woff2'),
+         url('../font/appleicons_thin.woff') format('woff'),
+         url('../font/appleicons_thin.ttf') format('truetype'),
+         url('../font/appleicons_thin.svg#appleicons textregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'appleicons ultralight';
+    src: url('../font/appleicons_ultralight.eot');
+    src: url('../font/appleicons_ultralight.eot?#iefix') format('embedded-opentype'),
+         url('../font/appleicons_ultralight.woff2') format('woff2'),
+         url('../font/appleicons_ultralight.woff') format('woff'),
+         url('../font/appleicons_ultralight.ttf') format('truetype'),
+         url('../font/appleicons_ultralight.svg#appleicons textregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.appleicons.text {
+	font-family: 'appleicons text';
+}
+.appleicons.thin {
+	font-family: 'appleicons thin';
+}
+.appleicons.ultralight {
+	font-family: 'appleicons ultralight';
+}
+
+/* GENERAL */
+
+html {
+	background: #f2f2f2;
+}
+body {
+	color: #333;
+	font-style: normal;
+	font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif"!important;
+	font-size: 18px;
+	line-height: 1.45;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	background: #fff;
+}
+
+/* Narrowing the bootstrap container */
+.container {
+    max-width: 980px;
+}
+
+img {
+	max-width: 100%;
+	height: auto;	
+}
+
+.contentbody * {
+	word-wrap: break-word;
+}
+hr {
+	background: #fff;
+	margin: 20px 0;
+}
+
+/* Header - Logo */
+.navbar-default {
+	background: rgba(255, 255, 255, .95);
+}
+.ac-ln-title {
+    font-size: 28px;
+    line-height: 1.85714;
+    font-weight: 200;
+    letter-spacing: normal;
+    cursor: default;
+    float: left;
+    margin: 0;
+    padding: 0;
+    height: 52px;
+    white-space: nowrap;
+}
+.ac-ln-title a {
+    color: #333;
+	display: inline-block;
+	line-height: 1;
+	margin: 0;
+	text-decoration: none;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+.ac-ln-title a:hover {
+	text-decoration: none;
+}
+
+.icon-bar {
+	margin: 6px 0 4px 4px;
+	border-radius: 0px;
+	width: 16px;
+}
+
+/* SUB NAV */
+.nav li, .nav-bordered li, .nav-spaced li {
+	display: inline-block;
+}
+.nav li a, .nav-bordered li a, .nav-spaced li a {
+	font-weight: normal;
+	top: 3px;
+}
+
+li#pn-market a {
+    color: #999 !important;
+    cursor: default;
+}
+
+@media screen and (max-width: 768px) {
+ .navbar-header button {
+ border: none;
+ background-color:transparent;
+}
+button.navbar-toggle.collapsed:hover {
+ background-color:transparent;
+}
+.navbar-collapse {
+	white-space: nowrap;
+	overflow-x: auto;
+	max-height: 50px;
+	-webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+}
+@media (min-width: 768px) and (max-width: 991px) { 
+.nav > li > a { padding: 17px 10px 15px; }  
+.ac-ln-title {
+    font-size: 22px;
+}
+ul.nav {
+	font-size: 12px;	
+}
+}
+#productheader {
+	font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+	border-bottom: 0;
+	padding-bottom: 4px;
+}
+#productheader h2 {
+	margin-top: -4px;
+}
+#productheader h2 a {
+	line-height: auto;
+}
+.brand-text {
+	color: #777;
+	font-size: 18px;
+}
+.navbar-right {
+	font-size: 14px;
+	font-weight: 500;
+}
+.navbar-right a.active {
+	color: #bbb!important;
+}
+.intro {
+	background: #fff;
+	padding-top: 100px;
+	padding-bottom: 20px;
+}
+div.intro.right {
+	margin: 0 auto;
+	text-align: center;
+	width: 350px;
+}
+.intro h1 {
+	font-weight: 200;
+	font-size: 50px;
+	color: #333;
+}
+.intro h1 a {
+	color: #333 !important;
+}
+h2 {
+	font-size: 36px;
+	line-height: 38px;
+	font-weight: 200;
+}
+.intro .icons {
+	margin: 30px 0;
+}
+.intro .icons img {
+	/* width: 320px; */
+	max-width: 100%;
+	height: auto;
+}
+.intro .copy {
+	font-size: 17px;
+	font-weight: normal;
+	color: #777;
+	line-height: 1.5;
+	margin-bottom: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.intro-cta {
+	margin: 15px 0 10px;
+}
+@media screen and (max-width: 768px) {
+	.intro h1 {
+		font-size: 36px;	
+	}
+	h2 {
+		font-size: 28px;	
+	}
+	.intro .icons {
+		margin: 20px 0;	
+	}
+}
+
+/* HOME - MIDDLE (NEWS/ASK)
+==========================*/
+.entries {
+	background: #fff;
+	padding-bottom: 30px;
+}
+.entries .section {
+	padding: 0 60px;
+	margin: 30px auto;
+}
+.entries h3, .documentation h3 {
+	margin: 0 auto 30px;
+    line-height: 1.1429;
+    font-weight: 200;
+    font-size: 36px;
+}
+.entries .section:first-child {
+	border-right: 1px solid #eee;
+}
+.ask_img {
+	width: 140px;
+	height: auto;
+	margin: 0 auto;
+}
+@media screen and (max-width: 991px) {
+	.entries .section:first-child {
+		border-right: none;
+	}
+}
+@media screen and (max-width: 480px) {
+	.entries h3, .documentation h3 { 
+		font-size: 22px;
+		line-height: 24px;	
+	}
+}
+
+a.more:after {
+	font-family: 'appleicons text';
+	content: ' F';
+}
+
+/* HOME - LATEST NEWS 
+==========================*/
+.more.blogarchives {
+	/*float: right;*/
+	font-size: 16px;
+}
+.entries .item {
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+.entries .title {
+	color: #000;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.entries .timestamp {
+	font-size: 13px;
+	text-transform: uppercase;
+	color: #999;
+}
+.entries .excerpt p, .entries .excerpt a {
+	display: inline;
+}
+.entries .excerpt a.more {
+	white-space: nowrap;	
+}
+/* HOME - ASK US ANYTHING 
+==========================*/
+.section.ask img {
+	margin: 0 0 30px;
+}
+.ask_copy {
+	font-size: 1.0em;
+}
+
+/* HOME - DOCUMENTATION 
+==========================*/
+.documentation {
+	background: #fff;
+	padding-bottom: 20px;
+}
+.documentation h4 {
+	font-size: 18px;
+	font-weight: 400;	
+}
+/*.documentation a {
+	color: #337ab7;
+}*/
+.documentation .row {
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+.documentation .item {
+	font-size: 16px;
+	padding-left: 9%;
+	border-left: 1px solid #eee;
+	padding-bottom: 99999px;
+	margin-bottom: -99999px;
+}
+.documentation .item.first {
+	border: none;
+}
+@media screen and (max-width: 768px) {
+	.documentation .item {
+	font-size: 16px;
+	padding-left: 15px;
+	border-left: none;
+	padding-bottom: 0px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	text-align:center;
+}
+}
+
+/* SINGLE POST/PAGE
+==========================*/
+.post {
+	
+}
+.contentbody pre {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap !important;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+	padding: 10px;
+	border: 1px dashed #ccc;
+}
+.contentbody p, .contentbody ul, .contentbody ol, .contentbody table, .contentbody h3, .contentbody h4, .contentbody hr, .contentbody pre {
+	margin-bottom: 18px;
+}
+
+h2.restitle {
+	font-size: 38px;
+	line-height: 42px;
+	margin: 0 0 30px;
+	color: #333;
+}	
+@media screen and (max-width: 480px) {
+	h2.restitle { 
+		font-size: 30px;
+		line-height: 35px;	
+	}
+}
+.contentbody p {
+	font-size: 16px;
+	font-weight: 400;
+	color: #555;
+}
+.contentbody h3 {
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 400;
+	color: #333;
+}
+.contentbody h4 {
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: 400;
+	color: #000;
+}
+.contentbody h5 {
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: 400;
+	color: #000;
+	margin-bottom: 9px;
+}
+.contentbody h6 {
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: bold;
+	margin-bottom: 9px;
+}
+.contentbody ul, .contentbody ol {
+	font-size: 16px;
+	font-weight: 400;
+	color: #555;
+	margin-left: 20px;
+	margin-bottom: 30px;
+}
+.contentbody ul {
+	list-style: disc;
+}
+.contentbody li {
+	margin-bottom: 10px;	
+}
+.contentbody ul ul {
+	margin-top: 10px;	
+}
+@media screen and (max-width: 480px) {
+	.contentbody ul, .contentbody ol {
+		margin-left: 10px;
+		padding-left: 10px;
+	}
+}
+.contentbody ul li ul, .contentbody ul li p {
+	margin-bottom: 0;
+}
+.contentbody th, .contentbody td {
+	padding: 3px 5px;
+}
+
+/* Content - Tables 
+--------------------------------*/
+table {
+	border: 1px solid #ddd;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	width: 100%;	
+	max-width: 100%;
+	table-layout: fixed;	
+}
+.contentbody th, .contentbody td, .contentbody td p {
+	font-size: 13px;
+}
+.contentbody th {
+	border: 1px solid #ddd;
+	background-color: #eee;
+	color: #333;
+	font-weight: bold;
+}
+.contentbody td {
+	border: 1px solid #ddd;
+	vertical-align: top;	
+}
+.contentbody img {
+	max-width: 100%;
+}
+.contentbody td ul, .contentbody td ol {
+	font-size: 13px;	
+	margin-left: 12px;
+}
+
+@media screen and (max-width: 767px) {
+	.contentbody th, .contentbody td, .contentbody td p {
+		font-size: 11px;
+	}
+}
+
+/* RESOURCES
+--------------------------------*/
+.additional {
+	font-weight: 200;
+}
+.resources {
+	padding-top: 0px;
+	padding-bottom: 40px;
+	background: #fff;
+}
+@media screen and (max-width: 767px) {
+	.container.resources h2 {
+		font-size: 20px;
+	}
+	.container.resources div div div {
+		font-size: 14px;
+	}
+}
+
+
+/* 404.php 
+--------------------------------*/
+.error404 .post {
+	text-align: center;
+	margin: 60px 0;
+}
+
+
+/*--- FOOTER ---
+===============================*/
+
+.footer-links>li>a.contact_us {
+    border-right: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
