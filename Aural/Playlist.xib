@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -810,14 +810,14 @@
     </objects>
     <resources>
         <image name="Add" width="25" height="25"/>
-        <image name="Clear" width="5.1999998092651367" height="6"/>
+        <image name="Clear" width="26" height="30"/>
         <image name="Close" width="16" height="16"/>
         <image name="DelayedPlayback" width="15" height="15"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Gap-Padded-Small" width="15" height="15"/>
-        <image name="MoreInfo-Padded-Small" width="3.5999999046325684" height="3.5999999046325684"/>
+        <image name="MoreInfo-Padded-Small" width="15" height="15"/>
         <image name="PageDown" width="32" height="24"/>
         <image name="PageUp" width="32" height="24"/>
         <image name="Play-Padded-Small" width="15" height="15"/>
@@ -827,7 +827,7 @@
         <image name="ScrollToBottom" width="27" height="27"/>
         <image name="ScrollToTop" width="27" height="27"/>
         <image name="Search" width="26" height="26"/>
-        <image name="ShowInFinder" width="11.25" height="11.25"/>
+        <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>
