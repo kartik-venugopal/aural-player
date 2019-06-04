@@ -102,6 +102,25 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
+    private func changeTextSize() {
+        
+        resizeLabelText(self.view)
+        
+        presetsMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    private func resizeLabelText(_ view: NSView) {
+        
+        for subView in view.subviews {
+            
+            if let label = subView as? NSTextField {
+                label.font = TextSizes.fxUnitFunctionFont
+            }
+            
+            resizeLabelText(subView)
+        }
+    }
+    
     // MARK: Message handling
     
     override func consumeMessage(_ message: ActionMessage) {
@@ -127,6 +146,10 @@ class EQViewController: FXUnitViewController {
             default: return
                 
             }
+        }
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
         }
     }
 }

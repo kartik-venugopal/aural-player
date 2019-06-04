@@ -7,9 +7,6 @@ class ReverbViewController: FXUnitViewController {
     
     @IBOutlet weak var reverbView: ReverbView!
     
-    // Labels
-    @IBOutlet weak var lblCaption: NSTextField!
-    
     override var nibName: String? {return "Reverb"}
     
     var reverbUnit: ReverbUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.reverbUnit

@@ -7,9 +7,6 @@ class FilterViewController: FXUnitViewController {
     
     @IBOutlet weak var filterView: FilterView!
     
-    // Labels
-    @IBOutlet weak var lblCaption: NSTextField!
-    
     @IBOutlet weak var btnAdd: NSButton!
     @IBOutlet weak var btnRemove: NSButton!
     @IBOutlet weak var btnScrollLeft: NSButton!

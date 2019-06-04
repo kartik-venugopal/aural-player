@@ -5,18 +5,7 @@ class MasterViewController: FXUnitViewController {
     @IBOutlet weak var masterView: MasterView!
     
     // Labels
-    @IBOutlet weak var lblCaption: VATextField!
-    
-    @IBOutlet weak var lblEQSwitch: VATextField!
-    @IBOutlet weak var lblPitchSwitch: VATextField!
-    @IBOutlet weak var lblTimeSwitch: VATextField!
-    @IBOutlet weak var lblReverbSwitch: VATextField!
-    @IBOutlet weak var lblDelaySwitch: VATextField!
-    @IBOutlet weak var lblFilterSwitch: VATextField!
-    
-    @IBOutlet weak var lblPresets: VATextField!
-    
-    private var functionLabels: [VATextField] = []
+    private var functionLabels: [NSTextField] = []
 
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
@@ -50,9 +39,31 @@ class MasterViewController: FXUnitViewController {
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
         
         lblCaption.vAlign = .top
+
+        functionLabels = allLabels(self.view)
+        functionLabels.forEach({
+            
+            if let vaLabel = $0 as? VATextField {
+                vaLabel.vAlign = .center
+            }
+        })
+    }
+    
+    private func allLabels(_ view: NSView) -> [NSTextField] {
         
-        functionLabels = [lblEQSwitch, lblPitchSwitch, lblTimeSwitch, lblReverbSwitch, lblDelaySwitch, lblFilterSwitch, lblPresets]
-        functionLabels.forEach({$0.vAlign = .center})
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField, label != lblCaption {
+                labels.append(label)
+            }
+            
+            let subviewLabels = allLabels(subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
     }
     
     override func initSubscriptions() {

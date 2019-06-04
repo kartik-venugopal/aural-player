@@ -8,9 +8,6 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
     
-    // Labels
-    @IBOutlet weak var lblCaption: VATextField!
-    
     @IBOutlet weak var lblPitch: VATextField!
     @IBOutlet weak var lblPitchMin: VATextField!
     @IBOutlet weak var lblPitchMax: VATextField!
