@@ -7,9 +7,6 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
-    // Labels
-    @IBOutlet weak var lblCaption: VATextField!
-    
     @IBOutlet weak var lblRate: VATextField!
     @IBOutlet weak var lblRateMin: VATextField!
     @IBOutlet weak var lblRateMax: VATextField!

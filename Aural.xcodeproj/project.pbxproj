@@ -284,6 +284,11 @@
 		3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */; };
 		3E94E8602154CA2E00C57AD8 /* WindowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */; };
 		3E94E8622154D69000C57AD8 /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E8612154D69000C57AD8 /* LayoutManager.swift */; };
+		3E96388822A6C44600617606 /* MediaKeyTapInternals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96388222A6C44600617606 /* MediaKeyTapInternals.swift */; };
+		3E96388922A6C44600617606 /* MediaApplicationWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96388322A6C44600617606 /* MediaApplicationWatcher.swift */; };
+		3E96388A22A6C44600617606 /* MKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96388522A6C44600617606 /* MKExtensions.swift */; };
+		3E96388B22A6C44600617606 /* MediaKeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96388622A6C44600617606 /* MediaKeyTap.swift */; };
+		3E96388C22A6C44600617606 /* NSEventExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96388722A6C44600617606 /* NSEventExtensions.swift */; };
 		3E97967D1F00286200690DA2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97967C1F00286200690DA2 /* Track.swift */; };
 		3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */; };
 		3E981EA91F7A0C8A003DDA38 /* RecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */; };
@@ -357,6 +362,7 @@
 		3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */; };
 		3EBF7EF521589DC9007869EC /* FavoritesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */; };
 		3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF621589E54007869EC /* FavoritesEditor.xib */; };
+		3EC0B0FF22A6DAE500164F08 /* MediaKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B0FE22A6DAE500164F08 /* MediaKeyHandler.swift */; };
 		3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC593971F28A0C600153D34 /* RangeSlider.swift */; };
 		3EC7E8AF217B300E00F21695 /* EffectsUnitSliderCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7E8AE217B300D00F21695 /* EffectsUnitSliderCellProtocol.swift */; };
 		3EC947AD1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */; };
@@ -436,6 +442,7 @@
 		3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF7EFCD215075F500E582CB /* BarModePlayer.xib */; };
 		3EFB19291FB81C9A00690C60 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB19281FB81C9A00690C60 /* WindowState.swift */; };
 		3EFB192B1FB8268700690C60 /* MetadataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */; };
+		3EFBEF3622A6C8C900F50C5D /* MediaApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBEF3522A6C8C900F50C5D /* MediaApplication.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
 		3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */; };
 		3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6B81F036E81003728BD /* PlaylistIO.swift */; };
@@ -726,6 +733,12 @@
 		3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPresets.swift; sourceTree = "<group>"; };
 		3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowLayouts.swift; sourceTree = "<group>"; };
 		3E94E8612154D69000C57AD8 /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
+		3E96388222A6C44600617606 /* MediaKeyTapInternals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaKeyTapInternals.swift; path = "MediaKeyTap-master/MediaKeyTap/MediaKeyTapInternals.swift"; sourceTree = SOURCE_ROOT; };
+		3E96388322A6C44600617606 /* MediaApplicationWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaApplicationWatcher.swift; path = "MediaKeyTap-master/MediaKeyTap/MediaApplicationWatcher.swift"; sourceTree = SOURCE_ROOT; };
+		3E96388422A6C44600617606 /* MediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaKeyTap.h; path = "MediaKeyTap-master/MediaKeyTap/MediaKeyTap.h"; sourceTree = SOURCE_ROOT; };
+		3E96388522A6C44600617606 /* MKExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKExtensions.swift; path = "MediaKeyTap-master/MediaKeyTap/MKExtensions.swift"; sourceTree = SOURCE_ROOT; };
+		3E96388622A6C44600617606 /* MediaKeyTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaKeyTap.swift; path = "MediaKeyTap-master/MediaKeyTap/MediaKeyTap.swift"; sourceTree = SOURCE_ROOT; };
+		3E96388722A6C44600617606 /* NSEventExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSEventExtensions.swift; path = "MediaKeyTap-master/MediaKeyTap/NSEventExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		3E97967C1F00286200690DA2 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatAndShuffleModes.swift; sourceTree = "<group>"; };
 		3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingSession.swift; sourceTree = "<group>"; };
@@ -801,6 +814,7 @@
 		3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEditorViews.swift; sourceTree = "<group>"; };
 		3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesEditorViewController.swift; sourceTree = "<group>"; };
 		3EBF7EF621589E54007869EC /* FavoritesEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesEditor.xib; sourceTree = "<group>"; };
+		3EC0B0FE22A6DAE500164F08 /* MediaKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyHandler.swift; sourceTree = "<group>"; };
 		3EC593971F28A0C600153D34 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		3EC7E8AE217B300D00F21695 /* EffectsUnitSliderCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSliderCellProtocol.swift; sourceTree = "<group>"; };
 		3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceProtocol.swift; sourceTree = "<group>"; };
@@ -881,6 +895,8 @@
 		3EF7EFCD215075F500E582CB /* BarModePlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarModePlayer.xib; sourceTree = "<group>"; };
 		3EFB19281FB81C9A00690C60 /* WindowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowState.swift; sourceTree = "<group>"; };
 		3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataDataSource.swift; sourceTree = "<group>"; };
+		3EFBEF3422A6C71B00F50C5D /* Aural.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aural.entitlements; sourceTree = "<group>"; };
+		3EFBEF3522A6C8C900F50C5D /* MediaApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaApplication.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
 		3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackInfoDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EFFE6B81F036E81003728BD /* PlaylistIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistIO.swift; sourceTree = "<group>"; };
@@ -1724,6 +1740,8 @@
 		3E85F2581EFA78D6007BE830 /* Aural */ = {
 			isa = PBXGroup;
 			children = (
+				3EFBEF3422A6C71B00F50C5D /* Aural.entitlements */,
+				3EFBEF3522A6C8C900F50C5D /* MediaApplication.swift */,
 				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3ED526501F3003A800001A97 /* ObjectGraph.swift */,
 				3E3C20A71F0A697800AF5A62 /* AppConstants.swift */,
@@ -1743,6 +1761,7 @@
 				3EFFE6BC1F0373B7003728BD /* IO */,
 				3EB20B4F1EFF2C5F008138A4 /* Utils */,
 				3E6F673721E19B86002219E6 /* Testing */,
+				3E96388122A6C41800617606 /* MediaKeyTap */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
 			);
@@ -1757,6 +1776,20 @@
 				3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */,
 			);
 			name = WindowLayout;
+			sourceTree = "<group>";
+		};
+		3E96388122A6C41800617606 /* MediaKeyTap */ = {
+			isa = PBXGroup;
+			children = (
+				3E96388522A6C44600617606 /* MKExtensions.swift */,
+				3E96388322A6C44600617606 /* MediaApplicationWatcher.swift */,
+				3E96388422A6C44600617606 /* MediaKeyTap.h */,
+				3E96388622A6C44600617606 /* MediaKeyTap.swift */,
+				3E96388222A6C44600617606 /* MediaKeyTapInternals.swift */,
+				3E96388722A6C44600617606 /* NSEventExtensions.swift */,
+				3EC0B0FE22A6DAE500164F08 /* MediaKeyHandler.swift */,
+			);
+			name = MediaKeyTap;
 			sourceTree = "<group>";
 		};
 		3E98477F1F5CF0E6001A2D28 /* Playlist */ = {
@@ -2156,6 +2189,11 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = C4YUF2G676;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -2309,6 +2347,7 @@
 				3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */,
 				3EF743B1218C50420060BDE0 /* FilterBandsViewDelegate.swift in Sources */,
 				3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */,
+				3EC0B0FF22A6DAE500164F08 /* MediaKeyHandler.swift in Sources */,
 				3E066C2B216C6F5300E4FE80 /* TimePresetsEditorViewController.swift in Sources */,
 				3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */,
 				3E2188A81F0771390085BAB3 /* DetailedTrackInfoViewController.swift in Sources */,
@@ -2357,6 +2396,7 @@
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,
 				3E0F94791FBB9A2100B6E1B3 /* ViewFactory.swift in Sources */,
+				3E96388822A6C44600617606 /* MediaKeyTapInternals.swift in Sources */,
 				3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */,
 				3E850D5C1FB44DE70017CD02 /* PlaylistSearchWindowController.swift in Sources */,
 				3E0F947B1FBBA01500B6E1B3 /* DelayViewController.swift in Sources */,
@@ -2368,10 +2408,12 @@
 				3EB20B4B1EFF25EC008138A4 /* AppState.swift in Sources */,
 				3EB9EB6C1FCFB98A00287F53 /* AppModeManager.swift in Sources */,
 				3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */,
+				3E96388B22A6C44600617606 /* MediaKeyTap.swift in Sources */,
 				3E1CB54821C8A42700A19AAE /* TranscodingPreferencesViewController.swift in Sources */,
 				3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */,
 				3E7CA23C217E739A00356240 /* ArtistsPlaylistSortViewController.swift in Sources */,
 				3E17D03421E625A100951F81 /* InfoScroller.swift in Sources */,
+				3E96388922A6C44600617606 /* MediaApplicationWatcher.swift in Sources */,
 				3EF5E5B91FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift in Sources */,
 				3E5F00CA21539B2200A76C23 /* BookmarksDelegate.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
@@ -2431,6 +2473,7 @@
 				3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */,
 				3EA2F8F721D03B9A007D0264 /* AVAssetReader.swift in Sources */,
 				3E50DC91219388D200D42373 /* DelayView.swift in Sources */,
+				3E96388A22A6C44600617606 /* MKExtensions.swift in Sources */,
 				3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */,
 				3EDA1FBF214F8B77003591FA /* ConstituentView.swift in Sources */,
 				3E1AE56E21EB79DA00664152 /* CoverArtDataSource.swift in Sources */,
@@ -2539,6 +2582,7 @@
 				3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */,
 				3EDD4CD42193FAE300C15D5A /* PitchUnit.swift in Sources */,
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
+				3E96388C22A6C44600617606 /* NSEventExtensions.swift in Sources */,
 				3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */,
 				3E7DCBDD2196E8B700C6D6D3 /* FilterUnit.swift in Sources */,
 				3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */,
@@ -2572,6 +2616,7 @@
 				3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */,
 				3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */,
 				3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */,
+				3EFBEF3622A6C8C900F50C5D /* MediaApplication.swift in Sources */,
 				3E066C31216C799600E4FE80 /* ReverbPresetsEditorViewController.swift in Sources */,
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
 				3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */,
