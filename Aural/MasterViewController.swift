@@ -157,6 +157,7 @@ class MasterViewController: FXUnitViewController {
         
         lblCaption.font = TextSizes.fxUnitCaptionFont
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        presetsMenu.font = TextSizes.fxUnitFunctionFont
     }
     
     // MARK: Message handling
