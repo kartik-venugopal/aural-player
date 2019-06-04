@@ -4,6 +4,27 @@ class EQSubview: NSView {
     
     @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
     
+    @IBOutlet weak var lbl_20db: VATextField! {
+        
+        didSet {
+            lbl_20db.vAlign = .bottom
+        }
+    }
+    
+    @IBOutlet weak var lbl0db: VATextField! {
+    
+        didSet {
+            lbl0db.vAlign = .center
+        }
+    }
+    
+    @IBOutlet weak var lbl20db: VATextField! {
+        
+        didSet {
+            lbl20db.vAlign = .top
+        }
+    }
+    
     var bandSliders: [EffectsUnitSlider] = []
     var allSliders: [EffectsUnitSlider] = []
     
