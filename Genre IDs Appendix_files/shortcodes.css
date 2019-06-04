@@ -1,0 +1,177 @@
+/* =General CSS
+-------------------------------------------------------------- */
+.full_width,
+.one_half,
+.one_third,
+.two_third,
+.one_fourth,
+.three_fourth,
+.one_fifth,
+.two_fifth,
+.three_fifth,
+.four_fifth,
+.one_sixth,
+.five_sixth {
+	float: left;
+}
+.clear_column {
+	clear:both;
+	display:block;
+	font-size:0; height:0;
+	line-height:0; width:100%;
+	overflow: hidden;
+}
+
+/* =Shortcodes Templates
+-------------------------------------------------------------- */
+
+/* =Default Template (no margin)
+-------------------------------------------------------------- */
+.full_width  {
+	width: 100%;
+}
+.one_half  {
+	width: 50%;
+}
+.one_third  {
+	width: 33.3%;
+}
+.two_third  {
+	width: 66.6%;
+}
+.one_fourth  {
+	width: 25%;
+}
+.three_fourth  {
+	width: 75%;
+}
+.one_fifth  {
+	width: 20%;
+}
+.two_fifth  {
+	width: 40%;
+}
+.three_fifth  {
+	width: 60%;
+}
+.four_fifth  {
+	width: 80%;
+}
+.one_sixth  {
+	width: 16.6%;
+}
+.five_sixth  {
+	width: 83.4%;
+}
+
+/* =Responsive
+-------------------------------------------------------------- */
+/* Maximum width of 600 pixels. */
+@media screen and (max-width: 600px) {
+	.full_width,
+	.one_half,
+	.one_third,
+	.two_third,
+	.one_fourth,
+	.three_fourth,
+	.one_fifth,
+	.two_fifth,
+	.three_fifth,
+	.four_fifth,
+	.one_sixth,
+	.five_sixth {
+		clear: both;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		margin-bottom: 1em;
+	}
+}
+
+/* =Small Margins Template
+-------------------------------------------------------------- */
+/*
+.full_width  {
+	width: 100%;
+}
+.one_half {
+	width: 49% !important;
+	margin-right: 2% !important;
+}
+.one_half.last_column {
+	width: 49% !important;
+	margin-right: 0px !important;
+}
+.one_third {
+	width: 32% !important;
+	margin-right: 2% !important;
+}
+.one_third.last_column {
+	width: 32% !important;
+	margin-right: 0px !important;
+}
+.two_third {
+	width: 66% !important;
+	margin-right: 2% !important;
+}
+.two_third.last_column {
+	width: 66% !important;
+	margin-right: 0px !important;
+}
+.one_fourth {
+	width: 23.5% !important;
+	margin-right: 2% !important;
+}
+.one_fourth.last_column {
+	width: 23.5% !important;
+	margin-right: 0px !important;
+}
+.three_fourth {
+	width: 74.5% !important;
+	margin-right: 2% !important;
+}
+.three_fourth.last_column {
+	width: 74.5% !important;
+	margin-right: 0px !important;
+}
+.one_fifth {
+	width: 18.4% !important;
+	margin-right: 2% !important;
+}
+.one_fifth.last_column {
+	width: 18.4% !important;
+	margin-right: 0px !important;
+}
+.two_fifth {
+	width: 39% !important;
+	margin-right: 2% !important;
+}
+.two_fifth.last_column {
+	width: 39% !important;
+	margin-right: 0px !important;
+}
+.three_fifth {
+	width: 59% !important;
+	margin-right: 2% !important;
+}
+.three_fifth.last_column {
+	width: 59% !important;
+	margin-right: 0px !important;
+}
+.four_fifth {
+	width: 79.6% !important;
+	margin-right: 2% !important;
+}
+.four_fifth.last_column {
+	width: 79.6% !important;
+	margin-right: 0px !important;
+}
+.one_sixth {
+	width: 15% !important;
+	margin-right: 2% !important;
+}
+.one_sixth.last_column {
+	width: 15% !important;
+	margin-right: 0px !important;
+}
+*/

@@ -1,0 +1,104 @@
+body {
+  width: 700px;
+  margin: .5in auto;
+  font-size: 18px;
+  font-family: serif;
+}
+
+p { line-height: 1.5; }
+sup { font-size: 9pt;  }
+blockquote {  line-height: 1.5; font-size: 90%;  }
+h1, h2, h3, h4, h5, h6 { font-family: Helvetica; }
+li { padding-top: 6pt; }
+dt { font-weight: bold; font-family: monospace; padding-top: 12pt; padding-bottom: 3pt; }
+div.notes { font-size: 10pt; }
+.shaded { background: #dddddd; }
+pre {  margin-left: .25in; font-size: 14px; }
+
+div.table-caption
+{
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 9pt;
+}
+
+div.figure-caption
+{
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 9pt;
+}
+
+table.book-table
+{
+  margin: 12pt auto;
+  border: thin dotted black;
+  width: 80%;
+}
+.book-table td {
+  padding: 2pt;
+  font-size: 80%;
+  border-bottom: thin dotted black;
+}
+
+div.summary {
+        font-size: 12pt;
+        font-family: sans-serif;
+        font-style: italic;
+        padding-top: 6pt;
+}
+div.copyright {
+        font-size: 10pt;
+        font-family: serif;
+        font-style: italic;
+        text-align: right;
+        padding-top: 24pt;
+        clear: both;
+}
+
+code { white-space: nowrap; }
+
+span.annotation {
+        display: none;
+}
+
+span.review {
+        display: none;
+}
+
+
+img.figure {
+        display: block;
+        margin: auto;
+}
+
+div.summary-float {
+        float: right;
+        width: .75in;
+        margin-right: -1in;
+        font-size: 8pt;
+        font-family: sans-serif;
+        font-style: italic;
+        color:#ff0000;
+}
+
+div.sidebarhead {
+        font-size: 10pt;
+        font-weight: bold;
+        text-align: center;
+        font-family: sans-serif;
+        border: solid thin black;
+        background-color: #xff0000;
+        padding: 1em;
+        margin: 0in .5in;
+}
+
+div.sidebar {
+        font-size: 9pt;
+        font-family: sans-serif;
+        border: solid thin black;
+        padding: 1em;
+        margin: 0in .5in;
+}
+
+img.floater { float: left; margin: 0pt 12pt 0pt 6pt; }

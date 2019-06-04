@@ -1,0 +1,289 @@
+/*  
+    screen.css
+    for the Moniker theme 
+
+*/
+
+@import url(calendar.css);
+@import url(RicksCorner.css);
+
+
+
+
+/* ------------------ */
+/* general typography */
+/* ------------------ */
+
+html { font-size: 81%; }
+html, body { margin: 0; padding: 0; background-color: #e5e5e5; color: black; }
+
+body {
+	vertical-align: text-top;
+	line-height: 1.4;
+	font: normal 1em Verdana, Arial, Helvetica, sans-serif; 
+}
+
+p, ol, ul, li, table {font-size: 1.0em;}
+p, h1, h2, h3, h4, h5, h6 {margin: 1.2em 0 0 0;}
+input, select, th, tr, td {font-size: 1.0em;}
+pre, tt {font-family: monospace, courier; font-size: 1.1em; color: #8b0000;}
+strong, b {font-weight: bold;}
+small {font-size: 0.8em;}
+img {border: 0;}
+
+table {margin: 0; padding: 0; width: 99%;}
+th {text-align: left; font-weight: bold;}
+tr {text-align: left;}
+th, tr, td {vertical-align: top;}
+
+/* increase monospace fonts on Mozilla using invalid pseudo-class hack */
+:root code {font-size: 120%;}
+
+
+
+/* -------- */
+/* headings */
+/* -------- */
+
+h1 { font-size: 1.7em; margin-top: 10; text-shadow: #AAAAAA 2px 1px 3px; }
+h2 { font-size: 1.4em; padding-top: 25px; border-bottom: 2px solid #4A6AB0; text-shadow: #AAAAAA 2px 1px 3px; }	
+h3 { font-size: 1.2em; padding-left: 0.3em; border-left: 10px solid #4A6AB0; text-shadow: #AAAAAA 2px 1px 3px; }	
+h4 { font-size: 1.0em; padding-left: 0.3em; border-left: 4px solid #4A6AB0; }	
+h5, h6 { font-size: 1.0em; font-weight: bold; }
+h6 { margin-bottom: -1.0em; }
+
+
+/* ----------- */
+/* main layout */
+/* ----------- */
+
+div#sidebar {
+	margin: 15px 8px 0px 12px;
+	float: left;
+	width: 160px;
+	padding: 0;	
+	font-size: 0.88em;
+}
+
+div#page {
+	margin: 10px 15px 10px 185px;
+	padding: 15px 30px;
+	border: 1px solid #808080;
+    background-color: white;
+    border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;
+    box-shadow: 1px 1px 12px #888888; -moz-box-shadow: 1px 1px 12px #888888; -webkit-box-shadow: 1px 1px 12px #888888;
+    }
+
+#footer {
+    clear: both;
+    margin: 0;
+    padding: 0;
+    }
+
+
+#credits, #version, #timings{
+    margin: 5px 0px 10px 0px;
+    padding: 0;
+    text-align: center;
+    font-size: 0.88em;
+    color: #6C7680;
+}
+
+#credits li, #timings li {
+    display: inline;
+    padding: 0 2px;
+    margin: 0 4px;
+}
+
+#credits img {
+    vertical-align: middle;
+}
+
+
+    div#message {
+	margin: 10px 30px 10px 195px;
+	padding: 0px 10px 5px 10px;
+    border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;
+    background: #FFFF99; 
+    border: 2px solid #CCCC00;
+    }
+
+div#header {
+ 	margin: 10px;
+    background-color: transparent;
+    border-width: 0px;
+    }
+
+
+/* ----------------------------------- */
+/*  logo                               */
+/* ----------------------------------- */
+
+div#logo { margin: 0; padding: 3px 15px; }
+div#logo img { vertical-align: middle; }
+
+
+/* ----------------------------------- */
+/*  welcome                            */
+/* ----------------------------------- */
+
+div#username {
+	margin: 6px 30px 6px 6px;
+	padding: 0px;
+    color: dimgray;
+    display: inline;
+    float: right;
+    }
+
+a#userhome, a#userprefs, a#logout, div#username a.interwiki { color: dimgray; text-decoration: underline; }
+
+div#username a.interwiki:before { content: none; margin: 0px; }
+
+div#username a:hover { color: #0044B3; text-decoration: underline; background-color: #d0e6ff; }
+
+
+
+/* ----------------------------------- */
+/*  side panels                        */
+/* ----------------------------------- */
+
+div.sidepanel {
+	margin: 0 0 10px 0;
+	float: right;
+	width: 160px;	
+	border: 1px solid #808080;
+	font-size: 1.0em;
+    background-color: #F0F3F8; 
+    border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; 
+    box-shadow: 2px 1px 3px #CCCCCC; -moz-box-shadow: 2px 1px 3px #CCCCCC; -webkit-box-shadow: 2px 1px 3px #CCCCCC;
+}
+
+div.sidepanel h1 {
+	margin: 0;
+	padding: 0.2em 10px;
+	border: none;
+	font-size: 1.0em;
+    color: white; 
+    background-color: #4A6AB0;
+    text-align: right;
+    text-shadow: none;
+    -moz-border-radius-topright: 3px; -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topleft:  3px; -webkit-border-top-left-radius:  3px;
+}
+
+div.sidepanel ul { list-style-type: none; margin: 0px; padding: 0px; }
+div.sidepanel li { margin: 0; padding: 2px 10px; text-align: right; }
+
+div.sidepanel a { text-decoration: none; }
+div.sidepanel a:hover { text-decoration: underline; }
+
+/* Rick: this prevents Quicklink-spillover on interwiki links */
+div.sidepanel li.userlink {
+    width: 140px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+
+.pagetrail {
+    text-align: right;
+    padding: 2px 10px;
+    line-height: 160%;
+    }
+
+
+/* deactivate current selection */
+
+ul#navibar li.current a { text-decoration: none; cursor: default; }
+
+
+/* search form */
+
+form#searchform { margin: 5px; padding: 0px; }
+input#searchinput { width: 145px; }
+div#searchbuttons { margin-top: 5px; margin-left: 40px; }
+
+
+/* more actions  -  more actions is a popup list */
+
+div.togglelink {
+    margin-top:8px; 
+    margin-bottom: 5px; 
+    color: #0044B3; 
+    font-style: italic; 
+    cursor:pointer; 
+    }
+
+div#menu1 { display: none; margin: 0px; padding: 0px; margin-bottom: 10px; }
+
+div#menu1 ul {}
+
+
+/* --------------- */
+/* special classes */
+/* --------------- */
+
+.footnotes div {
+	width: 5em;
+	border-top: 1px solid black;
+}
+
+/* reduced size */
+div.codearea pre { 
+	margin: 0;
+	border: none;
+	padding: 0.9em;
+}
+
+ul#navibar li.current { 
+    border: none;
+    text-align: right;
+    background-color: #C2CDE5;
+    }
+
+/* --------- Page Trail ----------- */
+#pagelocation {
+    font-size: 7pt;
+    float: right;
+    margin: -10px -20px 0px 0px;
+    letter-spacing: 0.075em;
+    color: gray;
+    }
+
+
+/* --------- auto-backlinks to parent ----------- */
+#pagelocation_autobacklink {
+    font-size: 7pt;
+    float: left;
+    margin: -10px 0px 0px -22px;
+    letter-spacing: 0.075em;
+    color: gray;
+    }
+
+#pagelocation_autobacklink a.backlink { 
+    display: none;
+    }
+
+
+#editor-textarea, #editor-comment { width: 95%; }
+
+p.info {
+	margin-top: 80px;
+	clear: both;
+	font-size: 8pt;
+	font-style: italic;
+}
+
+.searchresult dd span { font-weight: bold; }
+
+/*  Rick:  hide the location line while in edit mode: */
+#locationline { display: none; }
+
+
+
+/* Disabled link for Immutible pages (aka 'locked' pages) and disabled ActionsMenu items  */
+.disabled { color: #595959; }
+
+
+
+

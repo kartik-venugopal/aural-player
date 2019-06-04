@@ -1,0 +1,71 @@
+/*  print.css
+	for theme mentalhealth
+
+	make grey-scale
+	suppress navigation elements
+	omit fancy formatting
+*/
+
+html {
+	background-color: #fff;
+}
+body {
+	margin: 1.5cm;
+	padding: 0;
+	border: 0;
+    font-size: 10pt;
+    font-family: Arial, sans-serif;
+}
+table {
+	width: 99%;
+}
+.footnotes div {
+	width: 5em;
+	border-top: 1pt solid #eee;
+}
+pre { 
+    font-size: 10pt;
+	font-family: monospace, courier;
+}
+
+/* headers */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+h1 {
+	font-size: 14pt;
+}
+h2 {
+	margin-top: 1.5em;
+	padding-bottom: 0.3em;
+    border-bottom: 2px solid #000;
+	line-height: 1.2em;
+	font-size: 14pt;
+}	
+h3 {
+	margin-top: 1.5em;
+	padding-left: 0.3em;
+	border-left: 10px solid #000;
+	font-size: 14pt;
+}	
+h4 {
+	margin-top: 1.5em;
+	padding-left: 0.3em;
+	border-left: 3px solid #000;
+	font-size: 12pt;
+}	
+h5, h6 {
+	font-size: 12pt;
+}
+
+a.interwiki:before, a.badinterwiki:before {
+	content: attr(title) ":";
+}
+a.interwiki img, a.badinterwiki img {
+	display: none;
+}
+
+
+#header, #sidebar, #footer, #timings, #credits, #message {
+	display: none;
+}
