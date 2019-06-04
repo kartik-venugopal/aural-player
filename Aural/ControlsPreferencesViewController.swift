@@ -2,6 +2,9 @@ import Cocoa
 
 class ControlsPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
+    // Media keys response
+    @IBOutlet weak var btnRespondToMediaKeys: NSButton!
+    
     // Gestures
     @IBOutlet weak var btnAllowVolumeControl: NSButton!
     @IBOutlet weak var btnAllowSeeking: NSButton!
@@ -15,6 +18,8 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     // Sensitivity
     @IBOutlet weak var volumeControlSensitivityMenu: NSPopUpButton!
     @IBOutlet weak var seekSensitivityMenu: NSPopUpButton!
+    
+    private lazy var mediaKeyHandler: MediaKeyHandler = ObjectGraph.mediaKeyHandler
     
     override var nibName: String? {return "ControlsPreferences"}
     
@@ -30,6 +35,8 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     func resetFields(_ preferences: Preferences) {
         
         let controlsPrefs = preferences.controlsPreferences
+        
+        btnRespondToMediaKeys.onIf(controlsPrefs.respondToMediaKeys)
         
         btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
         volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
@@ -67,6 +74,8 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences
         
+        controlsPrefs.respondToMediaKeys = btnRespondToMediaKeys.isOn()
+        
         controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn()
         controlsPrefs.volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased())!
         
@@ -77,5 +86,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         controlsPrefs.allowPlaylistNavigation = btnAllowPlaylistNavigation.isOn()
         controlsPrefs.allowPlaylistTabToggle = btnAllowPlaylistTabToggle.isOn()
+        
+        controlsPrefs.respondToMediaKeys ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }
 }

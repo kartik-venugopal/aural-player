@@ -436,6 +436,8 @@ class HistoryPreferences: PersistentPreferencesProtocol {
 
 class ControlsPreferences: PersistentPreferencesProtocol {
     
+    var respondToMediaKeys: Bool
+    
     var allowVolumeControl: Bool
     var allowSeeking: Bool
     var allowTrackChange: Bool
@@ -449,6 +451,8 @@ class ControlsPreferences: PersistentPreferencesProtocol {
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         let defaultsDictionary = Preferences.defaultsDict
+        
+        respondToMediaKeys = defaultsDictionary["controls.respondToMediaKeys"] as? Bool ?? PreferencesDefaults.Controls.respondToMediaKeys
         
         allowVolumeControl = defaultsDictionary["controls.allowVolumeControl"] as? Bool ?? PreferencesDefaults.Controls.allowVolumeControl
         
@@ -474,6 +478,8 @@ class ControlsPreferences: PersistentPreferencesProtocol {
     }
     
     func persist(defaults: UserDefaults) {
+        
+        defaults.set(respondToMediaKeys, forKey: "controls.respondToMediaKeys")
         
         defaults.set(allowVolumeControl, forKey: "controls.allowVolumeControl")
         defaults.set(allowSeeking, forKey: "controls.allowSeeking")
@@ -581,6 +587,8 @@ fileprivate struct PreferencesDefaults {
     }
     
     struct Controls {
+        
+        static let respondToMediaKeys: Bool = true
         
         static let allowVolumeControl: Bool = true
         static let allowSeeking: Bool = true
