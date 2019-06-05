@@ -192,10 +192,12 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
 
 ![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Playlist Search")
 
-## Third party code and contributor attributions
+## Third party code attributions
 
-Aural Player uses [FFmpeg](https://www.ffmpeg.org/) which, in the binary form used by Aural Player, is licensed under GPL v3. In compliance with the license, I have made the FFmpeg source code (and instructions to compile it) available under [/Resources/ffmpeg](https://github.com/maculateConception/aural-player/tree/master/Resources/ffmpeg), and also included it as an asset with each release of Aural Player.
+* [FFmpeg](https://www.ffmpeg.org/) (used to transcode from unsupported to supported audio formats)
+* [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
+* [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
 
-Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
+## Contributor attributions
 
-Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant contributions towards this project - performance optimizations, UX improvements, etc.
+Fellow GitHub member [dun198](https://github.com/dun198) made significant contributions towards this project - performance optimizations, UX improvements, etc.
