@@ -104,6 +104,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
    * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
 
 * **Usability:**
+   * Media keys support
    * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
       * Two finger vertical scroll for volume control
    	  * Two finger horizontal scroll for seeking 
