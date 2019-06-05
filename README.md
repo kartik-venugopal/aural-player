@@ -29,6 +29,15 @@ Download the latest release [here](https://github.com/maculateConception/aural-p
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
+#### Enabling media keys support (available with version 1.3.0 onwards)
+
+![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
+
+1. Quit Aural Player if it is running.
+2. Go to System Preferences > Security & Privacy > Privacy, 
+3. Click on the lock icon in the bottom left corner, if it is shown as locked. Enter your macOS password to authenticate.
+4. Click the + button and select Aural.app in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer. See image above.
+
 ### Compatibility
 
 **User**: Running Aural Player requires macOS 10.12 (Sierra) or later versions.
