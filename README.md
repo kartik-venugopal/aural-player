@@ -29,7 +29,8 @@ Download the latest release [here](https://github.com/maculateConception/aural-p
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-#### Enabling media keys support (available with version 1.3.0 onwards)
+### Enabling media keys support (available with version 1.3.0 onwards)
+
 
 ![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
 
@@ -103,6 +104,7 @@ NOTE - I am no longer able to support macOS Yosemite or El Capitan. If you would
    * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
 
 * **Usability:**
+   * Media keys support
    * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
       * Two finger vertical scroll for volume control
    	  * Two finger horizontal scroll for seeking 
