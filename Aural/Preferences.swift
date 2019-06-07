@@ -437,6 +437,8 @@ class HistoryPreferences: PersistentPreferencesProtocol {
 class ControlsPreferences: PersistentPreferencesProtocol {
     
     var respondToMediaKeys: Bool
+    var skipKeyBehavior: SkipKeyBehavior
+    var repeatSpeed: SkipKeyRepeatSpeed
     
     var allowVolumeControl: Bool
     var allowSeeking: Bool
@@ -452,7 +454,23 @@ class ControlsPreferences: PersistentPreferencesProtocol {
         
         let defaultsDictionary = Preferences.defaultsDict
         
+        // Media keys
+        
         respondToMediaKeys = defaultsDictionary["controls.respondToMediaKeys"] as? Bool ?? PreferencesDefaults.Controls.respondToMediaKeys
+        
+        if let skipKeyBehaviorStr = defaultsDictionary["controls.skipKeyBehavior"] as? String {
+            skipKeyBehavior = SkipKeyBehavior(rawValue: skipKeyBehaviorStr) ?? PreferencesDefaults.Controls.skipKeyBehavior
+        } else {
+            skipKeyBehavior = PreferencesDefaults.Controls.skipKeyBehavior
+        }
+        
+        if let repeatSpeedStr = defaultsDictionary["controls.repeatSpeed"] as? String {
+            repeatSpeed = SkipKeyRepeatSpeed(rawValue: repeatSpeedStr) ?? PreferencesDefaults.Controls.repeatSpeed
+        } else {
+            repeatSpeed = PreferencesDefaults.Controls.repeatSpeed
+        }
+        
+        // Gestures
         
         allowVolumeControl = defaultsDictionary["controls.allowVolumeControl"] as? Bool ?? PreferencesDefaults.Controls.allowVolumeControl
         
@@ -480,6 +498,8 @@ class ControlsPreferences: PersistentPreferencesProtocol {
     func persist(defaults: UserDefaults) {
         
         defaults.set(respondToMediaKeys, forKey: "controls.respondToMediaKeys")
+        defaults.set(skipKeyBehavior.rawValue, forKey: "controls.skipKeyBehavior")
+        defaults.set(repeatSpeed.rawValue, forKey: "controls.repeatSpeed")
         
         defaults.set(allowVolumeControl, forKey: "controls.allowVolumeControl")
         defaults.set(allowSeeking, forKey: "controls.allowSeeking")
@@ -589,6 +609,8 @@ fileprivate struct PreferencesDefaults {
     struct Controls {
         
         static let respondToMediaKeys: Bool = true
+        static let skipKeyBehavior: SkipKeyBehavior = .hybrid
+        static let repeatSpeed: SkipKeyRepeatSpeed = .medium
         
         static let allowVolumeControl: Bool = true
         static let allowSeeking: Bool = true

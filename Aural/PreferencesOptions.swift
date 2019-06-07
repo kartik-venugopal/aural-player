@@ -56,6 +56,20 @@ enum ScrollSensitivity: String {
     case high
 }
 
+enum SkipKeyBehavior: String {
+    
+    case hybrid
+    case trackChangesOnly
+    case seekingOnly
+}
+
+enum SkipKeyRepeatSpeed: String {
+    
+    case slow
+    case medium
+    case fast
+}
+
 enum RememberSettingsForTrackOptions: String {
     
     case allTracks
