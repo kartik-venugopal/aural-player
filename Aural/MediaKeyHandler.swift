@@ -74,7 +74,10 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             
             // Only do this on keyDown
             if event.keyPressed {
-                SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
+                
+                DispatchQueue.main.async {
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
+                }
             }
             
         default:
@@ -83,20 +86,20 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
             case .hybrid:
                 
-                handleHybrid(mediaKey: mediaKey, event: event)
+                handleHybrid(mediaKey, event)
                 
             case .trackChangesOnly:
                 
-                handleTrackChangesOnly(mediaKey: mediaKey, event: event)
+                handleTrackChangesOnly(mediaKey, event)
                 
             case .seekingOnly:
                 
-                handleSeekingOnly(mediaKey: mediaKey, event: event)
+                handleSeekingOnly(mediaKey, event)
             }
         }
     }
     
-    private func handleHybrid(mediaKey: MediaKey, event: KeyEvent) {
+    private func handleHybrid(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
         let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
         
@@ -107,12 +110,10 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             if repeatExecutor == nil {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
-
-                    DispatchQueue.main.async {
-                        SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
-                    }
                     
-                }, queue: DispatchQueue.global())
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
+                    
+                }, queue: DispatchQueue.main)
                 
                 repeatExecutor?.startOrResume()
             }
@@ -136,7 +137,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         lastEvent = event
     }
     
-    private func handleTrackChangesOnly(mediaKey: MediaKey, event: KeyEvent) {
+    private func handleTrackChangesOnly(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
         let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
         
@@ -152,12 +153,10 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             if repeatExecutor == nil {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
-                
-                    DispatchQueue.main.async {
-                        SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
-                    }
                     
-                }, queue: DispatchQueue.global())
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
+                    
+                }, queue: DispatchQueue.main)
                 
                 repeatExecutor?.startOrResume()
             }
@@ -172,7 +171,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         lastEvent = event
     }
     
-    private func handleSeekingOnly(mediaKey: MediaKey, event: KeyEvent) {
+    private func handleSeekingOnly(_ mediaKey: MediaKey, _ event: KeyEvent) {
         
         let isFwd: Bool = mediaKey == .fastForward || mediaKey == .next
         
@@ -189,11 +188,9 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
                     
-                    DispatchQueue.main.async {
-                        SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
-                    }
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
                     
-                }, queue: DispatchQueue.global())
+                }, queue: DispatchQueue.main)
                 
                 repeatExecutor?.startOrResume()
             }
