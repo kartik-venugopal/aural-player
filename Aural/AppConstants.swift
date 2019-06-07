@@ -7,7 +7,7 @@ import AVFoundation
 */
 struct AppConstants {
     
-    static let appVersion: String = "1.3.0"
+    static let appVersion: String = "1.3.1"
     
     struct SupportedTypes {
         
