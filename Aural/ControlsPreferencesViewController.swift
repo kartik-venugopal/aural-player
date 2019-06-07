@@ -5,6 +5,13 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     // Media keys response
     @IBOutlet weak var btnRespondToMediaKeys: NSButton!
     
+    // SKip key behavior
+    @IBOutlet weak var btnHybrid: NSButton!
+    @IBOutlet weak var btnTrackChangesOnly: NSButton!
+    @IBOutlet weak var btnSeekingOnly: NSButton!
+    
+    @IBOutlet weak var repeatSpeedMenu: NSPopUpButton!
+    
     // Gestures
     @IBOutlet weak var btnAllowVolumeControl: NSButton!
     @IBOutlet weak var btnAllowSeeking: NSButton!
@@ -37,6 +44,21 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         let controlsPrefs = preferences.controlsPreferences
         
         btnRespondToMediaKeys.onIf(controlsPrefs.respondToMediaKeys)
+        mediaKeyResponseAction(self)
+        
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly].forEach({$0?.off()})
+        
+        switch controlsPrefs.skipKeyBehavior {
+            
+        case .hybrid:   btnHybrid.on()
+            
+        case .trackChangesOnly:     btnTrackChangesOnly.on()
+            
+        case .seekingOnly:          btnSeekingOnly.on()
+            
+        }
+        
+        repeatSpeedMenu.selectItem(withTitle: controlsPrefs.repeatSpeed.rawValue.capitalized)
         
         btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
         volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
@@ -52,6 +74,16 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnAllowPlaylistTabToggle.onIf(controlsPrefs.allowPlaylistTabToggle)
     }
     
+    @IBAction func mediaKeyResponseAction(_ sender: Any) {
+
+        // Enable/disable sub-controls
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly, repeatSpeedMenu].forEach({$0?.enableIf(btnRespondToMediaKeys.isOn())})
+    }
+    
+    @IBAction func skipKeyBehaviorAction(_ sender: Any) {
+        // Needed for radio button group
+    }
+
     @IBAction func allowVolumeControlAction(_ sender: Any) {
         volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
     }
@@ -75,6 +107,16 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         let controlsPrefs = preferences.controlsPreferences
         
         controlsPrefs.respondToMediaKeys = btnRespondToMediaKeys.isOn()
+        
+        if btnHybrid.isOn() {
+            controlsPrefs.skipKeyBehavior = .hybrid
+        } else if btnTrackChangesOnly.isOn() {
+            controlsPrefs.skipKeyBehavior = .trackChangesOnly
+        } else {
+            controlsPrefs.skipKeyBehavior = .seekingOnly
+        }
+        
+        controlsPrefs.repeatSpeed = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased())!
         
         controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn()
         controlsPrefs.volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased())!

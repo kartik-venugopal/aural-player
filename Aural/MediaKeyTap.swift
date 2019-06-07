@@ -31,6 +31,7 @@ public struct KeyEvent {
     public let keyFlags: KeyFlags
     public let keyPressed: Bool     // Will be true after a keyDown and false after a keyUp
     public let keyRepeat: Bool
+    public let timestamp: Date
 }
 
 public protocol MediaKeyTapDelegate {
