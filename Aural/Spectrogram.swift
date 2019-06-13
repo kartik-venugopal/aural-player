@@ -164,7 +164,7 @@ class Spectrogram: NSView {
 
 public extension NSBezierPath {
     
-    public var CGPath: CGPath {
+    var CGPath: CGPath {
         
         let path = CGMutablePath()
         var points = [CGPoint](repeating: .zero, count: 3)

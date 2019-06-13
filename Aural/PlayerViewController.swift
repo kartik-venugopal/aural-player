@@ -6,6 +6,7 @@ import Cocoa
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     @IBOutlet weak var playerView: NSView!
+    
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var transcoderView: TranscoderView!
@@ -34,6 +35,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.setFrameOrigin(NSPoint.zero)
         
         PlayerViewState.initialize(ObjectGraph.appState.ui.player)
+        
+        TextSizes.playerScheme = PlayerViewState.textSize
+        changeTextSize(PlayerViewState.textSize)
+        
         showView(PlayerViewState.viewType)
         
         AppModeManager.registerConstituentView(.regular, self)
@@ -52,14 +57,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -150,6 +155,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         theView.mouseExited()
     }
     
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        
+        PlayerViewState.textSize = textSize
+        
+        defaultView.changeTextSize(textSize)
+        expandedArtView.changeTextSize(textSize)
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -201,6 +214,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             showOrHideSequenceInfo()
             
+        case .changePlayerTextSize:
+            
+            changeTextSize((message as! TextSizeActionMessage).textSize)
+            
         default: return
             
         }
@@ -214,13 +231,15 @@ class PlayerViewState {
     
     static var showAlbumArt: Bool = true
     static var showTrackInfo: Bool = true
-    static var showSequenceInfo: Bool = true
+    static var showSequenceInfo: Bool = false
     static var showPlayingTrackFunctions: Bool = true
     static var showControls: Bool = true
     static var showTimeElapsedRemaining: Bool = true
     
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    
+    static var textSize: TextSizeScheme = .normal
     
     static func initialize(_ appState: PlayerState) {
         
@@ -235,6 +254,8 @@ class PlayerViewState {
         
         timeElapsedDisplayType = appState.timeElapsedDisplayType
         timeRemainingDisplayType = appState.timeRemainingDisplayType
+        
+        textSize = appState.textSize
     }
     
     static func persistentState() -> PlayerState {
@@ -252,6 +273,8 @@ class PlayerViewState {
         
         state.timeElapsedDisplayType = timeElapsedDisplayType
         state.timeRemainingDisplayType = timeRemainingDisplayType
+        
+        state.textSize = textSize
         
         return state
     }
