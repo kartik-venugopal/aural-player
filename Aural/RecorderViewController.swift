@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Recorder unit
  */
-class RecorderViewController: NSViewController, MessageSubscriber {
+class RecorderViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     // Recorder controls
     @IBOutlet weak var btnRecord: OnOffImageButton!
@@ -12,6 +12,9 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var recordingInfoBox: NSBox!
     
     @IBOutlet weak var formatMenu: NSPopUpButton!
+    
+    // Labels
+    @IBOutlet weak var lblCaption: NSTextField!
     
     // Delegate that relays requests to the recorder
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
@@ -30,6 +33,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize], subscriber: self)
     }
     
     private func initControls() {
@@ -140,11 +144,16 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         return AppExitResponse.okToExit
     }
     
-    var subscriberId: String {
-        return self.className
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
     }
     
     // MARK: Message handling
+    
+    var subscriberId: String {
+        return self.className
+    }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
@@ -153,5 +162,12 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         }
         
         return EmptyResponse.instance
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        if message.actionType == .changeEffectsTextSize {
+            changeTextSize()
+        }
     }
 }

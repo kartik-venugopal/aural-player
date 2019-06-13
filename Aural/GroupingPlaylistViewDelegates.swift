@@ -44,7 +44,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 return 40
             }
 
-            return 22
+            return 24
 
         } else {
 
@@ -139,7 +139,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
+//            cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
+            cell.textField?.setNeedsDisplay()
+            
             cell.imageView?.image = image
             cell.isGroup = isGroup
             
@@ -233,9 +236,38 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 2 : 0
+        var offset: CGFloat = 0
         
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: CGFloat(offset))
+        if cell.identifier!.rawValue != UIConstants.playlistDurationColumnID {
+            
+            // Track/Group name
+            
+            switch TextSizes.playlistScheme {
+                
+            case .normal:   offset = 2
+                
+            case .larger:   offset = 1
+                
+            case .largest:  offset = 0
+                
+            }
+            
+        } else {
+            
+            // Duration
+            
+            switch TextSizes.playlistScheme {
+                
+            case .normal:   offset = 2
+                
+            case .larger:   offset = 2
+                
+            case .largest:  offset = 0
+                
+            }
+        }
+        
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: offset)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
         
@@ -284,6 +316,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
+//            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.isGroup = isGroup
@@ -348,6 +381,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
+//            cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
             cell.imageView?.image = image
             cell.isGroup = isGroup
@@ -370,6 +404,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
+//            cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.isGroup = isGroup
             

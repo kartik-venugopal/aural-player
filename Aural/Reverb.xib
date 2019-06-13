@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="btnBypass" destination="II7-fY-0FS" id="ekP-WC-hYk"/>
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
+                <outlet property="lblCaption" destination="MaO-Rg-qne" id="wus-Pd-ue9"/>
                 <outlet property="presetsMenu" destination="zIT-2E-ecK" id="8Jn-Au-Shr"/>
                 <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>

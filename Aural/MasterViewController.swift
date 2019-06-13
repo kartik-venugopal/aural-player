@@ -3,6 +3,9 @@ import Cocoa
 class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
+    
+    // Labels
+    private var functionLabels: [NSTextField] = []
 
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
@@ -34,6 +37,33 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
+        
+        lblCaption.vAlign = .top
+
+        functionLabels = allLabels(self.view)
+        functionLabels.forEach({
+            
+            if let vaLabel = $0 as? VATextField {
+                vaLabel.vAlign = .center
+            }
+        })
+    }
+    
+    private func allLabels(_ view: NSView) -> [NSTextField] {
+        
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField, label != lblCaption {
+                labels.append(label)
+            }
+            
+            let subviewLabels = allLabels(subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
     }
     
     override func initSubscriptions() {
@@ -134,6 +164,13 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
+    private func changeTextSize() {
+        
+        lblCaption.font = TextSizes.fxUnitCaptionFont
+        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        presetsMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -161,6 +198,9 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
+            
+        case .changeEffectsTextSize:
+            changeTextSize()
             
         default: return
             

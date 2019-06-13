@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
                 <outlet property="btnBypass" destination="0Oi-jb-bmq" id="dap-fq-cQl"/>
                 <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
                 <outlet property="delayView" destination="sjB-aa-i0k" id="dXX-ZS-n8D"/>
+                <outlet property="lblCaption" destination="452-9T-5pC" id="lZF-v6-lbr"/>
                 <outlet property="presetsMenu" destination="diN-gY-3YR" id="f0D-zP-ZbY"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
