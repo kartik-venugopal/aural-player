@@ -6,7 +6,7 @@
   * [Overview](#overview)
   * [Download](#download)
     + [Installation](#installation)
-    + [Enabling media keys support](#enabling-media-keys-support--available-with-version-130-onwards)
+    + [Enabling media keys support](#enabling-media-keys-support-available-with-version-130-onwards)
     + [Compatibility](#compatibility)
   * [Features](#features)
   * [Planned updates](#planned-updates)
