@@ -2,6 +2,18 @@
 
 ![App demo](/Documentation/Demos/demo.gif?raw=true "App demo")
 
+## Table of Contents
+  * [Overview](#overview)
+  * [Download](#download)
+    + [Installation](#installation)
+    + [Enabling media keys support](#enabling-media-keys-support--available-with-version-130-onwards)
+    + [Compatibility](#compatibility)
+  * [Features](#features)
+  * [Planned updates](#planned-updates)
+  * [Screenshots](#screenshots)
+  * [Third party code attributions](#third-party-code-attributions)
+  * [Contributor attributions](#contributor-attributions)
+
 ## Overview
 
 Aural Player is an audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with some sound tuning capabilities for audio enthusiasts.
