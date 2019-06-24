@@ -98,13 +98,13 @@
                         <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
                     </box>
                     <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
-                        <rect key="frame" x="128" y="243" width="224" height="26"/>
+                        <rect key="frame" x="108" y="241" width="265" height="30"/>
                         <view key="contentView" id="bsS-nD-sNb">
-                            <rect key="frame" x="0.0" y="0.0" width="224" height="26"/>
+                            <rect key="frame" x="0.0" y="0.0" width="265" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-40-ayp" userLabel="Tracks Button">
-                                    <rect key="frame" x="2" y="2" width="50" height="24"/>
+                                    <rect key="frame" x="2" y="2" width="60" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Tracks" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zgx-eE-HPM" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -117,7 +117,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
-                                    <rect key="frame" x="55" y="2" width="50" height="24"/>
+                                    <rect key="frame" x="69" y="2" width="60" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -130,7 +130,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
-                                    <rect key="frame" x="108" y="2" width="55" height="24"/>
+                                    <rect key="frame" x="136" y="2" width="60" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -143,7 +143,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
-                                    <rect key="frame" x="166" y="2" width="55" height="24"/>
+                                    <rect key="frame" x="203" y="2" width="60" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -158,8 +158,8 @@
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstAttribute="width" constant="224" id="OfB-pd-o5B"/>
-                            <constraint firstAttribute="height" constant="26" id="w9x-TB-TBq"/>
+                            <constraint firstAttribute="width" constant="265" id="OfB-pd-o5B"/>
+                            <constraint firstAttribute="height" constant="30" id="w9x-TB-TBq"/>
                         </constraints>
                         <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -307,18 +307,18 @@
                         </constraints>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="28" width="450" height="207"/>
+                        <rect key="frame" x="15" y="28" width="450" height="205"/>
                         <view key="contentView" id="11G-bl-tTJ">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="207"/>
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="29" width="450" height="178"/>
+                                    <rect key="frame" x="0.0" y="29" width="450" height="176"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="450" height="178"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="176"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -473,7 +473,7 @@
                     <constraint firstAttribute="trailing" secondItem="MyO-C3-Vvb" secondAttribute="trailing" constant="4" id="1N6-A7-yil"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="top" secondItem="hbJ-4L-vUS" secondAttribute="bottom" constant="2" id="5ms-X5-gjU"/>
                     <constraint firstItem="rbs-L2-HsW" firstAttribute="centerX" secondItem="Syt-ea-ETd" secondAttribute="centerX" id="6nc-vt-Y7x"/>
-                    <constraint firstItem="rbs-L2-HsW" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="8" id="842-Pc-uWj"/>
+                    <constraint firstItem="rbs-L2-HsW" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="6" id="842-Pc-uWj"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="trailing" id="8WN-QB-OhY"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="MyO-C3-Vvb" secondAttribute="leading" id="99A-ST-JJ1"/>
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="50" id="AAS-dq-CZJ"/>
