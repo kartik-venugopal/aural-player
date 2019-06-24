@@ -184,6 +184,23 @@ class TextSizes {
         }
     }
     
+    private static let playlistSummaryFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let playlistSummaryFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let playlistSummaryFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 15)!
+    
+    static var playlistSummaryFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistSummaryFont_normal
+            
+        case .larger: return playlistSummaryFont_larger
+            
+        case .largest: return playlistSummaryFont_largest
+            
+        }
+    }
+    
     private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15)!
     private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!

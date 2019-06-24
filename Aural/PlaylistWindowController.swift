@@ -17,8 +17,19 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var tabGroup: AuralTabView!
     
     // Fields that display playlist summary info
-    @IBOutlet weak var lblTracksSummary: NSTextField!
-    @IBOutlet weak var lblDurationSummary: NSTextField!
+    @IBOutlet weak var lblTracksSummary: VATextField! {
+        
+        didSet {
+            lblTracksSummary.vAlign = .bottom
+        }
+    }
+    
+    @IBOutlet weak var lblDurationSummary: VATextField! {
+        
+        didSet {
+            lblDurationSummary.vAlign = .bottom
+        }
+    }
     
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
@@ -59,6 +70,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
         TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
+        changeTextSize(PlayerViewState.textSize)
         
         setUpTabGroup()
         initSubscriptions()
@@ -93,7 +105,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -109,7 +121,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -394,11 +406,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func changeTextSize(_ size: TextSizeScheme) {
         
-        // TODO: Do we need both of these variables ???
-        TextSizes.playlistScheme = size
-        PlaylistViewState.textSize = size
-        
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+        lblTracksSummary.font = TextSizes.playlistSummaryFont
+        lblDurationSummary.font = TextSizes.playlistSummaryFont
     }
     
     // Updates the summary in response to a change in the tab group selected tab
@@ -497,6 +506,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .nextPlaylistView: nextPlaylistView()
             
         case .previousPlaylistView: previousPlaylistView()
+            
+        case .changePlaylistTextSize: changeTextSize((message as! TextSizeActionMessage).textSize)
             
         default: return
             

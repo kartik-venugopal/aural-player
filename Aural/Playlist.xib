@@ -313,12 +313,12 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="27" width="450" height="180"/>
+                                    <rect key="frame" x="0.0" y="29" width="450" height="178"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="450" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -370,24 +370,25 @@
                                         </ciFilter>
                                     </contentFilters>
                                 </progressIndicator>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary">
-                                    <rect key="frame" x="10" y="4" width="155" height="19"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="10" y="2" width="155" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="155" id="nCr-fa-5NI"/>
-                                        <constraint firstAttribute="height" constant="19" id="wbx-Yh-AuW"/>
+                                        <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" drawsBackground="YES" id="Y4c-xx-vs7">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" drawsBackground="YES" id="Y4c-xx-vs7" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary">
-                                    <rect key="frame" x="332" y="4" width="111" height="19"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="332" y="2" width="111" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="111" id="Dph-rN-D1k"/>
+                                        <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" drawsBackground="YES" id="s2h-am-6V7">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" drawsBackground="YES" id="s2h-am-6V7" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -404,7 +405,7 @@
                                 <constraint firstItem="TgI-fO-gfa" firstAttribute="centerX" secondItem="11G-bl-tTJ" secondAttribute="centerX" id="hzF-Bd-2mE"/>
                                 <constraint firstAttribute="trailing" secondItem="WTT-JW-9R7" secondAttribute="trailing" id="jiN-dj-VPK"/>
                                 <constraint firstItem="WTT-JW-9R7" firstAttribute="top" secondItem="11G-bl-tTJ" secondAttribute="top" id="oRy-Do-F0n"/>
-                                <constraint firstAttribute="bottom" secondItem="QXQ-hF-zKn" secondAttribute="bottom" constant="4" id="wGz-5g-6Ps"/>
+                                <constraint firstAttribute="bottom" secondItem="QXQ-hF-zKn" secondAttribute="bottom" constant="2" id="wGz-5g-6Ps"/>
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.10313585070277778" alpha="1" colorSpace="calibratedWhite"/>
