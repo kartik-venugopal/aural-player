@@ -1187,6 +1187,13 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
+                            <menuItem title="Always on top" id="xFq-YL-7lS" userLabel="Vis">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="alwaysOnTopAction:" target="xzd-WN-BuR" id="JU8-yi-IEi"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
                             <menuItem title=" Window Layout" image="WindowLayout" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>

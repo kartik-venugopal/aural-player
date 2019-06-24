@@ -38,10 +38,10 @@
                         <action selector="bypassAction:" target="-2" id="kxt-Hu-2Q3"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6D-g3-0xt" userLabel="Filter Desc">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m6D-g3-0xt" userLabel="Filter Desc" customClass="VATextField" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="68" y="148" width="365" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Eliminates unwanted frequency ranges" id="mrp-rc-RoA">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Eliminates unwanted frequency ranges" id="mrp-rc-RoA" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

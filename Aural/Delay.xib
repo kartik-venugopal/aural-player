@@ -33,10 +33,10 @@
                         <action selector="bypassAction:" target="-2" id="Gqv-hi-tGk"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="452-9T-5pC" userLabel="Delay Desc">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="452-9T-5pC" userLabel="Delay Desc" customClass="VATextField" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="68" y="143" width="365" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Creates an echo that decays over time" id="QOI-Le-Y0t">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Creates an echo that decays over time" id="QOI-Le-Y0t" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

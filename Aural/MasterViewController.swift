@@ -36,10 +36,9 @@ class MasterViewController: FXUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
+        
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
         
-        lblCaption.vAlign = .top
-
         functionLabels = allLabels(self.view)
         functionLabels.forEach({
             
@@ -164,11 +163,10 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
-    private func changeTextSize() {
+    override func changeTextSize() {
         
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+        super.changeTextSize()
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
-        presetsMenu.font = TextSizes.fxUnitFunctionFont
     }
     
     // MARK: Message handling

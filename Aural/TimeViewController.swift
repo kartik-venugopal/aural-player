@@ -49,8 +49,6 @@ class TimeViewController: FXUnitViewController {
         super.oneTimeSetup()
         timeView.initialize(unitStateFunction)
         
-        lblCaption.vAlign = .top
-        
         functionLabels = [lblRate, lblOverlap, lblPresets, lblRateMin, lblRateMax, lblRateValue, lblOverlapMin, lblOverlapMax, lblOverlapValue, lblPitchShiftValue]
         functionLabels.forEach({$0.vAlign = .center})
     }
@@ -138,12 +136,11 @@ class TimeViewController: FXUnitViewController {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
     
-    private func changeTextSize() {
+    override func changeTextSize() {
         
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+        super.changeTextSize()
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
         btnShiftPitch.redraw()
-        presetsMenu.font = TextSizes.fxUnitFunctionFont
     }
 
     // MARK: Message handling

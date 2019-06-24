@@ -67,9 +67,9 @@ class DelayViewController: FXUnitViewController {
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
-    private func changeTextSize() {
+    override func changeTextSize() {
         
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+        super.changeTextSize()
     }
     
     // MARK: Message handling

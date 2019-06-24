@@ -4,7 +4,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var lblCaption: VATextField!
+    @IBOutlet weak var lblCaption: VATextField?
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -28,6 +28,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func oneTimeSetup() {
         
         btnBypass.stateFunction = self.unitStateFunction
+        lblCaption?.vAlign = .top
         initSubscriptions()
     }
     
@@ -74,6 +75,13 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // If this isn't done, the app windows are hidden when the popover is displayed
         WindowState.mainWindow.orderFront(self)
+    }
+    
+    func changeTextSize() {
+        
+        lblCaption?.font = TextSizes.fxUnitCaptionFont
+//        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        presetsMenu.font = TextSizes.fxUnitFunctionFont
     }
     
     var subscriberId: String {
