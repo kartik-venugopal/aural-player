@@ -31,6 +31,49 @@ class TextSizes {
     static var effectsScheme: TextSizeScheme = .normal
     static var playlistScheme: TextSizeScheme = .normal
     
+    private static let menuFont_normal: NSFont = Fonts.gillSans11Font
+    private static let menuFont_larger: NSFont = Fonts.gillSans12Font
+    private static let menuFont_largest: NSFont = Fonts.gillSans13Font
+    
+    static var playerMenuFont: NSFont {
+        
+        switch playerScheme {
+            
+        case .normal: return menuFont_normal
+            
+        case .larger: return menuFont_larger
+            
+        case .largest: return menuFont_largest
+            
+        }
+    }
+    
+    static var playlistMenuFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return menuFont_normal
+            
+        case .larger: return menuFont_larger
+            
+        case .largest: return menuFont_largest
+            
+        }
+    }
+    
+    static var effectsMenuFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return menuFont_normal
+            
+        case .larger: return menuFont_larger
+            
+        case .largest: return menuFont_largest
+            
+        }
+    }
+    
     private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
     private static let titleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
     private static let titleFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!

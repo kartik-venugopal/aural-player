@@ -31,6 +31,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
     private var fxTabViewButtons: [EffectsUnitTabButton]?
+    
+    @IBOutlet weak var viewMenuButton: NSPopUpButton!
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -58,6 +60,9 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
         AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
+
+//        EffectsViewState.initialize(ObjectGraph.appState.ui)
+//        changeTextSize()
     }
 
     private func addSubViews() {
@@ -109,13 +114,13 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
     }
 
     private func removeSubscriptions() {
 
         SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -133,6 +138,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+    }
+    
+    private func changeTextSize() {
+        viewMenuButton.font = TextSizes.effectsMenuFont
     }
 
     var subscriberId: String {
@@ -188,6 +197,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             default: return
 
             }
+        }
+        
+        if message is TextSizeActionMessage {
+            
+            changeTextSize()
+            return
         }
     }
 

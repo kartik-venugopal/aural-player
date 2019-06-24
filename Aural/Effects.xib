@@ -17,6 +17,7 @@
                 <outlet property="recorderTabViewButton" destination="tIx-Qv-jQv" id="eF8-Fo-6Xq"/>
                 <outlet property="reverbTabViewButton" destination="i8m-M9-uNi" id="Pbu-A6-kIV"/>
                 <outlet property="timeTabViewButton" destination="ehI-IS-owi" id="6hD-IH-LtS"/>
+                <outlet property="viewMenuButton" destination="HsC-2z-eFh" id="dBU-y6-VHR"/>
                 <outlet property="window" destination="V8B-S9-0F8" id="LUw-iX-Uk3"/>
             </connections>
         </customObject>
@@ -407,12 +408,12 @@
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="7Tn-eo-O8X" id="CHZ-PR-oFe"/>
-                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                             </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="7Tn-eo-O8X" id="6mF-al-qE4"/>
+                                            </connections>
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
