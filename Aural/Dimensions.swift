@@ -201,6 +201,40 @@ class TextSizes {
         }
     }
     
+    private static let playlistTabsFont_normal: NSFont = Fonts.gillSans12Font
+    private static let playlistTabsFont_larger: NSFont = Fonts.gillSans13Font
+    private static let playlistTabsFont_largest: NSFont = Fonts.gillSans14Font
+    
+    static var playlistTabsFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistTabsFont_normal
+            
+        case .larger: return playlistTabsFont_larger
+            
+        case .largest: return playlistTabsFont_largest
+            
+        }
+    }
+    
+    private static let playlistSelectedTabFont_normal: NSFont = Fonts.gillSans12SemiBoldFont
+    private static let playlistSelectedTabFont_larger: NSFont = Fonts.gillSans13SemiBoldFont
+    private static let playlistSelectedTabFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var playlistSelectedTabFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return playlistSelectedTabFont_normal
+            
+        case .larger: return playlistSelectedTabFont_larger
+            
+        case .largest: return playlistSelectedTabFont_largest
+            
+        }
+    }
+    
     private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15)!
     private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!
