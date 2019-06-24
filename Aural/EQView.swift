@@ -86,4 +86,12 @@ class EQView: NSView {
         setUnitState(preset.state)
         bandsUpdated(preset.bands, preset.globalGain)
     }
+    
+    func changeTextSize() {
+        
+        btn10Band.redraw()
+        btn15Band.redraw()
+//        btnSync.font = TextSizes.fxUnitFunctionFont
+        btnSync.redraw()
+    }
 }

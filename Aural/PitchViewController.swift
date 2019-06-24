@@ -49,8 +49,6 @@ class PitchViewController: FXUnitViewController {
         // TODO: Move this to generic view
         pitchView.initialize(unitStateFunction)
         
-        lblCaption.vAlign = .top
-        
         functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
         functionLabels.forEach({$0.vAlign = .center})
     }
@@ -124,11 +122,10 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
-    private func changeTextSize() {
-        
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+    override func changeTextSize() {
+
+        super.changeTextSize()
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
-        presetsMenu.font = TextSizes.fxUnitFunctionFont
     }
     
     // MARK: Message handling

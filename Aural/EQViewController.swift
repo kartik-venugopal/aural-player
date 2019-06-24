@@ -102,11 +102,13 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
-    private func changeTextSize() {
-        
+    override func changeTextSize() {
+
+        super.changeTextSize()
         resizeLabelText(self.view)
         
-        presetsMenu.font = TextSizes.fxUnitFunctionFont
+        // Resize selector button and sync button text
+        eqView.changeTextSize()
     }
     
     private func resizeLabelText(_ view: NSView) {

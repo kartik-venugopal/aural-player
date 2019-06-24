@@ -113,6 +113,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
     }
     
+    @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
+        layoutManager.toggleAlwaysOnTop()
+    }
+    
     @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
         layoutManager.layout(sender.title)
     }

@@ -278,6 +278,40 @@ class TextSizes {
         }
     }
     
+    private static let fxTabsFont_normal: NSFont = Fonts.gillSans12Font
+    private static let fxTabsFont_larger: NSFont = Fonts.gillSans13Font
+    private static let fxTabsFont_largest: NSFont = Fonts.gillSans14Font
+    
+    static var fxTabsFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return fxTabsFont_normal
+            
+        case .larger: return fxTabsFont_larger
+            
+        case .largest: return fxTabsFont_largest
+            
+        }
+    }
+    
+    private static let fxSelectedTabFont_normal: NSFont = Fonts.gillSans12SemiBoldFont
+    private static let fxSelectedTabFont_larger: NSFont = Fonts.gillSans13SemiBoldFont
+    private static let fxSelectedTabFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var fxSelectedTabFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return fxSelectedTabFont_normal
+            
+        case .larger: return fxSelectedTabFont_larger
+            
+        case .largest: return fxSelectedTabFont_largest
+            
+        }
+    }
+    
     private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15)!
     private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!
@@ -308,6 +342,23 @@ class TextSizes {
         case .larger: return fxUnitFunctionFont_larger
             
         case .largest: return fxUnitFunctionFont_largest
+            
+        }
+    }
+    
+    private static let fxUnitFunctionBoldFont_normal: NSFont = NSFont(name: "Gill Sans SemiBold", size: 11)!
+    private static let fxUnitFunctionBoldFont_larger: NSFont = NSFont(name: "Gill Sans SemiBold", size: 12)!
+    private static let fxUnitFunctionBoldFont_largest: NSFont = NSFont(name: "Gill Sans SemiBold", size: 13)!
+    
+    static var fxUnitFunctionBoldFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return fxUnitFunctionBoldFont_normal
+            
+        case .larger: return fxUnitFunctionBoldFont_larger
+            
+        case .largest: return fxUnitFunctionBoldFont_largest
             
         }
     }

@@ -10,6 +10,8 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
+    private var onTop: Bool = false
+    
     init(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
         
         // Use appState and prefs to determine initial layout
@@ -112,6 +114,12 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     
     func getPlaylistWindowFrame() -> NSRect {
         return playlistWindow.frame
+    }
+    
+    func toggleAlwaysOnTop() {
+        
+        onTop = !onTop
+        mainWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(onTop ? .floatingWindow : .normalWindow)))
     }
     
     // MARK ----------- View toggling code ----------------------------------------------------

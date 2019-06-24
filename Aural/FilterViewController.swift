@@ -242,9 +242,9 @@ class FilterViewController: FXUnitViewController {
         }
     }
     
-    private func changeTextSize() {
+    override func changeTextSize() {
         
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+        super.changeTextSize()
     }
     
     // MARK: Message handling

@@ -51,9 +51,9 @@ class ReverbViewController: FXUnitViewController {
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
     }
     
-    private func changeTextSize() {
+    override func changeTextSize() {
         
-        lblCaption.font = TextSizes.fxUnitCaptionFont
+        super.changeTextSize()
     }
     
     // MARK: Message handling
