@@ -34,6 +34,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
+    @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
     
@@ -410,6 +412,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         lblDurationSummary.font = TextSizes.playlistSummaryFont
         
         tabGroup.items.forEach({$0.tabButton.redraw()})
+        
+        viewMenuButton.font = TextSizes.playlistMenuFont
     }
     
     // Updates the summary in response to a change in the tab group selected tab

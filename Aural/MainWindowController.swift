@@ -19,6 +19,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
     @IBOutlet weak var btnLayout: NSPopUpButton!
     
+    @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
@@ -72,6 +74,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
+        
+        TextSizes.playerScheme = ObjectGraph.appState.ui.player.textSize
+        changeTextSize()
     }
     
     // Add the sub-views that make up the main window
@@ -99,13 +104,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
         SyncMessenger.unsubscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -183,6 +188,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         })
     }
     
+    private func changeTextSize() {
+        
+        btnLayout.font = TextSizes.playerMenuFont
+        viewMenuButton.font = TextSizes.playerMenuFont
+    }
+    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -205,6 +216,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         case .toggleEffects: toggleEffects()
             
         case .togglePlaylist: togglePlaylist()
+            
+        case .changePlayerTextSize: changeTextSize()
             
         default: return
             

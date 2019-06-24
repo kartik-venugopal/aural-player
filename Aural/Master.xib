@@ -11,13 +11,6 @@
                 <outlet property="btnBypass" destination="1bl-Og-Men" id="ILs-W4-cRi"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="lblCaption" destination="Irt-cZ-a6S" id="Sn4-jB-cbp"/>
-                <outlet property="lblDelaySwitch" destination="5Jb-xR-4OU" id="U2K-6d-a0h"/>
-                <outlet property="lblEQSwitch" destination="Yqt-aM-Una" id="jdO-GH-Ni2"/>
-                <outlet property="lblFilterSwitch" destination="Wmb-wY-F1a" id="oM5-iF-jtc"/>
-                <outlet property="lblPitchSwitch" destination="lP9-aB-WXZ" id="g3Q-Fg-Tly"/>
-                <outlet property="lblPresets" destination="CUP-uZ-tdz" id="AQ8-cE-rgH"/>
-                <outlet property="lblReverbSwitch" destination="Wfq-hI-8oA" id="SVg-3g-fBn"/>
-                <outlet property="lblTimeSwitch" destination="MhW-kV-SE6" id="Wpp-cU-lfY"/>
                 <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsMenu" destination="ryf-gT-ZGe" id="82S-Df-bBT"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>

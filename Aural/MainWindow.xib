@@ -12,6 +12,7 @@
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
         </customObject>

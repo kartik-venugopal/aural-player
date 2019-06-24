@@ -13,6 +13,7 @@
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
                 <outlet property="playlistWorkSpinner" destination="TgI-fO-gfa" id="myn-qC-H9K"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
+                <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
             </connections>
         </customObject>
@@ -79,12 +80,12 @@
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="BRL-5h-wH5" id="9EN-CO-Pof"/>
-                                                        </connections>
                                                     </menu>
                                                 </menuItem>
                                             </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="BRL-5h-wH5" id="lay-OI-XLb"/>
+                                            </connections>
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
