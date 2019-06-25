@@ -60,7 +60,7 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var unselectedTextColor: NSColor {return _unselectedTextColor}
     override var selectedTextColor: NSColor {return _selectedTextColor}
     
-    override var borderRadius: CGFloat {return 2}
+    override var borderRadius: CGFloat {return 3}
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}
     
     override var textFont: NSFont {return TextSizes.playlistTabsFont}
