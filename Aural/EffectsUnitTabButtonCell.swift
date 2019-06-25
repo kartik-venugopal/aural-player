@@ -5,10 +5,10 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     
     private let borderInsetX: CGFloat = 0
     private let borderInsetY: CGFloat = 2
-    private let borderRadius: CGFloat = 2
+    private let borderRadius: CGFloat = 3
     
     private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
-    private let selectionBoxColor: NSColor = Colors.tabViewSelectionBoxColor
+    private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
     
 //    private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
 //    private let selectedTextColor: NSColor = Colors.playlistSelectedTextColor
