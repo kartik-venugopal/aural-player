@@ -312,9 +312,6 @@ class EffectsViewPopupMenuController: NSObject, NSMenuDelegate {
             EffectsViewState.textSize = size
             
              SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
-            
-        } else {
-            print("\nSAME !!!")
         }
     }
 }
