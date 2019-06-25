@@ -24,7 +24,7 @@ class PitchViewController: FXUnitViewController {
     
     override var nibName: String? {return "Pitch"}
     
-    var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
+    private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
  
     override func awakeFromNib() {
         
@@ -50,7 +50,6 @@ class PitchViewController: FXUnitViewController {
         pitchView.initialize(unitStateFunction)
         
         functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
-        functionLabels.forEach({$0.vAlign = .center})
     }
     
     override func initControls() {

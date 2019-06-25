@@ -108,7 +108,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
         // Select Master tab view by default
 //        tabViewAction(masterTabViewButton)
-        tabViewAction(eqTabViewButton)
+        tabViewAction(pitchTabViewButton)
     }
 
     private func initSubscriptions() {
