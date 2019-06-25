@@ -41,7 +41,7 @@
                     </view>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0j3-Ye-6lg" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="387" y="28" width="68" height="21"/>
+                    <rect key="frame" x="387" y="28" width="68" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Presets" id="mv0-0j-tp1">
                         <font key="font" size="11" name="GillSans"/>
@@ -283,7 +283,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-zE-rQP" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="63" y="70" width="20" height="20"/>
+                    <rect key="frame" x="63" y="71" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0" id="QSK-mo-X2R">
                         <font key="font" size="11" name="GillSans"/>
@@ -352,8 +352,6 @@
             </subviews>
             <connections>
                 <outlet property="globalGainSlider" destination="ZSK-Oa-zl1" id="1Wt-l3-oVr"/>
-                <outlet property="lbl0db" destination="9AI-zE-rQP" id="Zyf-BU-dCc"/>
-                <outlet property="lbl_20db" destination="7dA-h0-8dq" id="JeU-2b-OoL"/>
             </connections>
             <point key="canvasLocation" x="139.5" y="214"/>
         </view>
