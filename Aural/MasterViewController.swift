@@ -40,12 +40,6 @@ class MasterViewController: FXUnitViewController {
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
         
         functionLabels = allLabels(self.view)
-        functionLabels.forEach({
-            
-            if let vaLabel = $0 as? VATextField {
-                vaLabel.vAlign = .center
-            }
-        })
     }
     
     private func allLabels(_ view: NSView) -> [NSTextField] {

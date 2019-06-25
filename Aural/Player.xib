@@ -42,19 +42,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-uR-5kK" userLabel="Track Title" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-uR-5kK" userLabel="Track Title" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="40" width="320" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f3m-RO-I7c" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f3m-RO-I7c" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="14" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.447718756140845" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOQ-z9-Qgx" userLabel="Track Artist" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOQ-z9-Qgx" userLabel="Track Artist" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="15" width="320" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="xJF-rl-ZVU" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="xJF-rl-ZVU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="12" name="GillSans"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -192,19 +192,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="470" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQ4-y8-MHZ" userLabel="Track Title" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQ4-y8-MHZ" userLabel="Track Title" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="30" y="38" width="440" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Lqi-PP-wRn" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Lqi-PP-wRn" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="14" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.44942430191549293" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg3-H8-fu1" userLabel="Track Artist" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg3-H8-fu1" userLabel="Track Artist" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="30" y="13" width="440" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="clD-ov-oHT" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="clD-ov-oHT" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                     <font key="font" size="12" name="GillSans"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -330,19 +330,19 @@
                             <action selector="volumeAction:" target="RSE-vv-5aa" id="7dD-Iw-agO"/>
                         </connections>
                     </slider>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="463" y="36" width="27" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="8" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="447" y="0.0" width="40" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="8" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -471,10 +471,10 @@ G1BhbiBTbGlkZXI
                             <action selector="repeatAction:" target="RSE-vv-5aa" id="C5T-aY-emW"/>
                         </connections>
                     </button>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-LM-vv4" userLabel="Lbl Time Elapsed" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-LM-vv4" userLabel="Lbl Time Elapsed" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="10" y="60" width="70" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="Z9y-gv-XAm" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="Z9y-gv-XAm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="10" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.55233473325352112" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -483,10 +483,10 @@ G1BhbiBTbGlkZXI
                             </allowedInputSourceLocales>
                         </textFieldCell>
                     </textField>
-                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byf-Gi-f6M" userLabel="Lbl Time Remaining" customClass="VATextField" customModule="Aural" customModuleProvider="target">
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byf-Gi-f6M" userLabel="Lbl Time Remaining" customClass="VALabel" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="415" y="60" width="75" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="ijY-mG-R1p" customClass="VATextFieldCell" customModule="Aural" customModuleProvider="target">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="ijY-mG-R1p" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="10" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.55233473325352112" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -884,7 +884,7 @@ Gw
         <image name="SeekForward" width="36" height="23"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="ShuffleOff" width="26" height="26"/>
-        <image name="Transcoding" width="533" height="485"/>
+        <image name="Transcoding" width="53" height="36"/>
         <image name="VolumeMedium" width="26" height="26"/>
         <image name="WhiteLine" width="192" height="1"/>
     </resources>

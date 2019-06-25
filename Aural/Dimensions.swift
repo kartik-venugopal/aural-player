@@ -312,8 +312,8 @@ class TextSizes {
         }
     }
     
-    private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15)!
+    private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15.5)!
     private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!
     
     static var fxUnitCaptionFont: NSFont {

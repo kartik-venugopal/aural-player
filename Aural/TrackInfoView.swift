@@ -2,8 +2,8 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var lblArtist: VATextField!
-    @IBOutlet weak var lblTitle: VATextField!
+    @IBOutlet weak var lblArtist: VALabel!
+    @IBOutlet weak var lblTitle: VALabel!
     @IBOutlet weak var lblName: NSTextField!
     
     // Fields that display information about the current playback sequence

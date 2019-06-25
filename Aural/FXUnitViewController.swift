@@ -4,7 +4,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var lblCaption: VATextField?
+    @IBOutlet weak var lblCaption: TopTextLabel?
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -28,7 +28,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func oneTimeSetup() {
         
         btnBypass.stateFunction = self.unitStateFunction
-        lblCaption?.vAlign = .top
         initSubscriptions()
     }
     
@@ -81,7 +80,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         lblCaption?.font = TextSizes.fxUnitCaptionFont
 //        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
-        presetsMenu.font = TextSizes.fxUnitFunctionFont
+        presetsMenu.font = TextSizes.effectsMenuFont
     }
     
     var subscriberId: String {
