@@ -389,9 +389,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
             TextSizes.playerScheme = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
-            
-        } else {
-            print("\nSAME !!!")
         }
     }
     

@@ -682,9 +682,6 @@ class PlaylistViewPopupMenuController: NSObject, NSMenuDelegate {
             PlaylistViewState.textSize = size
             
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
-            
-        } else {
-            print("\nSAME !!!")
         }
     }
 }
