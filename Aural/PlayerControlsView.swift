@@ -3,8 +3,8 @@ import Cocoa
 class PlayerControlsView: NSView {
     
     // Fields that display/control seek position within the playing track
-    @IBOutlet weak var lblTimeElapsed: VATextField!
-    @IBOutlet weak var lblTimeRemaining: VATextField!
+    @IBOutlet weak var lblTimeElapsed: VALabel!
+    @IBOutlet weak var lblTimeRemaining: VALabel!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
@@ -26,8 +26,8 @@ class PlayerControlsView: NSView {
     @IBOutlet weak var panSlider: NSSlider!
     
     // These are feedback labels that are shown briefly and automatically hidden
-    @IBOutlet weak var lblVolume: VATextField!
-    @IBOutlet weak var lblPan: VATextField!
+    @IBOutlet weak var lblVolume: VALabel!
+    @IBOutlet weak var lblPan: VALabel!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!

@@ -17,14 +17,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var tabGroup: AuralTabView!
     
     // Fields that display playlist summary info
-    @IBOutlet weak var lblTracksSummary: VATextField! {
+    @IBOutlet weak var lblTracksSummary: VALabel! {
         
         didSet {
             lblTracksSummary.vAlign = .bottom
         }
     }
     
-    @IBOutlet weak var lblDurationSummary: VATextField! {
+    @IBOutlet weak var lblDurationSummary: VALabel! {
         
         didSet {
             lblDurationSummary.vAlign = .bottom

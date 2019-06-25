@@ -4,21 +4,21 @@ class EQSubview: NSView {
     
     @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
     
-    @IBOutlet weak var lbl_20db: VATextField! {
+    @IBOutlet weak var lbl_20db: VALabel! {
         
         didSet {
             lbl_20db.vAlign = .bottom
         }
     }
     
-    @IBOutlet weak var lbl0db: VATextField! {
+    @IBOutlet weak var lbl0db: VALabel! {
     
         didSet {
             lbl0db.vAlign = .center
         }
     }
     
-    @IBOutlet weak var lbl20db: VATextField! {
+    @IBOutlet weak var lbl20db: VALabel! {
         
         didSet {
             lbl20db.vAlign = .top

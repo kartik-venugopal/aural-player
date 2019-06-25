@@ -8,19 +8,19 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
     
-    @IBOutlet weak var lblPitch: VATextField!
-    @IBOutlet weak var lblPitchMin: VATextField!
-    @IBOutlet weak var lblPitchMax: VATextField!
-    @IBOutlet weak var lblPitchValue: VATextField!
+    @IBOutlet weak var lblPitch: VALabel!
+    @IBOutlet weak var lblPitchMin: VALabel!
+    @IBOutlet weak var lblPitchMax: VALabel!
+    @IBOutlet weak var lblPitchValue: VALabel!
     
-    @IBOutlet weak var lblOverlap: VATextField!
-    @IBOutlet weak var lblOverlapMin: VATextField!
-    @IBOutlet weak var lblOverlapMax: VATextField!
-    @IBOutlet weak var lblPitchOverlapValue: VATextField!
+    @IBOutlet weak var lblOverlap: VALabel!
+    @IBOutlet weak var lblOverlapMin: VALabel!
+    @IBOutlet weak var lblOverlapMax: VALabel!
+    @IBOutlet weak var lblPitchOverlapValue: VALabel!
     
-    @IBOutlet weak var lblPresets: VATextField!
+    @IBOutlet weak var lblPresets: VALabel!
     
-    private var functionLabels: [VATextField] = []
+    private var functionLabels: [VALabel] = []
     
     override var nibName: String? {return "Pitch"}
     

@@ -169,6 +169,8 @@
 		3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */; };
 		3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */; };
 		3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */; };
+		3E5475C722C152DB00472ABB /* FXUnitTriStateImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */; };
+		3E54B23922C263B3005EAEDF /* TriStateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E54B23822C263B3005EAEDF /* TriStateLabel.swift */; };
 		3E551B871F10801100354DE2 /* AudioEngineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E551B861F10801100354DE2 /* AudioEngineHelper.swift */; };
 		3E582E7B1F6A5B440040A092 /* MetadataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E582E7A1F6A5B440040A092 /* MetadataUtils.swift */; };
 		3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC261F025B0D00C36DC1 /* Colors.swift */; };
@@ -573,6 +575,8 @@
 		3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBarPopover.xib; sourceTree = "<group>"; };
 		3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarPopoverViewController.swift; sourceTree = "<group>"; };
 		3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleMenuItem.swift; sourceTree = "<group>"; };
+		3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitTriStateImageView.swift; sourceTree = "<group>"; };
+		3E54B23822C263B3005EAEDF /* TriStateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateLabel.swift; sourceTree = "<group>"; };
 		3E551B861F10801100354DE2 /* AudioEngineHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngineHelper.swift; sourceTree = "<group>"; };
 		3E582E7A1F6A5B440040A092 /* MetadataUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataUtils.swift; sourceTree = "<group>"; };
 		3E58CC261F025B0D00C36DC1 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -863,6 +867,8 @@
 				3EA3BDAB22B267B10020A908 /* VAlignedTextField.swift */,
 				3E76C9FF21D4811A00B45D27 /* TranscoderProgressBar.swift */,
 				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
+				3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */,
+				3E54B23822C263B3005EAEDF /* TriStateLabel.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -2474,6 +2480,7 @@
 				3EC947B11F5DDECC00FDBE25 /* PlaylistAccessorDelegateProtocol.swift in Sources */,
 				3E357B541F9C7DFB00C8F7B1 /* FlatPlaylist.swift in Sources */,
 				3E3FB7F7215B58C900974A59 /* FavoritesProtocol.swift in Sources */,
+				3E5475C722C152DB00472ABB /* FXUnitTriStateImageView.swift in Sources */,
 				3E688AC321E3978600164E84 /* ApeV2Parser.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
 				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
@@ -2490,6 +2497,7 @@
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,
 				3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */,
 				3EDA1FBD214F3102003591FA /* PlaybackSequencerInfoDelegate.swift in Sources */,
+				3E54B23922C263B3005EAEDF /* TriStateLabel.swift in Sources */,
 				3E0839BA2195AEE8008D84BA /* FXUnitProtocols.swift in Sources */,
 				3E02739E1FD91B46000F0844 /* StringInputPopoverViewController.swift in Sources */,
 				3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */,
