@@ -52,6 +52,7 @@ class MasterViewController: FXUnitViewController {
                 labels.append(label)
             }
             
+            // Recursive call
             let subviewLabels = allLabels(subview)
             labels.append(contentsOf: subviewLabels)
         }
