@@ -4,9 +4,6 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
-    // Labels
-    private var functionLabels: [NSTextField] = []
-
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
@@ -38,26 +35,6 @@ class MasterViewController: FXUnitViewController {
         super.oneTimeSetup()
         
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
-        
-        functionLabels = allLabels(self.view)
-    }
-    
-    private func allLabels(_ view: NSView) -> [NSTextField] {
-        
-        var labels: [NSTextField] = []
-        
-        for subview in view.subviews {
-            
-            if let label = subview as? NSTextField, label != lblCaption {
-                labels.append(label)
-            }
-            
-            // Recursive call
-            let subviewLabels = allLabels(subview)
-            labels.append(contentsOf: subviewLabels)
-        }
-        
-        return labels
     }
     
     override func initSubscriptions() {
@@ -157,13 +134,7 @@ class MasterViewController: FXUnitViewController {
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
     }
-    
-    override func changeTextSize() {
-        
-        super.changeTextSize()
-        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
-    }
-    
+   
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {

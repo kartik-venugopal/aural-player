@@ -58,11 +58,12 @@ class GraphicsUtils {
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
         // Compute size and origin
-        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        let size: CGSize = text.size(withAttributes: attrsDict)
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 1
         
-        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrsDict)
     }
     
     // Draws text, centered, within an NSRect, with a certain font and color

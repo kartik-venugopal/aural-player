@@ -52,8 +52,8 @@ class ReverbViewController: FXUnitViewController {
     }
     
     override func changeTextSize() {
-        
         super.changeTextSize()
+        reverbView.changeTextSize()
     }
     
     // MARK: Message handling
