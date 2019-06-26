@@ -108,7 +108,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
         // Select Master tab view by default
 //        tabViewAction(masterTabViewButton)
-        tabViewAction(reverbTabViewButton)
+        tabViewAction(delayTabViewButton)
     }
 
     private func initSubscriptions() {
