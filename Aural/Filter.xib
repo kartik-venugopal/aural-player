@@ -43,7 +43,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Filter" id="mrp-rc-RoA" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="14" name="GillSans"/>
-                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

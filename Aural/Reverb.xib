@@ -38,7 +38,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Reverb" id="GcD-ur-8O8">
                         <font key="font" size="14" name="GillSans"/>
-                        <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
