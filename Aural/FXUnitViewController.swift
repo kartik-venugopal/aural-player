@@ -5,6 +5,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
     @IBOutlet weak var lblCaption: TopTextLabel?
+    
+    // Labels
+    var functionLabels: [NSTextField] = []
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -29,6 +32,26 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         btnBypass.stateFunction = self.unitStateFunction
         initSubscriptions()
+        
+        functionLabels = findFunctionLabels(self.view)
+    }
+    
+    func findFunctionLabels(_ view: NSView) -> [NSTextField] {
+        
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField, label != lblCaption {
+                labels.append(label)
+            }
+            
+            // Recursive call
+            let subviewLabels = findFunctionLabels(subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
     }
     
     func initSubscriptions() {
@@ -79,7 +102,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func changeTextSize() {
         
         lblCaption?.font = TextSizes.fxUnitCaptionFont
-//        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
         presetsMenu.font = TextSizes.effectsMenuFont
     }
     

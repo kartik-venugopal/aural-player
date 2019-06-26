@@ -105,7 +105,7 @@ class EQViewController: FXUnitViewController {
     override func changeTextSize() {
 
         super.changeTextSize()
-        resizeLabelText(self.view)
+//        resizeLabelText(self.view)
         
         // Resize selector button and sync button text
         eqView.changeTextSize()

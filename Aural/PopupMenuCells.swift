@@ -54,11 +54,42 @@ class PopupMenuCell: NSPopUpButtonCell {
 // Cell for reverb preset popup menu
 class ReverbPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetY: CGFloat {return 4}
+    override var cellInsetY: CGFloat {return 1}
     override var rectRadius: CGFloat {return 2}
     override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 4}
-    override var arrowHeight: CGFloat {return 4}
+    override var arrowYMargin: CGFloat {return 5}
+    
+    override var arrowWidth: CGFloat {return 4}
+    override var arrowHeight: CGFloat {return 7}
+    
+    override var titleFont: NSFont {return TextSizes.fxUnitFunctionFont}
+    
+    override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
+        
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.center
+        
+        let textFontAttributes = [
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): titleFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): titleColor,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): textStyle
+        ]
+        
+        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes)
+        
+        // Compute size and origin
+        let size: CGSize = title.string.size(withAttributes: attrsDict)
+        let sx = (withFrame.width - size.width) / 2
+        let sy = (withFrame.height - size.height) / 2 - 2
+        
+        title.string.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrsDict)
+        
+        return withFrame
+    }
+    
+    override func titleRect(forBounds cellFrame: NSRect) -> NSRect {
+        return cellFrame.offsetBy(dx: 0, dy: -1)
+    }
 }
 
 // Cell for recorder format popup menu
@@ -81,7 +112,6 @@ class PresetsPopupMenuCell: PopupMenuCell {
     
     override var cellInsetX: CGFloat {return 11.5}
     override var cellInsetY: CGFloat {return 4}
-//    override var rectRadius: CGFloat {return 1}
     override var arrowXMargin: CGFloat {return 5.5}
     override var arrowYMargin: CGFloat {return 3}
     override var arrowHeight: CGFloat {return 3}

@@ -33,37 +33,37 @@
                         <action selector="bypassAction:" target="-2" id="B8c-y1-3Y7"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaO-Rg-qne" userLabel="Reverb Desc" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="188" y="150" width="124" height="25"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaO-Rg-qne" userLabel="Reverb Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="188" y="150" width="124" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Reverb" id="GcD-ur-8O8" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Reverb" id="GcD-ur-8O8">
                         <font key="font" size="14" name="GillSans"/>
                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rwD-oq-vYg" userLabel="Controls Box">
-                    <rect key="frame" x="73" y="40" width="420" height="68"/>
+                    <rect key="frame" x="21" y="63" width="472" height="68"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <view key="contentView" ambiguous="YES" id="4DO-6d-OBI" customClass="ReverbView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="68"/>
+                        <rect key="frame" x="0.0" y="0.0" width="472" height="68"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8F-iT-eFz">
-                                <rect key="frame" x="0.0" y="40" width="48" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8F-iT-eFz" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="40" width="60" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="7Kj-vk-4Ux">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Space" id="7Kj-vk-4Ux">
                                     <font key="font" size="11" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grQ-Tl-H1t" userLabel="Reverb Space Menu">
-                                <rect key="frame" x="80" y="37" width="125" height="22"/>
+                                <rect key="frame" x="115" y="37" width="156" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="ffa-2v-p2q" id="sGg-IB-Jkg" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="10" name="GillSans"/>
+                                    <font key="font" size="11" name="GillSans"/>
                                     <menu key="menu" id="P9f-IK-2F3">
                                         <items>
                                             <menuItem title="Placeholder" hidden="YES" enabled="NO" id="ffa-2v-p2q" userLabel="Placeholder">
@@ -104,45 +104,45 @@
                                 </connections>
                             </popUpButton>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flt-XK-mfg" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="80" y="7" width="255" height="18"/>
+                                <rect key="frame" x="115" y="11" width="245" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="Xxn-59-k0q" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="reverbAmountAction:" target="-2" id="CCB-Ca-mSW"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J0n-kH-ag6">
-                                <rect key="frame" x="0.0" y="11" width="55" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J0n-kH-ag6" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="5" y="16" width="65" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="Gng-BU-SQq">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amount" id="Gng-BU-SQq">
                                     <font key="font" size="11" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-6d-3cN">
-                                <rect key="frame" x="45" y="11" width="33" height="15"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-6d-3cN" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="80" y="16" width="33" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="Ozv-bm-R7J">
-                                    <font key="font" size="10" name="GillSans"/>
+                                    <font key="font" size="11" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRO-zb-BZR" userLabel="Wet">
-                                <rect key="frame" x="337" y="11" width="34" height="15"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRO-zb-BZR" userLabel="Wet" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="362" y="16" width="34" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="R3h-TY-d4K">
-                                    <font key="font" size="10" name="GillSans"/>
+                                    <font key="font" size="11" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvj-B8-0Yw" userLabel="Lbl Reverb Value">
-                                <rect key="frame" x="359" y="11" width="53" height="15"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvj-B8-0Yw" userLabel="Lbl Reverb Value" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="387" y="16" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="q9d-Ce-fAC">
-                                    <font key="font" size="10" name="GillSans"/>
+                                    <font key="font" size="11" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -157,10 +157,10 @@
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4B-cq-rki">
-                    <rect key="frame" x="418" y="19" width="40" height="18"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4B-cq-rki" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="387" y="19" width="68" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="CRF-8r-BrM">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Presets" id="CRF-8r-BrM">
                         <font key="font" size="11" name="GillSans"/>
                         <color key="textColor" white="0.70393880210000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -183,7 +183,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save">
-                    <rect key="frame" x="474" y="21" width="10" height="10"/>
+                    <rect key="frame" x="473" y="21" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5le-E7-bTd">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -194,6 +194,7 @@
                     </connections>
                 </button>
             </subviews>
+            <point key="canvasLocation" x="139" y="153.5"/>
         </view>
     </objects>
     <resources>

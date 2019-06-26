@@ -22,8 +22,6 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var lblPresets: VALabel!
     
-    private var functionLabels: [VALabel] = []
-    
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
@@ -48,9 +46,6 @@ class TimeViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         timeView.initialize(unitStateFunction)
-        
-        functionLabels = [lblRate, lblOverlap, lblPresets, lblRateMin, lblRateMax, lblRateValue, lblOverlapMin, lblOverlapMax, lblOverlapValue, lblPitchShiftValue]
-        functionLabels.forEach({$0.vAlign = .center})
     }
 
     override func initControls() {
@@ -139,7 +134,6 @@ class TimeViewController: FXUnitViewController {
     override func changeTextSize() {
         
         super.changeTextSize()
-        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
         btnShiftPitch.redraw()
     }
 

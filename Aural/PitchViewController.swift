@@ -20,8 +20,6 @@ class PitchViewController: FXUnitViewController {
     
     @IBOutlet weak var lblPresets: VALabel!
     
-    private var functionLabels: [VALabel] = []
-    
     override var nibName: String? {return "Pitch"}
     
     private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
@@ -119,12 +117,6 @@ class PitchViewController: FXUnitViewController {
         
         // Show the Pitch tab if the Effects panel is shown
         showThisTab()
-    }
-    
-    override func changeTextSize() {
-
-        super.changeTextSize()
-        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
     }
     
     // MARK: Message handling
