@@ -81,13 +81,24 @@ class PresetsPopupMenuCell: PopupMenuCell {
     
     override var cellInsetX: CGFloat {return 11.5}
     override var cellInsetY: CGFloat {return 4}
-    override var rectRadius: CGFloat {return 2}
+//    override var rectRadius: CGFloat {return 1}
     override var arrowXMargin: CGFloat {return 5.5}
-    override var arrowYMargin: CGFloat {return 2.5}
+    override var arrowYMargin: CGFloat {return 3}
     override var arrowHeight: CGFloat {return 3}
     
-    override
-    func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
+    override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+        let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY).offsetBy(dx: 0, dy: 0.5)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: rectRadius, yRadius: rectRadius)
+        
+        menuGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        
+        // Draw arrow
+        let x = drawRect.maxX - arrowXMargin, y = drawRect.maxY - arrowYMargin
+        GraphicsUtils.drawArrow(arrowColor, origin: NSMakePoint(x, y), dx: arrowWidth, dy: arrowHeight, lineWidth: arrowLineWidth)
+    }
+    
+    override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
         // Don't draw the title (we don't need it)
         return withFrame

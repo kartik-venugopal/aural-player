@@ -63,7 +63,7 @@ struct Colors {
     static let tabViewButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
     // Color of the arrow drawn on popup menus
-    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
+    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
     
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
