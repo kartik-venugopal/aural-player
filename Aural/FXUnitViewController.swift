@@ -4,7 +4,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var lblCaption: TopTextLabel?
+    @IBOutlet weak var lblCaption: VALabel?
     
     // Labels
     var functionLabels: [NSTextField] = []
