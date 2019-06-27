@@ -5,11 +5,13 @@ import Cocoa
 
 class CheckRadioButtonCell: NSButtonCell {
     
+    var textFont: NSFont {return Fonts.checkRadioButtonFont}
+    
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
         let textColor = isOff() ? Colors.boxTextColor : Colors.playlistSelectedTextColor
         let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): TextSizes.fxUnitFunctionFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): textFont,
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
         let titleText = title.string
@@ -34,4 +36,8 @@ fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Ke
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
 	guard let input = input else { return nil }
 	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
+    override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
 }
