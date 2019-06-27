@@ -26,7 +26,7 @@
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-B8-M5x" userLabel="Recorder Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="67" y="150" width="365" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder (Captures player output + effects)" id="zQO-oM-Xd9">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder" id="zQO-oM-Xd9">
                         <font key="font" size="14" name="GillSans"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
