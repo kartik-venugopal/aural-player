@@ -17,19 +17,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var tabGroup: AuralTabView!
     
     // Fields that display playlist summary info
-    @IBOutlet weak var lblTracksSummary: VALabel! {
-        
-        didSet {
-            lblTracksSummary.vAlign = .bottom
-        }
-    }
+    @IBOutlet weak var lblTracksSummary: VALabel!
     
-    @IBOutlet weak var lblDurationSummary: VALabel! {
-        
-        didSet {
-            lblDurationSummary.vAlign = .bottom
-        }
-    }
+    @IBOutlet weak var lblDurationSummary: VALabel!
     
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
