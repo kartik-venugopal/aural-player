@@ -36,7 +36,7 @@
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5I-8h-u4p" userLabel="Time Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="162" y="150" width="175" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Time Stretch" id="gtf-5P-DNN" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Time stretch" id="gtf-5P-DNN" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="14" name="GillSans"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
