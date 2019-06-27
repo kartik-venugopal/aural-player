@@ -241,7 +241,7 @@ class PlayerViewState {
     
     static var textSize: TextSizeScheme = .normal
     
-    static func initialize(_ appState: PlayerState) {
+    static func initialize(_ appState: PlayerUIState) {
         
         viewType = appState.viewType
         
@@ -258,9 +258,9 @@ class PlayerViewState {
         textSize = appState.textSize
     }
     
-    static func persistentState() -> PlayerState {
+    static func persistentState() -> PlayerUIState {
         
-        let state = PlayerState()
+        let state = PlayerUIState()
         
         state.viewType = viewType
         

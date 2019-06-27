@@ -61,8 +61,11 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
 
-//        EffectsViewState.initialize(ObjectGraph.appState.ui)
-//        changeTextSize()
+        EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
+        TextSizes.effectsScheme = EffectsViewState.textSize
+        
+        changeTextSize()
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
     }
 
     private func addSubViews() {
@@ -107,7 +110,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
 
         // Select Master tab view by default
-        tabViewAction(reverbTabViewButton)
+        tabViewAction(masterTabViewButton)
     }
 
     private func initSubscriptions() {
@@ -257,13 +260,13 @@ class EffectsViewState {
     
     static var textSize: TextSizeScheme = .normal
     
-    static func initialize(_ appState: PlaylistUIState) {
+    static func initialize(_ appState: EffectsUIState) {
         textSize = appState.textSize
     }
     
-    static func persistentState() -> PlaylistUIState {
+    static func persistentState() -> EffectsUIState {
         
-        let state = PlaylistUIState()
+        let state = EffectsUIState()
         state.textSize = textSize
         
         return state

@@ -21,7 +21,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
-    private let appState: PlayerState = ObjectGraph.appState.ui.player
+    private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
     override var nibName: String? {return "Player"}
     

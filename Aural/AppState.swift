@@ -20,8 +20,9 @@ protocol PersistentState {
 class UIState: PersistentState {
     
     var windowLayout: WindowLayoutState = WindowLayoutState()
-    var player: PlayerState = PlayerState()
+    var player: PlayerUIState = PlayerUIState()
     var playlist: PlaylistUIState = PlaylistUIState()
+    var effects: EffectsUIState = EffectsUIState()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -32,7 +33,11 @@ class UIState: PersistentState {
         }
         
         if let playerMap = map["player"] as? NSDictionary {
-            state.player = PlayerState.deserialize(playerMap) as! PlayerState
+            state.player = PlayerUIState.deserialize(playerMap) as! PlayerUIState
+        }
+        
+        if let effectsMap = map["effects"] as? NSDictionary {
+            state.effects = EffectsUIState.deserialize(effectsMap) as! EffectsUIState
         }
         
         if let playlistMap = map["playlist"] as? NSDictionary {
@@ -56,7 +61,20 @@ class PlaylistUIState: PersistentState {
     }
 }
 
-class PlayerState: PersistentState {
+class EffectsUIState: PersistentState {
+    
+    var textSize: TextSizeScheme = .normal
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = EffectsUIState()
+        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
+        
+        return state
+    }
+}
+
+class PlayerUIState: PersistentState {
     
     var viewType: PlayerViewType = .defaultView
     
@@ -74,7 +92,7 @@ class PlayerState: PersistentState {
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
-        let state = PlayerState()
+        let state = PlayerUIState()
         
         state.viewType = mapEnum(map, "viewType", PlayerViewType.defaultView)
         
