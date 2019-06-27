@@ -147,6 +147,30 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     private func changeTextSize() {
         
         lblCaption.font = TextSizes.fxUnitCaptionFont
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        
+        formatMenu.redraw()
+        formatMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    private func findFunctionLabels(_ view: NSView) -> [NSTextField] {
+        
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField, label != lblCaption {
+                labels.append(label)
+            }
+            
+            // Recursive call
+            let subviewLabels = findFunctionLabels(subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
     }
     
     // MARK: Message handling
