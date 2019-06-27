@@ -7,21 +7,24 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
+    var textColor: NSColor {return isOff() ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
+    
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
-        let textColor = isOff() ? Colors.boxTextColor : Colors.playlistSelectedTextColor
         let attrs: [String: AnyObject] = [
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): textFont,
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
         let titleText = title.string
         
-        let size: CGSize = titleText.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        let attrDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        
+        let size: CGSize = titleText.size(withAttributes: attrDict)
         let sx = frame.minX
         let sy = frame.minY + (frame.height - size.height) / 2 - 2
         
         let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
-        titleText.draw(in: textRect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        titleText.draw(in: textRect, withAttributes: attrDict)
         
         return frame
     }
@@ -39,5 +42,7 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 }
 
 class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
+    
+    override var textColor: NSColor {return Colors.fxFunctionTextColor}
     override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
 }

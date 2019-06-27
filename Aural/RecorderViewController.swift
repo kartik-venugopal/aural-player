@@ -56,6 +56,8 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     // Starts a new recording
     private func startRecording() {
         
+        formatMenu.disable()
+        
         let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
         
         recorder.startRecording(format)
@@ -74,6 +76,8 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Stops the current recording
     private func stopRecording() {
+        
+        formatMenu.enable()
         
         recorder.stopRecording()
         

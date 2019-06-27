@@ -55,13 +55,15 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset).offsetBy(dx: -(rectWidth / 2) + imgWidth - 1, dy: 0)
         self.image?.draw(in: imgRect)
         
+        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        
         // Compute text size and position
-        let size: CGSize = self.title.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        let size: CGSize = self.title.size(withAttributes: attrsDict)
         let sx: CGFloat = self.image != nil ? imgRect.maxX + 4 : (rectWidth - size.width) / 2
         let sy = cellFrame.height - size.height - 5
         
         // Draw title (adjacent to image)
-        self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrsDict)
     }
 }
 

@@ -140,7 +140,7 @@ class FilterChart: NSView {
             
             let trect = NSRect(x: tx, y: bottomMargin + height / 2 - 7.5, width: tw.width + 10, height: 15)
             
-            GraphicsUtils.drawTextInRect(trect, text, NSColor.white, textFont)
+            GraphicsUtils.drawTextInRect(trect, text, Colors.filterChartTextColor, textFont)
             
             if (sx != offset && sx != offset + width) {
                 GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)

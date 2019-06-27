@@ -76,5 +76,11 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
 }
 
 class FilterBandControlsButtonCell: ModalDialogButtonCell {
+    
+    override var textColor: NSColor {return Colors.fxUnitButtonTextColor}
+    override var textColor_disabled: NSColor {return Colors.fxUnitButtonTextColor_disabled}
     override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
+    
+    override var backgroundFillGradient: NSGradient {return Colors.fxUnitButtonGradient}
+    override var backgroundFillGradient_disabled: NSGradient {return Colors.fxUnitButtonGradient_disabled}
 }
