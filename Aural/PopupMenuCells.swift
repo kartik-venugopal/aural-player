@@ -52,7 +52,16 @@ class PopupMenuCell: NSPopUpButtonCell {
 }
 
 // Cell for reverb preset popup menu
-class ReverbPopupMenuCell: PopupMenuCell {
+class NicerPopupMenuCell: PopupMenuCell {
+    
+    override var cellInsetY: CGFloat {return 4}
+    override var rectRadius: CGFloat {return 2}
+    override var arrowXMargin: CGFloat {return 10}
+    override var arrowYMargin: CGFloat {return 4}
+    override var arrowHeight: CGFloat {return 4}
+}
+
+class FXUnitPopupMenuCell: NicerPopupMenuCell {
     
     override var cellInsetY: CGFloat {return 1}
     override var rectRadius: CGFloat {return 2}
@@ -60,7 +69,7 @@ class ReverbPopupMenuCell: PopupMenuCell {
     override var arrowYMargin: CGFloat {return 5}
     
     override var arrowWidth: CGFloat {return 4}
-    override var arrowHeight: CGFloat {return 7}
+    override var arrowHeight: CGFloat {return 6}
     
     override var titleFont: NSFont {return TextSizes.fxUnitFunctionFont}
     
@@ -90,10 +99,6 @@ class ReverbPopupMenuCell: PopupMenuCell {
     override func titleRect(forBounds cellFrame: NSRect) -> NSRect {
         return cellFrame.offsetBy(dx: 0, dy: -1)
     }
-}
-
-// Cell for recorder format popup menu
-class RecorderFormatPopupMenuCell: ReverbPopupMenuCell {
 }
 
 // Cell for all preferences popup menus
