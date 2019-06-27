@@ -134,6 +134,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         fxUnit.savePreset(string)
     }
     
+    func getInputFontSize() -> TextSizeScheme {
+        return TextSizes.effectsScheme
+    }
+    
     // MARK: Menu delegate
     
     func menuNeedsUpdate(_ menu: NSMenu) {

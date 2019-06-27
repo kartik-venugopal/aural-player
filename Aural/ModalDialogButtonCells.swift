@@ -46,6 +46,12 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
     override var borderRadius: CGFloat {return 2.5}
 }
 
+class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
+    
+    var textSize: TextSizeScheme = .normal
+    override var textFont: NSFont {return TextSizes.stringInputPopoverFont(textSize)}
+}
+
 // Cell for all response buttons (Save/Cancel, etc)
 class ModalDialogControlButtonCell: ModalDialogButtonCell {
     

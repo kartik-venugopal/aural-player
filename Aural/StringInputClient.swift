@@ -14,4 +14,6 @@ protocol StringInputClient {
     
     // Returns an appropriate (optional) default value for the information being requested. e.g. "New preset"
     func getDefaultValue() -> String?
+    
+    func getInputFontSize() -> TextSizeScheme
 }

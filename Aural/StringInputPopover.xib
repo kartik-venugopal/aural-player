@@ -8,10 +8,14 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StringInputPopoverViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="cancelBtn" destination="c4m-tl-DsW" id="bs3-a3-DuT"/>
+                <outlet property="cancelBtnCell" destination="EzS-F6-d0Y" id="LZ5-5A-is5"/>
                 <outlet property="errorBox" destination="6MR-Gp-wOU" id="AgZ-98-9It"/>
                 <outlet property="inputField" destination="5ub-Fs-VWk" id="uSP-kU-CmX"/>
                 <outlet property="lblError" destination="3ZO-Kd-re8" id="hO2-5M-A1B"/>
                 <outlet property="lblPrompt" destination="CFn-9B-WBu" id="xak-z6-wAP"/>
+                <outlet property="saveBtn" destination="amk-AF-tiB" id="pyj-Ge-4Ho"/>
+                <outlet property="saveBtnCell" destination="sgD-ps-BdJ" id="lK8-9d-Qx7"/>
                 <outlet property="view" destination="tok-Jg-Ccr" id="cob-Uh-jKZ"/>
             </connections>
         </customObject>
@@ -21,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="323" height="117"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CFn-9B-WBu" userLabel="Input label">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CFn-9B-WBu" userLabel="Input label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="14" y="95" width="298" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Input:" id="psP-FP-m4L">
@@ -30,7 +34,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ub-Fs-VWk" userLabel="Input Field" customClass="ColoredCursorTextField" customModule="Aural" customModuleProvider="target">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ub-Fs-VWk" userLabel="Input Field">
                     <rect key="frame" x="15" y="63" width="295" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="4DG-eN-cEc">
@@ -42,7 +46,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="amk-AF-tiB" userLabel="Save button">
                     <rect key="frame" x="102" y="10" width="50" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sgD-ps-BdJ" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sgD-ps-BdJ" customClass="StringInputPopoverResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="12" name="GillSans"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -56,7 +60,7 @@ DQ
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4m-tl-DsW" userLabel="Cancel button">
                     <rect key="frame" x="160" y="10" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EzS-F6-d0Y" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EzS-F6-d0Y" customClass="StringInputPopoverResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="12" name="GillSans"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -79,7 +83,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="7g1-rf-Hkn"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ZO-Kd-re8" userLabel="Error label">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ZO-Kd-re8" userLabel="Error label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="11" y="1" width="284" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Invalid input !" id="faX-Sc-fMX">
