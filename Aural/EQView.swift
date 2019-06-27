@@ -91,7 +91,6 @@ class EQView: NSView {
         
         btn10Band.redraw()
         btn15Band.redraw()
-//        btnSync.font = TextSizes.fxUnitFunctionFont
         btnSync.redraw()
     }
 }
