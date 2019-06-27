@@ -32,7 +32,7 @@
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="AK5-1a-Nc7">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wnD-Di-RRh" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
@@ -101,9 +101,9 @@
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="EQTab-Mixed"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Graphic equalizer unit (Active)"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Graphic equalizer unit (Bypassed)"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Graphic equalizer unit (Bypassed by Master unit)"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Equalizer unit (Active)"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Equalizer unit (Bypassed)"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Equalizer unit (Bypassed by Master unit)"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="tabViewAction:" target="-2" id="TBa-2v-Ovl"/>
@@ -375,7 +375,7 @@
                                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">
-                                    <rect key="frame" x="496" y="198" width="27" height="19"/>
+                                    <rect key="frame" x="496" y="200" width="27" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="g9l-VG-eGh" id="wQk-S7-HzL">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -464,19 +464,19 @@
         <image name="FilterTab" width="26" height="26"/>
         <image name="FilterTab-Mixed" width="26" height="26"/>
         <image name="FilterTab-On" width="26" height="26"/>
-        <image name="MasterTab" width="19" height="25"/>
-        <image name="MasterTab-On" width="19" height="25"/>
-        <image name="PitchTab" width="17" height="13"/>
-        <image name="PitchTab-Mixed" width="17" height="13"/>
-        <image name="PitchTab-On" width="17" height="13"/>
+        <image name="MasterTab" width="25" height="25"/>
+        <image name="MasterTab-On" width="25" height="25"/>
+        <image name="PitchTab" width="32" height="26"/>
+        <image name="PitchTab-Mixed" width="32" height="26"/>
+        <image name="PitchTab-On" width="32" height="26"/>
         <image name="RecorderTab" width="26" height="26"/>
         <image name="RecorderTab-On" width="26" height="26"/>
         <image name="ReverbTab" width="25" height="25"/>
         <image name="ReverbTab-Mixed" width="25" height="25"/>
         <image name="ReverbTab-On" width="25" height="25"/>
         <image name="Settings" width="12" height="12"/>
-        <image name="TimeTab" width="12" height="12"/>
-        <image name="TimeTab-Mixed" width="12" height="12"/>
-        <image name="TimeTab-On" width="12" height="12"/>
+        <image name="TimeTab" width="32" height="32"/>
+        <image name="TimeTab-Mixed" width="32" height="32"/>
+        <image name="TimeTab-On" width="32" height="32"/>
     </resources>
 </document>
