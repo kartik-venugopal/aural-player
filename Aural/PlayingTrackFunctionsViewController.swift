@@ -324,6 +324,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             _ = bookmarks.addBookmark(string, BookmarkContext.bookmarkedTrack!.file, BookmarkContext.bookmarkedTrackStartPosition!, BookmarkContext.bookmarkedTrackEndPosition!)
         }
     }
+    
+    func getInputFontSize() -> TextSizeScheme {
+        return TextSizes.playerScheme
+    }
 }
 
 fileprivate class BookmarkContext {

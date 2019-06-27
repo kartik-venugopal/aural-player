@@ -154,6 +154,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     func acceptInput(_ string: String) {
         WindowLayouts.addUserDefinedLayout(string)
     }
+    
+    func getInputFontSize() -> TextSizeScheme {
+        return .normal
+    }
 }
 
 fileprivate class CustomLayoutMenuItem: NSMenuItem {}

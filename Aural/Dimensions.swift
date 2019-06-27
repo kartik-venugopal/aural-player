@@ -379,4 +379,38 @@ class TextSizes {
             
         }
     }
+    
+    private static let stringInputPopoverFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let stringInputPopoverFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let stringInputPopoverFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    
+    static func stringInputPopoverFont(_ size: TextSizeScheme) -> NSFont {
+        
+        switch size {
+            
+        case .normal: return stringInputPopoverFont_normal
+            
+        case .larger: return stringInputPopoverFont_larger
+            
+        case .largest: return stringInputPopoverFont_largest
+            
+        }
+    }
+    
+    private static let stringInputPopoverErrorFont_normal: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    private static let stringInputPopoverErrorFont_larger: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let stringInputPopoverErrorFont_largest: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    
+    static func stringInputPopoverErrorFont(_ size: TextSizeScheme) -> NSFont {
+        
+        switch size {
+            
+        case .normal: return stringInputPopoverErrorFont_normal
+            
+        case .larger: return stringInputPopoverErrorFont_larger
+            
+        case .largest: return stringInputPopoverErrorFont_largest
+            
+        }
+    }
 }

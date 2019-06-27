@@ -19,6 +19,12 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     @IBOutlet weak var errorBox: NSBox!
     @IBOutlet weak var lblError: NSTextField!
     
+    @IBOutlet weak var saveBtn: NSButton!
+    @IBOutlet weak var cancelBtn: NSButton!
+    
+    @IBOutlet weak var saveBtnCell: StringInputPopoverResponseButtonCell!
+    @IBOutlet weak var cancelBtnCell: StringInputPopoverResponseButtonCell!
+    
     // A callback object so that the string input can be validated without this class knowing the logic for doing so
     private var client: StringInputClient!
     
@@ -55,6 +61,18 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     private func initFields() {
         
         // TODO: Resize/realign fields and popover per input text length !!!
+        let textSize = client.getInputFontSize()
+        let font = TextSizes.stringInputPopoverFont(textSize)
+        lblPrompt?.font = font
+        inputField?.font = font
+        
+        saveBtnCell?.textSize = textSize
+        cancelBtnCell?.textSize = textSize
+        
+        saveBtn?.redraw()
+        cancelBtn?.redraw()
+        
+        lblError?.font = TextSizes.stringInputPopoverErrorFont(textSize)
         
         // Initialize the fields with information from the client
         lblPrompt?.stringValue = client.getInputPrompt()
