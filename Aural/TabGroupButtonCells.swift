@@ -97,10 +97,10 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
     override var boldTextFont: NSFont {return TextSizes.fxUnitFunctionBoldFont}
     override var borderRadius: CGFloat {return 2}
-    override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.235, alpha: 1)}
+    override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}
     
-    override var unselectedTextColor: NSColor {return NSColor(calibratedWhite: 0.6, alpha: 1)}
-    override var selectedTextColor: NSColor {return NSColor(calibratedWhite: 0.8, alpha: 1)}
+    override var unselectedTextColor: NSColor {return NSColor(calibratedWhite: 0.4, alpha: 1)}
+    override var selectedTextColor: NSColor {return NSColor(calibratedWhite: 0.6, alpha: 1)}
 }
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {

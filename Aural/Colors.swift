@@ -9,6 +9,12 @@ struct Colors {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
+    static let fxFunctionTextColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
+    
+    static let fxFunctionPopupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    
+    static let filterChartTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
+    
     static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
     
     // Color of text inside the playlist (non-selected items)
@@ -68,6 +74,9 @@ struct Colors {
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     
+    // A lighter version of popupMenuArrowColor
+    static let fxUnitPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
+    
     // Color of the displayed text in popup menus
     static let popupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
 
@@ -75,6 +84,15 @@ struct Colors {
         
         let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let popupMenuGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.35, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -183,6 +201,9 @@ struct Colors {
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
+    // Text color of modal dialog buttons
+    static let fxUnitButtonTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    
     static let modalDialogButtonGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.5, alpha: 1.0)
@@ -190,8 +211,29 @@ struct Colors {
         return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
     }()
     
+    static let fxUnitButtonGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.35, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let fxUnitButtonGradient_disabled: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.175, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor_disabled: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    
+    // Text color of modal dialog buttons
+    static let fxUnitButtonTextColor_disabled: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     
     static let modalDialogButtonGradient_disabled: NSGradient = {
         
