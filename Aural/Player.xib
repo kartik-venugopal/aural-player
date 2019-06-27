@@ -643,10 +643,6 @@ G1BhbiBTbGlkZXI
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <progressIndicator hidden="YES" wantsLayer="YES" focusRingType="none" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QQt-lp-x2f" customClass="TranscoderProgressBar" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="31" y="94" width="403" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-bG-QKU" userLabel="Track time">
                     <rect key="frame" x="16" y="87" width="188" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
