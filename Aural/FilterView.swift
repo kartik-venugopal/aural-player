@@ -12,7 +12,7 @@ class FilterView: NSView {
     }
     
     func refresh() {
-        chart.redraw()
+        redrawChart()
     }
     
     func redrawChart() {
@@ -37,6 +37,7 @@ class FilterView: NSView {
         let title = String(format: "Band %d", numItems)
         let newItem = NSTabViewItem(identifier: title)
         newItem.label = title
+        
         bandsView.addTabViewItem(newItem)
         
         newItem.view?.addSubview(view)
@@ -52,5 +53,9 @@ class FilterView: NSView {
     
     func removeAllTabs() {
         bandsView.tabViewItems.forEach({bandsView.removeTabViewItem($0)})
+    }
+    
+    func changeTextSize() {
+        redrawChart()
     }
 }

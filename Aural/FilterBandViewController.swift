@@ -37,6 +37,7 @@ class FilterBandViewController: NSViewController {
     
     override func viewDidLoad() {
         resetFields()
+        changeTextSize()
     }
     
     private func resetFields() {
@@ -163,6 +164,37 @@ class FilterBandViewController: NSViewController {
         
         freqRangeSlider.updateState()
         cutoffSlider.updateState()
+    }
+    
+    func changeTextSize() {
+        
+        tabButton.redraw()
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        
+        filterTypeMenu.font = TextSizes.fxUnitFunctionFont
+        filterTypeMenu.redraw()
+        
+        presetRangesMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    private func findFunctionLabels(_ view: NSView) -> [NSTextField] {
+        
+        var labels: [NSTextField] = []
+        
+        for subview in view.subviews {
+            
+            if let label = subview as? NSTextField {
+                labels.append(label)
+            }
+            
+            // Recursive call
+            let subviewLabels = findFunctionLabels(subview)
+            labels.append(contentsOf: subviewLabels)
+        }
+        
+        return labels
     }
 }
 

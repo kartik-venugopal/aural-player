@@ -121,7 +121,7 @@ class FilterChart: NSView {
         
         // Draw X-axis markings
         let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
-        let textFont: NSFont = Fonts.gillSans9Font
+        let textFont: NSFont = TextSizes.filterChartFont
         
         for y in xMarks {
 

@@ -141,7 +141,7 @@ class FilterViewController: FXUnitViewController {
         bandCon.bandIndex = index
         
         filterView.addBandView(bandCon.view)
-        bandCon.tabButton.title = String(format: "Band %d", (index + 1))
+        bandCon.tabButton.title = String(format: "#%d", (index + 1))
         
         tabsBox.addSubview(bandCon.tabButton)
         tabButtons.append(bandCon.tabButton)
@@ -158,12 +158,21 @@ class FilterViewController: FXUnitViewController {
     @IBAction func removeBandAction(_ sender: AnyObject) {
         
         filterUnit.removeBands(IndexSet([selTab]))
+        
+        // Remove the selected band's controller and view
         filterView.removeTab(selTab)
         bandControllers.remove(at: selTab)
+        
+        // Remove the last tab button (bands count has decreased by 1)
         tabButtons.remove(at: tabButtons.count - 1).removeFromSuperview()
         
         for index in selTab..<numTabs {
+            
+            // Reassign band indexes to controllers
             bandControllers[index].bandIndex = index
+            
+            // Reassign tab buttons to controllers
+            bandControllers[index].tabButton = tabButtons[index]
         }
         
         selectTab(!bandControllers.isEmpty ? 0 : -1)
@@ -243,6 +252,18 @@ class FilterViewController: FXUnitViewController {
     }
     
     override func changeTextSize() {
+
+        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
+//        functionLabels = findFunctionLabels(self.view)
+        
+        bandControllers.forEach({$0.changeTextSize()})
+        
+        // Redraw the add/remove band buttons
+        btnAdd.redraw()
+        btnRemove.redraw()
+        
+        // Redraw the frequency chart
+        filterView.changeTextSize()
         
         super.changeTextSize()
     }
