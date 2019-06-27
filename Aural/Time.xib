@@ -182,7 +182,7 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hp-a0-Eog" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="387" y="19" width="68" height="20"/>
+                    <rect key="frame" x="387" y="2" width="68" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Presets" id="u5X-eQ-X0D">
                         <font key="font" size="11" name="GillSans"/>
@@ -191,7 +191,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jID-iV-7XK" userLabel="Time Presets Menu">
-                    <rect key="frame" x="448" y="17" width="34" height="18"/>
+                    <rect key="frame" x="448" y="0.0" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="Jn5-1x-Rbs" id="9LK-YL-GCG" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -244,7 +244,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcn-3u-MVb" userLabel="Save">
-                    <rect key="frame" x="473" y="21" width="10" height="10"/>
+                    <rect key="frame" x="473" y="4" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AuI-Kj-Dx9">
                         <behavior key="behavior" lightByContents="YES"/>

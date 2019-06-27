@@ -77,7 +77,7 @@ public class MediaKeyTap {
             try internals.startWatchingMediaKeys()
         } catch let error as EventTapError {
             mediaApplicationWatcher.stop()
-            print(error.description)
+            NSLog(error.description)
         } catch {}
     }
     
@@ -122,7 +122,7 @@ extension MediaKeyTap: MediaApplicationWatcherDelegate {
             try internals.restartTap()
         } catch let error as EventTapError {
             mediaApplicationWatcher.stop()
-            print(error.description)
+            NSLog(error.description)
         } catch {}
     }
 }
