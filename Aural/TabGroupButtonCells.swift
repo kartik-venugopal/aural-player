@@ -105,6 +105,6 @@ class EQSelectorButtonCell: TabGroupButtonCell {
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
-    override var textFont: NSFont {return Fonts.gillSans10Font}
-    override var boldTextFont: NSFont {return Fonts.gillSansSemiBold10Font}
+    override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
+    override var boldTextFont: NSFont {return TextSizes.fxUnitFunctionBoldFont}
 }

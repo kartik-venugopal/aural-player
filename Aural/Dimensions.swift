@@ -362,4 +362,21 @@ class TextSizes {
             
         }
     }
+    
+    private static let filterChartFont_normal: NSFont = NSFont(name: "Gill Sans SemiBold", size: 9)!
+    private static let filterChartFont_larger: NSFont = NSFont(name: "Gill Sans SemiBold", size: 10)!
+    private static let filterChartFont_largest: NSFont = NSFont(name: "Gill Sans SemiBold", size: 11)!
+    
+    static var filterChartFont: NSFont {
+        
+        switch effectsScheme {
+            
+        case .normal: return filterChartFont_normal
+            
+        case .larger: return filterChartFont_larger
+            
+        case .largest: return filterChartFont_largest
+            
+        }
+    }
 }
