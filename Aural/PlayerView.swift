@@ -123,6 +123,7 @@ class PlayerView: NSView {
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
+        makeOpaque(gapBox)
         showGapInfo()
         
         let track = msg.nextTrack.track
