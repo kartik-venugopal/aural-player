@@ -2,9 +2,9 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var lblArtist: TopTextLabel!
-    @IBOutlet weak var lblTitle: BottomTextLabel!
-    @IBOutlet weak var lblName: NSTextField!
+    @IBOutlet weak var lblArtist: VALabel!
+    @IBOutlet weak var lblTitle: VALabel!
+    @IBOutlet weak var lblName: VALabel!
     
     // Fields that display information about the current playback sequence
     @IBOutlet weak var lblScope: NSTextField!
@@ -41,16 +41,32 @@ class TrackInfoView: NSView {
             
             lblTitle.stringValue = track.displayInfo.title!
             
+            showTooltipIfRequired(lblTitle, 1)
+            showTooltipIfRequired(lblArtist, 1)
+            lblName.toolTip = nil
+            
         } else {
             
             lblName.stringValue = track.conciseDisplayName
             positionTrackNameLabel()
+            
+            lblTitle.toolTip = nil
+            lblArtist.toolTip = nil
+            showTooltipIfRequired(lblName, 2)
         }
         
         lblName.hideIf_elseShow(artistAndTitleAvailable)
         [lblArtist, lblTitle].forEach({$0?.showIf_elseHide(artistAndTitleAvailable)})
         
         showPlaybackScope(sequence)
+    }
+    
+    // Shows a tooltip for a label when the text has been truncated
+    private func showTooltipIfRequired(_ label: NSTextField, _ displayedLines: Int) {
+        
+        // Check if text was truncated (i.e. more than the displayed number of lines of text)
+        let numLines = StringUtils.numberOfLines(label.stringValue, label.font!, label.frame.width)
+        label.toolTip = numLines > displayedLines ? label.stringValue : nil
     }
     
     fileprivate func positionTrackInfoLabels() {
@@ -151,7 +167,11 @@ class TrackInfoView: NSView {
     
     func clearNowPlayingInfo() {
         
-        [lblName, lblArtist, lblTitle, lblScope].forEach({$0?.stringValue = ""})
+        [lblName, lblArtist, lblTitle, lblScope].forEach({
+            $0?.stringValue = ""
+            $0?.toolTip = nil
+        })
+        
         imgScope.image = nil
     }
     
@@ -164,6 +184,19 @@ class TrackInfoView: NSView {
         otherView.lblName.stringValue = lblName.stringValue
         otherView.lblTitle.stringValue = lblTitle.stringValue
         otherView.lblArtist.stringValue = lblArtist.stringValue
+        
+        if lblName.isShown {
+            
+            showTooltipIfRequired(otherView.lblName, 2)
+            lblTitle.toolTip = nil
+            lblArtist.toolTip = nil
+            
+        } else {
+            
+            showTooltipIfRequired(otherView.lblTitle, 1)
+            showTooltipIfRequired(otherView.lblArtist, 1)
+            lblName.toolTip = nil
+        }
         
         otherView.lblName.showIf_elseHide(lblName.isShown)
         otherView.lblTitle.showIf_elseHide(lblTitle.isShown)
@@ -182,9 +215,23 @@ class TrackInfoView: NSView {
         lblName.font = TextSizes.titleFont
         lblArtist.font = TextSizes.artistFont
         lblScope.font = TextSizes.scopeFont
+        
+        if lblName.isShown {
+            
+            showTooltipIfRequired(lblName, 2)
+            lblTitle.toolTip = nil
+            lblArtist.toolTip = nil
+            
+        } else {
+            
+            showTooltipIfRequired(lblTitle, 1)
+            showTooltipIfRequired(lblArtist, 1)
+            lblName.toolTip = nil
+        }
     }
 }
 
+// TODO: Put this function in a Utils class (don't repeat it everywhere)
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
     guard let input = input else { return nil }

@@ -15,6 +15,11 @@ class VALabel: NSTextField {
         
         // Hand off cell properties to the new cell
         
+        if let cell = self.cell as? VALabelCell {
+            cell.vAlign = self.vAlign
+            return
+        }
+        
         let oldCell: NSTextFieldCell = self.cell as! NSTextFieldCell
         
         let textColor: NSColor = oldCell.textColor!
@@ -69,6 +74,10 @@ class VALabelCell: NSTextFieldCell {
 //        let r2: NSRect = self.drawingRect(forBounds: cellFrame)
 //        NSColor.red.setFill()
 //        r2.fill()
+//
+//        let drawPath = NSBezierPath.init(rect: rect)
+//        NSColor.yellow.setStroke()
+//        drawPath.stroke()
 //
 //        super.drawInterior(withFrame: cellFrame, in: controlView)
 //    }
