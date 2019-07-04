@@ -70,9 +70,9 @@ class TextSizes {
         }
     }
     
-    private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 15)!
-    private static let titleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 17)!
-    private static let titleFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 19)!
+    private static let titleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
+    private static let titleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!
+    private static let titleFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 20)!
     
     static var titleFont: NSFont {
         
@@ -87,9 +87,9 @@ class TextSizes {
         }
     }
     
-    private static let artistFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
-    private static let artistFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 15)!
-    private static let artistFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 17)!
+    private static let artistFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let artistFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
+    private static let artistFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!
     
     static var artistFont: NSFont {
         
@@ -157,9 +157,9 @@ class TextSizes {
     
 //    private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
     
-    private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
-    private static let playlistIndexFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    private static let playlistIndexFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let playlistIndexFont_larger: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let playlistIndexFont_largest: NSFont = NSFont(name: "Gill Sans", size: 15)!
     
     static var playlistIndexFont: NSFont {
         
@@ -174,9 +174,9 @@ class TextSizes {
         }
     }
     
-    private static let playlistTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
-    private static let playlistTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    private static let playlistTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let playlistTrackNameFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let playlistTrackNameFont_larger: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    private static let playlistTrackNameFont_largest: NSFont = NSFont(name: "Gill Sans", size: 15)!
     
     static var playlistTrackNameFont: NSFont {
         
