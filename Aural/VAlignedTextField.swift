@@ -2,6 +2,8 @@ import Cocoa
 
 class VALabel: NSTextField {
     
+    var debug: Bool = false
+    
     var vAlign: VAlignment = .center {
         
         didSet {
@@ -17,6 +19,7 @@ class VALabel: NSTextField {
         
         if let cell = self.cell as? VALabelCell {
             cell.vAlign = self.vAlign
+            cell.debug = self.debug
             return
         }
         
@@ -37,6 +40,8 @@ class VALabel: NSTextField {
 }
 
 class VALabelCell: NSTextFieldCell {
+    
+    var debug: Bool = false
     
     var vAlign: VAlignment = .center
     
@@ -65,22 +70,30 @@ class VALabelCell: NSTextFieldCell {
     }
 
 //    NOTE - THIS FUNCTION IS FOR DEBUGGING ONLY
-//    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
-//
-//        let rect: NSRect = self.titleRect(forBounds: cellFrame)
-//        NSColor.gray.setFill()
-//        rect.fill()
-//
-//        let r2: NSRect = self.drawingRect(forBounds: cellFrame)
-//        NSColor.red.setFill()
-//        r2.fill()
-//
-//        let drawPath = NSBezierPath.init(rect: rect)
-//        NSColor.yellow.setStroke()
-//        drawPath.stroke()
-//
-//        super.drawInterior(withFrame: cellFrame, in: controlView)
-//    }
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+        if debug {
+            
+            let rect: NSRect = self.titleRect(forBounds: cellFrame)
+            NSColor.gray.setFill()
+            rect.fill()
+            
+            let r2: NSRect = self.drawingRect(forBounds: cellFrame)
+            NSColor.red.setFill()
+            r2.fill()
+            
+            var drawPath = NSBezierPath.init(rect: rect)
+            NSColor.yellow.setStroke()
+            drawPath.stroke()
+            
+            let halfRect: NSRect = NSRect(x: rect.origin.x, y: rect.origin.y, width: rect.width, height: rect.height / 2)
+            drawPath = NSBezierPath.init(rect: halfRect)
+            NSColor.green.setStroke()
+            drawPath.stroke()
+        }
+
+        super.drawInterior(withFrame: cellFrame, in: controlView)
+    }
 }
 
 enum VAlignment: Int {

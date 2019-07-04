@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,14 +19,14 @@
             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="62" horizontalPageScroll="10" verticalLineScroll="62" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
-                    <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
+                    <rect key="frame" x="0.0" y="0.0" width="448" height="176"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="fxA-zZ-X3P">
-                        <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="448" height="176"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="58" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="458" height="176"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -45,13 +46,13 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="30" height="20"/>
+                                                <rect key="frame" x="1" y="2" width="30" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index" customClass="VALabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="0.0" width="34" height="20"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-2" y="0.0" width="34" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="5ML-sW-rcP"/>
+                                                            <constraint firstAttribute="height" constant="25" id="5ML-sW-rcP"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Bac-3o-ROQ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="GillSans-Light"/>
@@ -60,7 +61,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0ic-SL-nto">
-                                                        <rect key="frame" x="5" y="2" width="20" height="17"/>
+                                                        <rect key="frame" x="5" y="4" width="20" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="6tL-FQ-6nA"/>
                                                             <constraint firstAttribute="height" constant="17" id="W0Q-PN-zAl"/>
@@ -96,11 +97,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Aqb-5g-rsj" customClass="TrackNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="34" y="2" width="344" height="58"/>
+                                                <rect key="frame" x="34" y="2" width="344" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7v5-Z9-qxu" userLabel="Gap Before">
-                                                        <rect key="frame" x="0.0" y="40" width="344" height="18"/>
+                                                        <rect key="frame" x="0.0" y="43" width="344" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="I0D-dr-r3g"/>
                                                         </constraints>
@@ -113,13 +114,13 @@
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="leO-sM-2Ls"/>
                                                     </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name" customClass="VALabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="18" width="348" height="22"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-2" y="18" width="348" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="22" id="hPU-MU-gLg"/>
+                                                            <constraint firstAttribute="height" constant="25" id="hPU-MU-gLg"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Te7-In-WEO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                            <font key="font" size="13" name="GillSans-Light"/>
+                                                            <font key="font" size="12" name="GillSans"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </textFieldCell>
@@ -144,7 +145,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Duration" width="65" minWidth="45" maxWidth="65" id="hrT-f9-0P7">
+                                    <tableColumn identifier="cid_Duration" width="75" minWidth="45" maxWidth="75" id="hrT-f9-0P7">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -158,11 +159,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Nxn-ZH-ZX3" customClass="DurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="381" y="2" width="65" height="58"/>
+                                                <rect key="frame" x="381" y="2" width="75" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fAu-nU-Alw" userLabel="Gap Before">
-                                                        <rect key="frame" x="-7" y="40" width="69" height="18"/>
+                                                        <rect key="frame" x="-7" y="43" width="79" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="n7n-dc-Z4V"/>
                                                         </constraints>
@@ -172,10 +173,10 @@
                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration" customClass="VALabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="10" width="69" height="22"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-7" y="10" width="79" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="22" id="hjg-gf-GXP"/>
+                                                            <constraint firstAttribute="height" constant="25" id="hjg-gf-GXP"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="yE2-pt-qsF" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="GillSans-Light"/>
@@ -184,7 +185,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H1x-FR-uuU" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="-5" width="69" height="18"/>
+                                                        <rect key="frame" x="-7" y="-5" width="79" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="1qv-hN-SSp"/>
                                                         </constraints>
@@ -237,9 +238,10 @@
             <constraints>
                 <constraint firstItem="gzJ-2a-yOb" firstAttribute="leading" secondItem="bnY-X4-HPZ" secondAttribute="leading" id="5CJ-9G-YQO"/>
                 <constraint firstAttribute="trailing" secondItem="gzJ-2a-yOb" secondAttribute="trailing" id="CVp-qU-MZJ"/>
-                <constraint firstItem="gzJ-2a-yOb" firstAttribute="top" secondItem="bnY-X4-HPZ" secondAttribute="top" id="aFc-1G-821"/>
+                <constraint firstItem="gzJ-2a-yOb" firstAttribute="top" secondItem="bnY-X4-HPZ" secondAttribute="top" constant="2" id="aFc-1G-821"/>
                 <constraint firstAttribute="bottom" secondItem="gzJ-2a-yOb" secondAttribute="bottom" id="puf-Ss-CM4"/>
             </constraints>
+            <point key="canvasLocation" x="150" y="147"/>
         </view>
         <customObject id="vH7-ho-Ykd" userLabel="Data Source" customClass="TracksPlaylistViewDataSource" customModule="Aural" customModuleProvider="target"/>
         <customObject id="fxO-kG-Bir" userLabel="Delegate" customClass="TracksPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">

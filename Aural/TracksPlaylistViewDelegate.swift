@@ -46,13 +46,13 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             let gb = playlist.getGapBeforeTrack(track)
             
             if ga != nil && gb != nil {
-                return 58
+                return 61
             } else if ga != nil || gb != nil {
-                return 40
+                return 43
             }
         }
 
-        return 24
+        return 25
     }
     
     // Returns a view for a single column
@@ -123,7 +123,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.imageView?.hide()
             cell.row = row
             
-            (cell.textField as! VALabel).vAlign = .center
+//            (cell.textField as! VALabel).vAlign = .center
             
             let aOnly = gapAfter != nil && gapBefore == nil
             let bOnly = gapBefore != nil && gapAfter == nil
@@ -157,7 +157,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.show()
             cell.row = row
             
-            (cell.textField as! VALabel).vAlign = .center
+//            (cell.textField as! VALabel).vAlign = .center
             
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
@@ -208,7 +208,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.show()
             cell.row = row
             
-            (cell.textField as! VALabel).vAlign = .center
+//            (cell.textField as! VALabel).vAlign = .center
             
             if cell.gapAfterTextField == nil {
                 return cell
