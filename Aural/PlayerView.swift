@@ -185,7 +185,7 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y
+        artView.frame.origin.y = infoBox.frame.origin.y - 5
     }
     
     override func showOrHideMainControls() {
