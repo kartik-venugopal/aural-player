@@ -38,18 +38,18 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             let gb = playlist.getGapBeforeTrack(track)
 
             if ga != nil && gb != nil {
-                return 58
+                return 61
                 
             } else if ga != nil || gb != nil {
-                return 40
+                return 43
             }
 
-            return 24
+            return 25
 
         } else {
 
             // Group
-            return 26
+            return 28
         }
     }
     
@@ -64,7 +64,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             if let group = item as? Group {
                 
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier.rawValue, true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier.rawValue, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -99,7 +99,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     image = nil
                 }
                 
-                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
+                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
                 
                 cell?.item = track
                 cell?.playlistType = self.playlistType
@@ -135,16 +135,16 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
     }
     
-    private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {
+    private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
-//            cell.textField?.font = TextSizes.playlistTrackNameFont
+            cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
             cell.textField?.setNeedsDisplay()
             
             cell.imageView?.image = image
-            cell.isGroup = isGroup
+            cell.isGroup = false
             
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
@@ -211,7 +211,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let imgView = cell.imageView {
         
-            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 1)
             imgFieldCentered.isActive = true
             cell.addConstraint(imgFieldCentered)
         }
@@ -236,44 +236,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        var offset: CGFloat = 0
-        
-        if cell.identifier!.rawValue != UIConstants.playlistDurationColumnID {
-            
-            // Track/Group name
-            
-            switch TextSizes.playlistScheme {
-                
-            case .normal:   offset = 2
-                
-            case .larger:   offset = 1
-                
-            case .largest:  offset = 0
-                
-            }
-            
-        } else {
-            
-            // Duration
-            
-            switch TextSizes.playlistScheme {
-                
-            case .normal:   offset = 2
-                
-            case .larger:   offset = 2
-                
-            case .largest:  offset = 0
-                
-            }
-        }
-        
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: offset)
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
         
         if let imgView = cell.imageView {
             
-            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 1)
             imgFieldCentered.isActive = true
             cell.addConstraint(imgFieldCentered)
         }
@@ -298,15 +267,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let offset = cell.identifier!.rawValue == UIConstants.playlistDurationColumnID ? 3 : 0
-        
-        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: CGFloat(offset))
+        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
         befFieldOnTop.isActive = true
         cell.addConstraint(befFieldOnTop)
         
         if let imgView = cell.imageView {
             
-            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 1)
             imgFieldCentered.isActive = true
             cell.addConstraint(imgFieldCentered)
         }
@@ -316,7 +283,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
-//            cell.textField?.font = TextSizes.playlistIndexFont
+            cell.textField?.font = isGroup ? TextSizes.playlistGroupDurationFont : TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.isGroup = isGroup
@@ -377,14 +344,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     }
     
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
-    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackNameCellView? {
+    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackNameCellView? {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
-//            cell.textField?.font = TextSizes.playlistTrackNameFont
+            cell.textField?.font = TextSizes.playlistGroupNameFont
             cell.textField?.stringValue = text
             cell.imageView?.image = image
-            cell.isGroup = isGroup
+            cell.isGroup = true
             
             cell.gapAfterImg.hide()
             cell.gapBeforeImg.hide()
@@ -392,24 +359,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             adjustConstraints_mainFieldCentered(cell)
             
             cell.textField!.setFrameOrigin(NSPoint.zero)
-            
-            return cell
-        }
-        
-        return nil
-    }
-    
-    // Creates a cell view containing only text
-    private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackDurationCellView? {
-        
-        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
-            
-//            cell.textField?.font = TextSizes.playlistIndexFont
-            cell.textField?.stringValue = text
-            cell.isGroup = isGroup
-            
-            cell.gapAfterTextField.hide()
-            cell.gapBeforeTextField.hide()
             
             return cell
         }
