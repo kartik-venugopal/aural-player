@@ -189,7 +189,9 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             var dict = [NSString: AnyObject]()
             
             var appDict = [NSString: AnyObject]()
-            appDict["version"] = AppConstants.appVersion  as AnyObject
+            
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+            appDict["version"] = appVersion as AnyObject
             appDict["exportDate"] = dateFormatter.string(from: Date()) as AnyObject
             
             dict["appInfo"] = appDict as NSDictionary
@@ -262,7 +264,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     html.addTitle(track.conciseDisplayName)
                     html.addHeading(track.conciseDisplayName, 2, false)
                     
-                    let text = String(format: "Metadata exported by Aural Player v%@ on: %@", AppConstants.appVersion, dateFormatter.string(from: Date()))
+                    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+                    let text = String(format: "Metadata exported by Aural Player v%@ on: %@", appVersion, dateFormatter.string(from: Date()))
                     let exportDate = HTMLText(text, true, false, false, nil)
                     html.addParagraph(exportDate)
                     
