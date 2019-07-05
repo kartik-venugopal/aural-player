@@ -398,6 +398,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func changeTextSize(_ size: TextSizeScheme) {
         
+        PlaylistViewState.textSize = size
+        
         lblTracksSummary.font = TextSizes.playlistSummaryFont
         lblDurationSummary.font = TextSizes.playlistSummaryFont
         

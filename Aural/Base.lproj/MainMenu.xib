@@ -125,8 +125,10 @@
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
+                <outlet property="effectsViewMenuItem" destination="XdU-vv-wWn" id="NmF-KA-ZOR"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
+                <outlet property="playlistViewMenuItem" destination="eaG-Cs-3CM" id="NTn-ZH-HCr"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="0PH-nx-xo9" id="60y-S3-b3m"/>
@@ -157,6 +159,20 @@
                 <outlet property="timeRemainingMenuItem_hms" destination="NI1-7T-K0P" id="2Kp-5R-y3a"/>
                 <outlet property="timeRemainingMenuItem_percentage" destination="uZs-VF-KJX" id="aq6-UR-BqQ"/>
                 <outlet property="timeRemainingMenuItem_seconds" destination="dpf-Rp-xFl" id="OjR-xo-gMB"/>
+            </connections>
+        </customObject>
+        <customObject id="TVr-fw-yU3" customClass="PlaylistViewMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textSizeLargerMenuItem" destination="fdP-w5-f1I" id="xPI-9q-MJ0"/>
+                <outlet property="textSizeLargestMenuItem" destination="mNh-kR-wvy" id="Fn6-0n-Mc3"/>
+                <outlet property="textSizeNormalMenuItem" destination="G8v-bX-69u" id="se8-aj-hyS"/>
+            </connections>
+        </customObject>
+        <customObject id="REd-Fk-TGW" customClass="EffectsViewMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="textSizeLargerMenuItem" destination="DZs-Y8-cOe" id="AxJ-MH-r3n"/>
+                <outlet property="textSizeLargestMenuItem" destination="uFu-L8-YPW" id="45h-Qp-uAA"/>
+                <outlet property="textSizeNormalMenuItem" destination="0ke-IH-7km" id="DvA-Yo-JHq"/>
             </connections>
         </customObject>
         <customObject id="bac-wa-rgm" customClass="HelpMenuController" customModule="Aural" customModuleProvider="target"/>
@@ -997,9 +1013,20 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" autoenablesItems="NO" id="Fd0-9b-tm8">
                         <items>
-                            <menuItem title=" Player" image="PlayPause-Small" id="af4-4E-1QV" userLabel="Player">
+                            <menuItem title=" Playlist window" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="0PH-nx-xo9" userLabel="Playlist">
+                                <connections>
+                                    <action selector="togglePlaylistAction:" target="xzd-WN-BuR" id="pGa-5C-cvc"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Effects window" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
+                                <connections>
+                                    <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>
+                            <menuItem title="  Player view" indentationLevel="1" id="af4-4E-1QV" userLabel="Player view">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Player" autoenablesItems="NO" id="y9u-HE-dXj">
+                                <menu key="submenu" title="  Player view" autoenablesItems="NO" id="y9u-HE-dXj">
                                     <items>
                                         <menuItem title="Default view" state="on" keyEquivalent="3" id="0Vx-5M-0eg">
                                             <connections>
@@ -1144,18 +1171,104 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="0PH-nx-xo9" userLabel="Playlist">
-                                <connections>
-                                    <action selector="togglePlaylistAction:" target="xzd-WN-BuR" id="pGa-5C-cvc"/>
-                                </connections>
+                            <menuItem title="  Playlist view" indentationLevel="1" id="eaG-Cs-3CM" userLabel="Playlist view">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Playlist view" autoenablesItems="NO" id="cfg-Bh-Hsz">
+                                    <items>
+                                        <menuItem title="Text size" id="X82-7g-ob1">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Text size" id="Yf2-Qx-L1C">
+                                                <items>
+                                                    <menuItem title="Normal" id="G8v-bX-69u">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="SvQ-Gl-mIA"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Larger" tag="1" id="fdP-w5-f1I">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="yPh-a7-wYe"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Largest" tag="2" id="mNh-kR-wvy">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="fLL-Pg-EZN"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="TVr-fw-yU3" id="BiG-tM-bto"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
-                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
-                                <connections>
-                                    <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
-                                </connections>
+                            <menuItem title="  Effects view" indentationLevel="1" id="XdU-vv-wWn" userLabel="Effects view">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Effects view" autoenablesItems="NO" id="S79-Xf-wTS">
+                                    <items>
+                                        <menuItem title="Text size" id="Lpk-fB-Bmt">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Text size" id="lam-nd-zLz">
+                                                <items>
+                                                    <menuItem title="Normal" id="0ke-IH-7km">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="FS1-AR-8mN"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Larger" tag="1" id="DZs-Y8-cOe">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="FMM-iJ-iDn"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Largest" tag="2" id="uFu-L8-YPW">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="goP-4f-HHM"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="REd-Fk-TGW" id="WoN-uv-Z9E"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
                             <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
+                            <menuItem title="  Text size" indentationLevel="1" id="RxC-T7-DYq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Text size" id="z7n-Th-RcK">
+                                    <items>
+                                        <menuItem title="Normal" id="yCw-3F-WpY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="xcC-L5-3s2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Larger" tag="1" id="8D9-07-mTK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="wRG-Ja-S96"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Largest" tag="2" id="eHe-17-56v">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="an4-tM-8qJ"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="IjT-DU-SUX"/>
                             <menuItem title="  Dock Miniature Player" image="DockBottom-Small" hidden="YES" enabled="NO" id="oKL-M2-XnE" userLabel="Dock Miniature Player">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Dock Miniature Player" id="Uys-LW-fQW">
@@ -1188,7 +1301,7 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
-                            <menuItem title="Always on top" id="xFq-YL-7lS" userLabel="Vis">
+                            <menuItem title="  Always on top" hidden="YES" enabled="NO" indentationLevel="1" id="xFq-YL-7lS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="alwaysOnTopAction:" target="xzd-WN-BuR" id="JU8-yi-IEi"/>
