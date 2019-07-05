@@ -17,6 +17,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var playlistViewMenuItem: NSMenuItem!
+    @IBOutlet weak var effectsViewMenuItem: NSMenuItem!
+    
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
@@ -59,6 +62,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.hide()})
         }
         
+        playlistViewMenuItem.showIf_elseHide(layoutManager.isShowingPlaylist())
+        effectsViewMenuItem.showIf_elseHide(layoutManager.isShowingEffects())
+        
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
             
@@ -91,6 +97,20 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // Shows/hides the effects panel
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        let senderTitle: String = sender.title.lowercased()
+        let size = TextSizeScheme(rawValue: senderTitle)!
+        
+        TextSizes.playerScheme = size
+        TextSizes.playlistScheme = size
+        TextSizes.effectsScheme = size
+        
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
     }
     
     @IBAction func switchViewAction(_ sender: Any) {

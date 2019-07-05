@@ -38,8 +38,6 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
     private var textSizes: [NSMenuItem] = []
     
-    private let viewAppState = ObjectGraph.appState.ui.player
-    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func awakeFromNib() {
@@ -208,6 +206,90 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
             
             TextSizes.playerScheme = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+        }
+    }
+}
+
+class PlaylistViewMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
+    private var textSizes: [NSMenuItem] = []
+    
+    override func awakeFromNib() {
+        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
+    }
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        textSizes.forEach({
+            $0.off()
+        })
+        
+        switch PlaylistViewState.textSize {
+            
+        case .normal:   textSizeNormalMenuItem.on()
+            
+        case .larger:   textSizeLargerMenuItem.on()
+            
+        case .largest:  textSizeLargestMenuItem.on()
+            
+        }
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        let senderTitle: String = sender.title.lowercased()
+        let size = TextSizeScheme(rawValue: senderTitle)!
+        
+        if TextSizes.playlistScheme != size {
+            
+            TextSizes.playlistScheme = size
+            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+        }
+    }
+}
+
+class EffectsViewMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
+    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
+    private var textSizes: [NSMenuItem] = []
+    
+    override func awakeFromNib() {
+        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
+    }
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        textSizes.forEach({
+            $0.off()
+        })
+        
+        switch EffectsViewState.textSize {
+            
+        case .normal:   textSizeNormalMenuItem.on()
+            
+        case .larger:   textSizeLargerMenuItem.on()
+            
+        case .largest:  textSizeLargestMenuItem.on()
+            
+        }
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        let senderTitle: String = sender.title.lowercased()
+        let size = TextSizeScheme(rawValue: senderTitle)!
+        
+        if TextSizes.effectsScheme != size {
+            
+            TextSizes.effectsScheme = size
+            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
         }
     }
 }
