@@ -217,7 +217,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
     }
     
-    private func adjustConstraints_mainFieldOnTop(_ cell: NSTableCellView) {
+    private func adjustConstraints_mainFieldOnTop(_ cell: NSTableCellView, _ topOffset: CGFloat = 0) {
         
         let main = cell.textField!
         
@@ -236,7 +236,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: topOffset)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
         
@@ -333,7 +333,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.hide()
                 cell.gapAfterTextField.hide()
                 
-                adjustConstraints_mainFieldOnTop(cell)
+                adjustConstraints_mainFieldOnTop(cell, isGroup ? 1.5 : 0)
             }
             
             
