@@ -161,6 +161,7 @@ class PlayerView: NSView {
     
     func changeTextSize(_ textSize: TextSizeScheme) {
         infoView.changeTextSize(textSize)
+        gapView.changeTextSize(textSize)
     }
 }
 
