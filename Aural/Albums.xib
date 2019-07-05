@@ -57,14 +57,14 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="885-tl-72K"/>
                                                     </imageView>
                                                     <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lbp-gN-toC" userLabel="Gap Before">
-                                                        <rect key="frame" x="3" y="43" width="369" height="18"/>
+                                                        <rect key="frame" x="25" y="43" width="347" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="W5B-NT-FXk"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="z5a-oO-dzs"/>
                                                     </imageView>
                                                     <imageView identifier="GapAfter" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mNy-Gf-MNa" userLabel="Gap After">
-                                                        <rect key="frame" x="3" y="0.0" width="369" height="18"/>
+                                                        <rect key="frame" x="25" y="0.0" width="347" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="jgw-v0-bEZ"/>
                                                         </constraints>
@@ -85,13 +85,13 @@
                                                 <constraints>
                                                     <constraint firstItem="mNy-Gf-MNa" firstAttribute="trailing" secondItem="lbp-gN-toC" secondAttribute="trailing" id="BsK-hr-vEO"/>
                                                     <constraint firstItem="GZi-f8-q8M" firstAttribute="centerY" secondItem="VOq-Bg-6l2" secondAttribute="centerY" id="LXi-Y0-4yz"/>
-                                                    <constraint firstItem="mNy-Gf-MNa" firstAttribute="leading" secondItem="15c-ix-5A0" secondAttribute="leading" id="XrD-2M-gDV"/>
+                                                    <constraint firstItem="mNy-Gf-MNa" firstAttribute="leading" secondItem="GZi-f8-q8M" secondAttribute="leading" id="XrD-2M-gDV"/>
                                                     <constraint firstItem="mNy-Gf-MNa" firstAttribute="trailing" secondItem="GZi-f8-q8M" secondAttribute="trailing" id="fiy-9d-njm"/>
                                                     <constraint firstItem="GZi-f8-q8M" firstAttribute="leading" secondItem="15c-ix-5A0" secondAttribute="trailing" constant="6" id="gHP-mE-PVX"/>
                                                     <constraint firstItem="15c-ix-5A0" firstAttribute="centerY" secondItem="GZi-f8-q8M" secondAttribute="centerY" id="mAH-AT-sht"/>
                                                     <constraint firstItem="15c-ix-5A0" firstAttribute="leading" secondItem="VOq-Bg-6l2" secondAttribute="leading" constant="3" id="oKh-Dz-8b8"/>
                                                     <constraint firstItem="lbp-gN-toC" firstAttribute="top" secondItem="VOq-Bg-6l2" secondAttribute="top" id="rDh-LO-HqT"/>
-                                                    <constraint firstItem="lbp-gN-toC" firstAttribute="leading" secondItem="15c-ix-5A0" secondAttribute="leading" id="rVX-2w-NsG"/>
+                                                    <constraint firstItem="lbp-gN-toC" firstAttribute="leading" secondItem="GZi-f8-q8M" secondAttribute="leading" id="rVX-2w-NsG"/>
                                                     <constraint firstAttribute="trailing" secondItem="GZi-f8-q8M" secondAttribute="trailing" id="trT-h0-aeu"/>
                                                     <constraint firstItem="mNy-Gf-MNa" firstAttribute="bottom" secondItem="VOq-Bg-6l2" secondAttribute="bottom" id="unH-hH-mhf"/>
                                                 </constraints>

@@ -242,9 +242,9 @@ class TextSizes {
         }
     }
     
-    private static let playlistTabsFont_normal: NSFont = Fonts.gillSans12Font
-    private static let playlistTabsFont_larger: NSFont = Fonts.gillSans13Font
-    private static let playlistTabsFont_largest: NSFont = Fonts.gillSans14Font
+    private static let playlistTabsFont_normal: NSFont = Fonts.gillSans13Font
+    private static let playlistTabsFont_larger: NSFont = Fonts.gillSans14Font
+    private static let playlistTabsFont_largest: NSFont = Fonts.gillSans15Font
     
     static var playlistTabsFont: NSFont {
         
@@ -259,9 +259,9 @@ class TextSizes {
         }
     }
     
-    private static let playlistSelectedTabFont_normal: NSFont = Fonts.gillSans12SemiBoldFont
-    private static let playlistSelectedTabFont_larger: NSFont = Fonts.gillSans13SemiBoldFont
-    private static let playlistSelectedTabFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let playlistSelectedTabFont_normal: NSFont = Fonts.gillSans13SemiBoldFont
+    private static let playlistSelectedTabFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let playlistSelectedTabFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 15)!
     
     static var playlistSelectedTabFont: NSFont {
         
