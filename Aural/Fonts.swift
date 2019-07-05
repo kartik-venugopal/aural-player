@@ -28,6 +28,7 @@ struct Fonts {
     static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
     
     static let gillSans14Font: NSFont = NSFont(name: "Gill Sans", size: 14)!
+    static let gillSans15Font: NSFont = NSFont(name: "Gill Sans", size: 15)!
     
     static let helpInfoTextFont: NSFont = gillSans12Font
     
