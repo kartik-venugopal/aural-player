@@ -18,13 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-L2-Bcl" userLabel="Playlist Artists View">
+                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="63" horizontalPageScroll="10" verticalLineScroll="63" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-L2-Bcl" userLabel="Playlist Artists View">
                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="ne7-Sr-Ayw">
                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="58" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="6lM-KQ-yk1" id="95a-mF-Eqq" userLabel="Playlist Artists View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="6lM-KQ-yk1" id="95a-mF-Eqq" userLabel="Playlist Artists View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -45,11 +45,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="SmH-XT-UUI" customClass="GroupedTrackNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="372" height="58"/>
+                                                <rect key="frame" x="1" y="1" width="372" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dks-xg-67t" userLabel="Icon">
-                                                        <rect key="frame" x="3" y="20" width="16" height="18"/>
+                                                        <rect key="frame" x="3" y="22" width="16" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="I5g-A6-BHV"/>
                                                             <constraint firstAttribute="width" constant="16" id="K0D-5v-AKO"/>
@@ -57,7 +57,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="YHr-RW-w8U"/>
                                                     </imageView>
                                                     <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-bk-VCY" userLabel="Gap Before">
-                                                        <rect key="frame" x="3" y="40" width="369" height="18"/>
+                                                        <rect key="frame" x="3" y="43" width="369" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="Yyx-R8-whg"/>
                                                         </constraints>
@@ -71,7 +71,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="Z1u-Zg-l3v"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="23" y="17" width="351" height="25"/>
+                                                        <rect key="frame" x="23" y="18" width="351" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="zUk-G2-dv9"/>
                                                         </constraints>
@@ -118,11 +118,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="a1J-7t-rVr" customClass="GroupedTrackDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="1" width="70" height="58"/>
+                                                <rect key="frame" x="376" y="1" width="70" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0rh-OG-qQu" userLabel="Gap Before">
-                                                        <rect key="frame" x="-7" y="40" width="74" height="18"/>
+                                                        <rect key="frame" x="-7" y="43" width="74" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="hQW-Zk-gEs"/>
                                                         </constraints>
@@ -133,7 +133,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-Ir-z8I" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="7" width="74" height="25"/>
+                                                        <rect key="frame" x="-7" y="10" width="74" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="Vaa-yG-bAf"/>
                                                         </constraints>
@@ -144,7 +144,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ETO-Q1-jTq" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="-8" width="74" height="18"/>
+                                                        <rect key="frame" x="-7" y="-5" width="74" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="efW-YP-JF6"/>
                                                         </constraints>
