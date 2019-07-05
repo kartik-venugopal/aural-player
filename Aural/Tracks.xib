@@ -145,7 +145,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Duration" width="65" minWidth="45" maxWidth="75" id="hrT-f9-0P7">
+                                    <tableColumn identifier="cid_Duration" width="65" minWidth="50" maxWidth="75" id="hrT-f9-0P7">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
