@@ -104,7 +104,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Duration" width="70" minWidth="55" maxWidth="75" id="b4b-bQ-vIN" userLabel="Duration">
+                                    <tableColumn identifier="cid_Duration" width="70" minWidth="50" maxWidth="75" id="b4b-bQ-vIN" userLabel="Duration">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
