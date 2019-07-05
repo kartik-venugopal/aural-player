@@ -7,7 +7,9 @@ class AboutDialogController: NSWindowController {
     @IBOutlet weak var versionLabel: NSTextField! {
         
         didSet {
-            versionLabel.stringValue = String(format: "Version %@", AppConstants.appVersion)
+            
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+            versionLabel.stringValue = appVersion
         }
     }
 }

@@ -7,8 +7,6 @@ import AVFoundation
 */
 struct AppConstants {
     
-    static let appVersion: String = "1.4.0"
-    
     struct SupportedTypes {
         
         // Supported playlist file types
