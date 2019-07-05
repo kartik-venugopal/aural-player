@@ -87,6 +87,23 @@ class TextSizes {
         }
     }
     
+    private static let gapBoxTitleFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let gapBoxTitleFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 15)!
+    private static let gapBoxTitleFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
+    
+    static var gapBoxTitleFont: NSFont {
+        
+        switch playerScheme {
+            
+        case .normal: return gapBoxTitleFont_normal
+            
+        case .larger: return gapBoxTitleFont_larger
+            
+        case .largest: return gapBoxTitleFont_largest
+            
+        }
+    }
+    
     private static let artistFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
     private static let artistFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
     private static let artistFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!
@@ -154,8 +171,6 @@ class TextSizes {
             
         }
     }
-    
-//    private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
     
     private static let playlistIndexFont_normal: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let playlistIndexFont_larger: NSFont = NSFont(name: "Gill Sans", size: 14)!
