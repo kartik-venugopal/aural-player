@@ -143,6 +143,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     }
     
     private func changeTextSize() {
+        EffectsViewState.textSize = TextSizes.effectsScheme
         viewMenuButton.font = TextSizes.effectsMenuFont
     }
 
