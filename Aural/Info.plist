@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.4.0</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -97,6 +97,16 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>flac</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>FLAC</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>m3u</string>
 				<string>m3u8</string>
 			</array>
@@ -120,7 +130,7 @@
 	<string>en</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>None</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.4.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
 </dict>
 </plist>
