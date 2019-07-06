@@ -112,6 +112,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
    * Several built-in window layout presets, window snapping with configurable spacing, collapsible views.
    * Save your customized window layouts as presets so you can use them again at any time
    * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
+   * Adjust UI text font size per your preference or to compensate for a high display resolution
 
 * **Usability:**
    * Media keys support with configurable key behavior
