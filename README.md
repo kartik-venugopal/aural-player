@@ -160,6 +160,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
 
+### Adjusting text size for better readability (esp. with large display resolutions)
+
+![App screenshot2](/Documentation/Demos/textScaling.gif?raw=true "Text scaling")
+
 ### Transcoding of non-natively supported tracks (e.g. WMA/OGG)
 
 ![Transcoding](/Documentation/Demos/Transcoding.gif?raw=true "Transcoding")
