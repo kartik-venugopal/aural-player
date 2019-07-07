@@ -37,7 +37,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
-                                    <rect key="frame" x="14" y="205" width="9" height="9"/>
+                                    <rect key="frame" x="10" y="210" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,7 +48,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
-                                    <rect key="frame" x="27" y="205" width="9" height="9"/>
+                                    <rect key="frame" x="25" y="210" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -59,9 +59,9 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" toolTip="Switch to floating bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-bJ-1lS" userLabel="Floating Bar Mode">
-                                    <rect key="frame" x="49" y="204" width="12" height="12"/>
+                                    <rect key="frame" x="49" y="210" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FloatingBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G2y-w9-3j2">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FloatingBarMode" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="G2y-w9-3j2">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -70,12 +70,12 @@
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view">
-                                    <rect key="frame" x="233" y="197" width="65" height="24"/>
+                                    <rect key="frame" x="233" y="203" width="65" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                 </imageView>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Player View Menu">
-                                    <rect key="frame" x="426" y="202" width="25" height="15"/>
+                                    <rect key="frame" x="434" y="208" width="25" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -231,7 +231,7 @@
                                     </connections>
                                 </popUpButton>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="461" y="204" width="15" height="10"/>
+                                    <rect key="frame" x="469" y="210" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -248,7 +248,7 @@
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="480" y="204" width="15" height="10"/>
+                                    <rect key="frame" x="488" y="210" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -265,7 +265,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0It-ci-89a" userLabel="Layout Menu">
-                                    <rect key="frame" x="492" y="204" width="25" height="10"/>
+                                    <rect key="frame" x="500" y="210" width="25" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="KSu-L0-WGd" id="TRJ-cB-oZx">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -310,20 +310,20 @@
                                         <action selector="btnLayoutAction:" target="-2" id="5cS-9b-ldk"/>
                                     </connections>
                                 </popUpButton>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
-                                    <rect key="frame" x="14" y="15" width="500" height="174"/>
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
+                                    <rect key="frame" x="10" y="10" width="510" height="190"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="fillColor" white="0.55499009683098577" alpha="0.80182658450704225" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.898162411971831" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.5" alpha="0.90204115316901412" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>

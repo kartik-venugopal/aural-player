@@ -96,7 +96,7 @@
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.5" alpha="0.89733375637464774" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
                     <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
                         <rect key="frame" x="98" y="241" width="285" height="30"/>

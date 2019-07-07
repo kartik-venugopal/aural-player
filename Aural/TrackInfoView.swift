@@ -2,6 +2,7 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
+    @IBOutlet weak var lblAlbum: VALabel!
     @IBOutlet weak var lblArtist: VALabel!
     @IBOutlet weak var lblTitle: VALabel!
     @IBOutlet weak var lblName: VALabel!
@@ -34,11 +35,11 @@ class TrackInfoView: NSView {
             
             // Both title and artist
             if let album = track.groupingInfo.album {
-                lblArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
-            } else {
-                lblArtist.stringValue = track.displayInfo.artist!
+//                lblArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
+                lblAlbum?.stringValue = album
             }
             
+            lblArtist.stringValue = track.displayInfo.artist!
             lblTitle.stringValue = track.displayInfo.title!
             
             showTooltipIfRequired(lblTitle, 1)

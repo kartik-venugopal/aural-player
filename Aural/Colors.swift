@@ -4,18 +4,65 @@
 
 import Cocoa
 
+struct ColorConstants {
+    
+    static let white10Percent: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    static let white40Percent: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
+    static let white45Percent: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
+    static let white50Percent: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    static let white60Percent: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let white70Percent: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+    static let white80Percent: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static let white85Percent: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
+    static let white90Percent: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+}
+
+enum ColorScheme {
+
+    case darkBackground_lightText
+    case lightBackground_darkText
+    
+}
+
 struct Colors {
     
+    static var scheme: ColorScheme = .lightBackground_darkText
+    
+    struct Player {
+        
+        static var titleColor: NSColor {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText: return ColorConstants.white45Percent
+                
+            case .lightBackground_darkText: return NSColor.black
+                
+            }
+        }
+        
+        static var artistColor: NSColor {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText: return ColorConstants.white60Percent
+                
+            case .lightBackground_darkText: return NSColor.black
+                
+            }
+        }
+    }
+    
     // Color of text inside any of the container boxes
-    static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+    static let boxTextColor: NSColor = ColorConstants.white70Percent
     
-    static let fxFunctionTextColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
+    static let fxFunctionTextColor: NSColor = ColorConstants.white40Percent
     
-    static let fxFunctionPopupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let fxFunctionPopupMenuTextColor: NSColor = ColorConstants.white60Percent
     
-    static let filterChartTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
+    static let filterChartTextColor: NSColor = ColorConstants.white85Percent
     
-    static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
+    static let editorHeaderTextColor: NSColor = ColorConstants.white85Percent
     
     // Color of text inside the playlist (non-selected items)
     static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
@@ -49,7 +96,78 @@ struct Colors {
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
     // Fill color of all slider knobs
-    static let neutralKnobColor: NSColor = NSColor(white: 0.5, alpha: 1.0)
+    static var neutralKnobColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return neutralKnobColor_darkBackground
+            
+        case .lightBackground_darkText: return neutralKnobColor_lightBackground
+            
+        }
+    }
+    
+    static let neutralKnobColor_darkBackground: NSColor = NSColor(white: 0.5, alpha: 1.0)
+    static let neutralKnobColor_lightBackground: NSColor = NSColor(white: 0, alpha: 1.0)
+    
+    static var seekBarPlainGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return seekBarPlainGradient_darkBackground
+            
+        case .lightBackground_darkText: return seekBarPlainGradient_lightBackground
+            
+        }
+    }
+    
+    static let seekBarPlainGradient_darkBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let seekBarPlainGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static var seekBarColoredGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return seekBarColoredGradient_darkBackground
+            
+        case .lightBackground_darkText: return seekBarColoredGradient_lightBackground
+            
+        }
+    }
+    
+    static let seekBarColoredGradient_darkBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let seekBarColoredGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
     static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
     static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
@@ -58,15 +176,15 @@ struct Colors {
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
     
     // Color used to fill tab view buttons
-    static let tabViewButtonBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
+    static let tabViewButtonBackgroundColor: NSColor = NSColor.black
     
-    static let transparentColor: NSColor = NSColor(calibratedWhite: 1, alpha: 0)
+    static let transparentColor: NSColor = NSColor.white
     
     // Color used to outline tab view buttons
     static let tabViewButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
     
     // Color used for text in tab view buttons
-    static let tabViewButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+    static let tabViewButtonTextColor: NSColor = ColorConstants.white90Percent
     
     // Color of the arrow drawn on popup menus
     static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
@@ -78,7 +196,7 @@ struct Colors {
     static let fxUnitPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     
     // Color of the displayed text in popup menus
-    static let popupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+    static let popupMenuTextColor: NSColor = ColorConstants.white90Percent
 
     static let sliderBarGradient: NSGradient = {
         
@@ -169,14 +287,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarPlainGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
+    
     
     static let progressBarColoredGradient: NSGradient = {
         
@@ -186,8 +297,6 @@ struct Colors {
         
         return barBackgroundGradient!
     }()
-    
-    static let seekBarColoredGradient: NSGradient = Colors.neutralSliderBarColoredGradient
     
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
