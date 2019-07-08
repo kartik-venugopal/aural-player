@@ -4,10 +4,11 @@ import Cocoa
 class EffectsUnitTabButtonCell: NSButtonCell {
     
     private let borderInsetX: CGFloat = 0
-    private let borderInsetY: CGFloat = 2
+    private let borderInsetY: CGFloat = 0
     private let borderRadius: CGFloat = 3
     
-    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
+//    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
+    private let backgroundFillColor: NSColor = Colors.windowBackgroundColor
     private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
     
 //    private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
@@ -24,7 +25,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
 //    var textColor: NSColor = Colors.tabViewButtonTextColor
 //    var textFont: NSFont {return TextSizes.fxTabsFont}
     
-    private let imgWidth: CGFloat = 16, imgHeight: CGFloat = 16
+    private let imgWidth: CGFloat = 13, imgHeight: CGFloat = 13
     
     func updateState(_ unitState: EffectsUnitState) {
         

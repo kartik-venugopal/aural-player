@@ -12,6 +12,7 @@
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="rootContainer" destination="s2a-4T-trI" id="p6L-sV-dDJ"/>
                 <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
@@ -323,7 +324,7 @@
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.60046214788732399" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.59760123239436624" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>

@@ -10,6 +10,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         return self.window! as! SnappingWindow
     }
     
+    @IBOutlet weak var rootContainer: NSBox!
+    
     // The box that encloses the Now Playing info section
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
@@ -77,6 +79,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         TextSizes.playerScheme = ObjectGraph.appState.ui.player.textSize
         changeTextSize()
+        changeColorScheme()
     }
     
     // Add the sub-views that make up the main window
@@ -192,6 +195,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         btnLayout.font = TextSizes.playerMenuFont
         viewMenuButton.font = TextSizes.playerMenuFont
+    }
+    
+    private func changeColorScheme() {
+        
+        rootContainer.fillColor = Colors.windowBackgroundColor
     }
     
     // MARK: Message handling

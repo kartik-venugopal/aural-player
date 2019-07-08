@@ -5,6 +5,8 @@
 import Cocoa
 
 class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+    
+    @IBOutlet weak var rootContainer: NSBox!
 
     // The constituent sub-views, one for each effects unit
 
@@ -66,6 +68,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        changeColorScheme()
     }
 
     private func addSubViews() {
@@ -74,10 +77,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         fxTabView.tabViewItem(at: 1).view?.addSubview(eqView)
         fxTabView.tabViewItem(at: 2).view?.addSubview(pitchView)
         fxTabView.tabViewItem(at: 3).view?.addSubview(timeView)
-        fxTabView.tabViewItem(at: 4).view?.addSubview(reverbView)
-        fxTabView.tabViewItem(at: 5).view?.addSubview(delayView)
-        fxTabView.tabViewItem(at: 6).view?.addSubview(filterView)
-        fxTabView.tabViewItem(at: 7).view?.addSubview(recorderView)
+//        fxTabView.tabViewItem(at: 4).view?.addSubview(reverbView)
+//        fxTabView.tabViewItem(at: 5).view?.addSubview(delayView)
+//        fxTabView.tabViewItem(at: 6).view?.addSubview(filterView)
+//        fxTabView.tabViewItem(at: 7).view?.addSubview(recorderView)
 
         fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
         
@@ -145,6 +148,11 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func changeTextSize() {
         EffectsViewState.textSize = TextSizes.effectsScheme
         viewMenuButton.font = TextSizes.effectsMenuFont
+    }
+    
+    private func changeColorScheme() {
+        
+        rootContainer.fillColor = Colors.windowBackgroundColor
     }
 
     var subscriberId: String {

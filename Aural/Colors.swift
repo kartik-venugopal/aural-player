@@ -28,6 +28,17 @@ struct Colors {
     
     static var scheme: ColorScheme = .lightBackground_darkText
     
+    static var windowBackgroundColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return NSColor.black
+            
+//        case .lightBackground_darkText:     return ColorConstants.white90Percent
+            case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.6, alpha: 0.8)
+        }
+    }
+    
     struct Player {
         
         static var titleColor: NSColor {
@@ -168,7 +179,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.425, blue: 0, alpha: 1)
     static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
     
@@ -217,10 +228,32 @@ struct Colors {
     }()
     
     // Gradient used to fill slider bars
-    static let sliderBarPlainGradient: NSGradient = {
+    static var sliderBarPlainGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return sliderBarPlainGradient_darkBackground
+            
+        case .lightBackground_darkText:     return sliderBarPlainGradient_lightBackground
+            
+        }
+    }
+    
+    // Gradient used to fill slider bars
+    static let sliderBarPlainGradient_darkBackground: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    // Gradient used to fill slider bars
+    static let sliderBarPlainGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -238,7 +271,18 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let activeSliderBarColoredGradient: NSGradient = {
+    static var activeSliderBarColoredGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return activeSliderBarColoredGradient_darkBackground
+            
+        case .lightBackground_darkText:     return activeSliderBarColoredGradient_lightBackground
+            
+        }
+    }
+    
+    static let activeSliderBarColoredGradient_darkBackground: NSGradient = {
         
         let backgroundStart = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0, green: 0.2, blue: 0, alpha: 1)
@@ -247,10 +291,39 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let bypassedSliderBarColoredGradient: NSGradient = {
+    static let activeSliderBarColoredGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static var bypassedSliderBarColoredGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return bypassedSliderBarColoredGradient_darkBackground
+            
+        case .lightBackground_darkText:     return bypassedSliderBarColoredGradient_lightBackground
+            
+        }
+    }
+    
+    static let bypassedSliderBarColoredGradient_darkBackground: NSGradient = {
         
         let backgroundStart = NSColor(calibratedWhite: 0.6, alpha: 1)
         let backgroundEnd =  NSColor(calibratedWhite: 0.3, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let bypassedSliderBarColoredGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(calibratedWhite: 0.2, alpha: 1)
+        let backgroundEnd =  NSColor(calibratedWhite: 0.0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
