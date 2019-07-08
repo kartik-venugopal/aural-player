@@ -132,8 +132,8 @@ struct Colors {
     
     static let seekBarPlainGradient_lightBackground: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.3, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -276,8 +276,8 @@ struct Colors {
     
     static let playbackLoopGradient: NSGradient = {
         
-        let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.5, green: 0, blue: 0, alpha: 1)
+        let backgroundStart = NSColor(red: 0, green: 0.6, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
         
 //        let backgroundStart = NSColor(calibratedWhite: 1, alpha: 1)
 //        let backgroundEnd =  NSColor(calibratedWhite: 0.6, alpha: 1)
