@@ -318,7 +318,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.55499009683098577" alpha="0.80182658450704225" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.5" alpha="0.902618838028169" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>

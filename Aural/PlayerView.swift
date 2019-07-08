@@ -23,7 +23,7 @@ class PlayerView: NSView {
         self.addSubview(functionsBox)
         
         controlsBox.setFrameOrigin(NSPoint.zero)
-
+        
         infoView.showView(playbackState)
         gapView.showView(playbackState)
         
@@ -41,7 +41,7 @@ class PlayerView: NSView {
         
         // Vertically center functions box w.r.t. info box
         let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - 5 - functionsBox.frame.width, y: funcY))
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width, y: funcY))
     }
     
     func hideView() {
@@ -168,13 +168,13 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 110, y: 80) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 110, y: 57)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 105) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 57)
     
     override func showView(_ playbackState: PlaybackState) {
         
         super.showView(playbackState)
-
+        
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
@@ -186,7 +186,7 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y
+        artView.frame.origin.y = infoBox.frame.origin.y - 5
     }
     
     override func showOrHideMainControls() {
@@ -258,7 +258,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         artView.show()
         infoBox.isTransparent = false
-
+        
         hideViews(controlsBox, overlayBox)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()

@@ -2,7 +2,6 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var lblAlbum: VALabel!
     @IBOutlet weak var lblArtist: VALabel!
     @IBOutlet weak var lblTitle: VALabel!
     @IBOutlet weak var lblName: VALabel!
@@ -14,7 +13,7 @@ class TrackInfoView: NSView {
     func showView(_ playbackState: PlaybackState) {
         
         [lblScope, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
-//        positionTrackInfoLabels()
+        //        positionTrackInfoLabels()
     }
     
     func showOrHideSequenceInfo() {
@@ -22,7 +21,7 @@ class TrackInfoView: NSView {
         PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
         
         [lblScope, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
-//        positionTrackInfoLabels()
+        //        positionTrackInfoLabels()
     }
     
     func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
@@ -35,11 +34,11 @@ class TrackInfoView: NSView {
             
             // Both title and artist
             if let album = track.groupingInfo.album {
-//                lblArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
-                lblAlbum?.stringValue = album
+                lblArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
+            } else {
+                lblArtist.stringValue = track.displayInfo.artist!
             }
             
-            lblArtist.stringValue = track.displayInfo.artist!
             lblTitle.stringValue = track.displayInfo.title!
             
             showTooltipIfRequired(lblTitle, 1)
@@ -49,7 +48,7 @@ class TrackInfoView: NSView {
         } else {
             
             lblName.stringValue = track.conciseDisplayName
-//            positionTrackNameLabel()
+            //            positionTrackNameLabel()
             
             lblTitle.toolTip = nil
             lblArtist.toolTip = nil
@@ -70,54 +69,54 @@ class TrackInfoView: NSView {
         label.toolTip = numLines > displayedLines ? label.stringValue : nil
     }
     
-//    fileprivate func positionTrackInfoLabels() {
-//
-//        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-//
-//        let top: CGFloat = self.frame.height
-//        let midPoint: CGFloat = self.frame.height / 2
-//
-//        if PlayerViewState.showSequenceInfo {
-//
-//            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
-//            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
-//
-//        } else {
-//
-//            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
-//            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
-//        }
-//
-//        positionTrackNameLabel()
-//    }
+    //    fileprivate func positionTrackInfoLabels() {
+    //
+    //        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
+    //
+    //        let top: CGFloat = self.frame.height
+    //        let midPoint: CGFloat = self.frame.height / 2
+    //
+    //        if PlayerViewState.showSequenceInfo {
+    //
+    //            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
+    //            lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 5
+    //
+    //        } else {
+    //
+    //            lblArtist.frame.origin.y = midPoint - lblArtist.frame.height + 4
+    //            lblTitle.frame.origin.y = lblArtist.frame.maxY + 2
+    //        }
+    //
+    //        positionTrackNameLabel()
+    //    }
     
-//    fileprivate func positionTrackNameLabel() {
-//
-//        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-//
-//        // Determine how many lines the track name will occupy, within the label
-//        let numLines = StringUtils.numberOfLines(lblName.stringValue, lblName.font!, lblName.frame.width)
-//
-//        // The height is dependent on the number of lines
-//        var lblFrameSize = lblName.frame.size
-//        lblFrameSize.height = numLines == 1 ? lblTitle.frame.height : lblTitle.frame.height * 2
-//
-//        // TODO !!!
-//        print(numLines)
-//
-//        // The Y co-ordinate is a function of the other labels' positions
-//        var origin = lblName.frame.origin
-//
-//        // Center it wrt artist/title labels
-//        let adjustment = ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2)
-//        origin.y = numLines == 1 ? lblArtist.frame.minY + adjustment : 0
-//
-//        // Resize the label
-//        lblName.setFrameSize(lblFrameSize)
-//
-//        // Re-position the label
-//        lblName.setFrameOrigin(origin)
-//    }
+    //    fileprivate func positionTrackNameLabel() {
+    //
+    //        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
+    //
+    //        // Determine how many lines the track name will occupy, within the label
+    //        let numLines = StringUtils.numberOfLines(lblName.stringValue, lblName.font!, lblName.frame.width)
+    //
+    //        // The height is dependent on the number of lines
+    //        var lblFrameSize = lblName.frame.size
+    //        lblFrameSize.height = numLines == 1 ? lblTitle.frame.height : lblTitle.frame.height * 2
+    //
+    //        // TODO !!!
+    //        print(numLines)
+    //
+    //        // The Y co-ordinate is a function of the other labels' positions
+    //        var origin = lblName.frame.origin
+    //
+    //        // Center it wrt artist/title labels
+    //        let adjustment = ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2)
+    //        origin.y = numLines == 1 ? lblArtist.frame.minY + adjustment : 0
+    //
+    //        // Resize the label
+    //        lblName.setFrameSize(lblFrameSize)
+    //
+    //        // Re-position the label
+    //        lblName.setFrameOrigin(origin)
+    //    }
     
     /*
      Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
@@ -209,7 +208,7 @@ class TrackInfoView: NSView {
         otherView.imgScope.image = imgScope.image
         otherView.lblScope.stringValue = lblScope.stringValue
         
-//        otherView.positionTrackInfoLabels()
+        //        otherView.positionTrackInfoLabels()
         otherView.positionScopeImage()
     }
     
@@ -228,7 +227,7 @@ class TrackInfoView: NSView {
             
         } else {
             
-//            positionTrackNameLabel()
+            //            positionTrackNameLabel()
             
             showTooltipIfRequired(lblTitle, 1)
             showTooltipIfRequired(lblArtist, 1)
