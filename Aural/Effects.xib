@@ -48,7 +48,7 @@
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                            <view key="view" ambiguous="YES" id="3tH-T8-1bs">
+                                            <view key="view" id="3tH-T8-1bs">
                                                 <rect key="frame" x="1" y="1" width="533" height="233"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
@@ -67,6 +67,18 @@
                                         </tabViewItem>
                                         <tabViewItem label="Time" identifier="3" id="2dM-KQ-gyu">
                                             <view key="view" id="Qzx-r3-rft">
+                                                <rect key="frame" x="1" y="1" width="533" height="233"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Reverb" identifier="4" id="ptx-QP-0HY">
+                                            <view key="view" id="P6W-yh-q0U">
+                                                <rect key="frame" x="1" y="1" width="533" height="233"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                        </tabViewItem>
+                                        <tabViewItem label="Delay" identifier="5" id="T9b-IS-jYN">
+                                            <view key="view" ambiguous="YES" id="TtV-tB-feK">
                                                 <rect key="frame" x="1" y="1" width="533" height="233"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
