@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-B8-M5x" userLabel="Recorder Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="67" y="155" width="365" height="30"/>
+                    <rect key="frame" x="183" y="155" width="163" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder" id="zQO-oM-Xd9">
                         <font key="font" size="14" name="GillSans"/>
@@ -147,7 +147,7 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="139" y="153.5"/>
+            <point key="canvasLocation" x="139" y="153"/>
         </view>
     </objects>
     <resources>

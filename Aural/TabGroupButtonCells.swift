@@ -99,6 +99,7 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 2}
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}
     
+    // TODO: Make these scheme-dependent
     override var unselectedTextColor: NSColor {return NSColor(calibratedWhite: 0.4, alpha: 1)}
     override var selectedTextColor: NSColor {return NSColor(calibratedWhite: 0.6, alpha: 1)}
 }

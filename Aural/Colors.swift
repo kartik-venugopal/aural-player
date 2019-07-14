@@ -237,7 +237,7 @@ struct Colors {
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
     
     // Color used to fill tab view buttons
-    static let tabViewButtonBackgroundColor: NSColor = NSColor.black
+    static let tabViewButtonBackgroundColor: NSColor = Colors.windowBackgroundColor
     
     static let transparentColor: NSColor = NSColor.white
     

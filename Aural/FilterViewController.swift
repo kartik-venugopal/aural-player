@@ -267,4 +267,11 @@ class FilterViewController: FXUnitViewController {
         
         super.changeTextSize()
     }
+    
+    override func changeColorScheme() {
+        
+        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
+        functionLabels = findFunctionLabels(self.view)
+        super.changeColorScheme()
+    }
 }
