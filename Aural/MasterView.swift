@@ -90,4 +90,8 @@ class MasterView: NSView {
         lblDelay.onIf(preset.delay.state == .active)
         lblFilter.onIf(preset.filter.state == .active)
     }
+    
+    func changeColorScheme() {
+        [lblEQ, lblPitch, lblTime, lblReverb, lblDelay, lblFilter].forEach({$0?.colorSchemeChanged()})
+    }
 }

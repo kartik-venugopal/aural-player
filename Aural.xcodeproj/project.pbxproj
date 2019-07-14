@@ -332,6 +332,7 @@
 		3ECB858F2152677300D974F5 /* SnappingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECB858E2152677300D974F5 /* SnappingWindow.swift */; };
 		3ECD17441F6BBEE400492F56 /* ID3Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD17431F6BBEE400492F56 /* ID3Parser.swift */; };
 		3ECD17471F6BBF3600492F56 /* ITunesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD17461F6BBF3600492F56 /* ITunesParser.swift */; };
+		3ECD85DD22DB1AD700FC5036 /* TouchBarHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD85DC22DB1AD700FC5036 /* TouchBarHandler.swift */; };
 		3ECE72CD219D5D2B00419F5F /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE72CC219D5D2B00419F5F /* Mapper.swift */; };
 		3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */; };
 		3ED0C3FF21E73C88002757A7 /* GenreMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0C3FE21E73C88002757A7 /* GenreMap.swift */; };
@@ -744,6 +745,7 @@
 		3ECB858E2152677300D974F5 /* SnappingWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingWindow.swift; sourceTree = "<group>"; };
 		3ECD17431F6BBEE400492F56 /* ID3Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ID3Parser.swift; sourceTree = "<group>"; };
 		3ECD17461F6BBF3600492F56 /* ITunesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITunesParser.swift; sourceTree = "<group>"; };
+		3ECD85DC22DB1AD700FC5036 /* TouchBarHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarHandler.swift; sourceTree = "<group>"; };
 		3ECE72CC219D5D2B00419F5F /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistMutatorDelegate.swift; sourceTree = "<group>"; };
 		3ED0C3FE21E73C88002757A7 /* GenreMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMap.swift; sourceTree = "<group>"; };
@@ -1886,6 +1888,7 @@
 				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
 				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
 				3EFB19281FB81C9A00690C60 /* WindowState.swift */,
+				3ECD85DC22DB1AD700FC5036 /* TouchBarHandler.swift */,
 			);
 			name = MainWindow;
 			sourceTree = "<group>";
@@ -2394,6 +2397,7 @@
 				3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */,
 				3E7DCBDF2197709500C6D6D3 /* FilterUnitDelegate.swift in Sources */,
 				3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */,
+				3ECD85DD22DB1AD700FC5036 /* TouchBarHandler.swift in Sources */,
 				3E4E599B1F74E78800C18182 /* Main.swift in Sources */,
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,

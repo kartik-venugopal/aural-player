@@ -66,20 +66,4 @@ class DelayViewController: FXUnitViewController {
         delayUnit.lowPassCutoff = delayView.cutoff
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
-    
-    override func changeTextSize() {
-        
-        super.changeTextSize()
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
-    }
 }

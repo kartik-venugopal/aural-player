@@ -157,9 +157,5 @@ class TimeViewController: FXUnitViewController {
 
             }
         }
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
     }
 }

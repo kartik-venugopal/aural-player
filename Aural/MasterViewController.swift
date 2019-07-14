@@ -4,6 +4,8 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
+    @IBOutlet weak var lblEQ: NSTextField!
+    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
@@ -33,7 +35,6 @@ class MasterViewController: FXUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
     }
     
@@ -134,6 +135,11 @@ class MasterViewController: FXUnitViewController {
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
     }
+    
+    override func changeColorScheme() {
+        super.changeColorScheme()
+        masterView.changeColorScheme()
+    }
    
     // MARK: Message handling
     
@@ -162,10 +168,7 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
-            
-        case .changeEffectsTextSize:
-            changeTextSize()
-            
+       
         default: return
             
         }

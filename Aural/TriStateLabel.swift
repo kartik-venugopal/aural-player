@@ -84,4 +84,17 @@ class EffectsUnitTriStateLabel: OnOffLabel {
     func mixed() {
         self.textColor = mixedStateColor
     }
+    
+    func colorSchemeChanged() {
+        
+        switch stateFunction!() {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
+        }
+    }
 }

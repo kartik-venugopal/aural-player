@@ -267,15 +267,4 @@ class FilterViewController: FXUnitViewController {
         
         super.changeTextSize()
     }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
-    }
 }

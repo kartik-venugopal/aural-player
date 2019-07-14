@@ -25,7 +25,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
 //    var textColor: NSColor = Colors.tabViewButtonTextColor
 //    var textFont: NSFont {return TextSizes.fxTabsFont}
     
-    private let imgWidth: CGFloat = 13, imgHeight: CGFloat = 13
+    private let imgWidth: CGFloat = 15, imgHeight: CGFloat = 15
     
     func updateState(_ unitState: EffectsUnitState) {
         

@@ -10,11 +10,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     let barInsetX: CGFloat = 0.25
     let barInsetY: CGFloat = 0
     
-    let knobHeight: CGFloat = 10
+    let knobHeight: CGFloat = 9
     let knobInsetX: CGFloat = 1.5
     let knobInsetY: CGFloat = 0
     let knobRadius: CGFloat = 1
-    let knobWidthOutsideBar: CGFloat = 5
+    let knobWidthOutsideBar: CGFloat = 4
     
     var unitState: EffectsUnitState = .bypassed
     

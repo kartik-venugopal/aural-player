@@ -55,15 +55,4 @@ class ReverbViewController: FXUnitViewController {
         super.changeTextSize()
         reverbView.changeTextSize()
     }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
-    }
 }

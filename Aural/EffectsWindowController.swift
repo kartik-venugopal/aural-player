@@ -68,7 +68,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        
         changeColorScheme()
+//        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(EffectsViewState.colorScheme))
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.lightBackground_darkText))
     }
 
     private func addSubViews() {
@@ -151,7 +154,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     }
     
     private func changeColorScheme() {
-        
         rootContainer.fillColor = Colors.windowBackgroundColor
     }
 
@@ -268,9 +270,12 @@ fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateVa
 class EffectsViewState {
     
     static var textSize: TextSizeScheme = .normal
+    static var colorScheme: ColorScheme = .darkBackground_lightText
     
     static func initialize(_ appState: EffectsUIState) {
+        
         textSize = appState.textSize
+        colorScheme = appState.colorScheme
     }
     
     static func persistentState() -> EffectsUIState {

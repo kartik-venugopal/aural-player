@@ -149,9 +149,5 @@ class EQViewController: FXUnitViewController {
                 
             }
         }
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
     }
 }

@@ -368,6 +368,7 @@
                 <outlet property="timeRemainingMenuItem_seconds" destination="d1d-0T-WEH" id="Ta2-Co-OFZ"/>
             </connections>
         </customObject>
+        <customObject id="Sg0-va-fcn" customClass="TouchBarHandler" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="AppTitle" width="101" height="48"/>

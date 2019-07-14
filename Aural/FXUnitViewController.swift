@@ -58,7 +58,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeColorScheme], subscriber: self)
     }
     
     func initControls() {
@@ -104,6 +104,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         lblCaption?.font = TextSizes.fxUnitCaptionFont
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
         presetsMenu.font = TextSizes.effectsMenuFont
+    }
+    
+    func changeColorScheme() {
+        
+        lblCaption?.textColor = Colors.fxUnitCaptionColor
+        functionLabels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
     }
     
     var subscriberId: String {
@@ -167,6 +173,18 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
             initControls()
+        }
+        
+        switch message.actionType {
+            
+        case .changeEffectsTextSize:
+            changeTextSize()
+            
+        case .changeColorScheme:
+            changeColorScheme()
+            
+        default: return
+            
         }
     }
 }
