@@ -39,7 +39,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
@@ -237,7 +237,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
@@ -257,7 +257,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
@@ -277,7 +277,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
@@ -297,7 +297,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
@@ -317,7 +317,7 @@
                             <color key="value" white="0.39563160211267606" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="onStateColor">
-                            <color key="value" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.0" green="0.39065250880281688" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>

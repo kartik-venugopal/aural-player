@@ -254,7 +254,7 @@ class FilterViewController: FXUnitViewController {
     override func changeTextSize() {
 
         // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
-//        functionLabels = findFunctionLabels(self.view)
+        functionLabels = findFunctionLabels(self.view)
         
         bandControllers.forEach({$0.changeTextSize()})
         

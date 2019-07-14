@@ -35,7 +35,7 @@ struct Colors {
         case .darkBackground_lightText:     return NSColor.black
             
 //        case .lightBackground_darkText:     return ColorConstants.white90Percent
-            case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.6, alpha: 0.95)
+            case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.7, alpha: 1)
         }
     }
     
@@ -201,9 +201,37 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
+    static var activeKnobColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return activeKnobColor_darkBackground
+            
+        case .lightBackground_darkText:     return activeKnobColor_lightBackground
+            
+        }
+    }
+    
+    static let activeKnobColor_darkBackground: NSColor = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+    
+    static let activeKnobColor_lightBackground: NSColor = NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
+    
     static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
-    static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+    
+    static var suppressedKnobColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return suppressedKnobColor_darkBackground
+            
+        case .lightBackground_darkText:     return suppressedKnobColor_lightBackground
+            
+        }
+    }
+    
+    static let suppressedKnobColor_darkBackground: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+    
+    static let suppressedKnobColor_lightBackground: NSColor = NSColor(red: 0.66, green: 0.5, blue: 0, alpha: 1)
     
     // Outline color of buttons on modal dialogs
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
@@ -220,7 +248,8 @@ struct Colors {
     static let tabViewButtonTextColor: NSColor = ColorConstants.white90Percent
     
     // Color of the arrow drawn on popup menus
-    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+//    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
@@ -233,8 +262,8 @@ struct Colors {
 
     static let sliderBarGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -351,9 +380,29 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let suppressedSliderBarColoredGradient: NSGradient = {
+    static var suppressedSliderBarColoredGradient: NSGradient {
+     
+        switch scheme {
+            
+        case .darkBackground_lightText:     return suppressedSliderBarColoredGradient_darkBackground
+            
+        case .lightBackground_darkText:     return suppressedSliderBarColoredGradient_lightBackground
+        }
+        
+    }
+    
+    static let suppressedSliderBarColoredGradient_darkBackground: NSGradient = {
         
         let backgroundStart = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0.27, green: 0.2, blue: 0, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let suppressedSliderBarColoredGradient_lightBackground: NSGradient = {
+        
+        let backgroundStart = NSColor(red: 0.66, green: 0.5, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0.27, green: 0.2, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
