@@ -100,8 +100,8 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}
     
     // TODO: Make these scheme-dependent
-    override var unselectedTextColor: NSColor {return NSColor(calibratedWhite: 0.4, alpha: 1)}
-    override var selectedTextColor: NSColor {return NSColor(calibratedWhite: 0.6, alpha: 1)}
+    override var unselectedTextColor: NSColor {return Colors.eqSelector_unselectedTextColor}
+    override var selectedTextColor: NSColor {return Colors.eqSelector_selectedTextColor}
 }
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {

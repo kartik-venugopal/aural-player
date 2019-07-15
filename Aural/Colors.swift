@@ -89,7 +89,16 @@ struct Colors {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = ColorConstants.white70Percent
     
-    static let fxFunctionTextColor: NSColor = ColorConstants.white40Percent
+    static var fxFunctionTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return ColorConstants.white40Percent
+            
+        case .lightBackground_darkText:     return NSColor.black
+            
+        }
+    }
     
     static let fxFunctionPopupMenuTextColor: NSColor = ColorConstants.white60Percent
     
@@ -216,7 +225,7 @@ struct Colors {
     
     static let activeKnobColor_lightBackground: NSColor = NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
     
-    static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
+    static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     
     static var suppressedKnobColor: NSColor {
         
@@ -303,8 +312,8 @@ struct Colors {
     // Gradient used to fill slider bars
     static let sliderBarPlainGradient_lightBackground: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -373,8 +382,8 @@ struct Colors {
     
     static let bypassedSliderBarColoredGradient_lightBackground: NSGradient = {
         
-        let backgroundStart = NSColor(calibratedWhite: 0, alpha: 1)
-        let backgroundEnd =  NSColor(calibratedWhite: 0, alpha: 1)
+        let backgroundStart = NSColor(calibratedWhite: 0.4, alpha: 1)
+        let backgroundEnd =  NSColor(calibratedWhite: 0.2, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -509,4 +518,26 @@ struct Colors {
     
     // Background color of the popover view
     static let popoverBackgroundColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    
+    static var eqSelector_unselectedTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return ColorConstants.white40Percent
+            
+        case .lightBackground_darkText:     return Colors.fxFunctionTextColor
+            
+        }
+    }
+    
+    static var eqSelector_selectedTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return ColorConstants.white60Percent
+            
+        case .lightBackground_darkText:     return ColorConstants.white60Percent
+            
+        }
+    }
 }

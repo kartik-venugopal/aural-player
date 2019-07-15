@@ -48,7 +48,7 @@
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                            <view key="view" id="3tH-T8-1bs">
+                                            <view key="view" ambiguous="YES" id="3tH-T8-1bs">
                                                 <rect key="frame" x="1" y="1" width="533" height="233"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
@@ -90,7 +90,7 @@
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Recorder" identifier="7" id="LRa-0q-luI">
-                                            <view key="view" ambiguous="YES" id="6zV-BY-VXp">
+                                            <view key="view" id="6zV-BY-VXp">
                                                 <rect key="frame" x="1" y="1" width="533" height="233"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
@@ -98,7 +98,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="2" title="Box" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-zz-laJ" userLabel="Tab Buttons Box">
-                                    <rect key="frame" x="38" y="194" width="460" height="30"/>
+                                    <rect key="frame" x="38" y="199" width="460" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="b0o-w1-EZ9">
                                         <rect key="frame" x="0.0" y="0.0" width="460" height="30"/>

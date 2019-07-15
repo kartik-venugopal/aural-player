@@ -84,11 +84,11 @@ struct PlaybackLoopRange {
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.75}
+    override var barInsetY: CGFloat {return 0.5}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 6}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var knobWidth: CGFloat {return 8}
+    override var knobHeightOutsideBar: CGFloat {return 5}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
