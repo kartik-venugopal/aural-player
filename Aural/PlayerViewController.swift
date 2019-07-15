@@ -57,14 +57,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -163,6 +163,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.changeTextSize(textSize)
     }
     
+    func changeColorScheme() {
+        
+        defaultView.changeColorScheme()
+        expandedArtView.changeColorScheme()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -217,6 +223,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .changePlayerTextSize:
             
             changeTextSize((message as! TextSizeActionMessage).textSize)
+            
+        case .changeColorScheme:
+            
+            changeColorScheme()
             
         default: return
             

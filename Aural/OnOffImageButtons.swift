@@ -264,3 +264,59 @@ class EffectsUnitTabButton: OnOffImageButton {
         }
     }
 }
+
+/*
+ An image button that can be toggled On/Off and displays different images depending on its state
+ */
+@IBDesignable
+class ColorSensitiveOnOffImageButton: NSButton {
+    
+    // The image displayed when the button is in an "Off" state
+    var offStateImageMappings: [ColorScheme: NSImage] = [:]
+    
+    // The image displayed when the button is in an "On" state
+    var onStateImageMappings: [ColorScheme: NSImage] = [:]
+    
+    // The button's tooltip when the button is in an "Off" state
+    @IBInspectable var offStateTooltip: String?
+    
+    // The button's tooltip when the button is in an "On" state
+    @IBInspectable var onStateTooltip: String?
+    
+    private var _isOn: Bool = false
+    
+    // Sets the button state to be "Off"
+    override func off() {
+        
+        self.image = offStateImageMappings[Colors.scheme]
+        self.toolTip = offStateTooltip
+        _isOn = false
+    }
+    
+    // Sets the button state to be "On"
+    override func on() {
+        
+        self.image = onStateImageMappings[Colors.scheme]
+        self.toolTip = onStateTooltip
+        _isOn = true
+    }
+    
+    // Convenience function to set the button to "On" if the specified condition is true, and "Off" if not.
+    override func onIf(_ condition: Bool) {
+        condition ? on() : off()
+    }
+    
+    // Toggles the On/Off state
+    override func toggle() {
+        _isOn ? off() : on()
+    }
+    
+    // Returns true if the button is in the On state, false otherwise.
+    override func isOn() -> Bool {
+        return _isOn
+    }
+    
+    func schemeChanged() {
+        self.image = self.isOn() ? onStateImageMappings[Colors.scheme] : offStateImageMappings[Colors.scheme]
+    }
+}

@@ -163,6 +163,11 @@ class PlayerView: NSView {
         infoView.changeTextSize(textSize)
         gapView.changeTextSize(textSize)
     }
+    
+    func changeColorScheme() {
+        infoView.changeColorScheme()
+        gapView.changeColorScheme()
+    }
 }
 
 @IBDesignable

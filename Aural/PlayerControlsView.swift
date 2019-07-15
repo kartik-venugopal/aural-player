@@ -412,6 +412,12 @@ class PlayerControlsView: NSView {
         lblPan.font = TextSizes.feedbackFont
         lblPanCaption.font = TextSizes.feedbackFont
     }
+    
+    func changeColorScheme() {
+        
+        lblTimeElapsed.textColor = Colors.Player.trackTimesColor
+        lblTimeRemaining.textColor = Colors.Player.trackTimesColor
+    }
 }
 
 enum TimeElapsedDisplayType: String {

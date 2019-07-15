@@ -34,8 +34,8 @@ struct Colors {
             
         case .darkBackground_lightText:     return NSColor.black
             
-//        case .lightBackground_darkText:     return ColorConstants.white90Percent
-            case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.7, alpha: 1)
+        case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.7, alpha: 1)
+            
         }
     }
     
@@ -75,6 +75,17 @@ struct Colors {
         }
         
         static var artistColor: NSColor {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText: return ColorConstants.white60Percent
+                
+            case .lightBackground_darkText: return NSColor.black
+                
+            }
+        }
+        
+        static var trackTimesColor: NSColor {
             
             switch Colors.scheme {
                 

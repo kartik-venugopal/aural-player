@@ -7,7 +7,7 @@ import Cocoa
 class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
-    let barInsetX: CGFloat = 0.25
+    let barInsetX: CGFloat = 0.75
     let barInsetY: CGFloat = 0
     
     let knobHeight: CGFloat = 9

@@ -61,10 +61,10 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 2}
-    override var barInsetY: CGFloat {return 0}
-    override var knobWidth: CGFloat {return 8}
-    override var knobRadius: CGFloat {return 2}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var barInsetY: CGFloat {return 1}
+    override var knobWidth: CGFloat {return 7}
+    override var knobRadius: CGFloat {return 1.5}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
@@ -84,11 +84,11 @@ struct PlaybackLoopRange {
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barInsetY: CGFloat {return 0.85}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 8}
-    override var knobHeightOutsideBar: CGFloat {return 5}
+    override var knobWidth: CGFloat {return 6}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
@@ -151,9 +151,9 @@ class SeekSliderCell: HorizontalSliderCell {
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
             Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
-            let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
-            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
-            let markerRadius: CGFloat = 0
+//            let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
+//            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
+//            let markerRadius: CGFloat = 0
             
             // Loop start marker
 //            let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
@@ -224,7 +224,7 @@ class PreferencesSliderCell: HorizontalSliderCell {
 class EffectsSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barInsetY: CGFloat {return 1}
     
     override var knobWidth: CGFloat {return 10}
     override var knobRadius: CGFloat {return 1}

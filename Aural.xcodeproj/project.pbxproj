@@ -107,6 +107,7 @@
 		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
 		3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */; };
 		3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */; };
+		3E2F5BA222DCE95C00AE6F8D /* ColorSensitiveImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F5BA122DCE95C00AE6F8D /* ColorSensitiveImage.swift */; };
 		3E309B741FB70BB800C61E72 /* InfoPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E309B731FB70BB800C61E72 /* InfoPopup.xib */; };
 		3E309B781FB70D1F00C61E72 /* InfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
@@ -512,6 +513,7 @@
 		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
 		3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewController.swift; sourceTree = "<group>"; };
+		3E2F5BA122DCE95C00AE6F8D /* ColorSensitiveImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSensitiveImage.swift; sourceTree = "<group>"; };
 		3E309B731FB70BB800C61E72 /* InfoPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoPopup.xib; sourceTree = "<group>"; };
 		3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopupViewController.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
@@ -866,6 +868,7 @@
 				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
 				3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */,
 				3E54B23822C263B3005EAEDF /* TriStateLabel.swift */,
+				3E2F5BA122DCE95C00AE6F8D /* ColorSensitiveImage.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -2312,6 +2315,7 @@
 				3E3F296D215A3E4A00581EFE /* MasterViewController.swift in Sources */,
 				3E50DC962193A36000D42373 /* MasterUnit.swift in Sources */,
 				3E981EA91F7A0C8A003DDA38 /* RecordingSession.swift in Sources */,
+				3E2F5BA222DCE95C00AE6F8D /* ColorSensitiveImage.swift in Sources */,
 				3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */,
 				3EB20B491EFF230C008138A4 /* AppStateIO.swift in Sources */,
 				3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */,

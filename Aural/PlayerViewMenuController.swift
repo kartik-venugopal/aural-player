@@ -208,6 +208,13 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
         }
     }
+    
+    @IBAction func changeColorSchemeAction(_ sender: NSMenuItem) {
+        
+        if let scheme = ColorScheme(rawValue: sender.identifier!.rawValue) {
+            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
+        }
+    }
 }
 
 class PlaylistViewMenuController: NSObject, NSMenuDelegate {

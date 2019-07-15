@@ -227,12 +227,16 @@ class TrackInfoView: NSView {
             
         } else {
             
-            //            positionTrackNameLabel()
-            
             showTooltipIfRequired(lblTitle, 1)
             showTooltipIfRequired(lblArtist, 1)
             lblName.toolTip = nil
         }
+    }
+    
+    func changeColorScheme() {
+        
+        lblTitle.textColor = Colors.Player.titleColor
+        lblArtist.textColor = Colors.Player.artistColor
     }
 }
 

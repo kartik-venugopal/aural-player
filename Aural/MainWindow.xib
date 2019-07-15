@@ -8,12 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnClose" destination="zFi-Se-R21" id="Aji-yd-KGr"/>
+                <outlet property="btnHide" destination="L4p-3A-TgZ" id="HWK-8R-M9t"/>
                 <outlet property="btnLayout" destination="0It-ci-89a" id="5aD-xW-9M2"/>
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="layoutMenuImageItem" destination="Qbf-WH-98a" id="5pO-m7-WAc"/>
                 <outlet property="rootContainer" destination="s2a-4T-trI" id="p6L-sV-dDJ"/>
                 <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
+                <outlet property="viewMenuImageItem" destination="HM2-5O-u4Z" id="9HD-ci-iNK"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
         </customObject>
@@ -37,7 +41,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
+                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="10" y="210" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
@@ -48,7 +52,7 @@
                                         <action selector="quitAction:" target="-2" id="te0-r8-B0U"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
+                                <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="25" y="210" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
@@ -83,7 +87,7 @@
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" autoenablesItems="NO" id="drC-pX-0Rs">
                                             <items>
-                                                <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z">
+                                                <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z" customClass="ColorSensitiveMenuItem" customModule="Aural" customModuleProvider="target">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
@@ -152,6 +156,25 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="GeF-aM-s48"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="Color scheme" id="aIQ-Vz-wAS">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Color scheme" id="Knk-15-qnT">
+                                                        <items>
+                                                            <menuItem title="Dark background, light text" identifier="darkBackground_lightText" id="xWu-yy-Zyq">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeColorSchemeAction:" target="gF1-jg-yeJ" id="SQK-c3-toh"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Light background, dark text" tag="1" identifier="lightBackground_darkText" id="a3B-Hw-soP">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeColorSchemeAction:" target="gF1-jg-yeJ" id="tmo-B1-Ib1"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -231,7 +254,7 @@
                                         <action selector="btnLayoutAction:" target="-2" id="TEc-lD-xj8"/>
                                     </connections>
                                 </popUpButton>
-                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="ColorSensitiveOnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="466" y="210" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
@@ -248,7 +271,7 @@
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="ColorSensitiveOnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="485" y="210" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
@@ -273,7 +296,7 @@
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" showsStateColumn="NO" id="1Zg-ei-q78">
                                             <items>
-                                                <menuItem image="WindowLayout-Light" hidden="YES" id="Qbf-WH-98a">
+                                                <menuItem image="WindowLayout-Light" hidden="YES" id="Qbf-WH-98a" customClass="ColorSensitiveMenuItem" customModule="Aural" customModuleProvider="target">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="tGa-6w-I86"/>

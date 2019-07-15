@@ -5,8 +5,52 @@ import Cocoa
 
 struct Images {
     
+    struct WindowControls {
+        
+        private static let imgClose_0: NSImage = NSImage(named: "Close")!
+        private static let imgClose_1: NSImage = NSImage(named: "Close_1")!
+        
+        private static let imgHide_0: NSImage = NSImage(named: "Hide")!
+        private static let imgHide_1: NSImage = NSImage(named: "Hide_1")!
+        
+        static var imgClose: NSImage {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText:     return imgClose_0
+                
+            case .lightBackground_darkText:     return imgClose_1
+                
+            }
+        }
+        
+        static var imgHide: NSImage {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText:     return imgHide_0
+                
+            case .lightBackground_darkText:     return imgHide_1
+                
+            }
+        }
+    }
+    
     // Toggled images
-    static let imgPlay: NSImage = NSImage(named: "Play")!
+    static var imgPlay: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgPlay_0
+            
+        case .lightBackground_darkText:     return imgPlay_1
+            
+        }
+    }
+    
+    private static let imgPlay_0: NSImage = NSImage(named: "Play")!
+    private static let imgPlay_1: NSImage = NSImage(named: "Play_1")!
+    
     static let imgPause: NSImage = NSImage(named: "Pause")!
     
     static let imgPlayingArt: NSImage = NSImage(named: "PlayingArt")!
