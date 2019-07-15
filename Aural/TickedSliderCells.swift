@@ -88,12 +88,12 @@ class PanTickedSliderCell: TickedSliderCell {
 // Cell for all ticked effects sliders
 class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
-    override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return 0.75}
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0.5}
     
-    override var knobWidth: CGFloat {return 7}
-    override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var knobWidth: CGFloat {return 10}
+    override var knobRadius: CGFloat {return 2}
+    override var knobHeightOutsideBar: CGFloat {return 5}
     
     override var knobColor: NSColor {
         

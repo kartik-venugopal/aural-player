@@ -4,8 +4,6 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
-    @IBOutlet weak var lblEQ: NSTextField!
-    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
@@ -134,11 +132,6 @@ class MasterViewController: FXUnitViewController {
             updateButtons()
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
-    }
-    
-    override func changeColorScheme() {
-        super.changeColorScheme()
-        masterView.changeColorScheme()
     }
    
     // MARK: Message handling

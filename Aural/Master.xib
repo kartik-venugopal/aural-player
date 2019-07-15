@@ -11,7 +11,6 @@
                 <outlet property="btnBypass" destination="1bl-Og-Men" id="ILs-W4-cRi"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="lblCaption" destination="Irt-cZ-a6S" id="Sn4-jB-cbp"/>
-                <outlet property="lblEQ" destination="1tW-hm-k1j" id="aO5-fI-dP8"/>
                 <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsMenu" destination="ryf-gT-ZGe" id="82S-Df-bBT"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
@@ -23,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="530" height="190"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-hm-k1j" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-hm-k1j" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="200" y="111" width="70" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Equalizer" id="Yv4-sC-ZVG" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -78,55 +77,30 @@
                         <action selector="eqBypassAction:" target="-2" id="rME-m0-ZHm"/>
                     </connections>
                 </button>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXr-qe-ajq" userLabel="Pitch img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXr-qe-ajq" userLabel="Pitch img">
                     <rect key="frame" x="180" y="83" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PitchTab" id="ps2-S9-Dcj"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="PitchTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PitchUnit" id="ps2-S9-Dcj"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2T-q1-Usa" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2T-q1-Usa" userLabel="Reverb img">
                     <rect key="frame" x="311" y="116" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ReverbTab" id="4HF-va-rAd"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="ReverbTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ReverbUnit" id="4HF-va-rAd"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeG-t8-71U" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeG-t8-71U" userLabel="Reverb img">
                     <rect key="frame" x="311" y="84" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DelayTab" id="aLJ-ZK-Uoo"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="DelayTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DelayUnit" id="aLJ-ZK-Uoo"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lri-sX-mya" userLabel="Filter Img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lri-sX-mya" userLabel="Filter Img">
                     <rect key="frame" x="311" y="54" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FilterTab" id="U0g-g7-chv"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="FilterTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FilterUnit" id="U0g-g7-chv"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-eA-HEK" userLabel="Time img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-eA-HEK" userLabel="Time img">
                     <rect key="frame" x="181" y="53" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TimeTab" id="Hxw-gI-JC2"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="TimeTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TimeUnit" id="Hxw-gI-JC2"/>
                 </imageView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44n-oY-8vs" userLabel="Pitch bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="162" y="84" width="12" height="12"/>
@@ -211,17 +185,12 @@
                         <action selector="presetsAction:" target="-2" id="pvy-2C-fWa"/>
                     </connections>
                 </popUpButton>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img">
                     <rect key="frame" x="181" y="115" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EQTab" id="vPR-nV-xLX"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="EQTab-Mixed"/>
-                    </userDefinedRuntimeAttributes>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EQUnit" id="vPR-nV-xLX"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70u-1w-kQS" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70u-1w-kQS" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="200" y="80" width="75" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch shift" id="Xv7-9A-6ZW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -241,7 +210,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Qo-Qm-BwE" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Qo-Qm-BwE" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="200" y="50" width="85" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Time stretch" id="KFS-DA-Wij" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -261,7 +230,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZFY-Mh-u8a" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZFY-Mh-u8a" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="329" y="112" width="57" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Reverb" id="Xwn-UJ-w9f" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -281,7 +250,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4T-e9-QpU" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4T-e9-QpU" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="329" y="81" width="57" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Delay" id="ZCO-gE-FUZ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -301,7 +270,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scO-N2-3Mf" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scO-N2-3Mf" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="329" y="50" width="57" height="22"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Filter" id="gqK-Ia-Ktc" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -340,41 +309,17 @@
                 <outlet property="btnPitchBypass" destination="44n-oY-8vs" id="zO5-LI-3Vc"/>
                 <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="YhI-6D-vCi"/>
                 <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="LdT-PN-7CG"/>
-                <outlet property="imgDelayBypass" destination="FeG-t8-71U" id="Wyx-sg-H4a"/>
-                <outlet property="imgEQBypass" destination="St1-EV-PgQ" id="4wS-e5-cS2"/>
-                <outlet property="imgFilterBypass" destination="lri-sX-mya" id="Vlb-60-7kD"/>
-                <outlet property="imgPitchBypass" destination="kXr-qe-ajq" id="71s-u2-8GV"/>
-                <outlet property="imgReverbBypass" destination="C2T-q1-Usa" id="yae-cC-G8A"/>
-                <outlet property="imgTimeBypass" destination="Fz4-eA-HEK" id="Ir9-6y-yFX"/>
-                <outlet property="lblDelay" destination="O4T-e9-QpU" id="Yf3-WB-Fby"/>
-                <outlet property="lblEQ" destination="1tW-hm-k1j" id="Ldd-sf-erX"/>
-                <outlet property="lblFilter" destination="scO-N2-3Mf" id="7yr-Tk-MDZ"/>
-                <outlet property="lblPitch" destination="70u-1w-kQS" id="86M-tY-MeE"/>
-                <outlet property="lblReverb" destination="ZFY-Mh-u8a" id="n63-Wo-hiz"/>
-                <outlet property="lblTime" destination="7Qo-Qm-BwE" id="mPn-UC-crL"/>
             </connections>
             <point key="canvasLocation" x="139" y="153"/>
         </view>
     </objects>
     <resources>
-        <image name="DelayTab" width="23" height="22"/>
-        <image name="DelayTab-Mixed" width="23" height="22"/>
-        <image name="DelayTab-On" width="23" height="22"/>
-        <image name="EQTab" width="25" height="25"/>
-        <image name="EQTab-Mixed" width="25" height="25"/>
-        <image name="EQTab-On" width="25" height="25"/>
-        <image name="FilterTab" width="26" height="26"/>
-        <image name="FilterTab-Mixed" width="26" height="26"/>
-        <image name="FilterTab-On" width="26" height="26"/>
-        <image name="PitchTab" width="32" height="26"/>
-        <image name="PitchTab-Mixed" width="32" height="26"/>
-        <image name="PitchTab-On" width="32" height="26"/>
-        <image name="ReverbTab" width="25" height="25"/>
-        <image name="ReverbTab-Mixed" width="25" height="25"/>
-        <image name="ReverbTab-On" width="25" height="25"/>
+        <image name="DelayUnit" width="23" height="22"/>
+        <image name="EQUnit" width="25" height="25"/>
+        <image name="FilterUnit" width="26" height="26"/>
+        <image name="PitchUnit" width="32" height="26"/>
+        <image name="ReverbUnit" width="25" height="25"/>
         <image name="SaveEQPreset" width="26" height="26"/>
-        <image name="TimeTab" width="32" height="32"/>
-        <image name="TimeTab-Mixed" width="32" height="32"/>
-        <image name="TimeTab-On" width="32" height="32"/>
+        <image name="TimeUnit" width="32" height="32"/>
     </resources>
 </document>

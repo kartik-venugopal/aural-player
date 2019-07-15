@@ -1711,8 +1711,8 @@
 				3EB2F1FE1FB311760031B6C1 /* Fonts.swift */,
 				3E58CC261F025B0D00C36DC1 /* Colors.swift */,
 				3EB2F2001FB311FB0031B6C1 /* Images.swift */,
-				3EF5E5CD1FBE843D004270A4 /* Strings.swift */,
 				3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */,
+				3EF5E5CD1FBE843D004270A4 /* Strings.swift */,
 				3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */,
 				3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */,
 			);

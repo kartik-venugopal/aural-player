@@ -216,7 +216,7 @@ struct Colors {
     
     static let activeKnobColor_lightBackground: NSColor = NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
     
-    static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
+    static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
     
     static var suppressedKnobColor: NSColor {
         
@@ -303,8 +303,8 @@ struct Colors {
     // Gradient used to fill slider bars
     static let sliderBarPlainGradient_lightBackground: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -373,8 +373,8 @@ struct Colors {
     
     static let bypassedSliderBarColoredGradient_lightBackground: NSGradient = {
         
-        let backgroundStart = NSColor(calibratedWhite: 0.4, alpha: 1)
-        let backgroundEnd =  NSColor(calibratedWhite: 0.2, alpha: 1)
+        let backgroundStart = NSColor(calibratedWhite: 0, alpha: 1)
+        let backgroundEnd =  NSColor(calibratedWhite: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!

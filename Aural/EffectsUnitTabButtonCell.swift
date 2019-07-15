@@ -9,7 +9,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     
 //    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
     private let backgroundFillColor: NSColor = Colors.windowBackgroundColor
-    private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
+    private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
     
 //    private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
 //    private let selectedTextColor: NSColor = Colors.playlistSelectedTextColor
@@ -54,7 +54,11 @@ class EffectsUnitTabButtonCell: NSButtonCell {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
+//            selectionBoxColor.setStroke()
             NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius).fill()
+//            let path = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
+//            path.lineWidth = 4
+//            path.stroke()
         }
         
         // Check if selected, and adjust text font
