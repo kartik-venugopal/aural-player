@@ -5,6 +5,11 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
     
+    @IBOutlet weak var rootContainer: NSBox!
+    @IBOutlet weak var controlsBox: NSBox!
+    @IBOutlet weak var playlistBox: NSBox!
+    @IBOutlet weak var tabButtonsBox: NSBox!
+    
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
     private lazy var artistsView: NSView = ViewFactory.getArtistsView()
@@ -63,6 +68,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
         TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
         changeTextSize(PlayerViewState.textSize)
+        changeColorScheme()
         
         setUpTabGroup()
         initSubscriptions()
@@ -97,7 +103,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -113,7 +119,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeColorScheme], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -408,6 +414,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         viewMenuButton.font = TextSizes.playlistMenuFont
     }
     
+    private func changeColorScheme() {
+        
+        [rootContainer, tabButtonsBox, playlistBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+        [lblTracksSummary, lblDurationSummary].forEach({
+            $0?.backgroundColor = Colors.windowBackgroundColor
+            $0?.textColor = Colors.boxTextColor
+        })
+
+        // TODO: Redraw tab buttons, playlist views
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
@@ -506,6 +523,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .previousPlaylistView: previousPlaylistView()
             
         case .changePlaylistTextSize: changeTextSize((message as! TextSizeActionMessage).textSize)
+            
+        case .changeColorScheme:    changeColorScheme()
             
         default: return
             

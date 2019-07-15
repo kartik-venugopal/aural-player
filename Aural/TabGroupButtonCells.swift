@@ -54,11 +54,11 @@ class TabGroupButtonCell: NSButtonCell {
 
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
-    private var _unselectedTextColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
-    private var _selectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+//    private var _unselectedTextColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+//    private var _selectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     
-    override var unselectedTextColor: NSColor {return _unselectedTextColor}
-    override var selectedTextColor: NSColor {return _selectedTextColor}
+    override var unselectedTextColor: NSColor {return Colors.playlistTextColor}
+    override var selectedTextColor: NSColor {return Colors.playlistSelectedTextColor}
     
     override var borderRadius: CGFloat {return 3}
     override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}

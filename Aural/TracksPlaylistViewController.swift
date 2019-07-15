@@ -54,6 +54,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.qualityOfService = .background
         
         playlistView.menu = contextMenu
+        
+        changeColorScheme()
     }
     
     override func viewDidAppear() {
@@ -585,6 +587,18 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+    }
+    
+    private func changeColorScheme() {
+        
+//        [rootContainer, tabButtonsBox, playlistBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+//        [lblTracksSummary, lblDurationSummary].forEach({
+//            $0?.backgroundColor = Colors.windowBackgroundColor
+//            $0?.textColor = Colors.boxTextColor
+//        })
+        playlistView.backgroundColor = Colors.windowBackgroundColor
+        
+        // TODO: Redraw tab buttons, playlist views
     }
     
     // MARK: Message handling

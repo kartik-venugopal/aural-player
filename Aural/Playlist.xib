@@ -9,9 +9,13 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
+                <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="PNk-Lj-u80"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
+                <outlet property="playlistBox" destination="Syt-ea-ETd" id="ynx-cJ-OPp"/>
                 <outlet property="playlistWorkSpinner" destination="TgI-fO-gfa" id="myn-qC-H9K"/>
+                <outlet property="rootContainer" destination="2Bk-G6-skT" id="hiy-wJ-VTm"/>
+                <outlet property="tabButtonsBox" destination="rbs-L2-HsW" id="qOq-u4-kId"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
                 <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
@@ -96,7 +100,7 @@
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.5" alpha="0.89733375637464774" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.60348811619718312" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
                         <rect key="frame" x="98" y="241" width="285" height="30"/>

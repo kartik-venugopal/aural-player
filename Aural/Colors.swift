@@ -87,7 +87,16 @@ struct Colors {
     }
     
     // Color of text inside any of the container boxes
-    static let boxTextColor: NSColor = ColorConstants.white70Percent
+    static var boxTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return ColorConstants.white70Percent
+            
+        case .lightBackground_darkText:     return NSColor.black
+            
+        }
+    }
     
     static var fxFunctionTextColor: NSColor {
         
@@ -107,9 +116,35 @@ struct Colors {
     static let editorHeaderTextColor: NSColor = ColorConstants.white85Percent
     
     // Color of text inside the playlist (non-selected items)
-    static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static var playlistTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistTextColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let playlistTextColor_lightBackground: NSColor = NSColor.black
+    
     // Color of selected item text inside the playlist
-    static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
+    static var playlistSelectedTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistSelectedTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistSelectedTextColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistSelectedTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    static let playlistSelectedTextColor_lightBackground: NSColor = ColorConstants.white80Percent
     
     // Color of text inside the playlist (non-selected items)
     static let playlistIndexTextColor: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
@@ -126,14 +161,77 @@ struct Colors {
     static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Color for playlist grouped views
-    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
-    static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static var playlistGroupNameTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistGroupNameTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistGroupNameTextColor_lightBackground
+            
+        }
+    }
     
-    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
-    static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    static let playlistGroupNameTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    static let playlistGroupNameTextColor_lightBackground: NSColor = ColorConstants.white10Percent
+    
+    static var playlistGroupNameSelectedTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistGroupNameSelectedTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistGroupNameSelectedTextColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistGroupNameSelectedTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static let playlistGroupNameSelectedTextColor_lightBackground: NSColor = ColorConstants.white70Percent
+    
+    static var playlistGroupItemTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistGroupItemTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistGroupItemTextColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistGroupItemTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let playlistGroupItemTextColor_lightBackground: NSColor = NSColor.black
+    
+    static var playlistGroupItemSelectedTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistGroupItemSelectedTextColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistGroupItemSelectedTextColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistGroupItemSelectedTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    static let playlistGroupItemSelectedTextColor_lightBackground: NSColor = ColorConstants.white80Percent
     
     // Fill color of box drawn around selected playlist item
-    static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
+    
+    static var playlistSelectionBoxColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistSelectionBoxColor_darkBackground
+            
+        case .lightBackground_darkText: return playlistSelectionBoxColor_lightBackground
+            
+        }
+    }
+    
+    static let playlistSelectionBoxColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
+    static let playlistSelectionBoxColor_lightBackground: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
     
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
