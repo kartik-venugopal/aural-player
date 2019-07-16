@@ -124,6 +124,8 @@
         </customObject>
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="colorSchemeDarkBackgroundMenuItem" destination="kEa-g0-q6E" id="re0-58-xHq"/>
+                <outlet property="colorSchemeLightBackgroundMenuItem" destination="5mD-jc-uwi" id="C8k-QM-VxH"/>
                 <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
                 <outlet property="effectsViewMenuItem" destination="XdU-vv-wWn" id="NmF-KA-ZOR"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
@@ -1263,6 +1265,25 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="an4-tM-8qJ"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Color scheme" indentationLevel="1" id="skd-HF-42g">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Color scheme" id="eCg-rT-iVa">
+                                    <items>
+                                        <menuItem title="Dark background, light text" identifier="darkBackground_lightText" id="kEa-g0-q6E">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeColorSchemeAction:" target="xzd-WN-BuR" id="eGw-xn-a0N"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Light background, dark text" tag="1" identifier="lightBackground_darkText" id="5mD-jc-uwi">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeColorSchemeAction:" target="xzd-WN-BuR" id="oj4-KO-osT"/>
                                             </connections>
                                         </menuItem>
                                     </items>

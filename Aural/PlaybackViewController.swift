@@ -30,6 +30,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
 
         AppModeManager.registerConstituentView(.regular, self)
+        changeColorScheme()
     }
     
     func activate() {

@@ -61,7 +61,7 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 2}
-    override var barInsetY: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 1.25}
     override var knobWidth: CGFloat {return 7}
     override var knobRadius: CGFloat {return 1.5}
     override var knobHeightOutsideBar: CGFloat {return 4}

@@ -455,14 +455,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction func changeColorSchemeAction(_ sender: NSMenuItem) {
-        
-        if let scheme = ColorScheme(rawValue: sender.identifier!.rawValue), scheme != Colors.scheme {
-            Colors.scheme = scheme
-            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
-        }
-    }
-    
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
         
         var format: TimeElapsedDisplayType

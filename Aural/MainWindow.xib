@@ -91,12 +91,12 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
-                                                <menuItem title="Default view" state="on" keyEquivalent="3" id="KXZ-Ro-nbz">
+                                                <menuItem title="Default view" state="on" id="KXZ-Ro-nbz">
                                                     <connections>
                                                         <action selector="playerDefaultViewAction:" target="gF1-jg-yeJ" id="udi-29-7gB"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Expanded art view" keyEquivalent="4" id="P5U-AN-0cd">
+                                                <menuItem title="Expanded art view" id="P5U-AN-0cd">
                                                     <connections>
                                                         <action selector="playerExpandedArtViewAction:" target="gF1-jg-yeJ" id="MzE-1p-bbE"/>
                                                     </connections>
@@ -156,25 +156,6 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="GeF-aM-s48"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem title="Color scheme" id="aIQ-Vz-wAS">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Color scheme" id="Knk-15-qnT">
-                                                        <items>
-                                                            <menuItem title="Dark background, light text" identifier="darkBackground_lightText" id="xWu-yy-Zyq">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeColorSchemeAction:" target="gF1-jg-yeJ" id="SQK-c3-toh"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Light background, dark text" tag="1" identifier="lightBackground_darkText" id="a3B-Hw-soP">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeColorSchemeAction:" target="gF1-jg-yeJ" id="tmo-B1-Ib1"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
