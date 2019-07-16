@@ -80,7 +80,6 @@ class PanTickedSliderCell: TickedSliderCell {
             let panRect = NSRect(x: panRectX, y: offsetRect.minY, width: panRectWidth, height: offsetRect.height)
             drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
             barColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
-            
         }
     }
 }

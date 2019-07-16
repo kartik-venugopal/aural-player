@@ -35,14 +35,54 @@ class PlayerControlsView: NSView {
     private var autoHidingPanLabel: AutoHidingView!
     
     // Toggle buttons (their images change)
-    @IBOutlet weak var btnPlayPause: OnOffImageButton!
+    @IBOutlet weak var btnPlayPause: ColorSensitiveOnOffImageButton! {
+        
+        didSet {
+            
+            btnPlayPause.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "Play")
+            btnPlayPause.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "Play_1")
+            
+            btnPlayPause.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "Pause")
+            btnPlayPause.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "Pause_1")
+        }
+    }
+    
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     @IBOutlet weak var btnLoop: MultiStateImageButton!
     
     // Buttons whose tool tips may change
-    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
-    @IBOutlet weak var btnNextTrack: TrackPeekingButton!
+    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton! {
+    
+        didSet {
+            btnPreviousTrack.imageMappings[.darkBackground_lightText] = NSImage(named: "PreviousTrack")
+            btnPreviousTrack.imageMappings[.lightBackground_darkText] = NSImage(named: "PreviousTrack_1")
+        }
+    }
+    
+    @IBOutlet weak var btnNextTrack: TrackPeekingButton! {
+        
+        didSet {
+            btnNextTrack.imageMappings[.darkBackground_lightText] = NSImage(named: "NextTrack")
+            btnNextTrack.imageMappings[.lightBackground_darkText] = NSImage(named: "NextTrack_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSeekBackward: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSeekBackward.imageMappings[.darkBackground_lightText] = NSImage(named: "SeekBackward")
+            btnSeekBackward.imageMappings[.lightBackground_darkText] = NSImage(named: "SeekBackward_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSeekForward: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSeekForward.imageMappings[.darkBackground_lightText] = NSImage(named: "SeekForward")
+            btnSeekForward.imageMappings[.lightBackground_darkText] = NSImage(named: "SeekForward_1")
+        }
+    }
     
     var seekPositionFunction: (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double)) = {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in
         return (0, 0, 0)
@@ -311,7 +351,7 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel.showView()
     }
 
-    private func setVolumeImage(_ volume: Float, _ muted: Bool) {
+    func setVolumeImage(_ volume: Float, _ muted: Bool) {
 
         if (muted) {
             btnVolume.image = Images.imgMute
@@ -417,6 +457,17 @@ class PlayerControlsView: NSView {
         
         lblTimeElapsed.textColor = Colors.Player.trackTimesColor
         lblTimeRemaining.textColor = Colors.Player.trackTimesColor
+        lblPanCaption.textColor = Colors.Player.trackTimesColor
+        lblPan.textColor = Colors.Player.trackTimesColor
+        lblVolume.textColor = Colors.Player.trackTimesColor
+        
+        btnPlayPause.schemeChanged()
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.schemeChanged()})
+        [btnSeekBackward, btnSeekForward].forEach({$0?.schemeChanged()})
+        
+        seekSlider.redraw()
+        volumeSlider.redraw()
+        panSlider.redraw()
     }
 }
 

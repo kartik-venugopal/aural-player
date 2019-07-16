@@ -18,7 +18,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         }
     }
     
-    
     @IBOutlet weak var btnHide: ColorSensitiveImageButton! {
         
         didSet {

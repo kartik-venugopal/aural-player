@@ -347,7 +347,7 @@
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.59760123239436624" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" red="0.24617627892695682" green="0.10601892857484414" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                 </subviews>
                 <constraints>

@@ -34,7 +34,7 @@ struct Colors {
             
         case .darkBackground_lightText:     return NSColor.black
             
-        case .lightBackground_darkText:     return NSColor(calibratedWhite: 0.7, alpha: 1)
+        case .lightBackground_darkText:     return ColorConstants.white70Percent
             
         }
     }

@@ -59,11 +59,75 @@ struct Images {
     static let imgTranscodingTrack: NSImage = NSImage(named: "TranscodingTrack")!
     static let imgWaitingTrack: NSImage = NSImage(named: "WaitingTrack")!
     
-    static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
-    static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!
-    static let imgVolumeMedium: NSImage = NSImage(named: "VolumeMedium")!
-    static let imgVolumeHigh: NSImage = NSImage(named: "VolumeHigh")!
-    static let imgMute: NSImage = NSImage(named: "Mute")!
+    static var imgVolumeZero: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgVolumeZero_0
+            
+        case .lightBackground_darkText:     return imgVolumeZero_1
+            
+        }
+    }
+    
+    private static let imgVolumeZero_0: NSImage = NSImage(named: "VolumeZero")!
+    private static let imgVolumeZero_1: NSImage = NSImage(named: "VolumeZero_1")!
+    
+    static var imgVolumeLow: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgVolumeLow_0
+            
+        case .lightBackground_darkText:     return imgVolumeLow_1
+            
+        }
+    }
+    
+    private static let imgVolumeLow_0: NSImage = NSImage(named: "VolumeLow")!
+    private static let imgVolumeLow_1: NSImage = NSImage(named: "VolumeLow_1")!
+    
+    static var imgVolumeMedium: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgVolumeMedium_0
+            
+        case .lightBackground_darkText:     return imgVolumeMedium_1
+            
+        }
+    }
+    
+    private static let imgVolumeMedium_0: NSImage = NSImage(named: "VolumeMedium")!
+    private static let imgVolumeMedium_1: NSImage = NSImage(named: "VolumeMedium_1")!
+    
+    static var imgVolumeHigh: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgVolumeHigh_0
+            
+        case .lightBackground_darkText:     return imgVolumeHigh_1
+            
+        }
+    }
+    
+    private static let imgVolumeHigh_0: NSImage = NSImage(named: "VolumeHigh")!
+    private static let imgVolumeHigh_1: NSImage = NSImage(named: "VolumeHigh_1")!
+    
+    static var imgMute: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgMute_0
+            
+        case .lightBackground_darkText:     return imgMute_1
+            
+        }
+    }
+    
+    private static let imgMute_0: NSImage = NSImage(named: "Mute")!
+    private static let imgMute_1: NSImage = NSImage(named: "Mute_1")!
     
     static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
     static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!

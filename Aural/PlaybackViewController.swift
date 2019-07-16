@@ -410,6 +410,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func changeColorScheme() {
         controlsView.changeColorScheme()
+        controlsView.setVolumeImage(audioGraph.volume, audioGraph.muted)
     }
     
     // MARK: Message handling
@@ -570,7 +571,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .changeColorScheme:
 
-                changeColorScheme()
+            changeColorScheme()
             
         default: return
             

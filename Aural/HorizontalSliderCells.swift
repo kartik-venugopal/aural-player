@@ -68,7 +68,6 @@ class VolumeSliderCell: HorizontalSliderCell {
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
-//    override var barColoredGradient: NSGradient {return Colors.playbackLoopGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
