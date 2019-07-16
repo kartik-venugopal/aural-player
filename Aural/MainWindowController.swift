@@ -32,6 +32,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
+    @IBOutlet weak var imgAppTitle: ColorSensitiveImage! {
+        
+        didSet {
+            imgAppTitle.imageMappings[.darkBackground_lightText] = NSImage(named: "AppTitle")
+            imgAppTitle.imageMappings[.lightBackground_darkText] = NSImage(named: "AppTitle_1")
+        }
+    }
+    
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: ColorSensitiveOnOffImageButton! {
         
@@ -249,10 +257,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     
     private func changeColorScheme() {
         
+        imgAppTitle.colorSchemeChanged()
         rootContainer.fillColor = Colors.windowBackgroundColor
-        [btnClose, btnHide].forEach({$0.schemeChanged()})
-        [layoutMenuImageItem, viewMenuImageItem].forEach({$0.schemeChanged()})
-        [btnToggleEffects, btnTogglePlaylist].forEach({$0.schemeChanged()})
+        
+        [btnClose, btnHide].forEach({$0.colorSchemeChanged()})
+        [layoutMenuImageItem, viewMenuImageItem].forEach({$0.colorSchemeChanged()})
+        [btnToggleEffects, btnTogglePlaylist].forEach({$0.colorSchemeChanged()})
     }
     
     // MARK: Message handling

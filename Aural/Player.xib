@@ -271,7 +271,6 @@
         <viewController id="RSE-vv-5aa" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="controlsView" destination="GnY-hT-0WI" id="p2n-ES-A5f"/>
-                <outlet property="lblRepeatCaption" destination="EC7-70-GsN" id="sYi-ca-4FJ"/>
                 <outlet property="view" destination="IyJ-bL-zmI" id="AhC-Vv-ooj"/>
             </connections>
         </viewController>
@@ -354,15 +353,6 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EC7-70-GsN" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="-4" y="4" width="30" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="All" id="UG5-nv-fNf">
-                            <font key="font" size="10" name="ArialRoundedMTBold"/>
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </textFieldCell>
-                    </textField>
                     <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pr5-YU-zRz">
                         <rect key="frame" x="465" y="10" width="40" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -441,8 +431,8 @@ G1BhbiBTbGlkZXI
                             <action selector="seekBackwardAction:" target="RSE-vv-5aa" id="Rtr-J7-Fi1"/>
                         </connections>
                     </button>
-                    <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldO-PD-wlT" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="51" y="16" width="21" height="16"/>
+                    <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldO-PD-wlT" userLabel="Loop Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="56" y="16" width="21" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vrU-eq-4zx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -452,8 +442,8 @@ G1BhbiBTbGlkZXI
                             <action selector="toggleLoopAction:" target="RSE-vv-5aa" id="txD-gS-apo"/>
                         </connections>
                     </button>
-                    <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYX-r9-TO4" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="25" y="14" width="21" height="21"/>
+                    <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYX-r9-TO4" userLabel="Shuffle Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="14" width="21" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ULA-gc-b8Q">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -463,8 +453,8 @@ G1BhbiBTbGlkZXI
                             <action selector="shuffleAction:" target="RSE-vv-5aa" id="5Mu-5f-S9A"/>
                         </connections>
                     </button>
-                    <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S6a-Cd-VG3" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="11" width="21" height="21"/>
+                    <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S6a-Cd-VG3" userLabel="Repeat Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="5" y="3" width="18" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ax4-py-QPu">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -738,7 +728,7 @@ Gw
         <image name="Pause" width="39" height="51"/>
         <image name="Play" width="51" height="57"/>
         <image name="PreviousTrack" width="36" height="23"/>
-        <image name="RepeatOff" width="26" height="26"/>
+        <image name="RepeatOff" width="171" height="283"/>
         <image name="SeekBackward" width="36" height="23"/>
         <image name="SeekForward" width="36" height="23"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>

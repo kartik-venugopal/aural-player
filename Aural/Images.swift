@@ -129,16 +129,117 @@ struct Images {
     private static let imgMute_0: NSImage = NSImage(named: "Mute")!
     private static let imgMute_1: NSImage = NSImage(named: "Mute_1")!
     
-    static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
-    static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!
-    static let imgRepeatAll: NSImage = NSImage(named: "RepeatAll")!
+    static var imgRepeatOff: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgRepeatOff_0
+            
+        case .lightBackground_darkText:     return imgRepeatOff_1
+            
+        }
+    }
     
-    static let imgShuffleOff: NSImage = NSImage(named: "ShuffleOff")!
-    static let imgShuffleOn: NSImage = NSImage(named: "ShuffleOn")!
+    private static let imgRepeatOff_0: NSImage = NSImage(named: "RepeatOff")!
+    private static let imgRepeatOff_1: NSImage = NSImage(named: "RepeatOff_1")!
     
-    static let imgLoopOff: NSImage = NSImage(named: "LoopOff")!
-    static let imgLoopStarted: NSImage = NSImage(named: "LoopStarted")!
-    static let imgLoopComplete: NSImage = NSImage(named: "LoopComplete")!
+    static var imgRepeatOne: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgRepeatOne_0
+            
+        case .lightBackground_darkText:     return imgRepeatOne_1
+            
+        }
+    }
+    
+    private static let imgRepeatOne_0: NSImage = NSImage(named: "RepeatOne")!
+    private static let imgRepeatOne_1: NSImage = NSImage(named: "RepeatOne_1")!
+    
+    static var imgRepeatAll: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgRepeatAll_0
+            
+        case .lightBackground_darkText:     return imgRepeatAll_1
+            
+        }
+    }
+    
+    private static let imgRepeatAll_0: NSImage = NSImage(named: "RepeatAll")!
+    private static let imgRepeatAll_1: NSImage = NSImage(named: "RepeatAll_1")!
+    
+    static var imgShuffleOff: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgShuffleOff_0
+            
+        case .lightBackground_darkText:     return imgShuffleOff_1
+            
+        }
+    }
+    
+    private static let imgShuffleOff_0: NSImage = NSImage(named: "ShuffleOff")!
+    private static let imgShuffleOff_1: NSImage = NSImage(named: "ShuffleOff_1")!
+    
+    static var imgShuffleOn: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgShuffleOn_0
+            
+        case .lightBackground_darkText:     return imgShuffleOn_1
+            
+        }
+    }
+    
+    static let imgShuffleOn_0: NSImage = NSImage(named: "ShuffleOn")!
+    static let imgShuffleOn_1: NSImage = NSImage(named: "ShuffleOn_1")!
+    
+    static var imgLoopOff: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgLoopOff_0
+            
+        case .lightBackground_darkText:     return imgLoopOff_1
+            
+        }
+    }
+    
+    private static let imgLoopOff_0: NSImage = NSImage(named: "LoopOff")!
+    private static let imgLoopOff_1: NSImage = NSImage(named: "LoopOff_1")!
+    
+    static var imgLoopStarted: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgLoopStarted_0
+            
+        case .lightBackground_darkText:     return imgLoopStarted_1
+            
+        }
+    }
+    
+    private static let imgLoopStarted_0: NSImage = NSImage(named: "LoopStarted")!
+    private static let imgLoopStarted_1: NSImage = NSImage(named: "LoopStarted_1")!
+    
+    static var imgLoopComplete: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgLoopComplete_0
+            
+        case .lightBackground_darkText:     return imgLoopComplete_1
+            
+        }
+    }
+    
+    private static let imgLoopComplete_0: NSImage = NSImage(named: "LoopComplete")!
+    private static let imgLoopComplete_1: NSImage = NSImage(named: "LoopComplete_1")!
     
     static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
     static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!

@@ -271,8 +271,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     private func changeColorScheme() {
         
-        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnBookmark].forEach({$0.schemeChanged()})
-        btnFavorite.schemeChanged()
+        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnBookmark].forEach({$0.colorSchemeChanged()})
+        btnFavorite.colorSchemeChanged()
     }
     
     // MARK: Message handling

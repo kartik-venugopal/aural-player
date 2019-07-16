@@ -47,9 +47,9 @@ class PlayerControlsView: NSView {
         }
     }
     
-    @IBOutlet weak var btnShuffle: MultiStateImageButton!
-    @IBOutlet weak var btnRepeat: MultiStateImageButton!
-    @IBOutlet weak var btnLoop: MultiStateImageButton!
+    @IBOutlet weak var btnRepeat: ColorSensitiveMultiStateImageButton!
+    @IBOutlet weak var btnShuffle: ColorSensitiveMultiStateImageButton!
+    @IBOutlet weak var btnLoop: ColorSensitiveMultiStateImageButton!
     
     // Buttons whose tool tips may change
     @IBOutlet weak var btnPreviousTrack: TrackPeekingButton! {
@@ -115,11 +115,11 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
 
-        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        btnRepeat.stateImageMappings = [(RepeatMode.off, {return Images.imgRepeatOff}), (RepeatMode.one, {return Images.imgRepeatOne}), (RepeatMode.all, {return Images.imgRepeatAll})]
+        
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, {return Images.imgShuffleOff}), (ShuffleMode.on, {return Images.imgShuffleOn})]
 
-        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
-
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        btnLoop.stateImageMappings = [(LoopState.none, {return Images.imgLoopOff}), (LoopState.started, {return Images.imgLoopStarted}), (LoopState.complete, {return Images.imgLoopComplete})]
         
         // TODO: BUG - When tracks are added/removed from the playlist, tool tip needs to be updated bcoz playback sequence might have changed
 
@@ -461,9 +461,11 @@ class PlayerControlsView: NSView {
         lblPan.textColor = Colors.Player.trackTimesColor
         lblVolume.textColor = Colors.Player.trackTimesColor
         
-        btnPlayPause.schemeChanged()
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.schemeChanged()})
-        [btnSeekBackward, btnSeekForward].forEach({$0?.schemeChanged()})
+        btnPlayPause.colorSchemeChanged()
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.colorSchemeChanged()})
+        [btnSeekBackward, btnSeekForward].forEach({$0?.colorSchemeChanged()})
+        
+        [btnRepeat, btnShuffle, btnLoop].forEach({$0?.colorSchemeChanged()})
         
         seekSlider.redraw()
         volumeSlider.redraw()

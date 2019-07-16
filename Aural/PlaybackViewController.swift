@@ -7,8 +7,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBOutlet weak var controlsView: PlayerControlsView!
     
-    @IBOutlet weak var lblRepeatCaption: NSTextField!
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
@@ -30,7 +28,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
 
         AppModeManager.registerConstituentView(.regular, self)
-        changeColorScheme()
     }
     
     func activate() {
@@ -39,6 +36,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         let rsModes = player.repeatAndShuffleModes
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
+        
+        changeColorScheme()
         
 //        let newTrack = player.playingTrack
 //
@@ -274,16 +273,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.toggleRepeatMode()
         controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-        
-        switch modes.repeatMode {
-            
-        case .off: lblRepeatCaption.stringValue = ""
-            
-        case .one: lblRepeatCaption.stringValue = "1"
-            
-        case .all: lblRepeatCaption.stringValue = "All"
-            
-        }
     }
     
     // Toggles the shuffle mode
@@ -298,7 +287,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.off)
         controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-        lblRepeatCaption.stringValue = ""
     }
     
     // Sets the repeat mode to "Repeat One"
@@ -306,7 +294,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.one)
         controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-        lblRepeatCaption.stringValue = "1"
     }
     
     // Sets the repeat mode to "Repeat All"
@@ -314,7 +301,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.all)
         controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-        lblRepeatCaption.stringValue = "All"
     }
     
     // Sets the shuffle mode to "Off"

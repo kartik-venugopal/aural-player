@@ -14,6 +14,7 @@
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="imgAppTitle" destination="efk-uj-yYR" id="eEz-hM-Sqa"/>
                 <outlet property="layoutMenuImageItem" destination="Qbf-WH-98a" id="5pO-m7-WAc"/>
                 <outlet property="rootContainer" destination="s2a-4T-trI" id="p6L-sV-dDJ"/>
                 <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
@@ -74,7 +75,7 @@
                                         <action selector="floatingBarModeAction:" target="-2" id="LmE-tS-Fhe"/>
                                     </connections>
                                 </button>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view">
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="233" y="203" width="65" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
@@ -91,12 +92,12 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
-                                                <menuItem title="Default view" state="on" id="KXZ-Ro-nbz">
+                                                <menuItem title="Default view" state="on" keyEquivalent="3" id="KXZ-Ro-nbz">
                                                     <connections>
                                                         <action selector="playerDefaultViewAction:" target="gF1-jg-yeJ" id="udi-29-7gB"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Expanded art view" id="P5U-AN-0cd">
+                                                <menuItem title="Expanded art view" keyEquivalent="4" id="P5U-AN-0cd">
                                                     <connections>
                                                         <action selector="playerExpandedArtViewAction:" target="gF1-jg-yeJ" id="MzE-1p-bbE"/>
                                                     </connections>

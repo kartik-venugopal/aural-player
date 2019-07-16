@@ -316,7 +316,7 @@ class ColorSensitiveOnOffImageButton: NSButton {
         return _isOn
     }
     
-    func schemeChanged() {
+    func colorSchemeChanged() {
         self.image = self.isOn() ? onStateImageMappings[Colors.scheme] : offStateImageMappings[Colors.scheme]
     }
 }
