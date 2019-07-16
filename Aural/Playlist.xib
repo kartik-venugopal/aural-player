@@ -8,6 +8,19 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAdd" destination="ypp-e2-yVa" id="CMq-5O-okb"/>
+                <outlet property="btnAlbumsTab" destination="Icf-Se-Yie" id="Ntq-ej-BN7"/>
+                <outlet property="btnArtistsTab" destination="Gd5-Z1-IPv" id="zUX-s7-16W"/>
+                <outlet property="btnClear" destination="Rcf-sJ-PsH" id="uUS-ub-ei7"/>
+                <outlet property="btnClose" destination="vdc-Y5-FXG" id="rBK-wA-ZoQ"/>
+                <outlet property="btnDown" destination="9Cd-oK-b1c" id="99w-8P-RKf"/>
+                <outlet property="btnGenresTab" destination="WM5-oc-eXx" id="2Yp-hT-6Sc"/>
+                <outlet property="btnRemove" destination="8sm-w3-Gbf" id="KYp-h1-vpc"/>
+                <outlet property="btnSave" destination="mCM-I4-fro" id="6BF-XB-0a1"/>
+                <outlet property="btnSearch" destination="APX-AI-8pn" id="bPB-UV-ADn"/>
+                <outlet property="btnSort" destination="Fch-nI-JUY" id="pQB-1u-3Ka"/>
+                <outlet property="btnTracksTab" destination="HRy-40-ayp" id="RmZ-tW-YS8"/>
+                <outlet property="btnUp" destination="Qk9-zq-mea" id="9Xg-xg-Zpl"/>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
                 <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="PNk-Lj-u80"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
@@ -18,6 +31,7 @@
                 <outlet property="tabButtonsBox" destination="rbs-L2-HsW" id="qOq-u4-kId"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
                 <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
+                <outlet property="viewMenuImageItem" destination="RWd-cM-ppk" id="XjU-JL-huQ"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
             </connections>
         </customObject>
@@ -40,7 +54,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Hide the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button">
+                                <button toolTip="Hide the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="14" y="252" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UvB-YL-0pm">
@@ -58,7 +72,7 @@
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" autoenablesItems="NO" id="NNt-P7-zna">
                                             <items>
-                                                <menuItem image="Settings" hidden="YES" id="RWd-cM-ppk">
+                                                <menuItem image="Settings" hidden="YES" id="RWd-cM-ppk" customClass="ColorSensitiveMenuItem" customModule="Aural" customModuleProvider="target">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem title="Text size" id="O7r-qv-G9t">
@@ -175,7 +189,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="450" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add">
+                                <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="128" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Gsk-oE-I67"/>
@@ -188,7 +202,7 @@
                                         <action selector="addTracksAction:" target="-2" id="IPP-Wz-cog"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove">
+                                <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="145" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="D7m-Dm-CG2"/>
@@ -201,7 +215,7 @@
                                         <action selector="removeTracksAction:" target="-2" id="NSE-Uf-IDo"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="Save">
+                                <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="Save" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="179" y="7" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Cf2-uf-ZBs"/>
@@ -214,7 +228,7 @@
                                         <action selector="savePlaylistAction:" target="-2" id="30W-hg-2Z7"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear">
+                                <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="196" y="7" width="11" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="11" id="Geq-bs-kJ7"/>
@@ -227,7 +241,7 @@
                                         <action selector="clearPlaylistAction:" target="-2" id="THu-ud-htL"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up">
+                                <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="239" y="7" width="12" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="Q5B-Xt-Wnq"/>
@@ -240,7 +254,7 @@
                                         <action selector="moveTracksUpAction:" target="-2" id="yBm-na-XPi"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down">
+                                <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="254" y="5" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="VP8-VV-4Ga"/>
@@ -253,7 +267,7 @@
                                         <action selector="moveTracksDownAction:" target="-2" id="qZV-wX-e6s"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search">
+                                <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="281" y="6" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="ixN-fc-tcV"/>
@@ -266,7 +280,7 @@
                                         <action selector="searchAction:" target="-2" id="Uzw-sg-lVl"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort">
+                                <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="298" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="g1n-xy-5Gh"/>

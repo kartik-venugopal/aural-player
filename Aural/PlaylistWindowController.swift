@@ -5,10 +5,89 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
     
+    @IBOutlet weak var btnClose: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClose.imageMappings[.darkBackground_lightText] = NSImage(named: "Close")
+            btnClose.imageMappings[.lightBackground_darkText] = NSImage(named: "Close_1")
+        }
+    }
+    
     @IBOutlet weak var rootContainer: NSBox!
+    
     @IBOutlet weak var controlsBox: NSBox!
+    
+    @IBOutlet weak var btnAdd: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnAdd.imageMappings[.darkBackground_lightText] = NSImage(named: "Add")
+            btnAdd.imageMappings[.lightBackground_darkText] = NSImage(named: "Add_1")
+        }
+    }
+    
+    @IBOutlet weak var btnRemove: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnRemove.imageMappings[.darkBackground_lightText] = NSImage(named: "Remove")
+            btnRemove.imageMappings[.lightBackground_darkText] = NSImage(named: "Remove_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSave: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSave.imageMappings[.darkBackground_lightText] = NSImage(named: "Save")
+            btnSave.imageMappings[.lightBackground_darkText] = NSImage(named: "Save_1")
+        }
+    }
+    
+    @IBOutlet weak var btnClear: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClear.imageMappings[.darkBackground_lightText] = NSImage(named: "Clear")
+            btnClear.imageMappings[.lightBackground_darkText] = NSImage(named: "Clear_1")
+        }
+    }
+    
+    @IBOutlet weak var btnUp: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnUp.imageMappings[.darkBackground_lightText] = NSImage(named: "Up")
+            btnUp.imageMappings[.lightBackground_darkText] = NSImage(named: "Up_1")
+        }
+    }
+    
+    @IBOutlet weak var btnDown: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnDown.imageMappings[.darkBackground_lightText] = NSImage(named: "Down")
+            btnDown.imageMappings[.lightBackground_darkText] = NSImage(named: "Down_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSearch: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSearch.imageMappings[.darkBackground_lightText] = NSImage(named: "Search")
+            btnSearch.imageMappings[.lightBackground_darkText] = NSImage(named: "Search_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSort: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSort.imageMappings[.darkBackground_lightText] = NSImage(named: "Sort")
+            btnSort.imageMappings[.lightBackground_darkText] = NSImage(named: "Sort_1")
+        }
+    }
+    
     @IBOutlet weak var playlistBox: NSBox!
     @IBOutlet weak var tabButtonsBox: NSBox!
+    
+    @IBOutlet weak var btnTracksTab: NSButton!
+    @IBOutlet weak var btnArtistsTab: NSButton!
+    @IBOutlet weak var btnAlbumsTab: NSButton!
+    @IBOutlet weak var btnGenresTab: NSButton!
     
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
@@ -30,6 +109,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var viewMenuImageItem: ColorSensitiveMenuItem! {
+        
+        didSet {
+            viewMenuImageItem.imageMappings[.darkBackground_lightText] = NSImage(named: "Settings")
+            viewMenuImageItem.imageMappings[.lightBackground_darkText] = NSImage(named: "Settings_1")
+        }
+    }
     
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
@@ -416,13 +502,19 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func changeColorScheme() {
         
+        btnClose.colorSchemeChanged()
+        viewMenuImageItem.colorSchemeChanged()
+        
+        [btnAdd, btnRemove, btnSave, btnClear, btnUp, btnDown, btnSearch, btnSort].forEach({$0?.colorSchemeChanged()})
+        
         [rootContainer, tabButtonsBox, playlistBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+        
+        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0?.redraw()})
+        
         [lblTracksSummary, lblDurationSummary].forEach({
             $0?.backgroundColor = Colors.windowBackgroundColor
             $0?.textColor = Colors.boxTextColor
         })
-
-        // TODO: Redraw tab buttons, playlist views
     }
     
     // Updates the summary in response to a change in the tab group selected tab

@@ -728,7 +728,7 @@ Gw
         <image name="Pause" width="39" height="51"/>
         <image name="Play" width="51" height="57"/>
         <image name="PreviousTrack" width="36" height="23"/>
-        <image name="RepeatOff" width="171" height="283"/>
+        <image name="RepeatOff" width="43" height="71"/>
         <image name="SeekBackward" width="36" height="23"/>
         <image name="SeekForward" width="36" height="23"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
