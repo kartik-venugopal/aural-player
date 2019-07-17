@@ -183,7 +183,7 @@
                         <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Playlist Controls">
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Playlist Controls">
                         <rect key="frame" x="15" y="2" width="445" height="25"/>
                         <view key="contentView" id="wWy-mP-FPA">
                             <rect key="frame" x="0.0" y="0.0" width="445" height="25"/>
@@ -325,7 +325,7 @@
                             <constraint firstAttribute="height" constant="25" id="Zax-NV-pDV"/>
                         </constraints>
                     </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
                         <rect key="frame" x="10" y="28" width="455" height="205"/>
                         <view key="contentView" id="11G-bl-tTJ">
                             <rect key="frame" x="0.0" y="0.0" width="455" height="205"/>
@@ -337,7 +337,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="455" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="447" height="170"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>

@@ -570,7 +570,19 @@ struct Colors {
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     
     // Fill color of box drawn around selected tab view item
-    static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.125, alpha: 1)
+    static var tabViewSelectionBoxColor: NSColor {
+    
+        switch scheme {
+            
+        case .darkBackground_lightText:     return tabViewSelectionBoxColor_0
+            
+        case .lightBackground_darkText:     return tabViewSelectionBoxColor_1
+            
+        }
+    }
+    
+    private static let tabViewSelectionBoxColor_0: NSColor = NSColor(calibratedWhite: 0.125, alpha: 1)
+    private static let tabViewSelectionBoxColor_1: NSColor = NSColor.black
     
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)

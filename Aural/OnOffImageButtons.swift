@@ -320,3 +320,73 @@ class ColorSensitiveOnOffImageButton: NSButton {
         self.image = self.isOn() ? onStateImageMappings[Colors.scheme] : offStateImageMappings[Colors.scheme]
     }
 }
+
+@IBDesignable
+class ColorSensitiveEffectsUnitTabButton: ColorSensitiveOnOffImageButton {
+    
+    var stateFunction: (() -> EffectsUnitState)?
+    
+    var mixedStateImageMappings: [ColorScheme: NSImage] = [:]
+    @IBInspectable var mixedStateTooltip: String?
+    
+    override func off() {
+        
+        super.off()
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.bypassed)
+            redraw()
+        }
+    }
+    
+    override func on() {
+        
+        super.on()
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.active)
+            redraw()
+        }
+    }
+    
+    func mixed() {
+        
+        self.image =  mixedStateImageMappings[Colors.scheme]
+        self.toolTip = mixedStateTooltip
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.suppressed)
+            redraw()
+        }
+    }
+    
+    func updateState() {
+        
+        let newState = stateFunction!()
+        
+        switch newState {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
+        }
+    }
+    
+    override func colorSchemeChanged() {
+        
+        let curState = stateFunction!()
+        
+        switch curState {
+            
+        case .bypassed:     self.image = offStateImageMappings[Colors.scheme]
+            
+        case .active:       self.image = onStateImageMappings[Colors.scheme]
+            
+        case .suppressed:   self.image = mixedStateImageMappings[Colors.scheme]
+            
+        }
+    }
+}

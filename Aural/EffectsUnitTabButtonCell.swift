@@ -8,8 +8,8 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     private let borderRadius: CGFloat = 3
     
 //    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
-    private let backgroundFillColor: NSColor = Colors.windowBackgroundColor
-    private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
+    private var backgroundFillColor: NSColor {return Colors.windowBackgroundColor}
+    private var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
     
 //    private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
 //    private let selectedTextColor: NSColor = Colors.playlistSelectedTextColor
