@@ -102,6 +102,10 @@ class EffectsUnitBypassButton: OnOffImageButton {
     func setBypassState(_ bypass: Bool) {
         bypass ? off() : on()
     }
+    
+    func colorSchemeChanged() {
+        self.image = self.isOn() ? Images.imgSwitchOn : Images.imgSwitchOff
+    }
 }
 
 /*
@@ -162,6 +166,21 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
     func mixed() {
         self.toolTip = mixedStateTooltip
         self.image = mixedStateImage
+    }
+    
+    override func colorSchemeChanged() {
+        
+        let curState = stateFunction!()
+        
+        switch curState {
+            
+        case .bypassed:     self.image = Images.imgSwitchOff
+            
+        case .active:       self.image = Images.imgSwitchOn
+            
+        case .suppressed:   self.image = Images.imgSwitchMixed
+            
+        }
     }
 }
 

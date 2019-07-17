@@ -241,9 +241,47 @@ struct Images {
     private static let imgLoopComplete_0: NSImage = NSImage(named: "LoopComplete")!
     private static let imgLoopComplete_1: NSImage = NSImage(named: "LoopComplete_1")!
     
-    static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
-    static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
-    static let imgSwitchMixed: NSImage = NSImage(named: "SwitchMixed")!
+    static var imgSwitchOff: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgSwitchOff_0
+            
+        case .lightBackground_darkText:     return imgSwitchOff_1
+            
+        }
+    }
+    
+    private static let imgSwitchOff_0: NSImage = NSImage(named: "SwitchOff")!
+    private static let imgSwitchOff_1: NSImage = NSImage(named: "SwitchOff_1")!
+    
+    static var imgSwitchOn: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgSwitchOn_0
+            
+        case .lightBackground_darkText:     return imgSwitchOn_1
+            
+        }
+    }
+    
+    private static let imgSwitchOn_0: NSImage = NSImage(named: "SwitchOn")!
+    private static let imgSwitchOn_1: NSImage = NSImage(named: "SwitchOn_1")!
+    
+    static var imgSwitchMixed: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgSwitchMixed_0
+            
+        case .lightBackground_darkText:     return imgSwitchMixed_1
+            
+        }
+    }
+    
+    private static let imgSwitchMixed_0: NSImage = NSImage(named: "SwitchMixed")!
+    private static let imgSwitchMixed_1: NSImage = NSImage(named: "SwitchMixed_1")!
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!

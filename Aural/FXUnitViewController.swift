@@ -110,6 +110,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         lblCaption?.textColor = Colors.fxUnitCaptionColor
         functionLabels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+        
+        btnBypass.colorSchemeChanged()
     }
     
     var subscriberId: String {
