@@ -133,6 +133,12 @@ class MasterViewController: FXUnitViewController {
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
     }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        masterView.changeColorScheme()
+    }
    
     // MARK: Message handling
     

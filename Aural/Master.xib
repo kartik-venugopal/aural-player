@@ -77,27 +77,27 @@
                         <action selector="eqBypassAction:" target="-2" id="rME-m0-ZHm"/>
                     </connections>
                 </button>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXr-qe-ajq" userLabel="Pitch img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXr-qe-ajq" userLabel="Pitch img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="180" y="83" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PitchUnit" id="ps2-S9-Dcj"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2T-q1-Usa" userLabel="Reverb img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2T-q1-Usa" userLabel="Reverb img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="311" y="116" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ReverbUnit" id="4HF-va-rAd"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeG-t8-71U" userLabel="Reverb img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeG-t8-71U" userLabel="Reverb img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="311" y="84" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DelayUnit" id="aLJ-ZK-Uoo"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lri-sX-mya" userLabel="Filter Img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lri-sX-mya" userLabel="Filter Img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="311" y="54" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FilterUnit" id="U0g-g7-chv"/>
                 </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-eA-HEK" userLabel="Time img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-eA-HEK" userLabel="Time img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="181" y="53" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TimeUnit" id="Hxw-gI-JC2"/>
@@ -185,7 +185,7 @@
                         <action selector="presetsAction:" target="-2" id="pvy-2C-fWa"/>
                     </connections>
                 </popUpButton>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img" customClass="ColorSensitiveImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="181" y="115" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EQUnit" id="vPR-nV-xLX"/>
@@ -309,6 +309,12 @@
                 <outlet property="btnPitchBypass" destination="44n-oY-8vs" id="zO5-LI-3Vc"/>
                 <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="YhI-6D-vCi"/>
                 <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="LdT-PN-7CG"/>
+                <outlet property="imgDelay" destination="FeG-t8-71U" id="JK8-mH-dOQ"/>
+                <outlet property="imgEQ" destination="St1-EV-PgQ" id="kZH-w5-lb2"/>
+                <outlet property="imgFilter" destination="lri-sX-mya" id="iPQ-gx-QBz"/>
+                <outlet property="imgPitch" destination="kXr-qe-ajq" id="Hfv-oT-lxl"/>
+                <outlet property="imgReverb" destination="C2T-q1-Usa" id="XOH-r4-zkW"/>
+                <outlet property="imgTime" destination="Fz4-eA-HEK" id="Lai-Op-1hQ"/>
             </connections>
             <point key="canvasLocation" x="139" y="153"/>
         </view>
