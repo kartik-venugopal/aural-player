@@ -243,10 +243,10 @@
                         <action selector="presetsAction:" target="-2" id="ibw-SI-Gta"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcn-3u-MVb" userLabel="Save">
+                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcn-3u-MVb" userLabel="Save" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="493" y="14" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AuI-Kj-Dx9">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SavePreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AuI-Kj-Dx9">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -259,6 +259,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="26" height="26"/>
+        <image name="SavePreset" width="26" height="26"/>
     </resources>
 </document>

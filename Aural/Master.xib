@@ -290,10 +290,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textField>
-                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8or-Oa-uMa" userLabel="Save">
+                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8or-Oa-uMa" userLabel="Save" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="493" y="14" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="gKu-S7-vop">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SavePreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="gKu-S7-vop">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -325,7 +325,7 @@
         <image name="FilterUnit" width="26" height="26"/>
         <image name="PitchUnit" width="32" height="26"/>
         <image name="ReverbUnit" width="25" height="25"/>
-        <image name="SaveEQPreset" width="26" height="26"/>
+        <image name="SavePreset" width="26" height="26"/>
         <image name="TimeUnit" width="32" height="32"/>
     </resources>
 </document>

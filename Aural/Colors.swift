@@ -7,6 +7,7 @@ import Cocoa
 struct ColorConstants {
     
     static let white10Percent: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    static let white20Percent: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     static let white40Percent: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     static let white45Percent: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     static let white50Percent: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
@@ -366,8 +367,19 @@ struct Colors {
     static let tabViewButtonTextColor: NSColor = ColorConstants.white90Percent
     
     // Color of the arrow drawn on popup menus
-//    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
-    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+    static var popupMenuArrowColor: NSColor {
+    
+        switch scheme {
+            
+        case .darkBackground_lightText:     return popupMenuArrowColor_darkBackground
+            
+        case .lightBackground_darkText:     return popupMenuArrowColor_lightBackground
+            
+        }
+    }
+    
+    private static let popupMenuArrowColor_darkBackground: NSColor = ColorConstants.white10Percent
+    private static let popupMenuArrowColor_lightBackground: NSColor = ColorConstants.white70Percent
     
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
@@ -388,6 +400,35 @@ struct Colors {
     }()
     
     static let popupMenuGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.35, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static var presetsPopupMenuGradient: NSGradient {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return presetsPopupMenuGradient_darkBackground
+            
+        case .lightBackground_darkText:     return presetsPopupMenuGradient_lightBackground
+            
+        }
+    }
+    
+    private static let presetsPopupMenuGradient_darkBackground: NSGradient = {
+        
+        let backgroundStart = ColorConstants.white70Percent
+        let backgroundEnd =  ColorConstants.white20Percent
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    private static let presetsPopupMenuGradient_lightBackground: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.35, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)

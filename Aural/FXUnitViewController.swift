@@ -11,7 +11,15 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
+    @IBOutlet weak var btnSavePreset: ColorSensitiveImageButton! {
+    
+        didSet {
+            
+            btnSavePreset.imageMappings[.darkBackground_lightText] = NSImage(named: "SavePreset")
+            btnSavePreset.imageMappings[.lightBackground_darkText] = NSImage(named: "SavePreset_1")
+        }
+    }
+    
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -112,6 +120,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         functionLabels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
         
         btnBypass.colorSchemeChanged()
+        btnSavePreset.colorSchemeChanged()
+        presetsMenu.redraw()
     }
     
     var subscriberId: String {
