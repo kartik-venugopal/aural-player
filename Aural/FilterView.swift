@@ -58,4 +58,8 @@ class FilterView: NSView {
     func changeTextSize() {
         redrawChart()
     }
+    
+    func changeColorScheme() {
+        redrawChart()
+    }
 }

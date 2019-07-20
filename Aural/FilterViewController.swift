@@ -273,5 +273,12 @@ class FilterViewController: FXUnitViewController {
         // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
         functionLabels = findFunctionLabels(self.view)
         super.changeColorScheme()
+
+        bandControllers.forEach({$0.changeColorScheme()})
+        
+        btnAdd.redraw()
+        btnRemove.redraw()
+        
+        filterView.changeColorScheme()
     }
 }

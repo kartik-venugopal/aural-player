@@ -66,4 +66,10 @@ class DelayViewController: FXUnitViewController {
         delayUnit.lowPassCutoff = delayView.cutoff
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        delayView.changeColorScheme()
+    }
 }

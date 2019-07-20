@@ -186,6 +186,10 @@ class FilterBandViewController: NSViewController {
         
         let labels = findFunctionLabels(self.view)
         labels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+        
+        // TODO: Redraw the sliders
+        cutoffSlider.redraw()
+        freqRangeSlider.redraw()
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

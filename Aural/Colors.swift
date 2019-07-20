@@ -135,7 +135,19 @@ struct Colors {
     
     static let fxFunctionPopupMenuTextColor: NSColor = ColorConstants.white60Percent
     
-    static let filterChartTextColor: NSColor = ColorConstants.white85Percent
+    static var filterChartTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText:     return filterChartTextColor_0
+            
+        case .lightBackground_darkText:     return filterChartTextColor_1
+            
+        }
+    }
+    
+    private static let filterChartTextColor_0: NSColor = ColorConstants.white85Percent
+    private static let filterChartTextColor_1: NSColor = NSColor.black
     
     static let editorHeaderTextColor: NSColor = ColorConstants.white85Percent
     

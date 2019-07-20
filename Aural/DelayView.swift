@@ -100,4 +100,8 @@ class DelayView: NSView {
         
         sliders.forEach({$0.setUnitState(preset.state)})
     }
+    
+    func changeColorScheme() {
+        sliders.forEach({$0.redraw()})
+    }
 }

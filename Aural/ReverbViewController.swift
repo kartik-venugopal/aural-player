@@ -52,7 +52,14 @@ class ReverbViewController: FXUnitViewController {
     }
     
     override func changeTextSize() {
+        
         super.changeTextSize()
         reverbView.changeTextSize()
+    }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        reverbView.changeColorScheme()
     }
 }
