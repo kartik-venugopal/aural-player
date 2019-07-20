@@ -110,6 +110,12 @@ class EQViewController: FXUnitViewController {
         eqView.changeTextSize()
     }
     
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        eqView.changeColorScheme()
+    }
+    
     // MARK: Message handling
     
     override func consumeMessage(_ message: ActionMessage) {

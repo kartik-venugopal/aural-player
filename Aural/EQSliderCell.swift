@@ -7,7 +7,7 @@ import Cocoa
 class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
-    let barInsetX: CGFloat = 0.75
+    let barInsetX: CGFloat = 0.25
     let barInsetY: CGFloat = 0
     
     let knobHeight: CGFloat = 9
@@ -86,14 +86,14 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         Colors.sliderBarPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
-        let tickMinX = drawRect.minX + 1.5
-        let tickMaxX = drawRect.maxX - 1.5
+        let tickMinX = drawRect.minX + 1
+        let tickMaxX = drawRect.maxX - 1
         
         let tickRect = rectOfTickMark(at: 0)
         let y = (tickRect.minY + tickRect.maxY) / 2
         
         // Tick
-        GraphicsUtils.drawLine(NSColor.black, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
+        GraphicsUtils.drawLine(Colors.sliderNotchColor, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
     }
     
     override func drawTickMarks() {

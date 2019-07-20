@@ -64,13 +64,11 @@ class PlaylistUIState: PersistentState {
 class EffectsUIState: PersistentState {
     
     var textSize: TextSizeScheme = .normal
-    var colorScheme: ColorScheme = .darkBackground_lightText
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = EffectsUIState()
         state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
-        state.colorScheme = mapEnum(map, "colorScheme", ColorScheme.darkBackground_lightText)
         
         return state
     }

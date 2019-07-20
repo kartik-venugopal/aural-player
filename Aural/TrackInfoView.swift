@@ -237,6 +237,7 @@ class TrackInfoView: NSView {
         
         lblTitle.textColor = Colors.Player.titleColor
         lblArtist.textColor = Colors.Player.artistColor
+        lblName.textColor = Colors.Player.titleColor
     }
 }
 

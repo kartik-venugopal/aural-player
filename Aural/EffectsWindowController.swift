@@ -183,9 +183,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
 
-        EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
-        TextSizes.effectsScheme = EffectsViewState.textSize
-        
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
         
@@ -403,12 +400,9 @@ fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateVa
 class EffectsViewState {
     
     static var textSize: TextSizeScheme = .normal
-    static var colorScheme: ColorScheme = .darkBackground_lightText
     
     static func initialize(_ appState: EffectsUIState) {
-        
         textSize = appState.textSize
-        colorScheme = appState.colorScheme
     }
     
     static func persistentState() -> EffectsUIState {

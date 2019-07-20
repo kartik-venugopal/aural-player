@@ -7,6 +7,7 @@ import Cocoa
 struct ColorConstants {
     
     static let white10Percent: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    static let white15Percent: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
     static let white20Percent: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     static let white40Percent: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     static let white45Percent: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
@@ -81,7 +82,7 @@ struct Colors {
                 
             case .darkBackground_lightText: return ColorConstants.white60Percent
                 
-            case .lightBackground_darkText: return NSColor.black
+            case .lightBackground_darkText: return ColorConstants.white15Percent
                 
             }
         }
@@ -92,7 +93,18 @@ struct Colors {
                 
             case .darkBackground_lightText: return ColorConstants.white60Percent
                 
-            case .lightBackground_darkText: return NSColor.black
+            case .lightBackground_darkText: return ColorConstants.white10Percent
+                
+            }
+        }
+        
+        static var infoBoxOverlayColor: NSColor {
+            
+            switch Colors.scheme {
+                
+            case .darkBackground_lightText: return NSColor(calibratedWhite: 0, alpha: 0.75)
+                
+            case .lightBackground_darkText: return NSColor(calibratedWhite: 0.7, alpha: 0.75)
                 
             }
         }
@@ -605,7 +617,19 @@ struct Colors {
 //    static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
     
     // Color of the ticks/notches on sliders
-    static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
+    static var sliderNotchColor: NSColor {
+    
+        switch scheme {
+            
+        case .darkBackground_lightText:     return sliderNotchColor_0
+            
+        case .lightBackground_darkText:     return sliderNotchColor_1
+            
+        }
+    }
+    
+    private static let sliderNotchColor_0: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
+    private static let sliderNotchColor_1: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
     
     // Pop up menu (reverb/EQ/recorder) color
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)

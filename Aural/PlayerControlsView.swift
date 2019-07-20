@@ -157,8 +157,7 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        TextSizes.playerScheme = appState.textSize
-        changeTextSize(appState.textSize)
+        changeTextSize(PlayerViewState.textSize)
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {

@@ -8,7 +8,7 @@ import Cocoa
 class TickedSliderCell: HorizontalSliderCell {
     
     var tickVerticalSpacing: CGFloat {return 1}
-    var tickWidth: CGFloat {return 2}
+    var tickWidth: CGFloat {return 3}
     var tickColor: NSColor {return Colors.sliderNotchColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -88,7 +88,7 @@ class PanTickedSliderCell: TickedSliderCell {
 class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0.5}
     
     override var knobWidth: CGFloat {return 10}
     override var knobRadius: CGFloat {return 2}
@@ -107,7 +107,7 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
         }
     }
     
-    override var tickVerticalSpacing: CGFloat {return 1}
+    override var tickVerticalSpacing: CGFloat {return 0.75}
     
     override var barColoredGradient: NSGradient {
      

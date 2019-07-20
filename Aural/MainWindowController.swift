@@ -135,7 +135,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
-        TextSizes.playerScheme = ObjectGraph.appState.ui.player.textSize
         changeTextSize()
         changeColorScheme()
     }

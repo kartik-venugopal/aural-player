@@ -14,7 +14,7 @@ class PlayerView: NSView {
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 52) }
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 60) }
     fileprivate var autoHideFields_showing: Bool = false
     
     func showView(_ playbackState: PlaybackState) {
@@ -165,6 +165,8 @@ class PlayerView: NSView {
     }
     
     func changeColorScheme() {
+
+        infoBox.fillColor = Colors.Player.infoBoxOverlayColor
         infoView.changeColorScheme()
         gapView.changeColorScheme()
     }
@@ -252,7 +254,7 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 85)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 100)
     @IBOutlet weak var overlayBox: NSBox!
     
     override func showView(_ playbackState: PlaybackState) {
@@ -312,6 +314,8 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     private func autoHideControls_show() {
+        
+        overlayBox.fillColor = Colors.Player.infoBoxOverlayColor
         
         // Show controls
         showViews(controlsBox, overlayBox)

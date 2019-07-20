@@ -34,10 +34,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.setFrameOrigin(NSPoint.zero)
         transcoderView.setFrameOrigin(NSPoint.zero)
         
-        PlayerViewState.initialize(ObjectGraph.appState.ui.player)
-        
-        TextSizes.playerScheme = PlayerViewState.textSize
         changeTextSize(PlayerViewState.textSize)
+        changeColorScheme()
         
         showView(PlayerViewState.viewType)
         
