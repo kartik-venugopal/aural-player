@@ -22,8 +22,8 @@ class FilterChart: NSView {
     
     private let bandStopGradient: NSGradient = {
         
-        let start = NSColor(red: 0.75, green: 0, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0.3, green: 0, blue: 0, alpha: 1)
+        let start = NSColor(red: 0.8, green: 0, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0.6, green: 0, blue: 0, alpha: 1)
         let gradient = NSGradient(starting: start, ending: end)
         
         return gradient!
@@ -31,8 +31,8 @@ class FilterChart: NSView {
     
     private let bandPassGradient: NSGradient = {
         
-        let start = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
+        let start = NSColor(red: 0, green: 0.7, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
         let gradient = NSGradient(starting: start, ending: end)
         
         return gradient!

@@ -178,6 +178,7 @@ class FilterBandViewController: NSViewController {
         filterTypeMenu.redraw()
         
         presetRangesMenu.font = TextSizes.fxUnitFunctionFont
+        presetCutoffsMenu.font = TextSizes.fxUnitFunctionFont
     }
     
     func changeColorScheme() {

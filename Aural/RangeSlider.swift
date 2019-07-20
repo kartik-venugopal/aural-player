@@ -30,7 +30,7 @@ enum DraggedSlider {
     case end
 }
 
-fileprivate let bandStopColor: NSColor = NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
+fileprivate let bandStopColor: NSColor = NSColor(red: 0.65, green: 0, blue: 0, alpha: 1)
 fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
 fileprivate let bypassedColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
@@ -208,7 +208,7 @@ class RangeSlider: MouseTrackingView, EffectsUnitSliderProtocol {
         return barBackgroundGradient!
     }()
     
-    var knobColor: NSColor = Colors.neutralKnobColor
+    var knobColor: NSColor {return Colors.neutralKnobColor}
     
     var barFillColor: NSColor {
         
@@ -248,8 +248,8 @@ class RangeSlider: MouseTrackingView, EffectsUnitSliderProtocol {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 5
-    private let sliderHeight: CGFloat = 5
+    private let sliderWidth: CGFloat = 9
+    private let sliderHeight: CGFloat = 9
     
     private let minSliderX: CGFloat = 0
     private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
@@ -458,6 +458,19 @@ class FilterBandSlider: RangeSlider {
     }
     
     override var barFillColor: NSColor {
+        
+        switch unitState {
+            
+        case .active:   return filterType == .bandPass ? bandPassColor : bandStopColor
+            
+        case .bypassed: return bypassedColor
+            
+        case .suppressed:   return suppressedColor
+            
+        }
+    }
+    
+    override var knobColor: NSColor {
         
         switch unitState {
             
