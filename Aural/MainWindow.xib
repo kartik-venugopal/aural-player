@@ -32,7 +32,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
-            <view key="contentView" id="W7v-UI-tl4" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
+            <view key="contentView" id="W7v-UI-tl4" customClass="PlayerContainerView" customModule="Aural" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>

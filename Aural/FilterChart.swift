@@ -149,8 +149,8 @@ class FilterChart: NSView {
             GraphicsUtils.drawTextInRect(trect, text, Colors.filterChartTextColor, textFont)
             
             if (sx != offset && sx != offset + width) {
-                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)
-                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
+                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 8), width: 1.5)
+                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 8), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
             }
         }
     }

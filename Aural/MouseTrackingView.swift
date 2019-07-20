@@ -2,10 +2,10 @@ import Cocoa
 
 class MouseTrackingView: NSView {
     
-    private var trackingArea: NSTrackingArea?
+    var trackingArea: NSTrackingArea?
     
-    private var isTracking: Bool = false
-    private var inArea: Bool = false
+    var isTracking: Bool = false
+    var inArea: Bool = false
     
     func startTracking() {
         
@@ -39,11 +39,26 @@ class MouseTrackingView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
+        inArea = true
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        inArea = true
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        inArea = false
+    }
+}
+
+class PlayerContainerView: MouseTrackingView {
+    
+    override func mouseEntered(with event: NSEvent) {
         
         if !inArea {
-        
+            
             SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-            inArea = true
+            super.mouseEntered(with: event)
         }
     }
     
@@ -52,32 +67,32 @@ class MouseTrackingView: NSView {
         if !inArea {
             
             SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-            inArea = true
+            super.mouseMoved(with: event)
         }
     }
     
     override func mouseExited(with event: NSEvent) {
         
         
-//        if (!inArea) {
-//            print("Not in area")
-//            return
-//        }
-//
-//        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
-//
-//        let loc = event.locationInWindow
-//
-//        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
-//        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
-//
-//        // TODO: Assign an ID to the popover, and check for that ID here
-//        let mouseOverInfoPopover = WindowState.showingPopover
-//
-//        if (xExit || yExit || mouseOverInfoPopover) {
-//            print(mouseOverInfoPopover)
-            SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
-            inArea = false
-//        }
+        //        if (!inArea) {
+        //            print("Not in area")
+        //            return
+        //        }
+        //
+        //        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
+        //
+        //        let loc = event.locationInWindow
+        //
+        //        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
+        //        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
+        //
+        //        // TODO: Assign an ID to the popover, and check for that ID here
+        //        let mouseOverInfoPopover = WindowState.showingPopover
+        //
+        //        if (xExit || yExit || mouseOverInfoPopover) {
+        //            print(mouseOverInfoPopover)
+        SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
+        super.mouseExited(with: event)
+        //        }
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,11 +19,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="392" y="535" width="306" height="35"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="306" height="35"/>
             <value key="maxSize" type="size" width="560" height="35"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
@@ -179,15 +179,15 @@
         </window>
     </objects>
     <resources>
-        <image name="Close" width="80" height="80"/>
-        <image name="DockBottomLeft" width="473" height="405"/>
-        <image name="DockBottomLeft-Docked" width="473" height="405"/>
-        <image name="DockBottomRight" width="473" height="405"/>
-        <image name="DockBottomRight-Docked" width="473" height="405"/>
-        <image name="DockTopLeft" width="473" height="405"/>
-        <image name="DockTopLeft-Docked" width="473" height="405"/>
-        <image name="DockTopRight" width="473" height="405"/>
-        <image name="DockTopRight-Docked" width="473" height="405"/>
-        <image name="RegularMode" width="1200" height="1200"/>
+        <image name="Close" width="16" height="16"/>
+        <image name="DockBottomLeft" width="28" height="24"/>
+        <image name="DockBottomLeft-Docked" width="28" height="24"/>
+        <image name="DockBottomRight" width="28" height="24"/>
+        <image name="DockBottomRight-Docked" width="28" height="24"/>
+        <image name="DockTopLeft" width="28" height="24"/>
+        <image name="DockTopLeft-Docked" width="28" height="24"/>
+        <image name="DockTopRight" width="28" height="24"/>
+        <image name="DockTopRight-Docked" width="28" height="24"/>
+        <image name="RegularMode" width="32" height="32"/>
     </resources>
 </document>
