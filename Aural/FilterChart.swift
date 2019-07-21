@@ -8,7 +8,7 @@ class FilterChart: NSView {
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
     
-    private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
+    private let bandStopColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
     private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
     
     private let inactiveUnitGradient: NSGradient = {
@@ -53,11 +53,6 @@ class FilterChart: NSView {
         let bottomMargin: CGFloat = 0
         
         let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height)
-        
-        drawPath = NSBezierPath.init(rect: frameRect)
-//        NSColor.lightGray.setStroke()
-        Colors.fxFunctionTextColor.setStroke()
-        drawPath.stroke()
         
         // Draw bands
         let bands = bandsDataFunction()
@@ -121,8 +116,7 @@ class FilterChart: NSView {
         }
         
         drawPath = NSBezierPath.init(rect: frameRect)
-        //        NSColor.lightGray.setStroke()
-        Colors.fxFunctionTextColor.setStroke()
+        Colors.filterChartTextColor.setStroke()
         drawPath.stroke()
         
         // Draw X-axis markings

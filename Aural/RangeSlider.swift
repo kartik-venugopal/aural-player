@@ -397,8 +397,8 @@ class RangeSlider: MouseTrackingView, EffectsUnitSliderProtocol {
         let framePath = NSBezierPath(roundedRect: barRect, xRadius: 1.5, yRadius: 1.5)
         let selectedPath = NSBezierPath(roundedRect: selectedRect, xRadius: 1.5, yRadius: 1.5)
         
-        let startSliderPath = NSBezierPath(rect: startSliderFrame)
-        let endSliderPath = NSBezierPath(rect: endSliderFrame)
+        let startSliderPath = NSBezierPath(roundedRect: startSliderFrame, xRadius: 2, yRadius: 2)
+        let endSliderPath = NSBezierPath(roundedRect: endSliderFrame, xRadius: 2, yRadius: 2)
         
         /*  Draw bar background */
         barBackgroundGradient.draw(in: framePath, angle: -UIConstants.horizontalGradientDegrees)

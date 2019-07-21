@@ -184,6 +184,8 @@ class DefaultPlayerView: PlayerView {
         
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
+        makeTransparent(controlsBox)
+        
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
         
