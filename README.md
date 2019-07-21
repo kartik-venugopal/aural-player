@@ -9,7 +9,6 @@
     + [Enabling media keys support](#enabling-media-keys-support-available-with-version-130-onwards)
     + [Compatibility](#compatibility)
   * [Features](#features)
-    + [Supported file types](#supported-file-types)
   * [Planned updates](#planned-updates)
   * [Screenshots](#screenshots)
   * [Third party code attributions](#third-party-code-attributions)
