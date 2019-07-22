@@ -35,7 +35,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nDh-sM-DxS"/>
                 </imageView>
-                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="80" y="86" width="365" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="OTb-xb-jQR" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
@@ -300,7 +300,7 @@
                 <outlet property="view" destination="RmC-sy-Ygh" id="dan-Qq-feF"/>
             </connections>
         </viewController>
-        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" titlePosition="noTitle" transparent="YES" id="IyJ-bL-zmI" userLabel="Controls Box">
+        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" titlePosition="noTitle" id="IyJ-bL-zmI" userLabel="Controls Box">
             <rect key="frame" x="0.0" y="0.0" width="510" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="GnY-hT-0WI" customClass="PlayerControlsView" customModule="Aural" customModuleProvider="target">
@@ -534,7 +534,7 @@ G1BhbiBTbGlkZXI
                 </connections>
             </view>
             <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-            <color key="fillColor" white="0.5" alpha="0.90259132922535212" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.69668794014084512" alpha="1" colorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="-1873" y="62"/>
         </box>
         <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="RmC-sy-Ygh" userLabel="Functions Box">

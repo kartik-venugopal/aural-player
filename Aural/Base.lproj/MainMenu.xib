@@ -1243,7 +1243,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
+                            <menuItem title="Visualizer" state="on" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
                             <menuItem title="  Text size" indentationLevel="1" id="RxC-T7-DYq">
                                 <modifierMask key="keyEquivalentModifierMask"/>

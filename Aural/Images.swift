@@ -53,11 +53,61 @@ struct Images {
     
     static let imgPause: NSImage = NSImage(named: "Pause")!
     
-    static let imgPlayingArt: NSImage = NSImage(named: "PlayingArt")!
+    static var imgPlayingArt: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgPlayingArt_0
+            
+        case .lightBackground_darkText:     return imgPlayingArt_1
+            
+        }
+    }
     
-    static let imgPlayingTrack: NSImage = NSImage(named: "PlayingTrack")!
-    static let imgTranscodingTrack: NSImage = NSImage(named: "TranscodingTrack")!
-    static let imgWaitingTrack: NSImage = NSImage(named: "WaitingTrack")!
+    private static let imgPlayingArt_0: NSImage = NSImage(named: "PlayingArt")!
+    private static let imgPlayingArt_1: NSImage = NSImage(named: "PlayingArt_1")!
+    
+    static var imgPlayingTrack: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgPlayingTrack_0
+            
+        case .lightBackground_darkText:     return imgPlayingTrack_1
+            
+        }
+    }
+    
+    private static let imgPlayingTrack_0: NSImage = NSImage(named: "PlayingTrack")!
+    private static let imgPlayingTrack_1: NSImage = NSImage(named: "PlayingTrack_1")!
+    
+    static var imgTranscodingTrack: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgTranscodingTrack_0
+            
+        case .lightBackground_darkText:     return imgTranscodingTrack_1
+            
+        }
+    }
+    
+    private static let imgTranscodingTrack_0: NSImage = NSImage(named: "TranscodingTrack")!
+    private static let imgTranscodingTrack_1: NSImage = NSImage(named: "TranscodingTrack_1")!
+    
+    static var imgWaitingTrack: NSImage {
+        
+        switch Colors.scheme {
+            
+        case .darkBackground_lightText:     return imgWaitingTrack_0
+            
+        case .lightBackground_darkText:     return imgWaitingTrack_1
+            
+        }
+    }
+    
+    private static let imgWaitingTrack_0: NSImage = NSImage(named: "WaitingTrack")!
+    private static let imgWaitingTrack_1: NSImage = NSImage(named: "WaitingTrack_1")!
     
     static var imgVolumeZero: NSImage {
         
@@ -285,7 +335,6 @@ struct Images {
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
-    static let imgPlaylist_padded: NSImage = NSImage(named: "Playlist-Padded")!
     
     static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     

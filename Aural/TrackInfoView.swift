@@ -132,7 +132,7 @@ class TrackInfoView: NSView {
         case .allTracks, .allArtists, .allAlbums, .allGenres:
             
             scopeStr = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
-            imgScope.image = Images.imgPlaylist_padded
+//            imgScope.image = Images.imgPlaylist_padded
             
         case .artist, .album, .genre:
             

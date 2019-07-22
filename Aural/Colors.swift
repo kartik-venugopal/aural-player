@@ -179,13 +179,38 @@ struct Colors {
         }
     }
     
-    static let playlistSelectedTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
-    static let playlistSelectedTextColor_lightBackground: NSColor = ColorConstants.white80Percent
+    private static let playlistSelectedTextColor_darkBackground: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    private static let playlistSelectedTextColor_lightBackground: NSColor = NSColor.black
     
     // Color of text inside the playlist (non-selected items)
-    static let playlistIndexTextColor: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
+    static var playlistIndexTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistIndexTextColor_0
+            
+        case .lightBackground_darkText: return playlistIndexTextColor_1
+            
+        }
+    }
+    
+    private static let playlistIndexTextColor_0: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
+    private static let playlistIndexTextColor_1: NSColor = NSColor.black
+    
     // Color of selected item text inside the playlist
-    static let playlistSelectedIndexTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static var playlistSelectedIndexTextColor: NSColor {
+        
+        switch scheme {
+            
+        case .darkBackground_lightText: return playlistSelectedIndexTextColor_0
+            
+        case .lightBackground_darkText: return playlistSelectedIndexTextColor_1
+            
+        }
+    }
+    
+    private static let playlistSelectedIndexTextColor_0: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    private static let playlistSelectedIndexTextColor_1: NSColor = NSColor.black
     
     static let playlistGroupIndexTextColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     // Color of selected item text inside the playlist
@@ -267,7 +292,7 @@ struct Colors {
     }
     
     static let playlistSelectionBoxColor_darkBackground: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
-    static let playlistSelectionBoxColor_lightBackground: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
+    static let playlistSelectionBoxColor_lightBackground: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
     
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
@@ -659,7 +684,7 @@ struct Colors {
     }
     
     private static let tabViewSelectionBoxColor_0: NSColor = NSColor(calibratedWhite: 0.125, alpha: 1)
-    private static let tabViewSelectionBoxColor_1: NSColor = NSColor.black
+    private static let tabViewSelectionBoxColor_1: NSColor = ColorConstants.white50Percent
     
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)

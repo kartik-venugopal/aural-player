@@ -165,8 +165,9 @@ class PlayerView: NSView {
     }
     
     func changeColorScheme() {
-
-        infoBox.fillColor = Colors.Player.infoBoxOverlayColor
+        
+        [infoBox, gapBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+        
         infoView.changeColorScheme()
         gapView.changeColorScheme()
     }
@@ -184,7 +185,7 @@ class DefaultPlayerView: PlayerView {
         
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
-        makeTransparent(controlsBox)
+        makeOpaque(infoBox, gapBox, controlsBox)
         
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
@@ -353,6 +354,13 @@ class ExpandedArtPlayerView: PlayerView {
     
     override func needsMouseTracking() -> Bool {
         return true
+    }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        
+        infoBox.fillColor = Colors.Player.infoBoxOverlayColor
     }
 }
 
