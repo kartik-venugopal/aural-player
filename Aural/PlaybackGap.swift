@@ -50,6 +50,10 @@ extension PlaybackGap: Hashable {
         return self.id
         
     }
+    
+    func hash(into hasher: inout Hasher){
+        /// todo: Implement code here - see type hashable
+    }
 }
 
 class PlaybackGapContext {
