@@ -48,6 +48,7 @@ extension PlaybackGap: Hashable {
     
     var hashValue: Int {
         return self.id
+        
     }
 }
 
