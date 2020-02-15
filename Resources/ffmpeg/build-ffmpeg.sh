@@ -91,4 +91,5 @@ make && make install
 echo "Done building FFmpeg."
 
 # Delete source directory
-rm -rf ../$sourceDirectoryName
+# disabled for debug...
+# rm -rf ../$sourceDirectoryName
