@@ -14,6 +14,9 @@ export sourceArchiveName="ffmpeg-sourceCode.bz2"
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
 export sourceDirectoryName="ffmpeg-4.1"
 
+# Delete source directory
+rm -rf ../$sourceDirectoryName
+
 # Extract source code from archive
 echo "\nExtracting FFmpeg sources from archive ..."
 tar xjf $sourceArchiveName
