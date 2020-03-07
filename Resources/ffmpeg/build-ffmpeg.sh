@@ -10,13 +10,21 @@ echo "Starting Build-Script for FFMpeg Build ...\n"
 echo "Setting local variables ...\n"
 export binDir=".."
 
-echo "SourceArchivName = ffmpeg-sourceCode.bz2 \n"
-# The name of the FFmpeg source code archive (which will be expanded)
-export sourceArchiveName="ffmpeg-sourceCode.bz2"
+#echo "SourceArchivName = ffmpeg-sourceCode.bz2 \n"
+## The name of the FFmpeg source code archive (which will be expanded)
+#export sourceArchiveName="ffmpeg-sourceCode.bz2"
 
-echo "SourceDirectoryName = ffmpeg-4.1 \n"
+echo "SourceArchivName = ffmpeg-4.2.2.tar.bz2 \n"
+# The name of the FFmpeg source code archive (which will be expanded)
+export sourceArchiveName="ffmpeg-4.2.2.tar.bz2"
+
+#echo "SourceDirectoryName = ffmpeg-4.1 \n"
+## The name of the FFmpeg source directory (once the archive has been uncompressed)
+#export sourceDirectoryName="ffmpeg-4.1"
+
+echo "SourceDirectoryName = ffmpeg-4.2.2 \n"
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
-export sourceDirectoryName="ffmpeg-4.1"
+export sourceDirectoryName="ffmpeg-4.2.2"
 
 echo "Cleanup SourceDirectory from previous runs...\n"
 # Delete source directory to clenaup previous incomplete runs...
