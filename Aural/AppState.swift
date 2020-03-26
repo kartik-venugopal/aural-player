@@ -51,11 +51,16 @@ class UIState: PersistentState {
 class PlaylistUIState: PersistentState {
     
     var textSize: TextSizeScheme = .normal
+    var view: String = "Tracks"
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaylistUIState()
         state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
+        
+        if let viewName = map["view"] as? String {
+            state.view = viewName
+        }
         
         return state
     }

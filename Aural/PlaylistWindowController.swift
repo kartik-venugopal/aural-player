@@ -43,7 +43,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
     
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
@@ -72,8 +73,18 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
 
-        // Initialize all the tab views (and select the first one to be shown)
+        // Initialize all the tab views (and select the one preferred by the user)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+        
+        if (playlistPreferences.viewOnStartup.option == .specific) {
+            
+            tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
+            
+        } else {
+            
+            // Remember
+            tabGroup.selectTabViewItem(at: PlaylistViewState.current.toIndex())
+        }
         
         tabGroup.delegate = self
     }
@@ -523,7 +534,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         var snapped = false
         
-        if preferences.snapToWindows {
+        if viewPreferences.snapToWindows {
             
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
@@ -534,7 +545,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-        if preferences.snapToScreen && !snapped {
+        if viewPreferences.snapToScreen && !snapped {
             UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }
@@ -552,13 +563,17 @@ class PlaylistViewState {
     static var textSize: TextSizeScheme = .normal
     
     static func initialize(_ appState: PlaylistUIState) {
+        
         textSize = appState.textSize
+        current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
     }
     
     static func persistentState() -> PlaylistUIState {
         
         let state = PlaylistUIState()
+        
         state.textSize = textSize
+        state.view = current.rawValue.capitalizingFirstLetter()
         
         return state
     }
@@ -566,18 +581,20 @@ class PlaylistViewState {
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
         
-        switch current {
-            
-        case .albums: return GroupType.album
-            
-        case .artists: return GroupType.artist
-            
-        case .genres: return GroupType.genre
-            
-        // Group type is not applicable to playlist type .tracks
-        default: return nil
-            
-        }
+        return current.toGroupType()
+        
+//        switch current {
+//
+//        case .albums: return GroupType.album
+//
+//        case .artists: return GroupType.artist
+//
+//        case .genres: return GroupType.genre
+//
+//        // Group type is not applicable to playlist type .tracks
+//        default: return nil
+//
+//        }
     }
     
     static var selectedItem: SelectedItem {

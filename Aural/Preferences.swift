@@ -324,7 +324,19 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     // This will be used only when playlistOnStartup == PlaylistStartupOptions.loadFolder
     var tracksFolder: URL?
     
+    var viewOnStartup: PlaylistViewOnStartup
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
+        
+        viewOnStartup = PreferencesDefaults.Playlist.viewOnStartup
+        
+        if let viewOnStartupOptionStr = defaultsDictionary["playlist.viewOnStartup.option"] as? String {
+            viewOnStartup.option = PlaylistViewStartupOptions(rawValue: viewOnStartupOptionStr)!
+        }
+        
+        if let viewStr = defaultsDictionary["playlist.viewOnStartup.view"] as? String {
+            viewOnStartup.viewName = viewStr
+        }
         
         if let playlistOnStartupStr = defaultsDictionary["playlist.playlistOnStartup"] as? String {
             playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
@@ -364,6 +376,9 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
         defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
         defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolder")
+        
+        defaults.set(viewOnStartup.option.rawValue, forKey: "playlist.viewOnStartup.option")
+        defaults.set(viewOnStartup.viewName, forKey: "playlist.viewOnStartup.view")
     }
 }
 
@@ -384,7 +399,7 @@ class ViewPreferences: PersistentPreferencesProtocol {
         windowGap = PreferencesDefaults.View.windowGap
         
         if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String {
-            layoutOnStartup.option = ViewStartupOptions(rawValue: layoutOnStartupOptionStr)!
+            layoutOnStartup.option = WindowLayoutStartupOptions(rawValue: layoutOnStartupOptionStr)!
         }
         
         if let layoutStr = defaultsDictionary["view.layoutOnStartup.layout"] as? String {
@@ -590,6 +605,8 @@ fileprivate struct PreferencesDefaults {
         static let playlistOnStartup: PlaylistStartupOptions = .rememberFromLastAppLaunch
         static let playlistFile: URL? = nil
         static let tracksFolder: URL? = nil
+        
+        static let viewOnStartup: PlaylistViewOnStartup = PlaylistViewOnStartup.defaultInstance
     }
     
     struct View {
