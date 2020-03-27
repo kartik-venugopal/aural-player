@@ -2,9 +2,23 @@
  Concrete implementation of AudioGraphDelegateProtocol
  */
 
-import Foundation
+import AVFoundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+    
+    var availableDevices: [AudioDevice] {
+        return graph.availableDevices
+    }
+    var systemDevice: AudioDevice {return graph.systemDevice}
+    
+    var outputDevice: AudioDevice {
+        
+        get {return graph.outputDevice}
+        
+        set(newValue) {
+            graph.outputDevice = newValue
+        }
+    }
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol

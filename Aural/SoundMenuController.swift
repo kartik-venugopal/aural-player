@@ -7,6 +7,8 @@ import Cocoa
  */
 class SoundMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var devicesMenu: NSMenu!
+    
     // Menu items that are not always accessible
     @IBOutlet weak var panLeftMenuItem: NSMenuItem!
     @IBOutlet weak var panRightMenuItem: NSMenuItem!
@@ -45,7 +47,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private var graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -96,12 +98,36 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
-        rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
-        
-        if let playingTrack = player.playingTrack?.track {
-            rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
+        if (menu == devicesMenu) {
+            
+            devicesMenu.removeAllItems()
+            
+            for device in graph.availableDevices {
+                
+                let action = #selector(self.outputDeviceAction(_:))
+                
+                let menuItem = NSMenuItem(title: device.name!, action: action, keyEquivalent: "")
+                menuItem.representedObject = device
+                menuItem.target = self
+                
+                self.devicesMenu.insertItem(menuItem, at: 0)
+                
+                menuItem.onIf(graph.outputDevice.name! == menuItem.title)
+            }
+            
+        } else {
+            
+            masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
+            rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
+            
+            if let playingTrack = player.playingTrack?.track {
+                rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
+            }
         }
+    }
+    
+    @IBAction func outputDeviceAction(_ sender: NSMenuItem) {
+        graph.outputDevice = sender.representedObject as! AudioDevice
     }
     
     // Mutes or unmutes the player
