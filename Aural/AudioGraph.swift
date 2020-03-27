@@ -6,6 +6,25 @@ import AVFoundation
  */
 class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
+    var availableDevices: [AudioDevice] {
+        return DeviceManager.getAllDevices()
+    }
+    
+    var systemDevice: AudioDevice {
+        return DeviceManager.getSystemDevice()
+    }
+    
+    private var _outputDevice: AudioDevice
+    var outputDevice: AudioDevice {
+        
+        get {return _outputDevice}
+        
+        set(newValue) {
+            audioEngineHelper.setOutputDevice(newValue)
+            _outputDevice = newValue
+        }
+    }
+    
     private let audioEngine: AVAudioEngine
     private let mainMixer: AVAudioMixerNode
     internal let playerNode: AVAudioPlayerNode
@@ -50,8 +69,12 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         var nodes = [playerNode, auxMixer]
         slaveUnits.forEach({nodes.append(contentsOf: $0.avNodes)})
         
+        _outputDevice = DeviceManager.getSystemDevice()
+        
         audioEngineHelper.addNodes(nodes)
         audioEngineHelper.connectNodes()
+        
+        audioEngineHelper.setOutputDevice(_outputDevice)
         audioEngineHelper.prepareAndStart()
         
         playerVolume = state.volume

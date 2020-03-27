@@ -4,6 +4,10 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
+    @IBOutlet weak var btnDevices: NSPopUpButton!
+    @IBOutlet weak var devicesMenu: NSMenu!
+    
+    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
@@ -35,6 +39,8 @@ class MasterViewController: FXUnitViewController {
         super.oneTimeSetup()
         
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
+        
+        menuNeedsUpdate(devicesMenu)
     }
     
     override func initSubscriptions() {
@@ -133,6 +139,38 @@ class MasterViewController: FXUnitViewController {
             updateButtons()
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
+    }
+    
+    @IBAction func devicesAction(_ sender: AnyObject) {
+        
+        if let menuItem: NSMenuItem = btnDevices.selectedItem {
+            audioGraph.outputDevice = menuItem.representedObject as! AudioDevice
+        }
+    }
+    
+    // MARK: Menu delegate
+    
+    override func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        if (menu != devicesMenu) {
+            
+            // Presets menu update
+            super.menuNeedsUpdate(menu)
+            return
+        }
+        
+        // Audio devices menu update
+        
+        // Remove all devices
+        btnDevices.removeAllItems()
+        
+        for device in audioGraph.availableDevices {
+            
+            btnDevices.insertItem(withTitle: device.name!, at: 0)
+            btnDevices.item(at: 0)!.representedObject = device
+        }
+        
+        btnDevices.selectItem(withTitle: audioGraph.outputDevice.name!)
     }
    
     // MARK: Message handling

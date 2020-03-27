@@ -68,6 +68,18 @@ class AudioEngineHelper {
 //        audioEngine.connect(audioEngine.mainMixerNode, to: outputNode, format: outputFormat)
     }
     
+    func setOutputDevice(_ device: AudioDevice) {
+        
+        var outDeviceID: AudioDeviceID = device.audioDeviceID
+        let sizeOfAudioDevId = UInt32(MemoryLayout<AudioDeviceID>.size)
+        let error = AudioUnitSetProperty(audioEngine.outputNode.audioUnit!, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &outDeviceID, sizeOfAudioDevId)
+        
+        if error > 0
+        {
+            NSLog("Error setting audio output device to: ", device.name!, ", errorCode=", error)
+        }
+    }
+    
     // Reconnects two nodes with the given audio format (required when a track change occurs)
     func reconnectNodes(_ inputNode: AVAudioNode, outputNode: AVAudioNode, format: AVAudioFormat) {
         
@@ -89,6 +101,7 @@ class AudioEngineHelper {
         }
     }
     
+    // TODO: AudioGraph should also respond to this notification and set its _outputDevice var to the new device
     func restart() {
         
         // Disconnect and detach nodes (in this order)
