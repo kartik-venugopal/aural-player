@@ -59,7 +59,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ## Feature highlights
 
-(Comprehensive feature list [here](/wiki/Features))
+(Comprehensive feature list [[here|Features]])
 
 * Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, WMA, DTS, & more)
 * Supports M3U / M3U8 playlists
