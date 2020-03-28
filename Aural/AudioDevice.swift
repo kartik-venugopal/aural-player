@@ -1,12 +1,21 @@
 import Cocoa
 import AVFoundation
 
+/*
+    Encapsulates a single audio hardware device
+ */
 public class AudioDevice {
     
+    // The unique device ID relative to other devices currently available. Used to set the output device (is NOT persistent).
     let id: AudioDeviceID
     
+    // Persistent unique identifer of this device (not user-friendly)
     let uid: String?
+    
+    // User-friendly (and persistent) display name string of this device
     let name: String?
+    
+    // Whether or not this device is capable of output
     let hasOutput: Bool
     
     init(deviceID: AudioDeviceID) {

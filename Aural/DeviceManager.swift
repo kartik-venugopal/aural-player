@@ -1,14 +1,21 @@
 import Cocoa
 import AVFoundation
 
+/*
+    Encapsulates low-level logic required to interact with the system's audio output hardware
+ 
+    Serves as a helper class to AudioGraph to get/set the current audio output device
+ */
 public class DeviceManager {
     
+    // The AudioUnit underlying AVAudioEngine's output node (used to set the output device)
     let outputAudioUnit: AudioUnit
     
     init(_ outputAudioUnit: AudioUnit) {
         self.outputAudioUnit = outputAudioUnit
     }
     
+    // A listing of all available audio output devices
     var allDevices: [AudioDevice] {
         
         var propsize: UInt32 = 0
@@ -53,10 +60,12 @@ public class DeviceManager {
         return devices
     }
     
+    // The audio output device currently being used by the OS
     var systemDevice: AudioDevice {
         return allDevices.first(where: {$0.id == systemDeviceId})!
     }
     
+    // The AudioDeviceID of the audio output device currently being used by the OS
     private var systemDeviceId: AudioDeviceID {
         
         var curDeviceId: AudioDeviceID? = kAudioObjectUnknown
@@ -78,6 +87,7 @@ public class DeviceManager {
         return curDeviceId!
     }
     
+    // The variable used to get/set the application's audio output device
     var outputDevice: AudioDevice {
         
         get {

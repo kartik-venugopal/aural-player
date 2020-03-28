@@ -98,22 +98,25 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
+        // Audio output devices menu
         if (menu == devicesMenu) {
+            
+            // Recreate the menu each time
             
             devicesMenu.removeAllItems()
             
             let outputDeviceName: String = graph.outputDevice.name!
             
+            // Add menu items for each available device
             for device in graph.availableDevices {
                 
-                let action = #selector(self.outputDeviceAction(_:))
-                
-                let menuItem = NSMenuItem(title: device.name!, action: action, keyEquivalent: "")
+                let menuItem = NSMenuItem(title: device.name!, action: #selector(self.outputDeviceAction(_:)), keyEquivalent: "")
                 menuItem.representedObject = device
                 menuItem.target = self
                 
                 self.devicesMenu.insertItem(menuItem, at: 0)
-                
+            
+                // Select this item if it represents the current output device
                 menuItem.onIf(outputDeviceName == menuItem.title)
             }
             
