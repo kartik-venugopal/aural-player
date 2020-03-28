@@ -607,10 +607,33 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     return FilterPreset(name, state, presetBands, false)
 }
 
+class AudioDeviceState: PersistentState {
+    
+    var name: String = ""
+    var uid: String = ""
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state: AudioDeviceState = AudioDeviceState()
+        
+        if let name = (map["name"] as? String) {
+            state.name = name
+        }
+        
+        if let uid = (map["uid"] as? String) {
+            state.uid = uid
+        }
+        
+        return state
+    }
+}
+
 /*
     Encapsulates audio graph state
  */
 class AudioGraphState: PersistentState {
+    
+    var outputDevice: AudioDeviceState = AudioDeviceState()
     
     var volume: Float = AppDefaults.volume
     var muted: Bool = AppDefaults.muted
@@ -629,6 +652,10 @@ class AudioGraphState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let audioGraphState = AudioGraphState()
+        
+        if let outputDeviceDict = (map["outputDevice"] as? NSDictionary) {
+            audioGraphState.outputDevice = AudioDeviceState.deserialize(outputDeviceDict) as! AudioDeviceState
+        }
         
         audioGraphState.volume = mapNumeric(map, "volume", AppDefaults.volume)
         audioGraphState.muted = mapDirectly(map, "muted", AppDefaults.muted)

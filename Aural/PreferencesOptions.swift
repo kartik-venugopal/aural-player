@@ -1,5 +1,25 @@
 import Foundation
 
+enum OutputDeviceStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case system
+    case specific
+}
+
+// Window layout on startup preference
+class OutputDeviceOnStartup {
+    
+    var option: OutputDeviceStartupOptions = .system
+    
+    // This is used only if option == .specific
+    var preferredDeviceName: String? = nil
+    var preferredDeviceUID: String? = nil
+    
+    // NOTE: This is mutable. Potentially unsafe (convert variable into factory method ???)
+    static let defaultInstance: OutputDeviceOnStartup = OutputDeviceOnStartup()
+}
+
 // All options for the volume at startup
 enum VolumeStartupOptions: String {
     

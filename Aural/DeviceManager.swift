@@ -109,12 +109,4 @@ public class DeviceManager {
             }
         }
     }
-    
-//    func printAllDevices() {
-//
-//        for dev in allDevices {
-//            print(dev.name!, dev.id, dev.uid!)
-//        }
-//        print("\n")
-//    }
 }
