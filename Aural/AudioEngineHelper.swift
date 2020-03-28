@@ -13,16 +13,6 @@ class AudioEngineHelper {
         
         self.audioEngine = engine
         nodes = [AVAudioNode]()
-        
-        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
-        // TODO: Test this with SoundFlower and similar apps
-        NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
-    }
-    
-    @objc func outputChanged() {
-        
-        // End the current playback session and send out a notification
-        AsyncMessenger.publishMessage(AudioOutputChangedMessage(PlaybackSession.endCurrent()))
     }
     
     // Attach a single node to the engine
@@ -66,18 +56,6 @@ class AudioEngineHelper {
 //        let outputNode = audioEngine.outputNode
 //        let outputFormat = outputNode.outputFormat(forBus: 0)
 //        audioEngine.connect(audioEngine.mainMixerNode, to: outputNode, format: outputFormat)
-    }
-    
-    func setOutputDevice(_ device: AudioDevice) {
-        
-        var outDeviceID: AudioDeviceID = device.audioDeviceID
-        let sizeOfAudioDevId = UInt32(MemoryLayout<AudioDeviceID>.size)
-        let error = AudioUnitSetProperty(audioEngine.outputNode.audioUnit!, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &outDeviceID, sizeOfAudioDevId)
-        
-        if error > 0
-        {
-            NSLog("Error setting audio output device to: ", device.name!, ", errorCode=", error)
-        }
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)
