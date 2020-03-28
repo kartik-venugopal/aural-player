@@ -139,6 +139,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         let state: AudioGraphState = AudioGraphState()
         
+        state.outputDevice.name = outputDevice.name!
+        state.outputDevice.uid = outputDevice.uid!
+        
         // Volume and pan (balance)
         state.volume = playerVolume
         state.muted = muted
