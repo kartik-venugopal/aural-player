@@ -607,6 +607,9 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     return FilterPreset(name, state, presetBands, false)
 }
 
+/*
+    Encapsulates an audio output device (remembered device)
+ */
 class AudioDeviceState: PersistentState {
     
     var name: String = ""
