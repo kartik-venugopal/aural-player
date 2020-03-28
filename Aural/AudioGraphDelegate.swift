@@ -63,6 +63,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
             masterUnit.applyPreset(presetName)
         }
         
+        // TODO: Set this device based on user preference
+        //        outputDevice = systemDevice
+        
         SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification, .appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)
         AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: notificationQueue)

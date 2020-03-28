@@ -111,6 +111,7 @@
 		3E309B781FB70D1F00C61E72 /* InfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
 		3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B4A31F3F08B8005EF359 /* Preferences.swift */; };
+		3E33C11C242F1A88005A062B /* AudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C11B242F1A88005A062B /* AudioDevice.swift */; };
 		3E35778821D305DC009486F7 /* ConcurrentCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35778721D305DC009486F7 /* ConcurrentCollections.swift */; };
 		3E357B501F9C798500C8F7B1 /* FlatPlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */; };
 		3E357B521F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */; };
@@ -516,6 +517,7 @@
 		3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopupViewController.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E33B4A31F3F08B8005EF359 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		3E33C11B242F1A88005A062B /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
 		3E35778721D305DC009486F7 /* ConcurrentCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCollections.swift; sourceTree = "<group>"; };
 		3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatPlaylistProtocols.swift; sourceTree = "<group>"; };
 		3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistProtocols.swift; sourceTree = "<group>"; };
@@ -1231,6 +1233,15 @@
 			name = InfoPopup;
 			sourceTree = "<group>";
 		};
+		3E33C11A242F10D0005A062B /* ExperimentalCode */ = {
+			isa = PBXGroup;
+			children = (
+				3EF18476217C8EE900D24F39 /* Visualizer */,
+				3EF18474217C8E8A00D24F39 /* FFT.swift */,
+			);
+			name = ExperimentalCode;
+			sourceTree = "<group>";
+		};
 		3E36E85D1FBFEBCE0005C62E /* Playback */ = {
 			isa = PBXGroup;
 			children = (
@@ -1281,14 +1292,13 @@
 		3E3C20A41F0A3CE100AF5A62 /* AudioGraph */ = {
 			isa = PBXGroup;
 			children = (
-				3E3ECE03242E634E000721E9 /* Utils */,
-				3E3ECE02242E6312000721E9 /* PresetsAndProfiles */,
-				3EDD4CD52194154500C15D5A /* Delegate */,
 				3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */,
 				3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */,
+				3EDD4CD52194154500C15D5A /* Delegate */,
+				3E3ECE03242E634E000721E9 /* Utils */,
 				3E50DC942193A2B300D42373 /* FXUnits */,
 				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
-				3EF18474217C8E8A00D24F39 /* FFT.swift */,
+				3E3ECE02242E6312000721E9 /* PresetsAndProfiles */,
 			);
 			name = AudioGraph;
 			sourceTree = "<group>";
@@ -1325,6 +1335,7 @@
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3E3ECDFE242E2CC4000721E9 /* DeviceManager.swift */,
 				3E0839A12194554C008D84BA /* StateFunctions.swift */,
+				3E33C11B242F1A88005A062B /* AudioDevice.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1475,7 +1486,6 @@
 				3E850D611FB45B920017CD02 /* Playlist */,
 				3E850D4E1FB4405C0017CD02 /* Preferences */,
 				3E2F1047215562B50099FD06 /* Editors */,
-				3EF18476217C8EE900D24F39 /* Visualizer */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
 				3E5E1E5121DB566E007C62B7 /* AboutDialog */,
 				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
@@ -1673,6 +1683,7 @@
 				3EFFE6BC1F0373B7003728BD /* IO */,
 				3EB20B4F1EFF2C5F008138A4 /* Utils */,
 				3E6F673721E19B86002219E6 /* Testing */,
+				3E33C11A242F10D0005A062B /* ExperimentalCode */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
 			);
@@ -2408,6 +2419,7 @@
 				3EB9304B21996376008E45F8 /* FilterBandViewController.swift in Sources */,
 				3E3A636B1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift in Sources */,
 				3E3A63691F690EA200F72A60 /* PreferencesDelegate.swift in Sources */,
+				3E33C11C242F1A88005A062B /* AudioDevice.swift in Sources */,
 				3E24ED431FBB28700023F9F9 /* TimeViewController.swift in Sources */,
 				3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */,
 				3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */,
@@ -2590,7 +2602,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2640,7 +2652,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
