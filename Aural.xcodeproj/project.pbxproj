@@ -518,6 +518,7 @@
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E33B4A31F3F08B8005EF359 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		3E33C11B242F1A88005A062B /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
+		3E33C121242FC501005A062B /* Release Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		3E35778721D305DC009486F7 /* ConcurrentCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCollections.swift; sourceTree = "<group>"; };
 		3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatPlaylistProtocols.swift; sourceTree = "<group>"; };
 		3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistProtocols.swift; sourceTree = "<group>"; };
@@ -1686,6 +1687,7 @@
 				3E33C11A242F10D0005A062B /* ExperimentalCode */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
+				3E33C121242FC501005A062B /* Release Notes.md */,
 			);
 			path = Aural;
 			sourceTree = "<group>";
