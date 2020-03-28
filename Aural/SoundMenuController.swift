@@ -102,6 +102,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
             devicesMenu.removeAllItems()
             
+            let outputDeviceName: String = graph.outputDevice.name!
+            
             for device in graph.availableDevices {
                 
                 let action = #selector(self.outputDeviceAction(_:))
@@ -112,7 +114,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
                 
                 self.devicesMenu.insertItem(menuItem, at: 0)
                 
-                menuItem.onIf(graph.outputDevice.name! == menuItem.title)
+                menuItem.onIf(outputDeviceName == menuItem.title)
             }
             
         } else {
