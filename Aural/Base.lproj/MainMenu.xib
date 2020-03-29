@@ -594,6 +594,19 @@ CA
                                     <action selector="pageDownAction:" target="sXT-Pr-clR" id="8di-V3-kIw"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="YfP-4x-5Xb"/>
+                            <menuItem title="     Toggle (previous) playlist view" keyEquivalent="[" id="I5Z-AW-JY4">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="previousPlaylistViewAction:" target="sXT-Pr-clR" id="q0s-dd-ahC"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="     Toggle (next) playlist view" keyEquivalent="]" id="C4n-hs-Fjm">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="nextPlaylistViewAction:" target="sXT-Pr-clR" id="C7n-av-U2z"/>
+                                </connections>
+                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="sXT-Pr-clR" id="f9A-Ji-QwQ"/>

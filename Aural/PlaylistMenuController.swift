@@ -388,6 +388,14 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
+    @IBAction func previousPlaylistViewAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.previousPlaylistView, nil))
+    }
+    
+    @IBAction func nextPlaylistViewAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.nextPlaylistView, nil))
+    }
+    
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
     private func sequenceChanged() {
         if (playbackInfo.playingTrack != nil) {
