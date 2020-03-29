@@ -42,6 +42,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var scrollToBottomMenuItem: NSMenuItem!
     @IBOutlet weak var pageUpMenuItem: NSMenuItem!
     @IBOutlet weak var pageDownMenuItem: NSMenuItem!
+    @IBOutlet weak var previousViewMenuItem: NSMenuItem!
+    @IBOutlet weak var nextViewMenuItem: NSMenuItem!
     
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
@@ -71,6 +73,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
         [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
+        
+        [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover)})
         
         playSelectedItemMenuItem.enableIf(!showingDialogOrPopover && numSelectedRows == 1)
         playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
