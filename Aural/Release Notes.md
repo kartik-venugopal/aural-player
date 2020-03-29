@@ -1,23 +1,24 @@
-#  What's New in Version 1.6.0
+#  What's New in Version 1.6.1
 
 
-## **Selecting an audio output device**
+## **Toggling between playlist view tabs**
 
-The ability to select an audio output device comes new in this latest release. Previously, Aural Player would always send its audio to the system's current output device.
+Users can now conveniently toggle between playlist view tabs (i.e. Tracks / Artists / Albums / Genres) with
+2 new menu items under the ***Playlist*** menu, and through their associated keyboard shortcuts:
 
-For instance, you can now choose to send Aural's audio output to your Bluetooth speakers while macOS can send its output to any other device like headphones or a Macbook Pro's built-in speakers
+**Previous playlist view** - Shift + Cmd + [
+**Next playlist view** - Shift + Cmd + ]
 
-You will find this new feature in the Sound menu. There is a new menu item labeled "Output Device". Hovering over this item will reveal a menu listing all available audio output devices, with the current one selected. Click on any of these items to change your output device as preferred.
+Note that these keyboard shortcuts are consistent with the standard macOS shortcuts for tab switching in various apps: Finder, Firefox, Chrome, etc.
 
-## **Setting a preferred audio output device (on app startup)**
+## **Standard way to toggle between dialog tabs**
 
-Also, the Preferences dialog now offers a new setting, under the ***Sound*** tab, to allow users to configure which output device should be used at app startup, under the heading ***Output device on app startup*** There are 3 options available:
+Also, there are now standard consistent keyboard shortcuts to toggle between tabs in various dialogs such as Preferences, the Detailed Track Info popover, the Effects Presets editor, etc.
 
-1 - ***Use system device*** - The current macOS output device will be used.
+**Previous tab** - Shift + Cmd + [
+**Next tab** - Shift + Cmd + ]
 
-2 - ***Remember device from last app launch*** - Whatever output device was used when the app previously exited will be remembered and used, if it is still available. If it is no longer available, Aural Player will default to the system output device.
-
-3 - ***Use preferred device*** - You can choose from a list of all available devices. This setting can be used if, for instance, you always want Aural Player to send its output to a particular device like your headphones or external speakers. As long as that same device is available when Aural Player starts up again, it will be selected for use. If not, Aural Player will default to the system output device.
+These keyboard shortcuts are consistent with those used to switch playlist views.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.6.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.6.1)
