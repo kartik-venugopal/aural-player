@@ -35,8 +35,8 @@ Download the latest release [here](https://github.com/maculateConception/aural-p
 ### Installation
 
 1. Mount the *AuralPlayer-x.y.z.dmg* image file
-2. Copy Aural.app to your local drive (e.g. Applications folder)
-3. Run the copied app. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
+2. Copy *Aural.app* to your local drive (e.g. Applications folder)
+3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
 4. Go to System Preferences > Security & Privacy > General > Open anyway, to allow Aural.app to open.
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
