@@ -56,10 +56,12 @@
                 <outlet property="moveItemsToBottomMenuItem" destination="07J-Mu-hRE" id="VEk-EP-txO"/>
                 <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
+                <outlet property="nextViewMenuItem" destination="C4n-hs-Fjm" id="c3E-gk-no6"/>
                 <outlet property="pageDownMenuItem" destination="aHg-LZ-M39" id="upm-yM-qtU"/>
                 <outlet property="pageUpMenuItem" destination="OVI-nb-hI6" id="wAC-Gl-qhP"/>
                 <outlet property="playSelectedItemDelayedMenuItem" destination="Q9h-Nv-Vuv" id="CZO-kT-Je1"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
+                <outlet property="previousViewMenuItem" destination="I5Z-AW-JY4" id="fL2-Sb-Q14"/>
                 <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
                 <outlet property="removeSelectedItemsMenuItem" destination="20j-6Y-sbB" id="1Tx-Bh-Msu"/>
                 <outlet property="savePlaylistMenuItem" destination="Cvk-m8-oAg" id="G6F-eB-XFB"/>
