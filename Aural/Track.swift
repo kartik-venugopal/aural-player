@@ -37,6 +37,12 @@ class Track: NSObject, PlaylistItem {
     
     var lyrics: String?
     
+    var chapters: [Chapter] = []
+    
+    var hasChapters: Bool {
+        return !chapters.isEmpty
+    }
+    
     init(_ file: URL) {
         
         self.playbackNativelySupported = AudioUtils.isAudioFilePlaybackNativelySupported(file)
@@ -109,6 +115,37 @@ class Track: NSObject, PlaylistItem {
     // Prepares this track for playback
     func prepareForPlayback() {
         TrackIO.prepareForPlayback(self)
+    }
+    
+    func loadChapters() {
+        TrackIO.loadChapters(self)
+    }
+    
+    func printChapters() {
+        
+        var ctr: Int = 0
+        for ch in chapters {
+            ctr += 1
+            print("Chapter", ctr, "Title:", ch.title, "StartTime:", ch.startTime)
+        }
+    }
+}
+
+class Chapter {
+    
+    let title: String
+    let startTime: Double
+    let endTime: Double
+    
+    var duration: Double {
+        return max(endTime - startTime, 0)
+    }
+    
+    init(_ title: String, _ startTime: Double, _ endTime: Double) {
+        
+        self.title = title
+        self.startTime = startTime
+        self.endTime = endTime
     }
 }
 

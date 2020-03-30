@@ -54,6 +54,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     
+    private lazy var chaptersWindow: NSWindow = WindowFactory.chaptersWindow
+    
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
@@ -106,7 +108,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
     }
@@ -419,6 +421,19 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
+    private func trackChanged(_ newTrack: IndexedTrack?) {
+        
+        if let track = newTrack?.track, track.hasChapters {
+            
+            if (!chaptersWindow.isVisible) {
+                
+                theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
+                chaptersWindow.setIsVisible(true)
+                chaptersWindow.orderFront(self)
+            }
+        }
+    }
+    
     var subscriberId: String {
         return self.className
     }
@@ -465,6 +480,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     func consumeNotification(_ message: NotificationMessage) {
         
         switch message.messageType {
+            
+        case .trackChangedNotification:
+            
+            trackChanged((message as! TrackChangedNotification).newTrack)
         
         case .playlistTypeChangedNotification:
         
