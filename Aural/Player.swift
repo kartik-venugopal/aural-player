@@ -54,6 +54,17 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         state = .playing
     }
     
+    func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+        
+        let session = PlaybackSession.currentSession!
+        
+        // Define the loop within the session
+        session.loop = PlaybackLoop(loopStartPosition, loopEndPosition)
+        scheduler.playLoop(session, seekPosition, true)
+        
+        state = .playing
+    }
+    
     func pause() {
         
         scheduler.pause()
