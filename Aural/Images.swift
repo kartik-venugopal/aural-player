@@ -22,6 +22,7 @@ struct Images {
     static let imgMute: NSImage = NSImage(named: "Mute")!
     
     static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
+    static let imgRepeatOn: NSImage = NSImage(named: "RepeatOn")!
     static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!
     static let imgRepeatAll: NSImage = NSImage(named: "RepeatAll")!
     

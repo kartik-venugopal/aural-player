@@ -119,6 +119,31 @@ class Track: NSObject, PlaylistItem {
     
     func loadChapters() {
         TrackIO.loadChapters(self)
+        
+        for index in 0..<chapters.count - 1 {
+            
+            let chapter = chapters[index]
+            let nextChapter = chapters[index + 1]
+            
+            if (chapter.duration <= 0) {
+
+                // Assume that start time is available for all chapters
+                chapter.duration = max(nextChapter.startTime - chapter.startTime, 0)
+            }
+            
+            // End time may not be defined
+            if (chapter.endTime <= 0) {
+                
+                // Assume that start time is available for all chapters
+                chapter.endTime = nextChapter.startTime
+            }
+        }
+        
+        if let lastChapter = chapters.last, lastChapter.duration == 0 {
+            
+            // Last chapter duration = Track duration - chapter startTime
+            lastChapter.duration = self.duration - lastChapter.startTime
+        }
     }
     
     func printChapters() {
@@ -135,17 +160,15 @@ class Chapter {
     
     let title: String
     let startTime: Double
-    let endTime: Double
-    
-    var duration: Double {
-        return max(endTime - startTime, 0)
-    }
+    var endTime: Double
+    var duration: Double
     
     init(_ title: String, _ startTime: Double, _ endTime: Double) {
         
         self.title = title
         self.startTime = startTime
         self.endTime = endTime
+        self.duration = max(endTime - startTime, 0)
     }
 }
 

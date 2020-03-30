@@ -12,7 +12,7 @@ struct UIConstants {
     
     static let chapterIndexColumnID: String = "cid_chapterIndex"
     static let chapterTitleColumnID: String = "cid_chapterTitle"
-    static let chapterStartTimeColumnID: String = "cid_chapterDuration"
+    static let chapterStartTimeColumnID: String = "cid_chapterStartTime"
     static let chapterDurationColumnID: String = "cid_chapterDuration"
     
     // Track info view column identifiers (popover)
