@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        #run: swift build -v
+        run: #swift build -v
     
     
   tests: 
@@ -28,4 +28,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Tests
-        #run: swift test -v
+        run: #swift test -v
