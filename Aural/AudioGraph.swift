@@ -6,12 +6,32 @@ import AVFoundation
  */
 class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
+    var availableDevices: [AudioDevice] {
+        return deviceManager.allDevices
+    }
+    
+    var systemDevice: AudioDevice {
+        return deviceManager.systemDevice
+    }
+    
+    var outputDevice: AudioDevice {
+        
+        get {return deviceManager.outputDevice}
+        
+        set(newDevice) {
+            deviceManager.outputDevice = newDevice
+        }
+    }
+    
     private let audioEngine: AVAudioEngine
-    private let mainMixer: AVAudioMixerNode
+    
     internal let playerNode: AVAudioPlayerNode
-    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
-    private let audioEngineHelper: AudioEngineHelper
     internal let nodeForRecorderTap: AVAudioNode
+    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
+    
+    private let deviceManager: DeviceManager
+    private let audioEngineHelper: AudioEngineHelper
+    
     
     // FX units
     var masterUnit: MasterUnit
@@ -32,9 +52,10 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         audioEngine = AVAudioEngine()
         playerNode = AVAudioPlayerNode()
-        mainMixer = audioEngine.mainMixerNode
-        nodeForRecorderTap = mainMixer
+        nodeForRecorderTap = audioEngine.mainMixerNode
         auxMixer = AVAudioMixerNode()
+        
+        deviceManager = DeviceManager(audioEngine.outputNode.audioUnit!)
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
         eqUnit = EQUnit(state)
@@ -50,10 +71,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         var nodes = [playerNode, auxMixer]
         slaveUnits.forEach({nodes.append(contentsOf: $0.avNodes)})
         
-        audioEngineHelper.addNodes(nodes)
-        audioEngineHelper.connectNodes()
-        audioEngineHelper.prepareAndStart()
-        
         playerVolume = state.volume
         muted = state.muted
         playerNode.volume = muted ? 0 : playerVolume
@@ -65,6 +82,19 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         })
         
         soundProfiles.audioGraph = self
+        
+        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
+        NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
+        
+        audioEngineHelper.addNodes(nodes)
+        audioEngineHelper.connectNodes()
+        audioEngineHelper.prepareAndStart()
+    }
+    
+    @objc func outputChanged() {
+        
+        // End the current playback session and send out a notification
+        AsyncMessenger.publishMessage(AudioOutputChangedMessage(PlaybackSession.endCurrent()))
     }
     
     var volume: Float {
@@ -108,6 +138,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     func persistentState() -> PersistentState {
         
         let state: AudioGraphState = AudioGraphState()
+        
+        state.outputDevice.name = outputDevice.name!
+        state.outputDevice.uid = outputDevice.uid!
         
         // Volume and pan (balance)
         state.volume = playerVolume

@@ -2,9 +2,23 @@
  Concrete implementation of AudioGraphDelegateProtocol
  */
 
-import Foundation
+import AVFoundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+    
+    var availableDevices: [AudioDevice] {
+        return graph.availableDevices
+    }
+    var systemDevice: AudioDevice {return graph.systemDevice}
+    
+    var outputDevice: AudioDevice {
+        
+        get {return graph.outputDevice}
+        
+        set(newValue) {
+            graph.outputDevice = newValue
+        }
+    }
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
@@ -25,7 +39,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     private let notificationQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
-    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences) {
+    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
         
         self.graph = graph
         self.player = player
@@ -38,6 +52,29 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         delayUnit = DelayUnitDelegate(graph.delayUnit)
         filterUnit = FilterUnitDelegate(graph.filterUnit)
+        
+        // Set output device based on user preference
+        
+        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
+            
+            let prefDevice: AudioDeviceState = graphState.outputDevice
+            
+            // Check if remembered device is available (based on name and UID)
+            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDevice.name && $0.uid! == prefDevice.uid}) {
+                self.graph.outputDevice = foundDevice
+            }
+            
+        } else if preferences.outputDeviceOnStartup.option == .specific,
+            let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
+            let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
+            
+            // Check if preferred device is available (based on name and UID)
+            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDeviceName && $0.uid! == prefDeviceUID}) {
+                self.graph.outputDevice = foundDevice
+            }
+        }
+        
+        // Set volume and effects based on user preference
         
         if (preferences.volumeOnStartupOption == .specific) {
             

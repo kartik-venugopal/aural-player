@@ -11,6 +11,7 @@ class AuralMenuController: NSObject {
     
     @IBAction func aboutAction(_ sender: AnyObject) {
         UIUtils.centerDialogWRTMainWindow(aboutDialog.window!)
+        WindowState.showingPopover = true
     }
     
     // Presents the Preferences modal dialog
