@@ -17,17 +17,12 @@ jobs:
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
-      - name: Build
-      - run: swift build --verbose
-      #swift build -v
+      - name: Build-checkout
     
     
-  tests: 
-    name: test-job
-    needs: build  
-    runs-on: macos-10.15
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run Tests
-      - run: swift -h 
-        #swift test -v
+#  test: 
+#    name: test-job
+#    needs: build  
+#    runs-on: macos-10.15
+#    steps:
+#      - name: Run Tests
