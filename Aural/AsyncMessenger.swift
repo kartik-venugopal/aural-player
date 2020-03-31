@@ -19,7 +19,7 @@ class AsyncMessenger {
             if subscriberRegistry[messageType] == nil {subscriberRegistry[messageType] = [(AsyncMessageSubscriber, DispatchQueue)]()}
             
             // Only add if it doesn't already exist
-            if subscriberRegistry[messageType]!.index(where: {$0.0.subscriberId == subscriber.subscriberId}) == nil {
+            if subscriberRegistry[messageType]!.firstIndex(where: {$0.0.subscriberId == subscriber.subscriberId}) == nil {
                 subscriberRegistry[messageType]!.append((subscriber, dispatchQueue))
             }
         }
@@ -29,7 +29,7 @@ class AsyncMessenger {
 
         for messageType in messageTypes {
             
-            if let subscribers = subscriberRegistry[messageType], let subIndex = subscribers.index(where: {$0.0.subscriberId == subscriber.subscriberId}) {
+            if let subscribers = subscriberRegistry[messageType], let subIndex = subscribers.firstIndex(where: {$0.0.subscriberId == subscriber.subscriberId}) {
                 subscriberRegistry[messageType]!.remove(at: subIndex)
             }
         }

@@ -15,7 +15,7 @@ struct LRUArray<T: EquatableHistoryItem> {
     // Adds a single new element to the array. If the array is already filled to capacity, the least recently added item will be removed to make room for the new element.
     mutating func add(_ newElement: T) {
         
-        if let index = array.index(where: { $0.equals(newElement) }) {
+        if let index = array.firstIndex(where: { $0.equals(newElement) }) {
             
             // Item already exists in array, remove it from the previous location (so it may be added at the top)
             array.remove(at: index)
@@ -38,7 +38,7 @@ struct LRUArray<T: EquatableHistoryItem> {
     // Removes a single element from the array, if it exists
     mutating func remove(_ element: T) {
        
-        if let index = array.index(where: { $0.equals(element) }) {
+        if let index = array.firstIndex(where: { $0.equals(element) }) {
             array.remove(at: index)
         }
     }
