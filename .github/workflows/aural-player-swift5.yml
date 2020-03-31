@@ -1,28 +1,20 @@
-name: Aural-player swift build and test (dummy)
+name: swift
 
 on:
+  
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
-  prepare:
-    name: prepare-job
-    runs-on: macos-10.15
        
   build:
     name: build-job
-    needs: prepare
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
       - name: Build-checkout
-    
-    
-#  test: 
-#    name: test-job
-#    needs: build  
-#    runs-on: macos-10.15
-#    steps:
-#      - name: Run Tests
+        run: swift package init --type library
+        run: swift package generate-xcodeproj
+        run: swift build -v
