@@ -276,17 +276,19 @@ class PlayerControlsView: NSView {
 
             // Update loop button image
             btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
+            
+            // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
+            if (seekSliderCell.loop == nil) {
+                
+                seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+            }
 
             // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
             if (loop.isComplete()) {
-
+                
                 seekSliderClone.doubleValue = loop.endTime! * 100 / trackDuration
                 seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-
-            } else {
-
-                seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
-                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
             }
 
         } else {
