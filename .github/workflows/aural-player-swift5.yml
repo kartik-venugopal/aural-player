@@ -1,4 +1,4 @@
-name: Swift
+name: Aural-player swift build and test (dummy)
 
 on:
   push:
@@ -7,13 +7,25 @@ on:
     branches: [ master ]
 
 jobs:
+  prepare:
+    name: prepare-job
+    runs-on: macos-10.15
+       
   build:
-
-    runs-on: macos-latest
-
+    name: build-job
+    needs: prepare
+    runs-on: macos-10.15
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - uses: actions/checkout@v2
+      - name: Build
+        #run: swift build -v
+    
+    
+  tests: 
+    name: test-job
+    needs: build  
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Tests
+        #run: swift test -v
