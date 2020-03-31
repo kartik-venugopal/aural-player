@@ -138,9 +138,9 @@ class TextSizes {
         }
     }
     
-    private static let trackTimesFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
-    private static let trackTimesFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
-    private static let trackTimesFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let trackTimesFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    private static let trackTimesFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let trackTimesFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
     
     static var trackTimesFont: NSFont {
         
@@ -155,9 +155,9 @@ class TextSizes {
         }
     }
     
-    private static let feedbackFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 8)!
-    private static let feedbackFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 9)!
-    private static let feedbackFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    private static let feedbackFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    private static let feedbackFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
+    private static let feedbackFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
     
     static var feedbackFont: NSFont {
         
@@ -326,8 +326,8 @@ class TextSizes {
     }
     
     private static let fxUnitCaptionFont_normal: NSFont = NSFont(name: "Gill Sans", size: 14)!
-    private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 15.5)!
-    private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 17)!
+    private static let fxUnitCaptionFont_larger: NSFont = NSFont(name: "Gill Sans", size: 16)!
+    private static let fxUnitCaptionFont_largest: NSFont = NSFont(name: "Gill Sans", size: 18)!
     
     static var fxUnitCaptionFont: NSFont {
         

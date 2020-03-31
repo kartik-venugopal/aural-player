@@ -114,7 +114,7 @@ class SearchResult: Hashable  {
     var hasPrevious: Bool = false
     
     // Needed for Hashable conformance
-    public var hashValue: Int {
+    public var hash: Int {
         
         // The file path of the track is the unique identifier
         return location.track.file.path.hashValue
@@ -127,11 +127,16 @@ class SearchResult: Hashable  {
         
         self.location = location
         self.match = match
+        
     }
     
     // Two SearchResult objects are equal if their locations are equal (i.e. they point to the same track)
     public static func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.location == rhs.location
+    }
+    
+    func hash(into hasher: inout Hasher){
+        /// todo: Implement code here - see type hashable
     }
 }
 

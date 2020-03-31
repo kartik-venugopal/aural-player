@@ -46,7 +46,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeColorScheme], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -54,6 +54,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.qualityOfService = .background
         
         playlistView.menu = contextMenu
+        
+        changeColorScheme()
     }
     
     override func viewDidAppear() {
@@ -587,6 +589,18 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
+    private func changeColorScheme() {
+        
+//        [rootContainer, tabButtonsBox, playlistBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+//        [lblTracksSummary, lblDurationSummary].forEach({
+//            $0?.backgroundColor = Colors.windowBackgroundColor
+//            $0?.textColor = Colors.boxTextColor
+//        })
+        playlistView.backgroundColor = Colors.windowBackgroundColor
+        
+        // TODO: Redraw tab buttons, playlist views
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -757,6 +771,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         if message is TextSizeActionMessage {
             changeTextSize()
+        }
+        
+        if message is ColorSchemeActionMessage {
+            changeColorScheme()
         }
         
         if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {

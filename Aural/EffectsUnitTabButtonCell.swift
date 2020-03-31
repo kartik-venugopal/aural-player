@@ -4,11 +4,12 @@ import Cocoa
 class EffectsUnitTabButtonCell: NSButtonCell {
     
     private let borderInsetX: CGFloat = 0
-    private let borderInsetY: CGFloat = 2
+    private let borderInsetY: CGFloat = 0
     private let borderRadius: CGFloat = 3
     
-    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
-    private let selectionBoxColor: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
+//    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
+    private var backgroundFillColor: NSColor {return Colors.windowBackgroundColor}
+    private var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
     
 //    private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
 //    private let selectedTextColor: NSColor = Colors.playlistSelectedTextColor
@@ -24,7 +25,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
 //    var textColor: NSColor = Colors.tabViewButtonTextColor
 //    var textFont: NSFont {return TextSizes.fxTabsFont}
     
-    private let imgWidth: CGFloat = 16, imgHeight: CGFloat = 16
+    private let imgWidth: CGFloat = 15, imgHeight: CGFloat = 15
     
     func updateState(_ unitState: EffectsUnitState) {
         
@@ -53,7 +54,11 @@ class EffectsUnitTabButtonCell: NSButtonCell {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
+//            selectionBoxColor.setStroke()
             NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius).fill()
+//            let path = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
+//            path.lineWidth = 4
+//            path.stroke()
         }
         
         // Check if selected, and adjust text font

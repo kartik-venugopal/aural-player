@@ -8,7 +8,7 @@ class FilterChart: NSView {
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
     
-    private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
+    private let bandStopColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
     private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
     
     private let inactiveUnitGradient: NSGradient = {
@@ -22,8 +22,8 @@ class FilterChart: NSView {
     
     private let bandStopGradient: NSGradient = {
         
-        let start = NSColor(red: 0.75, green: 0, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0.3, green: 0, blue: 0, alpha: 1)
+        let start = NSColor(red: 0.8, green: 0, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0.6, green: 0, blue: 0, alpha: 1)
         let gradient = NSGradient(starting: start, ending: end)
         
         return gradient!
@@ -31,8 +31,8 @@ class FilterChart: NSView {
     
     private let bandPassGradient: NSGradient = {
         
-        let start = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
+        let start = NSColor(red: 0, green: 0.7, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0, green: 0.5, blue: 0, alpha: 1)
         let gradient = NSGradient(starting: start, ending: end)
         
         return gradient!
@@ -43,20 +43,16 @@ class FilterChart: NSView {
         let unitState: EffectsUnitState = filterUnitStateFunction()
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
-        NSColor.black.setFill()
+        Colors.windowBackgroundColor.setFill()
         drawPath.fill()
         
-        let offset: CGFloat = 5
+        let offset: CGFloat = 0
         let width = self.frame.width - 2 * offset
-        let height = self.frame.height - 10
+        let height = self.frame.height
         let scale: CGFloat = width / 3
-        let bottomMargin: CGFloat = 5
+        let bottomMargin: CGFloat = 0
         
         let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height)
-        
-        drawPath = NSBezierPath.init(rect: frameRect)
-        NSColor.lightGray.setStroke()
-        drawPath.stroke()
         
         // Draw bands
         let bands = bandsDataFunction()
@@ -119,6 +115,10 @@ class FilterChart: NSView {
             }
         }
         
+        drawPath = NSBezierPath.init(rect: frameRect)
+        Colors.filterChartTextColor.setStroke()
+        drawPath.stroke()
+        
         // Draw X-axis markings
         let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
         let textFont: NSFont = TextSizes.filterChartFont
@@ -143,8 +143,8 @@ class FilterChart: NSView {
             GraphicsUtils.drawTextInRect(trect, text, Colors.filterChartTextColor, textFont)
             
             if (sx != offset && sx != offset + width) {
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
+                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 8), width: 1.5)
+                GraphicsUtils.drawLine(Colors.fxFunctionTextColor, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 8), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
             }
         }
     }

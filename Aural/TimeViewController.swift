@@ -7,21 +7,6 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
-    @IBOutlet weak var lblRate: VALabel!
-    @IBOutlet weak var lblRateMin: VALabel!
-    @IBOutlet weak var lblRateMax: VALabel!
-    @IBOutlet weak var lblRateValue: VALabel!
-    
-    @IBOutlet weak var lblOverlap: VALabel!
-    @IBOutlet weak var lblOverlapMin: VALabel!
-    @IBOutlet weak var lblOverlapMax: VALabel!
-    @IBOutlet weak var lblOverlapValue: VALabel!
-    
-    @IBOutlet weak var lblPitchShiftValue: VALabel!
-    @IBOutlet weak var btnShiftPitch: NSButton!
-    
-    @IBOutlet weak var lblPresets: VALabel!
-    
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
@@ -134,7 +119,13 @@ class TimeViewController: FXUnitViewController {
     override func changeTextSize() {
         
         super.changeTextSize()
-        btnShiftPitch.redraw()
+        timeView.changeTextSize()
+    }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        timeView.changeColorScheme()
     }
 
     // MARK: Message handling
@@ -156,10 +147,6 @@ class TimeViewController: FXUnitViewController {
             default: return
 
             }
-        }
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
         }
     }
 }

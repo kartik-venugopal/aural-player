@@ -23,6 +23,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var colorSchemeDarkBackgroundMenuItem: NSMenuItem!
+    @IBOutlet weak var colorSchemeLightBackgroundMenuItem: NSMenuItem!
+    
     private let viewAppState = ObjectGraph.appState.ui.player
     
     // To save the name of a custom window layout
@@ -87,6 +90,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         })
         
         playerMenuItem.off()
+        
+        colorSchemeDarkBackgroundMenuItem.onIf(Colors.scheme == .darkBackground_lightText)
+        colorSchemeLightBackgroundMenuItem.onIf(Colors.scheme == .lightBackground_darkText)
     }
  
     // Shows/hides the playlist window
@@ -111,6 +117,14 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
+    }
+    
+    @IBAction func changeColorSchemeAction(_ sender: NSMenuItem) {
+        
+        if let scheme = ColorScheme(rawValue: sender.identifier!.rawValue), scheme != Colors.scheme {
+            Colors.scheme = scheme
+            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
+        }
     }
     
     @IBAction func switchViewAction(_ sender: Any) {

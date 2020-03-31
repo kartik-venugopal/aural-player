@@ -7,19 +7,7 @@ class PitchViewController: FXUnitViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
-    
-    @IBOutlet weak var lblPitch: VALabel!
-    @IBOutlet weak var lblPitchMin: VALabel!
-    @IBOutlet weak var lblPitchMax: VALabel!
-    @IBOutlet weak var lblPitchValue: VALabel!
-    
-    @IBOutlet weak var lblOverlap: VALabel!
-    @IBOutlet weak var lblOverlapMin: VALabel!
-    @IBOutlet weak var lblOverlapMax: VALabel!
-    @IBOutlet weak var lblPitchOverlapValue: VALabel!
-    
-    @IBOutlet weak var lblPresets: VALabel!
-    
+   
     override var nibName: String? {return "Pitch"}
     
     private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
@@ -47,7 +35,7 @@ class PitchViewController: FXUnitViewController {
         // TODO: Move this to generic view
         pitchView.initialize(unitStateFunction)
         
-        functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
+//        functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
     }
     
     override func initControls() {
@@ -119,6 +107,12 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        pitchView.changeColorScheme()
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -147,10 +141,6 @@ class PitchViewController: FXUnitViewController {
             default: return
                 
             }
-        }
-        
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
         }
     }
 }

@@ -62,4 +62,8 @@ class GapView: NSView {
         lblTrackName.font = TextSizes.gapBoxTitleFont
         lblTimeRemaining.font = TextSizes.gapBoxTitleFont
     }
+    
+    func changeColorScheme() {
+        
+    }
 }

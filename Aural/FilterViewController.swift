@@ -254,7 +254,7 @@ class FilterViewController: FXUnitViewController {
     override func changeTextSize() {
 
         // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
-//        functionLabels = findFunctionLabels(self.view)
+        functionLabels = findFunctionLabels(self.view)
         
         bandControllers.forEach({$0.changeTextSize()})
         
@@ -268,14 +268,17 @@ class FilterViewController: FXUnitViewController {
         super.changeTextSize()
     }
     
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
+    override func changeColorScheme() {
         
-        super.consumeMessage(message)
+        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
+        functionLabels = findFunctionLabels(self.view)
+        super.changeColorScheme()
+
+        bandControllers.forEach({$0.changeColorScheme()})
         
-        if message.actionType == .changeEffectsTextSize {
-            changeTextSize()
-        }
+        btnAdd.redraw()
+        btnRemove.redraw()
+        
+        filterView.changeColorScheme()
     }
 }

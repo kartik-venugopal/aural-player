@@ -72,4 +72,8 @@ class EQSubview: NSView {
         
         updateBands(sortedBands, globalGain)
     }
+    
+    func changeColorScheme() {
+        allSliders.forEach({$0.redraw()})
+    }
 }

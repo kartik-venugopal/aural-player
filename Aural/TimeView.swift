@@ -91,4 +91,14 @@ class TimeView: NSView {
         timeOverlapSlider.floatValue = preset.overlap
         lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
     }
+    
+    func changeTextSize() {
+        btnShiftPitch.redraw()
+    }
+    
+    func changeColorScheme() {
+        
+        btnShiftPitch.redraw()
+        sliders.forEach({$0.redraw()})
+    }
 }

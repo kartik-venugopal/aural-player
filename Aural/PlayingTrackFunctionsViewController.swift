@@ -3,16 +3,44 @@ import Cocoa
 class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, StringInputClient {
     
     // Button to display more details about the playing track
-    @IBOutlet weak var btnMoreInfo: NSButton!
+    @IBOutlet weak var btnMoreInfo: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnMoreInfo.imageMappings[.darkBackground_lightText] = NSImage(named: "MoreInfo")
+            btnMoreInfo.imageMappings[.lightBackground_darkText] = NSImage(named: "MoreInfo_1")
+        }
+    }
     
     // Button to show the currently playing track within the playlist
-    @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
+    @IBOutlet weak var btnShowPlayingTrackInPlaylist: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnShowPlayingTrackInPlaylist.imageMappings[.darkBackground_lightText] = NSImage(named: "ShowPlayingTrack")
+            btnShowPlayingTrackInPlaylist.imageMappings[.lightBackground_darkText] = NSImage(named: "ShowPlayingTrack_1")
+        }
+    }
     
     // Button to add/remove the currently playing track to/from the Favorites list
-    @IBOutlet weak var btnFavorite: OnOffImageButton!
+    @IBOutlet weak var btnFavorite: ColorSensitiveOnOffImageButton! {
+        
+        didSet {
+            
+            btnFavorite.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "Favorites-Off")
+            btnFavorite.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "Favorites-Off_1")
+            
+            btnFavorite.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "Favorites-On")
+            btnFavorite.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "Favorites-On_1")
+        }
+    }
     
     // Button to bookmark current track and position
-    @IBOutlet weak var btnBookmark: NSButton!
+    @IBOutlet weak var btnBookmark: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnBookmark.imageMappings[.darkBackground_lightText] = NSImage(named: "Bookmark")
+            btnBookmark.imageMappings[.lightBackground_darkText] = NSImage(named: "Bookmark_1")
+        }
+    }
     
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var seekSliderCell: SeekSliderCell!
@@ -53,7 +81,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeColorScheme], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -62,7 +90,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.unsubscribe([.addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeColorScheme], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -241,6 +269,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
+    private func changeColorScheme() {
+        
+        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnBookmark].forEach({$0.colorSchemeChanged()})
+        btnFavorite.colorSchemeChanged()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -283,6 +317,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         case .bookmarkPosition: bookmarkAction(self)
             
         case .bookmarkLoop: bookmarkLoop()
+            
+        case .changeColorScheme:
+            
+            changeColorScheme()
 
          default: return
             

@@ -14,7 +14,7 @@ class PlayerView: NSView {
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 52) }
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 60) }
     fileprivate var autoHideFields_showing: Bool = false
     
     func showView(_ playbackState: PlaybackState) {
@@ -23,7 +23,7 @@ class PlayerView: NSView {
         self.addSubview(functionsBox)
         
         controlsBox.setFrameOrigin(NSPoint.zero)
-
+        
         infoView.showView(playbackState)
         gapView.showView(playbackState)
         
@@ -41,7 +41,7 @@ class PlayerView: NSView {
         
         // Vertically center functions box w.r.t. info box
         let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - 5 - functionsBox.frame.width, y: funcY))
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width, y: funcY))
     }
     
     func hideView() {
@@ -163,19 +163,29 @@ class PlayerView: NSView {
         infoView.changeTextSize(textSize)
         gapView.changeTextSize(textSize)
     }
+    
+    func changeColorScheme() {
+        
+        [infoBox, gapBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+        
+        infoView.changeColorScheme()
+        gapView.changeColorScheme()
+    }
 }
 
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 90) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 57)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 105) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 72)
     
     override func showView(_ playbackState: PlaybackState) {
         
         super.showView(playbackState)
-
+        
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+        
+        makeOpaque(infoBox, gapBox, controlsBox)
         
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
@@ -247,7 +257,7 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 85)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 100)
     @IBOutlet weak var overlayBox: NSBox!
     
     override func showView(_ playbackState: PlaybackState) {
@@ -258,7 +268,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         artView.show()
         infoBox.isTransparent = false
-
+        
         hideViews(controlsBox, overlayBox)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
@@ -308,6 +318,8 @@ class ExpandedArtPlayerView: PlayerView {
     
     private func autoHideControls_show() {
         
+        overlayBox.fillColor = Colors.Player.infoBoxOverlayColor
+        
         // Show controls
         showViews(controlsBox, overlayBox)
         
@@ -342,6 +354,13 @@ class ExpandedArtPlayerView: PlayerView {
     
     override func needsMouseTracking() -> Bool {
         return true
+    }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        
+        infoBox.fillColor = Colors.Player.infoBoxOverlayColor
     }
 }
 

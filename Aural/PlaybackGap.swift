@@ -48,6 +48,11 @@ extension PlaybackGap: Hashable {
     
     var hashValue: Int {
         return self.id
+        
+    }
+    
+    func hash(into hasher: inout Hasher){
+        /// todo: Implement code here - see type hashable
     }
 }
 

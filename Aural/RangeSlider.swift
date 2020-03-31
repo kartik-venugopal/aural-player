@@ -30,13 +30,13 @@ enum DraggedSlider {
     case end
 }
 
-fileprivate let bandStopColor: NSColor = NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
+fileprivate let bandStopColor: NSColor = NSColor(red: 0.65, green: 0, blue: 0, alpha: 1)
 fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
 fileprivate let bypassedColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
 
 @IBDesignable
-class RangeSlider: NSView, EffectsUnitSliderProtocol {
+class RangeSlider: MouseTrackingView, EffectsUnitSliderProtocol {
     
     //****************************************************************************//
     //****************************************************************************//
@@ -47,6 +47,10 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
      */
     //****************************************************************************//
     //****************************************************************************//
+    
+    override func awakeFromNib() {
+        self.startTracking()
+    }
     
     //MARK: - Public API -
     
@@ -204,7 +208,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         return barBackgroundGradient!
     }()
     
-    var knobColor: NSColor = Colors.neutralKnobColor
+    var knobColor: NSColor {return Colors.neutralKnobColor}
     
     var barFillColor: NSColor {
         
@@ -244,13 +248,39 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 5
-    private let sliderHeight: CGFloat = 5
+    private let sliderWidth: CGFloat = 9
+    private let sliderHeight: CGFloat = 9
     
     private let minSliderX: CGFloat = 0
     private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
     
     //MARK: - Event -
+    
+    override func updateTrackingAreas() {
+        
+        if !isTracking {return}
+        
+        // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
+        
+        self.trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways,  NSTrackingArea.Options.mouseEnteredAndExited], owner: self, userInfo: nil)
+        
+        // Add the new tracking area to the view
+        addTrackingArea(self.trackingArea!)
+    }
+    
+    // This function is a workaround to get the slider working in a window with no title bar and when nested within a tabless tab view
+    override func mouseEntered(with event: NSEvent) {
+        
+        super.mouseEntered(with: event)
+        window?.isMovableByWindowBackground = false
+    }
+    
+    // This function is a workaround to get the slider working in a window with no title bar and when nested within a tabless tab view
+    override func mouseExited(with event: NSEvent) {
+        
+        super.mouseExited(with: event)
+        window?.isMovableByWindowBackground = true
+    }
     
     override func mouseDown(with event: NSEvent) {
         
@@ -367,8 +397,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         let framePath = NSBezierPath(roundedRect: barRect, xRadius: 1.5, yRadius: 1.5)
         let selectedPath = NSBezierPath(roundedRect: selectedRect, xRadius: 1.5, yRadius: 1.5)
         
-        let startSliderPath = NSBezierPath(rect: startSliderFrame)
-        let endSliderPath = NSBezierPath(rect: endSliderFrame)
+        let startSliderPath = NSBezierPath(roundedRect: startSliderFrame, xRadius: 2, yRadius: 2)
+        let endSliderPath = NSBezierPath(roundedRect: endSliderFrame, xRadius: 2, yRadius: 2)
         
         /*  Draw bar background */
         barBackgroundGradient.draw(in: framePath, angle: -UIConstants.horizontalGradientDegrees)
@@ -428,6 +458,19 @@ class FilterBandSlider: RangeSlider {
     }
     
     override var barFillColor: NSColor {
+        
+        switch unitState {
+            
+        case .active:   return filterType == .bandPass ? bandPassColor : bandStopColor
+            
+        case .bypassed: return bypassedColor
+            
+        case .suppressed:   return suppressedColor
+            
+        }
+    }
+    
+    override var knobColor: NSColor {
         
         switch unitState {
             

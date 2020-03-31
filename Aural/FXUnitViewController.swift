@@ -11,7 +11,15 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
+    @IBOutlet weak var btnSavePreset: ColorSensitiveImageButton! {
+    
+        didSet {
+            
+            btnSavePreset.imageMappings[.darkBackground_lightText] = NSImage(named: "SavePreset")
+            btnSavePreset.imageMappings[.lightBackground_darkText] = NSImage(named: "SavePreset_1")
+        }
+    }
+    
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -58,7 +66,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeColorScheme], subscriber: self)
     }
     
     func initControls() {
@@ -104,6 +112,16 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         lblCaption?.font = TextSizes.fxUnitCaptionFont
         functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
         presetsMenu.font = TextSizes.effectsMenuFont
+    }
+    
+    func changeColorScheme() {
+        
+        lblCaption?.textColor = Colors.fxUnitCaptionColor
+        functionLabels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+        
+        btnBypass.colorSchemeChanged()
+        btnSavePreset.colorSchemeChanged()
+        presetsMenu.redraw()
     }
     
     var subscriberId: String {
@@ -167,6 +185,18 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
             initControls()
+        }
+        
+        switch message.actionType {
+            
+        case .changeEffectsTextSize:
+            changeTextSize()
+            
+        case .changeColorScheme:
+            changeColorScheme()
+            
+        default: return
+            
         }
     }
 }
