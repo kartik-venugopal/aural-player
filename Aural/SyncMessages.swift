@@ -73,6 +73,8 @@ enum MessageType {
     
     case playbackLoopChangedNotification
     
+    case chapterLoopCreatedNotification
+    
     case seekPositionChangedNotification
     
     case searchTextChangedNotification
@@ -461,6 +463,16 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     
     // Singleton
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
+}
+
+struct ChapterLoopCreatedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .chapterLoopCreatedNotification
+    
+    private init() {}
+    
+    // Singleton
+    static let instance: ChapterLoopCreatedNotification = ChapterLoopCreatedNotification()
 }
 
 // TODO: This is dead code, remove it

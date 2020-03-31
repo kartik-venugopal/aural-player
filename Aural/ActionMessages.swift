@@ -64,9 +64,6 @@ enum ActionType {
     // Show the selected track in Finder
     case showTrackInFinder
     
-    // Switch playlist tabs to switch between playlist views
-    case shiftTab
-    
     // Invoke the search dialog
     case search
     

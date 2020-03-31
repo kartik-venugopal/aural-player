@@ -17,12 +17,12 @@ class Recorder: RecorderProtocol {
     }
     
     // TODO: What if creating the audio file fails ? Return a Bool to indicate success ?
-    func startRecording(_ format: RecordingFormat) {
+    func startRecording(_ params: RecordingParams) {
         
-        let session = RecordingSession.start(format)
+        let session = RecordingSession.start(params.format)
         let url = URL(fileURLWithPath: session.tempFilePath)
         
-        if let recordingFile = AudioIO.createAudioFileForWriting(url, format.settings) {
+        if let recordingFile = AudioIO.createAudioFileForWriting(url, params.settings) {
         
             // Install a tap on the audio engine to start receiving audio data
             graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
@@ -33,7 +33,7 @@ class Recorder: RecorderProtocol {
             session.startTime = Date()
             
         } else {
-            NSLog("Unable to create recording audio file with specified format '%@'", format.fileExtension)
+            NSLog("Unable to create recording audio file with specified format '%@'", params.format.fileExtension)
         }
     }
     
