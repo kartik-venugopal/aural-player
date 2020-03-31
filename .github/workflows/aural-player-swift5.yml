@@ -1,19 +1,20 @@
-name: Swift
+name: swift
 
 on:
+  
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
+       
   build:
-
-    runs-on: macos-latest
-
+    name: build-job
+    runs-on: macos-10.15
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - uses: actions/checkout@v2
+      - name: Build-checkout
+        run: swift package init --type library
+        run: swift package generate-xcodeproj
+        run: swift build -v
