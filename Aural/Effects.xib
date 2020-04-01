@@ -420,12 +420,7 @@
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.90103274830000002" colorSpace="calibratedWhite"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Hide the effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDE-AU-hEg" userLabel="Close Button">
                         <rect key="frame" x="14" y="205" width="9" height="9"/>
