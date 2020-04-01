@@ -46,7 +46,7 @@
 		3E0D664B21918E3A00A779A9 /* EQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0D664A21918E3A00A779A9 /* EQView.swift */; };
 		3E0DF1C02431BB1E0096C2A1 /* Chapters.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */; };
 		3E0DF1C22431BC380096C2A1 /* ChaptersViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */; };
-		3E0DF1C42431C0300096C2A1 /* ChaptersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C32431C0300096C2A1 /* ChaptersViewController.swift */; };
+		3E0DF1C42431C0300096C2A1 /* ChaptersWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */; };
 		3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A51FBB05FF008268B3 /* Player.xib */; };
 		3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AB1FBB1961008268B3 /* Effects.xib */; };
 		3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */; };
@@ -456,7 +456,7 @@
 		3E0D664A21918E3A00A779A9 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
 		3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Chapters.xib; sourceTree = "<group>"; };
 		3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewDelegate.swift; sourceTree = "<group>"; };
-		3E0DF1C32431C0300096C2A1 /* ChaptersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewController.swift; sourceTree = "<group>"; };
+		3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersWindowController.swift; sourceTree = "<group>"; };
 		3E0ED6A51FBB05FF008268B3 /* Player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Player.xib; sourceTree = "<group>"; };
 		3E0ED6AB1FBB1961008268B3 /* Effects.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
 		3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EQ.xib; sourceTree = "<group>"; };
@@ -900,7 +900,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */,
-				3E0DF1C32431C0300096C2A1 /* ChaptersViewController.swift */,
+				3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */,
 				3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */,
 			);
 			name = Chapters;
@@ -2459,7 +2459,7 @@
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
 				3EA2F8F521CF6D88007D0264 /* MetadataReader.swift in Sources */,
 				3E17D03221E604D800951F81 /* LanguageMap.swift in Sources */,
-				3E0DF1C42431C0300096C2A1 /* ChaptersViewController.swift in Sources */,
+				3E0DF1C42431C0300096C2A1 /* ChaptersWindowController.swift in Sources */,
 				3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */,
 				3E5F00C82153993100A76C23 /* BookmarksDelegateProtocol.swift in Sources */,
 				3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */,
