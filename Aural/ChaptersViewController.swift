@@ -1,19 +1,6 @@
 import Cocoa
 
-class ChaptersWindowController: NSWindowController, NSWindowDelegate {
-    
-    override var windowNibName: String? {return "Chapters"}
-    
-    @IBAction func closeWindowAction(_ sender: AnyObject) {
-        window!.setIsVisible(false)
-    }
-    
-    // TODO: Consolidate VC class into this WC class, respond to window open and window close events (track change)
-    
-//    func windowDid
-}
-
-class ChaptersViewController: NSViewController, MessageSubscriber {
+class ChaptersWindowController: NSWindowController, MessageSubscriber {
     
     @IBOutlet weak var chaptersView: NSTableView!
     
@@ -23,18 +10,22 @@ class ChaptersViewController: NSViewController, MessageSubscriber {
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    override var nibName: String? {return "Chapters"}
-    
     private var curChapter: Int? = nil
     private var looping: Bool = false
     
-    override func viewDidLoad() {
+    override var windowNibName: String? {return "Chapters"}
+    
+    override func windowDidLoad() {
         
         initSubscriptions()
         
         chaptersView.reloadData()
         lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
         beginPollingForChapterChange()
+    }
+    
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        window!.setIsVisible(false)
     }
     
     private func initSubscriptions() {
