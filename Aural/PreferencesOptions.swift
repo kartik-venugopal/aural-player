@@ -1,25 +1,5 @@
 import Foundation
 
-enum OutputDeviceStartupOptions: String {
-    
-    case rememberFromLastAppLaunch
-    case system
-    case specific
-}
-
-// Window layout on startup preference
-class OutputDeviceOnStartup {
-    
-    var option: OutputDeviceStartupOptions = .system
-    
-    // This is used only if option == .specific
-    var preferredDeviceName: String? = nil
-    var preferredDeviceUID: String? = nil
-    
-    // NOTE: This is mutable. Potentially unsafe (convert variable into factory method ???)
-    static let defaultInstance: OutputDeviceOnStartup = OutputDeviceOnStartup()
-}
-
 // All options for the volume at startup
 enum VolumeStartupOptions: String {
     
@@ -42,39 +22,6 @@ enum PlaylistStartupOptions: String {
     case loadFolder
 }
 
-enum PlaylistViewStartupOptions: String {
-    
-    case specific
-    case rememberFromLastAppLaunch
-}
-
-// Playlist view on startup preference
-class PlaylistViewOnStartup {
-    
-    var option: PlaylistViewStartupOptions = .specific
-    
-    // This is used only if option == .specific
-    var viewName: String = "Tracks"
-    
-    var viewIndex: Int {
-        
-        switch(viewName) {
-            
-        case "Artists":  return 1;
-            
-        case "Albums":  return 2;
-            
-        case "Genres": return 3;
-            
-        default:    return 0;
-            
-        }
-    }
-    
-    // NOTE: This is mutable. Potentially unsafe
-    static let defaultInstance: PlaylistViewOnStartup = PlaylistViewOnStartup()
-}
-
 // Possible options for the "autoplay afer adding tracks" user preference
 enum AutoplayAfterAddingOptions: String {
     
@@ -83,16 +30,16 @@ enum AutoplayAfterAddingOptions: String {
 }
 
 // All options for the view at startup
-enum WindowLayoutStartupOptions: String {
+enum ViewStartupOptions: String {
     
     case specific
     case rememberFromLastAppLaunch
 }
 
-// Window layout on startup preference
+// View on startup preference
 class LayoutOnStartup {
     
-    var option: WindowLayoutStartupOptions = .specific
+    var option: ViewStartupOptions = .specific
     
     // This is used only if option == .specific
     var layoutName: String = "Vertical full stack"

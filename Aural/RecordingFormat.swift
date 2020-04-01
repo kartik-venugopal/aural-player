@@ -16,10 +16,6 @@ enum RecordingFormat {
     // Apple Lossless Audio Codec
     case alac
     
-    case flac
-    
-//    case opus
-    
     // Returns the appropriate recorder settings for this recording format
     var settings: [String: Any] {
         
@@ -33,26 +29,9 @@ enum RecordingFormat {
             
         case .aiff: settings[AVFormatIDKey] = kAudioFormatLinearPCM
             
-        case .flac: settings[AVFormatIDKey] = kAudioFormatFLAC
-            
         }
         
         return settings
-    }
-    
-    var formatId: AudioFormatID {
-        
-        switch self {
-        
-        case .aac: return kAudioFormatMPEG4AAC
-            
-        case .alac: return kAudioFormatAppleLossless
-            
-        case .aiff: return kAudioFormatLinearPCM
-            
-        case .flac: return kAudioFormatFLAC
-            
-        }
     }
     
     // Returns a user-friendly, UI-friendly description of this format
@@ -66,8 +45,6 @@ enum RecordingFormat {
             
         case .aiff: return "Audio Interchange File Format (AIFF)"
             
-        case .flac: return "Free Lossless Audio Codec (FLAC)"
-            
         }
     }
     
@@ -76,13 +53,11 @@ enum RecordingFormat {
         
         switch description {
             
-        case aac.description: return .aac
+        case RecordingFormat.aac.description: return .aac
             
-        case alac.description: return .alac
+        case RecordingFormat.alac.description: return .alac
             
-        case aiff.description: return .aiff
-            
-        case flac.description: return .flac
+        case RecordingFormat.aiff.description: return .aiff
             
         // Impossible
         default: return .aac
@@ -95,20 +70,18 @@ enum RecordingFormat {
         
         switch self {
             
-        case .aac: return "m4a"
+        case .aac: return "aac"
             
         case .alac: return "m4a"
             
         case .aiff: return "aif"
-            
-        case .flac: return "flac"
             
         }
     }
 }
 
 // Container for recorder audio settings constants
-public class AudioSettings {
+fileprivate class AudioSettings {
     
     // Stereo (2 channel) audio with a 44KHz sample rate
     static let stereo44K: [String: Any] = {
@@ -117,7 +90,6 @@ public class AudioSettings {
         
         settings[AVSampleRateKey] = 44100
         settings[AVNumberOfChannelsKey] = 2
-//        settings[AVEncoderAudioQualityKey] = AVAudioQuality.
         
         return settings
     }()

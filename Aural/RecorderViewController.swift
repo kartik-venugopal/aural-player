@@ -12,7 +12,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBOutlet weak var recordingInfoBox: NSBox!
     
     @IBOutlet weak var formatMenu: NSPopUpButton!
-    @IBOutlet weak var qualityMenu: NSPopUpButton!
     
     // Labels
     @IBOutlet weak var lblCaption: NSTextField!
@@ -59,12 +58,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         formatMenu.disable()
         
-        let format = RecordingFormat.formatForDescription(formatMenu.selectedItem!.title)
-        let quality = RecordingQuality(rawValue: qualityMenu.selectedItem!.tag)!
+        let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
         
-        print("Format:", format, "Quality:", quality)
-        
-        recorder.startRecording(RecordingParams(format, quality))
+        recorder.startRecording(format)
         
         // Start the recording
         btnRecord.on()

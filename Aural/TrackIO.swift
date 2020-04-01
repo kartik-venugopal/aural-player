@@ -37,9 +37,6 @@ class TrackIO {
             }
         }
         
-        // Chapters
-        loadChapters(track)
-        
         let lazyLoadInfo = track.lazyLoadingInfo
         
         if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
@@ -116,9 +113,5 @@ class TrackIO {
         MetadataUtils.loadAllMetadata(track)
         
         track.lazyLoadingInfo.detailedInfoLoaded = true
-    }
-    
-    static func loadChapters(_ track: Track) {
-        MetadataUtils.loadChapters(track)
     }
 }

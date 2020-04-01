@@ -143,21 +143,6 @@ class FFMpegReader: MetadataReader {
         return SecondaryMetadata(discNumberAndTotal?.number, discNumberAndTotal?.total, trackNumberAndTotal?.number, trackNumberAndTotal?.total, lyrics)
     }
     
-    func getChapters(_ track: Track) -> [Chapter] {
-        
-        //        let asset = track.audioAsset!
-        //
-        //        if let langCode = asset.availableChapterLocales.first?.languageCode {
-        //
-        //            let chGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
-        //            for grp in chGroups {
-        //                print(grp.items.first?.time, grp.items.first?.duration)
-        //            }
-        //        }
-        
-        return []
-    }
-    
     private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
         if let map = track.libAVInfo?.metadata {

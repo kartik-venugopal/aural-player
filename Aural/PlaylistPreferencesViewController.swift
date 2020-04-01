@@ -20,10 +20,6 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var lblFolder: NSTextField!
     @IBOutlet weak var lblFolderCell: ValidatedLabelCell!
     
-    @IBOutlet weak var btnRememberView: NSButton!
-    @IBOutlet weak var btnStartWithView: NSButton!
-    @IBOutlet weak var viewMenu: NSPopUpButton!
-    
     override var nibName: String? {return "PlaylistPreferences"}
     
     func getView() -> NSView {
@@ -32,9 +28,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields(_ preferences: Preferences) {
         
-        let playlistPrefs = preferences.playlistPreferences
-        
-        switch playlistPrefs.playlistOnStartup {
+        switch preferences.playlistPreferences.playlistOnStartup {
             
         case .empty:
             btnEmptyPlaylist.on()
@@ -63,22 +57,6 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         lblPlaylistFile.stringValue = preferences.playlistPreferences.playlistFile?.path ?? ""
         lblFolder.stringValue = preferences.playlistPreferences.tracksFolder?.path ?? ""
-        
-        // View on startup
-        
-        if (playlistPrefs.viewOnStartup.option == .specific) {
-            btnStartWithView.on()
-        } else {
-            btnRememberView.on()
-        }
-        
-        if let item = viewMenu.item(withTitle: playlistPrefs.viewOnStartup.viewName) {
-            viewMenu.select(item)
-        } else {
-            // Default
-            viewMenu.select(viewMenu.item(withTitle: "Tracks"))
-        }
-        viewMenu.enableIf(btnStartWithView.isOn())
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
@@ -108,11 +86,6 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         if btnLoadTracksFromFolder.isOn() && StringUtils.isStringEmpty(lblFolder.stringValue) {
             chooseTracksFolderAction(sender)
         }
-    }
-    
-    @IBAction func startupPlaylistViewPrefAction(_ sender: Any) {
-        // Needed for radio button group
-        viewMenu.enableIf(btnStartWithView.isOn())
     }
     
     func save(_ preferences: Preferences) throws {
@@ -157,11 +130,6 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
                 throw PlaylistFileNotSpecifiedError("No tracks folder specified for loading tracks upon app startup")
             }
         }
-        
-        // View on startup
-        
-        preferences.playlistPreferences.viewOnStartup.option = btnStartWithView.isOn() ? .specific : .rememberFromLastAppLaunch
-        preferences.playlistPreferences.viewOnStartup.viewName = viewMenu.selectedItem!.title
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {

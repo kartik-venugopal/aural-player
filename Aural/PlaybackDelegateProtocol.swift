@@ -6,10 +6,7 @@ import Foundation
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     /*
-     Toggles
-     
-     var playingChapter: Int?
-     between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
+        Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     
         Throws an error if playback begins with a track that cannot be played back.
      */
@@ -53,16 +50,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack()
-    
-    func playChapter(_ index: Int)
-    
-    func previousChapter()
-    
-    func nextChapter()
-    
-    func loopChapter()
-    
-    var playingChapter: Int? {get}
     
     /*
         Seeks forward by a preset time interval, within the current track.

@@ -47,10 +47,6 @@ class PlaybackScheduler {
     }
     
     func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool = true) {
-        playLoop(playbackSession, playbackSession.loop!.startTime)
-    }
-        
-    func playLoop(_ playbackSession: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool = true) {
         
         // Halt current playback
         stop()
@@ -64,7 +60,7 @@ class PlaybackScheduler {
         let loop = playbackSession.loop!
         
         //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
-        let firstFrame = Int64(playbackStartTime * sampleRate)
+        let firstFrame = Int64(loop.startTime * sampleRate)
         let lastFrame = Int64(loop.endTime! * sampleRate)
         let frameCount = lastFrame - firstFrame + 1
         

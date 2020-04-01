@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="120" y="65" width="712" height="595"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="fR8-8f-93h">
                 <rect key="frame" x="0.0" y="0.0" width="712" height="595"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -95,7 +95,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Playlist" identifier="0" id="TYN-PH-4OO" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" ambiguous="YES" id="EFS-Lg-2eG">
+                                <view key="view" id="EFS-Lg-2eG">
                                     <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -104,7 +104,7 @@
                                 </connections>
                             </tabViewItem>
                             <tabViewItem label="Playback" identifier="1" id="qD8-pP-ieh" userLabel="Playback" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" id="KWv-RK-uzg">
+                                <view key="view" ambiguous="YES" id="KWv-RK-uzg">
                                     <rect key="frame" x="0.0" y="0.0" width="674" height="470"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -178,30 +178,19 @@ Gw
                             <action selector="cancelPreferencesAction:" target="-2" id="vVx-sg-H3d"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hir-nM-dZ5" userLabel="Previous tab button">
-                        <rect key="frame" x="-100" y="10" width="4" height="19"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hir-nM-dZ5" userLabel="Tab button">
+                        <rect key="frame" x="-100" y="10" width="55" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Tab" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yj9-mv-sHC" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
-                            <string key="keyEquivalent">[</string>
-                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+CQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                         </buttonCell>
                         <connections>
-                            <action selector="previousTabAction:" target="-2" id="qEK-m0-rGs"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zL-ev-hAC" userLabel="Next tab button">
-                        <rect key="frame" x="-137" y="288" width="6" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Tab" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oYy-I0-wtK" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                            <string key="keyEquivalent">]</string>
-                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="nextTabAction:" target="-2" id="F8a-W0-sEr"/>
+                            <action selector="shiftTabAction:" target="-2" id="TVa-HK-ecJ"/>
                         </connections>
                     </button>
                 </subviews>
@@ -214,7 +203,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="XFG-Q7-hzn"/>
             </connections>
-            <point key="canvasLocation" x="-955" y="662.5"/>
+            <point key="canvasLocation" x="-955" y="663"/>
         </window>
     </objects>
 </document>

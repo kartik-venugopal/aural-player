@@ -113,7 +113,7 @@ class ObjectGraph {
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
         
-        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)

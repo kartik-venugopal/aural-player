@@ -610,58 +610,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         seekToPercentage(percentage)
     }
     
-    // Chapters playback
-    
-    func playChapter(_ index: Int) {
-        
-        if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
-            seekToTime(track.chapters[index].startTime)
-        }
-    }
-    
-    func previousChapter() {
-        
-        if let cur = playingChapter, cur > 0 {
-            playChapter(cur - 1)
-        }
-    }
-    
-    func nextChapter() {
-        
-        if let cur = playingChapter {
-            playChapter(cur + 1)
-        }
-    }
-    
-    func loopChapter() {
-        
-        if let track = playingTrack?.track, let chapterIndex = playingChapter {
-
-            let chapter = track.chapters[chapterIndex]
-            player.markLoopAndContinuePlayback(chapter.startTime, chapter.endTime)
-        }
-    }
-    
-    var playingChapter: Int? {
-        
-        if let track = playingTrack?.track, track.hasChapters {
-            
-            let elapsed = player.seekPosition
-            
-            var index: Int = 0
-            for chapter in track.chapters {
-                
-                if (elapsed > chapter.startTime && elapsed < chapter.endTime) {
-                    return index
-                }
-                
-                index += 1
-            }
-        }
-        
-        return nil
-    }
-    
     // MARK: Repeat and Shuffle
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {

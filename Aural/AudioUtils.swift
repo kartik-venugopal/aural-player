@@ -11,8 +11,6 @@ class AudioUtils {
     
         "mp3": "MPEG Audio Layer III (mp3)",
         "m4a": "MPEG-4 Audio (m4a)",
-        "m4b": "MPEG-4 Audio (m4b)",
-        "m4r": "MPEG-4 Audio (m4r)",
         "aac": "Advanced Audio Coding (aac)",
         "alac": "Apple Lossless Audio Codec (alac)",
         "caf": "Apple Core Audio Format (caf)",

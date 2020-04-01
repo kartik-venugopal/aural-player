@@ -25,8 +25,6 @@ protocol PlayerProtocol {
     // Seeks to a certain time within the currently playing track
     func seekToTime(_ track: Track, _ seconds: Double)
     
-    func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double)
-    
     // Gets the playback position (in seconds) of the currently playing track
     var seekPosition: Double {get}
     

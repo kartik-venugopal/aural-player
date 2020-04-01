@@ -13,6 +13,16 @@ class AudioEngineHelper {
         
         self.audioEngine = engine
         nodes = [AVAudioNode]()
+        
+        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
+        // TODO: Test this with SoundFlower and similar apps
+        NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
+    }
+    
+    @objc func outputChanged() {
+        
+        // End the current playback session and send out a notification
+        AsyncMessenger.publishMessage(AudioOutputChangedMessage(PlaybackSession.endCurrent()))
     }
     
     // Attach a single node to the engine
@@ -79,7 +89,6 @@ class AudioEngineHelper {
         }
     }
     
-    // TODO: AudioGraph should also respond to this notification and set its _outputDevice var to the new device
     func restart() {
         
         // Disconnect and detach nodes (in this order)
