@@ -24,10 +24,6 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
         beginPollingForChapterChange()
     }
     
-    @IBAction func closeWindowAction(_ sender: AnyObject) {
-        window!.setIsVisible(false)
-    }
-    
     private func initSubscriptions() {
         
         // Register self as a subscriber to synchronous message notifications
@@ -113,6 +109,10 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
         looping = !looping
         
         SyncMessenger.publishNotification(ChapterLoopCreatedNotification.instance)
+    }
+    
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        window!.setIsVisible(false)
     }
     
     // MARK: Message handling
