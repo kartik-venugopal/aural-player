@@ -136,7 +136,13 @@ class PlayerControlsView: NSView {
         
         let seekTimerInterval = Int(1000 / (2 * playbackRate))
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {
+            
             self.updateSeekPosition()
+            
+            for task in SeekTimerTaskQueue.tasksArray {
+                task()
+            }
+            
         }, queue: DispatchQueue.main)
     }
 
@@ -239,11 +245,9 @@ class PlayerControlsView: NSView {
             btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
             
             // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
-            if (seekSliderCell.loop == nil) {
-                
-                seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
-                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-            }
+            
+            seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
+            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
 
             // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
             if (loop.isComplete()) {

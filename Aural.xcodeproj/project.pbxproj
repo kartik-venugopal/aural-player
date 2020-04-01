@@ -157,6 +157,7 @@
 		3E4045DA21DE1FA500F4708C /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E4045D821DE1FA500F4708C /* ffprobe */; };
 		3E406BB22198F21C00A5776C /* FXPresetsEditorGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
+		3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
 		3E44DDCB1FD8A71D00C6566C /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */; };
@@ -567,6 +568,7 @@
 		3E4045D821DE1FA500F4708C /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
 		3E406BB12198F21C00A5776C /* FXPresetsEditorGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsEditorGenericViewController.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
+		3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimerTaskQueue.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E309B721FB70B7800C61E72 /* InfoPopup */,
+				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -2257,6 +2260,7 @@
 				3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */,
 				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
+				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
 				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,

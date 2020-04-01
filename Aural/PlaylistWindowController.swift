@@ -423,13 +423,25 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
-        if let track = newTrack?.track, track.hasChapters {
+        if let track = newTrack?.track {
             
-            if (!chaptersWindow.isVisible) {
+            if track.hasChapters {
                 
-                theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
+                if (theWindow.childWindows == nil || theWindow.childWindows!.isEmpty) {
+                    
+                    theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
+                    chaptersWindow.orderFront(self)
+                }
+                
                 chaptersWindow.setIsVisible(true)
-                chaptersWindow.orderFront(self)
+                
+            } else {
+                
+                // No chapters in new track
+                
+                if (theWindow.childWindows != nil && theWindow.childWindows!.count > 0) {
+                    chaptersWindow.setIsVisible(false)
+                }
             }
         }
     }

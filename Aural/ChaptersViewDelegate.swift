@@ -24,7 +24,7 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let track = playbackInfo.playingTrack?.track {
+        if let track = playbackInfo.playingTrack?.track, track.hasChapters {
             
             let chapter = track.chapters[row]
             
@@ -33,6 +33,10 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
             case UIConstants.chapterIndexColumnID:
                 
                 let indexText: String = String(describing: row + 1)
+                
+                if row == playbackInfo.playingChapter {
+                    return createIndexImageCell(tableView, UIConstants.chapterIndexColumnID, indexText, row)
+                }
                 
                 return createIndexTextCell(tableView, UIConstants.chapterIndexColumnID, indexText, row)
                 
@@ -72,6 +76,29 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
+    private func createIndexImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> IndexCellView? {
+        
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
+            
+            // Configure and show the image view
+            let imgView = cell.imageView!
+            
+            imgView.image = Images.imgPlayingTrack
+            imgView.show()
+            
+            // Hide the text view
+            cell.textField?.hide()
+            
+            cell.textField?.font = TextSizes.playlistIndexFont
+            cell.textField?.stringValue = text
+            cell.row = row
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
     private func createTitleCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> TrackNameCellView? {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
@@ -80,8 +107,6 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.row = row
-            
-            print("Created title cell with title:", text)
             
             return cell
         }
@@ -103,8 +128,6 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         
         return nil
     }
-    
-    // MARK: Constraints for Index cells
     
     // Creates a cell view containing the animation for the currently playing track
     private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> IndexCellView? {
