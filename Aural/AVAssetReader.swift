@@ -281,8 +281,6 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
                     chapters.append(chapter)
                     
                     cnt += 1
-                    
-                    print(title, start, end, "\n")
                 }
             }
         }

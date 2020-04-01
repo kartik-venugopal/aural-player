@@ -28,6 +28,10 @@ protocol PlaybackInfoDelegateProtocol {
     // Currently waiting track
     var waitingTrack: IndexedTrack? {get}
     
+    var chapterCount: Int {get}
+    
+    var playingChapter: Int? {get}
+    
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
     

@@ -305,7 +305,7 @@ class PlaybackScheduler {
         }
         
         // Default to last remembered position when nodeTime is nil
-        return lastSeekPosn
+        return max(lastSeekPosn, 0)
     }
     
     private func trackPlaybackCompleted(_ session: PlaybackSession) {

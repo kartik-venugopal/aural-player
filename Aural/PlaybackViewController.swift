@@ -49,7 +49,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
     }
@@ -58,7 +58,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
     }
@@ -337,6 +337,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         alertDialog.showAlert(.error, "Track not played", error.track.conciseDisplayName, error.message)
     }
     
+    private func seekPositionChanged() {
+        controlsView.updateSeekPosition()
+    }
+    
     private func performPlayback(_ request: PlaybackRequest) {
         
         switch request.type {
@@ -419,17 +423,16 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch notification.messageType {
             
+        case .seekPositionChangedNotification:
+            
+            seekPositionChanged()
+            
         case .playbackRateChangedNotification:
             
             playbackRateChanged(notification as! PlaybackRateChangedNotification)
             
-        case .playbackLoopChangedNotification:
+        case .playbackLoopChangedNotification, .chapterLoopCreatedNotification:
             
-            playbackLoopChanged()
-            
-            case .chapterLoopCreatedNotification:
-            
-                // TODO: This will not repaint the slider segment because the start point has already been set. Need to force-redraw the seek slider
             playbackLoopChanged()
             
         case .sequenceChangedNotification:

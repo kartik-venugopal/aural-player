@@ -1,12 +1,23 @@
 import Cocoa
 
-class ChaptersWindowController: NSWindowController {
+class ChaptersWindowController: NSWindowController, NSWindowDelegate {
+    
     override var windowNibName: String? {return "Chapters"}
+    
+    @IBAction func closeWindowAction(_ sender: AnyObject) {
+        window!.setIsVisible(false)
+    }
+    
+    // TODO: Consolidate VC class into this WC class, respond to window open and window close events (track change)
+    
+//    func windowDid
 }
 
 class ChaptersViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var chaptersView: NSTableView!
+    
+    @IBOutlet weak var lblSummary: NSTextField!
     
     @IBOutlet weak var btnLoopChapter: NSButton!
     
@@ -14,33 +25,102 @@ class ChaptersViewController: NSViewController, MessageSubscriber {
     
     override var nibName: String? {return "Chapters"}
     
+    private var curChapter: Int? = nil
+    private var looping: Bool = false
+    
     override func viewDidLoad() {
-        chaptersView.reloadData()
+        
         initSubscriptions()
+        
+        chaptersView.reloadData()
+        lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+        beginPollingForChapterChange()
     }
     
     private func initSubscriptions() {
         
         // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .playbackLoopChangedNotification], subscriber: self)
+    }
+    
+    private func beginPollingForChapterChange() {
+        
+        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
+            
+            let playingChapter: Int? = self.player.playingChapter
+            
+            if (self.curChapter != playingChapter) {
+                
+                var refreshRows: [Int] = []
+                
+                if let oldChapter = self.curChapter, oldChapter >= 0 {
+                    refreshRows.append(oldChapter)
+                }
+                
+                if let newChapter = playingChapter, newChapter >= 0 {
+                    refreshRows.append(newChapter)
+                }
+                
+                if (!refreshRows.isEmpty) {
+                    self.chaptersView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
+                }
+                
+                self.curChapter = playingChapter
+            }
+        })
+    }
+    
+    private func stopPollingForChapterChange() {
+        SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
+        
         player.playChapter(chaptersView.selectedRow)
+        
+        if player.playbackLoop == nil {
+            looping = false
+            btnLoopChapter.image = Images.imgRepeatOff
+        }
     }
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
+        
         player.previousChapter()
+        
+        if player.playbackLoop == nil {
+            looping = false
+            btnLoopChapter.image = Images.imgRepeatOff
+        }
     }
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
+        
         player.nextChapter()
+        
+        if player.playbackLoop == nil {
+            looping = false
+            btnLoopChapter.image = Images.imgRepeatOff
+        }
     }
     
     @IBAction func loopCurrentChapterAction(_ sender: AnyObject) {
         
-        player.loopChapter()
-        btnLoopChapter.image = Images.imgRepeatOn
+        if looping {
+            
+            // Remove the loop
+            _ = player.toggleLoop()
+            btnLoopChapter.image = Images.imgRepeatOff
+            
+        } else {
+            
+            // Start a loop
+            player.loopChapter()
+            btnLoopChapter.image = Images.imgRepeatOn
+        }
+        
+        looping = !looping
+        
         SyncMessenger.publishNotification(ChapterLoopCreatedNotification.instance)
     }
     
@@ -53,6 +133,10 @@ class ChaptersViewController: NSViewController, MessageSubscriber {
     func consumeNotification(_ message: NotificationMessage) {
         
         switch message.messageType {
+            
+        case .trackChangedNotification:
+            
+            trackChanged(message as! TrackChangedNotification)
             
         case .playbackLoopChangedNotification:
             
@@ -67,7 +151,23 @@ class ChaptersViewController: NSViewController, MessageSubscriber {
         return EmptyResponse.instance
     }
     
+    private func trackChanged(_ msg: TrackChangedNotification) {
+        
+        let chapterCount = player.chapterCount
+        
+        chaptersView.reloadData()
+        lblSummary.stringValue = String(format: "%d chapters", chapterCount)
+        
+        if chapterCount > 0 {
+            beginPollingForChapterChange()
+        } else {
+            stopPollingForChapterChange()
+            curChapter = nil
+        }
+    }
+    
     private func loopChanged() {
+        looping = false
         btnLoopChapter.image = Images.imgRepeatOff
     }
 }

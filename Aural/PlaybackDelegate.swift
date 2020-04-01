@@ -614,8 +614,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func playChapter(_ index: Int) {
         
+        let chapterChanged: Bool = playingChapter == index
+        
         if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
+            
             seekToTime(track.chapters[index].startTime)
+            
+            // Need to publish this for a UI update since the seek is being triggered from outside the player
+            SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+            
+            if (chapterChanged) {
+                removeLoop()
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
         }
     }
     
@@ -642,6 +653,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    var chapterCount: Int {
+        
+        if let track = playingTrack?.track {
+            return track.chapters.count
+        }
+        
+        return 0
+    }
+    
     var playingChapter: Int? {
         
         if let track = playingTrack?.track, track.hasChapters {
@@ -651,7 +671,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             var index: Int = 0
             for chapter in track.chapters {
                 
-                if (elapsed > chapter.startTime && elapsed < chapter.endTime) {
+                if (elapsed >= chapter.startTime && elapsed <= chapter.endTime) {
                     return index
                 }
                 
