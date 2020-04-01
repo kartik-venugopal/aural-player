@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ChaptersWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="jsg-Df-Ous"/>
+                <outlet property="chaptersView" destination="rlg-QY-3mV" id="ahl-gn-kfc"/>
+                <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="Acd-8Q-xMj"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Vrd-Pf-VfP"/>
             </connections>
         </customObject>
@@ -83,7 +86,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="playPreviousChapterAction:" target="Z6p-HZ-sbm" id="NQe-CT-2AT"/>
+                                        <action selector="playPreviousChapterAction:" target="-2" id="5js-LT-U5q"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -100,7 +103,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="playNextChapterAction:" target="Z6p-HZ-sbm" id="Buq-1b-Eza"/>
+                                        <action selector="playNextChapterAction:" target="-2" id="7eZ-Rt-GrG"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Loop current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -114,7 +117,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="loopCurrentChapterAction:" target="Z6p-HZ-sbm" id="WBn-lc-37y"/>
+                                        <action selector="loopCurrentChapterAction:" target="-2" id="gJ3-dG-heD"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -322,7 +325,7 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <action trigger="doubleAction" selector="playSelectedChapterAction:" target="Z6p-HZ-sbm" id="ua6-ly-wJJ"/>
+                                        <action trigger="doubleAction" selector="playSelectedChapterAction:" target="-2" id="hST-fB-QVf"/>
                                         <outlet property="dataSource" destination="xJV-Ic-jGo" id="ad2-P3-pFf"/>
                                         <outlet property="delegate" destination="ruP-6a-gDu" id="Yib-b0-XWV"/>
                                     </connections>
@@ -365,14 +368,6 @@
             </connections>
             <point key="canvasLocation" x="-232" y="-26"/>
         </window>
-        <viewController id="Z6p-HZ-sbm" customClass="ChaptersViewController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="eFG-4W-dVP"/>
-                <outlet property="chaptersView" destination="rlg-QY-3mV" id="hPv-jP-Vdn"/>
-                <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="iME-Ka-VaV"/>
-                <outlet property="view" destination="fbU-sK-75k" id="05A-cW-bia"/>
-            </connections>
-        </viewController>
         <customObject id="xJV-Ic-jGo" customClass="ChaptersViewDataSource" customModule="Aural" customModuleProvider="target"/>
         <customObject id="ruP-6a-gDu" customClass="ChaptersViewDelegate" customModule="Aural" customModuleProvider="target">
             <connections>
