@@ -1,6 +1,6 @@
 import Cocoa
 
-class ChaptersWindowController: NSWindowController, MessageSubscriber {
+class ChaptersWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var chaptersView: NSTableView!
     
@@ -17,6 +17,8 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
     
     override func windowDidLoad() {
         
+        PlaylistViewState.chaptersView = self.chaptersView
+        
         initSubscriptions()
         
         chaptersView.reloadData()
@@ -28,6 +30,10 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
         
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .playbackLoopChangedNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter], subscriber: self)
+        
+        // TODO: Subscribe to "Jump to time" ActionMessage so that chapter marking is updated even if player is paused
     }
     
     private func beginPollingForChapterChange() {
@@ -113,6 +119,7 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         window!.setIsVisible(false)
+        PlaylistViewState.showingChapters = false
     }
     
     // MARK: Message handling
@@ -140,6 +147,19 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber {
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .playSelectedChapter:
+            
+            playSelectedChapterAction(self)
+            
+        default: return
+            
+        }
     }
     
     private func trackChanged(_ msg: TrackChangedNotification) {

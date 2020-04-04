@@ -110,7 +110,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .viewChapters], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -126,7 +126,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -427,13 +427,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             if track.hasChapters {
                 
-                if (theWindow.childWindows == nil || theWindow.childWindows!.isEmpty) {
-                    
-                    theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
-                    chaptersWindow.orderFront(self)
-                }
-                
-                chaptersWindow.setIsVisible(true)
+                viewChapters()
                 
             } else {
                 
@@ -441,9 +435,22 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 
                 if (theWindow.childWindows != nil && theWindow.childWindows!.count > 0) {
                     chaptersWindow.setIsVisible(false)
+                    PlaylistViewState.showingChapters = false
                 }
             }
         }
+    }
+    
+    private func viewChapters() {
+        
+        if (theWindow.childWindows == nil || theWindow.childWindows!.isEmpty) {
+            
+            theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
+            chaptersWindow.orderFront(self)
+        }
+        
+        chaptersWindow.setIsVisible(true)
+        PlaylistViewState.showingChapters = true
     }
     
     var subscriberId: String {
@@ -542,6 +549,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .changePlaylistTextSize: changeTextSize((message as! TextSizeActionMessage).textSize)
             
+        case .viewChapters: viewChapters()
+            
         default: return
             
         }
@@ -584,6 +593,8 @@ class PlaylistViewState {
     // The current playlist view displayed within the playlist tab group
     static var currentView: NSTableView!
     
+    static var chaptersView: NSTableView!
+    
     static var textSize: TextSizeScheme = .normal
     
     static func initialize(_ appState: PlaylistUIState) {
@@ -604,21 +615,7 @@ class PlaylistViewState {
     
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
-        
         return current.toGroupType()
-        
-//        switch current {
-//
-//        case .albums: return GroupType.album
-//
-//        case .artists: return GroupType.artist
-//
-//        case .genres: return GroupType.genre
-//
-//        // Group type is not applicable to playlist type .tracks
-//        default: return nil
-//
-//        }
     }
     
     static var selectedItem: SelectedItem {
@@ -671,6 +668,17 @@ class PlaylistViewState {
         }
         
         return items
+    }
+    
+    static var showingChapters: Bool = false
+    
+    static var selectedChapter: SelectedItem? {
+        
+        if chaptersView.selectedRow >= 0 {
+            return SelectedItem(index: chaptersView.selectedRow)
+        }
+        
+        return nil
     }
 }
 

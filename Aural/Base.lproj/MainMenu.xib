@@ -76,14 +76,18 @@
             <connections>
                 <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
                 <outlet property="jumpToTimeMenuItem" destination="ihH-E8-ggt" id="K78-3H-f2M"/>
+                <outlet property="loopChapterMenuItem" destination="woh-59-yWg" id="RTk-f5-Bm0"/>
                 <outlet property="loopMenuItem" destination="TzA-UC-Ox0" id="ceJ-FL-dwd"/>
+                <outlet property="nextChapterMenuItem" destination="ySg-NX-IAs" id="t4o-pX-j4J"/>
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
                 <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
+                <outlet property="previousChapterMenuItem" destination="zsa-rI-usn" id="Hee-kF-38b"/>
                 <outlet property="previousTrackMenuItem" destination="yq3-HU-6rh" id="zSF-vu-IF2"/>
                 <outlet property="rememberLastPositionMenuItem" destination="8QQ-WM-bRZ" id="hj9-6Z-F0f"/>
                 <outlet property="repeatAllMenuItem" destination="l9m-G6-uAk" id="7qX-Uv-a29"/>
                 <outlet property="repeatOffMenuItem" destination="OBr-fe-z4t" id="6I4-nq-jlV"/>
                 <outlet property="repeatOneMenuItem" destination="DMc-0q-KZE" id="8RL-EJ-BFH"/>
+                <outlet property="replayChapterMenuItem" destination="9zx-TV-7Ba" id="HWc-3p-II9"/>
                 <outlet property="replayTrackMenuItem" destination="aLr-jT-ZjJ" id="JhP-Wo-e4V"/>
                 <outlet property="seekBackwardMenuItem" destination="h8T-Of-b8S" id="8By-d9-WHo"/>
                 <outlet property="seekBackwardSecondaryMenuItem" destination="hnf-cA-ObB" id="QtG-dz-TRe"/>
@@ -655,6 +659,31 @@ CA
                             <menuItem title=" Toggle A-&gt;B segment loop" image="LoopOff-Small" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
                                 <connections>
                                     <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dUg-V9-6qC"/>
+                            <menuItem title=" Previous chapter" image="PreviousTrack-Small" keyEquivalent="" id="zsa-rI-usn">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="previousTrackAction:" target="IvK-xG-TCa" id="by5-nq-DNx"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Next chapter" image="NextTrack-Small" keyEquivalent="" id="ySg-NX-IAs">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="nextTrackAction:" target="IvK-xG-TCa" id="2cc-pE-r2R"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Replay current chapter" image="Replay" keyEquivalent="r" id="9zx-TV-7Ba" userLabel="Replay current track">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="replayTrackAction:" target="IvK-xG-TCa" id="USS-HM-ifz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Loop current chapter" image="LoopOff-Small" keyEquivalent="l" id="woh-59-yWg" userLabel="Toggle A-&gt;B loop">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="2RZ-Ys-Nth"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="xhK-cx-FFJ"/>
