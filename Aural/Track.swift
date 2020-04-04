@@ -163,12 +163,12 @@ class Chapter {
     var endTime: Double
     var duration: Double
     
-    init(_ title: String, _ startTime: Double, _ endTime: Double) {
+    init(_ title: String, _ startTime: Double, _ endTime: Double, _ duration: Double? = nil) {
         
         self.title = title
         self.startTime = startTime
         self.endTime = endTime
-        self.duration = max(endTime - startTime, 0)
+        self.duration = duration == nil ? max(endTime - startTime, 0) : duration!
     }
 }
 
