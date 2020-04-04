@@ -31,7 +31,7 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber, ActionMes
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop], subscriber: self)
         
         // TODO: Subscribe to "Jump to time" ActionMessage so that chapter marking is updated even if player is paused
     }
@@ -90,6 +90,16 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber, ActionMes
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
         
         player.nextChapter()
+        
+        if player.playbackLoop == nil {
+            looping = false
+            btnLoopChapter.image = Images.imgRepeatOff
+        }
+    }
+    
+    @IBAction func replayChapterAction(_ sender: AnyObject) {
+        
+        player.playChapter(player.playingChapter!)
         
         if player.playbackLoop == nil {
             looping = false
@@ -156,6 +166,22 @@ class ChaptersWindowController: NSWindowController, MessageSubscriber, ActionMes
         case .playSelectedChapter:
             
             playSelectedChapterAction(self)
+            
+        case .previousChapter:
+            
+            playPreviousChapterAction(self)
+            
+        case .nextChapter:
+            
+            playNextChapterAction(self)
+            
+        case .replayChapter:
+            
+            replayChapterAction(self)
+            
+        case .toggleChapterLoop:
+            
+            loopCurrentChapterAction(self)
             
         default: return
             
