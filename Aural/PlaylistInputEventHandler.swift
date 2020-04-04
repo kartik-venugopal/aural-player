@@ -11,6 +11,8 @@ class PlaylistInputEventHandler {
     
     private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.getPreferences().controlsPreferences
     
+    private static let layman: LayoutManager = ObjectGraph.layoutManager
+    
     static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
         playlistViews[playlistType] = playlistView
     }
@@ -72,6 +74,12 @@ class PlaylistInputEventHandler {
     // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
     private static func handleKeyDown(_ event: NSEvent) -> Bool {
         
+        // One-off special case: Without this, space key press (for play/pause) is not sent to main window
+        if (event.charactersIgnoringModifiers == " ") {
+            layman.mainWindow.keyDown(with: event)
+            return true
+        }
+        
         // Indicate whether or not Shift/Command/Option were pressed
         let isShift: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.shift)
         let isCommand: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
@@ -87,8 +95,16 @@ class PlaylistInputEventHandler {
         // Arrows enable natural playlist scrolling and group expansion/collapsing, and alphanumeric characters enable type selection by track name
         if (!isShift && !isCommand && !isOption && (isVerticalArrow || isAlphaNumeric)) {
             
-            // Forward the event to the currently displayed playlist view
-            playlistViews[PlaylistViewState.current]!.keyDown(with: event)
+            if (layman.chaptersWindow == NSApp.keyWindow) {
+                
+                PlaylistViewState.chaptersView.keyDown(with: event)
+                
+            } else {
+                
+                // Forward the event to the currently displayed playlist view
+                playlistViews[PlaylistViewState.current]!.keyDown(with: event)
+            }
+            
             return true
         }
         

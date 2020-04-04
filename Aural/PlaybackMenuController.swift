@@ -9,11 +9,18 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Menu items whose states are toggled when they (or others) are clicked
     
-    @IBOutlet weak var playOrPauseMenuItem: ToggleMenuItem!     // Needs to be toggled
+    @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!     // Needs to be toggled
     @IBOutlet weak var stopMenuItem: NSMenuItem!
-    @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
+
     @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
     @IBOutlet weak var nextTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var loopMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var previousChapterMenuItem: NSMenuItem!
+    @IBOutlet weak var nextChapterMenuItem: NSMenuItem!
+    @IBOutlet weak var replayChapterMenuItem: NSMenuItem!
+    @IBOutlet weak var loopChapterMenuItem: NSMenuItem!
     
     @IBOutlet weak var seekForwardMenuItem: NSMenuItem!
     @IBOutlet weak var seekBackwardMenuItem: NSMenuItem!
@@ -32,9 +39,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Playback shuffle modes
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
-    
-    // Segment playback loop toggling
-    @IBOutlet weak var loopMenuItem: NSMenuItem!
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
@@ -80,6 +84,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
         [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingDialogOrPopover)})
         
+        // These items should be enabled only if there is a playing track and it has chapter markings
+        [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach({$0?.enableIf(playbackInfo.chapterCount > 0)})
+        
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
         
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
@@ -90,7 +97,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
+//        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
         rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.playingTrack?.track {

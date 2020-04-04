@@ -9,6 +9,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     let mainWindow: NSWindow = WindowFactory.getMainWindow()
     let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+    let chaptersWindow: NSWindow = WindowFactory.chaptersWindow
     
     private var onTop: Bool = false
     

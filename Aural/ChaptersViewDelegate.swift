@@ -24,7 +24,7 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let track = playbackInfo.playingTrack?.track, track.hasChapters {
+        if let track = playbackInfo.playingTrack?.track, track.hasChapters, row < playbackInfo.chapterCount {
             
             let chapter = track.chapters[row]
             
@@ -99,14 +99,13 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createTitleCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> TrackNameCellView? {
+    private func createTitleCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> NSTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
             
             cell.textField?.font = TextSizes.playlistTrackNameFont
             cell.textField?.stringValue = text
             cell.textField?.show()
-            cell.row = row
             
             return cell
         }
@@ -114,14 +113,13 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> DurationCellView? {
+    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> NSTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? DurationCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
             
             cell.textField?.font = TextSizes.playlistIndexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
-            cell.row = row
             
             return cell
         }
