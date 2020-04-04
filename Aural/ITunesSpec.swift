@@ -28,6 +28,7 @@ class ITunesSpec {
     static let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue
     static let key_contentRating = AVMetadataKey.iTunesMetadataKeyContentRating.rawValue
     
+    static let keys_mediaType: [String] = ["stik", "media", "media_type"]
     static let key_mediaType = "stik"
     static let key_isPodcast = "pcst"
     
@@ -317,6 +318,8 @@ class ITunesSpec {
         map["lyricist"] = "Lyricist"
         
         map["media"] = "Media Type"
+        
+        map["media_type"] = "Media Type"
         
         map["mixer"] = "Mixer"
         

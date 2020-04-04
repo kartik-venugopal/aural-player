@@ -35,6 +35,9 @@ class FFMpegWrapper {
         
         // ffprobe -v error -show_entries "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,sample_rate : format=duration,format_long_name :  stream_tags : format_tags" -of json Song.mp3
         
+        // TODO: (Chapters)
+        // chapter=start_time,end_time:chapter_tags=title
+        
         let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true, .json)
         
         let result = CommandExecutor.execute(command)
@@ -108,7 +111,7 @@ class FFMpegWrapper {
                         tags[key.lowercased()] = value
                     }
                     
-                    // DRM check
+                    // DRM check (only for WMA files)
                     if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
                         drmProtected = true
                     }
