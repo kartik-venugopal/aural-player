@@ -265,23 +265,20 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let langCode = asset.availableChapterLocales.first?.languageCode {
             
-            let chGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
+            let chapterMetadataGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
             
-            var cnt = 0
-            for grp in chGroups {
+            var chapterIndex = 0
+            for group in chapterMetadataGroups {
                 
-                if let item = grp.items.first {
-                    
-                    let title = item.stringValue ?? String(format: "Chapter %d", cnt + 1)
-                    let start = item.time.seconds
-                    let dur = item.duration.seconds
-                    let end = start + dur
-                    
-                    let chapter = Chapter(title, start, end)
-                    chapters.append(chapter)
-                    
-                    cnt += 1
-                }
+                let title: String = group.items.first?.stringValue ?? String(format: "Chapter %d", chapterIndex + 1)
+                
+                let timeRange = group.timeRange
+                let start = timeRange.start.seconds
+                let end = timeRange.end.seconds
+                let duration = timeRange.duration.seconds
+                
+                chapters.append(Chapter(title, start.isNaN ? 0 : start, end.isNaN ? 0 : end, duration.isNaN ? nil : duration))
+                chapterIndex += 1
             }
         }
         
