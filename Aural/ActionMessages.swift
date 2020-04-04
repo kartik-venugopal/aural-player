@@ -139,17 +139,29 @@ enum ActionType {
     
     case stop
     
+    // Play the previous track in the current playback sequence
+    case previousTrack
+    
+    // Play the next track in the current playback sequence
+    case nextTrack
+    
     // Replay the currently playing track from the beginning, if there is one
     case replayTrack
     
     // Toggle A->B segment playback loop
     case toggleLoop
     
-    // Play the previous track in the current playback sequence
-    case previousTrack
+    // Play the previous chapter in the current playback sequence
+    case previousChapter
     
-    // Play the next track in the current playback sequence
-    case nextTrack
+    // Play the next chapter in the current playback sequence
+    case nextChapter
+    
+    // Replay the currently playing chapter from the beginning, if there is one
+    case replayChapter
+    
+    // Toggle chapter playback loop
+    case toggleChapterLoop
     
     // Seek backward within the currently playing track
     case seekBackward

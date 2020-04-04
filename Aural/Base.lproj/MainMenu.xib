@@ -665,25 +665,25 @@ CA
                             <menuItem title=" Previous chapter" image="PreviousTrack-Small" keyEquivalent="" id="zsa-rI-usn">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="previousTrackAction:" target="IvK-xG-TCa" id="by5-nq-DNx"/>
+                                    <action selector="previousChapterAction:" target="IvK-xG-TCa" id="r3z-Ab-ZA9"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Next chapter" image="NextTrack-Small" keyEquivalent="" id="ySg-NX-IAs">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="nextTrackAction:" target="IvK-xG-TCa" id="2cc-pE-r2R"/>
+                                    <action selector="nextChapterAction:" target="IvK-xG-TCa" id="kbL-RW-cUJ"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Replay current chapter" image="Replay" keyEquivalent="r" id="9zx-TV-7Ba" userLabel="Replay current track">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="replayTrackAction:" target="IvK-xG-TCa" id="USS-HM-ifz"/>
+                                    <action selector="replayChapterAction:" target="IvK-xG-TCa" id="aF7-sI-D8f"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Loop current chapter" image="LoopOff-Small" keyEquivalent="l" id="woh-59-yWg" userLabel="Toggle A-&gt;B loop">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="2RZ-Ys-Nth"/>
+                                    <action selector="toggleChapterLoopAction:" target="IvK-xG-TCa" id="zca-p5-5tn"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="xhK-cx-FFJ"/>

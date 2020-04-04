@@ -105,9 +105,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction func jumpToTimeAction(_ sender: AnyObject) {        
-        _ = jumpToTimeDialog.showDialog()
-    }
+    // MARK: Basic playback functions (tracks)
     
     // Plays, pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
@@ -116,6 +114,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func stopAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.stop))
+    }
+    
+    // Plays the previous track in the current playback sequence
+    @IBAction func previousTrackAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
+    }
+    
+    // Plays the next track in the current playback sequence
+    @IBAction func nextTrackAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextTrack))
     }
     
     // Replays the currently playing track from the beginning, if there is one
@@ -128,15 +136,29 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleLoop))
     }
     
-    // Plays the previous track in the current playback sequence
-    @IBAction func previousTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
+    // MARK: Basic playback functions (chapters)
+    
+    // Plays the previous chapter in the current playback sequence
+    @IBAction func previousChapterAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousChapter))
     }
     
-    // Plays the next track in the current playback sequence
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextTrack))
+    // Plays the next chapter in the current playback sequence
+    @IBAction func nextChapterAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextChapter))
     }
+    
+    // Replays the currently playing chapter from the beginning, if there is one
+    @IBAction func replayChapterAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayChapter))
+    }
+    
+    // Toggles chapter playback loop
+    @IBAction func toggleChapterLoopAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleChapterLoop))
+    }
+    
+    // MARK: Seeking functions
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
@@ -157,6 +179,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBAction func seekForwardSecondaryAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward_secondary))
     }
+    
+    @IBAction func jumpToTimeAction(_ sender: AnyObject) {
+        _ = jumpToTimeDialog.showDialog()
+    }
+    
+    // MARK: Repeat and Shuffle
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
@@ -182,6 +210,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.shuffleOn))
     }
+    
+    // MARK: Miscellaneous playing track functions
     
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
