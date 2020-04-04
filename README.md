@@ -74,74 +74,31 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
       
 ## Screenshots
 
+(All screenshots [here](https://github.com/maculateConception/aural-player/wiki/Screenshots))
+
 ### Default view
 
 ![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
 
-### Track segment loop playback (red segment on seek bar)
+### Segment loop playback
 
-![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Track segment loop playback")
+![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Segment loop playback")
 
 ### Using the Effects panel to disable/enable effects
 
 ![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
 
-### Adjusting text size for better readability (esp. with large display resolutions)
-
-![App screenshot2](/Documentation/Demos/textScaling.gif?raw=true "Text scaling")
-
-### Transcoding of non-natively supported tracks (e.g. WMA/OGG)
-
-![Transcoding](/Documentation/Demos/Transcoding.gif?raw=true "Transcoding")
-
-### Delayed track playback
-
-![App screenshot2](/Documentation/Demos/delayedPlayback.gif?raw=true "Delayed playback")
-
-### Insertings gaps of silence around tracks
-
-![App screenshot2](/Documentation/Demos/gaps.gif?raw=true "Playback gaps")
-
 ### Detailed track info popover
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
-#### Lyrics display
+### Changing the window layout
 
-![App screenshot w/ lyrics view](/Documentation/Screenshots/Lyrics.png?raw=true "Lyrics")
-
-### Bookmarking
-
-![App screenshot w/ more info view](/Documentation/Screenshots/Bookmarking.png?raw=true "Bookmarking")
-
-### Saving an effects unit preset
-
-![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
-
-### Changing the window layout with one click
-
-![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
+![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Changing the window layout")
 
 ### Customizing the player view
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true "Player view")
-
-### Equalizer effects unit
-
-![EQ](/Documentation/Screenshots/EQ.png?raw=true "Equalizer")
-
-### Filter effects unit
-
-![Filter](/Documentation/Screenshots/Filter1.png?raw=true "Filter")
-![Filter](/Documentation/Screenshots/Filter2.png?raw=true "Filter")
-
-### Delay effects unit
-
-![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
-
-### Playlist search
-
-![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Playlist Search")
 
 ## Third party code attributions
 
