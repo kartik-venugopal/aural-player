@@ -46,6 +46,9 @@ enum ActionType {
     
     case playSelectedItemWithDelay
     
+    // Play the chapter selected within the chapters list
+    case playSelectedChapter
+    
     // Insert a playback gap before/after the selected track
     case insertGaps
     
@@ -125,6 +128,9 @@ enum ActionType {
     
     // Maximize playlist vertically
     case maximizeVertical
+    
+    // Show chapters list window for currently playing track
+    case viewChapters
     
     // MARK: Playback actions
     
