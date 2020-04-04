@@ -192,7 +192,7 @@ class ITunesParser: AVAssetParser {
                     // Number to boolean
                     value = numVal == 0 ? "No" : "Yes"
                     
-                } else if key == ITunesSpec.key_mediaType {
+                } else if ITunesSpec.keys_mediaType.contains(key) {
 
                     if let mediaTypeCode = item.numberValue?.intValue, let mediaType = ITunesSpec.mediaTypes[mediaTypeCode] {
                         value = mediaType

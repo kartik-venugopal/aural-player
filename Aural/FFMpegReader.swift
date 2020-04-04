@@ -145,15 +145,7 @@ class FFMpegReader: MetadataReader {
     
     func getChapters(_ track: Track) -> [Chapter] {
         
-        //        let asset = track.audioAsset!
-        //
-        //        if let langCode = asset.availableChapterLocales.first?.languageCode {
-        //
-        //            let chGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
-        //            for grp in chGroups {
-        //                print(grp.items.first?.time, grp.items.first?.duration)
-        //            }
-        //        }
+        
         
         return []
     }
