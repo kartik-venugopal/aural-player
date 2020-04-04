@@ -534,6 +534,7 @@
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
                 <outlet property="transcodeTrackMenuItem" destination="s9W-FB-XJa" id="NUb-CO-DAG"/>
+                <outlet property="viewChaptersMenuItem" destination="ciW-XS-CUy" id="83d-K0-IAW"/>
             </connections>
         </customObject>
         <customObject id="BRL-5h-wH5" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
@@ -854,6 +855,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="      View chapters" id="ciW-XS-CUy" userLabel="View chapters">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="viewChaptersAction:" target="TnB-Sk-yOp" id="HRe-Jx-Aj7"/>
                     </connections>
                 </menuItem>
             </items>

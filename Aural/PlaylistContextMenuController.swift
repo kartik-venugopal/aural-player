@@ -30,6 +30,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var showTrackInFinderMenuItem: NSMenuItem!
     
+    @IBOutlet weak var viewChaptersMenuItem: NSMenuItem!
+    
     private var trackMenuItems: [NSMenuItem] = []
     
     // Group-specific menu items
@@ -72,7 +74,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [transcodeTrackMenuItem, playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
+        trackMenuItems = [transcodeTrackMenuItem, playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem, viewChaptersMenuItem]
         
         groupMenuItems = [playGroupMenuItem, playGroupDelayedMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem, moveGroupToTopMenuItem, moveGroupToBottomMenuItem]
         
@@ -102,17 +104,23 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             groupMenuItems.forEach({$0.hide()})
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
-            let track = getClickedTrack()
+            let clickedTrack = getClickedTrack()
             
-            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(track))
-            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack!.track == track)})
+            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(clickedTrack))
+            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack!.track == clickedTrack)})
             
-            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
+            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(clickedTrack.file))
             
-            let gaps = playlist.getGapsAroundTrack(track)
+            let gaps = playlist.getGapsAroundTrack(clickedTrack)
             insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
             removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
+            
+            var isPlayingTrack: Bool = false
+            if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == clickedTrack {
+                isPlayingTrack = true
+            }
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && clickedTrack.hasChapters && !PlaylistViewState.showingChapters)
             
         case .group:
             
@@ -326,6 +334,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showTrackInFinder, PlaylistViewState.current))
+    }
+    
+    @IBAction func viewChaptersAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.viewChapters, nil))
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
