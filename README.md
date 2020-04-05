@@ -50,6 +50,8 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 3. Click on the lock icon in the bottom left corner, if it is shown as locked. Enter your macOS password to authenticate.
 4. Click the + button and select Aural.app in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer. See image above.
 
+**NOTE** - You will have to repeat this process when you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
+
 ### Compatibility
 
 **User**: macOS 10.12 (Sierra) or later versions
