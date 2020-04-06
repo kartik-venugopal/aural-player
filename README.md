@@ -4,6 +4,7 @@
 
 ## Table of Contents
   * [Overview](#overview)
+  * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-available-with-version-130-onwards)
@@ -24,6 +25,12 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 #### What it is not (at the moment):
 * A streaming audio player that connects to internet radio stations/services
 * A scrobbler
+
+## Documentation
+
+All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
+
+[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
 ## Download
 
