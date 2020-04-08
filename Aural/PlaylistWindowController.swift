@@ -425,7 +425,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
-        if let track = newTrack?.track, track.hasChapters {
+        if let track = newTrack?.track, track.hasChapters, playlistPreferences.showChaptersList {
             layoutManager.showChaptersList()
         } else {
             layoutManager.hideChaptersList()

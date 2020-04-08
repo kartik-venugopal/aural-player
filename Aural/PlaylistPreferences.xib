@@ -15,6 +15,7 @@
                 <outlet property="btnLoadTracksFromFolder" destination="ukb-oo-Yli" id="h0L-4L-rua"/>
                 <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
                 <outlet property="btnRememberView" destination="DHW-Fc-HiE" id="hwQ-gQ-FVQ"/>
+                <outlet property="btnShowChaptersList" destination="rqK-Fk-tAG" id="gbN-4E-lgT"/>
                 <outlet property="btnShowNewTrack" destination="ZPD-DH-Z3O" id="dPa-C9-pPx"/>
                 <outlet property="btnStartWithView" destination="j2w-iX-ltq" id="TE7-yX-6Yv"/>
                 <outlet property="errorIcon_1" destination="1jP-hB-Fpl" id="RcR-o3-Uct"/>

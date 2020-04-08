@@ -13,6 +13,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     var viewOnStartup: PlaylistViewOnStartup
     
     var showNewTrackInPlaylist: Bool
+    var showChaptersList: Bool
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
@@ -39,6 +40,8 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         }
         
         showNewTrackInPlaylist = defaultsDictionary["playlist.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playlist.showNewTrackInPlaylist
+        
+        showChaptersList = defaultsDictionary["playlist.showChaptersList"] as? Bool ?? PreferencesDefaults.Playlist.showChaptersList
         
         // If .loadFile selected but no file available to load from, revert back to defaults
         if (playlistOnStartup == .loadFile && playlistFile == nil) {
@@ -71,5 +74,6 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         defaults.set(viewOnStartup.viewName, forKey: "playlist.viewOnStartup.view")
         
         defaults.set(showNewTrackInPlaylist, forKey: "playlist.showNewTrackInPlaylist")
+        defaults.set(showChaptersList, forKey: "playlist.showChaptersList")
     }
 }
