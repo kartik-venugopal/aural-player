@@ -1664,7 +1664,7 @@ CA
         <image name="Sort-Small" width="17" height="14"/>
         <image name="Stop-Small" width="9" height="9"/>
         <image name="Time" width="16" height="13"/>
-        <image name="ToggleChaptersList-Small" width="15" height="15"/>
+        <image name="ToggleChaptersList-Small" width="14" height="11"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up-Small" width="10" height="14"/>

@@ -82,6 +82,7 @@ struct PreferencesDefaults {
         static let viewOnStartup: PlaylistViewOnStartup = PlaylistViewOnStartup.defaultInstance
         
         static let showNewTrackInPlaylist: Bool = true
+        static let showChaptersList: Bool = true
     }
     
     struct View {

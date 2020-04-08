@@ -25,6 +25,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var viewMenu: NSPopUpButton!
     
     @IBOutlet weak var btnShowNewTrack: NSButton!
+    @IBOutlet weak var btnShowChaptersList: NSButton!
     
     override var nibName: String? {return "PlaylistPreferences"}
     
@@ -84,6 +85,9 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show new track
         btnShowNewTrack.onIf(playlistPrefs.showNewTrackInPlaylist)
+        
+        // Show chapters list window
+        btnShowChaptersList.onIf(playlistPrefs.showChaptersList)
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
@@ -171,6 +175,9 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show new track
         prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
+        
+        // Show chapters list window
+        prefs.showChaptersList = btnShowChaptersList.isOn()
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {
