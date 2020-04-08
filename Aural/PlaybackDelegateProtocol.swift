@@ -60,6 +60,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     func nextChapter()
     
+    func replayChapter()
+    
     func loopChapter()
     
     var chapterCount: Int {get}

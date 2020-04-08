@@ -17,6 +17,9 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         PlaylistViewState.chaptersView = self.chaptersView
         initSubscriptions()
+        
+        looping = false
+        btnLoopChapter.image = Images.imgRepeatOff
     }
     
     override func viewDidAppear() {
@@ -73,7 +76,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
         
-        player.playChapter(chaptersView.selectedRow)
+        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.playSelectedChapter, chaptersView.selectedRow))
         
         if player.playbackLoop == nil {
             looping = false
@@ -83,7 +86,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
         
-        player.previousChapter()
+        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.previousChapter))
         
         if player.playbackLoop == nil {
             looping = false
@@ -93,7 +96,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
         
-        player.nextChapter()
+        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.nextChapter))
         
         if player.playbackLoop == nil {
             looping = false
@@ -103,7 +106,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func replayChapterAction(_ sender: AnyObject) {
         
-        player.playChapter(player.playingChapter!)
+        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.replayChapter))
         
         if player.playbackLoop == nil {
             looping = false
@@ -116,19 +119,17 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         if looping {
             
             // Remove the loop
-            _ = player.toggleLoop()
+            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.removeChapterLoop))
             btnLoopChapter.image = Images.imgRepeatOff
             
         } else {
             
             // Start a loop
-            player.loopChapter()
+            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.addChapterLoop))
             btnLoopChapter.image = Images.imgRepeatOn
         }
         
         looping = !looping
-        
-        SyncMessenger.publishNotification(ChapterLoopCreatedNotification.instance)
     }
     
     // MARK: Message handling
