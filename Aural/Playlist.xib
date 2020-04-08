@@ -24,7 +24,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="480" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="480" height="180"/>
             <view key="contentView" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
@@ -857,7 +857,7 @@
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
                     </connections>
                 </menuItem>
-                <menuItem title="      View chapters" id="ciW-XS-CUy" userLabel="View chapters">
+                <menuItem title=" View chapters list" image="ToggleChaptersList-Small" id="ciW-XS-CUy" userLabel="View chapters">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="viewChaptersAction:" target="TnB-Sk-yOp" id="HRe-Jx-Aj7"/>
@@ -892,6 +892,7 @@
         <image name="Settings" width="12" height="12"/>
         <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
+        <image name="ToggleChaptersList-Small" width="14" height="11"/>
         <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
