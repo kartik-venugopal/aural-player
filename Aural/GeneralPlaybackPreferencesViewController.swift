@@ -30,8 +30,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
-    @IBOutlet weak var btnShowNewTrack: NSButton!
-    
     @IBOutlet weak var btnRememberPosition: NSButton!
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
@@ -108,10 +106,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         
         btnAutoplayAlways.enableIf(prefs.autoplayAfterAddingTracks)
         btnAutoplayAlways.onIf(prefs.autoplayAfterAddingOption == .always)
-        
-        // Show new track
-        
-        btnShowNewTrack.onIf(prefs.showNewTrackInPlaylist)
         
         // Remember last track position
         
@@ -218,8 +212,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         
         prefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn()
         prefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn() ? .ifNotPlaying : .always
-        
-        prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
         
         prefs.rememberLastPosition = btnRememberPosition.isOn()
         

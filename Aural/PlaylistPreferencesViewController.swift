@@ -24,6 +24,8 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnStartWithView: NSButton!
     @IBOutlet weak var viewMenu: NSPopUpButton!
     
+    @IBOutlet weak var btnShowNewTrack: NSButton!
+    
     override var nibName: String? {return "PlaylistPreferences"}
     
     func getView() -> NSView {
@@ -79,6 +81,9 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             viewMenu.select(viewMenu.item(withTitle: "Tracks"))
         }
         viewMenu.enableIf(btnStartWithView.isOn())
+        
+        // Show new track
+        btnShowNewTrack.onIf(playlistPrefs.showNewTrackInPlaylist)
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
@@ -117,21 +122,23 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func save(_ preferences: Preferences) throws {
         
+        let prefs: PlaylistPreferences = preferences.playlistPreferences
+        
         if btnEmptyPlaylist.isOn() {
             
-            preferences.playlistPreferences.playlistOnStartup = .empty
+            prefs.playlistOnStartup = .empty
             
         } else if btnRememberPlaylist.isOn() {
             
-            preferences.playlistPreferences.playlistOnStartup = .rememberFromLastAppLaunch
+            prefs.playlistOnStartup = .rememberFromLastAppLaunch
             
         } else if btnLoadPlaylistFromFile.isOn() {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
-                preferences.playlistPreferences.playlistOnStartup = .loadFile
-                preferences.playlistPreferences.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
+                prefs.playlistOnStartup = .loadFile
+                prefs.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
                 
             } else {
                 
@@ -147,8 +154,8 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
             
-                preferences.playlistPreferences.playlistOnStartup = .loadFolder
-                preferences.playlistPreferences.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)
+                prefs.playlistOnStartup = .loadFolder
+                prefs.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)
                 
             } else {
                 
@@ -159,9 +166,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         // View on startup
+        prefs.viewOnStartup.option = btnStartWithView.isOn() ? .specific : .rememberFromLastAppLaunch
+        prefs.viewOnStartup.viewName = viewMenu.selectedItem!.title
         
-        preferences.playlistPreferences.viewOnStartup.option = btnStartWithView.isOn() ? .specific : .rememberFromLastAppLaunch
-        preferences.playlistPreferences.viewOnStartup.viewName = viewMenu.selectedItem!.title
+        // Show new track
+        prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {
