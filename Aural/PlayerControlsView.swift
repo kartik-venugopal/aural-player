@@ -136,13 +136,7 @@ class PlayerControlsView: NSView {
         
         let seekTimerInterval = Int(1000 / (2 * playbackRate))
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {
-            
             self.updateSeekPosition()
-            
-            for task in SeekTimerTaskQueue.tasksArray {
-                task()
-            }
-            
         }, queue: DispatchQueue.main)
     }
 
@@ -210,6 +204,10 @@ class PlayerControlsView: NSView {
 
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining
+        
+        for task in SeekTimerTaskQueue.tasksArray {
+            task()
+        }
     }
 
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
