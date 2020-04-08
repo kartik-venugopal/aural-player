@@ -1077,17 +1077,24 @@ CA
                                     <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title=" Chapters list window" state="on" image="ToggleEffectsView-Small" keyEquivalent="3" id="ue6-io-lgd" userLabel="Effects">
+                                <connections>
+                                    <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="sim-s2-Ggl"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>
                             <menuItem title="  Player view" indentationLevel="1" id="af4-4E-1QV" userLabel="Player view">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Player view" autoenablesItems="NO" id="y9u-HE-dXj">
                                     <items>
-                                        <menuItem title="Default view" state="on" keyEquivalent="3" id="0Vx-5M-0eg">
+                                        <menuItem title="Default view" state="on" id="0Vx-5M-0eg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="playerDefaultViewAction:" target="YVQ-JN-BbP" id="81p-Pu-JHT"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Expanded art view" keyEquivalent="4" id="qqG-bq-Cq8">
+                                        <menuItem title="Expanded art view" id="qqG-bq-Cq8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="playerExpandedArtViewAction:" target="YVQ-JN-BbP" id="MK8-fC-dxE"/>
                                             </connections>

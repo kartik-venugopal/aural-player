@@ -94,9 +94,14 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
     }
     
-    // Shows/hides the effects panel
+    // Shows/hides the effects window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+    }
+    
+    // Shows/hides the chapters list window
+    @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleChaptersList))
     }
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {

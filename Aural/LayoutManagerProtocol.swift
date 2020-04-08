@@ -17,4 +17,8 @@ protocol LayoutManagerProtocol {
     func getPlaylistWindowFrame() -> NSRect
     
     func addChildWindow(_ window: NSWindow)
+    
+    func showChaptersList()
+    
+    func hideChaptersList()
 }

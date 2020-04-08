@@ -59,7 +59,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let chaptersWindowIskey = PlaylistViewState.showingChapters && NSApp.keyWindow == layoutManager.chaptersWindow
+        let chaptersWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersWindow
         
         theMenu.enableIf(layoutManager.isShowingPlaylist() || chaptersWindowIskey)
         
