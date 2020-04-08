@@ -562,7 +562,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
-            if (!snapped) && WindowState.showingEffects {
+            if (!snapped) && layoutManager.isShowingEffects() {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
             }
         }

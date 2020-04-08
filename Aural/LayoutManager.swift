@@ -175,7 +175,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     func showChaptersList() {
         
         playlistWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
-        chaptersWindow.orderFront(self)
+        chaptersWindow.makeKeyAndOrderFront(self)
     }
     
     func hideChaptersList() {

@@ -44,8 +44,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
             
-            print("POLLING ...")
-            
             let playingChapter: Int? = self.player.playingChapter
             
             if (self.curChapter != playingChapter) {
