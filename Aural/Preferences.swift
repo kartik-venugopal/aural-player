@@ -80,8 +80,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
-    var showNewTrackInPlaylist: Bool
-    
     var rememberLastPosition: Bool
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
@@ -127,8 +125,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
             autoplayAfterAddingOption = PreferencesDefaults.Playback.autoplayAfterAddingOption
         }
         
-        showNewTrackInPlaylist = defaultsDictionary["playback.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playback.showNewTrackInPlaylist
-        
         rememberLastPosition = defaultsDictionary["playback.rememberLastPosition"] as? Bool ?? PreferencesDefaults.Playback.rememberLastPosition
         
         if let optionStr = defaultsDictionary["playback.rememberLastPosition.option"] as? String {
@@ -156,8 +152,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
         defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
-        
-        defaults.set(showNewTrackInPlaylist, forKey: "playback.showNewTrackInPlaylist")
         
         defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
         defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
@@ -348,6 +342,8 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     var viewOnStartup: PlaylistViewOnStartup
     
+    var showNewTrackInPlaylist: Bool
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         viewOnStartup = PreferencesDefaults.Playlist.viewOnStartup
@@ -371,6 +367,8 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         } else {
             playlistFile = PreferencesDefaults.Playlist.playlistFile
         }
+        
+        showNewTrackInPlaylist = defaultsDictionary["playlist.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playlist.showNewTrackInPlaylist
         
         // If .loadFile selected but no file available to load from, revert back to defaults
         if (playlistOnStartup == .loadFile && playlistFile == nil) {
@@ -401,6 +399,8 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         
         defaults.set(viewOnStartup.option.rawValue, forKey: "playlist.viewOnStartup.option")
         defaults.set(viewOnStartup.viewName, forKey: "playlist.viewOnStartup.view")
+        
+        defaults.set(showNewTrackInPlaylist, forKey: "playlist.showNewTrackInPlaylist")
     }
 }
 
@@ -569,7 +569,6 @@ fileprivate struct PreferencesDefaults {
         static let autoplayAfterAddingTracks: Bool = false
         
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
-        static let showNewTrackInPlaylist: Bool = true
         
         static let rememberLastPosition: Bool = false
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
@@ -631,6 +630,8 @@ fileprivate struct PreferencesDefaults {
         static let tracksFolder: URL? = nil
         
         static let viewOnStartup: PlaylistViewOnStartup = PlaylistViewOnStartup.defaultInstance
+        
+        static let showNewTrackInPlaylist: Bool = true
     }
     
     struct View {

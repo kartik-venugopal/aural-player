@@ -19,7 +19,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
-    private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
+    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
@@ -667,7 +667,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
-                    if curViewGroupType == self.groupType && playbackPreferences.showNewTrackInPlaylist {
+                    if curViewGroupType == self.groupType && preferences.showNewTrackInPlaylist {
                         showPlayingTrack()
                     }
                 }
@@ -679,7 +679,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
-                    if curViewGroupType == self.groupType && playbackPreferences.showNewTrackInPlaylist {
+                    if curViewGroupType == self.groupType && preferences.showNewTrackInPlaylist {
                         clearSelection()
                     }
                 }
@@ -785,7 +785,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == self.playlistType && playbackPreferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.track)
         }
