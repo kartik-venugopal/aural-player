@@ -137,6 +137,7 @@
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
                 <outlet property="playlistViewMenuItem" destination="eaG-Cs-3CM" id="NTn-ZH-HCr"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
+                <outlet property="toggleChaptersListMenuItem" destination="ue6-io-lgd" id="Krv-29-3r1"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="0PH-nx-xo9" id="60y-S3-b3m"/>
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
@@ -1077,9 +1078,9 @@ CA
                                     <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Chapters list window" state="on" image="ToggleEffectsView-Small" keyEquivalent="3" id="ue6-io-lgd" userLabel="Effects">
+                            <menuItem title=" Chapters list window" state="on" image="ToggleChaptersList-Small" keyEquivalent="3" id="ue6-io-lgd" userLabel="Effects">
                                 <connections>
-                                    <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="sim-s2-Ggl"/>
+                                    <action selector="toggleChaptersListAction:" target="xzd-WN-BuR" id="9P9-p0-Jze"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>
@@ -1663,6 +1664,7 @@ CA
         <image name="Sort-Small" width="17" height="14"/>
         <image name="Stop-Small" width="9" height="9"/>
         <image name="Time" width="16" height="13"/>
+        <image name="ToggleChaptersList-Small" width="15" height="15"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up-Small" width="10" height="14"/>
