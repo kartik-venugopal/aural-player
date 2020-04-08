@@ -49,7 +49,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
     }
@@ -58,7 +58,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
     }
@@ -354,6 +354,67 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    private func performChapterPlayback(_ request: ChapterPlaybackRequest) {
+        
+        switch request.type {
+            
+        case .playSelectedChapter:  playChapter(request.index!)
+            
+        case .previousChapter:  previousChapter()
+            
+        case .nextChapter:  nextChapter()
+            
+        case .replayChapter:    replayChapter()
+            
+        case .addChapterLoop:   addChapterLoop()
+            
+        case .removeChapterLoop:    removeChapterLoop()
+            
+        }
+    }
+    
+    private func playChapter(_ index: Int) {
+        
+        player.playChapter(index)
+        controlsView.updateSeekPosition()
+        controlsView.playbackStateChanged(player.state)
+    }
+    
+    private func previousChapter() {
+        
+        player.previousChapter()
+        controlsView.updateSeekPosition()
+        controlsView.playbackStateChanged(player.state)
+        
+        // TODO: Loop may have been removed
+    }
+    
+    private func nextChapter() {
+        
+        player.nextChapter()
+        controlsView.updateSeekPosition()
+        controlsView.playbackStateChanged(player.state)
+    }
+    
+    private func replayChapter() {
+        
+        player.replayChapter()
+        controlsView.updateSeekPosition()
+        controlsView.playbackStateChanged(player.state)
+    }
+    
+    private func addChapterLoop() {
+        
+        player.loopChapter()
+        controlsView.updateSeekPosition()
+    }
+    
+    private func removeChapterLoop() {
+        
+        _ = player.toggleLoop()
+        controlsView.updateSeekPosition()
+    }
+    
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         controlsView.gapStarted()
     }
@@ -431,7 +492,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
             playbackRateChanged(notification as! PlaybackRateChangedNotification)
             
-        case .playbackLoopChangedNotification, .chapterLoopCreatedNotification:
+        case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
             
@@ -451,6 +512,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .playbackRequest:
             
             performPlayback(request as! PlaybackRequest)
+            
+        case .chapterPlaybackRequest:
+            
+            performChapterPlayback(request as! ChapterPlaybackRequest)
             
         default: break
             

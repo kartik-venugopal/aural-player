@@ -73,8 +73,6 @@ enum MessageType {
     
     case playbackLoopChangedNotification
     
-    case chapterLoopCreatedNotification
-    
     case seekPositionChangedNotification
     
     case searchTextChangedNotification
@@ -106,6 +104,8 @@ enum MessageType {
     case mouseExitedView
     
     case playbackRequest
+    
+    case chapterPlaybackRequest
     
     case appExitRequest
     
@@ -354,6 +354,34 @@ struct PlaybackRequest: RequestMessage {
     }
 }
 
+struct ChapterPlaybackRequest: RequestMessage {
+    
+    let messageType: MessageType = .chapterPlaybackRequest
+    
+    let type: ChapterPlaybackRequestType
+    
+    var index: Int? = nil
+    
+    init(_ type: ChapterPlaybackRequestType) {
+        self.type = type
+    }
+    
+    init(_ type: ChapterPlaybackRequestType, _ index: Int) {
+        self.type = type
+        self.index = index
+    }
+}
+
+enum ChapterPlaybackRequestType {
+    
+    case playSelectedChapter
+    case previousChapter
+    case nextChapter
+    case replayChapter
+    case addChapterLoop
+    case removeChapterLoop
+}
+
 // Enumerates all the possible playback request types. See PlaybackRequest.
 enum PlaybackRequestType {
     
@@ -463,16 +491,6 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     
     // Singleton
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
-}
-
-struct ChapterLoopCreatedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .chapterLoopCreatedNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: ChapterLoopCreatedNotification = ChapterLoopCreatedNotification()
 }
 
 // TODO: This is dead code, remove it

@@ -620,8 +620,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             seekToTime(track.chapters[index].startTime)
             
-            // Need to publish this for a UI update since the seek is being triggered from outside the player
-            SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+            if player.state == .paused {
+                player.resume()
+            }
             
             if (chapterChanged) {
                 removeLoop()
@@ -641,6 +642,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         if let cur = playingChapter {
             playChapter(cur + 1)
+        }
+    }
+    
+    func replayChapter() {
+        
+        if let track = playingTrack?.track, let curChapter = playingChapter {
+            
+            seekToTime(track.chapters[curChapter].startTime)
+            
+            if player.state == .paused {
+                player.resume()
+            }
         }
     }
     

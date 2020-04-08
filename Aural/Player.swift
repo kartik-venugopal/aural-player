@@ -60,9 +60,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         
         // Define the loop within the session
         session.loop = PlaybackLoop(loopStartPosition, loopEndPosition)
-        scheduler.playLoop(session, seekPosition, true)
-        
-        state = .playing
+        scheduler.playLoop(session, seekPosition, state == .playing)
     }
     
     func pause() {
