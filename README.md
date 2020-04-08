@@ -97,7 +97,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
 
-### Detailed track info popover
+### Detailed track info
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
