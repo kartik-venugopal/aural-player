@@ -16,6 +16,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
     
     @IBOutlet weak var playlistViewMenuItem: NSMenuItem!
     @IBOutlet weak var effectsViewMenuItem: NSMenuItem!
@@ -42,6 +43,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         playerMenuItem.enableIf(player.state != .transcoding)
         manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
+        toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -56,6 +58,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist())
             toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects())
+            toggleChaptersListMenuItem.onIf(layoutManager.isShowingChaptersList)
             
         } else {
             
