@@ -281,8 +281,11 @@ enum ActionType {
     // Show/hide the playlist window
     case togglePlaylist
     
-    // Show/hide the Effects panel
+    // Show/hide the Effects window
     case toggleEffects
+    
+    // Show/hide the Chapters list window
+    case toggleChaptersList
     
     case bookmarkPosition
     case bookmarkLoop

@@ -69,6 +69,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
     
+    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -120,7 +122,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == clickedTrack {
                 isPlayingTrack = true
             }
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && clickedTrack.hasChapters && !PlaylistViewState.showingChapters)
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && clickedTrack.hasChapters && !layoutManager.isShowingChaptersList)
             
         case .group:
             

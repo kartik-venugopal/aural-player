@@ -19,7 +19,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         self.appState = appState
         self.preferences = preferences
         
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .toggleChaptersList], subscriber: self)
     }
     
     // MARK - Core functionality ----------------------------------------------------
@@ -105,6 +105,10 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         return playlistWindow.isVisible
     }
     
+    var isShowingChaptersList: Bool {
+        return chaptersWindow.isVisible
+    }
+    
     func getMainWindowFrame() -> NSRect {
         return mainWindow.frame
     }
@@ -163,6 +167,21 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         playlistWindow.setIsVisible(false)
     }
     
+    func toggleChaptersList() {
+        
+        isShowingChaptersList ? hideChaptersList() : showChaptersList()
+    }
+    
+    func showChaptersList() {
+        
+        playlistWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
+        chaptersWindow.orderFront(self)
+    }
+    
+    func hideChaptersList() {
+        chaptersWindow.setIsVisible(false)
+    }
+    
     func addChildWindow(_ window: NSWindow) {
         mainWindow.addChildWindow(window, ordered: .above)
     }
@@ -192,6 +211,8 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         case .toggleEffects:    toggleEffects()
             
         case .togglePlaylist:   togglePlaylist()
+            
+        case .toggleChaptersList: toggleChaptersList()
             
         default: return
             

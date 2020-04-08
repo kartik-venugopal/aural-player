@@ -56,6 +56,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var chaptersWindow: NSWindow = WindowFactory.chaptersWindow
     
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
@@ -423,21 +425,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
-        if let track = newTrack?.track {
-            
-            if track.hasChapters {
-                
-                viewChapters()
-                
-            } else {
-                
-                // No chapters in new track
-                
-                if (theWindow.childWindows != nil && theWindow.childWindows!.count > 0) {
-                    chaptersWindow.setIsVisible(false)
-                    PlaylistViewState.showingChapters = false
-                }
-            }
+        if let track = newTrack?.track, track.hasChapters {
+            layoutManager.showChaptersList()
+        } else {
+            layoutManager.hideChaptersList()
         }
     }
     
@@ -450,7 +441,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         chaptersWindow.setIsVisible(true)
-        PlaylistViewState.showingChapters = true
     }
     
     var subscriberId: String {
@@ -670,7 +660,7 @@ class PlaylistViewState {
         return items
     }
     
-    static var showingChapters: Bool = false
+//    static var showingChapters: Bool = false
     
     static var selectedChapter: SelectedItem? {
         
