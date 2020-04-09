@@ -43,6 +43,9 @@ struct Images {
     
     static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     
+    static let imgLoopChapterOff: NSImage = NSImage(named: "LoopChapter-Off")!
+    static let imgLoopChapterOn: NSImage = NSImage(named: "LoopChapter-On")!
+    
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
     static let imgGroup_noPadding: NSImage = NSImage(named: "Group-NoPadding")!

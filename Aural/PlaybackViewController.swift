@@ -376,14 +376,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func playChapter(_ index: Int) {
         
         player.playChapter(index)
-        controlsView.updateSeekPosition()
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
         controlsView.playbackStateChanged(player.state)
+        
     }
     
     private func previousChapter() {
         
         player.previousChapter()
-        controlsView.updateSeekPosition()
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
         controlsView.playbackStateChanged(player.state)
         
         // TODO: Loop may have been removed
@@ -392,7 +393,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func nextChapter() {
         
         player.nextChapter()
-        controlsView.updateSeekPosition()
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
         controlsView.playbackStateChanged(player.state)
     }
     
@@ -406,13 +407,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func addChapterLoop() {
         
         player.loopChapter()
-        controlsView.updateSeekPosition()
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
     }
     
     private func removeChapterLoop() {
         
         _ = player.toggleLoop()
-        controlsView.updateSeekPosition()
+        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {

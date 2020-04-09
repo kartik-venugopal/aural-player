@@ -19,7 +19,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         initSubscriptions()
         
         looping = false
-        btnLoopChapter.image = Images.imgRepeatOff
+        btnLoopChapter.image = Images.imgLoopChapterOff
     }
     
     override func viewDidAppear() {
@@ -80,7 +80,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgRepeatOff
+            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
@@ -90,7 +90,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgRepeatOff
+            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
@@ -100,7 +100,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgRepeatOff
+            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
@@ -110,7 +110,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgRepeatOff
+            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
@@ -120,13 +120,13 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
             // Remove the loop
             _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.removeChapterLoop))
-            btnLoopChapter.image = Images.imgRepeatOff
+            btnLoopChapter.image = Images.imgLoopChapterOff
             
         } else {
             
             // Start a loop
             _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.addChapterLoop))
-            btnLoopChapter.image = Images.imgRepeatOn
+            btnLoopChapter.image = Images.imgLoopChapterOn
         }
         
         looping = !looping
@@ -206,6 +206,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func loopChanged() {
         looping = false
-        btnLoopChapter.image = Images.imgRepeatOff
+        btnLoopChapter.image = Images.imgLoopChapterOff
     }
 }

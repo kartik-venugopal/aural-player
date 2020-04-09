@@ -70,7 +70,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="486" y="13" width="18" height="13"/>
+                                    <rect key="frame" x="467" y="13" width="18" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="18" id="dEO-mN-5K5"/>
                                         <constraint firstAttribute="height" constant="13" id="h3x-Ht-Ek1"/>
@@ -87,7 +87,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="509" y="13" width="18" height="13"/>
+                                    <rect key="frame" x="490" y="13" width="18" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="18" id="Zcc-HB-5qH"/>
                                         <constraint firstAttribute="height" constant="13" id="dbX-MT-yPB"/>
@@ -104,12 +104,12 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Loop current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="531" y="6" width="28" height="22"/>
+                                    <rect key="frame" x="537" y="11" width="17" height="17"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="22" id="9GP-DR-xzf"/>
-                                        <constraint firstAttribute="width" constant="28" id="kyd-iY-5bD"/>
+                                        <constraint firstAttribute="height" constant="17" id="9GP-DR-xzf"/>
+                                        <constraint firstAttribute="width" constant="17" id="kyd-iY-5bD"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UKo-WT-hH4">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopChapter-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UKo-WT-hH4">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -117,16 +117,32 @@
                                         <action selector="loopCurrentChapterAction:" target="uhU-UR-xwr" id="RaD-7e-AiX"/>
                                     </connections>
                                 </button>
+                                <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="518" y="13" width="14" height="14"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="14" id="Tmw-pA-lzr"/>
+                                        <constraint firstAttribute="height" constant="14" id="tai-mK-py5"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ReplayChapter" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dfN-R0-OXt">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="replayChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="vD3-y2-J8L" secondAttribute="trailing" constant="11" id="3ba-wn-pjm"/>
+                                <constraint firstAttribute="trailing" secondItem="vD3-y2-J8L" secondAttribute="trailing" constant="16" id="3ba-wn-pjm"/>
                                 <constraint firstAttribute="bottom" secondItem="iBr-vY-6sc" secondAttribute="bottom" constant="13" id="3g0-gO-SAX"/>
-                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="iBr-vY-6sc" secondAttribute="trailing" constant="4" id="81v-tG-DDo"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="8Zr-hA-Vcd"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="7" id="EHh-Jx-In0"/>
+                                <constraint firstItem="Tye-Wf-orr" firstAttribute="leading" secondItem="iBr-vY-6sc" secondAttribute="trailing" constant="10" id="Fg7-lE-DWh"/>
+                                <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="13" id="JeX-co-VLM"/>
                                 <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="15" id="OqM-Ff-z6c"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="centerX" secondItem="R3F-5h-tZn" secondAttribute="centerX" id="Pbu-q0-PCr"/>
-                                <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="6" id="e3E-Dp-aLS"/>
+                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="5" id="Z9J-lI-q07"/>
+                                <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="leading" secondItem="Axi-IH-THL" secondAttribute="trailing" constant="5" id="sOn-dk-dnK"/>
@@ -382,8 +398,9 @@
     </objects>
     <resources>
         <image name="Close" width="16" height="16"/>
+        <image name="LoopChapter-Off" width="20" height="20"/>
         <image name="NextTrack" width="36" height="23"/>
         <image name="PreviousTrack" width="36" height="23"/>
-        <image name="RepeatOff" width="26" height="26"/>
+        <image name="ReplayChapter" width="25" height="25"/>
     </resources>
 </document>
