@@ -278,6 +278,7 @@ class PlaybackScheduler {
         completionPollTimer?.stop()
     }
     
+    // TODO: Convert this func to a var
     // Retrieves the current seek position, in seconds
     func getSeekPosition() -> Double {
         
