@@ -652,7 +652,7 @@ CA
                                     <action selector="nextTrackAction:" target="IvK-xG-TCa" id="4mr-wR-zPu"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
+                            <menuItem title=" Replay current track" image="Replay-Small" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
                                 <connections>
                                     <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
                                 </connections>
@@ -675,7 +675,7 @@ CA
                                     <action selector="nextChapterAction:" target="IvK-xG-TCa" id="kbL-RW-cUJ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Replay current chapter" image="Replay" keyEquivalent="r" id="9zx-TV-7Ba" userLabel="Replay current track">
+                            <menuItem title=" Replay current chapter" image="Replay-Small" keyEquivalent="r" id="9zx-TV-7Ba" userLabel="Replay current track">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="replayChapterAction:" target="IvK-xG-TCa" id="aF7-sI-D8f"/>
@@ -1505,7 +1505,7 @@ CA
                         <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Replay current track" image="Replay" id="xaX-37-oif" userLabel="Replay current track">
+                <menuItem title="Replay current track" image="Replay-Small" id="xaX-37-oif" userLabel="Replay current track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="replayTrackAction:" target="29W-IU-ITu" id="maR-Bc-sWa"/>
@@ -1653,7 +1653,7 @@ CA
         <image name="RepeatAll-Small" width="17" height="17"/>
         <image name="RepeatMode-Small" width="14" height="13"/>
         <image name="RepeatOne-Small" width="17" height="17"/>
-        <image name="Replay" width="14" height="14"/>
+        <image name="Replay-Small" width="14" height="14"/>
         <image name="Save-Small" width="12" height="12"/>
         <image name="ScrollToBottom-Small" width="12" height="12"/>
         <image name="ScrollToTop-Small" width="12" height="12"/>

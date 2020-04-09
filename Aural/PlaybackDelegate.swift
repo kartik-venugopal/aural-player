@@ -614,7 +614,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func playChapter(_ index: Int) {
         
-        let chapterChanged: Bool = playingChapter == index
+        let chapterChanged: Bool = playingChapter != index
         
         if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
             
