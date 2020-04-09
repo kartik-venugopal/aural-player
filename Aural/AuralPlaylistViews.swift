@@ -494,7 +494,9 @@ class BasicTableCellView: NSTableCellView {
     var textFont: NSFont = Fonts.gillSans10Font
     var selectedTextFont: NSFont = Fonts.gillSans10Font
     
-    // TODO: Store this logic in a closure passed in by the view delegate, instead of using TableViewHolder
+    var textColor: NSColor = Colors.playlistTextColor
+    var selectedTextColor: NSColor = Colors.playlistSelectedTextColor
+    
     var isSelRow: Bool {
         return selectionFunction()
     }
@@ -511,7 +513,7 @@ class BasicTableCellView: NSTableCellView {
         // Check if this row is selected, change font and color accordingly
         if let textField = self.textField {
             
-            textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+            textField.textColor = isSelRow ?  selectedTextColor : textColor
             textField.font = isSelRow ? selectedTextFont : textFont
         }
     }
