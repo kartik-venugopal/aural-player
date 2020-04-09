@@ -684,7 +684,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             var index: Int = 0
             for chapter in track.chapters {
                 
-                if (elapsed >= chapter.startTime && elapsed <= chapter.endTime) {
+                if (elapsed >= chapter.startTime && elapsed < chapter.endTime) {
                     return index
                 }
                 

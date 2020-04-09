@@ -60,11 +60,20 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createIndexTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> IndexCellView? {
+    private func createIndexTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
-            cell.textField?.font = TextSizes.playlistIndexFont
+            cell.textFont = TextSizes.playlistTrackNameFont
+            cell.selectedTextFont = TextSizes.playlistTrackNameFont
+            
+            cell.textColor = Colors.playlistIndexTextColor
+            cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
+            
+            cell.selectionFunction = {() -> Bool in
+                return tableView.selectedRowIndexes.contains(row)
+            }
+            
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.imageView?.hide()
@@ -76,9 +85,9 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createIndexImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> IndexCellView? {
+    private func createIndexImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -89,7 +98,16 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
             // Hide the text view
             cell.textField?.hide()
             
-            cell.textField?.font = TextSizes.playlistIndexFont
+            cell.textFont = TextSizes.playlistTrackNameFont
+            cell.selectedTextFont = TextSizes.playlistTrackNameFont
+            
+            cell.textColor = Colors.playlistIndexTextColor
+            cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
+            
+            cell.selectionFunction = {() -> Bool in
+                return tableView.selectedRowIndexes.contains(row)
+            }
+            
             cell.textField?.stringValue = text
             cell.row = row
             
@@ -99,13 +117,22 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createTitleCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> NSTableCellView? {
+    private func createTitleCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
-            cell.textField?.font = TextSizes.playlistTrackNameFont
+            cell.textFont = TextSizes.playlistTrackNameFont
+            cell.selectedTextFont = TextSizes.playlistTrackNameFont
+            
+            cell.textColor = Colors.playlistTextColor
+            cell.selectedTextColor = Colors.playlistSelectedTextColor
+            
             cell.textField?.stringValue = text
             cell.textField?.show()
+            
+            cell.selectionFunction = {() -> Bool in
+                return tableView.selectedRowIndexes.contains(row)
+            }
             
             return cell
         }
@@ -113,13 +140,22 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> NSTableCellView? {
+    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
-            cell.textField?.font = TextSizes.playlistIndexFont
+            cell.textFont = TextSizes.playlistTrackNameFont
+            cell.selectedTextFont = TextSizes.playlistTrackNameFont
+            
+            cell.textColor = Colors.playlistIndexTextColor
+            cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
+            
             cell.textField?.stringValue = text
             cell.textField?.show()
+            
+            cell.selectionFunction = {() -> Bool in
+                return tableView.selectedRowIndexes.contains(row)
+            }
             
             return cell
         }

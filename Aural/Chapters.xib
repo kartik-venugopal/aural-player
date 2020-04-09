@@ -178,7 +178,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView focusRingType="none" id="gx7-Tt-VZI" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
+                                                <tableCellView focusRingType="none" id="gx7-Tt-VZI" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
                                                     <rect key="frame" x="1" y="2" width="40" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -229,7 +229,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView focusRingType="none" id="pKV-cH-4Ub" userLabel="Title Cell View" customClass="TrackNameCellView" customModule="Aural" customModuleProvider="target">
+                                                <tableCellView focusRingType="none" id="pKV-cH-4Ub" userLabel="Title Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
                                                     <rect key="frame" x="44" y="2" width="338" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -269,7 +269,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView focusRingType="none" id="liD-pB-9vw" userLabel="Start Time Cell View" customClass="DurationCellView" customModule="Aural" customModuleProvider="target">
+                                                <tableCellView focusRingType="none" id="liD-pB-9vw" userLabel="Start Time Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
                                                     <rect key="frame" x="385" y="2" width="71" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -309,7 +309,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView focusRingType="none" id="Bwv-8o-cAR" customClass="DurationCellView" customModule="Aural" customModuleProvider="target">
+                                                <tableCellView focusRingType="none" id="Bwv-8o-cAR" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
                                                     <rect key="frame" x="459" y="2" width="71" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
