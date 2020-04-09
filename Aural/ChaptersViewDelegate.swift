@@ -32,13 +32,11 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.chapterIndexColumnID:
                 
-                let indexText: String = String(describing: row + 1)
-                
                 if row == playbackInfo.playingChapter {
-                    return createIndexImageCell(tableView, UIConstants.chapterIndexColumnID, indexText, row)
+                    return createIndexImageCell(tableView, UIConstants.chapterIndexColumnID, String(describing: row + 1), row)
                 }
                 
-                return createIndexTextCell(tableView, UIConstants.chapterIndexColumnID, indexText, row)
+                return createIndexTextCell(tableView, UIConstants.chapterIndexColumnID, String(describing: row + 1), row)
                 
             case UIConstants.chapterTitleColumnID:
                 

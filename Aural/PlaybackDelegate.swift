@@ -23,6 +23,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private var pendingPlaybackBlock: (() -> Void) = {}
     
+    private let chapterPlaybackStartTimeMargin: Double = 0.025
+    
     init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
@@ -618,7 +620,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
             
-            seekToTime(track.chapters[index].startTime)
+            // HACK: Add a little margin to the chapter start time to avoid overlap in chapters (except if the start time is zero)
+            let startTime = track.chapters[index].startTime
+            seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
             if player.state == .paused {
                 player.resume()
