@@ -91,7 +91,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ### Segment loop playback
 
-![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Segment loop playback")
+![App screenshot](/Documentation/Demos/ABLoop.gif?raw=true "Segment loop playback")
 
 ### Using the Effects panel to disable/enable effects
 
