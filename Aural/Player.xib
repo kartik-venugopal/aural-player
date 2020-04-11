@@ -515,8 +515,8 @@ G1BhbiBTbGlkZXI
                     <outlet property="seekPositionMarker" destination="hGa-vL-OD4" id="sg9-9h-Att"/>
                     <outlet property="seekSlider" destination="lQg-lW-5YM" id="xGk-xd-tiV"/>
                     <outlet property="seekSliderCell" destination="gw1-uf-YzQ" id="DMd-Wl-dNk"/>
-                    <outlet property="seekSliderClone" destination="JK0-dx-fpr" id="So1-ct-ej7"/>
-                    <outlet property="seekSliderCloneCell" destination="e8S-Qc-bqn" id="zJD-cE-Mlw"/>
+                    <outlet property="seekSliderClone" destination="AtH-8Z-peJ" id="1Ir-w6-oUB"/>
+                    <outlet property="seekSliderCloneCell" destination="pMe-qS-W4T" id="Z5v-g8-Vf6"/>
                     <outlet property="volumeSlider" destination="2ua-z2-ISt" id="bR0-B1-e3H"/>
                 </connections>
             </view>
@@ -586,12 +586,6 @@ G1BhbiBTbGlkZXI
             <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="329" y="616"/>
         </box>
-        <slider verticalHuggingPriority="750" id="JK0-dx-fpr" userLabel="Seek Slider Clone">
-            <rect key="frame" x="0.0" y="0.0" width="496" height="19"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="e8S-Qc-bqn" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
-            <point key="canvasLocation" x="27" y="611"/>
-        </slider>
         <view wantsLayer="YES" appearanceType="aqua" id="2kf-ao-Oha" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -703,6 +697,17 @@ Gw
             </connections>
             <point key="canvasLocation" x="-1896" y="431"/>
         </view>
+        <slider verticalHuggingPriority="750" id="AtH-8Z-peJ" userLabel="Seek Slider Clone">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="15"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <shadow key="shadow" blurRadius="1">
+                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            </shadow>
+            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="pMe-qS-W4T" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <connections>
+                <action selector="seekSliderAction:" target="RSE-vv-5aa" id="2LM-MK-ujL"/>
+            </connections>
+        </slider>
     </objects>
     <resources>
         <image name="Bookmark" width="27" height="27"/>
