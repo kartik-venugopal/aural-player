@@ -118,10 +118,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="518" y="13" width="14" height="14"/>
+                                    <rect key="frame" x="518" y="13" width="13" height="13"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="14" id="Tmw-pA-lzr"/>
-                                        <constraint firstAttribute="height" constant="14" id="tai-mK-py5"/>
+                                        <constraint firstAttribute="width" constant="13" id="Tmw-pA-lzr"/>
+                                        <constraint firstAttribute="height" constant="13" id="tai-mK-py5"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ReplayChapter" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dfN-R0-OXt">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -141,7 +141,7 @@
                                 <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="13" id="JeX-co-VLM"/>
                                 <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="15" id="OqM-Ff-z6c"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="centerX" secondItem="R3F-5h-tZn" secondAttribute="centerX" id="Pbu-q0-PCr"/>
-                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="5" id="Z9J-lI-q07"/>
+                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="6" id="Z9J-lI-q07"/>
                                 <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
@@ -399,8 +399,8 @@
     <resources>
         <image name="Close" width="16" height="16"/>
         <image name="LoopChapter-Off" width="20" height="20"/>
-        <image name="NextTrack" width="36" height="23"/>
-        <image name="PreviousTrack" width="36" height="23"/>
+        <image name="NextTrack" width="31" height="35"/>
+        <image name="PreviousTrack" width="31" height="35"/>
         <image name="ReplayChapter" width="25" height="25"/>
     </resources>
 </document>

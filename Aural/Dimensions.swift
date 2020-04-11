@@ -121,9 +121,9 @@ class TextSizes {
         }
     }
     
-    private static let chapterFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
-    private static let chapterFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
-    private static let chapterFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    private static let chapterFont_normal: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let chapterFont_larger: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let chapterFont_largest: NSFont = NSFont(name: "Gill Sans", size: 14)!
     
     static var chapterFont: NSFont {
         

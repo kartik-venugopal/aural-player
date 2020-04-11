@@ -315,6 +315,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
             controlsView.panChanged(audioGraph.balance)
         }
+        
+        if let track = newTrack?.track, track.hasChapters {
+            beginPollingForChapterChange()
+        } else {
+            stopPollingForChapterChange()
+        }
     }
     
     private func trackChanged(_ message: TrackChangedAsyncMessage) {
@@ -446,6 +452,28 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func changeTextSize(_ textSize: TextSizeScheme) {
         controlsView.changeTextSize(textSize)
+    }
+    
+    // MARK: Current chapter tracking
+    
+    private var curChapter: Int? = nil
+    
+    private func beginPollingForChapterChange() {
+        
+        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
+            
+            let playingChapter: Int? = self.player.playingChapter
+            
+            if (self.curChapter != playingChapter) {
+                
+                SyncMessenger.publishNotification(ChapterChangedNotification(self.curChapter, playingChapter))
+                self.curChapter = playingChapter
+            }
+        })
+    }
+    
+    private func stopPollingForChapterChange() {
+        SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
     
     // MARK: Message handling

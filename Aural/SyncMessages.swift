@@ -59,6 +59,8 @@ enum MessageType {
     
     case trackChangedNotification
     
+    case chapterChangedNotification
+    
     case sequenceChangedNotification
     
     case effectsUnitStateChangedNotification
@@ -175,6 +177,23 @@ struct PreTrackChangeNotification: NotificationMessage {
         self.oldTrack = oldTrack
         self.oldState = oldState
         self.newTrack = newTrack
+    }
+}
+
+struct ChapterChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .chapterChangedNotification
+    
+    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    let oldChapter: Int?
+    
+    // The track that is now playing (may be nil, meaning no track playing)
+    let newChapter: Int?
+    
+    init(_ oldChapter: Int?, _ newChapter: Int?) {
+        
+        self.oldChapter = oldChapter
+        self.newChapter = newChapter
     }
 }
 

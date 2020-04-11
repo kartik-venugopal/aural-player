@@ -117,6 +117,10 @@ class PlayerView: NSView {
         artView.image = Images.imgPlayingArt
     }
     
+    func chapterChanged(_ chapterTitle: String?) {
+        infoView.chapterChanged(chapterTitle)
+    }
+    
     func sequenceChanged(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
 //        infoView.sequenceChanged(sequence)
     }
