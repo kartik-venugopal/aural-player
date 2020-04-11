@@ -26,12 +26,15 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         initSubscriptions()
         
-        let newTrack = player.playingTrack
-        
-        if (newTrack != nil) {
+        if let newTrack = player.playingTrack?.track {
             
-            let sequence = player.sequenceInfo
-            theView?.showNowPlayingInfo(newTrack!.track, player.state, sequence)
+            var chapterTitle: String?
+            
+            if let chapterIndex = player.playingChapter {
+                chapterTitle = newTrack.chapters[chapterIndex].title
+            }
+            
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
             
         } else {
             
@@ -65,8 +68,16 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     private func trackChanged(_ track: Track?) {
         
-        if (track != nil && player.state != .transcoding) {
-            theView?.showNowPlayingInfo(track!, player.state, player.sequenceInfo)
+        if let newTrack = player.playingTrack?.track, player.state != .transcoding {
+            
+            var chapterTitle: String?
+            
+            if let chapterIndex = player.playingChapter {
+                chapterTitle = newTrack.chapters[chapterIndex].title
+            }
+            
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+            
         } else {
             
             // No track playing, clear the info fields
@@ -83,15 +94,15 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     private func transcodingFinished() {
         
-        let track = player.playingTrack?.track
-        
-        if (track != nil) {
-            theView?.showNowPlayingInfo(track!, player.state, player.sequenceInfo)
-        } else {
-         
-            // IMPOSSIBLE
-            // No track playing, clear the info fields
-            theView?.clearNowPlayingInfo()
+        if let newTrack = player.playingTrack?.track {
+            
+            var chapterTitle: String?
+            
+            if let chapterIndex = player.playingChapter {
+                chapterTitle = newTrack.chapters[chapterIndex].title
+            }
+            
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
         }
     }
     
@@ -101,7 +112,17 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
-        theView?.showNowPlayingInfo(player.playingTrack!.track, player.state, player.sequenceInfo)
+        
+        if let newTrack = player.playingTrack?.track {
+            
+            var chapterTitle: String?
+            
+            if let chapterIndex = player.playingChapter {
+                chapterTitle = newTrack.chapters[chapterIndex].title
+            }
+            
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+        }
     }
     
     private func sequenceChanged() {

@@ -57,8 +57,11 @@ class TrackInfoView: NSView {
     }
     
     func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapter: String?) {
-        self.track = track
+        
+        //        self.chapter = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        
         self.chapter = chapter
+        self.track = track
     }
     
     private func update() {
@@ -71,7 +74,10 @@ class TrackInfoView: NSView {
             let hasArtistAlbum: Bool = artistAlbumStr != nil
             let hasChapter: Bool = chapter != nil
             
+            // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
+            
             let titleString = attributedString(title, TextSizes.titleFont, NSColor(white: 0.55, alpha: 1), hasArtistAlbum ? 3 : (hasChapter ? 5 : nil))
+//            let titleString = attributedString(title, TextSizes.titleFont, NSColor(white: 0.55, alpha: 1), 0)
             txt.textStorage?.append(titleString)
             
             if let _artistAlbumStr = artistAlbumStr {

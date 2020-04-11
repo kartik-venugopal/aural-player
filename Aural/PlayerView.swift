@@ -19,6 +19,8 @@ class PlayerView: NSView {
     
     func showView(_ playbackState: PlaybackState) {
         
+        print("ArtView before:", artView.frame, "InfoBox:", infoBox.frame)
+        
         self.addSubview(controlsBox, positioned: .above, relativeTo: nil)
         self.addSubview(functionsBox)
         
@@ -28,6 +30,8 @@ class PlayerView: NSView {
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
+        
+        print("ArtView:", artView.frame, "InfoBox:", infoBox.frame)
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -41,7 +45,7 @@ class PlayerView: NSView {
         
         // Vertically center functions box w.r.t. info box
         let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - 5 - functionsBox.frame.width, y: funcY))
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width, y: funcY))
     }
     
     func hideView() {
@@ -92,14 +96,16 @@ class PlayerView: NSView {
     
     // MARK: Track info functions
     
-    func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
+    func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapterTitle: String?) {
         
-        infoView.showNowPlayingInfo(track, sequence, nil)
+        infoView.showNowPlayingInfo(track, sequence, chapterTitle)
 //        infoView.track = track
         showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
+        
+        print("\n*** NOW ArtView:", artView.frame, "InfoBox:", infoBox.frame)
     }
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
@@ -188,7 +194,8 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y - 5
+//        artView.frame.origin.y = infoBox.frame.origin.y - 5
+        artView.frame.origin.y = infoBox.frame.origin.y + 5
     }
     
     override func showOrHideMainControls() {
