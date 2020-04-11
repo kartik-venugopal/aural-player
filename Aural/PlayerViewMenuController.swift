@@ -19,7 +19,6 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
     
-    @IBOutlet weak var metadataFieldsMenuItem: NSMenuItem!
     @IBOutlet weak var showArtistMenuItem: NSMenuItem!
     @IBOutlet weak var showAlbumMenuItem: NSMenuItem!
     @IBOutlet weak var showCurrentChapterMenuItem: NSMenuItem!
@@ -64,6 +63,28 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
+        
+        let trackInfoVisible: Bool = PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo
+        
+        var hasArtist: Bool = false
+        var hasAlbum: Bool = false
+        var hasChapters: Bool = false
+        
+        if let track = player.playingTrack?.track {
+            
+            hasArtist = track.displayInfo.artist != nil
+            hasAlbum = track.groupingInfo.album != nil
+            hasChapters = track.hasChapters
+        }
+        
+        showArtistMenuItem.showIf_elseHide(trackInfoVisible && hasArtist)
+        showArtistMenuItem.onIf(PlayerViewState.showArtist)
+        
+        showAlbumMenuItem.showIf_elseHide(trackInfoVisible && hasAlbum)
+        showAlbumMenuItem.onIf(PlayerViewState.showAlbum)
+        
+        showCurrentChapterMenuItem.showIf_elseHide(trackInfoVisible && hasChapters)
+        showCurrentChapterMenuItem.onIf(PlayerViewState.showCurrentChapter)
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
 //        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
@@ -150,6 +171,18 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
+    }
+    
+    @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideArtist))
+    }
+    
+    @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbum))
+    }
+    
+    @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideCurrentChapter))
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
