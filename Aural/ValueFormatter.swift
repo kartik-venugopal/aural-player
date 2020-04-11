@@ -24,10 +24,23 @@ class ValueFormatter {
         let panVal = Int(round(value))
         
         if (panVal < 0) {
-            return String(format: "L (%d%%)", abs(panVal))
+            
+            // Left of center
+            
+            let absVal = abs(panVal)
+            return absVal < 100 ? String(format: "L (%d%%)", absVal) : "L"
+            
         } else if (panVal > 0) {
-            return String(format: "R (%d%%)", panVal)
+            
+            // Right of center
+            
+            let absVal = abs(panVal)
+            return absVal < 100 ? String(format: "R (%d%%)", absVal) : "R"
+            
         } else {
+            
+            // Center
+            
             return "C"
         }
     }

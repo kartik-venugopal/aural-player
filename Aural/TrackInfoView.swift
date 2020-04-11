@@ -77,7 +77,6 @@ class TrackInfoView: NSView {
             // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
             
             let titleString = attributedString(title, TextSizes.titleFont, NSColor(white: 0.55, alpha: 1), hasArtistAlbum ? 3 : (hasChapter ? 5 : nil))
-//            let titleString = attributedString(title, TextSizes.titleFont, NSColor(white: 0.55, alpha: 1), 0)
             txt.textStorage?.append(titleString)
             
             if let _artistAlbumStr = artistAlbumStr {
@@ -92,23 +91,26 @@ class TrackInfoView: NSView {
                 txt.textStorage?.append(chapterString)
             }
             
-            txt.setAlignment(.center, range: .init(location: 0, length: txt.string.count))
+            centerAlign()
+        }
+    }
+    
+    private func centerAlign() {
+        
+        // Horizontal alignment
+        txt.setAlignment(.center, range: .init(location: 0, length: txt.string.count))
+        
+        // Vertical alignment
+        txt.layoutManager?.ensureLayout(for: txt.textContainer!)
+        
+        if let txtHeight = txt.layoutManager?.usedRect(for: txt.textContainer!).height {
             
-            // Vertically center
+            let htDiff = self.frame.height - txtHeight
             
-            txt.layoutManager?.ensureLayout(for: txt.textContainer!)
-            print(txt.layoutManager!.usedRect(for: txt.textContainer!).height)
+            var txtFrame = self.frame
+            txtFrame.origin.y = 0 - (htDiff / 2)
             
-            if let txtHeight = txt.layoutManager?.usedRect(for: txt.textContainer!).height {
-                
-                let htDiff = self.frame.height - txtHeight
-                
-                var txtFrame = self.frame
-                txtFrame.origin.y = 0 - htDiff / 2
-                
-                self.frame = txtFrame
-                print("txt frame now:", self.frame)
-            }
+            self.frame = txtFrame
         }
     }
     

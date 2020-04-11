@@ -19,8 +19,6 @@ class PlayerView: NSView {
     
     func showView(_ playbackState: PlaybackState) {
         
-        print("ArtView before:", artView.frame, "InfoBox:", infoBox.frame)
-        
         self.addSubview(controlsBox, positioned: .above, relativeTo: nil)
         self.addSubview(functionsBox)
         
@@ -30,8 +28,6 @@ class PlayerView: NSView {
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
-        
-        print("ArtView:", artView.frame, "InfoBox:", infoBox.frame)
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -99,19 +95,15 @@ class PlayerView: NSView {
     func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapterTitle: String?) {
         
         infoView.showNowPlayingInfo(track, sequence, chapterTitle)
-//        infoView.track = track
         showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
-        
-        print("\n*** NOW ArtView:", artView.frame, "InfoBox:", infoBox.frame)
     }
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
         
         infoView.showNowPlayingInfo(track, sequence, nil)
-//        infoView.track = track
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
@@ -176,8 +168,8 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 90) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 57)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 85) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 52)
     
     override func showView(_ playbackState: PlaybackState) {
         
