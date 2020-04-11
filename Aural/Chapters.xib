@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="208" y="350" width="155" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="155" id="OHs-Y5-8tw"/>
@@ -392,6 +392,7 @@
                 <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="A8X-fF-Lbb"/>
                 <outlet property="chaptersView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
+                <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
                 <outlet property="view" destination="rlg-QY-3mV" id="2Fb-Kb-dFb"/>
             </connections>
         </viewController>

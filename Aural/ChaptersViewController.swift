@@ -4,6 +4,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBOutlet weak var chaptersView: NSTableView!
     
+    @IBOutlet weak var lblWindowTitle: NSTextField!
     @IBOutlet weak var lblSummary: NSTextField!
     
     @IBOutlet weak var btnLoopChapter: NSButton!
@@ -22,9 +23,13 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     override func viewDidAppear() {
-        
+
+        // Need to do this every time the view reappears (i.e. the Chapters list window is opened)
         chaptersView.reloadData()
         lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+        
+        lblWindowTitle.font = TextSizes.playlistSummaryFont
+        lblSummary.font = TextSizes.playlistSummaryFont
     }
     
     private func initSubscriptions() {
@@ -32,7 +37,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
         
         // TODO: Subscribe to "Jump to time" ActionMessage so that chapter marking is updated even if player is paused
     }
@@ -151,6 +156,10 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
             loopCurrentChapterAction(self)
             
+        case .changePlaylistTextSize:
+            
+            changeTextSize()
+            
         default: return
             
         }
@@ -158,8 +167,12 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func trackChanged(_ msg: TrackChangedNotification) {
         
-        chaptersView.reloadData()
-        lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+        // Don't need to do this if the window is not visible
+        if let _window = view.window, _window.isVisible {
+            
+            chaptersView.reloadData()
+            lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+        }
     }
     
     private func chapterChanged(_ oldChapter: Int?, _ newChapter: Int?) {
@@ -182,5 +195,19 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     private func loopChanged() {
         looping = false
         btnLoopChapter.image = Images.imgLoopChapterOff
+    }
+    
+    private func changeTextSize() {
+        
+        // Don't need to do this if the window is not visible
+        if let _window = view.window, _window.isVisible {
+        
+            let selRows = chaptersView.selectedRowIndexes
+            chaptersView.reloadData()
+            chaptersView.selectRowIndexes(selRows, byExtendingSelection: false)
+            
+            lblWindowTitle.font = TextSizes.playlistSummaryFont
+            lblSummary.font = TextSizes.playlistSummaryFont
+        }
     }
 }
