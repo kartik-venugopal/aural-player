@@ -15,7 +15,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var showArtistMenuItem: NSMenuItem!
     @IBOutlet weak var showAlbumMenuItem: NSMenuItem!
     @IBOutlet weak var showCurrentChapterMenuItem: NSMenuItem!
-    private var metadataFields: [NSMenuItem] = []
     
     @IBOutlet weak var timeElapsedFormatMenuItem: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
@@ -41,8 +40,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func awakeFromNib() {
-        
-        metadataFields = [showArtistMenuItem, showAlbumMenuItem, showCurrentChapterMenuItem]
         
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
         

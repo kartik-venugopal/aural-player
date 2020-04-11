@@ -148,7 +148,10 @@
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="qqG-bq-Cq8" id="aJ0-SD-6eZ"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="QJL-UW-wrv"/>
+                <outlet property="showAlbumMenuItem" destination="Cm0-LS-Buo" id="6CI-62-71f"/>
                 <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="VSm-fb-Loh"/>
+                <outlet property="showArtistMenuItem" destination="FmK-ms-TfL" id="sJZ-zO-l0d"/>
+                <outlet property="showCurrentChapterMenuItem" destination="IA3-22-PyK" id="wB4-zQ-oFP"/>
                 <outlet property="showMainControlsMenuItem" destination="9dh-e2-H3v" id="C7w-Ey-jY2"/>
                 <outlet property="showSequenceInfoMenuItem" destination="aFP-Tg-nvW" id="w2o-R8-QJE"/>
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="4VY-Qb-AZX"/>
@@ -1107,6 +1110,24 @@ CA
                                                 <action selector="showOrHideAlbumArtAction:" target="YVQ-JN-BbP" id="Xl8-h8-TqZ"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Artist" id="FmK-ms-TfL">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideArtistAction:" target="YVQ-JN-BbP" id="AhS-Wl-LtH"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Album" id="Cm0-LS-Buo">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideAlbumAction:" target="YVQ-JN-BbP" id="7YC-6l-IOF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Current chapter title" id="IA3-22-PyK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideCurrentChapterAction:" target="YVQ-JN-BbP" id="YSL-X2-WaK"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Playing track info" id="UzR-MM-ibF" userLabel="Playing track info">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1119,6 +1140,7 @@ CA
                                                 <action selector="showOrHideSequenceInfoAction:" target="YVQ-JN-BbP" id="R2W-NN-i5s"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="MjU-sI-U0c"/>
                                         <menuItem title="Playing track functions" id="JiX-rw-gah">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
