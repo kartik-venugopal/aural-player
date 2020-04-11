@@ -14,7 +14,7 @@ class PlayerView: NSView {
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 52) }
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 47) }
     fileprivate var autoHideFields_showing: Bool = false
     
     func showView(_ playbackState: PlaybackState) {
@@ -111,7 +111,7 @@ class PlayerView: NSView {
     
     func clearNowPlayingInfo() {
         
-//        infoView.clearNowPlayingInfo()
+        infoView.clearNowPlayingInfo()
         showPlayingTrackInfo()
         
         artView.image = Images.imgPlayingArt
@@ -158,13 +158,14 @@ class PlayerView: NSView {
     
     func handOff(_ otherView: PlayerView) {
         
-//        infoView.handOff(otherView.infoView)
+        infoView.handOff(otherView.infoView)
         gapView.handOff(otherView.gapView)
         otherView.artView.image = artView.image
     }
     
     func changeTextSize(_ textSize: TextSizeScheme) {
-//        infoView.changeTextSize(textSize)
+        
+        infoView.changeTextSize(textSize)
         gapView.changeTextSize(textSize)
     }
 }
@@ -190,7 +191,6 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-//        artView.frame.origin.y = infoBox.frame.origin.y - 5
         artView.frame.origin.y = infoBox.frame.origin.y + 5
     }
     
@@ -252,7 +252,7 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 85)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 80)
     @IBOutlet weak var overlayBox: NSBox!
     
     override func showView(_ playbackState: PlaybackState) {
@@ -338,7 +338,7 @@ class ExpandedArtPlayerView: PlayerView {
     
     override func clearNowPlayingInfo() {
         
-//        infoView.clearNowPlayingInfo()
+        infoView.clearNowPlayingInfo()
         
         // Need to hide info box because it is opaque and will obscure art
         infoBox.hide()

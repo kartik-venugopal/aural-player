@@ -9,6 +9,10 @@ struct Colors {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
+    static let trackInfoTitleTextColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
+    static let trackInfoArtistAlbumTextColor: NSColor = boxTextColor
+    static let trackInfoChapterTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    
     static let fxFunctionTextColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     
     static let fxFunctionPopupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
