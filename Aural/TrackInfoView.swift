@@ -28,11 +28,11 @@ class TrackInfoView: NSView {
     }
     
     var artist: String? {
-        return track?.displayInfo.artist
+        return PlayerViewState.showArtist ? track?.displayInfo.artist : nil
     }
     
     var album: String? {
-        return track?.groupingInfo.album
+        return PlayerViewState.showAlbum ? track?.groupingInfo.album : nil
     }
     
     var chapter: String?
@@ -71,6 +71,10 @@ class TrackInfoView: NSView {
         otherView.track = self.track
     }
     
+    func metadataDisplaySettingsChanged() {
+        update()
+    }
+    
     private func update() {
         
         txt.string = ""
@@ -94,7 +98,7 @@ class TrackInfoView: NSView {
             }
             
             let hasArtistAlbum: Bool = artistAlbumStr != nil
-            let hasChapter: Bool = chapter != nil
+            let hasChapter: Bool = PlayerViewState.showCurrentChapter && chapter != nil
             
             // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
             
@@ -108,7 +112,7 @@ class TrackInfoView: NSView {
             }
             
             // Chapter
-            if let chapterStr = chapter {
+            if hasChapter, let chapterStr = chapter {
                 txt.textStorage?.append(attributedString(chapterStr, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
             }
             

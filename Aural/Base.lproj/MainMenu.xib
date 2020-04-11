@@ -1078,8 +1078,7 @@ CA
                                     <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Chapters list window" image="ToggleChaptersList-Small" id="9Al-PA-rnK">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title=" Chapters list window" image="ToggleChaptersList-Small" keyEquivalent="3" id="9Al-PA-rnK">
                                 <connections>
                                     <action selector="toggleChaptersListAction:" target="xzd-WN-BuR" id="l0e-TW-mpy"/>
                                 </connections>

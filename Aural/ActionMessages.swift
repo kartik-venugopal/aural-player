@@ -318,10 +318,14 @@ enum ActionType {
     
     case changePlayerView
     
+    case showOrHideAlbumArt
+    case showOrHideArtist
+    case showOrHideAlbum
+    case showOrHideCurrentChapter
+    
     case showOrHidePlayingTrackInfo
     case showOrHideSequenceInfo
     case showOrHidePlayingTrackFunctions
-    case showOrHideAlbumArt
     
     // Player view actions
     
@@ -395,7 +399,7 @@ struct AudioGraphActionMessage: ActionMessage {
     }
 }
 
-// A message sent to the window controller to perform a view-related function.
+// A message sent to a window/view controller to perform a view-related function.
 struct ViewActionMessage: ActionMessage {
     
     var actionType: ActionType
