@@ -42,54 +42,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-uR-5kK" userLabel="Track Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="35" width="320" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f3m-RO-I7c" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="16" name="GillSans-SemiBold"/>
-                                    <color key="textColor" white="0.447718756140845" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOQ-z9-Qgx" userLabel="Track Artist" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="7" width="320" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="xJF-rl-ZVU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
-                                    <color key="textColor" white="0.59876959240845062" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="316" translatesAutoresizingMaskIntoConstraints="NO" id="IeZ-j0-7DQ" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                            <scrollView appearanceType="aqua" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usI-WB-dRb">
+                                <rect key="frame" x="2" y="0.0" width="316" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="YSL-Fe-EyW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="16" name="GillSans-SemiBold"/>
-                                    <color key="textColor" white="0.45022205719718306" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textFieldCell>
-                            </textField>
-                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uEq-VT-e8Y" userLabel="Img Scope">
-                                <rect key="frame" x="0.0" y="-195" width="11" height="11"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="bRE-jy-cNP"/>
-                            </imageView>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncw-1E-Ruw" userLabel="Lbl Playback Scope">
-                                <rect key="frame" x="13" y="-200" width="307" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="TsB-gT-Ka6">
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textFieldCell>
-                            </textField>
+                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="9hP-Wo-9u6">
+                                    <rect key="frame" x="0.0" y="0.0" width="316" height="70"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView ambiguous="YES" drawsBackground="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Xjr-rR-NO2">
+                                            <rect key="frame" x="0.0" y="0.0" width="316" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="316" height="70"/>
+                                            <size key="maxSize" width="342" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="FWY-Dy-Htn">
+                                    <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="YKE-2X-CDR">
+                                    <rect key="frame" x="-100" y="-100" width="15" height="174"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <connections>
-                            <outlet property="imgScope" destination="uEq-VT-e8Y" id="5Q5-10-98b"/>
-                            <outlet property="lblArtist" destination="bOQ-z9-Qgx" id="AQ8-qy-SJU"/>
-                            <outlet property="lblName" destination="IeZ-j0-7DQ" id="Nqy-QL-aEi"/>
-                            <outlet property="lblScope" destination="Ncw-1E-Ruw" id="M2u-YF-msx"/>
-                            <outlet property="lblTitle" destination="bSm-uR-5kK" id="NEf-xs-5C7"/>
+                            <outlet property="txt" destination="Xjr-rR-NO2" id="P6e-GH-d43"/>
                         </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>

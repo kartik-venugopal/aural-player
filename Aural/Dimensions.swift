@@ -108,7 +108,7 @@ class TextSizes {
     private static let artistFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
     private static let artistFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 18)!
     
-    static var artistFont: NSFont {
+    static var artistAlbumFont: NSFont {
         
         switch playerScheme {
             
@@ -117,6 +117,23 @@ class TextSizes {
         case .larger: return artistFont_larger
             
         case .largest: return artistFont_largest
+            
+        }
+    }
+    
+    private static let chapterFont_normal: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    private static let chapterFont_larger: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    private static let chapterFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var chapterFont: NSFont {
+        
+        switch playerScheme {
+            
+        case .normal: return chapterFont_normal
+            
+        case .larger: return chapterFont_larger
+            
+        case .largest: return chapterFont_largest
             
         }
     }
