@@ -64,7 +64,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var barInsetY: CGFloat {return 1.25}
     override var knobWidth: CGFloat {return 5}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
 }
@@ -86,7 +86,7 @@ class SeekSliderCell: HorizontalSliderCell {
     
     override var knobRadius: CGFloat {return 1}
     override var knobWidth: CGFloat {return 5}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
 //    override var knobWidth: CGFloat {return 7}
 //    override var knobRadius: CGFloat {return 1.5}
