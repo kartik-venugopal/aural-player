@@ -385,6 +385,7 @@
 		3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */; };
 		3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4D43D21D6E2F0000110FC /* Alerts.xib */; };
 		3EE4D44021D6E5DA000110FC /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */; };
+		3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */; };
 		3EEACA061F5E8615003A2140 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */; };
 		3EEB25A9216EF0AF00569D35 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB25A8216EF0AF00569D35 /* Queue.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
@@ -815,6 +816,7 @@
 		3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 		3EE4D43D21D6E2F0000110FC /* Alerts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Alerts.xib; sourceTree = "<group>"; };
 		3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
+		3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
 		3EEB25A8216EF0AF00569D35 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
@@ -1969,6 +1971,7 @@
 				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
 				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
 				3EFB19281FB81C9A00690C60 /* WindowState.swift */,
+				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
 			);
 			name = MainWindow;
 			sourceTree = "<group>";
@@ -2599,6 +2602,7 @@
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,
 				3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
+				3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */,
 				3EA3BDA822B266AA0020A908 /* MediaApplicationWatcher.swift in Sources */,
 				3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */,
 				3ED4257821E7EB4B00E202AB /* JSONWriter.swift in Sources */,

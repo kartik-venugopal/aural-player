@@ -86,12 +86,12 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
-                                                <menuItem title="Default view" state="on" keyEquivalent="3" id="KXZ-Ro-nbz">
+                                                <menuItem title="Default view" state="on" id="KXZ-Ro-nbz">
                                                     <connections>
                                                         <action selector="playerDefaultViewAction:" target="gF1-jg-yeJ" id="udi-29-7gB"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Expanded art view" keyEquivalent="4" id="P5U-AN-0cd">
+                                                <menuItem title="Expanded art view" id="P5U-AN-0cd">
                                                     <connections>
                                                         <action selector="playerExpandedArtViewAction:" target="gF1-jg-yeJ" id="MzE-1p-bbE"/>
                                                     </connections>
@@ -103,6 +103,24 @@
                                                         <action selector="showOrHideAlbumArtAction:" target="gF1-jg-yeJ" id="dSv-1b-j0c"/>
                                                     </connections>
                                                 </menuItem>
+                                                <menuItem title="Artist" id="rVN-5f-yfe">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideArtistAction:" target="gF1-jg-yeJ" id="oLU-9U-TIX"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Album" id="q2a-QM-USN">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideAlbumAction:" target="gF1-jg-yeJ" id="gVd-li-p5l"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Current chapter title" id="1GA-kl-Ps6">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="showOrHideCurrentChapterAction:" target="gF1-jg-yeJ" id="ZJk-xY-QHR"/>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem title="Playing track info" id="fVd-mV-11I" userLabel="Playing track info">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -112,6 +130,7 @@
                                                 <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="g2R-0M-347"/>
                                                 <menuItem title="Playing track functions" id="Yhs-qW-5Tg">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -347,7 +366,10 @@
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="KXZ-Ro-nbz" id="0pr-QG-a9m"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="P5U-AN-0cd" id="Bfo-1I-nwk"/>
+                <outlet property="showAlbumMenuItem" destination="q2a-QM-USN" id="Jgu-iU-NHK"/>
                 <outlet property="showArtMenuItem" destination="1PV-wr-DCy" id="JTH-65-x6h"/>
+                <outlet property="showArtistMenuItem" destination="rVN-5f-yfe" id="RL0-5n-B7r"/>
+                <outlet property="showCurrentChapterMenuItem" destination="1GA-kl-Ps6" id="LzA-eU-nvb"/>
                 <outlet property="showMainControlsMenuItem" destination="5JO-9V-Tpl" id="RGL-eZ-Qup"/>
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="qVo-UC-jVo" id="Qd6-R2-zYB"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Yhs-qW-5Tg" id="9hA-X9-zhj"/>

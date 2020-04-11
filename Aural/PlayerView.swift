@@ -66,6 +66,24 @@ class PlayerView: NSView {
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
     }
     
+    func showOrHideArtist() {
+        
+        PlayerViewState.showArtist = !PlayerViewState.showArtist
+        infoView.metadataDisplaySettingsChanged()
+    }
+    
+    func showOrHideAlbum() {
+        
+        PlayerViewState.showAlbum = !PlayerViewState.showAlbum
+        infoView.metadataDisplaySettingsChanged()
+    }
+    
+    func showOrHideCurrentChapter() {
+        
+        PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
+        infoView.metadataDisplaySettingsChanged()
+    }
+    
     func showOrHidePlayingTrackFunctions() {
         
         PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
