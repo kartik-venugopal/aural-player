@@ -653,7 +653,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         if let track = playingTrack?.track, let curChapter = playingChapter {
             
-            seekToTime(track.chapters[curChapter].startTime)
+            let startTime = track.chapters[curChapter].startTime
+            seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
             if player.state == .paused {
                 player.resume()

@@ -36,6 +36,12 @@ class TrackInfoView: NSView {
     
     var chapter: String?
     
+    func chapterChanged(_ chapterTitle: String?) {
+        
+        self.chapter = chapterTitle
+        update()
+    }
+    
     var artistAndAlbum: String? {
         
         if let theArtist = artist, let theAlbum = album {

@@ -55,14 +55,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
@@ -163,6 +163,18 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.changeTextSize(textSize)
     }
     
+    private func chapterChanged(_ newChapterIndex: Int?) {
+        
+        if let track = player.playingTrack?.track, let chapterIndex = newChapterIndex {
+            
+            theView.chapterChanged(track.chapters[chapterIndex].title)
+            
+        } else {
+            
+            theView.chapterChanged(nil)
+        }
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -180,6 +192,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .mouseExitedView:
             
             mouseExited()
+            
+        case .chapterChangedNotification:
+            
+            chapterChanged((notification as! ChapterChangedNotification).newChapter)
             
         default: return
             

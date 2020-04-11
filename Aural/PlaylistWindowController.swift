@@ -425,9 +425,16 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
-        if let track = newTrack?.track, track.hasChapters, playlistPreferences.showChaptersList {
-            layoutManager.showChaptersList()
+        if let track = newTrack?.track, track.hasChapters {
+            
+            // Only show chapters list if preferred by user
+            if playlistPreferences.showChaptersList {
+                layoutManager.showChaptersList()
+            }
+            
         } else {
+            
+            // New track has no chapters, or there is no new track
             layoutManager.hideChaptersList()
         }
     }
