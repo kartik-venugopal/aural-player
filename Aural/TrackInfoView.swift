@@ -7,6 +7,7 @@ class TrackInfoView: NSView {
     static let chapterFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
     
     @IBOutlet weak var txt: NSTextView!
+    @IBOutlet weak var clipView: NSClipView!
     
     private var track: Track? = nil {
         
@@ -36,38 +37,38 @@ class TrackInfoView: NSView {
     
     var chapter: String?
     
+    var lineWidth: CGFloat = 300
+    
+    override func awakeFromNib() {
+        lineWidth = (txt?.frame.width ?? 300) - 15
+    }
+    
     func chapterChanged(_ chapterTitle: String?) {
         
         self.chapter = chapterTitle
         update()
     }
     
-    var artistAndAlbum: String? {
-        
-        if let theArtist = artist, let theAlbum = album {
-            
-            return String(format: "%@ -- %@", theArtist, theAlbum)
-            
-        } else if let theArtist = artist {
-            
-            return theArtist
-            
-        } else if let theAlbum = album {
-            
-            return theAlbum
-            
-        } else {
-            
-            return nil
-        }
-    }
-    
     func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapter: String?) {
-        
-        //        self.chapter = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         
         self.chapter = chapter
         self.track = track
+    }
+    
+    func clearNowPlayingInfo() {
+        
+        self.chapter = nil
+        self.track = nil
+    }
+    
+    func changeTextSize(_ textSize: TextSizeScheme) {
+        update()
+    }
+    
+    func handOff(_ otherView: TrackInfoView) {
+        
+        otherView.chapter = self.chapter
+        otherView.track = self.track
     }
     
     private func update() {
@@ -76,28 +77,74 @@ class TrackInfoView: NSView {
         
         if track != nil {
             
-            let artistAlbumStr = artistAndAlbum
+            var artistAlbumStr: String? = nil
+            
+            if let theArtist = artist, let theAlbum = album {
+                
+                let fullLengthStr = String(format: "%@ -- %@", theArtist, theAlbum)
+                artistAlbumStr = truncateCompositeString(TextSizes.artistAlbumFont, lineWidth, fullLengthStr, theArtist, theAlbum, " -- ")
+                
+            } else if let theArtist = artist {
+                
+                artistAlbumStr = StringUtils.truncate(theArtist, TextSizes.artistAlbumFont, lineWidth)
+                
+            } else if let theAlbum = album {
+                
+                artistAlbumStr = StringUtils.truncate(theAlbum, TextSizes.artistAlbumFont, lineWidth)
+            }
+            
             let hasArtistAlbum: Bool = artistAlbumStr != nil
             let hasChapter: Bool = chapter != nil
             
             // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
             
-            let titleString = attributedString(title, TextSizes.titleFont, NSColor(white: 0.55, alpha: 1), hasArtistAlbum ? 3 : (hasChapter ? 5 : nil))
-            txt.textStorage?.append(titleString)
+            // Title
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, TextSizes.titleFont, lineWidth) : title
+            txt.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
+            // Artist / Album
             if let _artistAlbumStr = artistAlbumStr {
-                
-                let artistAlbumString = attributedString(_artistAlbumStr, TextSizes.artistAlbumFont, NSColor(white: 0.7, alpha: 1), hasChapter ? 7 : nil)
-                txt.textStorage?.append(artistAlbumString)
+                txt.textStorage?.append(attributedString(_artistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
+            // Chapter
             if let chapterStr = chapter {
-                
-                let chapterString = attributedString(chapterStr, TextSizes.chapterFont, NSColor(white: 0.65, alpha: 1))
-                txt.textStorage?.append(chapterString)
+                txt.textStorage?.append(attributedString(chapterStr, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
             }
             
             centerAlign()
+        }
+    }
+    
+    private func truncateCompositeString(_ font: NSFont, _ maxWidth: CGFloat, _ str: String, _ s1: String, _ s2: String, _ separator: String) -> String {
+        
+        // Check if str fits. If so, no need to truncate
+        let origWidth = StringUtils.widthOfString(str, font)
+        
+        if origWidth <= maxWidth {
+            return str
+        }
+        
+        // If str doesn't fit, find out which is longer ... s1 or s2 ... truncate the longer one just enough to fit
+        let w1 = StringUtils.widthOfString(s1, font)
+        let w2 = StringUtils.widthOfString(s2, font)
+        
+        if w1 > w2 {
+            
+            // Reconstruct the composite string with the truncated s1
+            
+            let wRemainder1: CGFloat = origWidth - w1
+            
+            // Width available for s1 = maximum width - (original width - s1's width)
+            let max1: CGFloat = maxWidth - wRemainder1
+            
+            let t1 = StringUtils.truncate(s1, font, max1)
+            return String(format: "%@%@%@", t1, separator, s2)
+            
+        } else {
+            
+            // s2 is longer than s1, simply truncate the string as a whole
+            return StringUtils.truncate(str, font, maxWidth)
         }
     }
     
@@ -108,15 +155,11 @@ class TrackInfoView: NSView {
         
         // Vertical alignment
         txt.layoutManager?.ensureLayout(for: txt.textContainer!)
-        
+
         if let txtHeight = txt.layoutManager?.usedRect(for: txt.textContainer!).height {
-            
+
             let htDiff = self.frame.height - txtHeight
-            
-            var txtFrame = self.frame
-            txtFrame.origin.y = 0 - (htDiff / 2)
-            
-            self.frame = txtFrame
+            clipView.contentInsets.top = htDiff / 2
         }
     }
     
