@@ -24,7 +24,7 @@ class PlayerView: NSView {
         
         controlsBox.setFrameOrigin(NSPoint.zero)
 
-        infoView.showView(playbackState)
+//        infoView.showView(playbackState)
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
@@ -57,7 +57,7 @@ class PlayerView: NSView {
     }
     
     func showOrHideSequenceInfo() {
-        infoView.showOrHideSequenceInfo()
+//        infoView.showOrHideSequenceInfo()
     }
     
     func showOrHideAlbumArt() {
@@ -94,7 +94,8 @@ class PlayerView: NSView {
     
     func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
         
-        infoView.showNowPlayingInfo(track, sequence)
+        infoView.showNowPlayingInfo(track, sequence, nil)
+//        infoView.track = track
         showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
@@ -103,7 +104,8 @@ class PlayerView: NSView {
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
         
-        infoView.showNowPlayingInfo(track, sequence)
+        infoView.showNowPlayingInfo(track, sequence, nil)
+//        infoView.track = track
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
@@ -111,14 +113,14 @@ class PlayerView: NSView {
     
     func clearNowPlayingInfo() {
         
-        infoView.clearNowPlayingInfo()
+//        infoView.clearNowPlayingInfo()
         showPlayingTrackInfo()
         
         artView.image = Images.imgPlayingArt
     }
     
     func sequenceChanged(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
-        infoView.sequenceChanged(sequence)
+//        infoView.sequenceChanged(sequence)
     }
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
@@ -154,13 +156,13 @@ class PlayerView: NSView {
     
     func handOff(_ otherView: PlayerView) {
         
-        infoView.handOff(otherView.infoView)
+//        infoView.handOff(otherView.infoView)
         gapView.handOff(otherView.gapView)
         otherView.artView.image = artView.image
     }
     
     func changeTextSize(_ textSize: TextSizeScheme) {
-        infoView.changeTextSize(textSize)
+//        infoView.changeTextSize(textSize)
         gapView.changeTextSize(textSize)
     }
 }
@@ -333,7 +335,7 @@ class ExpandedArtPlayerView: PlayerView {
     
     override func clearNowPlayingInfo() {
         
-        infoView.clearNowPlayingInfo()
+//        infoView.clearNowPlayingInfo()
         
         // Need to hide info box because it is opaque and will obscure art
         infoBox.hide()

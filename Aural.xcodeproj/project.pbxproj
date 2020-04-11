@@ -161,6 +161,7 @@
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
 		3E44DDCB1FD8A71D00C6566C /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */; };
+		3E4590842440CA5B00F346D5 /* OldTIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4590832440CA5B00F346D5 /* OldTIV.swift */; };
 		3E45CC4721C5BABD005D9F19 /* CommandExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45CC4621C5BABD005D9F19 /* CommandExecutor.swift */; };
 		3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */; };
 		3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */; };
@@ -580,6 +581,7 @@
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
+		3E4590832440CA5B00F346D5 /* OldTIV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTIV.swift; sourceTree = "<group>"; };
 		3E45CC4621C5BABD005D9F19 /* CommandExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandExecutor.swift; sourceTree = "<group>"; };
 		3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRadioButtonCell.swift; sourceTree = "<group>"; };
 		3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogButtonCells.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */,
 				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
 				3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */,
+				3E4590832440CA5B00F346D5 /* OldTIV.swift */,
 				3EB3A6DB2185105A003C7F07 /* GapView.swift */,
 				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
 				3E9B104B21C3318A008326FE /* TranscoderViewController.swift */,
@@ -2505,6 +2508,7 @@
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
 				3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */,
 				3E7DCBDD2196E8B700C6D6D3 /* FilterUnit.swift in Sources */,
+				3E4590842440CA5B00F346D5 /* OldTIV.swift in Sources */,
 				3EA3BDAA22B266E90020A908 /* NSEventExtensions.swift in Sources */,
 				3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */,
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,
