@@ -8,19 +8,23 @@ class LibAVInfo {
     let metadata: LibAVMetadata
     let drmProtected: Bool
     
+    let chapters: [Chapter]
+    
     // Computed values
     let hasValidAudioTrack: Bool
     let hasArt: Bool
     let audioStream: LibAVStream?
     let audioFormat: String?
     
-    init(_ duration: Double, _ fileFormatDescription: String?, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool) {
+    init(_ duration: Double, _ fileFormatDescription: String?, _ streams: [LibAVStream], _ metadata: [String: String], _ drmProtected: Bool, _ chapters: [Chapter]) {
         
         self.duration = duration
         self.fileFormatDescription = fileFormatDescription
         self.streams = streams
         self.metadata = LibAVMetadata(metadata)
         self.drmProtected = drmProtected
+        
+        self.chapters = chapters
         
         self.audioStream = streams.isEmpty ? nil : streams.filter({$0.type == .audio}).first
         

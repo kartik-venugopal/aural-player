@@ -146,10 +146,7 @@ class FFMpegReader: MetadataReader {
     }
     
     func getChapters(_ track: Track) -> [Chapter] {
-        
-        
-        
-        return []
+        return track.libAVInfo?.chapters ?? []
     }
     
     private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
