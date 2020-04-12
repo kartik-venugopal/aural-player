@@ -22,28 +22,26 @@ class FFMpegWrapper {
     static func getMetadata(_ track: Track) -> LibAVInfo {
         return getMetadata(track.file)
     }
-        
+      
     static func getMetadata(_ inputFile: URL) -> LibAVInfo {
         
         var tags: [String: String] = [:]
         var streams: [LibAVStream] = []
         var duration: Double = 0
         var fileFormatDescription: String?
+        var chapters: [Chapter] = []
         
         // TODO:
         var drmProtected: Bool = false
         
-        // ffprobe -v error -show_entries "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,sample_rate : format=duration,format_long_name :  stream_tags : format_tags" -of json Song.mp3
+        // ffprobe -v error -show_entries "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,sample_rate : format=duration,format_long_name :  stream_tags : format_tags : chapter=start_time,end_time:chapter_tags=title" -of json Song.xyz
         
-        // TODO: (Chapters)
-        // chapter=start_time,end_time:chapter_tags=title
-        
-        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true, .json)
+        let command = Command.createWithOutput(cmd: ffprobeBinaryPath, args: ["-v", "error", "-show_entries", "stream=codec_name,codec_long_name,codec_type,bit_rate,channels,channel_layout,sample_rate:format=duration,format_long_name:stream_tags:format_tags:chapter=start_time,end_time:chapter_tags=title", "-of", "json", inputFile.path], timeout: getMetadata_timeout, readOutput: true, readErr: true, .json)
         
         let result = CommandExecutor.execute(command)
         
         if result.exitCode != 0 {
-            return LibAVInfo(0, "", streams, [:], false)
+            return LibAVInfo(0, "", streams, [:], false, [])
         }
         
         if let dict = result.outputAsObject {
@@ -123,9 +121,37 @@ class FFMpegWrapper {
                 
                 fileFormatDescription = formatDict["format_long_name"] as? String
             }
+            
+            if let chaptersArr = dict["chapters"] as? [NSDictionary] {
+                
+                var chapterIndex: Int = 0
+                
+                for chapterDict in chaptersArr {
+                    
+                    var startTime: Double = 0
+                    var endTime: Double = 0
+                    var title: String? = nil
+                
+                    if let startTimeStr = chapterDict["start_time"] as? String, let num = Double(startTimeStr), !num.isNaN {
+                        startTime = num
+                    }
+                    
+                    if let endTimeStr = chapterDict["end_time"] as? String, let num = Double(endTimeStr), !num.isNaN {
+                        endTime = num
+                    }
+                    
+                    if let tagsDict = chapterDict["tags"] as? [String: String], let titleStr = tagsDict["title"], !titleStr.trim().isEmpty {
+                        
+                        title = titleStr
+                    }
+                    
+                    chapters.append(Chapter(title ?? String(format: "Chapter %d", chapterIndex + 1), startTime, endTime))
+                    chapterIndex += 1
+                }
+            }
         }
         
-        return LibAVInfo(duration, fileFormatDescription, streams, tags, drmProtected)
+        return LibAVInfo(duration, fileFormatDescription, streams, tags, drmProtected, chapters)
     }
     
     static func getArt(_ track: Track) -> CoverArt? {
