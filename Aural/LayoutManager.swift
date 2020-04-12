@@ -172,10 +172,21 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         isShowingChaptersList ? hideChaptersList() : showChaptersList()
     }
     
+    // Flag indicating whether or not the chapters window was ever shown
+    private var chaptersWindowShown: Bool = false
+    
     func showChaptersList() {
         
         playlistWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
         chaptersWindow.makeKeyAndOrderFront(self)
+        
+        // This will happen only once after each app launch - the very first time the window is shown.
+        // After that, the window will be restored to its previous on-screen location
+        if !chaptersWindowShown {
+            UIUtils.centerDialogWRTWindow(chaptersWindow, playlistWindow)
+        }
+        
+        chaptersWindowShown = true
     }
     
     func hideChaptersList() {

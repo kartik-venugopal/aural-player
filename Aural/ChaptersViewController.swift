@@ -26,7 +26,9 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
 
         // Need to do this every time the view reappears (i.e. the Chapters list window is opened)
         chaptersView.reloadData()
-        lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+        
+        let chapterCount: Int = player.chapterCount
+        lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
         lblWindowTitle.font = TextSizes.playlistSummaryFont
         lblSummary.font = TextSizes.playlistSummaryFont
@@ -171,7 +173,9 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         if let _window = view.window, _window.isVisible {
             
             chaptersView.reloadData()
-            lblSummary.stringValue = String(format: "%d chapters", player.chapterCount)
+            
+            let chapterCount: Int = player.chapterCount
+            lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         }
     }
     
