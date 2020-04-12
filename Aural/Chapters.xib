@@ -16,8 +16,8 @@
         <window title="Chapters" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="570" height="380"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="contentRect" x="544" y="299" width="570" height="380"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="570" height="180"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
@@ -40,10 +40,10 @@
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters list" drawsBackground="YES" id="eRB-xU-wa4" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="14" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" white="0.097601232394366147" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.15209617077464785" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Hide the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button">
+                                <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button">
                                     <rect key="frame" x="14" y="355" width="9" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="9" id="FQB-Oe-tVg"/>
@@ -66,7 +66,7 @@
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 chapters" drawsBackground="YES" id="eQR-B4-MMr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" white="0.097601232394366147" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.15209617077464785" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -150,7 +150,7 @@
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.098976672535211224" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.14890514964788729" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
                         <rect key="frame" x="15" y="40" width="540" height="300"/>
