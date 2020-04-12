@@ -8,9 +8,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>wma</string>
-			</array>
+			<array/>
 			<key>CFBundleTypeName</key>
 			<string>WMA</string>
 			<key>CFBundleTypeRole</key>
