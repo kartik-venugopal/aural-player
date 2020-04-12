@@ -6,7 +6,9 @@ class FFMpegReader: MetadataReader {
     
     // TODO: Is this useful/necessary ?
     private let wmFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.id3Parser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.defaultParser]
+    
     private let vorbisCommentFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.id3Parser, ObjectGraph.apeParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
+    
     private let apeTagFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.apeParser, ObjectGraph.id3Parser, ObjectGraph.vorbisParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]

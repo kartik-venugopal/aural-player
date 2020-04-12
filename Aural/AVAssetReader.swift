@@ -270,7 +270,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             var chapterIndex = 0
             for group in chapterMetadataGroups {
                 
-                let title: String = group.items.first?.stringValue ?? String(format: "Chapter %d", chapterIndex + 1)
+                let title: String = getChapterTitle(group.items) ?? String(format: "Chapter %d", chapterIndex + 1)
                 
                 let timeRange = group.timeRange
                 let start = timeRange.start.seconds
@@ -283,6 +283,18 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         }
         
         return chapters
+    }
+    
+    private func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+
+        for parser in parsers {
+            
+            if let title = parser.getChapterTitle(items) {
+                return title
+            }
+        }
+        
+        return nil
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

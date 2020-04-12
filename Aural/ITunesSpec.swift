@@ -7,6 +7,7 @@ class ITunesSpec {
     private static let iTunesPrefix: String = "com.apple.itunes"
     
     static let key_title = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeySongName.rawValue)
+    static let rawKey_title = AVMetadataKey.iTunesMetadataKeySongName.rawValue
     
     static let key_artist = String(format: "%@/%@", keySpace, AVMetadataKey.iTunesMetadataKeyArtist.rawValue)
     

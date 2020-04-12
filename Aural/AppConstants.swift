@@ -43,7 +43,6 @@ struct AppConstants {
             return exts
         }
 
-        // TODO: MPC (Musepack), DTS (Dolby surround), AC3 (Dolby Surround)
         static let allAudioExtensions: [String] = computeAllAudioExtensions()
         
         private static func computeAllAudioExtensions() -> [String] {
@@ -69,6 +68,7 @@ struct AppConstants {
         }
         
         private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts"]
+        
         static let nonNativeAudioFormats: [String] = computeNonNativeFormats()
         
         private static func computeNonNativeFormats() -> [String] {
