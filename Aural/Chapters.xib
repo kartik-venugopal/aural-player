@@ -57,8 +57,8 @@
                                         <action selector="closeWindowAction:" target="-2" id="pbv-ne-DbR"/>
                                     </connections>
                                 </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="15" y="8" width="155" height="23"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="15" y="10" width="155" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="155" id="ZiO-s6-pJ9"/>
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
@@ -146,7 +146,7 @@
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="leading" secondItem="Axi-IH-THL" secondAttribute="trailing" constant="5" id="sOn-dk-dnK"/>
-                                <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="8" id="uzm-wc-Afo"/>
+                                <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="10" id="uzm-wc-Afo"/>
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
