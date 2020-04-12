@@ -67,7 +67,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
         TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
-        changeTextSize(PlayerViewState.textSize)
+        changeTextSize(PlaylistViewState.textSize)
         
         setUpTabGroup()
         initSubscriptions()
