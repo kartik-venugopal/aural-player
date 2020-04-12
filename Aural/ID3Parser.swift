@@ -34,7 +34,7 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
         return keys
     }()
     
-    private let ignoredKeys: Set<String> = [ID3_V24Spec.key_private]
+    private let ignoredKeys: Set<String> = [ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter]
     
     private let genericFields: [String: String] = {
         
