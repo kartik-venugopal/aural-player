@@ -76,6 +76,12 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func replayChapterAction(_ sender: AnyObject) {
         
+        // Should not do anything when no chapter is playing
+        // (possible if chapters don't cover the entire timespan of the track)
+        if player.playingChapter == nil {
+            return
+        }
+        
         _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.replayChapter))
         
         if player.playbackLoop == nil {
@@ -85,6 +91,12 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     @IBAction func loopCurrentChapterAction(_ sender: AnyObject) {
+        
+        // Should not do anything when no chapter is playing
+        // (possible if chapters don't cover the entire timespan of the track)
+        if player.playingChapter == nil {
+            return
+        }
         
         if looping {
             
