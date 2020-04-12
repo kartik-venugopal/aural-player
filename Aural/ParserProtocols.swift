@@ -29,6 +29,10 @@ protocol AVAssetParser {
     func getArt(_ asset: AVURLAsset) -> CoverArt?
     
     func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry]
+    
+    // ----------- Chapter-related functions
+    
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String?
 }
 
 protocol FFMpegMetadataParser {

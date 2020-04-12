@@ -317,6 +317,8 @@ class LazyLoadingInfo {
     var primaryInfoLoaded: Bool = false
     var secondaryInfoLoaded: Bool = false
     
+    var artLoaded: Bool = false
+    
     // Whether or not optional track metadata and audio/filesystem info has been loaded
     var detailedInfoLoaded: Bool = false
     

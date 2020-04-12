@@ -10,11 +10,13 @@ import AVFoundation
  See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
  */
 
-fileprivate let id3KeySpace: String = AVMetadataKeySpace.id3.rawValue
+let id3KeySpace: String = AVMetadataKeySpace.id3.rawValue
 
 struct ID3_V1Spec {
     
     static let key_title = String(format: "%@/%@", id3KeySpace, "Title")
+    static let rawKey_title = "Title"
+    
     static let key_artist = String(format: "%@/%@", id3KeySpace, "Artist")
     static let key_album = String(format: "%@/%@", id3KeySpace, "Album")
     static let key_genre = String(format: "%@/%@", id3KeySpace, "Genre")
@@ -31,6 +33,8 @@ struct ID3_V22Spec {
     static let key_duration: String = String(format: "%@/%@", id3KeySpace, "TLE")
     
     static let key_title = String(format: "%@/%@", id3KeySpace, "TT2")
+    static let rawKey_title = "TT2"
+    
     static let key_artist = String(format: "%@/%@", id3KeySpace, "TP1")
     static let key_band = String(format: "%@/%@", id3KeySpace, "TP2")
     static let key_album = String(format: "%@/%@", id3KeySpace, "TAL")
@@ -144,6 +148,8 @@ struct ID3_V24Spec {
     static let key_duration: String = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyLength.rawValue)
     
     static let key_title = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyTitleDescription.rawValue)
+    static let rawKey_title = AVMetadataKey.id3MetadataKeyTitleDescription.rawValue
+    
     static let key_artist = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue)
     static let key_band = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyBand.rawValue)
     static let key_album = String(format: "%@/%@", id3KeySpace, AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue)

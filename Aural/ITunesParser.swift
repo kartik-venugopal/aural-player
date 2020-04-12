@@ -173,6 +173,10 @@ class ITunesParser: AVAssetParser {
         return nil
     }
     
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.rawKey_title})?.stringValue
+    }
+    
     func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]

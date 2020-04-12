@@ -108,6 +108,15 @@ class CommonAVAssetParser: AVAssetParser {
         return nil
     }
     
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        
+        return items.first(where: {
+            
+            $0.keySpace == .common && $0.commonKeyAsString == AVMetadataKey.commonKeyTitle.rawValue
+            
+        })?.stringValue
+    }
+    
     func getGenericMetadata(_ mapForTrack: AVAssetMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]

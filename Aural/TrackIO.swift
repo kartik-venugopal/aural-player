@@ -23,8 +23,10 @@ class TrackIO {
     // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
-        // Art
-        if track.displayInfo.art == nil {
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        // Load art (asynchronously)
+        if !lazyLoadInfo.artLoaded {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 
@@ -37,14 +39,12 @@ class TrackIO {
             }
         }
         
-        // Chapters
-        loadChapters(track)
-        
-        let lazyLoadInfo = track.lazyLoadingInfo
-        
         if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
             return
         }
+        
+        // Chapters
+        loadChapters(track)
         
         // Track is valid, prepare it for playback
         AudioUtils.loadPlaybackInfo(track)

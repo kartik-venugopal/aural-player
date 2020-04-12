@@ -8,6 +8,7 @@ class AudioToolboxParser: AVAssetParser {
     
     @available(OSX 10.13, *)
     static let key_title: String = String(format: "%@/%@", AVMetadataKeySpace.audioFile.rawValue, "info-title")
+    static let rawKey_title: String = "info-title"
     
     @available(OSX 10.13, *)
     static let key_artist: String = String(format: "%@/%@", AVMetadataKeySpace.audioFile.rawValue, "info-artist")
@@ -184,20 +185,10 @@ class AudioToolboxParser: AVAssetParser {
     }
     
     func getArt(_ mapForTrack: AVAssetMetadata) -> CoverArt? {
-        
-//        if let item = mapForTrack.map[key_art], let imgData = item.dataValue {
-//            return NSImage(data: imgData)
-//        }
-        
         return nil
     }
     
     func getArt(_ asset: AVURLAsset) -> CoverArt? {
-        
-//        if let item = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id_art).first, let imgData = item.dataValue {
-//            return NSImage(data: imgData)
-//        }
-        
         return nil
     }
     
@@ -206,6 +197,15 @@ class AudioToolboxParser: AVAssetParser {
     }
     
     func getLyrics(_ mapForTrack: AVAssetMetadata) -> String? {
+        return nil
+    }
+    
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        
+        if #available(OSX 10.13, *) {
+            return items.first(where: {$0.keySpace == .audioFile && $0.keyAsString == AudioToolboxParser.rawKey_title})?.stringValue
+        }
+        
         return nil
     }
     
@@ -219,11 +219,7 @@ class AudioToolboxParser: AVAssetParser {
                 
                 if let key = item.keyAsString, let value = item.valueAsString {
                     
-//                    if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
-//                        value = langName
-//                    }
                     let rKey = AudioToolboxParser.readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
-                    
                     metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
                 }
             }

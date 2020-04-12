@@ -6,6 +6,8 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
     private let keys_duration: [String] = [ID3_V22Spec.key_duration, ID3_V24Spec.key_duration]
     
     private let keys_title: [String] = [ID3_V1Spec.key_title, ID3_V22Spec.key_title, ID3_V24Spec.key_title]
+    private let rawKeys_title: [String] = [ID3_V1Spec.rawKey_title, ID3_V22Spec.rawKey_title, ID3_V24Spec.rawKey_title]
+    
     private let keys_artist: [String] = [ID3_V1Spec.key_artist, ID3_V22Spec.key_artist, ID3_V24Spec.key_artist]
     private let keys_album: [String] = [ID3_V1Spec.key_album, ID3_V22Spec.key_album, ID3_V24Spec.key_album]
     private let keys_genre: [String] = [ID3_V1Spec.key_genre, ID3_V22Spec.key_genre, ID3_V24Spec.key_genre]
@@ -439,6 +441,18 @@ class ID3Parser: AVAssetParser, FFMpegMetadataParser {
                 }
                 
                 return aValue.capitalizingFirstLetter()
+            }
+        }
+        
+        return nil
+    }
+    
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        
+        for key in rawKeys_title {
+            
+            if let titleItem = items.first(where: {$0.keySpace == .id3 && $0.keyAsString == key}) {
+                return titleItem.stringValue
             }
         }
         
