@@ -46,11 +46,14 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
         
-        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.playSelectedChapter, chaptersView.selectedRow))
+        if let selRow = chaptersView.selectedRowIndexes.first {
         
-        if player.playbackLoop == nil {
-            looping = false
-            btnLoopChapter.image = Images.imgLoopChapterOff
+            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.playSelectedChapter, selRow))
+            
+            if player.playbackLoop == nil {
+                looping = false
+                btnLoopChapter.image = Images.imgLoopChapterOff
+            }
         }
     }
     
@@ -185,6 +188,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         if let _window = view.window, _window.isVisible {
             
             chaptersView.reloadData()
+            chaptersView.scrollRowToVisible(0)
             
             let chapterCount: Int = player.chapterCount
             lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")

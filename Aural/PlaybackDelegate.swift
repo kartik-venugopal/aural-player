@@ -637,15 +637,83 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func previousChapter() {
         
-        if let cur = playingChapter, cur > 0 {
-            playChapter(cur - 1)
+        if chapterCount == 0 {
+            return
+        }
+        
+        if let cur = playingChapter {
+            
+            if cur > 0 {
+                playChapter(cur - 1)
+            }
+            
+        } else {
+            
+            // No chapter currently playing, see if there are any chapters prior to the current seek position
+            // and play the chronologically nearest one
+            
+            if let chapters = playingTrack?.track.chapters {
+                
+                let elapsed = player.seekPosition
+                
+                for index in 0..<chapters.count {
+                
+                    let chapter = chapters[index]
+                    
+                    if elapsed < chapter.startTime {
+                        
+                        // Elapsed time is less than this chapter's lower time bound,
+                        // i.e. we have already looked at all chapters up to the elapsed time and need
+                        // to play the immediately previous chapter
+                        
+                        if index > 0 {
+                            playChapter(index - 1)
+                        }
+                        
+                        return
+                    }
+                }
+                
+                // Elapsed time > all chapter times ... it's a gap at the end
+                // i.e. need to play the last chapter
+                playChapter(chapters.count - 1)
+            }
         }
     }
     
     func nextChapter() {
         
+        if chapterCount == 0 {
+            return
+        }
+        
         if let cur = playingChapter {
+            
             playChapter(cur + 1)
+            
+        } else {
+            
+            // No chapter currently playing, see if there are any chapters prior to the current seek position
+            // and play the chronologically nearest one
+            
+            if let chapters = playingTrack?.track.chapters {
+                
+                let elapsed = player.seekPosition
+                
+                for index in 0..<chapters.count {
+                    
+                    let chapter = chapters[index]
+                    
+                    if elapsed < chapter.startTime {
+                        
+                        // Elapsed time is less than this chapter's lower time bound,
+                        // i.e. this chapter is the next chapter
+                        
+                        playChapter(index)
+                        return
+                    }
+                }
+            }
         }
     }
     
@@ -689,8 +757,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             var index: Int = 0
             for chapter in track.chapters {
                 
-                if (elapsed >= chapter.startTime && elapsed < chapter.endTime) {
+                if (elapsed >= chapter.startTime) && (elapsed < chapter.endTime) {
+                    
+                    // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter
                     return index
+                    
+                } else if elapsed < chapter.startTime {
+                    
+                    // Elapsed time is less than this chapter's lower time bound,
+                    // i.e. we have already looked at all chapters up to the elapsed time and not found a match
+                    // Since chapters are sorted, we can assume that this indicates a gap between chapters
+                    return nil
                 }
                 
                 index += 1
