@@ -257,6 +257,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return nil
     }
     
+    // NOTE - This code does not account for potential overlaps in chapter times due to bad metadata ... assumes no overlaps
     func getChapters(_ track: Track) -> [Chapter] {
         
         let asset = track.audioAsset!
@@ -270,7 +271,11 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             var chapterIndex = 0
             for group in chapterMetadataGroups {
                 
-                let title: String = getChapterTitle(group.items) ?? String(format: "Chapter %d", chapterIndex + 1)
+                var title: String = getChapterTitle(group.items) ?? ""
+                
+                if title.trim().isEmpty {
+                    title = String(format: "Chapter %d", chapterIndex + 1)
+                }
                 
                 let timeRange = group.timeRange
                 let start = timeRange.start.seconds
@@ -281,6 +286,9 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
                 chapterIndex += 1
             }
         }
+        
+        // Sort by start time, in ascending order
+        chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
         
         return chapters
     }

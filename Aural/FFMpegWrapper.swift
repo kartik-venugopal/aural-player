@@ -148,6 +148,9 @@ class FFMpegWrapper {
                     chapters.append(Chapter(title ?? String(format: "Chapter %d", chapterIndex + 1), startTime, endTime))
                     chapterIndex += 1
                 }
+                
+                // Sort by start time, in ascending order
+                chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
             }
         }
         
