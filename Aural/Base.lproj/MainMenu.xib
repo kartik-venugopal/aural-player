@@ -684,7 +684,7 @@ CA
                                     <action selector="replayChapterAction:" target="IvK-xG-TCa" id="aF7-sI-D8f"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Loop current chapter" image="LoopOff-Small" keyEquivalent="l" id="woh-59-yWg" userLabel="Toggle A-&gt;B loop">
+                            <menuItem title=" Toggle current chapter loop" image="LoopOff-Small" keyEquivalent="l" id="woh-59-yWg" userLabel="Toggle A-&gt;B loop">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleChapterLoopAction:" target="IvK-xG-TCa" id="zca-p5-5tn"/>
@@ -725,19 +725,19 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Repeat Mode" id="5hN-Xu-czo">
                                     <items>
-                                        <menuItem title="  Off" indentationLevel="1" id="OBr-fe-z4t">
+                                        <menuItem title="Off" id="OBr-fe-z4t">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="repeatOffAction:" target="IvK-xG-TCa" id="Fyw-G2-0RO"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Repeat One" image="RepeatOne-Small" id="DMc-0q-KZE">
+                                        <menuItem title="Repeat One" id="DMc-0q-KZE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="repeatOneAction:" target="IvK-xG-TCa" id="3lG-i0-2Gl"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Repeat All" image="RepeatAll-Small" id="l9m-G6-uAk">
+                                        <menuItem title="Repeat All" id="l9m-G6-uAk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="repeatAllAction:" target="IvK-xG-TCa" id="2B1-Rl-RlA"/>
@@ -750,13 +750,13 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Shuffle Mode" id="OMy-lv-1Q4">
                                     <items>
-                                        <menuItem title="  Off" indentationLevel="1" id="UVB-LH-JI0">
+                                        <menuItem title="Off" id="UVB-LH-JI0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="shuffleOffAction:" target="IvK-xG-TCa" id="rAt-Hc-LgZ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="On" image="ShuffleOn-Small" id="A9x-31-Cvm" userLabel="On">
+                                        <menuItem title="On" id="A9x-31-Cvm" userLabel="On">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="shuffleOnAction:" target="IvK-xG-TCa" id="3oh-2J-ynY"/>
@@ -1501,15 +1501,15 @@ CA
         </menu>
         <menu id="7lR-jg-Hrh" userLabel="Dock Menu">
             <items>
-                <menuItem title="Recently played" image="RecentlyPlayed" id="SXx-y5-6Um" userLabel="Recently played">
+                <menuItem title="Recently played" id="SXx-y5-6Um" userLabel="Recently played">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Recently played" id="aSw-mI-3ut"/>
                 </menuItem>
-                <menuItem title="Favorites" image="Favorites" id="yx1-0C-wVJ" userLabel="Favorites">
+                <menuItem title="Favorites" id="yx1-0C-wVJ" userLabel="Favorites">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Favorites" id="WRB-ga-QzB"/>
                 </menuItem>
-                <menuItem title="Add playing track to Favorites" image="Favorites" id="I89-DR-v3r" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                <menuItem title="Add playing track to Favorites" id="I89-DR-v3r" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Add playing track to Favorites"/>
@@ -1520,44 +1520,44 @@ CA
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="C2z-jB-bGV"/>
-                <menuItem title="Play / Pause" image="PlayPause-Small" id="haA-Vb-9QH">
+                <menuItem title="Play / Pause" id="haA-Vb-9QH">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Replay current track" image="Replay-Small" id="xaX-37-oif" userLabel="Replay current track">
+                <menuItem title="Replay current track" id="xaX-37-oif" userLabel="Replay current track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="replayTrackAction:" target="29W-IU-ITu" id="maR-Bc-sWa"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Previous track" image="PreviousTrack-Small" id="p99-Ng-Iu1" userLabel="Previous track">
+                <menuItem title="Previous track" id="p99-Ng-Iu1" userLabel="Previous track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="previousTrackAction:" target="29W-IU-ITu" id="qq2-mO-H2q"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Next track" image="NextTrack-Small" id="b4G-JT-u6L" userLabel="Next track">
+                <menuItem title="Next track" id="b4G-JT-u6L" userLabel="Next track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="nextTrackAction:" target="29W-IU-ITu" id="bhi-kB-c0l"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Seek backward" image="SeekBackward-Small" id="nyw-QG-ObJ" userLabel="Seek backward">
+                <menuItem title="Seek backward" id="nyw-QG-ObJ" userLabel="Seek backward">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="seekBackwardAction:" target="29W-IU-ITu" id="78D-yE-0z8"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Seek forward" image="SeekForward-Small" id="gmg-BK-hzJ" userLabel="Seek forward">
+                <menuItem title="Seek forward" id="gmg-BK-hzJ" userLabel="Seek forward">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="seekForwardAction:" target="29W-IU-ITu" id="wUK-ur-vj2"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="dwA-R8-e0L"/>
-                <menuItem title="Repeat Mode" image="RepeatMode-Small" id="stj-Uf-Zis" userLabel="Repeat Mode">
+                <menuItem title="Repeat Mode" id="stj-Uf-Zis" userLabel="Repeat Mode">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Repeat Mode" id="Y9I-m1-Aag">
                         <items>
@@ -1567,13 +1567,13 @@ CA
                                     <action selector="repeatOffAction:" target="29W-IU-ITu" id="9Jm-z8-qiz"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Repeat One" image="RepeatOne-Small" id="x3D-4c-i0o">
+                            <menuItem title="Repeat One" id="x3D-4c-i0o">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="repeatOneAction:" target="29W-IU-ITu" id="w8i-fA-T3g"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Repeat All" image="RepeatAll-Small" id="0zK-7w-8z4">
+                            <menuItem title="Repeat All" id="0zK-7w-8z4">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="repeatAllAction:" target="29W-IU-ITu" id="9HT-pl-3FS"/>
@@ -1585,7 +1585,7 @@ CA
                         </connections>
                     </menu>
                 </menuItem>
-                <menuItem title="Shuffle Mode" image="ShuffleOn-Small" id="uAL-uJ-rZ8" userLabel="Shuffle Mode">
+                <menuItem title="Shuffle Mode" id="uAL-uJ-rZ8" userLabel="Shuffle Mode">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Shuffle Mode" id="NFN-sY-o1g">
                         <items>
@@ -1595,7 +1595,7 @@ CA
                                     <action selector="shuffleOffAction:" target="29W-IU-ITu" id="9gw-AL-05m"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="On" image="ShuffleOn-Small" id="GtC-65-0P7" userLabel="Shuffle On">
+                            <menuItem title="On" id="GtC-65-0P7" userLabel="Shuffle On">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="shuffleOnAction:" target="29W-IU-ITu" id="mfV-2i-whg"/>
@@ -1608,19 +1608,19 @@ CA
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="WpM-FZ-MLT"/>
-                <menuItem title="Mute / Unmute" image="Mute-Small" id="TUt-R6-cKe">
+                <menuItem title="Mute / Unmute" id="TUt-R6-cKe">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="muteOrUnmuteAction:" target="29W-IU-ITu" id="f9J-yg-4PC"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Decrease Volume" image="VolumeLow-Small" id="cCz-MH-bwI" userLabel="Decrease Volume">
+                <menuItem title="Decrease Volume" id="cCz-MH-bwI" userLabel="Decrease Volume">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="decreaseVolumeAction:" target="29W-IU-ITu" id="LxI-Rf-Wzk"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Increase Volume" image="VolumeHigh-Small" id="gVF-PB-pgp" userLabel="Increase Volume">
+                <menuItem title="Increase Volume" id="gVF-PB-pgp" userLabel="Increase Volume">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="increaseVolumeAction:" target="29W-IU-ITu" id="rzM-Wd-pQ0"/>
@@ -1657,7 +1657,7 @@ CA
         <image name="MasterTab-Small" width="14" height="14"/>
         <image name="MoreInfo-Small" width="12" height="12"/>
         <image name="Mute-Small" width="14" height="14"/>
-        <image name="NextTrack-Small" width="14" height="8"/>
+        <image name="NextTrack-Small" width="10" height="11"/>
         <image name="PageDown-Small" width="12" height="9"/>
         <image name="PageUp-Small" width="12" height="9"/>
         <image name="PanL-Small" width="12" height="12"/>
@@ -1665,22 +1665,19 @@ CA
         <image name="Pause-Small" width="14" height="14"/>
         <image name="Pitch" width="17" height="13"/>
         <image name="Play-Small" width="9" height="11"/>
-        <image name="PlayPause-Small" width="14" height="14"/>
-        <image name="PreviousTrack-Small" width="14" height="8"/>
+        <image name="PreviousTrack-Small" width="10" height="11"/>
         <image name="RecentlyAdded" width="18" height="14"/>
         <image name="RecentlyPlayed" width="18" height="14"/>
         <image name="Remember" width="15" height="15"/>
         <image name="Remove-Small" width="10" height="10"/>
-        <image name="RepeatAll-Small" width="17" height="17"/>
         <image name="RepeatMode-Small" width="14" height="13"/>
-        <image name="RepeatOne-Small" width="17" height="17"/>
         <image name="Replay-Small" width="14" height="14"/>
         <image name="Save-Small" width="12" height="12"/>
         <image name="ScrollToBottom-Small" width="12" height="12"/>
         <image name="ScrollToTop-Small" width="12" height="12"/>
         <image name="Search-Small" width="13" height="13"/>
-        <image name="SeekBackward-Small" width="13" height="8"/>
-        <image name="SeekForward-Small" width="13" height="8"/>
+        <image name="SeekBackward-Small" width="14" height="11"/>
+        <image name="SeekForward-Small" width="14" height="11"/>
         <image name="ShowPlayingTrack-Small" width="13" height="13"/>
         <image name="ShuffleOn-Small" width="15" height="15"/>
         <image name="Sort-Small" width="17" height="14"/>
