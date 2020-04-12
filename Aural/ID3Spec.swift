@@ -177,6 +177,10 @@ struct ID3_V24Spec {
     
     static let key_private: String = AVMetadataKey.id3MetadataKeyPrivate.rawValue
     
+    // Chapter fields
+    static let key_tableOfContents: String = "CTOC"
+    static let key_chapter: String = "CHAP"
+    
     static let key_mediaType: String = "TMED"
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_album, key_genre, key_discNumber, key_trackNumber, key_lyrics, key_syncLyrics, key_art]
