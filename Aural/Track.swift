@@ -163,6 +163,10 @@ class Chapter {
     var endTime: Double
     var duration: Double
     
+    func containsTimePosition(_ seconds: Double) -> Bool {
+        return seconds >= startTime && seconds <= endTime
+    }
+    
     init(_ title: String, _ startTime: Double, _ endTime: Double, _ duration: Double? = nil) {
         
         self.title = title
