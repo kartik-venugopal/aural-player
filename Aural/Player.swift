@@ -115,43 +115,45 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func toggleLoop() -> PlaybackLoop? {
         
-        let currentTrackTimeElapsed = seekPosition
-        
-        let curSession = PlaybackSession.currentSession!
-        
-        if let curLoop = curSession.loop {
+        if let curSession = PlaybackSession.currentSession {
             
-            if curLoop.isComplete() {
+            if let curLoop = curSession.loop {
                 
-                // Remove loop
-                PlaybackSession.removeLoop()
-                scheduler.endLoop(curSession, curLoop.endTime!)
+                // Start a new session
+                let newSession = PlaybackSession.start(curSession.track, curSession.timestamp)
+                
+                if curLoop.isComplete() {
+                    
+                    // Remove loop
+                    PlaybackSession.removeLoop()
+                    
+                    // End loop and continue playback till the end of the track
+                    scheduler.endLoop(newSession)
+                    
+                } else {
+                    
+                    // Loop has only a start point ... need to set the end point to the current seek position
+                    
+                    // Handoff the loop info to the new session
+                    newSession.loop = curLoop
+                    
+                    // Mark end
+                    PlaybackSession.endLoop(seekPosition)
+                    
+                    // Seek to loop start
+                    scheduler.playLoop(newSession, state == .playing)
+                }
                 
             } else {
                 
-                // Mark end
-                PlaybackSession.endLoop(currentTrackTimeElapsed)
-                
-                let oldSession = PlaybackSession.currentSession!
-                
-                // Seek to loop start
-                let track = oldSession.track
-                let timestamp = oldSession.timestamp
-                let loop = oldSession.loop
-                
-                let session = PlaybackSession.start(track, timestamp)
-                session.loop = loop
-                
-                scheduler.playLoop(session, state == .playing)
+                // Loop is currently undefined, mark start
+                PlaybackSession.beginLoop(seekPosition)
             }
             
-        } else {
-            
-            // Loop is currently undefined, mark start
-            PlaybackSession.beginLoop(currentTrackTimeElapsed)
+            return curSession.loop
         }
         
-        return curSession.loop
+        return nil
     }
     
     func removeLoop() {
