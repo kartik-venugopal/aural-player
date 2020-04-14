@@ -108,7 +108,7 @@
                         </subviews>
                         <connections>
                             <outlet property="clipView" destination="713-ze-Jl0" id="XGg-Lx-Vdz"/>
-                            <outlet property="txt" destination="0MC-mR-NAm" id="Wf0-vG-sQ4"/>
+                            <outlet property="textView" destination="0MC-mR-NAm" id="Wf0-vG-sQ4"/>
                         </connections>
                     </view>
                     <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,7 +209,7 @@
                         </subviews>
                         <connections>
                             <outlet property="clipView" destination="Soc-zL-QHn" id="xry-ub-zo7"/>
-                            <outlet property="txt" destination="1KA-pc-1tn" id="FXK-u7-jgP"/>
+                            <outlet property="textView" destination="1KA-pc-1tn" id="FXK-u7-jgP"/>
                         </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
