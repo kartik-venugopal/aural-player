@@ -44,6 +44,10 @@ The player window, which shows currently playing track metadata, now allows the 
 
 * Slight aesthetic refinements to player UI:  seek bar, volume and pan sliders, playback controls, etc.
 
+## **Shrunk the source code download ZIP archives**
+
+The source code archives no longer contain the massive Documentation folder and ffmpeg binaries which took more than 100MB of space. The archives are now only about 11 MB in size.
+
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.7.0)
 
