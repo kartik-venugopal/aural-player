@@ -1,24 +1,51 @@
-#  What's New in Version 1.6.1
+#  What's New in Version 1.7.0
 
 
-## **Toggling between playlist view tabs**
+## **Chapters support for audiobooks/podcasts**
 
-Users can now conveniently toggle between playlist view tabs (i.e. Tracks / Artists / Albums / Genres) with
-2 new menu items under the ***Playlist*** menu, and through their associated keyboard shortcuts:
+Aural Player can now read and display chapter markings from tracks¹, and offers convenient chapter playback functions. This is especially useful for audiobooks or podcasts (eg. M4B audiobooks from Librivox).
 
-**Previous playlist view** - Shift + Cmd + [
-**Next playlist view** - Shift + Cmd + ]
+### **UI features**
 
-Note that these keyboard shortcuts are consistent with the standard macOS shortcuts for tab switching in various apps: Finder, Firefox, Chrome, etc.
+* Tabular display of chapters in a new "Chapters list" window (chapter title, start time, and end time). This window will automatically pop up when a track that has chapter markings begins playing (automatic popup can be disabled in Playlist preferences)
+* Type selection and search for chapter by title ("Chapters list")
+* Marker showing currently playing chapter
+* Current chapter title displayed in player window
 
-## **Standard way to toggle between dialog tabs**
+### **Playback functions:**
 
-Also, there are now standard consistent keyboard shortcuts to toggle between tabs in various dialogs such as Preferences, the Detailed Track Info popover, the Effects Presets editor, etc.
+The following functions are available within the Chapters list window and also under the **Playback** menu.
 
-**Previous tab** - Shift + Cmd + [
-**Next tab** - Shift + Cmd + ]
+* Play / replay desired chapter
+* Previous / next chapter
+* Loop current chapter
 
-These keyboard shortcuts are consistent with those used to switch playlist views.
+### **New allowed file extensions**
+
+Previously, files with these extensions could not be added to the playlist.
+* M4B
+* M4R
+
+1. Testing has been done on M4B (AAC), MP3, WMA, Opus, and Ogg Vorbis files, although other file formats with properly encoded chapter markings should also be readable.
+
+## **Ability to show/hide playing track metadata fields**
+
+The player window, which shows currently playing track metadata, now allows the user to individually show/hide each of the 3 metadata fields (when they are available to be displayed):
+
+* Artist
+* Album
+* Current chapter title
+
+## **Bug fixes**
+
+* When a segment loop was defined with its end time coinciding with the end of the track, and then the loop was removed, track completion would not be detected and the player would freeze because of a playback segment being scheduled with a zero frame count. This bug has been fixed in this release.
+
+## **Enhancements**
+
+* Slight aesthetic refinements to player UI:  seek bar, volume and pan sliders, playback controls, etc.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.6.1)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.7.0)
+
+### **Free audiobooks**
+To obtain free public domain audiobooks to test these new Aural Player features, visit [LibriVox](https://librivox.org/)
