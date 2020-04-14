@@ -187,6 +187,18 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
         
         return nil
     }
+    
+    // Enables type selection, allowing the user to conveniently and efficiently find a chapter by typing its display name, which results in the chapter, if found, being selected within the list
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        
+        if let track = playbackInfo.playingTrack?.track, let colID = tableColumn?.identifier.rawValue, colID == UIConstants.chapterTitleColumnID,
+            row < playbackInfo.chapterCount {
+            
+            return track.chapters[row].title
+        }
+        
+        return nil
+    }
 }
 
 /*
