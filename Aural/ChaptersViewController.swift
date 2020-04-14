@@ -40,8 +40,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
-        
-        // TODO: Subscribe to "Jump to time" ActionMessage so that chapter marking is updated even if player is paused
     }
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
@@ -193,22 +191,30 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             let chapterCount: Int = player.chapterCount
             lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         }
+        
+        // This should always be done
+        looping = false
+        btnLoopChapter.image = Images.imgLoopChapterOff
     }
     
     private func chapterChanged(_ oldChapter: Int?, _ newChapter: Int?) {
         
-        var refreshRows: [Int] = []
+        // Don't need to do this if the window is not visible
+        if let _window = view.window, _window.isVisible {
         
-        if let _oldChapter = oldChapter, _oldChapter >= 0 {
-            refreshRows.append(_oldChapter)
-        }
-        
-        if let _newChapter = newChapter, _newChapter >= 0 {
-            refreshRows.append(_newChapter)
-        }
-        
-        if (!refreshRows.isEmpty) {
-            self.chaptersView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
+            var refreshRows: [Int] = []
+            
+            if let _oldChapter = oldChapter, _oldChapter >= 0 {
+                refreshRows.append(_oldChapter)
+            }
+            
+            if let _newChapter = newChapter, _newChapter >= 0 {
+                refreshRows.append(_newChapter)
+            }
+            
+            if (!refreshRows.isEmpty) {
+                self.chaptersView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
+            }
         }
     }
     
