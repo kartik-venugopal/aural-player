@@ -612,7 +612,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         seekToPercentage(percentage)
     }
     
-    // Chapters playback
+    // MARK: Chapter playback functions
     
     func playChapter(_ index: Int) {
         
@@ -628,7 +628,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 player.resume()
             }
             
-            // TODO: REmove this ... seekToTime() will take care of it
             if (chapterChanged) {
                 removeLoop()
                 SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
@@ -723,6 +722,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return 0
     }
     
+    // NOTE - This function needs to be efficient because it is repeatedly called to keep track of the current chapter
+    // TODO: One possible optimization - keep track of which chapter is playing (in a variable), and in this function, check
+    // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
     var playingChapter: Int? {
         
         if let track = playingTrack?.track, track.hasChapters {

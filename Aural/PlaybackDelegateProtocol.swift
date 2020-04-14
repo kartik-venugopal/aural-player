@@ -54,18 +54,29 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack()
     
+    // For the currently playing track, plays the chapter with the given index, from the start time.
+    // If this chapter is already playing, it is played from the start time.
+    // NOTE - If there is a segment loop defined (unless it is for this same chapter), it will be removed.
     func playChapter(_ index: Int)
     
+    // For the currently playing track, plays the previous chapter (relative to the current seek position or chapter)
     func previousChapter()
     
+    // For the currently playing track, plays the next chapter (relative to the current seek position or chapter)
     func nextChapter()
     
+    // For the currently playing track, replays the currently playing chapter (i.e. seeks to the chapter's start time)
     func replayChapter()
     
+    // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
     func loopChapter()
     
+    // For the currently playing track, returns the total number of defined chapter markings
     var chapterCount: Int {get}
     
+    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
+    // 1 - There are no chapter markings for the current track
+    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
     var playingChapter: Int? {get}
     
     /*
