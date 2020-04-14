@@ -9,9 +9,9 @@ struct Colors {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
-    static let trackInfoTitleTextColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
-    static let trackInfoArtistAlbumTextColor: NSColor = boxTextColor
-    static let trackInfoChapterTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let trackInfoTitleTextColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
+    static let trackInfoArtistAlbumTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let trackInfoChapterTextColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
     
     static let fxFunctionTextColor: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
     
@@ -164,9 +164,6 @@ struct Colors {
         
         let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0.5, green: 0, blue: 0, alpha: 1)
-        
-//        let backgroundStart = NSColor(calibratedWhite: 1, alpha: 1)
-//        let backgroundEnd =  NSColor(calibratedWhite: 0.6, alpha: 1)
         
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         

@@ -127,9 +127,6 @@
                                                         <action selector="showOrHidePlayingTrackInfoAction:" target="gF1-jg-yeJ" id="QKj-gQ-Bv5"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="g2R-0M-347"/>
                                                 <menuItem title="Playing track functions" id="Yhs-qW-5Tg">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -148,6 +145,9 @@
                                                     <connections>
                                                         <action selector="showOrHideTimeElapsedRemainingAction:" target="gF1-jg-yeJ" id="68i-0Z-ouj"/>
                                                     </connections>
+                                                </menuItem>
+                                                <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="poS-7C-6hH"/>
                                                 <menuItem title="Text size" id="tGm-Ku-PMk">

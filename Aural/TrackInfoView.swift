@@ -2,10 +2,6 @@ import Cocoa
 
 class TrackInfoView: NSView {
     
-    static let titleFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 16)!
-    static let artistAlbumFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
-    static let chapterFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
-    
     @IBOutlet weak var txt: NSTextView!
     @IBOutlet weak var clipView: NSClipView!
     
@@ -37,6 +33,7 @@ class TrackInfoView: NSView {
     
     var chapter: String?
     
+    // Set some default value
     var lineWidth: CGFloat = 300
     
     override func awakeFromNib() {
@@ -81,23 +78,26 @@ class TrackInfoView: NSView {
         
         if track != nil {
             
-            var artistAlbumStr: String? = nil
+            var truncatedArtistAlbumStr: String? = nil
+            var fullLengthArtistAlbumStr: String? = nil
             
             if let theArtist = artist, let theAlbum = album {
                 
-                let fullLengthStr = String(format: "%@ -- %@", theArtist, theAlbum)
-                artistAlbumStr = truncateCompositeString(TextSizes.artistAlbumFont, lineWidth, fullLengthStr, theArtist, theAlbum, " -- ")
+                fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
+                truncatedArtistAlbumStr = truncateCompositeString(TextSizes.artistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
             } else if let theArtist = artist {
                 
-                artistAlbumStr = StringUtils.truncate(theArtist, TextSizes.artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, TextSizes.artistAlbumFont, lineWidth)
+                fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                artistAlbumStr = StringUtils.truncate(theAlbum, TextSizes.artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, TextSizes.artistAlbumFont, lineWidth)
+                fullLengthArtistAlbumStr = theAlbum
             }
             
-            let hasArtistAlbum: Bool = artistAlbumStr != nil
+            let hasArtistAlbum: Bool = truncatedArtistAlbumStr != nil
             let hasChapter: Bool = PlayerViewState.showCurrentChapter && chapter != nil
             
             // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
@@ -107,14 +107,18 @@ class TrackInfoView: NSView {
             txt.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
-            if let _artistAlbumStr = artistAlbumStr {
-                txt.textStorage?.append(attributedString(_artistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+            if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
+                txt.textStorage?.append(attributedString(_truncatedArtistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if hasChapter, let chapterStr = chapter {
-                txt.textStorage?.append(attributedString(chapterStr, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
+                
+                let truncatedChapter: String = StringUtils.truncate(chapterStr, TextSizes.chapterFont, lineWidth)
+                txt.textStorage?.append(attributedString(truncatedChapter, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
             }
+            
+            txt.toolTip = String(format: "%@%@%@", title, fullLengthArtistAlbumStr != nil ? "\n\n" + fullLengthArtistAlbumStr! : "", chapter != nil ? "\n\n" + chapter! : "")
             
             centerAlign()
         }
