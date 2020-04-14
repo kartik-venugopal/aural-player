@@ -93,10 +93,16 @@ class PlaybackScheduler {
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
         let playingFile: AVAudioFile = playbackInfo.audioFile!
         let sampleRate = playingFile.processingFormat.sampleRate
+        let minFrames = Int64(sampleRate * PlaybackScheduler.timeComparisonTolerance)
         
         //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
-        let firstFrame = Int64(loopEndTime * sampleRate) + 1
-        let frameCount = playbackInfo.frames! - firstFrame + 1
+        var firstFrame = Int64(loopEndTime * sampleRate) + 1
+        var frameCount = playbackInfo.frames! - firstFrame + 1
+        
+        if frameCount < minFrames {
+            frameCount = minFrames
+            firstFrame = playbackInfo.frames! - minFrames + 1
+        }
         
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
         playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
