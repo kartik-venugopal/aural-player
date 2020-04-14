@@ -132,11 +132,11 @@ class FFMpegWrapper {
                     var endTime: Double = 0
                     var title: String? = nil
                 
-                    if let startTimeStr = chapterDict["start_time"] as? String, let num = Double(startTimeStr), !num.isNaN {
+                    if let startTimeStr = chapterDict["start_time"] as? String, let num = Double(startTimeStr), !num.isNaN, num >= 0 {
                         startTime = num
                     }
                     
-                    if let endTimeStr = chapterDict["end_time"] as? String, let num = Double(endTimeStr), !num.isNaN {
+                    if let endTimeStr = chapterDict["end_time"] as? String, let num = Double(endTimeStr), !num.isNaN, num >= 0 {
                         endTime = num
                     }
                     
