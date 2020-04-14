@@ -282,7 +282,8 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
                 let end = timeRange.end.seconds
                 let duration = timeRange.duration.seconds
                 
-                chapters.append(Chapter(title, start.isNaN ? 0 : start, end.isNaN ? 0 : end, duration.isNaN ? nil : duration))
+                chapters.append(Chapter(title, (start.isNaN || start < 0) ? 0 : start, (end.isNaN || end < 0) ? 0 : end, (duration.isNaN || duration < 0) ? nil : duration))
+                
                 chapterIndex += 1
             }
         }
