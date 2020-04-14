@@ -645,12 +645,12 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
-                            <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
+                            <menuItem title="  Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
                                     <action selector="previousTrackAction:" target="IvK-xG-TCa" id="D8O-D4-jyH"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
+                            <menuItem title="  Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
                                 <connections>
                                     <action selector="nextTrackAction:" target="IvK-xG-TCa" id="4mr-wR-zPu"/>
                                 </connections>
@@ -666,13 +666,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dUg-V9-6qC"/>
-                            <menuItem title=" Previous chapter" image="PreviousTrack-Small" keyEquivalent="" id="zsa-rI-usn">
+                            <menuItem title="  Previous chapter" image="PreviousTrack-Small" keyEquivalent="" id="zsa-rI-usn">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="previousChapterAction:" target="IvK-xG-TCa" id="r3z-Ab-ZA9"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Next chapter" image="NextTrack-Small" keyEquivalent="" id="ySg-NX-IAs">
+                            <menuItem title="  Next chapter" image="NextTrack-Small" keyEquivalent="" id="ySg-NX-IAs">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="nextChapterAction:" target="IvK-xG-TCa" id="kbL-RW-cUJ"/>
@@ -715,7 +715,7 @@ CA
                                     <action selector="seekForwardSecondaryAction:" target="IvK-xG-TCa" id="jLq-yN-cy0"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Jump to time" keyEquivalent="j" indentationLevel="1" id="ihH-E8-ggt" userLabel="Jump">
+                            <menuItem title="   Jump to time" keyEquivalent="j" indentationLevel="1" id="ihH-E8-ggt" userLabel="Jump">
                                 <connections>
                                     <action selector="jumpToTimeAction:" target="IvK-xG-TCa" id="88e-o4-bXj"/>
                                 </connections>
