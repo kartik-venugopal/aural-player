@@ -6,6 +6,12 @@ protocol LayoutManagerProtocol {
     
     func isShowingPlaylist() -> Bool
     
+    var isShowingChaptersList: Bool {get}
+    
+    var mainWindow: NSWindow {get}
+    
+    var chaptersWindow: NSWindow {get}
+    
     func layout(_ layout: WindowLayout)
     
     func layout(_ name: String)

@@ -308,6 +308,23 @@ class TextSizes {
         }
     }
     
+    private static let chapterSearchFont_normal: NSFont = Fonts.gillSans12SemiBoldFont
+    private static let chapterSearchFont_larger: NSFont = Fonts.gillSans13SemiBoldFont
+    private static let chapterSearchFont_largest: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
+    static var chapterSearchFont: NSFont {
+        
+        switch playlistScheme {
+            
+        case .normal: return chapterSearchFont_normal
+            
+        case .larger: return chapterSearchFont_larger
+            
+        case .largest: return chapterSearchFont_largest
+            
+        }
+    }
+    
     private static let fxTabsFont_normal: NSFont = Fonts.gillSans12Font
     private static let fxTabsFont_larger: NSFont = Fonts.gillSans13Font
     private static let fxTabsFont_largest: NSFont = Fonts.gillSans14Font

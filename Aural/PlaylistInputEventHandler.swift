@@ -11,7 +11,7 @@ class PlaylistInputEventHandler {
     
     private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.getPreferences().controlsPreferences
     
-    private static let layman: LayoutManager = ObjectGraph.layoutManager
+    private static let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
         playlistViews[playlistType] = playlistView
@@ -75,44 +75,10 @@ class PlaylistInputEventHandler {
     private static func handleKeyDown(_ event: NSEvent) -> Bool {
         
         // One-off special case: Without this, space key press (for play/pause) is not sent to main window
-        if (event.charactersIgnoringModifiers == " ") {
-            layman.mainWindow.keyDown(with: event)
+        // Send space to main window unless chapters window is key (space is used for type selection and chapter search)
+        if event.charactersIgnoringModifiers == " " && layoutManager.chaptersWindow != NSApp.keyWindow {
+            layoutManager.mainWindow.keyDown(with: event)
             return true
-        }
-        
-        // Indicate whether or not Shift/Command/Option were pressed
-        let isShift: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.shift)
-        let isCommand: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
-        let isOption: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.option)
-        
-        let isVerticalArrow: Bool = KeyCodeConstants.verticalArrows.contains(event.keyCode)
-        
-        let chars = event.charactersIgnoringModifiers
-        let isAlphaNumeric = chars != nil && chars!.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil
-        
-        // ---------------------- Handlers --------------------------
-        
-        // Arrows enable natural playlist scrolling and group expansion/collapsing, and alphanumeric characters enable type selection by track name
-        if (!isShift && !isCommand && !isOption && (isVerticalArrow || isAlphaNumeric)) {
-            
-            if (layman.chaptersWindow == NSApp.keyWindow) {
-                
-                PlaylistViewState.chaptersView.keyDown(with: event)
-                
-            } else {
-                
-                // Forward the event to the currently displayed playlist view
-                playlistViews[PlaylistViewState.current]!.keyDown(with: event)
-            }
-            
-            return true
-        }
-        
-        // NOTE - This keyboard shortcut is for debugging purposes only, not intended for the end user
-        // (Shift + Command + S) Print Timer stats
-        if (isShift && isCommand && (chars != nil && chars! == "S")) {
-            TimerUtils.printStats()
-            return false
         }
         
         return false
