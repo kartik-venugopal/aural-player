@@ -1,8 +1,14 @@
 import Cocoa
 
+/*
+ A view that displays info about the currently playing track in the player window.
+ */
 class TrackInfoView: NSView {
     
-    @IBOutlet weak var txt: NSTextView!
+    // The text view that displays all the track info
+    @IBOutlet weak var textView: NSTextView!
+    
+    // The clip view that contains the text view (used to center-align the text view vertically)
     @IBOutlet weak var clipView: NSClipView!
     
     private var track: Track? = nil {
@@ -33,13 +39,17 @@ class TrackInfoView: NSView {
     
     var chapter: String?
     
-    // Set some default value
+    // Represents the maximum width allowed for one line of text displayed in the text view
     var lineWidth: CGFloat = 300
     
     override func awakeFromNib() {
-        lineWidth = (txt?.frame.width ?? 300) - 15
+
+        // Set the line width to assist with truncation of title/artist/album/chapter strings,
+        // with some padding to allow for slight discrepancies when truncating
+        lineWidth = (textView?.frame.width ?? 300) - 15
     }
     
+    // Update the text view when the current chapter changes
     func chapterChanged(_ chapterTitle: String?) {
         
         self.chapter = chapterTitle
@@ -74,7 +84,7 @@ class TrackInfoView: NSView {
     
     private func update() {
         
-        txt.string = ""
+        textView.string = ""
         
         if track != nil {
             
@@ -100,25 +110,23 @@ class TrackInfoView: NSView {
             let hasArtistAlbum: Bool = truncatedArtistAlbumStr != nil
             let hasChapter: Bool = PlayerViewState.showCurrentChapter && chapter != nil
             
-            // TODO: Line spacing is also dependent on TextSize. Add TextSizes.titleArtistLineSpacing, etc.
-            
             // Title
             let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, TextSizes.titleFont, lineWidth) : title
-            txt.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            textView.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                txt.textStorage?.append(attributedString(_truncatedArtistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if hasChapter, let chapterStr = chapter {
                 
                 let truncatedChapter: String = StringUtils.truncate(chapterStr, TextSizes.chapterFont, lineWidth)
-                txt.textStorage?.append(attributedString(truncatedChapter, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
+                textView.textStorage?.append(attributedString(truncatedChapter, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
             }
             
-            txt.toolTip = String(format: "%@%@%@", title, fullLengthArtistAlbumStr != nil ? "\n\n" + fullLengthArtistAlbumStr! : "", chapter != nil ? "\n\n" + chapter! : "")
+            textView.toolTip = String(format: "%@%@%@", title, fullLengthArtistAlbumStr != nil ? "\n\n" + fullLengthArtistAlbumStr! : "", chapter != nil ? "\n\n" + chapter! : "")
             
             centerAlign()
         }
@@ -159,12 +167,12 @@ class TrackInfoView: NSView {
     private func centerAlign() {
         
         // Horizontal alignment
-        txt.setAlignment(.center, range: .init(location: 0, length: txt.string.count))
+        textView.setAlignment(.center, range: .init(location: 0, length: textView.string.count))
         
         // Vertical alignment
-        txt.layoutManager?.ensureLayout(for: txt.textContainer!)
+        textView.layoutManager?.ensureLayout(for: textView.textContainer!)
 
-        if let txtHeight = txt.layoutManager?.usedRect(for: txt.textContainer!).height {
+        if let txtHeight = textView.layoutManager?.usedRect(for: textView.textContainer!).height {
 
             let htDiff = self.frame.height - txtHeight
             clipView.contentInsets.top = htDiff / 2
