@@ -9,17 +9,32 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     
     @IBOutlet weak var btnLoopChapter: NSButton!
     
+    @IBOutlet weak var txtSearch: NSSearchField!
+    @IBOutlet weak var btnCaseSensitive: OnOffImageButton!
+    
+    @IBOutlet weak var lblNumMatches: NSTextField!
+    @IBOutlet weak var btnPreviousMatch: NSButton!
+    @IBOutlet weak var btnNextMatch: NSButton!
+    
+    private var searchResults: [Int] = []
+    private var resultIndex: Int?
+    
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     private var looping: Bool = false
     
     override func viewDidLoad() {
         
+        // Set these fields for later access
         PlaylistViewState.chaptersView = self.chaptersView
+        
         initSubscriptions()
         
         looping = false
         btnLoopChapter.image = Images.imgLoopChapterOff
+        
+        lblNumMatches.stringValue = ""
+        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
     }
     
     override func viewDidAppear() {
@@ -32,6 +47,9 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         lblWindowTitle.font = TextSizes.playlistSummaryFont
         lblSummary.font = TextSizes.playlistSummaryFont
+        
+        txtSearch.font = TextSizes.chapterSearchFont
+        lblNumMatches.font = TextSizes.chapterSearchFont
     }
     
     private func initSubscriptions() {
@@ -115,6 +133,82 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         looping = !looping
     }
     
+    @IBAction func searchAction(_ sender: AnyObject) {
+        
+        let text = txtSearch.stringValue
+        
+        searchResults.removeAll()
+        
+        if !text.isEmpty, let chapters = player.playingTrack?.track.chapters {
+
+            for index in 0..<chapters.count {
+                
+                if compare(text, chapters[index].title) {
+                    searchResults.append(index)
+                }
+            }
+            
+            let numResults: Int = searchResults.count
+            let hasResults: Bool = numResults > 0
+            
+            chaptersView.selectRowIndexes(IndexSet(hasResults ? [searchResults[0]] : []), byExtendingSelection: false)
+            
+            resultIndex = hasResults ? 0 : nil
+            
+            if let index = resultIndex {
+                chaptersView.scrollRowToVisible(searchResults[index])
+            }
+            
+            lblNumMatches.stringValue = String(format: "%d %@", numResults, numResults == 1 ? "match" : "matches")
+            
+            btnPreviousMatch.disable()
+            btnNextMatch.enableIf(numResults > 1)
+            
+        } else {
+            
+            lblNumMatches.stringValue = ""
+            [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        }
+    }
+    
+    @IBAction func toggleCaseSensitiveSearchAction(_ sender: AnyObject) {
+        
+        btnCaseSensitive.toggle()
+        searchAction(self)
+    }
+    
+    @IBAction func previousSearchResultAction(_ sender: AnyObject) {
+        
+        if let index = resultIndex, index > 0 {
+            
+            let row = searchResults[index - 1]
+            chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
+            chaptersView.scrollRowToVisible(row)
+            
+            resultIndex = index - 1
+            btnPreviousMatch.enableIf(resultIndex! > 0)
+            btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+        }
+    }
+    
+    @IBAction func nextSearchResultAction(_ sender: AnyObject) {
+        
+        if let index = resultIndex, index < searchResults.count - 1 {
+            
+            let row = searchResults[index + 1]
+            chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
+            chaptersView.scrollRowToVisible(row)
+            
+            resultIndex = index + 1
+            btnPreviousMatch.enableIf(resultIndex! > 0)
+            btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+        }
+    }
+    
+    private func compare(_ queryText: String, _ chapterTitle: String) -> Bool {
+        return btnCaseSensitive.isOn() ? chapterTitle.contains(queryText) : chapterTitle.lowercased().contains(queryText.lowercased())
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -195,6 +289,12 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         // This should always be done
         looping = false
         btnLoopChapter.image = Images.imgLoopChapterOff
+        
+        txtSearch.stringValue = ""
+        lblNumMatches.stringValue = ""
+        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        resultIndex = nil
+        searchResults.removeAll()
     }
     
     private func chapterChanged(_ oldChapter: Int?, _ newChapter: Int?) {
@@ -234,6 +334,9 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
             lblWindowTitle.font = TextSizes.playlistSummaryFont
             lblSummary.font = TextSizes.playlistSummaryFont
+            
+            txtSearch.font = TextSizes.chapterSearchFont
+            lblNumMatches.font = TextSizes.chapterSearchFont
         }
     }
 }

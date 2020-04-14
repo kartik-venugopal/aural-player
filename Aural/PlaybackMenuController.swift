@@ -82,12 +82,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingDialogOrPopover)})
+        let chaptersWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersWindow
+        
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingDialogOrPopover && !chaptersWindowIskey)})
         
         // These items should be enabled only if there is a playing track and it has chapter markings
         [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach({$0?.enableIf(playbackInfo.chapterCount > 0)})
         
-        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
+        
+        
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0?.enableIf(isPlayingOrPaused && !showingDialogOrPopover && !chaptersWindowIskey)})
         
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
     }

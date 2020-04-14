@@ -13,4 +13,5 @@ class KeyCodeConstants {
     
     static let arrows = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW]
     static let verticalArrows = [UP_ARROW, DOWN_ARROW]
+    static let horizontalArrows = [LEFT_ARROW, RIGHT_ARROW]
 }

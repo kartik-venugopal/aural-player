@@ -43,6 +43,18 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Of-xA-IUV" userLabel="Num Matches Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="406" y="309" width="85" height="23"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="Am4-mI-hbN"/>
+                                        <constraint firstAttribute="width" constant="85" id="z86-uq-dhe"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" drawsBackground="YES" id="RqM-qR-BpE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </textFieldCell>
+                                </textField>
                                 <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button">
                                     <rect key="frame" x="14" y="355" width="9" height="9"/>
                                     <constraints>
@@ -131,35 +143,108 @@
                                         <action selector="replayChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
                                     </connections>
                                 </button>
+                                <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
+                                    <rect key="frame" x="14" y="311" width="352" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
+                                    </constraints>
+                                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" id="wGz-Cf-PrL">
+                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <color key="textColor" white="0.70217628965915091" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.48200924298309866" alpha="1" colorSpace="calibratedWhite"/>
+                                    </searchFieldCell>
+                                    <connections>
+                                        <action selector="searchAction:" target="uhU-UR-xwr" id="inD-GP-kZ9"/>
+                                    </connections>
+                                </searchField>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LRU-p1-g4p" userLabel="Previous result">
+                                    <rect key="frame" x="499" y="311" width="28" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="18" id="HVz-hl-L5U"/>
+                                        <constraint firstAttribute="width" constant="28" id="kdQ-o9-9ae"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="S9L-01-mHC" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="previousSearchResultAction:" target="uhU-UR-xwr" id="rtK-eV-Cbh"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2FZ-dU-SXE" userLabel="Next result">
+                                    <rect key="frame" x="528" y="311" width="28" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="K3K-0i-ILC"/>
+                                        <constraint firstAttribute="height" constant="18" id="oee-Pf-iqL"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="b6t-Xv-oX5" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="nextSearchResultAction:" target="uhU-UR-xwr" id="Q49-QM-EMm"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Shuffle" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="375" y="315" width="20" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="EiF-Jn-i3E"/>
+                                        <constraint firstAttribute="width" constant="20" id="l2K-IR-HRY"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search-CaseSensitive-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PMw-88-5Uw">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Search-CaseSensitive-Off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Search-CaseSensitive-On"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Case sensitive search (disabled)"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Case sensitive search (enabled)"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="toggleCaseSensitiveSearchAction:" target="uhU-UR-xwr" id="PQX-uK-8jd"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="iBr-vY-6sc" secondAttribute="bottom" constant="13" id="3g0-gO-SAX"/>
+                                <constraint firstItem="LRU-p1-g4p" firstAttribute="leading" secondItem="8Of-xA-IUV" secondAttribute="trailing" constant="8" id="3y7-BW-bGg"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="8Zr-hA-Vcd"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="7" id="EHh-Jx-In0"/>
+                                <constraint firstItem="PhG-3g-wVK" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="IIU-Wp-Ibz"/>
                                 <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="13" id="JeX-co-VLM"/>
+                                <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="LL4-6g-sdT"/>
                                 <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="15" id="OqM-Ff-z6c"/>
+                                <constraint firstItem="LRU-p1-g4p" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="PMw-sq-XKo"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="centerX" secondItem="R3F-5h-tZn" secondAttribute="centerX" id="Pbu-q0-PCr"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="leading" secondItem="Axi-IH-THL" secondAttribute="trailing" constant="5" id="RYc-Be-Rae"/>
+                                <constraint firstItem="2FZ-dU-SXE" firstAttribute="leading" secondItem="LRU-p1-g4p" secondAttribute="trailing" constant="1" id="U0S-X5-Q1f"/>
                                 <constraint firstItem="Tye-Wf-orr" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="5" id="UoB-Mx-krW"/>
+                                <constraint firstItem="8Of-xA-IUV" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="48" id="VE4-dL-Deq"/>
+                                <constraint firstItem="jY6-EF-Drz" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="XJ4-Pl-vch"/>
+                                <constraint firstItem="8Of-xA-IUV" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="40" id="bIo-bS-6Ee"/>
                                 <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="10" id="csq-wX-8mX"/>
                                 <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
+                                <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-2" id="l0e-ch-Rse"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
+                                <constraint firstItem="jY6-EF-Drz" firstAttribute="top" secondItem="5J6-lG-aTa" secondAttribute="bottom" constant="17" id="tGZ-RX-IAX"/>
                                 <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="10" id="uzm-wc-Afo"/>
+                                <constraint firstAttribute="trailing" secondItem="2FZ-dU-SXE" secondAttribute="trailing" constant="14" id="wZV-Al-P8S"/>
                             </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
-                        <rect key="frame" x="15" y="40" width="540" height="300"/>
+                        <rect key="frame" x="15" y="40" width="540" height="260"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="Ehf-3j-NsA">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="300"/>
+                            <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="yUF-pu-Wpc" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="540" height="275"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="235"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -362,7 +447,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ksp-Uu-T5P" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="P0P-5x-0TS"/>
-                    <constraint firstItem="fbU-sK-75k" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="40" id="RRQ-0r-I9o"/>
+                    <constraint firstItem="fbU-sK-75k" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="80" id="RRQ-0r-I9o"/>
                     <constraint firstAttribute="trailing" secondItem="Ksp-Uu-T5P" secondAttribute="trailing" id="SF7-1B-5Qv"/>
                     <constraint firstItem="Ksp-Uu-T5P" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="Tvd-OQ-Tde"/>
                     <constraint firstItem="fbU-sK-75k" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="15" id="W9h-t3-9K7"/>
@@ -389,10 +474,15 @@
         </customObject>
         <viewController id="uhU-UR-xwr" customClass="ChaptersViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="yuW-jF-LzI"/>
                 <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="A8X-fF-Lbb"/>
+                <outlet property="btnNextMatch" destination="2FZ-dU-SXE" id="WM0-kJ-ktx"/>
+                <outlet property="btnPreviousMatch" destination="LRU-p1-g4p" id="PXH-LH-EHq"/>
                 <outlet property="chaptersView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
+                <outlet property="lblNumMatches" destination="8Of-xA-IUV" id="5UI-iy-91C"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
                 <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
+                <outlet property="txtSearch" destination="jY6-EF-Drz" id="LKu-6e-l0V"/>
                 <outlet property="view" destination="rlg-QY-3mV" id="2Fb-Kb-dFb"/>
             </connections>
         </viewController>
@@ -403,5 +493,7 @@
         <image name="NextTrack" width="31" height="35"/>
         <image name="PreviousTrack" width="31" height="35"/>
         <image name="ReplayChapter" width="25" height="25"/>
+        <image name="Search-CaseSensitive-Off" width="43" height="31"/>
+        <image name="Search-CaseSensitive-On" width="43" height="31"/>
     </resources>
 </document>

@@ -107,8 +107,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
         
-        expandSelectedGroupsMenuItem.enableIf(atLeastOneItemSelected && areOnlyGroupsSelected())
-        collapseSelectedItemsMenuItem.enableIf(atLeastOneItemSelected)
+        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected && areOnlyGroupsSelected())
+        collapseSelectedItemsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
