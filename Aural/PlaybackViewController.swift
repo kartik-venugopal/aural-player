@@ -171,7 +171,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Toggles the state of the segment playback loop for the currently playing track
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
         toggleLoop()
-        SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
     }
     
     private func toggleLoop() {
@@ -182,10 +181,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 
                 _ = player.toggleLoop()
                 playbackLoopChanged()
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
             }
         }
     }
-    
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
