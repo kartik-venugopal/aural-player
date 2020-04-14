@@ -23,7 +23,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ksp-Uu-T5P" userLabel="Root Container">
+                    <box appearanceType="darkAqua" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ksp-Uu-T5P" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                         <view key="contentView" id="R3F-5h-tZn">
                             <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
@@ -116,7 +116,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="313" y="11" width="17" height="17"/>
+                                    <rect key="frame" x="318" y="11" width="17" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="17" id="9GP-DR-xzf"/>
                                         <constraint firstAttribute="width" constant="17" id="kyd-iY-5bD"/>
@@ -130,14 +130,14 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="290" y="13" width="13" height="13"/>
+                                    <rect key="frame" x="290" y="8" width="22" height="22"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="13" id="Tmw-pA-lzr"/>
-                                        <constraint firstAttribute="height" constant="13" id="tai-mK-py5"/>
+                                        <constraint firstAttribute="width" constant="22" id="Tmw-pA-lzr"/>
+                                        <constraint firstAttribute="height" constant="22" id="tai-mK-py5"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ReplayChapter" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dfN-R0-OXt">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Replay" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dfN-R0-OXt">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="system" size="21"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="replayChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
@@ -212,7 +212,7 @@
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="8Zr-hA-Vcd"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="7" id="EHh-Jx-In0"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="IIU-Wp-Ibz"/>
-                                <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="13" id="JeX-co-VLM"/>
+                                <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="8" id="JeX-co-VLM"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="LL4-6g-sdT"/>
                                 <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="15" id="OqM-Ff-z6c"/>
                                 <constraint firstItem="LRU-p1-g4p" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="PMw-sq-XKo"/>
@@ -223,7 +223,7 @@
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="48" id="VE4-dL-Deq"/>
                                 <constraint firstItem="jY6-EF-Drz" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="XJ4-Pl-vch"/>
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="40" id="bIo-bS-6Ee"/>
-                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="10" id="csq-wX-8mX"/>
+                                <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="6" id="csq-wX-8mX"/>
                                 <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
@@ -237,7 +237,7 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
+                    <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
                         <rect key="frame" x="15" y="40" width="540" height="260"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="Ehf-3j-NsA">
                             <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
@@ -492,7 +492,7 @@
         <image name="LoopChapter-Off" width="20" height="20"/>
         <image name="NextTrack" width="31" height="35"/>
         <image name="PreviousTrack" width="31" height="35"/>
-        <image name="ReplayChapter" width="25" height="25"/>
+        <image name="Replay" width="35" height="35"/>
         <image name="Search-CaseSensitive-Off" width="43" height="31"/>
         <image name="Search-CaseSensitive-On" width="43" height="31"/>
     </resources>

@@ -1671,7 +1671,7 @@ CA
         <image name="Remember" width="15" height="15"/>
         <image name="Remove-Small" width="10" height="10"/>
         <image name="RepeatMode-Small" width="14" height="13"/>
-        <image name="Replay-Small" width="14" height="14"/>
+        <image name="Replay-Small" width="15" height="15"/>
         <image name="Save-Small" width="12" height="12"/>
         <image name="ScrollToBottom-Small" width="12" height="12"/>
         <image name="ScrollToTop-Small" width="12" height="12"/>
