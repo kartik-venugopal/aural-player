@@ -177,6 +177,7 @@
 		3E50DC982193A3B500D42373 /* FXUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DC972193A3B500D42373 /* FXUnit.swift */; };
 		3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */; };
 		3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */; };
+		3E529E9924457713004571FD /* OldScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E529E9824457713004571FD /* OldScheduler.swift */; };
 		3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */; };
 		3E5475C722C152DB00472ABB /* FXUnitTriStateImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */; };
 		3E54B23922C263B3005EAEDF /* TriStateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E54B23822C263B3005EAEDF /* TriStateLabel.swift */; };
@@ -598,6 +599,7 @@
 		3E50DC972193A3B500D42373 /* FXUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnit.swift; sourceTree = "<group>"; };
 		3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBarPopover.xib; sourceTree = "<group>"; };
 		3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarPopoverViewController.swift; sourceTree = "<group>"; };
+		3E529E9824457713004571FD /* OldScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldScheduler.swift; sourceTree = "<group>"; };
 		3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleMenuItem.swift; sourceTree = "<group>"; };
 		3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitTriStateImageView.swift; sourceTree = "<group>"; };
 		3E54B23822C263B3005EAEDF /* TriStateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateLabel.swift; sourceTree = "<group>"; };
@@ -1183,6 +1185,7 @@
 				3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */,
 				3E426F7D1EFDD9CF002F5F18 /* Player.swift */,
 				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
+				3E529E9824457713004571FD /* OldScheduler.swift */,
 				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
 				3E3FB7F2215B577400974A59 /* PlayableItem.swift */,
 				3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */,
@@ -2601,6 +2604,7 @@
 				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,
 				3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */,
+				3E529E9924457713004571FD /* OldScheduler.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 				3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */,
 				3EA3BDA822B266AA0020A908 /* MediaApplicationWatcher.swift in Sources */,
@@ -2740,7 +2744,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Aural/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2761,7 +2765,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Aural/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

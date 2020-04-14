@@ -15,7 +15,7 @@ import AVFoundation
  start() -> starts session2, ending session1
  
  */
-class PlaybackSession {
+class PlaybackSession: Hashable {
     
     // Holds the current playback session
     static var currentSession: PlaybackSession?
@@ -29,16 +29,28 @@ class PlaybackSession {
     // Time interval since last boot (i.e. system uptime), at start of track playback (i.e. 0 seconds elapsed). Used to determine when track began playing.
     let timestamp: TimeInterval
     
+    let id: String
+    
     private init(_ track: Track) {
         
         self.timestamp = ProcessInfo.processInfo.systemUptime
         self.track = track
+        self.id = UUID().uuidString
     }
     
     private init(_ track: Track, _ timestamp: TimeInterval) {
         
         self.timestamp = timestamp
         self.track = track
+        self.id = UUID().uuidString
+    }
+    
+    static func == (lhs: PlaybackSession, rhs: PlaybackSession) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     func hasCompleteLoop() -> Bool {
@@ -104,6 +116,24 @@ struct PlaybackLoop {
     
     // End point for the playback loop, expressed in seconds relative to the start of a track
     var endTime: Double?
+    
+    var duration: Double {
+        
+        if let end = endTime {
+            return end - startTime
+        }
+        
+        return 0
+    }
+    
+    func containsPosition(_ timePosn: Double) -> Bool {
+        
+        if let end = endTime {
+            return timePosn >= startTime && timePosn <= end
+        }
+        
+        return false
+    }
     
     init(_ startTime: Double) {
         self.startTime = startTime
