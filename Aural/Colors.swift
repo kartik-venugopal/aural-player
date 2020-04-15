@@ -253,5 +253,5 @@ struct Colors {
     static let textFieldCursorColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
     
     // Background color of the popover view
-    static let popoverBackgroundColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
+    static let popoverBackgroundColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
 }

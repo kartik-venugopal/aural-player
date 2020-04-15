@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="546" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ueN-ja-zCu">
+                <box fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" cornerRadius="5" title="Box" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueN-ja-zCu">
                     <rect key="frame" x="65" y="302" width="431" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="jnm-TE-3wQ">
