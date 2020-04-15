@@ -11,7 +11,7 @@ class WindowFactory {
     
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
-    private static let chaptersWindowController: ChaptersWindowController = ChaptersWindowController()
+    private static let chaptersWindowController: ChaptersListWindowController = ChaptersListWindowController()
     
     static var chaptersWindow: NSWindow {
         return chaptersWindowController.window!
