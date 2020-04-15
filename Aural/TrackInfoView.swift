@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
- A view that displays info about the currently playing track in the player window.
+    A view that displays info about the currently playing track in the player window.
  */
 class TrackInfoView: NSView {
     
@@ -11,13 +11,16 @@ class TrackInfoView: NSView {
     // The clip view that contains the text view (used to center-align the text view vertically)
     @IBOutlet weak var clipView: NSClipView!
     
+    // Stores the track for which info is currently displayed
     private var track: Track? = nil {
         
         didSet {
+            // When track is set, update the text view
             update()
         }
     }
     
+    // The displayed track title
     private var title: String {
         
         // Title from metadata
@@ -29,18 +32,26 @@ class TrackInfoView: NSView {
         return track!.conciseDisplayName
     }
     
-    var artist: String? {
+    // The displayed track artist (displayed only if user setting allows it)
+    private var artist: String? {
         return PlayerViewState.showArtist ? track?.displayInfo.artist : nil
     }
     
-    var album: String? {
+    // The displayed track album (displayed only if user setting allows it)
+    private var album: String? {
         return PlayerViewState.showAlbum ? track?.groupingInfo.album : nil
     }
     
-    var chapter: String?
+    
+    // The currently playing chapter's title (displayed only if user setting allows it)
+    private var chapterTitle: String?
+    
+    private var chapter: String? {
+        return PlayerViewState.showCurrentChapter ? chapterTitle : nil
+    }
     
     // Represents the maximum width allowed for one line of text displayed in the text view
-    var lineWidth: CGFloat = 300
+    private var lineWidth: CGFloat = 300
     
     override func awakeFromNib() {
 
@@ -52,44 +63,53 @@ class TrackInfoView: NSView {
     // Update the text view when the current chapter changes
     func chapterChanged(_ chapterTitle: String?) {
         
-        self.chapter = chapterTitle
+        self.chapterTitle = chapterTitle
         update()
     }
     
-    func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapter: String?) {
+    // Update the text view when the current track changes
+    func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapterTitle: String?) {
         
-        self.chapter = chapter
+        self.chapterTitle = chapterTitle
         self.track = track
     }
     
+    // Clear the text view when no track is being played
     func clearNowPlayingInfo() {
         
-        self.chapter = nil
+        self.chapterTitle = nil
         self.track = nil
     }
     
+    // Responds to a change in user-preferred text size
     func changeTextSize(_ textSize: TextSizeScheme) {
         update()
     }
     
+    // Hands off track info to another TrackInfoView object
     func handOff(_ otherView: TrackInfoView) {
         
-        otherView.chapter = self.chapter
+        otherView.chapterTitle = self.chapterTitle
         otherView.track = self.track
     }
     
+    // Updates the view when the user settings that control display of metadata fields have changed
     func metadataDisplaySettingsChanged() {
         update()
     }
     
+    // Constructs the formatted "rich" text to be displayed in the text view
     private func update() {
         
+        // First, clear the view to remove any old text
         textView.string = ""
         
         if track != nil {
             
             var truncatedArtistAlbumStr: String? = nil
             var fullLengthArtistAlbumStr: String? = nil
+            
+            // Construct a formatted and truncated artist/album string
             
             if let theArtist = artist, let theAlbum = album {
                 
@@ -108,9 +128,11 @@ class TrackInfoView: NSView {
             }
             
             let hasArtistAlbum: Bool = truncatedArtistAlbumStr != nil
-            let hasChapter: Bool = PlayerViewState.showCurrentChapter && chapter != nil
             
-            // Title
+            let chapterStr = chapter
+            let hasChapter: Bool = chapterStr != nil
+            
+            // Title (truncate only if artist, album, or chapter are displayed)
             let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, TextSizes.titleFont, lineWidth) : title
             textView.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
@@ -120,28 +142,33 @@ class TrackInfoView: NSView {
             }
             
             // Chapter
-            if hasChapter, let chapterStr = chapter {
+            if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(chapterStr, TextSizes.chapterFont, lineWidth)
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, TextSizes.chapterFont, lineWidth)
                 textView.textStorage?.append(attributedString(truncatedChapter, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
             }
             
-            textView.toolTip = String(format: "%@%@%@", title, fullLengthArtistAlbumStr != nil ? "\n\n" + fullLengthArtistAlbumStr! : "", chapter != nil ? "\n\n" + chapter! : "")
+            // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)
+            textView.toolTip = String(format: "%@%@%@", title, fullLengthArtistAlbumStr != nil ? "\n\n" + fullLengthArtistAlbumStr! : "", chapterStr != nil ? "\n\n" + chapterStr! : "")
             
+            // Center-align the text
             centerAlign()
         }
     }
     
-    private func truncateCompositeString(_ font: NSFont, _ maxWidth: CGFloat, _ str: String, _ s1: String, _ s2: String, _ separator: String) -> String {
+    /*
+        Takes a formatted artist/album string like "Artist -- Album" and truncates it so that it fits horizontally within the text view.
+     */
+    private func truncateCompositeString(_ font: NSFont, _ maxWidth: CGFloat, _ fullLengthString: String, _ s1: String, _ s2: String, _ separator: String) -> String {
         
-        // Check if str fits. If so, no need to truncate
-        let origWidth = StringUtils.widthOfString(str, font)
+        // Check if the full length string fits. If so, no need to truncate.
+        let origWidth = StringUtils.widthOfString(fullLengthString, font)
         
         if origWidth <= maxWidth {
-            return str
+            return fullLengthString
         }
         
-        // If str doesn't fit, find out which is longer ... s1 or s2 ... truncate the longer one just enough to fit
+        // If fullLengthString doesn't fit, find out which is longer ... s1 or s2 ... truncate the longer one just enough to fit
         let w1 = StringUtils.widthOfString(s1, font)
         let w2 = StringUtils.widthOfString(s2, font)
         
@@ -160,10 +187,11 @@ class TrackInfoView: NSView {
         } else {
             
             // s2 is longer than s1, simply truncate the string as a whole
-            return StringUtils.truncate(str, font, maxWidth)
+            return StringUtils.truncate(fullLengthString, font, maxWidth)
         }
     }
     
+    // Center-aligns the text within the text view and the text view within the clip view.
     private func centerAlign() {
         
         // Horizontal alignment
@@ -174,11 +202,19 @@ class TrackInfoView: NSView {
 
         if let txtHeight = textView.layoutManager?.usedRect(for: textView.textContainer!).height {
 
-            let htDiff = self.frame.height - txtHeight
-            clipView.contentInsets.top = htDiff / 2
+            // Move the text view down from the top, by adjusting the top insets of the clip view.
+            let heightDifference = self.frame.height - txtHeight
+            clipView.contentInsets.top = heightDifference / 2
         }
     }
     
+    /*
+        Helper factory function to construct an NSAttributedString (i.e. "rich text"), given all its attributes.
+     
+        @param lineSpacing (optional)
+                Amout of spacing between this line of text and the next line. Nil value indicates no spacing.
+                Non-nil value will result in a line break being added to the text (to separate lines).
+     */
     private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor, _ lineSpacing: CGFloat? = nil) -> NSAttributedString {
         
         var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color ]
@@ -187,11 +223,14 @@ class TrackInfoView: NSView {
         
         if let spacing = lineSpacing {
             
+            // If lineSpacing is specified, add a paragraph style attribute and set its lineSpacing field.
+            
             let paraStyle = NSMutableParagraphStyle()
             paraStyle.lineSpacing = spacing
             
             attributes[NSAttributedString.Key.paragraphStyle] = paraStyle
             
+            // Add a newline character to the text to create a line break
             str += "\n"
         }
         
