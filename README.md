@@ -72,7 +72,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 * Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, WMA, DTS, & more)
 * Supports M3U / M3U8 playlists
 * **Playback:** Bookmarking, segment looping, 2 custom seek intervals, delayed playback, last position memory, timed gaps, autoplay
-* **Chapters support:** Chapters list window, current chapter title and marker, playback functions including loop
+* **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
 * Built-in and custom effects presets, per-track effects settings memory
 * Recording of clips with effects captured
