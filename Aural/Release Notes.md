@@ -7,7 +7,7 @@ Aural Player can now read and display chapter markings from tracks¹, and offers
 
 ### **UI features**
 
-* Tabular display of chapters in a new "Chapters list" window (chapter title, start time, and end time). This window will automatically pop up when a track that has chapter markings begins playing (automatic popup can be disabled in Playlist preferences).
+* Tabular display of chapters in a new "Chapters list" window (chapter title, start time, and duration). This window will automatically pop up when a track that has chapter markings begins playing (automatic popup can be disabled in Playlist preferences).
 * Type selection and search for chapter by title
 * Marker showing currently playing chapter
 * Current chapter title displayed in player window
