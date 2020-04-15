@@ -38,11 +38,19 @@ The player window, which shows currently playing track metadata, now allows the 
 
 ## **Bug fixes**
 
-* When a segment loop was defined with its end time coinciding with the end of the track, and then the loop was removed, track completion would not be detected and the player would freeze because of a playback segment being scheduled with a zero frame count. This bug has been fixed in this release.
+* **Playlist text size** - The Playlist text size setting was not being remembered properly and was using the player text size setting instead. 
+
+* **Player crash in rare cases** - When a segment loop was defined with its end time coinciding with the end of the track, and then the loop was removed, track completion would not be detected and the player would freeze because of a playback segment being scheduled with a zero frame count.
+
+* **Metadata text cutoff** The **Metadata** tab in the detailed track info popover was only capable of displaying a small number of lines of text, so large text values like comments would be cut off.
 
 ## **Enhancements**
 
-* Slight aesthetic refinements to player UI:  seek bar, volume and pan sliders, playback controls, etc.
+* Slight aesthetic refinements to player UI:  seek bar, volume and pan sliders, playback control icons, detailed track info popover, etc.
+
+## **"Show new track" preference moved**
+
+The **"Show new track in playlist"** user preference has been moved from the **Playback** tab to the **Playlist** tab of the Preferences dialog. Note that this change is not backwards compatible, so users of previous Aural Player versions will have to reset this setting as preferred after downloading v1.7.0.
 
 ## **Shrunk the source code download ZIP archives**
 
