@@ -11,11 +11,7 @@ class WindowFactory {
     
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
-    private static let chaptersWindowController: ChaptersListWindowController = ChaptersListWindowController()
-    
-    static var chaptersWindow: NSWindow {
-        return chaptersWindowController.window!
-    }
+    private static let chaptersListWindowController: ChaptersListWindowController = ChaptersListWindowController()
     
     private static var editorWindowController: EditorWindowController = EditorWindowController()
     
@@ -50,6 +46,10 @@ class WindowFactory {
     // Returns the playlist window
     static func getPlaylistWindow() -> NSWindow {
         return playlistWindowController.window!
+    }
+    
+    static var chaptersListWindow: NSWindow {
+        return chaptersListWindowController.window!
     }
     
     static func getPlaylistContextMenu() -> NSMenu {

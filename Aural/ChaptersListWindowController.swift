@@ -1,8 +1,12 @@
 import Cocoa
 
+/*
+    Window controller for the Chapters list window.
+    Contains the Chapters list view and performs window snapping.
+ */
 class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
     
-    override var windowNibName: String? {return "Chapters"}
+    override var windowNibName: String? {return "ChaptersList"}
     
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
     private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()

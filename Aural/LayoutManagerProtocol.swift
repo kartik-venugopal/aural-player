@@ -10,7 +10,7 @@ protocol LayoutManagerProtocol {
     
     var mainWindow: NSWindow {get}
     
-    var chaptersWindow: NSWindow {get}
+    var chaptersListWindow: NSWindow {get}
     
     func layout(_ layout: WindowLayout)
     

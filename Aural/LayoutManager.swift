@@ -9,7 +9,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     let mainWindow: NSWindow = WindowFactory.getMainWindow()
     let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
-    let chaptersWindow: NSWindow = WindowFactory.chaptersWindow
+    let chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
     private var onTop: Bool = false
     
@@ -106,7 +106,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     }
     
     var isShowingChaptersList: Bool {
-        return chaptersWindow.isVisible
+        return chaptersListWindow.isVisible
     }
     
     func getMainWindowFrame() -> NSRect {
@@ -172,25 +172,25 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         isShowingChaptersList ? hideChaptersList() : showChaptersList()
     }
     
-    // Flag indicating whether or not the chapters window was ever shown
-    private var chaptersWindowShown: Bool = false
+    // Flag indicating whether or not the chapters list window was ever shown
+    private var chaptersListWindowShown: Bool = false
     
     func showChaptersList() {
         
-        playlistWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
-        chaptersWindow.makeKeyAndOrderFront(self)
+        playlistWindow.addChildWindow(chaptersListWindow, ordered: NSWindow.OrderingMode.above)
+        chaptersListWindow.makeKeyAndOrderFront(self)
         
         // This will happen only once after each app launch - the very first time the window is shown.
         // After that, the window will be restored to its previous on-screen location
-        if !chaptersWindowShown {
-            UIUtils.centerDialogWRTWindow(chaptersWindow, playlistWindow)
+        if !chaptersListWindowShown {
+            UIUtils.centerDialogWRTWindow(chaptersListWindow, playlistWindow)
         }
         
-        chaptersWindowShown = true
+        chaptersListWindowShown = true
     }
     
     func hideChaptersList() {
-        chaptersWindow.setIsVisible(false)
+        chaptersListWindow.setIsVisible(false)
     }
     
     func addChildWindow(_ window: NSWindow) {
