@@ -65,6 +65,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         
         txtSearch.font = TextSizes.chapterSearchFont
         lblNumMatches.font = TextSizes.chapterSearchFont
+        
+        // Make sure the chapters list view has focus every time the window is opened
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     private func initSubscriptions() {
