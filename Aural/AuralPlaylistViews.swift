@@ -486,9 +486,6 @@ class OutlineViewHolder {
 
 class BasicTableCellView: NSTableCellView {
     
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
-    
     var selectionFunction: (() -> Bool) = {() -> Bool in return false}
     
     var textFont: NSFont = Fonts.gillSans10Font

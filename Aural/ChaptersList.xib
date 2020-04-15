@@ -467,11 +467,7 @@
             <point key="canvasLocation" x="-232" y="-26"/>
         </window>
         <customObject id="xJV-Ic-jGo" customClass="ChaptersListViewDataSource" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="ruP-6a-gDu" customClass="ChaptersListViewDelegate" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="chaptersListView" destination="rlg-QY-3mV" id="rIT-ZP-Pe3"/>
-            </connections>
-        </customObject>
+        <customObject id="ruP-6a-gDu" customClass="ChaptersListViewDelegate" customModule="Aural" customModuleProvider="target"/>
         <viewController id="uhU-UR-xwr" customClass="ChaptersListViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="yuW-jF-LzI"/>
