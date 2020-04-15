@@ -89,8 +89,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         // These items should be enabled only if there is a playing track and it has chapter markings
         [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach({$0?.enableIf(playbackInfo.chapterCount > 0)})
         
-        
-        
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0?.enableIf(isPlayingOrPaused && !showingDialogOrPopover && !chaptersWindowIskey)})
         
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)

@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    Encapsulates all metadata for a single track read by ffmpeg
+ */
 class LibAVInfo {
     
     let duration: Double

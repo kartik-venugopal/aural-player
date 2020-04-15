@@ -37,6 +37,7 @@ class Track: NSObject, PlaylistItem {
     
     var lyrics: String?
     
+    // Chapter markings
     var chapters: [Chapter] = []
     
     var hasChapters: Bool {
@@ -340,6 +341,54 @@ class IndexedTrack: NSObject {
     
     func equals(_ other: IndexedTrack?) -> Bool {
         return other != nil && other!.index == self.index
+    }
+}
+
+// Wrapper around Chapter that includes its parent track and chronological index
+class IndexedChapter: NSObject {
+    
+    // The track to which this chapter belongs
+    let track: Track
+    
+    // The chapter this object represents
+    let chapter: Chapter
+    
+    // The chronological index of this chapter within the track
+    let index: Int
+    
+    init(_ track: Track, _ chapter: Chapter, _ index: Int) {
+        
+        self.track = track
+        self.chapter = chapter
+        self.index = index
+    }
+    
+    func equals(_ other: IndexedChapter?) -> Bool {
+        
+        if let otherChapter = other {
+            
+            // Two IndexedChapter objects are equal if they belong to the same track and have the same index
+            return self.track === otherChapter.track && self.index == otherChapter.index
+        }
+
+        return false
+    }
+    
+    // Helper function to compare two optional IndexedChapter references for equality
+    static func areEqual(_ c1: IndexedChapter?, _ c2: IndexedChapter?) -> Bool {
+        
+        if c1 == nil && c2 == nil {
+            return true
+        }
+        else if let chapter1 = c1 {
+            return chapter1.equals(c2)
+        }
+        else if let chapter2 = c2 {
+            return chapter2.equals(c1)
+        }
+        
+        // Impossible
+        return false
     }
 }
 

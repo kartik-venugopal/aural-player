@@ -180,17 +180,18 @@ struct PreTrackChangeNotification: NotificationMessage {
     }
 }
 
+// Notification to indicate that the currently playing chapter has changed
 struct ChapterChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .chapterChangedNotification
     
-    // The track that was playing before the track change (may be nil, meaning no track was playing)
-    let oldChapter: Int?
+    // The chapter that was playing before the chapter change (may be nil, meaning no defined chapter was playing)
+    let oldChapter: IndexedChapter?
     
-    // The track that is now playing (may be nil, meaning no track playing)
-    let newChapter: Int?
+    // The chapter that is now playing (may be nil, meaning no chapter playing)
+    let newChapter: IndexedChapter?
     
-    init(_ oldChapter: Int?, _ newChapter: Int?) {
+    init(_ oldChapter: IndexedChapter?, _ newChapter: IndexedChapter?) {
         
         self.oldChapter = oldChapter
         self.newChapter = newChapter

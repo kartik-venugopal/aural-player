@@ -297,19 +297,19 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         searchResults.removeAll()
     }
     
-    private func chapterChanged(_ oldChapter: Int?, _ newChapter: Int?) {
+    private func chapterChanged(_ oldChapter: IndexedChapter?, _ newChapter: IndexedChapter?) {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
         
             var refreshRows: [Int] = []
             
-            if let _oldChapter = oldChapter, _oldChapter >= 0 {
-                refreshRows.append(_oldChapter)
+            if let _oldIndex = oldChapter?.index, _oldIndex >= 0 {
+                refreshRows.append(_oldIndex)
             }
             
-            if let _newChapter = newChapter, _newChapter >= 0 {
-                refreshRows.append(_newChapter)
+            if let _newIndex = newChapter?.index, _newIndex >= 0 {
+                refreshRows.append(_newIndex)
             }
             
             if (!refreshRows.isEmpty) {

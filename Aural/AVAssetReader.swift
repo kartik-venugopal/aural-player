@@ -257,6 +257,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return nil
     }
     
+    // Reads all chapter metadata for a given track
     // NOTE - This code does not account for potential overlaps in chapter times due to bad metadata ... assumes no overlaps
     func getChapters(_ track: Track) -> [Chapter] {
         
@@ -282,7 +283,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             }
         }
         
-        // Sort by start time, in ascending order
+        // Sort chapters by start time, in ascending order
         chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
         
         // Correct the (empty) chapter titles if required

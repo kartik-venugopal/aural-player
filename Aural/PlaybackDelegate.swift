@@ -168,6 +168,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    // TODO: If this track is already playing, just do a seek
     func play(_ track: Track, _ params: PlaybackParams) {
         
         if okToPlay(params) {
@@ -642,12 +643,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
                 let chapter = chapters[index]
                 
+                // We have either reached a chapter containing the elapsed time or
+                // we have passed the elapsed time (i.e. within a gap between chapters).
                 if chapter.containsTimePosition(elapsed) || (elapsed < chapter.startTime) {
                     
+                    // If there is a previous chapter, play it
                     if index > 0 {
                         playChapter(index - 1)
                     }
                     
+                    // No previous chapter
                     return
                 }
             }
@@ -669,7 +674,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 let chapter = chapters[index]
                 
                 if chapter.containsTimePosition(elapsed) {
-                    
+                
+                    // Play the next chapter if there is one
                     if index < (chapters.count - 1) {
                         playChapter(index + 1)
                     }
@@ -690,11 +696,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func replayChapter() {
         
-        if let track = playingTrack?.track, let curChapter = playingChapter {
-            
-            let startTime = track.chapters[curChapter].startTime
+        if let startTime = playingChapter?.chapter.startTime {
+        
+            // Seek to current chapter's start time
             seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
+            // Resume playback if paused
             if player.state == .paused {
                 player.resume()
             }
@@ -703,26 +710,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func loopChapter() {
         
-        if let track = playingTrack?.track, let chapterIndex = playingChapter {
-
-            let chapter = track.chapters[chapterIndex]
+        if let chapter = playingChapter?.chapter {
             player.markLoopAndContinuePlayback(chapter.startTime, chapter.endTime)
         }
     }
     
     var chapterCount: Int {
-        
-        if let track = playingTrack?.track {
-            return track.chapters.count
-        }
-        
-        return 0
+        return playingTrack?.track.chapters.count ?? 0
     }
     
     // NOTE - This function needs to be efficient because it is repeatedly called to keep track of the current chapter
     // TODO: One possible optimization - keep track of which chapter is playing (in a variable), and in this function, check
     // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
-    var playingChapter: Int? {
+    var playingChapter: IndexedChapter? {
         
         if let track = playingTrack?.track, track.hasChapters {
             
@@ -733,14 +733,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
                 if chapter.containsTimePosition(elapsed) {
                     
-                    // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter
-                    return index
+                    // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter.
+                    return IndexedChapter(track, chapter, index)
                     
                 } else if elapsed < chapter.startTime {
                     
                     // Elapsed time is less than this chapter's lower time bound,
-                    // i.e. we have already looked at all chapters up to the elapsed time and not found a match
-                    // Since chapters are sorted, we can assume that this indicates a gap between chapters
+                    // i.e. we have already looked at all chapters up to the elapsed time and not found a match.
+                    // Since chapters are sorted, we can assume that this indicates a gap between chapters.
                     return nil
                 }
                 

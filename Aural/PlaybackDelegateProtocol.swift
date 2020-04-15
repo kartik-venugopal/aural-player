@@ -72,14 +72,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
     func loopChapter()
     
-    // For the currently playing track, returns the total number of defined chapter markings
-    var chapterCount: Int {get}
-    
-    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
-    // 1 - There are no chapter markings for the current track
-    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
-    var playingChapter: Int? {get}
-    
     /*
         Seeks forward by a preset time interval, within the current track.
      

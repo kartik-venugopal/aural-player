@@ -455,15 +455,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Current chapter tracking
     
-    private var curChapter: Int? = nil
+    private var curChapter: IndexedChapter? = nil
     
     private func beginPollingForChapterChange() {
         
         SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
             
-            let playingChapter: Int? = self.player.playingChapter
+            let playingChapter: IndexedChapter? = self.player.playingChapter
             
-            if (self.curChapter != playingChapter) {
+            if !IndexedChapter.areEqual(self.curChapter, playingChapter) {
                 
                 SyncMessenger.publishNotification(ChapterChangedNotification(self.curChapter, playingChapter))
                 self.curChapter = playingChapter

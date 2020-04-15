@@ -28,9 +28,13 @@ protocol PlaybackInfoDelegateProtocol {
     // Currently waiting track
     var waitingTrack: IndexedTrack? {get}
     
+    // For the currently playing track, returns the total number of defined chapter markings
     var chapterCount: Int {get}
     
-    var playingChapter: Int? {get}
+    // For the currently playing track, returns the index of the currently playing chapter. Returns nil if:
+    // 1 - There are no chapter markings for the current track
+    // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
+    var playingChapter: IndexedChapter? {get}
     
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
