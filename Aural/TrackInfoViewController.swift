@@ -28,13 +28,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         if let newTrack = player.playingTrack?.track {
             
-            var chapterTitle: String?
-            
-            if let chapterIndex = player.playingChapter {
-                chapterTitle = newTrack.chapters[chapterIndex].title
-            }
-            
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
             
         } else {
             
@@ -70,13 +64,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         if let newTrack = player.playingTrack?.track, player.state != .transcoding {
             
-            var chapterTitle: String?
-            
-            if let chapterIndex = player.playingChapter {
-                chapterTitle = newTrack.chapters[chapterIndex].title
-            }
-            
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
             
         } else {
             
@@ -95,14 +83,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private func transcodingFinished() {
         
         if let newTrack = player.playingTrack?.track {
-            
-            var chapterTitle: String?
-            
-            if let chapterIndex = player.playingChapter {
-                chapterTitle = newTrack.chapters[chapterIndex].title
-            }
-            
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
         }
     }
     
@@ -114,14 +95,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         
         if let newTrack = player.playingTrack?.track {
-            
-            var chapterTitle: String?
-            
-            if let chapterIndex = player.playingChapter {
-                chapterTitle = newTrack.chapters[chapterIndex].title
-            }
-            
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, chapterTitle)
+            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
         }
     }
     

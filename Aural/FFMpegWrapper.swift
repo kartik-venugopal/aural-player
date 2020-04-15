@@ -46,6 +46,8 @@ class FFMpegWrapper {
         
         if let dict = result.outputAsObject {
             
+            // Read streams, format, and chapters
+            
             if let streamsArr = dict["streams"] as? [NSDictionary] {
                 
                 for streamDict in streamsArr {

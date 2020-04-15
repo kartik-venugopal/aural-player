@@ -32,7 +32,8 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.chapterIndexColumnID:
                 
-                if row == playbackInfo.playingChapter {
+                // Display a marker icon if this chapter is currently playing
+                if let playingChapterIndex = playbackInfo.playingChapter?.index, row == playingChapterIndex {
                     return createIndexImageCell(tableView, UIConstants.chapterIndexColumnID, String(describing: row + 1), row)
                 }
                 

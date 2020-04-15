@@ -181,16 +181,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.changeTextSize(textSize)
     }
     
-    private func chapterChanged(_ newChapterIndex: Int?) {
-        
-        if let track = player.playingTrack?.track, let chapterIndex = newChapterIndex {
-            
-            theView.chapterChanged(track.chapters[chapterIndex].title)
-            
-        } else {
-            
-            theView.chapterChanged(nil)
-        }
+    private func chapterChanged(_ newChapter: IndexedChapter?) {
+        theView.chapterChanged(newChapter?.chapter.title)
     }
     
     // MARK: Message handling
