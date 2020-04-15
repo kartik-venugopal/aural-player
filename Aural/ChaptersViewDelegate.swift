@@ -1,11 +1,11 @@
 import Cocoa
 
 /*
-    Delegate for the NSTableView that displays track chapters
+    Delegate for the Chapters list NSTableView
  */
 class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
     
-    @IBOutlet weak var chaptersView: NSTableView!
+    @IBOutlet weak var chaptersListView: NSTableView!
     
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
@@ -205,7 +205,7 @@ class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
 /*
     Data source for the NSTableView that displays track chapters
  */
-class ChaptersViewDataSource: NSObject, NSTableViewDataSource {
+class ChaptersListViewDataSource: NSObject, NSTableViewDataSource {
     
     // Used to determine if a track is currently playing
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate

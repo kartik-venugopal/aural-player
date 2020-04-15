@@ -6,7 +6,7 @@ import Cocoa
  */
 class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
-    @IBOutlet weak var chaptersView: NSTableView!
+    @IBOutlet weak var chaptersListView: NSTableView!
     
     @IBOutlet weak var lblWindowTitle: NSTextField!
     @IBOutlet weak var lblSummary: NSTextField!
@@ -42,7 +42,7 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
     override func viewDidLoad() {
         
         // Set these fields for later access
-        PlaylistViewState.chaptersView = self.chaptersView
+        PlaylistViewState.chaptersListView = self.chaptersListView
         
         initSubscriptions()
         
@@ -55,7 +55,7 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
     override func viewDidAppear() {
 
         // Need to do this every time the view reappears (i.e. the Chapters list window is opened)
-        chaptersView.reloadData()
+        chaptersListView.reloadData()
         
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
@@ -79,7 +79,7 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
         
-        if let selRow = chaptersView.selectedRowIndexes.first {
+        if let selRow = chaptersListView.selectedRowIndexes.first {
         
             _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.playSelectedChapter, selRow))
             
@@ -159,9 +159,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
             let hasResults: Bool = numResults > 0
             
             // Select the first result or no row if no results
-            chaptersView.selectRowIndexes(IndexSet(hasResults ? [searchResults[0]] : []), byExtendingSelection: false)
+            chaptersListView.selectRowIndexes(IndexSet(hasResults ? [searchResults[0]] : []), byExtendingSelection: false)
             if hasResults {
-                chaptersView.scrollRowToVisible(searchResults[0])
+                chaptersListView.scrollRowToVisible(searchResults[0])
             }
             
             resultIndex = hasResults ? 0 : nil
@@ -213,8 +213,8 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         
         // Select the search result and scroll to make it visible
         let row = searchResults[index]
-        chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
-        chaptersView.scrollRowToVisible(row)
+        chaptersListView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
+        chaptersListView.scrollRowToVisible(row)
         
         resultIndex = index
         
@@ -298,8 +298,8 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
             
-            chaptersView.reloadData()
-            chaptersView.scrollRowToVisible(0)
+            chaptersListView.reloadData()
+            chaptersListView.scrollRowToVisible(0)
             
             let chapterCount: Int = player.chapterCount
             lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
@@ -332,7 +332,7 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
             }
             
             if !refreshRows.isEmpty {
-                self.chaptersView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
+                self.chaptersListView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
             }
         }
     }
@@ -347,9 +347,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
         
-            let selRows = chaptersView.selectedRowIndexes
-            chaptersView.reloadData()
-            chaptersView.selectRowIndexes(selRows, byExtendingSelection: false)
+            let selRows = chaptersListView.selectedRowIndexes
+            chaptersListView.reloadData()
+            chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
             
             lblWindowTitle.font = TextSizes.playlistSummaryFont
             lblSummary.font = TextSizes.playlistSummaryFont

@@ -466,10 +466,10 @@
             </connections>
             <point key="canvasLocation" x="-232" y="-26"/>
         </window>
-        <customObject id="xJV-Ic-jGo" customClass="ChaptersViewDataSource" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="xJV-Ic-jGo" customClass="ChaptersListViewDataSource" customModule="Aural" customModuleProvider="target"/>
         <customObject id="ruP-6a-gDu" customClass="ChaptersViewDelegate" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="chaptersView" destination="rlg-QY-3mV" id="rIT-ZP-Pe3"/>
+                <outlet property="chaptersListView" destination="rlg-QY-3mV" id="rIT-ZP-Pe3"/>
             </connections>
         </customObject>
         <viewController id="uhU-UR-xwr" customClass="ChaptersListViewController" customModule="Aural" customModuleProvider="target">
@@ -478,7 +478,7 @@
                 <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="A8X-fF-Lbb"/>
                 <outlet property="btnNextMatch" destination="2FZ-dU-SXE" id="WM0-kJ-ktx"/>
                 <outlet property="btnPreviousMatch" destination="LRU-p1-g4p" id="PXH-LH-EHq"/>
-                <outlet property="chaptersView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
+                <outlet property="chaptersListView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
                 <outlet property="lblNumMatches" destination="8Of-xA-IUV" id="5UI-iy-91C"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
                 <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
