@@ -1,5 +1,9 @@
 import Cocoa
 
+/*
+    View controller for the Chapters list.
+    Displays the chapters list in a tabular format, and provides chapter search and playback functions.
+ */
 class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var chaptersView: NSTableView!
@@ -16,12 +20,24 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBOutlet weak var btnPreviousMatch: NSButton!
     @IBOutlet weak var btnNextMatch: NSButton!
     
+    // Holds all search results from the latest performed search
     private var searchResults: [Int] = []
+    
+    // Points to the current search result selected within the chapters list, and assists in search result navigation.
+    // Serves as an index within the searchResults array.
+    // Will be nil if no results available or no chapters available.
     private var resultIndex: Int?
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    private var looping: Bool = false
+    // Indicates whether or not the currently playing chapter is being looped. Will be false if there are no chapters available.
+    private var looping: Bool = false {
+        
+        didSet {
+            // Update the loop toggle button image to reflect the looping state
+            btnLoopChapter.image = looping ? Images.imgLoopChapterOn : Images.imgLoopChapterOff
+        }
+    }
     
     override func viewDidLoad() {
         
@@ -31,7 +47,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         initSubscriptions()
         
         looping = false
-        btnLoopChapter.image = Images.imgLoopChapterOff
         
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
@@ -60,6 +75,8 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
     }
     
+    // MARK: Playback functions
+    
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
         
         if let selRow = chaptersView.selectedRowIndexes.first {
@@ -68,7 +85,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
             if player.playbackLoop == nil {
                 looping = false
-                btnLoopChapter.image = Images.imgLoopChapterOff
             }
         }
     }
@@ -79,7 +95,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
@@ -89,61 +104,53 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if player.playbackLoop == nil {
             looping = false
-            btnLoopChapter.image = Images.imgLoopChapterOff
         }
     }
     
-    @IBAction func replayChapterAction(_ sender: AnyObject) {
+    @IBAction func replayCurrentChapterAction(_ sender: AnyObject) {
         
         // Should not do anything when no chapter is playing
         // (possible if chapters don't cover the entire timespan of the track)
-        if player.playingChapter == nil {
-            return
-        }
+        if player.playingChapter != nil {
         
-        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.replayChapter))
-        
-        if player.playbackLoop == nil {
-            looping = false
-            btnLoopChapter.image = Images.imgLoopChapterOff
+            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.replayChapter))
+            
+            if player.playbackLoop == nil {
+                looping = false
+            }
         }
     }
     
-    @IBAction func loopCurrentChapterAction(_ sender: AnyObject) {
+    @IBAction func toggleCurrentChapterLoopAction(_ sender: AnyObject) {
         
         // Should not do anything when no chapter is playing
         // (possible if chapters don't cover the entire timespan of the track)
-        if player.playingChapter == nil {
-            return
-        }
+        if player.playingChapter != nil {
         
-        if looping {
-            
-            // Remove the loop
-            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.removeChapterLoop))
-            btnLoopChapter.image = Images.imgLoopChapterOff
-            
-        } else {
-            
-            // Start a loop
-            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.addChapterLoop))
-            btnLoopChapter.image = Images.imgLoopChapterOn
+            // Toggle the loop
+            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(looping ? .removeChapterLoop : .addChapterLoop))
+            looping = !looping
         }
-        
-        looping = !looping
     }
+    
+    // MARK: Search functions
     
     @IBAction func searchAction(_ sender: AnyObject) {
         
-        let text = txtSearch.stringValue
+        let queryText = txtSearch.stringValue
         
+        // Clear any previous search results
         searchResults.removeAll()
         
-        if !text.isEmpty, let chapters = player.playingTrack?.track.chapters {
+        // Ensure that there is some query text and that the playing track has some chapters
+        if !queryText.isEmpty, let chapters = player.playingTrack?.track.chapters {
 
+            // Compare the query text with all chapter titles
             for index in 0..<chapters.count {
                 
-                if compare(text, chapters[index].title) {
+                if compare(queryText, chapters[index].title) {
+                    
+                    // Append the row index for this chapter to the search results array
                     searchResults.append(index)
                 }
             }
@@ -151,21 +158,22 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             let numResults: Int = searchResults.count
             let hasResults: Bool = numResults > 0
             
+            // Select the first result or no row if no results
             chaptersView.selectRowIndexes(IndexSet(hasResults ? [searchResults[0]] : []), byExtendingSelection: false)
+            if hasResults {
+                chaptersView.scrollRowToVisible(searchResults[0])
+            }
             
             resultIndex = hasResults ? 0 : nil
             
-            if let index = resultIndex {
-                chaptersView.scrollRowToVisible(searchResults[index])
-            }
-            
+            // Update the search UI to indicate the number of results and allow navigation through them
             lblNumMatches.stringValue = String(format: "%d %@", numResults, numResults == 1 ? "match" : "matches")
-            
             btnPreviousMatch.disable()
             btnNextMatch.enableIf(numResults > 1)
             
         } else {
             
+            // No text or no track chapters
             lblNumMatches.stringValue = ""
             [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
         }
@@ -174,37 +182,48 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBAction func toggleCaseSensitiveSearchAction(_ sender: AnyObject) {
         
         btnCaseSensitive.toggle()
+        
+        // Perform the search again
         searchAction(self)
     }
     
+    // Navigate to the previous search result
     @IBAction func previousSearchResultAction(_ sender: AnyObject) {
         
         if let index = resultIndex, index > 0 {
-            
-            let row = searchResults[index - 1]
-            chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
-            chaptersView.scrollRowToVisible(row)
-            
-            resultIndex = index - 1
-            btnPreviousMatch.enableIf(resultIndex! > 0)
-            btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+            selectSearchResult(index - 1)
         }
     }
     
+    // Navigate to the next search result
     @IBAction func nextSearchResultAction(_ sender: AnyObject) {
         
         if let index = resultIndex, index < searchResults.count - 1 {
-            
-            let row = searchResults[index + 1]
-            chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
-            chaptersView.scrollRowToVisible(row)
-            
-            resultIndex = index + 1
-            btnPreviousMatch.enableIf(resultIndex! > 0)
-            btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+            selectSearchResult(index + 1)
         }
     }
     
+    /*
+        Selects the given search result within the NSTableView
+    
+        @param index
+              Index within the searchResults array (eg. first result, second result, etc)
+     */
+    private func selectSearchResult(_ index: Int) {
+        
+        // Select the search result and scroll to make it visible
+        let row = searchResults[index]
+        chaptersView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
+        chaptersView.scrollRowToVisible(row)
+        
+        resultIndex = index
+        
+        // Update the navigation buttons
+        btnPreviousMatch.enableIf(resultIndex! > 0)
+        btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+    }
+    
+    // Compares query text with a chapter title
     private func compare(_ queryText: String, _ chapterTitle: String) -> Bool {
         return btnCaseSensitive.isOn() ? chapterTitle.contains(queryText) : chapterTitle.lowercased().contains(queryText.lowercased())
     }
@@ -221,7 +240,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .trackChangedNotification:
             
-            trackChanged(message as! TrackChangedNotification)
+            trackChanged()
             
         case .chapterChangedNotification:
             
@@ -259,11 +278,11 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .replayChapter:
             
-            replayChapterAction(self)
+            replayCurrentChapterAction(self)
             
         case .toggleChapterLoop:
             
-            loopCurrentChapterAction(self)
+            toggleCurrentChapterLoopAction(self)
             
         case .changePlaylistTextSize:
             
@@ -274,7 +293,7 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
-    private func trackChanged(_ msg: TrackChangedNotification) {
+    private func trackChanged() {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
@@ -288,8 +307,6 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // This should always be done
         looping = false
-        btnLoopChapter.image = Images.imgLoopChapterOff
-        
         txtSearch.stringValue = ""
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
@@ -297,6 +314,8 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
         searchResults.removeAll()
     }
     
+    // When the currently playing chapter changes, the marker icon in the chapters list needs to move to the
+    // new chapter.
     private func chapterChanged(_ oldChapter: IndexedChapter?, _ newChapter: IndexedChapter?) {
         
         // Don't need to do this if the window is not visible
@@ -312,15 +331,15 @@ class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessage
                 refreshRows.append(_newIndex)
             }
             
-            if (!refreshRows.isEmpty) {
+            if !refreshRows.isEmpty {
                 self.chaptersView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
             }
         }
     }
     
+    // When the player's segment loop has been changed externally (from the player), it invalidates the chapter loop if there is one
     private func loopChanged() {
         looping = false
-        btnLoopChapter.image = Images.imgLoopChapterOff
     }
     
     private func changeTextSize() {

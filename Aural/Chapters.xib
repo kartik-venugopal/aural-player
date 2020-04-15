@@ -126,7 +126,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="loopCurrentChapterAction:" target="uhU-UR-xwr" id="RaD-7e-AiX"/>
+                                        <action selector="toggleCurrentChapterLoopAction:" target="uhU-UR-xwr" id="RaD-7e-AiX"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -140,7 +140,7 @@
                                         <font key="font" metaFont="system" size="21"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="replayChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
+                                        <action selector="replayCurrentChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
