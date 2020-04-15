@@ -24,7 +24,6 @@ class PlayerView: NSView {
         
         controlsBox.setFrameOrigin(NSPoint.zero)
 
-//        infoView.showView(playbackState)
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()

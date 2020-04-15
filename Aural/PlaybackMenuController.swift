@@ -140,12 +140,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // MARK: Basic playback functions (chapters)
     
-    // Plays the previous chapter in the current playback sequence
+    // Plays the previous available chapter
     @IBAction func previousChapterAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousChapter))
     }
     
-    // Plays the next chapter in the current playback sequence
+    // Plays the next available chapter
     @IBAction func nextChapterAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextChapter))
     }
@@ -155,7 +155,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayChapter))
     }
     
-    // Toggles chapter playback loop
+    // Toggles current chapter playback loop
     @IBAction func toggleChapterLoopAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleChapterLoop))
     }

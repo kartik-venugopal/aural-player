@@ -25,6 +25,7 @@ protocol PlayerProtocol {
     // Seeks to a certain time within the currently playing track
     func seekToTime(_ track: Track, _ seconds: Double)
     
+    // Define a segment loop bounded by the given start/end time values, and continue playback as before, from the same position.
     func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double)
     
     // Gets the playback position (in seconds) of the currently playing track

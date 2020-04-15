@@ -93,12 +93,16 @@ class PlaybackScheduler {
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
         let playingFile: AVAudioFile = playbackInfo.audioFile!
         let sampleRate = playingFile.processingFormat.sampleRate
+        
+        // Minimum number of frames needed for playback
         let minFrames = Int64(sampleRate * PlaybackScheduler.timeComparisonTolerance)
         
         //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
         var firstFrame = Int64(loopEndTime * sampleRate) + 1
         var frameCount = playbackInfo.frames! - firstFrame + 1
         
+        // Check to ensure that a minimum number of frames is available for playback. If not, artificially introduce a few frames
+        // to prevent the player from crashing.
         if frameCount < minFrames {
             frameCount = minFrames
             firstFrame = playbackInfo.frames! - minFrames + 1
