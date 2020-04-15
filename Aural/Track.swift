@@ -116,63 +116,35 @@ class Track: NSObject, PlaylistItem {
     func prepareForPlayback() {
         TrackIO.prepareForPlayback(self)
     }
-    
-    func loadChapters() {
-        TrackIO.loadChapters(self)
-        
-        for index in 0..<chapters.count - 1 {
-            
-            let chapter = chapters[index]
-            let nextChapter = chapters[index + 1]
-            
-            if (chapter.duration <= 0) {
-
-                // Assume that start time is available for all chapters
-                chapter.duration = max(nextChapter.startTime - chapter.startTime, 0)
-            }
-            
-            // End time may not be defined
-            if (chapter.endTime <= 0) {
-                
-                // Assume that start time is available for all chapters
-                chapter.endTime = nextChapter.startTime
-            }
-        }
-        
-        if let lastChapter = chapters.last, lastChapter.duration == 0 {
-            
-            // Last chapter duration = Track duration - chapter startTime
-            lastChapter.duration = self.duration - lastChapter.startTime
-        }
-    }
-    
-    func printChapters() {
-        
-        var ctr: Int = 0
-        for ch in chapters {
-            ctr += 1
-            print("Chapter", ctr, "Title:", ch.title, "StartTime:", ch.startTime)
-        }
-    }
 }
 
+/*
+    Represents a single chapter marking within a track
+ */
 class Chapter {
     
-    let title: String
-    let startTime: Double
-    var endTime: Double
-    var duration: Double
+    // Title may be changed / corrected after chapter object is created
+    var title: String
     
-    func containsTimePosition(_ seconds: Double) -> Bool {
-        return seconds >= startTime && seconds <= endTime
-    }
+    // Time bounds of this chapter
+    let startTime: Double
+    let endTime: Double
+    let duration: Double
     
     init(_ title: String, _ startTime: Double, _ endTime: Double, _ duration: Double? = nil) {
         
         self.title = title
+        
         self.startTime = startTime
         self.endTime = endTime
+        
+        // Use duration if provided. Otherwise, compute it from the start and end times.
         self.duration = duration == nil ? max(endTime - startTime, 0) : duration!
+    }
+    
+    // Convenience function to determine if a given track position lies within this chapter's time bounds
+    func containsTimePosition(_ seconds: Double) -> Bool {
+        return seconds >= startTime && seconds <= endTime
     }
 }
 

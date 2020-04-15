@@ -532,6 +532,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let trackDuration = playingTrack!.track.duration
         let newPosn = percentage * trackDuration / 100
         
+        // TODO: Shorten this code block
         // If there's a loop, check where the seek occurred relative to the loop
         if let loop = playbackLoop {
             
@@ -616,21 +617,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func playChapter(_ index: Int) {
         
-        let chapterChanged: Bool = playingChapter != index
-        
+        // Validate track and index by checking the bounds of the chapters array
         if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
             
-            // HACK: Add a little margin to the chapter start time to avoid overlap in chapters (except if the start time is zero)
+            // Find the chapter with the given index and seek to its start time.
+            // HACK: Add a little margin to the chapter start time to avoid overlap in chapters (except if the start time is zero).
             let startTime = track.chapters[index].startTime
             seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
+            // Resume playback if paused
             if player.state == .paused {
                 player.resume()
-            }
-            
-            if (chapterChanged) {
-                removeLoop()
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
             }
         }
     }
@@ -734,7 +731,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             var index: Int = 0
             for chapter in track.chapters {
                 
-                if (elapsed >= chapter.startTime) && (elapsed < chapter.endTime) {
+                if chapter.containsTimePosition(elapsed) {
                     
                     // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter
                     return index
