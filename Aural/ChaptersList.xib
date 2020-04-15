@@ -30,10 +30,8 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="208" y="350" width="155" height="23"/>
+                                    <rect key="frame" x="208" y="348" width="155" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="155" id="OHs-Y5-8tw"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="Vti-lx-Hsw"/>
                                         <constraint firstAttribute="height" constant="23" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
                                     </constraints>
@@ -144,7 +142,7 @@
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
-                                    <rect key="frame" x="14" y="311" width="352" height="22"/>
+                                    <rect key="frame" x="14" y="309" width="352" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>
@@ -210,7 +208,7 @@
                                 <constraint firstAttribute="bottom" secondItem="iBr-vY-6sc" secondAttribute="bottom" constant="13" id="3g0-gO-SAX"/>
                                 <constraint firstItem="LRU-p1-g4p" firstAttribute="leading" secondItem="8Of-xA-IUV" secondAttribute="trailing" constant="8" id="3y7-BW-bGg"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="8Zr-hA-Vcd"/>
-                                <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="7" id="EHh-Jx-In0"/>
+                                <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="9" id="EHh-Jx-In0"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="IIU-Wp-Ibz"/>
                                 <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="8" id="JeX-co-VLM"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="LL4-6g-sdT"/>
