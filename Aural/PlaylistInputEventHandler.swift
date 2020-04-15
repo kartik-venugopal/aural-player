@@ -75,8 +75,8 @@ class PlaylistInputEventHandler {
     private static func handleKeyDown(_ event: NSEvent) -> Bool {
         
         // One-off special case: Without this, space key press (for play/pause) is not sent to main window
-        // Send space to main window unless chapters window is key (space is used for type selection and chapter search)
-        if event.charactersIgnoringModifiers == " " && layoutManager.chaptersWindow != NSApp.keyWindow {
+        // Send space to main window unless chapters list window is key (space is used for type selection and chapter search)
+        if event.charactersIgnoringModifiers == " " && layoutManager.chaptersListWindow != NSApp.keyWindow {
             layoutManager.mainWindow.keyDown(with: event)
             return true
         }

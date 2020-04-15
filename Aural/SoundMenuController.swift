@@ -92,9 +92,9 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        let chaptersWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersWindow
+        let chaptersListWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersListWindow
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !showingDialogOrPopover && !chaptersWindowIskey)})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !showingDialogOrPopover && !chaptersListWindowIskey)})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }

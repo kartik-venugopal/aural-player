@@ -59,11 +59,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let chaptersWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersWindow
+        let chaptersListWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersListWindow
         
-        theMenu.enableIf(layoutManager.isShowingPlaylist() || chaptersWindowIskey)
+        theMenu.enableIf(layoutManager.isShowingPlaylist() || chaptersListWindowIskey)
         
-        if chaptersWindowIskey {
+        if chaptersListWindowIskey {
             
             for item in menu.items {
                 item.disable()
@@ -337,7 +337,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         
-        if (layoutManager.chaptersWindow == NSApp.keyWindow) {
+        if (layoutManager.chaptersListWindow == NSApp.keyWindow) {
             
             SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedChapter, nil))
             

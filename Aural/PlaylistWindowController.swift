@@ -54,7 +54,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     
-    private lazy var chaptersWindow: NSWindow = WindowFactory.chaptersWindow
+    private lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
     private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
@@ -443,11 +443,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         if (theWindow.childWindows == nil || theWindow.childWindows!.isEmpty) {
             
-            theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
-            chaptersWindow.orderFront(self)
+            theWindow.addChildWindow(chaptersListWindow, ordered: NSWindow.OrderingMode.above)
+            chaptersListWindow.orderFront(self)
         }
         
-        chaptersWindow.setIsVisible(true)
+        chaptersListWindow.setIsVisible(true)
     }
     
     var subscriberId: String {
