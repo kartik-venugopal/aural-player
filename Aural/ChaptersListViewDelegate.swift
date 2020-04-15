@@ -3,7 +3,7 @@ import Cocoa
 /*
     Delegate for the Chapters list NSTableView
  */
-class ChaptersViewDelegate: NSObject, NSTableViewDelegate {
+class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     @IBOutlet weak var chaptersListView: NSTableView!
     
@@ -212,7 +212,7 @@ class ChaptersListViewDataSource: NSObject, NSTableViewDataSource {
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return playbackInfo.playingTrack?.track.chapters.count ?? 0
+        return playbackInfo.chapterCount
     }
 }
 
