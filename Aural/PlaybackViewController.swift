@@ -455,22 +455,28 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Current chapter tracking
     
+    // Keeps track of the last known value of the current chapter (used to detect chapter changes)
     private var curChapter: IndexedChapter? = nil
     
+    // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
+    // This only occurs when the currently playing track actually has chapters.
     private func beginPollingForChapterChange() {
         
         SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
             
             let playingChapter: IndexedChapter? = self.player.playingChapter
-            
+    
+            // Compare the current chapter with the last known value of current chapter
             if !IndexedChapter.areEqual(self.curChapter, playingChapter) {
                 
+                // There has been a change ... notify observers and update the variable
                 SyncMessenger.publishNotification(ChapterChangedNotification(self.curChapter, playingChapter))
                 self.curChapter = playingChapter
             }
         })
     }
     
+    // Disables the chapter change polling task
     private func stopPollingForChapterChange() {
         SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
