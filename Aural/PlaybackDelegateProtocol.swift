@@ -56,7 +56,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // For the currently playing track, plays the chapter with the given index, from the start time.
     // If this chapter is already playing, it is played from the start time.
-    // NOTE - If there is a segment loop defined (unless it is for this same chapter), it will be removed.
+    // NOTE - If there is a segment loop defined that does not contain the chapter start time, it will be removed to allow seeking
+    // to the chapter start time.
     func playChapter(_ index: Int)
     
     // For the currently playing track, plays the previous chapter (relative to the current seek position or chapter)

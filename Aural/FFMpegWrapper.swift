@@ -124,8 +124,6 @@ class FFMpegWrapper {
             
             if let chaptersArr = dict["chapters"] as? [NSDictionary] {
                 
-                var chapterIndex: Int = 0
-                
                 for chapterDict in chaptersArr {
                     
                     var startTime: Double = 0
@@ -140,17 +138,24 @@ class FFMpegWrapper {
                         endTime = num
                     }
                     
-                    if let tagsDict = chapterDict["tags"] as? [String: String], let titleStr = tagsDict["title"], !titleStr.trim().isEmpty {
-                        
+                    if let tagsDict = chapterDict["tags"] as? [String: String], let titleStr = tagsDict["title"] {
                         title = titleStr
                     }
                     
-                    chapters.append(Chapter(title ?? String(format: "Chapter %d", chapterIndex + 1), startTime, endTime))
-                    chapterIndex += 1
+                    chapters.append(Chapter(title ?? "", startTime, endTime))
                 }
                 
                 // Sort by start time, in ascending order
                 chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
+                
+                // Correct the (empty) chapter titles if required
+                for index in 0..<chapters.count {
+                    
+                    // If no title is available, create a default one using the chapter index
+                    if chapters[index].title.trim().isEmpty {
+                        chapters[index].title = String(format: "Chapter %d", index + 1)
+                    }
+                }
             }
         }
         

@@ -268,28 +268,31 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             
             let chapterMetadataGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
             
-            var chapterIndex = 0
             for group in chapterMetadataGroups {
                 
-                var title: String = getChapterTitle(group.items) ?? ""
-                
-                if title.trim().isEmpty {
-                    title = String(format: "Chapter %d", chapterIndex + 1)
-                }
-                
+                let title: String = getChapterTitle(group.items) ?? ""
+
                 let timeRange = group.timeRange
                 let start = timeRange.start.seconds
                 let end = timeRange.end.seconds
                 let duration = timeRange.duration.seconds
                 
+                // Validate the time fields for NaN and negative values
                 chapters.append(Chapter(title, (start.isNaN || start < 0) ? 0 : start, (end.isNaN || end < 0) ? 0 : end, (duration.isNaN || duration < 0) ? nil : duration))
-                
-                chapterIndex += 1
             }
         }
         
         // Sort by start time, in ascending order
         chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
+        
+        // Correct the (empty) chapter titles if required
+        for index in 0..<chapters.count {
+
+            // If no title is available, create a default one using the chapter index
+            if chapters[index].title.trim().isEmpty {
+                chapters[index].title = String(format: "Chapter %d", index + 1)
+            }
+        }
         
         return chapters
     }
