@@ -98,9 +98,9 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
 
-### Chapters list and playback
+### Chapters support
 
-![Chapters demo](/Documentation/Demos/ChaptersDemo.gif?raw=true "Chapters list and playback demo")
+![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true "Chapters support demo")
 
 ### Detailed track info
 
