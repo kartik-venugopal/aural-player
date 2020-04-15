@@ -261,14 +261,13 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     // NOTE - This code does not account for potential overlaps in chapter times due to bad metadata ... assumes no overlaps
     func getChapters(_ track: Track) -> [Chapter] {
         
-        let asset = track.audioAsset!
-        
         var chapters: [Chapter] = []
         
-        if let langCode = asset.availableChapterLocales.first?.languageCode {
+        if let asset = track.audioAsset, let langCode = asset.availableChapterLocales.first?.languageCode {
             
             let chapterMetadataGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
-            
+        
+            // Each group represents one chapter
             for group in chapterMetadataGroups {
                 
                 let title: String = getChapterTitle(group.items) ?? ""
@@ -281,32 +280,35 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
                 // Validate the time fields for NaN and negative values
                 chapters.append(Chapter(title, (start.isNaN || start < 0) ? 0 : start, (end.isNaN || end < 0) ? 0 : end, (duration.isNaN || duration < 0) ? nil : duration))
             }
-        }
-        
-        // Sort chapters by start time, in ascending order
-        chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
-        
-        // Correct the (empty) chapter titles if required
-        for index in 0..<chapters.count {
-
-            // If no title is available, create a default one using the chapter index
-            if chapters[index].title.trim().isEmpty {
-                chapters[index].title = String(format: "Chapter %d", index + 1)
+            
+            // Sort chapters by start time, in ascending order
+            chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
+            
+            // Correct the (empty) chapter titles if required
+            for index in 0..<chapters.count {
+                
+                // If no title is available, create a default one using the chapter index
+                if chapters[index].title.trim().isEmpty {
+                    chapters[index].title = String(format: "Chapter %d", index + 1)
+                }
             }
         }
         
         return chapters
     }
     
+    // Delegates to all parsers to try and find title metadata among the given items
     private func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
 
         for parser in parsers {
             
             if let title = parser.getChapterTitle(items) {
+                // Found
                 return title
             }
         }
         
+        // Not found
         return nil
     }
     
