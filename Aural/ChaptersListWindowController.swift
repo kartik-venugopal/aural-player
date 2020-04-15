@@ -1,6 +1,6 @@
 import Cocoa
 
-class ChaptersWindowController: NSWindowController, NSWindowDelegate {
+class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
     
     override var windowNibName: String? {return "Chapters"}
     

@@ -4,7 +4,7 @@ import Cocoa
     View controller for the Chapters list.
     Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
-class ChaptersViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var chaptersView: NSTableView!
     

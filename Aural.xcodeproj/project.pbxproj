@@ -46,7 +46,7 @@
 		3E0D664B21918E3A00A779A9 /* EQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0D664A21918E3A00A779A9 /* EQView.swift */; };
 		3E0DF1C02431BB1E0096C2A1 /* Chapters.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */; };
 		3E0DF1C22431BC380096C2A1 /* ChaptersViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */; };
-		3E0DF1C42431C0300096C2A1 /* ChaptersWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */; };
+		3E0DF1C42431C0300096C2A1 /* ChaptersListWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C32431C0300096C2A1 /* ChaptersListWindowController.swift */; };
 		3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A51FBB05FF008268B3 /* Player.xib */; };
 		3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AB1FBB1961008268B3 /* Effects.xib */; };
 		3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */; };
@@ -201,7 +201,7 @@
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
 		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
-		3E6341CE243D901400190502 /* ChaptersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341CD243D901400190502 /* ChaptersViewController.swift */; };
+		3E6341CE243D901400190502 /* ChaptersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341CD243D901400190502 /* ChaptersListViewController.swift */; };
 		3E6341D0243DB11800190502 /* PlaylistPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341CF243DB11800190502 /* PlaylistPreferences.swift */; };
 		3E6341D2243DB1AC00190502 /* PlaybackPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D1243DB1AC00190502 /* PlaybackPreferences.swift */; };
 		3E6341D4243DB1E400190502 /* SoundPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D3243DB1E400190502 /* SoundPreferences.swift */; };
@@ -466,7 +466,7 @@
 		3E0D664A21918E3A00A779A9 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
 		3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Chapters.xib; sourceTree = "<group>"; };
 		3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewDelegate.swift; sourceTree = "<group>"; };
-		3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersWindowController.swift; sourceTree = "<group>"; };
+		3E0DF1C32431C0300096C2A1 /* ChaptersListWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListWindowController.swift; sourceTree = "<group>"; };
 		3E0ED6A51FBB05FF008268B3 /* Player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Player.xib; sourceTree = "<group>"; };
 		3E0ED6AB1FBB1961008268B3 /* Effects.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
 		3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EQ.xib; sourceTree = "<group>"; };
@@ -623,7 +623,7 @@
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
-		3E6341CD243D901400190502 /* ChaptersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewController.swift; sourceTree = "<group>"; };
+		3E6341CD243D901400190502 /* ChaptersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListViewController.swift; sourceTree = "<group>"; };
 		3E6341CF243DB11800190502 /* PlaylistPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPreferences.swift; sourceTree = "<group>"; };
 		3E6341D1243DB1AC00190502 /* PlaybackPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPreferences.swift; sourceTree = "<group>"; };
 		3E6341D3243DB1E400190502 /* SoundPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPreferences.swift; sourceTree = "<group>"; };
@@ -920,8 +920,8 @@
 			isa = PBXGroup;
 			children = (
 				3E0DF1BF2431BB1E0096C2A1 /* Chapters.xib */,
-				3E0DF1C32431C0300096C2A1 /* ChaptersWindowController.swift */,
-				3E6341CD243D901400190502 /* ChaptersViewController.swift */,
+				3E0DF1C32431C0300096C2A1 /* ChaptersListWindowController.swift */,
+				3E6341CD243D901400190502 /* ChaptersListViewController.swift */,
 				3E0DF1C12431BC380096C2A1 /* ChaptersViewDelegate.swift */,
 			);
 			name = Chapters;
@@ -2271,7 +2271,7 @@
 				3E2188A81F0771390085BAB3 /* DetailedTrackInfoViewController.swift in Sources */,
 				3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */,
 				3EDEADB5216360980071C660 /* EffectsUnitTabButtonCell.swift in Sources */,
-				3E6341CE243D901400190502 /* ChaptersViewController.swift in Sources */,
+				3E6341CE243D901400190502 /* ChaptersListViewController.swift in Sources */,
 				3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */,
 				3E1CB54621C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift in Sources */,
 				3E9847821F5CF23D001A2D28 /* HelpMenuController.swift in Sources */,
@@ -2495,7 +2495,7 @@
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
 				3EA2F8F521CF6D88007D0264 /* MetadataReader.swift in Sources */,
 				3E17D03221E604D800951F81 /* LanguageMap.swift in Sources */,
-				3E0DF1C42431C0300096C2A1 /* ChaptersWindowController.swift in Sources */,
+				3E0DF1C42431C0300096C2A1 /* ChaptersListWindowController.swift in Sources */,
 				3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */,
 				3E6341D8243DC28500190502 /* ControlsPreferences.swift in Sources */,
 				3E5F00C82153993100A76C23 /* BookmarksDelegateProtocol.swift in Sources */,

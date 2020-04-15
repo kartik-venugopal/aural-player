@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ChaptersWindowController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ChaptersListWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="window" destination="QvC-M9-y7g" id="Vrd-Pf-VfP"/>
             </connections>
@@ -472,7 +472,7 @@
                 <outlet property="chaptersView" destination="rlg-QY-3mV" id="rIT-ZP-Pe3"/>
             </connections>
         </customObject>
-        <viewController id="uhU-UR-xwr" customClass="ChaptersViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="uhU-UR-xwr" customClass="ChaptersListViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="yuW-jF-LzI"/>
                 <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="A8X-fF-Lbb"/>
