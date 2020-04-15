@@ -1,5 +1,5 @@
 /*
- Concrete implementation of PlayerProtocol
+    Concrete implementation of PlayerProtocol
  */
 
 import Cocoa

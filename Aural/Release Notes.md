@@ -14,7 +14,7 @@ Aural Player can now read and display chapter markings from tracks¹, and offers
 
 ### **Playback functions:**
 
-The following functions are available within the Chapters list window and also under the **Playback** menu.
+The following functions are available within the Chapters list window and also through new menu items under the **Playback** menu.
 
 * Play / replay desired chapter
 * Previous / next chapter
