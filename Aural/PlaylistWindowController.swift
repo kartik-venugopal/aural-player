@@ -590,7 +590,7 @@ class PlaylistViewState {
     // The current playlist view displayed within the playlist tab group
     static var currentView: NSTableView!
     
-    static var chaptersView: NSTableView!
+    static var chaptersListView: NSTableView!
     
     static var textSize: TextSizeScheme = .normal
     
@@ -667,12 +667,10 @@ class PlaylistViewState {
         return items
     }
     
-//    static var showingChapters: Bool = false
-    
     static var selectedChapter: SelectedItem? {
         
-        if chaptersView.selectedRow >= 0 {
-            return SelectedItem(index: chaptersView.selectedRow)
+        if chaptersListView.selectedRow >= 0 {
+            return SelectedItem(index: chaptersListView.selectedRow)
         }
         
         return nil
