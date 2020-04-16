@@ -13,4 +13,4 @@ let reverbStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in r
 let delayStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.delayUnit.state}
 let filterStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return graph.filterUnit.state}
 
-let recorderStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return recorder.isRecording() ? .active : .bypassed}
+let recorderStateFunction: EffectsUnitStateFunction = {() -> EffectsUnitState in return recorder.isRecording ? .active : .bypassed}

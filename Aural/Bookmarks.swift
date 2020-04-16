@@ -19,7 +19,7 @@ class Bookmarks: BookmarksProtocol {
     }
     
     func getAllBookmarks() -> [Bookmark] {
-        return bookmarks.getAllItems()
+        return bookmarks.allItems
     }
     
     func bookmarkWithNameExists(_ name: String) -> Bool {
@@ -31,7 +31,7 @@ class Bookmarks: BookmarksProtocol {
     }
     
     func countBookmarks() -> Int {
-        return bookmarks.countItems()
+        return bookmarks.count
     }
     
     func getBookmarkWithName(_ name: String) -> Bookmark? {

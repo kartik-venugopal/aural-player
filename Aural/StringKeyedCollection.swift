@@ -6,6 +6,7 @@ class StringKeyedCollection<T: StringKeyedItem> {
     private var map: [String: T] = [String: T]()
     
     func addItem(_ item: T) {
+        
         array.append(item)
         map[item.key] = item
     }
@@ -37,11 +38,11 @@ class StringKeyedCollection<T: StringKeyedItem> {
         return map[key] != nil
     }
     
-    func countItems() -> Int {
+    var count: Int {
         return array.count
     }
     
-    func getAllItems() -> [T] {
+    var allItems: [T] {
         
         let copy = array
         return copy

@@ -11,8 +11,8 @@ class Favorites: FavoritesProtocol {
         return favorite
     }
     
-    func getAllFavorites() -> [Favorite] {
-        return favorites.getAllItems()
+    var allFavorites: [Favorite] {
+        return favorites.allItems
     }
     
     func favoriteWithPathExists(_ path: String) -> Bool {
@@ -27,8 +27,8 @@ class Favorites: FavoritesProtocol {
         return favorites.itemAtIndex(index)
     }
     
-    func countFavorites() -> Int {
-        return favorites.countItems()
+    var count: Int {
+        return favorites.count
     }
     
     func getFavoriteWithPath(_ path: String) -> Favorite? {

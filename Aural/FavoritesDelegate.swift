@@ -33,8 +33,8 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         return fav
     }
     
-    func getAllFavorites() -> [Favorite] {
-        return favorites.getAllFavorites()
+    var allFavorites: [Favorite] {
+        return favorites.allFavorites
     }
     
     func getFavoriteWithFile(_ file: URL) -> Favorite? {
@@ -57,8 +57,8 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, file))
     }
     
-    func countFavorites() -> Int {
-        return favorites.countFavorites()
+    var count: Int {
+        return favorites.count
     }
     
     func favoriteWithFileExists(_ file: URL) -> Bool {
@@ -91,7 +91,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         var arr: [(URL, String)] = []
         
-        favorites.getAllFavorites().forEach({
+        favorites.allFavorites.forEach({
             arr.append(($0.file, $0.name))
         })
         

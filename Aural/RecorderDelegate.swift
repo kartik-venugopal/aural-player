@@ -42,11 +42,11 @@ class RecorderDelegate: RecorderDelegateProtocol {
         }
     }
     
-    func getRecordingInfo() -> RecordingInfo? {
-        return recorder.getRecordingInfo()
+    var recordingInfo: RecordingInfo? {
+        return recorder.recordingInfo
     }
     
-    func isRecording() -> Bool{
-        return recorder.isRecording()
+    var isRecording: Bool {
+        return recorder.isRecording
     }
 }

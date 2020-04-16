@@ -50,32 +50,30 @@ class Recorder: RecorderProtocol {
     func saveRecording(_ url: URL) {
         
         // Rename the file from the temp URL -> user-defined URL
-        let tempRecordingFilePath = RecordingSession.getCurrentSession()!.tempFilePath
+        let tempRecordingFilePath = RecordingSession.currentSession!.tempFilePath
         let srcURL = URL(fileURLWithPath: tempRecordingFilePath)
         FileSystemUtils.renameFile(srcURL, url)
         
         RecordingSession.invalidateCurrentSession()
     }
     
-    func isRecording() -> Bool {
-        let session = RecordingSession.getCurrentSession()
-        return session != nil ? session!.active : false
+    var isRecording: Bool {
+        return RecordingSession.currentSession?.active ?? false
     }
     
-    func getRecordingInfo() -> RecordingInfo? {
-        return !isRecording() ? nil : RecordingSession.getCurrentSession()!.getRecordingInfo()
+    var recordingInfo: RecordingInfo? {
+        return !isRecording ? nil : RecordingSession.currentSession?.recordingInfo
     }
     
     // Deletes the temporary recording file if the user discards the recording when prompted to save it
     func deleteRecording() {
         
-        FileSystemUtils.deleteFile(RecordingSession.getCurrentSession()!.tempFilePath)
+        FileSystemUtils.deleteFile(RecordingSession.currentSession!.tempFilePath)
         RecordingSession.invalidateCurrentSession()
     }
     
     // MARK - Experimental code not in use ------------------------------------------------------------
     
-    // NOTE - This function is in use only by an experimental feature in development, not currently accessible to the user
     func startViz(_ sp: Spectrogram, _ fft: FFT) {
         
         graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in

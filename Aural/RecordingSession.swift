@@ -18,7 +18,7 @@ class RecordingSession {
     var active: Bool
     
     // The current recording session, if any
-    private static var currentSession: RecordingSession?
+    static var currentSession: RecordingSession?
     
     init(_ format: RecordingFormat, _ tempFilePath: String) {
         
@@ -28,7 +28,7 @@ class RecordingSession {
     }
     
     // Returns recording metadata for UI display
-    func getRecordingInfo() -> RecordingInfo {
+    var recordingInfo: RecordingInfo {
         
         // Duration = now - startTime
         let now = Date()
@@ -51,11 +51,6 @@ class RecordingSession {
     // Checks if any recording is ongoing
     static func hasCurrentSession() -> Bool {
         return currentSession != nil
-    }
-    
-    // Returns the current recording session, if any
-    static func getCurrentSession() -> RecordingSession? {
-        return currentSession
     }
     
     // Ends the current session, if there is one. Once a session is ended, it can still be obtained using getCurrentSession().

@@ -6,7 +6,9 @@ protocol FavoritesDelegateProtocol {
     
     func addFavorite(_ file: URL, _ name: String) -> Favorite
     
-    func getAllFavorites() -> [Favorite]
+    var allFavorites: [Favorite] {get}
+    
+    var count: Int {get}
     
     func getFavoriteWithFile(_ file: URL) -> Favorite?
     
@@ -15,8 +17,6 @@ protocol FavoritesDelegateProtocol {
     func deleteFavoriteAtIndex(_ index: Int)
     
     func deleteFavoriteWithFile(_ file: URL)
-    
-    func countFavorites() -> Int
     
     func favoriteWithFileExists(_ file: URL) -> Bool
     

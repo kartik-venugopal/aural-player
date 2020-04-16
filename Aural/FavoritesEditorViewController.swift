@@ -103,7 +103,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return favorites.countFavorites()
+        return favorites.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
