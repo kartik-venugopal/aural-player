@@ -27,10 +27,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     // Popover view that displays detailed info for the currently playing track
-    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
+    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
     
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
-    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.getInfoPopup()
+    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -101,7 +101,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         let playingTrack = (player.playingTrack?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
-        if btnFavorite.isOn() {
+        if btnFavorite.isOn {
             _ = favorites.addFavorite(playingTrack)
         } else {
             favorites.deleteFavoriteWithFile(playingTrack.file)

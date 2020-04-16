@@ -54,7 +54,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
     
-    private let presetsEditor: EditorWindowController = WindowFactory.getEditorWindowController()
+    private let presetsEditor: EditorWindowController = WindowFactory.editorWindowController
     
     private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
@@ -238,7 +238,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {
         
-        !rememberSettingsMenuItem.isOn() ? SyncMessenger.publishActionMessage(SoundProfileActionMessage.save) : SyncMessenger.publishActionMessage(SoundProfileActionMessage.delete)
+        !rememberSettingsMenuItem.isOn ? SyncMessenger.publishActionMessage(SoundProfileActionMessage.save) : SyncMessenger.publishActionMessage(SoundProfileActionMessage.delete)
     }
 }
 

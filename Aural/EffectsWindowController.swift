@@ -8,14 +8,14 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     // The constituent sub-views, one for each effects unit
 
-    private let masterView: NSView = ViewFactory.getMasterView()
-    private let eqView: NSView = ViewFactory.getEQView()
-    private let pitchView: NSView = ViewFactory.getPitchView()
-    private let timeView: NSView = ViewFactory.getTimeView()
-    private let reverbView: NSView = ViewFactory.getReverbView()
-    private let delayView: NSView = ViewFactory.getDelayView()
-    private let filterView: NSView = ViewFactory.getFilterView()
-    private let recorderView: NSView = ViewFactory.getRecorderView()
+    private let masterView: NSView = ViewFactory.masterView
+    private let eqView: NSView = ViewFactory.eqView
+    private let pitchView: NSView = ViewFactory.pitchView
+    private let timeView: NSView = ViewFactory.timeView
+    private let reverbView: NSView = ViewFactory.reverbView
+    private let delayView: NSView = ViewFactory.delayView
+    private let filterView: NSView = ViewFactory.filterView
+    private let recorderView: NSView = ViewFactory.recorderView
 
     // Tab view and its buttons
 
@@ -47,9 +47,9 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         return self.window! as! SnappingWindow
     }
 
-    private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    private lazy var mainWindow: NSWindow = WindowFactory.mainWindow
 
-    private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+    private lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
 
     override var windowNibName: String? {return "Effects"}
 
@@ -225,7 +225,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
 
-            if (!snapped) && layoutManager.isShowingPlaylist() {
+            if (!snapped) && layoutManager.isShowingPlaylist {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
             }
         }

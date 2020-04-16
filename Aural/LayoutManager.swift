@@ -6,9 +6,9 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     private let preferences: ViewPreferences
     
     // App windows
-    let mainWindow: NSWindow = WindowFactory.getMainWindow()
-    let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
-    let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+    let mainWindow: NSWindow = WindowFactory.mainWindow
+    let effectsWindow: NSWindow = WindowFactory.effectsWindow
+    let playlistWindow: NSWindow = WindowFactory.playlistWindow
     let chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
     private var onTop: Bool = false
@@ -97,11 +97,11 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         layout(WindowLayouts.layoutByName(name)!)
     }
     
-    func isShowingEffects() -> Bool {
+    var isShowingEffects: Bool {
         return effectsWindow.isVisible
     }
     
-    func isShowingPlaylist() -> Bool {
+    var isShowingPlaylist: Bool {
         return playlistWindow.isVisible
     }
     
@@ -121,18 +121,18 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         return playlistWindow.frame
     }
     
+    // MARK ----------- View toggling code ----------------------------------------------------
+    
     func toggleAlwaysOnTop() {
         
         onTop = !onTop
         mainWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(onTop ? .floatingWindow : .normalWindow)))
     }
     
-    // MARK ----------- View toggling code ----------------------------------------------------
-    
     // Shows/hides the effects window
     func toggleEffects() {
         
-        !isShowingEffects() ? showEffects() : hideEffects()
+        isShowingEffects ? hideEffects() : showEffects()
     }
     
     // Shows the effects window
@@ -151,7 +151,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     // Shows/hides the playlist window
     func togglePlaylist() {
         
-        !isShowingPlaylist() ? showPlaylist() : hidePlaylist()
+        isShowingPlaylist ? hidePlaylist() : showPlaylist()
     }
     
     // Shows the playlist window

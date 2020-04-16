@@ -52,8 +52,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
-    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
-    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
+    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
+    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -61,7 +61,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let chaptersListWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersListWindow
         
-        theMenu.enableIf(layoutManager.isShowingPlaylist() || chaptersListWindowIskey)
+        theMenu.enableIf(layoutManager.isShowingPlaylist || chaptersListWindowIskey)
         
         if chaptersListWindowIskey {
             

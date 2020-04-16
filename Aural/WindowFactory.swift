@@ -5,7 +5,7 @@ import Cocoa
  */
 class WindowFactory {
     
-    private static var mainWindowController: MainWindowController = MainWindowController()
+    static var mainWindowController: MainWindowController = MainWindowController()
     
     private static var effectsWindowController: EffectsWindowController = EffectsWindowController()
     
@@ -13,7 +13,7 @@ class WindowFactory {
     
     private static let chaptersListWindowController: ChaptersListWindowController = ChaptersListWindowController()
     
-    private static var editorWindowController: EditorWindowController = EditorWindowController()
+    static var editorWindowController: EditorWindowController = EditorWindowController()
     
 //    private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
     
@@ -31,20 +31,16 @@ class WindowFactory {
     
     // MARK: Accessor functions for the different windows/dialogs
     
-    static func getMainWindow() -> NSWindow {
+    static var mainWindow: NSWindow {
         return mainWindowController.window!
     }
     
-    static func getMainWindowController() -> MainWindowController {
-        return mainWindowController
-    }
-    
-    static func getEffectsWindow() -> NSWindow {
+    static var effectsWindow: NSWindow {
         return effectsWindowController.window!
     }
     
     // Returns the playlist window
-    static func getPlaylistWindow() -> NSWindow {
+    static var playlistWindow: NSWindow {
         return playlistWindowController.window!
     }
     
@@ -52,38 +48,34 @@ class WindowFactory {
         return chaptersListWindowController.window!
     }
     
-    static func getPlaylistContextMenu() -> NSMenu {
+    static var playlistContextMenu: NSMenu {
         return playlistWindowController.contextMenu
     }
     
-    static func getEditorWindowController() -> EditorWindowController {
-        return editorWindowController
-    }
-    
     // Returns the preferences modal dialog
-    static func getPreferencesDialog() -> ModalDialogDelegate {
+    static var preferencesDialog: ModalDialogDelegate {
         return preferencesWindowController
     }
     
     // Returns the playlist search dialog
-    static func getPlaylistSearchDialog() -> ModalDialogDelegate {
+    static var playlistSearchDialog: ModalDialogDelegate {
         return playlistSearchWindowController
     }
     
     // Returns the playlist sort dialog
-    static func getPlaylistSortDialog() -> ModalDialogDelegate {
+    static var playlistSortDialog: ModalDialogDelegate {
         return playlistSortWindowController
     }
     
-    static func getGapsEditorDialog() -> ModalDialogDelegate {
+    static var gapsEditorDialog: ModalDialogDelegate {
         return gapsEditorWindowController
     }
     
-    static func getDelayedPlaybackEditorDialog() -> ModalDialogDelegate {
+    static var delayedPlaybackEditorDialog: ModalDialogDelegate {
         return delayedPlaybackEditorWindowController
     }
     
-    static func getJumpToTimeEditorDialog() -> ModalDialogDelegate {
+    static var jumpToTimeEditorDialog: ModalDialogDelegate {
         return jumptToTimeEditorWindowController
     }
 }

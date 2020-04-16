@@ -11,7 +11,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var transcoderView: TranscoderView!
     
-    private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
+    private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.mainWindowMouseTrackingView
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate

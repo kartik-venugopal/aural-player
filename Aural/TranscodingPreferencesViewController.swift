@@ -82,7 +82,7 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
     }
     
     @IBAction func limitSpaceAction(_ sender: Any) {
-        maxSpaceSlider.enableIf(btnLimitSpace.isOn())
+        maxSpaceSlider.enableIf(btnLimitSpace.isOn)
     }
     
     @IBAction func maxSpaceSliderAction(_ sender: Any) {
@@ -112,7 +112,7 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
     }
     
     @IBAction func eagerTranscodingAction(_ sender: Any) {
-        [btnPredictive, btnAllFiles].forEach({$0?.enableIf(btnEagerTranscoding.isOn())})
+        [btnPredictive, btnAllFiles].forEach({$0?.enableIf(btnEagerTranscoding.isOn)})
     }
     
     @IBAction func eagerTranscodingOptionAction(_ sender: Any) {
@@ -127,14 +127,14 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         
         let prefs = preferences.playbackPreferences.transcodingPreferences
         
-        prefs.persistenceOption = btnSaveFiles.isOn() ? .save : .delete
-//        prefs.limitDiskSpaceUsage = btnLimitSpace.isOn()
+        prefs.persistenceOption = btnSaveFiles.isOn ? .save : .delete
+//        prefs.limitDiskSpaceUsage = btnLimitSpace.isOn
 //        
 //        let amount: Double = 100 * pow(10, maxSpaceSlider.doubleValue)
 //        prefs.maxDiskSpaceUsage = Int(round(amount))
 //
-//        prefs.eagerTranscodingEnabled = btnEagerTranscoding.isOn()
-//        prefs.eagerTranscodingOption = btnAllFiles.isOn() ? .allFiles : .predictive
+//        prefs.eagerTranscodingEnabled = btnEagerTranscoding.isOn
+//        prefs.eagerTranscodingOption = btnAllFiles.isOn ? .allFiles : .predictive
 //
 //        prefs.maxBackgroundTasks = maxTasksStepper.integerValue
 //        transcoder.setMaxBackgroundTasks(prefs.maxBackgroundTasks)

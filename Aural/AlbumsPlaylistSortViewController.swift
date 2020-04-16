@@ -47,7 +47,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func groupsSortToggleAction(_ sender: Any) {
         
-        [sortGroups_byAlbum, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.enableIf(sortGroups.isOn())})
+        [sortGroups_byAlbum, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.enableIf(sortGroups.isOn)})
     }
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
@@ -56,7 +56,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.enableIf(sortTracks.isOn())})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.enableIf(sortTracks.isOn)})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
@@ -70,18 +70,18 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
         // Gather field values
         let sort = Sort()
         
-        if sortGroups.isOn() {
+        if sortGroups.isOn {
             
-            let field: SortField = sortGroups_byAlbum.isOn() ? .name : .duration
-            _ = sort.withGroupsSort(GroupsSort().withFields(field).withOrder(sortGroups_ascending.isOn() ? .ascending : .descending))
+            let field: SortField = sortGroups_byAlbum.isOn ? .name : .duration
+            _ = sort.withGroupsSort(GroupsSort().withFields(field).withOrder(sortGroups_ascending.isOn ? .ascending : .descending))
         }
         
-        if sortTracks.isOn() {
+        if sortTracks.isOn {
             
             let tracksSort: TracksSort = TracksSort()
             
             // Scope
-            _ = tracksSort.withScope(sortTracks_allGroups.isOn() ? .allGroups : .selectedGroups)
+            _ = tracksSort.withScope(sortTracks_allGroups.isOn ? .allGroups : .selectedGroups)
             if tracksSort.scope == .selectedGroups {
                 
                 let selItems = PlaylistViewState.selectedItems
@@ -98,9 +98,9 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
             }
             
             // Fields
-            if sortTracks_byDiscAndTrack.isOn() {
+            if sortTracks_byDiscAndTrack.isOn {
                 _ = tracksSort.withFields(.discNumberAndTrackNumber)
-            } else if sortTracks_byName.isOn() {
+            } else if sortTracks_byName.isOn {
                 _ = tracksSort.withFields(.name)
             } else {
                 // By duration
@@ -108,10 +108,10 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
             }
             
             // Order
-            _ = tracksSort.withOrder(sortTracks_ascending.isOn() ? .ascending : .descending)
+            _ = tracksSort.withOrder(sortTracks_ascending.isOn ? .ascending : .descending)
             
             // Options
-            _ = useTrackNameIfNoMetadata.isOn() ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
+            _ = useTrackNameIfNoMetadata.isOn ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
             
             _ = sort.withTracksSort(tracksSort)
         }

@@ -14,16 +14,16 @@ extension NSButton {
         condition ? on() : off()
     }
     
-    @objc func isOn() -> Bool {
+    @objc var isOn: Bool {
         return self.state == UIConstants.onState
     }
     
-    @objc func isOff() -> Bool {
+    @objc var isOff: Bool {
         return self.state == UIConstants.offState
     }
     
     @objc func toggle() {
-        isOn() ? off() : on()
+        isOn ? off() : on()
     }
     
     @objc func displaceLeft(_ amount: CGFloat) {
@@ -49,16 +49,16 @@ extension NSButtonCell {
         condition ? on() : off()
     }
 
-    @objc func isOn() -> Bool {
+    @objc var isOn: Bool {
         return self.state == UIConstants.onState
     }
 
-    @objc func isOff() -> Bool {
+    @objc var isOff: Bool {
         return self.state == UIConstants.offState
     }
 
     @objc func toggle() {
-        isOn() ? off() : on()
+        isOn ? off() : on()
     }
 }
 
@@ -76,16 +76,16 @@ extension NSMenuItem {
         condition ? on() : off()
     }
     
-    @objc func isOn() -> Bool {
+    @objc var isOn: Bool {
         return self.state == UIConstants.onState
     }
     
-    @objc func isOff() -> Bool {
+    @objc var isOff: Bool {
         return self.state == UIConstants.offState
     }
     
     @objc func toggle() {
-        isOn() ? off() : on()
+        isOn ? off() : on()
     }
     
     var isShown: Bool {

@@ -72,7 +72,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             favoritesMenuItem.toggle()
             
             // Publish an action message to add/remove the item to/from Favorites
-            if favoritesMenuItem.isOn() {
+            if favoritesMenuItem.isOn {
                 _ = favorites.addFavorite(playingTrack)
             } else {
                 favorites.deleteFavoriteWithFile(playingTrack.file)

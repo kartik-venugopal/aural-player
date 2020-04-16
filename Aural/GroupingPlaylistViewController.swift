@@ -7,7 +7,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     
-    private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
+    private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -663,7 +663,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
             }
             
-            if layoutManager.isShowingPlaylist() {
+            if layoutManager.isShowingPlaylist {
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
@@ -675,7 +675,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
         } else {
             
-            if layoutManager.isShowingPlaylist() {
+            if layoutManager.isShowingPlaylist {
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
@@ -785,7 +785,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.track)
         }

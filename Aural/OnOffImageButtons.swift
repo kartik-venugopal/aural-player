@@ -47,7 +47,7 @@ class OnOffImageButton: NSButton {
     }
     
     // Returns true if the button is in the On state, false otherwise.
-    override func isOn() -> Bool {
+    override var isOn: Bool {
         return _isOn
     }
 }

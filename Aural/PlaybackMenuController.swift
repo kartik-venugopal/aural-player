@@ -54,7 +54,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
-    private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.getJumpToTimeEditorDialog()
+    private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog
     
     // One-time setup
     override func awakeFromNib() {
@@ -77,7 +77,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only in regular mode if playing/paused
-        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && layoutManager.isShowingPlaylist() && isRegularMode)
+        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && layoutManager.isShowingPlaylist && isRegularMode)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused && isRegularMode)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
@@ -227,7 +227,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {
         
-        !rememberLastPositionMenuItem.isOn() ? SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save) : SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
+        !rememberLastPositionMenuItem.isOn ? SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save) : SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
     }
     
     // Updates the menu item states per the current playback modes

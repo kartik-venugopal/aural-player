@@ -36,12 +36,12 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             // Default
             layoutMenu.select(layoutMenu.item(withTitle: WindowLayouts.defaultLayout.name))
         }
-        layoutMenu.enableIf(btnStartWithLayout.isOn())
+        layoutMenu.enableIf(btnStartWithLayout.isOn)
         
         btnSnapToWindows.onIf(viewPrefs.snapToWindows)
         gapStepper.floatValue = viewPrefs.windowGap
         lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
-        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn())})
+        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn)})
         
         btnSnapToScreen.onIf(viewPrefs.snapToScreen)
     }
@@ -69,11 +69,11 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
-        layoutMenu.enableIf(btnStartWithLayout.isOn())
+        layoutMenu.enableIf(btnStartWithLayout.isOn)
     }
     
     @IBAction func snapToWindowsAction(_ sender: Any) {
-        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn())})
+        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn)})
     }
     
     @IBAction func gapStepperAction(_ sender: Any) {
@@ -84,10 +84,10 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         let viewPrefs = preferences.viewPreferences
         
-        viewPrefs.layoutOnStartup.option = btnStartWithLayout.isOn() ? .specific : .rememberFromLastAppLaunch
+        viewPrefs.layoutOnStartup.option = btnStartWithLayout.isOn ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title
         
-        viewPrefs.snapToWindows = btnSnapToWindows.isOn()
+        viewPrefs.snapToWindows = btnSnapToWindows.isOn
         
         let oldWindowGap = viewPrefs.windowGap
         viewPrefs.windowGap = gapStepper.floatValue
@@ -99,6 +99,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             WindowLayouts.recomputeSystemDefinedLayouts()
         }
         
-        viewPrefs.snapToScreen = btnSnapToScreen.isOn()
+        viewPrefs.snapToScreen = btnSnapToScreen.isOn
     }
 }

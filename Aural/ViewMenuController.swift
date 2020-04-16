@@ -31,7 +31,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
@@ -56,8 +56,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
             
-            togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist())
-            toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects())
+            togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist)
+            toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects)
             toggleChaptersListMenuItem.onIf(layoutManager.isShowingChaptersList)
             
         } else {
@@ -65,8 +65,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.hide()})
         }
         
-        playlistViewMenuItem.showIf_elseHide(layoutManager.isShowingPlaylist())
-        effectsViewMenuItem.showIf_elseHide(layoutManager.isShowingEffects())
+        playlistViewMenuItem.showIf_elseHide(layoutManager.isShowingPlaylist)
+        effectsViewMenuItem.showIf_elseHide(layoutManager.isShowingEffects)
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({

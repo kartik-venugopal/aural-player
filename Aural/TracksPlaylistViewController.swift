@@ -6,7 +6,7 @@ import Cocoa
 class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
-    private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
+    private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
     
     @IBOutlet weak var scrollView: NSScrollView!
     
@@ -381,7 +381,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             refreshIndexes.append(oldTrack!.index)
         }
         
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
         
         if (newTrack != nil) {
             
@@ -527,7 +527,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
         // Select the next track
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.index)
         }

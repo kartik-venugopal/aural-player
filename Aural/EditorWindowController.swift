@@ -2,13 +2,13 @@ import Cocoa
 
 class EditorWindowController: NSWindowController {
     
-    private lazy var bookmarksEditorView: NSView = ViewFactory.getBookmarksEditorView()
+    private lazy var bookmarksEditorView: NSView = ViewFactory.bookmarksEditorView
     
-    private lazy var favoritesEditorView: NSView = ViewFactory.getFavoritesEditorView()
+    private lazy var favoritesEditorView: NSView = ViewFactory.favoritesEditorView
     
-    private lazy var layoutsEditorView: NSView = ViewFactory.getLayoutsEditorView()
+    private lazy var layoutsEditorView: NSView = ViewFactory.layoutsEditorView
     
-    private lazy var effectsPresetsEditorView: NSView = ViewFactory.getEffectsPresetsEditorView()
+    private lazy var effectsPresetsEditorView: NSView = ViewFactory.effectsPresetsEditorView
     
     override var windowNibName: String? {return "EditorWindow"}
     

@@ -41,27 +41,27 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
         let tracksSort: TracksSort = TracksSort()
         _ = sort.withTracksSort(tracksSort)
         
-        if sortByName.isOn() {
+        if sortByName.isOn {
             
             _ = tracksSort.withFields(.name)
             
-        } else if sortByDuration.isOn() {
+        } else if sortByDuration.isOn {
             
             _ = tracksSort.withFields(.duration)
             
-        } else if sortByArtist_andAlbum_andDiscTrack.isOn() {
+        } else if sortByArtist_andAlbum_andDiscTrack.isOn {
             
             _ = tracksSort.withFields(.artist, .album, .discNumberAndTrackNumber)
             
-        } else if sortByArtist_andAlbum_andName.isOn() {
+        } else if sortByArtist_andAlbum_andName.isOn {
             
             _ = tracksSort.withFields(.artist, .album, .name)
             
-        } else if sortByArtist_andName.isOn() {
+        } else if sortByArtist_andName.isOn {
 
             _ = tracksSort.withFields(.artist, .name)
             
-        } else if sortByAlbum_andDiscTrack.isOn() {
+        } else if sortByAlbum_andDiscTrack.isOn {
             
             _ = tracksSort.withFields(.album, .discNumberAndTrackNumber)
             
@@ -71,9 +71,9 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
             _ = tracksSort.withFields(.album, .name)
         }
         
-        _ = tracksSort.withOrder(sortAscending.isOn() ? .ascending : .descending)
+        _ = tracksSort.withOrder(sortAscending.isOn ? .ascending : .descending)
         
-        _ = useTrackNameIfNoMetadata.isOn() ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
+        _ = useTrackNameIfNoMetadata.isOn ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
         
         return sort
     }

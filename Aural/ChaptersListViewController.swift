@@ -228,7 +228,7 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
     
     // Compares query text with a chapter title
     private func compare(_ queryText: String, _ chapterTitle: String) -> Bool {
-        return btnCaseSensitive.isOn() ? chapterTitle.contains(queryText) : chapterTitle.lowercased().contains(queryText.lowercased())
+        return btnCaseSensitive.isOn ? chapterTitle.contains(queryText) : chapterTitle.lowercased().contains(queryText.lowercased())
     }
     
     // MARK: Message handling

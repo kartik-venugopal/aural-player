@@ -107,166 +107,166 @@ struct ViewFactory {
     }
     
     // Returns the view that displays the player
-    static func getPlayerView() -> NSView {
+    static var playerView: NSView {
         return playerViewController.view
     }
     
-    static func getMainWindowMouseTrackingView() -> MouseTrackingView {
-        return WindowFactory.getMainWindow().contentView as! MouseTrackingView
+    static var mainWindowMouseTrackingView: MouseTrackingView {
+        return WindowFactory.mainWindow.contentView as! MouseTrackingView
     }
     
     // Returns the view that displays the Equalizer effects unit
-    static func getMasterView() -> NSView {
+    static var masterView: NSView {
         return EffectsViews.masterViewController.view
     }
     
     // Returns the view that displays the Equalizer effects unit
-    static func getEQView() -> NSView {
+    static var eqView: NSView {
         return EffectsViews.eqViewController.view
     }
     
     // Returns the view that displays the Pitch effects unit
-    static func getPitchView() -> NSView {
+    static var pitchView: NSView {
         return EffectsViews.pitchViewController.view
     }
     
     // Returns the view that displays the Time effects unit
-    static func getTimeView() -> NSView {
+    static var timeView: NSView {
         return EffectsViews.timeViewController.view
     }
     
     // Returns the view that displays the Reverb effects unit
-    static func getReverbView() -> NSView {
+    static var reverbView: NSView {
         return EffectsViews.reverbViewController.view
     }
     
     // Returns the view that displays the Delay effects unit
-    static func getDelayView() -> NSView {
+    static var delayView: NSView {
         return EffectsViews.delayViewController.view
     }
     
     // Returns the view that displays the Filter effects unit
-    static func getFilterView() -> NSView {
+    static var filterView: NSView {
         return EffectsViews.filterViewController.view
     }
     
     // Returns the view that displays the Recorder unit
-    static func getRecorderView() -> NSView {
+    static var recorderView: NSView {
         return EffectsViews.recorderViewController.view
     }
     
     // Returns the "Tracks" playlist view
-    static func getTracksView() -> NSView {
+    static var tracksView: NSView {
         return PlaylistViews.tracksViewController.view
     }
     
     // Returns the "Artists" playlist view
-    static func getArtistsView() -> NSView {
+    static var artistsView: NSView {
         return PlaylistViews.artistsViewController.view
     }
     
     // Returns the "Albums" playlist view
-    static func getAlbumsView() -> NSView {
+    static var albumsView: NSView {
         return PlaylistViews.albumsViewController.view
     }
     
     // Returns the "Genres" playlist view
-    static func getGenresView() -> NSView {
+    static var genresView: NSView {
         return PlaylistViews.genresViewController.view
     }
     
-    static func getContextMenu() -> NSMenu {
+    static var contextMenu: NSMenu {
         return PlaylistViews.contextMenuController.contextMenu
     }
     
-    static func getDetailedTrackInfoPopover() -> PopoverViewDelegate {
+    static var detailedTrackInfoPopover: PopoverViewDelegate {
         return PopoverViews.detailedTrackInfoPopover
     }
     
-    static func getInfoPopup() -> InfoPopupProtocol {
+    static var infoPopup: InfoPopupProtocol {
         return PopoverViews.infoPopup
     }
     
-    static func getPlaylistPreferencesView() -> PreferencesViewProtocol {
+    static var playlistPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.playlistPreferencesViewController
     }
     
-    static func getPlaybackPreferencesView() -> PreferencesViewProtocol {
+    static var playbackPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.playbackPreferencesViewController
     }
     
-    static func getSoundPreferencesView() -> PreferencesViewProtocol {
+    static var soundPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.soundPreferencesViewController
     }
     
-    static func getViewPreferencesView() -> PreferencesViewProtocol {
+    static var viewPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.viewPreferencesViewController
     }
     
-    static func getHistoryPreferencesView() -> PreferencesViewProtocol {
+    static var historyPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.historyPreferencesViewController
     }
     
-    static func getControlsPreferencesView() -> PreferencesViewProtocol {
+    static var controlsPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.controlsPreferencesViewController
     }
     
-//    static func getStatusBarPopover() -> StatusBarPopoverViewController {
+//    static var StatusBarPopover() -> StatusBarPopoverViewController {
 //        return PopoverViews.statusBarPopover
 //    }
     
     // MARK: Accessors for Bar mode
     
-//    static func getBarModeNowPlayingView() -> NSView {
+//    static var BarModeNowPlayingView: NSView {
 //        return barModeNowPlayingViewController.view
 //    }
 //
 //    // Returns the view that displays the player
-//    static func getBarModePlayerView() -> NSView {
+//    static var BarModePlayerView: NSView {
 //        return barModePlayerViewController.view
 //    }
     
-    static func getBookmarksEditorView() -> NSView {
+    static var bookmarksEditorView: NSView {
         return EditorViews.bookmarksEditorViewController.view
     }
     
-    static func getFavoritesEditorView() -> NSView {
+    static var favoritesEditorView: NSView {
         return EditorViews.favoritesEditorViewController.view
     }
     
-    static func getLayoutsEditorView() -> NSView {
+    static var layoutsEditorView: NSView {
         return EditorViews.layoutsEditorViewController.view
     }
     
-    static func getEffectsPresetsEditorView() -> NSView {
+    static var effectsPresetsEditorView: NSView {
         return EditorViews.effectsPresetsEditorViewController.view
     }
     
-    static func getMasterPresetsEditorView() -> NSView {
+    static var masterPresetsEditorView: NSView {
         return EditorViews.masterPresetsEditorViewController.view
     }
     
-    static func getEQPresetsEditorView() -> NSView {
+    static var eqPresetsEditorView: NSView {
         return EditorViews.eqPresetsEditorViewController.view
     }
     
-    static func getPitchPresetsEditorView() -> NSView {
+    static var pitchPresetsEditorView: NSView {
         return EditorViews.pitchPresetsEditorViewController.view
     }
     
-    static func getTimePresetsEditorView() -> NSView {
+    static var timePresetsEditorView: NSView {
         return EditorViews.timePresetsEditorViewController.view
     }
     
-    static func getReverbPresetsEditorView() -> NSView {
+    static var reverbPresetsEditorView: NSView {
         return EditorViews.reverbPresetsEditorViewController.view
     }
     
-    static func getDelayPresetsEditorView() -> NSView {
+    static var delayPresetsEditorView: NSView {
         return EditorViews.delayPresetsEditorViewController.view
     }
     
-    static func getFilterPresetsEditorView() -> NSView {
+    static var filterPresetsEditorView: NSView {
         return EditorViews.filterPresetsEditorViewController.view
     }
 }
