@@ -41,7 +41,7 @@ protocol AudioGraphDelegateProtocol {
     // Pans right by a small increment. Returns new balance value.
     func panRight() -> Float
     
-    func getSettingsAsMasterPreset() -> MasterPreset
+    var settingsAsMasterPreset: MasterPreset {get}
     
     var masterUnit: MasterUnitDelegateProtocol {get set}
     var eqUnit: EQUnitDelegateProtocol {get set}

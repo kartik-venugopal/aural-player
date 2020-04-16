@@ -187,7 +187,7 @@ class PlaybackScheduler {
             let duration = session.track.duration
             
             // This will update lastSeekPosn
-            _ = getSeekPosition()
+            _ = seekPosition
             
             if lastSeekPosn > (duration - PlaybackScheduler.timeComparisonTolerance) {
                 
@@ -241,7 +241,7 @@ class PlaybackScheduler {
             let loopEndTime = session.loop!.endTime!
             
             // This will update lastSeekPosn
-            _ = getSeekPosition()
+            _ = seekPosition
             
             if lastSeekPosn > (loopEndTime - PlaybackScheduler.timeComparisonTolerance) {
                 
@@ -262,7 +262,7 @@ class PlaybackScheduler {
     func pause() {
         
         // Update lastSeekPosn before pausing
-        _ = getSeekPosition()
+        _ = seekPosition
         playerNode.pause()
         
         // If the completion timer is running, pause it
@@ -288,9 +288,8 @@ class PlaybackScheduler {
         completionPollTimer?.stop()
     }
     
-    // TODO: Convert this func to a var
     // Retrieves the current seek position, in seconds
-    func getSeekPosition() -> Double {
+    var seekPosition: Double {
         
         if let nodeTime = playerNode.lastRenderTime, let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             lastSeekPosn = Double(startFrame! + playerTime.sampleTime) / playerTime.sampleRate

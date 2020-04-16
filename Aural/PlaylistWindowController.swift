@@ -62,7 +62,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
 
     override func windowDidLoad() {
         
-        WindowState.playlistWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         
         PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
@@ -600,7 +599,7 @@ class PlaylistViewState {
         current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
     }
     
-    static func persistentState() -> PlaylistUIState {
+    static var persistentState: PlaylistUIState {
         
         let state = PlaylistUIState()
         

@@ -16,6 +16,8 @@ class UIUtils {
     
     private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     
+    private static var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    
     // Dismisses the given dialog
     static func dismissDialog(_ dialog: NSWindow) {
 
@@ -59,7 +61,7 @@ class UIUtils {
     
     // Centers a dialog with respect to the main window
     static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
-        centerDialogWRTWindow(dialog, WindowState.mainWindow!)
+        centerDialogWRTWindow(dialog, layoutManager.mainWindow)
     }
     
     static func centerDialogWRTWindow(_ dialog: NSWindow, _ parent: NSWindow) {

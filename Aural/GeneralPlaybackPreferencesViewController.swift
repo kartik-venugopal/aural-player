@@ -43,7 +43,7 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

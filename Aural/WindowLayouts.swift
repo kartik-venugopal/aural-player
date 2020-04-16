@@ -178,14 +178,14 @@ enum WindowLayoutPresets: String {
         }
     }
     
-    private func gapBetweenWindows() -> CGFloat {
+    private var gapBetweenWindows: CGFloat {
         
         return CGFloat(ObjectGraph.preferencesDelegate.getPreferences().viewPreferences.windowGap)
     }
     
     var mainWindowOrigin: NSPoint {
         
-        let gap = gapBetweenWindows()
+        let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         
         var x: CGFloat = 0
@@ -263,7 +263,7 @@ enum WindowLayoutPresets: String {
     
     var effectsWindowOrigin: NSPoint {
         
-        let gap = gapBetweenWindows()
+        let gap = gapBetweenWindows
         
         let mwo = mainWindowOrigin
         var x: CGFloat = 0
@@ -307,7 +307,7 @@ enum WindowLayoutPresets: String {
     
     var playlistHeight: CGFloat {
         
-        let gap = gapBetweenWindows()
+        let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         
         // Compute this only once
@@ -330,7 +330,7 @@ enum WindowLayoutPresets: String {
     
     var playlistWidth: CGFloat {
         
-        let gap = gapBetweenWindows()
+        let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         let minWidth = playlistWindow.minSize.width
         
@@ -356,7 +356,7 @@ enum WindowLayoutPresets: String {
     
     var playlistWindowOrigin: NSPoint {
         
-        let gap = gapBetweenWindows()
+        let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         let mwo = mainWindowOrigin
         

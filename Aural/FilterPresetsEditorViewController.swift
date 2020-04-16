@@ -25,7 +25,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         super.viewDidLoad()
         
-        let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
+        let bandsDataFunction = {() -> [FilterBand] in return self.filterChartBands}
         filterView.initialize({() -> EffectsUnitState in return .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
@@ -40,9 +40,9 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         bandsTable.reloadData()
     }
     
-    private func getFilterChartBands() -> [FilterBand] {
+    private var filterChartBands: [FilterBand] {
         
-        let selection = getSelectedPresetNames()
+        let selection = selectedPresetNames
         if !selection.isEmpty {
             return filterUnit.presets.presetByName(selection[0])!.bands
         }

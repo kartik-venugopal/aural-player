@@ -40,7 +40,7 @@ protocol PlaybackSequenceProtocol {
     func select(_ index: Int)
     
     // Returns the index of the currently playing track
-    func getCursor() -> Int?
+    var cursor: Int? {get}
     
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
@@ -58,7 +58,7 @@ protocol PlaybackSequenceProtocol {
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
  
     // Returns the size of the sequence (i.e. number of tracks)
-    func size() -> Int
+    var size: Int {get}
     
     // Clears the sequence of all elements
     func clear()

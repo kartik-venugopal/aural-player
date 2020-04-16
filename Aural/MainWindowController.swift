@@ -64,7 +64,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // Set window properties
     private func initWindow() {
         
-        WindowState.mainWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         theWindow.makeKeyAndOrderFront(self)
         

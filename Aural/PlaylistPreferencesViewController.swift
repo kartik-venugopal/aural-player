@@ -29,7 +29,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     override var nibName: String? {return "PlaylistPreferences"}
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

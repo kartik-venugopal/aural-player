@@ -265,7 +265,7 @@ class EffectsViewState {
         textSize = appState.textSize
     }
     
-    static func persistentState() -> EffectsUIState {
+    static var persistentState: EffectsUIState {
         
         let state = EffectsUIState()
         state.textSize = textSize

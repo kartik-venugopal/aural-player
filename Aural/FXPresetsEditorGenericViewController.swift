@@ -30,7 +30,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func deleteSelectedPresetsAction() {
         
-        presetsWrapper.deletePresets(getSelectedPresetNames())
+        presetsWrapper.deletePresets(selectedPresetNames)
         editorView.reloadData()
         
         previewBox.hide()
@@ -38,7 +38,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
     
-    func getSelectedPresetNames() -> [String] {
+    var selectedPresetNames: [String] {
         
         var names = [String]()
         

@@ -97,11 +97,11 @@ class EQUnit: FXUnit, EQUnitProtocol {
         globalGain = preset.globalGain
     }
     
-    func getSettingsAsPreset() -> EQPreset {
+    var settingsAsPreset: EQPreset {
         return EQPreset("eqSettings", state, bands, globalGain, false)
     }
     
-    func persistentState() -> EQUnitState {
+    var persistentState: EQUnitState {
 
         let unitState = EQUnitState()
 

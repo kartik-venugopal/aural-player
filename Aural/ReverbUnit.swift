@@ -61,11 +61,11 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
         amount = preset.amount
     }
     
-    func getSettingsAsPreset() -> ReverbPreset {
+    var settingsAsPreset: ReverbPreset {
         return ReverbPreset("reverbSettings", state, space, amount, false)
     }
     
-    func persistentState() -> ReverbUnitState {
+    var persistentState: ReverbUnitState {
 
         let unitState = ReverbUnitState()
 

@@ -53,22 +53,18 @@ extension PlaybackGap: Hashable {
 
 class PlaybackGapContext {
     
-    private static var id: Int = -1
+    static var id: Int = -1
     private static var gaps: [PlaybackGap: IndexedTrack] = [:]
     
     static func hasGaps() -> Bool {
         return !gaps.isEmpty
     }
     
-    static func getId() -> Int {
-        return id
-    }
-    
     static func isCurrent(_ contextId: Int) -> Bool {
         return contextId == id
     }
     
-    static func getGapLength() -> Double {
+    static var gapLength: Double {
         
         var length: Double = 0.0
         for gap in gaps.keys {

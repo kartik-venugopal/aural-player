@@ -33,7 +33,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     @IBAction func deleteSelectedLayoutsAction(_ sender: AnyObject) {
         
         // Descending order
-        let selection = getSelectedLayoutNames()
+        let selection = selectedLayoutNames
         let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
         
         // The preferred layout (in the view preferences) was deleted. Set the preference to the default
@@ -53,7 +53,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         updatePreview()
     }
     
-    private func getSelectedLayoutNames() -> [String] {
+    private var selectedLayoutNames: [String] {
         
         var names = [String]()
         
@@ -89,9 +89,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func applySelectedLayoutAction(_ sender: AnyObject) {
-        
-        let selection = getSelectedLayoutNames()
-        layoutManager.layout(selection[0])
+        layoutManager.layout(selectedLayoutNames[0])
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
@@ -102,9 +100,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         
         if editorView.numberOfSelectedRows == 1 {
             
-            let selection = getSelectedLayoutNames()
-            let layout = WindowLayouts.layoutByName(selection[0])!
-            
+            let layout = WindowLayouts.layoutByName(selectedLayoutNames[0])!
             previewView.drawPreviewForLayout(layout)
             
         } else {

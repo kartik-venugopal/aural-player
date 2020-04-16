@@ -151,22 +151,22 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
-        appState.audioGraph = (audioGraph as! AudioGraph).persistentState() as! AudioGraphState
-        appState.playlist = (playlist as! Playlist).persistentState() as! PlaylistState
-        appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState() as! PlaybackSequenceState
+        appState.audioGraph = (audioGraph as! AudioGraph).persistentState as! AudioGraphState
+        appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
+        appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
         
-        appState.transcoder = (transcoder as! Transcoder).persistentState() as! TranscoderState
+        appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
         
         appState.ui = UIState()
-        appState.ui.windowLayout = layoutManager.persistentState()
-        appState.ui.player = PlayerViewState.persistentState()
-        appState.ui.playlist = PlaylistViewState.persistentState()
-        appState.ui.effects = EffectsViewState.persistentState()
+        appState.ui.windowLayout = layoutManager.persistentState
+        appState.ui.player = PlayerViewState.persistentState
+        appState.ui.playlist = PlaylistViewState.persistentState
+        appState.ui.effects = EffectsViewState.persistentState
         
-        appState.history = (historyDelegate as! HistoryDelegate).persistentState() as! HistoryState
-        appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState()
-        appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState()
+        appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
+        appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
+        appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
         
         // Persist app state to disk
         AppStateIO.save(appState!)

@@ -87,7 +87,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         }
     }
     
-    func persistentState() -> [(URL, String)] {
+    var persistentState: [(URL, String)] {
         
         var arr: [(URL, String)] = []
         

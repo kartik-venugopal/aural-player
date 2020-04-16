@@ -48,22 +48,22 @@ class MasterUnit: FXUnit, MessageSubscriber {
     
     override func savePreset(_ presetName: String) {
         
-        let eqPreset = eqUnit.getSettingsAsPreset()
+        let eqPreset = eqUnit.settingsAsPreset
         eqPreset.name = String(format: "EQ settings for Master preset: '%@'", presetName)
         
-        let pitchPreset = pitchUnit.getSettingsAsPreset()
+        let pitchPreset = pitchUnit.settingsAsPreset
         pitchPreset.name = String(format: "Pitch settings for Master preset: '%@'", presetName)
         
-        let timePreset = timeUnit.getSettingsAsPreset()
+        let timePreset = timeUnit.settingsAsPreset
         timePreset.name = String(format: "Time settings for Master preset: '%@'", presetName)
         
-        let reverbPreset = reverbUnit.getSettingsAsPreset()
+        let reverbPreset = reverbUnit.settingsAsPreset
         reverbPreset.name = String(format: "Reverb settings for Master preset: '%@'", presetName)
         
-        let delayPreset = delayUnit.getSettingsAsPreset()
+        let delayPreset = delayUnit.settingsAsPreset
         delayPreset.name = String(format: "Delay settings for Master preset: '%@'", presetName)
         
-        let filterPreset = filterUnit.getSettingsAsPreset()
+        let filterPreset = filterUnit.settingsAsPreset
         filterPreset.name = String(format: "Filter settings for Master preset: '%@'", presetName)
         
         // Save the new preset
@@ -71,14 +71,14 @@ class MasterUnit: FXUnit, MessageSubscriber {
         presets.addPreset(masterPreset)
     }
     
-    func getSettingsAsPreset() -> MasterPreset {
+    var settingsAsPreset: MasterPreset {
         
-        let eqPreset = eqUnit.getSettingsAsPreset()
-        let pitchPreset = pitchUnit.getSettingsAsPreset()
-        let timePreset = timeUnit.getSettingsAsPreset()
-        let reverbPreset = reverbUnit.getSettingsAsPreset()
-        let delayPreset = delayUnit.getSettingsAsPreset()
-        let filterPreset = filterUnit.getSettingsAsPreset()
+        let eqPreset = eqUnit.settingsAsPreset
+        let pitchPreset = pitchUnit.settingsAsPreset
+        let timePreset = timeUnit.settingsAsPreset
+        let reverbPreset = reverbUnit.settingsAsPreset
+        let delayPreset = delayUnit.settingsAsPreset
+        let filterPreset = filterUnit.settingsAsPreset
         
         return MasterPreset("masterSettings", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
     }
@@ -111,7 +111,7 @@ class MasterUnit: FXUnit, MessageSubscriber {
         filterUnit.state = preset.filter.state
     }
     
-    func persistentState() -> MasterUnitState {
+    var persistentState: MasterUnitState {
 
         let unitState = MasterUnitState()
 

@@ -4,7 +4,7 @@ import Cocoa
 protocol PersistentModelObject {
     
     // Retrieves persistent state for this model object
-    func persistentState() -> PersistentState
+    var persistentState: PersistentState {get}
 }
 
 // Marks an object as being suitable for persistence, i.e. it is serializable/deserializable

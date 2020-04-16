@@ -43,13 +43,13 @@ class PlaylistInputEventHandler {
     private static func handleSwipe(_ event: NSEvent) {
         
         // Ignore any swipe events that weren't performed over the playlist window (they trigger other functions if performed over the main window)
-        if event.window != WindowState.playlistWindow {
+        if event.window != layoutManager.playlistWindow {
             return
         }
         
         if let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
-            swipeDirection.isHorizontal() ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)
+            swipeDirection.isHorizontal ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)
         }
     }
     

@@ -26,7 +26,7 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
         lblMaxRecommendedTasks.stringValue = String(format: "( Max. recommended value on this system:   %d )", ProcessInfo.processInfo.activeProcessorCount - 1)
     }
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

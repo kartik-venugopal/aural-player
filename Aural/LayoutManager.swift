@@ -230,7 +230,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         }
     }
     
-    func persistentState() -> WindowLayoutState {
+    var persistentState: WindowLayoutState {
         
         let uiState = WindowLayoutState()
         

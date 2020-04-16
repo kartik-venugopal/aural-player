@@ -10,6 +10,10 @@ protocol LayoutManagerProtocol {
     
     var mainWindow: NSWindow {get}
     
+    var playlistWindow: NSWindow {get}
+    
+    var effectsWindow: NSWindow {get}
+    
     var chaptersListWindow: NSWindow {get}
     
     func layout(_ layout: WindowLayout)

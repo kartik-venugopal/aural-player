@@ -260,7 +260,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                         playlist.removeGapForTrack(oneTimeGaps[gap]!.track, gap.position)
                     }
                     
-                    doPlayWithDelay(indexedTrack.track, PlaybackGapContext.getGapLength(), startPosition, endPosition)
+                    doPlayWithDelay(indexedTrack.track, PlaybackGapContext.gapLength, startPosition, endPosition)
                     return
                 }
             }
@@ -273,7 +273,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // Plays the track asynchronously, after the given delay
     private func doPlayWithDelay(_ track: Track, _ delay: Double, _ startPosition: Double? = nil, _ endPosition: Double? = nil) {
         
-        let gapContextId = PlaybackGapContext.getId()
+        let gapContextId = PlaybackGapContext.id
         
         // Mark the current state as "waiting" in between tracks
         player.wait()
@@ -407,7 +407,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         if (state.notPlaying()) {return}
         
-        doSeekForward(getSecondarySeekLength())
+        doSeekForward(secondarySeekLength)
     }
     
     private func doSeekForward(_ increment: Double) {
@@ -456,16 +456,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if (state.notPlaying()) {return}
-        
-        doSeekBackward(getPrimarySeekLength(actionMode))
+        if state.playingOrPaused() {
+            doSeekBackward(getPrimarySeekLength(actionMode))
+        }
     }
     
     func seekBackwardSecondary() {
         
-        if (state.notPlaying()) {return}
-        
-        doSeekBackward(getSecondarySeekLength())
+        if state.playingOrPaused() {
+            doSeekBackward(secondarySeekLength)
+        }
     }
     
     private func doSeekBackward(_ decrement: Double) {
@@ -508,7 +508,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    private func getSecondarySeekLength() -> Double {
+    private var secondarySeekLength: Double {
         
         if preferences.secondarySeekLengthOption == .constant {
             

@@ -308,7 +308,7 @@ class PlayerViewState {
         textSize = appState.textSize
     }
     
-    static func persistentState() -> PlayerUIState {
+    static var persistentState: PlayerUIState {
         
         let state = PlayerUIState()
         

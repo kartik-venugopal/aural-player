@@ -1,5 +1,16 @@
 import Cocoa
 
+extension NSView {
+    
+    var width: CGFloat {
+        return self.frame.width
+    }
+    
+    var height: CGFloat {
+        return self.frame.height
+    }
+}
+
 extension NSButton {
     
     @objc func off() {
@@ -280,5 +291,48 @@ extension String {
     
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
+    }
+}
+
+extension NSWindow {
+    
+    var origin: NSPoint {
+        return self.frame.origin
+    }
+    
+    var width: CGFloat {
+        return self.frame.width
+    }
+    
+    var height: CGFloat {
+        return self.frame.height
+    }
+    
+    // X co-ordinate of location
+    var x: CGFloat {
+        return self.frame.origin.x
+    }
+    
+    // Y co-ordinate of location
+    var y: CGFloat {
+        return self.frame.origin.y
+    }
+    
+    var maxX: CGFloat {
+        return self.frame.maxX
+    }
+    
+    var maxY: CGFloat {
+        return self.frame.maxY
+    }
+    
+    // Screen (visible) width - this window's width
+    var remainingWidth: CGFloat {
+        return (NSScreen.main!.visibleFrame.width - self.width)
+    }
+    
+    // Screen (visible) height - this window's height
+    var remainingHeight: CGFloat {
+        return (NSScreen.main!.visibleFrame.height - self.height)
     }
 }

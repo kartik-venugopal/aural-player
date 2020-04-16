@@ -18,7 +18,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
     private var tracksCount: Int = 0
     
     // Cursor is the absolute sequence index of the currently playing track (nil if no track is playing)
-    private var cursor: Int? = nil
+    internal var cursor: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     private let shuffleSequence: ShuffleSequence = ShuffleSequence(0)
@@ -30,7 +30,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         reset(tracksCount: tracksCount)
     }
     
-    func size() -> Int {
+    var size: Int {
         return tracksCount
     }
     
@@ -124,10 +124,6 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         // When a specific index is selected, the sequence is reset
         cursor = index
         reset(firstTrackIndex: index)
-    }
-    
-    func getCursor() -> Int? {
-        return cursor
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -731,15 +727,6 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         
         // Impossible
         return nil
-    }
-    
-    func getPersistentState() -> PlaybackSequenceState {
-        
-        let state = PlaybackSequenceState()
-        state.repeatMode = repeatMode
-        state.shuffleMode = shuffleMode
-        
-        return state
     }
     
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {

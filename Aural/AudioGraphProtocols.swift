@@ -22,7 +22,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     var delayUnit: DelayUnit {get set}
     var filterUnit: FilterUnit {get set}
     
-    func getSettingsAsMasterPreset() -> MasterPreset
+    var settingsAsMasterPreset: MasterPreset {get}
     
     var soundProfiles: SoundProfiles {get set}
     
