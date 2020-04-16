@@ -86,17 +86,17 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 (All screenshots [here](https://github.com/maculateConception/aural-player/wiki/Screenshots))
 
-### Default view
+### "Vertical full stack" window layout
 
-![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
+![Vertical full stack window layout demo](/Documentation/Screenshots/Default.png?raw=true)
 
 ### Segment loop playback
 
-![App screenshot](/Documentation/Demos/ABLoop.gif?raw=true "Segment loop playback")
+![Segment loop playback demo](/Documentation/Demos/ABLoop.gif?raw=true)
 
-### Using the Effects panel to disable/enable effects
+### Enabling and disabling effects
 
-![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
+![Enabling and disabling effects demo](/Documentation/Demos/UsingFXUnit.gif?raw=true)
 
 ### Chapters support
 
@@ -104,7 +104,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ### Detailed track info
 
-![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
+![Detailed track info](/Documentation/Demos/DetailedInfo.gif?raw=true)
 
 ### Changing the window layout
 
