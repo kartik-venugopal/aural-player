@@ -19,7 +19,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
+    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()

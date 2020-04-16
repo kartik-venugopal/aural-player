@@ -21,7 +21,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     // --------------------------------
     
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
-    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.getPreferences()
+    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
     
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     
@@ -162,7 +162,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
                 if preferences.soundPreferences.masterPresetOnStartup_name == oldPresetName {
 
                     preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
-                    preferencesDelegate.savePreferences(preferences)
+                    preferencesDelegate.preferences = preferences
                 }
             }
         }

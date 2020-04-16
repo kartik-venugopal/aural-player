@@ -5,21 +5,26 @@ import Foundation
  */
 class PreferencesDelegate: PreferencesDelegateProtocol {
     
-    private let preferences: Preferences
+    private var _preferences: Preferences
+    
+    var preferences: Preferences {
+        
+        get {
+            return _preferences
+        }
+        
+        set(newValue) {
+            
+            self._preferences = newValue
+            
+            // Perform asynchronously, to unblock the main thread
+            DispatchQueue.global(qos: .userInitiated).async {
+                Preferences.persist(self._preferences)
+            }
+        }
+    }
     
     init(_ preferences: Preferences) {
-        self.preferences = preferences
-    }
-    
-    func getPreferences() -> Preferences {
-        return preferences
-    }
-    
-    func savePreferences(_ preferences: Preferences) {
-        
-        // Perform asynchronously, to unblock the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
-            Preferences.persist(preferences)
-        }
+        self._preferences = preferences
     }
 }

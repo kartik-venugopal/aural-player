@@ -14,7 +14,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     // Delegate that performs CRUD on user preferences
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
-    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.getPreferences()
+    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
     
     private var oldLayoutName: String = ""
     
@@ -42,7 +42,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
             let defaultLayout = WindowLayouts.defaultLayout.name
             
             preferences.viewPreferences.layoutOnStartup.layoutName = defaultLayout
-            preferencesDelegate.savePreferences(preferences)
+            preferencesDelegate.preferences = preferences
         }
 
         selection.forEach({WindowLayouts.deleteLayout($0)})
@@ -196,7 +196,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
                 if prefLayout == oldLayoutName {
                     
                     preferences.viewPreferences.layoutOnStartup.layoutName = newLayoutName
-                    preferencesDelegate.savePreferences(preferences)
+                    preferencesDelegate.preferences = preferences
                 }
             }
         }

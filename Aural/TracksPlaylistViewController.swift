@@ -21,7 +21,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
+    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     

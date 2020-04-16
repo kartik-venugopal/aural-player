@@ -108,7 +108,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return bookmarks.countBookmarks()
+        return bookmarks.count
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
@@ -216,7 +216,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         if let column = notification.userInfo?["NSTableColumn"] as? NSTableColumn {
         
-            let count = bookmarks.countBookmarks()
+            let count = bookmarks.count
             if count > 0 {
                 
                 for index in 0..<count {

@@ -37,7 +37,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         let hasCompleteLoop = loop != nil && loop!.isComplete()
         bookmarkTrackSegmentLoopMenuItem.enableIf(playingOrPaused && hasCompleteLoop)
         
-        manageBookmarksMenuItem.enableIf(bookmarks.countBookmarks() > 0)
+        manageBookmarksMenuItem.enableIf(bookmarks.count > 0)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -48,7 +48,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         }
         
         // Recreate the bookmarks menu
-        bookmarks.getAllBookmarks().forEach({menu.addItem(createBookmarkMenuItem($0))})
+        bookmarks.allBookmarks.forEach({menu.addItem(createBookmarkMenuItem($0))})
     }
     
     func menuDidClose(_ menu: NSMenu) {

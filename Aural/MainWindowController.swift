@@ -21,7 +21,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
-    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
     private var eventMonitor: Any?

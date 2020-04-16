@@ -15,7 +15,7 @@ class GestureHandler {
     // Retrieves current playing track info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.getPreferences().controlsPreferences
+    private let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.preferences.controlsPreferences
     
     // Handles a single event
     func handle(_ event: NSEvent) {

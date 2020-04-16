@@ -18,7 +18,7 @@ class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
         return self.window! as! SnappingWindow
     }
     
-    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.toggleChaptersList))
