@@ -62,8 +62,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         let format = RecordingFormat.formatForDescription(formatMenu.selectedItem!.title)
         let quality = RecordingQuality(rawValue: qualityMenu.selectedItem!.tag)!
         
-        print("Format:", format, "Quality:", quality)
-        
         recorder.startRecording(RecordingParams(format, quality))
         
         // Start the recording

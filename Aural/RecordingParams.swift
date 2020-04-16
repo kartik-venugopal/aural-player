@@ -17,8 +17,6 @@ public class RecordingParams {
         settings[AVFormatIDKey] = format.formatId
         settings[AVEncoderAudioQualityKey] = quality.avAudioQuality
         
-        print("Set quality to:", quality.avAudioQuality.rawValue)
-        
         // 44 KHz stereo
         settings[AVSampleRateKey] = 44100
         settings[AVNumberOfChannelsKey] = 2
