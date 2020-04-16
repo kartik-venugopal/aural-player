@@ -7,7 +7,7 @@
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
-    + [Enabling media keys support](#enabling-media-keys-support-available-with-version-130-onwards)
+    + [Enabling media keys support](#enabling-media-keys-support-optional)
     + [Compatibility](#compatibility)
   * [Feature highlights](#feature-highlights)
   * [Screenshots](#screenshots)
@@ -20,6 +20,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 #### Goals:
 * To have a simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible.
+* To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS alternative for Winamp.
 
 ## Documentation
@@ -30,30 +31,33 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ## Download
 
-Download the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
+**NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
+
 ### Installation
 
-1. Mount the *AuralPlayer-x.y.z.dmg* image file
-2. Copy *Aural.app* to your local drive (e.g. Applications folder)
+1. Mount the **AuralPlayer-x.y.z.dmg** image file
+2. From within the mounted image, copy **Aural.app** to your local drive (e.g. Applications folder)
 3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
-4. Go to System Preferences > Security & Privacy > General > Open anyway, to allow Aural.app to open.
+4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-### Enabling media keys support (available with version 1.3.0 onwards)
-
+### Enabling media keys support (optional)
 
 ![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
 
 1. Quit Aural Player if it is running.
-2. Go to System Preferences > Security & Privacy > Privacy, and select Accessibility from the list of features.
+2. Go to **System Preferences > Security & Privacy > Privacy**, and select **Accessibility** from the list of features.
 3. Click on the lock icon in the bottom left corner, if it is shown as locked. Enter your macOS password to authenticate.
-4. Click the + button and select Aural.app in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer. See image above.
+4. Click the + button and select **Aural.app** in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer (See image above).
 
-**NOTE** - You will have to repeat this process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
+**NOTE**
+* Media keys support is available from version 1.3.0 onwards.
+* You will have to repeat this simple process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
 
 ### Compatibility
 
