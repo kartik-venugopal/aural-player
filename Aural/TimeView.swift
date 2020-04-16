@@ -22,7 +22,7 @@ class TimeView: NSView {
     }
     
     var shiftPitch: Bool {
-        return btnShiftPitch.isOn()
+        return btnShiftPitch.isOn
     }
     
     override func awakeFromNib() {

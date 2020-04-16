@@ -12,19 +12,19 @@ class EQView: NSView {
     @IBOutlet weak var btnSync: NSButton!
     
     var type: EQType {
-        return btn10Band.isOn() ? .tenBand : .fifteenBand
+        return btn10Band.isOn ? .tenBand : .fifteenBand
     }
     
     var sync: Bool {
-        return btnSync.isOn()
+        return btnSync.isOn
     }
     
     private var activeView: EQSubview {
-        return btn10Band.isOn() ? eq10BandView : eq15BandView
+        return btn10Band.isOn ? eq10BandView : eq15BandView
     }
     
     private var inactiveView: EQSubview {
-        return btn10Band.isOn() ? eq15BandView : eq10BandView
+        return btn10Band.isOn ? eq15BandView : eq10BandView
     }
     
     var globalGain: Float {

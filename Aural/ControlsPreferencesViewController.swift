@@ -61,11 +61,11 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         repeatSpeedMenu.selectItem(withTitle: controlsPrefs.repeatSpeed.rawValue.capitalized)
         
         btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
-        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
+        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn)
         volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.rawValue.capitalized)
         
         btnAllowSeeking.onIf(controlsPrefs.allowSeeking)
-        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn())
+        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn)
         seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.rawValue.capitalized)
         
         btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange)
@@ -77,7 +77,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBAction func mediaKeyResponseAction(_ sender: Any) {
 
         // Enable/disable sub-controls
-        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly, repeatSpeedMenu].forEach({$0?.enableIf(btnRespondToMediaKeys.isOn())})
+        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly, repeatSpeedMenu].forEach({$0?.enableIf(btnRespondToMediaKeys.isOn)})
     }
     
     @IBAction func skipKeyBehaviorAction(_ sender: Any) {
@@ -85,11 +85,11 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
 
     @IBAction func allowVolumeControlAction(_ sender: Any) {
-        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
+        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn)
     }
     
     @IBAction func allowSeekingAction(_ sender: Any) {
-        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn())
+        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn)
     }
     
     @IBAction func enableAllGesturesAction(_ sender: Any) {
@@ -106,11 +106,11 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences
         
-        controlsPrefs.respondToMediaKeys = btnRespondToMediaKeys.isOn()
+        controlsPrefs.respondToMediaKeys = btnRespondToMediaKeys.isOn
         
-        if btnHybrid.isOn() {
+        if btnHybrid.isOn {
             controlsPrefs.skipKeyBehavior = .hybrid
-        } else if btnTrackChangesOnly.isOn() {
+        } else if btnTrackChangesOnly.isOn {
             controlsPrefs.skipKeyBehavior = .trackChangesOnly
         } else {
             controlsPrefs.skipKeyBehavior = .seekingOnly
@@ -118,16 +118,16 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         controlsPrefs.repeatSpeed = SkipKeyRepeatSpeed(rawValue: repeatSpeedMenu.titleOfSelectedItem!.lowercased())!
         
-        controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn()
+        controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn
         controlsPrefs.volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased())!
         
-        controlsPrefs.allowSeeking = btnAllowSeeking.isOn()
+        controlsPrefs.allowSeeking = btnAllowSeeking.isOn
         controlsPrefs.seekSensitivity = ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased())!
         
-        controlsPrefs.allowTrackChange = btnAllowTrackChange.isOn()
+        controlsPrefs.allowTrackChange = btnAllowTrackChange.isOn
         
-        controlsPrefs.allowPlaylistNavigation = btnAllowPlaylistNavigation.isOn()
-        controlsPrefs.allowPlaylistTabToggle = btnAllowPlaylistTabToggle.isOn()
+        controlsPrefs.allowPlaylistNavigation = btnAllowPlaylistNavigation.isOn
+        controlsPrefs.allowPlaylistTabToggle = btnAllowPlaylistTabToggle.isOn
         
         controlsPrefs.respondToMediaKeys ? mediaKeyHandler.startMonitoring() : mediaKeyHandler.stopMonitoring()
     }

@@ -124,7 +124,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapBeforeTrackAction(_ sender: Any) {
         
-        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.enableIf(btnGapBeforeTrack.isOn())})
+        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.enableIf(btnGapBeforeTrack.isOn)})
     }
     
     @IBAction func gapTypeAction_1(_ sender: Any) {
@@ -137,7 +137,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapAfterTrackAction(_ sender: Any) {
         
-        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.enableIf(btnGapAfterTrack.isOn())})
+        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.enableIf(btnGapAfterTrack.isOn)})
     }
     
     @IBAction func gapTypeAction_2(_ sender: Any) {
@@ -153,28 +153,28 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         var gapBeforeTrack: PlaybackGap? = nil
         var gapAfterTrack: PlaybackGap? = nil
         
-        if btnGapBeforeTrack.isOn() {
+        if btnGapBeforeTrack.isOn {
         
             let duration1 = timePicker_1.interval
             var type1: PlaybackGapType = .tillAppExits
             
-            if btnGapType_oneTime_1.isOn() {
+            if btnGapType_oneTime_1.isOn {
                 type1 = .oneTime
-            } else if btnGapType_persistent_1.isOn() {
+            } else if btnGapType_persistent_1.isOn {
                 type1 = .persistent
             }
             
             gapBeforeTrack = PlaybackGap(duration1, .beforeTrack, type1)
         }
         
-        if btnGapAfterTrack.isOn() {
+        if btnGapAfterTrack.isOn {
             
             let duration2 = timePicker_2.interval
             var type2: PlaybackGapType = .tillAppExits
             
-            if btnGapType_oneTime_2.isOn() {
+            if btnGapType_oneTime_2.isOn {
                 type2 = .oneTime
-            } else if btnGapType_persistent_2.isOn() {
+            } else if btnGapType_persistent_2.isOn {
                 type2 = .persistent
             }
             

@@ -2,13 +2,13 @@ import Cocoa
 
 class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
-    private let masterPresetsEditorView: NSView = ViewFactory.getMasterPresetsEditorView()
-    private let eqPresetsEditorView: NSView = ViewFactory.getEQPresetsEditorView()
-    private let pitchPresetsEditorView: NSView = ViewFactory.getPitchPresetsEditorView()
-    private let timePresetsEditorView: NSView = ViewFactory.getTimePresetsEditorView()
-    private let reverbPresetsEditorView: NSView = ViewFactory.getReverbPresetsEditorView()
-    private let delayPresetsEditorView: NSView = ViewFactory.getDelayPresetsEditorView()
-    private let filterPresetsEditorView: NSView = ViewFactory.getFilterPresetsEditorView()
+    private let masterPresetsEditorView: NSView = ViewFactory.masterPresetsEditorView
+    private let eqPresetsEditorView: NSView = ViewFactory.eqPresetsEditorView
+    private let pitchPresetsEditorView: NSView = ViewFactory.pitchPresetsEditorView
+    private let timePresetsEditorView: NSView = ViewFactory.timePresetsEditorView
+    private let reverbPresetsEditorView: NSView = ViewFactory.reverbPresetsEditorView
+    private let delayPresetsEditorView: NSView = ViewFactory.delayPresetsEditorView
+    private let filterPresetsEditorView: NSView = ViewFactory.filterPresetsEditorView
     
     // Tab view and its buttons
     

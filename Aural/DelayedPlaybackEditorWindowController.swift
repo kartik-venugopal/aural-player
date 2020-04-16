@@ -51,7 +51,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
-        delayPicker.enableIf(btnDelay.isOn())
+        delayPicker.enableIf(btnDelay.isOn)
         timePicker.enableIf(!delayPicker.isEnabled)
     }
     
@@ -67,7 +67,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         
         var delay: Double = 0
         
-        if btnTime.isOn() {
+        if btnTime.isOn {
             
             let chosenTime = timePicker.dateValue
             delay = DateUtils.timeUntil(chosenTime)

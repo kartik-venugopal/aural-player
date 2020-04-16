@@ -6,10 +6,10 @@ import Cocoa
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
     
     // The different playlist views
-    private lazy var tracksView: NSView = ViewFactory.getTracksView()
-    private lazy var artistsView: NSView = ViewFactory.getArtistsView()
-    private lazy var albumsView: NSView = ViewFactory.getAlbumsView()
-    private lazy var genresView: NSView = ViewFactory.getGenresView()
+    private lazy var tracksView: NSView = ViewFactory.tracksView
+    private lazy var artistsView: NSView = ViewFactory.artistsView
+    private lazy var albumsView: NSView = ViewFactory.albumsView
+    private lazy var genresView: NSView = ViewFactory.genresView
     
     @IBOutlet weak var contextMenu: NSMenu!
     
@@ -27,10 +27,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
     // Search dialog
-    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
+    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
     
     // Sort dialog
-    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
+    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.playlistSortDialog
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -50,9 +50,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         return self.window! as! SnappingWindow
     }
     
-    private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    private lazy var mainWindow: NSWindow = WindowFactory.mainWindow
     
-    private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
+    private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     
     private lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
@@ -569,7 +569,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
-            if (!snapped) && layoutManager.isShowingEffects() {
+            if (!snapped) && layoutManager.isShowingEffects {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
             }
         }

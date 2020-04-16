@@ -47,7 +47,7 @@ class ToggleMenuItem: NSMenuItem {
     }
     
     // Returns true if the item is in the On state, false otherwise.
-    override func isOn() -> Bool {
+    override var isOn: Bool {
         return _isOn
     }
 }

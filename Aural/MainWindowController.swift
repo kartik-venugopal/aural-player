@@ -12,7 +12,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     
     // The box that encloses the Now Playing info section
     @IBOutlet weak var containerBox: NSBox!
-    private lazy var playerView: NSView = ViewFactory.getPlayerView()
+    private lazy var playerView: NSView = ViewFactory.playerView
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!

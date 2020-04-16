@@ -9,12 +9,12 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     
     // Sub views
     
-    private lazy var playlistPrefsView: PreferencesViewProtocol = ViewFactory.getPlaylistPreferencesView()
-    private lazy var playbackPrefsView: PreferencesViewProtocol = ViewFactory.getPlaybackPreferencesView()
-    private lazy var soundPrefsView: PreferencesViewProtocol = ViewFactory.getSoundPreferencesView()
-    private lazy var viewPrefsView: PreferencesViewProtocol = ViewFactory.getViewPreferencesView()
-    private lazy var historyPrefsView: PreferencesViewProtocol = ViewFactory.getHistoryPreferencesView()
-    private lazy var controlsPrefsView: PreferencesViewProtocol = ViewFactory.getControlsPreferencesView()
+    private lazy var playlistPrefsView: PreferencesViewProtocol = ViewFactory.playlistPreferencesView
+    private lazy var playbackPrefsView: PreferencesViewProtocol = ViewFactory.playbackPreferencesView
+    private lazy var soundPrefsView: PreferencesViewProtocol = ViewFactory.soundPreferencesView
+    private lazy var viewPrefsView: PreferencesViewProtocol = ViewFactory.viewPreferencesView
+    private lazy var historyPrefsView: PreferencesViewProtocol = ViewFactory.historyPreferencesView
+    private lazy var controlsPrefsView: PreferencesViewProtocol = ViewFactory.controlsPreferencesView
     
     private var subViews: [PreferencesViewProtocol] = []
     

@@ -4,9 +4,9 @@ fileprivate var screenVisibleFrame: NSRect {
     return NSScreen.main!.visibleFrame
 }
 
-fileprivate let mainWindow: NSWindow = WindowFactory.getMainWindow()
-fileprivate let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
-fileprivate let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+fileprivate let mainWindow: NSWindow = WindowFactory.mainWindow
+fileprivate let effectsWindow: NSWindow = WindowFactory.effectsWindow
+fileprivate let playlistWindow: NSWindow = WindowFactory.playlistWindow
 
 class WindowLayouts {
     

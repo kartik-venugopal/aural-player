@@ -2,9 +2,9 @@ import Cocoa
 
 protocol LayoutManagerProtocol {
     
-    func isShowingEffects() -> Bool
+    var isShowingEffects: Bool {get}
     
-    func isShowingPlaylist() -> Bool
+    var isShowingPlaylist: Bool {get}
     
     var isShowingChaptersList: Bool {get}
     

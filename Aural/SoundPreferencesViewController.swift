@@ -63,7 +63,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         }
         
         updatePreferredDevicesMenu(soundPrefs)
-        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn())
+        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn)
         
         // Volume increment / decrement
         
@@ -75,10 +75,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
-        startupVolumeSlider.enableIf(btnSpecifyVolume.isOn())
+        startupVolumeSlider.enableIf(btnSpecifyVolume.isOn)
         startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.ValueConversions.volume_audioGraphToUI))
         
-        lblStartupVolume.enableIf(btnSpecifyVolume.isOn())
+        lblStartupVolume.enableIf(btnSpecifyVolume.isOn)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         // Balance increment / decrement
@@ -107,7 +107,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             btnApplyPresetOnStartup.on()
         }
         
-        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn())
+        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn)
         
         updateMasterPresetsMenu()
         
@@ -173,7 +173,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     
     @IBAction func outputDeviceRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
-        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn())
+        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn)
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {
@@ -197,7 +197,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.enableIf(btnSpecifyVolume.isOn())})
+        [startupVolumeSlider, lblStartupVolume].forEach({$0.enableIf(btnSpecifyVolume.isOn)})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
@@ -205,11 +205,11 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
     
     @IBAction func effectsSettingsOnStartupRadioButtonAction(_ sender: Any) {
-        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn())
+        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn)
     }
     
     @IBAction func rememberSettingsAction(_ sender: Any) {
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(btnRememberSettingsForTrack.isOn())})
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(btnRememberSettingsForTrack.isOn)})
     }
     
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {
@@ -220,9 +220,9 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        if (btnSystemDeviceOnStartup.isOn()) {
+        if (btnSystemDeviceOnStartup.isOn) {
             soundPrefs.outputDeviceOnStartup.option = .system
-        } else if (btnRememberDeviceOnStartup.isOn()) {
+        } else if (btnRememberDeviceOnStartup.isOn) {
             soundPrefs.outputDeviceOnStartup.option = .rememberFromLastAppLaunch
         } else {
             soundPrefs.outputDeviceOnStartup.option = .specific
@@ -235,7 +235,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.ValueConversions.volume_UIToAudioGraph
         
-        soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn() ? .rememberFromLastAppLaunch : .specific
+        soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn ? .rememberFromLastAppLaunch : .specific
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.ValueConversions.volume_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.ValueConversions.pan_UIToAudioGraph
@@ -244,15 +244,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
         soundPrefs.timeDelta = timeDeltaStepper.floatValue
         
-        soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.isOn() ? .rememberFromLastAppLaunch : .applyMasterPreset
+        soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.isOn ? .rememberFromLastAppLaunch : .applyMasterPreset
         
         soundPrefs.masterPresetOnStartup_name = masterPresetsMenu.titleOfSelectedItem ?? ""
         
-        soundPrefs.rememberEffectsSettings = btnRememberSettingsForTrack.isOn()
+        soundPrefs.rememberEffectsSettings = btnRememberSettingsForTrack.isOn
         
         let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .allTracks
         
-        soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.isOn() ? .individualTracks : .allTracks
+        soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.isOn ? .individualTracks : .allTracks
         
         let isNowIndividualTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .individualTracks
         

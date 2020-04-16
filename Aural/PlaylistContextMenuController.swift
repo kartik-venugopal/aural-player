@@ -48,10 +48,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private var groupMenuItems: [NSMenuItem] = []
     
     // Popover view that displays detailed info for the selected track
-    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
+    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
     
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
-    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.getInfoPopup()
+    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -66,8 +66,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
-    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
-    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
+    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
+    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
     
@@ -233,7 +233,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let track = getClickedTrack()
         let rowView = getPlaylistSelectedRowView()
         
-        if favoritesMenuItem.isOn() {
+        if favoritesMenuItem.isOn {
         
             // Remove from Favorites list and display notification
             favorites.deleteFavoriteWithFile(track.file)

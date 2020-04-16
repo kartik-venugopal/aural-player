@@ -54,11 +54,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.enableIf(btnLoadPlaylistFromFile.isOn())
+            $0!.enableIf(btnLoadPlaylistFromFile.isOn)
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.enableIf(btnLoadTracksFromFolder.isOn())
+            $0!.enableIf(btnLoadTracksFromFolder.isOn)
         })
         
         hideError_playlistFile()
@@ -81,7 +81,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             // Default
             viewMenu.select(viewMenu.item(withTitle: "Tracks"))
         }
-        viewMenu.enableIf(btnStartWithView.isOn())
+        viewMenu.enableIf(btnStartWithView.isOn)
         
         // Show new track
         btnShowNewTrack.onIf(playlistPrefs.showNewTrackInPlaylist)
@@ -95,48 +95,48 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.enableIf(btnLoadPlaylistFromFile.isOn())
+            $0!.enableIf(btnLoadPlaylistFromFile.isOn)
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.enableIf(btnLoadTracksFromFolder.isOn())
+            $0!.enableIf(btnLoadTracksFromFolder.isOn)
         })
         
-        if (btnLoadPlaylistFromFile.isOff() && !errorIcon_1.isHidden) {
+        if (btnLoadPlaylistFromFile.isOff && !errorIcon_1.isHidden) {
             hideError_playlistFile()
         }
         
-        if (btnLoadTracksFromFolder.isOff() && !errorIcon_2.isHidden) {
+        if (btnLoadTracksFromFolder.isOff && !errorIcon_2.isHidden) {
             hideError_tracksFolder()
         }
     
-        if btnLoadPlaylistFromFile.isOn() && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylistFromFile.isOn && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
         }
         
-        if btnLoadTracksFromFolder.isOn() && StringUtils.isStringEmpty(lblFolder.stringValue) {
+        if btnLoadTracksFromFolder.isOn && StringUtils.isStringEmpty(lblFolder.stringValue) {
             chooseTracksFolderAction(sender)
         }
     }
     
     @IBAction func startupPlaylistViewPrefAction(_ sender: Any) {
         // Needed for radio button group
-        viewMenu.enableIf(btnStartWithView.isOn())
+        viewMenu.enableIf(btnStartWithView.isOn)
     }
     
     func save(_ preferences: Preferences) throws {
         
         let prefs: PlaylistPreferences = preferences.playlistPreferences
         
-        if btnEmptyPlaylist.isOn() {
+        if btnEmptyPlaylist.isOn {
             
             prefs.playlistOnStartup = .empty
             
-        } else if btnRememberPlaylist.isOn() {
+        } else if btnRememberPlaylist.isOn {
             
             prefs.playlistOnStartup = .rememberFromLastAppLaunch
             
-        } else if btnLoadPlaylistFromFile.isOn() {
+        } else if btnLoadPlaylistFromFile.isOn {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
@@ -170,14 +170,14 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         // View on startup
-        prefs.viewOnStartup.option = btnStartWithView.isOn() ? .specific : .rememberFromLastAppLaunch
+        prefs.viewOnStartup.option = btnStartWithView.isOn ? .specific : .rememberFromLastAppLaunch
         prefs.viewOnStartup.viewName = viewMenu.selectedItem!.title
         
         // Show new track
-        prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
+        prefs.showNewTrackInPlaylist = btnShowNewTrack.isOn
         
         // Show chapters list window
-        prefs.showChaptersList = btnShowChaptersList.isOn()
+        prefs.showChaptersList = btnShowChaptersList.isOn
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {

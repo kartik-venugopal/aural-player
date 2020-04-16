@@ -145,10 +145,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         
         let searchFields = searchQuery.fields
         
-        searchFields.name = searchByName.isOn()
-        searchFields.artist = searchByArtist.isOn()
-        searchFields.title = searchByTitle.isOn()
-        searchFields.album = searchByAlbum.isOn()
+        searchFields.name = searchByName.isOn
+        searchFields.artist = searchByArtist.isOn
+        searchFields.title = searchByTitle.isOn
+        searchFields.album = searchByAlbum.isOn
         
         // No fields to compare or no search text, don't do the search
         if (searchFields.noFieldsSelected() || searchQuery.text == "") {
@@ -161,11 +161,11 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     @IBAction func searchTypeChangedAction(_ sender: Any) {
         
-        if (comparisonTypeEquals.isOn()) {
+        if (comparisonTypeEquals.isOn) {
             searchQuery.type = .equals
-        } else if (comparisonTypeContains.isOn()) {
+        } else if (comparisonTypeContains.isOn) {
             searchQuery.type = .contains
-        } else if (comparisonTypeBeginsWith.isOn()) {
+        } else if (comparisonTypeBeginsWith.isOn) {
             searchQuery.type = .beginsWith
         } else {
             // Ends with
@@ -183,7 +183,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     @IBAction func searchOptionsChangedAction(_ sender: Any) {
         
-        searchQuery.options.caseSensitive = searchCaseSensitive.isOn()
+        searchQuery.options.caseSensitive = searchCaseSensitive.isOn
         
         // No fields to compare or no search text, don't do the search
         if (searchQuery.fields.noFieldsSelected() || searchQuery.text == "") {

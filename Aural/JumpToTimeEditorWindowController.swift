@@ -110,14 +110,14 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
-        timePicker.enableIf(btnHMS.isOn())
-        [txtSeconds, secondsStepper].forEach({$0?.enableIf(btnSeconds.isOn())})
+        timePicker.enableIf(btnHMS.isOn)
+        [txtSeconds, secondsStepper].forEach({$0?.enableIf(btnSeconds.isOn)})
         
         if (txtSeconds.isEnabled) {
             self.window?.makeFirstResponder(txtSeconds)
         }
         
-        [txtPercentage, percentageStepper].forEach({$0?.enableIf(btnPercentage.isOn())})
+        [txtPercentage, percentageStepper].forEach({$0?.enableIf(btnPercentage.isOn)})
         
         if (txtPercentage.isEnabled) {
             self.window?.makeFirstResponder(txtPercentage)
@@ -136,12 +136,12 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         
         var jumpToTime: Double = 0
         
-        if btnHMS.isOn() {
+        if btnHMS.isOn {
             
             // HH : MM : SS
             jumpToTime = timePicker.interval
             
-        } else if btnSeconds.isOn() {
+        } else if btnSeconds.isOn {
             
             // Seconds
             jumpToTime = secondsStepper.doubleValue

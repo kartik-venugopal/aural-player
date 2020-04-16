@@ -39,7 +39,7 @@ class OnOffImageView: NSImageView {
     }
     
     // Returns true if the button is in the On state, false otherwise.
-    func isOn() -> Bool {
+    var isOn: Bool {
         return _isOn
     }
 }

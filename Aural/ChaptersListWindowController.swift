@@ -8,9 +8,9 @@ class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
     
     override var windowNibName: String? {return "ChaptersList"}
     
-    private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
-    private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
-    private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
+    private lazy var mainWindow: NSWindow = WindowFactory.mainWindow
+    private lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
+    private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     
     private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
@@ -40,11 +40,11 @@ class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
-            if (!snapped) && layoutManager.isShowingPlaylist() {
+            if (!snapped) && layoutManager.isShowingPlaylist {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
             }
             
-            if (!snapped) && layoutManager.isShowingEffects() {
+            if (!snapped) && layoutManager.isShowingEffects {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
             }
         }

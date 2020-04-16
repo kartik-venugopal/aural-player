@@ -5,7 +5,7 @@ import Cocoa
  */
 class AuralMenuController: NSObject {
     
-    private lazy var preferencesDialog: ModalDialogDelegate = WindowFactory.getPreferencesDialog()
+    private lazy var preferencesDialog: ModalDialogDelegate = WindowFactory.preferencesDialog
     
     private lazy var aboutDialog: AboutDialogController = AboutDialogController()
     

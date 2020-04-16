@@ -14,7 +14,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         

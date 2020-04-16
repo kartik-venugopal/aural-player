@@ -21,7 +21,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         NSBezierPath.init(rect: cellFrame).fill()
         
         // Selection box
-        if isOn() {
+        if isOn {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
