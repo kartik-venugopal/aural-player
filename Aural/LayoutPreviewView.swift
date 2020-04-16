@@ -52,15 +52,16 @@ class LayoutPreviewView: NSView {
         // Draw window frames
         if let layout = self.layout {
             
-            renderPreview(layout.mainWindowOrigin, layoutManager.getMainWindowFrame().width, layoutManager.getMainWindowFrame().height, Images.imgPlayerPreview)
+            let mainWindowFrame = layoutManager.mainWindowFrame
+            renderPreview(layout.mainWindowOrigin, mainWindowFrame.width, mainWindowFrame.height, Images.imgPlayerPreview)
             
             if layout.showEffects {
                 
-                renderPreview(layout.effectsWindowOrigin!, layoutManager.getEffectsWindowFrame().width, layoutManager.getEffectsWindowFrame().height, Images.imgEffectsPreview)
+                let effectsWindowFrame = layoutManager.effectsWindowFrame
+                renderPreview(layout.effectsWindowOrigin!, effectsWindowFrame.width, effectsWindowFrame.height, Images.imgEffectsPreview)
             }
             
             if layout.showPlaylist {
-                
                 renderPreview(layout.playlistWindowFrame!, Images.imgPlaylistOn)
             }
         }

@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Default values for app settings
 */
-class AppDefaults {
+struct AppDefaults {
     
     static let appMode: AppMode = .regular
     

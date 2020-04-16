@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Handler that responds to macOS media keys (play/pause, next, previous)
+ */
 class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
     
     private var preferences: ControlsPreferences = ObjectGraph.preferences.controlsPreferences
@@ -9,7 +12,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
     
     private var lastEvent: KeyEvent?
     
-    private var repeatInterval_msecs: Int {
+    private var keyRepeatInterval_msecs: Int {
         
         switch preferences.repeatSpeed {
             
@@ -27,6 +30,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         }
     }
     
+    // Recurring task used to repeat key press events according to the preferred repeat speed
     private var repeatExecutor: RepeatingTaskExecutor?
     
     init() {
@@ -109,7 +113,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             // Seeking (repeated)
             if repeatExecutor == nil {
                 
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
+                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
                     
@@ -152,7 +156,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             
             if repeatExecutor == nil {
                 
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
+                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
                     
@@ -186,7 +190,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             
             if repeatExecutor == nil {
                 
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: repeatInterval_msecs, task: {
+                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
                     

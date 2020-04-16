@@ -438,7 +438,7 @@
                             <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <tableHeaderView key="headerView" id="yUF-pu-Wpc" customClass="ChaptersTableHeaderView" customModule="Aural" customModuleProvider="target">
+                        <tableHeaderView key="headerView" id="yUF-pu-Wpc">
                             <rect key="frame" x="0.0" y="0.0" width="540" height="25"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>

@@ -159,11 +159,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     // MARK - StringInputClient functions
     
-    func getInputPrompt() -> String {
+    var inputPrompt: String {
         return "Enter a layout name:"
     }
     
-    func getDefaultValue() -> String? {
+    var defaultValue: String? {
         return "<My custom layout>"
     }
     
@@ -183,7 +183,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         WindowLayouts.addUserDefinedLayout(string)
     }
     
-    func getInputFontSize() -> TextSizeScheme {
+    var inputFontSize: TextSizeScheme {
         return .normal
     }
 }

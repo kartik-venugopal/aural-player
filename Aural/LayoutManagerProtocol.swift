@@ -16,11 +16,11 @@ protocol LayoutManagerProtocol {
     
     func layout(_ name: String)
     
-    func getMainWindowFrame() -> NSRect
+    var mainWindowFrame: NSRect {get}
     
-    func getEffectsWindowFrame() -> NSRect
+    var effectsWindowFrame: NSRect {get}
     
-    func getPlaylistWindowFrame() -> NSRect
+    var playlistWindowFrame: NSRect {get}
     
     func addChildWindow(_ window: NSWindow)
     

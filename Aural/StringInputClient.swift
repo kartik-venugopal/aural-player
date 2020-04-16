@@ -9,11 +9,11 @@ protocol StringInputClient {
     // Tells the client to accept the given (validated) string received from the user
     func acceptInput(_ string: String)
     
-    // Returns an message that is used when prompting the user for string input, describing the information being requested. e.g. "Please enter the preset name:"
-    func getInputPrompt() -> String
+    // Returns a message that is used when prompting the user for string input, describing the information being requested. e.g. "Please enter the preset name:"
+    var inputPrompt: String {get}
     
     // Returns an appropriate (optional) default value for the information being requested. e.g. "New preset"
-    func getDefaultValue() -> String?
+    var defaultValue: String? {get}
     
-    func getInputFontSize() -> TextSizeScheme
+    var inputFontSize: TextSizeScheme {get}
 }

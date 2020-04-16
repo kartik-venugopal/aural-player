@@ -61,7 +61,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     private func initFields() {
         
         // TODO: Resize/realign fields and popover per input text length !!!
-        let textSize = client.getInputFontSize()
+        let textSize = client.inputFontSize
         let font = TextSizes.stringInputPopoverFont(textSize)
         lblPrompt?.font = font
         inputField?.font = font
@@ -75,8 +75,8 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
         lblError?.font = TextSizes.stringInputPopoverErrorFont(textSize)
         
         // Initialize the fields with information from the client
-        lblPrompt?.stringValue = client.getInputPrompt()
-        inputField?.stringValue = client.getDefaultValue() ?? ""
+        lblPrompt?.stringValue = client.inputPrompt
+        inputField?.stringValue = client.defaultValue ?? ""
         inputField?.currentEditor()?.selectedRange = NSMakeRange(0, 0)
     }
     
