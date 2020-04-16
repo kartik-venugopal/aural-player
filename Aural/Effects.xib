@@ -25,6 +25,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="V8B-S9-0F8" userLabel="Effects Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="225" y="78" width="530" height="230"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>

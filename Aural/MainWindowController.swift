@@ -146,9 +146,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         btnTogglePlaylist.onIf(message.showingPlaylist)
     }
     
-    @IBAction func floatingBarModeAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(AppModeActionMessage(.miniBarAppMode))
-    }
+//    @IBAction func floatingBarModeAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(AppModeActionMessage(.miniBarAppMode))
+//    }
     
     // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {

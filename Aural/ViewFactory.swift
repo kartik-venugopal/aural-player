@@ -9,9 +9,9 @@ struct ViewFactory {
     
     private static let playerViewController: PlayerViewController = PlayerViewController()
     
-    private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
-    
-    private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
+//    private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
+//
+//    private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
     
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
@@ -75,9 +75,9 @@ struct ViewFactory {
             return InfoPopupViewController.create()
         }()
         
-        fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
-            return StatusBarPopoverViewController.create()
-        }()
+//        fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
+//            return StatusBarPopoverViewController.create()
+//        }()
     }
     
     // Sub-views for the different individual editor views
@@ -211,20 +211,20 @@ struct ViewFactory {
         return PreferencesViews.controlsPreferencesViewController
     }
     
-    static func getStatusBarPopover() -> StatusBarPopoverViewController {
-        return PopoverViews.statusBarPopover
-    }
+//    static func getStatusBarPopover() -> StatusBarPopoverViewController {
+//        return PopoverViews.statusBarPopover
+//    }
     
     // MARK: Accessors for Bar mode
     
-    static func getBarModeNowPlayingView() -> NSView {
-        return barModeNowPlayingViewController.view
-    }
-    
-    // Returns the view that displays the player
-    static func getBarModePlayerView() -> NSView {
-        return barModePlayerViewController.view
-    }
+//    static func getBarModeNowPlayingView() -> NSView {
+//        return barModeNowPlayingViewController.view
+//    }
+//
+//    // Returns the view that displays the player
+//    static func getBarModePlayerView() -> NSView {
+//        return barModePlayerViewController.view
+//    }
     
     static func getBookmarksEditorView() -> NSView {
         return EditorViews.bookmarksEditorViewController.view

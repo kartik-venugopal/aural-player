@@ -15,6 +15,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="QvC-M9-y7g" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="544" y="299" width="570" height="380"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>

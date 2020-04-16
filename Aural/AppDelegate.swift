@@ -67,6 +67,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         lastFileOpenTime = now
     }
     
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        
+        // Disable the "Enter Full Screen" menu item that is otherwise automatically added to the View menu
+        UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         AppModeManager.presentMode(.regular)
@@ -101,23 +107,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ObjectGraph.tearDown()
     }
     
-    // MARK: App focus event handlers. Respond to these events by triggering actions to optimize app performance and resource usage (certain UI features can be disabled when the app is not visible or in focus).
+    // MARK: App focus event handlers
     
-    func applicationDidBecomeActive(_ notification: Notification) {
-        WindowState.setActive(true)
-    }
-    
-    func applicationDidResignActive(_ notification: Notification) {
-
-        WindowState.setActive(false)
-        SyncMessenger.publishNotification(AppResignedActiveNotification.instance)
-    }
-    
-    func applicationDidHide(_ notification: Notification) {
-        WindowState.setHidden(true)
-    }
-    
-    func applicationDidUnhide(_ notification: Notification) {
-        WindowState.setHidden(false)
-    }
+//    func applicationDidBecomeActive(_ notification: Notification) {
+//        WindowState.setActive(true)
+//    }
+//
+//    func applicationDidResignActive(_ notification: Notification) {
+//
+//        WindowState.setActive(false)
+//        SyncMessenger.publishNotification(AppResignedActiveNotification.instance)
+//    }
+//
+//    func applicationDidHide(_ notification: Notification) {
+//        WindowState.setHidden(true)
+//    }
+//    
+//    func applicationDidUnhide(_ notification: Notification) {
+//        WindowState.setHidden(false)
+//    }
 }

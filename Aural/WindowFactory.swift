@@ -15,7 +15,7 @@ class WindowFactory {
     
     private static var editorWindowController: EditorWindowController = EditorWindowController()
     
-    private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
+//    private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
     
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
     
