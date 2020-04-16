@@ -227,7 +227,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             if (!errorState) {
                 
-                if (detailedInfoPopover.isShown()) {
+                if detailedInfoPopover.isShown {
                     
                     player.playingTrack!.track.loadDetailedInfo()
                     detailedInfoPopover.refresh(player.playingTrack!.track)

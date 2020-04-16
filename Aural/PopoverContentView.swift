@@ -42,7 +42,7 @@ protocol PopoverViewDelegate {
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge)
     
     // Checks if the popover view is shown
-    func isShown() -> Bool
+    var isShown: Bool {get}
     
     // Closes the popover view
     func close()
