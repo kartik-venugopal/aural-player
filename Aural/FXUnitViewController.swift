@@ -112,11 +112,11 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     // MARK - StringInputClient functions
     
-    func getInputPrompt() -> String {
+    var inputPrompt: String {
         return "Enter a new preset name:"
     }
     
-    func getDefaultValue() -> String? {
+    var defaultValue: String? {
         return "<New preset>"
     }
     
@@ -134,7 +134,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         fxUnit.savePreset(string)
     }
     
-    func getInputFontSize() -> TextSizeScheme {
+    var inputFontSize: TextSizeScheme {
         return TextSizes.effectsScheme
     }
     

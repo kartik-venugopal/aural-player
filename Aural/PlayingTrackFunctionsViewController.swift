@@ -291,11 +291,11 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     // MARK - StringInputClient functions
     
-    func getInputPrompt() -> String {
+    var inputPrompt: String {
         return "Enter a bookmark name:"
     }
     
-    func getDefaultValue() -> String? {
+    var defaultValue: String? {
         return BookmarkContext.defaultBookmarkName!
     }
     
@@ -325,7 +325,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    func getInputFontSize() -> TextSizeScheme {
+    var inputFontSize: TextSizeScheme {
         return TextSizes.playerScheme
     }
 }

@@ -109,15 +109,15 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         return chaptersListWindow.isVisible
     }
     
-    func getMainWindowFrame() -> NSRect {
+    var mainWindowFrame: NSRect {
         return mainWindow.frame
     }
     
-    func getEffectsWindowFrame() -> NSRect {
+    var effectsWindowFrame: NSRect {
         return effectsWindow.frame
     }
     
-    func getPlaylistWindowFrame() -> NSRect {
+    var playlistWindowFrame: NSRect {
         return playlistWindow.frame
     }
     
