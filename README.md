@@ -31,7 +31,7 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ## Download
 
-Download the DMG app bundle from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
