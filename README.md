@@ -31,9 +31,11 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ## Download
 
-Download the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+Download the DMG app bundle from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
+
+**NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
 
 ### Installation
 
