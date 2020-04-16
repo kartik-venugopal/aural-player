@@ -86,7 +86,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     }
     
     // Helper to determine the track represented by the clicked item
-    private func getClickedTrack() -> Track {
+    private var clickedTrack: Track {
         
         let clickedItem = PlaylistViewContext.clickedItem
         return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
@@ -106,23 +106,23 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             groupMenuItems.forEach({$0.hide()})
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
-            let clickedTrack = getClickedTrack()
+            let _clickedTrack = clickedTrack
             
-            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(clickedTrack))
-            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack!.track == clickedTrack)})
+            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
+            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack!.track == _clickedTrack)})
             
-            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(clickedTrack.file))
+            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
             
-            let gaps = playlist.getGapsAroundTrack(clickedTrack)
+            let gaps = playlist.getGapsAroundTrack(_clickedTrack)
             insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
             removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             
             var isPlayingTrack: Bool = false
-            if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == clickedTrack {
+            if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == _clickedTrack {
                 isPlayingTrack = true
             }
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && clickedTrack.hasChapters && !layoutManager.isShowingChaptersList)
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !layoutManager.isShowingChaptersList)
             
         case .group:
             
@@ -134,14 +134,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func transcodeTrackAction(_ sender: Any) {
         
-        let track = getClickedTrack()
+        let track = clickedTrack
         transcoder.transcodeInBackground(track)
         
         if !track.lazyLoadingInfo.preparationFailed {
             
-            let rowView = getPlaylistSelectedRowView()
-            
-            infoPopup.showMessage("Transcoding track ...", rowView, NSRectEdge.maxX)
+            infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
             
             // If this isn't done, the app windows are hidden when the popover is displayed
             WindowState.mainWindow.orderFront(self)
@@ -208,8 +206,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // Custom gap dialog
-        let track = getClickedTrack()
-        let gaps = playlist.getGapsAroundTrack(track)
+        let gaps = playlist.getGapsAroundTrack(clickedTrack)
         
         gapsEditor.setDataForKey("gaps", gaps)
         
@@ -230,20 +227,17 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
         
-        let track = getClickedTrack()
-        let rowView = getPlaylistSelectedRowView()
-        
         if favoritesMenuItem.isOn {
         
             // Remove from Favorites list and display notification
-            favorites.deleteFavoriteWithFile(track.file)
-            infoPopup.showMessage("Track removed from Favorites !", rowView, NSRectEdge.maxX)
+            favorites.deleteFavoriteWithFile(clickedTrack.file)
+            infoPopup.showMessage("Track removed from Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
             
         } else {
             
             // Add to Favorites list and display notification
-            _ = favorites.addFavorite(track)
-            infoPopup.showMessage("Track added to Favorites !", rowView, NSRectEdge.maxX)
+            _ = favorites.addFavorite(clickedTrack)
+            infoPopup.showMessage("Track added to Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
@@ -253,17 +247,17 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let track = getClickedTrack()
+        let track = clickedTrack
         track.loadDetailedInfo()
         
-        let rowView = getPlaylistSelectedRowView()
+        let rowView = playlistSelectedRowView
         
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
         WindowState.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)
-    private func getPlaylistSelectedRowView() -> NSView {
+    private var playlistSelectedRowView: NSView {
         
         let playlistView = PlaylistViewContext.clickedView
         return playlistView.rowView(atRow: playlistView.selectedRow, makeIfNecessary: false)!

@@ -26,7 +26,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {return "AlbumsPlaylistSort"}
     
-    func getView() -> NSView {
+    var sortView: NSView {
         return self.view
     }
     
@@ -65,7 +65,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortOrderAction(_ sender: Any) {}
     
-    func getSortOptions() -> Sort {
+    var sortOptions: Sort {
         
         // Gather field values
         let sort = Sort()

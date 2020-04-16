@@ -24,10 +24,10 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     override func windowDidLoad() {
         
-        container.addSubview(tracksPlaylistSortView.getView())
-        container.addSubview(artistsPlaylistSortView.getView())
-        container.addSubview(albumsPlaylistSortView.getView())
-        container.addSubview(genresPlaylistSortView.getView())
+        container.addSubview(tracksPlaylistSortView.sortView)
+        container.addSubview(artistsPlaylistSortView.sortView)
+        container.addSubview(albumsPlaylistSortView.sortView)
+        container.addSubview(genresPlaylistSortView.sortView)
         
         super.windowDidLoad()
     }
@@ -45,27 +45,27 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         }
         
         // Choose sort view based on current playlist view
-        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.getView().hide()})
+        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.sortView.hide()})
         switch PlaylistViewState.current {
 
         case .tracks:
             
-            tracksPlaylistSortView.getView().show()
+            tracksPlaylistSortView.sortView.show()
             tracksPlaylistSortView.resetFields()
             
         case .artists:
             
-            artistsPlaylistSortView.getView().show()
+            artistsPlaylistSortView.sortView.show()
             artistsPlaylistSortView.resetFields()
             
         case .albums:
             
-            albumsPlaylistSortView.getView().show()
+            albumsPlaylistSortView.sortView.show()
             albumsPlaylistSortView.resetFields()
             
         case .genres:
             
-            genresPlaylistSortView.getView().show()
+            genresPlaylistSortView.sortView.show()
             genresPlaylistSortView.resetFields()
         }
         
@@ -79,13 +79,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         
         switch PlaylistViewState.current {
             
-        case .tracks:  sortOptions = tracksPlaylistSortView.getSortOptions()
+        case .tracks:  sortOptions = tracksPlaylistSortView.sortOptions
             
-        case .artists: sortOptions = artistsPlaylistSortView.getSortOptions()
+        case .artists: sortOptions = artistsPlaylistSortView.sortOptions
             
-        case .albums: sortOptions = albumsPlaylistSortView.getSortOptions()
+        case .albums: sortOptions = albumsPlaylistSortView.sortOptions
             
-        case .genres: sortOptions = genresPlaylistSortView.getSortOptions()
+        case .genres: sortOptions = genresPlaylistSortView.sortOptions
             
         }
         
@@ -112,9 +112,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
 
 protocol SortViewProtocol {
     
-    func getView() -> NSView
+    var sortView: NSView {get}
+    var sortOptions: Sort {get}
     
     func resetFields()
-    
-    func getSortOptions() -> Sort
 }

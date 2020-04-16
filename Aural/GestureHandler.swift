@@ -114,11 +114,11 @@ class GestureHandler {
     
         // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
         let playingTrackStartTime = playbackInfo.playingTrackStartTime!
-        let scrollSessionStartTime = ScrollSession.getSessionStartTime()
+        let scrollSessionStartTime = ScrollSession.sessionStartTime
         let scrollSessionInvalid = scrollSessionStartTime != nil && scrollSessionStartTime! < playingTrackStartTime
         
         // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
-        let lastEventTime = ScrollSession.getLastEventTime() ?? 0
+        let lastEventTime = ScrollSession.lastEventTime ?? 0
         let thisEventPartOfOldSession = (event.timestamp - lastEventTime) < UIConstants.scrollSessionMaxTimeGapSeconds
         
         // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
@@ -147,24 +147,14 @@ fileprivate class ScrollSession {
     
     // Time when the current scroll session began (nil initially)
     // TimeInterval represents systemUpTime. See ProcessInfo.processInfo.systemUpTime.
-    private static var sessionStartTime: TimeInterval?
+    static var sessionStartTime: TimeInterval?
     
     // Time when last event was triggered (nil if no session currently active)
     // TimeInterval represents systemUpTime. See ProcessInfo.processInfo.systemUpTime.
-    private static var lastEventTime: TimeInterval?
+    static var lastEventTime: TimeInterval?
     
     // Map of counts of events in different scroll directions. Used to determine the intended scroll direction for a session.
     private static var events: [GestureDirection: Int] = [.up: 0, .down: 0, .left: 0, .right: 0]
-    
-    // Accessor for the sessionStartTime field
-    static func getSessionStartTime() -> TimeInterval? {
-        return sessionStartTime
-    }
-    
-    // Accessor for the lastEventTime field
-    static func getLastEventTime() -> TimeInterval? {
-        return lastEventTime
-    }
     
     // Updates the lastEventTime field with the timestamp of a new event. This function is called when it is determined that the event is not to be processed, and the lastEventTime needs to be updated merely for comparison with future invalid events.
     static func updateLastEventTime(_ event: NSEvent) {
@@ -179,7 +169,7 @@ fileprivate class ScrollSession {
             
             // There is an ongoing (current) scroll session. Check if the direction for this event matches the intended scroll direction.
             
-            if eventDir != getIntendedDirection() {
+            if eventDir != intendedDirection {
                 // This event is invalid because its direction differs from the intended direction for this session
                 return false
             }
@@ -203,7 +193,7 @@ fileprivate class ScrollSession {
     /*
         Determines the intended scroll direction for this session. This is calculated by determining which direction most of the scrolling thus far has been performed in. Example - If the session has 10 scroll Up events and 2 scroll Left events, the intended scroll direction is Up.
      */
-    private static func getIntendedDirection() -> GestureDirection {
+    private static var intendedDirection: GestureDirection {
         
         var maxEvents = 0
         var intendedDir: GestureDirection?
