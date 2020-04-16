@@ -351,7 +351,6 @@
 		3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */; };
 		3ED0C3FF21E73C88002757A7 /* GenreMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0C3FE21E73C88002757A7 /* GenreMap.swift */; };
 		3ED0C40121E73E21002757A7 /* ID3Spec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0C40021E73E21002757A7 /* ID3Spec.swift */; };
-		3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */; };
 		3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */; };
 		3ED1008D1FBAD54600D48688 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */; };
 		3ED35D2F21E960CB00A5904F /* AudioToolboxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */; };
@@ -782,7 +781,6 @@
 		3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistMutatorDelegate.swift; sourceTree = "<group>"; };
 		3ED0C3FE21E73C88002757A7 /* GenreMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMap.swift; sourceTree = "<group>"; };
 		3ED0C40021E73E21002757A7 /* ID3Spec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID3Spec.swift; sourceTree = "<group>"; };
-		3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageAndTextButtonCell.swift; sourceTree = "<group>"; };
 		3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
 		3ED35D2E21E960CB00A5904F /* AudioToolboxParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioToolboxParser.swift; sourceTree = "<group>"; };
@@ -1231,7 +1229,6 @@
 			children = (
 				3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */,
 				3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */,
-				3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */,
 				3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */,
 				3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */,
 				3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */,
@@ -2294,7 +2291,6 @@
 				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
-				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,
 				3E688AC521E462C400164E84 /* CommonAVAssetParser.swift in Sources */,
