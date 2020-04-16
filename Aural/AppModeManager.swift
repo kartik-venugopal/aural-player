@@ -8,13 +8,14 @@ class AppModeManager: ActionMessageSubscriber {
     
     private static var regularMode: RegularAppModeController = RegularAppModeController()
     
-    private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
-    
-    private static var miniBarMode: MiniBarAppModeController = MiniBarAppModeController()
+//    private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
+//
+//    private static var miniBarMode: MiniBarAppModeController = MiniBarAppModeController()
     
     static func initialize() {
         
-        SyncMessenger.subscribe(actionTypes: [.regularAppMode, .statusBarAppMode, .miniBarAppMode], subscriber: subscriber)
+//        SyncMessenger.subscribe(actionTypes: [.regularAppMode, .statusBarAppMode, .miniBarAppMode], subscriber: subscriber)
+        SyncMessenger.subscribe(actionTypes: [.regularAppMode], subscriber: subscriber)
     }
     
     static func presentMode(_ newMode: AppMode) {
@@ -25,9 +26,9 @@ class AppModeManager: ActionMessageSubscriber {
             
         case .regular:  presentRegularMode()
         
-        case .miniBar: presentMiniBarMode()
-        
-        case .statusBar: presentStatusBarMode()
+//        case .miniBar: presentMiniBarMode()
+//
+//        case .statusBar: presentStatusBarMode()
         
         }
         
@@ -41,9 +42,9 @@ class AppModeManager: ActionMessageSubscriber {
             
         case .regular:  regularMode.dismissMode()
             
-        case .miniBar: miniBarMode.dismissMode()
-            
-        case .statusBar: statusBarMode.dismissMode()
+//        case .miniBar: miniBarMode.dismissMode()
+//
+//        case .statusBar: statusBarMode.dismissMode()
             
         }
         
@@ -57,9 +58,9 @@ class AppModeManager: ActionMessageSubscriber {
             
         case .regular: regularMode.registerConstituentView(view)
             
-        case .miniBar:  miniBarMode.registerConstituentView(view)
-            
-        case .statusBar:    statusBarMode.registerConstituentView(view)
+//        case .miniBar:  miniBarMode.registerConstituentView(view)
+//
+//        case .statusBar:    statusBarMode.registerConstituentView(view)
             
         }
     }
@@ -68,13 +69,13 @@ class AppModeManager: ActionMessageSubscriber {
         regularMode.presentMode()
     }
     
-    private static func presentMiniBarMode() {
-        miniBarMode.presentMode()
-    }
-    
-    private static func presentStatusBarMode() {
-        statusBarMode.presentMode()
-    }
+//    private static func presentMiniBarMode() {
+//        miniBarMode.presentMode()
+//    }
+//
+//    private static func presentStatusBarMode() {
+//        statusBarMode.presentMode()
+//    }
     
     var subscriberId: String {
         return "AppModeManager"
@@ -88,9 +89,9 @@ class AppModeManager: ActionMessageSubscriber {
             
         case .regularAppMode:   AppModeManager.switchToMode(.regular)
             
-        case .statusBarAppMode: AppModeManager.switchToMode(.statusBar)
-            
-        case .miniBarAppMode:   AppModeManager.switchToMode(.miniBar)
+//        case .statusBarAppMode: AppModeManager.switchToMode(.statusBar)
+//
+//        case .miniBarAppMode:   AppModeManager.switchToMode(.miniBar)
             
         default: return
             
@@ -101,8 +102,8 @@ class AppModeManager: ActionMessageSubscriber {
 enum AppMode: String {
     
     case regular
-    case statusBar
-    case miniBar
+//    case statusBar
+//    case miniBar
 }
 
 protocol AppModeController {

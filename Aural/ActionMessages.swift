@@ -296,9 +296,9 @@ enum ActionType {
     
     case regularAppMode
     
-    case statusBarAppMode
-    
-    case miniBarAppMode
+//    case statusBarAppMode
+//    
+//    case miniBarAppMode
     
     // MARK: Effects presets editor actions
     

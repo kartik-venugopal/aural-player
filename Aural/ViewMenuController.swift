@@ -7,9 +7,9 @@ import Cocoa
  */
 class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
-    @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
+//    @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
     
-    @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
+//    @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
     
     @IBOutlet weak var playerMenuItem: NSMenuItem!
     
@@ -35,9 +35,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    override func awakeFromNib() {
-        switchViewMenuItem.off()
-    }
+//    override func awakeFromNib() {
+//        switchViewMenuItem.off()
+//    }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -49,8 +49,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuWillOpen(_ menu: NSMenu) {
         
-        switchViewMenuItem.onIf(AppModeManager.mode != .regular)
-        dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
+//        switchViewMenuItem.onIf(AppModeManager.mode != .regular)
+//        dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
         
         if (AppModeManager.mode == .regular) {
             
@@ -121,25 +121,25 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
     }
     
-    @IBAction func switchViewAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AppModeActionMessage(AppModeManager.mode == .regular ? .miniBarAppMode : .regularAppMode))
-    }
+//    @IBAction func switchViewAction(_ sender: Any) {
+//        SyncMessenger.publishActionMessage(AppModeActionMessage(AppModeManager.mode == .regular ? .miniBarAppMode : .regularAppMode))
+//    }
     
-    @IBAction func dockMiniBarTopLeftAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopLeft))
-    }
-    
-    @IBAction func dockMiniBarTopRightAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopRight))
-    }
-    
-    @IBAction func dockMiniBarBottomLeftAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomLeft))
-    }
-    
-    @IBAction func dockMiniBarBottomRightAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
-    }
+//    @IBAction func dockMiniBarTopLeftAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopLeft))
+//    }
+//
+//    @IBAction func dockMiniBarTopRightAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopRight))
+//    }
+//
+//    @IBAction func dockMiniBarBottomLeftAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomLeft))
+//    }
+//
+//    @IBAction func dockMiniBarBottomRightAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
+//    }
     
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
         layoutManager.toggleAlwaysOnTop()
