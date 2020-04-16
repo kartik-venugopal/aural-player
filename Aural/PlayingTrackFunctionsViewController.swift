@@ -119,7 +119,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(BookmarkContext.bookmarkedTrackStartPosition!))
         
         // Show popover
-        let loc = getLocationForBookmarkPrompt()
+        let loc = locationForBookmarkPrompt
         
         if loc.view.isVisible {
             bookmarkNamePopover.show(loc.view, loc.edge)
@@ -148,7 +148,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, startTime, endTime)
                 
                 // Show popover
-                let loc = getLocationForBookmarkPrompt()
+                let loc = locationForBookmarkPrompt
                 
                 if loc.view.isVisible {
                     bookmarkNamePopover.show(loc.view, loc.edge)
@@ -161,7 +161,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    private func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
+    private var locationForBookmarkPrompt: (view: NSView, edge: NSRectEdge) {
         
         // Slider knob position
         let knobRect = seekSliderCell.knobRect(flipped: false)

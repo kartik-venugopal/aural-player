@@ -425,8 +425,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.gapStarted()
     }
     
-    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
-        return controlsView.getLocationForBookmarkPrompt()
+    var locationForBookmarkPrompt: (view: NSView, edge: NSRectEdge) {
+        return controlsView.locationForBookmarkPrompt
     }
     
     private func showOrHideTimeElapsedRemaining() {

@@ -352,10 +352,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func invertSelection() {
-        playlistView.selectRowIndexes(getInvertedSelection(), byExtendingSelection: false)
+        playlistView.selectRowIndexes(invertedSelection, byExtendingSelection: false)
     }
     
-    private func getInvertedSelection() -> IndexSet {
+    private var invertedSelection: IndexSet {
         
         let selRows = playlistView.selectedRowIndexes
         
@@ -430,7 +430,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func cropSelection() {
         
-        let tracksToDelete = getInvertedSelection()
+        let tracksToDelete: IndexSet = invertedSelection
         clearSelection()
         
         if (tracksToDelete.count > 0) {

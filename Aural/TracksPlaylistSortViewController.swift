@@ -19,7 +19,7 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {return "TracksPlaylistSort"}
     
-    func getView() -> NSView {
+    var sortView: NSView {
         return self.view
     }
     
@@ -34,7 +34,7 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func sortOrderAction(_ sender: Any) {}
     
-    func getSortOptions() -> Sort {
+    var sortOptions: Sort {
         
         let sort: Sort = Sort()
         

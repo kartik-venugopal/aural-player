@@ -372,7 +372,7 @@ class PlayerControlsView: NSView {
         [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.hide()})
     }
 
-    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
+    var locationForBookmarkPrompt: (view: NSView, edge: NSRectEdge) {
 
         // Slider knob position
         let knobRect = seekSliderCell.knobRect(flipped: false)
