@@ -22,10 +22,6 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * To have a simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible.
 * To have a decent macOS alternative for Winamp.
 
-#### What it is not (at the moment):
-* A streaming audio player that connects to internet radio stations/services
-* A scrobbler
-
 ## Documentation
 
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
@@ -90,6 +86,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/Default.png?raw=true)
 
+### Customizing the player view
+
+![Player view](/Documentation/Demos/playerView.gif?raw=true)
+
 ### Segment loop playback
 
 ![Segment loop playback demo](/Documentation/Demos/ABLoop.gif?raw=true)
@@ -98,21 +98,21 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Enabling and disabling effects demo](/Documentation/Demos/UsingFXUnit.gif?raw=true)
 
-### Chapters support
-
-![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true "Chapters support demo")
-
 ### Detailed track info
 
 ![Detailed track info](/Documentation/Demos/DetailedInfo.gif?raw=true)
 
 ### Changing the window layout
 
-![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Changing the window layout")
+![Changing the window layout demo](/Documentation/Demos/WindowLayout.gif?raw=true)
 
-### Customizing the player view
+### Searching the playlist
 
-![Player view](/Documentation/Demos/playerView.gif?raw=true "Player view")
+![Searching the playlist demo](/Documentation/Demos/PlaylistSearch.gif?raw=true)
+
+### Chapters support
+
+![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
 
 ## Third party code attributions
 
