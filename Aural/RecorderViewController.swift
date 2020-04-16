@@ -46,12 +46,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Starts/stops recording
     @IBAction func recorderAction(_ sender: Any) {
-        
-        if (recorder.isRecording()) {
-            stopRecording()
-        } else {
-            startRecording()
-        }
+        recorder.isRecording ? stopRecording() : startRecording()
     }
     
     // Starts a new recording
@@ -110,7 +105,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     // Updates current recording information
     private func updateRecordingInfo() {
         
-        recordingInfo = recorder.getRecordingInfo()
+        recordingInfo = recorder.recordingInfo
         lblRecorderDuration.stringValue = StringUtils.formatSecondsToHMS(recordingInfo!.duration)
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
@@ -118,7 +113,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.
     private func onExit() -> AppExitResponse {
         
-        if (recorder.isRecording()) {
+        if recorder.isRecording {
             
             // Recording ongoing, prompt the user to save/discard it
             let response = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert).rawValue

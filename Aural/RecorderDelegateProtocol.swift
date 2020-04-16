@@ -9,14 +9,14 @@ protocol RecorderDelegateProtocol {
     // Starts a recording with the specified format
     func startRecording(_ params: RecordingParams)
     
-    // Returns metadata for the active recording (if there is one)
-    func getRecordingInfo() -> RecordingInfo?
-    
-    // Returns a value indicating whether or not there is an ongoing recording
-    func isRecording() -> Bool
-    
     // Stops the current recording
     func stopRecording()
+    
+    // Returns metadata for the active recording (if there is one)
+    var recordingInfo: RecordingInfo? {get}
+    
+    // Returns a value indicating whether or not there is an ongoing recording
+    var isRecording: Bool {get}
     
     // Saves the new recording to the user-defined file URL
     func saveRecording(_ url: URL)

@@ -50,17 +50,3 @@ class FXUnit {
     
     func applyPreset(_ presetName: String) {}
 }
-
-protocol FXUnitPresetsProtocol {
-    
-    associatedtype PresetType: EffectsUnitPreset
-    associatedtype PresetsType: FXPresetsProtocol
-    
-    var presets: PresetsType {get}
-    
-    func savePreset(_ presetName: String)
-    
-    func applyPreset(_ preset: PresetType)
-    
-//    func getSettingsAsPreset() -> PresetType
-}

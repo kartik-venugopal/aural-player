@@ -36,7 +36,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         addRemoveFavoritesMenuItem.enableIf(playbackInfo.state.playingOrPaused())
         
         // Menu has 3 static items
-        manageFavoritesMenuItem.enableIf(favorites.countFavorites() > 0)
+        manageFavoritesMenuItem.enableIf(favorites.count > 0)
     }
 
     func menuWillOpen(_ menu: NSMenu) {
@@ -53,7 +53,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         }
         
         // Recreate the menu
-        favorites.getAllFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
+        favorites.allFavorites.forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
     }
     
     func menuDidClose(_ menu: NSMenu) {

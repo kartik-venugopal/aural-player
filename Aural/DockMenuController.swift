@@ -53,7 +53,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         recreateHistoryMenus()
         
         // Fav menu
-        favorites.getAllFavorites().forEach({
+        favorites.allFavorites.forEach({
             
             let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
             item.target = self
