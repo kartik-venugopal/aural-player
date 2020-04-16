@@ -165,47 +165,6 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
     }
 }
 
-/*
-    An on/off image button that also displays text that can be highlighted
- 
-    NOTE - This button class is intended to be used in collaboration with OnOffImageAndTextButtonCell for the button cell
- */
-@IBDesignable
-class OnOffImageAndTextButton: OnOffImageButton {
-    
-    func setHighlightColor(_ color: NSColor) {
-        
-        // Set highlight color and redraw the button, if cell is a OnOffImageAndTextButtonCell
-        if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
-            
-            onOffCell.highlightColor = color
-            redraw()
-        }
-    }
-    
-    override func off() {
-        
-        super.off()
-        
-        // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
-        if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
-            onOffCell.shouldHighlight = false
-            redraw()
-        }
-    }
-    
-    override func on() {
-        
-        super.on()
-        
-        // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
-        if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
-            onOffCell.shouldHighlight = true
-            redraw()
-        }
-    }
-}
-
 @IBDesignable
 class EffectsUnitTabButton: OnOffImageButton {
     
@@ -223,7 +182,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         super.off()
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
-            cell.updateState(.bypassed)
+            cell.unitState = .bypassed
             redraw()
         }
     }
@@ -233,7 +192,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         super.on()
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
-            cell.updateState(.active)
+            cell.unitState = .active
             redraw()
         }
     }
@@ -244,7 +203,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         self.toolTip = mixedStateTooltip
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
-            cell.updateState(.suppressed)
+            cell.unitState = .suppressed
             redraw()
         }
     }
