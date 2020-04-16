@@ -28,6 +28,7 @@ class AppStateIO {
                 
                 let data = try JSONSerialization.jsonObject(with: inputStream, options: JSONSerialization.ReadingOptions())
                 inputStream.close()
+                
                 return AppState.deserialize(data as! NSDictionary)
                 
             } catch let error as NSError {

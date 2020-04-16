@@ -66,11 +66,11 @@ class RepeatingTaskExecutor {
         }
     }
     
-    func isRunning() -> Bool {
+    var isRunning: Bool {
         return running
     }
     
-    func getInterval() -> Int {
+    var interval: Int {
         return intervalMillis
     }
     

@@ -14,7 +14,7 @@ private var visibleFrame: NSRect = {
 
 class UIUtils {
     
-    private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
     
     private static var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     

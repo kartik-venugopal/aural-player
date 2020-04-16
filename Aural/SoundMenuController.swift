@@ -52,7 +52,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let preferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
+    private let preferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     
     private let presetsEditor: EditorWindowController = WindowFactory.editorWindowController
     

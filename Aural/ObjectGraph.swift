@@ -64,15 +64,11 @@ class ObjectGraph {
     static func initialize() {
         
         // Load persistent app state from disk
-        appState = AppStateIO.load()
-        
         // Use defaults if app state could not be loaded from disk
-        if (appState == nil) {
-            appState = AppState.defaults
-        }
+        appState = AppStateIO.load() ?? AppState.defaults
         
         // Preferences (and delegate)
-        preferences = Preferences.instance()
+        preferences = Preferences.instance
         preferencesDelegate = PreferencesDelegate(preferences)
         
         // Audio Graph (and delegate)

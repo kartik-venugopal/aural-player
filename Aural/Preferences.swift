@@ -47,7 +47,7 @@ class Preferences: PersistentPreferencesProtocol {
         allPreferences.forEach({$0.persist(defaults: defaults)})
     }
     
-    static func instance() -> Preferences {
+    static var instance: Preferences {
         return singleton
     }
     

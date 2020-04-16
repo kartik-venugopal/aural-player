@@ -41,7 +41,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
 
-    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
+    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
 
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow

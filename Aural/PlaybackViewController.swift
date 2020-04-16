@@ -19,7 +19,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
+    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     

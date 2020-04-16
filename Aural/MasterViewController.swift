@@ -5,8 +5,8 @@ class MasterViewController: FXUnitViewController {
     @IBOutlet weak var masterView: MasterView!
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.getPreferences().soundPreferences
-    private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
+    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
+    private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
     private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}

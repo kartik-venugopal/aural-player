@@ -18,7 +18,7 @@ class Bookmarks: BookmarksProtocol {
         return bookmark
     }
     
-    func getAllBookmarks() -> [Bookmark] {
+    var allBookmarks: [Bookmark] {
         return bookmarks.allItems
     }
     
@@ -30,7 +30,7 @@ class Bookmarks: BookmarksProtocol {
         return bookmarks.itemAtIndex(index)
     }
     
-    func countBookmarks() -> Int {
+    var count: Int {
         return bookmarks.count
     }
     

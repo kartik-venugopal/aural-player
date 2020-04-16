@@ -50,7 +50,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.getPreferences().playbackPreferences
+    private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
     private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     

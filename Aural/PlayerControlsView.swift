@@ -396,7 +396,7 @@ class PlayerControlsView: NSView {
         
         let interval = Int(1000 / (2 * rate))
         
-        if (interval != seekTimer?.getInterval()) {
+        if interval != seekTimer?.interval {
             
             seekTimer?.stop()
             seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {

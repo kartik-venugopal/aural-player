@@ -180,7 +180,7 @@ enum WindowLayoutPresets: String {
     
     private var gapBetweenWindows: CGFloat {
         
-        return CGFloat(ObjectGraph.preferencesDelegate.getPreferences().viewPreferences.windowGap)
+        return CGFloat(ObjectGraph.preferencesDelegate.preferences.viewPreferences.windowGap)
     }
     
     var mainWindowOrigin: NSPoint {

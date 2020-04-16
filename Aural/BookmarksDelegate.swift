@@ -35,12 +35,12 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         return bookmarks.addBookmark(name, file, startPosition, endPosition)
     }
     
-    func getAllBookmarks() -> [Bookmark] {
-        return bookmarks.getAllBookmarks()
+    var allBookmarks: [Bookmark] {
+        return bookmarks.allBookmarks
     }
     
-    func countBookmarks() -> Int {
-        return bookmarks.countBookmarks()
+    var count: Int {
+        return bookmarks.count
     }
     
     func getBookmarkAtIndex(_ index: Int) -> Bookmark {
@@ -85,7 +85,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         
         var arr = [BookmarkState]()
         
-        bookmarks.getAllBookmarks().forEach({
+        bookmarks.allBookmarks.forEach({
             arr.append(BookmarkState($0.name, $0.file, $0.startPosition, $0.endPosition))
         })
         

@@ -9,7 +9,7 @@ class PlaylistInputEventHandler {
     // A mapping of playlist type to the corresponding view that displays it
     private static var playlistViews: [PlaylistType: NSTableView] = [:]
     
-    private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.getPreferences().controlsPreferences
+    private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.preferences.controlsPreferences
     
     private static let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     

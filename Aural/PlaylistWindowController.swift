@@ -43,8 +43,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
+    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
+    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
