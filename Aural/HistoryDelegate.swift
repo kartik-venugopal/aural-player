@@ -90,7 +90,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
-    func persistentState() -> PersistentState {
+    var persistentState: PersistentState {
         
         let state = HistoryState()
         

@@ -108,7 +108,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     }
     
     var seekPosition: Double {
-        return state.notPlaying() ? 0 : scheduler.getSeekPosition()
+        return state.notPlaying() ? 0 : scheduler.seekPosition
     }
     
     var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
@@ -158,7 +158,9 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         PlaybackSession.removeLoop()
     }
     
-    var playbackLoop: PlaybackLoop? {return PlaybackSession.getCurrentLoop()}
+    var playbackLoop: PlaybackLoop? {
+        return PlaybackSession.currentLoop
+    }
     
     // MARK: Message handling
     

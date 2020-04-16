@@ -142,7 +142,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
             
             // If this isn't done, the app windows are hidden when the popover is displayed
-            WindowState.mainWindow.orderFront(self)
+            layoutManager.mainWindow.orderFront(self)
         }
     }
     
@@ -241,7 +241,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.mainWindow.orderFront(self)
+        layoutManager.mainWindow.orderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -253,7 +253,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let rowView = playlistSelectedRowView
         
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
-        WindowState.mainWindow.makeKeyAndOrderFront(self)
+        layoutManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)

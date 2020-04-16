@@ -10,7 +10,7 @@ class SoundProfiles: TrackKeyedMap<SoundProfile> {
     }
     
     func add(_ file: URL) {
-        self.add(file, SoundProfile(file: file, volume: audioGraph.volume, balance: audioGraph.balance, effects: audioGraph.getSettingsAsMasterPreset()))
+        self.add(file, SoundProfile(file: file, volume: audioGraph.volume, balance: audioGraph.balance, effects: audioGraph.settingsAsMasterPreset))
     }
 }
 

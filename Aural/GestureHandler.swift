@@ -43,7 +43,7 @@ class GestureHandler {
         
         if let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
-            if swipeDirection.isHorizontal() {
+            if swipeDirection.isHorizontal {
                 handleTrackChange(swipeDirection)
             }
         }
@@ -65,7 +65,7 @@ class GestureHandler {
         if let scrollVector = UIUtils.determineScrollVector(event) {
             
             // Vertical scroll = volume control, horizontal scroll = seeking
-            scrollVector.direction.isVertical() ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)
+            scrollVector.direction.isVertical ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)
         }
     }
     
@@ -232,11 +232,11 @@ enum GestureDirection: String {
     case down
     case up
     
-    func isHorizontal() -> Bool {
+    var isHorizontal: Bool {
         return self == .left || self == .right
     }
     
-    func isVertical() -> Bool {
+    var isVertical: Bool {
         return self == .up || self == .down
     }
 }

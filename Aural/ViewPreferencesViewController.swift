@@ -14,7 +14,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     override var nibName: String? {return "ViewPreferences"}
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

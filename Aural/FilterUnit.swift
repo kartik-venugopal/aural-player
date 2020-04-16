@@ -74,11 +74,11 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
         bands = filterBands
     }
     
-    func getSettingsAsPreset() -> FilterPreset {
+    var settingsAsPreset: FilterPreset {
         return FilterPreset("filterSettings", state, bands, false)
     }
     
-    func persistentState() -> FilterUnitState {
+    var persistentState: FilterUnitState {
         
         let filterState = FilterUnitState()
         

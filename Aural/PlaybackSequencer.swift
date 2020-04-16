@@ -33,7 +33,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
         
         // The sequence cursor is the index of the currently playing track within the current playback sequence
-        return (scope, (sequence.getCursor() ?? -1) + 1, sequence.size())
+        return (scope, (sequence.cursor ?? -1) + 1, sequence.size)
     }
     
     func begin() -> IndexedTrack? {
@@ -349,7 +349,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return sequence.toggleShuffleMode()
     }
     
-    func persistentState() -> PersistentState {
+    var persistentState: PersistentState {
         
         let state = PlaybackSequenceState()
         
@@ -454,7 +454,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         }
         
         // If there is a playing track, update the cursor
-        if (sequence.getCursor() != nil) {
+        if (sequence.cursor != nil) {
             
             // Update the cursor
             let newCursor = calculateNewCursor()

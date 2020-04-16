@@ -42,7 +42,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     
     override var nibName: String? {return "SoundPreferences"}
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

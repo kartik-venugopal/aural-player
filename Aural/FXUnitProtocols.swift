@@ -24,7 +24,7 @@ protocol FXUnitProtocol {
     
     func applyPreset(_ preset: PresetType)
     
-    func getSettingsAsPreset() -> PresetType
+    var settingsAsPreset: PresetType {get}
 }
 
 protocol MasterUnitProtocol: FXUnitProtocol {}

@@ -9,7 +9,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     override var nibName: String? {return "PlaybackPreferences"}
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

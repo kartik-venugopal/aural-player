@@ -53,11 +53,11 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
         overlap = preset.overlap
     }
     
-    func getSettingsAsPreset() -> PitchPreset {
+    var settingsAsPreset: PitchPreset {
         return PitchPreset("pitchSettings", state, pitch, overlap, false)
     }
     
-    func persistentState() -> PitchUnitState {
+    var persistentState: PitchUnitState {
         
         let unitState = PitchUnitState()
         

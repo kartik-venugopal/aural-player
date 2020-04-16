@@ -47,22 +47,22 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         eqSubPreview.chooseType(.tenBand)
         
-        let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
-        filterSubPreview.initialize({() -> EffectsUnitState in return self.getPresetFilterUnitState()}, bandsDataFunction, bandsDataSource, false)
+        let bandsDataFunction = {() -> [FilterBand] in return self.filterChartBands}
+        filterSubPreview.initialize({() -> EffectsUnitState in return self.presetFilterUnitState}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false
     }
     
-    private func getFilterChartBands() -> [FilterBand] {
+    private var filterChartBands: [FilterBand] {
         
-        let selection = getSelectedPresetNames()
+        let selection = selectedPresetNames
         return selection.isEmpty ? [] : masterPresets.presetByName(selection[0])!.filter.bands
     }
     
-    private func getPresetFilterUnitState() -> EffectsUnitState {
+    private var presetFilterUnitState: EffectsUnitState {
         
-        let selection = getSelectedPresetNames()
+        let selection = selectedPresetNames
         return selection.isEmpty ? .active : masterPresets.presetByName(selection[0])!.filter.state
     }
     

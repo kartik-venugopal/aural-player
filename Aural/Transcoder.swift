@@ -170,7 +170,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         daemon.setMaxBackgroundTasks(numTasks)
     }
     
-    func persistentState() -> PersistentState {
+    var persistentState: PersistentState {
         
         let state = TranscoderState()
         store.files.forEach({state.entries[$0.key] = $0.value})

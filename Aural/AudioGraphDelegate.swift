@@ -91,8 +91,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: notificationQueue)
     }
     
-    func getSettingsAsMasterPreset() -> MasterPreset {
-        return graph.getSettingsAsMasterPreset()
+    var settingsAsMasterPreset: MasterPreset {
+        return graph.settingsAsMasterPreset
     }
     
     var volume: Float {

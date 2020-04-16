@@ -111,7 +111,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return gapsAfter[track]
     }
     
-    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
+    private var allGaps: (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
         return (gapsBefore, gapsAfter)
     }
     
@@ -191,10 +191,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     }
     
     // Returns all state for this playlist that needs to be persisted to disk
-    func persistentState() -> PersistentState {
+    var persistentState: PersistentState {
         
         let state = PlaylistState()
-        let gaps = getAllGaps()
+        let gaps = allGaps
         
         tracks.forEach({state.tracks.append($0.file)})
         

@@ -74,11 +74,11 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         lowPassCutoff = preset.lowPassCutoff
     }
     
-    func getSettingsAsPreset() -> DelayPreset {
+    var settingsAsPreset: DelayPreset {
         return DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
     }
     
-    func persistentState() -> DelayUnitState {
+    var persistentState: DelayUnitState {
 
         let unitState = DelayUnitState()
 

@@ -35,7 +35,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         gestureButtons = [btnAllowVolumeControl, btnAllowSeeking, btnAllowTrackChange, btnAllowPlaylistNavigation, btnAllowPlaylistTabToggle]
     }
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

@@ -82,11 +82,6 @@ class PlaybackSession: Hashable {
         return session === currentSession
     }
     
-    // Returns the current session. Returns nil is there is no current session.
-    static func getCurrentSession() -> PlaybackSession? {
-        return currentSession
-    }
-    
     // Marks the start point for a track segment playback loop
     static func beginLoop(_ loopStartTime: Double) {
         currentSession?.loop = PlaybackLoop(loopStartTime)
@@ -103,7 +98,7 @@ class PlaybackSession: Hashable {
     }
     
     // Retrieves the track segment playback loop for the current playback session
-    static func getCurrentLoop() -> PlaybackLoop? {
+    static var currentLoop: PlaybackLoop? {
         return currentSession?.loop
     }
 }

@@ -94,7 +94,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         playSelectedItemMenuItem.enableIf(!showingDialogOrPopover && numSelectedRows == 1)
         playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
-        if numSelectedRows == 1 && !areOnlyGroupsSelected() && playbackInfo.state == .transcoding && (selectedTrack() == playbackInfo.playingTrack?.track) {
+        let onlyGroupsSelected: Bool = areOnlyGroupsSelected
+        
+        if numSelectedRows == 1 && !onlyGroupsSelected && playbackInfo.state == .transcoding && (selectedTrack == playbackInfo.playingTrack?.track) {
             playSelectedItemMenuItem.disable()
             playSelectedItemDelayedMenuItem.disable()
         }
@@ -107,7 +109,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
         
-        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected && areOnlyGroupsSelected())
+        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected && onlyGroupsSelected)
         collapseSelectedItemsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected)
     }
     
@@ -125,9 +127,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
             if PlaylistViewState.selectedItem.type != .group {
                 
-                let track = selectedTrack()
-                
-                let gaps = playlist.getGapsAroundTrack(track)
+                let gaps = playlist.getGapsAroundTrack(selectedTrack)
                 insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
                 removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
                 editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
@@ -146,7 +146,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
     }
     
-    private func areOnlyGroupsSelected() -> Bool {
+    private var areOnlyGroupsSelected: Bool {
         
         let items = PlaylistViewState.selectedItems
         
@@ -160,7 +160,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     // Assumes only one item selected, and that it's a track
-    private func selectedTrack() -> Track {
+    private var selectedTrack: Track {
+        
         let selItem = PlaylistViewState.selectedItem
         return selItem.type == .index ? playlist.trackAtIndex(selItem.index!)!.track : selItem.track!
     }
@@ -299,7 +300,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         // Custom gap dialog
-        let gaps = playlist.getGapsAroundTrack(selectedTrack())
+        let gaps = playlist.getGapsAroundTrack(selectedTrack)
         
         gapsEditor.setDataForKey("gaps", gaps)
         

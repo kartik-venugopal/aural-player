@@ -9,7 +9,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     
     override var nibName: String? {return "HistoryPreferences"}
     
-    func getView() -> NSView {
+    var preferencesView: NSView {
         return self.view
     }
     

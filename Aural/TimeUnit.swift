@@ -66,11 +66,11 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
         shiftPitch = preset.shiftPitch
     }
     
-    func getSettingsAsPreset() -> TimePreset {
+    var settingsAsPreset: TimePreset {
         return TimePreset("timeSettings", state, rate, overlap, shiftPitch, false)
     }
     
-    func persistentState() -> TimeUnitState {
+    var persistentState: TimeUnitState {
 
         let unitState = TimeUnitState()
 

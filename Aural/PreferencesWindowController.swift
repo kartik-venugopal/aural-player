@@ -34,7 +34,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         
         subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView]
         
-        tabView.addViewsForTabs([playlistPrefsView.getView(), playbackPrefsView.getView(), soundPrefsView.getView(), viewPrefsView.getView(), historyPrefsView.getView(), controlsPrefsView.getView()])
+        tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView])
         
         super.windowDidLoad()
     }
@@ -83,7 +83,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
                 saveFailed = true
                 
                 // Switch to the tab with the offending view
-                tabView.showView($0.getView())
+                tabView.showView($0.preferencesView)
                 
                 return
             }
@@ -105,7 +105,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
 
 protocol PreferencesViewProtocol {
     
-    func getView() -> NSView
+    var preferencesView: NSView {get}
     
     func resetFields(_ preferences: Preferences)
     

@@ -81,7 +81,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         bookmarks.deleteBookmarkWithName(name)
     }
     
-    func persistentState() -> [BookmarkState] {
+    var persistentState: [BookmarkState] {
         
         var arr = [BookmarkState]()
         

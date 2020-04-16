@@ -117,8 +117,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         didSet {playerNode.volume = muted ? 0 : playerVolume}
     }
     
-    func getSettingsAsMasterPreset() -> MasterPreset {
-        return masterUnit.getSettingsAsPreset()
+    var settingsAsMasterPreset: MasterPreset {
+        return masterUnit.settingsAsPreset
     }
 
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
@@ -135,7 +135,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         })
     }
     
-    func persistentState() -> PersistentState {
+    var persistentState: PersistentState {
         
         let state: AudioGraphState = AudioGraphState()
         
@@ -147,13 +147,13 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.muted = muted
         state.balance = playerNode.pan
         
-        state.masterUnit = masterUnit.persistentState()
-        state.eqUnit = eqUnit.persistentState()
-        state.pitchUnit = pitchUnit.persistentState()
-        state.timeUnit = timeUnit.persistentState()
-        state.reverbUnit = reverbUnit.persistentState()
-        state.delayUnit = delayUnit.persistentState()
-        state.filterUnit = filterUnit.persistentState()
+        state.masterUnit = masterUnit.persistentState
+        state.eqUnit = eqUnit.persistentState
+        state.pitchUnit = pitchUnit.persistentState
+        state.timeUnit = timeUnit.persistentState
+        state.reverbUnit = reverbUnit.persistentState
+        state.delayUnit = delayUnit.persistentState
+        state.filterUnit = filterUnit.persistentState
         
         state.soundProfiles.append(contentsOf: soundProfiles.all())
         
