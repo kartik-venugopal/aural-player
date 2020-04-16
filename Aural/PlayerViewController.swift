@@ -79,7 +79,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         PlayerViewState.viewType = viewType
         
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
         
         transcoderView.hide()
         
@@ -122,7 +122,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func showOrHidePlayingTrackInfo() {
         
         theView.showOrHidePlayingTrackInfo()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideSequenceInfo() {
@@ -132,37 +132,37 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func showOrHidePlayingTrackFunctions() {
         
         theView.showOrHidePlayingTrackFunctions()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideAlbumArt() {
         
         theView.showOrHideAlbumArt()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideArtist() {
         
         theView.showOrHideArtist()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideAlbum() {
         
         theView.showOrHideAlbum()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideCurrentChapter() {
         
         theView.showOrHideCurrentChapter()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideMainControls() {
         
         theView.showOrHideMainControls()
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     func mouseEntered() {

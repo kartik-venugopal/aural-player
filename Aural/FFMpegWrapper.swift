@@ -16,7 +16,6 @@ class FFMpegWrapper {
         let dir = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("albumArt", isDirectory: true)
         FileSystemUtils.createDirectory(dir)
         return dir
-        
     }()
     
     static func getMetadata(_ track: Track) -> LibAVInfo {

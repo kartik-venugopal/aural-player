@@ -48,7 +48,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     // Shows the popover
     func show(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        if (!popover.isShown) {
+        if !isShown {
             
             initFields()
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
@@ -83,7 +83,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     // Closes the popover
     func close() {
         
-        if (popover.isShown) {
+        if isShown {
             popover.performClose(self)
         }
     }
@@ -119,7 +119,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
         WindowState.showingPopover = false
     }
     
-    func isShown() -> Bool {
+    var isShown: Bool {
         return popover.isShown
     }
 }

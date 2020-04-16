@@ -103,7 +103,7 @@ class PlayerView: NSView {
         autoHideFields_showing = false
     }
     
-    func needsMouseTracking() -> Bool {
+    var needsMouseTracking: Bool {
         return false
     }
     
@@ -261,7 +261,7 @@ class DefaultPlayerView: PlayerView {
         infoBox.show()
     }
     
-    override func needsMouseTracking() -> Bool {
+    override var needsMouseTracking: Bool {
         return !PlayerViewState.showControls
     }
 }
@@ -362,7 +362,7 @@ class ExpandedArtPlayerView: PlayerView {
         artView.image = Images.imgPlayingArt
     }
     
-    override func needsMouseTracking() -> Bool {
+    override var needsMouseTracking: Bool {
         return true
     }
 }

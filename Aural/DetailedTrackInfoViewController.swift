@@ -116,7 +116,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         }
     }
     
-    func isShown() -> Bool {
+    var isShown: Bool {
         return popover.isShown
     }
     
