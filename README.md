@@ -106,6 +106,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Changing the window layout demo](/Documentation/Demos/WindowLayout.gif?raw=true)
 
+### Searching the playlist
+
+![Searching the playlist demo](/Documentation/Demos/PlaylistSearch.gif?raw=true)
+
 ### Chapters support
 
 ![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
