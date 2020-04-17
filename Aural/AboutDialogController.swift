@@ -1,6 +1,6 @@
 import Cocoa
 
-class AboutDialogController: NSWindowController, NSWindowDelegate {
+class AboutDialogController: NSWindowController, ModalComponentProtocol {
     
     override var windowNibName: String? {return "AboutDialog"}
     
@@ -13,7 +13,11 @@ class AboutDialogController: NSWindowController, NSWindowDelegate {
         }
     }
     
-    func windowWillClose(_ notification: Notification) {
-        WindowState.showingPopover = false
+    override func windowDidLoad() {
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
 }

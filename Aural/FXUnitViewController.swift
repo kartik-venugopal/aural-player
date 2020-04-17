@@ -16,7 +16,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
 
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!

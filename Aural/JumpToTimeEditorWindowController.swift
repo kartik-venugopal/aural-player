@@ -56,6 +56,11 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         percentageFormatter.maxValue = 100
         
         AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
     
     func showDialog() -> ModalDialogResponse {

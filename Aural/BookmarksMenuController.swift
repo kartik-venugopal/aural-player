@@ -16,6 +16,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         
         let queue = OperationQueue()
@@ -31,10 +33,9 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         // Can't add a bookmark if no track is playing or if the popover is currently being shown
         let playingOrPaused = player.state.playingOrPaused()
         
-        bookmarkTrackPositionMenuItem.enableIf(playingOrPaused && !WindowState.showingPopover)
+        bookmarkTrackPositionMenuItem.enableIf(playingOrPaused && !layoutManager.isShowingModalDialog)
         
-        let loop = player.playbackLoop
-        let hasCompleteLoop = loop != nil && loop!.isComplete()
+        let hasCompleteLoop = player.playbackLoop?.isComplete() ?? false
         bookmarkTrackSegmentLoopMenuItem.enableIf(playingOrPaused && hasCompleteLoop)
         
         manageBookmarksMenuItem.enableIf(bookmarks.count > 0)

@@ -41,6 +41,11 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     override func windowDidLoad() {
         SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
 
     func showDialog() -> ModalDialogResponse {

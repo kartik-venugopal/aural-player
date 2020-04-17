@@ -29,7 +29,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         container.addSubview(albumsPlaylistSortView.sortView)
         container.addSubview(genresPlaylistSortView.sortView)
         
+        ObjectGraph.layoutManager.registerModalComponent(self)
+        
         super.windowDidLoad()
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
     
     func showDialog() -> ModalDialogResponse {

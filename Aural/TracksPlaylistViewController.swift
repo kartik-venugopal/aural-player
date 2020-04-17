@@ -23,7 +23,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     override var nibName: String? {return "Tracks"}
     

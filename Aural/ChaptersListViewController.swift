@@ -4,7 +4,7 @@ import Cocoa
     View controller for the Chapters list.
     Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
-class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class ChaptersListViewController: NSViewController, ModalComponentProtocol, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var chaptersListView: NSTableView!
     
@@ -50,6 +50,22 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    // The chapters list window is only considered modal when it is the key window AND the search bar has focus
+    // (i.e. a search is being performed)
+    var isModal: Bool {
+        return (self.view.window?.isKeyWindow ?? false) && isPerformingSearch
+    }
+    
+    private func initSubscriptions() {
+        
+        // Register self as a subscriber to synchronous message notifications
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -70,14 +86,6 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         self.view.window?.makeFirstResponder(chaptersListView)
     }
     
-    private func initSubscriptions() {
-        
-        // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
-        
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
-    }
-    
     // MARK: Playback functions
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
@@ -89,6 +97,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
             if player.playbackLoop == nil {
                 looping = false
             }
+            
+            // Remove focus from the search field (if necessary)
+            self.view.window?.makeFirstResponder(chaptersListView)
         }
     }
     
@@ -99,6 +110,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         if player.playbackLoop == nil {
             looping = false
         }
+        
+        // Remove focus from the search field (if necessary)
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
@@ -108,6 +122,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
         if player.playbackLoop == nil {
             looping = false
         }
+        
+        // Remove focus from the search field (if necessary)
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     @IBAction func replayCurrentChapterAction(_ sender: AnyObject) {
@@ -122,6 +139,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
                 looping = false
             }
         }
+        
+        // Remove focus from the search field (if necessary)
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     @IBAction func toggleCurrentChapterLoopAction(_ sender: AnyObject) {
@@ -134,6 +154,9 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
             _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(looping ? .removeChapterLoop : .addChapterLoop))
             looping = !looping
         }
+        
+        // Remove focus from the search field (if necessary)
+        self.view.window?.makeFirstResponder(chaptersListView)
     }
     
     // MARK: Search functions
@@ -229,6 +252,30 @@ class ChaptersListViewController: NSViewController, MessageSubscriber, ActionMes
     // Compares query text with a chapter title
     private func compare(_ queryText: String, _ chapterTitle: String) -> Bool {
         return btnCaseSensitive.isOn ? chapterTitle.contains(queryText) : chapterTitle.lowercased().contains(queryText.lowercased())
+    }
+    
+    // Returns true if the search field has focus, false if not.
+    private var isPerformingSearch: Bool {
+        
+        // Check if the search field has focus (i.e. it's the first responder of the Chapters list window)
+        
+        if let firstResponderView = self.view.window?.firstResponder as? NSView {
+        
+            // Iterate up the view hierarchy of the first responder view to see if any of its parent views
+            // is the search field
+            
+            var curView: NSView? = firstResponderView
+            while curView != nil {
+                
+                if curView === txtSearch {
+                    return true
+                }
+                
+                curView = curView?.superview
+            }
+        }
+        
+        return false
     }
     
     // MARK: Message handling

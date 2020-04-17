@@ -54,8 +54,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     
-    private lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
-    
     private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     override var windowNibName: String? {return "Playlist"}
@@ -94,15 +92,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func initSubscriptions() {
         
-        // Set up an input handler to handle scrolling and type selection with key events and gestures
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent) -> NSEvent? in
+        // Set up an input handler to handle scrolling and gestures
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe], handler: {(event: NSEvent) -> NSEvent? in
             
-            // Fix for system beep
-            if PlaylistInputEventHandler.handle(event) {
-                return nil
-            } else {
-                return event
-            }
+            PlaylistInputEventHandler.handle(event)
+            return event
         });
         
         // Register self as a subscriber to various AsyncMessage notifications
@@ -439,14 +433,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     private func viewChapters() {
-        
-        if (theWindow.childWindows == nil || theWindow.childWindows!.isEmpty) {
-            
-            theWindow.addChildWindow(chaptersListWindow, ordered: NSWindow.OrderingMode.above)
-            chaptersListWindow.orderFront(self)
-        }
-        
-        chaptersListWindow.setIsVisible(true)
+        layoutManager.showChaptersList()
     }
     
     var subscriberId: String {
@@ -664,6 +651,10 @@ class PlaylistViewState {
         }
         
         return items
+    }
+    
+    static var hasSelectedChapter: Bool {
+        return chaptersListView.selectedRow >= 0
     }
     
     static var selectedChapter: SelectedItem? {

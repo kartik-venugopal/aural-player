@@ -5,13 +5,35 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     private let appState: WindowLayoutState
     private let preferences: ViewPreferences
     
-    // App windows
+    // App's main window
     let mainWindow: NSWindow = WindowFactory.mainWindow
-    let effectsWindow: NSWindow = WindowFactory.effectsWindow
-    let playlistWindow: NSWindow = WindowFactory.playlistWindow
-    let chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
+
+    // Load these optional windows only if/when needed
+    lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
+    lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
+    lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
     private var onTop: Bool = false
+    
+    // TODO: Each modal component, when it is loaded, will register itself with this registry, which will enable tracking of modal dialogs / popovers
+    // i.e. just check isVisisble
+    private var modalComponentRegistry: [ModalComponentProtocol] = []
+    
+    func registerModalComponent(_ component: ModalComponentProtocol) {
+        modalComponentRegistry.append(component)
+    }
+    
+    var isShowingModalDialog: Bool {
+        
+        for component in modalComponentRegistry {
+
+            if component.isModal {
+                return true
+            }
+        }
+        
+        return false
+    }
     
     init(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
         

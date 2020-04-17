@@ -39,7 +39,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
 
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
 
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
 

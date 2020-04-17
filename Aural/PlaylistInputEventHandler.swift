@@ -18,36 +18,16 @@ class PlaylistInputEventHandler {
     }
     
     // Handles a single event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
-    static func handle(_ event: NSEvent) -> Bool {
+    static func handle(_ event: NSEvent) {
         
-        if (NSApp.modalWindow != nil || WindowState.showingPopover) {
-            // Modal dialog open, don't do anything
-            return false
-        }
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any swipe events that weren't performed over the playlist window
+        // (they trigger other functions if performed over the main window)
         
-        // Delegate to an appropriate handler function based on event type
-        switch event.type {
-            
-        case .keyDown: return handleKeyDown(event)
-            
-        case .swipe: handleSwipe(event)
-            
-        default: return false
-            
-        }
+        // TODO: Enable top/bottom gestures for chapters list window too !!!
         
-        return false
-    }
-    
-    // Handles a single swipe event
-    private static func handleSwipe(_ event: NSEvent) {
-        
-        // Ignore any swipe events that weren't performed over the playlist window (they trigger other functions if performed over the main window)
-        if event.window != layoutManager.playlistWindow {
-            return
-        }
-        
-        if let swipeDirection = UIUtils.determineSwipeDirection(event) {
+        if event.type == .swipe, !layoutManager.isShowingModalDialog && event.window === layoutManager.playlistWindow,
+            let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
             swipeDirection.isHorizontal ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)
         }
@@ -69,18 +49,5 @@ class PlaylistInputEventHandler {
             // Publish the action message
             SyncMessenger.publishActionMessage(PlaylistActionMessage(swipeDirection == .left ? .previousPlaylistView : .nextPlaylistView, nil))
         }
-    }
-    
-    // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
-    private static func handleKeyDown(_ event: NSEvent) -> Bool {
-        
-        // One-off special case: Without this, space key press (for play/pause) is not sent to main window
-        // Send space to main window unless chapters list window is key (space is used for type selection and chapter search)
-        if event.charactersIgnoringModifiers == " " && layoutManager.chaptersListWindow != NSApp.keyWindow {
-            layoutManager.mainWindow.keyDown(with: event)
-            return true
-        }
-        
-        return false
     }
 }

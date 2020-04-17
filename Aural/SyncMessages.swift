@@ -556,7 +556,7 @@ struct MouseTrackingNotification: NotificationMessage {
     
     let messageType: MessageType
     
-    init(_ messageType: MessageType) {
+    private init(_ messageType: MessageType) {
         self.messageType = messageType
     }
     

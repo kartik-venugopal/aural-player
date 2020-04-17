@@ -50,7 +50,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
@@ -58,25 +58,27 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     func menuNeedsUpdate(_ menu: NSMenu) {
+
+        let showingDialogOrPopover = layoutManager.isShowingModalDialog
         
-        let chaptersListWindowIskey = layoutManager.isShowingChaptersList && NSApp.keyWindow == layoutManager.chaptersListWindow
-        
-        theMenu.enableIf(layoutManager.isShowingPlaylist || chaptersListWindowIskey)
-        
-        if chaptersListWindowIskey {
+        if layoutManager.isShowingChaptersList, NSApp.keyWindow == layoutManager.chaptersListWindow {
             
-            for item in menu.items {
-                item.disable()
-            }
+            // If the chapters list window is key, most playlist menu items need to be disabled
+            menu.items.forEach({$0.disable()})
             
-            if PlaylistViewState.selectedChapter != nil {
-                playSelectedItemMenuItem.enable()
-            }
+            // Allow playing of selected item (chapter) if the chapters list is not modal (i.e. performing a search) and an item is selected
+            let hasPlayableChapter: Bool = !showingDialogOrPopover && PlaylistViewState.hasSelectedChapter
             
+            playSelectedItemMenuItem.enableIf(hasPlayableChapter)
+            theMenu.enableIf(hasPlayableChapter)
+            
+            // Since all items but one have been disabled, nothing further to do
             return
         }
         
-        if (!theMenu.isEnabled) {
+        theMenu.enableIf(layoutManager.isShowingPlaylist)
+        
+        if theMenu.isDisabled {
             return
         }
         
@@ -86,7 +88,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         let numSelectedRows = PlaylistViewState.currentView.numberOfSelectedRows
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
-        let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
+        
         [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
         
         [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover)})
@@ -115,7 +117,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        if (!theMenu.isEnabled) {
+        if theMenu.isDisabled {
             return
         }
         

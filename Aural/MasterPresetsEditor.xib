@@ -1366,9 +1366,7 @@
                 </textField>
             </subviews>
             <connections>
-                <outlet property="bandsTable" destination="8Va-j5-dTq" id="51G-SI-JAU"/>
                 <outlet property="chart" destination="LiR-Xe-bfV" id="Zch-In-3It"/>
-                <outlet property="tableViewDelegate" destination="qdg-81-gZG" id="T46-MZ-RER"/>
             </connections>
             <point key="canvasLocation" x="886" y="523"/>
         </view>

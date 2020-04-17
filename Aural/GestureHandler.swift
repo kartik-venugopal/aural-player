@@ -15,37 +15,52 @@ class GestureHandler {
     // Retrieves current playing track info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    
     private let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.preferences.controlsPreferences
     
     // Handles a single event
-    func handle(_ event: NSEvent) {
-        
-        // If a modal dialog is open, don't do anything
-        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
-        if (NSApp.modalWindow != nil || event.window != self.window) {
-            return
-        }
+    func handle(_ event: NSEvent) -> Bool {
         
         // Delegate to an appropriate handler function based on event type
         switch event.type {
             
-        case .swipe: handleSwipe(event)
+        case .keyDown:      return handleKeyDown(event)
             
-        case .scrollWheel: handleScroll(event)
+        case .swipe:        handleSwipe(event)
+                            return false
             
-        default: return
+        case .scrollWheel:  handleScroll(event)
+                            return false
+            
+        default: return false
             
         }
+    }
+    
+    // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
+    private func handleKeyDown(_ event: NSEvent) -> Bool {
+        
+        // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
+        // Send the space key event to the main window unless a modal component is currently displayed
+        if event.charactersIgnoringModifiers == " " && !layoutManager.isShowingModalDialog {
+            
+            self.window?.keyDown(with: event)
+            return true
+        }
+        
+        return false
     }
     
     // Handles a single swipe event
     private func handleSwipe(_ event: NSEvent) {
         
-        if let swipeDirection = UIUtils.determineSwipeDirection(event) {
-            
-            if swipeDirection.isHorizontal {
-                handleTrackChange(swipeDirection)
-            }
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+        
+        if event.window === self.window && !layoutManager.isShowingModalDialog, let swipeDirection = UIUtils.determineSwipeDirection(event), swipeDirection.isHorizontal {
+
+            handleTrackChange(swipeDirection)
         }
     }
     
@@ -61,8 +76,11 @@ class GestureHandler {
     // Handles a single scroll event
     private func handleScroll(_ event: NSEvent) {
         
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+        
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
-        if let scrollVector = UIUtils.determineScrollVector(event) {
+        if event.window === self.window && !layoutManager.isShowingModalDialog, let scrollVector = UIUtils.determineScrollVector(event) {
             
             // Vertical scroll = volume control, horizontal scroll = seeking
             scrollVector.direction.isVertical ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)
