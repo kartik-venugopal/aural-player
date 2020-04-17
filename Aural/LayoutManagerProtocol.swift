@@ -8,7 +8,7 @@ protocol LayoutManagerProtocol {
     
     var isShowingChaptersList: Bool {get}
     
-    var isShowingModalDialog: Bool {get}
+    var isShowingModalComponent: Bool {get}
     
     var mainWindow: NSWindow {get}
     

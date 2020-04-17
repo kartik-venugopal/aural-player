@@ -59,7 +59,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 
-        let showingDialogOrPopover = layoutManager.isShowingModalDialog
+        let showingModalComponent = layoutManager.isShowingModalComponent
         
         if layoutManager.isShowingChaptersList, NSApp.keyWindow == layoutManager.chaptersListWindow {
             
@@ -67,7 +67,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             menu.items.forEach({$0.disable()})
             
             // Allow playing of selected item (chapter) if the chapters list is not modal (i.e. performing a search) and an item is selected
-            let hasPlayableChapter: Bool = !showingDialogOrPopover && PlaylistViewState.hasSelectedChapter
+            let hasPlayableChapter: Bool = !showingModalComponent && PlaylistViewState.hasSelectedChapter
             
             playSelectedItemMenuItem.enableIf(hasPlayableChapter)
             theMenu.enableIf(hasPlayableChapter)
@@ -82,6 +82,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
+        // TODO: Revisit the below item enabling code (esp. the ones relying on no modal window). How to display modal windows so as to avoid
+        // this dirty logic ???
+        
         let playlistSize = playlist.size
         let playlistNotEmpty = playlistSize > 0
         let atLeastOneItemSelected = PlaylistViewState.currentView.selectedRow >= 0
@@ -89,11 +92,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         
-        [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
+        [moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingModalComponent && atLeastOneItemSelected)})
         
-        [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover)})
+        [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingModalComponent)})
         
-        playSelectedItemMenuItem.enableIf(!showingDialogOrPopover && numSelectedRows == 1)
+        playSelectedItemMenuItem.enableIf(!showingModalComponent && numSelectedRows == 1)
         playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected

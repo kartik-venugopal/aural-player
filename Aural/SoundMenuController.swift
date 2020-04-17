@@ -92,7 +92,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !layoutManager.isShowingModalDialog)})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !layoutManager.isShowingModalComponent)})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }

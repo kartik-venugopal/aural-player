@@ -15,15 +15,14 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     
     private var onTop: Bool = false
     
-    // TODO: Each modal component, when it is loaded, will register itself with this registry, which will enable tracking of modal dialogs / popovers
-    // i.e. just check isVisisble
+    // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
     
     func registerModalComponent(_ component: ModalComponentProtocol) {
         modalComponentRegistry.append(component)
     }
     
-    var isShowingModalDialog: Bool {
+    var isShowingModalComponent: Bool {
         
         for component in modalComponentRegistry {
 
