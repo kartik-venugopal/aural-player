@@ -1527,7 +1527,7 @@
 			children = (
 				3EE429AA1FCFCEB600E81C15 /* Modes */,
 				3EDDF6B11FB54B1600DF2E9A /* Menus */,
-				3E94E85E2154CA0C00C57AD8 /* WindowLayout */,
+				3E94E85E2154CA0C00C57AD8 /* WindowManagement */,
 				3EDDF6AA1FB4FF3700DF2E9A /* MainWindow */,
 				3E0ED6A41FBB05DF008268B3 /* Player */,
 				3E0ED6AA1FBB1915008268B3 /* Effects */,
@@ -1740,15 +1740,15 @@
 			path = Aural;
 			sourceTree = "<group>";
 		};
-		3E94E85E2154CA0C00C57AD8 /* WindowLayout */ = {
+		3E94E85E2154CA0C00C57AD8 /* WindowManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */,
-				3E94E8612154D69000C57AD8 /* WindowManager.swift */,
 				3EF08DCA2156D65D000C7F11 /* WindowManagerProtocol.swift */,
+				3E94E8612154D69000C57AD8 /* WindowManager.swift */,
+				3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */,
 				3E69CC3D2449752100117EFA /* ModalComponentProtocols.swift */,
 			);
-			name = WindowLayout;
+			name = WindowManagement;
 			sourceTree = "<group>";
 		};
 		3E98477F1F5CF0E6001A2D28 /* Playlist */ = {

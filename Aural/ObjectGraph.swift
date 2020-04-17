@@ -122,9 +122,8 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
         
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
-        
         windowManager = WindowManager(appState.ui.windowLayout, preferences.viewPreferences)
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         muxer = Muxer()
         

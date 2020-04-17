@@ -1,6 +1,6 @@
 import Cocoa
 
-protocol WindowManagerProtocol {
+protocol WindowManagerProtocol: NSWindowDelegate {
     
     var isShowingEffects: Bool {get}
     

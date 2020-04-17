@@ -1,19 +1,19 @@
 import Cocoa
 
-class WindowManager: WindowManagerProtocol, ActionMessageSubscriber {
+class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     
     private let appState: WindowLayoutState
     private let preferences: ViewPreferences
     
     // App's main window
-    let mainWindow: NSWindow = WindowFactory.mainWindow
+    lazy var mainWindow: NSWindow = WindowFactory.mainWindow
 
     // Load these optional windows only if/when needed
     lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
     lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
-    private var onTop: Bool = false
+//    private var onTop: Bool = false
     
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
@@ -40,6 +40,7 @@ class WindowManager: WindowManagerProtocol, ActionMessageSubscriber {
         self.appState = appState
         self.preferences = preferences
         
+        super.init()
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .toggleChaptersList], subscriber: self)
     }
     
@@ -146,8 +147,8 @@ class WindowManager: WindowManagerProtocol, ActionMessageSubscriber {
     
     func toggleAlwaysOnTop() {
         
-        onTop = !onTop
-        mainWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(onTop ? .floatingWindow : .normalWindow)))
+//        onTop = !onTop
+//        mainWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(onTop ? .floatingWindow : .normalWindow)))
     }
     
     // Shows/hides the effects window
@@ -266,5 +267,50 @@ class WindowManager: WindowManagerProtocol, ActionMessageSubscriber {
         uiState.userLayouts = WindowLayouts.userDefinedLayouts
         
         return uiState
+    }
+    
+    // MARK: NSWindowDelegate functions
+    
+    func windowDidMove(_ notification: Notification) {
+        
+        // Only respond if movement was user-initiated (flag on window)
+        if let movedWindow = notification.object as? SnappingWindow, movedWindow.userMovingWindow {
+            
+            var snapped = false
+            
+            if preferences.snapToWindows {
+                
+                // First check if window can be snapped to another app window
+                for mate in getCandidateWindowsForSnap(movedWindow) {
+                    
+                    if mate.isVisible && UIUtils.checkForSnapToWindow(movedWindow, mate) {
+                        
+                        snapped = true
+                        break
+                    }
+                }
+            }
+
+            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
+            if preferences.snapToScreen && !snapped {
+                UIUtils.checkForSnapToVisibleFrame(movedWindow)
+            }
+        }
+    }
+    
+    private func getCandidateWindowsForSnap(_ movedWindow: SnappingWindow) -> [NSWindow] {
+        
+        if movedWindow === playlistWindow {
+            return [mainWindow, effectsWindow]
+            
+        } else if movedWindow === effectsWindow {
+            return [mainWindow, playlistWindow]
+            
+        } else if movedWindow === chaptersListWindow {
+            return [playlistWindow, mainWindow, effectsWindow]
+        }
+        
+        // Main window
+        return []
     }
 }

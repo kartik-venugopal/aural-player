@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
+class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
     
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.tracksView
@@ -25,6 +25,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
@@ -50,17 +52,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         return self.window! as! SnappingWindow
     }
     
-    private lazy var mainWindow: NSWindow = WindowFactory.mainWindow
-    
-    private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
-    
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
         
         theWindow.isMovableByWindowBackground = true
+        theWindow.delegate = ObjectGraph.windowManager
         
         PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
         TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
@@ -536,33 +533,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         default: return
             
-        }
-    }
-    
-    // MARK - Window delegate functions
-    
-    func windowDidMove(_ notification: Notification) {
-        
-        // Check if movement was user-initiated (flag on window)
-        if !theWindow.userMovingWindow {
-            return
-        }
-        
-        var snapped = false
-        
-        if viewPreferences.snapToWindows {
-            
-            // First check if window can be snapped to another app window
-            snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
-            
-            if (!snapped) && windowManager.isShowingEffects {
-                snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
-            }
-        }
-        
-        // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-        if viewPreferences.snapToScreen && !snapped {
-            UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }
 }
