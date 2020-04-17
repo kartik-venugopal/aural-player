@@ -20,16 +20,12 @@ class UIUtils {
     
     // Dismisses the given dialog
     static func dismissDialog(_ dialog: NSWindow) {
-
         dialog.close()
-        WindowState.showingPopover = false
     }
     
     // Centers a dialog with respect to the main app window, and shows it
     static func showDialog(_ dialog: NSWindow) {
         
-        WindowState.showingPopover = true
-
         centerDialogWRTScreen(dialog)
         dialog.makeKeyAndOrderFront(dialog)
     }

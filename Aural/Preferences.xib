@@ -212,9 +212,6 @@ Gw
                     <color key="value" white="0.1562228732638889" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="delegate" destination="-2" id="XFG-Q7-hzn"/>
-            </connections>
             <point key="canvasLocation" x="-955" y="662.5"/>
         </window>
     </objects>

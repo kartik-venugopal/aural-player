@@ -1,6 +1,6 @@
 import Cocoa
 
-class AlertWindowController: NSWindowController {
+class AlertWindowController: NSWindowController, ModalComponentProtocol {
     
     static var instance: AlertWindowController = AlertWindowController()
     
@@ -13,6 +13,14 @@ class AlertWindowController: NSWindowController {
     @IBOutlet weak var lblInfo: NSTextField!
     
     @IBOutlet weak var btnOK: NSButton!
+    
+    override func windowDidLoad() {
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
+    }
     
     func showAlert(_ alertType: AlertType, _ title: String, _ message: String, _ info: String) {
         

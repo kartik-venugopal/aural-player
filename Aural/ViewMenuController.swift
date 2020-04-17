@@ -29,7 +29,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
@@ -141,8 +141,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
 //        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
 //    }
     
+    // TODO: Revisit this
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
-        layoutManager.toggleAlwaysOnTop()
+//        layoutManager.toggleAlwaysOnTop()
     }
     
     @IBAction func windowLayoutAction(_ sender: NSMenuItem) {

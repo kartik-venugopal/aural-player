@@ -29,6 +29,14 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     override var windowNibName: String? {return "GapsEditorDialog"}
     
+    override func windowDidLoad() {
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
+    }
+    
     func showDialog() -> ModalDialogResponse {
         
         // Force loading of the window if it hasn't been loaded yet (only once)

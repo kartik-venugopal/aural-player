@@ -1,6 +1,6 @@
 import Cocoa
 
-class EditorWindowController: NSWindowController {
+class EditorWindowController: NSWindowController, ModalComponentProtocol {
     
     private lazy var bookmarksEditorView: NSView = ViewFactory.bookmarksEditorView
     
@@ -24,6 +24,12 @@ class EditorWindowController: NSWindowController {
         theWindow.contentView?.addSubview(effectsPresetsEditorView)
         
         theWindow.isMovableByWindowBackground = true
+        
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
     
     func showBookmarksEditor() {

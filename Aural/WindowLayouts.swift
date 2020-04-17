@@ -145,6 +145,7 @@ enum WindowLayoutPresets: String {
         return WindowLayoutPresets(rawValue: StringUtils.camelCase(displayName)) ?? .verticalFullStack
     }
     
+    // TODO: Write a generic split camel case function to convert rawValue to description
     var description: String {
         
         switch self {

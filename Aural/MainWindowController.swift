@@ -22,7 +22,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     private var eventMonitor: Any?
     
@@ -85,10 +85,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     
     private func activateGestureHandler() {
         
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
-            
-            self.gestureHandler.handle(event)
-            return event;
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe, .scrollWheel], handler: {(event: NSEvent) -> NSEvent? in
+            return self.gestureHandler.handle(event) ? nil : event;
         });
     }
     

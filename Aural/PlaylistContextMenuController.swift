@@ -69,7 +69,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
-    private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
+    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
     
     // One-time setup
     override func awakeFromNib() {

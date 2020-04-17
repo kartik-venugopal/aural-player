@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the preferences dialog
  */
-class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDialogDelegate {
+class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -36,7 +36,13 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         
         tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView])
         
+        ObjectGraph.layoutManager.registerModalComponent(self)
+        
         super.windowDidLoad()
+    }
+    
+    var isModal: Bool {
+        return self.window?.isVisible ?? false
     }
     
     func showDialog() -> ModalDialogResponse {

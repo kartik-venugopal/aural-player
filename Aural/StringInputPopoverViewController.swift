@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
+class StringInputPopoverViewController: NSViewController, ModalComponentProtocol {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -38,11 +38,19 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
         let popover = NSPopover()
         popover.behavior = .semitransient
         popover.contentViewController = controller
-        popover.delegate = controller
         
         controller.popover = popover
+        controller.registerAsModalComponent()
         
         return controller
+    }
+    
+    private func registerAsModalComponent() {
+        ObjectGraph.layoutManager.registerModalComponent(self)
+    }
+    
+    var isModal: Bool {
+        return isShown
     }
     
     // Shows the popover
@@ -107,16 +115,6 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     
     @IBAction func cancelBtnAction(_ sender: Any) {
         self.close()
-    }
-    
-    // MARK: Popover Delegate functions
-    
-    func popoverDidShow(_ notification: Notification) {
-        WindowState.showingPopover = true
-    }
-    
-    func popoverDidClose(_ notification: Notification) {
-        WindowState.showingPopover = false
     }
     
     var isShown: Bool {

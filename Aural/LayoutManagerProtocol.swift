@@ -8,6 +8,8 @@ protocol LayoutManagerProtocol {
     
     var isShowingChaptersList: Bool {get}
     
+    var isShowingModalDialog: Bool {get}
+    
     var mainWindow: NSWindow {get}
     
     var playlistWindow: NSWindow {get}
@@ -15,6 +17,10 @@ protocol LayoutManagerProtocol {
     var effectsWindow: NSWindow {get}
     
     var chaptersListWindow: NSWindow {get}
+    
+    func registerModalComponent(_ component: ModalComponentProtocol)
+    
+    func initialLayout()
     
     func layout(_ layout: WindowLayout)
     
