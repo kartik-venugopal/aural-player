@@ -33,7 +33,7 @@ class AppModeManager: ActionMessageSubscriber {
         }
         
         // TODO: This will cause initSubscriptions to be called twice !
-        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
+//        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
     static func switchToMode(_ newMode: AppMode) {
