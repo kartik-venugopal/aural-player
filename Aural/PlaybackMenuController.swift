@@ -52,7 +52,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
-    private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog
     
@@ -77,11 +77,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only in regular mode if playing/paused
-        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && layoutManager.isShowingPlaylist && isRegularMode)
+        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && windowManager.isShowingPlaylist && isRegularMode)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused && isRegularMode)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
-        let showingModalComponent = layoutManager.isShowingModalComponent
+        let showingModalComponent = windowManager.isShowingModalComponent
         
         [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingModalComponent)})
         

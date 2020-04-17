@@ -1,6 +1,6 @@
 import Cocoa
 
-class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
+class WindowManager: WindowManagerProtocol, ActionMessageSubscriber {
     
     private let appState: WindowLayoutState
     private let preferences: ViewPreferences

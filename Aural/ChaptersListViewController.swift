@@ -51,7 +51,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
         
-        ObjectGraph.layoutManager.registerModalComponent(self)
+        ObjectGraph.windowManager.registerModalComponent(self)
     }
     
     // The chapters list window is only considered modal when it is the key window AND the search bar has focus

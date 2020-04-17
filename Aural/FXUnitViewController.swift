@@ -16,7 +16,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
 
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!
@@ -98,7 +98,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        layoutManager.mainWindow.orderFront(self)
+        windowManager.mainWindow.orderFront(self)
     }
     
     func changeTextSize() {

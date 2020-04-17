@@ -25,7 +25,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         
         theWindow.isMovableByWindowBackground = true
         
-        ObjectGraph.layoutManager.registerModalComponent(self)
+        ObjectGraph.windowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

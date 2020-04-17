@@ -19,7 +19,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     override var windowNibName: String? {return "DelayedPlaybackEditorDialog"}
     
     override func windowDidLoad() {
-        ObjectGraph.layoutManager.registerModalComponent(self)
+        ObjectGraph.windowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

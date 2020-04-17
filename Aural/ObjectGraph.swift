@@ -39,7 +39,7 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks!
     static var bookmarksDelegate: BookmarksDelegateProtocol!
     
-    static var layoutManager: LayoutManagerProtocol!
+    static var windowManager: WindowManagerProtocol!
     
     static var transcoder: TranscoderProtocol!
     static var muxer: MuxerProtocol!
@@ -124,7 +124,7 @@ class ObjectGraph {
         
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
-        layoutManager = LayoutManager(appState.ui.windowLayout, preferences.viewPreferences)
+        windowManager = WindowManager(appState.ui.windowLayout, preferences.viewPreferences)
         
         muxer = Muxer()
         
@@ -155,7 +155,7 @@ class ObjectGraph {
         appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
         
         appState.ui = UIState()
-        appState.ui.windowLayout = (layoutManager as! LayoutManager).persistentState
+        appState.ui.windowLayout = (windowManager as! WindowManager).persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
         appState.ui.effects = EffectsViewState.persistentState

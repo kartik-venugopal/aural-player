@@ -1,6 +1,6 @@
 import Cocoa
 
-protocol LayoutManagerProtocol {
+protocol WindowManagerProtocol {
     
     var isShowingEffects: Bool {get}
     

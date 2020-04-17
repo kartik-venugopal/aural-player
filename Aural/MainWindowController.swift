@@ -22,7 +22,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private var eventMonitor: Any?
     
@@ -134,7 +134,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     }
     
     @IBAction func btnLayoutAction(_ sender: NSPopUpButton) {
-        layoutManager.layout(sender.titleOfSelectedItem!)
+        windowManager.layout(sender.titleOfSelectedItem!)
     }
     
     private func layoutChanged(_ message: LayoutChangedNotification) {

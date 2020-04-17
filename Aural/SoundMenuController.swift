@@ -56,7 +56,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let presetsEditor: EditorWindowController = WindowFactory.editorWindowController
     
-    private let layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     // One-time setup.
     override func awakeFromNib() {
@@ -92,7 +92,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !layoutManager.isShowingModalComponent)})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !windowManager.isShowingModalComponent)})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }

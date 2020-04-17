@@ -50,7 +50,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
@@ -59,9 +59,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 
-        let showingModalComponent = layoutManager.isShowingModalComponent
+        let showingModalComponent = windowManager.isShowingModalComponent
         
-        if layoutManager.isShowingChaptersList, NSApp.keyWindow == layoutManager.chaptersListWindow {
+        if windowManager.isShowingChaptersList, NSApp.keyWindow == windowManager.chaptersListWindow {
             
             // If the chapters list window is key, most playlist menu items need to be disabled
             menu.items.forEach({$0.disable()})
@@ -76,7 +76,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        theMenu.enableIf(layoutManager.isShowingPlaylist)
+        theMenu.enableIf(windowManager.isShowingPlaylist)
         
         if theMenu.isDisabled {
             return
@@ -343,7 +343,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         
-        if (layoutManager.chaptersListWindow == NSApp.keyWindow) {
+        if (windowManager.chaptersListWindow == NSApp.keyWindow) {
             
             SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedChapter, nil))
             

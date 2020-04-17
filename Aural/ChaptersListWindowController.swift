@@ -12,7 +12,7 @@ class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
     private lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
     private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
@@ -40,11 +40,11 @@ class ChaptersListWindowController: NSWindowController, NSWindowDelegate {
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
-            if (!snapped) && layoutManager.isShowingPlaylist {
+            if (!snapped) && windowManager.isShowingPlaylist {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
             }
             
-            if (!snapped) && layoutManager.isShowingEffects {
+            if (!snapped) && windowManager.isShowingEffects {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
             }
         }
