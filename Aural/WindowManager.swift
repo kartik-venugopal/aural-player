@@ -5,6 +5,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     private let appState: WindowLayoutState
     private let preferences: ViewPreferences
     
+    // TODO: Circular dependency with WindowsController
     // App's main window
     lazy var mainWindow: NSWindow = WindowFactory.mainWindow
 
