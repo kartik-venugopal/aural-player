@@ -23,17 +23,17 @@
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="109" y="132" width="480" height="277"/>
+            <rect key="contentRect" x="109" y="132" width="530" height="277"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-            <value key="minSize" type="size" width="480" height="180"/>
+            <value key="minSize" type="size" width="530" height="180"/>
             <view key="contentView" id="eVi-5y-Ide">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-G6-skT" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                         <view key="contentView" id="ew4-md-MxP">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                            <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Hide the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdc-Y5-FXG" userLabel="Close Button">
@@ -48,7 +48,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mzj-Ix-G6c" userLabel="Playlist View Menu">
-                                    <rect key="frame" x="446" y="247" width="27" height="19"/>
+                                    <rect key="frame" x="496" y="247" width="27" height="19"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9uL-zG-dgf">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="11" name="GillSans"/>
@@ -99,7 +99,7 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
                     <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
-                        <rect key="frame" x="98" y="241" width="285" height="30"/>
+                        <rect key="frame" x="123" y="241" width="285" height="30"/>
                         <view key="contentView" id="bsS-nD-sNb">
                             <rect key="frame" x="0.0" y="0.0" width="285" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,13 +166,13 @@
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Playlist Controls">
-                        <rect key="frame" x="15" y="2" width="450" height="25"/>
+                        <rect key="frame" x="15" y="2" width="500" height="25"/>
                         <view key="contentView" id="wWy-mP-FPA">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add">
-                                    <rect key="frame" x="128" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="153" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Gsk-oE-I67"/>
                                     </constraints>
@@ -185,7 +185,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove">
-                                    <rect key="frame" x="145" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="170" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="D7m-Dm-CG2"/>
                                     </constraints>
@@ -198,7 +198,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="Save">
-                                    <rect key="frame" x="179" y="7" width="10" height="10"/>
+                                    <rect key="frame" x="204" y="7" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Cf2-uf-ZBs"/>
                                     </constraints>
@@ -211,7 +211,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear">
-                                    <rect key="frame" x="196" y="7" width="11" height="11"/>
+                                    <rect key="frame" x="221" y="7" width="11" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="11" id="Geq-bs-kJ7"/>
                                     </constraints>
@@ -224,7 +224,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up">
-                                    <rect key="frame" x="239" y="7" width="12" height="11"/>
+                                    <rect key="frame" x="264" y="7" width="12" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="Q5B-Xt-Wnq"/>
                                     </constraints>
@@ -237,7 +237,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down">
-                                    <rect key="frame" x="254" y="5" width="12" height="12"/>
+                                    <rect key="frame" x="279" y="5" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="VP8-VV-4Ga"/>
                                     </constraints>
@@ -250,7 +250,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search">
-                                    <rect key="frame" x="281" y="6" width="10" height="10"/>
+                                    <rect key="frame" x="306" y="6" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="ixN-fc-tcV"/>
                                     </constraints>
@@ -263,7 +263,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort">
-                                    <rect key="frame" x="298" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="323" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="g1n-xy-5Gh"/>
                                         <constraint firstAttribute="height" constant="14" id="nfG-kV-Zuk"/>
@@ -308,18 +308,18 @@
                         </constraints>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="28" width="450" height="205"/>
+                        <rect key="frame" x="15" y="28" width="500" height="205"/>
                         <view key="contentView" id="11G-bl-tTJ">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="205"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="29" width="450" height="176"/>
+                                    <rect key="frame" x="0.0" y="29" width="500" height="176"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="450" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="176"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -356,7 +356,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="TgI-fO-gfa" userLabel="Spinner">
-                                    <rect key="frame" x="217" y="6" width="16" height="16"/>
+                                    <rect key="frame" x="242" y="6" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="I7h-EG-DwM"/>
                                         <constraint firstAttribute="width" constant="16" id="l6y-B3-mdy"/>
@@ -384,7 +384,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="332" y="2" width="111" height="23"/>
+                                    <rect key="frame" x="382" y="2" width="111" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="111" id="Dph-rN-D1k"/>
                                         <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
@@ -413,7 +413,7 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button">
-                        <rect key="frame" x="466" y="217" width="10" height="10"/>
+                        <rect key="frame" x="516" y="217" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Jj8-lk-s9J"/>
                             <constraint firstAttribute="height" constant="10" id="NCo-1V-xXg"/>
@@ -427,7 +427,7 @@
                         </connections>
                     </button>
                     <button toolTip="Page up" translatesAutoresizingMaskIntoConstraints="NO" id="aRU-Xs-Jom" userLabel="Page Up Button">
-                        <rect key="frame" x="466" y="207" width="10" height="8"/>
+                        <rect key="frame" x="516" y="207" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="LMQ-1a-1qb"/>
                             <constraint firstAttribute="width" constant="10" id="due-Mu-skc"/>
@@ -441,7 +441,7 @@
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="B7I-KW-j8r" userLabel="Scroll To Bottom Button">
-                        <rect key="frame" x="466" y="65" width="10" height="10"/>
+                        <rect key="frame" x="516" y="65" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="D5c-aB-FSg"/>
                             <constraint firstAttribute="width" constant="10" id="c7G-uw-aSp"/>
@@ -455,7 +455,7 @@
                         </connections>
                     </button>
                     <button toolTip="Page down" translatesAutoresizingMaskIntoConstraints="NO" id="MyO-C3-Vvb" userLabel="Page Down Button">
-                        <rect key="frame" x="466" y="77" width="10" height="10"/>
+                        <rect key="frame" x="516" y="77" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Tf8-ZS-vnw"/>
                             <constraint firstAttribute="height" constant="10" id="wDg-8c-7OW"/>

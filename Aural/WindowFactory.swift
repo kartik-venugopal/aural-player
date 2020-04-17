@@ -5,7 +5,7 @@ import Cocoa
  */
 class WindowFactory {
     
-    static var mainWindowController: MainWindowController = MainWindowController()
+    private static var mainWindowController: MainWindowController = MainWindowController()
     
     private static var effectsWindowController: EffectsWindowController = EffectsWindowController()
     

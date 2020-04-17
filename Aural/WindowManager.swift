@@ -23,15 +23,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     }
     
     var isShowingModalComponent: Bool {
-        
-        for component in modalComponentRegistry {
-
-            if component.isModal {
-                return true
-            }
-        }
-        
-        return false
+        return modalComponentRegistry.contains(where: {$0.isModal})
     }
     
     init(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
@@ -298,6 +290,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
         }
     }
     
+    // Sorted by order of relevance
     private func getCandidateWindowsForSnap(_ movedWindow: SnappingWindow) -> [NSWindow] {
         
         if movedWindow === playlistWindow {

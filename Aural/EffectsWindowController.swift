@@ -48,6 +48,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     override var windowNibName: String? {return "Effects"}
 
     override func windowDidLoad() {
+        
+        print("\nEffects window loaded !!!")
 
         // Initialize all sub-views
         addSubViews()

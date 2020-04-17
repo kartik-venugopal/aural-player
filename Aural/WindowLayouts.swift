@@ -4,24 +4,24 @@ fileprivate var screenVisibleFrame: NSRect {
     return NSScreen.main!.visibleFrame
 }
 
-fileprivate let mainWindow: NSWindow = WindowFactory.mainWindow
-fileprivate let effectsWindow: NSWindow = WindowFactory.effectsWindow
-fileprivate let playlistWindow: NSWindow = WindowFactory.playlistWindow
-
 class WindowLayouts {
     
     private static var layouts: [String: WindowLayout] = {
         
         var map = [String: WindowLayout]()
         
-        WindowLayoutPresets.allValues.forEach({
+        WindowLayoutPresets.allCases.forEach({
             
             let presetName = $0.description
+            
+            // TODO: each variable is computed multiple times ... make this more efficient
             map[presetName] = WindowLayout(presetName, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame, true)
         })
         
         return map
     }()
+    
+    private static var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     static var userDefinedLayouts: [WindowLayout] {
         return layouts.values.filter({$0.systemDefined == false})
@@ -78,12 +78,12 @@ class WindowLayouts {
     // Assume preset with this name doesn't already exist
     static func addUserDefinedLayout(_ name: String) {
         
-        let showEffects = effectsWindow.isVisible
-        let showPlaylist = playlistWindow.isVisible
+        let showEffects = windowManager.isShowingEffects
+        let showPlaylist = windowManager.isShowingPlaylist
         
-        let mainWindowOrigin = mainWindow.origin
-        let effectsWindowOrigin = showEffects ? effectsWindow.origin : nil
-        let playlistWindowFrame = showPlaylist ? playlistWindow.frame: nil
+        let mainWindowOrigin = windowManager.mainWindowFrame.origin
+        let effectsWindowOrigin = showEffects ? windowManager.effectsWindowFrame.origin : nil
+        let playlistWindowFrame = showPlaylist ? windowManager.playlistWindowFrame : nil
         
         layouts[name] = WindowLayout(name, showEffects, showPlaylist, mainWindowOrigin, effectsWindowOrigin, playlistWindowFrame, false)
     }
@@ -127,7 +127,7 @@ class WindowLayout {
     }
 }
 
-enum WindowLayoutPresets: String {
+enum WindowLayoutPresets: String, CaseIterable {
     
     case verticalFullStack
     case horizontalFullStack
@@ -137,8 +137,6 @@ enum WindowLayoutPresets: String {
     case bigRightPlaylist
     case verticalPlayerAndPlaylist
     case horizontalPlayerAndPlaylist
-    
-    static var allValues: [WindowLayoutPresets] = [.verticalFullStack, .horizontalFullStack, .compactCornered, .bigBottomPlaylist, .bigLeftPlaylist, .bigRightPlaylist, .verticalPlayerAndPlaylist, .horizontalPlayerAndPlaylist]
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
@@ -174,7 +172,9 @@ enum WindowLayoutPresets: String {
             
             return false
             
-        default:    return true
+        default:
+            
+            return true
             
         }
     }
@@ -185,6 +185,16 @@ enum WindowLayoutPresets: String {
     }
     
     var mainWindowOrigin: NSPoint {
+        
+//        if self == .verticalFullStack {
+//            print("MainWindowOrigin")
+//        }
+        
+        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
+        
+        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
+        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
@@ -201,61 +211,61 @@ enum WindowLayoutPresets: String {
         case .compactCornered:
             
             x = visibleFrame.minX
-            y = visibleFrame.maxY - mainWindow.height
+            y = visibleFrame.maxY - mainWindowHeight
             
         case .verticalFullStack:
             
-            let xPadding = visibleFrame.width - mainWindow.width
+            let xPadding = visibleFrame.width - mainWindowWidth
             x = visibleFrame.minX + (xPadding / 2)
-            y = visibleFrame.maxY - mainWindow.height
+            y = visibleFrame.maxY - mainWindowHeight
             
         case .horizontalFullStack:
             
-            let xPadding = visibleFrame.width - (mainWindow.width + effectsWindow.width + playlistWidth + twoGaps)
+            let xPadding = visibleFrame.width - (mainWindowWidth + effectsWindowWidth + playlistWidth + twoGaps)
             
             // Sometimes, xPadding is negative, never go to the left of minX
             x = max(visibleFrame.minX + (xPadding / 2), visibleFrame.minX)
             
-            let yPadding = visibleFrame.height - mainWindow.height
+            let yPadding = visibleFrame.height - mainWindowHeight
             y = visibleFrame.minY + (yPadding / 2)
             
         case .bigBottomPlaylist:
             
-            let xPadding = visibleFrame.width - (mainWindow.width + gap + effectsWindow.width)
+            let xPadding = visibleFrame.width - (mainWindowWidth + gap + effectsWindowWidth)
             x = visibleFrame.minX + (xPadding / 2)
             
             let pHeight = playlistHeight
-            let yPadding = visibleFrame.height - (mainWindow.height + gap + pHeight)
+            let yPadding = visibleFrame.height - (mainWindowHeight + gap + pHeight)
             y = visibleFrame.minY + (yPadding / 2) + pHeight + gap
             
         case .bigLeftPlaylist:
             
             let pWidth = playlistWidth
-            let xPadding = visibleFrame.width - (mainWindow.width + gap + pWidth)
+            let xPadding = visibleFrame.width - (mainWindowWidth + gap + pWidth)
             x = visibleFrame.minX + (xPadding / 2) + pWidth + gap
             
-            let yPadding = visibleFrame.height - (mainWindow.height + gap + effectsWindow.height)
-            y = visibleFrame.minY + (yPadding / 2) + effectsWindow.height + gap
+            let yPadding = visibleFrame.height - (mainWindowHeight + gap + effectsWindowHeight)
+            y = visibleFrame.minY + (yPadding / 2) + effectsWindowHeight + gap
             
         case .bigRightPlaylist:
             
-            let xPadding = visibleFrame.width - (mainWindow.width + gap + playlistWidth)
+            let xPadding = visibleFrame.width - (mainWindowWidth + gap + playlistWidth)
             x = visibleFrame.minX + (xPadding / 2)
             
-            let yPadding = visibleFrame.height - (mainWindow.height + gap + effectsWindow.height)
-            y = visibleFrame.minY + (yPadding / 2) + effectsWindow.height + gap
+            let yPadding = visibleFrame.height - (mainWindowHeight + gap + effectsWindowHeight)
+            y = visibleFrame.minY + (yPadding / 2) + effectsWindowHeight + gap
             
         case .verticalPlayerAndPlaylist:
             
-            let xPadding = visibleFrame.width - mainWindow.width
+            let xPadding = visibleFrame.width - mainWindowWidth
             x = visibleFrame.minX + (xPadding / 2)
-            y = visibleFrame.maxY - mainWindow.height
+            y = visibleFrame.maxY - mainWindowHeight
             
         case .horizontalPlayerAndPlaylist:
             
             x = visibleFrame.minX
             
-            let yPadding = visibleFrame.height - mainWindow.height
+            let yPadding = visibleFrame.height - mainWindowHeight
             y = visibleFrame.minY + (yPadding / 2)
         }
         
@@ -263,6 +273,13 @@ enum WindowLayoutPresets: String {
     }
     
     var effectsWindowOrigin: NSPoint {
+        
+//        if self == .verticalFullStack {
+//            print("EffectsWindowOrigin")
+//        }
+        
+        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
         let gap = gapBetweenWindows
         
@@ -275,27 +292,27 @@ enum WindowLayoutPresets: String {
         case .verticalFullStack:
             
             x = mwo.x
-            y = mwo.y - gap - effectsWindow.height
+            y = mwo.y - gap - effectsWindowHeight
             
         case .horizontalFullStack:
             
-            x = mwo.x + mainWindow.width + gap
+            x = mwo.x + mainWindowWidth + gap
             y = mwo.y
             
         case .bigBottomPlaylist:
             
-            x = mwo.x + mainWindow.width + gap
+            x = mwo.x + mainWindowWidth + gap
             y = mwo.y
             
         case .bigLeftPlaylist:
             
             x = mwo.x
-            y = mwo.y - gap - effectsWindow.height
+            y = mwo.y - gap - effectsWindowHeight
             
         case .bigRightPlaylist:
             
             x = mwo.x
-            y = mwo.y - gap - effectsWindow.height
+            y = mwo.y - gap - effectsWindowHeight
             
         default:
             
@@ -308,6 +325,13 @@ enum WindowLayoutPresets: String {
     
     var playlistHeight: CGFloat {
         
+//        if self == .verticalFullStack {
+//            print("PlaylistHeight")
+//        }
+        
+        let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
+        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
+        
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         
@@ -316,13 +340,13 @@ enum WindowLayoutPresets: String {
         
         switch self {
             
-        case .verticalFullStack:    return visibleFrame.height - (mainWindow.height + effectsWindow.height + twoGaps)
+        case .verticalFullStack:    return visibleFrame.height - (mainWindowHeight + effectsWindowHeight + twoGaps)
             
-        case .horizontalFullStack, .horizontalPlayerAndPlaylist:  return mainWindow.height
+        case .horizontalFullStack, .horizontalPlayerAndPlaylist:  return mainWindowHeight
             
-        case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindow.height + gap + effectsWindow.height
+        case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindowHeight + gap + effectsWindowHeight
             
-        case .verticalPlayerAndPlaylist:   return visibleFrame.height - (mainWindow.height + gap)
+        case .verticalPlayerAndPlaylist:   return visibleFrame.height - (mainWindowHeight + gap)
             
         default:    return 500
             
@@ -331,24 +355,31 @@ enum WindowLayoutPresets: String {
     
     var playlistWidth: CGFloat {
         
+//        if self == .verticalFullStack {
+//            print("PlaylistWidth")
+//        }
+        
+        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
+        
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
-        let minWidth = playlistWindow.minSize.width
+        let minWidth = Dimensions.minPlaylistWidth
         
         // Compute this only once
         let visibleFrame = screenVisibleFrame
         
         switch self {
             
-        case .verticalFullStack, .verticalPlayerAndPlaylist:    return mainWindow.width
+        case .verticalFullStack, .verticalPlayerAndPlaylist:    return mainWindowWidth
             
-        case .horizontalFullStack:    return max(visibleFrame.width - (mainWindow.width + effectsWindow.width + twoGaps), minWidth)
+        case .horizontalFullStack:    return max(visibleFrame.width - (mainWindowWidth + effectsWindowWidth + twoGaps), minWidth)
             
-        case .bigBottomPlaylist:    return mainWindow.width + gap + effectsWindow.width
+        case .bigBottomPlaylist:    return mainWindowWidth + gap + effectsWindowWidth
             
-        case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindow.width
+        case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindowWidth
             
-        case .horizontalPlayerAndPlaylist: return visibleFrame.width - (mainWindow.width + gap)
+        case .horizontalPlayerAndPlaylist: return visibleFrame.width - (mainWindowWidth + gap)
             
         default:    return 500
             
@@ -356,6 +387,14 @@ enum WindowLayoutPresets: String {
     }
     
     var playlistWindowOrigin: NSPoint {
+        
+//        if self == .verticalFullStack {
+//            print("PlaylistWindowOrigin")
+//        }
+        
+        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
+        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
@@ -376,7 +415,7 @@ enum WindowLayoutPresets: String {
             
         case .horizontalFullStack:
             
-            x = mwo.x + mainWindow.width + effectsWindow.width + twoGaps
+            x = mwo.x + mainWindowWidth + effectsWindowWidth + twoGaps
             y = mwo.y
             
         case .bigBottomPlaylist:
@@ -387,12 +426,12 @@ enum WindowLayoutPresets: String {
         case .bigLeftPlaylist:
             
             x = mwo.x - gap - playlistWidth
-            y = mwo.y - gap - effectsWindow.height
+            y = mwo.y - gap - effectsWindowHeight
             
         case .bigRightPlaylist:
             
-            x = mwo.x + mainWindow.width + gap
-            y = mwo.y - gap - effectsWindow.height
+            x = mwo.x + mainWindowWidth + gap
+            y = mwo.y - gap - effectsWindowHeight
             
         case .verticalPlayerAndPlaylist:
             
@@ -401,7 +440,7 @@ enum WindowLayoutPresets: String {
             
         case .horizontalPlayerAndPlaylist:
             
-            x = mwo.x + mainWindow.width + gap
+            x = mwo.x + mainWindowWidth + gap
             y = mwo.y
             
         default:
@@ -414,6 +453,10 @@ enum WindowLayoutPresets: String {
     }
     
     var playlistWindowFrame: NSRect {
+        
+//        if self == .verticalFullStack {
+//            print("PlaylistWindowFrame")
+//        }
         
         let origin = playlistWindowOrigin
         return NSRect(x: origin.x, y: origin.y, width: playlistWidth, height: playlistHeight)
