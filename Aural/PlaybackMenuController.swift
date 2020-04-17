@@ -81,14 +81,14 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused && isRegularMode)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
-        let showingDialogOrPopover = layoutManager.isShowingModalDialog
+        let showingModalComponent = layoutManager.isShowingModalComponent
         
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingDialogOrPopover)})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(!noTrack && !showingModalComponent)})
         
         // These items should be enabled only if there is a playing track and it has chapter markings
         [previousChapterMenuItem, nextChapterMenuItem, replayChapterMenuItem, loopChapterMenuItem].forEach({$0?.enableIf(playbackInfo.chapterCount > 0)})
         
-        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0?.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0?.enableIf(isPlayingOrPaused && !showingModalComponent)})
         
         rememberLastPositionMenuItem.enableIf(isPlayingOrPaused)
     }
@@ -98,7 +98,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         // Play/pause enabled if at least one track available
-//        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
+        playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
         rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.playingTrack?.track {
