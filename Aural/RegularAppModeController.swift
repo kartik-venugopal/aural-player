@@ -3,17 +3,17 @@ import Cocoa
 class RegularAppModeController: AppModeController {
     
     var mode: AppMode {return .regular}
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     private var constituentViews: [ConstituentView] = []
     
     func presentMode() {
         NSApp.setActivationPolicy(.regular)
         constituentViews.forEach({$0.activate()})
-        layoutManager.initialLayout()
+        windowManager.initialLayout()
     }
     
     func dismissMode() {
-//        layoutManager.closeWindows()
+//        windowManager.closeWindows()
         constituentViews.forEach({$0.deactivate()})
     }
     

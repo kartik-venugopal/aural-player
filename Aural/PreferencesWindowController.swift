@@ -36,7 +36,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
         
         tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView])
         
-        ObjectGraph.layoutManager.registerModalComponent(self)
+        ObjectGraph.windowManager.registerModalComponent(self)
         
         super.windowDidLoad()
     }

@@ -69,7 +69,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     // One-time setup
     override func awakeFromNib() {
@@ -122,7 +122,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == _clickedTrack {
                 isPlayingTrack = true
             }
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !layoutManager.isShowingChaptersList)
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !windowManager.isShowingChaptersList)
             
         case .group:
             
@@ -142,7 +142,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
             
             // If this isn't done, the app windows are hidden when the popover is displayed
-            layoutManager.mainWindow.orderFront(self)
+            windowManager.mainWindow.orderFront(self)
         }
     }
     
@@ -241,7 +241,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        layoutManager.mainWindow.orderFront(self)
+        windowManager.mainWindow.orderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -253,7 +253,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let rowView = playlistSelectedRowView
         
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
-        layoutManager.mainWindow.makeKeyAndOrderFront(self)
+        windowManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)

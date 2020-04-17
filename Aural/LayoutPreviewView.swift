@@ -2,7 +2,7 @@ import Cocoa
 
 class LayoutPreviewView: NSView {
     
-    private var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     private var layout: WindowLayout?
     private let idealImgSize: CGFloat = 15
     
@@ -52,12 +52,12 @@ class LayoutPreviewView: NSView {
         // Draw window frames
         if let layout = self.layout {
             
-            let mainWindowFrame = layoutManager.mainWindowFrame
+            let mainWindowFrame = windowManager.mainWindowFrame
             renderPreview(layout.mainWindowOrigin, mainWindowFrame.width, mainWindowFrame.height, Images.imgPlayerPreview)
             
             if layout.showEffects {
                 
-                let effectsWindowFrame = layoutManager.effectsWindowFrame
+                let effectsWindowFrame = windowManager.effectsWindowFrame
                 renderPreview(layout.effectsWindowOrigin!, effectsWindowFrame.width, effectsWindowFrame.height, Images.imgEffectsPreview)
             }
             

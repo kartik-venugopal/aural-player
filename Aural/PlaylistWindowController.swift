@@ -54,7 +54,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     override var windowNibName: String? {return "Playlist"}
 
@@ -422,18 +422,18 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             // Only show chapters list if preferred by user
             if playlistPreferences.showChaptersList {
-                layoutManager.showChaptersList()
+                windowManager.showChaptersList()
             }
             
         } else {
             
             // New track has no chapters, or there is no new track
-            layoutManager.hideChaptersList()
+            windowManager.hideChaptersList()
         }
     }
     
     private func viewChapters() {
-        layoutManager.showChaptersList()
+        windowManager.showChaptersList()
     }
     
     var subscriberId: String {
@@ -555,7 +555,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
-            if (!snapped) && layoutManager.isShowingEffects {
+            if (!snapped) && windowManager.isShowingEffects {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, effectsWindow)
             }
         }

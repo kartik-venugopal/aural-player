@@ -198,9 +198,9 @@ class TrackInfoView: NSView {
         textView.setAlignment(.center, range: .init(location: 0, length: textView.string.count))
         
         // Vertical alignment
-        textView.layoutManager?.ensureLayout(for: textView.textContainer!)
+        textView.windowManager?.ensureLayout(for: textView.textContainer!)
 
-        if let txtHeight = textView.layoutManager?.usedRect(for: textView.textContainer!).height {
+        if let txtHeight = textView.windowManager?.usedRect(for: textView.textContainer!).height {
 
             // Move the text view down from the top, by adjusting the top insets of the clip view.
             let heightDifference = self.frame.height - txtHeight

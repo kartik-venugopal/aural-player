@@ -17,7 +17,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
@@ -663,7 +663,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
             }
             
-            if layoutManager.isShowingPlaylist {
+            if windowManager.isShowingPlaylist {
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
@@ -675,7 +675,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
         } else {
             
-            if layoutManager.isShowingPlaylist {
+            if windowManager.isShowingPlaylist {
                 
                 if let curViewGroupType = PlaylistViewState.current.toGroupType() {
                     
@@ -785,7 +785,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.track)
         }

@@ -39,7 +39,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
 
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
 
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
 
@@ -225,7 +225,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
 
-            if (!snapped) && layoutManager.isShowingPlaylist {
+            if (!snapped) && windowManager.isShowingPlaylist {
                 snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
             }
         }

@@ -23,7 +23,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     override var nibName: String? {return "Tracks"}
     
@@ -381,7 +381,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             refreshIndexes.append(oldTrack!.index)
         }
         
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
         
         if (newTrack != nil) {
             
@@ -527,7 +527,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
         // Select the next track
-        let needToShowTrack: Bool = layoutManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.index)
         }

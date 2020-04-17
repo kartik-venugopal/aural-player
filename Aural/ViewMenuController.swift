@@ -29,7 +29,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private lazy var layoutManager: LayoutManagerProtocol = ObjectGraph.layoutManager
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
@@ -56,17 +56,17 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
             
-            togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist)
-            toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects)
-            toggleChaptersListMenuItem.onIf(layoutManager.isShowingChaptersList)
+            togglePlaylistMenuItem.onIf(windowManager.isShowingPlaylist)
+            toggleEffectsMenuItem.onIf(windowManager.isShowingEffects)
+            toggleChaptersListMenuItem.onIf(windowManager.isShowingChaptersList)
             
         } else {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.hide()})
         }
         
-        playlistViewMenuItem.showIf_elseHide(layoutManager.isShowingPlaylist)
-        effectsViewMenuItem.showIf_elseHide(layoutManager.isShowingEffects)
+        playlistViewMenuItem.showIf_elseHide(windowManager.isShowingPlaylist)
+        effectsViewMenuItem.showIf_elseHide(windowManager.isShowingEffects)
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
@@ -143,15 +143,15 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     // TODO: Revisit this
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
-//        layoutManager.toggleAlwaysOnTop()
+//        windowManager.toggleAlwaysOnTop()
     }
     
     @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
-        layoutManager.layout(sender.title)
+        windowManager.layout(sender.title)
     }
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        layoutNamePopover.show(layoutManager.mainWindow.contentView!, NSRectEdge.maxX)
+        layoutNamePopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
