@@ -21,7 +21,7 @@ class WindowLayouts {
         return map
     }()
     
-    private static var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
+    private static let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     static var userDefinedLayouts: [WindowLayout] {
         return layouts.values.filter({$0.systemDefined == false})
@@ -81,8 +81,8 @@ class WindowLayouts {
         let showEffects = windowManager.isShowingEffects
         let showPlaylist = windowManager.isShowingPlaylist
         
-        let mainWindowOrigin = windowManager.mainWindowFrame.origin
-        let effectsWindowOrigin = showEffects ? windowManager.effectsWindowFrame.origin : nil
+        let mainWindowOrigin = windowManager.mainWindow.origin
+        let effectsWindowOrigin = showEffects ? windowManager.effectsWindow.origin : nil
         let playlistWindowFrame = showPlaylist ? windowManager.playlistWindowFrame : nil
         
         layouts[name] = WindowLayout(name, showEffects, showPlaylist, mainWindowOrigin, effectsWindowOrigin, playlistWindowFrame, false)
@@ -186,10 +186,6 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var mainWindowOrigin: NSPoint {
         
-//        if self == .verticalFullStack {
-//            print("MainWindowOrigin")
-//        }
-        
         let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
         let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
         
@@ -274,10 +270,6 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var effectsWindowOrigin: NSPoint {
         
-//        if self == .verticalFullStack {
-//            print("EffectsWindowOrigin")
-//        }
-        
         let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
         let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
@@ -325,11 +317,8 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var playlistHeight: CGFloat {
         
-//        if self == .verticalFullStack {
-//            print("PlaylistHeight")
-//        }
-        
         let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
+        
         let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
         let gap = gapBetweenWindows
@@ -354,10 +343,6 @@ enum WindowLayoutPresets: String, CaseIterable {
     }
     
     var playlistWidth: CGFloat {
-        
-//        if self == .verticalFullStack {
-//            print("PlaylistWidth")
-//        }
         
         let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
         let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
@@ -388,11 +373,8 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var playlistWindowOrigin: NSPoint {
         
-//        if self == .verticalFullStack {
-//            print("PlaylistWindowOrigin")
-//        }
-        
         let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        
         let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
         let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
@@ -453,10 +435,6 @@ enum WindowLayoutPresets: String, CaseIterable {
     }
     
     var playlistWindowFrame: NSRect {
-        
-//        if self == .verticalFullStack {
-//            print("PlaylistWindowFrame")
-//        }
         
         let origin = playlistWindowOrigin
         return NSRect(x: origin.x, y: origin.y, width: playlistWidth, height: playlistHeight)

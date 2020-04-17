@@ -8,8 +8,8 @@ class RegularAppModeController: AppModeController {
     
     func presentMode() {
         NSApp.setActivationPolicy(.regular)
-        constituentViews.forEach({$0.activate()})
         windowManager.initialLayout()
+        constituentViews.forEach({$0.activate()})
     }
     
     func dismissMode() {
