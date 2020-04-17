@@ -18,7 +18,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="7ng-jb-SCK" userLabel="Main Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+        <window identifier="wid_main" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="7ng-jb-SCK" userLabel="Main Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" miniaturizable="YES" texturedBackground="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
@@ -354,9 +354,6 @@
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="delegate" destination="-2" id="XQM-qc-0vY"/>
-            </connections>
             <point key="canvasLocation" x="156" y="-61"/>
         </window>
         <customObject id="gF1-jg-yeJ" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">

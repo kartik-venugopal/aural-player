@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: SnappingWindow {
@@ -38,6 +38,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         theWindow.setIsVisible(false)
         initWindow()
         theWindow.setIsVisible(false)
+        
+        theWindow.delegate = windowManager
         
         // Register a handler for trackpad/MagicMouse gestures
         gestureHandler = GestureHandler(theWindow)
@@ -158,16 +160,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     }
     
     // MARK: Window delegate
-    
-    func windowDidMove(_ notification: Notification) {
-        
-        // Check if movement was user-initiated (flag on window)
-        if !theWindow.userMovingWindow {return}
-        
-        if preferences.snapToScreen {
-            UIUtils.checkForSnapToVisibleFrame(theWindow)
-        }
-    }
     
     // MARK: Menu delegate
     

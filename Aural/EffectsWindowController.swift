@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
 
     // The constituent sub-views, one for each effects unit
 
@@ -39,17 +39,11 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
 
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
 
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
     }
-
-    private lazy var mainWindow: NSWindow = WindowFactory.mainWindow
-
-    private lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
 
     override var windowNibName: String? {return "Effects"}
 
@@ -60,6 +54,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
         AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
+        
+        theWindow.delegate = ObjectGraph.windowManager
 
         EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
         TextSizes.effectsScheme = EffectsViewState.textSize
@@ -206,34 +202,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             
             changeTextSize()
             return
-        }
-    }
-
-    // MARK - Window delegate functions
-
-    func windowDidMove(_ notification: Notification) {
-
-        // Check if movement was user-initiated (flag on window)
-        if !theWindow.userMovingWindow {
-            return
-        }
-
-        var snapped = false
-
-        if preferences.snapToWindows {
-
-            // First check if window can be snapped to another app window
-            snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
-
-            if (!snapped) && windowManager.isShowingPlaylist {
-                snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
-            }
-        }
-
-        if preferences.snapToScreen && !snapped {
-
-            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-            UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }
 }
