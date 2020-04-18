@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
+class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     @IBOutlet weak var controlsView: PlayerControlsView!
     
@@ -27,21 +27,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     override func viewDidLoad() {
 
-        AppModeManager.registerConstituentView(.regular, self)
-    }
-    
-    func activate() {
-        
         let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
         let rsModes = player.repeatAndShuffleModes
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
         initSubscriptions()
-    }
-    
-    func deactivate() {
-        removeSubscriptions()
     }
     
     private func initSubscriptions() {
@@ -52,15 +43,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self)
-        
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
     }
     
     private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {

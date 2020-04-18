@@ -292,14 +292,6 @@ enum ActionType {
     
     case windowLayout
     
-    // MARK: App mode actions
-    
-    case regularAppMode
-    
-//    case statusBarAppMode
-//    
-//    case miniBarAppMode
-    
     // MARK: Effects presets editor actions
     
     case reloadPresets
@@ -433,15 +425,6 @@ struct EffectsViewActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ effectsUnit: EffectsUnit) {
         self.actionType = actionType
         self.effectsUnit = effectsUnit
-    }
-}
-
-struct AppModeActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    init(_ actionType: ActionType) {
-        self.actionType = actionType
     }
 }
 

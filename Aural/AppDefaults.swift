@@ -6,8 +6,6 @@ import AVFoundation
 */
 struct AppDefaults {
     
-    static let appMode: AppMode = .regular
-    
     static let windowLayout: WindowLayoutPresets = .verticalFullStack
     
     static let repeatMode: RepeatMode = .off

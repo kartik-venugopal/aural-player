@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
 
     // The constituent sub-views, one for each effects unit
 
@@ -54,9 +54,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         // Initialize all sub-views
         addSubViews()
 
-        AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
-        
         theWindow.delegate = ObjectGraph.windowManager
 
         EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
@@ -64,6 +62,10 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        
+        initUnits()
+        initTabGroup()
+        initSubscriptions()
     }
 
     private func addSubViews() {
@@ -89,17 +91,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         recorderTabViewButton.stateFunction = recorderStateFunction
     }
 
-    func activate() {
-
-        initUnits()
-        initTabGroup()
-        initSubscriptions()
-    }
-
-    func deactivate() {
-        removeSubscriptions()
-    }
-
     private func initUnits() {
 
         [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach({$0?.updateState()})
@@ -115,12 +106,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
-    }
-
-    private func removeSubscriptions() {
-
-        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
     }
 
     // Switches the tab group to a particular tab

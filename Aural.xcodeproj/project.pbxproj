@@ -938,6 +938,7 @@
 				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
 				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
+				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
 				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E309B721FB70B7800C61E72 /* InfoPopup */,
@@ -1285,6 +1286,7 @@
 		3E33C11A242F10D0005A062B /* ExperimentalCode */ = {
 			isa = PBXGroup;
 			children = (
+				3EE429AA1FCFCEB600E81C15 /* Modes */,
 				3EF18476217C8EE900D24F39 /* Visualizer */,
 				3EF18474217C8E8A00D24F39 /* FFT.swift */,
 			);
@@ -1404,7 +1406,6 @@
 			children = (
 				3E3F82861FCD4CD800DC9D11 /* BarMode.xib */,
 				3E3F82841FCD4CBE00DC9D11 /* BarModeWindowController.swift */,
-				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
 				3EF7EFCB215075DD00E582CB /* BarModeNowPlaying.xib */,
 				3EF7EFC72150757D00E582CB /* BarModeNowPlayingViewController.swift */,
 				3EF7EFCD215075F500E582CB /* BarModePlayer.xib */,
@@ -1525,7 +1526,6 @@
 		3E5FA43F1EFFF039001669C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3EE429AA1FCFCEB600E81C15 /* Modes */,
 				3EDDF6B11FB54B1600DF2E9A /* Menus */,
 				3E94E85E2154CA0C00C57AD8 /* WindowManagement */,
 				3EDDF6AA1FB4FF3700DF2E9A /* MainWindow */,

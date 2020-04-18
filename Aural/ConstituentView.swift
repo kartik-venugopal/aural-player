@@ -1,8 +1,8 @@
-import Cocoa
-
-protocol ConstituentView {
-    
-    func activate()
-    
-    func deactivate()
-}
+//import Cocoa
+//
+//protocol ConstituentView {
+//
+//    func activate()
+//
+//    func deactivate()
+//}
