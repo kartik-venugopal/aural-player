@@ -130,7 +130,10 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func outputDeviceAction(_ sender: NSMenuItem) {
-        graph.outputDevice = sender.representedObject as! AudioDevice
+        
+        if let outputDevice = sender.representedObject as? AudioDevice {
+            graph.outputDevice = outputDevice
+        }
     }
     
     // Mutes or unmutes the player

@@ -83,20 +83,21 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
-        if (message.messageType == .addedToFavorites) {
+        if message.messageType == .addedToFavorites {
             
-            // Assume it exists, because it has been added to Favorites
-            let fav = favorites.getFavoriteWithFile(message.file)!
-            
-            // Add it to the menu
-            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
-            item.target = self
-            item.favorite = fav
-            favoritesMenu.addItem(item)
+            if let fav = favorites.getFavoriteWithFile(message.file) {
+                
+                // Add it to the menu
+                let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+                item.target = self
+                item.favorite = fav
+                
+                favoritesMenu.addItem(item)
+            }
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.playingTrack?.track {
-                favoritesMenuItem.onIf(plTrack.file.path == message.file.path)
+            if let plTrack = playbackInfo.playingTrack?.track, plTrack.file.path == message.file.path {
+                favoritesMenuItem.on()
             }
             
         } else {
@@ -104,8 +105,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             // Remove it from the menu
             favoritesMenu.items.forEach({
                 
-                let favItem = $0 as! FavoritesMenuItem
-                if favItem.favorite.file.path == message.file.path {
+                if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == message.file.path {
                     
                     favoritesMenu.removeItem($0)
                     return
@@ -113,10 +113,8 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             })
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.playingTrack?.track {
-                if (plTrack.file.path == message.file.path) {
-                    favoritesMenuItem.off()
-                }
+            if let plTrack = playbackInfo.playingTrack?.track, plTrack.file.path == message.file.path {
+                favoritesMenuItem.off()
             }
         }
     }
@@ -315,28 +313,25 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     
     // MARK: Message handling
     
-    // TODO: REspond to track changed and remove the add/remove favorite menu item when no track is playing
+    // TODO: Respond to track changed and remove the add/remove favorite menu item when no track is playing
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if message is HistoryUpdatedAsyncMessage {
+
+            recreateHistoryMenus()
             
-        case .historyUpdated: recreateHistoryMenus()
+        } else if let favsUpdatedMsg = message as? FavoritesUpdatedAsyncMessage {
             
-        case .addedToFavorites, .removedFromFavorites:
+            favoritesUpdated(favsUpdatedMsg)
             
-            favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
+        } else if let trackPlayedMsg = message as? TrackPlayedAsyncMessage {
             
-        case .trackPlayed:
+            trackPlayed(trackPlayedMsg)
             
-            trackPlayed(message as! TrackPlayedAsyncMessage)
+        } else if let trackChangedMsg = message as? TrackChangedAsyncMessage {
             
-        case .trackChanged:
-            
-            trackChanged(message as! TrackChangedAsyncMessage)
- 
-        default: return
-            
+            trackChanged(trackChangedMsg)
         }
     }
 }
