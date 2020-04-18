@@ -20,7 +20,7 @@ struct Dimensions {
     static let snapProximity: CGFloat = 15
 }
 
-enum TextSizeScheme: String {
+enum TextSize: String {
     
     case normal
     case larger

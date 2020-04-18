@@ -405,9 +405,9 @@ struct ViewActionMessage: ActionMessage {
 struct TextSizeActionMessage: ActionMessage {
     
     let actionType: ActionType
-    let textSize: TextSizeScheme
+    let textSize: TextSize
     
-    init(_ actionType: ActionType, _ textSize: TextSizeScheme) {
+    init(_ actionType: ActionType, _ textSize: TextSize) {
         
         self.actionType = actionType
         self.textSize = textSize

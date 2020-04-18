@@ -48,7 +48,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
 
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
     
-    var textSize: TextSizeScheme = .normal
+    var textSize: TextSize = .normal
     override var textFont: NSFont {return Fonts.stringInputPopoverFont(textSize)}
 }
 

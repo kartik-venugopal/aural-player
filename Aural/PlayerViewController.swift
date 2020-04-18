@@ -154,7 +154,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         theView.mouseExited()
     }
     
-    func changeTextSize(_ textSize: TextSizeScheme) {
+    func changeTextSize(_ textSize: TextSize) {
         
         defaultView.changeTextSize(textSize)
         expandedArtView.changeTextSize(textSize)
@@ -263,7 +263,7 @@ class PlayerViewState {
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    static var textSize: TextSizeScheme = .normal
+    static var textSize: TextSize = .normal
     
     static func initialize(_ appState: PlayerUIState) {
         

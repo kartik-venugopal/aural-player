@@ -237,7 +237,7 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
+        if let size = TextSize(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
             
             PlayerViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
@@ -276,7 +276,7 @@ class PlaylistViewMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
+        if let size = TextSize(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
             
             PlaylistViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
@@ -315,7 +315,7 @@ class EffectsViewMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
+        if let size = TextSize(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
             
             EffectsViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))

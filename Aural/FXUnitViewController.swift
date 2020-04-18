@@ -136,7 +136,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         fxUnit.savePreset(string)
     }
     
-    var inputFontSize: TextSizeScheme {
+    var inputFontSize: TextSize {
         return EffectsViewState.textSize
     }
     

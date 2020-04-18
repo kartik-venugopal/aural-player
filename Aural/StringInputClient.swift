@@ -15,5 +15,5 @@ protocol StringInputClient {
     // Returns an appropriate (optional) default value for the information being requested. e.g. "New preset"
     var defaultValue: String? {get}
     
-    var inputFontSize: TextSizeScheme {get}
+    var inputFontSize: TextSize {get}
 }

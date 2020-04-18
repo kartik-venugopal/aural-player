@@ -1,7 +1,7 @@
 // Convenient accessor for information about the effects view
 class EffectsViewState {
     
-    static var textSize: TextSizeScheme = .normal
+    static var textSize: TextSize = .normal
     
     static func initialize(_ appState: EffectsUIState) {
         textSize = appState.textSize
