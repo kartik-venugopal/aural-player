@@ -19,16 +19,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     override func viewDidLoad() {
         
         initSubscriptions()
-        
-        if let newTrack = player.playingTrack?.track {
-            
-            theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
-            
-        } else {
-            
-            // No track playing, clear the info fields
-            theView.clearNowPlayingInfo()
-        }
+        theView.clearNowPlayingInfo()
     }
     
     private func initSubscriptions() {
