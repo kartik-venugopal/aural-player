@@ -65,11 +65,15 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
             
         case .transcodingStarted:
             
-            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
+            if let track = (message as? TranscodingStartedAsyncMessage)?.track {
+                transcodingStarted(track)
+            }
             
         case .transcodingProgress:
             
-            transcodingProgress(message as! TranscodingProgressAsyncMessage)
+            if let progressMsg = message as? TranscodingProgressAsyncMessage {
+                transcodingProgress(progressMsg)
+            }
             
         case .transcodingCancelled:
             

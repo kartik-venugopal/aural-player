@@ -128,14 +128,8 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
-            
-        case .layoutChangedNotification:
-            
-            layoutChanged(notification as! LayoutChangedNotification)
-            
-        default: return
-            
+        if let layoutChangedMsg = notification as? LayoutChangedNotification {
+            layoutChanged(layoutChangedMsg)
         }
     }
     

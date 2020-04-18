@@ -90,10 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         for _response in exitResponses {
             
-            let response = _response as! AppExitResponse
-            
-            // If any of the responses says it's not ok to exit, don't exit
-            if (!response.okToExit) {
+            if let response = _response as? AppExitResponse, !response.okToExit {
                 return .terminateCancel
             }
         }
@@ -105,24 +102,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         ObjectGraph.tearDown()
     }
-    
-    // MARK: App focus event handlers
-    
-//    func applicationDidBecomeActive(_ notification: Notification) {
-//        WindowState.setActive(true)
-//    }
-//
-//    func applicationDidResignActive(_ notification: Notification) {
-//
-//        WindowState.setActive(false)
-//        SyncMessenger.publishNotification(AppResignedActiveNotification.instance)
-//    }
-//
-//    func applicationDidHide(_ notification: Notification) {
-//        WindowState.setHidden(true)
-//    }
-//    
-//    func applicationDidUnhide(_ notification: Notification) {
-//        WindowState.setHidden(false)
-//    }
 }

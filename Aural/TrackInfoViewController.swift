@@ -100,48 +100,38 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     // Consume synchronous notification messages
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let trackChangedMsg = notification as? TrackChangedNotification {
             
-        case .trackChangedNotification:
+            trackChanged(trackChangedMsg.newTrack)
             
-            trackChanged((notification as! TrackChangedNotification).newTrack)
+        } else if let trackInfoUpdatedMsg = notification as? PlayingTrackInfoUpdatedNotification {
+         
+            playingTrackInfoUpdated(trackInfoUpdatedMsg)
             
-        case .playingTrackInfoUpdatedNotification:
-            
-            playingTrackInfoUpdated(notification as! PlayingTrackInfoUpdatedNotification)
-            
-        case .sequenceChangedNotification:
+        } else if notification is SequenceChangedNotification {
             
             sequenceChanged()
-            
-        default: return
-            
         }
     }
     
     // Consume asynchronous messages
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
+         
+            gapStarted(gapStartedMsg)
             
-        case .gapStarted:
+        } else if let track = (message as? TranscodingStartedAsyncMessage)?.track {
+         
+            transcodingStarted(track)
             
-            gapStarted(message as! PlaybackGapStartedAsyncMessage)
-            
-        case .transcodingStarted:
-            
-            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
-            
-        case .transcodingFinished:
+        } else if message is TranscodingFinishedAsyncMessage {
             
             transcodingFinished()
             
-        case .trackNotPlayed:
+        } else if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
             
-            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        default: return
-            
+            trackNotPlayed(trackNotPlayedMsg)
         }
     }
 }

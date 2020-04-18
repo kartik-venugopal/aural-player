@@ -184,7 +184,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .chapterChangedNotification:
             
-            chapterChanged((notification as! ChapterChangedNotification).newChapter)
+            if let chapterChangedMsg = notification as? ChapterChangedNotification {
+                chapterChanged(chapterChangedMsg.newChapter)
+            }
             
         default: return
             
@@ -197,7 +199,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .changePlayerView:
             
-            changeView((message as! PlayerViewActionMessage))
+            if let changeViewMsg = message as? PlayerViewActionMessage {
+                changeView(changeViewMsg)
+            }
             
         case .showOrHidePlayingTrackInfo:
             
