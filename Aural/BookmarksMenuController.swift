@@ -66,13 +66,13 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         menuItem.target = self
         
         menuItem.image = Images.imgPlayedTrack
-        menuItem.image?.size = Images.historyMenuItemImageSize
+        menuItem.image?.size = Dimensions.historyMenuItemImageSize
         
         artLoadingQueue.addOperation {
             
             if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.image.copy() as? NSImage {
                 
-                imgCopy.size = Images.historyMenuItemImageSize
+                imgCopy.size = Dimensions.historyMenuItemImageSize
                 
                 DispatchQueue.main.async {
                     menuItem.image = imgCopy

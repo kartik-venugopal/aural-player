@@ -5,10 +5,6 @@ import Cocoa
 
 struct Images {
     
-    // Toggled images
-    static let imgPlay: NSImage = NSImage(named: "Play")!
-    static let imgPause: NSImage = NSImage(named: "Pause")!
-    
     static let imgPlayingArt: NSImage = NSImage(named: "PlayingArt")!
     
     static let imgPlayingTrack: NSImage = NSImage(named: "PlayingTrack")!
@@ -22,7 +18,6 @@ struct Images {
     static let imgMute: NSImage = NSImage(named: "Mute")!
     
     static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
-    static let imgRepeatOn: NSImage = NSImage(named: "RepeatOn")!
     static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!
     static let imgRepeatAll: NSImage = NSImage(named: "RepeatAll")!
     
@@ -37,10 +32,6 @@ struct Images {
     static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
     static let imgSwitchMixed: NSImage = NSImage(named: "SwitchMixed")!
     
-    static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
-    static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
-    static let imgPlaylist_padded: NSImage = NSImage(named: "Playlist-Padded")!
-    
     static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     
     static let imgLoopChapterOff: NSImage = NSImage(named: "LoopChapter-Off")!
@@ -48,17 +39,14 @@ struct Images {
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
-    static let imgGroup_noPadding: NSImage = NSImage(named: "Group-NoPadding")!
     
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
     
     static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
-    static let imgPlayedTrackMissing: NSImage = NSImage(named: "PlayedTrack-Missing")!
-    
-    static let historyMenuItemImageSize: NSSize = NSSize(width: 22, height: 22)
     
     static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
+    static let imgPlaylistPreview: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgEffectsPreview: NSImage = NSImage(named: "EffectsView-On")!
 }

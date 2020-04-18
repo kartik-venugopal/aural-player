@@ -18,6 +18,8 @@ struct Dimensions {
     static let minPlaylistHeight: CGFloat = 180
     
     static let snapProximity: CGFloat = 15
+    
+    static let historyMenuItemImageSize: NSSize = NSSize(width: 22, height: 22)
 }
 
 enum TextSize: String {

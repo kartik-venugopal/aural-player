@@ -88,7 +88,7 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
     menuItem.target = actionTarget
     
     menuItem.image = Images.imgPlayedTrack
-    menuItem.image?.size = Images.historyMenuItemImageSize
+    menuItem.image?.size = Dimensions.historyMenuItemImageSize
     
     let queue = item is AddedItem ? addedItemsArtLoadingQueue : playedItemsArtLoadingQueue
     
@@ -96,7 +96,7 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
         
         if let art = artForFile(item.file) {
             
-            art.size = Images.historyMenuItemImageSize
+            art.size = Dimensions.historyMenuItemImageSize
             
             DispatchQueue.main.async {
                 menuItem.image = art
