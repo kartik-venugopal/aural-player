@@ -32,7 +32,7 @@ class EffectsViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
+        if let size = TextSize(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
             
             EffectsViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))

@@ -11,7 +11,7 @@ class PlaylistViewState {
     
     static var chaptersListView: NSTableView!
     
-    static var textSize: TextSizeScheme = .normal
+    static var textSize: TextSize = .normal
     
     static func initialize(_ appState: PlaylistUIState) {
         

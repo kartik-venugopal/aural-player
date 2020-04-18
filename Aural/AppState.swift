@@ -50,13 +50,13 @@ class UIState: PersistentState {
 
 class PlaylistUIState: PersistentState {
     
-    var textSize: TextSizeScheme = .normal
+    var textSize: TextSize = .normal
     var view: String = "Tracks"
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaylistUIState()
-        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
+        state.textSize = mapEnum(map, "textSize", TextSize.normal)
         
         if let viewName = map["view"] as? String {
             state.view = viewName
@@ -68,12 +68,12 @@ class PlaylistUIState: PersistentState {
 
 class EffectsUIState: PersistentState {
     
-    var textSize: TextSizeScheme = .normal
+    var textSize: TextSize = .normal
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = EffectsUIState()
-        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
+        state.textSize = mapEnum(map, "textSize", TextSize.normal)
         
         return state
     }
@@ -98,7 +98,7 @@ class PlayerUIState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    var textSize: TextSizeScheme = .normal
+    var textSize: TextSize = .normal
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -121,7 +121,7 @@ class PlayerUIState: PersistentState {
         state.timeElapsedDisplayType = mapEnum(map, "timeElapsedDisplayType", TimeElapsedDisplayType.formatted)
         state.timeRemainingDisplayType = mapEnum(map, "timeRemainingDisplayType", TimeRemainingDisplayType.formatted)
         
-        state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
+        state.textSize = mapEnum(map, "textSize", TextSize.normal)
         
         return state
     }

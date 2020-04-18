@@ -32,7 +32,7 @@ class PlaylistViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
+        if let size = TextSize(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
             
             PlaylistViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))

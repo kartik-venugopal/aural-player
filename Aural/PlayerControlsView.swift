@@ -401,7 +401,7 @@ class PlayerControlsView: NSView {
         }
     }
     
-    func changeTextSize(_ textSize: TextSizeScheme) {
+    func changeTextSize(_ textSize: TextSize) {
         
         lblTimeElapsed.font = Fonts.Player.trackTimesFont
         lblTimeRemaining.font = Fonts.Player.trackTimesFont

@@ -449,7 +449,7 @@ struct Fonts {
     private static let stringInputPopoverFont_larger: NSFont = Constants.gillSans13Font
     private static let stringInputPopoverFont_largest: NSFont = Constants.gillSans14Font
     
-    static func stringInputPopoverFont(_ size: TextSizeScheme) -> NSFont {
+    static func stringInputPopoverFont(_ size: TextSize) -> NSFont {
         
         switch size {
             
@@ -466,7 +466,7 @@ struct Fonts {
     private static let stringInputPopoverErrorFont_larger: NSFont = Constants.gillSans12Font
     private static let stringInputPopoverErrorFont_largest: NSFont = Constants.gillSans13Font
     
-    static func stringInputPopoverErrorFont(_ size: TextSizeScheme) -> NSFont {
+    static func stringInputPopoverErrorFont(_ size: TextSize) -> NSFont {
         
         switch size {
             

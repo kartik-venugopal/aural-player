@@ -94,7 +94,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         let senderTitle: String = sender.title.lowercased()
         
-        if let size = TextSizeScheme(rawValue: senderTitle) {
+        if let size = TextSize(rawValue: senderTitle) {
         
             if PlayerViewState.textSize != size {
                 
@@ -159,7 +159,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         WindowLayouts.addUserDefinedLayout(string)
     }
     
-    var inputFontSize: TextSizeScheme {
+    var inputFontSize: TextSize {
         return .normal
     }
 }

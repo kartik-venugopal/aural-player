@@ -57,7 +57,7 @@ class GapView: NSView {
         }
     }
     
-    func changeTextSize(_ textSize: TextSizeScheme) {
+    func changeTextSize(_ textSize: TextSize) {
         
         lblTrackName.font = Fonts.Player.gapBoxTitleFont
         lblTimeRemaining.font = Fonts.Player.gapBoxTitleFont

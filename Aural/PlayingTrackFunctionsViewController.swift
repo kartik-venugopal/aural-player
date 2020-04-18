@@ -325,7 +325,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    var inputFontSize: TextSizeScheme {
+    var inputFontSize: TextSize {
         return PlayerViewState.textSize
     }
 }

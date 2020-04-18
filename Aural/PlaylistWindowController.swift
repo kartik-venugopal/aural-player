@@ -394,7 +394,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
-    private func changeTextSize(_ size: TextSizeScheme) {
+    private func changeTextSize(_ size: TextSize) {
         
         PlaylistViewState.textSize = size
         

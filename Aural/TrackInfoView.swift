@@ -82,7 +82,7 @@ class TrackInfoView: NSView {
     }
     
     // Responds to a change in user-preferred text size
-    func changeTextSize(_ textSize: TextSizeScheme) {
+    func changeTextSize(_ textSize: TextSize) {
         update()
     }
     

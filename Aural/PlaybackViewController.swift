@@ -431,7 +431,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
     }
     
-    func changeTextSize(_ textSize: TextSizeScheme) {
+    func changeTextSize(_ textSize: TextSize) {
         controlsView.changeTextSize(textSize)
     }
     
