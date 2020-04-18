@@ -233,7 +233,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         for (group, tracks) in tracksByGroup {
             
             // If all tracks in group were removed, just remove the group instead
-            if (tracks.count == group.size()) {
+            if tracks.count == group.size {
                 _groups.append(group)
             }
         }

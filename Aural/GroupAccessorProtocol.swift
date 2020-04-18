@@ -9,7 +9,7 @@ protocol GroupAccessorProtocol {
     
     var duration: Double {get}
     
-    func size() -> Int
+    var size: Int {get}
     
     func trackAtIndex(_ index: Int) -> Track
     

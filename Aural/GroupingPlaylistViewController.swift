@@ -107,13 +107,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         indexes.forEach({
             
             let item = playlistView.item(atRow: $0)
-            
-            if let track = item as? Track {
-                tracks.append(track)
-            } else {
-                // Group
-                groups.append(item as! Group)
-            }
+            item is Track ? tracks.append(item as! Track) : groups.append(item as! Group)
         })
         
         return (tracks, groups)
@@ -142,103 +136,43 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func selectTrack(_ track: Track?) {
         
-        if (playlistView.numberOfRows > 0) {
+        if playlistView.numberOfRows > 0, let _track = track, let group = playlist.groupingInfoForTrack(self.groupType, _track)?.group {
+                
+            // Need to expand the parent group to make the child track visible
+            playlistView.expandItem(group)
             
-            if let _track = track, let group = playlist.groupingInfoForTrack(self.groupType, _track)?.group {
-                
-                // Need to expand the parent group to make the child track visible
-                playlistView.expandItem(group)
-                
-                let trackRowIndex = playlistView.row(forItem: _track)
-                
-                playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
-                playlistView.scrollRowToVisible(trackRowIndex)
-            }
+            let trackRowIndex = playlistView.row(forItem: _track)
+            
+            playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
+            playlistView.scrollRowToVisible(trackRowIndex)
         }
     }
     
     // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ track: GroupedTrack?) {
         
-        if (playlistView.numberOfRows > 0) {
+        if playlistView.numberOfRows > 0, let _track = track?.track, let parentGroup = track?.group {
+                
+            // Need to expand the parent group to make the child track visible
+            playlistView.expandItem(parentGroup)
             
-            if let _track = track?.track {
-                
-                // Need to expand the parent group to make the child track visible
-                playlistView.expandItem(track?.group)
-                
-                let trackRowIndex = playlistView.row(forItem: _track)
-                
-                playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
-                playlistView.scrollRowToVisible(trackRowIndex)
-            }
+            let trackRowIndex = playlistView.row(forItem: _track)
+
+            playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
+            playlistView.scrollRowToVisible(trackRowIndex)
         }
     }
     
     private func refresh() {
+        
         DispatchQueue.main.async {
             self.playlistView.reloadData()
         }
     }
     
-    private func moveTracksUp() {
-        
-        let tracksAndGroups = collectTracksAndGroups()
-        let tracks = tracksAndGroups.tracks
-        let groups = tracksAndGroups.groups
-        
-        // Cannot move both tracks and groups
-        if (!tracks.isEmpty && !groups.isEmpty) {
-            return
-        }
-        
-        // Move items within the playlist and refresh the playlist view
-        let results = playlist.moveTracksAndGroupsUp(tracks, groups, self.groupType)
-        moveItems(results)
-        
-        // Re-select all the items that were moved
-        var allItems: [PlaylistItem] = [PlaylistItem]()
-        groups.forEach({allItems.append($0)})
-        tracks.forEach({allItems.append($0)})
-        selectAllItems(allItems)
-        
-        // Scroll to make the first selected row visible
-        playlistView.scrollRowToVisible(playlistView.selectedRow)
-    }
-    
-    private func moveTracksToTop() {
-        
-        let tracksAndGroups = collectTracksAndGroups()
-        let tracks = tracksAndGroups.tracks
-        let groups = tracksAndGroups.groups
-        
-        // Cannot move both tracks and groups
-        if (!tracks.isEmpty && !groups.isEmpty) {
-            return
-        }
-        
-        // Move items within the playlist and refresh the playlist view
-        let results = playlist.moveTracksAndGroupsToTop(tracks, groups, self.groupType)
-        removeAndInsertItems(results)
-        
-        // Re-select all the items that were moved
-        var allItems: [PlaylistItem] = [PlaylistItem]()
-        groups.forEach({allItems.append($0)})
-        tracks.forEach({allItems.append($0)})
-        selectAllItems(allItems)
-        
-        // Scroll to make the first selected row visible
-        playlistView.scrollRowToVisible(playlistView.selectedRow)
-    }
-    
     // Refreshes the playlist view by rearranging the items that were moved
     private func removeAndInsertItems(_ results: ItemMoveResults) {
-        
-        // TODO: Temporary
-        if self.groupType != .album {
-            return
-        }
-        
+ 
         for result in results.results {
             
             if let trackMovedResult = result as? TrackMoveResult {
@@ -247,9 +181,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 playlistView.insertItems(at: IndexSet([trackMovedResult.newTrackIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
                 
-            } else {
-                
-                let groupMovedResult = result as! GroupMoveResult
+            } else if let groupMovedResult = result as? GroupMoveResult {
                 
                 playlistView.removeItems(at: IndexSet([groupMovedResult.oldGroupIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideUp : .slideDown)
                 
@@ -258,32 +190,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
-    private func moveTracksToBottom() {
-        
-        // TODO: Code duplication with moveTracksToTop
-        
-        let tracksAndGroups = collectTracksAndGroups()
-        let tracks = tracksAndGroups.tracks
-        let groups = tracksAndGroups.groups
-        
-        // Cannot move both tracks and groups
-        if (!tracks.isEmpty && !groups.isEmpty) {
-            return
-        }
-        
-        // Move items within the playlist and refresh the playlist view
-        let results = playlist.moveTracksAndGroupsToBottom(tracks, groups, self.groupType)
-        removeAndInsertItems(results)
-        
-        // Re-select all the items that were moved
-        var allItems: [PlaylistItem] = [PlaylistItem]()
-        groups.forEach({allItems.append($0)})
-        tracks.forEach({allItems.append($0)})
-        selectAllItems(allItems)
-        
-        // Scroll to make the first selected row visible
-        playlistView.scrollRowToVisible(playlistView.selectedRow)
-    }
+    
     
     // Refreshes the playlist view by rearranging the items that were moved
     private func moveItems(_ results: ItemMoveResults) {
@@ -294,9 +201,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 playlistView.moveItem(at: trackMovedResult.oldTrackIndex, inParent: trackMovedResult.parentGroup, to: trackMovedResult.newTrackIndex, inParent: trackMovedResult.parentGroup)
                 
-            } else {
+            } else if let groupMovedResult = result as? GroupMoveResult {
                 
-                let groupMovedResult = result as! GroupMoveResult
                 playlistView.moveItem(at: groupMovedResult.oldGroupIndex, inParent: nil, to: groupMovedResult.newGroupIndex, inParent: nil)
             }
         }
@@ -306,32 +212,46 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func selectAllItems(_ items: [PlaylistItem]) {
         
         // Determine the row indexes for the items
-        var selIndexes = [Int]()
-        items.forEach({selIndexes.append(playlistView.row(forItem: $0))})
+        let selIndexes: [Int] = items.map { playlistView.row(forItem: $0) }
         
         // Select the item indexes
         playlistView.selectRowIndexes(IndexSet(selIndexes), byExtendingSelection: false)
     }
     
+    private func moveTracksUp() {
+        doMoveItems(playlist.moveTracksAndGroupsUp(_:_:_:), self.moveItems(_:))
+    }
+    
     private func moveTracksDown() {
-        
-        // TODO: Code duplication with moveTracksUp
+        doMoveItems(playlist.moveTracksAndGroupsDown(_:_:_:), self.moveItems(_:))
+    }
+    
+    private func moveTracksToTop() {
+        doMoveItems(playlist.moveTracksAndGroupsToTop(_:_:_:), self.removeAndInsertItems(_:))
+    }
+    
+    private func moveTracksToBottom() {
+        doMoveItems(playlist.moveTracksAndGroupsToBottom(_:_:_:), self.removeAndInsertItems(_:))
+    }
+    
+    private func doMoveItems(_ moveAction: @escaping ([Track], [Group], GroupType) -> ItemMoveResults,
+                             _ refreshAction: @escaping (ItemMoveResults) -> Void) {
         
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
         
         // Cannot move both tracks and groups
-        if (tracks.count > 0 && groups.count > 0) {
+        if tracks.count > 0 && groups.count > 0 {
             return
         }
         
         // Move items within the playlist and refresh the playlist view
-        let results = playlist.moveTracksAndGroupsDown(tracks, groups, self.groupType)
-        moveItems(results)
+        let results = moveAction(tracks, groups, self.groupType)
+        refreshAction(results)
         
         // Re-select all the items that were moved
-        var allItems: [PlaylistItem] = [PlaylistItem]()
+        var allItems: [PlaylistItem] = []
         groups.forEach({allItems.append($0)})
         tracks.forEach({allItems.append($0)})
         selectAllItems(allItems)
@@ -368,7 +288,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                     
                     // Ignore this group as it is selected
                     if expanded {
-                        curIndex += group.size()
+                        curIndex += group.size
                     }
                     
                 } else {
@@ -379,7 +299,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                         
                         // Check for selected children
                         
-                        let childIndexes = selRows.filter({$0 > curIndex && $0 <= curIndex + group.size()})
+                        let childIndexes = selRows.filter({$0 > curIndex && $0 <= curIndex + group.size})
                         if childIndexes.isEmpty {
                             
                             // No children selected, add group index
@@ -388,7 +308,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                         } else {
                             
                             // Check each child track
-                            for index in 1...group.size() {
+                            for index in 1...group.size {
                                 
                                 if !selRows.contains(curIndex + index) {
                                     targetSelRows.insert(curIndex + index)
@@ -396,7 +316,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                             }
                         }
                         
-                        curIndex += group.size()
+                        curIndex += group.size
                         
                     } else {
                         
@@ -406,7 +326,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 }
                 
                 curIndex += 1
-                itemsInspected += group.size()
+                itemsInspected += group.size
             }
         }
         
