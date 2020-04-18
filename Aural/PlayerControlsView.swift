@@ -112,7 +112,7 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        changeTextSize(PlayerViewState.textSize)
+        changeTextSize()
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -311,7 +311,7 @@ class PlayerControlsView: NSView {
 
     private func setVolumeImage(_ volume: Float, _ muted: Bool) {
 
-        if (muted) {
+        if muted {
             btnVolume.image = Images.imgMute
         } else {
 
@@ -401,7 +401,7 @@ class PlayerControlsView: NSView {
         }
     }
     
-    func changeTextSize(_ textSize: TextSize) {
+    func changeTextSize() {
         
         lblTimeElapsed.font = Fonts.Player.trackTimesFont
         lblTimeRemaining.font = Fonts.Player.trackTimesFont

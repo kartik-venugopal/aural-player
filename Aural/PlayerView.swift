@@ -180,10 +180,10 @@ class PlayerView: NSView {
         otherView.artView.image = artView.image
     }
     
-    func changeTextSize(_ textSize: TextSize) {
+    func changeTextSize() {
         
-        infoView.changeTextSize(textSize)
-        gapView.changeTextSize(textSize)
+        infoView.changeTextSize()
+        gapView.changeTextSize()
     }
 }
 

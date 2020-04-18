@@ -62,7 +62,7 @@ class LayoutPreviewView: NSView {
             }
             
             if layout.showPlaylist {
-                renderPreview(layout.playlistWindowFrame!, Images.imgPlaylistOn)
+                renderPreview(layout.playlistWindowFrame!, Images.imgPlaylistPreview)
             }
         }
     }

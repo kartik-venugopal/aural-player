@@ -136,6 +136,7 @@
 		3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */; };
 		3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A71F0A697800AF5A62 /* AppConstants.swift */; };
 		3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D489A1F464C02004C0F91 /* Errors.swift */; };
+		3E3DCAC0244B31F100563AE4 /* PlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */; };
 		3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
 		3E3ECDFF242E2CC4000721E9 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3ECDFE242E2CC4000721E9 /* DeviceManager.swift */; };
 		3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F29622159B69900581EFE /* LayoutsEditor.xib */; };
@@ -559,6 +560,7 @@
 		3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsAndAlerts.swift; sourceTree = "<group>"; };
 		3E3C20A71F0A697800AF5A62 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		3E3D489A1F464C02004C0F91 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewState.swift; sourceTree = "<group>"; };
 		3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessages.swift; sourceTree = "<group>"; };
 		3E3ECDFE242E2CC4000721E9 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		3E3F29622159B69900581EFE /* LayoutsEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LayoutsEditor.xib; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
 				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
 				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
+				3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E309B721FB70B7800C61E72 /* InfoPopup */,
 			);
@@ -2369,6 +2372,7 @@
 				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3EBD20081F6C6EC300E1354C /* ParserProtocols.swift in Sources */,
 				3E09D1A121751EC40083C2AF /* PlaybackUtils.swift in Sources */,
+				3E3DCAC0244B31F100563AE4 /* PlayerViewState.swift in Sources */,
 				3E357B521F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift in Sources */,
 				3E94E8622154D69000C57AD8 /* WindowManager.swift in Sources */,
 				3E50DC982193A3B500D42373 /* FXUnit.swift in Sources */,
