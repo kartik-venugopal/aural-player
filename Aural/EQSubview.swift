@@ -49,7 +49,7 @@ class EQSubview: NSView {
         
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         bandSliders.forEach({
-            $0.floatValue = bands.count > $0.tag ? bands[$0.tag] : AppDefaults.eqBandGain
+            $0.floatValue = $0.tag < bands.count ? bands[$0.tag] : AppDefaults.eqBandGain
         })
         
         globalGainSlider.floatValue = globalGain

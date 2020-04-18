@@ -26,21 +26,13 @@ class EQPreset: EffectsUnitPreset {
 
 fileprivate struct SystemDefinedEQPresets {
     
-    static let presets: [EQPreset] = {
-    
-        var arr: [EQPreset] = []
-        SystemDefinedEQPresetParams.allValues.forEach({
-            arr.append(EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true))
-        })
-        
-        return arr
-    }()
+    static let presets: [EQPreset] = SystemDefinedEQPresetParams.allCases.map { EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true) }
 }
 
 /*
     An enumeration of Equalizer presets the user can choose from
  */
-fileprivate enum SystemDefinedEQPresetParams: String {
+fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
     
     case flat = "Flat" // default
     case highBassAndTreble = "High bass and treble"
@@ -59,8 +51,6 @@ fileprivate enum SystemDefinedEQPresetParams: String {
     case soft = "Soft"
     case karaoke = "Karaoke"
     case vocal = "Vocal"
-    
-    static var allValues: [SystemDefinedEQPresetParams] = [.flat, .highBassAndTreble, .dance, .electronic, .hipHop, .jazz, .latin, .lounge, .piano, .pop, .rAndB, .rock, .soft, .karaoke, .vocal]
     
     // Converts a user-friendly display name to an instance of EQPresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedEQPresetParams {
