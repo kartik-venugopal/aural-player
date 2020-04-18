@@ -34,7 +34,7 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
     }
     
     // Number of tracks
-    func size() -> Int {
+    var size: Int {
         return tracks.count
     }
     

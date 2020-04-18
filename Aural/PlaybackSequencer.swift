@@ -192,7 +192,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.scope = group
         
         // Reset the sequence based on the group's size
-        sequence.reset(tracksCount: group.size())
+        sequence.reset(tracksCount: group.size)
         
         // Select the specified track within its parent group, for playback
         return doSelectIndex(groupInfo.trackIndex)
@@ -216,7 +216,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.scope = group
         
         // Reset the sequence based on the group's size
-        sequence.reset(tracksCount: group.size())
+        sequence.reset(tracksCount: group.size)
         sequence.resetCursor()
         
         // Begin playing the subsequent track (first track determined by the sequence)
@@ -286,7 +286,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         while (tracksSoFar < index) {
             
             // Add the size of the current group, to tracksSoFar
-            tracksSoFar += playlist.groupAtIndex(groupType, groupIndex).size()
+            tracksSoFar += playlist.groupAtIndex(groupType, groupIndex).size
             
             // Increment the groupIndex to iterate to the next group
             groupIndex += 1
@@ -295,7 +295,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         // If you've overshot the target index, go back one group, and use the offset to calculate track index within that previous group
         if (tracksSoFar > index) {
             groupIndex -= 1
-            trackIndexInGroup = playlist.groupAtIndex(groupType, groupIndex).size() - (tracksSoFar - index)
+            trackIndexInGroup = playlist.groupAtIndex(groupType, groupIndex).size - (tracksSoFar - index)
         }
         
         // Given the groupIndex and trackIndex, retrive the desired track
@@ -317,8 +317,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Iterate over all the groups, noting the size of each group, till the target group is reached
         var absIndexSoFar = 0
-        for i in 0...(groupIndex - 1) {
-            absIndexSoFar += playlist.groupAtIndex(groupType, i).size()
+        for i in 0..<groupIndex {
+            absIndexSoFar += playlist.groupAtIndex(groupType, i).size
         }
         
         // The target group has been reached. Now, simply add the track index to absIndexSoFar, and that is the desired value
@@ -449,7 +449,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         case .allTracks, .allArtists, .allAlbums, .allGenres: sequenceSize = playlist.size
             
         // For any of the group scopes, the sequence size is the size of the group
-        case .artist, .album, .genre: sequenceSize = scope.scope!.size()
+        case .artist, .album, .genre: sequenceSize = scope.scope!.size
             
         }
         

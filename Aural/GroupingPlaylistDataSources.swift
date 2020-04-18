@@ -36,7 +36,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         } else if let group = item as? Group {
             
             // Group
-            return group.size()
+            return group.size
         }
         
         // Tracks don't have children
@@ -142,47 +142,38 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         let groups = tracksAndGroups.groups
         
         let movingTracks = !tracks.isEmpty
-        let movingGroups = !movingTracks
+        let movingGroups = !groups.isEmpty
         
         // Cannot move both groups and tracks
-        if (movingTracks && movingGroups) {
+        if movingTracks && movingGroups {
             return false
         }
         
-        if (movingTracks) {
+        if movingTracks {
             
             // Find out which group these tracks belong to, and categorize them
-            var parentGroups: Set<Group> = Set<Group>()
-            
-            // Categorize tracks by group
-            for track in tracks {
-                
-                let group = outlineView.parent(forItem: track) as! Group
-                parentGroups.insert(group)
-            }
+            let parentGroups: Set<Group> = Set<Group>(tracks.map { outlineView.parent(forItem: $0) as! Group })
             
             // Cannot move tracks from different groups (all tracks being moved must belong to the same group)
-            if (parentGroups.count > 1) {
+            if parentGroups.count > 1 {
                 return false
             }
             
-            let group = parentGroups.first!
+            // The only parent group
+            if let group = parentGroups.first {
             
-            // All tracks within group selected
-            if tracks.count == group.size() {
-                return false
-            }
-            
-            // Validate parent group and child index
-            if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0 || childIndex > group.size()) {
-                return false
-            }
-            
-            // Dropping on a selected track is not allowed
-            if childIndex < group.size(), let parentGroup = parent as? Group {
+                // All tracks within group selected
+                if tracks.count == group.size {
+                    return false
+                }
                 
-                let dropTrack = parentGroup.trackAtIndex(childIndex)
-                if tracks.contains(dropTrack) {
+                // Validate parent group and child index
+                if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0 || childIndex > group.size) {
+                    return false
+                }
+                
+                // Dropping on a selected track is not allowed
+                if childIndex < group.size, let parentGroup = parent as? Group, tracks.contains(parentGroup.trackAtIndex(childIndex)) {
                     return false
                 }
             }
@@ -190,7 +181,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         } else {
             
             // If all groups are selected, they cannot be moved
-            if (groups.count == playlist.numberOfGroups(self.groupType)) {
+            if groups.count == playlist.numberOfGroups(self.groupType) {
                 return false
             }
             
@@ -201,12 +192,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             }
             
             // Dropping on a selected group is not allowed
-            if (childIndex < numGroups) {
-                
-                let dropGroup = playlist.groupAtIndex(self.groupType, childIndex)
-                if (groups.contains(dropGroup)) {
-                    return false
-                }
+            if childIndex < numGroups, groups.contains(playlist.groupAtIndex(self.groupType, childIndex)) {
+                return false
             }
         }
         
@@ -221,7 +208,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             return false
         }
         
-        if (info.draggingSource is NSOutlineView) {
+        if info.draggingSource is NSOutlineView {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
@@ -242,6 +229,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 
                 return true
             }
+            
         } else {
             
             // Files added from Finder, add them to the playlist as URLs
@@ -263,17 +251,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         sourceIndexes.forEach({
             
             let item = outlineView.item(atRow: $0)
-            
-            if let track = item as? Track {
-                
-                // Track
-                tracks.append(track)
-                
-            } else {
-                
-                // Group
-                groups.append(item as! Group)
-            }
+            item is Track ? tracks.append(item as! Track) : groups.append(item as! Group)
         })
         
         return (tracks, groups)
@@ -295,9 +273,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 
                 // Move track from the old source index within its parent group to its new destination index
                 outlineView.moveItem(at: trackMoveResult.oldTrackIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.newTrackIndex, inParent: trackMoveResult.parentGroup!)
-            } else {
                 
-                let groupMoveResult = $0 as! GroupMoveResult
+            } else if let groupMoveResult = $0 as? GroupMoveResult {
                 
                 // Move group from the old source index within its parent (root) to its new destination index
                 outlineView.moveItem(at: groupMoveResult.oldGroupIndex, inParent: nil, to: groupMoveResult.newGroupIndex, inParent: nil)
