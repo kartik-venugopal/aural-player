@@ -291,7 +291,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.trackChanged(player.state, player.playbackLoop, newTrack)
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if soundPreferences.rememberEffectsSettings, newTrack != nil, soundProfiles.hasFor(newTrack!.track) {
+        if soundPreferences.rememberEffectsSettings, let track = newTrack?.track, soundProfiles.hasFor(track) {
 
             controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
             controlsView.panChanged(audioGraph.balance)

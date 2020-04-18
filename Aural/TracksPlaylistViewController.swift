@@ -23,8 +23,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     override var nibName: String? {return "Tracks"}
     
     var rows: Int = 0
@@ -377,23 +375,22 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         var refreshIndexes = [Int]()
         
-        if (oldTrack != nil) {
-            refreshIndexes.append(oldTrack!.index)
+        if let oldTrackIndex = oldTrack?.index {
+            refreshIndexes.append(oldTrackIndex)
         }
         
-        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
         
-        if (newTrack != nil) {
+        if let _newTrack = newTrack {
             
             // If new and old are the same, don't refresh the same row twice
-            if !newTrack!.equals(oldTrack) {
-                refreshIndexes.append(newTrack!.index)
+            if !_newTrack.equals(oldTrack) {
+                refreshIndexes.append(_newTrack.index)
             }
             
             if needToShowTrack {
                 
-                let plIndex = playbackInfo.playingTrack!.index
-                if (plIndex == playlistView.numberOfRows) {
+                if _newTrack.index >= playlistView.numberOfRows {
                     
                     // This means the track is in the playlist but has not yet been added to the playlist view (Bookmark/Recently played/Favorite item), and will be added shortly (this is a race condition). So, dispatch an async delayed handler to show the track in the playlist, after it is expected to be added.
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -405,11 +402,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
                 }
             }
             
-        } else {
-            
-            if needToShowTrack {
-                clearSelection()
-            }
+        } else if needToShowTrack {
+            clearSelection()
         }
         
         // Gaps may have been removed, so row heights need to be updated too
@@ -422,25 +416,25 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
         
         let oldTrack = message.oldTrack
-        let errTrack = playlist.indexOfTrack(message.error.track)!
-        
         var refreshIndexes = [Int]()
         
-        if (oldTrack != nil) {
-            refreshIndexes.append(oldTrack!.index)
+        if let oldTrackIndex = oldTrack?.index {
+            refreshIndexes.append(oldTrackIndex)
         }
         
-        // If new and old are the same, don't refresh the same row twice
-        if !errTrack.equals(oldTrack) {
-            refreshIndexes.append(errTrack.index)
+        if let errTrack = playlist.indexOfTrack(message.error.track) {
+            
+            // If new and old are the same, don't refresh the same row twice
+            if !errTrack.equals(oldTrack) {
+                refreshIndexes.append(errTrack.index)
+            }
+            
+            if PlaylistViewState.current == .tracks {
+                selectTrack(errTrack.index)
+            }
         }
         
-        if PlaylistViewState.current == .tracks {
-            selectTrack(errTrack.index)
-        }
-        
-        let indexSet: IndexSet = IndexSet(refreshIndexes)
-        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single result of a search
@@ -527,8 +521,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
         // Select the next track
-        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
-        if needToShowTrack {
+        if PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist {
             selectTrack(message.nextTrack.index)
         }
     }
@@ -536,11 +529,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
         
         // Find track and refresh it
-        if let updatedRow = playlist.indexOfTrack(message.updatedTrack)?.index {
-            
-            if updatedRow >= 0 {
-                refreshRow(updatedRow)
-            }
+        if let updatedRow = playlist.indexOfTrack(message.updatedTrack)?.index, updatedRow >= 0 {
+            refreshRow(updatedRow)
         }
     }
     
@@ -557,20 +547,20 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         var refreshIndexes = [Int]()
         
-        if (oldTrack != nil) {
-            refreshIndexes.append(oldTrack!.index)
+        if let oldTrackIndex = oldTrack?.index {
+            refreshIndexes.append(oldTrackIndex)
         }
         
-        let newTrack = playlist.indexOfTrack(track)!
-        
-        if oldTrack == nil || !oldTrack!.equals(newTrack) {
-            refreshIndexes.append(newTrack.index)
+        if let newTrack = playlist.indexOfTrack(track) {
+
+            if !newTrack.equals(oldTrack) {
+                refreshIndexes.append(newTrack.index)
+            }
+            
+            selectTrack(newTrack.index)
         }
         
-        selectTrack(newTrack.index)
-        
-        let indexSet: IndexSet = IndexSet(refreshIndexes)
-        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     private func transcodingCancelled(_ track: Track) {
@@ -674,11 +664,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if let msg = message as? PlaylistActionMessage {
             
             // Check if this message is intended for this playlist view
-            if (msg.playlistType != nil && msg.playlistType != .tracks) {
+            if let playlistType = msg.playlistType, playlistType != .tracks {
                 return
             }
             
-            switch (msg.actionType) {
+            switch msg.actionType {
                 
             case .refresh:
                 
@@ -756,7 +746,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
         
         if message is TextSizeActionMessage {
+            
             changeTextSize()
+            return
         }
         
         if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
@@ -768,7 +760,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
             
             // Check if this message is intended for this playlist view
-            if (insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == .tracks) {
+            if insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == .tracks {
                 insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
             }
             

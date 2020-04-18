@@ -23,13 +23,10 @@ class EQSubview: NSView {
         
         allSliders.forEach({$0.stateFunction = stateFunction})
         
-        if sliderAction != nil {
-            
-            bandSliders.forEach({
-                $0.action = sliderAction
-                $0.target = sliderActionTarget
-            })
-        }
+        bandSliders.forEach({
+            $0.action = sliderAction
+            $0.target = sliderActionTarget
+        })
     }
     
     func stateChanged() {

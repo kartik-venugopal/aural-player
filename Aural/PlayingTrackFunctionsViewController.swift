@@ -70,19 +70,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let playingTrack = player.playingTrack
-        
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        if (playingTrack != nil) {
+        if let playingTrack = player.playingTrack?.track {
             
             // TODO: This should be done through a delegate (TrackDelegate ???)
-            playingTrack!.track.loadDetailedInfo()
-            
-            if btnMoreInfo.isVisible {
-                detailedInfoPopover.toggle(playingTrack!.track, btnMoreInfo, NSRectEdge.maxX)
-            } else {
-                detailedInfoPopover.toggle(playingTrack!.track, self.view.window!.contentView!, NSRectEdge.maxX)
-            }
+            playingTrack.loadDetailedInfo()
+            detailedInfoPopover.toggle(playingTrack, btnMoreInfo.isVisible ? btnMoreInfo : self.view.window!.contentView!, NSRectEdge.maxX)
         }
     }
     
@@ -94,17 +87,13 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
-        // Toggle the button state
-        btnFavorite.toggle()
-        
-        // Assume there is a track playing (this function cannot be invoked otherwise)
-        let playingTrack = (player.playingTrack?.track)!
-        
-        // Publish an action message to add/remove the item to/from Favorites
-        if btnFavorite.isOn {
-            _ = favorites.addFavorite(playingTrack)
-        } else {
-            favorites.deleteFavoriteWithFile(playingTrack.file)
+        if let playingTrack = player.playingTrack?.track {
+            
+            // Toggle the button state
+            btnFavorite.toggle()
+            
+            // Publish an action message to add/remove the item to/from Favorites
+            btnFavorite.isOn ? _ = favorites.addFavorite(playingTrack) : favorites.deleteFavoriteWithFile(playingTrack.file)
         }
     }
     
@@ -173,32 +162,15 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
-        if let playingTrack = player.playingTrack?.track {
+        // Do this only if the track in the message is the playing track
+        if let playingTrack = player.playingTrack?.track, message.file.path == playingTrack.file.path {
             
-            // Do this only if the track in the message is the playing track
-            if message.file.path == playingTrack.file.path {
-                
-                if (message.messageType == .addedToFavorites) {
-                    
-                    btnFavorite.on()
-                    
-                    if btnFavorite.isVisible {
-                        infoPopup.showMessage("Track added to Favorites !", btnFavorite, NSRectEdge.maxX)
-                    } else {
-                        infoPopup.showMessage("Track added to Favorites !", self.view.window!.contentView!, NSRectEdge.maxX)
-                    }
-                    
-                } else {
-                    
-                    btnFavorite.off()
-                    
-                    if btnFavorite.isVisible {
-                        infoPopup.showMessage("Track removed from Favorites !", btnFavorite, NSRectEdge.maxX)
-                    } else {
-                        infoPopup.showMessage("Track removed from Favorites !", self.view.window!.contentView!, NSRectEdge.maxX)
-                    }
-                }
-            }
+            let added: Bool = message.messageType == .addedToFavorites
+            
+            btnFavorite.onIf(added)
+            infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !",
+                                  btnFavorite.isVisible ? btnFavorite : self.view.window!.contentView!,
+                                  NSRectEdge.maxX)
         }
     }
     
@@ -221,17 +193,14 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        if (newTrack != nil) {
+        if let track = newTrack?.track {
             
-            newTrackStarted(newTrack!.track)
+            newTrackStarted(track)
             
-            if (!errorState) {
+            if !errorState && detailedInfoPopover.isShown {
                 
-                if detailedInfoPopover.isShown {
-                    
-                    player.playingTrack!.track.loadDetailedInfo()
-                    detailedInfoPopover.refresh(player.playingTrack!.track)
-                }
+                track.loadDetailedInfo()
+                detailedInfoPopover.refresh(track)
             }
             
         } else {

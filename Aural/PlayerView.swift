@@ -114,16 +114,13 @@ class PlayerView: NSView {
         infoView.showNowPlayingInfo(track, sequence, chapterTitle)
         showPlayingTrackInfo()
         
-        let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
+        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
     }
     
     func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
         
         infoView.showNowPlayingInfo(track, sequence, nil)
-        
-        let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
+        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
     }
     
     func clearNowPlayingInfo() {
@@ -148,8 +145,7 @@ class PlayerView: NSView {
         showGapInfo()
         
         let track = msg.nextTrack.track
-        let trackArt = track.displayInfo.art
-        artView.image = trackArt != nil ? trackArt!.image : Images.imgPlayingArt
+        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
         
         gapView.gapStarted(msg)
     }

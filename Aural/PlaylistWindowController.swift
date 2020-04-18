@@ -105,8 +105,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func removeSubscriptions() {
         
-        if eventMonitor != nil {
-            NSEvent.removeMonitor(eventMonitor!)
+        if let monitor = eventMonitor {
+            NSEvent.removeMonitor(monitor)
             eventMonitor = nil
         }
         
@@ -164,7 +164,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // When the playback sequence has changed, the UI needs to show the updated info
     private func sequenceChanged() {
         
-        if (playbackInfo.playingTrack != nil) {
+        if playbackInfo.playingTrack != nil {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
     }
@@ -195,11 +195,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            if let playingTrackIndex = self.playbackInfo.playingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index {
+            if let playingTrackIndex = self.playbackInfo.playingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
-                if (playingTrackIndex == updatedTrackIndex) {
-                    SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-                }
+                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
     }
@@ -260,8 +258,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         // Update spinner with current progress, if tracks are being added
-        if (trackAddProgress != nil) {
-            playlistWorkSpinner.doubleValue = trackAddProgress!.percentage
+        if let progressPercentage = trackAddProgress?.percentage {
+            playlistWorkSpinner.doubleValue = progressPercentage
         }
     }
     
