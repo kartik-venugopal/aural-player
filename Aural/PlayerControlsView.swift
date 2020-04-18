@@ -52,8 +52,6 @@ class PlayerControlsView: NSView {
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
-    private let appState: PlayerUIState = ObjectGraph.appState.ui.player
-    
     var seekSliderValue: Double {
         return seekSlider.doubleValue
     }
@@ -108,17 +106,13 @@ class PlayerControlsView: NSView {
 
         // Allow clicks on the seek time display labels to switch to different display formats
 
-        PlayerViewState.timeElapsedDisplayType = appState.timeElapsedDisplayType
-        PlayerViewState.timeRemainingDisplayType = appState.timeRemainingDisplayType
-
         let elapsedTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction))
         lblTimeElapsed.addGestureRecognizer(elapsedTimeGestureRecognizer)
 
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        TextSizes.playerScheme = appState.textSize
-        changeTextSize(appState.textSize)
+        changeTextSize(PlayerViewState.textSize)
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {

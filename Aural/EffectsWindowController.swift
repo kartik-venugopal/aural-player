@@ -58,7 +58,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         theWindow.delegate = ObjectGraph.windowManager
 
         EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
-        TextSizes.effectsScheme = EffectsViewState.textSize
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
@@ -126,7 +125,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
     
     private func changeTextSize() {
-        EffectsViewState.textSize = TextSizes.effectsScheme
         viewMenuButton.font = TextSizes.effectsMenuFont
     }
 
@@ -261,15 +259,10 @@ class EffectsViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        let senderTitle: String = sender.title.lowercased()
-        let size = TextSizeScheme(rawValue: senderTitle)!
-        
-        if TextSizes.effectsScheme != size {
+        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
             
-            TextSizes.effectsScheme = size
             EffectsViewState.textSize = size
-            
-             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
+            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
         }
     }
 }

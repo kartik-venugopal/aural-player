@@ -242,9 +242,6 @@
                                             </connections>
                                         </menu>
                                     </popUpButtonCell>
-                                    <connections>
-                                        <action selector="btnLayoutAction:" target="-2" id="TEc-lD-xj8"/>
-                                    </connections>
                                 </popUpButton>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="461" y="204" width="15" height="10"/>
@@ -318,12 +315,12 @@
                                                 </menuItem>
                                             </items>
                                             <connections>
-                                                <outlet property="delegate" destination="-2" id="UtT-3t-WyB"/>
+                                                <outlet property="delegate" destination="lwq-x3-5V8" id="cRR-Sr-S6u"/>
                                             </connections>
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <action selector="btnLayoutAction:" target="-2" id="5cS-9b-ldk"/>
+                                        <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="fWs-46-cMp"/>
                                     </connections>
                                 </popUpButton>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
@@ -381,6 +378,11 @@
                 <outlet property="timeRemainingMenuItem_hms" destination="Lng-IT-seX" id="KUv-WE-4Lm"/>
                 <outlet property="timeRemainingMenuItem_percentage" destination="2wD-Se-q6u" id="jLA-l6-ipG"/>
                 <outlet property="timeRemainingMenuItem_seconds" destination="d1d-0T-WEH" id="Ta2-Co-OFZ"/>
+            </connections>
+        </customObject>
+        <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnLayout" destination="0It-ci-89a" id="gAc-pe-FNO"/>
             </connections>
         </customObject>
     </objects>

@@ -193,12 +193,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
-        let senderTitle: String = sender.title.lowercased()
-        let size = TextSizeScheme(rawValue: senderTitle)!
-        
-        if TextSizes.playerScheme != size {
+        if let size = TextSizeScheme(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
             
-            TextSizes.playerScheme = size
+            PlayerViewState.textSize = size
             SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
         }
     }

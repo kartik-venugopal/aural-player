@@ -324,6 +324,8 @@
 		3EB2F2011FB311FB0031B6C1 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F2001FB311FB0031B6C1 /* Images.swift */; };
 		3EB3A6DA21850D40003C7F07 /* TrackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */; };
 		3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6DB2185105A003C7F07 /* GapView.swift */; };
+		3EB499F2244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */; };
+		3EB499F4244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */; };
 		3EB7F45F217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */; };
 		3EB7F461217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */; };
 		3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */; };
@@ -753,6 +755,8 @@
 		3EB2F2001FB311FB0031B6C1 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoView.swift; sourceTree = "<group>"; };
 		3EB3A6DB2185105A003C7F07 /* GapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapView.swift; sourceTree = "<group>"; };
+		3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewPopupMenuController.swift; sourceTree = "<group>"; };
+		3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPopupMenuController.swift; sourceTree = "<group>"; };
 		3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPlaylistSortViewController.swift; sourceTree = "<group>"; };
 		3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsPlaylistSort.xib; sourceTree = "<group>"; };
 		3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenresPlaylistSort.xib; sourceTree = "<group>"; };
@@ -1680,6 +1684,7 @@
 				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
 				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
 				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
+				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
 				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
 				3EF5E5B21FBDA374004270A4 /* TracksPlaylist */,
@@ -1965,6 +1970,7 @@
 			children = (
 				3EDDF6AB1FB4FF5100DF2E9A /* MainWindow.xib */,
 				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
+				3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */,
 				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
 			);
 			name = MainWindow;
@@ -2286,6 +2292,7 @@
 				3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */,
 				3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */,
 				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
+				3EB499F2244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
@@ -2570,6 +2577,7 @@
 				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
 				3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */,
 				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */,
+				3EB499F4244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift in Sources */,
 				3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */,
 				3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */,
 				3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */,
