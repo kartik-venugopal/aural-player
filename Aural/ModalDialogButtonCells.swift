@@ -49,7 +49,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
     
     var textSize: TextSizeScheme = .normal
-    override var textFont: NSFont {return TextSizes.stringInputPopoverFont(textSize)}
+    override var textFont: NSFont {return Fonts.stringInputPopoverFont(textSize)}
 }
 
 // Cell for all response buttons (Save/Cancel, etc)
@@ -66,7 +66,7 @@ class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 2}
     
-    override var textFont: NSFont {return Fonts.gillSans10Font}
+    override var textFont: NSFont {return Fonts.Constants.gillSans10Font}
 }
 
 // Cell for search results navigation buttons (next/previous)
@@ -85,7 +85,7 @@ class FilterBandControlsButtonCell: ModalDialogButtonCell {
     
     override var textColor: NSColor {return Colors.fxUnitButtonTextColor}
     override var textColor_disabled: NSColor {return Colors.fxUnitButtonTextColor_disabled}
-    override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
+    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     
     override var backgroundFillGradient: NSGradient {return Colors.fxUnitButtonGradient}
     override var backgroundFillGradient_disabled: NSGradient {return Colors.fxUnitButtonGradient_disabled}

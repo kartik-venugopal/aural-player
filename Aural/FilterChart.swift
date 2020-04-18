@@ -110,6 +110,7 @@ class FilterChart: NSView {
                 if unitState == .active {
                     
                     GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    
                     GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
                     
                 } else {
@@ -121,7 +122,7 @@ class FilterChart: NSView {
         
         // Draw X-axis markings
         let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
-        let textFont: NSFont = TextSizes.filterChartFont
+        let textFont: NSFont = Fonts.Effects.filterChartFont
         
         for y in xMarks {
 

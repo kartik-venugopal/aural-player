@@ -90,8 +90,8 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
             cell.textField?.stringValue = text
-            cell.textFont = Fonts.gillSans10Font
-            cell.selectedTextFont = Fonts.gillSansSemiBold10Font
+            cell.textFont = Fonts.Constants.gillSans10Font
+            cell.selectedTextFont = Fonts.Constants.gillSans10SemiBoldFont
             cell.selectionFunction = {() -> Bool in
                 return tableView.selectedRowIndexes.contains(row)
             }

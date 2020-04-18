@@ -99,7 +99,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-            textField.font = TextSizes.playlistTrackNameFont
+            textField.font = Fonts.Playlist.trackNameFont
         }
     }
     
@@ -168,7 +168,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
-            textField.font = TextSizes.playlistIndexFont
+            textField.font = Fonts.Playlist.indexFont
         }
     }
     
@@ -182,13 +182,13 @@ class DurationCellView: BasicFlatPlaylistCellView {
             if let gapField = self.gapBeforeTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = TextSizes.playlistIndexFont
+                gapField.font = Fonts.Playlist.indexFont
             }
             
             if let gapField = self.gapAfterTextField {
                 
                 gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = TextSizes.playlistIndexFont
+                gapField.font = Fonts.Playlist.indexFont
             }
         }
     }
@@ -244,7 +244,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
         if let textField = self.textField {
             
             textField.textColor = isSelRow ? Colors.playlistSelectedIndexTextColor : Colors.playlistIndexTextColor
-            textField.font = TextSizes.playlistIndexFont
+            textField.font = Fonts.Playlist.indexFont
         }
     }
     
@@ -400,7 +400,7 @@ class GroupedTrackNameCellView: NSTableCellView {
                 
 //                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
                 
-                textField.font = isGroup ? TextSizes.playlistGroupNameFont : TextSizes.playlistTrackNameFont
+                textField.font = isGroup ? Fonts.Playlist.groupNameFont : Fonts.Playlist.trackNameFont
             }
         }
     }
@@ -436,7 +436,7 @@ class GroupedTrackDurationCellView: NSTableCellView {
                 
                 textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupSelectedIndexTextColor : Colors.playlistSelectedIndexTextColor) : (isGroup ? Colors.playlistGroupIndexTextColor : Colors.playlistIndexTextColor)
                 
-                textField.font = isGroup ? TextSizes.playlistGroupDurationFont : TextSizes.playlistIndexFont
+                textField.font = isGroup ? Fonts.Playlist.groupDurationFont : Fonts.Playlist.indexFont
             }
             
             if !isGroup {
@@ -444,13 +444,13 @@ class GroupedTrackDurationCellView: NSTableCellView {
                 if let gapField = self.gapBeforeTextField {
                     
                     gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                    gapField.font = TextSizes.playlistIndexFont
+                    gapField.font = Fonts.Playlist.indexFont
                 }
                 
                 if let gapField = self.gapAfterTextField {
                     
                     gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                    gapField.font = TextSizes.playlistIndexFont
+                    gapField.font = Fonts.Playlist.indexFont
                 }
                 
             }
@@ -488,8 +488,8 @@ class BasicTableCellView: NSTableCellView {
     
     var selectionFunction: (() -> Bool) = {() -> Bool in return false}
     
-    var textFont: NSFont = Fonts.gillSans10Font
-    var selectedTextFont: NSFont = Fonts.gillSans10Font
+    var textFont: NSFont = Fonts.Constants.gillSans10Font
+    var selectedTextFont: NSFont = Fonts.Constants.gillSans10Font
     
     var textColor: NSColor = Colors.playlistTextColor
     var selectedTextColor: NSColor = Colors.playlistSelectedTextColor

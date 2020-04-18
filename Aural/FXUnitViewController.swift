@@ -103,9 +103,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     func changeTextSize() {
         
-        lblCaption?.font = TextSizes.fxUnitCaptionFont
-        functionLabels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
-        presetsMenu.font = TextSizes.effectsMenuFont
+        lblCaption?.font = Fonts.Effects.unitCaptionFont
+        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        presetsMenu.font = Fonts.Effects.menuFont
     }
     
     var subscriberId: String {

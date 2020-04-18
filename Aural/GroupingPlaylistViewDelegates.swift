@@ -139,7 +139,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
-            cell.textField?.font = TextSizes.playlistTrackNameFont
+            cell.textField?.font = Fonts.Playlist.trackNameFont
             cell.textField?.stringValue = text
             cell.textField?.setNeedsDisplay()
             
@@ -283,7 +283,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
-            cell.textField?.font = isGroup ? TextSizes.playlistGroupDurationFont : TextSizes.playlistIndexFont
+            cell.textField?.font = isGroup ? Fonts.Playlist.groupDurationFont : Fonts.Playlist.indexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
             cell.isGroup = isGroup
@@ -348,7 +348,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
-            cell.textField?.font = TextSizes.playlistGroupNameFont
+            cell.textField?.font = Fonts.Playlist.groupNameFont
             cell.textField?.stringValue = text
             cell.imageView?.image = image
             cell.isGroup = true

@@ -398,12 +398,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         PlaylistViewState.textSize = size
         
-        lblTracksSummary.font = TextSizes.playlistSummaryFont
-        lblDurationSummary.font = TextSizes.playlistSummaryFont
+        lblTracksSummary.font = Fonts.Playlist.summaryFont
+        lblDurationSummary.font = Fonts.Playlist.summaryFont
         
         tabGroup.items.forEach({$0.tabButton.redraw()})
         
-        viewMenuButton.font = TextSizes.playlistMenuFont
+        viewMenuButton.font = Fonts.Playlist.menuFont
     }
     
     // Updates the summary in response to a change in the tab group selected tab

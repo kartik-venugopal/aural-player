@@ -171,12 +171,12 @@ class FilterBandViewController: NSViewController {
         tabButton.redraw()
         
         let labels = findFunctionLabels(self.view)
-        labels.forEach({$0.font = TextSizes.fxUnitFunctionFont})
+        labels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         
-        filterTypeMenu.font = TextSizes.fxUnitFunctionFont
+        filterTypeMenu.font = Fonts.Effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = TextSizes.fxUnitFunctionFont
+        presetRangesMenu.font = Fonts.Effects.unitFunctionFont
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

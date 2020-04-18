@@ -114,16 +114,16 @@ class TrackInfoView: NSView {
             if let theArtist = artist, let theAlbum = album {
                 
                 fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
-                truncatedArtistAlbumStr = truncateCompositeString(TextSizes.artistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
+                truncatedArtistAlbumStr = truncateCompositeString(Fonts.Player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
             } else if let theArtist = artist {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, TextSizes.artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, Fonts.Player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, TextSizes.artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, Fonts.Player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theAlbum
             }
             
@@ -133,19 +133,19 @@ class TrackInfoView: NSView {
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)
-            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, TextSizes.titleFont, lineWidth) : title
-            textView.textStorage?.append(attributedString(truncatedTitle, TextSizes.titleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, Fonts.Player.infoBoxTitleFont, lineWidth) : title
+            textView.textStorage?.append(attributedString(truncatedTitle, Fonts.Player.infoBoxTitleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, TextSizes.artistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, Fonts.Player.infoBoxArtistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, TextSizes.chapterFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, TextSizes.chapterFont, Colors.trackInfoChapterTextColor))
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, Fonts.Player.infoBoxChapterFont, lineWidth)
+                textView.textStorage?.append(attributedString(truncatedChapter, Fonts.Player.infoBoxChapterFont, Colors.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)

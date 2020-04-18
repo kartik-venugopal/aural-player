@@ -120,8 +120,8 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     private func changeTextSize() {
         
-        btnLayout.font = TextSizes.playerMenuFont
-        viewMenuButton.font = TextSizes.playerMenuFont
+        btnLayout.font = Fonts.Player.menuFont
+        viewMenuButton.font = Fonts.Player.menuFont
     }
     
     // MARK: Message handling
