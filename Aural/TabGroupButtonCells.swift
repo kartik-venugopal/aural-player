@@ -63,8 +63,8 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 3}
     override var selectionBoxColor: NSColor {return Colors.tabViewButtonSelectionBoxColor}
     
-    override var textFont: NSFont {return TextSizes.playlistTabsFont}
-    override var boldTextFont: NSFont {return TextSizes.playlistSelectedTabFont}
+    override var textFont: NSFont {return Fonts.Playlist.tabsFont}
+    override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
 }
 
 // Cell for the Preferences tab group
@@ -94,8 +94,8 @@ class PrefsNestedTabButtonCell: PrefsTabButtonCell {
 
 class EQSelectorButtonCell: TabGroupButtonCell {
     
-    override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
-    override var boldTextFont: NSFont {return TextSizes.fxUnitFunctionBoldFont}
+    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
     override var borderRadius: CGFloat {return 2}
     override var selectionBoxColor: NSColor {return Colors.tabViewButtonSelectionBoxColor}
     
@@ -105,6 +105,6 @@ class EQSelectorButtonCell: TabGroupButtonCell {
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
-    override var textFont: NSFont {return TextSizes.fxUnitFunctionFont}
-    override var boldTextFont: NSFont {return TextSizes.fxUnitFunctionBoldFont}
+    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
 }

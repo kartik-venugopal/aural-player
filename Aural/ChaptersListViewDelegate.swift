@@ -52,8 +52,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.chapterIndexColumnID), owner: nil) as? BasicTableCellView {
             
-            cell.textFont = TextSizes.playlistIndexFont
-            cell.selectedTextFont = TextSizes.playlistIndexFont
+            cell.textFont = Fonts.Playlist.indexFont
+            cell.selectedTextFont = Fonts.Playlist.indexFont
             
             cell.textColor = Colors.playlistIndexTextColor
             cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
@@ -78,8 +78,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.chapterTitleColumnID), owner: nil) as? BasicTableCellView {
             
-            cell.textFont = TextSizes.playlistTrackNameFont
-            cell.selectedTextFont = TextSizes.playlistTrackNameFont
+            cell.textFont = Fonts.Playlist.trackNameFont
+            cell.selectedTextFont = Fonts.Playlist.trackNameFont
             
             cell.textColor = Colors.playlistTextColor
             cell.selectedTextColor = Colors.playlistSelectedTextColor
@@ -101,8 +101,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
-            cell.textFont = TextSizes.playlistIndexFont
-            cell.selectedTextFont = TextSizes.playlistIndexFont
+            cell.textFont = Fonts.Playlist.indexFont
+            cell.selectedTextFont = Fonts.Playlist.indexFont
             
             cell.textColor = Colors.playlistIndexTextColor
             cell.selectedTextColor = Colors.playlistSelectedIndexTextColor

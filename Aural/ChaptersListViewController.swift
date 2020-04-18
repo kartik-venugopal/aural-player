@@ -76,11 +76,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = TextSizes.playlistSummaryFont
-        lblSummary.font = TextSizes.playlistSummaryFont
+        lblWindowTitle.font = Fonts.Playlist.summaryFont
+        lblSummary.font = Fonts.Playlist.summaryFont
         
-        txtSearch.font = TextSizes.chapterSearchFont
-        lblNumMatches.font = TextSizes.chapterSearchFont
+        txtSearch.font = Fonts.Playlist.chapterSearchFont
+        lblNumMatches.font = Fonts.Playlist.chapterSearchFont
         
         // Make sure the chapters list view has focus every time the window is opened
         self.view.window?.makeFirstResponder(chaptersListView)
@@ -401,11 +401,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = TextSizes.playlistSummaryFont
-            lblSummary.font = TextSizes.playlistSummaryFont
+            lblWindowTitle.font = Fonts.Playlist.summaryFont
+            lblSummary.font = Fonts.Playlist.summaryFont
             
-            txtSearch.font = TextSizes.chapterSearchFont
-            lblNumMatches.font = TextSizes.chapterSearchFont
+            txtSearch.font = Fonts.Playlist.chapterSearchFont
+            lblNumMatches.font = Fonts.Playlist.chapterSearchFont
         }
     }
 }

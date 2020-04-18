@@ -5,7 +5,7 @@ class AuralTableHeaderCell: NSTableHeaderCell {
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.editorHeaderTextFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.editorTableHeaderTextFont,
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.editorHeaderTextColor]
         
         stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
@@ -49,7 +49,7 @@ class EditorTableCellView: NSTableCellView {
             if let textField = self.textField {
                 
                 textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                textField.font = isSelRow ? Fonts.editorTableSelectedTextFont : Fonts.editorTableTextFont
             }
         }
     }

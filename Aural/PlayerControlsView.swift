@@ -403,12 +403,12 @@ class PlayerControlsView: NSView {
     
     func changeTextSize(_ textSize: TextSizeScheme) {
         
-        lblTimeElapsed.font = TextSizes.trackTimesFont
-        lblTimeRemaining.font = TextSizes.trackTimesFont
+        lblTimeElapsed.font = Fonts.Player.trackTimesFont
+        lblTimeRemaining.font = Fonts.Player.trackTimesFont
         
-        lblVolume.font = TextSizes.feedbackFont
-        lblPan.font = TextSizes.feedbackFont
-        lblPanCaption.font = TextSizes.feedbackFont
+        lblVolume.font = Fonts.Player.feedbackFont
+        lblPan.font = Fonts.Player.feedbackFont
+        lblPanCaption.font = Fonts.Player.feedbackFont
     }
 }
 

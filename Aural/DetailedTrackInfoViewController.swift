@@ -21,7 +21,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     @IBOutlet weak var lyricsView: NSTextView! {
         
         didSet {
-            lyricsView.font = Fonts.gillSans13Font
+            lyricsView.font = Fonts.Constants.gillSans13Font
             lyricsView.alignment = .center
             lyricsView.backgroundColor = Colors.popoverBackgroundColor
             lyricsView.textColor = Colors.boxTextColor

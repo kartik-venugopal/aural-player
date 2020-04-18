@@ -116,7 +116,7 @@ class EQViewController: FXUnitViewController {
         for subView in view.subviews {
             
             if let label = subView as? NSTextField {
-                label.font = TextSizes.fxUnitFunctionFont
+                label.font = Fonts.Effects.unitFunctionFont
             }
             
             resizeLabelText(subView)
