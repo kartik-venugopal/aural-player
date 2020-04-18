@@ -12,23 +12,38 @@ class AudioDataSource: TrackInfoDataSource {
         var trackInfo: [(key: String, value: String)] = []
         
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
-        
-        if let codec = track.audioInfo?.codec {
-            trackInfo.append((key: "Codec", value: codec))
-        }
+        trackInfo.append((key: "Codec", value: track.audioInfo?.codec ?? value_unknown))
         
         trackInfo.append((key: "Track Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
-        trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", track.audioInfo?.bitRate ?? value_unknown)))
         
-        trackInfo.append((key: "Sample Rate", value: track.playbackInfo?.sampleRate != nil ? String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(track.playbackInfo!.sampleRate!))) : value_unknown))
+        if let bitRate = track.audioInfo?.bitRate {
+            trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", bitRate)))
+        } else {
+            trackInfo.append((key: "Bit Rate", value: value_unknown))
+        }
+
+        if let sampleRate = track.playbackInfo?.sampleRate {
+            trackInfo.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(sampleRate)))))
+        } else {
+            trackInfo.append((key: "Sample Rate", value: value_unknown))
+        }
         
         if let layout = track.audioInfo?.channelLayout {
             trackInfo.append((key: "Channel Layout", value: layout.capitalized))
         } else {
-            trackInfo.append((key: "Channel Layout", value: track.playbackInfo?.numChannels != nil ? channelLayout(track.playbackInfo!.numChannels!) : value_unknown))
+            
+            if let numChannels = track.playbackInfo?.numChannels {
+                trackInfo.append((key: "Channel Layout", value: channelLayout(numChannels)))
+            } else {
+                trackInfo.append((key: "Channel Layout", value: value_unknown))
+            }
         }
         
-        trackInfo.append((key: "Frames", value: track.playbackInfo?.frames != nil ? StringUtils.readableLongInteger(track.playbackInfo!.frames!) : value_unknown))
+        if let frameCount = track.playbackInfo?.frames {
+            trackInfo.append((key: "Frames", value: StringUtils.readableLongInteger(frameCount)))
+        } else {
+            trackInfo.append((key: "Frames", value: value_unknown))
+        }
         
         return trackInfo
     }

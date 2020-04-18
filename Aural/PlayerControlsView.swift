@@ -348,12 +348,7 @@ class PlayerControlsView: NSView {
         btnLoop.switchState(loop != nil ? LoopState.complete : LoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
 
-        if loop != nil {
-            renderLoop(loop, newTrack!.track.duration)
-        } else {
-            seekSliderCell.removeLoop()
-        }
-
+        loop != nil ? renderLoop(loop, newTrack!.track.duration) : seekSliderCell.removeLoop()
         newTrack != nil ? showNowPlayingInfo(newTrack!.track) : clearNowPlayingInfo()
     }
     

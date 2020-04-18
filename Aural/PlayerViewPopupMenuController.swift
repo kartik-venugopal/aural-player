@@ -64,16 +64,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         let trackInfoVisible: Bool = PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo
         
-        var hasArtist: Bool = false
-        var hasAlbum: Bool = false
-        var hasChapters: Bool = false
-        
-        if let track = player.playingTrack?.track {
-            
-            hasArtist = track.displayInfo.artist != nil
-            hasAlbum = track.groupingInfo.album != nil
-            hasChapters = track.hasChapters
-        }
+        let hasArtist: Bool = player.playingTrack?.track.displayInfo.artist != nil
+        let hasAlbum: Bool = player.playingTrack?.track.groupingInfo.album != nil
+        let hasChapters: Bool = player.playingTrack?.track.hasChapters ?? false
         
         showArtistMenuItem.showIf_elseHide(trackInfoVisible && hasArtist)
         showArtistMenuItem.onIf(PlayerViewState.showArtist)
@@ -132,9 +125,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             }
         }
         
-        textSizes.forEach({
-            $0.off()
-        })
+        textSizes.forEach({$0.off()})
         
         switch PlayerViewState.textSize {
             

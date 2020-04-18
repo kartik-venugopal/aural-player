@@ -110,7 +110,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         refresh(track)
         
-        if (!popover.isShown) {
+        if !popover.isShown {
+            
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
             tabView.selectTabViewItem(at: 0)
         }
@@ -122,29 +123,21 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     func close() {
         
-        if (popover.isShown) {
+        if popover.isShown {
             popover.performClose(self)
         }
     }
     
     func toggle(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
-        
-        if (popover.isShown) {
-            close()
-        } else {
-            show(track, relativeToView, preferredEdge)
-        }
+        popover.isShown ? close() : show(track, relativeToView, preferredEdge)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        if let track = DetailedTrackInfoViewController.shownTrack, track.displayInfo.art?.image != nil {
-            exportArtMenuItem.show()
-            exportHTMLWithArtMenuItem.show()
-        } else {
-            exportArtMenuItem.hide()
-            exportHTMLWithArtMenuItem.hide()
-        }
+        let hasImage: Bool = DetailedTrackInfoViewController.shownTrack?.displayInfo.art?.image != nil
+        
+        exportArtMenuItem.showIf_elseHide(hasImage)
+        exportHTMLWithArtMenuItem.showIf_elseHide(hasImage)
     }
     
     @IBAction func exportJPEGAction(_ sender: AnyObject) {
@@ -161,18 +154,16 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             
             let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-coverArt", fileExtension)
             
-            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
-                
-                if let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
+            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url,
+                let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
                     
-                    do {
-                        
-                        try data.write(to: outFile)
-                        
-                    } catch let error {
-                        
-                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription))
-                    }
+                do {
+                    
+                    try data.write(to: outFile)
+                    
+                } catch let error {
+                    
+                    _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription))
                 }
             }
         }
@@ -224,11 +215,12 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         for index in 0..<table.numberOfRows {
             
-            let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as! NSTableCellView
-            if let key = keyCell.textField?.stringValue {
+            if let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as? NSTableCellView,
+                let key = keyCell.textField?.stringValue {
                 
-                let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
-                if let value = valueCell.textField?.stringValue {
+                if let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
+                    let value = valueCell.textField?.stringValue {
+                    
                     dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
                 }
             }

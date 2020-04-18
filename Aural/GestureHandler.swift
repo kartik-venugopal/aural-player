@@ -131,20 +131,19 @@ class GestureHandler {
     private func isResidualScroll(_ event: NSEvent) -> Bool {
     
         // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
-        let playingTrackStartTime = playbackInfo.playingTrackStartTime!
-        let scrollSessionStartTime = ScrollSession.sessionStartTime
-        let scrollSessionInvalid = scrollSessionStartTime != nil && scrollSessionStartTime! < playingTrackStartTime
+        if let playingTrackStartTime = playbackInfo.playingTrackStartTime, let scrollSessionStartTime = ScrollSession.sessionStartTime,
+            scrollSessionStartTime < playingTrackStartTime {
         
-        // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
-        let lastEventTime = ScrollSession.lastEventTime ?? 0
-        let thisEventPartOfOldSession = (event.timestamp - lastEventTime) < UIConstants.scrollSessionMaxTimeGapSeconds
-        
-        // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
-        if (scrollSessionInvalid && thisEventPartOfOldSession) {
+            // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
+            let lastEventTime = ScrollSession.lastEventTime ?? 0
             
-            // Mark the timestamp of this event (for future events), but do not process it
-            ScrollSession.updateLastEventTime(event)
-            return true
+            // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
+            if (event.timestamp - lastEventTime) < UIConstants.scrollSessionMaxTimeGapSeconds {
+                
+                // Mark the timestamp of this event (for future events), but do not process it
+                ScrollSession.updateLastEventTime(event)
+                return true
+            }
         }
         
         // Not residual scroll

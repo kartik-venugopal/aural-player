@@ -17,8 +17,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
@@ -58,15 +56,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self)
-        
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -645,64 +634,58 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func trackChanged(_ notification: TrackChangedNotification) {
         
         let oldTrack = notification.oldTrack
-        let newTrack = notification.newTrack
         
-        if (oldTrack != nil) {
+        if let _oldTrack = oldTrack?.track {
             
-            playlistView.reloadItem(oldTrack!.track)
-            let row = playlistView.row(forItem: oldTrack!.track)
+            playlistView.reloadItem(_oldTrack)
+            
+            let row = playlistView.row(forItem: _oldTrack)
             playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
-        if (newTrack != nil) {
+        let needToShowTrack: Bool = PlaylistViewState.current.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist
+        
+        if let newTrack = notification.newTrack {
             
-            if !newTrack!.equals(oldTrack) {
+            // There is a new track, select it if necessary
+            
+            if !newTrack.equals(oldTrack) {
                 
-                playlistView.reloadItem(newTrack!.track)
-                let row = playlistView.row(forItem: newTrack!.track)
+                playlistView.reloadItem(newTrack.track)
+                
+                let row = playlistView.row(forItem: newTrack.track)
                 playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
             }
             
-            if windowManager.isShowingPlaylist {
-                
-                if let curViewGroupType = PlaylistViewState.current.toGroupType() {
-                    
-                    if curViewGroupType == self.groupType && preferences.showNewTrackInPlaylist {
-                        showPlayingTrack()
-                    }
-                }
+            if needToShowTrack {
+                showPlayingTrack()
             }
             
-        } else {
-            
-            if windowManager.isShowingPlaylist {
-                
-                if let curViewGroupType = PlaylistViewState.current.toGroupType() {
-                    
-                    if curViewGroupType == self.groupType && preferences.showNewTrackInPlaylist {
-                        clearSelection()
-                    }
-                }
-            }
+        } else if needToShowTrack {
+ 
+            // No new track
+            clearSelection()
         }
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
         
         let oldTrack = message.oldTrack
-        let errTrack = playlist.indexOfTrack(message.error.track)!
         
-        if (oldTrack != nil) {
-            playlistView.reloadItem(oldTrack!.track)
+        if let _oldTrack = oldTrack?.track {
+            playlistView.reloadItem(_oldTrack)
         }
         
-        if !errTrack.equals(oldTrack) {
-            playlistView.reloadItem(errTrack.track)
-        }
-        
-        // Only need to do this if this playlist view is shown
-        if let curViewGroupType = PlaylistViewState.current.toGroupType(), curViewGroupType == self.groupType {
-            selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack.track))
+        if let errTrack = playlist.indexOfTrack(message.error.track) {
+            
+            if !errTrack.equals(oldTrack) {
+                playlistView.reloadItem(errTrack.track)
+            }
+            
+            // Only need to do this if this playlist view is shown
+            if PlaylistViewState.current.toGroupType() == self.groupType {
+                selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack.track))
+            }
         }
     }
     
@@ -711,19 +694,20 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let lastPlayedTrack = history.lastPlayedTrack
         let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
         
-        if (oldTrack != nil) {
-            playlistView.reloadItem(oldTrack!.track)
+        if let _oldTrack = oldTrack?.track {
+            playlistView.reloadItem(_oldTrack)
         }
         
-        let newTrack = playlist.indexOfTrack(track)!
-        
-        if !newTrack.equals(oldTrack) {
-            playlistView.reloadItem(track)
-        }
-        
-        // Only need to do this if this playlist view is shown
-        if let curViewGroupType = PlaylistViewState.current.toGroupType(), curViewGroupType == self.groupType {
-            selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
+        if let newTrack = playlist.indexOfTrack(track) {
+            
+            if !newTrack.equals(oldTrack) {
+                playlistView.reloadItem(track)
+            }
+            
+            // Only need to do this if this playlist view is shown
+            if PlaylistViewState.current.toGroupType() == self.groupType {
+                selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
+            }
         }
     }
     
@@ -745,8 +729,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func showTrackInFinder() {
         
         // This is a safe typecast, because the context menu will prevent this function from being executed on groups. In other words, the selected item will always be a track.
-        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
-        FileSystemUtils.showFileInFinder(selTrack.file)
+        if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
+            FileSystemUtils.showFileInFinder(selTrack.file)
+        }
     }
     
     private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
@@ -785,7 +770,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        let needToShowTrack: Bool = windowManager.isShowingPlaylist && PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
         if needToShowTrack {
             selectTrack(message.nextTrack.track)
         }
@@ -899,11 +884,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if let msg = message as? PlaylistActionMessage {
             
             // Check if this message is intended for this playlist view
-            if (msg.playlistType != nil && msg.playlistType != self.playlistType) {
+            if let playlistType = msg.playlistType, playlistType != self.playlistType {
                 return
             }
             
-            switch (msg.actionType) {
+            switch msg.actionType {
                 
             case .refresh:
                 
@@ -991,16 +976,18 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
         
         if message is TextSizeActionMessage {
+            
             changeTextSize()
+            return
         }
         
         if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
             
             if delayedPlaybackMsg.playlistType == self.playlistType {
-                
                 playSelectedItemWithDelay(delayedPlaybackMsg.delay)
-                return
             }
+            
+            return
         }
         
         if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
