@@ -29,17 +29,13 @@ enum TextSizeScheme: String {
 
 class TextSizes {
     
-    static var playerScheme: TextSizeScheme = .normal
-    static var effectsScheme: TextSizeScheme = .normal
-    static var playlistScheme: TextSizeScheme = .normal
-    
     private static let menuFont_normal: NSFont = Fonts.gillSans11Font
     private static let menuFont_larger: NSFont = Fonts.gillSans12Font
     private static let menuFont_largest: NSFont = Fonts.gillSans13Font
     
     static var playerMenuFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return menuFont_normal
             
@@ -52,7 +48,7 @@ class TextSizes {
     
     static var playlistMenuFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return menuFont_normal
             
@@ -65,7 +61,7 @@ class TextSizes {
     
     static var effectsMenuFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return menuFont_normal
             
@@ -82,7 +78,7 @@ class TextSizes {
     
     static var titleFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return titleFont_normal
             
@@ -99,7 +95,7 @@ class TextSizes {
     
     static var gapBoxTitleFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return gapBoxTitleFont_normal
             
@@ -116,7 +112,7 @@ class TextSizes {
     
     static var artistAlbumFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return artistFont_normal
             
@@ -133,7 +129,7 @@ class TextSizes {
     
     static var chapterFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return chapterFont_normal
             
@@ -150,7 +146,7 @@ class TextSizes {
     
     static var scopeFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return scopeFont_normal
             
@@ -167,7 +163,7 @@ class TextSizes {
     
     static var trackTimesFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return trackTimesFont_normal
             
@@ -184,7 +180,7 @@ class TextSizes {
     
     static var feedbackFont: NSFont {
         
-        switch playerScheme {
+        switch PlayerViewState.textSize {
             
         case .normal: return feedbackFont_normal
             
@@ -201,7 +197,7 @@ class TextSizes {
     
     static var playlistIndexFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistIndexFont_normal
             
@@ -218,7 +214,7 @@ class TextSizes {
     
     static var playlistTrackNameFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistTrackNameFont_normal
             
@@ -235,7 +231,7 @@ class TextSizes {
     
     static var playlistGroupNameFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistGroupNameFont_normal
             
@@ -252,7 +248,7 @@ class TextSizes {
 
     static var playlistGroupDurationFont: NSFont {
 
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
 
         case .normal: return playlistGroupDurationFont_normal
 
@@ -269,7 +265,7 @@ class TextSizes {
     
     static var playlistSummaryFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistSummaryFont_normal
             
@@ -286,7 +282,7 @@ class TextSizes {
     
     static var playlistTabsFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistTabsFont_normal
             
@@ -303,7 +299,7 @@ class TextSizes {
     
     static var playlistSelectedTabFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return playlistSelectedTabFont_normal
             
@@ -320,7 +316,7 @@ class TextSizes {
     
     static var chapterSearchFont: NSFont {
         
-        switch playlistScheme {
+        switch PlaylistViewState.textSize {
             
         case .normal: return chapterSearchFont_normal
             
@@ -337,7 +333,7 @@ class TextSizes {
     
     static var fxTabsFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return fxTabsFont_normal
             
@@ -354,7 +350,7 @@ class TextSizes {
     
     static var fxSelectedTabFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return fxSelectedTabFont_normal
             
@@ -371,7 +367,7 @@ class TextSizes {
     
     static var fxUnitCaptionFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return fxUnitCaptionFont_normal
             
@@ -388,7 +384,7 @@ class TextSizes {
     
     static var fxUnitFunctionFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return fxUnitFunctionFont_normal
             
@@ -405,7 +401,7 @@ class TextSizes {
     
     static var fxUnitFunctionBoldFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return fxUnitFunctionBoldFont_normal
             
@@ -422,7 +418,7 @@ class TextSizes {
     
     static var filterChartFont: NSFont {
         
-        switch effectsScheme {
+        switch EffectsViewState.textSize {
             
         case .normal: return filterChartFont_normal
             

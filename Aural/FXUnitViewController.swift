@@ -137,7 +137,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     }
     
     var inputFontSize: TextSizeScheme {
-        return TextSizes.effectsScheme
+        return EffectsViewState.textSize
     }
     
     // MARK: Menu delegate

@@ -125,6 +125,10 @@ class ObjectGraph {
         windowManager = WindowManager(appState.ui.windowLayout, preferences.viewPreferences)
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
+        PlayerViewState.initialize(appState.ui.player)
+        PlaylistViewState.initialize(appState.ui.playlist)
+        EffectsViewState.initialize(appState.ui.effects)
+        
         muxer = Muxer()
         
         commonAVAssetParser = CommonAVAssetParser()

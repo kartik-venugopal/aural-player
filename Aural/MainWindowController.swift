@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber {
+class MainWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: SnappingWindow {
@@ -21,8 +21,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     private var eventMonitor: Any?
     
     private var gestureHandler: GestureHandler!
@@ -38,7 +36,7 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         initWindow()
         theWindow.setIsVisible(false)
         
-        theWindow.delegate = windowManager
+        theWindow.delegate = ObjectGraph.windowManager
         
         activateGestureHandler()
         initSubscriptions()
@@ -57,7 +55,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
-        TextSizes.playerScheme = ObjectGraph.appState.ui.player.textSize
         changeTextSize()
     }
     
@@ -105,10 +102,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         btnToggleEffects.toggle()
     }
     
-    @IBAction func btnLayoutAction(_ sender: NSPopUpButton) {
-        windowManager.layout(sender.titleOfSelectedItem!)
-    }
-    
     private func layoutChanged(_ message: LayoutChangedNotification) {
         
         btnToggleEffects.onIf(message.showingEffects)
@@ -123,22 +116,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
     // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
-    }
-    
-    // MARK: Menu delegate (for the window layouts menu)
-    
-    // When the menu is about to open, set the menu item states according to the current window/view state
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Remove all custom presets (all items before the first separator)
-        while !btnLayout.item(at: 1)!.isSeparatorItem {
-            btnLayout.removeItem(at: 1)
-        }
-        
-        // Recreate the custom layout items
-        WindowLayouts.userDefinedLayouts.forEach({
-            self.btnLayout.insertItem(withTitle: $0.name, at: 1)
-        })
     }
     
     private func changeTextSize() {

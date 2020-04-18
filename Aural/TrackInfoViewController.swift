@@ -9,7 +9,7 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
     
-    private var theView: PlayerView? {
+    private var theView: PlayerView {
         return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
     }
     
@@ -22,12 +22,12 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         if let newTrack = player.playingTrack?.track {
             
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
+            theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
             
         } else {
             
             // No track playing, clear the info fields
-            theView?.clearNowPlayingInfo()
+            theView.clearNowPlayingInfo()
         }
     }
     
@@ -48,26 +48,26 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         
         if let newTrack = player.playingTrack?.track, player.state != .transcoding {
             
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
+            theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
             
         } else {
             
             // No track playing, clear the info fields
-            theView?.clearNowPlayingInfo()
+            theView.clearNowPlayingInfo()
         }
     }
     
     private func transcodingStarted(_ track: Track) {
         
         if let track = player.playingTrack?.track {
-            theView?.setPlayingInfo_dontShow(track, player.sequenceInfo)
+            theView.setPlayingInfo_dontShow(track, player.sequenceInfo)
         }
     }
     
     private func transcodingFinished() {
         
         if let newTrack = player.playingTrack?.track {
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
+            theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
         }
     }
     
@@ -79,16 +79,16 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         
         if let newTrack = player.playingTrack?.track {
-            theView?.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
+            theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
         }
     }
     
     private func sequenceChanged() {
-        theView?.sequenceChanged(player.sequenceInfo)
+        theView.sequenceChanged(player.sequenceInfo)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        theView?.gapStarted(msg)
+        theView.gapStarted(msg)
     }
     
     // MARK: Message handling

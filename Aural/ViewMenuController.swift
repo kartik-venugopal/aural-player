@@ -93,15 +93,27 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
         
         let senderTitle: String = sender.title.lowercased()
-        let size = TextSizeScheme(rawValue: senderTitle)!
         
-        TextSizes.playerScheme = size
-        TextSizes.playlistScheme = size
-        TextSizes.effectsScheme = size
+        if let size = TextSizeScheme(rawValue: senderTitle) {
         
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
+            if PlayerViewState.textSize != size {
+                
+                PlayerViewState.textSize = size
+                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+            }
+            
+            if PlaylistViewState.textSize != size {
+                
+                PlaylistViewState.textSize = size
+                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+            }
+            
+            if EffectsViewState.textSize != size {
+                
+                EffectsViewState.textSize = size
+                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
+            }
+        }
     }
     
     // TODO: Revisit this
