@@ -14,7 +14,7 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
-    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
+//    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
@@ -165,9 +165,9 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
-    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
-    }
+//    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
+//        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
+//    }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))

@@ -1,5 +1,5 @@
-import Cocoa
-
+//import Cocoa
+//
 //class MiniBarAppModeController: AppModeController {
 //    
 //    var mode: AppMode {return .miniBar}

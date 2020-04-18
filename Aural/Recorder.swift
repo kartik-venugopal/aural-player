@@ -71,17 +71,4 @@ class Recorder: RecorderProtocol {
         FileSystemUtils.deleteFile(RecordingSession.currentSession!.tempFilePath)
         RecordingSession.invalidateCurrentSession()
     }
-    
-    // MARK - Experimental code not in use ------------------------------------------------------------
-    
-    func startViz(_ sp: Spectrogram, _ fft: FFT) {
-        
-        graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
-            
-            //            buffer.frameLength = 512
-            
-            let data = fft.fft1(buffer)
-            sp.updateWithData(data)
-        })
-    }
 }

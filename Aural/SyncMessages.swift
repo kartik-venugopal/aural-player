@@ -83,8 +83,6 @@ enum MessageType {
     
     case appReopenedNotification
     
-    case appModeChangedNotification
-    
     case playlistTypeChangedNotification
     
     case editorSelectionChangedNotification
@@ -319,17 +317,6 @@ struct AppReopenedNotification: NotificationMessage {
     init(_ filesToOpen: [URL], _ isDuplicateNotification: Bool) {
         self.filesToOpen = filesToOpen
         self.isDuplicateNotification = isDuplicateNotification
-    }
-}
-
-struct AppModeChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .appModeChangedNotification
-    
-    let newMode: AppMode
-    
-    init(_ newMode: AppMode) {
-        self.newMode = newMode
     }
 }
 

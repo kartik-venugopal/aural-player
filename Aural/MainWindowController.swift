@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: SnappingWindow {
@@ -21,7 +21,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
-    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
     private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     private var eventMonitor: Any?
@@ -41,26 +40,8 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         
         theWindow.delegate = windowManager
         
-        // Register a handler for trackpad/MagicMouse gestures
-        gestureHandler = GestureHandler(theWindow)
-        
-        AppModeManager.registerConstituentView(.regular, self)
-    }
-    
-    func activate() {
-        
         activateGestureHandler()
         initSubscriptions()
-        
-        // TODO: Restore remembered window location and views (effects/playlist)
-    }
-    
-    func deactivate() {
-        
-        deactivateGestureHandler()
-        removeSubscriptions()
-        
-        // TODO: Save window location and views (effects/playlist)
     }
     
     // Set window properties
@@ -87,17 +68,12 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
     
     private func activateGestureHandler() {
         
+        // Register a handler for trackpad/MagicMouse gestures
+        gestureHandler = GestureHandler(theWindow)
+        
         eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe, .scrollWheel], handler: {(event: NSEvent) -> NSEvent? in
             return self.gestureHandler.handle(event) ? nil : event;
         });
-    }
-    
-    private func deactivateGestureHandler() {
-        
-        if eventMonitor != nil {
-            NSEvent.removeMonitor(eventMonitor!)
-            eventMonitor = nil
-        }
     }
     
     private func initSubscriptions() {
@@ -105,12 +81,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
-        SyncMessenger.unsubscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -145,10 +115,6 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         btnTogglePlaylist.onIf(message.showingPlaylist)
     }
     
-//    @IBAction func floatingBarModeAction(_ sender: AnyObject) {
-//        SyncMessenger.publishActionMessage(AppModeActionMessage(.miniBarAppMode))
-//    }
-    
     // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
         NSApp.terminate(self)
@@ -159,9 +125,7 @@ class MainWindowController: NSWindowController, NSMenuDelegate, MessageSubscribe
         theWindow.miniaturize(self)
     }
     
-    // MARK: Window delegate
-    
-    // MARK: Menu delegate
+    // MARK: Menu delegate (for the window layouts menu)
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {

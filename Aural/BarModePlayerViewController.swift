@@ -1,8 +1,8 @@
-import Cocoa
+//import Cocoa
 
 //class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber, ConstituentView {
-    class BarModePlayerViewController: NSViewController {
- 
+//    class BarModePlayerViewController: NSViewController {
+
 //    @IBOutlet weak var volumeSlider: NSSlider!
 //    @IBOutlet weak var btnVolume: NSButton!
 //
@@ -560,4 +560,4 @@ import Cocoa
 //    var subscriberId: String {
 //        return self.className
 //    }
-}
+//}

@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ConstituentView {
+class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
@@ -17,12 +17,6 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func viewDidLoad() {
-        
-        // Use persistent app state to determine the initial state of the view
-        AppModeManager.registerConstituentView(.regular, self)
-    }
-    
-    func activate() {
         
         initSubscriptions()
         
@@ -37,22 +31,12 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
         }
     }
     
-    func deactivate() {
-        removeSubscriptions()
-    }
-    
     private func initSubscriptions() {
         
         AsyncMessenger.subscribe([.trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Subscribe to various notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        AsyncMessenger.unsubscribe([.trackNotPlayed, .gapStarted, .transcodingStarted], subscriber: self)
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.

@@ -20,7 +20,7 @@ protocol WindowManagerProtocol: NSWindowDelegate {
     
     func registerModalComponent(_ component: ModalComponentProtocol)
     
-    func initialLayout()
+    func initializeWindows()
     
     func layout(_ layout: WindowLayout)
     

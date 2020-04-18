@@ -151,7 +151,6 @@
                 <outlet property="showArtistMenuItem" destination="FmK-ms-TfL" id="sJZ-zO-l0d"/>
                 <outlet property="showCurrentChapterMenuItem" destination="IA3-22-PyK" id="wB4-zQ-oFP"/>
                 <outlet property="showMainControlsMenuItem" destination="9dh-e2-H3v" id="C7w-Ey-jY2"/>
-                <outlet property="showSequenceInfoMenuItem" destination="aFP-Tg-nvW" id="w2o-R8-QJE"/>
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="4VY-Qb-AZX"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="2cf-O0-zCm"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="jPu-nS-wrS"/>
@@ -1134,9 +1133,6 @@ CA
                                         </menuItem>
                                         <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="aFP-Tg-nvW">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showOrHideSequenceInfoAction:" target="YVQ-JN-BbP" id="R2W-NN-i5s"/>
-                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="MjU-sI-U0c"/>
                                         <menuItem title="Playing track functions" id="JiX-rw-gah">
@@ -1323,7 +1319,6 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
                             <menuItem title="  Text size" indentationLevel="1" id="RxC-T7-DYq">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -1350,27 +1345,7 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="IjT-DU-SUX"/>
-                            <menuItem title="  Dock Miniature Player" image="DockBottom-Small" hidden="YES" enabled="NO" id="oKL-M2-XnE" userLabel="Dock Miniature Player">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Dock Miniature Player" id="Uys-LW-fQW">
-                                    <items>
-                                        <menuItem title=" Top left corner" image="DockLeft-Small" enabled="NO" id="uSW-IR-fNF" userLabel="Top left corner">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title=" Top right corner" image="DockBottom-Small" enabled="NO" id="ANr-Yx-VfM" userLabel="Top right corner">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title=" Bottom left corner" image="DockRight-Small" enabled="NO" id="Emj-Gd-W3g" userLabel="Bottom left corner">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title=" Bottom right corner" image="DockRight-Small" enabled="NO" id="87O-Fh-SW5" userLabel="Bottom right corner">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
+                            <menuItem isSeparatorItem="YES" hidden="YES" id="nRU-Ye-xW2"/>
                             <menuItem title="  Always on top" hidden="YES" enabled="NO" indentationLevel="1" id="xFq-YL-7lS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -1445,14 +1420,6 @@ CA
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
                                 </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" hidden="YES" id="ZxC-b0-1FU"/>
-                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Switch view" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
-                                </userDefinedRuntimeAttributes>
                             </menuItem>
                         </items>
                         <connections>
@@ -1624,16 +1591,12 @@ CA
         <image name="CollapseGroups" width="15" height="15"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="DelayedPlayback-Menu" width="9" height="14"/>
-        <image name="DockBottom-Small" width="12" height="10"/>
-        <image name="DockLeft-Small" width="12" height="10"/>
-        <image name="DockRight-Small" width="12" height="10"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="EffectsPresets-Editor" width="14" height="14"/>
         <image name="ExpandGroups" width="15" height="15"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="15" height="15"/>
-        <image name="FloatingBarMode-Small" width="15" height="15"/>
         <image name="Gap-Small" width="12" height="15"/>
         <image name="InvertSelection-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="15" height="13"/>

@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playerView: NSView!
     
@@ -40,16 +40,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         changeTextSize(PlayerViewState.textSize)
         
         showView(PlayerViewState.viewType)
-        
-        AppModeManager.registerConstituentView(.regular, self)
-    }
-    
-    func activate() {
         initSubscriptions()
-    }
-    
-    func deactivate() {
-        removeSubscriptions()
     }
     
     private func initSubscriptions() {
@@ -58,13 +49,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {

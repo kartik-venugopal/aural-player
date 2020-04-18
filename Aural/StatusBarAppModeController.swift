@@ -1,7 +1,7 @@
-import Cocoa
-
+//import Cocoa
+//
 //class StatusBarAppModeController: AppModeController {
-//    
+//
 //    var mode: AppMode {return .statusBar}
 //    
 //    private lazy var statusBarView: StatusBarPopoverViewController = ViewFactory.getStatusBarPopover()

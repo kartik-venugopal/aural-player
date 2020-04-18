@@ -39,7 +39,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     
     // MARK - Core functionality ----------------------------------------------------
     
-    func initialLayout() {
+    func initializeWindows() {
         
         if preferences.layoutOnStartup.option == .specific {
             
