@@ -181,6 +181,15 @@ class PlayerView: NSView {
         infoView.changeTextSize()
         gapView.changeTextSize()
     }
+    
+    func changeBackgroundColor(_ color: NSColor) {
+
+        // Solid color
+        [infoBox, controlsBox, functionsBox, gapBox].forEach({
+            $0?.fillColor = color
+            $0?.isTransparent = !color.isOpaque
+        })
+    }
 }
 
 @IBDesignable

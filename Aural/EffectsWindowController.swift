@@ -5,6 +5,10 @@
 import Cocoa
 
 class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
+    
+    @IBOutlet weak var rootContainerBox: NSBox!
+    @IBOutlet weak var effectsContainerBox: NSBox!
+    @IBOutlet weak var tabButtonsBox: NSBox!
 
     // The constituent sub-views, one for each effects unit
 
@@ -44,13 +48,11 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
     }
-
+    
     override var windowNibName: String? {return "Effects"}
 
     override func windowDidLoad() {
         
-        print("\nEffects window loaded !!!")
-
         // Initialize all sub-views
         addSubViews()
 
@@ -104,7 +106,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -126,6 +128,16 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     private func changeTextSize() {
         viewMenuButton.font = Fonts.Effects.menuFont
+    }
+    
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        rootContainerBox.fillColor = color
+        
+        [effectsContainerBox, tabButtonsBox].forEach({
+            $0!.fillColor = color
+            $0!.isTransparent = !color.isOpaque
+        })
     }
 
     var subscriberId: String {
@@ -186,6 +198,21 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         if message is TextSizeActionMessage {
             
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeBackgroundColor:
+                
+                changeBackgroundColor(colorChangeMsg.color)
+                
+            default: return
+                
+            }
+            
             return
         }
     }

@@ -8,7 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GenresPlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="clipView" destination="bf5-Po-lKe" id="OTb-f2-UyL"/>
                 <outlet property="playlistView" destination="Qtd-u6-247" id="1ae-ua-1ho"/>
+                <outlet property="scrollView" destination="7Ht-SU-dHw" id="r9K-ij-fD6"/>
                 <outlet property="view" destination="ghI-Sf-LvB" id="Q4B-cW-Tm8"/>
             </connections>
         </customObject>

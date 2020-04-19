@@ -255,6 +255,14 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     override func mouseDown(with event: NSEvent) {
         
         if !enabled {return}
+        
+        if let theWindow = self.window {
+            
+            theWindow.isMovableByWindowBackground = false
+            theWindow.isMovable = false
+            
+            print("DOWN", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
+        }
 
         let point = convert(event.locationInWindow, from: nil)
         let startSlider = startKnobFrame()
@@ -283,8 +291,27 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         
         if !enabled {return}
         
+        if let theWindow = self.window {
+            
+            theWindow.isMovableByWindowBackground = false
+            theWindow.isMovable = false
+            
+            print("DRAG", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
+        }
+        
         let point = convert(event.locationInWindow, from: nil)
         updateForClick(atPoint: point)
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        
+        if let theWindow = self.window {
+            
+            theWindow.isMovableByWindowBackground = true
+            theWindow.isMovable = true
+            
+            print("UP", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
+        }
     }
     
     private func updateForClick(atPoint point: NSPoint) {

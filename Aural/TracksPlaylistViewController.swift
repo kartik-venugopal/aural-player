@@ -9,6 +9,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
     
     @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -44,7 +45,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -577,13 +578,22 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        scrollView.backgroundColor = color
+        scrollView.drawsBackground = color.isOpaque
+        
+        clipView.backgroundColor = color
+        clipView.drawsBackground = color.isOpaque
+        
+        playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
         return self.className
     }
-    
-    // MARK: Message handlers
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -748,6 +758,21 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if message is TextSizeActionMessage {
             
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+
+            case .changeBackgroundColor:
+                
+                changeBackgroundColor(colorChangeMsg.color)
+                
+            default: return
+                
+            }
+            
             return
         }
         

@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 // Contract for a subscriber to an ActionMessage
 protocol ActionMessageSubscriber {
@@ -329,6 +329,11 @@ enum ActionType {
     case changePlayerTextSize
     case changeEffectsTextSize
     case changePlaylistTextSize
+    
+    // Color scheme change actions
+    case changeBackgroundColor
+    case changeControlButttonColor
+    
 }
 
 enum ActionMode {
@@ -411,6 +416,18 @@ struct TextSizeActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.textSize = textSize
+    }
+}
+
+struct ColorSchemeActionMessage: ActionMessage {
+    
+    let actionType: ActionType
+    let color: NSColor
+    
+    init(_ actionType: ActionType, _ color: NSColor) {
+        
+        self.actionType = actionType
+        self.color = color
     }
 }
 
