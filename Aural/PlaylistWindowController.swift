@@ -5,6 +5,11 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
     
+    @IBOutlet weak var rootContainerBox: NSBox!
+    @IBOutlet weak var playlistContainerBox: NSBox!
+    @IBOutlet weak var tabButtonsBox: NSBox!
+    @IBOutlet weak var controlsBox: NSBox!
+    
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.tracksView
     private lazy var artistsView: NSView = ViewFactory.artistsView
@@ -59,7 +64,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         theWindow.isMovableByWindowBackground = true
         theWindow.delegate = ObjectGraph.windowManager
         
-        changeTextSize(PlaylistViewState.textSize)
+        changeTextSize()
         
         setUpTabGroup()
         initSubscriptions()
@@ -100,23 +105,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .viewChapters], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        if let monitor = eventMonitor {
-            NSEvent.removeMonitor(monitor)
-            eventMonitor = nil
-        }
-        
-        // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self)
-        
-        // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -389,9 +378,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
-    private func changeTextSize(_ size: TextSize) {
-        
-        PlaylistViewState.textSize = size
+    private func changeTextSize() {
         
         lblTracksSummary.font = Fonts.Playlist.summaryFont
         lblDurationSummary.font = Fonts.Playlist.summaryFont
@@ -399,6 +386,16 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         tabGroup.items.forEach({$0.tabButton.redraw()})
         
         viewMenuButton.font = Fonts.Playlist.menuFont
+    }
+    
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        rootContainerBox.fillColor = color
+     
+        [playlistContainerBox, tabButtonsBox, controlsBox].forEach({
+            $0!.fillColor = color
+            $0!.isTransparent = !color.isOpaque
+        })
     }
     
     // Updates the summary in response to a change in the tab group selected tab
@@ -520,7 +517,15 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .previousPlaylistView: previousPlaylistView()
             
-        case .changePlaylistTextSize: changeTextSize((message as! TextSizeActionMessage).textSize)
+        case .changePlaylistTextSize:
+            
+            changeTextSize()
+            
+        case .changeBackgroundColor:
+            
+            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
+                changeBackgroundColor(bkColor)
+            }
             
         case .viewChapters: viewChapters()
             

@@ -3,6 +3,7 @@
  */
 import Cocoa
 
+// TODO: Merge this with TrackInfoViewController
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playerView: NSView!
@@ -45,7 +46,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -160,6 +161,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.changeTextSize()
     }
     
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        defaultView.changeBackgroundColor(color)
+        expandedArtView.changeBackgroundColor(color)
+        transcoderView.changeBackgroundColor(color)
+    }
+    
     private func chapterChanged(_ newChapter: IndexedChapter?) {
         theView.chapterChanged(newChapter?.chapter.title)
     }
@@ -238,6 +246,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .changePlayerTextSize:
             
             changeTextSize()
+            
+        case .changeBackgroundColor:
+            
+            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
+                changeBackgroundColor(bkColor)
+            }
             
         default: return
             

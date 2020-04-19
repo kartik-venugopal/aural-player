@@ -9,9 +9,13 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
+                <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="IQj-6b-tmO"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
+                <outlet property="playlistContainerBox" destination="Syt-ea-ETd" id="Vz1-0Q-UEr"/>
                 <outlet property="playlistWorkSpinner" destination="TgI-fO-gfa" id="myn-qC-H9K"/>
+                <outlet property="rootContainerBox" destination="2Bk-G6-skT" id="zcQ-Na-cgj"/>
+                <outlet property="tabButtonsBox" destination="rbs-L2-HsW" id="I69-WT-J3Y"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
                 <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
@@ -306,6 +310,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="Zax-NV-pDV"/>
                         </constraints>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
                         <rect key="frame" x="15" y="28" width="500" height="205"/>
@@ -372,24 +377,24 @@
                                     </contentFilters>
                                 </progressIndicator>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="10" y="2" width="155" height="23"/>
+                                    <rect key="frame" x="8" y="2" width="159" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="155" id="nCr-fa-5NI"/>
                                         <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" drawsBackground="YES" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="382" y="2" width="111" height="23"/>
+                                    <rect key="frame" x="380" y="2" width="115" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="111" id="Dph-rN-D1k"/>
                                         <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" drawsBackground="YES" id="s2h-am-6V7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="s2h-am-6V7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

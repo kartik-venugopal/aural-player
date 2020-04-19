@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="EffectsWindowController">
             <connections>
                 <outlet property="delayTabViewButton" destination="mw3-FF-9td" id="O9j-H8-Whx"/>
+                <outlet property="effectsContainerBox" destination="Jtw-Y5-1IX" id="Vtv-2X-ndU"/>
                 <outlet property="eqTabViewButton" destination="O5c-8Q-17s" id="FX2-zC-8e8"/>
                 <outlet property="filterTabViewButton" destination="gOm-fK-Gv0" id="2eo-rZ-CKA"/>
                 <outlet property="fxTabView" destination="NVs-Zs-ocb" id="7H8-SK-rCV"/>
@@ -16,6 +17,8 @@
                 <outlet property="pitchTabViewButton" destination="eay-EC-eK5" id="JLh-hS-UmO"/>
                 <outlet property="recorderTabViewButton" destination="tIx-Qv-jQv" id="eF8-Fo-6Xq"/>
                 <outlet property="reverbTabViewButton" destination="i8m-M9-uNi" id="Pbu-A6-kIV"/>
+                <outlet property="rootContainerBox" destination="wnD-Di-RRh" id="5rA-wc-wsr"/>
+                <outlet property="tabButtonsBox" destination="Zhk-zz-laJ" id="ZQW-Ua-AU2"/>
                 <outlet property="timeTabViewButton" destination="ehI-IS-owi" id="6hD-IH-LtS"/>
                 <outlet property="viewMenuButton" destination="HsC-2z-eFh" id="dBU-y6-VHR"/>
                 <outlet property="window" destination="V8B-S9-0F8" id="LUw-iX-Uk3"/>
@@ -226,57 +229,57 @@
                                     <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </box>
-                                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Jtw-Y5-1IX" userLabel="Effects Box">
+                                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Jtw-Y5-1IX" userLabel="Effects Box">
                                     <rect key="frame" x="14" y="10" width="502" height="185"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="906-wq-IiK">
                                         <rect key="frame" x="0.0" y="0.0" width="502" height="185"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tabView appearanceType="aqua" fixedFrame="YES" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="NVs-Zs-ocb" userLabel="Tab group">
-                                                <rect key="frame" x="-7" y="-10" width="613" height="199"/>
+                                            <tabView focusRingType="none" appearanceType="darkAqua" fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="NVs-Zs-ocb" userLabel="Tab group">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                        <view key="view" id="3tH-T8-1bs">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="EQ" identifier="1" id="SKS-VT-g4s" userLabel="EQ">
                                                         <view key="view" id="LYe-23-SNP">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Pitch" identifier="2" id="2rK-jA-2NZ">
                                                         <view key="view" id="RoX-Nl-f1U">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Time" identifier="3" id="eLz-oO-Qf8">
                                                         <view key="view" id="5GN-PU-yKG">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Reverb" identifier="4" id="EZH-A6-VAd">
                                                         <view key="view" id="Cm1-7E-ziH">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Delay" identifier="5" id="phM-u6-asC">
                                                         <view key="view" id="jsf-hu-bEQ">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Filter" identifier="6" id="ssO-6h-MpM">
-                                                        <view key="view" id="tf6-La-cQH">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                        <view key="view" ambiguous="YES" id="tf6-La-cQH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
@@ -290,7 +293,7 @@
                                             </tabView>
                                         </subviews>
                                     </view>
-                                    <color key="borderColor" white="0.1031358507" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">

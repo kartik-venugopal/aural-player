@@ -11,6 +11,8 @@ class TranscoderView: NSView {
     
     @IBOutlet weak var progressView: ProgressArc!
     
+    @IBOutlet weak var containerBox: NSBox!
+    
     func transcodingStarted(_ track: Track) {
         updateFields(track.conciseDisplayName, 0, track.duration, 0, 0, 0, "0x")
     }
@@ -38,5 +40,11 @@ class TranscoderView: NSView {
     }
     
     func transcodingFinished() {
+    }
+    
+    func changeBackgroundColor(_ color: NSColor) {
+        
+        containerBox.fillColor = color
+        containerBox.isTransparent = !color.isOpaque
     }
 }

@@ -11,6 +11,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     }
     
     // The box that encloses the Now Playing info section
+    @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.playerView
     
@@ -26,6 +27,13 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private var gestureHandler: GestureHandler!
     
     override var windowNibName: String? {return "MainWindow"}
+    
+    private let colorsDialog: ColorSchemesWindowController = ColorSchemesWindowController()
+    
+    @IBAction func showColorsAction(_ sender: AnyObject) {
+        colorsDialog.window?.setIsVisible(true)
+    }
+    
     
     // MARK: Setup
     
@@ -76,7 +84,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -124,6 +132,20 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         viewMenuButton.font = Fonts.Player.menuFont
     }
     
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        rootContainerBox.fillColor = color
+        
+        if color.alphaComponent == 1 {
+            
+            containerBox.fillColor = color
+            containerBox.isTransparent = false
+            
+        } else {
+            containerBox.isTransparent = true
+        }
+    }
+    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -142,6 +164,12 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         case .togglePlaylist: togglePlaylist()
             
         case .changePlayerTextSize: changeTextSize()
+            
+        case .changeBackgroundColor:
+            
+            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
+                changeBackgroundColor(bkColor)
+            }
             
         default: return
             

@@ -12,6 +12,7 @@
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="rootContainerBox" destination="s2a-4T-trI" id="1FZ-Uj-KKg"/>
                 <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
@@ -23,7 +24,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
@@ -36,6 +37,17 @@
                             <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pa-gv-u2a">
+                                    <rect key="frame" x="314" y="192" width="82" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Colors" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4GL-S8-kIM">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="showColorsAction:" target="-2" id="jZa-bP-f21"/>
+                                    </connections>
+                                </button>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
                                     <rect key="frame" x="14" y="205" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

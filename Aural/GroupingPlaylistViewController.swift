@@ -5,6 +5,8 @@ import Cocoa
  */
 class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     
     private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
@@ -55,7 +57,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -723,6 +725,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+        scrollView.backgroundColor = color
+        scrollView.drawsBackground = color.isOpaque
+        
+        clipView.backgroundColor = color
+        clipView.drawsBackground = color.isOpaque
+        
+        playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
+    }
+    
     // MARK: Message handlers
     
     var subscriberId: String {
@@ -898,6 +911,21 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if message is TextSizeActionMessage {
             
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeBackgroundColor:
+                
+                changeBackgroundColor(colorChangeMsg.color)
+                
+            default: return
+                
+            }
+            
             return
         }
         
