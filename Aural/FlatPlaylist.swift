@@ -23,8 +23,12 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
-        let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
-        return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
+        
+        if let theIndex = index {
+            return theIndex < 0 || theIndex >= tracks.count ? nil : IndexedTrack(tracks[theIndex], theIndex)
+        }
+        
+        return nil
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
@@ -42,10 +46,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             let match = trackMatchesQuery($0, searchQuery)
             
             // If there was a match, append the result to the set of results
-            if (match.matched) {
+            if match.matched, let matchedField = match.matchedField, let matchedFieldValue = match.matchedFieldValue {
                 
                 // Track index will be determined later, if required
-                results.append(SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0, groupInfo: nil), match: (match.matchedField!, match.matchedFieldValue!)))
+                results.append(SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0, groupInfo: nil), match: (matchedField, matchedFieldValue)))
             }
         })
         
@@ -60,26 +64,20 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             
             // Check both the filename and the display name
             
-            let filename = track.file.deletingPathExtension().lastPathComponent
-            if (compare(filename, searchQuery)) {
+            let filename = track.fileSystemInfo.fileName
+            if compare(filename, searchQuery) {
                 return (true, "filename", filename)
             }
             
             let displayName = track.conciseDisplayName
-            if (compare(displayName, searchQuery)) {
+            if compare(displayName, searchQuery) {
                 return (true, "name", displayName)
             }
         }
         
         // Compare title field if included in search
-        if (searchQuery.fields.title) {
-            
-            if let title = track.displayInfo.title {
-                
-                if (compare(title, searchQuery)) {
-                    return (true, "title", title)
-                }
-            }
+        if searchQuery.fields.title, let title = track.displayInfo.title, compare(title, searchQuery) {
+            return (true, "title", title)
         }
         
         // Didn't match

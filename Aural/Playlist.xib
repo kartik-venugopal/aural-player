@@ -556,6 +556,12 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="kO2-0B-15e"/>
                     </connections>
                 </menuItem>
+                <menuItem title=" View chapters list" image="ToggleChaptersList-Small" id="ciW-XS-CUy" userLabel="View chapters">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="viewChaptersAction:" target="TnB-Sk-yOp" id="HRe-Jx-Aj7"/>
+                    </connections>
+                </menuItem>
                 <menuItem title=" Play this group" image="Play-Padded-Small" id="FsK-Wf-m1z">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -852,12 +858,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
-                    </connections>
-                </menuItem>
-                <menuItem title=" View chapters list" image="ToggleChaptersList-Small" id="ciW-XS-CUy" userLabel="View chapters">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="viewChaptersAction:" target="TnB-Sk-yOp" id="HRe-Jx-Aj7"/>
                     </connections>
                 </menuItem>
             </items>
