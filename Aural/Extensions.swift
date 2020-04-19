@@ -369,7 +369,7 @@ extension NSColor {
 
 extension NSImage {
     
-    func tint(color: NSColor) -> NSImage {
+    func applyingTint(_ color: NSColor) -> NSImage {
         
         let image = self.copy() as! NSImage
         image.lockFocus()

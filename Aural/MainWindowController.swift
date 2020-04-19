@@ -15,6 +15,9 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.playerView
     
+    @IBOutlet weak var btnQuit: NSButton!
+    @IBOutlet weak var btnMinimize: NSButton!
+    
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
@@ -28,7 +31,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     override var windowNibName: String? {return "MainWindow"}
     
-    private let colorsDialog: ColorSchemesWindowController = ColorSchemesWindowController()
+    private lazy var colorsDialog: ColorSchemesWindowController = ColorSchemesWindowController()
     
     @IBAction func showColorsAction(_ sender: AnyObject) {
         colorsDialog.window?.setIsVisible(true)
@@ -84,7 +87,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -144,6 +147,15 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         } else {
             containerBox.isTransparent = true
         }
+        
+//        rootContainerBox.cornerRadius = CGFloat(Int.random(in: 3...15))
+    }
+    
+    private func changeControlButtonColor(_ color: NSColor) {
+        
+        [btnQuit, btnMinimize].forEach({
+            $0?.image = $0?.image?.applyingTint(color)
+        })
     }
     
     // MARK: Message handling
@@ -169,6 +181,12 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
             if let bkColor = (message as? ColorSchemeActionMessage)?.color {
                 changeBackgroundColor(bkColor)
+            }
+            
+        case .changeControlButtonColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonColor(ctrlColor)
             }
             
         default: return

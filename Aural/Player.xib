@@ -493,6 +493,8 @@ G1BhbiBTbGlkZXI
                     <outlet property="btnPlayPause" destination="uxJ-NT-42D" id="r6C-JQ-FeY"/>
                     <outlet property="btnPreviousTrack" destination="gke-1K-1NZ" id="Eeb-4R-3Nf"/>
                     <outlet property="btnRepeat" destination="S6a-Cd-VG3" id="ks5-CN-UeI"/>
+                    <outlet property="btnSeekBackward" destination="KPa-om-rGW" id="6p0-od-7Nm"/>
+                    <outlet property="btnSeekForward" destination="3Nh-bg-Acn" id="Ema-Xl-TX2"/>
                     <outlet property="btnShuffle" destination="fYX-r9-TO4" id="GHl-NM-5PD"/>
                     <outlet property="btnVolume" destination="9X6-Lb-nc3" id="KPv-1r-nER"/>
                     <outlet property="lblPan" destination="FJQ-nK-tc8" id="etg-lF-PQg"/>

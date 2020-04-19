@@ -18,6 +18,6 @@ class ColorSchemesWindowController: NSWindowController {
     }
     
     @IBAction func controlColorAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButttonColor, controlButtonColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonColor, controlButtonColorPicker.color))
     }
 }

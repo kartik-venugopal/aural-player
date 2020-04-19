@@ -332,8 +332,7 @@ enum ActionType {
     
     // Color scheme change actions
     case changeBackgroundColor
-    case changeControlButttonColor
-    
+    case changeControlButtonColor
 }
 
 enum ActionMode {

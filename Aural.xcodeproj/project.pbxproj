@@ -416,7 +416,6 @@
 		3EF609B3219307DD007AB34D /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF609B2219307DD007AB34D /* MasterView.swift */; };
 		3EF62FF1244C427200AD7172 /* ColorSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF62FF0244C427200AD7172 /* ColorSchemes.xib */; };
 		3EF62FF3244C42F300AD7172 /* ColorSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */; };
-		3EF62FF5244C451700AD7172 /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF62FF4244C451700AD7172 /* ColorSchemeManager.swift */; };
 		3EF6A0021FA313120050F0D2 /* SortComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6A0011FA313120050F0D2 /* SortComparator.swift */; };
 		3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF743AE218C366A0060BDE0 /* FilterChart.swift */; };
 		3EF743B1218C50420060BDE0 /* FilterBandsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */; };
@@ -854,7 +853,6 @@
 		3EF609B2219307DD007AB34D /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
 		3EF62FF0244C427200AD7172 /* ColorSchemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemes.xib; sourceTree = "<group>"; };
 		3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesWindowController.swift; sourceTree = "<group>"; };
-		3EF62FF4244C451700AD7172 /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		3EF6A0011FA313120050F0D2 /* SortComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortComparator.swift; sourceTree = "<group>"; };
 		3EF743AE218C366A0060BDE0 /* FilterChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChart.swift; sourceTree = "<group>"; };
 		3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsViewDelegate.swift; sourceTree = "<group>"; };
@@ -2128,7 +2126,6 @@
 			children = (
 				3EF62FF0244C427200AD7172 /* ColorSchemes.xib */,
 				3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */,
-				3EF62FF4244C451700AD7172 /* ColorSchemeManager.swift */,
 			);
 			path = ColorSchemes;
 			sourceTree = "<group>";
@@ -2485,7 +2482,6 @@
 				3E5E1E5521DB677D007C62B7 /* FormatMapper.swift in Sources */,
 				3E1E970D1FA42AE5006C8629 /* GroupAccessorProtocol.swift in Sources */,
 				3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */,
-				3EF62FF5244C451700AD7172 /* ColorSchemeManager.swift in Sources */,
 				3EB2F1FF1FB311760031B6C1 /* Fonts.swift in Sources */,
 				3EB1701021748B7600B82D3A /* TimeIntervalFormatter.swift in Sources */,
 				3EDAE69F1F7613C800D6F808 /* AudioUtils.swift in Sources */,

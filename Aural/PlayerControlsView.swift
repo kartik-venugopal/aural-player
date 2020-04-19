@@ -44,6 +44,9 @@ class PlayerControlsView: NSView {
     @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
     @IBOutlet weak var btnNextTrack: TrackPeekingButton!
     
+    @IBOutlet weak var btnSeekBackward: NSButton!
+    @IBOutlet weak var btnSeekForward: NSButton!
+    
     var seekPositionFunction: (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double)) = {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in
         return (0, 0, 0)
     }
@@ -404,6 +407,13 @@ class PlayerControlsView: NSView {
         lblVolume.font = Fonts.Player.feedbackFont
         lblPan.font = Fonts.Player.feedbackFont
         lblPanCaption.font = Fonts.Player.feedbackFont
+    }
+    
+    func changeControlButtonColor(_ color: NSColor) {
+        
+        [btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
+            $0?.image = $0?.image?.applyingTint(color)
+        })
     }
 }
 
