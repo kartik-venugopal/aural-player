@@ -238,23 +238,20 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         let summary = playlist.summary(PlaylistViewState.current)
         
+        let numTracks = summary.size
+        let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
+        
+        lblDurationSummary.stringValue = String(format: "%@", duration)
+        
         if (PlaylistViewState.current == .tracks) {
             
-            let numTracks = summary.size
-            let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
-            
             lblTracksSummary.stringValue = String(format: "%d %@", numTracks, numTracks == 1 ? "track" : "tracks")
-            lblDurationSummary.stringValue = String(format: "%@", duration)
             
-        } else {
-            
-            let groupType = PlaylistViewState.groupType!
+        } else if let groupType = PlaylistViewState.groupType {
+
             let numGroups = summary.numGroups
-            let numTracks = summary.size
-            let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
             
             lblTracksSummary.stringValue = String(format: "%d %@   %d %@", numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"), numTracks, numTracks == 1 ? "track" : "tracks", duration)
-            lblDurationSummary.stringValue = String(format: "%@", duration)
         }
         
         // Update spinner with current progress, if tracks are being added
@@ -411,11 +408,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func trackChanged(_ newTrack: IndexedTrack?) {
         
-        if let track = newTrack?.track, track.hasChapters {
+        if playbackInfo.chapterCount > 0 {
             
             // Only show chapters list if preferred by user
             if playlistPreferences.showChaptersList {
-                windowManager.showChaptersList()
+                viewChapters()
             }
             
         } else {

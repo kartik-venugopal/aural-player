@@ -50,7 +50,7 @@ class Track: NSObject, PlaylistItem {
         self.metadataNativelySupported = MetadataUtils.isFileMetadataNativelySupported(file)
         
         self.fileSystemInfo = FileSystemInfo(file)
-        self.displayInfo = DisplayInfo(file)
+        self.displayInfo = DisplayInfo(file, fileSystemInfo.fileName)
         self.groupingInfo = GroupingInfo()
         self.lazyLoadingInfo = LazyLoadingInfo()
     }
@@ -111,6 +111,7 @@ class Track: NSObject, PlaylistItem {
     // Loads metadata and audio/filesystem info for display in the "More Info" view
     func loadDetailedInfo() {
         TrackIO.loadDetailedInfo(self)
+        print(metadata)
     }
     
     // Prepares this track for playback
@@ -196,9 +197,9 @@ class DisplayInfo {
     
     var conciseName: String
     
-    init(_ file: URL) {
+    init(_ file: URL, _ fileName: String) {
         self.duration = 0
-        self.conciseName = file.deletingPathExtension().lastPathComponent
+        self.conciseName = fileName
     }
     
     func setMetadata(_ artist: String?, _ title: String?, _ art: CoverArt?) {
@@ -210,12 +211,12 @@ class DisplayInfo {
             self.art = art
         }
         
-        if (title != nil) {
+        if let theTitle = title {
             
-            if (artist != nil) {
-                self.conciseName = String(format: "%@ - %@", artist!, title!)
+            if let theArtist = artist {
+                self.conciseName = String(format: "%@ - %@", theArtist, theTitle)
             } else {
-                self.conciseName = title!
+                self.conciseName = theTitle
             }
         }
     }
@@ -271,9 +272,11 @@ class FileSystemInfo {
     
     // The filesystem file that contains the audio track represented by this object
     let file: URL
+    let fileName: String
     
     init(_ file: URL) {
         self.file = file
+        self.fileName = file.deletingPathExtension().lastPathComponent
     }
     
     // Filesystem size

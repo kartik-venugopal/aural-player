@@ -171,16 +171,16 @@ class AudioUtils {
         }
     }
     
+    // TODO: Split this into 2 functions (supported types vs non-supported)
     // Loads detailed audio-specific info for the given track
     static func loadAudioInfo(_ track: Track) {
         
         let fileExtension = track.file.pathExtension.lowercased()
+        let audioInfo = AudioInfo()
         
         if !track.playbackNativelySupported || fileExtension == "flac" {
             
             if let avInfo = track.libAVInfo {
-                
-                let audioInfo = AudioInfo()
                 
                 audioInfo.format = avInfo.fileFormatDescription
                 
@@ -191,44 +191,55 @@ class AudioUtils {
                 audioInfo.channelLayout = avInfo.audioStream?.channelLayout
                 
                 if let bitRate = avInfo.audioStream?.bitRate {
+                    
                     audioInfo.bitRate = Int(round(bitRate))
+                    
+                } else if track.duration == 0 {
+                    
+                    audioInfo.bitRate = 0
+                    
                 } else {
-                    
-                    // TODO: What if this is a Matroska/MP4 container that also contains video ? This will be overestimated
-                    
-                    if track.duration == 0 {
-                        audioInfo.bitRate = 0
-                    } else {
-                        let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-                        audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
-                    }
+
+                    let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
+                    audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
                 }
-                
-                track.audioInfo = audioInfo
             }
             
         } else {
             
-            let audioInfo = AudioInfo()
+            // Natively supported file type
             
-            let ext = track.file.pathExtension.lowercased()
-            audioInfo.format = formatDescriptions[ext]
+            audioInfo.format = formatDescriptions[fileExtension]
             
-            if let audioTrack = track.audioAsset?.tracks.first, let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
-                audioInfo.codec = codec
+            var estBitRate: Float = 0
+            
+            if let audioTrack = track.audioAsset?.tracks.first {
+                
+                if let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
+                    audioInfo.codec = codec
+                } else {
+                    audioInfo.codec = fileExtension.uppercased()
+                }
+                
+                estBitRate = audioTrack.estimatedDataRate
             }
             
-            // TODO: What if this is a MP4 container that also contains video ? This will be overestimated
-            
-            if track.duration == 0 {
+            if estBitRate > 0 {
+                
+                audioInfo.bitRate = Int(round(estBitRate))
+                
+            } else if track.duration == 0 {
+                
                 audioInfo.bitRate = 0
+                
             } else {
+                    
                 let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
                 audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
             }
-            
-            track.audioInfo = audioInfo
         }
+        
+        track.audioInfo = audioInfo
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.

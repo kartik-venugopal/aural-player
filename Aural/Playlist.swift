@@ -135,21 +135,21 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         var allResults: SearchResults = SearchResults([])
         
         // The flat playlist searches by name or title
-        if (searchQuery.fields.name || searchQuery.fields.title) {
+        if searchQuery.fields.name || searchQuery.fields.title {
             allResults = flatPlaylist.search(searchQuery)
         }
         
         // The Artists playlist searches only by artist
-        if (searchQuery.fields.artist) {
+        if searchQuery.fields.artist, let artistsPlaylist = groupingPlaylists[.artists] {
             
-            let resultsByArtist = groupingPlaylists[.artists]!.search(searchQuery)
+            let resultsByArtist = artistsPlaylist.search(searchQuery)
             allResults = allResults.union(resultsByArtist)
         }
         
         // The Albums playlist searches only by album
-        if (searchQuery.fields.album) {
+        if searchQuery.fields.album, let albumsPlaylist = groupingPlaylists[.albums] {
             
-            let resultsByAlbum = groupingPlaylists[.albums]!.search(searchQuery)
+            let resultsByAlbum = albumsPlaylist.search(searchQuery)
             allResults = allResults.union(resultsByAlbum)
         }
         
@@ -184,9 +184,12 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         // Sort only the specified playlist type
         
         if playlistType == .tracks {
+            
             flatPlaylist.sort(sort)
-        } else {
-            groupingPlaylists[playlistType]!.sort(sort)
+            
+        } else if let groupingPlaylist = groupingPlaylists[playlistType] {
+            
+            groupingPlaylist.sort(sort)
         }
     }
     
