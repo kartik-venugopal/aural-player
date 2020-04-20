@@ -16,6 +16,7 @@ class ColorScheme {
     var playerSliderForegroundColor: NSColor
     var playerSliderBackgroundColor: NSColor
     var playerSliderKnobColor: NSColor
+    var playerSliderLoopSegmentColor: NSColor
     
     convenience init() {
         self.init(ColorSchemePreset.defaultScheme)
@@ -32,9 +33,10 @@ class ColorScheme {
         self.primaryTextColor = preset.primaryTextColor
         self.secondaryTextColor = preset.secondaryTextColor
         
-        self.playerSliderBackgroundColor = preset.sliderBackgroundColor
-        self.playerSliderForegroundColor = preset.sliderForegroundColor
-        self.playerSliderKnobColor = preset.sliderKnobColor
+        self.playerSliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.playerSliderForegroundColor = preset.playerSliderForegroundColor
+        self.playerSliderKnobColor = preset.playerSliderKnobColor
+        self.playerSliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
@@ -48,9 +50,10 @@ class ColorScheme {
         self.primaryTextColor = preset.primaryTextColor
         self.secondaryTextColor = preset.secondaryTextColor
         
-        self.playerSliderBackgroundColor = preset.sliderBackgroundColor
-        self.playerSliderForegroundColor = preset.sliderForegroundColor
-        self.playerSliderKnobColor = preset.sliderKnobColor
+        self.playerSliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.playerSliderForegroundColor = preset.playerSliderForegroundColor
+        self.playerSliderKnobColor = preset.playerSliderKnobColor
+        self.playerSliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
 }
 
@@ -130,7 +133,7 @@ enum ColorSchemePreset: String {
         }
     }
     
-    var sliderForegroundColor: NSColor {
+    var playerSliderForegroundColor: NSColor {
         
         switch self {
             
@@ -141,7 +144,7 @@ enum ColorSchemePreset: String {
         }
     }
     
-    var sliderBackgroundColor: NSColor {
+    var playerSliderBackgroundColor: NSColor {
         
         switch self {
             
@@ -152,13 +155,24 @@ enum ColorSchemePreset: String {
         }
     }
     
-    var sliderKnobColor: NSColor {
+    var playerSliderKnobColor: NSColor {
         
         switch self {
             
         case .darkBackgroundLightForeground:  return Colors.Constants.white50Percent
             
         case .lightBackgroundDarkForeground:  return NSColor.darkGray
+            
+        }
+    }
+    
+    var playerSliderLoopSegmentColor: NSColor {
+        
+        switch self {
+            
+        case .darkBackgroundLightForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+            
+        case .lightBackgroundDarkForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
             
         }
     }

@@ -343,6 +343,7 @@ enum ActionType {
     case changePlayerSliderBackgroundColor
     case changePlayerSliderForegroundColor
     case changePlayerSliderKnobColor
+    case changePlayerSliderLoopSegmentColor
 }
 
 enum ActionMode {

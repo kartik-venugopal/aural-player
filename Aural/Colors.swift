@@ -63,6 +63,12 @@ struct Colors {
                               ending: ColorScheme.systemScheme.playerSliderForegroundColor)!
         }
         
+        static var seekBarLoopGradient: NSGradient {
+            
+            return NSGradient(starting: ColorScheme.systemScheme.playerSliderLoopSegmentColor,
+                              ending: ColorScheme.systemScheme.playerSliderLoopSegmentColor)!
+        }
+        
         static var knobColor: NSColor {
             return ColorScheme.systemScheme.playerSliderKnobColor
         }

@@ -5,7 +5,9 @@ class ColorSchemesWindowController: NSWindowController {
     // TODO: Store history of changes for each color (to allow Undo feature)
     
     @IBOutlet weak var backgroundColorPicker: NSColorWell!
+    
     @IBOutlet weak var controlButtonColorPicker: NSColorWell!
+    @IBOutlet weak var controlButtonOffStateColorPicker: NSColorWell!
     
     @IBOutlet weak var primaryTextColorPicker: NSColorWell!
     @IBOutlet weak var secondaryTextColorPicker: NSColorWell!
@@ -13,6 +15,7 @@ class ColorSchemesWindowController: NSWindowController {
     @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
+    @IBOutlet weak var sliderLoopSegmentColorPicker: NSColorWell!
     
     @IBOutlet weak var logoTextColorPicker: NSColorWell!
     
@@ -42,10 +45,16 @@ class ColorSchemesWindowController: NSWindowController {
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSecondaryTextColor, secondaryTextColorPicker.color))
     }
     
-    @IBAction func controlColorAction(_ sender: Any) {
+    @IBAction func controlButtonColorAction(_ sender: Any) {
         
         ColorScheme.systemScheme.controlButtonColor = controlButtonColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonColor, controlButtonColorPicker.color))
+    }
+    
+    @IBAction func controlButtonOffStateColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.controlButtonOffStateColor = controlButtonOffStateColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonOffStateColor, controlButtonOffStateColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -64,6 +73,12 @@ class ColorSchemesWindowController: NSWindowController {
         
         ColorScheme.systemScheme.playerSliderKnobColor = sliderKnobColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
+    }
+    
+    @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playerSliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
     }
     
     @IBAction func logoTextColorAction(_ sender: Any) {

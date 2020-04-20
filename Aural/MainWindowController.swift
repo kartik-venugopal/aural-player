@@ -155,6 +155,13 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         })
     }
     
+    private func changeControlButtonOffStateColor(_ color: NSColor) {
+        
+        [btnTogglePlaylist, btnToggleEffects].forEach({
+            $0.reTint()
+        })
+    }
+    
     private func changeLogoTextColor(_ color: NSColor) {
         logoImage.reTint()
     }
@@ -188,6 +195,12 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
+            }
+            
+        case .changeControlButtonOffStateColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonOffStateColor(ctrlColor)
             }
             
         case .changeLogoTextColor:
