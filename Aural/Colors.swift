@@ -74,6 +74,33 @@ struct Colors {
         }
     }
     
+    struct Playlist {
+        
+        static var trackNameTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistTrackNameTextColor
+        }
+        
+        static var groupNameTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistGroupNameTextColor
+        }
+        
+        static var indexDurationTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistIndexDurationTextColor
+        }
+        
+        static var trackNameSelectedTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistTrackNameSelectedTextColor
+        }
+        
+        static var groupNameSelectedTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistGroupNameSelectedTextColor
+        }
+        
+        static var indexDurationSelectedTextColor: NSColor {
+            return ColorScheme.systemScheme.playlistIndexDurationSelectedTextColor
+        }
+    }
+    
     static let fxFunctionTextColor: NSColor = Constants.white40Percent
     
     static let fxFunctionPopupMenuTextColor: NSColor = Constants.white60Percent

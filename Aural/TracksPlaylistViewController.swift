@@ -45,7 +45,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -589,6 +589,26 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
     }
     
+    private func changeTrackNameTextColor(_ color: NSColor) {
+        
+        let rowsRange: Range<Int> = 0..<playlistView.numberOfRows
+        playlistView.reloadData(forRowIndexes: IndexSet(integersIn: rowsRange), columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeIndexDurationTextColor(_ color: NSColor) {
+        
+        let rowsRange: Range<Int> = 0..<playlistView.numberOfRows
+        playlistView.reloadData(forRowIndexes: IndexSet(integersIn: rowsRange), columnIndexes: IndexSet([0, 2]))
+    }
+    
+    private func changeTrackNameSelectedTextColor(_ color: NSColor) {
+        playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
+        playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([0, 2]))
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -768,6 +788,22 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             case .changeBackgroundColor:
                 
                 changeBackgroundColor(colorChangeMsg.color)
+                
+            case .changePlaylistTrackNameTextColor:
+
+                changeTrackNameTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistIndexDurationTextColor:
+                
+                changeIndexDurationTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistTrackNameSelectedTextColor:
+                
+                changeTrackNameSelectedTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistIndexDurationSelectedTextColor:
+                
+                changeIndexDurationSelectedTextColor(colorChangeMsg.color)
                 
             default: return
                 

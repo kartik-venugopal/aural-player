@@ -9,6 +9,10 @@ class ColorSchemesWindowController: NSWindowController {
     @IBOutlet weak var controlButtonColorPicker: NSColorWell!
     @IBOutlet weak var controlButtonOffStateColorPicker: NSColorWell!
     
+    @IBOutlet weak var logoTextColorPicker: NSColorWell!
+    
+    // Player colors
+    
     @IBOutlet weak var primaryTextColorPicker: NSColorWell!
     @IBOutlet weak var secondaryTextColorPicker: NSColorWell!
     
@@ -17,7 +21,20 @@ class ColorSchemesWindowController: NSWindowController {
     @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
     @IBOutlet weak var sliderLoopSegmentColorPicker: NSColorWell!
     
-    @IBOutlet weak var logoTextColorPicker: NSColorWell!
+    // Playlist colors
+    
+    @IBOutlet weak var playlistTrackNameTextColorPicker: NSColorWell!
+    @IBOutlet weak var playlistGroupNameTextColorPicker: NSColorWell!
+    @IBOutlet weak var playlistIndexDurationTextColorPicker: NSColorWell!
+
+    @IBOutlet weak var playlistTrackNameSelectedTextColorPicker: NSColorWell!
+    @IBOutlet weak var playlistGroupNameSelectedTextColorPicker: NSColorWell!
+    @IBOutlet weak var playlistIndexDurationSelectedTextColorPicker: NSColorWell!
+
+    @IBOutlet weak var playlistGroupIconColorPicker: NSColorWell!
+    @IBOutlet weak var playlistSelectionBoxColorPicker: NSColorWell!
+    @IBOutlet weak var playlistPlayingTrackIconColorPicker: NSColorWell!
+    @IBOutlet weak var playlistSummaryInfoColorPicker: NSColorWell!
     
     override var windowNibName: NSNib.Name? {return "ColorSchemes"}
     
@@ -85,5 +102,67 @@ class ColorSchemesWindowController: NSWindowController {
         
         ColorScheme.systemScheme.logoTextColor = logoTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeLogoTextColor, logoTextColorPicker.color))
+    }
+    
+    // MARK: Playlist color scheme actions ------------------------------------------------------------------------------------------------------------
+    
+    @IBAction func playlistTrackNameTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistTrackNameTextColor = playlistTrackNameTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameTextColor, playlistTrackNameTextColorPicker.color))
+    }
+    
+    @IBAction func playlistGroupNameTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistGroupNameTextColor = playlistGroupNameTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameTextColor, playlistGroupNameTextColorPicker.color))
+    }
+    
+    @IBAction func playlistIndexDurationTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistIndexDurationTextColor = playlistIndexDurationTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationTextColor, playlistIndexDurationTextColorPicker.color))
+    }
+    
+    @IBAction func playlistTrackNameSelectedTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistTrackNameSelectedTextColor = playlistTrackNameSelectedTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameSelectedTextColor, playlistTrackNameSelectedTextColorPicker.color))
+    }
+    
+    @IBAction func playlistGroupNameSelectedTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistGroupNameSelectedTextColor = playlistGroupNameSelectedTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameSelectedTextColor, playlistGroupNameSelectedTextColorPicker.color))
+    }
+    
+    @IBAction func playlistIndexDurationSelectedTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistIndexDurationSelectedTextColor = playlistIndexDurationSelectedTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationSelectedTextColor, playlistIndexDurationSelectedTextColorPicker.color))
+    }
+    
+    @IBAction func playlistGroupIconColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistGroupIconColor = playlistGroupIconColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupIconColor, playlistGroupIconColorPicker.color))
+    }
+    
+    @IBAction func playlistSelectionBoxColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistSelectionBoxColor = playlistSelectionBoxColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectionBoxColor, playlistSelectionBoxColorPicker.color))
+    }
+    
+    @IBAction func playlistPlayingTrackIconColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistPlayingTrackIconColor = playlistPlayingTrackIconColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistPlayingTrackIconColor, playlistPlayingTrackIconColorPicker.color))
+    }
+    
+    @IBAction func playlistSummaryInfoColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.playlistSummaryInfoColor = playlistSummaryInfoColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSummaryInfoColor, playlistSummaryInfoColorPicker.color))
     }
 }
