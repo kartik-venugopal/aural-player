@@ -22,8 +22,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
     @IBOutlet weak var btnLayout: NSPopUpButton!
-    
-    @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var btnViewMenu: NSPopUpButton!
     
     private var eventMonitor: Any?
     
@@ -36,7 +35,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     @IBAction func showColorsAction(_ sender: AnyObject) {
         colorsDialog.window?.setIsVisible(true)
     }
-    
     
     // MARK: Setup
     
@@ -132,7 +130,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func changeTextSize() {
         
         btnLayout.font = Fonts.Player.menuFont
-        viewMenuButton.font = Fonts.Player.menuFont
+        btnViewMenu.font = Fonts.Player.menuFont
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -153,8 +151,14 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     private func changeControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize].forEach({
+        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects].forEach({
             $0?.image = $0?.image?.applyingTint(color)
+        })
+        
+        [btnViewMenu, btnLayout].forEach({
+            if let iconItem = $0?.menu?.item(at: 0) {
+                iconItem.image = iconItem.image?.applyingTint(color)
+            }
         })
     }
     

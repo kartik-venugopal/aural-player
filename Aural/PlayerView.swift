@@ -190,6 +190,16 @@ class PlayerView: NSView {
             $0?.isTransparent = !color.isOpaque
         })
     }
+    
+    func changePrimaryTextColor(_ color: NSColor) {
+        
+        infoView.changeTextColor()
+        gapView.changeTextColor()
+    }
+    
+    func changeSecondaryTextColor(_ color: NSColor) {
+        infoView.changeTextColor()
+    }
 }
 
 @IBDesignable

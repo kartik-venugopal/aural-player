@@ -42,7 +42,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor, .changeSecondaryTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor], subscriber: self)
     }
     
     private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
@@ -439,6 +439,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.changeControlButtonColor(color)
     }
     
+    private func changeSecondaryTextColor(_ color: NSColor) {
+        controlsView.changeTextColor()
+    }
+    
+    private func changeSliderColors() {
+        controlsView.changeSliderColors()
+    }
+    
     // MARK: Current chapter tracking
     
     // Keeps track of the last known value of the current chapter (used to detect chapter changes)
@@ -479,9 +487,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .trackChanged:
             
-            let msg = message as! TrackChangedAsyncMessage
-            trackChanged(msg)
-            SyncMessenger.publishNotification(TrackChangedNotification(msg.oldTrack, msg.newTrack, false))
+            if let msg = message as? TrackChangedAsyncMessage {
+                
+                trackChanged(msg)
+                SyncMessenger.publishNotification(TrackChangedNotification(msg.oldTrack, msg.newTrack, false))
+            }
             
         case .trackNotPlayed:
             
@@ -636,6 +646,16 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
             }
+            
+        case .changeSecondaryTextColor:
+            
+            if let txtColor = (message as? ColorSchemeActionMessage)?.color {
+                changeSecondaryTextColor(txtColor)
+            }
+            
+        case .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor:
+            
+            changeSliderColors()
             
         default: return
             

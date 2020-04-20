@@ -46,7 +46,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changePrimaryTextColor, .changeSecondaryTextColor], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -168,6 +168,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changeBackgroundColor(color)
     }
     
+    private func changePrimaryTextColor(_ color: NSColor) {
+        
+        defaultView.changePrimaryTextColor(color)
+        expandedArtView.changePrimaryTextColor(color)
+        transcoderView.changePrimaryTextColor()
+    }
+    
+    private func changeSecondaryTextColor(_ color: NSColor) {
+        
+        defaultView.changeSecondaryTextColor(color)
+        expandedArtView.changeSecondaryTextColor(color)
+        transcoderView.changeSecondaryTextColor()
+    }
+    
     private func chapterChanged(_ newChapter: IndexedChapter?) {
         theView.chapterChanged(newChapter?.chapter.title)
     }
@@ -247,13 +261,30 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             changeTextSize()
             
-        case .changeBackgroundColor:
+        default:
             
-            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
-                changeBackgroundColor(bkColor)
+            if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+                
+                switch colorSchemeMsg.actionType {
+                    
+                case .changeBackgroundColor:
+                    
+                    changeBackgroundColor(colorSchemeMsg.color)
+                    
+                case .changePrimaryTextColor:
+                    
+                    changePrimaryTextColor(colorSchemeMsg.color)
+                    
+                case .changeSecondaryTextColor:
+                    
+                    changeSecondaryTextColor(colorSchemeMsg.color)
+                    
+                default: return
+                    
+                }
             }
             
-        default: return
+            return
             
         }
     }

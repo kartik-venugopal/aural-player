@@ -54,8 +54,8 @@ class TabGroupButtonCell: NSButtonCell {
 
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
-    private var _unselectedTextColor: NSColor = ColorConstants.white50Percent
-    private var _selectedTextColor: NSColor = ColorConstants.white80Percent
+    private var _unselectedTextColor: NSColor = Colors.Constants.white50Percent
+    private var _selectedTextColor: NSColor = Colors.Constants.white80Percent
     
     override var unselectedTextColor: NSColor {return _unselectedTextColor}
     override var selectedTextColor: NSColor {return _selectedTextColor}
@@ -99,8 +99,8 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 2}
     override var selectionBoxColor: NSColor {return Colors.tabViewButtonSelectionBoxColor}
     
-    override var unselectedTextColor: NSColor {return ColorConstants.white40Percent}
-    override var selectedTextColor: NSColor {return ColorConstants.white60Percent}
+    override var unselectedTextColor: NSColor {return Colors.Constants.white40Percent}
+    override var selectedTextColor: NSColor {return Colors.Constants.white60Percent}
 }
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {

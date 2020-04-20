@@ -13,8 +13,8 @@ class FilterChart: NSView {
     
     private let inactiveUnitGradient: NSGradient = {
         
-        let start = ColorConstants.white50Percent
-        let end = ColorConstants.white20Percent
+        let start = Colors.Constants.white50Percent
+        let end = Colors.Constants.white20Percent
         let gradient = NSGradient(starting: start, ending: end)
         
         return gradient!

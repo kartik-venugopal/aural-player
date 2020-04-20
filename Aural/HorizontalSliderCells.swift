@@ -10,16 +10,18 @@ class HorizontalSliderCell: NSSliderCell {
     // TODO: Apply logic from SeekSliderCell.drawKnob and knobRect here in this class (so that all sliders can benefit from it)
     
     var barRadius: CGFloat {return 1}
-    var barPlainGradient: NSGradient {return Colors.sliderBarPlainGradient}
-    var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
+    
+    var barPlainGradient: NSGradient {return Colors.Player.seekBarBackgroundGradient}
+    var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
+    
     var barInsetX: CGFloat {return 0}
     var barInsetY: CGFloat {return 0}
     
     var knobWidth: CGFloat {return 10}
     var knobHeightOutsideBar: CGFloat {return 2}
     var knobRadius: CGFloat {return 1}
-    var knobColor: NSColor {return Colors.neutralKnobColor}
+    var knobColor: NSColor {return Colors.Player.knobColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -66,7 +68,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
-    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
+    override var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -88,12 +90,8 @@ class SeekSliderCell: HorizontalSliderCell {
     override var knobWidth: CGFloat {return 5}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
-//    override var knobWidth: CGFloat {return 7}
-//    override var knobRadius: CGFloat {return 1.5}
-//    override var knobHeightOutsideBar: CGFloat {return 4}
-    
-    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
-    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
+    override var barPlainGradient: NSGradient {return Colors.Player.seekBarBackgroundGradient}
+    override var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
     
     var loop: PlaybackLoopRange?
     
@@ -199,21 +197,6 @@ class SeekSliderCell: HorizontalSliderCell {
         knobPath.fill()
     }
 }
-
-class BarModeSeekSliderCell: SeekSliderCell {
-    
-    override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.5}
-    
-    override var knobRadius: CGFloat {return 0}
-    override var knobColor: NSColor {return NSColor(white: 0.8, alpha: 1.0)}
-    override var knobWidth: CGFloat {return 5}
-    override var knobHeightOutsideBar: CGFloat {return 1}
-    
-    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
-    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
-}
-
 
 // Cell for sliders on the Preferences panel
 class PreferencesSliderCell: HorizontalSliderCell {

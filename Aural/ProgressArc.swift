@@ -13,7 +13,7 @@ class ProgressArc: NSView {
     var radius: CGFloat = 30
     var lineWidth: CGFloat = 4
     
-    let backColor: NSColor = ColorConstants.white20Percent
+    let backColor: NSColor = Colors.Constants.white20Percent
     var textFont: NSFont = Fonts.progressArcFont
     
     override func draw(_ dirtyRect: NSRect) {
