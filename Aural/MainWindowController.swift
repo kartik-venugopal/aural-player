@@ -157,6 +157,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     private func changeControlButtonOffStateColor(_ color: NSColor) {
         
+        // These are the only 2 buttons that have off states
         [btnTogglePlaylist, btnToggleEffects].forEach({
             $0.reTint()
         })
@@ -171,7 +172,9 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let layoutChangedMsg = notification as? LayoutChangedNotification {
+            
             layoutChanged(layoutChangedMsg)
+            return
         }
     }
     
