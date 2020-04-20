@@ -10,6 +10,8 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         return self.window! as! SnappingWindow
     }
     
+    @IBOutlet weak var logoImage: NSImageView!
+    
     // The box that encloses the Now Playing info section
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var containerBox: NSBox!
@@ -85,7 +87,8 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeLogoTextColor], subscriber: self)
+        
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -145,8 +148,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         } else {
             containerBox.isTransparent = true
         }
-        
-//        rootContainerBox.cornerRadius = CGFloat(Int.random(in: 3...15))
     }
     
     private func changeControlButtonColor(_ color: NSColor) {
@@ -160,6 +161,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
                 iconItem.image = iconItem.image?.applyingTint(color)
             }
         })
+    }
+    
+    private func changeLogoTextColor(_ color: NSColor) {
+        logoImage.image = logoImage.image?.applyingTint(color)
     }
     
     // MARK: Message handling
@@ -191,6 +196,12 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
+            }
+            
+        case .changeLogoTextColor:
+            
+            if let logoTextColor = (message as? ColorSchemeActionMessage)?.color {
+                changeLogoTextColor(logoTextColor)
             }
             
         default: return

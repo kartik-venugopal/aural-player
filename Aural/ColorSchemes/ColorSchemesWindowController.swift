@@ -14,6 +14,8 @@ class ColorSchemesWindowController: NSWindowController {
     @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
     
+    @IBOutlet weak var logoTextColorPicker: NSColorWell!
+    
     override var windowNibName: NSNib.Name? {return "ColorSchemes"}
     
     private var wm: WindowManagerProtocol = ObjectGraph.windowManager
@@ -62,5 +64,11 @@ class ColorSchemesWindowController: NSWindowController {
         
         ColorScheme.systemScheme.playerSliderKnobColor = sliderKnobColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
+    }
+    
+    @IBAction func logoTextColorAction(_ sender: Any) {
+        
+        ColorScheme.systemScheme.logoTextColor = logoTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeLogoTextColor, logoTextColorPicker.color))
     }
 }

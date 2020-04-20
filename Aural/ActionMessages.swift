@@ -331,6 +331,8 @@ enum ActionType {
     case changePlaylistTextSize
     
     // Color scheme change actions
+    case changeLogoTextColor
+    
     case changeBackgroundColor
     case changeControlButtonColor
     
