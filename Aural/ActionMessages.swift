@@ -344,6 +344,19 @@ enum ActionType {
     case changePlayerSliderForegroundColor
     case changePlayerSliderKnobColor
     case changePlayerSliderLoopSegmentColor
+    
+    case changePlaylistTrackNameTextColor
+    case changePlaylistGroupNameTextColor
+    case changePlaylistIndexDurationTextColor
+    
+    case changePlaylistTrackNameSelectedTextColor
+    case changePlaylistGroupNameSelectedTextColor
+    case changePlaylistIndexDurationSelectedTextColor
+    
+    case changePlaylistGroupIconColor
+    case changePlaylistSelectionBoxColor
+    case changePlaylistPlayingTrackIconColor
+    case changePlaylistSummaryInfoColor
 }
 
 enum ActionMode {
