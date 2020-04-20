@@ -21,7 +21,7 @@ class PlayerControlsView: NSView {
     private var seekTimer: RepeatingTaskExecutor?
     
     // Volume/pan controls
-    @IBOutlet weak var btnVolume: NSButton!
+    @IBOutlet weak var btnVolume: TintedImageButton!
     @IBOutlet weak var volumeSlider: NSSlider!
     @IBOutlet weak var panSlider: NSSlider!
     
@@ -75,12 +75,18 @@ class PlayerControlsView: NSView {
 
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        
+        let offStateTintFunction = {return ColorScheme.systemScheme.controlButtonOffStateColor}
+        let onStateTintFunction = {return ColorScheme.systemScheme.controlButtonColor}
 
-        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
 
-        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
+        btnLoop.stateImageMappings = [(LoopState.none, (Images.imgLoopOff, offStateTintFunction)), (LoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (LoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
 
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffleOff, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffleOn, onStateTintFunction))]
+        
+        // Play/pause button does not really have an "off" state
+        btnPlayPause.offStateTintFunction = onStateTintFunction
         
         // TODO: BUG - When tracks are added/removed from the playlist, tool tip needs to be updated bcoz playback sequence might have changed
 
@@ -125,7 +131,6 @@ class PlayerControlsView: NSView {
 
         updateRepeatAndShuffleControls(repeatMode, shuffleMode)
         
-        // TODO: What if switching to regular mode from bar mode ?
         seekSliderCell.removeLoop()
         btnLoop.switchState(LoopState.none)
         
@@ -315,18 +320,18 @@ class PlayerControlsView: NSView {
     private func setVolumeImage(_ volume: Float, _ muted: Bool) {
 
         if muted {
-            btnVolume.image = Images.imgMute
+            btnVolume.baseImage = Images.imgMute
         } else {
 
             // Zero / Low / Medium / High (different images)
             if (volume > 200/3) {
-                btnVolume.image = Images.imgVolumeHigh
+                btnVolume.baseImage = Images.imgVolumeHigh
             } else if (volume > 100/3) {
-                btnVolume.image = Images.imgVolumeMedium
+                btnVolume.baseImage = Images.imgVolumeMedium
             } else if (volume > 0) {
-                btnVolume.image = Images.imgVolumeLow
+                btnVolume.baseImage = Images.imgVolumeLow
             } else {
-                btnVolume.image = Images.imgVolumeZero
+                btnVolume.baseImage = Images.imgVolumeZero
             }
         }
     }
@@ -412,7 +417,7 @@ class PlayerControlsView: NSView {
     func changeControlButtonColor(_ color: NSColor) {
         
         [btnRepeat, btnShuffle, btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach({
-            $0?.image = $0?.image?.applyingTint(color)
+            ($0 as? Tintable)?.reTint()
         })
         
         lblPanCaption.textColor = color

@@ -3,16 +3,16 @@ import Cocoa
 class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, StringInputClient {
     
     // Button to display more details about the playing track
-    @IBOutlet weak var btnMoreInfo: NSButton!
+    @IBOutlet weak var btnMoreInfo: TintedImageButton!
     
     // Button to show the currently playing track within the playlist
-    @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
+    @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
     
     // Button to add/remove the currently playing track to/from the Favorites list
     @IBOutlet weak var btnFavorite: OnOffImageButton!
     
     // Button to bookmark current track and position
-    @IBOutlet weak var btnBookmark: NSButton!
+    @IBOutlet weak var btnBookmark: TintedImageButton!
     
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var seekSliderCell: SeekSliderCell!
@@ -196,7 +196,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func changeControlButtonColor(_ color: NSColor) {
         
         [btnMoreInfo, btnFavorite, btnBookmark, btnShowPlayingTrackInPlaylist].forEach({
-            $0?.image = $0?.image?.applyingTint(color)
+            ($0 as? Tintable)?.reTint()
         })
     }
     

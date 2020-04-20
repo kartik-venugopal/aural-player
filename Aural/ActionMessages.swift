@@ -335,6 +335,7 @@ enum ActionType {
     
     case changeBackgroundColor
     case changeControlButtonColor
+    case changeControlButtonOffStateColor
     
     case changePrimaryTextColor
     case changeSecondaryTextColor

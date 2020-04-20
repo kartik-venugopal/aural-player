@@ -15,8 +15,10 @@
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="btnViewMenu" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
+                <outlet property="layoutMenuIconItem" destination="Qbf-WH-98a" id="ykb-kH-Pns"/>
                 <outlet property="logoImage" destination="efk-uj-yYR" id="GYw-BM-8nr"/>
                 <outlet property="rootContainerBox" destination="s2a-4T-trI" id="1FZ-Uj-KKg"/>
+                <outlet property="viewMenuIconItem" destination="HM2-5O-u4Z" id="XyL-4q-tMO"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
         </customObject>
@@ -27,7 +29,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
@@ -51,40 +53,41 @@
                                         <action selector="showColorsAction:" target="-2" id="jZa-bP-f21"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
+                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="12" y="204" width="11" height="11"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="quitAction:" target="-2" id="te0-r8-B0U"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
+                                <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="27" y="205" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Hide"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="minimizeAction:" target="-2" id="67L-qB-Vyv"/>
                                     </connections>
                                 </button>
-                                <button hidden="YES" toolTip="Switch to floating bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-bJ-1lS" userLabel="Floating Bar Mode">
-                                    <rect key="frame" x="49" y="204" width="12" height="12"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FloatingBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G2y-w9-3j2">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view">
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="233" y="197" width="65" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="AppTitle"/>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Player View Menu">
                                     <rect key="frame" x="434" y="202" width="25" height="15"/>
@@ -94,8 +97,11 @@
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" autoenablesItems="NO" id="drC-pX-0Rs">
                                             <items>
-                                                <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z">
+                                                <menuItem image="Settings" hidden="YES" id="HM2-5O-u4Z" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="og3-cD-YOJ"/>
                                                 <menuItem title="Default view" state="on" id="KXZ-Ro-nbz">
@@ -300,8 +306,11 @@
                                         <font key="font" size="11" name="GillSans"/>
                                         <menu key="menu" showsStateColumn="NO" id="1Zg-ei-q78">
                                             <items>
-                                                <menuItem image="WindowLayout-Light" hidden="YES" id="Qbf-WH-98a">
+                                                <menuItem image="WindowLayout-Light" hidden="YES" id="Qbf-WH-98a" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowLayout-Light"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="tGa-6w-I86"/>
                                                 <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="KSu-L0-WGd">
@@ -406,7 +415,6 @@
         <image name="Close" width="18" height="18"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>
-        <image name="FloatingBarMode" width="32" height="32"/>
         <image name="Hide" width="18" height="18"/>
         <image name="PlaylistView-Off" width="28" height="24"/>
         <image name="PlaylistView-On" width="28" height="24"/>

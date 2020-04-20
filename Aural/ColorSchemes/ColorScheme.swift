@@ -8,6 +8,7 @@ class ColorScheme {
 
     var backgroundColor: NSColor
     var controlButtonColor: NSColor
+    var controlButtonOffStateColor: NSColor
 
     var primaryTextColor: NSColor
     var secondaryTextColor: NSColor
@@ -26,6 +27,7 @@ class ColorScheme {
         
         self.backgroundColor = preset.backgroundColor
         self.controlButtonColor = preset.controlButtonColor
+        self.controlButtonOffStateColor = preset.controlButtonOffStateColor
         
         self.primaryTextColor = preset.primaryTextColor
         self.secondaryTextColor = preset.secondaryTextColor
@@ -41,9 +43,14 @@ class ColorScheme {
         
         self.backgroundColor = preset.backgroundColor
         self.controlButtonColor = preset.controlButtonColor
+        self.controlButtonOffStateColor = preset.controlButtonOffStateColor
         
         self.primaryTextColor = preset.primaryTextColor
         self.secondaryTextColor = preset.secondaryTextColor
+        
+        self.playerSliderBackgroundColor = preset.sliderBackgroundColor
+        self.playerSliderForegroundColor = preset.sliderForegroundColor
+        self.playerSliderKnobColor = preset.sliderKnobColor
     }
 }
 
@@ -86,6 +93,17 @@ enum ColorSchemePreset: String {
         case .darkBackgroundLightForeground:  return Colors.Constants.white80Percent
             
         case .lightBackgroundDarkForeground:  return NSColor.black
+            
+        }
+    }
+    
+    var controlButtonOffStateColor: NSColor {
+        
+        switch self {
+            
+        case .darkBackgroundLightForeground:  return Colors.Constants.white20Percent
+            
+        case .lightBackgroundDarkForeground:  return Colors.Constants.white60Percent
             
         }
     }

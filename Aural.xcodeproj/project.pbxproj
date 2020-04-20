@@ -238,6 +238,9 @@
 		3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E807C411FC597FC0027050F /* MouseTrackingView.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
 		3E80E6721F04FA7C007480CC /* SizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E6711F04FA7C007480CC /* SizeUnit.swift */; };
+		3E8103D5244DD4DF00ACCFA1 /* TintedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D4244DD4DF00ACCFA1 /* TintedImageButton.swift */; };
+		3E8103D7244DD82F00ACCFA1 /* TintedIconMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */; };
+		3E8103D9244DDAB800ACCFA1 /* TintedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */; };
 		3E81C64B21C5161A00EA1DFA /* TranscoderDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */; };
 		3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E822B371F21DCF20006CDBC /* RecordingFormat.swift */; };
 		3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */; };
@@ -669,6 +672,9 @@
 		3E807C411FC597FC0027050F /* MouseTrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		3E80E6711F04FA7C007480CC /* SizeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
+		3E8103D4244DD4DF00ACCFA1 /* TintedImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageButton.swift; sourceTree = "<group>"; };
+		3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedIconMenuItem.swift; sourceTree = "<group>"; };
+		3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageView.swift; sourceTree = "<group>"; };
 		3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderDaemon.swift; sourceTree = "<group>"; };
 		3E822B371F21DCF20006CDBC /* RecordingFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingFormat.swift; sourceTree = "<group>"; };
 		3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -911,6 +917,7 @@
 				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
 				3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */,
 				3E54B23822C263B3005EAEDF /* TriStateLabel.swift */,
+				3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -1246,6 +1253,7 @@
 		3E2D9E441F664C000020B99E /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				3E8103D4244DD4DF00ACCFA1 /* TintedImageButton.swift */,
 				3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */,
 				3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */,
 				3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */,
@@ -1517,6 +1525,7 @@
 			children = (
 				3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */,
 				3EB2A7E91F04424E001DF748 /* PopupMenuCells.swift */,
+				3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -2184,10 +2193,9 @@
 			};
 			buildConfigurationList = 3E85F2511EFA78D6007BE830 /* Build configuration list for PBXProject "Aural" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -2324,6 +2332,7 @@
 				3E1DA6F8244D6D4A00FFF59E /* ColorScheme.swift in Sources */,
 				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
+				3E8103D9244DDAB800ACCFA1 /* TintedImageView.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,
 				3E688AC521E462C400164E84 /* CommonAVAssetParser.swift in Sources */,
 				3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */,
@@ -2563,6 +2572,7 @@
 				3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */,
 				3E9847841F5CF3F6001A2D28 /* AuralMenuController.swift in Sources */,
 				3ED4257A21E803E000E202AB /* HTMLWriter.swift in Sources */,
+				3E8103D5244DD4DF00ACCFA1 /* TintedImageButton.swift in Sources */,
 				3ED35D3121EAAB3D00A5904F /* ParserUtils.swift in Sources */,
 				3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */,
 				3EDD4CD72194155E00C15D5A /* FXUnitDelegate.swift in Sources */,
@@ -2608,6 +2618,7 @@
 				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
 				3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */,
 				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */,
+				3E8103D7244DD82F00ACCFA1 /* TintedIconMenuItem.swift in Sources */,
 				3EB499F4244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift in Sources */,
 				3EB499F8244B019100711BC5 /* EffectsViewState.swift in Sources */,
 				3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */,

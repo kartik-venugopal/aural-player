@@ -365,7 +365,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.playChapter(index)
         controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
         controlsView.playbackStateChanged(player.state)
-        
     }
     
     private func previousChapter() {
@@ -373,8 +372,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.previousChapter()
         controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
         controlsView.playbackStateChanged(player.state)
-        
-        // TODO: Loop may have been removed
     }
     
     private func nextChapter() {
