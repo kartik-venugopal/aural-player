@@ -10,21 +10,24 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         return self.window! as! SnappingWindow
     }
     
-    @IBOutlet weak var logoImage: NSImageView!
+    @IBOutlet weak var logoImage: TintedImageView!
     
     // The box that encloses the Now Playing info section
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.playerView
     
-    @IBOutlet weak var btnQuit: NSButton!
-    @IBOutlet weak var btnMinimize: NSButton!
+    @IBOutlet weak var btnQuit: TintedImageButton!
+    @IBOutlet weak var btnMinimize: TintedImageButton!
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
     @IBOutlet weak var btnLayout: NSPopUpButton!
     @IBOutlet weak var btnViewMenu: NSPopUpButton!
+    
+    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var layoutMenuIconItem: TintedIconMenuItem!
     
     private var eventMonitor: Any?
     
@@ -67,6 +70,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         changeTextSize()
+        logoImage.tintFunction = {return ColorScheme.systemScheme.logoTextColor}
     }
     
     // Add the sub-views that make up the main window
@@ -87,7 +91,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeLogoTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeControlButtonOffStateColor, .changeLogoTextColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
@@ -140,31 +144,19 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         rootContainerBox.fillColor = color
         
-        if color.alphaComponent == 1 {
-            
-            containerBox.fillColor = color
-            containerBox.isTransparent = false
-            
-        } else {
-            containerBox.isTransparent = true
-        }
+        containerBox.fillColor = color
+        containerBox.isTransparent = !color.isOpaque
     }
     
     private func changeControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects].forEach({
-            $0?.image = $0?.image?.applyingTint(color)
-        })
-        
-        [btnViewMenu, btnLayout].forEach({
-            if let iconItem = $0?.menu?.item(at: 0) {
-                iconItem.image = iconItem.image?.applyingTint(color)
-            }
+        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects, viewMenuIconItem, layoutMenuIconItem].forEach({
+            ($0 as? Tintable)?.reTint()
         })
     }
     
     private func changeLogoTextColor(_ color: NSColor) {
-        logoImage.image = logoImage.image?.applyingTint(color)
+        logoImage.reTint()
     }
     
     // MARK: Message handling

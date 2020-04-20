@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="713-ze-Jl0">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="0MC-mR-NAm">
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
@@ -182,7 +182,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Soc-zL-QHn">
                                     <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="1KA-pc-1tn">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
@@ -270,20 +270,23 @@
                 <outlet property="view" destination="RmC-sy-Ygh" id="dan-Qq-feF"/>
             </connections>
         </viewController>
-        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" transparent="YES" id="IyJ-bL-zmI" userLabel="Controls Box">
+        <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" transparent="YES" id="IyJ-bL-zmI" userLabel="Controls Box">
             <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="GnY-hT-0WI" customClass="PlayerControlsView" customModule="Aural" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-Lb-nc3" userLabel="Volume Button">
+                    <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-Lb-nc3" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="361" y="13" width="13" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sHl-Gw-UaE">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="VolumeMedium"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="muteOrUnmuteAction:" target="RSE-vv-5aa" id="aDm-Xr-fc1"/>
                         </connections>
@@ -291,10 +294,6 @@
                     <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ua-z2-ISt" userLabel="Volume Slider">
                         <rect key="frame" x="378" y="12" width="50" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <shadow key="shadow" blurRadius="3">
-                            <size key="offset" width="0.0" height="1"/>
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </shadow>
                         <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="m5E-Il-Xaa" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="volumeAction:" target="RSE-vv-5aa" id="7dD-Iw-agO"/>
@@ -330,9 +329,6 @@
                     <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pr5-YU-zRz">
                         <rect key="frame" x="457" y="10" width="40" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <shadow key="shadow" blurRadius="1">
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </shadow>
                         <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="YhG-qN-Kc9" customClass="PanTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <string key="userLabel" base64-UTF8="YES">
 G1BhbiBTbGlkZXI
@@ -341,13 +337,16 @@ G1BhbiBTbGlkZXI
                             <action selector="panAction:" target="RSE-vv-5aa" id="aUY-C3-ip5"/>
                         </connections>
                     </slider>
-                    <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nh-bg-Acn" userLabel="Seek Fwd Button">
+                    <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nh-bg-Acn" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="293" y="14" width="15" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="HSy-Vh-bbx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekForward"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="seekForwardAction:" target="RSE-vv-5aa" id="K3u-ol-zty"/>
                         </connections>
@@ -361,6 +360,7 @@ G1BhbiBTbGlkZXI
                         </buttonCell>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="nextTrackAction:" target="RSE-vv-5aa" id="gV0-SU-uvl"/>
@@ -392,18 +392,22 @@ G1BhbiBTbGlkZXI
                         </buttonCell>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="previousTrackAction:" target="RSE-vv-5aa" id="dwi-rh-ba1"/>
                         </connections>
                     </button>
-                    <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-om-rGW" userLabel="Seek Bwd Button">
+                    <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-om-rGW" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="189" y="14" width="15" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="S9Q-Mu-S60">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekBackward"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="seekBackwardAction:" target="RSE-vv-5aa" id="Rtr-J7-Fi1"/>
                         </connections>
@@ -477,9 +481,6 @@ G1BhbiBTbGlkZXI
                     <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQg-lW-5YM" userLabel="Seek Slider">
                         <rect key="frame" x="0.0" y="42" width="500" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <shadow key="shadow" blurRadius="1">
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </shadow>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="gw1-uf-YzQ" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="seekSliderAction:" target="RSE-vv-5aa" id="Jof-NE-TbY"/>
@@ -521,24 +522,30 @@ G1BhbiBTbGlkZXI
                 <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gad-us-Dhf" userLabel="More Info Button">
+                    <button toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gad-us-Dhf" userLabel="More Info Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="1" y="60" width="12" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jhK-Bu-nwj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="MoreInfo"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="moreInfoAction:" target="4Js-aK-bND" id="o2g-SP-6OZ"/>
                         </connections>
                     </button>
-                    <button toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXZ-wh-jXs" userLabel="Show Playing Track Button">
+                    <button toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXZ-wh-jXs" userLabel="Show Playing Track Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="2" y="44" width="10" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Crd-ci-gL9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="ShowPlayingTrack"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="showPlayingTrackAction:" target="4Js-aK-bND" id="6cf-U1-uWY"/>
                         </connections>
@@ -560,13 +567,16 @@ G1BhbiBTbGlkZXI
                             <action selector="favoriteAction:" target="4Js-aK-bND" id="U8x-vY-EDu"/>
                         </connections>
                     </button>
-                    <button toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-WW-pdJ" userLabel="Bookmark Button">
+                    <button toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-WW-pdJ" userLabel="Bookmark Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="1" y="11" width="11" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Bookmark" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="233-dG-Ebx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Bookmark"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="bookmarkAction:" target="4Js-aK-bND" id="VCp-Y5-tZq"/>
                         </connections>
@@ -691,9 +701,6 @@ Gw
         <slider verticalHuggingPriority="750" id="AtH-8Z-peJ" userLabel="Seek Slider Clone">
             <rect key="frame" x="0.0" y="0.0" width="500" height="15"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <shadow key="shadow" blurRadius="1">
-                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            </shadow>
             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="pMe-qS-W4T" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <connections>
                 <action selector="seekSliderAction:" target="RSE-vv-5aa" id="2LM-MK-ujL"/>

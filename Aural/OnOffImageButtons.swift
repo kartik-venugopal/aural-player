@@ -4,13 +4,29 @@ import Cocoa
     An image button that can be toggled On/Off and displays different images depending on its state
  */
 @IBDesignable
-class OnOffImageButton: NSButton {
+class OnOffImageButton: NSButton, Tintable {
     
     // The image displayed when the button is in an "Off" state
-    @IBInspectable var offStateImage: NSImage?
+    @IBInspectable var offStateImage: NSImage? {
+        
+        didSet {
+            
+            if !_isOn {
+                reTint()
+            }
+        }
+    }
     
     // The image displayed when the button is in an "On" state
-    @IBInspectable var onStateImage: NSImage?
+    @IBInspectable var onStateImage: NSImage? {
+        
+        didSet {
+            
+            if _isOn {
+                reTint()
+            }
+        }
+    }
     
     // The button's tooltip when the button is in an "Off" state
     @IBInspectable var offStateTooltip: String?
@@ -18,12 +34,32 @@ class OnOffImageButton: NSButton {
     // The button's tooltip when the button is in an "On" state
     @IBInspectable var onStateTooltip: String?
     
+    var offStateTintFunction: () -> NSColor = {return ColorScheme.systemScheme.controlButtonOffStateColor} {
+        
+        didSet {
+            
+            if !_isOn {
+                reTint()
+            }
+        }
+    }
+    
+    var onStateTintFunction: () -> NSColor = {return ColorScheme.systemScheme.controlButtonColor} {
+        
+        didSet {
+            
+            if _isOn {
+                reTint()
+            }
+        }
+    }
+    
     private var _isOn: Bool = false
     
     // Sets the button state to be "Off"
     override func off() {
         
-        self.image = offStateImage
+        self.image = offStateImage?.applyingTint(offStateTintFunction())
         self.toolTip = offStateTooltip
         _isOn = false
     }
@@ -31,7 +67,7 @@ class OnOffImageButton: NSButton {
     // Sets the button state to be "On"
     override func on() {
         
-        self.image = onStateImage
+        self.image = onStateImage?.applyingTint(onStateTintFunction())
         self.toolTip = onStateTooltip
         _isOn = true
     }
@@ -49,6 +85,15 @@ class OnOffImageButton: NSButton {
     // Returns true if the button is in the On state, false otherwise.
     override var isOn: Bool {
         return _isOn
+    }
+    
+    func reTint() {
+        
+        if _isOn {
+            self.image = onStateImage?.applyingTint(onStateTintFunction())
+        } else {
+            self.image = offStateImage?.applyingTint(offStateTintFunction())
+        }
     }
 }
 
