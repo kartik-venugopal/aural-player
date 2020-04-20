@@ -39,7 +39,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" identifier="" id="eRy-ia-DBE">
-                                <view key="view" id="iqw-TM-gAQ">
+                                <view key="view" ambiguous="YES" id="iqw-TM-gAQ">
                                     <rect key="frame" x="10" y="33" width="449" height="249"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -95,7 +95,7 @@
                                             </connections>
                                         </colorWell>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QwT-OB-sBH" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="88" width="122" height="23"/>
+                                            <rect key="frame" x="20" y="92" width="122" height="23"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control button color" id="yxW-1G-n6g" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -149,7 +149,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Player" identifier="" id="TTI-dm-IrN">
-                                <view key="view" ambiguous="YES" id="wdV-d8-NcF">
+                                <view key="view" id="wdV-d8-NcF">
                                     <rect key="frame" x="10" y="33" width="449" height="249"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

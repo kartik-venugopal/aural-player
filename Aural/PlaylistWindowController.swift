@@ -10,6 +10,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var tabButtonsBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!
     
+    @IBOutlet weak var controlButtonsSuperview: NSView!
+    @IBOutlet weak var btnClose: TintedImageButton!
+    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var btnPageUp: TintedImageButton!
+    @IBOutlet weak var btnPageDown: TintedImageButton!
+    @IBOutlet weak var btnScrollToTop: TintedImageButton!
+    @IBOutlet weak var btnScrollToBottom: TintedImageButton!
+    
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.tracksView
     private lazy var artistsView: NSView = ViewFactory.artistsView
@@ -105,7 +113,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -398,6 +406,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         })
     }
     
+    private func changeControlButtonColor(_ color: NSColor) {
+        
+        [btnClose, viewMenuIconItem, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom].forEach({
+            ($0 as? Tintable)?.reTint()
+        })
+        
+        controlButtonsSuperview.subviews.forEach({
+            ($0 as? TintedImageButton)?.reTint()
+        })
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
@@ -525,6 +544,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             if let bkColor = (message as? ColorSchemeActionMessage)?.color {
                 changeBackgroundColor(bkColor)
+            }
+            
+        case .changeControlButtonColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonColor(ctrlColor)
             }
             
         case .viewChapters: viewChapters()
