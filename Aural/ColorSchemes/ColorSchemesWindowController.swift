@@ -3,6 +3,7 @@ import Cocoa
 class ColorSchemesWindowController: NSWindowController {
     
     // TODO: Store history of changes for each color (to allow Undo feature)
+    @IBOutlet weak var playlistTabScrollView: NSScrollView!
     
     @IBOutlet weak var backgroundColorPicker: NSColorWell!
     
@@ -41,7 +42,9 @@ class ColorSchemesWindowController: NSWindowController {
     private var wm: WindowManagerProtocol = ObjectGraph.windowManager
     
     override func windowDidLoad() {
+        
         NSColorPanel.shared.showsAlpha = true
+        playlistTabScrollView.contentView.scroll(to: NSMakePoint(0, playlistTabScrollView.contentView.frame.height))
     }
     
     @IBAction func backgroundColorAction(_ sender: Any) {

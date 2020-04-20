@@ -275,14 +275,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="ww9-G2-wcK">
                                             <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BrD-vm-ynW">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="260"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="0.69835256606760154" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="backgroundColor" white="0.097370866213885826" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="525" height="260"/>
+                                                    <size key="minSize" width="500" height="260"/>
                                                     <size key="maxSize" width="525" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.70124099036337628" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </textView>
@@ -728,7 +728,7 @@
         </customObject>
     </objects>
     <resources>
-        <image name="Close" width="16" height="16"/>
+        <image name="Close" width="18" height="18"/>
         <image name="ExportMetadata" width="14" height="12"/>
     </resources>
 </document>
