@@ -42,7 +42,6 @@ class TrackInfoView: NSView {
         return PlayerViewState.showAlbum ? track?.groupingInfo.album : nil
     }
     
-    
     // The currently playing chapter's title (displayed only if user setting allows it)
     private var chapterTitle: String?
     
@@ -83,6 +82,11 @@ class TrackInfoView: NSView {
     
     // Responds to a change in user-preferred text size
     func changeTextSize() {
+        update()
+    }
+    
+    // Responds to a change in user-defined color scheme
+    func changeTextColor() {
         update()
     }
     
@@ -134,18 +138,18 @@ class TrackInfoView: NSView {
             
             // Title (truncate only if artist, album, or chapter are displayed)
             let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, Fonts.Player.infoBoxTitleFont, lineWidth) : title
-            textView.textStorage?.append(attributedString(truncatedTitle, Fonts.Player.infoBoxTitleFont, Colors.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            textView.textStorage?.append(attributedString(truncatedTitle, Fonts.Player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, Fonts.Player.infoBoxArtistAlbumFont, Colors.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, Fonts.Player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if let _chapterStr = chapterStr {
                 
                 let truncatedChapter: String = StringUtils.truncate(_chapterStr, Fonts.Player.infoBoxChapterFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, Fonts.Player.infoBoxChapterFont, Colors.trackInfoChapterTextColor))
+                textView.textStorage?.append(attributedString(truncatedChapter, Fonts.Player.infoBoxChapterFont, Colors.Player.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)

@@ -13,9 +13,9 @@
                 <outlet property="btnQuit" destination="zFi-Se-R21" id="qaB-7L-gbg"/>
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
+                <outlet property="btnViewMenu" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
                 <outlet property="rootContainerBox" destination="s2a-4T-trI" id="1FZ-Uj-KKg"/>
-                <outlet property="viewMenuButton" destination="hiE-G6-T2s" id="qXS-AF-2pW"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
         </customObject>
@@ -86,7 +86,7 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                 </imageView>
                                 <popUpButton toolTip="Player View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Player View Menu">
-                                    <rect key="frame" x="426" y="202" width="25" height="15"/>
+                                    <rect key="frame" x="434" y="202" width="25" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

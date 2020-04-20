@@ -87,6 +87,7 @@
 		3E1CF7F11F5CBAA300613724 /* RecorderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */; };
 		3E1CF7F31F5CBAD500613724 /* AudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */; };
 		3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D93511F626BF9008AC59E /* Playlist.swift */; };
+		3E1DA6F8244D6D4A00FFF59E /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DA6F7244D6D4A00FFF59E /* ColorScheme.swift */; };
 		3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */; };
 		3E1E970D1FA42AE5006C8629 /* GroupAccessorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */; };
 		3E1E970F1FA44671006C8629 /* PlaybackSequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */; };
@@ -512,6 +513,7 @@
 		3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderProtocol.swift; sourceTree = "<group>"; };
 		3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraph.swift; sourceTree = "<group>"; };
 		3E1D93511F626BF9008AC59E /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		3E1DA6F7244D6D4A00FFF59E /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRUDOperationResults.swift; sourceTree = "<group>"; };
 		3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAccessorProtocol.swift; sourceTree = "<group>"; };
 		3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequencerProtocol.swift; sourceTree = "<group>"; };
@@ -949,8 +951,8 @@
 				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
 				3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */,
 				3EB3A6DB2185105A003C7F07 /* GapView.swift */,
-				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
 				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
+				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
 				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
 				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
 				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
@@ -2126,6 +2128,7 @@
 			children = (
 				3EF62FF0244C427200AD7172 /* ColorSchemes.xib */,
 				3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */,
+				3E1DA6F7244D6D4A00FFF59E /* ColorScheme.swift */,
 			);
 			path = ColorSchemes;
 			sourceTree = "<group>";
@@ -2318,6 +2321,7 @@
 				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
 				3EB499F2244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
+				3E1DA6F8244D6D4A00FFF59E /* ColorScheme.swift in Sources */,
 				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,

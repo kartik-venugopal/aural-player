@@ -14,7 +14,7 @@ class AuralTableHeaderCell: NSTableHeaderCell {
         let drawRect = cellFrame.insetBy(dx: 0, dy: 16).offsetBy(dx: 0, dy: 10)
         let roundedPath = NSBezierPath.init(rect: drawRect)
         
-        let lineColor = ColorConstants.white30Percent
+        let lineColor = Colors.Constants.white30Percent
         lineColor.setFill()
         roundedPath.fill()
         

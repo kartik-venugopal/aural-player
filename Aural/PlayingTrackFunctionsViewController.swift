@@ -39,32 +39,15 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         initSubscriptions()
     }
     
-    func activate() {
-        initSubscriptions()
-    }
-    
-    func deactivate() {
-        removeSubscriptions()
-    }
-    
     private func initSubscriptions() {
         
         // Subscribe to various notifications
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeControlButtonColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
-    }
-    
-    private func removeSubscriptions() {
-        
-        AsyncMessenger.unsubscribe([.addedToFavorites, .removedFromFavorites], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
-        
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -210,6 +193,13 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
+    private func changeControlButtonColor(_ color: NSColor) {
+        
+        [btnMoreInfo, btnFavorite, btnBookmark, btnShowPlayingTrackInPlaylist].forEach({
+            $0?.image = $0?.image?.applyingTint(color)
+        })
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -252,6 +242,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         case .bookmarkPosition: bookmarkAction(self)
             
         case .bookmarkLoop: bookmarkLoop()
+            
+        case .changeControlButtonColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonColor(ctrlColor)
+            }
 
          default: return
             

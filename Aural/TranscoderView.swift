@@ -47,4 +47,12 @@ class TranscoderView: NSView {
         containerBox.fillColor = color
         containerBox.isTransparent = !color.isOpaque
     }
+    
+    func changePrimaryTextColor() {
+        
+    }
+    
+    func changeSecondaryTextColor() {
+        
+    }
 }

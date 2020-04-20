@@ -333,6 +333,13 @@ enum ActionType {
     // Color scheme change actions
     case changeBackgroundColor
     case changeControlButtonColor
+    
+    case changePrimaryTextColor
+    case changeSecondaryTextColor
+    
+    case changePlayerSliderBackgroundColor
+    case changePlayerSliderForegroundColor
+    case changePlayerSliderKnobColor
 }
 
 enum ActionMode {

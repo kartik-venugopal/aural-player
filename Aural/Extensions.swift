@@ -384,3 +384,30 @@ extension NSImage {
         return image
     }
 }
+
+extension NSColor {
+    
+    func brightened(_ amount : CGFloat = 0.25) -> NSColor {
+        return hueColorWithBrightnessAmount(min(1, 1 + amount))
+    }
+    
+    func darkened(_ amount : CGFloat = 0.25) -> NSColor {
+        return hueColorWithBrightnessAmount(max(0, 1 - amount))
+    }
+    
+    private func hueColorWithBrightnessAmount(_ amount: CGFloat) -> NSColor {
+        
+        var hue         : CGFloat = 0
+        var saturation  : CGFloat = 0
+        var brightness  : CGFloat = 0
+        var alpha       : CGFloat = 0
+        
+        getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        
+        return NSColor( hue: hue,
+                        saturation: saturation,
+                        brightness: brightness * amount,
+                        alpha: alpha )
+    }
+
+}

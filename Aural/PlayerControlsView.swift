@@ -411,9 +411,27 @@ class PlayerControlsView: NSView {
     
     func changeControlButtonColor(_ color: NSColor) {
         
-        [btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
+        [btnRepeat, btnShuffle, btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach({
             $0?.image = $0?.image?.applyingTint(color)
         })
+        
+        lblPanCaption.textColor = color
+    }
+    
+    func changeTextColor() {
+        
+        lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor
+        lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor
+        
+        lblVolume.textColor = Colors.Player.feedbackTextColor
+        lblPan.textColor = Colors.Player.feedbackTextColor
+    }
+    
+    func changeSliderColors() {
+        
+        seekSlider.redraw()
+        volumeSlider.redraw()
+        panSlider.redraw()
     }
 }
 
