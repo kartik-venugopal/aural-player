@@ -42,15 +42,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor, .changeSecondaryTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor], subscriber: self)
-    }
-    
-    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-        controlsView.setTimeElapsedDisplayFormat(format)
-    }
-    
-    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-        controlsView.setTimeRemainingDisplayFormat(format)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor, .changeControlButtonOffStateColor, .changeSecondaryTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -428,12 +420,24 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
     }
     
+    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        controlsView.setTimeElapsedDisplayFormat(format)
+    }
+    
+    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        controlsView.setTimeRemainingDisplayFormat(format)
+    }
+    
     private func changeTextSize() {
         controlsView.changeTextSize()
     }
     
     private func changeControlButtonColor(_ color: NSColor) {
         controlsView.changeControlButtonColor(color)
+    }
+    
+    private func changeControlButtonOffStateColor(_ color: NSColor) {
+        controlsView.changeControlButtonOffStateColor(color)
     }
     
     private func changeSecondaryTextColor(_ color: NSColor) {
@@ -644,13 +648,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 changeControlButtonColor(ctrlColor)
             }
             
+        case .changeControlButtonOffStateColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonOffStateColor(ctrlColor)
+            }
+            
         case .changeSecondaryTextColor:
             
             if let txtColor = (message as? ColorSchemeActionMessage)?.color {
                 changeSecondaryTextColor(txtColor)
             }
             
-        case .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor:
+        case .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor:
             
             changeSliderColors()
             

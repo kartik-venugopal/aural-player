@@ -149,7 +149,7 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop bar
             let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
-            Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+            Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
             let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
             let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
@@ -158,14 +158,14 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop start marker
             let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
             drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
-            Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+            Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
             // Loop end marker
             if (loop.end != nil) {
             
                 let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
                 drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: markerRadius, yRadius: markerRadius)
-                Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+                Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             }
         }
     }

@@ -423,6 +423,14 @@ class PlayerControlsView: NSView {
         lblPanCaption.textColor = color
     }
     
+    func changeControlButtonOffStateColor(_ color: NSColor) {
+        
+        // Only these buttons have off states that look different from their on states
+        [btnRepeat, btnShuffle, btnLoop].forEach({
+            $0.reTint()
+        })
+    }
+    
     func changeTextColor() {
         
         lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor

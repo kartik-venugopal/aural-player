@@ -45,7 +45,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeControlButtonColor, .changeControlButtonOffStateColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -200,6 +200,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         })
     }
     
+    private func changeControlButtonOffStateColor(_ color: NSColor) {
+        btnFavorite.reTint()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -248,8 +252,14 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
             }
+            
+        case .changeControlButtonOffStateColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeControlButtonOffStateColor(ctrlColor)
+            }
 
-         default: return
+        default: return
             
         }
     }
