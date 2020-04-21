@@ -42,6 +42,10 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
     var isModal: Bool {
         return self.window?.isVisible ?? false
     }
+    
+    @IBAction func doneAction(_ sender: Any) {
+        UIUtils.dismissDialog(self.window!)
+    }
 }
 
 protocol ColorSchemesViewProtocol {
