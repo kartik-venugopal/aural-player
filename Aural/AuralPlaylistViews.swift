@@ -14,7 +14,7 @@ class AuralPlaylistTableView: NSTableView {
 /*
     Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
  */
-class AuralTableRowView: NSTableRowView {
+class GenericTableRowView: NSTableRowView {
     
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
@@ -22,9 +22,25 @@ class AuralTableRowView: NSTableRowView {
         if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            
             Colors.playlistSelectionBoxColor.setFill()
+            selectionPath.fill()
+        }
+    }
+}
+
+class FlatPlaylistRowView: NSTableRowView {
+    
+    // Draws a fancy rounded rectangle around the selected track in the playlist view
+    override func drawSelection(in dirtyRect: NSRect) {
+        
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+            
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            
+            Colors.Playlist.selectionBoxColor.setFill()
             selectionPath.fill()
         }
     }
@@ -334,39 +350,6 @@ class IndexCellView: BasicFlatPlaylistCellView {
     }
 }
 
-///*
-// Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
-// */
-//class GroupedTrackCellView: NSTableCellView {
-//
-//    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
-//    var isGroup: Bool = false
-//
-//    // This is used to determine which NSOutlineView contains this cell
-//    var playlistType: PlaylistType = .artists
-//
-//    // The item represented by the row containing this cell
-//    var item: PlaylistItem?
-//
-//    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-//    override var backgroundStyle: NSView.BackgroundStyle {
-//
-//        didSet {
-//
-//            // Check if this row is selected
-//            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-//            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
-//
-//            if let textField = self.textField {
-//
-//                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
-//
-//                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
-//            }
-//        }
-//    }
-//}
-
 @IBDesignable
 class GroupedTrackNameCellView: NSTableCellView {
     
@@ -471,7 +454,7 @@ class GroupingPlaylistRowView: NSTableRowView {
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
             
-            Colors.playlistSelectionBoxColor.setFill()
+            Colors.Playlist.selectionBoxColor.setFill()
             selectionPath.fill()
         }
     }

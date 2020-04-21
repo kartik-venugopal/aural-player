@@ -45,7 +45,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -589,16 +589,16 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
     }
     
+    private var allRows: IndexSet {
+        return IndexSet(integersIn: 0..<playlistView.numberOfRows)
+    }
+    
     private func changeTrackNameTextColor(_ color: NSColor) {
-        
-        let rowsRange: Range<Int> = 0..<playlistView.numberOfRows
-        playlistView.reloadData(forRowIndexes: IndexSet(integersIn: rowsRange), columnIndexes: IndexSet([1]))
+        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
     }
     
     private func changeIndexDurationTextColor(_ color: NSColor) {
-        
-        let rowsRange: Range<Int> = 0..<playlistView.numberOfRows
-        playlistView.reloadData(forRowIndexes: IndexSet(integersIn: rowsRange), columnIndexes: IndexSet([0, 2]))
+        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([0, 2]))
     }
     
     private func changeTrackNameSelectedTextColor(_ color: NSColor) {
@@ -607,6 +607,29 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
         playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([0, 2]))
+    }
+    
+    private func changeSelectionBoxColor(_ color: NSColor) {
+        
+        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
+        let selRows = playlistView.selectedRowIndexes
+        
+        if !selRows.isEmpty {
+            clearSelection()
+            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+        }
+    }
+    
+    private func changePlayingTrackIconColor(_ color: NSColor) {
+        
+        if let playingTrackIndex = playbackInfo.playingTrack?.index {
+            
+            playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
+            
+        } else if let waitingTrackIndex = playbackInfo.waitingTrack?.index {
+            
+            playlistView.reloadData(forRowIndexes: IndexSet([waitingTrackIndex]), columnIndexes: IndexSet([0]))
+        }
     }
     
     // MARK: Message handling
@@ -804,6 +827,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             case .changePlaylistIndexDurationSelectedTextColor:
                 
                 changeIndexDurationSelectedTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistPlayingTrackIconColor:
+                
+                changePlayingTrackIconColor(colorChangeMsg.color)
+                
+            case .changePlaylistSelectionBoxColor:
+                
+                changeSelectionBoxColor(colorChangeMsg.color)
                 
             default: return
                 

@@ -111,7 +111,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return AuralTableRowView()
+        return GenericTableRowView()
     }
     
     private func effectsUnit() -> EffectsUnit {

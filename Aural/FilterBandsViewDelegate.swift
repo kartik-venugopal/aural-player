@@ -36,7 +36,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return AuralTableRowView()
+        return GenericTableRowView()
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
