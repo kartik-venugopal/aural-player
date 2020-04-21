@@ -179,7 +179,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeImg.hide()
                 cell.gapAfterImg.hide()
                 
-                adjustConstraints_mainFieldOnTop(cell)
+                adjustConstraints_mainFieldOnTop(cell, -2)
             }
             
             return cell
@@ -244,7 +244,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         if let imgView = cell.imageView {
             
-            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 1)
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 3)
             imgFieldCentered.isActive = true
             cell.addConstraint(imgFieldCentered)
         }
@@ -269,13 +269,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             }
         }
         
-        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: -2)
         befFieldOnTop.isActive = true
         cell.addConstraint(befFieldOnTop)
         
         if let imgView = cell.imageView {
             
-            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 1)
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 2)
             imgFieldCentered.isActive = true
             cell.addConstraint(imgFieldCentered)
         }
@@ -335,7 +335,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.hide()
                 cell.gapAfterTextField.hide()
                 
-                adjustConstraints_mainFieldOnTop(cell, isGroup ? 1.5 : 0)
+                adjustConstraints_mainFieldOnTop(cell, isGroup ? 1.5 : -2)
             }
             
             
