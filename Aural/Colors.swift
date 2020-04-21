@@ -99,6 +99,14 @@ struct Colors {
         static var indexDurationSelectedTextColor: NSColor {
             return ColorScheme.systemScheme.playlistIndexDurationSelectedTextColor
         }
+        
+        static var playingTrackIconColor: NSColor {
+            return ColorScheme.systemScheme.playlistPlayingTrackIconColor
+        }
+        
+        static var selectionBoxColor: NSColor {
+            return ColorScheme.systemScheme.playlistSelectionBoxColor
+        }
     }
     
     static let fxFunctionTextColor: NSColor = Constants.white40Percent

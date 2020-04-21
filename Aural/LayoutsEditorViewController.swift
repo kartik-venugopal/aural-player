@@ -130,7 +130,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return AuralTableRowView()
+        return GenericTableRowView()
     }
     
     // Returns a view for a single column

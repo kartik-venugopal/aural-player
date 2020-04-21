@@ -12,8 +12,17 @@
                 <outlet property="controlButtonColorPicker" destination="2rx-Vg-lKd" id="vyv-Va-Fwz"/>
                 <outlet property="controlButtonOffStateColorPicker" destination="dae-ZT-dm4" id="BnE-O2-nTt"/>
                 <outlet property="logoTextColorPicker" destination="dAp-Bg-QIP" id="Rxf-Og-NRd"/>
-                <outlet property="playlistColorSchemeEnclosingView" destination="xjq-xA-6dC" id="ZHQ-QI-KXC"/>
+                <outlet property="playlistGroupIconColorPicker" destination="4R6-9h-Bw7" id="Ydg-7G-tc8"/>
+                <outlet property="playlistGroupNameSelectedTextColorPicker" destination="pqL-SX-Ga8" id="FJV-Ul-7aB"/>
+                <outlet property="playlistGroupNameTextColorPicker" destination="qU4-EB-Xxd" id="XBD-z1-Uvs"/>
+                <outlet property="playlistIndexDurationSelectedTextColorPicker" destination="Bfb-SS-afx" id="nCV-QE-bR2"/>
+                <outlet property="playlistIndexDurationTextColorPicker" destination="ESc-bQ-Y9n" id="FcP-yr-nht"/>
+                <outlet property="playlistPlayingTrackIconColorPicker" destination="ke8-S8-2b8" id="dqs-TB-7Ws"/>
+                <outlet property="playlistSelectionBoxColorPicker" destination="DFD-XE-aWY" id="fZ6-kl-Ssi"/>
+                <outlet property="playlistSummaryInfoColorPicker" destination="zTg-FM-GiX" id="uBH-dT-hn8"/>
                 <outlet property="playlistTabScrollView" destination="0Xc-eA-hVm" id="oJ9-Y2-vmK"/>
+                <outlet property="playlistTrackNameSelectedTextColorPicker" destination="mjf-Ex-vus" id="gJd-dh-dNc"/>
+                <outlet property="playlistTrackNameTextColorPicker" destination="ewO-3e-cJ2" id="Rfh-Ca-E9x"/>
                 <outlet property="primaryTextColorPicker" destination="L7a-xF-CqP" id="MsI-AQ-0cS"/>
                 <outlet property="secondaryTextColorPicker" destination="a1L-Fr-wZy" id="4TG-Bd-Uda"/>
                 <outlet property="sliderBackgroundColorPicker" destination="cej-VM-7wB" id="Eva-IS-FdR"/>
@@ -421,7 +430,7 @@
                                                 <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="C27-GY-mQ8" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
+                                            <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="C27-GY-mQ8" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="430" y="0.0" width="15" height="250"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>

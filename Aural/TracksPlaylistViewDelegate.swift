@@ -23,7 +23,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return AuralTableRowView()
+        return FlatPlaylistRowView()
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
@@ -267,19 +267,19 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     // Creates a cell view containing the animation for the currently playing track
     private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
         
-        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgPlayingTrack)
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
     }
     
     // Creates a cell view containing the animation for the currently playing track
     private func createTranscodingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
         
-        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgTranscodingTrack)
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgTranscodingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
     }
     
     // Creates a cell view containing the animation for the currently playing track
     private func createWaitingImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
         
-        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgWaitingTrack)
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgWaitingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
     }
     
     private func createIndexImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int, _ image: NSImage) -> IndexCellView? {

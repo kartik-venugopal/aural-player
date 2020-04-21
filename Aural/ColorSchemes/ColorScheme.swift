@@ -3,6 +3,10 @@ import Cocoa
 class ColorScheme {
     
     static var systemScheme: ColorScheme = ColorScheme()
+    
+    static func persistentState() -> ColorSchemesState {
+        return ColorSchemesState(ColorSchemeState(systemScheme), [])
+    }
 
     var logoTextColor: NSColor
 
@@ -241,9 +245,9 @@ enum ColorSchemePreset: String {
         
         switch self {
             
-        case .darkBackgroundLightForeground:  return Colors.Constants.white50Percent
+        case .darkBackgroundLightForeground:  return Colors.Constants.white40Percent
             
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white40Percent
+        case .lightBackgroundDarkForeground:  return Colors.Constants.white60Percent
             
         }
     }
@@ -252,7 +256,7 @@ enum ColorSchemePreset: String {
         
         switch self {
             
-        case .darkBackgroundLightForeground:  return Colors.Constants.white90Percent
+        case .darkBackgroundLightForeground:  return NSColor.white
             
         case .lightBackgroundDarkForeground:  return Colors.Constants.white10Percent
             
@@ -274,7 +278,7 @@ enum ColorSchemePreset: String {
         
         switch self {
             
-        case .darkBackgroundLightForeground:  return Colors.Constants.white70Percent
+        case .darkBackgroundLightForeground:  return Colors.Constants.white60Percent
             
         case .lightBackgroundDarkForeground:  return Colors.Constants.white20Percent
             
@@ -307,7 +311,7 @@ enum ColorSchemePreset: String {
         
         switch self {
             
-        case .darkBackgroundLightForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+        case .darkBackgroundLightForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
             
         case .lightBackgroundDarkForeground:  return NSColor(red: 0, green: 0.425, blue: 0, alpha: 1)
             
