@@ -31,6 +31,9 @@ protocol GroupingPlaylistAccessorProtocol {
     
     // Searches the playlist, given certain query parameters, and returns all matching results
     func search(_ searchQuery: SearchQuery) -> SearchResults
+    
+    // Returns all groups of the given type
+    var groups: [Group] {get}
 }
 
 /*

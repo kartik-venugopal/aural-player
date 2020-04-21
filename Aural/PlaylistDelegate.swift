@@ -60,6 +60,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.numberOfGroups(type)
     }
     
+    func allGroups(_ type: GroupType) -> [Group] {
+        return accessor.allGroups(type)
+    }
+    
     func addFiles(_ files: [URL]) {
         mutator.addFiles(files)
     }

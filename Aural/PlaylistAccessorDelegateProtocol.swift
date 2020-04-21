@@ -45,6 +45,9 @@ protocol PlaylistAccessorDelegateProtocol {
     // Returns the index of a group within the appropriate grouping/hierarchical playlist (indicated by the group's type).
     func indexOfGroup(_ group: Group) -> Int
     
+    // Returns all groups of the given type
+    func allGroups(_ type: GroupType) -> [Group]
+    
     // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
     
