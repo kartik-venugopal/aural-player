@@ -797,6 +797,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    private func changeGroupIconColor(_ color: NSColor) {
+        allGroups.forEach({playlistView.reloadItem($0)})
+    }
+    
     // MARK: Message handlers
     
     var subscriberId: String {
@@ -1014,6 +1018,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .changePlaylistSelectionBoxColor:
                 
                 changeSelectionBoxColor(colorChangeMsg.color)
+                
+            case .changePlaylistGroupIconColor:
+                
+                changeGroupIconColor(colorChangeMsg.color)
                 
             default: return
                 
