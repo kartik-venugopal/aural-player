@@ -54,17 +54,16 @@ class TabGroupButtonCell: NSButtonCell {
 
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
-    private var _unselectedTextColor: NSColor = Colors.Constants.white50Percent
-    private var _selectedTextColor: NSColor = Colors.Constants.white80Percent
-    
-    override var unselectedTextColor: NSColor {return _unselectedTextColor}
-    override var selectedTextColor: NSColor {return _selectedTextColor}
+    override var unselectedTextColor: NSColor {return Colors.Playlist.tabButtonTextColor}
+    override var selectedTextColor: NSColor {return Colors.Playlist.selectedTabButtonTextColor}
     
     override var borderRadius: CGFloat {return 3}
-    override var selectionBoxColor: NSColor {return Colors.tabViewButtonSelectionBoxColor}
+    override var selectionBoxColor: NSColor {return Colors.Playlist.selectedTabButtonBackgroundColor}
     
     override var textFont: NSFont {return Fonts.Playlist.tabsFont}
     override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
+    
+    override var backgroundFillColor: NSColor {return Colors.Playlist.tabButtonBackgroundColor}
 }
 
 // Cell for the Preferences tab group

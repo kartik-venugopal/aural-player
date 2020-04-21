@@ -221,6 +221,28 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var playlistTabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+            
+        }
+    }
+    
+    var playlistSelectedTabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
+            
+        }
+    }
+    
     var playlistGroupIconColor: NSColor {
         
         switch self {
@@ -272,6 +294,17 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+            
+        }
+    }
+    
+    var playlistSelectedTabButtonColor: NSColor {
+        
+        switch self {
+        
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
             
         }
     }

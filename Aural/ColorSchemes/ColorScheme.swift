@@ -126,11 +126,17 @@ class PlaylistColorScheme {
     var groupNameSelectedTextColor: NSColor
     var indexDurationSelectedTextColor: NSColor
     
+    var summaryInfoColor: NSColor
+    var tabButtonTextColor: NSColor
+    var selectedTabButtonTextColor: NSColor
+    
+    var playingTrackIconColor: NSColor
+    var selectionBoxColor: NSColor
+    
     var groupIconColor: NSColor
     var groupDisclosureTriangleColor: NSColor
-    var selectionBoxColor: NSColor
-    var playingTrackIconColor: NSColor
-    var summaryInfoColor: NSColor
+    
+    var selectedTabButtonColor: NSColor
     
     init(_ preset: ColorSchemePreset) {
         
@@ -142,11 +148,15 @@ class PlaylistColorScheme {
         self.groupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
+        self.summaryInfoColor = preset.playlistSummaryInfoColor
+        self.tabButtonTextColor = preset.playlistTabButtonTextColor
+        self.selectedTabButtonTextColor = preset.playlistSelectedTabButtonTextColor
+        
         self.groupIconColor = preset.playlistGroupIconColor
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
         self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.selectedTabButtonColor = preset.playlistSelectedTabButtonColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
-        self.summaryInfoColor = preset.playlistSummaryInfoColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
@@ -159,11 +169,15 @@ class PlaylistColorScheme {
         self.groupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
+        self.summaryInfoColor = preset.playlistSummaryInfoColor
+        self.tabButtonTextColor = preset.playlistTabButtonTextColor
+        self.selectedTabButtonTextColor = preset.playlistSelectedTabButtonTextColor
+        
         self.groupIconColor = preset.playlistGroupIconColor
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
         self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.selectedTabButtonColor = preset.playlistSelectedTabButtonColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
-        self.summaryInfoColor = preset.playlistSummaryInfoColor
     }
 }
 

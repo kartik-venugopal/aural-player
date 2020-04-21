@@ -13,6 +13,8 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     @IBOutlet weak var indexDurationSelectedTextColorPicker: NSColorWell!
     
     @IBOutlet weak var summaryInfoColorPicker: NSColorWell!
+    @IBOutlet weak var tabButtonTextColorPicker: NSColorWell!
+    @IBOutlet weak var selectedTabButtonTextColorPicker: NSColorWell!
 
     @IBOutlet weak var groupIconColorPicker: NSColorWell!
     @IBOutlet weak var groupDisclosureTriangleColorPicker: NSColorWell!
@@ -20,6 +22,7 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     @IBOutlet weak var selectionBoxColorPicker: NSColorWell!
     @IBOutlet weak var playingTrackIconColorPicker: NSColorWell!
     
+    @IBOutlet weak var selectedTabButtonColorPicker: NSColorWell!
     
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
     
@@ -59,6 +62,18 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationSelectedTextColor, indexDurationSelectedTextColorPicker.color))
     }
     
+    @IBAction func tabButtonTextColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.playlist.tabButtonTextColor = tabButtonTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTabButtonTextColor, tabButtonTextColorPicker.color))
+    }
+    
+    @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.playlist.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectedTabButtonTextColor, selectedTabButtonTextColorPicker.color))
+    }
+    
     @IBAction func groupIconColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
@@ -89,12 +104,17 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSummaryInfoColor, summaryInfoColorPicker.color))
     }
     
+    @IBAction func selectedTabButtonColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.playlist.selectedTabButtonColor = selectedTabButtonColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectedTabButtonColor, selectedTabButtonColorPicker.color))
+    }
+    
     var colorSchemeView: NSView {
         return self.view
     }
     
     func resetFields(_ scheme: ColorScheme) {
-        
         scrollToTop()
     }
     

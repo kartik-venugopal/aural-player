@@ -8,11 +8,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAlbumsTab" destination="Icf-Se-Yie" id="fzm-zb-WgA"/>
+                <outlet property="btnArtistsTab" destination="Gd5-Z1-IPv" id="UYS-iP-JS2"/>
                 <outlet property="btnClose" destination="vdc-Y5-FXG" id="SB6-vr-t8P"/>
+                <outlet property="btnGenresTab" destination="WM5-oc-eXx" id="GTC-Jb-4Ps"/>
                 <outlet property="btnPageDown" destination="MyO-C3-Vvb" id="N0H-Kd-QCi"/>
                 <outlet property="btnPageUp" destination="aRU-Xs-Jom" id="huo-nz-VZN"/>
                 <outlet property="btnScrollToBottom" destination="B7I-KW-j8r" id="MGG-kZ-Nix"/>
                 <outlet property="btnScrollToTop" destination="hbJ-4L-vUS" id="aVX-bU-dkO"/>
+                <outlet property="btnTracksTab" destination="HRy-40-ayp" id="vh1-lE-8lZ"/>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
                 <outlet property="controlButtonsSuperview" destination="wWy-mP-FPA" id="Utv-PF-0Fk"/>
                 <outlet property="controlsBox" destination="4ZZ-7d-wdS" id="IQj-6b-tmO"/>

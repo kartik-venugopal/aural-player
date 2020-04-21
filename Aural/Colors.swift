@@ -108,6 +108,22 @@ struct Colors {
             return ColorSchemes.systemScheme.playlist.selectionBoxColor
         }
         
+        static var tabButtonBackgroundColor: NSColor {
+            return ColorSchemes.systemScheme.general.backgroundColor
+        }
+        
+        static var selectedTabButtonBackgroundColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.selectedTabButtonColor
+        }
+        
+        static var tabButtonTextColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.tabButtonTextColor
+        }
+        
+        static var selectedTabButtonTextColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.selectedTabButtonTextColor
+        }
+        
         static var groupIconColor: NSColor {
             return ColorSchemes.systemScheme.playlist.groupIconColor
         }

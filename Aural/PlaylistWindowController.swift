@@ -7,7 +7,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
+    
     @IBOutlet weak var tabButtonsBox: NSBox!
+    @IBOutlet weak var btnTracksTab: NSButton!
+    @IBOutlet weak var btnArtistsTab: NSButton!
+    @IBOutlet weak var btnAlbumsTab: NSButton!
+    @IBOutlet weak var btnGenresTab: NSButton!
+    
     @IBOutlet weak var controlsBox: NSBox!
     
     @IBOutlet weak var controlButtonsSuperview: NSView!
@@ -113,7 +119,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changePlaylistSummaryInfoColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changePlaylistSummaryInfoColor, .changePlaylistSelectedTabButtonColor, .changePlaylistTabButtonTextColor, .changePlaylistSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -404,6 +410,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             $0!.fillColor = color
             $0!.isTransparent = !color.isOpaque
         })
+        
+        redrawTabButtons()
     }
     
     private func changeControlButtonColor(_ color: NSColor) {
@@ -422,6 +430,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         [lblTracksSummary, lblDurationSummary].forEach({
             $0?.textColor = color
         })
+    }
+    
+    private func redrawTabButtons() {
+        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0?.redraw()})
+    }
+    
+    private func redrawSelectedTabButton() {
+        (tabGroup.selectedTabViewItem as? AuralTabViewItem)?.tabButton.redraw()
     }
     
     // Updates the summary in response to a change in the tab group selected tab
@@ -565,7 +581,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 changeSummaryInfoColor(summaryColor)
             }
             
-        case .viewChapters: viewChapters()
+        case .changePlaylistTabButtonTextColor:
+            
+            redrawTabButtons()
+            
+        case .changePlaylistSelectedTabButtonTextColor, .changePlaylistSelectedTabButtonColor:
+            
+            redrawSelectedTabButton()
+            
+        case .viewChapters:
+            
+            viewChapters()
             
         default: return
             
