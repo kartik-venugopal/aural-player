@@ -46,8 +46,9 @@ extension PlaybackGap: Hashable {
         return lhs.id == rhs.id
     }
     
-    var hashValue: Int {
-        return self.id
+    // Needed for Hashable conformance
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
     }
 }
 

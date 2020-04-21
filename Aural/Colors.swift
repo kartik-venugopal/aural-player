@@ -28,84 +28,84 @@ struct Colors {
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
-            return ColorScheme.systemScheme.primaryTextColor
+            return ColorSchemes.systemScheme.player.primaryTextColor
         }
         
         static var trackInfoArtistAlbumTextColor: NSColor {
-            return ColorScheme.systemScheme.secondaryTextColor
+            return ColorSchemes.systemScheme.player.secondaryTextColor
         }
         
         static var trackInfoChapterTextColor: NSColor {
-            return ColorScheme.systemScheme.secondaryTextColor
+            return ColorSchemes.systemScheme.player.secondaryTextColor
         }
         
         static var gapTextColor: NSColor {
-            return ColorScheme.systemScheme.primaryTextColor
+            return ColorSchemes.systemScheme.player.primaryTextColor
         }
         
         static var trackTimesTextColor: NSColor {
-            return ColorScheme.systemScheme.secondaryTextColor
+            return ColorSchemes.systemScheme.player.secondaryTextColor
         }
         
         static var feedbackTextColor: NSColor {
-            return ColorScheme.systemScheme.secondaryTextColor
+            return ColorSchemes.systemScheme.player.secondaryTextColor
         }
         
         static var seekBarBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorScheme.systemScheme.playerSliderBackgroundColor,
-                              ending: ColorScheme.systemScheme.playerSliderBackgroundColor)!
+            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderBackgroundColor,
+                              ending: ColorSchemes.systemScheme.player.sliderBackgroundColor)!
         }
         
         static var seekBarProgressGradient: NSGradient {
             
-            return NSGradient(starting: ColorScheme.systemScheme.playerSliderForegroundColor,
-                              ending: ColorScheme.systemScheme.playerSliderForegroundColor)!
+            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderForegroundColor,
+                              ending: ColorSchemes.systemScheme.player.sliderForegroundColor)!
         }
         
         static var seekBarLoopGradient: NSGradient {
             
-            return NSGradient(starting: ColorScheme.systemScheme.playerSliderLoopSegmentColor,
-                              ending: ColorScheme.systemScheme.playerSliderLoopSegmentColor)!
+            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderLoopSegmentColor,
+                              ending: ColorSchemes.systemScheme.player.sliderLoopSegmentColor)!
         }
         
         static var knobColor: NSColor {
-            return ColorScheme.systemScheme.playerSliderKnobColor
+            return ColorSchemes.systemScheme.player.sliderKnobColor
         }
     }
     
     struct Playlist {
         
         static var trackNameTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistTrackNameTextColor
+            return ColorSchemes.systemScheme.playlist.trackNameTextColor
         }
         
         static var groupNameTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistGroupNameTextColor
+            return ColorSchemes.systemScheme.playlist.groupNameTextColor
         }
         
         static var indexDurationTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistIndexDurationTextColor
+            return ColorSchemes.systemScheme.playlist.indexDurationTextColor
         }
         
         static var trackNameSelectedTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistTrackNameSelectedTextColor
+            return ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor
         }
         
         static var groupNameSelectedTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistGroupNameSelectedTextColor
+            return ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor
         }
         
         static var indexDurationSelectedTextColor: NSColor {
-            return ColorScheme.systemScheme.playlistIndexDurationSelectedTextColor
+            return ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor
         }
         
         static var playingTrackIconColor: NSColor {
-            return ColorScheme.systemScheme.playlistPlayingTrackIconColor
+            return ColorSchemes.systemScheme.playlist.playingTrackIconColor
         }
         
         static var selectionBoxColor: NSColor {
-            return ColorScheme.systemScheme.playlistSelectionBoxColor
+            return ColorSchemes.systemScheme.playlist.selectionBoxColor
         }
     }
     
