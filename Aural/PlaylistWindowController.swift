@@ -113,7 +113,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changePlaylistSummaryInfoColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -417,6 +417,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         })
     }
     
+    private func changeSummaryInfoColor(_ color: NSColor) {
+        
+        [lblTracksSummary, lblDurationSummary].forEach({
+            $0?.textColor = color
+        })
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
@@ -550,6 +557,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
+            }
+            
+        case .changePlaylistSummaryInfoColor:
+            
+            if let summaryColor = (message as? ColorSchemeActionMessage)?.color {
+                changeSummaryInfoColor(summaryColor)
             }
             
         case .viewChapters: viewChapters()

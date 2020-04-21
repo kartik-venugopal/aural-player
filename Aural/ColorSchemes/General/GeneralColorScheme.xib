@@ -22,9 +22,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-JO-olt" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="20" y="136" width="199" height="23"/>
+                    <rect key="frame" x="20" y="136" width="214" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control button color (off state)" id="L1p-hs-cRL" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control buttons (in the &quot;Off&quot; state)" id="L1p-hs-cRL" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -65,7 +65,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mjo-gf-wD4" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="20" y="171" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control button color" id="jBu-2H-0dz" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control buttons" id="jBu-2H-0dz" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -74,7 +74,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Drs-AH-YQe" userLabel="App logo text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="20" y="101" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="App logo text color" id="Xxj-Fo-Lgx" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="App logo text" id="Xxj-Fo-Lgx" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,7 +83,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAO-yG-4pa" userLabel="Background" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="20" y="206" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Background color" id="kwa-2Z-SIm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Window background" id="kwa-2Z-SIm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

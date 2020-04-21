@@ -17,6 +17,8 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
     
     override func windowDidLoad() {
         
+        self.window?.isMovableByWindowBackground = true
+        
         subViews = [generalSchemeView, playerSchemeView, playlistSchemeView]
         tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
         
