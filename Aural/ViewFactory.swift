@@ -106,6 +106,14 @@ struct ViewFactory {
         fileprivate static let filterPresetsEditorViewController: FilterPresetsEditorViewController = FilterPresetsEditorViewController()
     }
     
+    fileprivate struct ColorSchemeViews {
+        
+        fileprivate static let generalColorSchemeViewController: GeneralColorSchemeViewController = GeneralColorSchemeViewController()
+        fileprivate static let playerColorSchemeViewController: PlayerColorSchemeViewController = PlayerColorSchemeViewController()
+        fileprivate static let playlistColorSchemeViewController: PlaylistColorSchemeViewController = PlaylistColorSchemeViewController()
+//        fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController
+    }
+    
     // Returns the view that displays the player
     static var playerView: NSView {
         return playerViewController.view
@@ -211,20 +219,17 @@ struct ViewFactory {
         return PreferencesViews.controlsPreferencesViewController
     }
     
-//    static var StatusBarPopover() -> StatusBarPopoverViewController {
-//        return PopoverViews.statusBarPopover
-//    }
+    static var generalColorSchemeView: ColorSchemesViewProtocol {
+        return ColorSchemeViews.generalColorSchemeViewController
+    }
     
-    // MARK: Accessors for Bar mode
+    static var playerColorSchemeView: ColorSchemesViewProtocol {
+        return ColorSchemeViews.playerColorSchemeViewController
+    }
     
-//    static var BarModeNowPlayingView: NSView {
-//        return barModeNowPlayingViewController.view
-//    }
-//
-//    // Returns the view that displays the player
-//    static var BarModePlayerView: NSView {
-//        return barModePlayerViewController.view
-//    }
+    static var playlistColorSchemeView: ColorSchemesViewProtocol {
+        return ColorSchemeViews.playlistColorSchemeViewController
+    }
     
     static var bookmarksEditorView: NSView {
         return EditorViews.bookmarksEditorViewController.view

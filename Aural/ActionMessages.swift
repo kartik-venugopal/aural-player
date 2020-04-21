@@ -337,11 +337,11 @@ enum ActionType {
     case changeControlButtonColor
     case changeControlButtonOffStateColor
     
-    case changeTrackInfoPrimaryTextColor
-    case changeTrackInfoSecondaryTextColor
-    case changeTrackInfoTertiaryTextColor
+    case changePlayerTrackInfoPrimaryTextColor
+    case changePlayerTrackInfoSecondaryTextColor
+    case changePlayerTrackInfoTertiaryTextColor
     
-    case changeControlTextColor
+    case changePlayerControlTextColor
     
     case changePlayerSliderBackgroundColor
     case changePlayerSliderForegroundColor
