@@ -46,7 +46,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changePrimaryTextColor, .changeSecondaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changeTrackInfoPrimaryTextColor, .changeTrackInfoSecondaryTextColor, .changeTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -168,18 +168,32 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changeBackgroundColor(color)
     }
     
-    private func changePrimaryTextColor(_ color: NSColor) {
+    private func changeTrackInfoPrimaryTextColor(_ color: NSColor) {
         
-        defaultView.changePrimaryTextColor(color)
-        expandedArtView.changePrimaryTextColor(color)
-        transcoderView.changePrimaryTextColor()
+        defaultView.changeTrackInfoPrimaryTextColor(color)
+        expandedArtView.changeTrackInfoPrimaryTextColor(color)
+        transcoderView.changeTrackInfoPrimaryTextColor()
     }
     
-    private func changeSecondaryTextColor(_ color: NSColor) {
+    private func changeTrackInfoSecondaryTextColor(_ color: NSColor) {
         
-        defaultView.changeSecondaryTextColor(color)
-        expandedArtView.changeSecondaryTextColor(color)
-        transcoderView.changeSecondaryTextColor()
+        defaultView.changeTrackInfoSecondaryTextColor(color)
+        expandedArtView.changeTrackInfoSecondaryTextColor(color)
+        transcoderView.changeTrackInfoSecondaryTextColor()
+    }
+    
+    private func changeTrackInfoTertiaryTextColor(_ color: NSColor) {
+        
+        defaultView.changeTrackInfoTertiaryTextColor(color)
+        expandedArtView.changeTrackInfoTertiaryTextColor(color)
+        transcoderView.changeTrackInfoTertiaryTextColor()
+    }
+    
+    private func changeControlTextColor(_ color: NSColor) {
+        
+        defaultView.changeControlTextColor(color)
+        expandedArtView.changeControlTextColor(color)
+        transcoderView.changeControlTextColor()
     }
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
@@ -271,13 +285,21 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     
                     changeBackgroundColor(colorSchemeMsg.color)
                     
-                case .changePrimaryTextColor:
+                case .changeTrackInfoPrimaryTextColor:
                     
-                    changePrimaryTextColor(colorSchemeMsg.color)
+                    changeTrackInfoPrimaryTextColor(colorSchemeMsg.color)
                     
-                case .changeSecondaryTextColor:
+                case .changeTrackInfoSecondaryTextColor:
                     
-                    changeSecondaryTextColor(colorSchemeMsg.color)
+                    changeTrackInfoSecondaryTextColor(colorSchemeMsg.color)
+                    
+                case .changeTrackInfoTertiaryTextColor:
+                    
+                    changeTrackInfoTertiaryTextColor(colorSchemeMsg.color)
+                    
+                case .changeControlTextColor:
+                    
+                    changeControlTextColor(colorSchemeMsg.color)
                     
                 default: return
                     

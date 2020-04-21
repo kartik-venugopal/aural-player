@@ -191,13 +191,25 @@ class PlayerView: NSView {
         })
     }
     
-    func changePrimaryTextColor(_ color: NSColor) {
+    func changeTrackInfoPrimaryTextColor(_ color: NSColor) {
         
         infoView.changeTextColor()
         gapView.changeTextColor()
     }
     
-    func changeSecondaryTextColor(_ color: NSColor) {
+    func changeTrackInfoSecondaryTextColor(_ color: NSColor) {
+        
+        infoView.changeTextColor()
+        gapView.changeTextColor()
+    }
+    
+    func changeTrackInfoTertiaryTextColor(_ color: NSColor) {
+        
+        infoView.changeTextColor()
+        gapView.changeTextColor()
+    }
+    
+    func changeControlTextColor(_ color: NSColor) {
         infoView.changeTextColor()
     }
 }

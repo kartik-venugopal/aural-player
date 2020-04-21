@@ -54,8 +54,10 @@ class GeneralColorSchemeState {
 
 class PlayerColorSchemeState {
     
-    var primaryTextColor: ColorState
-    var secondaryTextColor: ColorState
+    var trackInfoPrimaryTextColor: ColorState
+    var trackInfoSecondaryTextColor: ColorState
+    var trackInfoTertiaryTextColor: ColorState
+    var controlTextColor: ColorState
     
     var sliderForegroundColor: ColorState
     var sliderBackgroundColor: ColorState
@@ -64,8 +66,10 @@ class PlayerColorSchemeState {
     
     init(_ scheme: PlayerColorScheme) {
         
-        self.primaryTextColor = ColorState.fromNSColor(scheme.primaryTextColor)
-        self.secondaryTextColor = ColorState.fromNSColor(scheme.secondaryTextColor)
+        self.trackInfoPrimaryTextColor = ColorState.fromNSColor(scheme.trackInfoPrimaryTextColor)
+        self.trackInfoSecondaryTextColor = ColorState.fromNSColor(scheme.trackInfoSecondaryTextColor)
+        self.trackInfoTertiaryTextColor = ColorState.fromNSColor(scheme.trackInfoTertiaryTextColor)
+        self.controlTextColor = ColorState.fromNSColor(scheme.controlTextColor)
         
         self.sliderBackgroundColor = ColorState.fromNSColor(scheme.sliderBackgroundColor)
         self.sliderForegroundColor = ColorState.fromNSColor(scheme.sliderForegroundColor)

@@ -42,7 +42,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor, .changeControlButtonOffStateColor, .changeSecondaryTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeControlButtonColor, .changeControlButtonOffStateColor, .changeControlTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -440,7 +440,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.changeControlButtonOffStateColor(color)
     }
     
-    private func changeSecondaryTextColor(_ color: NSColor) {
+    private func changeControlTextColor(_ color: NSColor) {
         controlsView.changeTextColor()
     }
     
@@ -654,10 +654,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 changeControlButtonOffStateColor(ctrlColor)
             }
             
-        case .changeSecondaryTextColor:
+        case .changeControlTextColor:
             
             if let txtColor = (message as? ColorSchemeActionMessage)?.color {
-                changeSecondaryTextColor(txtColor)
+                changeControlTextColor(txtColor)
             }
             
         case .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor:
