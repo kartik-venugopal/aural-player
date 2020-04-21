@@ -51,9 +51,48 @@ class FlatPlaylistRowView: NSTableRowView {
  */
 class AuralPlaylistOutlineView: NSOutlineView {
     
+    // TODO - Can these be static so that only one copy is made for all playlists ? Not 3.
+    var cachedDisclosureIcon_collapsed: NSImage!
+    var cachedDisclosureIcon_expanded: NSImage!
+    
+    var disclosureButtons: [NSButton] = []
+    
+    override func awakeFromNib() {
+        
+        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
+        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
+    }
+    
     // See extension below
     override func menu(for event: NSEvent) -> NSMenu? {
         return menuHandler(for: event)
+    }
+    
+    func changeDisclosureIconColor(_ color: NSColor) {
+        
+        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(color)
+        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(color)
+        
+        disclosureButtons.forEach({
+            $0.image = cachedDisclosureIcon_collapsed
+            $0.alternateImage = cachedDisclosureIcon_expanded
+        })
+    }
+    
+    // Customize the disclosure triangle image
+    override func makeView(withIdentifier identifier: NSUserInterfaceItemIdentifier, owner: Any?) -> NSView? {
+        
+        let view = super.makeView(withIdentifier: identifier, owner: owner)
+        
+        if identifier == NSOutlineView.disclosureButtonIdentifier, let disclosureButton = view as? NSButton {
+            
+            disclosureButton.image = cachedDisclosureIcon_collapsed
+            disclosureButton.alternateImage = cachedDisclosureIcon_expanded
+            
+            disclosureButtons.append(disclosureButton)
+        }
+        
+        return view
     }
 }
 

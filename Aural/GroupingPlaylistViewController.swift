@@ -8,6 +8,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
+    @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
     private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
     
@@ -57,7 +58,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -798,7 +799,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func changeGroupIconColor(_ color: NSColor) {
+        
+        playlistViewDelegate.changeGroupIconColor(color)
         allGroups.forEach({playlistView.reloadItem($0)})
+    }
+    
+    private func changeGroupDisclosureTriangleColor(_ color: NSColor) {
+        playlistView.changeDisclosureIconColor(color)
     }
     
     // MARK: Message handlers
@@ -1022,6 +1029,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .changePlaylistGroupIconColor:
                 
                 changeGroupIconColor(colorChangeMsg.color)
+                
+            case .changePlaylistGroupDisclosureTriangleColor:
+                
+                changeGroupDisclosureTriangleColor(colorChangeMsg.color)
                 
             default: return
                 

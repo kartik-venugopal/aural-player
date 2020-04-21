@@ -49,4 +49,7 @@ struct Images {
     static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
     static let imgPlaylistPreview: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgEffectsPreview: NSImage = NSImage(named: "EffectsView-On")!
+    
+    static let imgDisclosure_collapsed: NSImage = NSImage(named: "DisclosureTriangle-Collapsed")!
+    static let imgDisclosure_expanded: NSImage = NSImage(named: "DisclosureTriangle-Expanded")!
 }

@@ -88,10 +88,13 @@ class PlaylistColorSchemeState {
     var groupNameSelectedTextColor: ColorState
     var playlistIndexDurationSelectedTextColor: ColorState
     
-    var groupIconColor: ColorState
-    var selectionBoxColor: ColorState
-    var playingTrackIconColor: ColorState
     var summaryInfoColor: ColorState
+    
+    var playingTrackIconColor: ColorState
+    var selectionBoxColor: ColorState
+    
+    var groupIconColor: ColorState
+    var groupDisclosureTriangleColor: ColorState
     
     init(_ scheme: PlaylistColorScheme) {
         
@@ -104,6 +107,7 @@ class PlaylistColorSchemeState {
         self.playlistIndexDurationSelectedTextColor = ColorState.fromNSColor(scheme.indexDurationSelectedTextColor)
         
         self.groupIconColor = ColorState.fromNSColor(scheme.groupIconColor)
+        self.groupDisclosureTriangleColor = ColorState.fromNSColor(scheme.groupDisclosureTriangleColor)
         self.selectionBoxColor = ColorState.fromNSColor(scheme.selectionBoxColor)
         self.playingTrackIconColor = ColorState.fromNSColor(scheme.playingTrackIconColor)
         self.summaryInfoColor = ColorState.fromNSColor(scheme.summaryInfoColor)
