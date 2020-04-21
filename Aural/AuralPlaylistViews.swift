@@ -134,7 +134,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         }
         
         // textField.top == self.top
-        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
         textFieldOnTopConstraint.isActive = true
         self.addConstraint(textFieldOnTopConstraint)
     }
@@ -153,7 +153,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
             }
         }
         
-        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -2)
         textFieldBelowViewConstraint.isActive = true
         self.addConstraint(textFieldBelowViewConstraint)
     }
@@ -224,7 +224,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
         }
         
         // textField.top == self.top
-        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
         textFieldOnTopConstraint.isActive = true
         self.addConstraint(textFieldOnTopConstraint)
     }
@@ -243,7 +243,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -2)
         textFieldBelowViewConstraint.isActive = true
         self.addConstraint(textFieldBelowViewConstraint)
     }
@@ -282,7 +282,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12.5)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14.5)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
@@ -311,7 +311,7 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 12.5)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 10.5)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
@@ -340,11 +340,11 @@ class IndexCellView: BasicFlatPlaylistCellView {
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -2)
         indexTF.isActive = true
         self.addConstraint(indexTF)
         
-        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 1)
+        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
         indexIV.isActive = true
         self.addConstraint(indexIV)
     }
