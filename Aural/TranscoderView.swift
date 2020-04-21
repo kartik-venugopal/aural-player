@@ -48,11 +48,19 @@ class TranscoderView: NSView {
         containerBox.isTransparent = !color.isOpaque
     }
     
-    func changePrimaryTextColor() {
-        
+    func changeTrackInfoPrimaryTextColor() {
+        // TODO
     }
     
-    func changeSecondaryTextColor() {
+    func changeTrackInfoSecondaryTextColor() {
+        // TODO
+    }
+    
+    func changeTrackInfoTertiaryTextColor() {
+        // TODO
+    }
+    
+    func changeControlTextColor() {
         
     }
 }

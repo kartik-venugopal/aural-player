@@ -28,27 +28,27 @@ struct Colors {
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.primaryTextColor
+            return ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor
         }
         
         static var trackInfoArtistAlbumTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.secondaryTextColor
+            return ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor
         }
         
         static var trackInfoChapterTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.secondaryTextColor
+            return ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor
         }
         
         static var gapTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.primaryTextColor
+            return ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor
         }
         
         static var trackTimesTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.secondaryTextColor
+            return ColorSchemes.systemScheme.player.controlTextColor
         }
         
         static var feedbackTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.secondaryTextColor
+            return ColorSchemes.systemScheme.player.controlTextColor
         }
         
         static var seekBarBackgroundGradient: NSGradient {

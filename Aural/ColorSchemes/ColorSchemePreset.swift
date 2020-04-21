@@ -65,18 +65,40 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var primaryTextColor: NSColor {
+    var playerTrackInfoPrimaryTextColor: NSColor {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white80Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.black
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
         }
     }
     
-    var secondaryTextColor: NSColor {
+    var playerTrackInfoSecondaryTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white20Percent
+            
+        }
+    }
+    
+    var playerTrackInfoTertiaryTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
+            
+        }
+    }
+    
+    var playerControlTextColor: NSColor {
         
         switch self {
             

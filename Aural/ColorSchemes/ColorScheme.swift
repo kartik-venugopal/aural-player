@@ -73,8 +73,10 @@ class PlayerColorScheme {
         return PlayerColorSchemeState(self)
     }
     
-    var primaryTextColor: NSColor
-    var secondaryTextColor: NSColor
+    var trackInfoPrimaryTextColor: NSColor
+    var trackInfoSecondaryTextColor: NSColor
+    var trackInfoTertiaryTextColor: NSColor
+    var controlTextColor: NSColor
     
     var sliderForegroundColor: NSColor
     var sliderBackgroundColor: NSColor
@@ -83,8 +85,11 @@ class PlayerColorScheme {
     
     init(_ preset: ColorSchemePreset) {
         
-        self.primaryTextColor = preset.primaryTextColor
-        self.secondaryTextColor = preset.secondaryTextColor
+        self.trackInfoPrimaryTextColor = preset.playerTrackInfoPrimaryTextColor
+        self.trackInfoSecondaryTextColor = preset.playerTrackInfoSecondaryTextColor
+        self.trackInfoTertiaryTextColor = preset.playerTrackInfoTertiaryTextColor
+        
+        self.controlTextColor = preset.playerControlTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
         self.sliderForegroundColor = preset.playerSliderForegroundColor
@@ -94,8 +99,11 @@ class PlayerColorScheme {
     
     func applyPreset(_ preset: ColorSchemePreset) {
         
-        self.primaryTextColor = preset.primaryTextColor
-        self.secondaryTextColor = preset.secondaryTextColor
+        self.trackInfoPrimaryTextColor = preset.playerTrackInfoPrimaryTextColor
+        self.trackInfoSecondaryTextColor = preset.playerTrackInfoSecondaryTextColor
+        self.trackInfoTertiaryTextColor = preset.playerTrackInfoTertiaryTextColor
+        
+        self.controlTextColor = preset.playerControlTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
         self.sliderForegroundColor = preset.playerSliderForegroundColor

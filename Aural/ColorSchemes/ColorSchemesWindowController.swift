@@ -3,14 +3,8 @@ import Cocoa
 class ColorSchemesWindowController: NSWindowController {
     
     // TODO: Store history of changes for each color (to allow Undo feature)
+    
     @IBOutlet weak var playlistTabScrollView: NSScrollView!
-    
-    @IBOutlet weak var backgroundColorPicker: NSColorWell!
-    
-    @IBOutlet weak var controlButtonColorPicker: NSColorWell!
-    @IBOutlet weak var controlButtonOffStateColorPicker: NSColorWell!
-    
-    @IBOutlet weak var logoTextColorPicker: NSColorWell!
     
     // Player colors
     
@@ -47,34 +41,18 @@ class ColorSchemesWindowController: NSWindowController {
         playlistTabScrollView.contentView.scroll(to: NSMakePoint(0, playlistTabScrollView.contentView.frame.height))
     }
     
-    @IBAction func backgroundColorAction(_ sender: Any) {
-        
-        ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
-    }
+    
     
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
-        ColorSchemes.systemScheme.player.primaryTextColor = primaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePrimaryTextColor, primaryTextColorPicker.color))
+        ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor = primaryTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeTrackInfoPrimaryTextColor, primaryTextColorPicker.color))
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
         
-        ColorSchemes.systemScheme.player.secondaryTextColor = secondaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSecondaryTextColor, secondaryTextColorPicker.color))
-    }
-    
-    @IBAction func controlButtonColorAction(_ sender: Any) {
-        
-        ColorSchemes.systemScheme.general.controlButtonColor = controlButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonColor, controlButtonColorPicker.color))
-    }
-    
-    @IBAction func controlButtonOffStateColorAction(_ sender: Any) {
-        
-        ColorSchemes.systemScheme.general.controlButtonOffStateColor = controlButtonOffStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonOffStateColor, controlButtonOffStateColorPicker.color))
+        ColorSchemes.systemScheme.player.controlTextColor = secondaryTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlTextColor, secondaryTextColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -99,12 +77,6 @@ class ColorSchemesWindowController: NSWindowController {
         
         ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
-    }
-    
-    @IBAction func logoTextColorAction(_ sender: Any) {
-        
-        ColorSchemes.systemScheme.general.logoTextColor = logoTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeLogoTextColor, logoTextColorPicker.color))
     }
     
     // MARK: Playlist color scheme actions ------------------------------------------------------------------------------------------------------------
