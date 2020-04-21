@@ -34,7 +34,7 @@ class OnOffImageButton: NSButton, Tintable {
     // The button's tooltip when the button is in an "On" state
     @IBInspectable var onStateTooltip: String?
     
-    var offStateTintFunction: () -> NSColor = {return ColorScheme.systemScheme.controlButtonOffStateColor} {
+    var offStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.general.controlButtonOffStateColor} {
         
         didSet {
             
@@ -44,7 +44,7 @@ class OnOffImageButton: NSButton, Tintable {
         }
     }
     
-    var onStateTintFunction: () -> NSColor = {return ColorScheme.systemScheme.controlButtonColor} {
+    var onStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.general.controlButtonColor} {
         
         didSet {
             

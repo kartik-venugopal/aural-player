@@ -10,7 +10,7 @@ class TintedImageButton: NSButton, Tintable {
         }
     }
  
-    var tintFunction: () -> NSColor = {return ColorScheme.systemScheme.controlButtonColor} {
+    var tintFunction: () -> NSColor = {return ColorSchemes.systemScheme.general.controlButtonColor} {
         
         didSet {
             reTint()

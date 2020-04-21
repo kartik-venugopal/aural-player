@@ -159,7 +159,7 @@ class ObjectGraph {
         
         appState.ui = UIState()
         appState.ui.windowLayout = (windowManager as! WindowManager).persistentState
-        appState.ui.colorSchemes = ColorScheme.persistentState()
+        appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
         appState.ui.effects = EffectsViewState.persistentState

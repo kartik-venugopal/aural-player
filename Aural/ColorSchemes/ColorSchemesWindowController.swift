@@ -49,61 +49,61 @@ class ColorSchemesWindowController: NSWindowController {
     
     @IBAction func backgroundColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.backgroundColor = backgroundColorPicker.color
+        ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
     }
     
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.primaryTextColor = primaryTextColorPicker.color
+        ColorSchemes.systemScheme.player.primaryTextColor = primaryTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePrimaryTextColor, primaryTextColorPicker.color))
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.secondaryTextColor = secondaryTextColorPicker.color
+        ColorSchemes.systemScheme.player.secondaryTextColor = secondaryTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSecondaryTextColor, secondaryTextColorPicker.color))
     }
     
     @IBAction func controlButtonColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.controlButtonColor = controlButtonColorPicker.color
+        ColorSchemes.systemScheme.general.controlButtonColor = controlButtonColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonColor, controlButtonColorPicker.color))
     }
     
     @IBAction func controlButtonOffStateColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.controlButtonOffStateColor = controlButtonOffStateColorPicker.color
+        ColorSchemes.systemScheme.general.controlButtonOffStateColor = controlButtonOffStateColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeControlButtonOffStateColor, controlButtonOffStateColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playerSliderBackgroundColor = sliderBackgroundColorPicker.color
+        ColorSchemes.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playerSliderForegroundColor = sliderForegroundColorPicker.color
+        ColorSchemes.systemScheme.player.sliderForegroundColor = sliderForegroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playerSliderKnobColor = sliderKnobColorPicker.color
+        ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playerSliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
+        ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
     }
     
     @IBAction func logoTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.logoTextColor = logoTextColorPicker.color
+        ColorSchemes.systemScheme.general.logoTextColor = logoTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeLogoTextColor, logoTextColorPicker.color))
     }
     
@@ -111,61 +111,61 @@ class ColorSchemesWindowController: NSWindowController {
     
     @IBAction func playlistTrackNameTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistTrackNameTextColor = playlistTrackNameTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.trackNameTextColor = playlistTrackNameTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameTextColor, playlistTrackNameTextColorPicker.color))
     }
     
     @IBAction func playlistGroupNameTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistGroupNameTextColor = playlistGroupNameTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.groupNameTextColor = playlistGroupNameTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameTextColor, playlistGroupNameTextColorPicker.color))
     }
     
     @IBAction func playlistIndexDurationTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistIndexDurationTextColor = playlistIndexDurationTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.indexDurationTextColor = playlistIndexDurationTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationTextColor, playlistIndexDurationTextColorPicker.color))
     }
     
     @IBAction func playlistTrackNameSelectedTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistTrackNameSelectedTextColor = playlistTrackNameSelectedTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor = playlistTrackNameSelectedTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameSelectedTextColor, playlistTrackNameSelectedTextColorPicker.color))
     }
     
     @IBAction func playlistGroupNameSelectedTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistGroupNameSelectedTextColor = playlistGroupNameSelectedTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor = playlistGroupNameSelectedTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameSelectedTextColor, playlistGroupNameSelectedTextColorPicker.color))
     }
     
     @IBAction func playlistIndexDurationSelectedTextColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistIndexDurationSelectedTextColor = playlistIndexDurationSelectedTextColorPicker.color
+        ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor = playlistIndexDurationSelectedTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationSelectedTextColor, playlistIndexDurationSelectedTextColorPicker.color))
     }
     
     @IBAction func playlistGroupIconColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistGroupIconColor = playlistGroupIconColorPicker.color
+        ColorSchemes.systemScheme.playlist.groupIconColor = playlistGroupIconColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupIconColor, playlistGroupIconColorPicker.color))
     }
     
     @IBAction func playlistSelectionBoxColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistSelectionBoxColor = playlistSelectionBoxColorPicker.color
+        ColorSchemes.systemScheme.playlist.selectionBoxColor = playlistSelectionBoxColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectionBoxColor, playlistSelectionBoxColorPicker.color))
     }
     
     @IBAction func playlistPlayingTrackIconColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistPlayingTrackIconColor = playlistPlayingTrackIconColorPicker.color
+        ColorSchemes.systemScheme.playlist.playingTrackIconColor = playlistPlayingTrackIconColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistPlayingTrackIconColor, playlistPlayingTrackIconColorPicker.color))
     }
     
     @IBAction func playlistSummaryInfoColorAction(_ sender: Any) {
         
-        ColorScheme.systemScheme.playlistSummaryInfoColor = playlistSummaryInfoColorPicker.color
+        ColorSchemes.systemScheme.playlist.summaryInfoColor = playlistSummaryInfoColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSummaryInfoColor, playlistSummaryInfoColorPicker.color))
     }
 }

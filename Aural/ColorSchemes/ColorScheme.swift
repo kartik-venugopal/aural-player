@@ -2,330 +2,172 @@ import Cocoa
 
 class ColorScheme {
     
-    static var systemScheme: ColorScheme = ColorScheme()
+    var name: String
+
+    var general: GeneralColorScheme
+    var player: PlayerColorScheme
+    var playlist: PlaylistColorScheme
+    var effects: EffectsColorScheme
     
-    static func persistentState() -> ColorSchemesState {
-        return ColorSchemesState(ColorSchemeState(systemScheme), [])
+    let systemDefined: Bool
+    
+    convenience init(_ name: String) {
+        self.init(name, ColorSchemePreset.defaultScheme, false)
     }
+    
+    init(_ name: String, _ preset: ColorSchemePreset, _ systemDefined: Bool = true) {
+        
+        self.name = name
+        self.systemDefined = systemDefined
+        
+        self.general = GeneralColorScheme(preset)
+        self.player = PlayerColorScheme(preset)
+        self.playlist = PlaylistColorScheme(preset)
+        self.effects = EffectsColorScheme(preset)
+    }
+    
+    func applyPreset(_ preset: ColorSchemePreset) {
+        
+        self.general = GeneralColorScheme(preset)
+        self.player = PlayerColorScheme(preset)
+        self.playlist = PlaylistColorScheme(preset)
+        self.effects = EffectsColorScheme(preset)
+    }
+    
+    var persistentState: ColorSchemeState {
+        return ColorSchemeState(self)
+    }
+}
 
+class GeneralColorScheme {
+    
+    func persistentState() -> GeneralColorSchemeState {
+        return GeneralColorSchemeState(self)
+    }
+    
     var logoTextColor: NSColor
-
     var backgroundColor: NSColor
     var controlButtonColor: NSColor
     var controlButtonOffStateColor: NSColor
-
-    var primaryTextColor: NSColor
-    var secondaryTextColor: NSColor
-    
-    var playerSliderForegroundColor: NSColor
-    var playerSliderBackgroundColor: NSColor
-    var playerSliderKnobColor: NSColor
-    var playerSliderLoopSegmentColor: NSColor
-    
-    var playlistTrackNameTextColor: NSColor
-    var playlistGroupNameTextColor: NSColor
-    var playlistIndexDurationTextColor: NSColor
-    
-    var playlistTrackNameSelectedTextColor: NSColor
-    var playlistGroupNameSelectedTextColor: NSColor
-    var playlistIndexDurationSelectedTextColor: NSColor
-    
-    var playlistGroupIconColor: NSColor
-    var playlistSelectionBoxColor: NSColor
-    var playlistPlayingTrackIconColor: NSColor
-    var playlistSummaryInfoColor: NSColor
-    
-    convenience init() {
-        self.init(ColorSchemePreset.defaultScheme)
-    }
-    
+   
     init(_ preset: ColorSchemePreset) {
         
         self.logoTextColor = preset.logoTextColor
-        
         self.backgroundColor = preset.backgroundColor
         self.controlButtonColor = preset.controlButtonColor
         self.controlButtonOffStateColor = preset.controlButtonOffStateColor
-        
-        self.primaryTextColor = preset.primaryTextColor
-        self.secondaryTextColor = preset.secondaryTextColor
-        
-        self.playerSliderBackgroundColor = preset.playerSliderBackgroundColor
-        self.playerSliderForegroundColor = preset.playerSliderForegroundColor
-        self.playerSliderKnobColor = preset.playerSliderKnobColor
-        self.playerSliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
-        
-        self.playlistTrackNameTextColor = preset.playlistTrackNameTextColor
-        self.playlistGroupNameTextColor = preset.playlistGroupNameTextColor
-        self.playlistIndexDurationTextColor = preset.playlistIndexDurationTextColor
-        self.playlistTrackNameSelectedTextColor = preset.playlistTrackNameSelectedTextColor
-        self.playlistGroupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
-        self.playlistIndexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
-        self.playlistGroupIconColor = preset.playlistGroupIconColor
-        self.playlistSelectionBoxColor = preset.playlistSelectionBoxColor
-        self.playlistPlayingTrackIconColor = preset.playlistPlayingTrackIconColor
-        self.playlistSummaryInfoColor = preset.playlistSummaryInfoColor
-        
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
         
         self.logoTextColor = preset.logoTextColor
-        
         self.backgroundColor = preset.backgroundColor
         self.controlButtonColor = preset.controlButtonColor
         self.controlButtonOffStateColor = preset.controlButtonOffStateColor
+    }
+}
+
+class PlayerColorScheme {
+    
+    var persistentState: PlayerColorSchemeState {
+        return PlayerColorSchemeState(self)
+    }
+    
+    var primaryTextColor: NSColor
+    var secondaryTextColor: NSColor
+    
+    var sliderForegroundColor: NSColor
+    var sliderBackgroundColor: NSColor
+    var sliderKnobColor: NSColor
+    var sliderLoopSegmentColor: NSColor
+    
+    init(_ preset: ColorSchemePreset) {
         
         self.primaryTextColor = preset.primaryTextColor
         self.secondaryTextColor = preset.secondaryTextColor
         
-        self.playerSliderBackgroundColor = preset.playerSliderBackgroundColor
-        self.playerSliderForegroundColor = preset.playerSliderForegroundColor
-        self.playerSliderKnobColor = preset.playerSliderKnobColor
-        self.playerSliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
+        self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.sliderForegroundColor = preset.playerSliderForegroundColor
+        self.sliderKnobColor = preset.playerSliderKnobColor
+        self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
+    }
+    
+    func applyPreset(_ preset: ColorSchemePreset) {
         
-        self.playlistTrackNameTextColor = preset.playlistTrackNameTextColor
-        self.playlistGroupNameTextColor = preset.playlistGroupNameTextColor
-        self.playlistIndexDurationTextColor = preset.playlistIndexDurationTextColor
-        self.playlistTrackNameSelectedTextColor = preset.playlistTrackNameSelectedTextColor
-        self.playlistGroupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
-        self.playlistIndexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
-        self.playlistGroupIconColor = preset.playlistGroupIconColor
-        self.playlistSelectionBoxColor = preset.playlistSelectionBoxColor
-        self.playlistPlayingTrackIconColor = preset.playlistPlayingTrackIconColor
-        self.playlistSummaryInfoColor = preset.playlistSummaryInfoColor
+        self.primaryTextColor = preset.primaryTextColor
+        self.secondaryTextColor = preset.secondaryTextColor
+        
+        self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.sliderForegroundColor = preset.playerSliderForegroundColor
+        self.sliderKnobColor = preset.playerSliderKnobColor
+        self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
 }
 
-enum ColorSchemePreset: String {
+class PlaylistColorScheme {
     
-    case darkBackgroundLightForeground
-    
-    case lightBackgroundDarkForeground
-    
-    static var defaultScheme: ColorSchemePreset {
-        return darkBackgroundLightForeground
+    var persistentState: PlaylistColorSchemeState {
+        return PlaylistColorSchemeState(self)
     }
     
-    var logoTextColor: NSColor {
+    var trackNameTextColor: NSColor
+    var groupNameTextColor: NSColor
+    var indexDurationTextColor: NSColor
+    
+    var trackNameSelectedTextColor: NSColor
+    var groupNameSelectedTextColor: NSColor
+    var indexDurationSelectedTextColor: NSColor
+    
+    var groupIconColor: NSColor
+    var selectionBoxColor: NSColor
+    var playingTrackIconColor: NSColor
+    var summaryInfoColor: NSColor
+    
+    init(_ preset: ColorSchemePreset) {
         
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white80Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.black
-            
-        }
+        self.trackNameTextColor = preset.playlistTrackNameTextColor
+        self.groupNameTextColor = preset.playlistGroupNameTextColor
+        self.indexDurationTextColor = preset.playlistIndexDurationTextColor
+        
+        self.trackNameSelectedTextColor = preset.playlistTrackNameSelectedTextColor
+        self.groupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
+        self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
+        
+        self.groupIconColor = preset.playlistGroupIconColor
+        self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
+        self.summaryInfoColor = preset.playlistSummaryInfoColor
+        
     }
     
-    var backgroundColor: NSColor {
+    func applyPreset(_ preset: ColorSchemePreset) {
         
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return NSColor.black
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white80Percent
-            
-        }
+        self.trackNameTextColor = preset.playlistTrackNameTextColor
+        self.groupNameTextColor = preset.playlistGroupNameTextColor
+        self.indexDurationTextColor = preset.playlistIndexDurationTextColor
+        
+        self.trackNameSelectedTextColor = preset.playlistTrackNameSelectedTextColor
+        self.groupNameSelectedTextColor = preset.playlistGroupNameSelectedTextColor
+        self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
+        
+        self.groupIconColor = preset.playlistGroupIconColor
+        self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
+        self.summaryInfoColor = preset.playlistSummaryInfoColor
+    }
+}
+
+class EffectsColorScheme {
+    
+    var persistentState: EffectsColorSchemeState {
+        return EffectsColorSchemeState(self)
     }
     
-    var controlButtonColor: NSColor {
+    init(_ preset: ColorSchemePreset) {
         
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white80Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.black
-            
-        }
     }
     
-    var controlButtonOffStateColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white20Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white60Percent
-            
-        }
-    }
-    
-    var primaryTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white80Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.black
-            
-        }
-    }
-    
-    var secondaryTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white60Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.darkGray
-            
-        }
-    }
-    
-    var playerSliderForegroundColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white60Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.darkGray
-            
-        }
-    }
-    
-    var playerSliderBackgroundColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white20Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white50Percent
-            
-        }
-    }
-    
-    var playerSliderKnobColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white50Percent
-            
-        case .lightBackgroundDarkForeground:  return NSColor.darkGray
-            
-        }
-    }
-    
-    var playerSliderLoopSegmentColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
-            
-        case .lightBackgroundDarkForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
-            
-        }
-    }
-    
-    // MARK: Playlist colors ------------------------------------------------------------------------------------------------------
-    
-    var playlistTrackNameTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white70Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white20Percent
-            
-        }
-    }
-    
-    var playlistGroupNameTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white60Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white30Percent
-            
-        }
-    }
-    
-    var playlistIndexDurationTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white40Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white60Percent
-            
-        }
-    }
-    
-    var playlistTrackNameSelectedTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return NSColor.white
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white10Percent
-            
-        }
-    }
-    
-    var playlistGroupNameSelectedTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white80Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white20Percent
-            
-        }
-    }
-    
-    var playlistIndexDurationSelectedTextColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white60Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white20Percent
-            
-        }
-    }
-    
-    var playlistGroupIconColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white50Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white50Percent
-            
-        }
-    }
-    
-    var playlistSelectionBoxColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white15Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var playlistPlayingTrackIconColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
-            
-        case .lightBackgroundDarkForeground:  return NSColor(red: 0, green: 0.425, blue: 0, alpha: 1)
-            
-        }
-    }
-    
-    var playlistSummaryInfoColor: NSColor {
-        
-        switch self {
-            
-        case .darkBackgroundLightForeground:  return Colors.Constants.white70Percent
-            
-        case .lightBackgroundDarkForeground:  return Colors.Constants.white30Percent
-            
-        }
+    func applyPreset(_ preset: ColorSchemePreset) {
+
     }
 }

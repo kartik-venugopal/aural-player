@@ -70,7 +70,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         changeTextSize()
-        logoImage.tintFunction = {return ColorScheme.systemScheme.logoTextColor}
+        logoImage.tintFunction = {return ColorSchemes.systemScheme.general.logoTextColor}
     }
     
     // Add the sub-views that make up the main window
