@@ -326,6 +326,15 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingResults
     }
     
+    func allGroups(_ type: GroupType) -> [Group] {
+        
+        if let groupingPlaylist = groupingPlaylists[type.toPlaylistType()] {
+            return groupingPlaylist.groups
+        }
+        
+        return []
+    }
+    
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
         
         // Remove file/track mappings

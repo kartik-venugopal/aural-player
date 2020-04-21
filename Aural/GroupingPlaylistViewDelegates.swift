@@ -84,15 +84,15 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     
                 case .playing, .paused:
                     
-                    image = isPlayingTrack ? Images.imgPlayingTrack : nil
+                    image = isPlayingTrack ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .transcoding:
                     
-                    image = isPlayingTrack ? Images.imgTranscodingTrack : nil
+                    image = isPlayingTrack ? Images.imgTranscodingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .waiting:
                     
-                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack : nil
+                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .noTrack:
                     
@@ -103,6 +103,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 cell?.item = track
                 cell?.playlistType = self.playlistType
+                
                 return cell
             }
             

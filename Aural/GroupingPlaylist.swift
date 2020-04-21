@@ -31,7 +31,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     let typeOfGroups: GroupType
     
     // All groups in this playlist
-    private var groups: [Group] = [Group]()
+    var groups: [Group] = []
     
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()

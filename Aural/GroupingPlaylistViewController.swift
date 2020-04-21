@@ -57,7 +57,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -736,6 +736,67 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
     }
     
+    private var allRows: IndexSet {
+        return IndexSet(integersIn: 0..<playlistView.numberOfRows)
+    }
+    
+    private var allGroups: [Group] {
+        return playlist.allGroups(self.groupType)
+    }
+    
+    private func changeTrackNameTextColor(_ color: NSColor) {
+        
+        let trackRows = allRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
+        playlistView.reloadData(forRowIndexes: trackRows, columnIndexes: IndexSet([0]))
+    }
+    
+    private func changeGroupNameTextColor(_ color: NSColor) {
+        allGroups.forEach({playlistView.reloadItem($0)})
+    }
+    
+    private func changeDurationTextColor(_ color: NSColor) {
+        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeTrackNameSelectedTextColor(_ color: NSColor) {
+        
+        let selTrackRows = playlistView.selectedRowIndexes.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
+        playlistView.reloadData(forRowIndexes: selTrackRows, columnIndexes: IndexSet([0]))
+    }
+    
+    private func changeGroupNameSelectedTextColor(_ color: NSColor) {
+        
+        let selGroupRows = playlistView.selectedRowIndexes.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Group})
+        playlistView.reloadData(forRowIndexes: selGroupRows, columnIndexes: IndexSet([0]))
+    }
+    
+    private func changeDurationSelectedTextColor(_ color: NSColor) {
+        playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeSelectionBoxColor(_ color: NSColor) {
+        
+        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
+        let selRows = playlistView.selectedRowIndexes
+        
+        if !selRows.isEmpty {
+            clearSelection()
+            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+        }
+    }
+    
+    private func changePlayingTrackIconColor(_ color: NSColor) {
+        
+        if let playingTrack = playbackInfo.playingTrack?.track {
+            
+            playlistView.reloadItem(playingTrack)
+            
+        } else if let waitingTrack = playbackInfo.waitingTrack?.track {
+            
+            playlistView.reloadItem(waitingTrack)
+        }
+    }
+    
     // MARK: Message handlers
     
     var subscriberId: String {
@@ -921,6 +982,38 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .changeBackgroundColor:
                 
                 changeBackgroundColor(colorChangeMsg.color)
+                
+            case .changePlaylistTrackNameTextColor:
+                
+                changeTrackNameTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistGroupNameTextColor:
+                
+                changeGroupNameTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistIndexDurationTextColor:
+                
+                changeDurationTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistTrackNameSelectedTextColor:
+                
+                changeTrackNameSelectedTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistGroupNameSelectedTextColor:
+                
+                changeGroupNameSelectedTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistIndexDurationSelectedTextColor:
+                
+                changeDurationSelectedTextColor(colorChangeMsg.color)
+                
+            case .changePlaylistPlayingTrackIconColor:
+                
+                changePlayingTrackIconColor(colorChangeMsg.color)
+                
+            case .changePlaylistSelectionBoxColor:
+                
+                changeSelectionBoxColor(colorChangeMsg.color)
                 
             default: return
                 

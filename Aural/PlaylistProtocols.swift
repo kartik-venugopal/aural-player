@@ -44,6 +44,9 @@ protocol PlaylistAccessorProtocol {
     
     // Returns the total number of groups of a specific type, within the corresponding grouping/hierarchical playlist.
     func numberOfGroups(_ type: GroupType) -> Int
+
+    // Returns all groups of the given type
+    func allGroups(_ type: GroupType) -> [Group]
     
     // Given a track and a specific group type, returns all grouping information, such as the parent group and the index of the track within that group.
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack?
