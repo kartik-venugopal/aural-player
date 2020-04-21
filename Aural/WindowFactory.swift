@@ -27,7 +27,9 @@ class WindowFactory {
     
     private static var delayedPlaybackEditorWindowController: DelayedPlaybackEditorWindowController = DelayedPlaybackEditorWindowController()
     
-    private static var jumptToTimeEditorWindowController: JumpToTimeEditorWindowController = JumpToTimeEditorWindowController()
+    private static var jumpToTimeEditorWindowController: JumpToTimeEditorWindowController = JumpToTimeEditorWindowController()
+    
+    private static var colorSchemesWindowController: ColorSchemesWindowController = ColorSchemesWindowController()
     
     // MARK: Accessor functions for the different windows/dialogs
     
@@ -76,6 +78,10 @@ class WindowFactory {
     }
     
     static var jumpToTimeEditorDialog: ModalDialogDelegate {
-        return jumptToTimeEditorWindowController
+        return jumpToTimeEditorWindowController
+    }
+    
+    static var colorSchemesDialog: ModalDialogDelegate {
+        return colorSchemesWindowController
     }
 }

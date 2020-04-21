@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistColorSchemeViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="groupIconColorPicker" destination="AP1-4v-paP" id="Cfu-xA-w2l"/>
+                <outlet property="groupNameSelectedTextColorPicker" destination="cRK-i7-Omu" id="Cid-IU-TU3"/>
+                <outlet property="groupNameTextColorPicker" destination="5jJ-t7-sLV" id="UJB-1q-KfH"/>
+                <outlet property="indexDurationSelectedTextColorPicker" destination="Ge8-YP-uac" id="wHR-vX-w18"/>
+                <outlet property="indexDurationTextColorPicker" destination="xid-fq-gWe" id="iRu-V8-c4B"/>
+                <outlet property="playingTrackIconColorPicker" destination="g5z-IJ-JQU" id="UMv-ed-XJC"/>
+                <outlet property="scrollView" destination="Nag-pq-GqV" id="hhl-Tn-VpE"/>
+                <outlet property="selectionBoxColorPicker" destination="w1Q-u5-R6w" id="gve-km-34a"/>
+                <outlet property="summaryInfoColorPicker" destination="25K-gK-PvM" id="XIv-DF-BEb"/>
+                <outlet property="trackNameSelectedTextColorPicker" destination="pzu-IE-BGC" id="Omx-za-Ess"/>
+                <outlet property="trackNameTextColorPicker" destination="Bnp-xx-WEd" id="HV8-M6-KQG"/>
+                <outlet property="view" destination="c22-O7-iKe" id="TNG-bS-7kk"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-pq-GqV">
+                    <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Zl2-sQ-ebX">
+                        <rect key="frame" x="0.0" y="0.0" width="445" height="260"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UQI-d4-8YL">
+                                <rect key="frame" x="0.0" y="0.0" width="445" height="450"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25K-gK-PvM" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="24" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistSummaryInfoColorAction:" target="-2" id="oU0-JI-hX1"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFG-ca-wqN" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="235" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Group name (selected row) text color" id="1VS-Vi-7oD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AP1-4v-paP" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="129" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistGroupIconColorAction:" target="-2" id="77j-d1-ORZ"/>
+                                        </connections>
+                                    </colorWell>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g5z-IJ-JQU" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="94" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistPlayingTrackIconColorAction:" target="-2" id="S2e-lR-BKh"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sUv-Md-Ibe" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="341" width="221" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Group name text color" id="bha-f9-yW8" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzu-IE-BGC" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="269" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistTrackNameSelectedTextColorAction:" target="-2" id="DjA-wG-sDD"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xge-y3-3qa" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="25" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Summary info color" id="1sV-SN-JP1" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRK-i7-Omu" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="234" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistGroupNameSelectedTextColorAction:" target="-2" id="CsS-V1-IgD"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iHD-qi-CoL" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="376" width="164" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Track name text color" id="MOk-fU-o6U" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5jJ-t7-sLV" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="340" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistGroupNameTextColorAction:" target="-2" id="e3T-t6-pak"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTn-wH-jL6" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="95" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Playing track icon color" id="ev9-j3-fxO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ge8-YP-uac" userLabel="Secondary text color">
+                                        <rect key="frame" x="410" y="199" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistIndexDurationSelectedTextColorAction:" target="-2" id="Tah-5c-0va"/>
+                                        </connections>
+                                    </colorWell>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bnp-xx-WEd" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="375" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistTrackNameTextColorAction:" target="-2" id="3AZ-av-mpG"/>
+                                        </connections>
+                                    </colorWell>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xid-fq-gWe" userLabel="Secondary text color">
+                                        <rect key="frame" x="410" y="305" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistIndexDurationTextColorAction:" target="-2" id="Vvu-ft-a0G"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQE-Jb-Pc7" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="130" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Group icon color" id="cJz-i2-8uy" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w1Q-u5-R6w" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="59" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="playlistSelectionBoxColorAction:" target="-2" id="OPR-to-iA8"/>
+                                        </connections>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sls-OJ-B5O" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="270" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Track name (selected row) text color" id="p8W-q7-5QU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-IB-gRz" userLabel="Secondary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="200" width="280" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Index / Duration (selected row) text color" id="bK1-1D-lGn" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rN9-g4-6fg" userLabel="Secondary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="306" width="221" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Index / Duration text color" id="Dc8-F4-AqP" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XS7-Or-vC1" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="411" width="97" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Text" id="FXE-2N-FKV" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="17" name="GillSans-SemiBold"/>
+                                            <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CEK-27-RF6" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="165" width="97" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Icons, etc" id="K84-aw-tpE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="17" name="GillSans-SemiBold"/>
+                                            <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8un-XA-2jE" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="60" width="252" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Selection box color" id="3yX-sE-88b" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                            </view>
+                        </subviews>
+                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="RcQ-GY-tk0">
+                        <rect key="frame" x="-100" y="-100" width="438" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.87368421052631584" horizontal="NO" id="zOG-5D-aql" customClass="InfoScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="445" y="0.0" width="15" height="260"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+        </customView>
+    </objects>
+</document>

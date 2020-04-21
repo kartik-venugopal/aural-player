@@ -46,7 +46,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changeTrackInfoPrimaryTextColor, .changeTrackInfoSecondaryTextColor, .changeTrackInfoTertiaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -168,32 +168,32 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changeBackgroundColor(color)
     }
     
-    private func changeTrackInfoPrimaryTextColor(_ color: NSColor) {
+    private func changePlayerTrackInfoPrimaryTextColor(_ color: NSColor) {
         
-        defaultView.changeTrackInfoPrimaryTextColor(color)
-        expandedArtView.changeTrackInfoPrimaryTextColor(color)
-        transcoderView.changeTrackInfoPrimaryTextColor()
+        defaultView.changePlayerTrackInfoPrimaryTextColor(color)
+        expandedArtView.changePlayerTrackInfoPrimaryTextColor(color)
+        transcoderView.changePlayerTrackInfoPrimaryTextColor()
     }
     
-    private func changeTrackInfoSecondaryTextColor(_ color: NSColor) {
+    private func changePlayerTrackInfoSecondaryTextColor(_ color: NSColor) {
         
-        defaultView.changeTrackInfoSecondaryTextColor(color)
-        expandedArtView.changeTrackInfoSecondaryTextColor(color)
-        transcoderView.changeTrackInfoSecondaryTextColor()
+        defaultView.changePlayerTrackInfoSecondaryTextColor(color)
+        expandedArtView.changePlayerTrackInfoSecondaryTextColor(color)
+        transcoderView.changePlayerTrackInfoSecondaryTextColor()
     }
     
-    private func changeTrackInfoTertiaryTextColor(_ color: NSColor) {
+    private func changePlayerTrackInfoTertiaryTextColor(_ color: NSColor) {
         
-        defaultView.changeTrackInfoTertiaryTextColor(color)
-        expandedArtView.changeTrackInfoTertiaryTextColor(color)
-        transcoderView.changeTrackInfoTertiaryTextColor()
+        defaultView.changePlayerTrackInfoTertiaryTextColor(color)
+        expandedArtView.changePlayerTrackInfoTertiaryTextColor(color)
+        transcoderView.changePlayerTrackInfoTertiaryTextColor()
     }
     
-    private func changeControlTextColor(_ color: NSColor) {
+    private func changePlayerControlTextColor(_ color: NSColor) {
         
-        defaultView.changeControlTextColor(color)
-        expandedArtView.changeControlTextColor(color)
-        transcoderView.changeControlTextColor()
+        defaultView.changePlayerControlTextColor(color)
+        expandedArtView.changePlayerControlTextColor(color)
+        transcoderView.changePlayerControlTextColor()
     }
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
@@ -285,21 +285,21 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     
                     changeBackgroundColor(colorSchemeMsg.color)
                     
-                case .changeTrackInfoPrimaryTextColor:
+                case .changePlayerTrackInfoPrimaryTextColor:
                     
-                    changeTrackInfoPrimaryTextColor(colorSchemeMsg.color)
+                    changePlayerTrackInfoPrimaryTextColor(colorSchemeMsg.color)
                     
-                case .changeTrackInfoSecondaryTextColor:
+                case .changePlayerTrackInfoSecondaryTextColor:
                     
-                    changeTrackInfoSecondaryTextColor(colorSchemeMsg.color)
+                    changePlayerTrackInfoSecondaryTextColor(colorSchemeMsg.color)
                     
-                case .changeTrackInfoTertiaryTextColor:
+                case .changePlayerTrackInfoTertiaryTextColor:
                     
-                    changeTrackInfoTertiaryTextColor(colorSchemeMsg.color)
+                    changePlayerTrackInfoTertiaryTextColor(colorSchemeMsg.color)
                     
-                case .changeControlTextColor:
+                case .changePlayerControlTextColor:
                     
-                    changeControlTextColor(colorSchemeMsg.color)
+                    changePlayerControlTextColor(colorSchemeMsg.color)
                     
                 default: return
                     

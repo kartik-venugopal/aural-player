@@ -35,10 +35,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     override var windowNibName: String? {return "MainWindow"}
     
-    private lazy var colorsDialog: ColorSchemesWindowController = ColorSchemesWindowController()
+    private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
     
     @IBAction func showColorsAction(_ sender: AnyObject) {
-        colorsDialog.window?.setIsVisible(true)
+        _ = colorsDialog.showDialog()
     }
     
     // MARK: Setup
