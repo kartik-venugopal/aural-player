@@ -171,3 +171,68 @@ func unwrapOptional(_ obj: Any) -> (isNil: Bool, value: Any?) {
     
     return (false, obj)
 }
+
+func mapEnum<T: RawRepresentable>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T where T.RawValue == String {
+    if let rawVal = map[key] as? String, let enumVal = T.self.init(rawValue: rawVal) {return enumVal} else {return defaultValue}
+}
+
+func mapDirectly<T: Any>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T {
+    if let value = map[key] as? T {return value} else {return defaultValue}
+}
+
+func mapDirectly<T: Any>(_ map: NSDictionary, _ key: String) -> T? {
+    if let value = map[key] as? T {return value} else {return nil}
+}
+
+func mapNumeric<T: Any>(_ map: NSDictionary, _ key: String, _ defaultValue: T) -> T {
+    
+    if let value = map[key] as? NSNumber {
+        return doMapNumeric(value, T.self)
+    }
+    
+    return defaultValue
+}
+
+fileprivate func doMapNumeric<T: Any>(_ value: NSNumber, _ type: T.Type) -> T {
+    
+    switch String(describing: type) {
+        
+    case "Float", "CGFloat": return value.floatValue as! T
+        
+    case "Double": return value.doubleValue as! T
+        
+    case "Int": return value.intValue as! T
+        
+    // Should not happen
+    default: return value.doubleValue as! T
+        
+    }
+}
+
+// Allows optional values
+func mapNumeric<T: Any>(_ map: NSDictionary, _ key: String) -> T? {
+    
+    if let value = map[key] as? NSNumber {
+        return doMapNumeric(value, T.self)
+    }
+    
+    return nil
+}
+
+func mapNSPoint(_ map: NSDictionary) -> NSPoint? {
+    
+    if let px = map["x"] as? NSNumber, let py = map["y"] as? NSNumber {
+        return NSPoint(x: CGFloat(px.floatValue), y: CGFloat(py.floatValue))
+    }
+    
+    return nil
+}
+
+func mapNSSize(_ map: NSDictionary) -> NSSize? {
+    
+    if let wd = map["width"] as? NSNumber, let ht = map["height"] as? NSNumber {
+        return NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
+    }
+    
+    return nil
+}
