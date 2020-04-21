@@ -16,12 +16,19 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var playlistType: PlaylistType
     
+    private var cachedGroupIcon: NSImage!
+    
     init(_ playlistType: PlaylistType) {
         self.playlistType = playlistType
     }
     
     override func awakeFromNib() {
         OutlineViewHolder.instances[self.playlistType] = playlistView
+        cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
+    }
+
+    func changeGroupIconColor(_ color: NSColor) {
+        cachedGroupIcon = Images.imgGroup.applyingTint(color)
     }
     
     // Returns a view for a single row
@@ -64,10 +71,11 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             if let group = item as? Group {
                 
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier.rawValue, String(format: "%@ (%d)", group.name, group.size), Images.imgGroup.applyingTint(ColorSchemes.systemScheme.playlist.groupIconColor))
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier.rawValue, String(format: "%@ (%d)", group.name, group.size), cachedGroupIcon)
                 
                 cell?.item = group
                 cell?.playlistType = self.playlistType
+                
                 return cell
                 
             } else {

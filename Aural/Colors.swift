@@ -107,6 +107,14 @@ struct Colors {
         static var selectionBoxColor: NSColor {
             return ColorSchemes.systemScheme.playlist.selectionBoxColor
         }
+        
+        static var groupIconColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.groupIconColor
+        }
+        
+        static var groupDisclosureTriangleColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor
+        }
     }
     
     static let fxFunctionTextColor: NSColor = Constants.white40Percent

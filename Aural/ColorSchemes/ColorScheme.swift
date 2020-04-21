@@ -127,6 +127,7 @@ class PlaylistColorScheme {
     var indexDurationSelectedTextColor: NSColor
     
     var groupIconColor: NSColor
+    var groupDisclosureTriangleColor: NSColor
     var selectionBoxColor: NSColor
     var playingTrackIconColor: NSColor
     var summaryInfoColor: NSColor
@@ -142,10 +143,10 @@ class PlaylistColorScheme {
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
         self.groupIconColor = preset.playlistGroupIconColor
+        self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
         self.selectionBoxColor = preset.playlistSelectionBoxColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
         self.summaryInfoColor = preset.playlistSummaryInfoColor
-        
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
@@ -159,6 +160,7 @@ class PlaylistColorScheme {
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
         self.groupIconColor = preset.playlistGroupIconColor
+        self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
         self.selectionBoxColor = preset.playlistSelectionBoxColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
         self.summaryInfoColor = preset.playlistSummaryInfoColor

@@ -232,6 +232,17 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var playlistGroupDisclosureTriangleColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white40Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white60Percent
+            
+        }
+    }
+    
     var playlistSelectionBoxColor: NSColor {
         
         switch self {
