@@ -32,7 +32,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
         } else if self.unitState == .bypassed {
             
-            return Colors.Effects.neutralSliderBarColoredGradient
+            return Colors.Effects.sliderBackgroundGradient
             
         } else {
             
