@@ -62,9 +62,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="MasterTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="MasterTab-On"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Master controls unit (Bypassed)"/>
@@ -82,9 +79,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="EQTab-Mixed"/>
@@ -104,9 +98,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="PitchTab-Mixed"/>
@@ -126,9 +117,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="TimeTab-Mixed"/>
@@ -148,9 +136,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="ReverbTab-Mixed"/>
@@ -170,9 +155,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="DelayTab-Mixed"/>
@@ -192,9 +174,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="FilterTab-Mixed"/>
@@ -214,9 +193,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="RecorderTab"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="RecorderTab-On"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Recorder unit"/>
@@ -244,13 +220,13 @@
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" id="3tH-T8-1bs">
+                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="EQ" identifier="1" id="SKS-VT-g4s" userLabel="EQ">
-                                                        <view key="view" ambiguous="YES" id="LYe-23-SNP">
+                                                        <view key="view" id="LYe-23-SNP">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>

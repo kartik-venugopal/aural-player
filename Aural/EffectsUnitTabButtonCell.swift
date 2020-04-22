@@ -7,18 +7,17 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     private let borderInsetY: CGFloat = 2
     private let borderRadius: CGFloat = 3
     
-    private var backgroundFillColor: NSColor {return Colors.Effects.tabButtonColor}
     private var selectionBoxColor: NSColor {return Colors.Effects.selectedTabButtonColor}
     
     var unitState: EffectsUnitState = .bypassed
     
     private let imgWidth: CGFloat = 16, imgHeight: CGFloat = 16
     
+    override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
+        drawInterior(withFrame: cellFrame, in: controlView)
+    }
+    
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
-        
-        // Background
-        backgroundFillColor.setFill()
-        NSBezierPath.init(rect: cellFrame).fill()
         
         // Selection box
         if isOn {

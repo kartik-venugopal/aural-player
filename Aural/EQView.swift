@@ -94,6 +94,10 @@ class EQView: NSView {
         btnSync.redraw()
     }
     
+    func changeFunctionCaptionTextColor(_ color: NSColor) {
+        btnSync.redraw()
+    }
+    
     func changeActiveUnitStateColor(_ color: NSColor) {
         
         eq10BandView.changeActiveUnitStateColor(color)
@@ -110,5 +114,23 @@ class EQView: NSView {
         
         eq10BandView.changeSuppressedUnitStateColor(color)
         eq15BandView.changeSuppressedUnitStateColor(color)
+    }
+    
+    func changeSelectedTabButtonColor() {
+        btn10Band.isOn ? btn10Band.redraw() : btn15Band.redraw()
+    }
+    
+    func changeTabButtonTextColor() {
+        btn10Band.isOff ? btn10Band.redraw() : btn15Band.redraw()
+    }
+    
+    func changeSelectedTabButtonTextColor() {
+        btn10Band.isOn ? btn10Band.redraw() : btn15Band.redraw()
+    }
+    
+    func changeSliderBackgroundColor() {
+        
+        eq10BandView.changeSliderBackgroundColor()
+        eq15BandView.changeSliderBackgroundColor()
     }
 }
