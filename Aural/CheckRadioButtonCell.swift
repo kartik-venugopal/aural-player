@@ -9,6 +9,8 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
     
+    var yOffset: CGFloat = 2
+    
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
         let attrs: [String: AnyObject] = [
@@ -21,7 +23,7 @@ class CheckRadioButtonCell: NSButtonCell {
         
         let size: CGSize = titleText.size(withAttributes: attrDict)
         let sx = frame.minX
-        let sy = frame.minY + (frame.height - size.height) / 2 - 2
+        let sy = frame.minY + (frame.height - size.height) / 2 - yOffset
         
         let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
         titleText.draw(in: textRect, withAttributes: attrDict)
@@ -45,4 +47,8 @@ class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
     
     override var textColor: NSColor {return Colors.Effects.functionCaptionTextColor}
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    
+    override func awakeFromNib() {
+        self.yOffset = 0
+    }
 }
