@@ -111,7 +111,6 @@ class Track: NSObject, PlaylistItem {
     // Loads metadata and audio/filesystem info for display in the "More Info" view
     func loadDetailedInfo() {
         TrackIO.loadDetailedInfo(self)
-        print(metadata)
     }
     
     // Prepares this track for playback

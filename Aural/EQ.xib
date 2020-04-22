@@ -158,13 +158,16 @@
                         <action selector="bypassAction:" target="-2" id="h8X-96-2Fz"/>
                     </connections>
                 </button>
-                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save">
+                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="488" y="4" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Wjw-fK-3PP">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SaveEQPreset"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="savePresetAction:" target="-2" id="DW1-0m-jIo"/>
                     </connections>

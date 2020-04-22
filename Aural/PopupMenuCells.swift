@@ -119,11 +119,14 @@ class PreferencesPopupMenuCell: PopupMenuCell {
 // Cell for EQ presets popup menu
 class PresetsPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetX: CGFloat {return 11.5}
+    override var cellInsetX: CGFloat {return 10.5}
     override var cellInsetY: CGFloat {return 4}
-    override var arrowXMargin: CGFloat {return 5.5}
-    override var arrowYMargin: CGFloat {return 3}
+    override var arrowXMargin: CGFloat {return 6.5}
+    override var arrowYMargin: CGFloat {return 4}
     override var arrowHeight: CGFloat {return 3}
+    
+    override var menuGradient: NSGradient {return Colors.Effects.functionButtonGradient}
+    override var arrowColor: NSColor {return Colors.Effects.functionButtonTextColor}
     
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         

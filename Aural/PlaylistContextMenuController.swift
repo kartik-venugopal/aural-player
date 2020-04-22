@@ -139,6 +139,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         if !track.lazyLoadingInfo.preparationFailed {
             
+            windowManager.playlistWindow.makeKeyAndOrderFront(self)
+            
             infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
             
             // If this isn't done, the app windows are hidden when the popover is displayed
@@ -227,6 +229,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
         
+        windowManager.playlistWindow.makeKeyAndOrderFront(self)
+        
         if favoritesMenuItem.isOn {
         
             // Remove from Favorites list and display notification
@@ -252,7 +256,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         let rowView = playlistSelectedRowView
         
+        windowManager.playlistWindow.makeKeyAndOrderFront(self)
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
+        
         windowManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
