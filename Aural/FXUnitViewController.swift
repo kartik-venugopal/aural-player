@@ -117,15 +117,24 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
-        // Meant to be overriden
+        
+        if fxUnit.state == .active {
+            btnBypass.reTint()
+        }
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
-        // Meant to be overriden
+        
+        if fxUnit.state == .bypassed {
+            btnBypass.reTint()
+        }
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
-        // Meant to be overriden
+        
+        if fxUnit.state == .suppressed {
+            btnBypass.reTint()
+        }
     }
     
     var subscriberId: String {

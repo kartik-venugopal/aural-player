@@ -387,27 +387,29 @@ extension NSImage {
 
 extension NSColor {
     
-    func brightened(_ amount : CGFloat = 0.25) -> NSColor {
-        return hueColorWithBrightnessAmount(min(1, 1 + amount))
-    }
+//    func brightened(_ amount : CGFloat = 0.25) -> NSColor {
+//        return hueColorWithBrightnessAmount(min(1, 1 + amount))
+//    }
     
     func darkened(_ amount : CGFloat = 0.25) -> NSColor {
-        return hueColorWithBrightnessAmount(max(0, 1 - amount))
-    }
-    
-    private func hueColorWithBrightnessAmount(_ amount: CGFloat) -> NSColor {
         
-        var hue         : CGFloat = 0
-        var saturation  : CGFloat = 0
-        var brightness  : CGFloat = 0
-        var alpha       : CGFloat = 0
-        
-        getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        
-        return NSColor( hue: hue,
-                        saturation: saturation,
-                        brightness: brightness * amount,
-                        alpha: alpha )
+        switch self.colorSpace.colorSpaceModel {
+            
+        case .gray:
+            
+            return NSColor(calibratedWhite: self.whiteComponent * 0.3, alpha: self.alphaComponent)
+            
+        case .rgb:
+            
+            return NSColor(calibratedRed: self.redComponent * 0.3, green: self.greenComponent * 0.3, blue: self.blueComponent * 0.3, alpha: self.alphaComponent)
+            
+        case .cmyk:
+            
+            return NSColor(deviceCyan: self.cyanComponent * 0.3, magenta: self.magentaComponent * 0.3, yellow: self.yellowComponent * 0.3, black: self.blackComponent, alpha: self.alphaComponent)
+            
+        default: return self
+            
+        }
     }
 
 }

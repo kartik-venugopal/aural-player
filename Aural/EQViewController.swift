@@ -105,22 +105,27 @@ class EQViewController: FXUnitViewController {
     override func changeTextSize() {
 
         super.changeTextSize()
-//        resizeLabelText(self.view)
         
         // Resize selector button and sync button text
         eqView.changeTextSize()
     }
     
-    private func resizeLabelText(_ view: NSView) {
+    override func changeActiveUnitStateColor(_ color: NSColor) {
         
-        for subView in view.subviews {
-            
-            if let label = subView as? NSTextField {
-                label.font = Fonts.Effects.unitFunctionFont
-            }
-            
-            resizeLabelText(subView)
-        }
+        super.changeActiveUnitStateColor(color)
+        eqView.changeActiveUnitStateColor(color)
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        eqView.changeBypassedUnitStateColor(color)
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        eqView.changeSuppressedUnitStateColor(color)
     }
     
     // MARK: Message handling

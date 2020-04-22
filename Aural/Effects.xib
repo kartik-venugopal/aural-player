@@ -244,13 +244,13 @@
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
+                                                        <view key="view" id="3tH-T8-1bs">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="EQ" identifier="1" id="SKS-VT-g4s" userLabel="EQ">
-                                                        <view key="view" id="LYe-23-SNP">
+                                                        <view key="view" ambiguous="YES" id="LYe-23-SNP">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>

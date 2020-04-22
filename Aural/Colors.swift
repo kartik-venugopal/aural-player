@@ -178,6 +178,32 @@ struct Colors {
         static var functionButtonTextColor: NSColor {
             return ColorSchemes.systemScheme.effects.functionButtonTextColor
         }
+        
+        static var activeSliderBarColoredGradient: NSGradient {
+            
+            return NSGradient(starting: activeUnitStateColor,
+                              ending: activeUnitStateColor.darkened())!
+        }
+        
+        static var bypassedSliderBarColoredGradient: NSGradient {
+            
+            return NSGradient(starting: bypassedUnitStateColor,
+                              ending: bypassedUnitStateColor.darkened())!
+        }
+        
+        static var suppressedSliderBarColoredGradient: NSGradient {
+            
+            return NSGradient(starting: suppressedUnitStateColor,
+                              ending: suppressedUnitStateColor.darkened())!
+        }
+        
+        static var tabButtonColor: NSColor {
+            return ColorSchemes.systemScheme.general.backgroundColor
+        }
+        
+        static var tabViewButtonSelectionBoxColor: NSColor {
+            return ColorSchemes.systemScheme.effects.selectedTabButtonColor
+        }
     }
     
     static let fxFunctionTextColor: NSColor = Constants.white40Percent
