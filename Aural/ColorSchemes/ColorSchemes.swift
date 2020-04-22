@@ -5,6 +5,10 @@ class ColorSchemes {
     static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
     static var systemScheme: ColorScheme = ColorScheme("_system_")
     
+    static func initialize(_ schemesState: ColorSchemesState) {
+//        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme()})
+    }
+    
     private static var schemes: [String: ColorScheme] = {
         
         var map = [String: ColorScheme]()

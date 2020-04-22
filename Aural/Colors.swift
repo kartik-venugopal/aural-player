@@ -133,6 +133,53 @@ struct Colors {
         }
     }
     
+    struct Effects {
+        
+        static var mainCaptionTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.mainCaptionTextColor
+        }
+        
+        static var functionCaptionTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.functionCaptionTextColor
+        }
+        
+        static var sliderBackgroundColor: NSColor {
+            return ColorSchemes.systemScheme.effects.sliderBackgroundColor
+        }
+        
+        static var activeUnitStateColor: NSColor {
+            return ColorSchemes.systemScheme.effects.activeUnitStateColor
+        }
+        
+        static var bypassedUnitStateColor: NSColor {
+            return ColorSchemes.systemScheme.effects.bypassedUnitStateColor
+        }
+        
+        static var suppressedUnitStateColor: NSColor {
+            return ColorSchemes.systemScheme.effects.suppressedUnitStateColor
+        }
+        
+        static var tabButtonTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.tabButtonTextColor
+        }
+        
+        static var selectedTabButtonTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.selectedTabButtonTextColor
+        }
+        
+        static var selectedTabButtonColor: NSColor {
+            return ColorSchemes.systemScheme.effects.selectedTabButtonColor
+        }
+        
+        static var functionButtonColor: NSColor {
+            return ColorSchemes.systemScheme.effects.functionButtonColor
+        }
+        
+        static var functionButtonTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.functionButtonTextColor
+        }
+    }
+    
     static let fxFunctionTextColor: NSColor = Constants.white40Percent
     
     static let fxFunctionPopupMenuTextColor: NSColor = Constants.white60Percent

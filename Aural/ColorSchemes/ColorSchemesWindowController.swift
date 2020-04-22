@@ -23,6 +23,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
         tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
         
         NSColorPanel.shared.showsAlpha = true
+        ObjectGraph.windowManager.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {

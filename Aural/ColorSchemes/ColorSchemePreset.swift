@@ -308,5 +308,126 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+    
+    // Effects color scheme ------------------------------------------------------------------------------------------------------------------------------
+    
+    var effectsMainCaptionTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white15Percent
+            
+        }
+    }
+    
+    var effectsFunctionCaptionTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsSliderBackgroundColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsActiveUnitStateColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    var effectsBypassedUnitStateColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    var effectsSuppressedUnitStateColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsTabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsSelectedTabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsSelectedTabButtonColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsFunctionButtonColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white25Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var effectsFunctionButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
 }
 

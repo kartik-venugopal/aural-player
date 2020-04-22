@@ -36,7 +36,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
     private var fxTabViewButtons: [EffectsUnitTabButton]?
     
+    @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -106,7 +108,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeControlButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -139,12 +141,19 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             $0!.isTransparent = !color.isOpaque
         })
     }
-
-    var subscriberId: String {
-        return self.className
+    
+    private func changeControlButtonColor(_ color: NSColor) {
+        
+        [btnQuit, viewMenuIconItem].forEach({
+            ($0 as? Tintable)?.reTint()
+        })
     }
 
     // MARK: Message handling
+    
+    var subscriberId: String {
+        return self.className
+    }
 
     func consumeNotification(_ notification: NotificationMessage) {
 
@@ -208,6 +217,10 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             case .changeBackgroundColor:
                 
                 changeBackgroundColor(colorChangeMsg.color)
+                
+            case .changeControlButtonColor:
+                
+                changeControlButtonColor(colorChangeMsg.color)
                 
             default: return
                 
