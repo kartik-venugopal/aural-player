@@ -38,12 +38,13 @@ class PitchViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .changeEffectsSliderBackgroundColor], subscriber: self)
     }
     
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
+        
         // TODO: Move this to generic view
         pitchView.initialize(unitStateFunction)
         
@@ -119,6 +120,37 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
+    func changeSliderBackgroundColor() {
+        pitchView.redrawSliders()
+    }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        super.changeActiveUnitStateColor(color)
+        
+        if pitchUnit.isActive {
+            pitchView.redrawSliders()
+        }
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        
+        if pitchUnit.state == .bypassed {
+            pitchView.redrawSliders()
+        }
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        
+        if pitchUnit.state == .suppressed {
+            pitchView.redrawSliders()
+        }
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -150,7 +182,24 @@ class PitchViewController: FXUnitViewController {
         }
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+                
+            default: return
+                
+            }
+            
+            return
         }
     }
 }

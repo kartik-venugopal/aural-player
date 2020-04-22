@@ -12,7 +12,6 @@ class TabGroupButtonCell: NSButtonCell {
     var highlightColor: NSColor = Colors.tabViewButtonTextColor
     
     var fillBeforeBorder: Bool {return true}
-    var backgroundFillColor: NSColor {return Colors.tabViewButtonBackgroundColor}
     var borderInsetX: CGFloat {return 1}
     var borderInsetY: CGFloat {return 1}
     var borderRadius: CGFloat {return 1}
@@ -25,15 +24,11 @@ class TabGroupButtonCell: NSButtonCell {
     var textFont: NSFont {return Fonts.tabViewButtonFont}
     var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
     
+    override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
+        drawInterior(withFrame: cellFrame, in: controlView)
+    }
+    
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
-        
-        // Background
-        if (fillBeforeBorder) {
-            
-            backgroundFillColor.setFill()
-            let backgroundPath = NSBezierPath.init(rect: cellFrame)
-            backgroundPath.fill()
-        }
         
         // Selection box
         if isOn {
@@ -62,8 +57,6 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     
     override var textFont: NSFont {return Fonts.Playlist.tabsFont}
     override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
-    
-    override var backgroundFillColor: NSColor {return Colors.Playlist.tabButtonBackgroundColor}
 }
 
 // Cell for the Preferences tab group
@@ -96,10 +89,11 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
     override var borderRadius: CGFloat {return 2}
-    override var selectionBoxColor: NSColor {return Colors.tabViewButtonSelectionBoxColor}
     
-    override var unselectedTextColor: NSColor {return Colors.Constants.white40Percent}
-    override var selectedTextColor: NSColor {return Colors.Constants.white60Percent}
+    override var selectionBoxColor: NSColor {return Colors.Effects.selectedTabButtonColor}
+    
+    override var unselectedTextColor: NSColor {return Colors.Effects.tabButtonTextColor}
+    override var selectedTextColor: NSColor {return Colors.Effects.selectedTabButtonTextColor}
 }
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {

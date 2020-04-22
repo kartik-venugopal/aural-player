@@ -29,7 +29,7 @@ class EQViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeEffectsSliderBackgroundColor], subscriber: self)
     }
     
     override func initControls() {
@@ -110,6 +110,12 @@ class EQViewController: FXUnitViewController {
         eqView.changeTextSize()
     }
     
+    override func changeFunctionCaptionTextColor(_ color: NSColor) {
+        
+        super.changeFunctionCaptionTextColor(color)
+        eqView.changeFunctionCaptionTextColor(color)
+    }
+    
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
@@ -126,6 +132,22 @@ class EQViewController: FXUnitViewController {
         
         super.changeSuppressedUnitStateColor(color)
         eqView.changeSuppressedUnitStateColor(color)
+    }
+    
+    func changeSelectedTabButtonColor() {
+        eqView.changeSelectedTabButtonColor()
+    }
+    
+    func changeTabButtonTextColor() {
+        eqView.changeTabButtonTextColor()
+    }
+    
+    func changeSelectedTabButtonTextColor() {
+        eqView.changeSelectedTabButtonTextColor()
+    }
+    
+    func changeSliderBackgroundColor() {
+        eqView.changeSliderBackgroundColor()
     }
     
     // MARK: Message handling
@@ -156,7 +178,36 @@ class EQViewController: FXUnitViewController {
         }
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSelectedTabButtonColor:
+                
+                changeSelectedTabButtonColor()
+                
+            case .changeEffectsTabButtonTextColor:
+                
+                changeTabButtonTextColor()
+                
+            case .changeEffectsSelectedTabButtonTextColor:
+                
+                changeSelectedTabButtonTextColor()
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+                
+            default: return
+                
+            }
+            
+            return
         }
     }
 }

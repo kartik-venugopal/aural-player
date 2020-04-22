@@ -33,6 +33,10 @@ class EQSubview: NSView {
         allSliders.forEach({$0.updateState()})
     }
     
+    func changeSliderBackgroundColor() {
+        allSliders.forEach({$0.redraw()})
+    }
+    
     func changeActiveUnitStateColor(_ color: NSColor) {
         
         if bandSliders[0].unitState == .active {

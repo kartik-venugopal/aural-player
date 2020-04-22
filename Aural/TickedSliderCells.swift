@@ -99,26 +99,30 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
         
         switch self.unitState {
             
-        case .active:   return Colors.activeKnobColor
+        case .active:   return Colors.Effects.activeUnitStateColor
             
-        case .bypassed: return Colors.bypassedKnobColor
+        case .bypassed: return Colors.Effects.bypassedUnitStateColor
             
-        case .suppressed:   return Colors.suppressedKnobColor
+        case .suppressed:   return Colors.Effects.suppressedUnitStateColor
             
         }
     }
     
     override var tickVerticalSpacing: CGFloat {return 1}
     
+    override var barPlainGradient: NSGradient {
+        return Colors.Effects.sliderBackgroundGradient
+    }
+    
     override var barColoredGradient: NSGradient {
      
         switch self.unitState {
             
-        case .active:   return Colors.activeSliderBarColoredGradient
+        case .active:   return Colors.Effects.activeSliderBarGradient
             
-        case .bypassed: return Colors.bypassedSliderBarColoredGradient
+        case .bypassed: return Colors.Effects.bypassedSliderBarGradient
             
-        case .suppressed:   return Colors.suppressedSliderBarColoredGradient
+        case .suppressed:   return Colors.Effects.suppressedSliderBarGradient
             
         }
     }
