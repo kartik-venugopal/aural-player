@@ -22,11 +22,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         
         switch self.unitState {
             
-        case .active:   return Colors.activeKnobColor
+        case .active:   return Colors.Effects.activeUnitStateColor
             
-        case .bypassed: return Colors.bypassedKnobColor
+        case .bypassed: return Colors.Effects.bypassedUnitStateColor
             
-        case .suppressed:   return Colors.suppressedKnobColor
+        case .suppressed:   return Colors.Effects.suppressedUnitStateColor
             
         }
     }
@@ -71,11 +71,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         
         switch self.unitState {
             
-        case .active:   sliderColor = Colors.activeSliderBarColoredGradient
+        case .active:   sliderColor = Colors.Effects.activeSliderBarColoredGradient
             
-        case .bypassed: sliderColor = Colors.bypassedSliderBarColoredGradient
+        case .bypassed: sliderColor = Colors.Effects.bypassedSliderBarColoredGradient
             
-        case .suppressed:   sliderColor = Colors.suppressedSliderBarColoredGradient
+        case .suppressed:   sliderColor = Colors.Effects.suppressedSliderBarColoredGradient
             
         }
         

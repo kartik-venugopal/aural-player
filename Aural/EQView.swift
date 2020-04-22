@@ -93,4 +93,22 @@ class EQView: NSView {
         btn15Band.redraw()
         btnSync.redraw()
     }
+    
+    func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        eq10BandView.changeActiveUnitStateColor(color)
+        eq15BandView.changeActiveUnitStateColor(color)
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        eq10BandView.changeBypassedUnitStateColor(color)
+        eq15BandView.changeBypassedUnitStateColor(color)
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        eq10BandView.changeSuppressedUnitStateColor(color)
+        eq15BandView.changeSuppressedUnitStateColor(color)
+    }
 }

@@ -140,6 +140,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             $0!.fillColor = color
             $0!.isTransparent = !color.isOpaque
         })
+        
+        fxTabViewButtons.forEach({$0.redraw()})
     }
     
     private func changeControlButtonColor(_ color: NSColor) {

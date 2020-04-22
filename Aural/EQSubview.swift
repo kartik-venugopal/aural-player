@@ -33,6 +33,27 @@ class EQSubview: NSView {
         allSliders.forEach({$0.updateState()})
     }
     
+    func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        if bandSliders[0].unitState == .active {
+            allSliders.forEach({$0.redraw()})
+        }
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        if bandSliders[0].unitState == .bypassed {
+            allSliders.forEach({$0.redraw()})
+        }
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        if bandSliders[0].unitState == .suppressed {
+            allSliders.forEach({$0.redraw()})
+        }
+    }
+    
     func setState(_ state: EffectsUnitState) {
         allSliders.forEach({$0.setUnitState(state)})
     }
