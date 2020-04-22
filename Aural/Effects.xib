@@ -232,7 +232,7 @@
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Jtw-Y5-1IX" userLabel="Effects Box">
-                                    <rect key="frame" x="14" y="10" width="502" height="185"/>
+                                    <rect key="frame" x="12" y="10" width="502" height="185"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="906-wq-IiK">
                                         <rect key="frame" x="0.0" y="0.0" width="502" height="185"/>
