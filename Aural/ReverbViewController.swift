@@ -27,6 +27,12 @@ class ReverbViewController: FXUnitViewController {
         reverbView.initialize(reverbStateFunction)
     }
     
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsFunctionButtonColor, .changeEffectsFunctionButtonTextColor], subscriber: self)
+    }
+    
     override func initControls() {
         
         super.initControls()
@@ -56,6 +62,45 @@ class ReverbViewController: FXUnitViewController {
         reverbView.changeTextSize()
     }
     
+    func changeSliderBackgroundColor() {
+        reverbView.redrawSliders()
+    }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        super.changeActiveUnitStateColor(color)
+        
+        if reverbUnit.isActive {
+            reverbView.redrawSliders()
+        }
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        
+        if reverbUnit.state == .bypassed {
+            reverbView.redrawSliders()
+        }
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        
+        if reverbUnit.state == .suppressed {
+            reverbView.redrawSliders()
+        }
+    }
+    
+    func changeFunctionButtonColor() {
+        reverbView.redrawButtons()
+    }
+    
+    func changeFunctionButtonTextColor() {
+        reverbView.redrawButtons()
+    }
+    
     // MARK: Message handling
     
     override func consumeMessage(_ message: ActionMessage) {
@@ -63,7 +108,32 @@ class ReverbViewController: FXUnitViewController {
         super.consumeMessage(message)
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+                
+            case .changeEffectsFunctionButtonColor:
+                
+                changeFunctionButtonColor()
+                
+            case .changeEffectsFunctionButtonTextColor:
+                
+                changeFunctionButtonTextColor()
+                
+            default: return
+                
+            }
+            
+            return
         }
     }
 }

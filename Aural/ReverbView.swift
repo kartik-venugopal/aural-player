@@ -52,4 +52,12 @@ class ReverbView: NSView {
         reverbSpaceMenu.redraw()
         reverbSpaceMenu.font = Fonts.Effects.unitFunctionFont
     }
+    
+    func redrawSliders() {
+        reverbAmountSlider.redraw()
+    }
+    
+    func redrawButtons() {
+        reverbSpaceMenu.redraw()
+    }
 }

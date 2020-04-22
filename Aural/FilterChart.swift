@@ -3,7 +3,7 @@ import Cocoa
 class FilterChart: NSView {
     
     var barRadius: CGFloat {return 1}
-    var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
+    var barColoredGradient: NSGradient {return Colors.Effects.neutralSliderBarColoredGradient}
     
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
