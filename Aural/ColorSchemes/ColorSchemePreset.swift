@@ -348,7 +348,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
+        case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
             

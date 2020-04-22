@@ -34,7 +34,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
-    private var fxTabViewButtons: [EffectsUnitTabButton]?
+    private var fxTabViewButtons: [EffectsUnitTabButton]!
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
@@ -108,7 +108,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -148,6 +148,36 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             ($0 as? Tintable)?.reTint()
         })
     }
+    
+    private func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        fxTabViewButtons.forEach({
+            
+            if $0.unitState == .active {
+                $0.reTint()
+            }
+        })
+    }
+    
+    private func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        fxTabViewButtons.forEach({
+            
+            if $0.unitState == .bypassed {
+                $0.reTint()
+            }
+        })
+    }
+    
+    private func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        fxTabViewButtons.forEach({
+            
+            if $0.unitState == .suppressed {
+                $0.reTint()
+            }
+        })
+    }
 
     // MARK: Message handling
     
@@ -161,7 +191,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         if notification is EffectsUnitStateChangedNotification {
 
             // Update the corresponding tab button's state
-            [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach({$0?.updateState()})
+            fxTabViewButtons.forEach({$0.updateState()})
         }
     }
 
@@ -221,6 +251,18 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             case .changeControlButtonColor:
                 
                 changeControlButtonColor(colorChangeMsg.color)
+                
+            case .changeEffectsActiveUnitStateColor:
+                
+                changeActiveUnitStateColor(colorChangeMsg.color)
+                
+            case .changeEffectsBypassedUnitStateColor:
+                
+                changeBypassedUnitStateColor(colorChangeMsg.color)
+                
+            case .changeEffectsSuppressedUnitStateColor:
+                
+                changeSuppressedUnitStateColor(colorChangeMsg.color)
                 
             default: return
                 

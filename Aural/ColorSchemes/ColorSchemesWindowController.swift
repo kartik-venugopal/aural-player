@@ -9,7 +9,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
     private lazy var generalSchemeView: ColorSchemesViewProtocol = ViewFactory.generalColorSchemeView
     private lazy var playerSchemeView: ColorSchemesViewProtocol = ViewFactory.playerColorSchemeView
     private lazy var playlistSchemeView: ColorSchemesViewProtocol = ViewFactory.playlistColorSchemeView
-//    private lazy var effectsSchemeView: NSView = ViewFactory.viewPreferencesView
+    private lazy var effectsSchemeView: ColorSchemesViewProtocol = ViewFactory.effectsColorSchemeView
     
     private var subViews: [ColorSchemesViewProtocol] = []
     
@@ -19,7 +19,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
         
         self.window?.isMovableByWindowBackground = true
         
-        subViews = [generalSchemeView, playerSchemeView, playlistSchemeView]
+        subViews = [generalSchemeView, playerSchemeView, playlistSchemeView, effectsSchemeView]
         tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
         
         NSColorPanel.shared.showsAlpha = true

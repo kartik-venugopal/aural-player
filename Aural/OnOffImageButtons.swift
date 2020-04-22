@@ -143,6 +143,13 @@ class EffectsUnitBypassButton: OnOffImageButton {
         set {}
     }
     
+    override func awakeFromNib() {
+        
+        // Override the tint functions from OnOffImageButton
+        offStateTintFunction = {return ColorSchemes.systemScheme.effects.bypassedUnitStateColor}
+        onStateTintFunction = {return ColorSchemes.systemScheme.effects.activeUnitStateColor}
+    }
+    
     // Bypass is the inverse of "On". If bypass is true, state is "Off".
     func setBypassState(_ bypass: Bool) {
         bypass ? off() : on()
@@ -155,6 +162,10 @@ class EffectsUnitBypassButton: OnOffImageButton {
 class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
     
     var stateFunction: (() -> EffectsUnitState)?
+    
+    var unitState: EffectsUnitState {
+        return stateFunction?() ?? .bypassed
+    }
     
     var mixedStateImage: NSImage? {
         
@@ -176,11 +187,19 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
         set {}
     }
     
+    var mixedStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.suppressedUnitStateColor} {
+        
+        didSet {
+            
+            if unitState == .suppressed {
+                reTint()
+            }
+        }
+    }
+    
     func updateState() {
         
-        let newState = stateFunction!()
-        
-        switch newState {
+        switch unitState {
             
         case .bypassed: off()
             
@@ -205,8 +224,13 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
     }
     
     func mixed() {
+        
         self.toolTip = mixedStateTooltip
-        self.image = mixedStateImage
+        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+    }
+    
+    override func reTint() {
+        updateState()
     }
 }
 
@@ -218,9 +242,19 @@ class EffectsUnitTabButton: OnOffImageButton {
     @IBInspectable var mixedStateImage: NSImage?
     @IBInspectable var mixedStateTooltip: String?
     
-    @IBInspectable var onStateTextColor: NSColor?
-    @IBInspectable var offStateTextColor: NSColor?
-    @IBInspectable var mixedStateTextColor: NSColor?
+    var mixedStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.suppressedUnitStateColor} {
+        
+        didSet {
+            reTint()
+        }
+    }
+    
+    override func awakeFromNib() {
+        
+        // Override the tint functions from OnOffImageButton
+        offStateTintFunction = {return ColorSchemes.systemScheme.effects.bypassedUnitStateColor}
+        onStateTintFunction = {return ColorSchemes.systemScheme.effects.activeUnitStateColor}
+    }
     
     override func off() {
         
@@ -244,13 +278,29 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     func mixed() {
         
-        self.image = mixedStateImage
+        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .suppressed
             redraw()
         }
+    }
+    
+    override func reTint() {
+        
+        switch unitState {
+            
+        case .bypassed: self.image = offStateImage?.applyingTint(offStateTintFunction())
+            
+        case .active: self.image = onStateImage?.applyingTint(onStateTintFunction())
+            
+        case .suppressed: self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+            
+        }
+        
+        // Need to redraw because we are using a custom button cell which needs to render the updated image itself
+        redraw()
     }
     
     func updateState() {
@@ -266,5 +316,9 @@ class EffectsUnitTabButton: OnOffImageButton {
         case .suppressed: mixed()
             
         }
+    }
+    
+    var unitState: EffectsUnitState {
+        return stateFunction?() ?? .bypassed
     }
 }

@@ -67,6 +67,42 @@ class MasterView: NSView {
         labels.forEach({$0.updateState()})
     }
     
+    private func changeUnitStateColorForState(_ unitState: EffectsUnitState) {
+        
+        buttons.forEach({
+            
+            if $0.unitState == unitState {
+                $0.reTint()
+            }
+        })
+        
+        images.forEach({
+            
+            if $0.unitState == unitState {
+                $0.reTint()
+            }
+        })
+        
+        labels.forEach({
+            
+            if $0.unitState == unitState {
+                $0.reTint()
+            }
+        })
+    }
+    
+    func changeActiveUnitStateColor(_ color: NSColor) {
+        changeUnitStateColorForState(.active)
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        changeUnitStateColorForState(.bypassed)
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        changeUnitStateColorForState(.suppressed)
+    }
+    
     func applyPreset(_ preset: MasterPreset) {
         
         btnEQBypass.onIf(preset.eq.state == .active)
