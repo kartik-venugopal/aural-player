@@ -39,7 +39,7 @@ class TimeViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .changeEffectsSliderBackgroundColor], subscriber: self)
     }
     
     override func oneTimeSetup() {
@@ -136,6 +136,43 @@ class TimeViewController: FXUnitViewController {
         super.changeTextSize()
         btnShiftPitch.redraw()
     }
+    
+    func changeSliderBackgroundColor() {
+        timeView.redrawSliders()
+    }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        super.changeActiveUnitStateColor(color)
+        
+        if timeUnit.isActive {
+            timeView.redrawSliders()
+        }
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        
+        if timeUnit.state == .bypassed {
+            timeView.redrawSliders()
+        }
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        
+        if timeUnit.state == .suppressed {
+            timeView.redrawSliders()
+        }
+    }
+    
+    override func changeFunctionCaptionTextColor(_ color: NSColor) {
+        
+        super.changeFunctionCaptionTextColor(color)
+        timeView.changeFunctionCaptionTextColor()
+    }
 
     // MARK: Message handling
 
@@ -159,7 +196,24 @@ class TimeViewController: FXUnitViewController {
         }
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+                
+            default: return
+                
+            }
+            
+            return
         }
     }
 }
