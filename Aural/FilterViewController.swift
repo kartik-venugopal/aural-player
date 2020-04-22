@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsFunctionButtonColor, .changeEffectsFunctionButtonTextColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -306,13 +306,18 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.changeFunctionCaptionTextColor(color)})
     }
     
-    func changeFunctionButtonColor() {
+    override func changeFunctionButtonColor() {
+        
+        super.changeFunctionButtonColor()
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
         bandControllers.forEach({$0.changeFunctionButtonColor()})
     }
     
-    func changeFunctionButtonTextColor() {
+    override func changeFunctionButtonTextColor() {
+        
+        super.changeFunctionButtonColor()
+        
         [btnAdd, btnRemove].forEach({$0?.redraw()})
         bandControllers.forEach({$0.changeFunctionButtonColor()})
     }
@@ -348,14 +353,6 @@ class FilterViewController: FXUnitViewController {
             case .changeEffectsSliderBackgroundColor:
                 
                 changeSliderBackgroundColor()
-                
-            case .changeEffectsFunctionButtonColor:
-                
-                changeFunctionButtonColor()
-                
-            case .changeEffectsFunctionButtonTextColor:
-                
-                changeFunctionButtonTextColor()
                 
             case .changeEffectsSelectedTabButtonColor:
                 

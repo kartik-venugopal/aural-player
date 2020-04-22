@@ -11,7 +11,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
-    @IBOutlet weak var btnSavePreset: NSButton!
+    @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -33,6 +33,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func oneTimeSetup() {
         
         btnBypass.stateFunction = self.unitStateFunction
+        btnSavePreset.tintFunction = {return Colors.Effects.functionButtonColor}
+        
         initSubscriptions()
         
         functionLabels = findFunctionLabels(self.view)
@@ -60,7 +62,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeEffectsMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeEffectsMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsFunctionButtonColor, .changeEffectsFunctionButtonTextColor], subscriber: self)
     }
     
     func initControls() {
@@ -95,6 +97,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
         
+        windowManager.effectsWindow.makeKeyAndOrderFront(self)
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
         
         // If this isn't done, the app windows are hidden when the popover is displayed
@@ -135,6 +138,16 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         if fxUnit.state == .suppressed {
             btnBypass.reTint()
         }
+    }
+    
+    func changeFunctionButtonColor() {
+        
+        btnSavePreset.reTint()
+        presetsMenu.redraw()
+    }
+    
+    func changeFunctionButtonTextColor() {
+        presetsMenu.redraw()
     }
     
     var subscriberId: String {
@@ -225,6 +238,14 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             case .changeEffectsSuppressedUnitStateColor:
                 
                 changeSuppressedUnitStateColor(colorSchemeMsg.color)
+                
+            case .changeEffectsFunctionButtonColor:
+                
+                changeFunctionButtonColor()
+                
+            case .changeEffectsFunctionButtonTextColor:
+                
+                changeFunctionButtonTextColor()
                 
             default: return
                 

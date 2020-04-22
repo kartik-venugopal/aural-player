@@ -29,6 +29,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
     
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
+    
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
@@ -58,6 +60,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             // TODO: This should be done through a delegate (TrackDelegate ???)
             playingTrack.loadDetailedInfo()
+            
+            windowManager.mainWindow.makeKeyAndOrderFront(self)
             detailedInfoPopover.toggle(playingTrack, btnMoreInfo.isVisible ? btnMoreInfo : self.view.window!.contentView!, NSRectEdge.maxX)
         }
     }
@@ -93,6 +97,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         // Show popover
         let loc = locationForBookmarkPrompt
         
+        windowManager.mainWindow.makeKeyAndOrderFront(self)
+        
         if loc.view.isVisible {
             bookmarkNamePopover.show(loc.view, loc.edge)
         } else if btnBookmark.isVisible {
@@ -122,6 +128,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 // Show popover
                 let loc = locationForBookmarkPrompt
                 
+                windowManager.mainWindow.makeKeyAndOrderFront(self)
+                
                 if loc.view.isVisible {
                     bookmarkNamePopover.show(loc.view, loc.edge)
                 } else if btnBookmark.isVisible {
@@ -149,6 +157,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         if let playingTrack = player.playingTrack?.track, message.file.path == playingTrack.file.path {
             
             let added: Bool = message.messageType == .addedToFavorites
+            
+            windowManager.mainWindow.makeKeyAndOrderFront(self)
             
             btnFavorite.onIf(added)
             infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !",
