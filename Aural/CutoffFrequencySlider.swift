@@ -21,21 +21,21 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
             switch self.filterType {
                 
-            case .lowPass:   return Colors.bandStopGradient
+            case .lowPass:   return Colors.Effects.bypassedSliderBarGradient
                 
-            case .highPass:   return Colors.activeSliderBarColoredGradient
+            case .highPass:   return Colors.Effects.activeSliderBarGradient
                 
             // IMPOSSIBLE
-            default:    return Colors.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderBarColoredGradient
                 
             }
         } else if self.unitState == .bypassed {
             
-            return Colors.sliderBarPlainGradient
+            return Colors.Effects.neutralSliderBarColoredGradient
             
         } else {
             
-            return Colors.sliderBarPlainGradient
+            return Colors.Effects.bypassedSliderBarGradient
         }
     }
     
@@ -45,21 +45,21 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
             switch self.filterType {
                 
-            case .lowPass:   return Colors.activeSliderBarColoredGradient
+            case .lowPass:   return Colors.Effects.activeSliderBarGradient
                 
-            case .highPass:   return Colors.bandStopGradient
+            case .highPass:   return Colors.Effects.bypassedSliderBarGradient
                 
             // IMPOSSIBLE
-            default:    return Colors.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderBarColoredGradient
                 
             }
         } else if self.unitState == .bypassed {
             
-            return Colors.neutralSliderBarColoredGradient
+            return Colors.Effects.bypassedSliderBarGradient
             
         } else {
             
-            return Colors.suppressedSliderBarColoredGradient
+            return Colors.Effects.suppressedSliderBarGradient
         }
     }
 }

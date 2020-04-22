@@ -171,6 +171,12 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.selectedTabButtonColor
         }
         
+        static var functionButtonGradient: NSGradient {
+            
+            let color = ColorSchemes.systemScheme.effects.functionButtonColor
+            return NSGradient(starting: color, ending: color.darkened())!
+        }
+        
         static var functionButtonColor: NSColor {
             return ColorSchemes.systemScheme.effects.functionButtonColor
         }
@@ -207,7 +213,10 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.selectedTabButtonColor
         }
         
-        
+        static var neutralSliderBarColoredGradient: NSGradient {
+            
+            return NSGradient(starting: Constants.white60Percent, ending: Constants.white40Percent)!
+        }
     }
     
     static let fxFunctionTextColor: NSColor = Constants.white40Percent
@@ -313,15 +322,6 @@ struct Colors {
     static let scrollerKnobColor: NSColor = Constants.white40Percent
     static let scrollerBarColor: NSColor = Constants.white25Percent
     
-    static let neutralSliderBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = Constants.white60Percent
-        let backgroundEnd =  Constants.white40Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
     static let activeSliderBarColoredGradient: NSGradient = {
         
         let backgroundStart = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
@@ -377,7 +377,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarColoredGradient: NSGradient = Colors.neutralSliderBarColoredGradient
+    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderBarColoredGradient
     
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black

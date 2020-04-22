@@ -412,7 +412,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white25Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white35Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
             

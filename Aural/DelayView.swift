@@ -100,4 +100,8 @@ class DelayView: NSView {
         
         sliders.forEach({$0.setUnitState(preset.state)})
     }
+    
+    func redrawSliders() {
+        sliders.forEach({$0.redraw()})
+    }
 }

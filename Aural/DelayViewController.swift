@@ -33,6 +33,13 @@ class DelayViewController: FXUnitViewController {
         delayView.setState(delayUnit.time, delayUnit.formattedTime, delayUnit.amount, delayUnit.formattedAmount, delayUnit.feedback, delayUnit.formattedFeedback, delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor], subscriber: self)
+    }
+    
     override func stateChanged() {
         
         super.stateChanged()
@@ -67,10 +74,33 @@ class DelayViewController: FXUnitViewController {
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
-    override func changeTextSize() {
-        
-        super.changeTextSize()
+    func changeSliderBackgroundColor() {
+        delayView.redrawSliders()
     }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        super.changeActiveUnitStateColor(color)
+        delayView.redrawSliders()
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        delayView.redrawSliders()
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        delayView.redrawSliders()
+    }
+    
+//    override func changeFunctionCaptionTextColor(_ color: NSColor) {
+//
+//        super.changeFunctionCaptionTextColor(color)
+//        delayView.changeFunctionCaptionTextColor()
+//    }
     
     // MARK: Message handling
     
@@ -79,7 +109,24 @@ class DelayViewController: FXUnitViewController {
         super.consumeMessage(message)
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+
+            default: return
+                
+            }
+            
+            return
         }
     }
 }
