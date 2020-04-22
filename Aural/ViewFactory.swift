@@ -111,7 +111,7 @@ struct ViewFactory {
         fileprivate static let generalColorSchemeViewController: GeneralColorSchemeViewController = GeneralColorSchemeViewController()
         fileprivate static let playerColorSchemeViewController: PlayerColorSchemeViewController = PlayerColorSchemeViewController()
         fileprivate static let playlistColorSchemeViewController: PlaylistColorSchemeViewController = PlaylistColorSchemeViewController()
-//        fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController
+        fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController()
     }
     
     // Returns the view that displays the player
@@ -229,6 +229,10 @@ struct ViewFactory {
     
     static var playlistColorSchemeView: ColorSchemesViewProtocol {
         return ColorSchemeViews.playlistColorSchemeViewController
+    }
+    
+    static var effectsColorSchemeView: ColorSchemesViewProtocol {
+        return ColorSchemeViews.effectsColorSchemeViewController
     }
     
     static var bookmarksEditorView: NSView {

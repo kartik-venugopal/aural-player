@@ -135,6 +135,40 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
+    override func changeFunctionCaptionTextColor(_ color: NSColor) {
+        
+        functionLabels.forEach({
+            
+            if !($0 is EffectsUnitTriStateLabel) {
+                $0.textColor = color
+            }
+        })
+    }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        if masterUnit.isActive {
+            btnBypass.reTint()
+        }
+        
+        masterView.changeActiveUnitStateColor(color)
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        if masterUnit.state == .bypassed {
+            btnBypass.reTint()
+        }
+        
+        masterView.changeBypassedUnitStateColor(color)
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        // Master unit can never be suppressed, but update other unit state buttons
+        masterView.changeSuppressedUnitStateColor(color)
+    }
+    
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {

@@ -4,7 +4,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var lblCaption: VALabel?
+    @IBOutlet weak var lblCaption: VALabel!
     
     // Labels
     var functionLabels: [NSTextField] = []
@@ -60,7 +60,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeEffectsMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
     
     func initControls() {
@@ -103,9 +103,29 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     func changeTextSize() {
         
-        lblCaption?.font = Fonts.Effects.unitCaptionFont
+        lblCaption.font = Fonts.Effects.unitCaptionFont
         functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         presetsMenu.font = Fonts.Effects.menuFont
+    }
+    
+    func changeMainCaptionTextColor(_ color: NSColor) {
+        lblCaption.textColor = color
+    }
+    
+    func changeFunctionCaptionTextColor(_ color: NSColor) {
+        functionLabels.forEach({$0.textColor = color})
+    }
+    
+    func changeActiveUnitStateColor(_ color: NSColor) {
+        // Meant to be overriden
+    }
+    
+    func changeBypassedUnitStateColor(_ color: NSColor) {
+        // Meant to be overriden
+    }
+    
+    func changeSuppressedUnitStateColor(_ color: NSColor) {
+        // Meant to be overriden
     }
     
     var subscriberId: String {
@@ -168,7 +188,38 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func consumeMessage(_ message: ActionMessage) {
         
         if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
+            
             initControls()
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorSchemeMsg.actionType {
+                
+            case .changeEffectsMainCaptionTextColor:
+                
+                changeMainCaptionTextColor(colorSchemeMsg.color)
+                
+            case .changeEffectsFunctionCaptionTextColor:
+                
+                changeFunctionCaptionTextColor(colorSchemeMsg.color)
+                
+            case .changeEffectsActiveUnitStateColor:
+                
+                changeActiveUnitStateColor(colorSchemeMsg.color)
+                
+            case .changeEffectsBypassedUnitStateColor:
+                
+                changeBypassedUnitStateColor(colorSchemeMsg.color)
+                
+            case .changeEffectsSuppressedUnitStateColor:
+                
+                changeSuppressedUnitStateColor(colorSchemeMsg.color)
+                
+            default: return
+                
+            }
         }
     }
 }

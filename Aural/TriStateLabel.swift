@@ -7,10 +7,14 @@ import Cocoa
 class OnOffLabel: CenterTextLabel {
     
     // The image displayed when the button is in an "Off" state
-    @IBInspectable var offStateColor: NSColor?
+    var offStateColor: NSColor {
+        return Colors.Effects.bypassedUnitStateColor
+    }
     
     // The image displayed when the button is in an "On" state
-    @IBInspectable var onStateColor: NSColor?
+    var onStateColor: NSColor {
+        return Colors.Effects.activeUnitStateColor
+    }
     
     private var _isOn: Bool = false
     
@@ -51,13 +55,17 @@ class EffectsUnitTriStateLabel: OnOffLabel {
     
     var stateFunction: (() -> EffectsUnitState)?
     
-    @IBInspectable var mixedStateColor: NSColor?
+    var unitState: EffectsUnitState {
+        return stateFunction?() ?? .bypassed
+    }
+    
+    var mixedStateColor: NSColor {
+        return Colors.Effects.suppressedUnitStateColor
+    }
     
     func updateState() {
         
-        let newState = stateFunction!()
-        
-        switch newState {
+        switch unitState {
             
         case .bypassed: off()
             
@@ -83,5 +91,9 @@ class EffectsUnitTriStateLabel: OnOffLabel {
     
     func mixed() {
         self.textColor = mixedStateColor
+    }
+    
+    func reTint() {
+        updateState()
     }
 }

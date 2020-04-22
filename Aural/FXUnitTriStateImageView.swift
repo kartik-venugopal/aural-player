@@ -1,10 +1,10 @@
 import Cocoa
 
 /*
- An image button that can be toggled On/Off and displays different images depending on its state
+ A special case On/Off image button used as a bypass switch for Effects units, with preset images
  */
 @IBDesignable
-class OnOffImageView: NSImageView {
+class EffectsUnitBypassImage: NSImageView, Tintable {
     
     // The image displayed when the button is in an "Off" state
     @IBInspectable var offStateImage: NSImage?
@@ -12,19 +12,39 @@ class OnOffImageView: NSImageView {
     // The image displayed when the button is in an "On" state
     @IBInspectable var onStateImage: NSImage?
     
+    var offStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.bypassedUnitStateColor} {
+        
+        didSet {
+            
+            if !_isOn {
+                reTint()
+            }
+        }
+    }
+    
+    var onStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.activeUnitStateColor} {
+        
+        didSet {
+            
+            if _isOn {
+                reTint()
+            }
+        }
+    }
+    
     private var _isOn: Bool = false
     
     // Sets the button state to be "Off"
     func off() {
         
-        self.image = offStateImage
+        self.image = offStateImage?.applyingTint(offStateTintFunction())
         _isOn = false
     }
     
     // Sets the button state to be "On"
     func on() {
         
-        self.image = onStateImage
+        self.image = onStateImage?.applyingTint(onStateTintFunction())
         _isOn = true
     }
     
@@ -42,16 +62,19 @@ class OnOffImageView: NSImageView {
     var isOn: Bool {
         return _isOn
     }
-}
-
-/*
- A special case On/Off image button used as a bypass switch for Effects units, with preset images
- */
-class EffectsUnitBypassImage: OnOffImageView {
     
     // Bypass is the inverse of "On". If bypass is true, state is "Off".
     func setBypassState(_ bypass: Bool) {
         bypass ? off() : on()
+    }
+    
+    func reTint() {
+        
+        if _isOn {
+            self.image = onStateImage?.applyingTint(onStateTintFunction())
+        } else {
+            self.image = offStateImage?.applyingTint(offStateTintFunction())
+        }
     }
 }
 
@@ -62,13 +85,25 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     
     var stateFunction: (() -> EffectsUnitState)?
     
+    var unitState: EffectsUnitState {
+        return stateFunction?() ?? .bypassed
+    }
+    
     @IBInspectable var mixedStateImage: NSImage?
+    
+    var mixedStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.suppressedUnitStateColor} {
+        
+        didSet {
+            
+            if unitState == .suppressed {
+                reTint()
+            }
+        }
+    }
     
     func updateState() {
         
-        let newState = stateFunction!()
-        
-        switch newState {
+        switch unitState {
             
         case .bypassed: off()
             
@@ -93,6 +128,10 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     }
     
     func mixed() {
-        self.image = mixedStateImage
+        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+    }
+    
+    override func reTint() {
+        updateState()
     }
 }
