@@ -185,7 +185,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - Appearance -
     
-    private lazy var barBackgroundGradient: NSGradient = {
+    lazy var _barBackgroundGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
@@ -194,6 +194,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         
         return barBackgroundGradient!
     }()
+    
+    var barBackgroundGradient: NSGradient {return _barBackgroundGradient}
     
     private lazy var sliderGradient: NSGradient = {
         let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
@@ -261,8 +263,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             
             theWindow.isMovableByWindowBackground = false
             theWindow.isMovable = false
-            
-            print("DOWN", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
         }
 
         let point = convert(event.locationInWindow, from: nil)
@@ -296,8 +296,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             
             theWindow.isMovableByWindowBackground = false
             theWindow.isMovable = false
-            
-            print("DRAG", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
         }
         
         let point = convert(event.locationInWindow, from: nil)
@@ -310,8 +308,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             
             theWindow.isMovableByWindowBackground = true
             theWindow.isMovable = true
-            
-            print("UP", theWindow.identifier!.rawValue, theWindow.isMovableByWindowBackground, theWindow.isMovable)
         }
     }
     
@@ -459,13 +455,17 @@ class FilterBandSlider: RangeSlider {
         
         switch unitState {
             
-        case .active:   return filterType == .bandPass ? bandPassColor : bandStopColor
+        case .active:   return filterType == .bandPass ? Colors.Effects.activeUnitStateColor : Colors.Effects.bypassedUnitStateColor
             
-        case .bypassed: return bypassedColor
+        case .bypassed: return Colors.Effects.bypassedUnitStateColor
             
-        case .suppressed:   return suppressedColor
+        case .suppressed:   return Colors.Effects.suppressedUnitStateColor
             
         }
+    }
+    
+    override var barBackgroundGradient: NSGradient {
+        return Colors.Effects.sliderBackgroundGradient
     }
     
     var startFrequency: Float {

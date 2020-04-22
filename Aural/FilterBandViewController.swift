@@ -20,6 +20,8 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var tabButton: NSButton!
     
+    private var functionLabels: [NSTextField] = []
+    
     private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.Sound.audibleRangeMin).withMaxFreq(AppConstants.Sound.subBass_max)
@@ -30,9 +32,12 @@ class FilterBandViewController: NSViewController {
     }
     
     override func awakeFromNib() {
+        
         freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
         freqRangeSlider.stateFunction = filterStateFunction
         cutoffSlider.stateFunction = filterStateFunction
+        
+        functionLabels = findFunctionLabels(self.view)
     }
     
     override func viewDidLoad() {
@@ -170,13 +175,24 @@ class FilterBandViewController: NSViewController {
         
         tabButton.redraw()
         
-        let labels = findFunctionLabels(self.view)
-        labels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         
         filterTypeMenu.font = Fonts.Effects.unitFunctionFont
         filterTypeMenu.redraw()
         
         presetRangesMenu.font = Fonts.Effects.unitFunctionFont
+    }
+    
+    func changeFunctionButtonColor() {
+        filterTypeMenu.redraw()
+    }
+    
+    func changeFunctionCaptionTextColor(_ color: NSColor) {
+        functionLabels.forEach({$0.textColor = color})
+    }
+    
+    func redrawSliders() {
+        [cutoffSlider, freqRangeSlider].forEach({$0?.redraw()})
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

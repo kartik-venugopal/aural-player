@@ -2,41 +2,23 @@ import Cocoa
 
 class FilterChart: NSView {
     
-    var barRadius: CGFloat {return 1}
-    var barColoredGradient: NSGradient {return Colors.Effects.neutralSliderBarColoredGradient}
-    
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
     
-    private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
-    private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
+    private var bandStopColor: NSColor = Colors.Effects.bypassedUnitStateColor
+    private var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
     
-    private let inactiveUnitGradient: NSGradient = {
-        
-        let start = Colors.Constants.white50Percent
-        let end = Colors.Constants.white20Percent
-        let gradient = NSGradient(starting: start, ending: end)
-        
-        return gradient!
-    }()
+    private var inactiveUnitGradient: NSGradient {
+        return Colors.Effects.neutralSliderBarColoredGradient
+    }
     
-    private let bandStopGradient: NSGradient = {
-        
-        let start = NSColor(red: 0.75, green: 0, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0.3, green: 0, blue: 0, alpha: 1)
-        let gradient = NSGradient(starting: start, ending: end)
-        
-        return gradient!
-    }()
+    private var bandStopGradient: NSGradient {
+        return Colors.Effects.bypassedSliderBarGradient
+    }
     
-    private let bandPassGradient: NSGradient = {
-        
-        let start = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
-        let end =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
-        let gradient = NSGradient(starting: start, ending: end)
-        
-        return gradient!
-    }()
+    private var bandPassGradient: NSGradient {
+        return Colors.Effects.activeSliderBarGradient
+    }
     
     override func draw(_ dirtyRect: NSRect) {
         
