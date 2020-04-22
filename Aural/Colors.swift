@@ -177,6 +177,12 @@ struct Colors {
             return NSGradient(starting: color, ending: color.darkened())!
         }
         
+        static var functionButtonGradient_disabled: NSGradient = {
+            
+            let color = ColorSchemes.systemScheme.effects.functionButtonColor.darkened()
+            return NSGradient(starting: color, ending: color.darkened())!
+        }()
+        
         static var functionButtonColor: NSColor {
             return ColorSchemes.systemScheme.effects.functionButtonColor
         }

@@ -62,6 +62,13 @@ class FilterViewController: FXUnitViewController {
         updateCRUDButtonStates()
     }
     
+    override func initSubscriptions() {
+        
+        super.initSubscriptions()
+        
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsFunctionButtonColor, .changeEffectsFunctionButtonTextColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
+    }
+    
     private func clearBands() {
         
         bandControllers.removeAll()
@@ -268,6 +275,60 @@ class FilterViewController: FXUnitViewController {
         super.changeTextSize()
     }
     
+    func changeSliderBackgroundColor() {
+        bandControllers.forEach({$0.redrawSliders()})
+    }
+    
+    override func changeActiveUnitStateColor(_ color: NSColor) {
+        
+        super.changeActiveUnitStateColor(color)
+        bandControllers.forEach({$0.redrawSliders()})
+        filterView.redrawChart()
+    }
+    
+    override func changeBypassedUnitStateColor(_ color: NSColor) {
+        
+        super.changeBypassedUnitStateColor(color)
+        bandControllers.forEach({$0.redrawSliders()})
+        filterView.redrawChart()
+    }
+    
+    override func changeSuppressedUnitStateColor(_ color: NSColor) {
+        
+        super.changeSuppressedUnitStateColor(color)
+        bandControllers.forEach({$0.redrawSliders()})
+        filterView.redrawChart()
+    }
+    
+    override func changeFunctionCaptionTextColor(_ color: NSColor) {
+        
+        super.changeFunctionCaptionTextColor(color)
+        bandControllers.forEach({$0.changeFunctionCaptionTextColor(color)})
+    }
+    
+    func changeFunctionButtonColor() {
+        
+        [btnAdd, btnRemove].forEach({$0?.redraw()})
+        bandControllers.forEach({$0.changeFunctionButtonColor()})
+    }
+    
+    func changeFunctionButtonTextColor() {
+        [btnAdd, btnRemove].forEach({$0?.redraw()})
+        bandControllers.forEach({$0.changeFunctionButtonColor()})
+    }
+    
+    func changeSelectedTabButtonColor() {
+        tabButtons.forEach({$0.redraw()})
+    }
+    
+    func changeTabButtonTextColor() {
+        tabButtons.forEach({$0.redraw()})
+    }
+    
+    func changeSelectedTabButtonTextColor() {
+        tabButtons.forEach({$0.redraw()})
+    }
+    
     // MARK: Message handling
     
     override func consumeMessage(_ message: ActionMessage) {
@@ -275,7 +336,44 @@ class FilterViewController: FXUnitViewController {
         super.consumeMessage(message)
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorChangeMsg.actionType {
+                
+            case .changeEffectsSliderBackgroundColor:
+                
+                changeSliderBackgroundColor()
+                
+            case .changeEffectsFunctionButtonColor:
+                
+                changeFunctionButtonColor()
+                
+            case .changeEffectsFunctionButtonTextColor:
+                
+                changeFunctionButtonTextColor()
+                
+            case .changeEffectsSelectedTabButtonColor:
+                
+                changeSelectedTabButtonColor()
+                
+            case .changeEffectsTabButtonTextColor:
+                
+                changeTabButtonTextColor()
+                
+            case .changeEffectsSelectedTabButtonTextColor:
+                
+                changeSelectedTabButtonTextColor()
+                
+            default: return
+                
+            }
+            
+            return
         }
     }
 }
