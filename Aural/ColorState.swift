@@ -6,7 +6,7 @@ class ColorState {
     var colorSpace: Int = 1
     var alpha: CGFloat = 1
     
-    static func fromNSColor(_ color: NSColor) -> ColorState {
+    static func fromColor(_ color: NSColor) -> ColorState {
         
         switch color.colorSpace.colorSpaceModel {
             
@@ -24,7 +24,7 @@ class ColorState {
             
         default:
             
-            return ColorState.fromNSColor(NSColor.black)
+            return ColorState.fromColor(NSColor.black)
         }
     }
     
@@ -51,6 +51,23 @@ class GrayscaleColorState: ColorState {
     override func toColor() -> NSColor {
         return NSColor(calibratedWhite: white, alpha: alpha)
     }
+    
+//    static func deserialize(_ map: NSDictionary) -> PersistentState {
+//
+//        let state = GrayscaleColorState(1, 1)
+//
+//        if let colorSpace = map["colorSpace"] as? Int {
+//
+//            switch colorSpace {
+//
+//            case NSColorSpace.Model.gray.rawValue:
+//
+//                if
+//            }
+//        }
+//
+//        return state
+//    }
 }
 
 class RGBColorState: ColorState {

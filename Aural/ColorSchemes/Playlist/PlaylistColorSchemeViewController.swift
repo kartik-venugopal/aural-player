@@ -26,6 +26,41 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
     
+    var colorSchemeView: NSView {
+        return self.view
+    }
+    
+    func resetFields(_ scheme: ColorScheme) {
+        
+        trackNameTextColorPicker.color = scheme.playlist.trackNameTextColor
+        groupNameTextColorPicker.color = scheme.playlist.groupNameTextColor
+        indexDurationTextColorPicker.color = scheme.playlist.indexDurationTextColor
+        
+        trackNameSelectedTextColorPicker.color = scheme.playlist.trackNameSelectedTextColor
+        groupNameSelectedTextColorPicker.color = scheme.playlist.groupNameSelectedTextColor
+        indexDurationSelectedTextColorPicker.color = scheme.playlist.indexDurationSelectedTextColor
+        
+        summaryInfoColorPicker.color = scheme.playlist.summaryInfoColor
+        tabButtonTextColorPicker.color = scheme.playlist.tabButtonTextColor
+        selectedTabButtonTextColorPicker.color = scheme.playlist.selectedTabButtonTextColor
+        
+        groupIconColorPicker.color = scheme.playlist.groupIconColor
+        groupDisclosureTriangleColorPicker.color = scheme.playlist.groupDisclosureTriangleColor
+        
+        selectionBoxColorPicker.color = scheme.playlist.selectionBoxColor
+        playingTrackIconColorPicker.color = scheme.playlist.playingTrackIconColor
+        
+        selectedTabButtonColorPicker.color = scheme.playlist.selectedTabButtonColor
+        
+        scrollToTop()
+    }
+    
+    private func scrollToTop() {
+        
+        let contentView: NSClipView = scrollView.contentView
+        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
+    }
+    
     @IBAction func trackNameTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
@@ -108,19 +143,5 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         
         ColorSchemes.systemScheme.playlist.selectedTabButtonColor = selectedTabButtonColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectedTabButtonColor, selectedTabButtonColorPicker.color))
-    }
-    
-    var colorSchemeView: NSView {
-        return self.view
-    }
-    
-    func resetFields(_ scheme: ColorScheme) {
-        scrollToTop()
-    }
-    
-    private func scrollToTop() {
-        
-        let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
     }
 }

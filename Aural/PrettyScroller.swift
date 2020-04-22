@@ -1,6 +1,6 @@
 import Cocoa
 
-class InfoScroller: NSScroller {
+class PrettyScroller: NSScroller {
     
     let barRadius: CGFloat = 0.75
     let barInsetX: CGFloat = 7

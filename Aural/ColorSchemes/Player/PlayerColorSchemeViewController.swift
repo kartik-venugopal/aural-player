@@ -71,6 +71,17 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     
     func resetFields(_ scheme: ColorScheme) {
         
+        trackInfoPrimaryTextColorPicker.color = scheme.player.trackInfoPrimaryTextColor
+        trackInfoSecondaryTextColorPicker.color = scheme.player.trackInfoSecondaryTextColor
+        trackInfoTertiaryTextColorPicker.color = scheme.player.trackInfoTertiaryTextColor
+        
+        controlTextColorPicker.color = scheme.player.controlTextColor
+        
+        sliderBackgroundColorPicker.color = scheme.player.sliderBackgroundColor
+        sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
+        sliderKnobColorPicker.color = scheme.player.sliderKnobColor
+        sliderLoopSegmentColorPicker.color = scheme.player.sliderLoopSegmentColor
+        
         scrollToTop()
     }
     

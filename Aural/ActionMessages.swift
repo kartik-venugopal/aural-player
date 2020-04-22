@@ -365,6 +365,22 @@ enum ActionType {
     case changePlaylistSelectionBoxColor
     case changePlaylistPlayingTrackIconColor
     case changePlaylistSelectedTabButtonColor
+    
+    case changeEffectsMainCaptionTextColor
+    case changeEffectsFunctionCaptionTextColor
+    
+    case changeEffectsSliderBackgroundColor
+    
+    case changeEffectsActiveUnitStateColor
+    case changeEffectsBypassedUnitStateColor
+    case changeEffectsSuppressedUnitStateColor
+    
+    case changeEffectsTabButtonTextColor
+    case changeEffectsSelectedTabButtonTextColor
+    case changeEffectsSelectedTabButtonColor
+    
+    case changeEffectsFunctionButtonColor
+    case changeEffectsFunctionButtonTextColor
 }
 
 enum ActionMode {

@@ -41,5 +41,9 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     
     func resetFields(_ scheme: ColorScheme) {
         
+        backgroundColorPicker.color = scheme.general.backgroundColor
+        controlButtonColorPicker.color = scheme.general.controlButtonColor
+        controlButtonOffStateColorPicker.color = scheme.general.controlButtonOffStateColor
+        logoTextColorPicker.color = scheme.general.logoTextColor
     }
 }
