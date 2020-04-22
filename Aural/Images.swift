@@ -40,6 +40,9 @@ struct Images {
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
     
+    // Displayed in the History menu
+    static let imgGroup_menu: NSImage = NSImage(named: "Group-Menu")!
+    
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!

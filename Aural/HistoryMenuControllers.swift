@@ -54,7 +54,7 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
         
         // Display name is last path component
         // Art is folder icon
-        return Images.imgGroup
+        return Images.imgGroup_menu
         
     } else {
         
