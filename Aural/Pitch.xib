@@ -59,8 +59,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="68"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sp3-E0-dI5" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="20" y="41" width="50" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sp3-E0-dI5" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="39" width="60" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Pitch" id="uyr-JB-5Xg">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -68,8 +68,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bTO-XK-qFj" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="394" y="41" width="49" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bTO-XK-qFj" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="384" y="39" width="60" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="jtW-7A-gon">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -78,15 +78,15 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h3Q-co-Bu9" userLabel="Pitch Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="93" y="36" width="285" height="18"/>
+                                <rect key="frame" x="93" y="36" width="275" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="ZaO-6N-wlF" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="pitchAction:" target="-2" id="jMl-8u-3Y0"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Ig-yre" userLabel="-2 Octaves" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="71" y="41" width="20" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Ig-yre" userLabel="-2 Octaves" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="71" y="39" width="20" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-2" id="pfB-2k-kbp">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -94,8 +94,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-DT-0zj" userLabel="2 Octaves" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="380" y="41" width="20" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-DT-0zj" userLabel="2 Octaves" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="370" y="39" width="26" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="PKf-2X-kio">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -103,8 +103,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-f8-7gI" userLabel="Overlap" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="5" y="12" width="65" height="21"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-f8-7gI" userLabel="Overlap" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="10" width="70" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Overlap" id="wL1-ig-YG3">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -113,15 +113,15 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNQ-VI-tw3" userLabel="Overlap Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="93" y="7" width="285" height="18"/>
+                                <rect key="frame" x="93" y="7" width="275" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="Weo-cp-Pui" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="pitchOverlapAction:" target="-2" id="Gam-5M-jcI"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FRt-3z-CVx" userLabel="3 Overlap values" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="71" y="12" width="20" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FRt-3z-CVx" userLabel="3 Overlap values" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="71" y="10" width="20" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="3" id="J86-71-nPw">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -129,8 +129,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dY7-MC-kOz" userLabel="Lbl Overlap Value" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="406" y="12" width="37" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dY7-MC-kOz" userLabel="Lbl Overlap Value" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="396" y="10" width="48" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="s42-Fh-E3j">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -138,8 +138,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5g2-iV-qGY" userLabel="32 Overlap values" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="380" y="12" width="20" height="18"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5g2-iV-qGY" userLabel="32 Overlap values" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="370" y="10" width="26" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="32" id="k2q-4s-u7O">
                                     <font key="font" size="11" name="Play-Regular"/>
