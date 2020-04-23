@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,13 +55,13 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="keT-Ct-Jbc" userLabel="Cover Art tab button">
                     <rect key="frame" x="226" y="305" width="76" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Cover Art" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="wgR-ap-naD" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Cover  Art" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="wgR-ap-naD" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="XXJ-o0-tSk" userLabel="Audio tab button">
-                    <rect key="frame" x="306" y="305" width="56" height="30"/>
+                    <rect key="frame" x="311" y="305" width="52" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Audio" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gPU-C5-RCR" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -68,15 +69,15 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="s28-h4-rsc" userLabel="File system tab button">
-                    <rect key="frame" x="369" y="305" width="84" height="30"/>
+                    <rect key="frame" x="366" y="305" width="90" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="File System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="File  System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <popUpButton toolTip="Export metadata / cover art" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-AB-Zo5" userLabel="Export metadata">
-                    <rect key="frame" x="463" y="310" width="25" height="20"/>
+                    <rect key="frame" x="468" y="310" width="25" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" altersStateOfSelectedItem="NO" id="dKg-3e-zTt">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -164,7 +165,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="hYB-5h-Z23">
                                             <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0" userLabel="Metadata Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="525" height="260"/>
@@ -195,7 +196,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="xAi-0I-nAg">
                                                                                 <font key="font" size="13" name="Play-Regular"/>
-                                                                                <color key="textColor" white="0.85465494791666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                <color key="textColor" white="0.69837743911384975" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
@@ -315,7 +316,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="v2F-3d-t06">
                                             <rect key="frame" x="0.0" y="0.0" width="245" height="200"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="Gmd-J7-D9V" userLabel="Cover Art Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="256" height="200"/>
@@ -346,7 +347,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="jkX-Ma-4Hb">
                                                                                 <font key="font" size="13" name="Play-Regular"/>
-                                                                                <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                <color key="textColor" white="0.69837743911384975" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
@@ -438,7 +439,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3WW-YR-rKc">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="ihr-iH-Cyj" userLabel="Audio Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
@@ -469,7 +470,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="mIe-jk-qFa">
                                                                                 <font key="font" size="13" name="Play-Regular"/>
-                                                                                <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                <color key="textColor" white="0.69837743911384975" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
@@ -547,7 +548,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cpf-ey-pul">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="GrA-Ht-F0j" userLabel="File system Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="510" height="260"/>
@@ -578,7 +579,7 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="vbc-cl-bLh">
                                                                                 <font key="font" size="13" name="Play-Regular"/>
-                                                                                <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                <color key="textColor" white="0.69837743911384975" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>

@@ -157,9 +157,9 @@ struct Fonts {
             }
         }
         
-        private static let feedbackFont_normal: NSFont = Constants.gillSans10SemiBoldFont
-        private static let feedbackFont_larger: NSFont = Constants.gillSans11SemiBoldFont
-        private static let feedbackFont_largest: NSFont = Constants.gillSans12SemiBoldFont
+        private static let feedbackFont_normal: NSFont = Constants.gillSans9SemiBoldFont
+        private static let feedbackFont_larger: NSFont = Constants.gillSans10SemiBoldFont
+        private static let feedbackFont_largest: NSFont = Constants.gillSans11SemiBoldFont
         
         static var feedbackFont: NSFont {
             
@@ -275,9 +275,9 @@ struct Fonts {
             }
         }
         
-        private static let tabsFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!
-        private static let tabsFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 15)!
-        private static let tabsFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
+        static let tabsFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!
+        static let tabsFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 15)!
+        static let tabsFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
         
         static var tabsFont: NSFont {
             
@@ -292,9 +292,9 @@ struct Fonts {
             }
         }
         
-        private static let selectedTabFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 14)!
-        private static let selectedTabFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 15)!
-        private static let selectedTabFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 16)!
+        static let selectedTabFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 14)!
+        static let selectedTabFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 15)!
+        static let selectedTabFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Medium", size: 16)!
         
         static var selectedTabFont: NSFont {
             

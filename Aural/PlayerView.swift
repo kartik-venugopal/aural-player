@@ -40,7 +40,7 @@ class PlayerView: NSView {
         
         // Vertically center functions box w.r.t. info box
         let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width, y: funcY))
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: funcY))
     }
     
     func hideView() {
@@ -406,8 +406,8 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     override func changeBackgroundColor(_ color: NSColor) {
-        // Do nothing !
         
+        // Fill the box with the same color, but make it transparent to reveal album art.
         centerOverlayBox.fillColor = color.clonedWithTransparency(0.7)
     }
 }

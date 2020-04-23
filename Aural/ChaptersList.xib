@@ -238,7 +238,7 @@
                     </box>
                     <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
                         <rect key="frame" x="15" y="40" width="540" height="260"/>
-                        <clipView key="contentView" copiesOnScroll="NO" id="Ehf-3j-NsA">
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
                             <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -434,7 +434,7 @@
                             <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="bNx-Pe-jTD">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="bNx-Pe-jTD" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -480,7 +480,7 @@
         </viewController>
     </objects>
     <resources>
-        <image name="Close" width="16" height="16"/>
+        <image name="Close" width="18" height="18"/>
         <image name="LoopChapter-Off" width="20" height="20"/>
         <image name="NextTrack" width="31" height="35"/>
         <image name="PreviousTrack" width="31" height="35"/>
