@@ -28,7 +28,7 @@
                         <rect key="frame" x="274" y="567" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preferences" id="3Ne-kP-eN0">
-                            <font key="font" size="13" name="GillSans-SemiBold"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="qEi-qz-Vo2" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="yYf-cg-2Vs" userLabel="Playback tab button">
@@ -46,7 +46,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playback" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Xrz-Gd-6J9" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="l0q-I3-BN2" userLabel="Sound tab button">
@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Sound" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="X7j-MR-Tzg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="1P8-qO-PAI" userLabel="View tab button">
@@ -62,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="View" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="VLG-MA-szg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-rG-06r" userLabel="History tab button">
@@ -70,7 +70,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="History" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="doM-yi-aDb" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="NIW-GO-LI8" userLabel="Controls tab button">
@@ -78,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Controls" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="3KF-l1-pco" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
                     </button>
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="E58-7v-r1V" userLabel="Prefs Box">

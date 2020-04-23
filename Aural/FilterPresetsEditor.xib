@@ -100,7 +100,7 @@
                                 <rect key="frame" x="135" y="249" width="170" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preview" id="CKm-4N-tFM">
-                                    <font key="font" size="12" name="GillSans-SemiBold"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70179578990000002" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -228,7 +228,7 @@
                                             <rect key="frame" x="222" y="148" width="68" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Filter type" id="Wgg-RA-x3x">
-                                                <font key="font" size="12" name="GillSans"/>
+                                                <font key="font" size="12" name="Play-Regular"/>
                                                 <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -237,7 +237,7 @@
                                             <rect key="frame" x="96" y="148" width="92" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Band / Cutoff" id="dqA-wv-U8S">
-                                                <font key="font" size="12" name="GillSans"/>
+                                                <font key="font" size="12" name="Play-Regular"/>
                                                 <color key="textColor" white="0.7044660841" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>

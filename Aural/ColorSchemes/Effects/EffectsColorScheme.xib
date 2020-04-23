@@ -52,7 +52,7 @@
                                         <rect key="frame" x="20" y="108" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Suppressed (mixed) state controls" id="Jb8-rt-XLH" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -69,7 +69,7 @@
                                         <rect key="frame" x="20" y="408" width="221" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Function caption text" id="z8C-Pl-Wsi" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -78,7 +78,7 @@
                                         <rect key="frame" x="20" y="303" width="174" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Selected tab button text" id="0xw-7d-YnN" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -95,7 +95,7 @@
                                         <rect key="frame" x="20" y="373" width="234" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Function button / menu text" id="8sh-Me-mXF" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -112,7 +112,7 @@
                                         <rect key="frame" x="20" y="443" width="164" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Main caption text" id="Sbh-IC-SgL" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -153,7 +153,7 @@
                                         <rect key="frame" x="20" y="143" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Bypassed (i.e. inactive) state controls" id="DYY-Ng-1dY" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -162,7 +162,7 @@
                                         <rect key="frame" x="20" y="38" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Selected tab button" id="ifw-gv-q7A" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -187,7 +187,7 @@
                                         <rect key="frame" x="20" y="73" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Function button / menu" id="CFB-wP-Upu" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -196,7 +196,7 @@
                                         <rect key="frame" x="20" y="338" width="280" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Tab button text" id="Pgu-9i-ohJ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -205,7 +205,7 @@
                                         <rect key="frame" x="20" y="178" width="221" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Active state controls" id="8KG-bR-oDO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -222,7 +222,7 @@
                                         <rect key="frame" x="20" y="213" width="221" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Slider background" id="0fZ-mg-zvu" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -231,7 +231,7 @@
                                         <rect key="frame" x="20" y="483" width="97" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Text" id="W28-ee-P3a" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="17" name="GillSans-SemiBold"/>
+                                            <font key="font" size="17" name="Play-Regular"/>
                                             <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
@@ -240,7 +240,7 @@
                                         <rect key="frame" x="20" y="253" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Controls / Graphics" id="ByX-kB-o1O" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                            <font key="font" size="17" name="GillSans-SemiBold"/>
+                                            <font key="font" size="17" name="Play-Regular"/>
                                             <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>

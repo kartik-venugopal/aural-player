@@ -28,7 +28,7 @@
                     <rect key="frame" x="18" y="437" width="207" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window layout on startup" id="5uG-hC-9lX">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -37,7 +37,7 @@
                     <rect key="frame" x="18" y="352" width="132" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window snapping" id="bBS-el-1Ja">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -46,7 +46,7 @@
                     <rect key="frame" x="58" y="313" width="186" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gap between windows when snapped:" id="vBe-K4-yLt">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -59,7 +59,7 @@
                             <real key="minimum" value="1"/>
                             <real key="maximum" value="25"/>
                         </numberFormatter>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -99,7 +99,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Vertical full stack" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Lj0-KC-S5W" id="yjs-vf-m0v" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
+                        <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="GnZ-Qv-mhw">
                             <items>
                                 <menuItem isSeparatorItem="YES" id="S01-E3-jEi"/>
@@ -136,7 +136,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="snapToWindowsAction:" target="-2" id="7Cp-Kl-iCT"/>
@@ -147,7 +147,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
             </subviews>

@@ -32,7 +32,7 @@
                         <rect key="frame" x="3" y="193" width="471" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Transcoding ..." id="bJ8-vE-KH7">
-                            <font key="font" size="15" name="GillSans"/>
+                            <font key="font" size="15" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -41,7 +41,7 @@
                         <rect key="frame" x="3" y="170" width="471" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="into a supported format ..." id="hpF-yy-QB8">
-                            <font key="font" size="15" name="GillSans"/>
+                            <font key="font" size="15" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -59,7 +59,7 @@
                         <rect key="frame" x="75" y="74" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Track time transcoded:" id="Uvr-AA-cY5">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -68,7 +68,7 @@
                         <rect key="frame" x="75" y="53" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Percemtage completed:" id="h67-JV-9H7">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -77,7 +77,7 @@
                         <rect key="frame" x="75" y="32" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:" id="eYJ-nb-OtP">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -86,7 +86,7 @@
                         <rect key="frame" x="75" y="13" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:" id="HJM-2k-pCc">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -95,7 +95,7 @@
                         <rect key="frame" x="220" y="74" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="1wz-6D-Bx3">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -104,7 +104,7 @@
                         <rect key="frame" x="220" y="53" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="iMu-6R-PLt">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -113,7 +113,7 @@
                         <rect key="frame" x="220" y="32" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="XVL-DI-06l">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -122,7 +122,7 @@
                         <rect key="frame" x="220" y="13" width="136" height="20"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" id="YNY-Yh-CSH">
-                            <font key="font" size="14" name="GillSans"/>
+                            <font key="font" size="14" name="Play-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

@@ -40,7 +40,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Metadata" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="KVw-8U-lQv" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-XH-2Fx" userLabel="Lyrics tab button">
@@ -48,7 +48,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Lyrics" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="YBd-7n-SFv" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="keT-Ct-Jbc" userLabel="Cover Art tab button">
@@ -56,7 +56,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Cover Art" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="wgR-ap-naD" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="XXJ-o0-tSk" userLabel="Audio tab button">
@@ -64,7 +64,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Audio" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gPU-C5-RCR" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="s28-h4-rsc" userLabel="File system tab button">
@@ -72,7 +72,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="File System" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="EX8-bb-bYO" customClass="TrackInfoPopoverTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <popUpButton toolTip="Export metadata / cover art" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-AB-Zo5" userLabel="Export metadata">
@@ -80,7 +80,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" altersStateOfSelectedItem="NO" id="dKg-3e-zTt">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <menu key="menu" showsStateColumn="NO" id="TUq-Vr-VGD">
                             <items>
                                 <menuItem image="ExportMetadata" hidden="YES" id="Hr1-YM-8Ac" userLabel="Icon">
@@ -194,7 +194,7 @@
                                                                             <rect key="frame" x="-2" y="-799" width="135" height="1000"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="xAi-0I-nAg">
-                                                                                <font key="font" size="13" name="GillSans"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494791666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -227,7 +227,7 @@
                                                                             <rect key="frame" x="0.0" y="-800" width="365" height="1000"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="vn1-yN-fwV">
-                                                                                <font key="font" size="13" name="GillSans-Light"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494791666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -345,7 +345,7 @@
                                                                             <rect key="frame" x="-2" y="1" width="85" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="jkX-Ma-4Hb">
-                                                                                <font key="font" size="13" name="GillSans"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -378,7 +378,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="165" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="9fr-mh-swH">
-                                                                                <font key="font" size="13" name="GillSans-Light"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -417,7 +417,7 @@
                                         <rect key="frame" x="135" y="239" width="250" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="&lt; No cover art available for this track &gt;" id="A6B-Q7-t0B">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.69598680902534804" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -468,7 +468,7 @@
                                                                             <rect key="frame" x="-2" y="1" width="150" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="mIe-jk-qFa">
-                                                                                <font key="font" size="13" name="GillSans"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -501,7 +501,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="tLs-Ma-cNs">
-                                                                                <font key="font" size="13" name="GillSans-Light"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -577,7 +577,7 @@
                                                                             <rect key="frame" x="-2" y="1" width="150" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="vbc-cl-bLh">
-                                                                                <font key="font" size="13" name="GillSans"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -610,7 +610,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="9vq-kO-xxI">
-                                                                                <font key="font" size="13" name="GillSans-Light"/>
+                                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -681,7 +681,7 @@
             <rect key="frame" x="0.0" y="0.0" width="135" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="YQG-Fa-9nG">
-                <font key="font" size="13" name="GillSans"/>
+                <font key="font" size="13" name="Play-Regular"/>
                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             </textFieldCell>
@@ -691,7 +691,7 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="PM9-we-s9f">
-                <font key="font" size="13" name="GillSans-Light"/>
+                <font key="font" size="13" name="Play-Regular"/>
                 <color key="textColor" white="0.85465494789999996" alpha="1" colorSpace="calibratedWhite"/>
                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             </textFieldCell>

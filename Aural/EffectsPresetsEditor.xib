@@ -32,7 +32,7 @@
                     <rect key="frame" x="265" y="357" width="170" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Effects Presets" id="XBI-YO-H1l">
-                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -42,7 +42,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="zEX-wL-F58" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="WtI-zp-uIU"/>
@@ -53,7 +53,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Master" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="Kuo-f4-X4W" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="ymT-6D-WZw"/>
@@ -64,7 +64,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="ERV-yz-hcS" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="a94-Em-CUI"/>
@@ -75,7 +75,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="e9g-1s-Dkx" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="OwW-Kf-PfC"/>
@@ -86,7 +86,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="54s-g4-4XL" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="XKr-TV-csd"/>
@@ -97,7 +97,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="fXo-um-gIT" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="p8d-mf-64Z"/>
@@ -108,7 +108,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="5m8-v3-KrO" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="tabViewAction:" target="-2" id="xSg-oz-PvX"/>

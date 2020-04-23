@@ -23,7 +23,7 @@
                     <rect key="frame" x="18" y="437" width="181" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recently added items list" id="vqH-Kv-VT8">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -33,7 +33,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="4mD-At-dvM" id="sLQ-o8-592" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
+                        <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="ZEY-rM-KMg">
                             <items>
                                 <menuItem title="Remember last 10 items" tag="10" id="br7-TG-hEw"/>
@@ -47,7 +47,7 @@
                     <rect key="frame" x="18" y="401" width="188" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recently played items list" id="Qol-VI-smE">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -57,7 +57,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="j8n-BZ-j2v" id="hK9-7m-63c" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
+                        <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="XnZ-Fn-Un5">
                             <items>
                                 <menuItem title="Remember last 10 items" tag="10" id="v9a-1f-5dd"/>

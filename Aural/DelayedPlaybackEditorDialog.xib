@@ -34,7 +34,7 @@
                         <rect key="frame" x="157" y="343" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Delayed Playback" id="fWC-Nc-XBn">
-                            <font key="font" size="12" name="GillSans-SemiBold"/>
+                            <font key="font" size="12" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -56,7 +56,7 @@
                                 <real key="minimum" value="3"/>
                                 <real key="maximum" value="300"/>
                             </numberFormatter>
-                            <font key="font" size="11" name="GillSans"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -65,7 +65,7 @@
                         <rect key="frame" x="136" y="265" width="112" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="3XK-hQ-tLb">
-                            <font key="font" size="11" name="GillSans"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                 <!--1982-02-12 16:00:00 +0000-->
                             </date>
@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="At time" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oRS-Zd-ybU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="11" name="GillSans"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                         </buttonCell>
                         <connections>
                             <action selector="radioButtonAction:" target="-2" id="iKr-MT-ev1"/>
@@ -101,7 +101,7 @@
                                 <real key="minimum" value="3"/>
                                 <real key="maximum" value="300"/>
                             </numberFormatter>
-                            <font key="font" size="11" name="GillSans"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -116,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="After delay" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tnh-sh-xiB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="11" name="GillSans"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                         </buttonCell>
                         <connections>
                             <action selector="radioButtonAction:" target="-2" id="UuD-Rv-oXJ"/>
@@ -126,7 +126,7 @@
                         <rect key="frame" x="24" y="303" width="224" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play track (up to 24 hours from now)" id="s1A-Pa-we9">
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -135,7 +135,7 @@
                         <rect key="frame" x="136" y="65" width="277" height="148"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <datePickerCell key="cell" controlSize="mini" continuous="YES" enabled="NO" borderStyle="bezel" alignment="left" datePickerStyle="clockAndCalendar" id="BU3-sQ-ft0">
-                            <font key="font" size="10" name="GillSans"/>
+                            <font key="font" size="10" name="Play-Regular"/>
                             <date key="date" timeIntervalSinceReferenceDate="-31536000">
                                 <!--2000-01-02 00:00:00 +0000-->
                             </date>

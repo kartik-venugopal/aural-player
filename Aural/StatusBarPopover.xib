@@ -45,7 +45,7 @@
                                             <rect key="frame" x="30" y="30" width="440" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="acL-hZ-S6R">
-                                                <font key="font" size="14" name="GillSans-SemiBold"/>
+                                                <font key="font" size="14" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </textFieldCell>
@@ -54,7 +54,7 @@
                                             <rect key="frame" x="175" y="7" width="150" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="wVy-eo-wGk">
-                                                <font key="font" size="16" name="GillSans-SemiBold"/>
+                                                <font key="font" size="16" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </textFieldCell>
@@ -79,7 +79,7 @@
                                             <rect key="frame" x="30" y="44" width="440" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="p0G-oB-YlG">
-                                                <font key="font" size="14" name="GillSans-SemiBold"/>
+                                                <font key="font" size="14" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </textFieldCell>
@@ -88,7 +88,7 @@
                                             <rect key="frame" x="30" y="25" width="440" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="BpH-jj-APC">
-                                                <font key="font" size="12" name="GillSans"/>
+                                                <font key="font" size="12" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </textFieldCell>
@@ -97,7 +97,7 @@
                                             <rect key="frame" x="30" y="27" width="440" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="wKI-37-CsU">
-                                                <font key="font" size="14" name="GillSans-SemiBold"/>
+                                                <font key="font" size="14" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </textFieldCell>
@@ -111,7 +111,7 @@
                                             <rect key="frame" x="54" y="5" width="405" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="aOJ-gg-fvo">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </textFieldCell>
@@ -183,7 +183,7 @@
                                 <rect key="frame" x="30" y="30" width="440" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="koc-hW-bni">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -192,7 +192,7 @@
                                 <rect key="frame" x="175" y="7" width="150" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="n9m-fs-uzC">
-                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <font key="font" size="16" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
@@ -217,7 +217,7 @@
                                 <rect key="frame" x="30" y="44" width="440" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="337-rN-nNa">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -226,7 +226,7 @@
                                 <rect key="frame" x="30" y="25" width="440" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="ymU-sj-IzC">
-                                    <font key="font" size="12" name="GillSans"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -235,7 +235,7 @@
                                 <rect key="frame" x="30" y="27" width="440" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="eDS-0C-gSw">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -249,7 +249,7 @@
                                 <rect key="frame" x="54" y="5" width="405" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="4kL-QW-MdC">
-                                    <font key="font" size="10" name="GillSans"/>
+                                    <font key="font" size="10" name="Play-Regular"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>

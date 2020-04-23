@@ -31,7 +31,7 @@
                     <rect key="frame" x="42" y="19" width="26" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="aOt-1X-p0y">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -40,7 +40,7 @@
                     <rect key="frame" x="303" y="19" width="30" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="pXr-Kg-r44">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -49,7 +49,7 @@
                     <rect key="frame" x="67" y="5" width="236" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="vtr-FG-se2">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -67,7 +67,7 @@
                     <rect key="frame" x="7" y="44" width="33" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Type" id="Wey-bl-g9f">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -77,7 +77,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="yGu-Z6-y1b" id="52N-1P-0VZ" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
+                        <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="5mF-f6-fqz">
                             <items>
                                 <menuItem title="Placeholder" hidden="YES" enabled="NO" id="yGu-Z6-y1b" userLabel="Placeholder">
@@ -106,7 +106,7 @@
                     <rect key="frame" x="7" y="19" width="50" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff" id="Qpp-3K-VQo">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -115,7 +115,7 @@
                     <rect key="frame" x="7" y="19" width="50" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Band" id="WUh-Ge-BCr">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.40325879974647882" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -145,7 +145,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" title="Audible range min (20Hz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="SR9-hB-IXE" id="rz8-x3-uty" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" id="5f8-cu-yAk">
                             <items>
                                 <menuItem title="Audible range min (20Hz)" tag="20" id="SR9-hB-IXE" userLabel="Audible range min (20Hz)">
@@ -184,7 +184,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" title="Audible range (20Hz - 20KHz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="s4I-F0-GNs" id="EaR-3r-wR6" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" id="ltz-vM-lfc">
                             <items>
                                 <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="s4I-F0-GNs" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
@@ -323,7 +323,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="square" title="#1" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="qio-Ac-Q3s" customClass="FilterBandsTabButtonCell" customModule="Aural" customModuleProvider="target">
                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                <font key="font" size="11" name="GillSans"/>
+                <font key="font" size="11" name="Play-Regular"/>
             </buttonCell>
             <point key="canvasLocation" x="11" y="-507"/>
         </button>

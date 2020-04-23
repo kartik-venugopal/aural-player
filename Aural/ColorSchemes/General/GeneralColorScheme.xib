@@ -25,7 +25,7 @@
                     <rect key="frame" x="20" y="136" width="214" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control buttons (in the &quot;Off&quot; state)" id="L1p-hs-cRL" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
@@ -66,7 +66,7 @@
                     <rect key="frame" x="20" y="171" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Control buttons" id="jBu-2H-0dz" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
@@ -75,7 +75,7 @@
                     <rect key="frame" x="20" y="101" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="App logo text" id="Xxj-Fo-Lgx" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
@@ -84,7 +84,7 @@
                     <rect key="frame" x="20" y="206" width="122" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Window background" id="kwa-2Z-SIm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>

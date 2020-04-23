@@ -98,7 +98,7 @@
                                 <rect key="frame" x="135" y="249" width="170" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preview" id="1KE-uY-KCT">
-                                    <font key="font" size="12" name="GillSans-SemiBold"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70179578990000002" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -114,7 +114,7 @@
                                             <rect key="frame" x="6" y="74" width="38" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Time" id="M2m-Ym-qoO">
-                                                <font key="font" size="11" name="GillSans"/>
+                                                <font key="font" size="11" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -128,7 +128,7 @@
                                             <rect key="frame" x="50" y="76" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="wF4-aw-5Gs">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -137,7 +137,7 @@
                                             <rect key="frame" x="279" y="76" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="zZZ-TT-ANy">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -146,7 +146,7 @@
                                             <rect key="frame" x="303" y="76" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="RCV-lH-h8t">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -155,7 +155,7 @@
                                             <rect key="frame" x="303" y="54" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="Aph-jQ-NFK">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -169,7 +169,7 @@
                                             <rect key="frame" x="6" y="52" width="64" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="1nh-GP-hvi">
-                                                <font key="font" size="11" name="GillSans"/>
+                                                <font key="font" size="11" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -178,7 +178,7 @@
                                             <rect key="frame" x="50" y="54" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="zNJ-05-Csx">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -187,7 +187,7 @@
                                             <rect key="frame" x="279" y="54" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="100" id="XG7-se-PVf">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -201,7 +201,7 @@
                                             <rect key="frame" x="6" y="30" width="66" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Feedback" id="GVx-he-07M">
-                                                <font key="font" size="11" name="GillSans"/>
+                                                <font key="font" size="11" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -210,7 +210,7 @@
                                             <rect key="frame" x="303" y="32" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="61V-rz-X88">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -219,7 +219,7 @@
                                             <rect key="frame" x="50" y="32" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-100" id="1Gh-Q5-4Ai">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -228,7 +228,7 @@
                                             <rect key="frame" x="279" y="32" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+100" id="u9l-iX-AM7">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -237,7 +237,7 @@
                                             <rect key="frame" x="303" y="10" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="cdE-TN-CWK">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -251,7 +251,7 @@
                                             <rect key="frame" x="6" y="8" width="56" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Low Pass" id="FWg-yJ-fJr">
-                                                <font key="font" size="11" name="GillSans"/>
+                                                <font key="font" size="11" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -260,7 +260,7 @@
                                             <rect key="frame" x="50" y="10" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="10" id="aP7-Br-L04">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -269,7 +269,7 @@
                                             <rect key="frame" x="279" y="10" width="30" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="8oV-ZM-POG">
-                                                <font key="font" size="10" name="GillSans"/>
+                                                <font key="font" size="10" name="Play-Regular"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>

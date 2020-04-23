@@ -84,7 +84,7 @@
                                                             <constraint firstAttribute="height" constant="25" id="jCk-a9-VuK"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                            <font key="font" size="13" name="GillSans-Light"/>
+                                                            <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </textFieldCell>
@@ -146,7 +146,7 @@
                                                             <constraint firstAttribute="height" constant="25" id="pbd-gC-tLi"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                            <font key="font" size="13" name="GillSans-Light"/>
+                                                            <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </textFieldCell>
