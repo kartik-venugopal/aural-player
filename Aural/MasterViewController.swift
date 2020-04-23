@@ -135,6 +135,17 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
+    override func changeTextSize() {
+        
+        lblCaption.font = Fonts.Effects.unitCaptionFont
+        
+        functionLabels.forEach({
+            $0.font = $0 is EffectsUnitTriStateLabel ? Fonts.Effects.masterUnitFunctionFont : Fonts.Effects.unitFunctionFont
+        })
+        
+        presetsMenu.font = Fonts.Effects.menuFont
+    }
+    
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
         
         functionLabels.forEach({
