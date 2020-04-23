@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-hm-k1j" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="180" y="107" width="70" height="22"/>
+                    <rect key="frame" x="170" y="105" width="86" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Equalizer" id="Yv4-sC-ZVG" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
@@ -56,7 +56,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yne-n1-YwI" userLabel="EQ bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="142" y="110" width="12" height="12"/>
+                    <rect key="frame" x="132" y="110" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zi2-RJ-QRY">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -67,7 +67,7 @@
                     </connections>
                 </button>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXr-qe-ajq" userLabel="Pitch img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="163" y="78" width="14" height="14"/>
+                    <rect key="frame" x="153" y="78" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PitchTab" id="ps2-S9-Dcj"/>
                     <userDefinedRuntimeAttributes>
@@ -77,7 +77,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2T-q1-Usa" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="294" y="110" width="12" height="12"/>
+                    <rect key="frame" x="304" y="110" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ReverbTab" id="4HF-va-rAd"/>
                     <userDefinedRuntimeAttributes>
@@ -87,7 +87,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeG-t8-71U" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="294" y="79" width="12" height="12"/>
+                    <rect key="frame" x="304" y="79" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DelayTab" id="aLJ-ZK-Uoo"/>
                     <userDefinedRuntimeAttributes>
@@ -97,7 +97,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lri-sX-mya" userLabel="Filter Img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="294" y="48" width="12" height="12"/>
+                    <rect key="frame" x="304" y="48" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FilterTab" id="U0g-g7-chv"/>
                     <userDefinedRuntimeAttributes>
@@ -107,7 +107,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-eA-HEK" userLabel="Time img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="164" y="48" width="12" height="12"/>
+                    <rect key="frame" x="154" y="48" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TimeTab" id="Hxw-gI-JC2"/>
                     <userDefinedRuntimeAttributes>
@@ -117,7 +117,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44n-oY-8vs" userLabel="Pitch bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="142" y="79" width="12" height="12"/>
+                    <rect key="frame" x="132" y="79" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sOO-aL-gJT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -128,7 +128,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Wt-Nm-aFs" userLabel="Reverb bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="272" y="110" width="12" height="12"/>
+                    <rect key="frame" x="282" y="110" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bqc-Hf-awH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +139,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-4e-0d3" userLabel="Filter bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="272" y="48" width="12" height="12"/>
+                    <rect key="frame" x="282" y="48" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iZw-9X-Wye">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -150,7 +150,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Glf-iV-e0N" userLabel="Time bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="142" y="48" width="12" height="12"/>
+                    <rect key="frame" x="132" y="48" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lRZ-DN-nLd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -161,7 +161,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGg-d2-PQ6" userLabel="Delay bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="272" y="79" width="12" height="12"/>
+                    <rect key="frame" x="282" y="79" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nJe-Up-z4A">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -172,7 +172,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUP-uZ-tdz" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="402" y="2" width="68" height="20"/>
+                    <rect key="frame" x="375" y="0.0" width="95" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Presets" id="0ys-Ht-KlN">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -181,7 +181,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryf-gT-ZGe" userLabel="Master Presets Menu">
-                    <rect key="frame" x="463" y="0.0" width="34" height="18"/>
+                    <rect key="frame" x="463" y="-2" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="JAy-hY-PIg" id="yNQ-Bn-hHM" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -200,7 +200,7 @@
                     </connections>
                 </popUpButton>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-EV-PgQ" userLabel="Pitch img" customClass="EffectsUnitTriStateBypassImage" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="164" y="110" width="12" height="12"/>
+                    <rect key="frame" x="154" y="110" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EQTab" id="vPR-nV-xLX"/>
                     <userDefinedRuntimeAttributes>
@@ -210,25 +210,25 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70u-1w-kQS" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="180" y="76" width="75" height="22"/>
+                    <rect key="frame" x="170" y="74" width="90" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch shift" id="Xv7-9A-6ZW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch  Shift" id="Xv7-9A-6ZW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Qo-Qm-BwE" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="180" y="45" width="85" height="22"/>
+                    <rect key="frame" x="170" y="43" width="90" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Time stretch" id="KFS-DA-Wij" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Time  Stretch" id="KFS-DA-Wij" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.69909178706961617" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZFY-Mh-u8a" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="309" y="107" width="57" height="22"/>
+                    <rect key="frame" x="319" y="105" width="87" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Reverb" id="Xwn-UJ-w9f" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
@@ -237,7 +237,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4T-e9-QpU" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="309" y="76" width="57" height="22"/>
+                    <rect key="frame" x="319" y="74" width="96" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Delay" id="ZCO-gE-FUZ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
@@ -246,7 +246,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scO-N2-3Mf" customClass="EffectsUnitTriStateLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="309" y="45" width="57" height="22"/>
+                    <rect key="frame" x="319" y="43" width="81" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Filter" id="gqK-Ia-Ktc" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="AlegreyaSansSC-Regular"/>
@@ -255,7 +255,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8or-Oa-uMa" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="488" y="4" width="10" height="10"/>
+                    <rect key="frame" x="488" y="2" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="gKu-S7-vop">
                         <behavior key="behavior" lightByContents="YES"/>
