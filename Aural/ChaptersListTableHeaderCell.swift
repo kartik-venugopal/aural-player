@@ -2,35 +2,47 @@ import Cocoa
 
 class ChaptersListTableHeaderCell: NSTableHeaderCell {
     
+    static var painInTheAssRect: NSRect?
+    
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         print("drawInterior")
     }
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
+        let cellPath = NSBezierPath(roundedRect: cellFrame, xRadius: 0, yRadius: 0)
+        ColorSchemes.systemScheme.general.backgroundColor.setFill()
+        cellPath.fill()
+        
+        let size = StringUtils.sizeOfString(stringValue, Fonts.Playlist.groupNameFont)
+        
+        var x: CGFloat = 0
+        
+        switch stringValue {
+            
+        case "#":
+            
+            x = cellFrame.maxX - (cellFrame.width / 2) - (size.width / 2)
+            
+        case "Title":
+            
+            x = cellFrame.minX
+            
+        case "Start Time", "Duration":
+            
+            x = cellFrame.maxX - size.width - 5
+            
+        default:
+            
+            return
+        }
+        
         let attrs: [String: AnyObject] = [
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.Playlist.groupNameFont,
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.Playlist.groupNameTextColor]
-        
-        stringValue.draw(in: cellFrame.insetBy(dx: 1, dy: 1), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
-        
-        controlView.isHidden = true
-        
-//        // Bottom line
-//        let drawRect = cellFrame.insetBy(dx: 0, dy: 16).offsetBy(dx: 0, dy: 10)
-//        let roundedPath = NSBezierPath.init(rect: drawRect)
-//
-//        let lineColor = Colors.Constants.white30Percent
-//        lineColor.setFill()
-//        roundedPath.fill()
-//
-//        // Right Partition line
-//        let cw = cellFrame.width
-//        let pline = cellFrame.insetBy(dx: cw / 2 - 1.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
-//
-//        let path = NSBezierPath.init(rect: pline)
-//        lineColor.setFill()
-//        path.fill()
+    
+        let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)
+        stringValue.draw(in: rect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }
 }
 
