@@ -348,10 +348,10 @@
                                     </connections>
                                 </popUpButton>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
-                                    <rect key="frame" x="14" y="15" width="500" height="174"/>
+                                    <rect key="frame" x="9" y="15" width="510" height="174"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="174"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
