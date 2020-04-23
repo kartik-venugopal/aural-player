@@ -53,7 +53,7 @@
                                 <rect key="frame" x="10" y="53" width="60" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Space" id="7Kj-vk-4Ux">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -63,7 +63,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="ffa-2v-p2q" id="sGg-IB-Jkg" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <menu key="menu" id="P9f-IK-2F3">
                                         <items>
                                             <menuItem title="Placeholder" hidden="YES" enabled="NO" id="ffa-2v-p2q" userLabel="Placeholder">
@@ -115,7 +115,7 @@
                                 <rect key="frame" x="5" y="24" width="65" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amount" id="Gng-BU-SQq">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -124,7 +124,7 @@
                                 <rect key="frame" x="80" y="24" width="33" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="Ozv-bm-R7J">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -133,7 +133,7 @@
                                 <rect key="frame" x="380" y="24" width="34" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="R3h-TY-d4K">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -142,7 +142,7 @@
                                 <rect key="frame" x="405" y="24" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="q9d-Ce-fAC">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -161,7 +161,7 @@
                     <rect key="frame" x="387" y="2" width="68" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Presets" id="CRF-8r-BrM">
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <color key="textColor" white="0.39927881090281692" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -171,7 +171,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Rh0-mV-5kt" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" showsStateColumn="NO" id="ixE-44-sox">
                             <connections>
                                 <outlet property="delegate" destination="-2" id="J7s-yu-Gwb"/>

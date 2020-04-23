@@ -32,7 +32,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Use track name for tracks without artist / album metadata" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="KIN-48-bN1" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="GillSans"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="sortFieldsAction:" target="-2" id="FNr-nU-yY4"/>
@@ -49,7 +49,7 @@
                                 <rect key="frame" x="10" y="192" width="101" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort tracks by:" id="CPv-Wm-SfH">
-                                    <font key="font" size="11" name="GillSans-SemiBold"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -59,7 +59,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="k0M-nU-gQg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="Ote-ST-YA9"/>
@@ -70,7 +70,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2Kd-oc-wjw" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="g3v-OC-Ypi"/>
@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist,  Album, and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2bp-xt-AWt" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="8Ss-SZ-Khv"/>
@@ -92,7 +92,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist,  Album, and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="ETR-Ws-5tg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="0GA-Yl-w0m"/>
@@ -103,7 +103,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Album and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="aFX-15-9xS" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="hOX-ZM-Wui"/>
@@ -114,7 +114,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Album and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="SlU-o7-9J1" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="2og-oE-WA0"/>
@@ -125,7 +125,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2kf-HL-wrI" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortFieldsAction:" target="-2" id="BGx-em-lL3"/>
@@ -145,7 +145,7 @@
                                 <rect key="frame" x="0.0" y="56" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="fvD-FR-zOt">
-                                    <font key="font" size="11" name="GillSans-SemiBold"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -155,7 +155,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Ascending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="0XI-WM-x4r" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortOrderAction:" target="-2" id="iux-Be-7eY"/>
@@ -166,7 +166,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Descending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="IBa-Eu-CxB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="sortOrderAction:" target="-2" id="C3f-vw-Pia"/>

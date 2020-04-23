@@ -25,7 +25,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="QbN-WF-D7y" customClass="PrefsNestedTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="PGF-aI-WQB" userLabel="Transcoding btn">
@@ -33,7 +33,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Transcoding" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="S7P-r9-9LN" customClass="PrefsNestedTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name="GillSans"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
                 <tabView fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="5um-rX-aK1" userLabel="Tab view" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
@@ -60,7 +60,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Shf-Kr-rBB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="primarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="2Wc-jq-xf4"/>
@@ -71,7 +71,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="pjG-Bu-MBa" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="autoplayAfterAddingRadioButtonAction:" target="Uko-LS-fAN" id="MPu-Lg-qh9"/>
@@ -82,7 +82,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="H8W-zc-Txb" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="autoplayAfterAddingRadioButtonAction:" target="Uko-LS-fAN" id="bUF-hx-hXC"/>
@@ -92,7 +92,7 @@
                                         <rect key="frame" x="45" y="64" width="186" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Insert a silent gap between tracks" id="9i3-mL-qv9">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -105,7 +105,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="30"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -114,7 +114,7 @@
                                         <rect key="frame" x="335" y="389" width="133" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (secondary)" id="xdC-RT-Wmq">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -127,7 +127,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -142,7 +142,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="sWf-nD-zsX" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="secondarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="IYv-pj-L35"/>
@@ -153,7 +153,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="NDK-OG-F1i" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="rememberLastPositionRadioButtonAction:" target="Uko-LS-fAN" id="coA-XR-nUU"/>
@@ -175,7 +175,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="NJ9-5m-wZ9" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="secondarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="42R-Df-sEC"/>
@@ -189,7 +189,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -207,7 +207,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="30"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -216,7 +216,7 @@
                                         <rect key="frame" x="25" y="389" width="123" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (primary)" id="Hic-yM-9cp">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -226,7 +226,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4Jv-MU-3gg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="primarySeekLengthRadioButtonAction:" target="Uko-LS-fAN" id="Vxu-PI-Mur"/>
@@ -237,7 +237,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="On app startup (if at least 1 track available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="wH0-kQ-YPB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KNq-Ex-x9M" userLabel="For individual tracks">
@@ -245,7 +245,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Playback menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tzY-7H-3T8" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="rememberLastPositionRadioButtonAction:" target="Uko-LS-fAN" id="jbf-7W-F72"/>
@@ -259,7 +259,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -269,7 +269,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="After adding tracks, play first added track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LyA-le-iGt" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="autoplayAfterAddingAction:" target="Uko-LS-fAN" id="Vbh-QS-rO2"/>
@@ -279,7 +279,7 @@
                                         <rect key="frame" x="25" y="292" width="70" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Autoplay" id="GLF-Ai-2H6">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -288,7 +288,7 @@
                                         <rect key="frame" x="25" y="167" width="186" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="QFu-dP-iJK">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -298,7 +298,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Remember position from last time track was played" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FTb-4g-six" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="rememberLastPositionAction:" target="Uko-LS-fAN" id="ufM-1L-EJq"/>
@@ -308,7 +308,7 @@
                                         <rect key="frame" x="423" y="362" width="100" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="2GX-fR-2ei">
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                                 <!--1982-02-12 16:00:00 +0000-->
                                             </date>
@@ -333,7 +333,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -364,7 +364,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8xp-y5-tyP" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="gapDurationAction:" target="Uko-LS-fAN" id="868-d9-PrX"/>
@@ -374,7 +374,7 @@
                                         <rect key="frame" x="206" y="38" width="112" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="eFg-eu-Bp7">
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                                 <!--1982-02-12 16:00:00 +0000-->
                                             </date>
@@ -406,7 +406,7 @@
                                         <rect key="frame" x="113" y="363" width="100" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="DUC-Uf-90v">
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                                 <!--1982-02-12 16:00:00 +0000-->
                                             </date>
@@ -447,7 +447,7 @@
                                         <rect key="frame" x="25" y="399" width="252" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Persistence of transcoded (output) files" id="H8s-sY-SgS">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -457,7 +457,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Save for use across app launches" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Qlo-R0-h8n" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="transcoderPersistenceRadioButtonAction:" target="eVi-qL-s5p" id="cCF-1l-TqR"/>
@@ -468,7 +468,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Delete when app exits" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jmf-oy-53U" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="transcoderPersistenceRadioButtonAction:" target="eVi-qL-s5p" id="PPk-eY-9e1"/>
@@ -478,7 +478,7 @@
                                         <rect key="frame" x="224" y="374" width="294" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(better user experience,  takes up disk space)" id="1h6-56-QBW">
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -487,7 +487,7 @@
                                         <rect key="frame" x="224" y="351" width="426" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded on app launch)" id="Zdp-Aa-LCq">
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -497,7 +497,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="NHT-gG-n0C" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="limitSpaceAction:" target="eVi-qL-s5p" id="xQ2-sB-LWh"/>
@@ -511,7 +511,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -524,7 +524,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -547,7 +547,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="0tO-4Z-pY9" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="eagerTranscodingAction:" target="eVi-qL-s5p" id="zqJ-Zj-W1y"/>
@@ -557,7 +557,7 @@
                                         <rect key="frame" x="42" y="294" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Eager transcoding (automatic transcoding in the background, ahead of time ... will load the CPU)" id="yHp-cF-AAA">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -567,7 +567,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode all playlist files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xXk-Cd-s1X" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="1c0-kf-fQQ"/>
@@ -578,7 +578,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Transcode files that might play next" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="MZy-0M-Kf7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="eagerTranscodingOptionAction:" target="eVi-qL-s5p" id="xPt-xd-rrZ"/>
@@ -592,7 +592,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -605,7 +605,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -614,7 +614,7 @@
                                         <rect key="frame" x="46" y="189" width="536" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Limit disk space usage  (oldest files wil be deleted to stay under limit)" id="2B4-5X-pzc">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -627,7 +627,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="30"/>
                                             </numberFormatter>
-                                            <font key="font" size="11" name="GillSans"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -644,7 +644,7 @@
                                         <rect key="frame" x="28" y="91" width="292" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Maximum number of background transcoding tasks" id="abK-R4-spH">
-                                            <font key="font" size="13" name="GillSans"/>
+                                            <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -657,7 +657,7 @@
                                                 <real key="minimum" value="3"/>
                                                 <real key="maximum" value="300"/>
                                             </numberFormatter>
-                                            <font key="font" size="12" name="GillSans"/>
+                                            <font key="font" size="12" name="Play-Regular"/>
                                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>

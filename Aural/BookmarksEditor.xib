@@ -28,7 +28,7 @@
                     <rect key="frame" x="265" y="357" width="170" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Bookmarks" id="dZY-ok-6c7">
-                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.84602864583333337" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

@@ -22,7 +22,7 @@
                     <rect key="frame" x="-1" y="8" width="175" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="tuM-Mz-sAz">
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.7016601562" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

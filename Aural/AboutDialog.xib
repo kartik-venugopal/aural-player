@@ -38,7 +38,7 @@
                                             <real key="minimum" value="3"/>
                                             <real key="maximum" value="300"/>
                                         </numberFormatter>
-                                        <font key="font" size="15" name="GillSans-SemiBold"/>
+                                        <font key="font" size="15" name="Play-Regular"/>
                                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -52,7 +52,7 @@
                                     <rect key="frame" x="80" y="18" width="92" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="A4V-tp-FKg">
-                                        <font key="font" size="13" name="GillSans"/>
+                                        <font key="font" size="13" name="Play-Regular"/>
                                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>

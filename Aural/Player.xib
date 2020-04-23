@@ -41,7 +41,7 @@
                                 <rect key="frame" x="0.0" y="30" width="340" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fnW-p4-Wxy" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.44582064874647881" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -50,7 +50,7 @@
                                 <rect key="frame" x="95" y="12" width="150" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="a6I-UQ-NDt" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.44582064874647881" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="713-ze-Jl0">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="0MC-mR-NAm">
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
@@ -142,7 +142,7 @@
                                 <rect key="frame" x="30" y="40" width="440" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fmO-Gx-ihO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.44711356247887318" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -151,7 +151,7 @@
                                 <rect key="frame" x="175" y="17" width="150" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="Ohn-p3-gsw" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <font key="font" size="14" name="Play-Regular"/>
                                     <color key="textColor" white="0.44711356247887318" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
@@ -192,7 +192,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Soc-zL-QHn">
                                     <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="1KA-pc-1tn">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
@@ -303,7 +303,7 @@
                         <rect key="frame" x="387" y="27" width="40" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                            <font key="font" size="9" name="GillSans-SemiBold"/>
+                            <font key="font" size="9" name="Play-Regular"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
@@ -312,7 +312,7 @@
                         <rect key="frame" x="457" y="27" width="40" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                            <font key="font" size="9" name="GillSans-SemiBold"/>
+                            <font key="font" size="9" name="Play-Regular"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
@@ -321,7 +321,7 @@
                         <rect key="frame" x="425" y="13" width="30" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="L/R" id="15s-BP-25k">
-                            <font key="font" size="8" name="GillSans-Bold"/>
+                            <font key="font" size="8" name="Play-Bold"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>
@@ -461,7 +461,7 @@ G1BhbiBTbGlkZXI
                         <rect key="frame" x="395" y="60" width="105" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="ijY-mG-R1p" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                            <font key="font" size="11" name="GillSans-SemiBold"/>
+                            <font key="font" size="11" name="Play-Regular"/>
                             <color key="textColor" white="0.55233473325352112" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <allowedInputSourceLocales>
@@ -608,7 +608,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="186" y="8" width="137" height="24"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="kPq-wv-JLN">
-                        <font key="font" size="15" name="GillSans-SemiBold"/>
+                        <font key="font" size="15" name="Play-Regular"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -617,7 +617,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="57" y="126" width="394" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
-                        <font key="font" size="15" name="GillSans-SemiBold"/>
+                        <font key="font" size="15" name="Play-Regular"/>
                         <color key="textColor" white="0.44987896126760563" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -626,7 +626,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="16" y="87" width="188" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track time:  " id="KFI-8U-lZU">
-                        <font key="font" size="14" name="GillSans"/>
+                        <font key="font" size="14" name="Play-Regular"/>
                         <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -635,7 +635,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="302" y="87" width="181" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:   0:00" id="aM6-0m-Odv">
-                        <font key="font" size="14" name="GillSans"/>
+                        <font key="font" size="14" name="Play-Regular"/>
                         <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -644,7 +644,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="302" y="56" width="181" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:   0:00" id="97E-tL-er4">
-                        <font key="font" size="14" name="GillSans"/>
+                        <font key="font" size="14" name="Play-Regular"/>
                         <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -653,7 +653,7 @@ G1BhbiBTbGlkZXI
                     <rect key="frame" x="16" y="56" width="188" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Speed:   0x" id="3yk-B4-Ikd">
-                        <font key="font" size="14" name="GillSans"/>
+                        <font key="font" size="14" name="Play-Regular"/>
                         <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

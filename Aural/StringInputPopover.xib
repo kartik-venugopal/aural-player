@@ -29,7 +29,7 @@
                     <rect key="frame" x="14" y="95" width="298" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Input:" id="psP-FP-m4L">
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.7016601562" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -38,7 +38,7 @@
                     <rect key="frame" x="15" y="63" width="295" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="4DG-eN-cEc">
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </textFieldCell>
@@ -48,7 +48,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sgD-ps-BdJ" customClass="StringInputPopoverResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -62,7 +62,7 @@ DQ
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EzS-F6-d0Y" customClass="StringInputPopoverResponseButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="GillSans"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
@@ -87,7 +87,7 @@ Gw
                                 <rect key="frame" x="11" y="1" width="284" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Invalid input !" id="faX-Sc-fMX">
-                                    <font key="font" size="11" name="GillSans"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" white="0.1026689212" alpha="1" colorSpace="calibratedWhite"/>
                                 </textFieldCell>

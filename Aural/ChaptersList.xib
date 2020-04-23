@@ -37,7 +37,7 @@
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters list" drawsBackground="YES" id="eRB-xU-wa4" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                        <font key="font" size="14" name="GillSans-SemiBold"/>
+                                        <font key="font" size="14" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
@@ -49,7 +49,7 @@
                                         <constraint firstAttribute="width" constant="85" id="z86-uq-dhe"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" drawsBackground="YES" id="RqM-qR-BpE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <font key="font" size="12" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
@@ -75,7 +75,7 @@
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 chapters" drawsBackground="YES" id="eQR-B4-MMr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                        <font key="font" size="13" name="GillSans-SemiBold"/>
+                                        <font key="font" size="13" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
@@ -148,7 +148,7 @@
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>
                                     <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" id="wGz-Cf-PrL">
-                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <font key="font" size="12" name="Play-Regular"/>
                                         <color key="textColor" white="0.70217628965915091" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="backgroundColor" white="0.48200924298309866" alpha="1" colorSpace="calibratedWhite"/>
                                     </searchFieldCell>
@@ -272,7 +272,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="AUB-H4-j7q"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Kz6-mv-CCs" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                                <font key="font" size="13" name="GillSans"/>
+                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -323,7 +323,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="Oo1-XD-8fy"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="cWg-lL-FDh" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                                <font key="font" size="13" name="GillSans"/>
+                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             </textFieldCell>
@@ -363,7 +363,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="yI1-YH-Fuj"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="VaH-7r-hh9" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                                <font key="font" size="13" name="GillSans"/>
+                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             </textFieldCell>
@@ -403,7 +403,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="YYy-Og-b6x"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="nXN-gc-46s" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                                <font key="font" size="13" name="GillSans"/>
+                                                                <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             </textFieldCell>
