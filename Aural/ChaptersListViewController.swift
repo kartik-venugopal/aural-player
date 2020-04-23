@@ -24,6 +24,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     @IBOutlet weak var btnPreviousMatch: NSButton!
     @IBOutlet weak var btnNextMatch: NSButton!
     
+    @IBOutlet weak var lblCover: NSTextField!
+    
     // Holds all search results from the latest performed search
     private var searchResults: [Int] = []
     
@@ -63,13 +65,19 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private func headerHeight() {
         
-        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height))
-        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height))
+        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 5))
+        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 5))
     }
     
     override func viewDidLoad() {
         
-//        initHeader()
+//        scrollView.backgroundColor = color
+        scrollView.drawsBackground = false
+        
+//        clipView.backgroundColor = color
+        clipView.drawsBackground = false
+        
+        initHeader()
         
         // Set these fields for later access
         PlaylistViewState.chaptersListView = self.chaptersListView
@@ -456,14 +464,22 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private func changeBackgroundColor(_ color: NSColor) {
         
-//        scrollView.backgroundColor = color
-//        scrollView.drawsBackground = color.isOpaque
-        scrollView.drawsBackground = false
-
-//        clipView.backgroundColor = color
-//        clipView.drawsBackground = color.isOpaque
-        clipView.drawsBackground = false
-
+        lblCover.backgroundColor = color
         chaptersListView.backgroundColor = NSColor.clear
+        header.redraw()
+        
+        scrollView.autohidesScrollers = true
+        scrollView.verticalScroller?.redraw()
+        
+//        bringViewToFront(lblCover)
+    }
+    
+    fileprivate func bringViewToFront(_ aView: NSView) {
+        
+        let superView = aView.superview
+        aView.removeFromSuperview()
+        superView?.addSubview(aView, positioned: .above, relativeTo: nil)
+        
+        
     }
 }

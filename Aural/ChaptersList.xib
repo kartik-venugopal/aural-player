@@ -166,7 +166,6 @@
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LRU-p1-g4p" userLabel="Previous result">
                                     <rect key="frame" x="499" y="311" width="28" height="19"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="18" id="HVz-hl-L5U"/>
                                         <constraint firstAttribute="width" constant="28" id="kdQ-o9-9ae"/>
                                     </constraints>
                                     <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="S9L-01-mHC" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
@@ -221,17 +220,18 @@
                                 <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="8" id="JeX-co-VLM"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="LL4-6g-sdT"/>
                                 <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="20" id="OqM-Ff-z6c"/>
-                                <constraint firstItem="LRU-p1-g4p" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="PMw-sq-XKo"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="centerX" secondItem="R3F-5h-tZn" secondAttribute="centerX" id="Pbu-q0-PCr"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="leading" secondItem="Axi-IH-THL" secondAttribute="trailing" constant="5" id="RYc-Be-Rae"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="leading" secondItem="LRU-p1-g4p" secondAttribute="trailing" constant="1" id="U0S-X5-Q1f"/>
                                 <constraint firstItem="Tye-Wf-orr" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="5" id="UoB-Mx-krW"/>
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="48" id="VE4-dL-Deq"/>
+                                <constraint firstAttribute="top" secondItem="LRU-p1-g4p" secondAttribute="bottom" constant="-68" id="Vyf-DP-rNb"/>
                                 <constraint firstItem="jY6-EF-Drz" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="XJ4-Pl-vch"/>
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="40" id="bIo-bS-6Ee"/>
                                 <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="6" id="csq-wX-8mX"/>
                                 <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
+                                <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="iAy-CH-x8x"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-2" id="l0e-ch-Rse"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
@@ -243,18 +243,18 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
-                    <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
+                    <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
                         <rect key="frame" x="15" y="40" width="540" height="260"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
                             <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
+                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="235"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="gridColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <tableColumns>
                                         <tableColumn identifier="cid_chapterIndex" width="40" minWidth="25" maxWidth="40" id="dL7-vf-6qi" userLabel="Index">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="#">
@@ -435,7 +435,7 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.40019349207656768" blue="0.8237532383419689" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="B5C-dw-J5r">
                             <rect key="frame" x="-100" y="-100" width="383" height="16"/>
@@ -445,7 +445,20 @@
                             <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
+                        <tableHeaderView key="headerView" id="o7A-Nv-ijK">
+                            <rect key="frame" x="0.0" y="0.0" width="540" height="25"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </tableHeaderView>
                     </scrollView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="als-Tc-ziM">
+                        <rect key="frame" x="535" y="264" width="37" height="45"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" id="zdx-xu-AL7">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ksp-Uu-T5P" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="P0P-5x-0TS"/>
@@ -475,6 +488,8 @@
                 <outlet property="btnPreviousMatch" destination="LRU-p1-g4p" id="PXH-LH-EHq"/>
                 <outlet property="chaptersListView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
                 <outlet property="clipView" destination="Ehf-3j-NsA" id="hWj-bg-zgL"/>
+                <outlet property="header" destination="o7A-Nv-ijK" id="tsM-Lu-SPk"/>
+                <outlet property="lblCover" destination="als-Tc-ziM" id="u8B-Zb-hTj"/>
                 <outlet property="lblNumMatches" destination="8Of-xA-IUV" id="5UI-iy-91C"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
                 <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
