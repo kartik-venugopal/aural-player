@@ -320,7 +320,7 @@
                         <items>
                             <menuItem title="  Add files" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88">
                                 <connections>
-                                    <action selector="addFilesAction:" target="sXT-Pr-clR" id="JlY-sn-b7q"/>
+                                    <action selector="addFilesAction:" target="sXT-Pr-clR" id="tcN-Bx-Cl6"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="  Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg">

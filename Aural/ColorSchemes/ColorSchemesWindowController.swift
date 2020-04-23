@@ -35,7 +35,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
         
         // Select the first tab
         subViews.forEach({$0.resetFields(ColorSchemes.systemScheme)})
-        tabView.selectTabViewItem(at: 3)
+        tabView.selectTabViewItem(at: 0)
         
         UIUtils.showDialog(self.window!)
         

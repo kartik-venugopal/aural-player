@@ -12,6 +12,10 @@ class PrettyScroller: NSScroller {
 
     var knobColor: NSColor = NSColor.gray
     
+    override func awakeFromNib() {
+        self.scrollerStyle = .overlay
+    }
+    
     override func drawKnob() {
         
         let knobRect = self.rect(for: .knob).insetBy(dx: knobInsetX, dy: knobInsetY)

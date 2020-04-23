@@ -73,7 +73,6 @@ class GraphicsUtils {
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
-        // Compute size and origin
         text.draw(in: rect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }
 }

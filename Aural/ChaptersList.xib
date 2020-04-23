@@ -8,6 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ChaptersListWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="UnV-s8-pwa"/>
+                <outlet property="btnClose" destination="Bqb-2Y-Uw2" id="HnV-BR-QEj"/>
+                <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="Cgd-U7-UKc"/>
+                <outlet property="btnNextChapter" destination="iBr-vY-6sc" id="2nD-g5-jlr"/>
+                <outlet property="btnPreviousChapter" destination="Axi-IH-THL" id="AFo-dG-rc6"/>
+                <outlet property="btnReplayChapter" destination="Tye-Wf-orr" id="rQz-fQ-ArR"/>
+                <outlet property="rootContainerBox" destination="Ksp-Uu-T5P" id="c2g-DF-YJX"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Vrd-Pf-VfP"/>
             </connections>
         </customObject>
@@ -31,30 +38,30 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="208" y="348" width="155" height="23"/>
+                                    <rect key="frame" x="206" y="348" width="159" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters list" drawsBackground="YES" id="eRB-xU-wa4" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters list" id="eRB-xU-wa4" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="14" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Of-xA-IUV" userLabel="Num Matches Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="406" y="309" width="85" height="23"/>
+                                    <rect key="frame" x="404" y="309" width="89" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="Am4-mI-hbN"/>
                                         <constraint firstAttribute="width" constant="85" id="z86-uq-dhe"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" drawsBackground="YES" id="RqM-qR-BpE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="RqM-qR-BpE" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="12" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button">
+                                <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="14" y="355" width="9" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="9" id="FQB-Oe-tVg"/>
@@ -69,18 +76,18 @@
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="20" y="10" width="155" height="23"/>
+                                    <rect key="frame" x="18" y="10" width="159" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="155" id="ZiO-s6-pJ9"/>
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 chapters" drawsBackground="YES" id="eQR-B4-MMr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 chapters" id="eQR-B4-MMr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="242" y="13" width="18" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="18" id="dEO-mN-5K5"/>
@@ -90,14 +97,11 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
-                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="playPreviousChapterAction:" target="uhU-UR-xwr" id="NdA-MV-VOd"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="265" y="13" width="18" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="18" id="Zcc-HB-5qH"/>
@@ -107,14 +111,11 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
-                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="playNextChapterAction:" target="uhU-UR-xwr" id="4x0-K9-PQF"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="318" y="11" width="17" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="17" id="9GP-DR-xzf"/>
@@ -124,11 +125,17 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="LoopChapter-Off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="LoopChapter-On"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Toggle current chapter loop"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Toggle current chapter loop"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="toggleCurrentChapterLoopAction:" target="uhU-UR-xwr" id="RaD-7e-AiX"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="290" y="8" width="22" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="22" id="Tmw-pA-lzr"/>
@@ -236,17 +243,17 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
-                    <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
+                    <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
                         <rect key="frame" x="15" y="40" width="540" height="260"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
                             <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="yUF-pu-Wpc" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="540" height="235"/>
+                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
                                         <tableColumn identifier="cid_chapterIndex" width="40" minWidth="25" maxWidth="40" id="dL7-vf-6qi" userLabel="Index">
@@ -434,14 +441,10 @@
                             <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="bNx-Pe-jTD" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" arrowsPosition="none" horizontal="NO" id="bNx-Pe-jTD" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <tableHeaderView key="headerView" id="yUF-pu-Wpc">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="25"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </tableHeaderView>
                     </scrollView>
                 </subviews>
                 <constraints>
@@ -471,9 +474,11 @@
                 <outlet property="btnNextMatch" destination="2FZ-dU-SXE" id="WM0-kJ-ktx"/>
                 <outlet property="btnPreviousMatch" destination="LRU-p1-g4p" id="PXH-LH-EHq"/>
                 <outlet property="chaptersListView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
+                <outlet property="clipView" destination="Ehf-3j-NsA" id="hWj-bg-zgL"/>
                 <outlet property="lblNumMatches" destination="8Of-xA-IUV" id="5UI-iy-91C"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
                 <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
+                <outlet property="scrollView" destination="fbU-sK-75k" id="b8B-TM-tHo"/>
                 <outlet property="txtSearch" destination="jY6-EF-Drz" id="LKu-6e-l0V"/>
                 <outlet property="view" destination="rlg-QY-3mV" id="2Fb-Kb-dFb"/>
             </connections>
@@ -482,6 +487,7 @@
     <resources>
         <image name="Close" width="18" height="18"/>
         <image name="LoopChapter-Off" width="20" height="20"/>
+        <image name="LoopChapter-On" width="20" height="20"/>
         <image name="NextTrack" width="31" height="35"/>
         <image name="PreviousTrack" width="31" height="35"/>
         <image name="Replay" width="35" height="35"/>
