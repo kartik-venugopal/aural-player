@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3or-Z4-uCc" userLabel="Info label">
-                    <rect key="frame" x="0.0" y="8" width="185" height="18"/>
+                    <rect key="frame" x="0.0" y="2" width="185" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="tuM-Mz-sAz">
                         <font key="font" size="12" name="Play-Regular"/>

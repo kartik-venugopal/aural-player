@@ -24,6 +24,8 @@ class TabGroupButtonCell: NSButtonCell {
     var textFont: NSFont {return Fonts.tabViewButtonFont}
     var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
     
+    var yOffset: CGFloat {return 0}
+    
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         drawInterior(withFrame: cellFrame, in: controlView)
     }
@@ -45,7 +47,7 @@ class TabGroupButtonCell: NSButtonCell {
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
         let font = isOn ? boldTextFont : textFont
         
-        GraphicsUtils.drawCenteredTextInRect(drawRect, title, textColor, font)
+        GraphicsUtils.drawCenteredTextInRect(drawRect, title, textColor, font, yOffset)
     }
 }
 
@@ -59,6 +61,19 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     
     override var textFont: NSFont {return Fonts.Playlist.tabsFont}
     override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
+    
+    override var yOffset: CGFloat {
+
+        switch PlaylistViewState.textSize {
+            
+        case .normal:   return 1
+            
+        case .larger:   return 0
+            
+        case .largest:  return -1
+            
+        }
+    }
 }
 
 // Cell for the Preferences tab group

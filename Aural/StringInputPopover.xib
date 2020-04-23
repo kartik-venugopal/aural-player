@@ -35,7 +35,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ub-Fs-VWk" userLabel="Input Field">
-                    <rect key="frame" x="15" y="63" width="295" height="22"/>
+                    <rect key="frame" x="15" y="63" width="295" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="4DG-eN-cEc">
                         <font key="font" size="12" name="Play-Regular"/>

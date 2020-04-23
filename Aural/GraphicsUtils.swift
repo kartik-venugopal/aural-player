@@ -51,7 +51,7 @@ class GraphicsUtils {
     }
     
     // Draws text, centered, within an NSRect, with a certain font and color
-    static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
+    static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont, _ offset: CGFloat = 0) {
         
         let attrs: [String: AnyObject] = [
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
@@ -63,7 +63,7 @@ class GraphicsUtils {
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 1
         
-        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrsDict)
+        text.draw(in: NSRect(x: sx, y: sy + offset, width: size.width, height: size.height), withAttributes: attrsDict)
     }
     
     // Draws text, centered, within an NSRect, with a certain font and color

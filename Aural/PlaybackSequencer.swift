@@ -225,8 +225,14 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     var playingTrack: IndexedTrack? {
         
+        // TODO: Race condition here ? During autoplay ?
+        
         // Wrap the playing track with its flat playlist index, before returning it
-        return thePlayingTrack != nil ? wrapTrack(thePlayingTrack!) : nil
+        if let track = thePlayingTrack {
+            return wrapTrack(track)
+        }
+        
+        return nil
     }
     
     // Helper function that
@@ -326,11 +332,14 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     // Wraps a non-indexed track into an indexed track so that it can be located within the flat playlist.
-    private func wrapTrack(_ track: Track) -> IndexedTrack {
+    private func wrapTrack(_ track: Track) -> IndexedTrack? {
         
         // Flat playlist index
-        let index = playlist.indexOfTrack(track)
-        return IndexedTrack(track, index!)
+        if let index = playlist.indexOfTrack(track) {
+            return IndexedTrack(track, index)
+        }
+        
+        return nil
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
