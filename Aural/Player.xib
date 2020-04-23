@@ -311,7 +311,7 @@
                         </connections>
                     </slider>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="381" y="27" width="51" height="15"/>
+                        <rect key="frame" x="381" y="27" width="50" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="9" name="Play-Regular"/>
@@ -320,7 +320,7 @@
                         </textFieldCell>
                     </textField>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="459" y="27" width="46" height="15"/>
+                        <rect key="frame" x="459" y="27" width="46" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="9" name="Play-Regular"/>
@@ -457,7 +457,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-LM-vv4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="3" y="57" width="110" height="20"/>
+                        <rect key="frame" x="3" y="57" width="110" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="Z9y-gv-XAm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="12" name="Play-Regular"/>
@@ -469,7 +469,7 @@ G1BhbiBTbGlkZXI
                         </textFieldCell>
                     </textField>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byf-Gi-f6M" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="375" y="57" width="130" height="20"/>
+                        <rect key="frame" x="375" y="57" width="130" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="ijY-mG-R1p" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                             <font key="font" size="11" name="Play-Regular"/>
@@ -616,7 +616,7 @@ G1BhbiBTbGlkZXI
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
-                    <rect key="frame" x="191" y="8" width="137" height="24"/>
+                    <rect key="frame" x="191" y="8" width="137" height="27"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="kPq-wv-JLN">
                         <font key="font" size="15" name="Play-Regular"/>
@@ -625,16 +625,16 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
-                    <rect key="frame" x="62" y="126" width="394" height="28"/>
+                    <rect key="frame" x="62" y="126" width="394" height="30"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
-                        <font key="font" size="15" name="Play-Regular"/>
+                        <font key="font" size="17" name="Play-Regular"/>
                         <color key="textColor" white="0.44987896126760563" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-bG-QKU" userLabel="Track time">
-                    <rect key="frame" x="21" y="87" width="188" height="20"/>
+                    <rect key="frame" x="21" y="87" width="188" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track time:  " id="KFI-8U-lZU">
                         <font key="font" size="14" name="Play-Regular"/>
@@ -643,7 +643,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyF-IK-H49" userLabel="Elapsed time">
-                    <rect key="frame" x="307" y="87" width="181" height="20"/>
+                    <rect key="frame" x="307" y="87" width="181" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:   0:00" id="aM6-0m-Odv">
                         <font key="font" size="14" name="Play-Regular"/>
@@ -652,7 +652,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ds0-c3-8eu" userLabel="Time rem">
-                    <rect key="frame" x="307" y="56" width="181" height="20"/>
+                    <rect key="frame" x="307" y="53" width="181" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:   0:00" id="97E-tL-er4">
                         <font key="font" size="14" name="Play-Regular"/>
@@ -661,7 +661,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2s7-8c-Aou" userLabel="Speed">
-                    <rect key="frame" x="21" y="56" width="188" height="20"/>
+                    <rect key="frame" x="21" y="53" width="188" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Speed:   0x" id="3yk-B4-Ikd">
                         <font key="font" size="14" name="Play-Regular"/>

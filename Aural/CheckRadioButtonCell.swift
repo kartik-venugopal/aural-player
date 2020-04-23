@@ -9,7 +9,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
     
-    var yOffset: CGFloat = 2
+    var yOffset: CGFloat {return 2}
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
@@ -48,7 +48,14 @@ class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
     override var textColor: NSColor {return Colors.Effects.functionCaptionTextColor}
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     
-    override func awakeFromNib() {
-        self.yOffset = 0
+    override var yOffset: CGFloat {
+        
+        switch EffectsViewState.textSize {
+            
+        case .normal, .larger:   return 1
+            
+        case .largest:  return 2
+            
+        }
     }
 }

@@ -226,7 +226,7 @@ class AudioUtils {
             
             if estBitRate > 0 {
                 
-                audioInfo.bitRate = Int(round(estBitRate))
+                audioInfo.bitRate = Int(round(estBitRate)) / Int(Size.KB)
                 
             } else if track.duration == 0 {
                 

@@ -30,10 +30,12 @@ class TabGroupButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
+        var drawRect: NSRect = cellFrame
+        
         // Selection box
         if isOn {
             
-            let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
+            drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
             selectionBoxColor.setFill()
             roundedPath.fill()
@@ -43,7 +45,7 @@ class TabGroupButtonCell: NSButtonCell {
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
         let font = isOn ? boldTextFont : textFont
         
-        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font)
+        GraphicsUtils.drawCenteredTextInRect(drawRect, title, textColor, font)
     }
 }
 
