@@ -25,7 +25,7 @@ class FilterChart: NSView {
         let unitState: EffectsUnitState = filterUnitStateFunction()
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
-        NSColor.black.setFill()
+        Colors.windowBackgroundColor.setFill()
         drawPath.fill()
         
         let offset: CGFloat = 5
@@ -69,12 +69,13 @@ class FilterChart: NSView {
                 
                 let f = band.maxFreq!
                 let x = log10(f/2) - 1
-                let rx = offset + CGFloat(x) * scale
                 let lineWidth: CGFloat = 2
+                let rx = min(offset + CGFloat(x) * scale, frameRect.maxX - lineWidth / 2)
                 
                 if unitState == .active {
                 
                     GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    
                     GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
                     
                 } else {
@@ -86,8 +87,8 @@ class FilterChart: NSView {
                 
                 let f = band.minFreq!
                 let x = log10(f/2) - 1
-                let rx = offset + CGFloat(x) * scale
                 let lineWidth: CGFloat = 2
+                let rx = min(offset + CGFloat(x) * scale, frameRect.maxX - lineWidth / 2)
                 
                 if unitState == .active {
                     
