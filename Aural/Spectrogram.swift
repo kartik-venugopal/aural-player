@@ -83,7 +83,7 @@
 //        //        let s = String(Int(round(freq)))
 //        //        let text = s as NSString
 //        //        let attrs: [String: AnyObject] = [
-//        //            NSFontAttributeName: NSFont(name: "Gill Sans", size: 12)!,
+//        //            NSFontAttributeName: NSMuthuFont(name: "Gill Sami Sans", size: 12)!,
 //        //            NSForegroundColorAttributeName: NSColor.blue]
 //        //        let rect = NSRect(x: bar.origin.x + 15, y: 10, width: 40, height: 20)
 //        //        text.draw(in: rect, withAttributes: attrs)
