@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="fuY-IV-I6h" id="zOt-gt-mXm" userLabel="Playlist Albums View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                                <rect key="frame" x="0.0" y="0.0" width="458" height="178"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -107,7 +107,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Duration" width="70" minWidth="50" maxWidth="75" id="p6e-Vj-4Ne" userLabel="Duration">
+                                    <tableColumn identifier="cid_Duration" width="80" minWidth="70" maxWidth="90" id="p6e-Vj-4Ne" userLabel="Duration">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -121,11 +121,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="4CH-bK-zT1" customClass="GroupedTrackDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="2" width="70" height="61"/>
+                                                <rect key="frame" x="376" y="2" width="80" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nsy-P5-V7s" userLabel="Gap Before">
-                                                        <rect key="frame" x="-7" y="43" width="74" height="18"/>
+                                                        <rect key="frame" x="-7" y="43" width="84" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="0r9-BX-TRd"/>
                                                         </constraints>
@@ -136,7 +136,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="10" width="74" height="25"/>
+                                                        <rect key="frame" x="-7" y="10" width="84" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="PU9-6j-ux6"/>
                                                         </constraints>
@@ -147,7 +147,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nYE-Lz-bxf" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="-5" width="74" height="18"/>
+                                                        <rect key="frame" x="-7" y="-5" width="84" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="YuN-C8-FsV"/>
                                                         </constraints>

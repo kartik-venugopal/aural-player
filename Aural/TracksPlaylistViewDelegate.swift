@@ -120,6 +120,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.font = Fonts.Playlist.indexFont
             cell.textField?.stringValue = text
             cell.textField?.show()
+            cell.textField?.backgroundColor = NSColor.yellow
             cell.imageView?.hide()
             cell.row = row
             
