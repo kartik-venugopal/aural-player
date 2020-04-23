@@ -314,10 +314,8 @@ class ExpandedArtPlayerView: PlayerView {
         
         moveInfoBoxTo(infoBoxDefaultPosition)
         
-        artView.show()
-
         hideViews(controlsBox, overlayBox)
-        centerOverlayBox.show()
+        centerOverlayBox.showIf_elseHide(infoBox.isShown)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
@@ -401,14 +399,24 @@ class ExpandedArtPlayerView: PlayerView {
         artView.image = Images.imgPlayingArt
     }
     
+    override fileprivate func showPlayingTrackInfo() {
+        
+        super.showPlayingTrackInfo()
+        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+    }
+    
+    override func showOrHidePlayingTrackInfo() {
+        
+        super.showOrHidePlayingTrackInfo()
+        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+    }
+    
     override var needsMouseTracking: Bool {
         return true
     }
     
     override func changeBackgroundColor(_ color: NSColor) {
-        
-        // Fill the box with the same color, but make it transparent to reveal album art.
-        centerOverlayBox.fillColor = color.clonedWithTransparency(0.7)
+        // Do nothing
     }
 }
 
