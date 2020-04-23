@@ -465,7 +465,7 @@ class FilterBandSlider: RangeSlider {
     }
     
     override var barBackgroundGradient: NSGradient {
-        return Colors.Effects.sliderBackgroundGradient
+        return Colors.Effects.rangeSliderBackgroundGradient
     }
     
     var startFrequency: Float {

@@ -43,6 +43,8 @@ class FilterBandViewController: NSViewController {
     override func viewDidLoad() {
         resetFields()
         changeTextSize()
+        
+        // TODO: Also set colors
     }
     
     private func resetFields() {

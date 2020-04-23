@@ -25,6 +25,10 @@ struct Colors {
         static let white90Percent: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     }
     
+    static var windowBackgroundColor: NSColor {
+        return ColorSchemes.systemScheme.general.backgroundColor
+    }
+    
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
@@ -106,10 +110,6 @@ struct Colors {
         
         static var selectionBoxColor: NSColor {
             return ColorSchemes.systemScheme.playlist.selectionBoxColor
-        }
-        
-        static var tabButtonBackgroundColor: NSColor {
-            return ColorSchemes.systemScheme.general.backgroundColor
         }
         
         static var selectedTabButtonBackgroundColor: NSColor {
@@ -213,6 +213,12 @@ struct Colors {
             
             return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor,
                               ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened())!
+        }
+        
+        static var rangeSliderBackgroundGradient: NSGradient {
+            
+            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor,
+                              ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
         }
         
         static var tabViewButtonSelectionBoxColor: NSColor {
