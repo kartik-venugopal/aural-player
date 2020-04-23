@@ -27,11 +27,6 @@ class PlayerView: NSView {
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
-        
-        artView.wantsLayer = true
-//        artView.layer?.borderWidth = 1.0;
-        artView.layer?.cornerRadius = 5.0;
-        artView.layer?.masksToBounds = true;
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -225,6 +220,10 @@ class DefaultPlayerView: PlayerView {
     override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 85) }
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 52)
     
+    override func awakeFromNib() {
+        artView.cornerRadius = 2
+    }
+    
     override func showView(_ playbackState: PlaybackState) {
         
         super.showView(playbackState)
@@ -303,6 +302,11 @@ class ExpandedArtPlayerView: PlayerView {
     
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 80)
     @IBOutlet weak var overlayBox: NSBox!
+    @IBOutlet weak var centerOverlayBox: NSBox!
+    
+    override func awakeFromNib() {
+        artView.cornerRadius = 5
+    }
     
     override func showView(_ playbackState: PlaybackState) {
         
@@ -311,19 +315,11 @@ class ExpandedArtPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         artView.show()
-        infoBox.isTransparent = false
 
         hideViews(controlsBox, overlayBox)
-//        hideViews(controlsBox)
+        centerOverlayBox.show()
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
-        
-        let col = infoBox.fillColor
-//        overlayBox.fillColor = NSColor(calibratedRed: col.redComponent, green: col.greenComponent, blue: col.blueComponent, alpha: 0.7)
-
-//        infoBox.fillColor = NSColor(calibratedRed: col.redComponent, green: col.greenComponent, blue: col.blueComponent, alpha: 0.7)
-
-        print("\nInfo box:", JSONMapper.map(ColorState.fromColor(infoBox.fillColor)))
     }
     
     override func showOrHideMainControls() {
@@ -358,23 +354,23 @@ class ExpandedArtPlayerView: PlayerView {
     
     private func autoHideInfo_show() {
         
-        makeTransparent(infoBox, gapBox)
+        makeTransparent(gapBox)
         infoBox.showIf_elseHide(player.state.playingOrPaused())
     }
     
     private func autoHideInfo_hide() {
         
-//        makeOpaque(infoBox, gapBox)
         makeOpaque(gapBox)
-        infoBox.hide()
+        hideViews(infoBox, centerOverlayBox)
     }
     
     private func autoHideControls_show() {
         
         // Show controls
         showViews(controlsBox, overlayBox)
+        centerOverlayBox.hide()
         
-        makeTransparent(infoBox, controlsBox, gapBox)
+        makeTransparent(controlsBox, gapBox)
         [infoBox, controlsBox, functionsBox, gapBox].forEach({bringViewToFront($0)})
         
         // Re-position the info box, art view, and functions box
@@ -386,14 +382,14 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Hide controls
         hideViews(overlayBox, controlsBox)
-//        hideViews(controlsBox)
+        centerOverlayBox.show()
         
         makeOpaque(controlsBox, gapBox)
-//        makeOpaque(infoBox, controlsBox, gapBox)
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         // Show info box as overlay temporarily
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown)
     }
     
     override func clearNowPlayingInfo() {
@@ -401,12 +397,18 @@ class ExpandedArtPlayerView: PlayerView {
         infoView.clearNowPlayingInfo()
         
         // Need to hide info box because it is opaque and will obscure art
-        infoBox.hide()
+        hideViews(infoBox, centerOverlayBox)
         artView.image = Images.imgPlayingArt
     }
     
     override var needsMouseTracking: Bool {
         return true
+    }
+    
+    override func changeBackgroundColor(_ color: NSColor) {
+        // Do nothing !
+        
+        centerOverlayBox.fillColor = color.clonedWithTransparency(0.7)
     }
 }
 

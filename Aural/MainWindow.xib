@@ -82,7 +82,7 @@
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="233" y="197" width="65" height="24"/>
+                                    <rect key="frame" x="245" y="201" width="40" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                     <userDefinedRuntimeAttributes>
@@ -411,7 +411,7 @@
         </customObject>
     </objects>
     <resources>
-        <image name="AppTitle" width="101" height="48"/>
+        <image name="AppTitle" width="73" height="27"/>
         <image name="Close" width="18" height="18"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>

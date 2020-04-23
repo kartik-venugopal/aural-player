@@ -410,9 +410,9 @@ struct Fonts {
             }
         }
         
-        private static let unitFunctionFont_normal: NSFont = NSFont(name: "Play Regular", size: 12)!
-        private static let unitFunctionFont_larger: NSFont = NSFont(name: "Play Regular", size: 13)!
-        private static let unitFunctionFont_largest: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let unitFunctionFont_normal: NSFont = NSFont(name: "Play Regular", size: 11.5)!
+        private static let unitFunctionFont_larger: NSFont = NSFont(name: "Play Regular", size: 12.5)!
+        private static let unitFunctionFont_largest: NSFont = NSFont(name: "Play Regular", size: 13.5)!
         
         static var unitFunctionFont: NSFont {
             

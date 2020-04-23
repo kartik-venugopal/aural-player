@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="713-ze-Jl0">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="0MC-mR-NAm">
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
@@ -180,7 +180,17 @@
                     <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.0" alpha="0.75129291373239437" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="k6x-e4-14q" userLabel="Playing Track Info Box">
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="x6u-Dg-1Iu" userLabel="Center Overlay Box">
+                    <rect key="frame" x="165" y="47" width="170" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="nmM-iK-Jx2">
+                        <rect key="frame" x="0.0" y="0.0" width="170" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                    <color key="fillColor" white="0.0" alpha="0.75129291369999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k6x-e4-14q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="0.0" y="47" width="470" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="LvL-VM-cc0" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
@@ -192,7 +202,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Soc-zL-QHn">
                                     <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="1KA-pc-1tn">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
@@ -228,6 +238,7 @@
             </subviews>
             <connections>
                 <outlet property="artView" destination="YCE-84-duq" id="0jd-Ai-Y2q"/>
+                <outlet property="centerOverlayBox" destination="x6u-Dg-1Iu" id="UVJ-GU-WB0"/>
                 <outlet property="controlsBox" destination="IyJ-bL-zmI" id="UWx-sJ-Ei1"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="QpI-0l-T9y"/>
                 <outlet property="gapBox" destination="BKw-xe-F4l" id="J4r-Ed-Dx5"/>
