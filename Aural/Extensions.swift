@@ -411,5 +411,46 @@ extension NSColor {
             
         }
     }
+    
+    func clonedWithTransparency(_ alpha: CGFloat) -> NSColor {
+        
+        switch self.colorSpace.colorSpaceModel {
+            
+        case .gray:
+            
+            return NSColor(calibratedWhite: self.whiteComponent, alpha: alpha)
+            
+        case .rgb:
+            
+            return NSColor(calibratedRed: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
+            
+        case .cmyk:
+            
+            return NSColor(deviceCyan: self.cyanComponent, magenta: self.magentaComponent, yellow: self.yellowComponent, black: self.blackComponent, alpha: alpha)
+            
+        default: return self
+            
+        }
+    }
+}
 
+extension NSImageView {
+    
+    var cornerRadius: CGFloat {
+        
+        get {
+            return self.layer?.cornerRadius ?? 0
+        }
+        
+        set(newValue) {
+            
+            if !self.wantsLayer {
+                
+                self.wantsLayer = true
+                self.layer?.masksToBounds = true;
+            }
+            
+            self.layer?.cornerRadius = newValue;
+        }
+    }
 }

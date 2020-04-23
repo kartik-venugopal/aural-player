@@ -65,6 +65,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionCaptionTextColor, ColorSchemes.systemScheme.effects.functionCaptionTextColor))
         
         initUnits()
         initTabGroup()
