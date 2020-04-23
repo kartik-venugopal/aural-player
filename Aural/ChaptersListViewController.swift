@@ -7,11 +7,15 @@ import Cocoa
 class ChaptersListViewController: NSViewController, ModalComponentProtocol, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var chaptersListView: NSTableView!
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
+    
+    @IBOutlet weak var header: NSTableHeaderView!
     
     @IBOutlet weak var lblWindowTitle: NSTextField!
     @IBOutlet weak var lblSummary: NSTextField!
     
-    @IBOutlet weak var btnLoopChapter: NSButton!
+    @IBOutlet weak var btnLoopChapter: OnOffImageButton!
     
     @IBOutlet weak var txtSearch: NSSearchField!
     @IBOutlet weak var btnCaseSensitive: OnOffImageButton!
@@ -35,11 +39,37 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         didSet {
             // Update the loop toggle button image to reflect the looping state
-            btnLoopChapter.image = looping ? Images.imgLoopChapterOn : Images.imgLoopChapterOff
+            looping ? btnLoopChapter?.on() : btnLoopChapter?.off()
         }
     }
     
+    private func initHeader() {
+        
+        headerHeight()
+        header.wantsLayer = true
+        header.layer?.backgroundColor = NSColor.black.cgColor
+        
+        chaptersListView.tableColumns.forEach({
+            
+            let col = $0
+            let header = ChaptersListTableHeaderCell()
+            
+            header.stringValue = col.headerCell.stringValue
+            header.isBordered = false
+            
+            col.headerCell = header
+        })
+    }
+    
+    private func headerHeight() {
+        
+        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height))
+        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height))
+    }
+    
     override func viewDidLoad() {
+        
+//        initHeader()
         
         // Set these fields for later access
         PlaylistViewState.chaptersListView = self.chaptersListView
@@ -65,7 +95,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -338,7 +368,22 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             
             changeTextSize()
             
-        default: return
+        default:
+            
+            if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+                
+                switch colorSchemeMsg.actionType {
+                    
+                case .changeBackgroundColor:
+                    
+                    changeBackgroundColor(colorSchemeMsg.color)
+                    
+                default: return
+                    
+                }
+                
+                return
+            }
             
         }
     }
@@ -407,5 +452,18 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             txtSearch.font = Fonts.Playlist.chapterSearchFont
             lblNumMatches.font = Fonts.Playlist.chapterSearchFont
         }
+    }
+    
+    private func changeBackgroundColor(_ color: NSColor) {
+        
+//        scrollView.backgroundColor = color
+//        scrollView.drawsBackground = color.isOpaque
+        scrollView.drawsBackground = false
+
+//        clipView.backgroundColor = color
+//        clipView.drawsBackground = color.isOpaque
+        clipView.drawsBackground = false
+
+        chaptersListView.backgroundColor = NSColor.clear
     }
 }

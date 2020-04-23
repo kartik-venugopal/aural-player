@@ -74,6 +74,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
             // Since all items but one have been disabled, nothing further to do
             return
+            
+        } else {
+            
+            // Re-enabled items that may have been disabled before
+            menu.items.forEach({$0.enable()})
         }
         
         theMenu.enableIf(windowManager.isShowingPlaylist)
