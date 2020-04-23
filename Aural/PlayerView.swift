@@ -27,6 +27,11 @@ class PlayerView: NSView {
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
+        
+        artView.wantsLayer = true
+//        artView.layer?.borderWidth = 1.0;
+        artView.layer?.cornerRadius = 5.0;
+        artView.layer?.masksToBounds = true;
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -309,8 +314,16 @@ class ExpandedArtPlayerView: PlayerView {
         infoBox.isTransparent = false
 
         hideViews(controlsBox, overlayBox)
+//        hideViews(controlsBox)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
+        
+        let col = infoBox.fillColor
+//        overlayBox.fillColor = NSColor(calibratedRed: col.redComponent, green: col.greenComponent, blue: col.blueComponent, alpha: 0.7)
+
+//        infoBox.fillColor = NSColor(calibratedRed: col.redComponent, green: col.greenComponent, blue: col.blueComponent, alpha: 0.7)
+
+        print("\nInfo box:", JSONMapper.map(ColorState.fromColor(infoBox.fillColor)))
     }
     
     override func showOrHideMainControls() {
@@ -351,7 +364,8 @@ class ExpandedArtPlayerView: PlayerView {
     
     private func autoHideInfo_hide() {
         
-        makeOpaque(infoBox, gapBox)
+//        makeOpaque(infoBox, gapBox)
+        makeOpaque(gapBox)
         infoBox.hide()
     }
     
@@ -372,8 +386,10 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Hide controls
         hideViews(overlayBox, controlsBox)
+//        hideViews(controlsBox)
         
-        makeOpaque(infoBox, controlsBox, gapBox)
+        makeOpaque(controlsBox, gapBox)
+//        makeOpaque(infoBox, controlsBox, gapBox)
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         // Show info box as overlay temporarily

@@ -404,7 +404,7 @@
                                         <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                        <font key="font" size="13" name="GillSans-SemiBold"/>
+                                        <font key="font" size="13" name="Mark-Light"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </textFieldCell>

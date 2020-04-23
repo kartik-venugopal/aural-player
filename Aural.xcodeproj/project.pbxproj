@@ -230,6 +230,7 @@
 		3E7CD3FD215B49C800DBD249 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */; };
 		3E7D4D8B244FF70B008BEEE1 /* EffectsColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8A244FF70B008BEEE1 /* EffectsColorScheme.xib */; };
 		3E7D4D8D244FF720008BEEE1 /* EffectsColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8C244FF720008BEEE1 /* EffectsColorSchemeViewController.swift */; };
+		3E7D4D902450D42A008BEEE1 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */; };
 		3E7D8A6821817C8300EF8746 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */; };
 		3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */; };
 		3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */; };
@@ -679,6 +680,7 @@
 		3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
 		3E7D4D8A244FF70B008BEEE1 /* EffectsColorScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsColorScheme.xib; sourceTree = "<group>"; };
 		3E7D4D8C244FF720008BEEE1 /* EffectsColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsColorSchemeViewController.swift; sourceTree = "<group>"; };
+		3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
 		3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -1681,9 +1683,18 @@
 			path = Effects;
 			sourceTree = "<group>";
 		};
+		3E7D4D8E2450D3E2008BEEE1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		3E821AEC1F953253006F8E97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E7D4D8E2450D3E2008BEEE1 /* Fonts */,
 				3E67BEC121D273120091DC6C /* ffmpeg */,
 			);
 			path = Resources;
@@ -1789,9 +1800,9 @@
 				3EA262671F0EFD9600D9BCD9 /* UI */,
 				3E98477F1F5CF0E6001A2D28 /* Playlist */,
 				3E2D9E411F662B8D0020B99E /* Playback */,
-				3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */,
 				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
 				3E2D9E421F662BB90020B99E /* Recorder */,
+				3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */,
 				3E06C0281FB6B105003EE9AB /* History */,
 				3E3FB7F1215B56FD00974A59 /* Favorites */,
 				3E5F00C4215397D700A76C23 /* Bookmarks */,
@@ -2291,6 +2302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E7D4D902450D42A008BEEE1 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,

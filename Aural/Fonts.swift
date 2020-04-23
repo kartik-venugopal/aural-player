@@ -72,9 +72,9 @@ struct Fonts {
             }
         }
         
-        private static let infoBoxTitleFont_normal: NSFont = Constants.gillSans16SemiBoldFont
-        private static let infoBoxTitleFont_larger: NSFont = Constants.gillSans18SemiBoldFont
-        private static let infoBoxTitleFont_largest: NSFont = Constants.gillSans20SemiBoldFont
+        private static let infoBoxTitleFont_normal: NSFont = NSFont(name: "Play Regular", size: 16)!
+        private static let infoBoxTitleFont_larger: NSFont = NSFont(name: "Play Regular", size: 18)!
+        private static let infoBoxTitleFont_largest: NSFont = NSFont(name: "Play Regular", size: 20)!
         
         static var infoBoxTitleFont: NSFont {
             
@@ -106,9 +106,9 @@ struct Fonts {
             }
         }
         
-        private static let infoBoxArtistAlbumFont_normal: NSFont = Constants.gillSans14SemiBoldFont
-        private static let infoBoxArtistAlbumFont_larger: NSFont = Constants.gillSans16SemiBoldFont
-        private static let infoBoxArtistAlbumFont_largest: NSFont = Constants.gillSans18SemiBoldFont
+        private static let infoBoxArtistAlbumFont_normal: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let infoBoxArtistAlbumFont_larger: NSFont = NSFont(name: "Play Regular", size: 16)!
+        private static let infoBoxArtistAlbumFont_largest: NSFont = NSFont(name: "Play Regular", size: 18)!
         
         static var infoBoxArtistAlbumFont: NSFont {
             
@@ -140,9 +140,9 @@ struct Fonts {
             }
         }
         
-        private static let trackTimesFont_normal: NSFont = Constants.gillSans11SemiBoldFont
-        private static let trackTimesFont_larger: NSFont = Constants.gillSans12SemiBoldFont
-        private static let trackTimesFont_largest: NSFont = Constants.gillSans13SemiBoldFont
+        private static let trackTimesFont_normal: NSFont = NSFont(name: "Play Regular", size: 13)!
+        private static let trackTimesFont_larger: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let trackTimesFont_largest: NSFont = NSFont(name: "Play Regular", size: 15)!
         
         static var trackTimesFont: NSFont {
             
@@ -207,9 +207,9 @@ struct Fonts {
             }
         }
         
-        private static let trackNameFont_normal: NSFont = Constants.gillSans13Font
-        private static let trackNameFont_larger: NSFont = Constants.gillSans14Font
-        private static let trackNameFont_largest: NSFont = Constants.gillSans15Font
+        private static let trackNameFont_normal: NSFont = NSFont(name: "Play Regular", size: 13)!
+        private static let trackNameFont_larger: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let trackNameFont_largest: NSFont = NSFont(name: "Play Regular", size: 15)!
         
         static var trackNameFont: NSFont {
             
@@ -224,9 +224,9 @@ struct Fonts {
             }
         }
         
-        private static let groupNameFont_normal: NSFont = Constants.gillSans13_5SemiBoldFont
-        private static let groupNameFont_larger: NSFont = Constants.gillSans14_5SemiBoldFont
-        private static let groupNameFont_largest: NSFont = Constants.gillSans15_5SemiBoldFont
+        private static let groupNameFont_normal: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let groupNameFont_larger: NSFont = NSFont(name: "Play Regular", size: 15)!
+        private static let groupNameFont_largest: NSFont = NSFont(name: "Play Regular", size: 16)!
         
         static var groupNameFont: NSFont {
             
@@ -258,9 +258,9 @@ struct Fonts {
             }
         }
         
-        private static let summaryFont_normal: NSFont = Constants.gillSans13SemiBoldFont
-        private static let summaryFont_larger: NSFont = Constants.gillSans14SemiBoldFont
-        private static let summaryFont_largest: NSFont = Constants.gillSans15SemiBoldFont
+        private static let summaryFont_normal: NSFont = NSFont(name: "Play Regular", size: 13)!
+        private static let summaryFont_larger: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let summaryFont_largest: NSFont = NSFont(name: "Play Regular", size: 15)!
         
         static var summaryFont: NSFont {
             
@@ -275,9 +275,9 @@ struct Fonts {
             }
         }
         
-        private static let tabsFont_normal: NSFont = Constants.gillSans13Font
-        private static let tabsFont_larger: NSFont = Constants.gillSans14Font
-        private static let tabsFont_largest: NSFont = Constants.gillSans15Font
+        private static let tabsFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!
+        private static let tabsFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 15)!
+        private static let tabsFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
         
         static var tabsFont: NSFont {
             
@@ -292,9 +292,9 @@ struct Fonts {
             }
         }
         
-        private static let selectedTabFont_normal: NSFont = Constants.gillSans13SemiBoldFont
-        private static let selectedTabFont_larger: NSFont = Constants.gillSans14SemiBoldFont
-        private static let selectedTabFont_largest: NSFont = Constants.gillSans15SemiBoldFont
+        private static let selectedTabFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Bold", size: 14)!
+        private static let selectedTabFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Bold", size: 15)!
+        private static let selectedTabFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Bold", size: 16)!
         
         static var selectedTabFont: NSFont {
             
@@ -376,9 +376,9 @@ struct Fonts {
             }
         }
         
-        private static let unitCaptionFont_normal: NSFont = Constants.gillSans14Font
-        private static let unitCaptionFont_larger: NSFont = Constants.gillSans15_5Font
-        private static let unitCaptionFont_largest: NSFont = Constants.gillSans17Font
+        private static let unitCaptionFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
+        private static let unitCaptionFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 18)!
+        private static let unitCaptionFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 20)!
         
         static var unitCaptionFont: NSFont {
             
@@ -393,9 +393,9 @@ struct Fonts {
             }
         }
         
-        private static let unitFunctionFont_normal: NSFont = Constants.gillSans11Font
-        private static let unitFunctionFont_larger: NSFont = Constants.gillSans12Font
-        private static let unitFunctionFont_largest: NSFont = Constants.gillSans13Font
+        private static let unitFunctionFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 13)!
+        private static let unitFunctionFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!
+        private static let unitFunctionFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 15)!
         
         static var unitFunctionFont: NSFont {
             
