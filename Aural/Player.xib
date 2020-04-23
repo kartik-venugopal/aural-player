@@ -67,7 +67,7 @@
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-e8-qfH" userLabel="Art View">
                     <rect key="frame" x="5" y="70" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nDh-sM-DxS"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PlayingArt" id="nDh-sM-DxS"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="85" y="65" width="340" height="80"/>
@@ -168,7 +168,7 @@
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-84-duq" userLabel="Art View">
                     <rect key="frame" x="170" y="2" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="tVP-u8-QCd"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PlayingArt" id="tVP-u8-QCd"/>
                 </imageView>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="H2c-eI-RaT" userLabel="Overlay Box">
                     <rect key="frame" x="170" y="2" width="170" height="170"/>
@@ -728,6 +728,7 @@ Gw
         <image name="NextTrack" width="31" height="35"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
+        <image name="PlayingArt" width="237" height="237"/>
         <image name="PreviousTrack" width="31" height="35"/>
         <image name="RepeatOff" width="43" height="71"/>
         <image name="SeekBackward" width="46" height="34"/>

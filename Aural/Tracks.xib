@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Index" width="40" minWidth="40" maxWidth="50" id="utt-4E-Pwl" userLabel="Index">
+                                    <tableColumn identifier="cid_Index" width="35" minWidth="35" maxWidth="50" id="utt-4E-Pwl" userLabel="Index">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Index">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -47,11 +47,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="40" height="25"/>
+                                                <rect key="frame" x="1" y="2" width="35" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="0.0" width="44" height="25"/>
+                                                        <rect key="frame" x="-2" y="0.0" width="39" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="5ML-sW-rcP"/>
                                                         </constraints>
@@ -62,7 +62,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0ic-SL-nto">
-                                                        <rect key="frame" x="10" y="4" width="20" height="17"/>
+                                                        <rect key="frame" x="8" y="4" width="20" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="6tL-FQ-6nA"/>
                                                             <constraint firstAttribute="height" constant="17" id="W0Q-PN-zAl"/>
@@ -84,7 +84,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_Name" width="390" minWidth="370" maxWidth="10000" id="gqM-QF-bAT" userLabel="Track Name">
+                                    <tableColumn identifier="cid_Name" width="395" minWidth="370" maxWidth="10000" id="gqM-QF-bAT" userLabel="Track Name">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -98,25 +98,25 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="Aqb-5g-rsj" customClass="TrackNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="44" y="2" width="390" height="61"/>
+                                                <rect key="frame" x="39" y="2" width="395" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7v5-Z9-qxu" userLabel="Gap Before">
-                                                        <rect key="frame" x="0.0" y="43" width="390" height="18"/>
+                                                        <rect key="frame" x="0.0" y="43" width="395" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="I0D-dr-r3g"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="WwI-lW-bjN"/>
                                                     </imageView>
                                                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbN-Tk-3gy" userLabel="Gap After">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="395" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="5aD-Rb-bfv"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="leO-sM-2Ls"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="18" width="394" height="25"/>
+                                                        <rect key="frame" x="-2" y="18" width="399" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="hPU-MU-gLg"/>
                                                         </constraints>
@@ -250,16 +250,6 @@
                 <outlet property="playlistView" destination="yfe-8c-y7Q" id="MkS-vP-S7Z"/>
             </connections>
         </customObject>
-        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="c1j-C8-aLX">
-            <rect key="frame" x="0.0" y="0.0" width="60" height="17"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="oxw-1F-zI5">
-                <font key="font" usesAppearanceFont="YES"/>
-                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-            </textFieldCell>
-            <point key="canvasLocation" x="139.5" y="313.5"/>
-        </textField>
     </objects>
     <resources>
         <image name="Gap" width="107" height="18"/>
