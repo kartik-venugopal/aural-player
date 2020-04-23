@@ -69,8 +69,8 @@ class FXUnitPopupMenuCell: NicerPopupMenuCell {
     override var arrowYMargin: CGFloat {return 7}
     override var arrowColor: NSColor {return Colors.Effects.functionButtonTextColor}
     
-    override var arrowWidth: CGFloat {return 4}
-    override var arrowHeight: CGFloat {return 6}
+    override var arrowWidth: CGFloat {return 3}
+    override var arrowHeight: CGFloat {return 4}
     
     override var menuGradient: NSGradient {return Colors.Effects.functionButtonGradient}
     
