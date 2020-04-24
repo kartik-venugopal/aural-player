@@ -56,7 +56,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="14" y="356" width="10" height="10"/>
+                                    <rect key="frame" x="14" y="354" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="FQB-Oe-tVg"/>
                                         <constraint firstAttribute="height" constant="10" id="JdG-gw-JJa"/>
@@ -72,11 +72,11 @@
                                         <action selector="closeWindowAction:" target="-2" id="pbv-ne-DbR"/>
                                     </connections>
                                 </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="18" y="10" width="159" height="23"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="20" y="23" width="204" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="155" id="ZiO-s6-pJ9"/>
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
+                                        <constraint firstAttribute="width" constant="200" id="ofd-r1-DRf"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 chapters" id="eQR-B4-MMr" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="14" name="Play-Regular"/>
@@ -85,7 +85,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="250" y="13" width="14" height="11"/>
+                                    <rect key="frame" x="247" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="dEO-mN-5K5"/>
                                         <constraint firstAttribute="height" constant="11" id="h3x-Ht-Ek1"/>
@@ -102,7 +102,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="269" y="13" width="14" height="11"/>
+                                    <rect key="frame" x="266" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Zcc-HB-5qH"/>
                                         <constraint firstAttribute="height" constant="11" id="dbX-MT-yPB"/>
@@ -119,10 +119,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="312" y="11" width="14" height="14"/>
+                                    <rect key="frame" x="312" y="6" width="13" height="13"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="14" id="9GP-DR-xzf"/>
-                                        <constraint firstAttribute="width" constant="14" id="kyd-iY-5bD"/>
+                                        <constraint firstAttribute="height" constant="13" id="9GP-DR-xzf"/>
+                                        <constraint firstAttribute="width" constant="13" id="kyd-iY-5bD"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopChapter-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UKo-WT-hH4">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +139,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="290" y="10" width="16" height="16"/>
+                                    <rect key="frame" x="290" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="16" id="Tmw-pA-lzr"/>
                                         <constraint firstAttribute="height" constant="16" id="tai-mK-py5"/>
@@ -218,14 +218,15 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="iBr-vY-6sc" secondAttribute="bottom" constant="13" id="3g0-gO-SAX"/>
+                                <constraint firstAttribute="bottom" secondItem="iBr-vY-6sc" secondAttribute="bottom" constant="8" id="3g0-gO-SAX"/>
                                 <constraint firstItem="LRU-p1-g4p" firstAttribute="leading" secondItem="8Of-xA-IUV" secondAttribute="trailing" constant="8" id="3y7-BW-bGg"/>
                                 <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="8Zr-hA-Vcd"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="6" id="EHh-Jx-In0"/>
+                                <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="22" id="EWh-rY-JQb"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="51" id="IIU-Wp-Ibz"/>
-                                <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="10" id="JeX-co-VLM"/>
+                                <constraint firstAttribute="bottom" secondItem="Tye-Wf-orr" secondAttribute="bottom" constant="5" id="JeX-co-VLM"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="49" id="LL4-6g-sdT"/>
-                                <constraint firstItem="Hh1-Ht-7fu" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="20" id="OqM-Ff-z6c"/>
+                                <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="23" id="LMk-Oc-KS1"/>
                                 <constraint firstItem="5J6-lG-aTa" firstAttribute="centerX" secondItem="R3F-5h-tZn" secondAttribute="centerX" id="Pbu-q0-PCr"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="leading" secondItem="Axi-IH-THL" secondAttribute="trailing" constant="5" id="RYc-Be-Rae"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="leading" secondItem="LRU-p1-g4p" secondAttribute="trailing" constant="1" id="U0S-X5-Q1f"/>
@@ -235,13 +236,12 @@
                                 <constraint firstItem="jY6-EF-Drz" firstAttribute="leading" secondItem="R3F-5h-tZn" secondAttribute="leading" constant="14" id="XJ4-Pl-vch"/>
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="40" id="bIo-bS-6Ee"/>
                                 <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="6" id="csq-wX-8mX"/>
-                                <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
-                                <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="14" id="hha-xH-u4e"/>
+                                <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="6" id="e3E-Dp-aLS"/>
+                                <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
-                                <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-2" id="l0e-ch-Rse"/>
-                                <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
+                                <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-5" id="l0e-ch-Rse"/>
+                                <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="8" id="lch-dF-vOG"/>
                                 <constraint firstItem="jY6-EF-Drz" firstAttribute="top" secondItem="5J6-lG-aTa" secondAttribute="bottom" constant="14" id="tGZ-RX-IAX"/>
-                                <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="10" id="uzm-wc-Afo"/>
                                 <constraint firstAttribute="trailing" secondItem="2FZ-dU-SXE" secondAttribute="trailing" constant="14" id="wZV-Al-P8S"/>
                             </constraints>
                         </view>
@@ -249,13 +249,13 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
-                        <rect key="frame" x="15" y="40" width="540" height="260"/>
+                        <rect key="frame" x="15" y="54" width="540" height="246"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="260"/>
+                            <rect key="frame" x="0.0" y="0.0" width="540" height="246"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="540" height="235"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="221"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -464,7 +464,7 @@
                     <constraint firstItem="fbU-sK-75k" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="15" id="W9h-t3-9K7"/>
                     <constraint firstAttribute="bottom" secondItem="Ksp-Uu-T5P" secondAttribute="bottom" id="avX-td-leF"/>
                     <constraint firstAttribute="trailing" secondItem="fbU-sK-75k" secondAttribute="trailing" constant="15" id="mxr-tV-CTL"/>
-                    <constraint firstAttribute="bottom" secondItem="fbU-sK-75k" secondAttribute="bottom" constant="40" id="tsl-bf-ekb"/>
+                    <constraint firstAttribute="bottom" secondItem="fbU-sK-75k" secondAttribute="bottom" constant="54" id="tsl-bf-ekb"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
