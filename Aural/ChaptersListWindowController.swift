@@ -8,16 +8,6 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
     
     @IBOutlet weak var rootContainerBox: NSBox!
     
-    @IBOutlet weak var btnClose: TintedImageButton!
-    @IBOutlet weak var btnPreviousChapter: TintedImageButton!
-    @IBOutlet weak var btnNextChapter: TintedImageButton!
-    @IBOutlet weak var btnReplayChapter: TintedImageButton!
-    
-    @IBOutlet weak var btnLoopChapter: OnOffImageButton!
-    @IBOutlet weak var btnCaseSensitive: OnOffImageButton!
-    
-    private var controlButtons: [Tintable] = []
-    
     override var windowNibName: String? {return "ChaptersList"}
     
     private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
@@ -26,9 +16,7 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
         
         self.window?.delegate = ObjectGraph.windowManager
         
-        controlButtons = [btnClose, btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
-        
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeControlButtonColor, .changeControlButtonOffStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -48,14 +36,6 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
             case .changeBackgroundColor:
 
                 changeBackgroundColor(colorSchemeMsg.color)
-                
-            case .changeControlButtonColor:
-                
-                changeControlButtonColor(colorSchemeMsg.color)
-                
-            case .changeControlButtonOffStateColor:
-                
-                changeControlButtonOffStateColor(colorSchemeMsg.color)
 
             default: return
 
@@ -67,13 +47,5 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
     
     private func changeBackgroundColor(_ color: NSColor) {
         rootContainerBox.fillColor = color
-    }
-    
-    private func changeControlButtonColor(_ color: NSColor) {
-        controlButtons.forEach({$0.reTint()})
-    }
-    
-    private func changeControlButtonOffStateColor(_ color: NSColor) {
-        [btnLoopChapter, btnCaseSensitive].forEach({$0.reTint()})
     }
 }

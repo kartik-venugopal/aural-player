@@ -8,12 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ChaptersListWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="UnV-s8-pwa"/>
-                <outlet property="btnClose" destination="Bqb-2Y-Uw2" id="HnV-BR-QEj"/>
-                <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="Cgd-U7-UKc"/>
-                <outlet property="btnNextChapter" destination="iBr-vY-6sc" id="2nD-g5-jlr"/>
-                <outlet property="btnPreviousChapter" destination="Axi-IH-THL" id="AFo-dG-rc6"/>
-                <outlet property="btnReplayChapter" destination="Tye-Wf-orr" id="rQz-fQ-ArR"/>
                 <outlet property="rootContainerBox" destination="Ksp-Uu-T5P" id="c2g-DF-YJX"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Vrd-Pf-VfP"/>
             </connections>
@@ -62,15 +56,18 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="14" y="355" width="9" height="9"/>
+                                    <rect key="frame" x="14" y="356" width="10" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="9" id="FQB-Oe-tVg"/>
-                                        <constraint firstAttribute="height" constant="9" id="JdG-gw-JJa"/>
+                                        <constraint firstAttribute="width" constant="10" id="FQB-Oe-tVg"/>
+                                        <constraint firstAttribute="height" constant="10" id="JdG-gw-JJa"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2yB-X7-zcw">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="closeWindowAction:" target="-2" id="pbv-ne-DbR"/>
                                     </connections>
@@ -97,6 +94,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="playPreviousChapterAction:" target="uhU-UR-xwr" id="NdA-MV-VOd"/>
                                     </connections>
@@ -111,15 +111,18 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="playNextChapterAction:" target="uhU-UR-xwr" id="4x0-K9-PQF"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="318" y="11" width="17" height="17"/>
+                                    <rect key="frame" x="318" y="11" width="15" height="15"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="17" id="9GP-DR-xzf"/>
-                                        <constraint firstAttribute="width" constant="17" id="kyd-iY-5bD"/>
+                                        <constraint firstAttribute="height" constant="15" id="9GP-DR-xzf"/>
+                                        <constraint firstAttribute="width" constant="15" id="kyd-iY-5bD"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopChapter-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UKo-WT-hH4">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -145,6 +148,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system" size="21"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Replay"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="replayCurrentChapterAction:" target="uhU-UR-xwr" id="Os2-Lr-1A4"/>
                                     </connections>
@@ -230,7 +236,7 @@
                                 <constraint firstItem="8Of-xA-IUV" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="40" id="bIo-bS-6Ee"/>
                                 <constraint firstItem="vD3-y2-J8L" firstAttribute="leading" secondItem="Tye-Wf-orr" secondAttribute="trailing" constant="6" id="csq-wX-8mX"/>
                                 <constraint firstAttribute="bottom" secondItem="vD3-y2-J8L" secondAttribute="bottom" constant="11" id="e3E-Dp-aLS"/>
-                                <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="16" id="hha-xH-u4e"/>
+                                <constraint firstItem="Bqb-2Y-Uw2" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="14" id="hha-xH-u4e"/>
                                 <constraint firstItem="2FZ-dU-SXE" firstAttribute="top" secondItem="R3F-5h-tZn" secondAttribute="top" constant="50" id="iAy-CH-x8x"/>
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-2" id="l0e-ch-Rse"/>
@@ -450,15 +456,6 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="als-Tc-ziM">
-                        <rect key="frame" x="535" y="264" width="37" height="45"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" id="zdx-xu-AL7">
-                            <font key="font" usesAppearanceFont="YES"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ksp-Uu-T5P" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="P0P-5x-0TS"/>
@@ -483,13 +480,16 @@
         <viewController id="uhU-UR-xwr" customClass="ChaptersListViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnCaseSensitive" destination="PhG-3g-wVK" id="yuW-jF-LzI"/>
+                <outlet property="btnClose" destination="Bqb-2Y-Uw2" id="DkU-ev-AXP"/>
                 <outlet property="btnLoopChapter" destination="vD3-y2-J8L" id="A8X-fF-Lbb"/>
+                <outlet property="btnNextChapter" destination="iBr-vY-6sc" id="zHJ-Kd-VuU"/>
                 <outlet property="btnNextMatch" destination="2FZ-dU-SXE" id="WM0-kJ-ktx"/>
+                <outlet property="btnPreviousChapter" destination="Axi-IH-THL" id="wZj-di-Qx0"/>
                 <outlet property="btnPreviousMatch" destination="LRU-p1-g4p" id="PXH-LH-EHq"/>
+                <outlet property="btnReplayChapter" destination="Tye-Wf-orr" id="sz7-EB-tM9"/>
                 <outlet property="chaptersListView" destination="rlg-QY-3mV" id="ZRr-d7-tPJ"/>
                 <outlet property="clipView" destination="Ehf-3j-NsA" id="hWj-bg-zgL"/>
                 <outlet property="header" destination="o7A-Nv-ijK" id="tsM-Lu-SPk"/>
-                <outlet property="lblCover" destination="als-Tc-ziM" id="u8B-Zb-hTj"/>
                 <outlet property="lblNumMatches" destination="8Of-xA-IUV" id="5UI-iy-91C"/>
                 <outlet property="lblSummary" destination="Hh1-Ht-7fu" id="yya-FS-AZ2"/>
                 <outlet property="lblWindowTitle" destination="5J6-lG-aTa" id="Ir6-ZI-2nN"/>
