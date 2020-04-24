@@ -41,6 +41,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         _ = colorsDialog.showDialog()
     }
     
+    @IBAction func printSchemeAction(_ sender: AnyObject) {
+        print(ColorSchemes.systemScheme.toString())
+    }
+    
     // MARK: Setup
     
     // One-time setup

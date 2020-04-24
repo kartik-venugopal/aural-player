@@ -1,6 +1,27 @@
 import Cocoa
 
-class ColorSchemesState {
+class ColorSchemesState: PersistentState {
+
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = ColorSchemesState()
+        
+        if let arr = map["userSchemes"] as? NSArray {
+            
+            for dict in arr {
+                
+                if let theDict = dict as? NSDictionary, let userScheme = ColorSchemeState.deserialize(theDict) as? ColorSchemeState {
+                    state.userSchemes.append(userScheme)
+                }
+            }
+        }
+        
+        if let dict = map["systemScheme"] as? NSDictionary, let scheme = ColorSchemeState.deserialize(dict) as? ColorSchemeState {
+            state.systemScheme = scheme
+        }
+        
+        return state
+    }
     
     var userSchemes: [ColorSchemeState] = []
     var systemScheme: ColorSchemeState
@@ -16,7 +37,7 @@ class ColorSchemesState {
     }
 }
 
-class ColorSchemeState {
+class ColorSchemeState: PersistentState {
     
     var general: GeneralColorSchemeState
     var player: PlayerColorSchemeState
@@ -34,22 +55,47 @@ class ColorSchemeState {
         self.playlist = PlaylistColorSchemeState(scheme.playlist)
         self.effects = EffectsColorSchemeState(scheme.effects)
     }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = ColorSchemeState()
+        
+        if let dict = map["general"] as? NSDictionary, let generalState = GeneralColorSchemeState.deserialize(dict) as? GeneralColorSchemeState {
+            state.general = generalState
+        }
+        
+        if let dict = map["player"] as? NSDictionary, let playerState = PlayerColorSchemeState.deserialize(dict) as? PlayerColorSchemeState {
+            state.player = playerState
+        }
+        
+        if let dict = map["playlist"] as? NSDictionary, let playlistState = PlaylistColorSchemeState.deserialize(dict) as? PlaylistColorSchemeState {
+            state.playlist = playlistState
+        }
+        
+        if let dict = map["effects"] as? NSDictionary, let effectsState = EffectsColorSchemeState.deserialize(dict) as? EffectsColorSchemeState {
+            state.effects = effectsState
+        }
+        
+        return state
+    }
 }
 
-class GeneralColorSchemeState {
+class GeneralColorSchemeState: PersistentState {
     
-    var appLogoColor: ColorState
-    var backgroundColor: ColorState
+    var appLogoColor: ColorState = ColorState.defaultInstance
+    var backgroundColor: ColorState = ColorState.defaultInstance
     
-    var viewControlButtonColor: ColorState
-    var functionButtonColor: ColorState
-    var toggleButtonOffStateColor: ColorState
-    var selectedTabButtonColor: ColorState
+    var viewControlButtonColor: ColorState = ColorState.defaultInstance
+    var functionButtonColor: ColorState = ColorState.defaultInstance
+    var toggleButtonOffStateColor: ColorState = ColorState.defaultInstance
+    var selectedTabButtonColor: ColorState = ColorState.defaultInstance
     
-    var mainCaptionTextColor: ColorState
-    var tabButtonTextColor: ColorState
-    var selectedTabButtonTextColor: ColorState
-    var functionButtonTextColor: ColorState
+    var mainCaptionTextColor: ColorState = ColorState.defaultInstance
+    var tabButtonTextColor: ColorState = ColorState.defaultInstance
+    var selectedTabButtonTextColor: ColorState = ColorState.defaultInstance
+    var functionButtonTextColor: ColorState = ColorState.defaultInstance
+    
+    init() {}
     
     init(_ scheme: GeneralColorScheme) {
         
@@ -66,19 +112,68 @@ class GeneralColorSchemeState {
         self.selectedTabButtonTextColor = ColorState.fromColor(scheme.selectedTabButtonTextColor)
         self.functionButtonTextColor = ColorState.fromColor(scheme.functionButtonTextColor)
     }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = GeneralColorSchemeState()
+        
+        if let colorDict = map["appLogoColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.appLogoColor = color
+        }
+        
+        if let colorDict = map["backgroundColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.backgroundColor = color
+        }
+        
+        if let colorDict = map["viewControlButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.viewControlButtonColor = color
+        }
+        
+        if let colorDict = map["functionButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.functionButtonColor = color
+        }
+        
+        if let colorDict = map["toggleButtonOffStateColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.toggleButtonOffStateColor = color
+        }
+        
+        if let colorDict = map["selectedTabButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.selectedTabButtonColor = color
+        }
+        
+        if let colorDict = map["mainCaptionTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.mainCaptionTextColor = color
+        }
+        
+        if let colorDict = map["tabButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.tabButtonTextColor = color
+        }
+        
+        if let colorDict = map["selectedTabButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.selectedTabButtonTextColor = color
+        }
+        
+        if let colorDict = map["functionButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.functionButtonTextColor = color
+        }
+        
+        return state
+    }
 }
 
-class PlayerColorSchemeState {
+class PlayerColorSchemeState: PersistentState {
     
-    var trackInfoPrimaryTextColor: ColorState
-    var trackInfoSecondaryTextColor: ColorState
-    var trackInfoTertiaryTextColor: ColorState
-    var sliderValueTextColor: ColorState
+    var trackInfoPrimaryTextColor: ColorState = ColorState.defaultInstance
+    var trackInfoSecondaryTextColor: ColorState = ColorState.defaultInstance
+    var trackInfoTertiaryTextColor: ColorState = ColorState.defaultInstance
+    var sliderValueTextColor: ColorState = ColorState.defaultInstance
     
-    var sliderForegroundColor: ColorState
-    var sliderBackgroundColor: ColorState
-    var sliderKnobColor: ColorState
-    var sliderLoopSegmentColor: ColorState
+    var sliderForegroundColor: ColorState = ColorState.defaultInstance
+    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    var sliderKnobColor: ColorState = ColorState.defaultInstance
+    var sliderLoopSegmentColor: ColorState = ColorState.defaultInstance
+    
+    init() {}
     
     init(_ scheme: PlayerColorScheme) {
         
@@ -92,25 +187,74 @@ class PlayerColorSchemeState {
         self.sliderKnobColor = ColorState.fromColor(scheme.sliderKnobColor)
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
     }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = PlayerColorSchemeState()
+        
+        if let colorDict = map["trackInfoPrimaryTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.trackInfoPrimaryTextColor = color
+        }
+        
+        if let colorDict = map["trackInfoSecondaryTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.trackInfoSecondaryTextColor = color
+        }
+        
+        if let colorDict = map["trackInfoTertiaryTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.trackInfoTertiaryTextColor = color
+        }
+        
+        if let colorDict = map["sliderValueTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderValueTextColor = color
+        }
+        
+        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderBackgroundColor = color
+        }
+        
+        if let colorDict = map["sliderForegroundColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderForegroundColor = color
+        }
+        
+        if let colorDict = map["sliderKnobColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderKnobColor = color
+        }
+        
+        if let colorDict = map["sliderLoopSegmentColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderLoopSegmentColor = color
+        }
+        
+        return state
+    }
 }
 
-class PlaylistColorSchemeState {
+class PlaylistColorSchemeState: PersistentState {
     
-    var trackNameTextColor: ColorState
-    var groupNameTextColor: ColorState
-    var indexDurationTextColor: ColorState
+    var trackNameTextColor: ColorState = ColorState.defaultInstance
+    var groupNameTextColor: ColorState = ColorState.defaultInstance
+    var indexDurationTextColor: ColorState = ColorState.defaultInstance
     
-    var trackNameSelectedTextColor: ColorState
-    var groupNameSelectedTextColor: ColorState
-    var indexDurationSelectedTextColor: ColorState
+    var trackNameSelectedTextColor: ColorState = ColorState.defaultInstance
+    var groupNameSelectedTextColor: ColorState = ColorState.defaultInstance
+    var indexDurationSelectedTextColor: ColorState = ColorState.defaultInstance
     
-    var summaryInfoColor: ColorState
+    var summaryInfoColor: ColorState = ColorState.defaultInstance
     
-    var playingTrackIconColor: ColorState
-    var selectionBoxColor: ColorState
+    var playingTrackIconColor: ColorState = ColorState.defaultInstance
+    var selectionBoxColor: ColorState = ColorState.defaultInstance
     
-    var groupIconColor: ColorState
-    var groupDisclosureTriangleColor: ColorState
+    var groupIconColor: ColorState = ColorState.defaultInstance
+    var groupDisclosureTriangleColor: ColorState = ColorState.defaultInstance
+    
+    init() {}
     
     init(_ scheme: PlaylistColorScheme) {
         
@@ -128,18 +272,82 @@ class PlaylistColorSchemeState {
         self.playingTrackIconColor = ColorState.fromColor(scheme.playingTrackIconColor)
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
     }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = PlaylistColorSchemeState()
+        
+        if let colorDict = map["trackNameTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.trackNameTextColor = color
+        }
+        
+        if let colorDict = map["groupNameTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.groupNameTextColor = color
+        }
+        
+        if let colorDict = map["indexDurationTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.indexDurationTextColor = color
+        }
+        
+        if let colorDict = map["trackNameSelectedTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.trackNameSelectedTextColor = color
+        }
+        
+        if let colorDict = map["groupNameSelectedTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.groupNameSelectedTextColor = color
+        }
+        
+        if let colorDict = map["indexDurationSelectedTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.indexDurationSelectedTextColor = color
+        }
+        
+        if let colorDict = map["groupIconColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.groupIconColor = color
+        }
+        
+        if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.groupDisclosureTriangleColor = color
+        }
+        
+        if let colorDict = map["selectionBoxColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.selectionBoxColor = color
+        }
+        
+        if let colorDict = map["playingTrackIconColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.playingTrackIconColor = color
+        }
+        
+        if let colorDict = map["summaryInfoColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.summaryInfoColor = color
+        }
+        
+        return state
+    }
 }
 
-class EffectsColorSchemeState {
+class EffectsColorSchemeState: PersistentState {
     
-    var functionCaptionTextColor: ColorState
-    var functionValueTextColor: ColorState
+    var functionCaptionTextColor: ColorState = ColorState.defaultInstance
+    var functionValueTextColor: ColorState = ColorState.defaultInstance
     
-    var sliderBackgroundColor: ColorState
+    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
     
-    var activeUnitStateColor: ColorState
-    var bypassedUnitStateColor: ColorState
-    var suppressedUnitStateColor: ColorState
+    var activeUnitStateColor: ColorState = ColorState.defaultInstance
+    var bypassedUnitStateColor: ColorState = ColorState.defaultInstance
+    var suppressedUnitStateColor: ColorState = ColorState.defaultInstance
+    
+    init() {}
     
     init(_ scheme: EffectsColorScheme) {
      
@@ -151,5 +359,42 @@ class EffectsColorSchemeState {
         self.activeUnitStateColor = ColorState.fromColor(scheme.activeUnitStateColor)
         self.bypassedUnitStateColor = ColorState.fromColor(scheme.bypassedUnitStateColor)
         self.suppressedUnitStateColor = ColorState.fromColor(scheme.suppressedUnitStateColor)
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = EffectsColorSchemeState()
+        
+        if let colorDict = map["functionCaptionTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.functionCaptionTextColor = color
+        }
+        
+        if let colorDict = map["functionValueTextColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.functionValueTextColor = color
+        }
+        
+        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderBackgroundColor = color
+        }
+        
+        if let colorDict = map["activeUnitStateColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.activeUnitStateColor = color
+        }
+        
+        if let colorDict = map["bypassedUnitStateColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.bypassedUnitStateColor = color
+        }
+        
+        if let colorDict = map["suppressedUnitStateColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.suppressedUnitStateColor = color
+        }
+        
+        return state
     }
 }
