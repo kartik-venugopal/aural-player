@@ -53,11 +53,11 @@ class TabGroupButtonCell: NSButtonCell {
 
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
-    override var unselectedTextColor: NSColor {return Colors.Playlist.tabButtonTextColor}
-    override var selectedTextColor: NSColor {return Colors.Playlist.selectedTabButtonTextColor}
+    override var unselectedTextColor: NSColor {return Colors.tabButtonTextColor}
+    override var selectedTextColor: NSColor {return Colors.selectedTabButtonTextColor}
     
     override var borderRadius: CGFloat {return 3}
-    override var selectionBoxColor: NSColor {return Colors.Playlist.selectedTabButtonBackgroundColor}
+    override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
     override var textFont: NSFont {return Fonts.Playlist.tabsFont}
     override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
@@ -112,10 +112,10 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
     override var borderRadius: CGFloat {return 2}
     
-    override var selectionBoxColor: NSColor {return Colors.Effects.selectedTabButtonColor}
+    override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
-    override var unselectedTextColor: NSColor {return Colors.Effects.tabButtonTextColor}
-    override var selectedTextColor: NSColor {return Colors.Effects.selectedTabButtonTextColor}
+    override var unselectedTextColor: NSColor {return Colors.tabButtonTextColor}
+    override var selectedTextColor: NSColor {return Colors.selectedTabButtonTextColor}
     
     override var yOffset: CGFloat {
         

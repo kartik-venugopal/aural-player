@@ -38,17 +38,33 @@ class ColorSchemeState {
 
 class GeneralColorSchemeState {
     
-    var logoTextColor: ColorState
+    var appLogoColor: ColorState
     var backgroundColor: ColorState
-    var controlButtonColor: ColorState
-    var controlButtonOffStateColor: ColorState
+    
+    var viewControlButtonColor: ColorState
+    var functionButtonColor: ColorState
+    var functionButtonOffStateColor: ColorState
+    var selectedTabButtonColor: ColorState
+    
+    var mainCaptionTextColor: ColorState
+    var tabButtonTextColor: ColorState
+    var selectedTabButtonTextColor: ColorState
+    var functionButtonTextColor: ColorState
     
     init(_ scheme: GeneralColorScheme) {
         
-        self.logoTextColor = ColorState.fromColor(scheme.logoTextColor)
+        self.appLogoColor = ColorState.fromColor(scheme.appLogoColor)
         self.backgroundColor = ColorState.fromColor(scheme.backgroundColor)
-        self.controlButtonColor = ColorState.fromColor(scheme.controlButtonColor)
-        self.controlButtonOffStateColor = ColorState.fromColor(scheme.controlButtonOffStateColor)
+        
+        self.viewControlButtonColor = ColorState.fromColor(scheme.viewControlButtonColor)
+        self.functionButtonColor = ColorState.fromColor(scheme.viewControlButtonColor)
+        self.functionButtonOffStateColor = ColorState.fromColor(scheme.functionButtonOffStateColor)
+        self.selectedTabButtonColor = ColorState.fromColor(scheme.selectedTabButtonColor)
+        
+        self.mainCaptionTextColor = ColorState.fromColor(scheme.mainCaptionTextColor)
+        self.tabButtonTextColor = ColorState.fromColor(scheme.tabButtonTextColor)
+        self.selectedTabButtonTextColor = ColorState.fromColor(scheme.selectedTabButtonTextColor)
+        self.functionButtonTextColor = ColorState.fromColor(scheme.functionButtonTextColor)
     }
 }
 
@@ -57,7 +73,7 @@ class PlayerColorSchemeState {
     var trackInfoPrimaryTextColor: ColorState
     var trackInfoSecondaryTextColor: ColorState
     var trackInfoTertiaryTextColor: ColorState
-    var controlTextColor: ColorState
+    var sliderValueTextColor: ColorState
     
     var sliderForegroundColor: ColorState
     var sliderBackgroundColor: ColorState
@@ -69,7 +85,7 @@ class PlayerColorSchemeState {
         self.trackInfoPrimaryTextColor = ColorState.fromColor(scheme.trackInfoPrimaryTextColor)
         self.trackInfoSecondaryTextColor = ColorState.fromColor(scheme.trackInfoSecondaryTextColor)
         self.trackInfoTertiaryTextColor = ColorState.fromColor(scheme.trackInfoTertiaryTextColor)
-        self.controlTextColor = ColorState.fromColor(scheme.controlTextColor)
+        self.sliderValueTextColor = ColorState.fromColor(scheme.sliderValueTextColor)
         
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
         self.sliderForegroundColor = ColorState.fromColor(scheme.sliderForegroundColor)
@@ -89,16 +105,12 @@ class PlaylistColorSchemeState {
     var indexDurationSelectedTextColor: ColorState
     
     var summaryInfoColor: ColorState
-    var tabButtonTextColor: ColorState
-    var selectedTabButtonTextColor: ColorState
     
     var playingTrackIconColor: ColorState
     var selectionBoxColor: ColorState
     
     var groupIconColor: ColorState
     var groupDisclosureTriangleColor: ColorState
-    
-    var selectedTabButtonColor: ColorState
     
     init(_ scheme: PlaylistColorScheme) {
         
@@ -110,22 +122,18 @@ class PlaylistColorSchemeState {
         self.groupNameSelectedTextColor = ColorState.fromColor(scheme.groupNameSelectedTextColor)
         self.indexDurationSelectedTextColor = ColorState.fromColor(scheme.indexDurationSelectedTextColor)
         
-        self.tabButtonTextColor = ColorState.fromColor(scheme.tabButtonTextColor)
-        self.selectedTabButtonTextColor = ColorState.fromColor(scheme.selectedTabButtonTextColor)
-        
         self.groupIconColor = ColorState.fromColor(scheme.groupIconColor)
         self.groupDisclosureTriangleColor = ColorState.fromColor(scheme.groupDisclosureTriangleColor)
         self.selectionBoxColor = ColorState.fromColor(scheme.selectionBoxColor)
         self.playingTrackIconColor = ColorState.fromColor(scheme.playingTrackIconColor)
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
-        self.selectedTabButtonColor = ColorState.fromColor(scheme.selectedTabButtonColor)
     }
 }
 
 class EffectsColorSchemeState {
     
-    var mainCaptionTextColor: ColorState
     var functionCaptionTextColor: ColorState
+    var functionValueTextColor: ColorState
     
     var sliderBackgroundColor: ColorState
     
@@ -133,29 +141,15 @@ class EffectsColorSchemeState {
     var bypassedUnitStateColor: ColorState
     var suppressedUnitStateColor: ColorState
     
-    var tabButtonTextColor: ColorState
-    var selectedTabButtonTextColor: ColorState
-    var selectedTabButtonColor: ColorState
-    
-    var functionButtonColor: ColorState
-    var functionButtonTextColor: ColorState
-    
     init(_ scheme: EffectsColorScheme) {
      
-        self.mainCaptionTextColor = ColorState.fromColor(scheme.mainCaptionTextColor)
         self.functionCaptionTextColor = ColorState.fromColor(scheme.functionCaptionTextColor)
+        self.functionValueTextColor = ColorState.fromColor(scheme.functionValueTextColor)
         
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
         
         self.activeUnitStateColor = ColorState.fromColor(scheme.activeUnitStateColor)
         self.bypassedUnitStateColor = ColorState.fromColor(scheme.bypassedUnitStateColor)
         self.suppressedUnitStateColor = ColorState.fromColor(scheme.suppressedUnitStateColor)
-        
-        self.tabButtonTextColor = ColorState.fromColor(scheme.tabButtonTextColor)
-        self.selectedTabButtonTextColor = ColorState.fromColor(scheme.selectedTabButtonTextColor)
-        self.selectedTabButtonColor = ColorState.fromColor(scheme.selectedTabButtonColor)
-        
-        self.functionButtonColor = ColorState.fromColor(scheme.functionButtonColor)
-        self.functionButtonTextColor = ColorState.fromColor(scheme.functionButtonTextColor)
     }
 }

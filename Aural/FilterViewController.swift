@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeViewControlButtonColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -370,7 +370,7 @@ class FilterViewController: FXUnitViewController {
                 
                 changeSelectedTabButtonTextColor()
                 
-            case .changeControlButtonColor:
+            case .changeViewControlButtonColor:
                 
                 changeControlButtonColor()
                 

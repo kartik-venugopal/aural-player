@@ -109,7 +109,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -255,7 +255,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
                 
                 changeBackgroundColor(colorChangeMsg.color)
                 
-            case .changeControlButtonColor:
+            case .changeViewControlButtonColor:
                 
                 changeControlButtonColor(colorChangeMsg.color)
                 

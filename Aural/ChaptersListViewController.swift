@@ -106,7 +106,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeControlButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -389,11 +389,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
                     
                     changeBackgroundColor(colorSchemeMsg.color)
                     
-                case .changeControlButtonColor:
+                case .changeViewControlButtonColor:
                     
                     changeControlButtonColor(colorSchemeMsg.color)
                     
-                case .changeControlButtonOffStateColor:
+                case .changeFunctionButtonOffStateColor:
                     
                     changeControlButtonOffStateColor(colorSchemeMsg.color)
                     

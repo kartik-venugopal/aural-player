@@ -12,7 +12,7 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
     // The image displayed when the button is in an "On" state
     @IBInspectable var onStateImage: NSImage?
     
-    var offStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.bypassedUnitStateColor} {
+    var offStateTintFunction: () -> NSColor = {return Colors.Effects.bypassedUnitStateColor} {
         
         didSet {
             
@@ -22,7 +22,7 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
         }
     }
     
-    var onStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.activeUnitStateColor} {
+    var onStateTintFunction: () -> NSColor = {return Colors.Effects.activeUnitStateColor} {
         
         didSet {
             
@@ -91,7 +91,7 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     
     @IBInspectable var mixedStateImage: NSImage?
     
-    var mixedStateTintFunction: () -> NSColor = {return ColorSchemes.systemScheme.effects.suppressedUnitStateColor} {
+    var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
         
         didSet {
             

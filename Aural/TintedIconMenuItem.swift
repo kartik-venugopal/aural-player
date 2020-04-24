@@ -10,7 +10,7 @@ class TintedIconMenuItem: NSMenuItem, Tintable {
         }
     }
     
-    var tintFunction: () -> NSColor = {return ColorSchemes.systemScheme.general.controlButtonColor} {
+    var tintFunction: () -> NSColor = {return Colors.viewControlButtonColor} {
         
         didSet {
             reTint()

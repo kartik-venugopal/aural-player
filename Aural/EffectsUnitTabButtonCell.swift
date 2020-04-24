@@ -7,7 +7,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     private let borderInsetY: CGFloat = 2
     private let borderRadius: CGFloat = 3
     
-    private var selectionBoxColor: NSColor {return Colors.Effects.selectedTabButtonColor}
+    private var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
     var unitState: EffectsUnitState = .bypassed
     

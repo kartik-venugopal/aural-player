@@ -52,50 +52,78 @@ class ColorScheme {
 
 class GeneralColorScheme {
     
-    func persistentState() -> GeneralColorSchemeState {
-        return GeneralColorSchemeState(self)
-    }
-    
-    var logoTextColor: NSColor
+    var appLogoColor: NSColor
     var backgroundColor: NSColor
-    var controlButtonColor: NSColor
-    var controlButtonOffStateColor: NSColor
+    
+    var viewControlButtonColor: NSColor
+    var functionButtonColor: NSColor
+    var functionButtonOffStateColor: NSColor
+    var selectedTabButtonColor: NSColor
+    
+    var mainCaptionTextColor: NSColor
+    var tabButtonTextColor: NSColor
+    var selectedTabButtonTextColor: NSColor
+    var functionButtonTextColor: NSColor
     
     init(_ appState: GeneralColorSchemeState) {
         
-        self.logoTextColor = appState.logoTextColor.toColor()
+        self.appLogoColor = appState.appLogoColor.toColor()
         self.backgroundColor = appState.backgroundColor.toColor()
-        self.controlButtonColor = appState.controlButtonColor.toColor()
-        self.controlButtonOffStateColor = appState.controlButtonOffStateColor.toColor()
+        
+        self.viewControlButtonColor = appState.functionButtonColor.toColor()
+        self.functionButtonColor = appState.functionButtonColor.toColor()
+        self.functionButtonOffStateColor = appState.functionButtonOffStateColor.toColor()
+        self.selectedTabButtonColor = appState.selectedTabButtonColor.toColor()
+        
+        self.mainCaptionTextColor = appState.mainCaptionTextColor.toColor()
+        self.tabButtonTextColor = appState.tabButtonTextColor.toColor()
+        self.selectedTabButtonTextColor = appState.selectedTabButtonTextColor.toColor()
+        self.functionButtonTextColor = appState.functionButtonTextColor.toColor()
     }
    
     init(_ preset: ColorSchemePreset) {
         
-        self.logoTextColor = preset.logoTextColor
+        self.appLogoColor = preset.appLogoColor
         self.backgroundColor = preset.backgroundColor
-        self.controlButtonColor = preset.controlButtonColor
-        self.controlButtonOffStateColor = preset.controlButtonOffStateColor
+        
+        self.viewControlButtonColor = preset.viewControlButtonColor
+        self.functionButtonColor = preset.functionButtonColor
+        self.functionButtonOffStateColor = preset.functionButtonOffStateColor
+        self.selectedTabButtonColor = preset.selectedTabButtonColor
+        
+        self.mainCaptionTextColor = preset.mainCaptionTextColor
+        self.tabButtonTextColor = preset.tabButtonTextColor
+        self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor
+        self.functionButtonTextColor = preset.functionButtonTextColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
         
-        self.logoTextColor = preset.logoTextColor
+        self.appLogoColor = preset.appLogoColor
         self.backgroundColor = preset.backgroundColor
-        self.controlButtonColor = preset.controlButtonColor
-        self.controlButtonOffStateColor = preset.controlButtonOffStateColor
+        
+        self.viewControlButtonColor = preset.viewControlButtonColor
+        self.functionButtonColor = preset.functionButtonColor
+        self.functionButtonOffStateColor = preset.functionButtonOffStateColor
+        self.selectedTabButtonColor = preset.selectedTabButtonColor
+        
+        self.mainCaptionTextColor = preset.mainCaptionTextColor
+        self.tabButtonTextColor = preset.tabButtonTextColor
+        self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor
+        self.functionButtonTextColor = preset.functionButtonTextColor
+    }
+    
+    var persistentState: GeneralColorSchemeState {
+        return GeneralColorSchemeState(self)
     }
 }
 
 class PlayerColorScheme {
     
-    var persistentState: PlayerColorSchemeState {
-        return PlayerColorSchemeState(self)
-    }
-    
     var trackInfoPrimaryTextColor: NSColor
     var trackInfoSecondaryTextColor: NSColor
     var trackInfoTertiaryTextColor: NSColor
-    var controlTextColor: NSColor
+    var sliderValueTextColor: NSColor
     
     var sliderForegroundColor: NSColor
     var sliderBackgroundColor: NSColor
@@ -107,8 +135,7 @@ class PlayerColorScheme {
         self.trackInfoPrimaryTextColor = appState.trackInfoPrimaryTextColor.toColor()
         self.trackInfoSecondaryTextColor = appState.trackInfoSecondaryTextColor.toColor()
         self.trackInfoTertiaryTextColor = appState.trackInfoTertiaryTextColor.toColor()
-        
-        self.controlTextColor = appState.controlTextColor.toColor()
+        self.sliderValueTextColor = appState.sliderValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
         self.sliderForegroundColor = appState.sliderForegroundColor.toColor()
@@ -121,8 +148,7 @@ class PlayerColorScheme {
         self.trackInfoPrimaryTextColor = preset.playerTrackInfoPrimaryTextColor
         self.trackInfoSecondaryTextColor = preset.playerTrackInfoSecondaryTextColor
         self.trackInfoTertiaryTextColor = preset.playerTrackInfoTertiaryTextColor
-        
-        self.controlTextColor = preset.playerControlTextColor
+        self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
         self.sliderForegroundColor = preset.playerSliderForegroundColor
@@ -135,21 +161,20 @@ class PlayerColorScheme {
         self.trackInfoPrimaryTextColor = preset.playerTrackInfoPrimaryTextColor
         self.trackInfoSecondaryTextColor = preset.playerTrackInfoSecondaryTextColor
         self.trackInfoTertiaryTextColor = preset.playerTrackInfoTertiaryTextColor
-        
-        self.controlTextColor = preset.playerControlTextColor
+        self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
         self.sliderForegroundColor = preset.playerSliderForegroundColor
         self.sliderKnobColor = preset.playerSliderKnobColor
         self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
+    
+    var persistentState: PlayerColorSchemeState {
+        return PlayerColorSchemeState(self)
+    }
 }
 
 class PlaylistColorScheme {
-    
-    var persistentState: PlaylistColorSchemeState {
-        return PlaylistColorSchemeState(self)
-    }
     
     var trackNameTextColor: NSColor
     var groupNameTextColor: NSColor
@@ -160,8 +185,6 @@ class PlaylistColorScheme {
     var indexDurationSelectedTextColor: NSColor
     
     var summaryInfoColor: NSColor
-    var tabButtonTextColor: NSColor
-    var selectedTabButtonTextColor: NSColor
     
     var playingTrackIconColor: NSColor
     var selectionBoxColor: NSColor
@@ -169,27 +192,23 @@ class PlaylistColorScheme {
     var groupIconColor: NSColor
     var groupDisclosureTriangleColor: NSColor
     
-    var selectedTabButtonColor: NSColor
-    
-    init(_ preset: PlaylistColorSchemeState) {
+    init(_ appState: PlaylistColorSchemeState) {
         
-        self.trackNameTextColor = preset.trackNameTextColor.toColor()
-        self.groupNameTextColor = preset.groupNameTextColor.toColor()
-        self.indexDurationTextColor = preset.indexDurationTextColor.toColor()
+        self.trackNameTextColor = appState.trackNameTextColor.toColor()
+        self.groupNameTextColor = appState.groupNameTextColor.toColor()
+        self.indexDurationTextColor = appState.indexDurationTextColor.toColor()
         
-        self.trackNameSelectedTextColor = preset.trackNameSelectedTextColor.toColor()
-        self.groupNameSelectedTextColor = preset.groupNameSelectedTextColor.toColor()
-        self.indexDurationSelectedTextColor = preset.indexDurationSelectedTextColor.toColor()
+        self.trackNameSelectedTextColor = appState.trackNameSelectedTextColor.toColor()
+        self.groupNameSelectedTextColor = appState.groupNameSelectedTextColor.toColor()
+        self.indexDurationSelectedTextColor = appState.indexDurationSelectedTextColor.toColor()
         
-        self.summaryInfoColor = preset.summaryInfoColor.toColor()
-        self.tabButtonTextColor = preset.tabButtonTextColor.toColor()
-        self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor.toColor()
+        self.summaryInfoColor = appState.summaryInfoColor.toColor()
         
-        self.groupIconColor = preset.groupIconColor.toColor()
-        self.groupDisclosureTriangleColor = preset.groupDisclosureTriangleColor.toColor()
-        self.selectionBoxColor = preset.selectionBoxColor.toColor()
-        self.selectedTabButtonColor = preset.selectedTabButtonColor.toColor()
-        self.playingTrackIconColor = preset.playingTrackIconColor.toColor()
+        self.selectionBoxColor = appState.selectionBoxColor.toColor()
+        self.playingTrackIconColor = appState.playingTrackIconColor.toColor()
+        
+        self.groupIconColor = appState.groupIconColor.toColor()
+        self.groupDisclosureTriangleColor = appState.groupDisclosureTriangleColor.toColor()
     }
     
     init(_ preset: ColorSchemePreset) {
@@ -203,14 +222,12 @@ class PlaylistColorScheme {
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
         self.summaryInfoColor = preset.playlistSummaryInfoColor
-        self.tabButtonTextColor = preset.playlistTabButtonTextColor
-        self.selectedTabButtonTextColor = preset.playlistSelectedTabButtonTextColor
+        
+        self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
         
         self.groupIconColor = preset.playlistGroupIconColor
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
-        self.selectionBoxColor = preset.playlistSelectionBoxColor
-        self.selectedTabButtonColor = preset.playlistSelectedTabButtonColor
-        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
@@ -224,21 +241,23 @@ class PlaylistColorScheme {
         self.indexDurationSelectedTextColor = preset.playlistIndexDurationSelectedTextColor
         
         self.summaryInfoColor = preset.playlistSummaryInfoColor
-        self.tabButtonTextColor = preset.playlistTabButtonTextColor
-        self.selectedTabButtonTextColor = preset.playlistSelectedTabButtonTextColor
+        
+        self.selectionBoxColor = preset.playlistSelectionBoxColor
+        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
         
         self.groupIconColor = preset.playlistGroupIconColor
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
-        self.selectionBoxColor = preset.playlistSelectionBoxColor
-        self.selectedTabButtonColor = preset.playlistSelectedTabButtonColor
-        self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
+    }
+    
+    var persistentState: PlaylistColorSchemeState {
+        return PlaylistColorSchemeState(self)
     }
 }
 
 class EffectsColorScheme {
     
-    var mainCaptionTextColor: NSColor
     var functionCaptionTextColor: NSColor
+    var functionValueTextColor: NSColor
     
     var sliderBackgroundColor: NSColor
     
@@ -246,68 +265,40 @@ class EffectsColorScheme {
     var bypassedUnitStateColor: NSColor
     var suppressedUnitStateColor: NSColor
     
-    var tabButtonTextColor: NSColor
-    var selectedTabButtonTextColor: NSColor
-    var selectedTabButtonColor: NSColor
-    
-    var functionButtonColor: NSColor
-    var functionButtonTextColor: NSColor
-    
     init(_ appState: EffectsColorSchemeState) {
         
-        self.mainCaptionTextColor = appState.mainCaptionTextColor.toColor()
         self.functionCaptionTextColor = appState.functionCaptionTextColor.toColor()
+        self.functionValueTextColor = appState.functionValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
         
         self.activeUnitStateColor = appState.activeUnitStateColor.toColor()
         self.bypassedUnitStateColor = appState.bypassedUnitStateColor.toColor()
         self.suppressedUnitStateColor = appState.suppressedUnitStateColor.toColor()
-        
-        self.tabButtonTextColor = appState.tabButtonTextColor.toColor()
-        self.selectedTabButtonTextColor = appState.selectedTabButtonTextColor.toColor()
-        self.selectedTabButtonColor = appState.selectedTabButtonColor.toColor()
-        
-        self.functionButtonColor = appState.functionButtonColor.toColor()
-        self.functionButtonTextColor = appState.functionButtonTextColor.toColor()
     }
     
     init(_ preset: ColorSchemePreset) {
         
-        self.mainCaptionTextColor = preset.effectsMainCaptionTextColor
         self.functionCaptionTextColor = preset.effectsFunctionCaptionTextColor
+        self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
         
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor
         self.suppressedUnitStateColor = preset.effectsSuppressedUnitStateColor
-        
-        self.tabButtonTextColor = preset.effectsTabButtonTextColor
-        self.selectedTabButtonTextColor = preset.effectsSelectedTabButtonTextColor
-        self.selectedTabButtonColor = preset.effectsSelectedTabButtonColor
-        
-        self.functionButtonColor = preset.effectsFunctionButtonColor
-        self.functionButtonTextColor = preset.effectsFunctionButtonTextColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
 
-        self.mainCaptionTextColor = preset.effectsMainCaptionTextColor
         self.functionCaptionTextColor = preset.effectsFunctionCaptionTextColor
+        self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
         
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor
         self.suppressedUnitStateColor = preset.effectsSuppressedUnitStateColor
-        
-        self.tabButtonTextColor = preset.effectsTabButtonTextColor
-        self.selectedTabButtonTextColor = preset.effectsSelectedTabButtonTextColor
-        self.selectedTabButtonColor = preset.effectsSelectedTabButtonColor
-        
-        self.functionButtonColor = preset.effectsFunctionButtonColor
-        self.functionButtonTextColor = preset.effectsFunctionButtonTextColor
     }
     
     var persistentState: EffectsColorSchemeState {

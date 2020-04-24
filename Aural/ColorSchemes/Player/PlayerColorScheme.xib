@@ -9,9 +9,11 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerColorSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="scrollView" destination="Apd-Ch-VYl" id="yek-lK-gTA"/>
+                <outlet property="sliderBackgroundColorPicker" destination="naY-wg-2GM" id="TjA-oS-bd7"/>
                 <outlet property="sliderForegroundColorPicker" destination="NT1-Jh-EIQ" id="Axm-ma-WXC"/>
                 <outlet property="sliderKnobColorPicker" destination="FnQ-gq-vdO" id="Ih0-II-uEA"/>
                 <outlet property="sliderLoopSegmentColorPicker" destination="qkR-bR-hEb" id="H1E-Xd-a3G"/>
+                <outlet property="sliderValueTextColorPicker" destination="I2u-7K-uBN" id="i1n-Og-pTD"/>
                 <outlet property="trackInfoPrimaryTextColorPicker" destination="CiU-hu-xVW" id="mx6-th-HaH"/>
                 <outlet property="trackInfoSecondaryTextColorPicker" destination="oZl-bo-ON6" id="Au4-gr-ssx"/>
                 <outlet property="trackInfoTertiaryTextColorPicker" destination="cKP-wY-TTF" id="GMK-Tx-0TP"/>
@@ -123,7 +125,7 @@
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjQ-Oe-2jy" userLabel="Secondary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="20" y="273" width="339" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Chapter title / playback sequence" id="v0N-km-aug" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Chapter title" id="v0N-km-aug" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -159,6 +161,9 @@
                                         <rect key="frame" x="410" y="147" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="sliderBackgroundColorAction:" target="-2" id="PvH-3K-7mI"/>
+                                        </connections>
                                     </colorWell>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E18-DP-Dnt" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="20" y="148" width="145" height="23"/>
@@ -169,6 +174,23 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zuq-Gd-Bu3" userLabel="Primary text" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="238" width="223" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Seek position, volume / pan level " id="Nlj-tw-KXz" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I2u-7K-uBN" userLabel="Primary text color">
+                                        <rect key="frame" x="410" y="237" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="sliderValueTextColorAction:" target="-2" id="rd4-wV-oEF"/>
+                                        </connections>
+                                    </colorWell>
                                 </subviews>
                             </view>
                         </subviews>

@@ -33,7 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func oneTimeSetup() {
         
         btnBypass.stateFunction = self.unitStateFunction
-        btnSavePreset.tintFunction = {return Colors.Effects.functionButtonColor}
+        btnSavePreset.tintFunction = {return Colors.functionButtonColor}
         
         initSubscriptions()
         
@@ -62,7 +62,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeEffectsMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsFunctionButtonColor, .changeEffectsFunctionButtonTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsFunctionButtonColor, .changeFunctionButtonTextColor], subscriber: self)
     }
     
     func initControls() {
@@ -219,7 +219,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             
             switch colorSchemeMsg.actionType {
                 
-            case .changeEffectsMainCaptionTextColor:
+            case .changeMainCaptionTextColor:
                 
                 changeMainCaptionTextColor(colorSchemeMsg.color)
                 
@@ -243,7 +243,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
                 
                 changeFunctionButtonColor()
                 
-            case .changeEffectsFunctionButtonTextColor:
+            case .changeFunctionButtonTextColor:
                 
                 changeFunctionButtonTextColor()
                 

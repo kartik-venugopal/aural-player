@@ -21,7 +21,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var logoTextColor: NSColor {
+    var appLogoColor: NSColor {
         
         switch self {
             
@@ -43,7 +43,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var controlButtonColor: NSColor {
+    var viewControlButtonColor: NSColor {
         
         switch self {
             
@@ -54,7 +54,18 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var controlButtonOffStateColor: NSColor {
+    var functionButtonColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return NSColor.black
+            
+        }
+    }
+    
+    var functionButtonOffStateColor: NSColor {
         
         switch self {
             
@@ -64,6 +75,52 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+    
+    var functionButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var selectedTabButtonColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+            
+        }
+    }
+    
+    var tabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+            
+        }
+    }
+    
+    var selectedTabButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
+            
+        }
+    }
+    
+    // MARK: Player colors -------------------------------------------------------------------------------------------------------------------
     
     var playerTrackInfoPrimaryTextColor: NSColor {
         
@@ -98,7 +155,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playerControlTextColor: NSColor {
+    var playerSliderValueTextColor: NSColor {
         
         switch self {
             
@@ -221,28 +278,6 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playlistTabButtonTextColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
-            
-        }
-    }
-    
-    var playlistSelectedTabButtonTextColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
-            
-        }
-    }
-    
     var playlistGroupIconColor: NSColor {
         
         switch self {
@@ -298,20 +333,9 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playlistSelectedTabButtonColor: NSColor {
-        
-        switch self {
-        
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
     // Effects color scheme ------------------------------------------------------------------------------------------------------------------------------
     
-    var effectsMainCaptionTextColor: NSColor {
+    var mainCaptionTextColor: NSColor {
         
         switch self {
             
@@ -323,6 +347,17 @@ enum ColorSchemePreset: String, CaseIterable {
     }
     
     var effectsFunctionCaptionTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+            
+        }
+    }
+    
+    var effectsFunctionValueTextColor: NSColor {
         
         switch self {
             
@@ -354,6 +389,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+    
     var effectsBypassedUnitStateColor: NSColor {
         
         switch self {
@@ -364,6 +400,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+    
     var effectsSuppressedUnitStateColor: NSColor {
         
         switch self {
@@ -374,60 +411,4 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
-    
-    var effectsTabButtonTextColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var effectsSelectedTabButtonTextColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var effectsSelectedTabButtonColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var effectsFunctionButtonColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white35Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var effectsFunctionButtonTextColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
 }
-

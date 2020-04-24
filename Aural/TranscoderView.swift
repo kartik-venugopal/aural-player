@@ -60,7 +60,7 @@ class TranscoderView: NSView {
         // TODO
     }
     
-    func changePlayerControlTextColor() {
+    func changePlayerSliderValueTextColor() {
         
     }
 }
