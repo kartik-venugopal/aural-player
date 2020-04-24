@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2G-zu-dib" userLabel="Caption" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2G-zu-dib" userLabel="Caption" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="162" y="155" width="176" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Equalizer" id="dqT-hR-T2z">

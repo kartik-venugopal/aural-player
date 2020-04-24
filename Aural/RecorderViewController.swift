@@ -17,6 +17,10 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     // Labels
     @IBOutlet weak var lblCaption: NSTextField!
     
+    private var functionLabels: [NSTextField] = []
+    private var functionCaptionLabels: [NSTextField] = []
+    private var functionValueLabels: [NSTextField] = []
+    
     // Delegate that relays requests to the recorder
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
     
@@ -34,7 +38,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeFunctionButtonColor, .changeFunctionButtonTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -42,6 +46,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
         
         btnRecord.off()
+        
+        findFunctionLabels(self.view)
+        functionValueLabels = [lblRecorderDuration, lblRecorderFileSize]
     }
     
     // Starts/stops recording
@@ -149,29 +156,48 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         lblCaption.font = Fonts.Effects.unitCaptionFont
         
-        let labels = findFunctionLabels(self.view)
-        labels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         
         formatMenu.redraw()
         formatMenu.font = Fonts.Effects.unitFunctionFont
     }
     
-    private func findFunctionLabels(_ view: NSView) -> [NSTextField] {
-        
-        var labels: [NSTextField] = []
+    func changeMainCaptionTextColor(_ color: NSColor) {
+        lblCaption.textColor = color
+    }
+    
+    func changeFunctionCaptionTextColor(_ color: NSColor) {
+        functionCaptionLabels.forEach({$0.textColor = color})
+    }
+    
+    func changeFunctionValueTextColor(_ color: NSColor) {
+        functionValueLabels.forEach({$0.textColor = color})
+    }
+    
+    func changeFunctionButtonColor() {
+        [formatMenu, qualityMenu].forEach({$0?.redraw()})
+    }
+    
+    func changeFunctionButtonTextColor() {
+        [formatMenu, qualityMenu].forEach({$0?.redraw()})
+    }
+    
+    private func findFunctionLabels(_ view: NSView) {
         
         for subview in view.subviews {
             
             if let label = subview as? NSTextField, label != lblCaption {
-                labels.append(label)
+                
+                functionLabels.append(label)
+                
+                if label !== lblRecorderDuration && label !== lblRecorderFileSize {
+                    functionCaptionLabels.append(label)
+                }
             }
             
             // Recursive call
-            let subviewLabels = findFunctionLabels(subview)
-            labels.append(contentsOf: subviewLabels)
+            findFunctionLabels(subview)
         }
-        
-        return labels
     }
     
     // MARK: Message handling
@@ -192,7 +218,38 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     func consumeMessage(_ message: ActionMessage) {
         
         if message.actionType == .changeEffectsTextSize {
+            
             changeTextSize()
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            switch colorSchemeMsg.actionType {
+                
+            case .changeMainCaptionTextColor:
+                
+                changeMainCaptionTextColor(colorSchemeMsg.color)
+                
+            case .changeEffectsFunctionCaptionTextColor:
+                
+                changeFunctionCaptionTextColor(colorSchemeMsg.color)
+                
+            case .changeEffectsFunctionValueTextColor:
+                
+                changeFunctionValueTextColor(colorSchemeMsg.color)
+                
+            case .changeFunctionButtonColor:
+                
+                changeFunctionButtonColor()
+                
+            case .changeFunctionButtonTextColor:
+                
+                changeFunctionButtonTextColor()
+                
+            default: return
+                
+            }
         }
     }
 }

@@ -1,5 +1,27 @@
 import Cocoa
 
+class RecorderToggleButton: OnOffImageButton {
+    
+    override func off() {
+        
+        self.image = offStateImage
+        self.toolTip = offStateTooltip
+        _isOn = false
+    }
+    
+    // Sets the button state to be "On"
+    override func on() {
+        
+        self.image = onStateImage
+        self.toolTip = onStateTooltip
+        _isOn = true
+    }
+    
+    override func reTint() {
+        // Do nothing
+    }
+}
+
 /*
     An image button that can be toggled On/Off and displays different images depending on its state
  */
@@ -54,7 +76,7 @@ class OnOffImageButton: NSButton, Tintable {
         }
     }
     
-    private var _isOn: Bool = false
+    fileprivate var _isOn: Bool = false
     
     // Sets the button state to be "Off"
     override func off() {
