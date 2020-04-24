@@ -63,6 +63,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
         EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
         
+        btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionCaptionTextColor, ColorSchemes.systemScheme.effects.functionCaptionTextColor))

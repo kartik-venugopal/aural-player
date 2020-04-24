@@ -183,6 +183,7 @@ class FilterBandViewController: NSViewController {
         filterTypeMenu.redraw()
         
         presetRangesMenu.font = Fonts.Effects.unitFunctionFont
+        lblFrequencies.font = Fonts.Effects.unitFunctionFont
     }
     
     func changeFunctionButtonColor() {

@@ -48,7 +48,7 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBAction func functionValueTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionCaptionTextColor, functionValueTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionValueTextColor, functionValueTextColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
