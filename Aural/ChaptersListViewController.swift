@@ -15,6 +15,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     @IBOutlet weak var lblWindowTitle: NSTextField!
     @IBOutlet weak var lblSummary: NSTextField!
     
+    @IBOutlet weak var btnClose: TintedImageButton!
+    @IBOutlet weak var btnPreviousChapter: TintedImageButton!
+    @IBOutlet weak var btnNextChapter: TintedImageButton!
+    @IBOutlet weak var btnReplayChapter: TintedImageButton!
     @IBOutlet weak var btnLoopChapter: OnOffImageButton!
     
     @IBOutlet weak var txtSearch: NSSearchField!
@@ -24,7 +28,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     @IBOutlet weak var btnPreviousMatch: NSButton!
     @IBOutlet weak var btnNextMatch: NSButton!
     
-    @IBOutlet weak var lblCover: NSTextField!
+    private var controlButtons: [Tintable] = []
     
     // Holds all search results from the latest performed search
     private var searchResults: [Int] = []
@@ -71,11 +75,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     override func viewDidLoad() {
         
-//        scrollView.backgroundColor = color
         scrollView.drawsBackground = false
-        
-//        clipView.backgroundColor = color
         clipView.drawsBackground = false
+        
+        controlButtons = [btnClose, btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
         
         initHeader()
         
@@ -103,7 +106,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeControlButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -386,13 +389,48 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
                     
                     changeBackgroundColor(colorSchemeMsg.color)
                     
+                case .changeControlButtonColor:
+                    
+                    changeControlButtonColor(colorSchemeMsg.color)
+                    
+                case .changeControlButtonOffStateColor:
+                    
+                    changeControlButtonOffStateColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistSummaryInfoColor:
+                    
+                    changeSummaryInfoColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistTrackNameTextColor:
+                    
+                    changeTrackNameTextColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistIndexDurationTextColor:
+                    
+                    changeIndexDurationTextColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistTrackNameSelectedTextColor:
+                    
+                    changeTrackNameSelectedTextColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistIndexDurationSelectedTextColor:
+                    
+                    changeIndexDurationSelectedTextColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistPlayingTrackIconColor:
+                    
+                    changePlayingTrackIconColor(colorSchemeMsg.color)
+                    
+                case .changePlaylistSelectionBoxColor:
+                    
+                    changeSelectionBoxColor(colorSchemeMsg.color)
+                    
                 default: return
                     
                 }
                 
                 return
             }
-            
         }
     }
     
@@ -464,22 +502,58 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private func changeBackgroundColor(_ color: NSColor) {
         
-        lblCover.backgroundColor = color
         chaptersListView.backgroundColor = NSColor.clear
         header.redraw()
-        
-        scrollView.autohidesScrollers = true
-        scrollView.verticalScroller?.redraw()
-        
-//        bringViewToFront(lblCover)
     }
     
-    fileprivate func bringViewToFront(_ aView: NSView) {
+    private func changeControlButtonColor(_ color: NSColor) {
+        controlButtons.forEach({$0.reTint()})
+    }
+    
+    private func changeControlButtonOffStateColor(_ color: NSColor) {
+        [btnLoopChapter, btnCaseSensitive].forEach({$0.reTint()})
+    }
+    
+    private func changeSummaryInfoColor(_ color: NSColor) {
+        [lblSummary, lblWindowTitle].forEach({$0?.textColor = color})
+    }
+    
+    private var allRows: IndexSet {
+        return IndexSet(integersIn: 0..<chaptersListView.numberOfRows)
+    }
+    
+    private func changeTrackNameTextColor(_ color: NSColor) {
+        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeIndexDurationTextColor(_ color: NSColor) {
+        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([0, 2, 3]))
+    }
+    
+    private func changeTrackNameSelectedTextColor(_ color: NSColor) {
+        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet([1]))
+    }
+    
+    private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
+        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet([0, 2, 3]))
+    }
+    
+    private func changeSelectionBoxColor(_ color: NSColor) {
         
-        let superView = aView.superview
-        aView.removeFromSuperview()
-        superView?.addSubview(aView, positioned: .above, relativeTo: nil)
+        // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
+        let selRows = chaptersListView.selectedRowIndexes
         
+        if !selRows.isEmpty {
+            
+            chaptersListView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+            chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
+        }
+    }
+    
+    private func changePlayingTrackIconColor(_ color: NSColor) {
         
+        if let playingChapterIndex = player.playingChapter?.index {
+            chaptersListView.reloadData(forRowIndexes: IndexSet([playingChapterIndex]), columnIndexes: IndexSet([0]))
+        }
     }
 }

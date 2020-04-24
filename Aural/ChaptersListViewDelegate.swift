@@ -10,7 +10,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
+        return FlatPlaylistRowView()
     }
     
     // Returns a view for a single column
@@ -55,8 +55,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             cell.textFont = Fonts.Playlist.indexFont
             cell.selectedTextFont = Fonts.Playlist.indexFont
             
-            cell.textColor = Colors.playlistIndexTextColor
-            cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
+            cell.textColor = Colors.Playlist.indexDurationTextColor
+            cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
             
             cell.selectionFunction = {() -> Bool in
                 return tableView.selectedRowIndexes.contains(row)
@@ -65,7 +65,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             cell.textField?.stringValue = text
             cell.textField?.showIf_elseHide(!showCurrentChapterMarker)
             
-            cell.imageView!.image = showCurrentChapterMarker ? Images.imgPlayingTrack : nil
+            cell.imageView!.image = showCurrentChapterMarker ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
             cell.imageView!.showIf_elseHide(showCurrentChapterMarker)
             
             return cell
@@ -81,8 +81,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             cell.textFont = Fonts.Playlist.trackNameFont
             cell.selectedTextFont = Fonts.Playlist.trackNameFont
             
-            cell.textColor = Colors.playlistTextColor
-            cell.selectedTextColor = Colors.playlistSelectedTextColor
+            cell.textColor = Colors.Playlist.trackNameTextColor
+            cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
             
             cell.textField?.stringValue = text
             cell.textField?.show()
@@ -104,8 +104,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             cell.textFont = Fonts.Playlist.indexFont
             cell.selectedTextFont = Fonts.Playlist.indexFont
             
-            cell.textColor = Colors.playlistIndexTextColor
-            cell.selectedTextColor = Colors.playlistSelectedIndexTextColor
+            cell.textColor = Colors.Playlist.indexDurationTextColor
+            cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
             
             cell.textField?.stringValue = text
             cell.textField?.show()
