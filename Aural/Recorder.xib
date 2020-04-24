@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="btnRecord" destination="SeT-Td-HFB" id="Lqa-s6-ptk"/>
                 <outlet property="formatMenu" destination="qaf-yf-lNI" id="TvC-c7-Rmt"/>
-                <outlet property="lblCaption" destination="0UX-B8-M5x" id="1PT-yc-t5D"/>
+                <outlet property="lblCaption" destination="C0B-P4-MCp" id="Kcp-Uy-d1y"/>
                 <outlet property="lblRecorderDuration" destination="nmg-jN-vJt" id="cX0-Lx-5WM"/>
                 <outlet property="lblRecorderFileSize" destination="FOY-Ai-hdi" id="m3n-6j-SUA"/>
                 <outlet property="qualityMenu" destination="Wuf-0D-YHR" id="maV-6T-Qkj"/>
@@ -24,15 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-B8-M5x" userLabel="Recorder Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="67" y="150" width="365" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder" id="zQO-oM-Xd9">
-                        <font key="font" size="14" name="Play-Regular"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Alf-cz-fUG" userLabel="Controls Box">
                     <rect key="frame" x="58" y="5" width="384" height="136"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -110,7 +101,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksR-cg-XYl" userLabel="Start/Stop" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="8" y="39" width="65" height="20"/>
+                                <rect key="frame" x="0.0" y="39" width="73" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start/Stop" id="rMX-Sc-wak">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -118,7 +109,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                            <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="RecorderToggleButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="80" y="37" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
@@ -186,6 +177,15 @@
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C0B-P4-MCp" userLabel="Reverb Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="175" y="155" width="150" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder" id="0sg-T8-xqW">
+                        <font key="font" size="16" name="AlegreyaSansSC-Regular"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="139" y="153.5"/>
         </view>

@@ -7,11 +7,11 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBOutlet weak var functionCaptionTextColorPicker: NSColorWell!
     @IBOutlet weak var functionValueTextColorPicker: NSColorWell!
     
-    @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!    // GRADIENT
+    @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
     
-    @IBOutlet weak var activeUnitStateColorPicker: NSColorWell!    // GRADIENT
-    @IBOutlet weak var bypassedUnitStateColorPicker: NSColorWell!    // GRADIENT
-    @IBOutlet weak var suppressedUnitStateColorPicker: NSColorWell!    // GRADIENT
+    @IBOutlet weak var activeUnitStateColorPicker: NSColorWell!
+    @IBOutlet weak var bypassedUnitStateColorPicker: NSColorWell!
+    @IBOutlet weak var suppressedUnitStateColorPicker: NSColorWell!
     
     override var nibName: NSNib.Name? {return "EffectsColorScheme"}
     

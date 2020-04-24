@@ -220,7 +220,7 @@
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
+                                                        <view key="view" id="3tH-T8-1bs">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
@@ -262,8 +262,8 @@
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Recorder" identifier="7" id="ypp-aq-NNF">
-                                                        <view key="view" id="536-2K-vSO">
-                                                            <rect key="frame" x="10" y="7" width="572" height="179"/>
+                                                        <view key="view" ambiguous="YES" id="536-2K-vSO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
