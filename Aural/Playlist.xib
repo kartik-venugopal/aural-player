@@ -167,13 +167,13 @@
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Controls box">
-                        <rect key="frame" x="15" y="2" width="500" height="25"/>
+                        <rect key="frame" x="15" y="0.0" width="500" height="25"/>
                         <view key="contentView" id="wWy-mP-FPA">
                             <rect key="frame" x="0.0" y="0.0" width="500" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-e2-yVa" userLabel="Add" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="159" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="170" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Gsk-oE-I67"/>
                                     </constraints>
@@ -189,7 +189,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8sm-w3-Gbf" userLabel="Remove" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="174" y="7" width="10" height="9"/>
+                                    <rect key="frame" x="185" y="7" width="10" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="D7m-Dm-CG2"/>
                                     </constraints>
@@ -205,7 +205,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-I4-fro" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="208" y="7" width="10" height="10"/>
+                                    <rect key="frame" x="213" y="7" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="Cf2-uf-ZBs"/>
                                     </constraints>
@@ -221,7 +221,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Rcf-sJ-PsH" userLabel="Clear" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="224" y="7" width="11" height="11"/>
+                                    <rect key="frame" x="229" y="7" width="11" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="11" id="Geq-bs-kJ7"/>
                                     </constraints>
@@ -237,7 +237,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="Qk9-zq-mea" userLabel="Up" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="265" y="7" width="12" height="11"/>
+                                    <rect key="frame" x="260" y="7" width="12" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="Q5B-Xt-Wnq"/>
                                     </constraints>
@@ -253,7 +253,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-oK-b1c" userLabel="Down" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="280" y="5" width="12" height="12"/>
+                                    <rect key="frame" x="273" y="5" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="VP8-VV-4Ga"/>
                                     </constraints>
@@ -269,7 +269,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="APX-AI-8pn" userLabel="Search" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="307" y="6" width="10" height="10"/>
+                                    <rect key="frame" x="300" y="6" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="ixN-fc-tcV"/>
                                     </constraints>
@@ -285,7 +285,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-nI-JUY" userLabel="Sort" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="324" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="317" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="g1n-xy-5Gh"/>
                                         <constraint firstAttribute="height" constant="14" id="nfG-kV-Zuk"/>
@@ -307,20 +307,20 @@
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="8sm-w3-Gbf" secondAttribute="top" id="BkA-cF-ngE"/>
                                 <constraint firstItem="Rcf-sJ-PsH" firstAttribute="leading" secondItem="mCM-I4-fro" secondAttribute="trailing" constant="6" id="FXK-st-66c"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="wWy-mP-FPA" secondAttribute="centerY" constant="1.5" id="Fsz-Ac-i2O"/>
-                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="trailing" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="-15" id="Gwa-SS-Hno"/>
+                                <constraint firstItem="Rcf-sJ-PsH" firstAttribute="trailing" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="-10" id="Gwa-SS-Hno"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="ypp-e2-yVa" secondAttribute="top" id="I7O-1b-MYs"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="mCM-I4-fro" secondAttribute="bottom" constant="1" id="JKV-LT-v5W"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="leading" secondItem="9Cd-oK-b1c" secondAttribute="trailing" constant="15" id="JyL-ST-bFz"/>
                                 <constraint firstItem="8sm-w3-Gbf" firstAttribute="leading" secondItem="ypp-e2-yVa" secondAttribute="trailing" constant="5" id="OWk-5X-Iw5"/>
                                 <constraint firstItem="9Cd-oK-b1c" firstAttribute="bottom" secondItem="Fch-nI-JUY" secondAttribute="bottom" id="OhQ-2b-6tx"/>
-                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="leading" secondItem="Qk9-zq-mea" secondAttribute="trailing" constant="3" id="QSh-Hd-rsn"/>
+                                <constraint firstItem="9Cd-oK-b1c" firstAttribute="leading" secondItem="Qk9-zq-mea" secondAttribute="trailing" constant="1" id="QSh-Hd-rsn"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="mCM-I4-fro" secondAttribute="top" constant="1" id="TLP-2f-pAa"/>
                                 <constraint firstItem="Qk9-zq-mea" firstAttribute="top" secondItem="Fch-nI-JUY" secondAttribute="top" constant="1" id="TWE-rL-R9c"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="8sm-w3-Gbf" secondAttribute="bottom" constant="1" id="VJf-75-o1P"/>
-                                <constraint firstItem="Qk9-zq-mea" firstAttribute="leading" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="15" id="VU2-BS-58P"/>
+                                <constraint firstItem="Qk9-zq-mea" firstAttribute="leading" secondItem="wWy-mP-FPA" secondAttribute="centerX" constant="10" id="VU2-BS-58P"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="wWy-mP-FPA" secondAttribute="top" constant="9" id="Wth-uU-yGf"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="top" secondItem="9Cd-oK-b1c" secondAttribute="top" constant="1" id="e7h-gS-C8T"/>
-                                <constraint firstItem="mCM-I4-fro" firstAttribute="leading" secondItem="8sm-w3-Gbf" secondAttribute="trailing" constant="24" id="ePZ-Zn-5pa"/>
+                                <constraint firstItem="mCM-I4-fro" firstAttribute="leading" secondItem="8sm-w3-Gbf" secondAttribute="trailing" constant="18" id="ePZ-Zn-5pa"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="Fch-nI-JUY" secondAttribute="centerY" constant="1" id="egN-pS-dHw"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="centerY" secondItem="Rcf-sJ-PsH" secondAttribute="centerY" constant="1.5" id="fD7-IA-zzI"/>
                                 <constraint firstItem="APX-AI-8pn" firstAttribute="bottom" secondItem="ypp-e2-yVa" secondAttribute="bottom" constant="1" id="qka-eT-Dtg"/>
@@ -334,18 +334,18 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="28" width="500" height="205"/>
+                        <rect key="frame" x="15" y="23" width="500" height="210"/>
                         <view key="contentView" id="11G-bl-tTJ">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="205"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="210"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="29" width="500" height="176"/>
+                                    <rect key="frame" x="0.0" y="29" width="500" height="181"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="500" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="181"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -398,9 +398,9 @@
                                     </contentFilters>
                                 </progressIndicator>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="6" y="1" width="159" height="23"/>
+                                    <rect key="frame" x="6" y="1" width="204" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="155" id="nCr-fa-5NI"/>
+                                        <constraint firstAttribute="width" constant="200" id="nCr-fa-5NI"/>
                                         <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -410,9 +410,9 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="380" y="2" width="115" height="23"/>
+                                    <rect key="frame" x="291" y="2" width="204" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="111" id="Dph-rN-D1k"/>
+                                        <constraint firstAttribute="width" constant="200" id="Dph-rN-D1k"/>
                                         <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="s2h-am-6V7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -529,13 +529,13 @@
                     <constraint firstAttribute="trailing" secondItem="aRU-Xs-Jom" secondAttribute="trailing" constant="4" id="bnq-EE-MEM"/>
                     <constraint firstItem="MyO-C3-Vvb" firstAttribute="leading" secondItem="Syt-ea-ETd" secondAttribute="trailing" constant="1" id="e3n-w1-0ln"/>
                     <constraint firstAttribute="trailing" secondItem="2Bk-G6-skT" secondAttribute="trailing" id="fGP-uy-1P0"/>
-                    <constraint firstItem="4ZZ-7d-wdS" firstAttribute="top" secondItem="Syt-ea-ETd" secondAttribute="bottom" constant="1" id="gpM-dE-1sO"/>
+                    <constraint firstItem="4ZZ-7d-wdS" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" id="gpM-dE-1sO"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="leading" secondItem="Syt-ea-ETd" secondAttribute="trailing" constant="1" id="jqV-WN-QQX"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="hbJ-4L-vUS" secondAttribute="leading" id="mAg-TE-e1x"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" id="nMo-Fj-gnF"/>
                     <constraint firstAttribute="bottom" secondItem="2Bk-G6-skT" secondAttribute="bottom" id="qrM-m4-Lt5"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="leading" secondItem="hbJ-4L-vUS" secondAttribute="leading" id="r1Y-ag-s4y"/>
-                    <constraint firstItem="Syt-ea-ETd" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" constant="-28" id="z8f-8g-mSh"/>
+                    <constraint firstItem="Syt-ea-ETd" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" constant="-23" id="z8f-8g-mSh"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
