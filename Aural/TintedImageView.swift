@@ -10,7 +10,7 @@ class TintedImageView: NSImageView, Tintable {
         }
     }
     
-    var tintFunction: () -> NSColor = {return Colors.viewControlButtonColor} {
+    var tintFunction: () -> NSColor = {return Colors.functionButtonColor} {
         
         didSet {
             reTint()

@@ -252,6 +252,7 @@
         <viewController id="RSE-vv-5aa" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="controlsView" destination="GnY-hT-0WI" id="p2n-ES-A5f"/>
+                <outlet property="transcoderView" destination="2kf-ao-Oha" id="FA4-Jf-lCg"/>
                 <outlet property="view" destination="IyJ-bL-zmI" id="AhC-Vv-ooj"/>
             </connections>
         </viewController>
@@ -705,6 +706,7 @@ Gw
                 <outlet property="lblTimeRemaining" destination="Ds0-c3-8eu" id="Xe9-gQ-OkG"/>
                 <outlet property="lblTrack" destination="JAC-MY-KsG" id="PgA-Da-Ypa"/>
                 <outlet property="lblTrackTime" destination="TJW-bG-QKU" id="ci2-T3-Olu"/>
+                <outlet property="lblTranscoding" destination="6sJ-Si-KI6" id="cc7-MC-GXw"/>
                 <outlet property="progressView" destination="pgN-FL-q7F" id="DWB-sZ-Jbg"/>
             </connections>
             <point key="canvasLocation" x="-1896" y="431"/>

@@ -66,6 +66,13 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         let appState = ObjectGraph.appState.ui.windowLayout
         
+        [btnQuit, btnMinimize].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
+        
+        [btnToggleEffects, btnTogglePlaylist].forEach({
+            $0?.onStateTintFunction = {return Colors.viewControlButtonColor}
+            $0?.offStateTintFunction = {return Colors.toggleButtonOffStateColor}
+        })
+        
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
@@ -91,7 +98,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor, .changeAppLogoColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
@@ -148,14 +155,14 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         containerBox.isTransparent = !color.isOpaque
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
+    private func changeViewControlButtonColor(_ color: NSColor) {
         
         [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects, viewMenuIconItem, layoutMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }
     
-    private func changeControlButtonOffStateColor(_ color: NSColor) {
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
         
         // These are the only 2 buttons that have off states
         [btnTogglePlaylist, btnToggleEffects].forEach({
@@ -163,7 +170,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         })
     }
     
-    private func changeLogoTextColor(_ color: NSColor) {
+    private func changeAppLogoColor(_ color: NSColor) {
         logoImage.reTint()
     }
     
@@ -194,22 +201,22 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
                 changeBackgroundColor(bkColor)
             }
             
-        case .changeViewControlButtonColor:
-            
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonColor(ctrlColor)
-            }
-            
-        case .changeFunctionButtonOffStateColor:
-            
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonOffStateColor(ctrlColor)
-            }
-            
         case .changeAppLogoColor:
             
             if let logoTextColor = (message as? ColorSchemeActionMessage)?.color {
-                changeLogoTextColor(logoTextColor)
+                changeAppLogoColor(logoTextColor)
+            }
+            
+        case .changeViewControlButtonColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeViewControlButtonColor(ctrlColor)
+            }
+            
+        case .changeToggleButtonOffStateColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeToggleButtonOffStateColor(ctrlColor)
             }
             
         default: return

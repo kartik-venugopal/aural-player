@@ -9,6 +9,8 @@ class TranscoderView: NSView {
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var lblSpeed: NSTextField!
     
+    @IBOutlet weak var lblTranscoding: NSTextField!
+    
     @IBOutlet weak var progressView: ProgressArc!
     
     @IBOutlet weak var containerBox: NSBox!
@@ -48,19 +50,23 @@ class TranscoderView: NSView {
         containerBox.isTransparent = !color.isOpaque
     }
     
-    func changePlayerTrackInfoPrimaryTextColor() {
-        // TODO
+    func changePrimaryTextColor() {
+        lblTrack.textColor = Colors.Player.trackInfoTitleTextColor
     }
     
-    func changePlayerTrackInfoSecondaryTextColor() {
-        // TODO
+    func changeSecondaryTextColor() {
+        [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({$0?.textColor = Colors.Player.trackInfoArtistAlbumTextColor})
     }
     
-    func changePlayerTrackInfoTertiaryTextColor() {
-        // TODO
+    func changeTertiaryTextColor() {
+        lblTranscoding.textColor = Colors.Player.trackInfoChapterTextColor
     }
     
-    func changePlayerSliderValueTextColor() {
-        
+    func changeSliderColors() {
+        progressView.redraw()
+    }
+    
+    func changeSliderValueTextColor() {
+        progressView.redraw()
     }
 }

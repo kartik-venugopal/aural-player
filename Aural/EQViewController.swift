@@ -29,7 +29,7 @@ class EQViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeEffectsSliderBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeEffectsSliderBackgroundColor], subscriber: self)
     }
     
     override func initControls() {
@@ -119,19 +119,28 @@ class EQViewController: FXUnitViewController {
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
-        eqView.changeActiveUnitStateColor(color)
+        
+        if eqUnit.state == .active {
+            eqView.changeActiveUnitStateColor(color)
+        }
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
-        eqView.changeBypassedUnitStateColor(color)
+        
+        if eqUnit.state == .bypassed {
+            eqView.changeBypassedUnitStateColor(color)
+        }
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         super.changeSuppressedUnitStateColor(color)
-        eqView.changeSuppressedUnitStateColor(color)
+        
+        if eqUnit.state == .suppressed {
+            eqView.changeSuppressedUnitStateColor(color)
+        }
     }
     
     func changeSelectedTabButtonColor() {
@@ -187,15 +196,15 @@ class EQViewController: FXUnitViewController {
             
             switch colorChangeMsg.actionType {
                 
-            case .changeEffectsSelectedTabButtonColor:
+            case .changeSelectedTabButtonColor:
                 
                 changeSelectedTabButtonColor()
                 
-            case .changeEffectsTabButtonTextColor:
+            case .changeTabButtonTextColor:
                 
                 changeTabButtonTextColor()
                 
-            case .changeEffectsSelectedTabButtonTextColor:
+            case .changeSelectedTabButtonTextColor:
                 
                 changeSelectedTabButtonTextColor()
                 

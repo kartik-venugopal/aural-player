@@ -28,7 +28,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     @IBOutlet weak var btnPreviousMatch: NSButton!
     @IBOutlet weak var btnNextMatch: NSButton!
     
-    private var controlButtons: [Tintable] = []
+    private var functionButtons: [Tintable] = []
     
     // Holds all search results from the latest performed search
     private var searchResults: [Int] = []
@@ -47,6 +47,36 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             // Update the loop toggle button image to reflect the looping state
             looping ? btnLoopChapter?.on() : btnLoopChapter?.off()
         }
+    }
+    
+    // The chapters list window is only considered modal when it is the key window AND the search bar has focus
+    // (i.e. a search is being performed)
+    var isModal: Bool {
+        return (self.view.window?.isKeyWindow ?? false) && isPerformingSearch
+    }
+    
+    override func viewDidLoad() {
+        
+        scrollView.drawsBackground = false
+        clipView.drawsBackground = false
+        
+        functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
+        
+        btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        
+        initHeader()
+        
+        // Set these fields for later access
+        PlaylistViewState.chaptersListView = self.chaptersListView
+        
+        initSubscriptions()
+        
+        looping = false
+        
+        lblNumMatches.stringValue = ""
+        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
+        
+        ObjectGraph.windowManager.registerModalComponent(self)
     }
     
     private func initHeader() {
@@ -73,40 +103,12 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 5))
     }
     
-    override func viewDidLoad() {
-        
-        scrollView.drawsBackground = false
-        clipView.drawsBackground = false
-        
-        controlButtons = [btnClose, btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
-        
-        initHeader()
-        
-        // Set these fields for later access
-        PlaylistViewState.chaptersListView = self.chaptersListView
-        
-        initSubscriptions()
-        
-        looping = false
-        
-        lblNumMatches.stringValue = ""
-        [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
-        
-        ObjectGraph.windowManager.registerModalComponent(self)
-    }
-    
-    // The chapters list window is only considered modal when it is the key window AND the search bar has focus
-    // (i.e. a search is being performed)
-    var isModal: Bool {
-        return (self.view.window?.isKeyWindow ?? false) && isPerformingSearch
-    }
-    
     private func initSubscriptions() {
         
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeFunctionButtonTextColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -389,13 +391,25 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
                     
                     changeBackgroundColor(colorSchemeMsg.color)
                     
+                case .changeMainCaptionTextColor:
+                    
+                    changeMainCaptionTextColor(colorSchemeMsg.color)
+                    
                 case .changeViewControlButtonColor:
                     
-                    changeControlButtonColor(colorSchemeMsg.color)
+                    changeViewControlButtonColor(colorSchemeMsg.color)
                     
-                case .changeFunctionButtonOffStateColor:
+                case .changeFunctionButtonColor:
                     
-                    changeControlButtonOffStateColor(colorSchemeMsg.color)
+                    changeFunctionButtonColor(colorSchemeMsg.color)
+                    
+                case .changeFunctionButtonTextColor:
+                    
+                    changeFunctionButtonTextColor(colorSchemeMsg.color)
+                    
+                case .changeToggleButtonOffStateColor:
+                    
+                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
                     
                 case .changePlaylistSummaryInfoColor:
                     
@@ -506,17 +520,33 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         header.redraw()
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
-        controlButtons.forEach({$0.reTint()})
+    private func changeFunctionButtonColor(_ color: NSColor) {
+     
+        functionButtons.forEach({$0.reTint()})
+        
+        [btnPreviousMatch, btnNextMatch].forEach({
+            
+            if $0?.isEnabled ?? false {
+                $0?.redraw()
+            }
+        })
     }
     
-    private func changeControlButtonOffStateColor(_ color: NSColor) {
+    private func changeFunctionButtonTextColor(_ color: NSColor) {
+        [btnPreviousMatch, btnNextMatch].forEach({$0?.redraw()})
+    }
+    
+    private func changeViewControlButtonColor(_ color: NSColor) {
+       btnClose.reTint()
+    }
+    
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
         [btnLoopChapter, btnCaseSensitive].forEach({$0.reTint()})
     }
     
     private func changeSummaryInfoColor(_ color: NSColor) {
         
-        [lblSummary, lblWindowTitle, lblNumMatches].forEach({$0?.textColor = color})
+        [lblSummary, lblNumMatches].forEach({$0?.textColor = color})
         header.redraw()
     }
     
@@ -559,5 +589,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         if let playingChapterIndex = player.playingChapter?.index {
             chaptersListView.reloadData(forRowIndexes: IndexSet([playingChapterIndex]), columnIndexes: IndexSet([0]))
         }
+    }
+    
+    private func changeMainCaptionTextColor(_ color: NSColor) {
+        lblWindowTitle.textColor = color
     }
 }

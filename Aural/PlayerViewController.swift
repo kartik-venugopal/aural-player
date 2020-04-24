@@ -168,32 +168,25 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changeBackgroundColor(color)
     }
     
-    private func changePlayerTrackInfoPrimaryTextColor(_ color: NSColor) {
+    private func changePrimaryTextColor(_ color: NSColor) {
         
-        defaultView.changePlayerTrackInfoPrimaryTextColor(color)
-        expandedArtView.changePlayerTrackInfoPrimaryTextColor(color)
-        transcoderView.changePlayerTrackInfoPrimaryTextColor()
+        defaultView.changePrimaryTextColor(color)
+        expandedArtView.changePrimaryTextColor(color)
+        transcoderView.changePrimaryTextColor()
     }
     
-    private func changePlayerTrackInfoSecondaryTextColor(_ color: NSColor) {
+    private func changeSecondaryTextColor(_ color: NSColor) {
         
-        defaultView.changePlayerTrackInfoSecondaryTextColor(color)
-        expandedArtView.changePlayerTrackInfoSecondaryTextColor(color)
-        transcoderView.changePlayerTrackInfoSecondaryTextColor()
+        defaultView.changeSecondaryTextColor(color)
+        expandedArtView.changeSecondaryTextColor(color)
+        transcoderView.changeSecondaryTextColor()
     }
     
-    private func changePlayerTrackInfoTertiaryTextColor(_ color: NSColor) {
+    private func changeTertiaryTextColor(_ color: NSColor) {
         
-        defaultView.changePlayerTrackInfoTertiaryTextColor(color)
-        expandedArtView.changePlayerTrackInfoTertiaryTextColor(color)
-        transcoderView.changePlayerTrackInfoTertiaryTextColor()
-    }
-    
-    private func changePlayerSliderValueTextColor(_ color: NSColor) {
-        
-        defaultView.changePlayerSliderValueTextColor(color)
-        expandedArtView.changePlayerSliderValueTextColor(color)
-        transcoderView.changePlayerSliderValueTextColor()
+        defaultView.changeTertiaryTextColor(color)
+        expandedArtView.changeTertiaryTextColor(color)
+        transcoderView.changeTertiaryTextColor()
     }
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
@@ -287,19 +280,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     
                 case .changePlayerTrackInfoPrimaryTextColor:
                     
-                    changePlayerTrackInfoPrimaryTextColor(colorSchemeMsg.color)
+                    changePrimaryTextColor(colorSchemeMsg.color)
                     
                 case .changePlayerTrackInfoSecondaryTextColor:
                     
-                    changePlayerTrackInfoSecondaryTextColor(colorSchemeMsg.color)
+                    changeSecondaryTextColor(colorSchemeMsg.color)
                     
                 case .changePlayerTrackInfoTertiaryTextColor:
                     
-                    changePlayerTrackInfoTertiaryTextColor(colorSchemeMsg.color)
-                    
-                case .changePlayerSliderValueTextColor:
-                    
-                    changePlayerSliderValueTextColor(colorSchemeMsg.color)
+                    changeTertiaryTextColor(colorSchemeMsg.color)
                     
                 default: return
                     

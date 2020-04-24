@@ -36,7 +36,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
     private var fxTabViewButtons: [EffectsUnitTabButton]!
     
-    @IBOutlet weak var btnQuit: TintedImageButton!
+    @IBOutlet weak var btnClose: TintedImageButton!
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
 
@@ -109,7 +109,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -145,9 +145,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         fxTabViewButtons.forEach({$0.redraw()})
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
+    private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, viewMenuIconItem].forEach({
+        [btnClose, viewMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }
@@ -257,7 +257,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
                 
             case .changeViewControlButtonColor:
                 
-                changeControlButtonColor(colorChangeMsg.color)
+                changeViewControlButtonColor(colorChangeMsg.color)
                 
             case .changeEffectsActiveUnitStateColor:
                 
@@ -271,15 +271,13 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
                 
                 changeSuppressedUnitStateColor(colorChangeMsg.color)
                 
-            case .changeEffectsSelectedTabButtonColor:
+            case .changeSelectedTabButtonColor:
                 
                 changeSelectedTabButtonColor()
                 
             default: return
                 
             }
-            
-            return
         }
     }
 }

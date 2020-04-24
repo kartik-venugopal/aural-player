@@ -3,6 +3,7 @@ import Cocoa
 class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
+    @IBOutlet weak var lblPresets: NSTextField!
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
@@ -147,30 +148,18 @@ class MasterViewController: FXUnitViewController {
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
-        
-        functionLabels.forEach({
-            
-            if !($0 is EffectsUnitTriStateLabel) {
-                $0.textColor = color
-            }
-        })
+        lblPresets.textColor = color
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
-        if masterUnit.isActive {
-            btnBypass.reTint()
-        }
-        
+        super.changeActiveUnitStateColor(color)
         masterView.changeActiveUnitStateColor(color)
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        if masterUnit.state == .bypassed {
-            btnBypass.reTint()
-        }
-        
+        super.changeBypassedUnitStateColor(color)
         masterView.changeBypassedUnitStateColor(color)
     }
     

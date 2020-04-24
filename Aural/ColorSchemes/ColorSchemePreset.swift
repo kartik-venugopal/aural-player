@@ -65,7 +65,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var functionButtonOffStateColor: NSColor {
+    var toggleButtonOffStateColor: NSColor {
         
         switch self {
             

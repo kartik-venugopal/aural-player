@@ -156,7 +156,7 @@
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
-                                    <rect key="frame" x="14" y="307" width="352" height="22"/>
+                                    <rect key="frame" x="14" y="310" width="352" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>
@@ -174,7 +174,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="28" id="kdQ-o9-9ae"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="S9L-01-mHC" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="S9L-01-mHC" customClass="ChaptersListSearchNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
@@ -188,7 +188,7 @@
                                         <constraint firstAttribute="width" constant="28" id="K3K-0i-ILC"/>
                                         <constraint firstAttribute="height" constant="18" id="oee-Pf-iqL"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="b6t-Xv-oX5" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="b6t-Xv-oX5" customClass="ChaptersListSearchNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
@@ -196,7 +196,7 @@
                                         <action selector="nextSearchResultAction:" target="uhU-UR-xwr" id="Q49-QM-EMm"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Shuffle" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Case sensitive search (disabled)" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="375" y="314" width="20" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="EiF-Jn-i3E"/>
@@ -240,7 +240,7 @@
                                 <constraint firstItem="PhG-3g-wVK" firstAttribute="leading" secondItem="jY6-EF-Drz" secondAttribute="trailing" constant="9" id="j1b-3c-c3m"/>
                                 <constraint firstItem="iBr-vY-6sc" firstAttribute="trailing" secondItem="R3F-5h-tZn" secondAttribute="centerX" constant="-2" id="l0e-ch-Rse"/>
                                 <constraint firstAttribute="bottom" secondItem="Axi-IH-THL" secondAttribute="bottom" constant="13" id="lch-dF-vOG"/>
-                                <constraint firstItem="jY6-EF-Drz" firstAttribute="top" secondItem="5J6-lG-aTa" secondAttribute="bottom" constant="17" id="tGZ-RX-IAX"/>
+                                <constraint firstItem="jY6-EF-Drz" firstAttribute="top" secondItem="5J6-lG-aTa" secondAttribute="bottom" constant="14" id="tGZ-RX-IAX"/>
                                 <constraint firstAttribute="bottom" secondItem="Hh1-Ht-7fu" secondAttribute="bottom" constant="10" id="uzm-wc-Afo"/>
                                 <constraint firstAttribute="trailing" secondItem="2FZ-dU-SXE" secondAttribute="trailing" constant="14" id="wZV-Al-P8S"/>
                             </constraints>

@@ -43,7 +43,7 @@ class GeneralColorSchemeState {
     
     var viewControlButtonColor: ColorState
     var functionButtonColor: ColorState
-    var functionButtonOffStateColor: ColorState
+    var toggleButtonOffStateColor: ColorState
     var selectedTabButtonColor: ColorState
     
     var mainCaptionTextColor: ColorState
@@ -57,8 +57,8 @@ class GeneralColorSchemeState {
         self.backgroundColor = ColorState.fromColor(scheme.backgroundColor)
         
         self.viewControlButtonColor = ColorState.fromColor(scheme.viewControlButtonColor)
-        self.functionButtonColor = ColorState.fromColor(scheme.viewControlButtonColor)
-        self.functionButtonOffStateColor = ColorState.fromColor(scheme.functionButtonOffStateColor)
+        self.functionButtonColor = ColorState.fromColor(scheme.functionButtonColor)
+        self.toggleButtonOffStateColor = ColorState.fromColor(scheme.toggleButtonOffStateColor)
         self.selectedTabButtonColor = ColorState.fromColor(scheme.selectedTabButtonColor)
         
         self.mainCaptionTextColor = ColorState.fromColor(scheme.mainCaptionTextColor)

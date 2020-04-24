@@ -76,8 +76,8 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         
-        let offStateTintFunction = {return Colors.functionButtonOffStateColor}
-        let onStateTintFunction = {return Colors.viewControlButtonColor}
+        let offStateTintFunction = {return Colors.toggleButtonOffStateColor}
+        let onStateTintFunction = {return Colors.functionButtonColor}
 
         btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
 
@@ -414,7 +414,7 @@ class PlayerControlsView: NSView {
         lblPanCaption.font = Fonts.Player.feedbackFont
     }
     
-    func changeControlButtonColor(_ color: NSColor) {
+    func changeFunctionButtonColor(_ color: NSColor) {
         
         [btnRepeat, btnShuffle, btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach({
             ($0 as? Tintable)?.reTint()
@@ -423,7 +423,7 @@ class PlayerControlsView: NSView {
         lblPanCaption.textColor = color
     }
     
-    func changeControlButtonOffStateColor(_ color: NSColor) {
+    func changeToggleButtonOffStateColor(_ color: NSColor) {
         
         // Only these buttons have off states that look different from their on states
         [btnRepeat, btnShuffle, btnLoop].forEach({
@@ -431,7 +431,7 @@ class PlayerControlsView: NSView {
         })
     }
     
-    func changeTextColor() {
+    func changeSliderValueTextColor() {
         
         lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor
         lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor
@@ -441,10 +441,7 @@ class PlayerControlsView: NSView {
     }
     
     func changeSliderColors() {
-        
-        seekSlider.redraw()
-        volumeSlider.redraw()
-        panSlider.redraw()
+        [seekSlider, volumeSlider, panSlider].forEach({$0?.redraw()})
     }
 }
 
