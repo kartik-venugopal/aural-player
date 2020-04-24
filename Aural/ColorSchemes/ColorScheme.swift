@@ -9,6 +9,10 @@ class ColorScheme {
     var playlist: PlaylistColorScheme
     var effects: EffectsColorScheme
     
+    func toString() -> String {
+        return String(describing: JSONMapper.map(ColorSchemeState(self)))
+    }
+    
     let systemDefined: Bool
     
     convenience init(_ name: String) {

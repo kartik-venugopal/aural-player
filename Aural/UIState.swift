@@ -19,6 +19,12 @@ class UIState: PersistentState {
             state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
         }
         
+        if let colorSchemesMap = map["colorSchemes"] as? NSDictionary,
+            let colorSchemes = ColorSchemesState.deserialize(colorSchemesMap) as? ColorSchemesState {
+            
+            state.colorSchemes = colorSchemes
+        }
+        
         if let playerMap = map["player"] as? NSDictionary {
             state.player = PlayerUIState.deserialize(playerMap) as! PlayerUIState
         }

@@ -6,7 +6,11 @@ class ColorSchemes {
     static var systemScheme: ColorScheme = ColorScheme("_system_")
     
     static func initialize(_ schemesState: ColorSchemesState) {
-//        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme()})
+        
+        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme("userScheme", $0, false)})
+        systemScheme = ColorScheme("_system_", schemesState.systemScheme, true)
+        
+        print("\nRemembered system scheme:\n", systemScheme.toString())
     }
     
     private static var schemes: [String: ColorScheme] = {

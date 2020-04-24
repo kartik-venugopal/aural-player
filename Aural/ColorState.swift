@@ -1,10 +1,12 @@
 import Cocoa
 
-class ColorState {
+class ColorState: PersistentState {
     
     // Gray, RGB, or CMYK
     var colorSpace: Int = 1
     var alpha: CGFloat = 1
+    
+    static let defaultInstance: ColorState = GrayscaleColorState(1, 1)
     
     static func fromColor(_ color: NSColor) -> ColorState {
         
@@ -32,6 +34,34 @@ class ColorState {
     func toColor() -> NSColor {
         return NSColor.white
     }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        if let colorSpace = map["colorSpace"] as? NSNumber {
+            
+            switch colorSpace.intValue {
+                
+            case NSColorSpace.Model.gray.rawValue:
+                
+                return GrayscaleColorState.fromMap(map)
+                
+            case NSColorSpace.Model.rgb.rawValue:
+                
+                return RGBColorState.fromMap(map)
+                
+            case NSColorSpace.Model.cmyk.rawValue:
+                
+                return CMYKColorState.fromMap(map)
+                
+            default:
+                
+                return defaultInstance
+            }
+        }
+
+        // Impossible
+        return defaultInstance
+    }
 }
 
 class GrayscaleColorState: ColorState {
@@ -51,23 +81,21 @@ class GrayscaleColorState: ColorState {
     override func toColor() -> NSColor {
         return NSColor(calibratedWhite: white, alpha: alpha)
     }
-    
-//    static func deserialize(_ map: NSDictionary) -> PersistentState {
-//
-//        let state = GrayscaleColorState(1, 1)
-//
-//        if let colorSpace = map["colorSpace"] as? Int {
-//
-//            switch colorSpace {
-//
-//            case NSColorSpace.Model.gray.rawValue:
-//
-//                if
-//            }
-//        }
-//
-//        return state
-//    }
+
+    static func fromMap(_ map: NSDictionary) -> GrayscaleColorState {
+        
+        let grayColor = GrayscaleColorState(1, 1)
+        
+        if let white = map["white"] as? NSNumber {
+            grayColor.white = CGFloat(white.floatValue)
+        }
+        
+        if let alpha = map["alpha"] as? NSNumber {
+            grayColor.alpha = CGFloat(alpha.floatValue)
+        }
+        
+        return grayColor
+    }
 }
 
 class RGBColorState: ColorState {
@@ -91,6 +119,29 @@ class RGBColorState: ColorState {
     
     override func toColor() -> NSColor {
         return NSColor(calibratedRed: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    static func fromMap(_ map: NSDictionary) -> RGBColorState {
+        
+        let rgbColor = RGBColorState(1, 1, 1, 1)
+        
+        if let red = map["red"] as? NSNumber {
+            rgbColor.red = CGFloat(red.floatValue)
+        }
+        
+        if let green = map["green"] as? NSNumber {
+            rgbColor.green = CGFloat(green.floatValue)
+        }
+        
+        if let blue = map["blue"] as? NSNumber {
+            rgbColor.blue = CGFloat(blue.floatValue)
+        }
+        
+        if let alpha = map["alpha"] as? NSNumber {
+            rgbColor.alpha = CGFloat(alpha.floatValue)
+        }
+        
+        return rgbColor
     }
 }
 
@@ -117,5 +168,32 @@ class CMYKColorState: ColorState {
     
     override func toColor() -> NSColor {
         return NSColor(deviceCyan: cyan, magenta: magenta, yellow: yellow, black: black, alpha: alpha)
+    }
+    
+    static func fromMap(_ map: NSDictionary) -> CMYKColorState {
+        
+        let cmykColor = CMYKColorState(1, 1, 1, 1, 1)
+        
+        if let cyan = map["cyan"] as? NSNumber {
+            cmykColor.cyan = CGFloat(cyan.floatValue)
+        }
+        
+        if let magenta = map["magenta"] as? NSNumber {
+            cmykColor.magenta = CGFloat(magenta.floatValue)
+        }
+        
+        if let yellow = map["yellow"] as? NSNumber {
+            cmykColor.yellow = CGFloat(yellow.floatValue)
+        }
+        
+        if let black = map["black"] as? NSNumber {
+            cmykColor.black = CGFloat(black.floatValue)
+        }
+        
+        if let alpha = map["alpha"] as? NSNumber {
+            cmykColor.alpha = CGFloat(alpha.floatValue)
+        }
+        
+        return cmykColor
     }
 }

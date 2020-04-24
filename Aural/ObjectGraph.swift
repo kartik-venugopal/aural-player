@@ -128,6 +128,7 @@ class ObjectGraph {
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
         EffectsViewState.initialize(appState.ui.effects)
+        ColorSchemes.initialize(appState.ui.colorSchemes)
         
         muxer = Muxer()
         

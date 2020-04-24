@@ -387,9 +387,9 @@ extension NSImage {
 
 extension NSColor {
     
-//    func brightened(_ amount : CGFloat = 0.25) -> NSColor {
-//        return hueColorWithBrightnessAmount(min(1, 1 + amount))
-//    }
+    func toString() -> String {
+        return String(describing: JSONMapper.map(ColorState.fromColor(self)))
+    }
     
     func darkened(_ amount : CGFloat = 0.25) -> NSColor {
         
