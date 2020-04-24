@@ -117,7 +117,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = Fonts.Playlist.summaryFont
+        lblWindowTitle.font = Fonts.Playlist.chaptersListCaptionFont
         lblSummary.font = Fonts.Playlist.summaryFont
         
         txtSearch.font = Fonts.Playlist.chapterSearchFont
@@ -492,7 +492,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = Fonts.Playlist.summaryFont
+            lblWindowTitle.font = Fonts.Playlist.chaptersListCaptionFont
             lblSummary.font = Fonts.Playlist.summaryFont
             
             txtSearch.font = Fonts.Playlist.chapterSearchFont
@@ -515,7 +515,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     private func changeSummaryInfoColor(_ color: NSColor) {
-        [lblSummary, lblWindowTitle].forEach({$0?.textColor = color})
+        
+        [lblSummary, lblWindowTitle, lblNumMatches].forEach({$0?.textColor = color})
+        header.redraw()
     }
     
     private var allRows: IndexSet {
@@ -523,7 +525,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     private func changeTrackNameTextColor(_ color: NSColor) {
+        
         chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
+        txtSearch.textColor = color
     }
     
     private func changeIndexDurationTextColor(_ color: NSColor) {

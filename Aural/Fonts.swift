@@ -258,9 +258,9 @@ struct Fonts {
             }
         }
         
-        private static let summaryFont_normal: NSFont = NSFont(name: "Play Regular", size: 13)!
-        private static let summaryFont_larger: NSFont = NSFont(name: "Play Regular", size: 14)!
-        private static let summaryFont_largest: NSFont = NSFont(name: "Play Regular", size: 15)!
+        private static let summaryFont_normal: NSFont = NSFont(name: "Play Regular", size: 14)!
+        private static let summaryFont_larger: NSFont = NSFont(name: "Play Regular", size: 15)!
+        private static let summaryFont_largest: NSFont = NSFont(name: "Play Regular", size: 16)!
         
         static var summaryFont: NSFont {
             
@@ -271,6 +271,23 @@ struct Fonts {
             case .larger: return summaryFont_larger
                 
             case .largest: return summaryFont_largest
+                
+            }
+        }
+        
+        private static let chaptersListHeaderFont_normal: NSFont = NSFont(name: "Play Regular", size: 14.5)!
+        private static let chaptersListHeaderFont_larger: NSFont = NSFont(name: "Play Regular", size: 15.5)!
+        private static let chaptersListHeaderFont_largest: NSFont = NSFont(name: "Play Regular", size: 16.5)!
+        
+        static var chaptersListHeaderFont: NSFont {
+            
+            switch PlaylistViewState.textSize {
+                
+            case .normal: return chaptersListHeaderFont_normal
+                
+            case .larger: return chaptersListHeaderFont_larger
+                
+            case .largest: return chaptersListHeaderFont_largest
                 
             }
         }
@@ -322,6 +339,23 @@ struct Fonts {
             case .larger: return chapterSearchFont_larger
                 
             case .largest: return chapterSearchFont_largest
+                
+            }
+        }
+        
+        private static let chaptersListCaptionFont_normal: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
+        private static let chaptersListCaptionFont_larger: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 18)!
+        private static let chaptersListCaptionFont_largest: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 20)!
+        
+        static var chaptersListCaptionFont: NSFont {
+            
+            switch PlaylistViewState.textSize {
+                
+            case .normal: return chaptersListCaptionFont_normal
+                
+            case .larger: return chaptersListCaptionFont_larger
+                
+            case .largest: return chaptersListCaptionFont_largest
                 
             }
         }

@@ -2,47 +2,47 @@ import Cocoa
 
 class ChaptersListTableHeaderCell: NSTableHeaderCell {
     
-    static var painInTheAssRect: NSRect?
-    
-    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
-        print("drawInterior")
-    }
-    
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let cellPath = NSBezierPath(roundedRect: cellFrame, xRadius: 0, yRadius: 0)
-        ColorSchemes.systemScheme.general.backgroundColor.setFill()
+        Colors.windowBackgroundColor.setFill()
         cellPath.fill()
         
-        let size = StringUtils.sizeOfString(stringValue, Fonts.Playlist.groupNameFont)
+        let attrs: [String: AnyObject] = [
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.Playlist.chaptersListHeaderFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.Playlist.summaryInfoColor]
         
+        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        
+        let size: CGSize = stringValue.size(withAttributes: attrsDict)
+        
+        // Calculate the x co-ordinate for text rendering, according to its intended aligment
         var x: CGFloat = 0
         
         switch stringValue {
             
         case "#":
             
+            // Center alignment
             x = cellFrame.maxX - (cellFrame.width / 2) - (size.width / 2)
             
         case "Title":
             
+            // Left alignment
             x = cellFrame.minX
             
         case "Start Time", "Duration":
             
+            // Right alignment
             x = cellFrame.maxX - size.width - 5
             
         default:
             
             return
         }
-        
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.Playlist.groupNameFont,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.Playlist.groupNameTextColor]
     
         let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)
-        stringValue.draw(in: rect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        stringValue.draw(in: rect, withAttributes: attrsDict)
     }
 }
 
