@@ -9,8 +9,8 @@ class FilterViewController: FXUnitViewController {
     
     @IBOutlet weak var btnAdd: NSButton!
     @IBOutlet weak var btnRemove: NSButton!
-    @IBOutlet weak var btnScrollLeft: NSButton!
-    @IBOutlet weak var btnScrollRight: NSButton!
+    @IBOutlet weak var btnScrollLeft: TintedImageButton!
+    @IBOutlet weak var btnScrollRight: TintedImageButton!
     
     @IBOutlet weak var tabsBox: NSBox!
     private var tabButtons: [NSButton] = []
@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeControlButtonColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -326,6 +326,10 @@ class FilterViewController: FXUnitViewController {
         tabButtons.forEach({$0.redraw()})
     }
     
+    func changeControlButtonColor() {
+        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
+    }
+    
     func changeTabButtonTextColor() {
         tabButtons.forEach({$0.redraw()})
     }
@@ -365,6 +369,10 @@ class FilterViewController: FXUnitViewController {
             case .changeEffectsSelectedTabButtonTextColor:
                 
                 changeSelectedTabButtonTextColor()
+                
+            case .changeControlButtonColor:
+                
+                changeControlButtonColor()
                 
             default: return
                 

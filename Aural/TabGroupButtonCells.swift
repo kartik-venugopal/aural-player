@@ -116,10 +116,44 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     
     override var unselectedTextColor: NSColor {return Colors.Effects.tabButtonTextColor}
     override var selectedTextColor: NSColor {return Colors.Effects.selectedTabButtonTextColor}
+    
+    override var yOffset: CGFloat {
+        
+        if isOff {
+            return -1
+        }
+        
+        switch EffectsViewState.textSize {
+            
+        case .normal:   return 1
+            
+        case .larger:   return 0
+            
+        case .largest:  return -1
+            
+        }
+    }
 }
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
+    
+    override var yOffset: CGFloat {
+        
+        if isOff {
+            return -1
+        }
+        
+        switch EffectsViewState.textSize {
+            
+        case .normal:   return 1
+            
+        case .larger:   return 0
+            
+        case .largest:  return 0
+            
+        }
+    }
 }
