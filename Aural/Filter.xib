@@ -55,24 +55,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </box>
-                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-8B-1a4" userLabel="Bands-Left">
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-8B-1a4" userLabel="Bands-Left" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="10" y="82" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Left" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5x5-sf-fJc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="FilterBandsTabs-Left"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="scrollTabsLeftAction:" target="-2" id="95k-hf-GKt"/>
                     </connections>
                 </button>
-                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8Q-IY-snQ" userLabel="Bands-Right">
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8Q-IY-snQ" userLabel="Bands-Right" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="379" y="82" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FilterBandsTabs-Right" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bmb-za-MqI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="FilterBandsTabs-Right"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="scrollTabsRightAction:" target="-2" id="M9V-Hd-AQS"/>
                     </connections>
