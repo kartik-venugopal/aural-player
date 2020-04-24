@@ -131,6 +131,10 @@ struct Colors {
         static var groupDisclosureTriangleColor: NSColor {
             return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor
         }
+        
+        static var summaryInfoColor: NSColor {
+            return ColorSchemes.systemScheme.playlist.summaryInfoColor
+        }
     }
     
     struct Effects {
