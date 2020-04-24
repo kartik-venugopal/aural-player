@@ -189,11 +189,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changePlayerTrackInfoTertiaryTextColor()
     }
     
-    private func changePlayerControlTextColor(_ color: NSColor) {
+    private func changePlayerSliderValueTextColor(_ color: NSColor) {
         
-        defaultView.changePlayerControlTextColor(color)
-        expandedArtView.changePlayerControlTextColor(color)
-        transcoderView.changePlayerControlTextColor()
+        defaultView.changePlayerSliderValueTextColor(color)
+        expandedArtView.changePlayerSliderValueTextColor(color)
+        transcoderView.changePlayerSliderValueTextColor()
     }
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
@@ -297,9 +297,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     
                     changePlayerTrackInfoTertiaryTextColor(colorSchemeMsg.color)
                     
-                case .changePlayerControlTextColor:
+                case .changePlayerSliderValueTextColor:
                     
-                    changePlayerControlTextColor(colorSchemeMsg.color)
+                    changePlayerSliderValueTextColor(colorSchemeMsg.color)
                     
                 default: return
                     

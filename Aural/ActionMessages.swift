@@ -331,17 +331,23 @@ enum ActionType {
     case changePlaylistTextSize
     
     // Color scheme change actions
-    case changeLogoTextColor
-    
+    case changeAppLogoColor
     case changeBackgroundColor
-    case changeControlButtonColor
-    case changeControlButtonOffStateColor
+    
+    case changeViewControlButtonColor
+    case changeFunctionButtonColor
+    case changeFunctionButtonOffStateColor
+    case changeSelectedTabButtonColor
+    
+    case changeMainCaptionTextColor
+    case changeTabButtonTextColor
+    case changeSelectedTabButtonTextColor
+    case changeFunctionButtonTextColor
     
     case changePlayerTrackInfoPrimaryTextColor
     case changePlayerTrackInfoSecondaryTextColor
     case changePlayerTrackInfoTertiaryTextColor
-    
-    case changePlayerControlTextColor
+    case changePlayerSliderValueTextColor
     
     case changePlayerSliderBackgroundColor
     case changePlayerSliderForegroundColor
@@ -357,30 +363,21 @@ enum ActionType {
     case changePlaylistIndexDurationSelectedTextColor
     
     case changePlaylistSummaryInfoColor
-    case changePlaylistTabButtonTextColor
-    case changePlaylistSelectedTabButtonTextColor
     
     case changePlaylistGroupIconColor
     case changePlaylistGroupDisclosureTriangleColor
+    
     case changePlaylistSelectionBoxColor
     case changePlaylistPlayingTrackIconColor
-    case changePlaylistSelectedTabButtonColor
     
-    case changeEffectsMainCaptionTextColor
     case changeEffectsFunctionCaptionTextColor
+    case changeEffectsFunctionValueTextColor
     
     case changeEffectsSliderBackgroundColor
     
     case changeEffectsActiveUnitStateColor
     case changeEffectsBypassedUnitStateColor
     case changeEffectsSuppressedUnitStateColor
-    
-    case changeEffectsTabButtonTextColor
-    case changeEffectsSelectedTabButtonTextColor
-    case changeEffectsSelectedTabButtonColor
-    
-    case changeEffectsFunctionButtonColor
-    case changeEffectsFunctionButtonTextColor
 }
 
 enum ActionMode {

@@ -119,7 +119,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeControlButtonColor, .changePlaylistSummaryInfoColor, .changePlaylistSelectedTabButtonColor, .changePlaylistTabButtonTextColor, .changePlaylistSelectedTabButtonTextColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -569,7 +569,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 changeBackgroundColor(bkColor)
             }
             
-        case .changeControlButtonColor:
+        case .changeViewControlButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
@@ -581,11 +581,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 changeSummaryInfoColor(summaryColor)
             }
             
-        case .changePlaylistTabButtonTextColor:
+        case .changeTabButtonTextColor:
             
             redrawTabButtons()
             
-        case .changePlaylistSelectedTabButtonTextColor, .changePlaylistSelectedTabButtonColor:
+        case .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor:
             
             redrawSelectedTabButton()
             

@@ -209,7 +209,7 @@ class PlayerView: NSView {
         gapView.changeTextColor()
     }
     
-    func changePlayerControlTextColor(_ color: NSColor) {
+    func changePlayerSliderValueTextColor(_ color: NSColor) {
         infoView.changeTextColor()
     }
 }

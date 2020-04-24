@@ -29,6 +29,58 @@ struct Colors {
         return ColorSchemes.systemScheme.general.backgroundColor
     }
     
+    static var appLogoColor: NSColor {
+        return ColorSchemes.systemScheme.general.appLogoColor
+    }
+    
+    static var viewControlButtonColor: NSColor {
+        return ColorSchemes.systemScheme.general.viewControlButtonColor
+    }
+    
+    static var functionButtonColor: NSColor {
+        return ColorSchemes.systemScheme.general.functionButtonColor
+    }
+    
+    static var functionButtonGradient: NSGradient {
+        
+        let color = ColorSchemes.systemScheme.general.functionButtonColor
+        return NSGradient(starting: color, ending: color.darkened())!
+    }
+    
+    static var functionButtonGradient_disabled: NSGradient = {
+        
+        let color = ColorSchemes.systemScheme.general.functionButtonColor.darkened()
+        return NSGradient(starting: color, ending: color.darkened())!
+    }()
+    
+    static var functionButtonOffStateColor: NSColor {
+        return ColorSchemes.systemScheme.general.functionButtonOffStateColor
+    }
+    
+    static var mainCaptionTextColor: NSColor {
+        return ColorSchemes.systemScheme.general.mainCaptionTextColor
+    }
+    
+    static var tabButtonTextColor: NSColor {
+        return ColorSchemes.systemScheme.general.tabButtonTextColor
+    }
+    
+    static var selectedTabButtonTextColor: NSColor {
+        return ColorSchemes.systemScheme.general.selectedTabButtonTextColor
+    }
+    
+    static var selectedTabButtonColor: NSColor {
+        return ColorSchemes.systemScheme.general.selectedTabButtonColor
+    }
+    
+    static var functionButtonTextColor: NSColor {
+        return ColorSchemes.systemScheme.general.functionButtonTextColor
+    }
+    
+    static var tabViewButtonSelectionBoxColor: NSColor {
+        return ColorSchemes.systemScheme.general.selectedTabButtonColor
+    }
+    
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
@@ -48,11 +100,11 @@ struct Colors {
         }
         
         static var trackTimesTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.controlTextColor
+            return ColorSchemes.systemScheme.player.sliderValueTextColor
         }
         
         static var feedbackTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.controlTextColor
+            return ColorSchemes.systemScheme.player.sliderValueTextColor
         }
         
         static var seekBarBackgroundGradient: NSGradient {
@@ -112,18 +164,6 @@ struct Colors {
             return ColorSchemes.systemScheme.playlist.selectionBoxColor
         }
         
-        static var selectedTabButtonBackgroundColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.selectedTabButtonColor
-        }
-        
-        static var tabButtonTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.tabButtonTextColor
-        }
-        
-        static var selectedTabButtonTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.selectedTabButtonTextColor
-        }
-        
         static var groupIconColor: NSColor {
             return ColorSchemes.systemScheme.playlist.groupIconColor
         }
@@ -139,12 +179,12 @@ struct Colors {
     
     struct Effects {
         
-        static var mainCaptionTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.mainCaptionTextColor
-        }
-        
         static var functionCaptionTextColor: NSColor {
             return ColorSchemes.systemScheme.effects.functionCaptionTextColor
+        }
+        
+        static var functionValueTextColor: NSColor {
+            return ColorSchemes.systemScheme.effects.functionValueTextColor
         }
         
         static var sliderBackgroundColor: NSColor {
@@ -161,38 +201,6 @@ struct Colors {
         
         static var suppressedUnitStateColor: NSColor {
             return ColorSchemes.systemScheme.effects.suppressedUnitStateColor
-        }
-        
-        static var tabButtonTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.tabButtonTextColor
-        }
-        
-        static var selectedTabButtonTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.selectedTabButtonTextColor
-        }
-        
-        static var selectedTabButtonColor: NSColor {
-            return ColorSchemes.systemScheme.effects.selectedTabButtonColor
-        }
-        
-        static var functionButtonGradient: NSGradient {
-            
-            let color = ColorSchemes.systemScheme.effects.functionButtonColor
-            return NSGradient(starting: color, ending: color.darkened())!
-        }
-        
-        static var functionButtonGradient_disabled: NSGradient = {
-            
-            let color = ColorSchemes.systemScheme.effects.functionButtonColor.darkened()
-            return NSGradient(starting: color, ending: color.darkened())!
-        }()
-        
-        static var functionButtonColor: NSColor {
-            return ColorSchemes.systemScheme.effects.functionButtonColor
-        }
-        
-        static var functionButtonTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.functionButtonTextColor
         }
         
         static var activeSliderBarGradient: NSGradient {
@@ -223,10 +231,6 @@ struct Colors {
             
             return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor,
                               ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
-        }
-        
-        static var tabViewButtonSelectionBoxColor: NSColor {
-            return ColorSchemes.systemScheme.effects.selectedTabButtonColor
         }
         
         static var neutralSliderBarColoredGradient: NSGradient {
@@ -285,7 +289,6 @@ struct Colors {
     
     // Color used to fill tab view buttons
     static let tabViewButtonBackgroundColor: NSColor = NSColor.black
-    static let tabViewButtonSelectionBoxColor: NSColor = Constants.white13_5Percent
     
     static let transparentColor: NSColor = NSColor.white
     

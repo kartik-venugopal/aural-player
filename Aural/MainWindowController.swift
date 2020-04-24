@@ -70,7 +70,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         changeTextSize()
-        logoImage.tintFunction = {return ColorSchemes.systemScheme.general.logoTextColor}
+        logoImage.tintFunction = {return Colors.appLogoColor}
     }
     
     // Add the sub-views that make up the main window
@@ -91,7 +91,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeControlButtonColor, .changeControlButtonOffStateColor, .changeLogoTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor, .changeAppLogoColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
@@ -194,19 +194,19 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
                 changeBackgroundColor(bkColor)
             }
             
-        case .changeControlButtonColor:
+        case .changeViewControlButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonColor(ctrlColor)
             }
             
-        case .changeControlButtonOffStateColor:
+        case .changeFunctionButtonOffStateColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
                 changeControlButtonOffStateColor(ctrlColor)
             }
             
-        case .changeLogoTextColor:
+        case .changeAppLogoColor:
             
             if let logoTextColor = (message as? ColorSchemeActionMessage)?.color {
                 changeLogoTextColor(logoTextColor)

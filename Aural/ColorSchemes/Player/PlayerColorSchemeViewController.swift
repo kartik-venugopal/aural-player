@@ -8,7 +8,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     @IBOutlet weak var trackInfoSecondaryTextColorPicker: NSColorWell!
     @IBOutlet weak var trackInfoTertiaryTextColorPicker: NSColorWell!
     
-    @IBOutlet weak var controlTextColorPicker: NSColorWell!
+    @IBOutlet weak var sliderValueTextColorPicker: NSColorWell!
     
     @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
@@ -16,6 +16,32 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     @IBOutlet weak var sliderLoopSegmentColorPicker: NSColorWell!
     
     override var nibName: NSNib.Name? {return "PlayerColorScheme"}
+    
+    var colorSchemeView: NSView {
+        return self.view
+    }
+    
+    func resetFields(_ scheme: ColorScheme) {
+        
+        trackInfoPrimaryTextColorPicker.color = scheme.player.trackInfoPrimaryTextColor
+        trackInfoSecondaryTextColorPicker.color = scheme.player.trackInfoSecondaryTextColor
+        trackInfoTertiaryTextColorPicker.color = scheme.player.trackInfoTertiaryTextColor
+        
+        sliderValueTextColorPicker.color = scheme.player.sliderValueTextColor
+        
+        sliderBackgroundColorPicker.color = scheme.player.sliderBackgroundColor
+        sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
+        sliderKnobColorPicker.color = scheme.player.sliderKnobColor
+        sliderLoopSegmentColorPicker.color = scheme.player.sliderLoopSegmentColor
+        
+        scrollToTop()
+    }
+    
+    private func scrollToTop() {
+        
+        let contentView: NSClipView = scrollView.contentView
+        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
+    }
     
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
@@ -35,10 +61,10 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerTrackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color))
     }
     
-    @IBAction func controlTextColorAction(_ sender: Any) {
+    @IBAction func sliderValueTextColorAction(_ sender: Any) {
         
-        ColorSchemes.systemScheme.player.controlTextColor = controlTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerControlTextColor, controlTextColorPicker.color))
+        ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderValueTextColor, sliderValueTextColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -63,31 +89,5 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         
         ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
-    }
-    
-    var colorSchemeView: NSView {
-        return self.view
-    }
-    
-    func resetFields(_ scheme: ColorScheme) {
-        
-        trackInfoPrimaryTextColorPicker.color = scheme.player.trackInfoPrimaryTextColor
-        trackInfoSecondaryTextColorPicker.color = scheme.player.trackInfoSecondaryTextColor
-        trackInfoTertiaryTextColorPicker.color = scheme.player.trackInfoTertiaryTextColor
-        
-        controlTextColorPicker.color = scheme.player.controlTextColor
-        
-        sliderBackgroundColorPicker.color = scheme.player.sliderBackgroundColor
-        sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
-        sliderKnobColorPicker.color = scheme.player.sliderKnobColor
-        sliderLoopSegmentColorPicker.color = scheme.player.sliderLoopSegmentColor
-        
-        scrollToTop()
-    }
-    
-    private func scrollToTop() {
-        
-        let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
     }
 }
