@@ -53,8 +53,8 @@ struct Colors {
         return NSGradient(starting: color, ending: color.darkened())!
     }()
     
-    static var functionButtonOffStateColor: NSColor {
-        return ColorSchemes.systemScheme.general.functionButtonOffStateColor
+    static var toggleButtonOffStateColor: NSColor {
+        return ColorSchemes.systemScheme.general.toggleButtonOffStateColor
     }
     
     static var mainCaptionTextColor: NSColor {
@@ -75,6 +75,10 @@ struct Colors {
     
     static var functionButtonTextColor: NSColor {
         return ColorSchemes.systemScheme.general.functionButtonTextColor
+    }
+    
+    static var disabledFunctionButtonTextColor: NSColor {
+        return ColorSchemes.systemScheme.general.functionButtonTextColor.darkened()
     }
     
     static var tabViewButtonSelectionBoxColor: NSColor {
@@ -105,6 +109,18 @@ struct Colors {
         
         static var feedbackTextColor: NSColor {
             return ColorSchemes.systemScheme.player.sliderValueTextColor
+        }
+        
+        static var transcoderArcProgressTextColor: NSColor {
+            return ColorSchemes.systemScheme.player.sliderValueTextColor
+        }
+        
+        static var transcoderArcForegroundColor: NSColor {
+            return ColorSchemes.systemScheme.player.sliderForegroundColor
+        }
+        
+        static var transcoderArcBackgroundColor: NSColor {
+            return ColorSchemes.systemScheme.player.sliderBackgroundColor
         }
         
         static var seekBarBackgroundGradient: NSGradient {

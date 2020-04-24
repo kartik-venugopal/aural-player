@@ -191,26 +191,22 @@ class PlayerView: NSView {
         })
     }
     
-    func changePlayerTrackInfoPrimaryTextColor(_ color: NSColor) {
+    func changePrimaryTextColor(_ color: NSColor) {
         
         infoView.changeTextColor()
         gapView.changeTextColor()
     }
     
-    func changePlayerTrackInfoSecondaryTextColor(_ color: NSColor) {
+    func changeSecondaryTextColor(_ color: NSColor) {
         
         infoView.changeTextColor()
         gapView.changeTextColor()
     }
     
-    func changePlayerTrackInfoTertiaryTextColor(_ color: NSColor) {
+    func changeTertiaryTextColor(_ color: NSColor) {
         
         infoView.changeTextColor()
         gapView.changeTextColor()
-    }
-    
-    func changePlayerSliderValueTextColor(_ color: NSColor) {
-        infoView.changeTextColor()
     }
 }
 

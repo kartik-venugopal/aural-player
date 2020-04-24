@@ -195,6 +195,10 @@ class FilterBandViewController: NSViewController {
         functionLabels.forEach({$0.textColor = color})
     }
     
+    func changeFunctionValueTextColor(_ color: NSColor) {
+        lblFrequencies.textColor = color
+    }
+    
     func redrawSliders() {
         [cutoffSlider, freqRangeSlider].forEach({$0?.redraw()})
     }
@@ -205,7 +209,7 @@ class FilterBandViewController: NSViewController {
         
         for subview in view.subviews {
             
-            if let label = subview as? NSTextField {
+            if let label = subview as? NSTextField, !(label is FunctionValueLabel) {
                 labels.append(label)
             }
             

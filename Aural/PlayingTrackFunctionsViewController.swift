@@ -47,7 +47,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -203,14 +203,14 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
+    private func changeFunctionButtonColor(_ color: NSColor) {
         
         [btnMoreInfo, btnFavorite, btnBookmark, btnShowPlayingTrackInPlaylist].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }
     
-    private func changeControlButtonOffStateColor(_ color: NSColor) {
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
         btnFavorite.reTint()
     }
     
@@ -257,16 +257,16 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
         case .bookmarkLoop: bookmarkLoop()
             
-        case .changeViewControlButtonColor:
+        case .changeFunctionButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonColor(ctrlColor)
+                changeFunctionButtonColor(ctrlColor)
             }
             
-        case .changeFunctionButtonOffStateColor:
+        case .changeToggleButtonOffStateColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonOffStateColor(ctrlColor)
+                changeToggleButtonOffStateColor(ctrlColor)
             }
 
         default: return

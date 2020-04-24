@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EffectsWindowController">
             <connections>
-                <outlet property="btnQuit" destination="NDE-AU-hEg" id="dJA-C6-iMl"/>
+                <outlet property="btnClose" destination="NDE-AU-hEg" id="dJA-C6-iMl"/>
                 <outlet property="delayTabViewButton" destination="mw3-FF-9td" id="O9j-H8-Whx"/>
                 <outlet property="effectsContainerBox" destination="Jtw-Y5-1IX" id="Vtv-2X-ndU"/>
                 <outlet property="eqTabViewButton" destination="O5c-8Q-17s" id="FX2-zC-8e8"/>

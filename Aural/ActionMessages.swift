@@ -336,7 +336,7 @@ enum ActionType {
     
     case changeViewControlButtonColor
     case changeFunctionButtonColor
-    case changeFunctionButtonOffStateColor
+    case changeToggleButtonOffStateColor
     case changeSelectedTabButtonColor
     
     case changeMainCaptionTextColor

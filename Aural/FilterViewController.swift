@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsTabButtonTextColor, .changeEffectsSelectedTabButtonTextColor, .changeEffectsSelectedTabButtonColor, .changeViewControlButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -306,11 +306,18 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.changeFunctionCaptionTextColor(color)})
     }
     
+    override func changeFunctionValueTextColor(_ color: NSColor) {
+        
+        super.changeFunctionValueTextColor(color)
+        bandControllers.forEach({$0.changeFunctionValueTextColor(color)})
+    }
+    
     override func changeFunctionButtonColor() {
         
         super.changeFunctionButtonColor()
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
+        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
         bandControllers.forEach({$0.changeFunctionButtonColor()})
     }
     
@@ -324,10 +331,6 @@ class FilterViewController: FXUnitViewController {
     
     func changeSelectedTabButtonColor() {
         tabButtons.forEach({$0.redraw()})
-    }
-    
-    func changeControlButtonColor() {
-        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
     }
     
     func changeTabButtonTextColor() {
@@ -358,21 +361,17 @@ class FilterViewController: FXUnitViewController {
                 
                 changeSliderBackgroundColor()
                 
-            case .changeEffectsSelectedTabButtonColor:
+            case .changeSelectedTabButtonColor:
                 
                 changeSelectedTabButtonColor()
                 
-            case .changeEffectsTabButtonTextColor:
+            case .changeTabButtonTextColor:
                 
                 changeTabButtonTextColor()
                 
-            case .changeEffectsSelectedTabButtonTextColor:
+            case .changeSelectedTabButtonTextColor:
                 
                 changeSelectedTabButtonTextColor()
-                
-            case .changeViewControlButtonColor:
-                
-                changeControlButtonColor()
                 
             default: return
                 

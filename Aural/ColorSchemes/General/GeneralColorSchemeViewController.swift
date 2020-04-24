@@ -7,7 +7,7 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     
     @IBOutlet weak var viewControlButtonColorPicker: NSColorWell!
     @IBOutlet weak var functionButtonColorPicker: NSColorWell!
-    @IBOutlet weak var functionButtonOffStateColorPicker: NSColorWell!
+    @IBOutlet weak var toggleButtonOffStateColorPicker: NSColorWell!
     @IBOutlet weak var selectedTabButtonColorPicker: NSColorWell!
     
     @IBOutlet weak var mainCaptionTextColorPicker: NSColorWell!
@@ -28,7 +28,7 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         
         viewControlButtonColorPicker.color = scheme.general.viewControlButtonColor
         functionButtonColorPicker.color = scheme.general.functionButtonColor
-        functionButtonOffStateColorPicker.color = scheme.general.functionButtonOffStateColor
+        toggleButtonOffStateColorPicker.color = scheme.general.toggleButtonOffStateColor
         selectedTabButtonColorPicker.color = scheme.general.selectedTabButtonColor
         
         mainCaptionTextColorPicker.color = scheme.general.mainCaptionTextColor
@@ -61,10 +61,10 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeFunctionButtonColor, functionButtonColorPicker.color))
     }
     
-    @IBAction func functionButtonOffStateColorAction(_ sender: Any) {
+    @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
         
-        ColorSchemes.systemScheme.general.functionButtonOffStateColor = functionButtonOffStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeFunctionButtonOffStateColor, functionButtonOffStateColorPicker.color))
+        ColorSchemes.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeToggleButtonOffStateColor, toggleButtonOffStateColorPicker.color))
     }
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {

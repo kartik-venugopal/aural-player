@@ -11,12 +11,12 @@
                 <outlet property="appLogoColorPicker" destination="8fj-uN-XmC" id="zFs-wh-ndC"/>
                 <outlet property="backgroundColorPicker" destination="1Tg-2i-CV0" id="lLY-mJ-3KR"/>
                 <outlet property="functionButtonColorPicker" destination="mfG-Aq-Mc0" id="NJD-OJ-LWb"/>
-                <outlet property="functionButtonOffStateColorPicker" destination="HYM-1K-QoJ" id="07x-O5-91R"/>
                 <outlet property="functionButtonTextColorPicker" destination="LrL-gU-hRn" id="oit-ZT-Rkp"/>
                 <outlet property="mainCaptionTextColorPicker" destination="fRh-rH-B2j" id="RI2-jT-XTE"/>
                 <outlet property="selectedTabButtonColorPicker" destination="aGc-0U-kTk" id="uFx-M3-NkS"/>
                 <outlet property="selectedTabButtonTextColorPicker" destination="bte-FD-KsA" id="2qF-9v-94E"/>
                 <outlet property="tabButtonTextColorPicker" destination="BVo-um-iQP" id="GDZ-j1-f0h"/>
+                <outlet property="toggleButtonOffStateColorPicker" destination="HYM-1K-QoJ" id="07x-O5-91R"/>
                 <outlet property="view" destination="c22-O7-iKe" id="PIu-FW-zCc"/>
                 <outlet property="viewControlButtonColorPicker" destination="81j-o0-pJZ" id="QJs-4o-cWJ"/>
             </connections>
@@ -92,7 +92,7 @@
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tCA-cO-Is3" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="20" y="277" width="272" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Function buttons  (&quot;Off&quot; state)" id="4X4-3C-0oq" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Toggle buttons in &quot;Off&quot; state" id="4X4-3C-0oq" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -103,7 +103,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="functionButtonOffStateColorAction:" target="-2" id="eXW-X1-twH"/>
+                                            <action selector="toggleButtonOffStateColorAction:" target="-2" id="eXW-X1-twH"/>
                                         </connections>
                                     </colorWell>
                                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-uN-XmC" userLabel="Logo text color">
@@ -235,7 +235,7 @@
                         <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="wGv-Qr-yL0" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.72222222222222221" horizontal="NO" id="wGv-Qr-yL0" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="445" y="0.0" width="15" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

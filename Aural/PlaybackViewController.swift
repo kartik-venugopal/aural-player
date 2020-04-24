@@ -6,6 +6,7 @@ import Cocoa
 class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     @IBOutlet weak var controlsView: PlayerControlsView!
+    @IBOutlet weak var transcoderView: TranscoderView!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -42,7 +43,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeViewControlButtonColor, .changeFunctionButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -432,20 +433,24 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.changeTextSize()
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
-        controlsView.changeControlButtonColor(color)
+    private func changeFunctionButtonColor(_ color: NSColor) {
+        controlsView.changeFunctionButtonColor(color)
     }
     
-    private func changeControlButtonOffStateColor(_ color: NSColor) {
-        controlsView.changeControlButtonOffStateColor(color)
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
+        controlsView.changeToggleButtonOffStateColor(color)
     }
     
-    private func changePlayerSliderValueTextColor(_ color: NSColor) {
-        controlsView.changeTextColor()
+    private func changeSliderValueTextColor(_ color: NSColor) {
+        
+        controlsView.changeSliderValueTextColor()
+        transcoderView.changeSliderValueTextColor()
     }
     
     private func changeSliderColors() {
+        
         controlsView.changeSliderColors()
+        transcoderView.changeSliderColors()
     }
     
     // MARK: Current chapter tracking
@@ -642,22 +647,22 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
             changeTextSize()
             
-        case .changeViewControlButtonColor:
+        case .changeFunctionButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonColor(ctrlColor)
+                changeFunctionButtonColor(ctrlColor)
             }
             
-        case .changeFunctionButtonOffStateColor:
+        case .changeToggleButtonOffStateColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonOffStateColor(ctrlColor)
+                changeToggleButtonOffStateColor(ctrlColor)
             }
             
         case .changePlayerSliderValueTextColor:
             
             if let txtColor = (message as? ColorSchemeActionMessage)?.color {
-                changePlayerSliderValueTextColor(txtColor)
+                changeSliderValueTextColor(txtColor)
             }
             
         case .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor:

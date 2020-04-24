@@ -8,6 +8,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     // Labels
     var functionLabels: [NSTextField] = []
+    
+    var functionCaptionLabels: [NSTextField] = []
+    var functionValueLabels: [NSTextField] = []
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -47,7 +50,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         for subview in view.subviews {
             
             if let label = subview as? NSTextField, label != lblCaption {
+                
                 labels.append(label)
+                label is FunctionValueLabel ? functionValueLabels.append(label) : functionCaptionLabels.append(label)
             }
             
             // Recursive call
@@ -62,7 +67,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeEffectsFunctionButtonColor, .changeFunctionButtonTextColor], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeFunctionButtonTextColor], subscriber: self)
     }
     
     func initControls() {
@@ -116,7 +122,11 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        functionLabels.forEach({$0.textColor = color})
+        functionCaptionLabels.forEach({$0.textColor = color})
+    }
+    
+    func changeFunctionValueTextColor(_ color: NSColor) {
+        functionValueLabels.forEach({$0.textColor = color})
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
@@ -227,6 +237,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
                 
                 changeFunctionCaptionTextColor(colorSchemeMsg.color)
                 
+            case .changeEffectsFunctionValueTextColor:
+                
+                changeFunctionValueTextColor(colorSchemeMsg.color)
+                
             case .changeEffectsActiveUnitStateColor:
                 
                 changeActiveUnitStateColor(colorSchemeMsg.color)
@@ -239,7 +253,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
                 
                 changeSuppressedUnitStateColor(colorSchemeMsg.color)
                 
-            case .changeEffectsFunctionButtonColor:
+            case .changeFunctionButtonColor:
                 
                 changeFunctionButtonColor()
                 
@@ -253,3 +267,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         }
     }
 }
+
+// Marker class to differentiate between caption labels and their corresponding value labels
+class FunctionValueLabel: CenterTextLabel {}

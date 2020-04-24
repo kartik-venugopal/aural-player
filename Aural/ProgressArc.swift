@@ -1,6 +1,6 @@
 import Cocoa
 
-// TODO: Make this more reusable
+// TODO: Make this more reusable, clean it up
 class ProgressArc: NSView {
     
     var percentage: Double = 0 {
@@ -13,8 +13,8 @@ class ProgressArc: NSView {
     var radius: CGFloat = 30
     var lineWidth: CGFloat = 4
     
-    let backColor: NSColor = Colors.Constants.white20Percent
-    var textFont: NSFont = Fonts.progressArcFont
+    var backColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
+    var textFont: NSFont {return Fonts.progressArcFont}
     
     override func draw(_ dirtyRect: NSRect) {
         
@@ -36,7 +36,7 @@ class ProgressArc: NSView {
         
         layer?.addSublayer(gradientLayer)
         
-        // Create a mask in the shape of arc
+        // Create a mask in the shape of an arc
         let mask = CAShapeLayer()
         mask.frame = dirtyRect
         mask.lineWidth = lineWidth
@@ -63,7 +63,7 @@ class ProgressArc: NSView {
         
         let attrs: [String: AnyObject] = [
             NSAttributedString.Key.font.rawValue: textFont,
-            NSAttributedString.Key.foregroundColor.rawValue: NSColor.white]
+            NSAttributedString.Key.foregroundColor.rawValue: Colors.Player.transcoderArcProgressTextColor]
         
         let dict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
         

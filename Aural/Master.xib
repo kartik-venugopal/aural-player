@@ -11,6 +11,7 @@
                 <outlet property="btnBypass" destination="1bl-Og-Men" id="ILs-W4-cRi"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="lblCaption" destination="Irt-cZ-a6S" id="Sn4-jB-cbp"/>
+                <outlet property="lblPresets" destination="CUP-uZ-tdz" id="vDp-fO-uxL"/>
                 <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsMenu" destination="ryf-gT-ZGe" id="82S-Df-bBT"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>

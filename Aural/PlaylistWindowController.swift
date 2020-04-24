@@ -78,6 +78,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         theWindow.isMovableByWindowBackground = true
         theWindow.delegate = ObjectGraph.windowManager
         
+        btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        
         changeTextSize()
         
         setUpTabGroup()
@@ -119,7 +121,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -414,10 +416,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         redrawTabButtons()
     }
     
-    private func changeControlButtonColor(_ color: NSColor) {
+    private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnClose, viewMenuIconItem, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom].forEach({
+        [btnClose, viewMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
+        })
+    }
+    
+    private func changeFunctionButtonColor(_ color: NSColor) {
+        
+        [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom].forEach({
+            $0?.reTint()
         })
         
         controlButtonsSuperview.subviews.forEach({
@@ -572,7 +581,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .changeViewControlButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
-                changeControlButtonColor(ctrlColor)
+                changeViewControlButtonColor(ctrlColor)
+            }
+            
+        case .changeFunctionButtonColor:
+            
+            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+                changeFunctionButtonColor(ctrlColor)
             }
             
         case .changePlaylistSummaryInfoColor:
