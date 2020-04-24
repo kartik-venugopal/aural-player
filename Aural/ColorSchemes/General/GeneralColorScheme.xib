@@ -13,6 +13,7 @@
                 <outlet property="functionButtonColorPicker" destination="mfG-Aq-Mc0" id="NJD-OJ-LWb"/>
                 <outlet property="functionButtonTextColorPicker" destination="LrL-gU-hRn" id="oit-ZT-Rkp"/>
                 <outlet property="mainCaptionTextColorPicker" destination="fRh-rH-B2j" id="RI2-jT-XTE"/>
+                <outlet property="scrollView" destination="Cop-lr-CNh" id="4vO-3r-KNW"/>
                 <outlet property="selectedTabButtonColorPicker" destination="aGc-0U-kTk" id="uFx-M3-NkS"/>
                 <outlet property="selectedTabButtonTextColorPicker" destination="bte-FD-KsA" id="2qF-9v-94E"/>
                 <outlet property="tabButtonTextColorPicker" destination="BVo-um-iQP" id="GDZ-j1-f0h"/>

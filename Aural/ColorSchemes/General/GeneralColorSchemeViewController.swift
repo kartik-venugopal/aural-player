@@ -2,6 +2,8 @@ import Cocoa
 
 class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
     
+    @IBOutlet weak var scrollView: NSScrollView!
+    
     @IBOutlet weak var appLogoColorPicker: NSColorWell!
     @IBOutlet weak var backgroundColorPicker: NSColorWell!
     
@@ -35,6 +37,14 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         tabButtonTextColorPicker.color = scheme.general.tabButtonTextColor
         selectedTabButtonTextColorPicker.color = scheme.general.selectedTabButtonTextColor
         functionButtonTextColorPicker.color = scheme.general.functionButtonTextColor
+        
+        scrollToTop()
+    }
+    
+    private func scrollToTop() {
+        
+        let contentView: NSClipView = scrollView.contentView
+        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
     }
     
     @IBAction func appLogoColorAction(_ sender: Any) {
