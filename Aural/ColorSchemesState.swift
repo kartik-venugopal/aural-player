@@ -169,6 +169,9 @@ class PlayerColorSchemeState: PersistentState {
     var sliderValueTextColor: ColorState = ColorState.defaultInstance
     
     var sliderForegroundColor: ColorState = ColorState.defaultInstance
+    var sliderForegroundGradientType: GradientType = .none
+    var sliderForegroundGradientAmount: Int = 0
+    
     var sliderBackgroundColor: ColorState = ColorState.defaultInstance
     var sliderKnobColor: ColorState = ColorState.defaultInstance
     var sliderKnobColorSameAsForeground: Bool = true
@@ -184,7 +187,11 @@ class PlayerColorSchemeState: PersistentState {
         self.sliderValueTextColor = ColorState.fromColor(scheme.sliderValueTextColor)
         
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
+        
         self.sliderForegroundColor = ColorState.fromColor(scheme.sliderForegroundColor)
+        self.sliderForegroundGradientType = scheme.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = scheme.sliderForegroundGradientAmount
+        
         self.sliderKnobColor = ColorState.fromColor(scheme.sliderKnobColor)
         self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
@@ -222,6 +229,16 @@ class PlayerColorSchemeState: PersistentState {
         if let colorDict = map["sliderForegroundColor"] as? NSDictionary,
             let color = ColorState.deserialize(colorDict) as? ColorState {
             state.sliderForegroundColor = color
+        }
+        
+        if let gradientTypeStr = map["sliderForegroundGradientType"] as? String,
+            let gradientType = GradientType(rawValue: gradientTypeStr) {
+            
+            state.sliderForegroundGradientType = gradientType
+        }
+        
+        if let amountNum = map["sliderForegroundGradientAmount"] as? NSNumber {
+            state.sliderForegroundGradientAmount = amountNum.intValue
         }
         
         if let colorDict = map["sliderKnobColor"] as? NSDictionary,

@@ -44,13 +44,13 @@ struct Colors {
     static var functionButtonGradient: NSGradient {
         
         let color = ColorSchemes.systemScheme.general.functionButtonColor
-        return NSGradient(starting: color, ending: color.darkened())!
+        return NSGradient(starting: color, ending: color.darkened(40))!
     }
     
     static var functionButtonGradient_disabled: NSGradient {
         
-        let color = ColorSchemes.systemScheme.general.functionButtonColor.darkened()
-        return NSGradient(starting: color, ending: color.darkened())!
+        let color = ColorSchemes.systemScheme.general.functionButtonColor.darkened(50)
+        return NSGradient(starting: color, ending: color.darkened(50))!
     }
     
     static var toggleButtonOffStateColor: NSColor {
@@ -78,7 +78,7 @@ struct Colors {
     }
     
     static var disabledFunctionButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.functionButtonTextColor.darkened()
+        return ColorSchemes.systemScheme.general.functionButtonTextColor.darkened(70)
     }
     
     static var tabViewButtonSelectionBoxColor: NSColor {
@@ -131,8 +131,28 @@ struct Colors {
         
         static var sliderProgressGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderForegroundColor,
-                              ending: ColorSchemes.systemScheme.player.sliderForegroundColor.darkened(33))!
+            let startColor = ColorSchemes.systemScheme.player.sliderForegroundColor
+            
+            switch ColorSchemes.systemScheme.player.sliderForegroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: startColor, ending: startColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
+                let endColor = startColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
+                let end = startColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: end)!
+            }
         }
         
         static var seekBarLoopColor: NSColor {
@@ -236,29 +256,28 @@ struct Colors {
         static var activeSliderGradient: NSGradient {
             
             return NSGradient(starting: activeUnitStateColor,
-                              ending: activeUnitStateColor.darkened())!
+                              ending: activeUnitStateColor.darkened(50))!
         }
         
         static var bypassedSliderGradient: NSGradient {
             
             return NSGradient(starting: bypassedUnitStateColor,
-                              ending: bypassedUnitStateColor.darkened())!
+                              ending: bypassedUnitStateColor.darkened(50))!
         }
         
         static var suppressedSliderGradient: NSGradient {
             
             return NSGradient(starting: suppressedUnitStateColor,
-                              ending: suppressedUnitStateColor.darkened())!
+                              ending: suppressedUnitStateColor.darkened(50))!
         }
         
         static var sliderBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened(),
+            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened(50),
                               ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
         }
         
         static var neutralSliderColoredGradient: NSGradient {
-            
             return NSGradient(starting: Constants.white60Percent, ending: Constants.white40Percent)!
         }
     }

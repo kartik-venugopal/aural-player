@@ -387,31 +387,45 @@ extension NSImage {
 
 extension NSColor {
     
+    func toRGB() -> NSColor {
+        
+        if self.colorSpace.colorSpaceModel != .rgb, let rgb = self.usingColorSpace(.deviceRGB) {
+            return rgb
+        }
+        
+        return self
+    }
+    
+    func darkened(_ percentage: CGFloat) -> NSColor {
+        
+        let rgbSelf = self.toRGB()
+        
+        let curBrightness = rgbSelf.brightnessComponent
+        let newBrightness = curBrightness - (percentage * curBrightness / 100)
+        
+        return NSColor(calibratedHue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
+    }
+    
+    func brightened(_ percentage: CGFloat) -> NSColor {
+        
+        let rgbSelf = self.toRGB()
+        
+        let curBrightness = rgbSelf.brightnessComponent
+        let range: CGFloat = 1 - curBrightness
+        let newBrightness = curBrightness + (percentage * range / 100)
+        
+        return NSColor(calibratedHue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
+    }
+    
     func toString() -> String {
         return String(describing: JSONMapper.map(ColorState.fromColor(self)))
     }
     
-    func darkened(_ percentage: CGFloat = 50) -> NSColor {
+    func hsbString() -> String {
         
-        let factor: CGFloat = 1 - (percentage / 100)
+        let rgb = self.toRGB()
         
-        switch self.colorSpace.colorSpaceModel {
-            
-        case .gray:
-            
-            return NSColor(calibratedWhite: self.whiteComponent * factor, alpha: self.alphaComponent)
-            
-        case .rgb:
-            
-            return NSColor(calibratedRed: self.redComponent * factor, green: self.greenComponent * factor, blue: self.blueComponent * factor, alpha: self.alphaComponent)
-            
-        case .cmyk:
-            
-            return NSColor(deviceCyan: self.cyanComponent * factor, magenta: self.magentaComponent * factor, yellow: self.yellowComponent * factor, black: self.blackComponent, alpha: self.alphaComponent)
-            
-        default: return self
-            
-        }
+        return String(format: "Hue: %.3f\nSat: %.3f\nBrightness: %.3f", rgb.hueComponent, rgb.saturationComponent, rgb.brightnessComponent)
     }
 }
 

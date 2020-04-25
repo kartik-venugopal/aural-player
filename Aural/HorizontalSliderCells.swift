@@ -67,8 +67,6 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobWidth: CGFloat {return 5}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
-    
-    override var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -89,9 +87,6 @@ class SeekSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 1}
     override var knobWidth: CGFloat {return 5}
     override var knobHeightOutsideBar: CGFloat {return 2}
-    
-    override var barPlainGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
-    override var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
     
     var loop: PlaybackLoopRange?
     
@@ -206,17 +201,11 @@ class PreferencesSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
-}
-
-// Cell for sliders on the effects panel
-class EffectsSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barPlainGradient: NSGradient {return Colors.Effects.neutralSliderColoredGradient}
+    override var barColoredGradient: NSGradient {return Colors.Effects.neutralSliderColoredGradient}
     
-    override var knobWidth: CGFloat {return 8}
-    override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 1}
+    override var knobColor: NSColor {return Colors.Constants.white80Percent}
 }
 
 extension NSRect {
