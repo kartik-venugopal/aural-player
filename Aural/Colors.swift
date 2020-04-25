@@ -125,8 +125,28 @@ struct Colors {
         
         static var sliderBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderBackgroundColor.darkened(33),
-                              ending: ColorSchemes.systemScheme.player.sliderBackgroundColor)!
+            let endColor = ColorSchemes.systemScheme.player.sliderBackgroundColor
+            
+            switch ColorSchemes.systemScheme.player.sliderBackgroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: endColor, ending: endColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+                let startColor = endColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+                let startColor = endColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
         }
         
         static var sliderProgressGradient: NSGradient {
@@ -149,9 +169,9 @@ struct Colors {
             case .brighten:
                 
                 let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
-                let end = startColor.brightened(CGFloat(amount))
+                let endColor = startColor.brightened(CGFloat(amount))
                 
-                return NSGradient(starting: startColor, ending: end)!
+                return NSGradient(starting: startColor, ending: endColor)!
             }
         }
         

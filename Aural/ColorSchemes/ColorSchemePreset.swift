@@ -203,6 +203,21 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var playerSliderBackgroundGradientType: GradientType {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return .brighten
+            
+        case .whiteBackgroundBlackForeground:  return .darken
+            
+        }
+    }
+    
+    var playerSliderBackgroundGradientAmount: Int {
+        return 40
+    }
+    
     var playerSliderKnobColor: NSColor {
         
         switch self {

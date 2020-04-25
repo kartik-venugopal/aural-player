@@ -168,11 +168,15 @@ class PlayerColorSchemeState: PersistentState {
     var trackInfoTertiaryTextColor: ColorState = ColorState.defaultInstance
     var sliderValueTextColor: ColorState = ColorState.defaultInstance
     
+    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    var sliderBackgroundGradientType: GradientType = .none
+    var sliderBackgroundGradientAmount: Int = 50
+    
     var sliderForegroundColor: ColorState = ColorState.defaultInstance
     var sliderForegroundGradientType: GradientType = .none
-    var sliderForegroundGradientAmount: Int = 0
+    var sliderForegroundGradientAmount: Int = 50
     
-    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    
     var sliderKnobColor: ColorState = ColorState.defaultInstance
     var sliderKnobColorSameAsForeground: Bool = true
     var sliderLoopSegmentColor: ColorState = ColorState.defaultInstance
@@ -187,6 +191,8 @@ class PlayerColorSchemeState: PersistentState {
         self.sliderValueTextColor = ColorState.fromColor(scheme.sliderValueTextColor)
         
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
+        self.sliderBackgroundGradientType = scheme.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = scheme.sliderBackgroundGradientAmount
         
         self.sliderForegroundColor = ColorState.fromColor(scheme.sliderForegroundColor)
         self.sliderForegroundGradientType = scheme.sliderForegroundGradientType
@@ -224,6 +230,16 @@ class PlayerColorSchemeState: PersistentState {
         if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
             let color = ColorState.deserialize(colorDict) as? ColorState {
             state.sliderBackgroundColor = color
+        }
+        
+        if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
+            let gradientType = GradientType(rawValue: gradientTypeStr) {
+            
+            state.sliderBackgroundGradientType = gradientType
+        }
+        
+        if let amountNum = map["sliderBackgroundGradientAmount"] as? NSNumber {
+            state.sliderBackgroundGradientAmount = amountNum.intValue
         }
         
         if let colorDict = map["sliderForegroundColor"] as? NSDictionary,
