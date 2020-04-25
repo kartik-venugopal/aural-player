@@ -211,6 +211,21 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.activeUnitStateColor
         }
         
+        static func knobColorForState(_ state: EffectsUnitState) -> NSColor {
+            
+            let useForegroundColor: Bool = ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground
+            
+            switch state {
+                
+            case .active:   return useForegroundColor ? Colors.Effects.activeUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
+                
+            case .bypassed: return useForegroundColor ? Colors.Effects.bypassedUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
+                
+            case .suppressed:   return useForegroundColor ? Colors.Effects.suppressedUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
+                
+            }
+        }
+        
         static var bypassedUnitStateColor: NSColor {
             return ColorSchemes.systemScheme.effects.bypassedUnitStateColor
         }
