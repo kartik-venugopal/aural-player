@@ -412,6 +412,21 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+  
+    var effectsSliderBackgroundGradientType: GradientType {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return .darken
+            
+        case .whiteBackgroundBlackForeground:  return .brighten
+            
+        }
+    }
+    
+    var effectsSliderBackgroundGradientAmount: Int {
+        return 40
+    }
     
     var effectsSliderKnobColor: NSColor {
         
@@ -460,4 +475,20 @@ enum ColorSchemePreset: String, CaseIterable {
             
         }
     }
+    
+    var effectsSliderForegroundGradientType: GradientType {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return .darken
+            
+        case .whiteBackgroundBlackForeground:  return .brighten
+            
+        }
+    }
+    
+    var effectsSliderForegroundGradientAmount: Int {
+        return 40
+    }
+    
 }

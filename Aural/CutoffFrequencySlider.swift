@@ -26,7 +26,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:  return Colors.Effects.activeSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
             
@@ -39,7 +39,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.bypassedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
             
@@ -52,7 +52,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.suppressedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
         }
@@ -69,7 +69,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
             
@@ -82,7 +82,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
             
@@ -95,7 +95,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderColoredGradient
+            default:    return Colors.Effects.neutralSliderGradient
                 
             }
         }

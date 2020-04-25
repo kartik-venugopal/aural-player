@@ -381,6 +381,11 @@ class EffectsColorSchemeState: PersistentState {
     var functionValueTextColor: ColorState = ColorState.defaultInstance
     
     var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    var sliderBackgroundGradientType: GradientType = .none
+    var sliderBackgroundGradientAmount: Int = 50
+    
+    var sliderForegroundGradientType: GradientType = .none
+    var sliderForegroundGradientAmount: Int = 50
     
     var sliderKnobColor: ColorState = ColorState.defaultInstance
     var sliderKnobColorSameAsForeground: Bool = true
@@ -397,6 +402,12 @@ class EffectsColorSchemeState: PersistentState {
         self.functionValueTextColor = ColorState.fromColor(scheme.functionValueTextColor)
         
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
+        self.sliderBackgroundGradientType = scheme.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = scheme.sliderBackgroundGradientAmount
+        
+        self.sliderForegroundGradientType = scheme.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = scheme.sliderForegroundGradientAmount
+        
         self.sliderKnobColor = ColorState.fromColor(scheme.sliderKnobColor)
         self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
         
@@ -422,6 +433,26 @@ class EffectsColorSchemeState: PersistentState {
         if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
             let color = ColorState.deserialize(colorDict) as? ColorState {
             state.sliderBackgroundColor = color
+        }
+        
+        if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
+            let gradientType = GradientType(rawValue: gradientTypeStr) {
+            
+            state.sliderBackgroundGradientType = gradientType
+        }
+        
+        if let amountNum = map["sliderBackgroundGradientAmount"] as? NSNumber {
+            state.sliderBackgroundGradientAmount = amountNum.intValue
+        }
+        
+        if let gradientTypeStr = map["sliderForegroundGradientType"] as? String,
+            let gradientType = GradientType(rawValue: gradientTypeStr) {
+            
+            state.sliderForegroundGradientType = gradientType
+        }
+        
+        if let amountNum = map["sliderForegroundGradientAmount"] as? NSNumber {
+            state.sliderForegroundGradientAmount = amountNum.intValue
         }
         
         if let colorDict = map["sliderKnobColor"] as? NSDictionary,

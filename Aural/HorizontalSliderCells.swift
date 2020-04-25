@@ -202,8 +202,8 @@ class PreferencesSliderCell: HorizontalSliderCell {
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
     
-    override var barPlainGradient: NSGradient {return Colors.Effects.neutralSliderColoredGradient}
-    override var barColoredGradient: NSGradient {return Colors.Effects.neutralSliderColoredGradient}
+    override var barPlainGradient: NSGradient {return Colors.Effects.neutralSliderGradient}
+    override var barColoredGradient: NSGradient {return Colors.Effects.neutralSliderGradient}
     
     override var knobColor: NSColor {return Colors.Constants.white80Percent}
 }
