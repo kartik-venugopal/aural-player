@@ -63,6 +63,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        applyColorScheme(ColorSchemes.systemScheme)
         
         initHeader()
         
@@ -514,6 +515,23 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         }
     }
     
+    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        
+        changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        
+        txtSearch.textColor = scheme.playlist.trackNameTextColor
+        
+        if mustReloadRows {
+            chaptersListView.reloadData()
+        }
+    }
+    
     private func changeBackgroundColor(_ color: NSColor) {
         
         chaptersListView.backgroundColor = NSColor.clear
@@ -523,13 +541,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private func changeFunctionButtonColor(_ color: NSColor) {
      
         functionButtons.forEach({$0.reTint()})
-        
-        [btnPreviousMatch, btnNextMatch].forEach({
-            
-            if $0?.isEnabled ?? false {
-                $0?.redraw()
-            }
-        })
+        [btnPreviousMatch, btnNextMatch].forEach({$0?.redraw()})
     }
     
     private func changeFunctionButtonTextColor(_ color: NSColor) {

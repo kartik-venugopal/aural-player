@@ -67,7 +67,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionCaptionTextColor, ColorSchemes.systemScheme.effects.functionCaptionTextColor))
+        
+        applyColorScheme(ColorSchemes.systemScheme)
         
         initUnits()
         initTabGroup()
@@ -133,6 +134,14 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     private func changeTextSize() {
         viewMenuButton.font = Fonts.Effects.menuFont
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        
+        fxTabViewButtons.forEach({$0.reTint()})
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

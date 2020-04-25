@@ -31,6 +31,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         oneTimeSetup()
         initControls()
+        
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     func oneTimeSetup() {
@@ -115,6 +117,22 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         lblCaption.font = Fonts.Effects.unitCaptionFont
         functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         presetsMenu.font = Fonts.Effects.menuFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
+        changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
+        
+        changeActiveUnitStateColor(scheme.effects.activeUnitStateColor)
+        changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
+        changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
+        
+        changeFunctionButtonColor()
+        
+        // Should not need to do this because the function buttons will already get redrawn by changeFunctionButtonColor()
+//        changeFunctionButtonTextColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {

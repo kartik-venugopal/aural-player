@@ -74,7 +74,7 @@ class GeneralColorScheme {
         self.appLogoColor = appState.appLogoColor.toColor()
         self.backgroundColor = appState.backgroundColor.toColor()
         
-        self.viewControlButtonColor = appState.functionButtonColor.toColor()
+        self.viewControlButtonColor = appState.viewControlButtonColor.toColor()
         self.functionButtonColor = appState.functionButtonColor.toColor()
         self.toggleButtonOffStateColor = appState.toggleButtonOffStateColor.toColor()
         self.selectedTabButtonColor = appState.selectedTabButtonColor.toColor()
@@ -265,6 +265,9 @@ class EffectsColorScheme {
     
     var sliderBackgroundColor: NSColor
     
+    var sliderKnobColor: NSColor
+    var sliderKnobColorSameAsForeground: Bool
+    
     var activeUnitStateColor: NSColor
     var bypassedUnitStateColor: NSColor
     var suppressedUnitStateColor: NSColor
@@ -275,6 +278,8 @@ class EffectsColorScheme {
         self.functionValueTextColor = appState.functionValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
+        self.sliderKnobColor = appState.sliderKnobColor.toColor()
+        self.sliderKnobColorSameAsForeground = appState.sliderKnobColorSameAsForeground
         
         self.activeUnitStateColor = appState.activeUnitStateColor.toColor()
         self.bypassedUnitStateColor = appState.bypassedUnitStateColor.toColor()
@@ -287,6 +292,8 @@ class EffectsColorScheme {
         self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
+        self.sliderKnobColor = preset.effectsSliderKnobColor
+        self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
         
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor
@@ -299,6 +306,8 @@ class EffectsColorScheme {
         self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
+        self.sliderKnobColor = preset.effectsSliderKnobColor
+        self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
         
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor

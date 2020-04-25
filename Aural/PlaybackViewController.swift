@@ -33,6 +33,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
+        applyColorScheme(ColorSchemes.systemScheme)
+        
         initSubscriptions()
     }
     
@@ -431,6 +433,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func changeTextSize() {
         controlsView.changeTextSize()
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
+        changeSliderColors()
+        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

@@ -16,6 +16,8 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
         
         self.window?.delegate = ObjectGraph.windowManager
         
+        changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
+        
         SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor], subscriber: self)
     }
     

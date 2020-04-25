@@ -37,7 +37,7 @@ class DelayViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
     }
     
     override func stateChanged() {
@@ -74,7 +74,13 @@ class DelayViewController: FXUnitViewController {
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
-    func changeSliderBackgroundColor() {
+    override func applyColorScheme(_ scheme: ColorScheme) {
+        
+        super.applyColorScheme(scheme)
+        changeSliderColor()
+    }
+    
+    func changeSliderColor() {
         delayView.redrawSliders()
     }
     
@@ -118,9 +124,9 @@ class DelayViewController: FXUnitViewController {
             
             switch colorChangeMsg.actionType {
                 
-            case .changeEffectsSliderBackgroundColor:
+            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
                 
-                changeSliderBackgroundColor()
+                changeSliderColor()
 
             default: return
                 

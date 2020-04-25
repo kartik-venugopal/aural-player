@@ -49,6 +49,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .userInitiated
+        
+        applyColorScheme(ColorSchemes.systemScheme, false)
     }
     
     private func initSubscriptions() {
@@ -724,6 +726,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        
+        if mustReloadRows {
+            playlistView.reloadData()
+        }
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
