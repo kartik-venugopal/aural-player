@@ -387,6 +387,21 @@ extension NSImage {
 
 extension NSColor {
     
+    func clonedWithTransparency(_ alpha: CGFloat) -> NSColor {
+        
+        switch self.colorSpace.colorSpaceModel {
+            
+        case .gray: return NSColor(calibratedWhite: self.whiteComponent, alpha: alpha)
+            
+        case .rgb:  return NSColor(calibratedRed: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
+            
+        case .cmyk: return NSColor(deviceCyan: self.cyanComponent, magenta: self.magentaComponent, yellow: self.yellowComponent, black: self.blackComponent, alpha: alpha)
+            
+        default: return self
+            
+        }
+    }
+    
     func toRGB() -> NSColor {
         
         if self.colorSpace.colorSpaceModel != .rgb, let rgb = self.usingColorSpace(.deviceRGB) {

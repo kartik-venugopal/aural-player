@@ -161,6 +161,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         formatMenu.redraw()
         formatMenu.font = Fonts.Effects.unitFunctionFont
+        
+        qualityMenu.redraw()
+        qualityMenu.font = Fonts.Effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

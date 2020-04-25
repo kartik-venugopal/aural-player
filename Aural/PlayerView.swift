@@ -313,6 +313,9 @@ class ExpandedArtPlayerView: PlayerView {
         hideViews(controlsBox, overlayBox)
         centerOverlayBox.showIf_elseHide(infoBox.isShown)
         
+        let windowColor = Colors.windowBackgroundColor
+        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
+        
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
@@ -412,7 +415,9 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     override func changeBackgroundColor(_ color: NSColor) {
-        // Do nothing
+        
+        let windowColor = Colors.windowBackgroundColor
+        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
     }
 }
 

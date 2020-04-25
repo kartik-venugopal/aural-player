@@ -246,10 +246,6 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.sliderBackgroundColor
         }
         
-        static var activeUnitStateColor: NSColor {
-            return ColorSchemes.systemScheme.effects.activeUnitStateColor
-        }
-        
         static func sliderKnobColorForState(_ state: EffectsUnitState) -> NSColor {
             
             let useForegroundColor: Bool = ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground
@@ -265,6 +261,10 @@ struct Colors {
             }
         }
         
+        static var activeUnitStateColor: NSColor {
+            return ColorSchemes.systemScheme.effects.activeUnitStateColor
+        }
+        
         static var bypassedUnitStateColor: NSColor {
             return ColorSchemes.systemScheme.effects.bypassedUnitStateColor
         }
@@ -275,29 +275,109 @@ struct Colors {
         
         static var activeSliderGradient: NSGradient {
             
-            return NSGradient(starting: activeUnitStateColor,
-                              ending: activeUnitStateColor.darkened(50))!
+            let startColor = ColorSchemes.systemScheme.effects.activeUnitStateColor
+            
+            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: startColor, ending: startColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
         }
         
         static var bypassedSliderGradient: NSGradient {
             
-            return NSGradient(starting: bypassedUnitStateColor,
-                              ending: bypassedUnitStateColor.darkened(50))!
+            let startColor = ColorSchemes.systemScheme.effects.bypassedUnitStateColor
+            
+            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: startColor, ending: startColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
         }
         
         static var suppressedSliderGradient: NSGradient {
             
-            return NSGradient(starting: suppressedUnitStateColor,
-                              ending: suppressedUnitStateColor.darkened(50))!
+            let startColor = ColorSchemes.systemScheme.effects.suppressedUnitStateColor
+            
+            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: startColor, ending: startColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
         }
         
         static var sliderBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened(50),
-                              ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
+            let endColor = ColorSchemes.systemScheme.effects.sliderBackgroundColor
+            
+            switch ColorSchemes.systemScheme.effects.sliderBackgroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: endColor, ending: endColor)!
+                
+            case .darken:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount
+                let startColor = endColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount
+                let startColor = endColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
         }
         
-        static var neutralSliderColoredGradient: NSGradient {
+        static var neutralSliderGradient: NSGradient {
             return NSGradient(starting: Constants.white60Percent, ending: Constants.white40Percent)!
         }
     }
@@ -459,7 +539,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderColoredGradient
+    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderGradient
     
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black

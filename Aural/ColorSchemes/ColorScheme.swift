@@ -291,6 +291,11 @@ class EffectsColorScheme {
     var functionValueTextColor: NSColor
     
     var sliderBackgroundColor: NSColor
+    var sliderBackgroundGradientType: GradientType
+    var sliderBackgroundGradientAmount: Int
+    
+    var sliderForegroundGradientType: GradientType
+    var sliderForegroundGradientAmount: Int
     
     var sliderKnobColor: NSColor
     var sliderKnobColorSameAsForeground: Bool
@@ -305,6 +310,12 @@ class EffectsColorScheme {
         self.functionValueTextColor = appState.functionValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
+        self.sliderBackgroundGradientType = appState.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = appState.sliderBackgroundGradientAmount
+        
+        self.sliderForegroundGradientType = appState.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = appState.sliderForegroundGradientAmount
+        
         self.sliderKnobColor = appState.sliderKnobColor.toColor()
         self.sliderKnobColorSameAsForeground = appState.sliderKnobColorSameAsForeground
         
@@ -319,6 +330,12 @@ class EffectsColorScheme {
         self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
+        self.sliderBackgroundGradientType = preset.effectsSliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = preset.effectsSliderBackgroundGradientAmount
+        
+        self.sliderForegroundGradientType = preset.effectsSliderForegroundGradientType
+        self.sliderForegroundGradientAmount = preset.effectsSliderForegroundGradientAmount
+        
         self.sliderKnobColor = preset.effectsSliderKnobColor
         self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
         
@@ -333,6 +350,12 @@ class EffectsColorScheme {
         self.functionValueTextColor = preset.effectsFunctionValueTextColor
         
         self.sliderBackgroundColor = preset.effectsSliderBackgroundColor
+        self.sliderBackgroundGradientType = preset.effectsSliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = preset.effectsSliderBackgroundGradientAmount
+        
+        self.sliderForegroundGradientType = preset.effectsSliderForegroundGradientType
+        self.sliderForegroundGradientAmount = preset.effectsSliderForegroundGradientAmount
+        
         self.sliderKnobColor = preset.effectsSliderKnobColor
         self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
         

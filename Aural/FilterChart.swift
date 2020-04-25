@@ -9,7 +9,7 @@ class FilterChart: NSView {
     private var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
     
     private var inactiveUnitGradient: NSGradient {
-        return Colors.Effects.neutralSliderColoredGradient
+        return Colors.Effects.neutralSliderGradient
     }
     
     private var bandStopGradient: NSGradient {
