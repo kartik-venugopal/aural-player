@@ -9,15 +9,15 @@ class FilterChart: NSView {
     private var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
     
     private var inactiveUnitGradient: NSGradient {
-        return Colors.Effects.neutralSliderBarColoredGradient
+        return Colors.Effects.neutralSliderColoredGradient
     }
     
     private var bandStopGradient: NSGradient {
-        return Colors.Effects.bypassedSliderBarGradient
+        return Colors.Effects.bypassedSliderGradient
     }
     
     private var bandPassGradient: NSGradient {
-        return Colors.Effects.activeSliderBarGradient
+        return Colors.Effects.activeSliderGradient
     }
     
     override func draw(_ dirtyRect: NSRect) {

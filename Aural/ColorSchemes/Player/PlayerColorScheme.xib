@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerColorSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnSliderKnobColorSameAsForeground" destination="3SR-Yc-2r0" id="xzr-T6-MMy"/>
                 <outlet property="scrollView" destination="Apd-Ch-VYl" id="yek-lK-gTA"/>
                 <outlet property="sliderBackgroundColorPicker" destination="naY-wg-2GM" id="TjA-oS-bd7"/>
                 <outlet property="sliderForegroundColorPicker" destination="NT1-Jh-EIQ" id="Axm-ma-WXC"/>
@@ -46,7 +47,7 @@
                                         </connections>
                                     </colorWell>
                                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-bR-hEb" userLabel="Control button color">
-                                        <rect key="frame" x="410" y="42" width="25" height="25"/>
+                                        <rect key="frame" x="410" y="17" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -97,16 +98,16 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-qY-rOJ" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="113" width="171" height="23"/>
+                                        <rect key="frame" x="20" y="113" width="193" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Foreground (i.e. progress)" id="gYn-D7-bYI" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Foreground (progress)" id="gYn-D7-bYI" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fDm-ux-2c8" userLabel="Control buttons" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="43" width="223" height="23"/>
+                                        <rect key="frame" x="20" y="18" width="223" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Loop segment  (seek slider)" id="ii1-du-3UJ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -191,6 +192,17 @@
                                             <action selector="sliderValueTextColorAction:" target="-2" id="rd4-wV-oEF"/>
                                         </connections>
                                     </colorWell>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3SR-Yc-2r0">
+                                        <rect key="frame" x="37" y="56" width="309" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use same color as slider foreground" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="CGn-qU-FWX" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="12" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="sliderKnobColorSameAsForegroundAction:" target="-2" id="hA7-kl-SJn"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </view>
                         </subviews>

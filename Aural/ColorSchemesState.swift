@@ -171,6 +171,7 @@ class PlayerColorSchemeState: PersistentState {
     var sliderForegroundColor: ColorState = ColorState.defaultInstance
     var sliderBackgroundColor: ColorState = ColorState.defaultInstance
     var sliderKnobColor: ColorState = ColorState.defaultInstance
+    var sliderKnobColorSameAsForeground: Bool = true
     var sliderLoopSegmentColor: ColorState = ColorState.defaultInstance
     
     init() {}
@@ -185,6 +186,7 @@ class PlayerColorSchemeState: PersistentState {
         self.sliderBackgroundColor = ColorState.fromColor(scheme.sliderBackgroundColor)
         self.sliderForegroundColor = ColorState.fromColor(scheme.sliderForegroundColor)
         self.sliderKnobColor = ColorState.fromColor(scheme.sliderKnobColor)
+        self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
     }
     
@@ -225,6 +227,10 @@ class PlayerColorSchemeState: PersistentState {
         if let colorDict = map["sliderKnobColor"] as? NSDictionary,
             let color = ColorState.deserialize(colorDict) as? ColorState {
             state.sliderKnobColor = color
+        }
+        
+        if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
+            state.sliderKnobColorSameAsForeground = useForegroundColor
         }
         
         if let colorDict = map["sliderLoopSegmentColor"] as? NSDictionary,

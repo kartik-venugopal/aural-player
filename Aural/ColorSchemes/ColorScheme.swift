@@ -132,6 +132,7 @@ class PlayerColorScheme {
     var sliderForegroundColor: NSColor
     var sliderBackgroundColor: NSColor
     var sliderKnobColor: NSColor
+    var sliderKnobColorSameAsForeground: Bool
     var sliderLoopSegmentColor: NSColor
     
     init(_ appState: PlayerColorSchemeState) {
@@ -144,6 +145,7 @@ class PlayerColorScheme {
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
         self.sliderForegroundColor = appState.sliderForegroundColor.toColor()
         self.sliderKnobColor = appState.sliderKnobColor.toColor()
+        self.sliderKnobColorSameAsForeground = appState.sliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = appState.sliderLoopSegmentColor.toColor()
     }
     
@@ -157,6 +159,7 @@ class PlayerColorScheme {
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
         self.sliderForegroundColor = preset.playerSliderForegroundColor
         self.sliderKnobColor = preset.playerSliderKnobColor
+        self.sliderKnobColorSameAsForeground = preset.playerSliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
     

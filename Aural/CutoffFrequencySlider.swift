@@ -23,10 +23,10 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:  return Colors.Effects.activeSliderBarGradient.reversed()
+            case .highPass:  return Colors.Effects.activeSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
             
@@ -36,10 +36,10 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:   return Colors.Effects.bypassedSliderBarGradient.reversed()
+            case .highPass:   return Colors.Effects.bypassedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
             
@@ -49,10 +49,10 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:   return Colors.Effects.suppressedSliderBarGradient.reversed()
+            case .highPass:   return Colors.Effects.suppressedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
         }
@@ -64,12 +64,12 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
             switch self.filterType {
                 
-            case .lowPass:   return Colors.Effects.activeSliderBarGradient
+            case .lowPass:   return Colors.Effects.activeSliderGradient
                 
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
             
@@ -77,12 +77,12 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
             switch self.filterType {
                 
-            case .lowPass:   return Colors.Effects.bypassedSliderBarGradient
+            case .lowPass:   return Colors.Effects.bypassedSliderGradient
                 
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
             
@@ -90,12 +90,12 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             
             switch self.filterType {
                 
-            case .lowPass:   return Colors.Effects.suppressedSliderBarGradient
+            case .lowPass:   return Colors.Effects.suppressedSliderGradient
                 
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderBarColoredGradient
+            default:    return Colors.Effects.neutralSliderColoredGradient
                 
             }
         }
