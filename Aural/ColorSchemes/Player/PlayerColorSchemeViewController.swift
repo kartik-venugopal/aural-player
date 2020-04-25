@@ -13,6 +13,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
     @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
+    @IBOutlet weak var btnSliderKnobColorSameAsForeground: NSButton!
     @IBOutlet weak var sliderLoopSegmentColorPicker: NSColorWell!
     
     override var nibName: NSNib.Name? {return "PlayerColorScheme"}
@@ -32,6 +33,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         sliderBackgroundColorPicker.color = scheme.player.sliderBackgroundColor
         sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
         sliderKnobColorPicker.color = scheme.player.sliderKnobColor
+        btnSliderKnobColorSameAsForeground.onIf(scheme.player.sliderKnobColorSameAsForeground)
         sliderLoopSegmentColorPicker.color = scheme.player.sliderLoopSegmentColor
         
         scrollToTop()
@@ -83,6 +85,13 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         
         ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
+    }
+    
+    @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, btnSliderKnobColorSameAsForeground.isOn ? sliderForegroundColorPicker.color : sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {

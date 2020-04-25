@@ -11,8 +11,8 @@ class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
     
-    var barPlainGradient: NSGradient {return Colors.Player.seekBarBackgroundGradient}
-    var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
+    var barPlainGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
+    var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     
     var barInsetX: CGFloat {return 0}
@@ -21,7 +21,7 @@ class HorizontalSliderCell: NSSliderCell {
     var knobWidth: CGFloat {return 10}
     var knobHeightOutsideBar: CGFloat {return 2}
     var knobRadius: CGFloat {return 1}
-    var knobColor: NSColor {return Colors.Player.knobColor}
+    var knobColor: NSColor {return Colors.Player.sliderKnobColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -68,7 +68,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
-    override var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
+    override var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -90,8 +90,8 @@ class SeekSliderCell: HorizontalSliderCell {
     override var knobWidth: CGFloat {return 5}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
-    override var barPlainGradient: NSGradient {return Colors.Player.seekBarBackgroundGradient}
-    override var barColoredGradient: NSGradient {return Colors.Player.seekBarProgressGradient}
+    override var barPlainGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
+    override var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
     
     var loop: PlaybackLoopRange?
     
@@ -149,7 +149,8 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop bar
             let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
-            Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+            Colors.Player.seekBarLoopColor.setFill()
+            drawPath.fill()
             
             let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
             let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
@@ -158,14 +159,16 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop start marker
             let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
             drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
-            Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+            Colors.Player.seekBarLoopColor.setFill()
+            drawPath.fill()
             
             // Loop end marker
             if (loop.end != nil) {
             
                 let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
                 drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: markerRadius, yRadius: markerRadius)
-                Colors.Player.seekBarLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+                Colors.Player.seekBarLoopColor.setFill()
+                drawPath.fill()
             }
         }
     }

@@ -96,7 +96,7 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     override var knobHeightOutsideBar: CGFloat {return 1.5}
     
     override var knobColor: NSColor {
-        return Colors.Effects.knobColorForState(self.unitState)
+        return Colors.Effects.sliderKnobColorForState(self.unitState)
     }
     
     override var tickVerticalSpacing: CGFloat {return 1}
@@ -109,11 +109,11 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
      
         switch self.unitState {
             
-        case .active:   return Colors.Effects.activeSliderBarGradient
+        case .active:   return Colors.Effects.activeSliderGradient
             
-        case .bypassed: return Colors.Effects.bypassedSliderBarGradient
+        case .bypassed: return Colors.Effects.bypassedSliderGradient
             
-        case .suppressed:   return Colors.Effects.suppressedSliderBarGradient
+        case .suppressed:   return Colors.Effects.suppressedSliderGradient
             
         }
     }

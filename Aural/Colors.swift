@@ -123,27 +123,25 @@ struct Colors {
             return ColorSchemes.systemScheme.player.sliderBackgroundColor
         }
         
-        static var seekBarBackgroundGradient: NSGradient {
+        static var sliderBackgroundGradient: NSGradient {
             
             return NSGradient(starting: ColorSchemes.systemScheme.player.sliderBackgroundColor.darkened(33),
                               ending: ColorSchemes.systemScheme.player.sliderBackgroundColor)!
         }
         
-        static var seekBarProgressGradient: NSGradient {
+        static var sliderProgressGradient: NSGradient {
             
             return NSGradient(starting: ColorSchemes.systemScheme.player.sliderForegroundColor,
                               ending: ColorSchemes.systemScheme.player.sliderForegroundColor.darkened(33))!
         }
         
-        // TODO: Should this be a gradient or NSColor ?
-        static var seekBarLoopGradient: NSGradient {
-            
-            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderLoopSegmentColor,
-                              ending: ColorSchemes.systemScheme.player.sliderLoopSegmentColor)!
+        static var seekBarLoopColor: NSColor {
+            return ColorSchemes.systemScheme.player.sliderLoopSegmentColor
         }
         
-        static var knobColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderKnobColor
+        static var sliderKnobColor: NSColor {
+            
+            return ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground ? ColorSchemes.systemScheme.player.sliderForegroundColor : ColorSchemes.systemScheme.player.sliderKnobColor
         }
     }
     
@@ -212,7 +210,7 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.activeUnitStateColor
         }
         
-        static func knobColorForState(_ state: EffectsUnitState) -> NSColor {
+        static func sliderKnobColorForState(_ state: EffectsUnitState) -> NSColor {
             
             let useForegroundColor: Bool = ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground
             
@@ -235,19 +233,19 @@ struct Colors {
             return ColorSchemes.systemScheme.effects.suppressedUnitStateColor
         }
         
-        static var activeSliderBarGradient: NSGradient {
+        static var activeSliderGradient: NSGradient {
             
             return NSGradient(starting: activeUnitStateColor,
                               ending: activeUnitStateColor.darkened())!
         }
         
-        static var bypassedSliderBarGradient: NSGradient {
+        static var bypassedSliderGradient: NSGradient {
             
             return NSGradient(starting: bypassedUnitStateColor,
                               ending: bypassedUnitStateColor.darkened())!
         }
         
-        static var suppressedSliderBarGradient: NSGradient {
+        static var suppressedSliderGradient: NSGradient {
             
             return NSGradient(starting: suppressedUnitStateColor,
                               ending: suppressedUnitStateColor.darkened())!
@@ -259,7 +257,7 @@ struct Colors {
                               ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
         }
         
-        static var neutralSliderBarColoredGradient: NSGradient {
+        static var neutralSliderColoredGradient: NSGradient {
             
             return NSGradient(starting: Constants.white60Percent, ending: Constants.white40Percent)!
         }
@@ -422,7 +420,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderBarColoredGradient
+    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderColoredGradient
     
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black

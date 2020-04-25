@@ -19,7 +19,7 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     var unitState: EffectsUnitState = .bypassed
     
     var knobColor: NSColor {
-        return Colors.Effects.knobColorForState(self.unitState)
+        return Colors.Effects.sliderKnobColorForState(self.unitState)
     }
     
     // Force knobRect and barRect to NOT be flipped
@@ -63,11 +63,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         
         switch self.unitState {
             
-        case .active:   sliderColor = Colors.Effects.activeSliderBarGradient
+        case .active:   sliderColor = Colors.Effects.activeSliderGradient
             
-        case .bypassed: sliderColor = Colors.Effects.bypassedSliderBarGradient
+        case .bypassed: sliderColor = Colors.Effects.bypassedSliderGradient
             
-        case .suppressed:   sliderColor = Colors.Effects.suppressedSliderBarGradient
+        case .suppressed:   sliderColor = Colors.Effects.suppressedSliderGradient
             
         }
         

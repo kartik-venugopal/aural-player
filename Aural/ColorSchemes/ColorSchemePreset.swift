@@ -199,6 +199,10 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var playerSliderKnobColorSameAsForeground: Bool {
+        return true
+    }
+    
     var playerSliderLoopSegmentColor: NSColor {
         
         switch self {
