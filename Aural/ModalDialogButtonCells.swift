@@ -56,15 +56,16 @@ class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
 class ModalDialogControlButtonCell: ModalDialogButtonCell {
     
     override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 2}
+    override var cellInsetY: CGFloat {return 0}
     
     override var textFont: NSFont {return Fonts.modalDialogControlButtonFont}
 }
 
+// Browse button in Playlist preferences
 class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     
     override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 2}
+    override var cellInsetY: CGFloat {return 0}
     
     override var textFont: NSFont {return Fonts.Constants.gillSans10Font}
 }

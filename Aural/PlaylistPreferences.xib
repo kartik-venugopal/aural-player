@@ -35,7 +35,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZn-N7-le7">
-                    <rect key="frame" x="18" y="437" width="268" height="20"/>
+                    <rect key="frame" x="18" y="437" width="290" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist (tracks) loaded on app startup" id="4VF-3R-sOZ">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -44,7 +44,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11g-RD-mFQ">
-                    <rect key="frame" x="30" y="408" width="213" height="20"/>
+                    <rect key="frame" x="30" y="408" width="326" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Zct-47-a9y" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -55,7 +55,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W">
-                    <rect key="frame" x="30" y="383" width="146" height="20"/>
+                    <rect key="frame" x="30" y="383" width="173" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Ce-7p-oC9" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -66,7 +66,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7">
-                    <rect key="frame" x="30" y="358" width="130" height="20"/>
+                    <rect key="frame" x="30" y="358" width="162" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -77,11 +77,11 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWX-kR-DXZ" userLabel="Btn Browse">
-                    <rect key="frame" x="169" y="360" width="50" height="17"/>
+                    <rect key="frame" x="189" y="360" width="71" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" controlSize="mini" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2nI-oE-df4" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2nI-oE-df4" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -91,15 +91,15 @@ DQ
                     </connections>
                 </button>
                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jP-hB-Fpl" userLabel="Error icon">
-                    <rect key="frame" x="555" y="362" width="14" height="14"/>
+                    <rect key="frame" x="620" y="362" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="VX8-Wb-T9Q"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
-                    <rect key="frame" x="226" y="356" width="327" height="22"/>
+                    <rect key="frame" x="276" y="356" width="342" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="1T9-ny-RtV" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="11" name="Play-Regular"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.70315212673611116" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -108,7 +108,7 @@ DQ
                     </connections>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukb-oo-Yli">
-                    <rect key="frame" x="30" y="333" width="130" height="20"/>
+                    <rect key="frame" x="30" y="333" width="162" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Load tracks from folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ds5-bi-2RV" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -119,11 +119,11 @@ DQ
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HM3-o3-TvO" userLabel="Btn Browse">
-                    <rect key="frame" x="169" y="333" width="50" height="17"/>
+                    <rect key="frame" x="189" y="333" width="71" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" controlSize="mini" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jST-iR-KfV" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jST-iR-KfV" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -133,16 +133,16 @@ DQ
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwB-rp-fIz">
-                    <rect key="frame" x="226" y="331" width="327" height="22"/>
+                    <rect key="frame" x="276" y="331" width="342" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="sOq-4p-ng8" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
-                        <font key="font" size="11" name="Play-Regular"/>
+                        <font key="font" size="12" name="Play-Regular"/>
                         <color key="textColor" white="0.70315212670000005" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SBp-tz-E9v" userLabel="Error icon">
-                    <rect key="frame" x="555" y="337" width="14" height="14"/>
+                    <rect key="frame" x="620" y="337" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="RNZ-pb-dOQ"/>
                 </imageView>
@@ -156,7 +156,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch">
-                    <rect key="frame" x="30" y="260" width="246" height="20"/>
+                    <rect key="frame" x="30" y="260" width="289" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -167,7 +167,7 @@ DQ
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label">
-                    <rect key="frame" x="30" y="236" width="108" height="20"/>
+                    <rect key="frame" x="30" y="236" width="128" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -178,7 +178,7 @@ DQ
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTZ-F2-xeR" userLabel="Layout menu">
-                    <rect key="frame" x="138" y="233" width="126" height="26"/>
+                    <rect key="frame" x="148" y="233" width="126" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Tracks" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QyX-vt-frc" id="tbo-4R-4mK" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -202,7 +202,7 @@ DQ
                     </popUpButtonCell>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG">
-                    <rect key="frame" x="29" y="147" width="308" height="20"/>
+                    <rect key="frame" x="29" y="147" width="366" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show chapters list window (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -219,7 +219,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-DH-Z3O">
-                    <rect key="frame" x="29" y="168" width="308" height="20"/>
+                    <rect key="frame" x="29" y="168" width="387" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Select and show it within the playlist (if playlist is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f6D-zw-2Xt" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

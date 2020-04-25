@@ -42,7 +42,7 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Tab" identifier="" id="V7U-Oz-ghr" userLabel="General" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" ambiguous="YES" id="QiI-ab-3mR">
+                            <view key="view" id="QiI-ab-3mR">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -67,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZ2-Ue-pVH">
-                                        <rect key="frame" x="61" y="230" width="202" height="20"/>
+                                        <rect key="frame" x="61" y="230" width="232" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="pjG-Bu-MBa" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -78,7 +78,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SK6-iR-O16">
-                                        <rect key="frame" x="61" y="211" width="137" height="20"/>
+                                        <rect key="frame" x="61" y="211" width="203" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="H8W-zc-Txb" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -89,7 +89,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4q-ps-2EU" userLabel="Insert gap">
-                                        <rect key="frame" x="45" y="64" width="186" height="20"/>
+                                        <rect key="frame" x="45" y="64" width="268" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Insert a silent gap between tracks" id="9i3-mL-qv9">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -111,7 +111,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-gy-FZk" userLabel="Seek Length Label">
-                                        <rect key="frame" x="335" y="389" width="133" height="20"/>
+                                        <rect key="frame" x="335" y="389" width="145" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (secondary)" id="xdC-RT-Wmq">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -120,7 +120,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uMr-EY-5ys" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="325" y="18" width="112" height="20"/>
+                                        <rect key="frame" x="325" y="37" width="259" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="bY0-0d-yYL">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="EdT-jo-CgE">
@@ -160,7 +160,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQr-Ku-gtD" userLabel="Info - Seek length primary">
-                                        <rect key="frame" x="146" y="389" width="15" height="15"/>
+                                        <rect key="frame" x="156" y="389" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="EdS-de-MG3">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -182,7 +182,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFZ-W3-kt7" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="215" y="363" width="112" height="20"/>
+                                        <rect key="frame" x="215" y="363" width="118" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="rhW-Kr-ExE">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="PPg-k8-Xwa">
@@ -213,7 +213,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sgT-iK-bcz" userLabel="Seek Length Label">
-                                        <rect key="frame" x="25" y="389" width="123" height="20"/>
+                                        <rect key="frame" x="25" y="389" width="135" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (primary)" id="Hic-yM-9cp">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -222,7 +222,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lVr-gg-cg5">
-                                        <rect key="frame" x="35" y="338" width="127" height="20"/>
+                                        <rect key="frame" x="35" y="338" width="132" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4Jv-MU-3gg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -233,7 +233,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofo-If-zC9">
-                                        <rect key="frame" x="37" y="270" width="241" height="20"/>
+                                        <rect key="frame" x="37" y="270" width="281" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="On app startup (if at least 1 track available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="wH0-kQ-YPB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -241,7 +241,7 @@
                                         </buttonCell>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KNq-Ex-x9M" userLabel="For individual tracks">
-                                        <rect key="frame" x="62" y="123" width="315" height="20"/>
+                                        <rect key="frame" x="62" y="123" width="391" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Playback menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tzY-7H-3T8" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -265,7 +265,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="una-AI-AIV">
-                                        <rect key="frame" x="37" y="251" width="241" height="20"/>
+                                        <rect key="frame" x="37" y="251" width="281" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="After adding tracks, play first added track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LyA-le-iGt" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -294,7 +294,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4WI-gM-KFy">
-                                        <rect key="frame" x="36" y="145" width="308" height="20"/>
+                                        <rect key="frame" x="36" y="145" width="355" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Remember position from last time track was played" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FTb-4g-six" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -326,7 +326,7 @@
                                         </connections>
                                     </datePicker>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRc-b6-ger" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="525" y="362" width="112" height="20"/>
+                                        <rect key="frame" x="525" y="362" width="131" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="bad-cJ-VVg">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="F4M-s8-yET">
@@ -360,7 +360,7 @@
                                         </connections>
                                     </stepper>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1l-lM-mep">
-                                        <rect key="frame" x="25" y="62" width="227" height="20"/>
+                                        <rect key="frame" x="25" y="62" width="293" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8xp-y5-tyP" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -392,7 +392,7 @@
                                         </connections>
                                     </datePicker>
                                     <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sCR-Of-2vY" userLabel="Info - Seek length primary">
-                                        <rect key="frame" x="468" y="390" width="15" height="15"/>
+                                        <rect key="frame" x="481" y="390" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="p1w-AS-Q87">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -430,7 +430,7 @@
                             </connections>
                         </tabViewItem>
                         <tabViewItem label="Item 1" identifier="" id="zoH-LT-2Ae" userLabel="Transcoding" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                            <view key="view" id="iF1-wb-7OZ">
+                            <view key="view" ambiguous="YES" id="iF1-wb-7OZ">
                                 <rect key="frame" x="0.0" y="0.0" width="660" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -444,7 +444,7 @@
                                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="otW-Mc-vSu" userLabel="Seek Length Label">
-                                        <rect key="frame" x="25" y="399" width="252" height="20"/>
+                                        <rect key="frame" x="25" y="399" width="275" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Persistence of transcoded (output) files" id="H8s-sY-SgS">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -475,7 +475,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IBO-cn-sAg" userLabel="Seek Length Label">
-                                        <rect key="frame" x="224" y="374" width="294" height="20"/>
+                                        <rect key="frame" x="234" y="370" width="294" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(better user experience,  takes up disk space)" id="1h6-56-QBW">
                                             <font key="font" size="11" name="Play-Regular"/>
@@ -484,7 +484,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SPq-8B-9FN" userLabel="Seek Length Label">
-                                        <rect key="frame" x="224" y="351" width="426" height="19"/>
+                                        <rect key="frame" x="234" y="346" width="426" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(saves disk space,  files need to be re-transcoded on app launch)" id="Zdp-Aa-LCq">
                                             <font key="font" size="11" name="Play-Regular"/>

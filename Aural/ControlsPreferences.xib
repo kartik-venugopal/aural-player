@@ -30,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-X6-CSc" userLabel="Sensitivity">
-                    <rect key="frame" x="66" y="322" width="64" height="20"/>
+                    <rect key="frame" x="66" y="320" width="72" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Repeat rate" id="JUS-ZM-18g">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -39,7 +39,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcR-kI-jWJ" userLabel="Sensitivity menu">
-                    <rect key="frame" x="159" y="142" width="80" height="26"/>
+                    <rect key="frame" x="164" y="142" width="104" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="jus-ar-1ap" id="fcX-qb-OWz" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -60,7 +60,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJb-cG-Tbu" userLabel="Sensitivity">
-                    <rect key="frame" x="88" y="146" width="67" height="20"/>
+                    <rect key="frame" x="88" y="144" width="73" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="GUH-d6-iYL">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -69,7 +69,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctW-oU-LaL" userLabel="Sensitivity menu">
-                    <rect key="frame" x="159" y="182" width="80" height="26"/>
+                    <rect key="frame" x="164" y="182" width="104" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="qCd-Yr-XUS" id="7k0-Mu-mID" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -90,7 +90,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9y6-i3-r5b" userLabel="Sensitivity">
-                    <rect key="frame" x="88" y="186" width="67" height="20"/>
+                    <rect key="frame" x="88" y="184" width="73" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="9Np-lL-jyE">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -154,7 +154,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amb-Wh-OFo" userLabel="Playback">
-                    <rect key="frame" x="38" y="230" width="181" height="20"/>
+                    <rect key="frame" x="38" y="230" width="215" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playback / sound (main window)" id="vVB-Y9-4Pn">
                         <font key="font" size="12" name="Play-Regular"/>
@@ -163,7 +163,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmL-yf-alB">
-                    <rect key="frame" x="248" y="262" width="67" height="19"/>
+                    <rect key="frame" x="278" y="262" width="72" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Disable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w41-Ai-T0s" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -174,7 +174,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMp-0r-Qka">
-                    <rect key="frame" x="175" y="262" width="67" height="19"/>
+                    <rect key="frame" x="195" y="262" width="72" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Enable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="90M-Kl-rhs" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -185,7 +185,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1DP-Fv-jbp">
-                    <rect key="frame" x="18" y="263" width="161" height="20"/>
+                    <rect key="frame" x="18" y="263" width="176" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Trackpad / mouse gestures" id="fox-MA-GXd">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -236,7 +236,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU4-1G-tWz">
-                    <rect key="frame" x="66" y="388" width="285" height="18"/>
+                    <rect key="frame" x="66" y="388" width="343" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Press to change tracks, press and hold to seek" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FnW-cL-NUx" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -247,7 +247,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="678-aC-1iA" userLabel="Seeking speed menu">
-                    <rect key="frame" x="127" y="317" width="80" height="26"/>
+                    <rect key="frame" x="142" y="317" width="103" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="AXZ-Qm-0kq" id="0bT-dj-EJl" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -268,7 +268,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mhe-Dv-3JQ" userLabel="Sensitivity">
-                    <rect key="frame" x="56" y="412" width="138" height="20"/>
+                    <rect key="frame" x="56" y="412" width="204" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Behavior of                keys" id="5Gi-0U-NAb">
                         <font key="font" size="12" name="Play-Regular"/>
@@ -291,7 +291,7 @@
         </view>
     </objects>
     <resources>
-        <image name="SeekBackward" width="36" height="23"/>
-        <image name="SeekForward" width="36" height="23"/>
+        <image name="SeekBackward" width="46" height="34"/>
+        <image name="SeekForward" width="46" height="34"/>
     </resources>
 </document>
