@@ -130,6 +130,9 @@ class PlayerColorScheme {
     var sliderValueTextColor: NSColor
     
     var sliderForegroundColor: NSColor
+    var sliderForegroundGradientType: GradientType
+    var sliderForegroundGradientAmount: Int
+    
     var sliderBackgroundColor: NSColor
     var sliderKnobColor: NSColor
     var sliderKnobColorSameAsForeground: Bool
@@ -143,7 +146,11 @@ class PlayerColorScheme {
         self.sliderValueTextColor = appState.sliderValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
+        
         self.sliderForegroundColor = appState.sliderForegroundColor.toColor()
+        self.sliderForegroundGradientType = appState.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = appState.sliderForegroundGradientAmount
+        
         self.sliderKnobColor = appState.sliderKnobColor.toColor()
         self.sliderKnobColorSameAsForeground = appState.sliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = appState.sliderLoopSegmentColor.toColor()
@@ -157,7 +164,11 @@ class PlayerColorScheme {
         self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        
         self.sliderForegroundColor = preset.playerSliderForegroundColor
+        self.sliderForegroundGradientType = preset.playerSliderForegroundGradientType
+        self.sliderForegroundGradientAmount = preset.playerSliderForegroundGradientAmount
+        
         self.sliderKnobColor = preset.playerSliderKnobColor
         self.sliderKnobColorSameAsForeground = preset.playerSliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
@@ -171,7 +182,11 @@ class PlayerColorScheme {
         self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        
         self.sliderForegroundColor = preset.playerSliderForegroundColor
+        self.sliderForegroundGradientType = preset.playerSliderForegroundGradientType
+        self.sliderForegroundGradientAmount = preset.playerSliderForegroundGradientAmount
+        
         self.sliderKnobColor = preset.playerSliderKnobColor
         self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
@@ -320,4 +335,11 @@ class EffectsColorScheme {
     var persistentState: EffectsColorSchemeState {
         return EffectsColorSchemeState(self)
     }
+}
+
+enum GradientType: String {
+    
+    case none
+    case darken
+    case brighten
 }

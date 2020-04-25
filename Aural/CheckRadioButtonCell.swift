@@ -59,3 +59,14 @@ class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
         }
     }
 }
+
+class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
+    
+    override var textFont: NSFont {return Fonts.Constants.gillSans12Font}
+}
+
+class ColorSchemesDialogRadioButtonCell: CheckRadioButtonCell {
+    
+    override var textFont: NSFont {return Fonts.Constants.gillSans12Font}
+    override var yOffset: CGFloat {return 2}
+}
