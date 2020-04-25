@@ -105,6 +105,9 @@
 		3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E24F4CF21699E5000B9CDA6 /* EffectsPresetsEditor.xib */; };
 		3E24F4D92169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24F4D82169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift */; };
 		3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24F4DA2169A26700B9CDA6 /* SoundProfile.swift */; };
+		3E2604512454E72800CFEC86 /* AlegreyaSansSC-Medium.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E26044F2454E6E600CFEC86 /* AlegreyaSansSC-Medium.ttf */; };
+		3E2604522454E72800CFEC86 /* AlegreyaSansSC-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E26044D2454E6E600CFEC86 /* AlegreyaSansSC-Regular.ttf */; };
+		3E2604532454E72800CFEC86 /* Play-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E26044E2454E6E600CFEC86 /* Play-Regular.ttf */; };
 		3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */; };
 		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
@@ -230,7 +233,6 @@
 		3E7CD3FD215B49C800DBD249 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */; };
 		3E7D4D8B244FF70B008BEEE1 /* EffectsColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8A244FF70B008BEEE1 /* EffectsColorScheme.xib */; };
 		3E7D4D8D244FF720008BEEE1 /* EffectsColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8C244FF720008BEEE1 /* EffectsColorSchemeViewController.swift */; };
-		3E7D4D902450D42A008BEEE1 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */; };
 		3E7D8A6821817C8300EF8746 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */; };
 		3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */; };
 		3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */; };
@@ -452,6 +454,21 @@
 		3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6BD1F0381FA003728BD /* EQPresets.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3E2604502454E70E00CFEC86 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				3E2604512454E72800CFEC86 /* AlegreyaSansSC-Medium.ttf in CopyFiles */,
+				3E2604522454E72800CFEC86 /* AlegreyaSansSC-Regular.ttf in CopyFiles */,
+				3E2604532454E72800CFEC86 /* Play-Regular.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3E0012291F26A5100059B2D0 /* SearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		3E02739B1FD91B46000F0844 /* StringInputPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringInputPopover.xib; sourceTree = "<group>"; };
@@ -551,6 +568,9 @@
 		3E24F4CF21699E5000B9CDA6 /* EffectsPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsPresetsEditor.xib; sourceTree = "<group>"; };
 		3E24F4D82169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E24F4DA2169A26700B9CDA6 /* SoundProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundProfile.swift; sourceTree = "<group>"; };
+		3E26044D2454E6E600CFEC86 /* AlegreyaSansSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Regular.ttf"; sourceTree = "<group>"; };
+		3E26044E2454E6E600CFEC86 /* Play-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Play-Regular.ttf"; sourceTree = "<group>"; };
+		3E26044F2454E6E600CFEC86 /* AlegreyaSansSC-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Medium.ttf"; sourceTree = "<group>"; };
 		3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHidingView.swift; sourceTree = "<group>"; };
 		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
@@ -681,7 +701,6 @@
 		3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
 		3E7D4D8A244FF70B008BEEE1 /* EffectsColorScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsColorScheme.xib; sourceTree = "<group>"; };
 		3E7D4D8C244FF720008BEEE1 /* EffectsColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsColorSchemeViewController.swift; sourceTree = "<group>"; };
-		3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
 		3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -1689,7 +1708,9 @@
 		3E7D4D8E2450D3E2008BEEE1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				3E7D4D8F2450D3FD008BEEE1 /* AlegreyaSansSC-Regular.ttf */,
+				3E26044F2454E6E600CFEC86 /* AlegreyaSansSC-Medium.ttf */,
+				3E26044D2454E6E600CFEC86 /* AlegreyaSansSC-Regular.ttf */,
+				3E26044E2454E6E600CFEC86 /* Play-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -2256,6 +2277,7 @@
 				3E85F2521EFA78D6007BE830 /* Sources */,
 				3E85F2531EFA78D6007BE830 /* Frameworks */,
 				3E85F2541EFA78D6007BE830 /* Resources */,
+				3E2604502454E70E00CFEC86 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2305,7 +2327,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E7D4D902450D42A008BEEE1 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
