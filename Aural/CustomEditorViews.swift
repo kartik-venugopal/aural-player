@@ -9,18 +9,11 @@ class AuralTableHeaderCell: NSTableHeaderCell {
             convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.editorHeaderTextColor]
         
         stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
-        
-        // Bottom line
-        let drawRect = cellFrame.insetBy(dx: 0, dy: 16).offsetBy(dx: 0, dy: 10)
-        let roundedPath = NSBezierPath.init(rect: drawRect)
-        
-        let lineColor = Colors.Constants.white30Percent
-        lineColor.setFill()
-        roundedPath.fill()
-        
+
         // Right Partition line
+        let lineColor = Colors.Constants.white30Percent
         let cw = cellFrame.width
-        let pline = cellFrame.insetBy(dx: cw / 2 - 1.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
+        let pline = cellFrame.insetBy(dx: cw / 2 - 0.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
         
         let path = NSBezierPath.init(rect: pline)
         lineColor.setFill()

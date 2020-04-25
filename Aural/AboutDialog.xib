@@ -49,7 +49,7 @@
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="MrQ-mS-CdT"/>
                                 </imageView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y0K-ho-T74" userLabel="App version">
-                                    <rect key="frame" x="80" y="18" width="92" height="22"/>
+                                    <rect key="frame" x="76" y="18" width="106" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="A4V-tp-FKg">
                                         <font key="font" size="13" name="Play-Regular"/>
