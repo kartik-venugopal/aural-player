@@ -39,7 +39,7 @@ class TimeViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .changeEffectsSliderBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
     }
     
     override func oneTimeSetup() {
@@ -137,7 +137,13 @@ class TimeViewController: FXUnitViewController {
         btnShiftPitch.redraw()
     }
     
-    func changeSliderBackgroundColor() {
+    override func applyColorScheme(_ scheme: ColorScheme) {
+        
+        super.applyColorScheme(scheme)
+        changeSliderColor()
+    }
+    
+    func changeSliderColor() {
         timeView.redrawSliders()
     }
     
@@ -205,9 +211,9 @@ class TimeViewController: FXUnitViewController {
             
             switch colorChangeMsg.actionType {
                 
-            case .changeEffectsSliderBackgroundColor:
+            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
                 
-                changeSliderBackgroundColor()
+                changeSliderColor()
                 
             default: return
                 

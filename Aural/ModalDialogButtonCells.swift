@@ -86,13 +86,15 @@ class ChaptersListSearchNavigationButtonCell: ColoredNavigationButtonCell {
     override var backgroundFillGradient: NSGradient {return Colors.functionButtonGradient}
     override var backgroundFillGradient_disabled: NSGradient {return Colors.functionButtonGradient_disabled}
     
-    override var textColor: NSColor {return isEnabled ? Colors.functionButtonTextColor : Colors.disabledFunctionButtonTextColor}
+    override var textColor: NSColor {return Colors.functionButtonTextColor}
+    override var textColor_disabled: NSColor {return Colors.disabledFunctionButtonTextColor}
 }
 
 class FilterBandControlsButtonCell: ModalDialogButtonCell {
     
     override var textColor: NSColor {return Colors.functionButtonTextColor}
     override var textColor_disabled: NSColor {return Colors.functionButtonTextColor.darkened()}
+    
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     
     override var backgroundFillGradient: NSGradient {return Colors.functionButtonGradient}

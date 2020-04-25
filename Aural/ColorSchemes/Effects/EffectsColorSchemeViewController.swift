@@ -8,6 +8,8 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBOutlet weak var functionValueTextColorPicker: NSColorWell!
     
     @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
+    @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
+    @IBOutlet weak var btnSliderKnobColorSameAsForeground: NSButton!
     
     @IBOutlet weak var activeUnitStateColorPicker: NSColorWell!
     @IBOutlet weak var bypassedUnitStateColorPicker: NSColorWell!
@@ -25,6 +27,9 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor
         
         sliderBackgroundColorPicker.color = scheme.effects.sliderBackgroundColor
+        sliderKnobColorPicker.color = scheme.effects.sliderKnobColor
+        btnSliderKnobColorSameAsForeground.onIf(scheme.effects.sliderKnobColorSameAsForeground)
+        sliderKnobColorPicker.enableIf(btnSliderKnobColorSameAsForeground.isOff)
         
         activeUnitStateColorPicker.color = scheme.effects.activeUnitStateColor
         bypassedUnitStateColorPicker.color = scheme.effects.bypassedUnitStateColor
@@ -55,6 +60,21 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         
         ColorSchemes.systemScheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+    }
+    
+    @IBAction func sliderKnobColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
+    }
+    
+    @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
+        
+        sliderKnobColorPicker.enableIf(btnSliderKnobColorSameAsForeground.isOff)
+        
+        ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {

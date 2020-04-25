@@ -77,11 +77,13 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             $0?.offStateTintFunction = {return Colors.toggleButtonOffStateColor}
         })
         
+        logoImage.tintFunction = {return Colors.appLogoColor}
+        
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         changeTextSize()
-        logoImage.tintFunction = {return Colors.appLogoColor}
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     // Add the sub-views that make up the main window
@@ -149,6 +151,14 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         btnLayout.font = Fonts.Player.menuFont
         btnViewMenu.font = Fonts.Player.menuFont
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
+        changeAppLogoColor(scheme.general.appLogoColor)
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

@@ -53,6 +53,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.qualityOfService = .background
         
         playlistView.menu = contextMenu
+        
+        applyColorScheme(ColorSchemes.systemScheme, false)
     }
     
     override func viewDidAppear() {
@@ -576,6 +578,15 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        
+        if mustReloadRows {
+            playlistView.reloadData()
+        }
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

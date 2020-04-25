@@ -36,6 +36,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.setFrameOrigin(NSPoint.zero)
         
         changeTextSize()
+        applyColorScheme(ColorSchemes.systemScheme)
         
         showView(PlayerViewState.viewType)
         initSubscriptions()
@@ -159,6 +160,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         defaultView.changeTextSize()
         expandedArtView.changeTextSize()
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changePrimaryTextColor(scheme.player.trackInfoPrimaryTextColor)
+        changeSecondaryTextColor(scheme.player.trackInfoSecondaryTextColor)
+        changeTertiaryTextColor(scheme.player.trackInfoTertiaryTextColor)
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

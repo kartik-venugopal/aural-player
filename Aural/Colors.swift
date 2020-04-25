@@ -47,11 +47,11 @@ struct Colors {
         return NSGradient(starting: color, ending: color.darkened())!
     }
     
-    static var functionButtonGradient_disabled: NSGradient = {
+    static var functionButtonGradient_disabled: NSGradient {
         
         let color = ColorSchemes.systemScheme.general.functionButtonColor.darkened()
         return NSGradient(starting: color, ending: color.darkened())!
-    }()
+    }
     
     static var toggleButtonOffStateColor: NSColor {
         return ColorSchemes.systemScheme.general.toggleButtonOffStateColor

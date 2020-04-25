@@ -38,7 +38,7 @@ class PitchViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .changeEffectsSliderBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
     }
     
     override func oneTimeSetup() {
@@ -120,7 +120,13 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
-    func changeSliderBackgroundColor() {
+    override func applyColorScheme(_ scheme: ColorScheme) {
+        
+        super.applyColorScheme(scheme)
+        changeSliderColor()
+    }
+    
+    func changeSliderColor() {
         pitchView.redrawSliders()
     }
     
@@ -191,9 +197,9 @@ class PitchViewController: FXUnitViewController {
             
             switch colorChangeMsg.actionType {
                 
-            case .changeEffectsSliderBackgroundColor:
+            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
                 
-                changeSliderBackgroundColor()
+                changeSliderColor()
                 
             default: return
                 

@@ -80,9 +80,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
-        changeTextSize()
-        
         setUpTabGroup()
+        
+        changeTextSize()
+        applyColorScheme(ColorSchemes.systemScheme)
+        
         initSubscriptions()
     }
     
@@ -402,6 +404,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         tabGroup.items.forEach({$0.tabButton.redraw()})
         
         viewMenuButton.font = Fonts.Playlist.menuFont
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
     }
     
     private func changeBackgroundColor(_ color: NSColor) {

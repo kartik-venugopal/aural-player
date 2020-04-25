@@ -29,7 +29,7 @@ class EQViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeEffectsSliderBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
     }
     
     override func initControls() {
@@ -110,6 +110,16 @@ class EQViewController: FXUnitViewController {
         eqView.changeTextSize()
     }
     
+    override func applyColorScheme(_ scheme: ColorScheme) {
+        
+        super.applyColorScheme(scheme)
+        
+        changeSelectedTabButtonColor()
+        changeTabButtonTextColor()
+        changeSelectedTabButtonTextColor()
+        changeSliderColor()
+    }
+    
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
         
         super.changeFunctionCaptionTextColor(color)
@@ -155,8 +165,8 @@ class EQViewController: FXUnitViewController {
         eqView.changeSelectedTabButtonTextColor()
     }
     
-    func changeSliderBackgroundColor() {
-        eqView.changeSliderBackgroundColor()
+    func changeSliderColor() {
+        eqView.changeSliderColor()
     }
     
     // MARK: Message handling
@@ -208,9 +218,9 @@ class EQViewController: FXUnitViewController {
                 
                 changeSelectedTabButtonTextColor()
                 
-            case .changeEffectsSliderBackgroundColor:
+            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
                 
-                changeSliderBackgroundColor()
+                changeSliderColor()
                 
             default: return
                 

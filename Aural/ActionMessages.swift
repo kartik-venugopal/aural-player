@@ -374,6 +374,7 @@ enum ActionType {
     case changeEffectsFunctionValueTextColor
     
     case changeEffectsSliderBackgroundColor
+    case changeEffectsSliderKnobColor
     
     case changeEffectsActiveUnitStateColor
     case changeEffectsBypassedUnitStateColor

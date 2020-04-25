@@ -9,8 +9,6 @@ class ColorSchemes {
         
         loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme("userScheme", $0, false)})
         systemScheme = ColorScheme("_system_", schemesState.systemScheme, true)
-        
-        print("\nRemembered system scheme:\n", systemScheme.toString())
     }
     
     private static var schemes: [String: ColorScheme] = {

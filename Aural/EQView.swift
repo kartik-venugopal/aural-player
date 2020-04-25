@@ -128,9 +128,9 @@ class EQView: NSView {
         btn10Band.isOn ? btn10Band.redraw() : btn15Band.redraw()
     }
     
-    func changeSliderBackgroundColor() {
+    func changeSliderColor() {
         
-        eq10BandView.changeSliderBackgroundColor()
-        eq15BandView.changeSliderBackgroundColor()
+        eq10BandView.changeSliderColor()
+        eq15BandView.changeSliderColor()
     }
 }

@@ -33,7 +33,7 @@ class EQSubview: NSView {
         allSliders.forEach({$0.updateState()})
     }
     
-    func changeSliderBackgroundColor() {
+    func changeSliderColor() {
         allSliders.forEach({$0.redraw()})
     }
     

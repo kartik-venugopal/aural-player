@@ -41,10 +41,10 @@ class FilterBandViewController: NSViewController {
     }
     
     override func viewDidLoad() {
+        
         resetFields()
         changeTextSize()
-        
-        // TODO: Also set colors
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func resetFields() {
@@ -184,6 +184,15 @@ class FilterBandViewController: NSViewController {
         
         presetRangesMenu.font = Fonts.Effects.unitFunctionFont
         lblFrequencies.font = Fonts.Effects.unitFunctionFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeFunctionButtonColor()
+        changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
+        changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
+        redrawSliders()
+        tabButton.redraw()
     }
     
     func changeFunctionButtonColor() {

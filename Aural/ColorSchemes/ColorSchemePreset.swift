@@ -379,6 +379,21 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var effectsSliderKnobColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
+            
+        case .whiteBackgroundBlackForeground:  return NSColor.darkGray
+            
+        }
+    }
+    
+    var effectsSliderKnobColorSameAsForeground: Bool {
+        return true
+    }
+    
     var effectsActiveUnitStateColor: NSColor {
         
         switch self {

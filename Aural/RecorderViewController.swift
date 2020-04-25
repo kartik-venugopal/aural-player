@@ -35,6 +35,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
         
         initControls()
+        applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
@@ -160,6 +161,15 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         formatMenu.redraw()
         formatMenu.font = Fonts.Effects.unitFunctionFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
+        changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
+        changeFunctionButtonColor()
+        changeFunctionButtonTextColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {

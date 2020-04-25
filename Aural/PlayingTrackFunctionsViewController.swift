@@ -39,6 +39,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     override func viewDidLoad() {
         initSubscriptions()
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func initSubscriptions() {
@@ -201,6 +202,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             // No track playing, clear the info fields
             noTrackPlaying()
         }
+    }
+    
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -260,9 +260,6 @@ class FilterViewController: FXUnitViewController {
     
     override func changeTextSize() {
 
-        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
-//        functionLabels = findFunctionLabels(self.view)
-        
         bandControllers.forEach({$0.changeTextSize()})
         
         // Redraw the add/remove band buttons
@@ -275,7 +272,29 @@ class FilterViewController: FXUnitViewController {
         super.changeTextSize()
     }
     
-    func changeSliderBackgroundColor() {
+    override func applyColorScheme(_ scheme: ColorScheme) {
+        
+        // Need to do this to avoid multiple redundant redraw() calls
+        
+        changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        super.changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
+        super.changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
+        
+        super.changeActiveUnitStateColor(scheme.effects.activeUnitStateColor)
+        super.changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
+        super.changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
+        
+        filterView.redrawChart()
+        
+        super.changeFunctionButtonColor()
+        
+        [btnAdd, btnRemove].forEach({$0?.redraw()})
+        [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
+        
+        bandControllers.forEach({$0.applyColorScheme(scheme)})
+    }
+    
+    func changeSliderColor() {
         bandControllers.forEach({$0.redrawSliders()})
     }
     
@@ -330,7 +349,10 @@ class FilterViewController: FXUnitViewController {
     }
     
     func changeSelectedTabButtonColor() {
-        tabButtons.forEach({$0.redraw()})
+        
+        if selTab >= 0 && selTab < numTabs {
+            tabButtons[selTab].redraw()
+        }
     }
     
     func changeTabButtonTextColor() {
@@ -338,7 +360,10 @@ class FilterViewController: FXUnitViewController {
     }
     
     func changeSelectedTabButtonTextColor() {
-        tabButtons.forEach({$0.redraw()})
+        
+        if selTab >= 0 && selTab < numTabs {
+            tabButtons[selTab].redraw()
+        }
     }
     
     // MARK: Message handling
@@ -357,9 +382,9 @@ class FilterViewController: FXUnitViewController {
             
             switch colorChangeMsg.actionType {
                 
-            case .changeEffectsSliderBackgroundColor:
+            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
                 
-                changeSliderBackgroundColor()
+                changeSliderColor()
                 
             case .changeSelectedTabButtonColor:
                 
