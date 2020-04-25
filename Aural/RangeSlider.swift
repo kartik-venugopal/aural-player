@@ -185,29 +185,21 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - Appearance -
     
-    lazy var _barBackgroundGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
+    let _barBackgroundColor: NSColor = NSColor(white: 0.2, alpha: 1.0)
     
-    var barBackgroundGradient: NSGradient {return _barBackgroundGradient}
+    var barBackgroundColor: NSColor {return _barBackgroundColor}
     
     private lazy var sliderGradient: NSGradient = {
         let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.80, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+        let barBackgroundColor = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        assert(barBackgroundColor != nil, "Couldn't generate gradient.")
         
-        return barBackgroundGradient!
+        return barBackgroundColor!
     }()
     
     // TODO: Change this to a computed color
-    var knobColor: NSColor = Colors.Constants.white50Percent
+    var knobColor: NSColor {return Colors.Constants.white50Percent}
     
     var barFillColor: NSColor {
         
@@ -394,8 +386,11 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         let startSliderPath = NSBezierPath(rect: startSliderFrame)
         let endSliderPath = NSBezierPath(rect: endSliderFrame)
         
-        /*  Draw bar background */
-        barBackgroundGradient.draw(in: framePath, angle: -UIConstants.horizontalGradientDegrees)
+        barBackgroundColor.setFill()
+        framePath.fill()
+        
+//        /*  Draw bar background */
+//        barBackgroundColor.draw(in: framePath, angle: -UIConstants.horizontalGradientDegrees)
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
@@ -464,8 +459,12 @@ class FilterBandSlider: RangeSlider {
         }
     }
     
-    override var barBackgroundGradient: NSGradient {
-        return Colors.Effects.rangeSliderBackgroundGradient
+    override var knobColor: NSColor {
+        return ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground ? barFillColor : ColorSchemes.systemScheme.effects.sliderKnobColor
+    }
+    
+    override var barBackgroundColor: NSColor {
+        return Colors.Effects.sliderBackgroundColor
     }
     
     var startFrequency: Float {
