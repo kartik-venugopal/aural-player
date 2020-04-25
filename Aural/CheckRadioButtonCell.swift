@@ -9,7 +9,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
     
-    var yOffset: CGFloat {return 2}
+    var yOffset: CGFloat {return 0}
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
