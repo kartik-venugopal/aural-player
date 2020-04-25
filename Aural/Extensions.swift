@@ -391,42 +391,23 @@ extension NSColor {
         return String(describing: JSONMapper.map(ColorState.fromColor(self)))
     }
     
-    func darkened(_ amount : CGFloat = 0.25) -> NSColor {
+    func darkened(_ percentage: CGFloat = 50) -> NSColor {
+        
+        let factor: CGFloat = 1 - (percentage / 100)
         
         switch self.colorSpace.colorSpaceModel {
             
         case .gray:
             
-            return NSColor(calibratedWhite: self.whiteComponent * 0.3, alpha: self.alphaComponent)
+            return NSColor(calibratedWhite: self.whiteComponent * factor, alpha: self.alphaComponent)
             
         case .rgb:
             
-            return NSColor(calibratedRed: self.redComponent * 0.3, green: self.greenComponent * 0.3, blue: self.blueComponent * 0.3, alpha: self.alphaComponent)
+            return NSColor(calibratedRed: self.redComponent * factor, green: self.greenComponent * factor, blue: self.blueComponent * factor, alpha: self.alphaComponent)
             
         case .cmyk:
             
-            return NSColor(deviceCyan: self.cyanComponent * 0.3, magenta: self.magentaComponent * 0.3, yellow: self.yellowComponent * 0.3, black: self.blackComponent, alpha: self.alphaComponent)
-            
-        default: return self
-            
-        }
-    }
-    
-    func clonedWithTransparency(_ alpha: CGFloat) -> NSColor {
-        
-        switch self.colorSpace.colorSpaceModel {
-            
-        case .gray:
-            
-            return NSColor(calibratedWhite: self.whiteComponent, alpha: alpha)
-            
-        case .rgb:
-            
-            return NSColor(calibratedRed: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
-            
-        case .cmyk:
-            
-            return NSColor(deviceCyan: self.cyanComponent, magenta: self.magentaComponent, yellow: self.yellowComponent, black: self.blackComponent, alpha: alpha)
+            return NSColor(deviceCyan: self.cyanComponent * factor, magenta: self.magentaComponent * factor, yellow: self.yellowComponent * factor, black: self.blackComponent, alpha: self.alphaComponent)
             
         default: return self
             

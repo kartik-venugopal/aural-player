@@ -125,16 +125,17 @@ struct Colors {
         
         static var seekBarBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderBackgroundColor,
+            return NSGradient(starting: ColorSchemes.systemScheme.player.sliderBackgroundColor.darkened(33),
                               ending: ColorSchemes.systemScheme.player.sliderBackgroundColor)!
         }
         
         static var seekBarProgressGradient: NSGradient {
             
             return NSGradient(starting: ColorSchemes.systemScheme.player.sliderForegroundColor,
-                              ending: ColorSchemes.systemScheme.player.sliderForegroundColor)!
+                              ending: ColorSchemes.systemScheme.player.sliderForegroundColor.darkened(33))!
         }
         
+        // TODO: Should this be a gradient or NSColor ?
         static var seekBarLoopGradient: NSGradient {
             
             return NSGradient(starting: ColorSchemes.systemScheme.player.sliderLoopSegmentColor,
