@@ -202,7 +202,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Soc-zL-QHn">
                                     <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="1KA-pc-1tn">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
@@ -333,7 +333,7 @@
                         <rect key="frame" x="430" y="13" width="30" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="L/R" id="15s-BP-25k">
-                            <font key="font" size="8" name="Play-Bold"/>
+                            <font key="font" size="9" name="Play-Regular"/>
                             <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textFieldCell>

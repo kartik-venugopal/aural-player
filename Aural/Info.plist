@@ -7,13 +7,19 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>ATSApplicationFontsPath</key>
-	<string>Fonts/</string>
+	<string>Fonts</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
 	<string>2.0.0</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AlegreyaSansSC-Medium.ttf</string>
+		<string>AlegreyaSansSC-Regular.ttf</string>
+		<string>Play-Regular.ttf</string>
+	</array>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
