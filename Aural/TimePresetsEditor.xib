@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -111,7 +111,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gLw-t0-XdP" userLabel="Rate">
-                                            <rect key="frame" x="6" y="56" width="38" height="18"/>
+                                            <rect key="frame" x="6" y="54" width="38" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Rate" id="Zf4-c3-GBN">
                                                 <font key="font" size="11" name="Play-Regular"/>
@@ -143,7 +143,7 @@
                                             <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" minValue="0.25" maxValue="4" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="16" sliderType="linear" id="nvH-Hr-gny" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZZ-18-CI3" userLabel="Lbl Rate Value">
-                                            <rect key="frame" x="318" y="56" width="30" height="15"/>
+                                            <rect key="frame" x="312" y="56" width="36" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="ftr-58-6Zf">
                                                 <font key="font" size="10" name="Play-Regular"/>
@@ -152,7 +152,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDR-KX-0hG" userLabel="Overlap">
-                                            <rect key="frame" x="6" y="32" width="71" height="18"/>
+                                            <rect key="frame" x="6" y="30" width="71" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Overlap" id="W6f-dj-fIE">
                                                 <font key="font" size="11" name="Play-Regular"/>
@@ -193,15 +193,15 @@
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAb-B7-V4R" userLabel="Shift Pitch">
-                                            <rect key="frame" x="4" y="4" width="338" height="27"/>
+                                            <rect key="frame" x="4" y="4" width="122" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title=" Shift pitch (both rate and pitch will be altered simultaneously)" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" state="on" inset="2" id="eWD-DA-VzS" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <buttonCell key="cell" type="check" title=" Shift pitch" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" state="on" inset="2" id="eWD-DA-VzS" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" size="11" name="Play-Regular"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDs-4W-f2g" userLabel="Pitch shift value">
-                                            <rect key="frame" x="310" y="9" width="38" height="15"/>
+                                            <rect key="frame" x="244" y="9" width="104" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="wtm-si-Frb">
                                                 <font key="font" size="10" name="Play-Regular"/>
