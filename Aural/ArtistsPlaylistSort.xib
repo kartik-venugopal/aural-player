@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJI-fX-xgf" userLabel="Sort tracks">
-                                <rect key="frame" x="14" y="173" width="171" height="25"/>
+                                <rect key="frame" x="14" y="173" width="188" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sort tracks within groups:" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="pHH-KR-dZO" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -95,7 +95,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CmO-XI-ep2" userLabel="Sel groups">
-                                <rect key="frame" x="35" y="131" width="115" height="25"/>
+                                <rect key="frame" x="35" y="131" width="156" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Selected groups" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="MRf-B5-hvK" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -106,7 +106,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJl-0R-MhK">
-                                <rect key="frame" x="50" y="112" width="94" height="20"/>
+                                <rect key="frame" x="50" y="108" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort by:" id="6gK-ik-l3F">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -126,7 +126,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZc-jz-ns7" userLabel="Album and track name">
-                                <rect key="frame" x="69" y="41" width="132" height="25"/>
+                                <rect key="frame" x="69" y="41" width="171" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Album and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="mgH-Gg-Ivd" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -148,7 +148,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mej-hH-lie" userLabel="Duration field">
-                                <rect key="frame" x="69" y="15" width="90" height="25"/>
+                                <rect key="frame" x="69" y="15" width="115" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="v4G-qI-mLZ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -162,14 +162,14 @@
                     </view>
                 </box>
                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIz-He-k2T" userLabel="Group Sort order box">
-                    <rect key="frame" x="266" y="234" width="127" height="75"/>
+                    <rect key="frame" x="266" y="229" width="127" height="85"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="mYL-di-Yog">
-                        <rect key="frame" x="3" y="3" width="121" height="69"/>
+                        <rect key="frame" x="3" y="3" width="121" height="79"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGu-en-Jeu" userLabel="Sort Order:">
-                                <rect key="frame" x="5" y="54" width="94" height="20"/>
+                                <rect key="frame" x="5" y="59" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="dcl-Xe-mkH">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -178,7 +178,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h59-E0-bXO">
-                                <rect key="frame" x="5" y="30" width="77" height="25"/>
+                                <rect key="frame" x="5" y="35" width="97" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Ascending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="BS7-pc-N6y" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -189,7 +189,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MfF-8E-Sfx">
-                                <rect key="frame" x="5" y="11" width="77" height="25"/>
+                                <rect key="frame" x="5" y="16" width="97" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Descending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="pIP-Mm-yRa" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -203,14 +203,14 @@
                     </view>
                 </box>
                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STq-fb-mvI" userLabel="Tracks Sort order box">
-                    <rect key="frame" x="266" y="152" width="127" height="75"/>
+                    <rect key="frame" x="266" y="147" width="127" height="85"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="3ZY-ne-46i">
-                        <rect key="frame" x="3" y="3" width="121" height="69"/>
+                        <rect key="frame" x="3" y="3" width="121" height="79"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Y6-tL-DrW" userLabel="Sort Order:">
-                                <rect key="frame" x="5" y="54" width="94" height="20"/>
+                                <rect key="frame" x="5" y="59" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="Uxo-J7-FxB">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -219,7 +219,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BCc-KI-uNj">
-                                <rect key="frame" x="5" y="30" width="77" height="25"/>
+                                <rect key="frame" x="5" y="35" width="103" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Ascending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Le9-9Z-sPm" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -230,7 +230,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u9h-CQ-Eeq">
-                                <rect key="frame" x="5" y="11" width="77" height="25"/>
+                                <rect key="frame" x="5" y="16" width="103" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Descending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPE-uE-Fx7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
