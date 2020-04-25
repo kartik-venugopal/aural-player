@@ -20,9 +20,9 @@
             <rect key="frame" x="0.0" y="0.0" width="498" height="178"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
+                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
                     <rect key="frame" x="0.0" y="0.0" width="498" height="176"/>
-                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="fxA-zZ-X3P">
+                    <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="fxA-zZ-X3P">
                         <rect key="frame" x="0.0" y="0.0" width="498" height="176"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -242,7 +242,7 @@
                 <constraint firstItem="gzJ-2a-yOb" firstAttribute="top" secondItem="bnY-X4-HPZ" secondAttribute="top" constant="2" id="aFc-1G-821"/>
                 <constraint firstAttribute="bottom" secondItem="gzJ-2a-yOb" secondAttribute="bottom" id="puf-Ss-CM4"/>
             </constraints>
-            <point key="canvasLocation" x="150" y="147"/>
+            <point key="canvasLocation" x="146" y="193"/>
         </view>
         <customObject id="vH7-ho-Ykd" userLabel="Data Source" customClass="TracksPlaylistViewDataSource" customModule="Aural" customModuleProvider="target"/>
         <customObject id="fxO-kG-Bir" userLabel="Delegate" customClass="TracksPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">

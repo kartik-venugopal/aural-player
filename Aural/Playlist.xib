@@ -45,7 +45,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-G6-skT" userLabel="Root Container">
+                    <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-G6-skT" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                         <view key="contentView" id="ew4-md-MxP">
                             <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
@@ -119,7 +119,7 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
-                    <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
+                    <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
                         <rect key="frame" x="113" y="241" width="305" height="30"/>
                         <view key="contentView" id="bsS-nD-sNb">
                             <rect key="frame" x="0.0" y="0.0" width="305" height="30"/>
@@ -163,10 +163,10 @@
                             <constraint firstAttribute="width" constant="305" id="OfB-pd-o5B"/>
                             <constraint firstAttribute="height" constant="30" id="w9x-TB-TBq"/>
                         </constraints>
-                        <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Controls box">
+                    <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Controls box">
                         <rect key="frame" x="15" y="0.0" width="500" height="25"/>
                         <view key="contentView" id="wWy-mP-FPA">
                             <rect key="frame" x="0.0" y="0.0" width="500" height="25"/>
@@ -331,9 +331,10 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="Zax-NV-pDV"/>
                         </constraints>
+                        <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
+                    <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
                         <rect key="frame" x="15" y="23" width="500" height="215"/>
                         <view key="contentView" id="11G-bl-tTJ">
                             <rect key="frame" x="0.0" y="0.0" width="500" height="215"/>
@@ -435,7 +436,7 @@
                                 <constraint firstAttribute="bottom" secondItem="QXQ-hF-zKn" secondAttribute="bottom" constant="2" id="wGz-5g-6Ps"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.10313585070277778" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
