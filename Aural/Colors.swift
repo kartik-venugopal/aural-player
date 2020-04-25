@@ -254,13 +254,7 @@ struct Colors {
         
         static var sliderBackgroundGradient: NSGradient {
             
-            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor,
-                              ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened())!
-        }
-        
-        static var rangeSliderBackgroundGradient: NSGradient {
-            
-            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor,
+            return NSGradient(starting: ColorSchemes.systemScheme.effects.sliderBackgroundColor.darkened(),
                               ending: ColorSchemes.systemScheme.effects.sliderBackgroundColor)!
         }
         

@@ -23,7 +23,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:   return Colors.Effects.activeSliderBarGradient
+            case .highPass:  return Colors.Effects.activeSliderBarGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
@@ -36,7 +36,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:   return Colors.Effects.bypassedSliderBarGradient
+            case .highPass:   return Colors.Effects.bypassedSliderBarGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
@@ -49,7 +49,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.sliderBackgroundGradient
                 
-            case .highPass:   return Colors.Effects.suppressedSliderBarGradient
+            case .highPass:   return Colors.Effects.suppressedSliderBarGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
@@ -66,7 +66,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.activeSliderBarGradient
                 
-            case .highPass:   return Colors.Effects.sliderBackgroundGradient
+            case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
@@ -79,7 +79,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.bypassedSliderBarGradient
                 
-            case .highPass:   return Colors.Effects.sliderBackgroundGradient
+            case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
@@ -92,7 +92,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
                 
             case .lowPass:   return Colors.Effects.suppressedSliderBarGradient
                 
-            case .highPass:   return Colors.Effects.sliderBackgroundGradient
+            case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
             default:    return Colors.Effects.neutralSliderBarColoredGradient
