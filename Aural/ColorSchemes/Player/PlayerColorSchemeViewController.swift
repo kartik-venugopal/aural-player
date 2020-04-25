@@ -11,6 +11,11 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     @IBOutlet weak var sliderValueTextColorPicker: NSColorWell!
     
     @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
+    @IBOutlet weak var btnSliderBackgroundGradientEnabled: NSButton!
+    @IBOutlet weak var btnSliderBackgroundGradientDarken: NSButton!
+    @IBOutlet weak var btnSliderBackgroundGradientBrighten: NSButton!
+    @IBOutlet weak var sliderBackgroundGradientAmountStepper: NSStepper!
+    @IBOutlet weak var lblSliderBackgroundGradientAmount: NSTextField!
     
     @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
     @IBOutlet weak var btnSliderForegroundGradientEnabled: NSButton!
@@ -38,6 +43,18 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         sliderValueTextColorPicker.color = scheme.player.sliderValueTextColor
         
         sliderBackgroundColorPicker.color = scheme.player.sliderBackgroundColor
+        
+        btnSliderBackgroundGradientEnabled.onIf(scheme.player.sliderBackgroundGradientType != .none)
+        
+        btnSliderBackgroundGradientDarken.enableIf(btnSliderBackgroundGradientEnabled.isOn)
+        btnSliderBackgroundGradientDarken.onIf(scheme.player.sliderBackgroundGradientType != .brighten)
+        
+        btnSliderBackgroundGradientBrighten.enableIf(btnSliderBackgroundGradientEnabled.isOn)
+        btnSliderBackgroundGradientBrighten.onIf(scheme.player.sliderBackgroundGradientType == .brighten)
+        
+        sliderBackgroundGradientAmountStepper.enableIf(btnSliderBackgroundGradientEnabled.isOn)
+        sliderBackgroundGradientAmountStepper.integerValue = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+        lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
         sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
         
@@ -117,8 +134,6 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-//        print(btnSliderForegroundGradientDarken.isOn ? "Darkening by" : "Brightening by", lblSliderForegroundGradientAmount.stringValue)
-        
         ColorSchemes.systemScheme.player.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
         sliderForegroundChanged()
     }
@@ -132,8 +147,38 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     }
     
     private func sliderForegroundChanged() {
-        
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
+    }
+    
+    @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
+        
+        if btnSliderBackgroundGradientEnabled.isOn {
+            ColorSchemes.systemScheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
+        } else {
+            ColorSchemes.systemScheme.player.sliderBackgroundGradientType = .none
+        }
+        
+        [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)})
+        
+        sliderBackgroundChanged()
+    }
+    
+    @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
+        sliderBackgroundChanged()
+    }
+    
+    @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
+        lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
+        
+        sliderBackgroundChanged()
+    }
+    
+    private func sliderBackgroundChanged() {
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {

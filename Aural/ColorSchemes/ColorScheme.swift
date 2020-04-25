@@ -129,11 +129,14 @@ class PlayerColorScheme {
     var trackInfoTertiaryTextColor: NSColor
     var sliderValueTextColor: NSColor
     
+    var sliderBackgroundColor: NSColor
+    var sliderBackgroundGradientType: GradientType
+    var sliderBackgroundGradientAmount: Int
+    
     var sliderForegroundColor: NSColor
     var sliderForegroundGradientType: GradientType
     var sliderForegroundGradientAmount: Int
     
-    var sliderBackgroundColor: NSColor
     var sliderKnobColor: NSColor
     var sliderKnobColorSameAsForeground: Bool
     var sliderLoopSegmentColor: NSColor
@@ -146,6 +149,8 @@ class PlayerColorScheme {
         self.sliderValueTextColor = appState.sliderValueTextColor.toColor()
         
         self.sliderBackgroundColor = appState.sliderBackgroundColor.toColor()
+        self.sliderBackgroundGradientType = appState.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = appState.sliderBackgroundGradientAmount
         
         self.sliderForegroundColor = appState.sliderForegroundColor.toColor()
         self.sliderForegroundGradientType = appState.sliderForegroundGradientType
@@ -164,6 +169,8 @@ class PlayerColorScheme {
         self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.sliderBackgroundGradientType = preset.playerSliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = preset.playerSliderBackgroundGradientAmount
         
         self.sliderForegroundColor = preset.playerSliderForegroundColor
         self.sliderForegroundGradientType = preset.playerSliderForegroundGradientType
@@ -182,6 +189,8 @@ class PlayerColorScheme {
         self.sliderValueTextColor = preset.playerSliderValueTextColor
         
         self.sliderBackgroundColor = preset.playerSliderBackgroundColor
+        self.sliderBackgroundGradientType = preset.playerSliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = preset.playerSliderBackgroundGradientAmount
         
         self.sliderForegroundColor = preset.playerSliderForegroundColor
         self.sliderForegroundGradientType = preset.playerSliderForegroundGradientType
