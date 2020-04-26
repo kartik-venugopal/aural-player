@@ -16,7 +16,7 @@
                 <outlet property="btnScrollRight" destination="Z8Q-IY-snQ" id="Oxw-8y-ySK"/>
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="lblCaption" destination="m6D-g3-0xt" id="14J-Vt-fqp"/>
-                <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
+                <outlet property="presetsMenu" destination="JJo-gm-Pih" id="xDc-5d-zbH"/>
                 <outlet property="tabsBox" destination="pTF-TT-2rE" id="bmM-eh-E4A"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
@@ -123,38 +123,44 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3s-tf-ulh" userLabel="Filter Presets Menu">
-                    <rect key="frame" x="457" y="0.0" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJo-gm-Pih" userLabel="Presets Menu">
+                    <rect key="frame" x="457" y="4" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="hdX-T2-7oc" id="fz7-Nv-W6F" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="NtI-XW-9Gl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="ARD-aA-rFG">
+                        <menu key="menu" showsStateColumn="NO" id="7he-jc-CPa">
                             <items>
-                                <menuItem isSeparatorItem="YES" id="hdX-T2-7oc"/>
-                                <menuItem title="Karaoke" id="Ann-rK-dI3">
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="FlK-G5-JPk" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="n3a-Ov-th0"/>
+                                <menuItem title="Karaoke" id="7tH-Uh-DLn">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="No bass" id="LPX-mD-kMa">
+                                <menuItem title="No bass" id="tCe-BW-Dsz">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Nothing but bass" id="9mn-9t-KV9">
+                                <menuItem title="Nothing but bass" id="ej0-mZ-fea">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Pass through" id="mLH-Wo-tC8">
+                                <menuItem title="Pass through" id="V7T-rB-xt8">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Emphasized vocals" id="S2m-PK-PYb">
+                                <menuItem title="Emphasized vocals" id="laB-Mg-MWW">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                             <connections>
-                                <outlet property="delegate" destination="-2" id="dGM-SU-F7M"/>
+                                <outlet property="delegate" destination="-2" id="fau-Er-Toi"/>
                             </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetsAction:" target="-2" id="kOi-q3-IMV"/>
+                        <action selector="presetsAction:" target="-2" id="JeQ-T1-YAK"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-pf-0wI" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -183,6 +189,7 @@
     <resources>
         <image name="FilterBandsTabs-Left" width="24" height="32"/>
         <image name="FilterBandsTabs-Right" width="24" height="32"/>
+        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

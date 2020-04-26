@@ -39,7 +39,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeFunctionButtonColor, .changeFunctionButtonTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeFunctionButtonColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -172,7 +172,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
         changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
         changeFunctionButtonColor()
-        changeFunctionButtonTextColor()
+        changeButtonMenuTextColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
@@ -191,7 +191,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         [formatMenu, qualityMenu].forEach({$0?.redraw()})
     }
     
-    func changeFunctionButtonTextColor() {
+    func changeButtonMenuTextColor() {
         [formatMenu, qualityMenu].forEach({$0?.redraw()})
     }
     
@@ -256,9 +256,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
                 
                 changeFunctionButtonColor()
                 
-            case .changeFunctionButtonTextColor:
+            case .changeButtonMenuTextColor:
                 
-                changeFunctionButtonTextColor()
+                changeButtonMenuTextColor()
                 
             default: return
                 

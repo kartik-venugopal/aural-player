@@ -196,9 +196,15 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeFunctionButtonColor() {
-        
-        filterTypeMenu.redraw()
         presetRangesMenu.redraw()
+    }
+
+    func changeTextButtonMenuColor() {
+        filterTypeMenu.redraw()
+    }
+    
+    func changeButtonMenuTextColor() {
+        filterTypeMenu.redraw()
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {

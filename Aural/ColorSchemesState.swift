@@ -87,13 +87,14 @@ class GeneralColorSchemeState: PersistentState {
     
     var viewControlButtonColor: ColorState = ColorState.defaultInstance
     var functionButtonColor: ColorState = ColorState.defaultInstance
+    var textButtonMenuColor: ColorState = ColorState.defaultInstance
     var toggleButtonOffStateColor: ColorState = ColorState.defaultInstance
     var selectedTabButtonColor: ColorState = ColorState.defaultInstance
     
     var mainCaptionTextColor: ColorState = ColorState.defaultInstance
     var tabButtonTextColor: ColorState = ColorState.defaultInstance
     var selectedTabButtonTextColor: ColorState = ColorState.defaultInstance
-    var functionButtonTextColor: ColorState = ColorState.defaultInstance
+    var buttonMenuTextColor: ColorState = ColorState.defaultInstance
     
     init() {}
     
@@ -104,13 +105,14 @@ class GeneralColorSchemeState: PersistentState {
         
         self.viewControlButtonColor = ColorState.fromColor(scheme.viewControlButtonColor)
         self.functionButtonColor = ColorState.fromColor(scheme.functionButtonColor)
+        self.textButtonMenuColor = ColorState.fromColor(scheme.textButtonMenuColor)
         self.toggleButtonOffStateColor = ColorState.fromColor(scheme.toggleButtonOffStateColor)
         self.selectedTabButtonColor = ColorState.fromColor(scheme.selectedTabButtonColor)
         
         self.mainCaptionTextColor = ColorState.fromColor(scheme.mainCaptionTextColor)
         self.tabButtonTextColor = ColorState.fromColor(scheme.tabButtonTextColor)
         self.selectedTabButtonTextColor = ColorState.fromColor(scheme.selectedTabButtonTextColor)
-        self.functionButtonTextColor = ColorState.fromColor(scheme.functionButtonTextColor)
+        self.buttonMenuTextColor = ColorState.fromColor(scheme.buttonMenuTextColor)
     }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
@@ -153,8 +155,8 @@ class GeneralColorSchemeState: PersistentState {
             state.selectedTabButtonTextColor = color
         }
         
-        if let colorDict = map["functionButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.functionButtonTextColor = color
+        if let colorDict = map["buttonMenuTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.buttonMenuTextColor = color
         }
         
         return state

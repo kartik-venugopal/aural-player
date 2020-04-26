@@ -70,7 +70,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeFunctionButtonTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     func initControls() {
@@ -104,12 +104,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
-        
-        windowManager.effectsWindow.makeKeyAndOrderFront(self)
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
-        
-        // If this isn't done, the app windows are hidden when the popover is displayed
-        windowManager.mainWindow.orderFront(self)
     }
     
     func changeTextSize() {
@@ -132,7 +127,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         changeFunctionButtonColor()
         
         // Should not need to do this because the function buttons will already get redrawn by changeFunctionButtonColor()
-//        changeFunctionButtonTextColor()
+//        changeButtonMenuTextColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
@@ -174,7 +169,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         presetsMenu.redraw()
     }
     
-    func changeFunctionButtonTextColor() {
+    func changeButtonMenuTextColor() {
         presetsMenu.redraw()
     }
     
@@ -215,12 +210,14 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Remove all custom presets (all items before the first separator)
-        while !presetsMenu.itemArray.isEmpty && !presetsMenu.item(at: 0)!.isSeparatorItem {
-            presetsMenu.removeItem(at: 0)
+        while presetsMenu.itemArray.count > 1 && !presetsMenu.item(at: 1)!.isSeparatorItem {
+            presetsMenu.removeItem(at: 1)
         }
         
+        print(presetsWrapper.userDefinedPresets, "presets", self.className, presetsWrapper.userDefinedPresets.map {$0.name})
+        
         // Re-initialize the menu with user-defined presets
-        presetsWrapper.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        presetsWrapper.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 1)})
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -275,9 +272,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
                 
                 changeFunctionButtonColor()
                 
-            case .changeFunctionButtonTextColor:
+            case .changeButtonMenuTextColor:
                 
-                changeFunctionButtonTextColor()
+                changeButtonMenuTextColor()
                 
             default: return
                 

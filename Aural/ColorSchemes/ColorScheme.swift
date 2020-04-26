@@ -61,13 +61,14 @@ class GeneralColorScheme {
     
     var viewControlButtonColor: NSColor
     var functionButtonColor: NSColor
+    var textButtonMenuColor: NSColor
     var toggleButtonOffStateColor: NSColor
     var selectedTabButtonColor: NSColor
     
     var mainCaptionTextColor: NSColor
     var tabButtonTextColor: NSColor
     var selectedTabButtonTextColor: NSColor
-    var functionButtonTextColor: NSColor
+    var buttonMenuTextColor: NSColor
     
     init(_ appState: GeneralColorSchemeState) {
         
@@ -76,13 +77,14 @@ class GeneralColorScheme {
         
         self.viewControlButtonColor = appState.viewControlButtonColor.toColor()
         self.functionButtonColor = appState.functionButtonColor.toColor()
+        self.textButtonMenuColor = appState.textButtonMenuColor.toColor()
         self.toggleButtonOffStateColor = appState.toggleButtonOffStateColor.toColor()
         self.selectedTabButtonColor = appState.selectedTabButtonColor.toColor()
         
         self.mainCaptionTextColor = appState.mainCaptionTextColor.toColor()
         self.tabButtonTextColor = appState.tabButtonTextColor.toColor()
         self.selectedTabButtonTextColor = appState.selectedTabButtonTextColor.toColor()
-        self.functionButtonTextColor = appState.functionButtonTextColor.toColor()
+        self.buttonMenuTextColor = appState.buttonMenuTextColor.toColor()
     }
    
     init(_ preset: ColorSchemePreset) {
@@ -92,13 +94,14 @@ class GeneralColorScheme {
         
         self.viewControlButtonColor = preset.viewControlButtonColor
         self.functionButtonColor = preset.functionButtonColor
+        self.textButtonMenuColor = preset.textButtonMenuColor
         self.toggleButtonOffStateColor = preset.toggleButtonOffStateColor
         self.selectedTabButtonColor = preset.selectedTabButtonColor
         
         self.mainCaptionTextColor = preset.mainCaptionTextColor
         self.tabButtonTextColor = preset.tabButtonTextColor
         self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor
-        self.functionButtonTextColor = preset.functionButtonTextColor
+        self.buttonMenuTextColor = preset.buttonMenuTextColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {
@@ -108,13 +111,14 @@ class GeneralColorScheme {
         
         self.viewControlButtonColor = preset.viewControlButtonColor
         self.functionButtonColor = preset.functionButtonColor
+        self.textButtonMenuColor = preset.textButtonMenuColor
         self.toggleButtonOffStateColor = preset.toggleButtonOffStateColor
         self.selectedTabButtonColor = preset.selectedTabButtonColor
         
         self.mainCaptionTextColor = preset.mainCaptionTextColor
         self.tabButtonTextColor = preset.tabButtonTextColor
         self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor
-        self.functionButtonTextColor = preset.functionButtonTextColor
+        self.buttonMenuTextColor = preset.buttonMenuTextColor
     }
     
     var persistentState: GeneralColorSchemeState {
