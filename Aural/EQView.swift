@@ -9,14 +9,15 @@ class EQView: NSView {
     
     @IBOutlet weak var btn10Band: NSButton!
     @IBOutlet weak var btn15Band: NSButton!
-    @IBOutlet weak var btnSync: NSButton!
+//    @IBOutlet weak var btnSync: NSButton!
     
     var type: EQType {
         return btn10Band.isOn ? .tenBand : .fifteenBand
     }
     
     var sync: Bool {
-        return btnSync.isOn
+//        return btnSync.isOn
+        return true
     }
     
     private var activeView: EQSubview {
@@ -49,7 +50,7 @@ class EQView: NSView {
 
         chooseType(eqType)
         bandsUpdated(bands, globalGain)
-        btnSync.onIf(sync)
+//        btnSync.onIf(sync)
     }
     
     func setUnitState(_ state: EffectsUnitState) {
@@ -91,11 +92,11 @@ class EQView: NSView {
         
         btn10Band.redraw()
         btn15Band.redraw()
-        btnSync.redraw()
+//        btnSync.redraw()
     }
     
     func changeFunctionCaptionTextColor(_ color: NSColor) {
-        btnSync.redraw()
+//        btnSync.redraw()
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {

@@ -212,8 +212,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             presetsMenu.removeItem(at: 1)
         }
         
-        print(presetsWrapper.userDefinedPresets, "presets", self.className, presetsWrapper.userDefinedPresets.map {$0.name})
-        
         // Re-initialize the menu with user-defined presets
         presetsWrapper.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 1)})
         

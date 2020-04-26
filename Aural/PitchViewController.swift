@@ -18,8 +18,6 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var lblOverlapMax: VALabel!
     @IBOutlet weak var lblPitchOverlapValue: VALabel!
     
-    @IBOutlet weak var lblPresets: VALabel!
-    
     override var nibName: String? {return "Pitch"}
     
     private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
@@ -48,7 +46,7 @@ class PitchViewController: FXUnitViewController {
         // TODO: Move this to generic view
         pitchView.initialize(unitStateFunction)
         
-        functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
+        functionLabels = [lblPitch, lblOverlap, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
     }
     
     override func initControls() {
