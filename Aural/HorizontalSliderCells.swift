@@ -12,7 +12,7 @@ class HorizontalSliderCell: NSSliderCell {
     var barRadius: CGFloat {return 1}
     
     var barPlainGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
-    var barColoredGradient: NSGradient {return Colors.Player.sliderProgressGradient}
+    var barColoredGradient: NSGradient {return Colors.Player.sliderForegroundGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     
     var barInsetX: CGFloat {return 0}
