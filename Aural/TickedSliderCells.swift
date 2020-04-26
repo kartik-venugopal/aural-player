@@ -54,10 +54,10 @@ class TickedSliderCell: HorizontalSliderCell {
 class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 1.75}
     override var knobWidth: CGFloat {return 5}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 2}
+    override var knobHeightOutsideBar: CGFloat {return 3}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -80,8 +80,22 @@ class PanTickedSliderCell: TickedSliderCell {
             let panRect = NSRect(x: panRectX, y: offsetRect.minY, width: panRectWidth, height: offsetRect.height)
             drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
             barColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
-            
         }
+    }
+    
+    override func knobRect(flipped: Bool) -> NSRect {
+        
+        let bar = barRect(flipped: flipped)
+        let val = CGFloat(self.doubleValue)
+        let perc: CGFloat = 50 + (val / 2)
+        
+        let startX = bar.minX + perc * bar.width / 100
+        let xOffset = -(perc * knobWidth / 100)
+        
+        let newX = startX + xOffset
+        let newY = bar.minY - knobHeightOutsideBar
+        
+        return NSRect(x: newX, y: newY, width: knobWidth, height: knobHeightOutsideBar * 2 + bar.height)
     }
 }
 
