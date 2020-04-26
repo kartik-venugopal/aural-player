@@ -53,6 +53,18 @@ struct Colors {
         return NSGradient(starting: color, ending: color.darkened(50))!
     }
     
+    static var textButtonMenuGradient: NSGradient {
+        
+        let color = ColorSchemes.systemScheme.general.textButtonMenuColor
+        return NSGradient(starting: color, ending: color.darkened(40))!
+    }
+    
+    static var textButtonMenuGradient_disabled: NSGradient {
+        
+        let color = ColorSchemes.systemScheme.general.textButtonMenuColor
+        return NSGradient(starting: color, ending: color.darkened(50))!
+    }
+    
     static var toggleButtonOffStateColor: NSColor {
         return ColorSchemes.systemScheme.general.toggleButtonOffStateColor
     }
@@ -73,7 +85,7 @@ struct Colors {
         return ColorSchemes.systemScheme.general.selectedTabButtonColor
     }
     
-    static var functionButtonTextColor: NSColor {
+    static var buttonMenuTextColor: NSColor {
         return ColorSchemes.systemScheme.general.buttonMenuTextColor
     }
     

@@ -17,6 +17,7 @@
                 <outlet property="filterView" destination="e4i-Mp-MMA" id="FDB-df-ULi"/>
                 <outlet property="lblCaption" destination="m6D-g3-0xt" id="14J-Vt-fqp"/>
                 <outlet property="presetsMenu" destination="JJo-gm-Pih" id="xDc-5d-zbH"/>
+                <outlet property="presetsMenuIconItem" destination="FlK-G5-JPk" id="p1U-3G-y9J"/>
                 <outlet property="tabsBox" destination="pTF-TT-2rE" id="bmM-eh-E4A"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>

@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVw-8f-3Id" userLabel="Format" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="13" y="101" width="60" height="20"/>
+                                <rect key="frame" x="9" y="103" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Format" id="8ot-0H-mnY">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -41,7 +41,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qaf-yf-lNI" userLabel="Format menu">
-                                <rect key="frame" x="82" y="97" width="280" height="22"/>
+                                <rect key="frame" x="78" y="99" width="280" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Advanced Audio Codec (AAC)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="jhR-BW-tvM" id="lmd-sX-DNj" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -65,7 +65,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c97-hF-xEa" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="13" y="71" width="60" height="20"/>
+                                <rect key="frame" x="9" y="73" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Quality" id="Tfv-ri-SdO">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -74,7 +74,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wuf-0D-YHR" userLabel="Quality menu">
-                                <rect key="frame" x="82" y="68" width="132" height="22"/>
+                                <rect key="frame" x="78" y="70" width="132" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="2" inset="2" altersStateOfSelectedItem="NO" selectedItem="btF-rD-zlK" id="DBf-ik-tT5" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -101,7 +101,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksR-cg-XYl" userLabel="Start/Stop" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="39" width="73" height="20"/>
+                                <rect key="frame" x="-4" y="41" width="73" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start/Stop" id="rMX-Sc-wak">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -110,7 +110,7 @@
                                 </textFieldCell>
                             </textField>
                             <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="RecorderToggleButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="80" y="37" width="20" height="20"/>
+                                <rect key="frame" x="76" y="39" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -127,7 +127,7 @@
                                 </connections>
                             </button>
                             <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Acc-ym-OC5" userLabel="Recording Info Box">
-                                <rect key="frame" x="0.0" y="9" width="350" height="25"/>
+                                <rect key="frame" x="-4" y="11" width="350" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="9HY-n5-qLY">
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="25"/>

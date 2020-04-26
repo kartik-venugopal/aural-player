@@ -14,6 +14,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
 
     // Presets controls
     @IBOutlet weak var presetsMenu: NSPopUpButton!
+    @IBOutlet weak var presetsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -39,6 +40,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         btnBypass.stateFunction = self.unitStateFunction
         btnSavePreset.tintFunction = {return Colors.functionButtonColor}
+        presetsMenuIconItem.tintFunction = {return Colors.functionButtonColor}
         
         initSubscriptions()
         
@@ -70,7 +72,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeButtonMenuTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
     }
     
     func initControls() {
@@ -166,11 +168,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
     func changeFunctionButtonColor() {
         
         btnSavePreset.reTint()
-        presetsMenu.redraw()
-    }
-    
-    func changeButtonMenuTextColor() {
-        presetsMenu.redraw()
+        presetsMenuIconItem.reTint()
     }
     
     var subscriberId: String {
@@ -271,10 +269,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             case .changeFunctionButtonColor:
                 
                 changeFunctionButtonColor()
-                
-            case .changeButtonMenuTextColor:
-                
-                changeButtonMenuTextColor()
                 
             default: return
                 
