@@ -135,7 +135,11 @@ struct Colors {
             return ColorSchemes.systemScheme.player.sliderBackgroundColor
         }
         
-        static var sliderBackgroundGradient: NSGradient {
+        static func updateSliderBackgroundColor() {
+            updateSliderBackgroundGradient()
+        }
+        
+        private static func updateSliderBackgroundGradient() {
             
             let endColor = ColorSchemes.systemScheme.player.sliderBackgroundColor
             
@@ -143,25 +147,43 @@ struct Colors {
                 
             case .none:
                 
-                return NSGradient(starting: endColor, ending: endColor)!
+                _sliderBackgroundGradient = NSGradient(starting: endColor, ending: endColor)!
                 
             case .darken:
                 
                 let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
                 let startColor = endColor.darkened(CGFloat(amount))
                 
-                return NSGradient(starting: startColor, ending: endColor)!
+                _sliderBackgroundGradient = NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
                 let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
                 let startColor = endColor.brightened(CGFloat(amount))
                 
-                return NSGradient(starting: startColor, ending: endColor)!
+                _sliderBackgroundGradient = NSGradient(starting: startColor, ending: endColor)!
             }
         }
         
-        static var sliderProgressGradient: NSGradient {
+        // Cached background gradient (to avoid repeated recomputations)
+        static var _sliderBackgroundGradient: NSGradient = {
+            
+            let backgroundStart = Constants.white20Percent
+            let backgroundEnd =  Constants.white40Percent
+            let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+            
+            return barBackgroundGradient!
+        }()
+        
+        static var sliderBackgroundGradient: NSGradient {
+            return _sliderBackgroundGradient
+        }
+        
+        static func updateSliderForegroundColor() {
+            updateSliderForegroundGradient()
+        }
+        
+        private static func updateSliderForegroundGradient() {
             
             let startColor = ColorSchemes.systemScheme.player.sliderForegroundColor
             
@@ -169,22 +191,34 @@ struct Colors {
                 
             case .none:
                 
-                return NSGradient(starting: startColor, ending: startColor)!
+                _sliderForegroundGradient = NSGradient(starting: startColor, ending: startColor)!
                 
             case .darken:
                 
                 let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
                 let endColor = startColor.darkened(CGFloat(amount))
                 
-                return NSGradient(starting: startColor, ending: endColor)!
+                _sliderForegroundGradient = NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
                 let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
                 let endColor = startColor.brightened(CGFloat(amount))
                 
-                return NSGradient(starting: startColor, ending: endColor)!
+                _sliderForegroundGradient = NSGradient(starting: startColor, ending: endColor)!
             }
+        }
+        
+        // Cached foreground gradient (to avoid repeated recomputations)
+        static var _sliderForegroundGradient: NSGradient = {
+            
+            let foregroundStart = Constants.white70Percent
+            let foregroundEnd =  Constants.white50Percent
+            return NSGradient(starting: foregroundStart, ending: foregroundEnd)!
+        }()
+        
+        static var sliderForegroundGradient: NSGradient {
+            return _sliderForegroundGradient
         }
         
         static var seekBarLoopColor: NSColor {

@@ -133,13 +133,47 @@ class PlayerColorScheme {
     var trackInfoTertiaryTextColor: NSColor
     var sliderValueTextColor: NSColor
     
-    var sliderBackgroundColor: NSColor
-    var sliderBackgroundGradientType: GradientType
-    var sliderBackgroundGradientAmount: Int
+    var sliderBackgroundColor: NSColor {
     
-    var sliderForegroundColor: NSColor
-    var sliderForegroundGradientType: GradientType
-    var sliderForegroundGradientAmount: Int
+        didSet {
+            Colors.Player.updateSliderBackgroundColor()
+        }
+    }
+    
+    var sliderBackgroundGradientType: GradientType {
+        
+        didSet {
+            Colors.Player.updateSliderBackgroundColor()
+        }
+    }
+    
+    var sliderBackgroundGradientAmount: Int {
+        
+        didSet {
+            Colors.Player.updateSliderBackgroundColor()
+        }
+    }
+    
+    var sliderForegroundColor: NSColor {
+        
+        didSet {
+            Colors.Player.updateSliderForegroundColor()
+        }
+    }
+    
+    var sliderForegroundGradientType: GradientType {
+        
+        didSet {
+            Colors.Player.updateSliderForegroundColor()
+        }
+    }
+    
+    var sliderForegroundGradientAmount: Int {
+        
+        didSet {
+            Colors.Player.updateSliderForegroundColor()
+        }
+    }
     
     var sliderKnobColor: NSColor
     var sliderKnobColorSameAsForeground: Bool
