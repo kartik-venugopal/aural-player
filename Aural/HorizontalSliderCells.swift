@@ -63,10 +63,24 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 1.25}
+    override var barInsetY: CGFloat {return 1.75}
     override var knobWidth: CGFloat {return 5}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 2}
+    override var knobHeightOutsideBar: CGFloat {return 3}
+    
+    override func knobRect(flipped: Bool) -> NSRect {
+        
+        let bar = barRect(flipped: flipped)
+        let val = CGFloat(self.doubleValue)
+        
+        let startX = bar.minX + (val * bar.width / 100)
+        let xOffset = -(val * knobWidth / 100)
+        
+        let newX = startX + xOffset
+        let newY = bar.minY - knobHeightOutsideBar
+        
+        return NSRect(x: newX, y: newY, width: knobWidth, height: knobHeightOutsideBar * 2 + bar.height)
+    }
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -85,8 +99,8 @@ class SeekSliderCell: HorizontalSliderCell {
     override var barInsetY: CGFloat {return 1}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 5}
-    override var knobHeightOutsideBar: CGFloat {return 2}
+    override var knobWidth: CGFloat {return 6}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     var loop: PlaybackLoopRange?
     

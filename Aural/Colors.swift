@@ -168,11 +168,11 @@ struct Colors {
         // Cached background gradient (to avoid repeated recomputations)
         static var _sliderBackgroundGradient: NSGradient = {
             
+            // Default value
+            
             let backgroundStart = Constants.white20Percent
             let backgroundEnd =  Constants.white40Percent
-            let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-            
-            return barBackgroundGradient!
+            return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
         }()
         
         static var sliderBackgroundGradient: NSGradient {
@@ -211,6 +211,8 @@ struct Colors {
         
         // Cached foreground gradient (to avoid repeated recomputations)
         static var _sliderForegroundGradient: NSGradient = {
+            
+            // Default value
             
             let foregroundStart = Constants.white70Percent
             let foregroundEnd =  Constants.white50Percent
