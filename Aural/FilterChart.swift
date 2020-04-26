@@ -38,6 +38,7 @@ class FilterChart: NSView {
         
         drawPath = NSBezierPath.init(rect: frameRect)
         NSColor.lightGray.setStroke()
+        drawPath.lineWidth = 0.5
         drawPath.stroke()
         
         // Draw bands

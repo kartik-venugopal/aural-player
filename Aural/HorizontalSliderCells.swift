@@ -49,6 +49,8 @@ class HorizontalSliderCell: NSSliderCell {
         let knobMinX = xCenter - (knobWidth / 2)
         let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
+//        print(knobRadius, "for", self.className)
+        
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
@@ -63,10 +65,10 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 1.75}
-    override var knobWidth: CGFloat {return 5}
-    override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var barInsetY: CGFloat {return 1.7}
+    override var knobWidth: CGFloat {return 7}
+    override var knobRadius: CGFloat {return 1.5}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     override func knobRect(flipped: Bool) -> NSRect {
         

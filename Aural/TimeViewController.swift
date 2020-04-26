@@ -20,8 +20,6 @@ class TimeViewController: FXUnitViewController {
     @IBOutlet weak var lblPitchShiftValue: VALabel!
     @IBOutlet weak var btnShiftPitch: NSButton!
     
-    @IBOutlet weak var lblPresets: VALabel!
-    
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit

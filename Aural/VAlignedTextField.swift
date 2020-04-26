@@ -25,17 +25,20 @@ class VALabel: NSTextField {
         
         let oldCell: NSTextFieldCell = self.cell as! NSTextFieldCell
         
-        let textColor: NSColor = oldCell.textColor!
-        let hAlign: NSTextAlignment = oldCell.alignment
-        let font: NSFont = oldCell.font!
-
-        let newCell: VALabelCell = VALabelCell(textCell: self.stringValue)
-        newCell.alignment = hAlign
-        newCell.vAlign = self.vAlign
-        newCell.textColor = textColor
-        newCell.font = font
-        
-        self.cell = newCell
+        if !(oldCell is VALabelCell) {
+            
+            let textColor: NSColor = oldCell.textColor!
+            let hAlign: NSTextAlignment = oldCell.alignment
+            let font: NSFont = oldCell.font!
+            
+            let newCell: VALabelCell = VALabelCell(textCell: self.stringValue)
+            newCell.alignment = hAlign
+            newCell.vAlign = self.vAlign
+            newCell.textColor = textColor
+            newCell.font = font
+            
+            self.cell = newCell
+        }
     }
 }
 
@@ -50,12 +53,22 @@ class VALabelCell: NSTextFieldCell {
         var newRect: NSRect = super.drawingRect(forBounds: theRect)
         let textSize: NSSize = self.cellSize(forBounds: theRect)
         
+        if self.stringValue == "Master" {
+
+            let s2 = StringUtils.sizeOfString(self.stringValue, self.font!)
+            print("\nRect:", newRect, "TS:", textSize, "S2:", s2)
+        }
+        
         let heightDelta: CGFloat = newRect.size.height - textSize.height
         
         if heightDelta > 0 {
             newRect.size.height -= heightDelta
         }
         
+//        if self.stringValue == "Master" {
+//            print("HDelta:", heightDelta)
+//        }
+//
         switch self.vAlign {
             
         case .center:   newRect.origin.y += heightDelta / 2
@@ -66,6 +79,15 @@ class VALabelCell: NSTextFieldCell {
             
         }
         
+        // HACK
+        if self.font?.familyName?.contains("Alegreya") ?? false {
+            newRect.origin.y -= 2
+        }
+//
+        if self.stringValue == "Master" {
+        print("NOW Rect:", newRect)
+        }
+//
         return newRect
     }
 
@@ -139,5 +161,26 @@ class CenterTextLabel: VALabel {
         
         // Alignment should never change, so don't allow a setter
         set {}
+    }
+}
+
+class FXUnitCaptionCell: VALabelCell {
+
+    override func drawingRect(forBounds theRect: NSRect) -> NSRect {
+
+        switch EffectsViewState.textSize {
+
+        case .normal:
+
+            return NSRect(origin: NSMakePoint(0, theRect.height - 23), size: NSMakeSize(theRect.width, 23))
+            
+        case .larger:
+            
+            return NSRect(origin: NSMakePoint(0, theRect.height - 25 + 1), size: NSMakeSize(theRect.width, 25))
+            
+        case .largest:
+            
+            return NSRect(origin: NSMakePoint(0, theRect.height - 29 + 2), size: NSMakeSize(theRect.width, 29))
+        }
     }
 }

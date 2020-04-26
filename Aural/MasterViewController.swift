@@ -3,7 +3,6 @@ import Cocoa
 class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
-    @IBOutlet weak var lblPresets: NSTextField!
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
@@ -148,7 +147,6 @@ class MasterViewController: FXUnitViewController {
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
-        lblPresets.textColor = color
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
