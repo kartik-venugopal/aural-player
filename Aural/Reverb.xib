@@ -12,6 +12,7 @@
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="lblCaption" destination="MaO-Rg-qne" id="wus-Pd-ue9"/>
                 <outlet property="presetsMenu" destination="rrE-w8-gig" id="3X3-Si-Fza"/>
+                <outlet property="presetsMenuIconItem" destination="8v4-M7-RfA" id="8c9-6g-DWY"/>
                 <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>

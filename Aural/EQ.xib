@@ -13,6 +13,7 @@
                 <outlet property="eqView" destination="zTt-IY-Dad" id="Tq0-ny-AWA"/>
                 <outlet property="lblCaption" destination="C2G-zu-dib" id="QcJ-Xg-8lC"/>
                 <outlet property="presetsMenu" destination="Q15-iZ-G8V" id="rQ8-nI-Vwr"/>
+                <outlet property="presetsMenuIconItem" destination="ZUZ-sN-HFg" id="j2j-i6-XU7"/>
                 <outlet property="view" destination="zTt-IY-Dad" id="2gC-LH-eIR"/>
             </connections>
         </customObject>

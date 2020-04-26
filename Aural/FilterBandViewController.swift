@@ -12,9 +12,11 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
     @IBOutlet weak var presetRangesMenu: NSPopUpButton!
+    @IBOutlet weak var presetRangesIconMenuItem: TintedIconMenuItem!
     
     @IBOutlet weak var lblCutoffCaption: NSTextField!
     @IBOutlet weak var presetCutoffsMenu: NSPopUpButton!
+    @IBOutlet weak var presetCutoffsIconMenuItem: TintedIconMenuItem!
     
     @IBOutlet weak var lblFrequencies: NSTextField!
     
@@ -31,20 +33,24 @@ class FilterBandViewController: NSViewController {
         // Do nothing
     }
     
-    override func awakeFromNib() {
+    override func viewDidLoad() {
+        
+        oneTimeSetup()
+        resetFields()
+        changeTextSize()
+        applyColorScheme(ColorSchemes.systemScheme)
+    }
+    
+    private func oneTimeSetup() {
         
         freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
         freqRangeSlider.stateFunction = filterStateFunction
         cutoffSlider.stateFunction = filterStateFunction
         
         functionLabels = findFunctionLabels(self.view)
-    }
-    
-    override func viewDidLoad() {
         
-        resetFields()
-        changeTextSize()
-        applyColorScheme(ColorSchemes.systemScheme)
+        presetRangesIconMenuItem.tintFunction = {return Colors.functionButtonColor}
+        presetCutoffsIconMenuItem.tintFunction = {return Colors.functionButtonColor}
     }
     
     private func resetFields() {
@@ -189,6 +195,7 @@ class FilterBandViewController: NSViewController {
     func applyColorScheme(_ scheme: ColorScheme) {
         
         changeFunctionButtonColor()
+        changeTextButtonMenuColor()
         changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
         changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
         redrawSliders()
@@ -196,7 +203,7 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeFunctionButtonColor() {
-        presetRangesMenu.redraw()
+        [presetCutoffsIconMenuItem, presetRangesIconMenuItem].forEach({$0?.reTint()})
     }
 
     func changeTextButtonMenuColor() {

@@ -23,6 +23,7 @@
                 <outlet property="lblPresets" destination="32E-7q-f7T" id="7Jz-3Q-9lR"/>
                 <outlet property="pitchView" destination="dcu-Yh-pFz" id="pSd-Fr-VNU"/>
                 <outlet property="presetsMenu" destination="kLM-JQ-Lj4" id="TC2-PK-3je"/>
+                <outlet property="presetsMenuIconItem" destination="Oa1-cy-CFz" id="zQi-12-DxR"/>
                 <outlet property="view" destination="rBN-FU-dcW" id="36W-5X-XyO"/>
             </connections>
         </customObject>

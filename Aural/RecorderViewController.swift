@@ -39,7 +39,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeFunctionButtonColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -171,8 +171,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
         changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
         changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
-        changeFunctionButtonColor()
-        changeButtonMenuTextColor()
+        changeTextButtonMenuColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
@@ -187,7 +186,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         functionValueLabels.forEach({$0.textColor = color})
     }
     
-    func changeFunctionButtonColor() {
+    func changeTextButtonMenuColor() {
         [formatMenu, qualityMenu].forEach({$0?.redraw()})
     }
     
@@ -252,9 +251,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
                 
                 changeFunctionValueTextColor(colorSchemeMsg.color)
                 
-            case .changeFunctionButtonColor:
+            case .changeTextButtonMenuColor:
                 
-                changeFunctionButtonColor()
+                changeTextButtonMenuColor()
                 
             case .changeButtonMenuTextColor:
                 

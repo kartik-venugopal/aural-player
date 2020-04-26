@@ -15,7 +15,9 @@
                 <outlet property="lblCutoffCaption" destination="wzh-Oc-HHf" id="LmC-IF-ZPK"/>
                 <outlet property="lblFrequencies" destination="O34-nB-lgF" id="Len-tm-9Wp"/>
                 <outlet property="lblRangeCaption" destination="b5A-Za-rhh" id="AtI-5f-Ox8"/>
+                <outlet property="presetCutoffsIconMenuItem" destination="Or6-wJ-wKd" id="tTq-cp-fh8"/>
                 <outlet property="presetCutoffsMenu" destination="mMe-NV-oeX" id="Iif-o0-lE0"/>
+                <outlet property="presetRangesIconMenuItem" destination="i3Y-Fd-PwN" id="pFh-cY-LYD"/>
                 <outlet property="presetRangesMenu" destination="un4-fE-JSB" id="TOZ-gm-6J0"/>
                 <outlet property="tabButton" destination="beO-bx-CUM" id="1fs-Cd-jEp"/>
                 <outlet property="view" destination="jGK-0m-f8s" id="54P-Hg-fUH"/>

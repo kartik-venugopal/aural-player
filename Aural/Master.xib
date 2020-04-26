@@ -14,6 +14,7 @@
                 <outlet property="lblPresets" destination="CUP-uZ-tdz" id="vDp-fO-uxL"/>
                 <outlet property="masterView" destination="0Bs-7g-5at" id="YDY-Lh-KOG"/>
                 <outlet property="presetsMenu" destination="uqP-oj-xNY" id="xex-eb-edu"/>
+                <outlet property="presetsMenuIconItem" destination="bE8-u7-FFo" id="Rba-vo-6zI"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>
         </customObject>

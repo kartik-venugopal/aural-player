@@ -135,6 +135,10 @@ class GeneralColorSchemeState: PersistentState {
             state.functionButtonColor = color
         }
         
+        if let colorDict = map["textButtonMenuColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.textButtonMenuColor = color
+        }
+        
         if let colorDict = map["toggleButtonOffStateColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
             state.toggleButtonOffStateColor = color
         }
