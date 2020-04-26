@@ -31,3 +31,8 @@ class SnappingWindow: NoTitleBarWindow {
         super.mouseDown(with: event)
     }
 }
+
+class SnappingNonKeyWindow: SnappingWindow {
+    
+    override var canBecomeKey: Bool {return false}
+}
