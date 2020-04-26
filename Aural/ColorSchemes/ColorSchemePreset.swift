@@ -65,6 +65,17 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
+    var textButtonMenuColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+            
+        case .whiteBackgroundBlackForeground:  return NSColor.black
+            
+        }
+    }
+    
     var toggleButtonOffStateColor: NSColor {
         
         switch self {
@@ -76,7 +87,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var functionButtonTextColor: NSColor {
+    var buttonMenuTextColor: NSColor {
         
         switch self {
             

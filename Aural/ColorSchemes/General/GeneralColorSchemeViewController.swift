@@ -9,13 +9,14 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     
     @IBOutlet weak var viewControlButtonColorPicker: NSColorWell!
     @IBOutlet weak var functionButtonColorPicker: NSColorWell!
+    @IBOutlet weak var textButtonMenuColorPicker: NSColorWell!
     @IBOutlet weak var toggleButtonOffStateColorPicker: NSColorWell!
     @IBOutlet weak var selectedTabButtonColorPicker: NSColorWell!
     
     @IBOutlet weak var mainCaptionTextColorPicker: NSColorWell!
     @IBOutlet weak var tabButtonTextColorPicker: NSColorWell!
     @IBOutlet weak var selectedTabButtonTextColorPicker: NSColorWell!
-    @IBOutlet weak var functionButtonTextColorPicker: NSColorWell!
+    @IBOutlet weak var buttonMenuTextColorPicker: NSColorWell!
     
     override var nibName: NSNib.Name? {return "GeneralColorScheme"}
     
@@ -30,13 +31,14 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         
         viewControlButtonColorPicker.color = scheme.general.viewControlButtonColor
         functionButtonColorPicker.color = scheme.general.functionButtonColor
+        textButtonMenuColorPicker.color = scheme.general.textButtonMenuColor
         toggleButtonOffStateColorPicker.color = scheme.general.toggleButtonOffStateColor
         selectedTabButtonColorPicker.color = scheme.general.selectedTabButtonColor
         
         mainCaptionTextColorPicker.color = scheme.general.mainCaptionTextColor
         tabButtonTextColorPicker.color = scheme.general.tabButtonTextColor
         selectedTabButtonTextColorPicker.color = scheme.general.selectedTabButtonTextColor
-        functionButtonTextColorPicker.color = scheme.general.functionButtonTextColor
+        buttonMenuTextColorPicker.color = scheme.general.buttonMenuTextColor
         
         scrollToTop()
     }
@@ -71,6 +73,12 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeFunctionButtonColor, functionButtonColorPicker.color))
     }
     
+    @IBAction func textButtonMenuColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeTextButtonMenuColor, textButtonMenuColorPicker.color))
+    }
+    
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
@@ -101,9 +109,9 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSelectedTabButtonTextColor, selectedTabButtonTextColorPicker.color))
     }
     
-    @IBAction func functionButtonTextColorAction(_ sender: Any) {
+    @IBAction func buttonMenuTextColorAction(_ sender: Any) {
         
-        ColorSchemes.systemScheme.general.functionButtonTextColor = functionButtonTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeFunctionButtonTextColor, functionButtonTextColorPicker.color))
+        ColorSchemes.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeButtonMenuTextColor, buttonMenuTextColorPicker.color))
     }
 }

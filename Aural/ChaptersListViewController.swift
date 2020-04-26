@@ -109,7 +109,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeFunctionButtonTextColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeButtonMenuTextColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -404,9 +404,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
                     
                     changeFunctionButtonColor(colorSchemeMsg.color)
                     
-                case .changeFunctionButtonTextColor:
+                case .changeButtonMenuTextColor:
                     
-                    changeFunctionButtonTextColor(colorSchemeMsg.color)
+                    changeButtonMenuTextColor(colorSchemeMsg.color)
                     
                 case .changeToggleButtonOffStateColor:
                     
@@ -544,7 +544,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         [btnPreviousMatch, btnNextMatch].forEach({$0?.redraw()})
     }
     
-    private func changeFunctionButtonTextColor(_ color: NSColor) {
+    private func changeButtonMenuTextColor(_ color: NSColor) {
         [btnPreviousMatch, btnNextMatch].forEach({$0?.redraw()})
     }
     

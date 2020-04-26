@@ -12,7 +12,7 @@
                 <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
                 <outlet property="delayView" destination="sjB-aa-i0k" id="dXX-ZS-n8D"/>
                 <outlet property="lblCaption" destination="452-9T-5pC" id="lZF-v6-lbr"/>
-                <outlet property="presetsMenu" destination="diN-gY-3YR" id="f0D-zP-ZbY"/>
+                <outlet property="presetsMenu" destination="aWr-na-Gft" id="EfJ-jw-pFN"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
         </customObject>
@@ -249,43 +249,49 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="diN-gY-3YR" userLabel="Delay Presets Menu">
-                    <rect key="frame" x="448" y="0.0" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWr-na-Gft" userLabel="Presets Menu">
+                    <rect key="frame" x="447" y="4" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="MFJ-4v-8tn" id="ak1-LK-jlp" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="oaL-ik-rVa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="g2A-vv-zIt">
+                        <menu key="menu" showsStateColumn="NO" id="hG2-4q-Wg7">
                             <items>
-                                <menuItem isSeparatorItem="YES" id="MFJ-4v-8tn"/>
-                                <menuItem title="Slight echo" id="L26-zb-V4w">
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="yH6-SM-gen" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="f9r-61-lQS"/>
+                                <menuItem title="Slight echo" id="xLb-3H-K5F">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem isSeparatorItem="YES" id="KKQ-5K-X3j"/>
-                                <menuItem title="1/4 second delay" id="bTp-96-JTB">
+                                <menuItem isSeparatorItem="YES" id="HbR-4z-rgz"/>
+                                <menuItem title="1/4 second delay" id="BBw-bn-PG8">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="1/2 second delay" id="Gk1-TB-FsH">
+                                <menuItem title="1/2 second delay" id="3g9-ks-syT">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="1 second delay" id="O09-Tt-LRN">
+                                <menuItem title="1 second delay" id="XGU-cD-xdf">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="2 seconds delay" id="63Y-Rh-6Nk">
+                                <menuItem title="2 seconds delay" id="7Cr-5v-lPI">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                             <connections>
-                                <outlet property="delegate" destination="-2" id="nVt-oC-Avl"/>
+                                <outlet property="delegate" destination="-2" id="Cda-fx-dms"/>
                             </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetsAction:" target="-2" id="6rv-PT-0jg"/>
+                        <action selector="presetsAction:" target="-2" id="q7f-4W-hZC"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNY-r7-uAF" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="473" y="4" width="10" height="10"/>
+                    <rect key="frame" x="472" y="4" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xNb-ed-5xY">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -303,6 +309,7 @@
         </view>
     </objects>
     <resources>
+        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

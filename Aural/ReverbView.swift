@@ -57,7 +57,7 @@ class ReverbView: NSView {
         reverbAmountSlider.redraw()
     }
     
-    func redrawButtons() {
+    func redrawMenu() {
         reverbSpaceMenu.redraw()
     }
 }

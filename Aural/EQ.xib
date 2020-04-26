@@ -12,7 +12,7 @@
                 <outlet property="btnSavePreset" destination="udy-ev-aXo" id="UkB-2u-gnw"/>
                 <outlet property="eqView" destination="zTt-IY-Dad" id="Tq0-ny-AWA"/>
                 <outlet property="lblCaption" destination="C2G-zu-dib" id="QcJ-Xg-8lC"/>
-                <outlet property="presetsMenu" destination="uwy-7t-2Z1" id="WcI-AI-kov"/>
+                <outlet property="presetsMenu" destination="Q15-iZ-G8V" id="rQ8-nI-Vwr"/>
                 <outlet property="view" destination="zTt-IY-Dad" id="2gC-LH-eIR"/>
             </connections>
         </customObject>
@@ -64,70 +64,76 @@
                         <action selector="chooseEQTypeAction:" target="-2" id="Ybm-Vi-61R"/>
                     </connections>
                 </button>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwy-7t-2Z1" userLabel="EQ Presets Menu">
-                    <rect key="frame" x="463" y="-2" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q15-iZ-G8V" userLabel="Presets Menu">
+                    <rect key="frame" x="462" y="3" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="mxu-i3-RJ8" id="34m-O9-Uwu" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="WlN-df-qI3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="uMB-Bc-B3R">
+                        <menu key="menu" showsStateColumn="NO" id="VbO-RY-QUI">
                             <items>
-                                <menuItem isSeparatorItem="YES" id="mxu-i3-RJ8"/>
-                                <menuItem title="Flat" id="ogG-qg-56q">
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="ZUZ-sN-HFg" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="MP2-a4-2ox"/>
+                                <menuItem title="Flat" id="38q-k4-48Z">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="High bass and treble" id="XUe-jo-1Gq">
+                                <menuItem title="High bass and treble" id="j1m-3c-fup">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem isSeparatorItem="YES" id="UFv-Vi-X7x"/>
-                                <menuItem title="Dance" id="Cmd-92-pej">
+                                <menuItem isSeparatorItem="YES" id="89i-HR-FtZ"/>
+                                <menuItem title="Dance" id="VHq-3g-OK8">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Electronic" id="ba3-w7-eRZ" userLabel="Electronic">
+                                <menuItem title="Electronic" id="pLH-3u-JAm" userLabel="Electronic">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Hip Hop" id="9AZ-wj-jE5" userLabel="Hip Hop">
+                                <menuItem title="Hip Hop" id="oo6-wQ-hVP" userLabel="Hip Hop">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Jazz" id="EQK-IN-oNJ" userLabel="Jazz">
+                                <menuItem title="Jazz" id="CjP-yA-7gM" userLabel="Jazz">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Latin" id="2p3-9Q-YbV" userLabel="Latin">
+                                <menuItem title="Latin" id="NOS-PI-Dds" userLabel="Latin">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Lounge" id="Iry-Pv-u1Q" userLabel="Lounge">
+                                <menuItem title="Lounge" id="TIh-i2-GaB" userLabel="Lounge">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Piano" id="aK3-en-veb" userLabel="Piano">
+                                <menuItem title="Piano" id="0IY-9K-9K5" userLabel="Piano">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Pop" id="Z0i-7z-BNT" userLabel="Pop">
+                                <menuItem title="Pop" id="3we-Ul-N8b" userLabel="Pop">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="R&amp;B" id="3k1-na-Lyb" userLabel="R&amp;B">
+                                <menuItem title="R&amp;B" id="2Vt-tV-eMF" userLabel="R&amp;B">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Rock" id="Xh8-BZ-Tn7" userLabel="Rock">
+                                <menuItem title="Rock" id="PTF-Qd-QRe" userLabel="Rock">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem isSeparatorItem="YES" id="Unw-wY-uNi"/>
-                                <menuItem title="Soft" id="xNR-IE-oTV">
+                                <menuItem isSeparatorItem="YES" id="Pb0-0B-IG7"/>
+                                <menuItem title="Soft" id="2bb-rm-Ei2">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Karaoke" id="4z3-tA-4yv">
+                                <menuItem title="Karaoke" id="UdX-ja-VoR">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Vocal" id="YwR-LN-daK">
+                                <menuItem title="Vocal" id="GaC-xr-M8F">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                             <connections>
-                                <outlet property="delegate" destination="-2" id="woq-lp-2xP"/>
+                                <outlet property="delegate" destination="-2" id="9QW-sQ-46I"/>
                             </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetsAction:" target="-2" id="unU-nm-TE8"/>
+                        <action selector="presetsAction:" target="-2" id="S55-t7-M5I"/>
                     </connections>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0j3-Ye-6lg" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
@@ -159,7 +165,7 @@
                     </connections>
                 </button>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="488" y="2" width="10" height="10"/>
+                    <rect key="frame" x="487" y="3" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Wjw-fK-3PP">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -625,6 +631,7 @@
         </view>
     </objects>
     <resources>
+        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

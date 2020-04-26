@@ -74,11 +74,11 @@ struct Colors {
     }
     
     static var functionButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.functionButtonTextColor
+        return ColorSchemes.systemScheme.general.buttonMenuTextColor
     }
     
     static var disabledFunctionButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.functionButtonTextColor.darkened(70)
+        return ColorSchemes.systemScheme.general.buttonMenuTextColor.darkened(70)
     }
     
     static var tabViewButtonSelectionBoxColor: NSColor {

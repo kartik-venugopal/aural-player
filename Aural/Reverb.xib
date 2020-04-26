@@ -11,7 +11,7 @@
                 <outlet property="btnBypass" destination="II7-fY-0FS" id="ekP-WC-hYk"/>
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="lblCaption" destination="MaO-Rg-qne" id="wus-Pd-ue9"/>
-                <outlet property="presetsMenu" destination="zIT-2E-ecK" id="8Jn-Au-Shr"/>
+                <outlet property="presetsMenu" destination="rrE-w8-gig" id="3X3-Si-Fza"/>
                 <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>
@@ -166,24 +166,32 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIT-2E-ecK" userLabel="Reverb Presets Menu">
-                    <rect key="frame" x="448" y="0.0" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rrE-w8-gig" userLabel="Presets Menu">
+                    <rect key="frame" x="447" y="4" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="Rh0-mV-5kt" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="aYW-ES-T3J">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" showsStateColumn="NO" id="ixE-44-sox">
+                        <menu key="menu" showsStateColumn="NO" id="osr-0j-Bhu">
+                            <items>
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="8v4-M7-RfA" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
                             <connections>
-                                <outlet property="delegate" destination="-2" id="J7s-yu-Gwb"/>
+                                <outlet property="delegate" destination="-2" id="nJP-mt-Wue"/>
                             </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetsAction:" target="-2" id="jPC-QD-BNq"/>
+                        <action selector="presetsAction:" target="-2" id="obR-tF-WW6"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-kR-qyw" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="473" y="4" width="10" height="10"/>
+                    <rect key="frame" x="472" y="4" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5le-E7-bTd">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -201,6 +209,7 @@
         </view>
     </objects>
     <resources>
+        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>
