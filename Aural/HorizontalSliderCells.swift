@@ -187,7 +187,7 @@ class SeekSliderCell: HorizontalSliderCell {
         let bar = barRect(flipped: flipped)
         let val = CGFloat(self.doubleValue)
         
-        let startX = val * bar.width / 100
+        let startX = bar.minX + (val * bar.width / 100)
         let xOffset = -(val * knobWidth / 100)
         
         let newX = startX + xOffset
