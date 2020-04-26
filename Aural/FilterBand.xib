@@ -15,8 +15,8 @@
                 <outlet property="lblCutoffCaption" destination="wzh-Oc-HHf" id="LmC-IF-ZPK"/>
                 <outlet property="lblFrequencies" destination="O34-nB-lgF" id="Len-tm-9Wp"/>
                 <outlet property="lblRangeCaption" destination="b5A-Za-rhh" id="AtI-5f-Ox8"/>
-                <outlet property="presetCutoffsMenu" destination="n2M-pF-pX4" id="LCT-so-lJY"/>
-                <outlet property="presetRangesMenu" destination="gqE-5C-3de" id="8On-Nj-cvk"/>
+                <outlet property="presetCutoffsMenu" destination="mMe-NV-oeX" id="Iif-o0-lE0"/>
+                <outlet property="presetRangesMenu" destination="un4-fE-JSB" id="TOZ-gm-6J0"/>
                 <outlet property="tabButton" destination="beO-bx-CUM" id="1fs-Cd-jEp"/>
                 <outlet property="view" destination="jGK-0m-f8s" id="54P-Hg-fUH"/>
             </connections>
@@ -140,54 +140,66 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </customView>
-                <popUpButton hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2M-pF-pX4" userLabel="Preset fs">
-                    <rect key="frame" x="320" y="17" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-NV-oeX" userLabel="Presets Cutoffs Menu">
+                    <rect key="frame" x="318" y="21" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" title="Audible range min (20Hz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="SR9-hB-IXE" id="rz8-x3-uty" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="S6e-R1-dGe">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" id="5f8-cu-yAk">
+                        <menu key="menu" showsStateColumn="NO" id="fuM-li-92x">
                             <items>
-                                <menuItem title="Audible range min (20Hz)" tag="20" id="SR9-hB-IXE" userLabel="Audible range min (20Hz)">
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="Or6-wJ-wKd" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Audible range min (20Hz)" tag="20" id="nap-Iu-r8z" userLabel="Audible range min (20Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Sub-bass range max (60Hz)" tag="60" id="nWq-Wv-XTn" userLabel="Sub-bass range max (60Hz)">
+                                <menuItem title="Sub-bass range max (60Hz)" tag="60" id="KD4-Ng-pHR" userLabel="Sub-bass range max (60Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Bass range max (250Hz)" tag="250" id="V2t-P5-EpW" userLabel="Bass range max (250Hz)">
+                                <menuItem title="Bass range max (250Hz)" tag="250" id="vY4-9I-Qyc" userLabel="Bass range max (250Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Low midrange max (500Hz)" tag="500" id="ggw-8L-elb" userLabel="Low midrange max (500Hz)">
+                                <menuItem title="Low midrange max (500Hz)" tag="500" id="4Hk-wG-LKj" userLabel="Low midrange max (500Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Midrange max (2KHz)" tag="2000" id="9YV-KU-hYF" userLabel="Midrange max (2KHz)">
+                                <menuItem title="Midrange max (2KHz)" tag="2000" id="CtO-Vt-bDt" userLabel="Midrange max (2KHz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Upper Midrange max (4KHz)" tag="4000" id="saU-ho-Dey" userLabel="Upper Midrange max (4KHz)">
+                                <menuItem title="Upper Midrange max (4KHz)" tag="4000" id="L07-lS-bPV" userLabel="Upper Midrange max (4KHz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="2TU-Ry-PU0" userLabel="Presence (treble) max (6KHz)">
+                                <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="1mb-WT-A9U" userLabel="Presence (treble) max (6KHz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Audible range max (20KHz)" tag="20000" id="4jL-05-uHM" userLabel="Audible range max (20KHz)">
+                                <menuItem title="Audible range max (20KHz)" tag="20000" id="JfC-hS-2Hs" userLabel="Audible range max (20KHz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetCutoffAction:" target="-2" id="JDT-en-p7l"/>
+                        <action selector="presetCutoffAction:" target="-2" id="Wsa-f0-2jW"/>
                     </connections>
                 </popUpButton>
-                <popUpButton hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqE-5C-3de" userLabel="Preset ranges">
-                    <rect key="frame" x="320" y="17" width="34" height="18"/>
+                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="un4-fE-JSB" userLabel="Presets Ranges Menu">
+                    <rect key="frame" x="318" y="21" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" title="Audible range (20Hz - 20KHz)" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" tag="20" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="s4I-F0-GNs" id="EaR-3r-wR6" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="2b5-kL-MVj">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
-                        <menu key="menu" id="ltz-vM-lfc">
+                        <menu key="menu" showsStateColumn="NO" id="ZSh-Kj-OnH">
                             <items>
-                                <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="s4I-F0-GNs" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="i3Y-Fd-PwN" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                                <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="OjJ-cf-9sv" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -198,7 +210,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="MoF-Rl-WrG" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="Hfd-s4-mBV" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -209,7 +221,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Bass range (60Hz - 250Hz)" tag="250" id="gPI-21-dsy" userLabel="Bass range (60Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Bass range (60Hz - 250Hz)" tag="250" id="FNF-uS-HU0" userLabel="Bass range (60Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -220,7 +232,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Entire Bass range (20Hz - 250Hz)" tag="500" id="oom-f2-PJh" userLabel="Entire Bass range (20Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Entire Bass range (20Hz - 250Hz)" tag="500" id="IdP-Lf-z4F" userLabel="Entire Bass range (20Hz - 250Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -231,7 +243,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="EIy-iu-gT6" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="Qay-dh-IIQ" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -242,7 +254,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Midrange (500Hz - 2KHz)" tag="4000" id="Lxj-AQ-z0I" userLabel="Midrange (500Hz - 2KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Midrange (500Hz - 2KHz)" tag="4000" id="gMx-Pn-9YI" userLabel="Midrange (500Hz - 2KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -253,7 +265,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Upper Midrange (2KHz - 4KHz)" tag="4000" id="SRo-vZ-oc8" userLabel="Upper Midrange (2KHz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Upper Midrange (2KHz - 4KHz)" tag="4000" id="Tc4-gW-lXp" userLabel="Upper Midrange (2KHz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -264,7 +276,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Entire Midrange (250Hz - 4KHz)" tag="4000" id="ldq-9e-Hrc" userLabel="Entire Midrange (250Hz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Entire Midrange (250Hz - 4KHz)" tag="4000" id="UEi-Dz-pCu" userLabel="Entire Midrange (250Hz - 4KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -275,7 +287,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="6Ci-49-KNt" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="f2N-Zi-i7N" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -286,7 +298,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Brilliance (Treble) range (6KHz - 20KHz)" tag="20000" id="82D-Po-VgZ" userLabel="Brilliance (Treble) range (6KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Brilliance (Treble) range (6KHz - 20KHz)" tag="20000" id="AZT-AR-2wY" userLabel="Brilliance (Treble) range (6KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -297,7 +309,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
-                                <menuItem title="Entire Treble range (4KHz - 20KHz)" tag="20000" id="a2f-xz-M6y" userLabel="Entire Treble range (4KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem title="Entire Treble range (4KHz - 20KHz)" tag="20000" id="Xto-OV-nZb" userLabel="Entire Treble range (4KHz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -312,7 +324,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="presetRangeAction:" target="-2" id="3ej-K5-t60"/>
+                        <action selector="presetRangeAction:" target="-2" id="b2x-fT-3u2"/>
                     </connections>
                 </popUpButton>
             </subviews>
@@ -328,4 +340,7 @@
             <point key="canvasLocation" x="11" y="-507"/>
         </button>
     </objects>
+    <resources>
+        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
+    </resources>
 </document>
