@@ -32,12 +32,16 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="206" y="346" width="159" height="28"/>
+                                    <rect key="frame" x="206" y="345" width="159" height="29"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="28" id="l6k-8f-81B"/>
+                                        <constraint firstAttribute="height" constant="29" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
                                     </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters  List" id="eRB-xU-wa4" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <shadow key="shadow" blurRadius="2">
+                                        <size key="offset" width="1" height="2"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </shadow>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters  List" id="eRB-xU-wa4" customClass="FXUnitCaptionCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="14" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -175,7 +179,7 @@
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
-                                    <rect key="frame" x="14" y="310" width="363" height="22"/>
+                                    <rect key="frame" x="14" y="309" width="363" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>

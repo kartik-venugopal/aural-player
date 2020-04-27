@@ -53,22 +53,12 @@ class VALabelCell: NSTextFieldCell {
         var newRect: NSRect = super.drawingRect(forBounds: theRect)
         let textSize: NSSize = self.cellSize(forBounds: theRect)
         
-        if self.stringValue == "Master" {
-
-            let s2 = StringUtils.sizeOfString(self.stringValue, self.font!)
-            print("\nRect:", newRect, "TS:", textSize, "S2:", s2)
-        }
-        
         let heightDelta: CGFloat = newRect.size.height - textSize.height
         
         if heightDelta > 0 {
             newRect.size.height -= heightDelta
         }
         
-//        if self.stringValue == "Master" {
-//            print("HDelta:", heightDelta)
-//        }
-//
         switch self.vAlign {
             
         case .center:   newRect.origin.y += heightDelta / 2
@@ -79,15 +69,6 @@ class VALabelCell: NSTextFieldCell {
             
         }
         
-        // HACK
-        if self.font?.familyName?.contains("Alegreya") ?? false {
-            newRect.origin.y -= 2
-        }
-//
-        if self.stringValue == "Master" {
-        print("NOW Rect:", newRect)
-        }
-//
         return newRect
     }
 
@@ -164,6 +145,7 @@ class CenterTextLabel: VALabel {
     }
 }
 
+// Cell specifically for main caption text using the Alegraya SC font
 class FXUnitCaptionCell: VALabelCell {
 
     override func drawingRect(forBounds theRect: NSRect) -> NSRect {

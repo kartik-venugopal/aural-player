@@ -338,6 +338,8 @@ class EffectsColorScheme {
     var sliderKnobColor: NSColor
     var sliderKnobColorSameAsForeground: Bool
     
+    var sliderTickColor: NSColor
+    
     var activeUnitStateColor: NSColor
     var bypassedUnitStateColor: NSColor
     var suppressedUnitStateColor: NSColor
@@ -356,6 +358,8 @@ class EffectsColorScheme {
         
         self.sliderKnobColor = appState.sliderKnobColor.toColor()
         self.sliderKnobColorSameAsForeground = appState.sliderKnobColorSameAsForeground
+        
+        self.sliderTickColor = appState.sliderTickColor.toColor()
         
         self.activeUnitStateColor = appState.activeUnitStateColor.toColor()
         self.bypassedUnitStateColor = appState.bypassedUnitStateColor.toColor()
@@ -377,6 +381,8 @@ class EffectsColorScheme {
         self.sliderKnobColor = preset.effectsSliderKnobColor
         self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
         
+        self.sliderTickColor = preset.effectsSliderTickColor
+        
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor
         self.suppressedUnitStateColor = preset.effectsSuppressedUnitStateColor
@@ -396,6 +402,8 @@ class EffectsColorScheme {
         
         self.sliderKnobColor = preset.effectsSliderKnobColor
         self.sliderKnobColorSameAsForeground = preset.effectsSliderKnobColorSameAsForeground
+        
+        self.sliderTickColor = preset.effectsSliderTickColor
         
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor

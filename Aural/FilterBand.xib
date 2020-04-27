@@ -142,7 +142,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </customView>
-                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-NV-oeX" userLabel="Presets Cutoffs Menu">
+                <popUpButton toolTip="Load preset" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-NV-oeX" userLabel="Presets Cutoffs Menu">
                     <rect key="frame" x="318" y="21" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="S6e-R1-dGe">
@@ -150,10 +150,10 @@
                         <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" showsStateColumn="NO" id="fuM-li-92x">
                             <items>
-                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="Or6-wJ-wKd" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="DisclosureTriangle-Expanded" hidden="YES" id="Or6-wJ-wKd" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="DisclosureTriangle-Expanded"/>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
                                 <menuItem title="Audible range min (20Hz)" tag="20" id="nap-Iu-r8z" userLabel="Audible range min (20Hz)">
@@ -187,7 +187,7 @@
                         <action selector="presetCutoffAction:" target="-2" id="Wsa-f0-2jW"/>
                     </connections>
                 </popUpButton>
-                <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="un4-fE-JSB" userLabel="Presets Ranges Menu">
+                <popUpButton toolTip="Load preset" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="un4-fE-JSB" userLabel="Presets Ranges Menu">
                     <rect key="frame" x="318" y="21" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="2b5-kL-MVj">
@@ -195,10 +195,10 @@
                         <font key="font" size="11" name="Play-Regular"/>
                         <menu key="menu" showsStateColumn="NO" id="ZSh-Kj-OnH">
                             <items>
-                                <menuItem image="PresetsDisclosureTriangle" hidden="YES" id="i3Y-Fd-PwN" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                <menuItem image="DisclosureTriangle-Expanded" hidden="YES" id="i3Y-Fd-PwN" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PresetsDisclosureTriangle"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="DisclosureTriangle-Expanded"/>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
                                 <menuItem title="Audible range (20Hz - 20KHz)" tag="20" id="OjJ-cf-9sv" userLabel="Audible range (20Hz - 20KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
@@ -343,6 +343,6 @@
         </button>
     </objects>
     <resources>
-        <image name="PresetsDisclosureTriangle" width="10" height="10"/>
+        <image name="DisclosureTriangle-Expanded" width="8" height="8"/>
     </resources>
 </document>

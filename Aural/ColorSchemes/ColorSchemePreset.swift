@@ -454,6 +454,17 @@ enum ColorSchemePreset: String, CaseIterable {
         return true
     }
     
+    var effectsSliderTickColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return NSColor.black
+            
+        case .whiteBackgroundBlackForeground:  return NSColor.white
+            
+        }
+    }
+    
     var effectsActiveUnitStateColor: NSColor {
         
         switch self {

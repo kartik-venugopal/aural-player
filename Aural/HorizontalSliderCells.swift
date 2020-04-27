@@ -49,14 +49,13 @@ class HorizontalSliderCell: NSSliderCell {
         let knobMinX = xCenter - (knobWidth / 2)
         let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
-//        print(knobRadius, "for", self.className)
-        
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
     }
     
     override func barRect(flipped: Bool) -> NSRect {
+        
         return super.barRect(flipped: flipped).insetBy(dx: barInsetX, dy: barInsetY)
     }
 }
@@ -65,10 +64,10 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 1.7}
-    override var knobWidth: CGFloat {return 7}
-    override var knobRadius: CGFloat {return 1.5}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var barInsetY: CGFloat {return 2}
+    override var knobWidth: CGFloat {return 8}
+    override var knobRadius: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 3}
     
     override func knobRect(flipped: Bool) -> NSRect {
         
@@ -98,11 +97,11 @@ struct PlaybackLoopRange {
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 2}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 6}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var knobWidth: CGFloat {return 10}
+    override var knobHeightOutsideBar: CGFloat {return 3}
     
     var loop: PlaybackLoopRange?
     
@@ -128,7 +127,7 @@ class SeekSliderCell: HorizontalSliderCell {
     
     override func barRect(flipped: Bool) -> NSRect {
         
-        var superRect = super.barRect(flipped: flipped).insetBy(dx: barInsetX, dy: barInsetY)
+        var superRect = super.barRect(flipped: flipped)
         let oldOrigin = superRect.origin
         superRect.origin = NSPoint(x: 0, y: oldOrigin.y)
 
