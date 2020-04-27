@@ -14,7 +14,8 @@ class PlayerView: NSView {
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 47) }
+    fileprivate var controlsBoxPosition: NSPoint { return NSPoint(x: 0, y: 10) }
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 5, y: 60) }
     fileprivate var autoHideFields_showing: Bool = false
     
     func showView(_ playbackState: PlaybackState) {
@@ -22,7 +23,7 @@ class PlayerView: NSView {
         self.addSubview(controlsBox, positioned: .above, relativeTo: nil)
         self.addSubview(functionsBox)
         
-        controlsBox.setFrameOrigin(NSPoint.zero)
+        controlsBox.setFrameOrigin(controlsBoxPosition)
 
         gapView.showView(playbackState)
         
@@ -213,12 +214,8 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 85) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 52)
-    
-    override func awakeFromNib() {
-        artView.cornerRadius = 2
-    }
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 95) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 67)
     
     override func showView(_ playbackState: PlaybackState) {
         
@@ -296,13 +293,9 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 80)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 5, y: 90)
     @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var centerOverlayBox: NSBox!
-    
-    override func awakeFromNib() {
-        artView.cornerRadius = 5
-    }
     
     override func showView(_ playbackState: PlaybackState) {
         
