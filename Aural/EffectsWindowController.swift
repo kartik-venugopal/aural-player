@@ -112,7 +112,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -255,6 +255,12 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         if message is TextSizeActionMessage {
             
             changeTextSize()
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            applyColorScheme(colorSchemeMsg.scheme)
             return
         }
         

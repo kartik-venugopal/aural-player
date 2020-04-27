@@ -72,7 +72,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
     }
     
     func initControls() {
@@ -234,6 +234,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
             
             initControls()
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            applyColorScheme(colorSchemeMsg.scheme)
             return
         }
         

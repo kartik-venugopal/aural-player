@@ -39,7 +39,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -232,6 +232,12 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         if message.actionType == .changeEffectsTextSize {
             
             changeTextSize()
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            applyColorScheme(colorSchemeMsg.scheme)
             return
         }
         
