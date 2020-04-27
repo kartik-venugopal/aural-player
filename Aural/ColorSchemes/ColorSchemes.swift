@@ -20,7 +20,7 @@ class ColorSchemes {
         
         ColorSchemePreset.allCases.forEach({
             
-            let presetName = $0.description
+            let presetName = $0.name
             map[presetName] = ColorScheme(presetName, $0)
         })
         

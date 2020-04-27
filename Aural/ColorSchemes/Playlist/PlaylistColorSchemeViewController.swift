@@ -56,66 +56,66 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     @IBAction func trackNameTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameTextColor, trackNameTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistTrackNameTextColor, trackNameTextColorPicker.color))
     }
     
     @IBAction func groupNameTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.groupNameTextColor = groupNameTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameTextColor, groupNameTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupNameTextColor, groupNameTextColorPicker.color))
     }
     
     @IBAction func indexDurationTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.indexDurationTextColor = indexDurationTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationTextColor, indexDurationTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistIndexDurationTextColor, indexDurationTextColorPicker.color))
     }
     
     @IBAction func trackNameSelectedTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor = trackNameSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistTrackNameSelectedTextColor, trackNameSelectedTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistTrackNameSelectedTextColor, trackNameSelectedTextColorPicker.color))
     }
     
     @IBAction func groupNameSelectedTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor = groupNameSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupNameSelectedTextColor, groupNameSelectedTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupNameSelectedTextColor, groupNameSelectedTextColorPicker.color))
     }
     
     @IBAction func indexDurationSelectedTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor = indexDurationSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistIndexDurationSelectedTextColor, indexDurationSelectedTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistIndexDurationSelectedTextColor, indexDurationSelectedTextColorPicker.color))
     }
     
     @IBAction func groupIconColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupIconColor, groupIconColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupIconColor, groupIconColorPicker.color))
     }
     
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistGroupDisclosureTriangleColor, groupDisclosureTriangleColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupDisclosureTriangleColor, groupDisclosureTriangleColorPicker.color))
     }
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.selectionBoxColor = selectionBoxColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSelectionBoxColor, selectionBoxColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistSelectionBoxColor, selectionBoxColorPicker.color))
     }
     
     @IBAction func playingTrackIconColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistPlayingTrackIconColor, playingTrackIconColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistPlayingTrackIconColor, playingTrackIconColorPicker.color))
     }
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.playlist.summaryInfoColor = summaryInfoColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlaylistSummaryInfoColor, summaryInfoColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistSummaryInfoColor, summaryInfoColorPicker.color))
     }
 }

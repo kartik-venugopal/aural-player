@@ -86,19 +86,19 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBAction func functionCaptionTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionCaptionTextColor, functionCaptionTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsFunctionCaptionTextColor, functionCaptionTextColorPicker.color))
     }
     
     @IBAction func functionValueTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsFunctionValueTextColor, functionValueTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsFunctionValueTextColor, functionValueTextColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
@@ -131,7 +131,7 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     private func sliderForegroundChanged() {
 
         // TODO - This is a hack. The message will result in a redraw regardless of whether the foreground/background has changed. Should consolidate the 2 event types into a single one - changeEffectsSliderColor
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
@@ -162,43 +162,43 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     }
     
     private func sliderBackgroundChanged() {
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSliderBackgroundColor, sliderTickColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderTickColorPicker.color))
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsActiveUnitStateColor, activeUnitStateColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsActiveUnitStateColor, activeUnitStateColorPicker.color))
     }
     
     @IBAction func bypassedUnitStateColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsBypassedUnitStateColor, bypassedUnitStateColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsBypassedUnitStateColor, bypassedUnitStateColorPicker.color))
     }
     
     @IBAction func suppressedUnitStateColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeEffectsSuppressedUnitStateColor, suppressedUnitStateColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSuppressedUnitStateColor, suppressedUnitStateColorPicker.color))
     }
     
 }

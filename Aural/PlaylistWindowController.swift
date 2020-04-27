@@ -584,25 +584,25 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .changeBackgroundColor:
             
-            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
+            if let bkColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeBackgroundColor(bkColor)
             }
             
         case .changeViewControlButtonColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeViewControlButtonColor(ctrlColor)
             }
             
         case .changeFunctionButtonColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeFunctionButtonColor(ctrlColor)
             }
             
         case .changePlaylistSummaryInfoColor:
             
-            if let summaryColor = (message as? ColorSchemeActionMessage)?.color {
+            if let summaryColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeSummaryInfoColor(summaryColor)
             }
             

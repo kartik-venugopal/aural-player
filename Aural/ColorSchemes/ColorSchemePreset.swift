@@ -10,13 +10,13 @@ enum ColorSchemePreset: String, CaseIterable {
         return blackBackgroundWhiteForeground
     }
     
-    var description: String {
+    var name: String {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return "Black background, white foreground"
+        case .blackBackgroundWhiteForeground:  return "Black attack (default)"
             
-        case .whiteBackgroundBlackForeground:  return "White background, black foreground"
+        case .whiteBackgroundBlackForeground:  return "White blight"
             
         }
     }

@@ -31,7 +31,7 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
     
     func consumeMessage(_ message: ActionMessage) {
     
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
 
             switch colorSchemeMsg.actionType {
 

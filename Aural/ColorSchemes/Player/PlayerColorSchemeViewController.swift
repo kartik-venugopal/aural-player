@@ -86,31 +86,31 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerTrackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color))
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerTrackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color))
     }
     
     @IBAction func tertiaryTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerTrackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color))
     }
     
     @IBAction func sliderValueTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderValueTextColor, sliderValueTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderValueTextColor, sliderValueTextColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
@@ -147,7 +147,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     }
     
     private func sliderForegroundChanged() {
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
@@ -178,25 +178,25 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     }
     
     private func sliderBackgroundChanged() {
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
         
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderKnobColor, btnSliderKnobColorSameAsForeground.isOn ? sliderForegroundColorPicker.color : sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderKnobColor, btnSliderKnobColorSameAsForeground.isOn ? sliderForegroundColorPicker.color : sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
     }
 }

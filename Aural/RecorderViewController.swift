@@ -235,7 +235,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
             return
         }
         
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
                 

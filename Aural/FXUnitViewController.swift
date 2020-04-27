@@ -237,7 +237,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             return
         }
         
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
                 

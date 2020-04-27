@@ -104,7 +104,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
@@ -212,26 +212,32 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
         case .changeBackgroundColor:
             
-            if let bkColor = (message as? ColorSchemeActionMessage)?.color {
+            if let bkColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeBackgroundColor(bkColor)
             }
             
         case .changeAppLogoColor:
             
-            if let logoTextColor = (message as? ColorSchemeActionMessage)?.color {
+            if let logoTextColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeAppLogoColor(logoTextColor)
             }
             
         case .changeViewControlButtonColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeViewControlButtonColor(ctrlColor)
             }
             
         case .changeToggleButtonOffStateColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeToggleButtonOffStateColor(ctrlColor)
+            }
+            
+        case .applyColorScheme:
+            
+            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
+                applyColorScheme(scheme)
             }
             
         default: return

@@ -365,6 +365,8 @@
 		3ECD17441F6BBEE400492F56 /* ID3Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD17431F6BBEE400492F56 /* ID3Parser.swift */; };
 		3ECD17471F6BBF3600492F56 /* ITunesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD17461F6BBF3600492F56 /* ITunesParser.swift */; };
 		3ECE72CD219D5D2B00419F5F /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE72CC219D5D2B00419F5F /* Mapper.swift */; };
+		3ECF12F6245784A6007209BC /* ColorSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF12F5245784A6007209BC /* ColorSchemePopupMenuController.swift */; };
+		3ECF12F824578E95007209BC /* TextSizeMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF12F724578E95007209BC /* TextSizeMenuController.swift */; };
 		3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */; };
 		3ED0C3FF21E73C88002757A7 /* GenreMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0C3FE21E73C88002757A7 /* GenreMap.swift */; };
 		3ED0C40121E73E21002757A7 /* ID3Spec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0C40021E73E21002757A7 /* ID3Spec.swift */; };
@@ -839,6 +841,8 @@
 		3ECD17431F6BBEE400492F56 /* ID3Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ID3Parser.swift; sourceTree = "<group>"; };
 		3ECD17461F6BBF3600492F56 /* ITunesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITunesParser.swift; sourceTree = "<group>"; };
 		3ECE72CC219D5D2B00419F5F /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		3ECF12F5245784A6007209BC /* ColorSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePopupMenuController.swift; sourceTree = "<group>"; };
+		3ECF12F724578E95007209BC /* TextSizeMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSizeMenuController.swift; sourceTree = "<group>"; };
 		3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistMutatorDelegate.swift; sourceTree = "<group>"; };
 		3ED0C3FE21E73C88002757A7 /* GenreMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMap.swift; sourceTree = "<group>"; };
 		3ED0C40021E73E21002757A7 /* ID3Spec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID3Spec.swift; sourceTree = "<group>"; };
@@ -2075,6 +2079,7 @@
 				3EDDF6AB1FB4FF5100DF2E9A /* MainWindow.xib */,
 				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
 				3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */,
+				3ECF12F5245784A6007209BC /* ColorSchemePopupMenuController.swift */,
 				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
 			);
 			name = MainWindow;
@@ -2095,6 +2100,7 @@
 				3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */,
 				3E9847811F5CF23D001A2D28 /* HelpMenuController.swift */,
 				3EB029111FB55EEF00A2D920 /* DockMenuController.swift */,
+				3ECF12F724578E95007209BC /* TextSizeMenuController.swift */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -2428,6 +2434,7 @@
 				3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */,
 				3E1CB54621C8A31D00A19AAE /* GeneralPlaybackPreferencesViewController.swift in Sources */,
 				3E9847821F5CF23D001A2D28 /* HelpMenuController.swift in Sources */,
+				3ECF12F824578E95007209BC /* TextSizeMenuController.swift in Sources */,
 				3E24ED451FBB2B430023F9F9 /* ReverbViewController.swift in Sources */,
 				3E17A8B721871D7700CADE89 /* EQSubview.swift in Sources */,
 				3E3FB7FD215B5BBB00974A59 /* FavoritesDelegate.swift in Sources */,
@@ -2578,6 +2585,7 @@
 				3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */,
 				3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */,
 				3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */,
+				3ECF12F6245784A6007209BC /* ColorSchemePopupMenuController.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,
