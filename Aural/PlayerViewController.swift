@@ -279,7 +279,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         default:
             
-            if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
                 
                 switch colorSchemeMsg.actionType {
                     

@@ -141,6 +141,7 @@
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
+        <customObject id="UTf-sF-lj2" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YVQ-JN-BbP" customClass="PlayerViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
@@ -1327,19 +1328,19 @@ CA
                                         <menuItem title="Normal" id="yCw-3F-WpY">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="xcC-L5-3s2"/>
+                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="fOM-hl-oaE"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Larger" tag="1" id="8D9-07-mTK">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="wRG-Ja-S96"/>
+                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="wzh-o4-kRy"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Largest" tag="2" id="eHe-17-56v">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="changeTextSizeAction:" target="xzd-WN-BuR" id="an4-tM-8qJ"/>
+                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="Jmf-35-1uf"/>
                                             </connections>
                                         </menuItem>
                                     </items>

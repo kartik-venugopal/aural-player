@@ -202,7 +202,7 @@ class EQViewController: FXUnitViewController {
             return
         }
         
-        if let colorChangeMsg = message as? ColorSchemeActionMessage {
+        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
                 

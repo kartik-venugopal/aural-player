@@ -659,19 +659,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .changeFunctionButtonColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeFunctionButtonColor(ctrlColor)
             }
             
         case .changeToggleButtonOffStateColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeToggleButtonOffStateColor(ctrlColor)
             }
             
         case .changePlayerSliderValueTextColor:
             
-            if let txtColor = (message as? ColorSchemeActionMessage)?.color {
+            if let txtColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeSliderValueTextColor(txtColor)
             }
             

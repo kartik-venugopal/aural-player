@@ -331,6 +331,8 @@ enum ActionType {
     case changePlaylistTextSize
     
     // Color scheme change actions
+    case applyColorScheme
+    
     case changeAppLogoColor
     case changeBackgroundColor
     
@@ -465,7 +467,7 @@ struct TextSizeActionMessage: ActionMessage {
     }
 }
 
-struct ColorSchemeActionMessage: ActionMessage {
+struct ColorSchemeComponentActionMessage: ActionMessage {
     
     let actionType: ActionType
     let color: NSColor
@@ -474,6 +476,16 @@ struct ColorSchemeActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.color = color
+    }
+}
+
+struct ColorSchemeActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .applyColorScheme
+    let scheme: ColorScheme
+    
+    init(_ scheme: ColorScheme) {
+        self.scheme = scheme
     }
 }
 

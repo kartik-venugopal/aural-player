@@ -266,13 +266,13 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
         case .changeFunctionButtonColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeFunctionButtonColor(ctrlColor)
             }
             
         case .changeToggleButtonOffStateColor:
             
-            if let ctrlColor = (message as? ColorSchemeActionMessage)?.color {
+            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeToggleButtonOffStateColor(ctrlColor)
             }
 

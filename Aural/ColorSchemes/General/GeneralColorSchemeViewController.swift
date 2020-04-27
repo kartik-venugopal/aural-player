@@ -52,66 +52,66 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBAction func appLogoColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.appLogoColor = appLogoColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeAppLogoColor, appLogoColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeAppLogoColor, appLogoColorPicker.color))
     }
     
     @IBAction func backgroundColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
     }
     
     @IBAction func viewControlButtonColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeViewControlButtonColor, viewControlButtonColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeViewControlButtonColor, viewControlButtonColorPicker.color))
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.functionButtonColor = functionButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeFunctionButtonColor, functionButtonColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeFunctionButtonColor, functionButtonColorPicker.color))
     }
     
     @IBAction func textButtonMenuColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeTextButtonMenuColor, textButtonMenuColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeTextButtonMenuColor, textButtonMenuColorPicker.color))
     }
     
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeToggleButtonOffStateColor, toggleButtonOffStateColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeToggleButtonOffStateColor, toggleButtonOffStateColorPicker.color))
     }
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.selectedTabButtonColor = selectedTabButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSelectedTabButtonColor, selectedTabButtonColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeSelectedTabButtonColor, selectedTabButtonColorPicker.color))
     }
     
     @IBAction func mainCaptionTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeMainCaptionTextColor, mainCaptionTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeMainCaptionTextColor, mainCaptionTextColorPicker.color))
     }
     
     @IBAction func tabButtonTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeTabButtonTextColor, tabButtonTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeTabButtonTextColor, tabButtonTextColorPicker.color))
     }
     
     @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeSelectedTabButtonTextColor, selectedTabButtonTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeSelectedTabButtonTextColor, selectedTabButtonTextColorPicker.color))
     }
     
     @IBAction func buttonMenuTextColorAction(_ sender: Any) {
         
         ColorSchemes.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.changeButtonMenuTextColor, buttonMenuTextColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeButtonMenuTextColor, buttonMenuTextColorPicker.color))
     }
 }
