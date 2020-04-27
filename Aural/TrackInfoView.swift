@@ -221,7 +221,14 @@ class TrackInfoView: NSView {
      */
     private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor, _ lineSpacing: CGFloat? = nil) -> NSAttributedString {
         
-        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color ]
+        // TODO: Figure out how to do this flexibly and optimally
+//        let shadow: NSShadow = NSShadow()
+//        shadow.shadowColor = shadowColor
+//        shadow.shadowOffset = NSSize(width: -0.5, height: -0.5)
+//        shadow.shadowBlurRadius = 3
+//        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.shadow: shadow ]
+        
+        var attributes = [ NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
         
         var str: String = text
         
@@ -240,4 +247,9 @@ class TrackInfoView: NSView {
         
         return NSAttributedString(string: str, attributes: attributes)
     }
+    
+//    func changeBackgroundColor(_ color: NSColor) {
+//
+//        update()
+//    }
 }

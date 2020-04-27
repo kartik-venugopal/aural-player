@@ -21,7 +21,7 @@
             <rect key="contentRect" x="544" y="299" width="570" height="380"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="500" height="230"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
+            <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -37,10 +37,6 @@
                                         <constraint firstAttribute="height" constant="29" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
                                     </constraints>
-                                    <shadow key="shadow" blurRadius="2">
-                                        <size key="offset" width="1" height="2"/>
-                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </shadow>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Chapters  List" id="eRB-xU-wa4" customClass="FXUnitCaptionCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="14" name="Play-Regular"/>
                                         <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>

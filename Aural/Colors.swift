@@ -223,6 +223,10 @@ struct Colors {
             return _sliderForegroundGradient
         }
         
+        static var sliderForegroundColor: NSColor {
+            return ColorSchemes.systemScheme.player.sliderForegroundColor
+        }
+        
         static var seekBarLoopColor: NSColor {
             return ColorSchemes.systemScheme.player.sliderLoopSegmentColor
         }
