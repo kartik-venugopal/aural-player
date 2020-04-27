@@ -190,6 +190,8 @@ class PlayerView: NSView {
             $0?.fillColor = color
             $0?.isTransparent = !color.isOpaque
         })
+        
+        artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
     }
     
     func changePrimaryTextColor(_ color: NSColor) {
@@ -411,6 +413,8 @@ class ExpandedArtPlayerView: PlayerView {
         
         let windowColor = Colors.windowBackgroundColor
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
+        
+        artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
     }
 }
 

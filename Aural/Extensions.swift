@@ -387,6 +387,19 @@ extension NSImage {
 
 extension NSColor {
     
+    var visibleShadowColor: NSColor {
+        
+        let rgb = toRGB()
+        
+        let myBrightness = rgb.brightnessComponent
+        
+        if myBrightness < 0.15 {
+            return NSColor(calibratedWhite: min(0.2, myBrightness + 0.15), alpha: 1)
+        }
+        
+        return NSColor.black
+    }
+    
     func clonedWithTransparency(_ alpha: CGFloat) -> NSColor {
         
         switch self.colorSpace.colorSpaceModel {

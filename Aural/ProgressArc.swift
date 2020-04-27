@@ -14,6 +14,7 @@ class ProgressArc: NSView {
     var lineWidth: CGFloat = 4
     
     var backColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
+    var foregroundColor: NSColor {return Colors.Player.sliderForegroundColor}
     var textFont: NSFont {return Fonts.progressArcFont}
     
     override func draw(_ dirtyRect: NSRect) {
@@ -40,7 +41,8 @@ class ProgressArc: NSView {
         let mask = CAShapeLayer()
         mask.frame = dirtyRect
         mask.lineWidth = lineWidth
-        mask.strokeColor = NSColor.gray.cgColor
+//        mask.strokeColor = NSColor.gray.cgColor
+        mask.strokeColor = foregroundColor.cgColor
         
         let arcPath = NSBezierPath()
         

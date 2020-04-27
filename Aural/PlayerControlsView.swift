@@ -29,6 +29,7 @@ class PlayerControlsView: NSView {
     @IBOutlet weak var lblVolume: VALabel!
     @IBOutlet weak var lblPan: VALabel!
     @IBOutlet weak var lblPanCaption: VALabel!
+    @IBOutlet weak var lblPanCaption2: VALabel!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!
@@ -411,7 +412,9 @@ class PlayerControlsView: NSView {
         
         lblVolume.font = Fonts.Player.feedbackFont
         lblPan.font = Fonts.Player.feedbackFont
+        
         lblPanCaption.font = Fonts.Player.feedbackFont
+        lblPanCaption2.font = Fonts.Player.feedbackFont
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
@@ -421,6 +424,7 @@ class PlayerControlsView: NSView {
         })
         
         lblPanCaption.textColor = color
+        lblPanCaption2.textColor = color
     }
     
     func changeToggleButtonOffStateColor(_ color: NSColor) {
@@ -464,7 +468,6 @@ enum TimeElapsedDisplayType: String {
         }
     }
 }
-
 
 enum TimeRemainingDisplayType: String {
 
