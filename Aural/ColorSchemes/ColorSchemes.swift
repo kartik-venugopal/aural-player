@@ -3,15 +3,20 @@ import Cocoa
 class ColorSchemes {
     
     static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
-    static var systemScheme: ColorScheme = ColorScheme("_system_")
+    static var systemScheme: ColorScheme = ColorScheme("_system_") {
+        
+        didSet {
+            
+            // Update slider gradient cache
+            Colors.Player.updateSliderBackgroundColor()
+            Colors.Player.updateSliderForegroundColor()
+        }
+    }
     
     static func initialize(_ schemesState: ColorSchemesState) {
         
         loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme("userScheme", $0, false)})
         systemScheme = ColorScheme("_system_", schemesState.systemScheme, true)
-        
-        Colors.Player.updateSliderBackgroundColor()
-        Colors.Player.updateSliderForegroundColor()
     }
     
     private static var schemes: [String: ColorScheme] = {

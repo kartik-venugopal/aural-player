@@ -133,6 +133,8 @@ class PlayerColorScheme {
     var trackInfoTertiaryTextColor: NSColor
     var sliderValueTextColor: NSColor
     
+    // TODO: Remove all these didSets. This is a bug (should only be called if this scheme is the system scheme) ! Move this code to the Color Schemes UI view controller.
+    
     var sliderBackgroundColor: NSColor {
     
         didSet {

@@ -45,7 +45,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderBackgroundColor, .changePlayerSliderForegroundColor, .changePlayerSliderKnobColor, .changePlayerSliderLoopSegmentColor, .applyColorScheme], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -656,6 +656,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .changePlayerTextSize:
             
             changeTextSize()
+            
+        case .applyColorScheme:
+            
+            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
+                applyColorScheme(scheme)
+            }
             
         case .changeFunctionButtonColor:
             
