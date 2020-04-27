@@ -164,6 +164,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func changeBackgroundColor(_ color: NSColor) {
         
         rootContainerBox.fillColor = color
+//        rootContainerBox.fillColor = NSColor.white
         
         containerBox.fillColor = color
         containerBox.isTransparent = !color.isOpaque

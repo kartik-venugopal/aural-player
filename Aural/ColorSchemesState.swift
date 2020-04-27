@@ -396,6 +396,8 @@ class EffectsColorSchemeState: PersistentState {
     var sliderKnobColor: ColorState = ColorState.defaultInstance
     var sliderKnobColorSameAsForeground: Bool = true
     
+    var sliderTickColor: ColorState = ColorState.defaultInstance
+    
     var activeUnitStateColor: ColorState = ColorState.defaultInstance
     var bypassedUnitStateColor: ColorState = ColorState.defaultInstance
     var suppressedUnitStateColor: ColorState = ColorState.defaultInstance
@@ -416,6 +418,8 @@ class EffectsColorSchemeState: PersistentState {
         
         self.sliderKnobColor = ColorState.fromColor(scheme.sliderKnobColor)
         self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
+        
+        self.sliderTickColor = ColorState.fromColor(scheme.sliderTickColor)
         
         self.activeUnitStateColor = ColorState.fromColor(scheme.activeUnitStateColor)
         self.bypassedUnitStateColor = ColorState.fromColor(scheme.bypassedUnitStateColor)
@@ -468,6 +472,11 @@ class EffectsColorSchemeState: PersistentState {
         
         if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
             state.sliderKnobColorSameAsForeground = useForegroundColor
+        }
+        
+        if let colorDict = map["sliderTickColor"] as? NSDictionary,
+            let color = ColorState.deserialize(colorDict) as? ColorState {
+            state.sliderTickColor = color
         }
         
         if let colorDict = map["activeUnitStateColor"] as? NSDictionary,

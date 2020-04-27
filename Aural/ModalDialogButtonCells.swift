@@ -19,6 +19,8 @@ class ModalDialogButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.modalDialogButtonFont}
     
+    var yOffset: CGFloat {return 0}
+    
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
@@ -33,7 +35,7 @@ class ModalDialogButtonCell: NSButtonCell {
         }
         
         // Title
-        GraphicsUtils.drawCenteredTextInRect(drawRect, title, isEnabled ? textColor : textColor_disabled, textFont)
+        GraphicsUtils.drawCenteredTextInRect(drawRect, title, isEnabled ? textColor : textColor_disabled, textFont, yOffset)
     }
 }
 
@@ -100,4 +102,21 @@ class FilterBandControlsButtonCell: ModalDialogButtonCell {
     
     override var backgroundFillGradient: NSGradient {return Colors.textButtonMenuGradient}
     override var backgroundFillGradient_disabled: NSGradient {return Colors.textButtonMenuGradient}
+
+    override var yOffset: CGFloat {
+        
+        if isOff {
+            return -1
+        }
+        
+        switch EffectsViewState.textSize {
+            
+        case .normal:   return -1
+            
+        case .larger:   return -1
+            
+        case .largest:  return -2
+            
+        }
+    }
 }

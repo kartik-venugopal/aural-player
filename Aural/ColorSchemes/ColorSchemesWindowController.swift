@@ -47,6 +47,8 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate {
     }
     
     @IBAction func doneAction(_ sender: Any) {
+        
+        NSColorPanel.shared.close()
         UIUtils.dismissDialog(self.window!)
     }
 }

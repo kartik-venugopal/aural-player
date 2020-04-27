@@ -309,6 +309,10 @@ struct Colors {
             }
         }
         
+        static var sliderTickColor: NSColor {
+            return ColorSchemes.systemScheme.effects.sliderTickColor
+        }
+        
         static var activeUnitStateColor: NSColor {
             return ColorSchemes.systemScheme.effects.activeUnitStateColor
         }

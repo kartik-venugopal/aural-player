@@ -54,10 +54,10 @@ class TickedSliderCell: HorizontalSliderCell {
 class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 2}
-    override var knobWidth: CGFloat {return 6}
-    override var knobRadius: CGFloat {return 1.5}
-    override var knobHeightOutsideBar: CGFloat {return 4.5}
+    override var barInsetY: CGFloat {return 1.85}
+    override var knobWidth: CGFloat {return 8}
+    override var knobRadius: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 3}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -112,6 +112,8 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     override var knobColor: NSColor {
         return Colors.Effects.sliderKnobColorForState(self.unitState)
     }
+    
+    override var tickColor: NSColor {return Colors.Effects.sliderTickColor}
     
     override var tickVerticalSpacing: CGFloat {return 1}
     
