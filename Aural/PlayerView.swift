@@ -306,7 +306,7 @@ class ExpandedArtPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         hideViews(controlsBox, overlayBox)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
         
         let windowColor = Colors.windowBackgroundColor
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
@@ -381,7 +381,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Show info box as overlay temporarily
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override func clearNowPlayingInfo() {
@@ -396,13 +396,13 @@ class ExpandedArtPlayerView: PlayerView {
     override fileprivate func showPlayingTrackInfo() {
         
         super.showPlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override func showOrHidePlayingTrackInfo() {
         
         super.showOrHidePlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide(infoBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override var needsMouseTracking: Bool {
