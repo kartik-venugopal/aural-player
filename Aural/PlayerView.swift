@@ -216,8 +216,8 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 80, y: 95) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 80, y: 67)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 85, y: 95) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 85, y: 67)
     
     override func showView(_ playbackState: PlaybackState) {
         

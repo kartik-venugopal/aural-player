@@ -65,9 +65,9 @@ class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 0}
     override var barInsetY: CGFloat {return 2}
-    override var knobWidth: CGFloat {return 8}
+    override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     override func knobRect(flipped: Bool) -> NSRect {
         
@@ -99,9 +99,9 @@ class SeekSliderCell: HorizontalSliderCell {
     override var barRadius: CGFloat {return 1}
     override var barInsetY: CGFloat {return 2}
     
-    override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 10}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var knobRadius: CGFloat {return 1.5}
+    override var knobWidth: CGFloat {return 6}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     var loop: PlaybackLoopRange?
     
