@@ -18,8 +18,11 @@ struct Colors {
         static let white40Percent: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
         static let white45Percent: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
         static let white50Percent: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+        static let white55Percent: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
         static let white60Percent: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+        static let white65Percent: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
         static let white70Percent: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+        static let white75Percent: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
         static let white80Percent: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
         static let white85Percent: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
         static let white90Percent: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
@@ -442,7 +445,9 @@ struct Colors {
     
     static let fxFunctionPopupMenuTextColor: NSColor = Constants.white60Percent
     
-    static let filterChartTextColor: NSColor = Constants.white85Percent
+    static var filterChartTextColor: NSColor {
+        return Effects.functionValueTextColor
+    }
     
     static let editorHeaderTextColor: NSColor = Constants.white85Percent
     

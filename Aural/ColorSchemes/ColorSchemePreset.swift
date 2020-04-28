@@ -25,7 +25,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white80Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
             
         case .whiteBackgroundBlackForeground:  return NSColor.black
             
@@ -36,9 +36,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return NSColor.black
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white10Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white80Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white90Percent
             
         }
     }
@@ -47,7 +47,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
         case .whiteBackgroundBlackForeground:  return NSColor.black
             
@@ -58,7 +58,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
         case .whiteBackgroundBlackForeground:  return NSColor.black
             
@@ -69,9 +69,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white30Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.black
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white60Percent
             
         }
     }
@@ -80,9 +80,20 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white20Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white30Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white60Percent
+            
+        }
+    }
+    
+    var mainCaptionTextColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white45Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white40Percent
             
         }
     }
@@ -91,9 +102,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white80Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+        case .whiteBackgroundBlackForeground:  return NSColor.white
             
         }
     }
@@ -104,7 +115,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white75Percent
             
         }
     }
@@ -113,9 +124,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white15Percent
             
         }
     }
@@ -124,9 +135,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white80Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -137,9 +148,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -159,9 +170,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
         }
     }
@@ -172,7 +183,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.darkGray
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white20Percent
             
         }
     }
@@ -181,9 +192,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white65Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.darkGray
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -194,22 +205,22 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return .darken
             
-        case .whiteBackgroundBlackForeground:  return .brighten
+        case .whiteBackgroundBlackForeground:  return .none
             
         }
     }
     
     var playerSliderForegroundGradientAmount: Int {
-        return 40
+        return 20
     }
     
     var playerSliderBackgroundColor: NSColor {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white20Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white30Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white50Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white55Percent
             
         }
     }
@@ -220,22 +231,22 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return .brighten
             
-        case .whiteBackgroundBlackForeground:  return .darken
+        case .whiteBackgroundBlackForeground:  return .none
             
         }
     }
     
     var playerSliderBackgroundGradientAmount: Int {
-        return 40
+        return 20
     }
     
     var playerSliderKnobColor: NSColor {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white65Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.darkGray
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -261,7 +272,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white20Percent
             
@@ -272,7 +283,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
@@ -285,7 +296,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white40Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white60Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white45Percent
             
         }
     }
@@ -294,7 +305,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return NSColor.white
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white90Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white10Percent
             
@@ -305,9 +316,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white80Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white20Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white25Percent
             
         }
     }
@@ -318,56 +329,12 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white20Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
         }
     }
     
     var playlistGroupIconColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white50Percent
-            
-        }
-    }
-    
-    var playlistGroupDisclosureTriangleColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white40Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white60Percent
-            
-        }
-    }
-    
-    var playlistSelectionBoxColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
-            
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
-            
-        }
-    }
-    
-    var playlistPlayingTrackIconColor: NSColor {
-        
-        switch self {
-            
-        case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
-            
-        case .whiteBackgroundBlackForeground:  return NSColor(red: 0, green: 0.425, blue: 0, alpha: 1)
-            
-        }
-    }
-    
-    var playlistSummaryInfoColor: NSColor {
         
         switch self {
             
@@ -378,26 +345,59 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    // Effects color scheme ------------------------------------------------------------------------------------------------------------------------------
+    var playlistGroupDisclosureTriangleColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white40Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white50Percent
+            
+        }
+    }
     
-    var mainCaptionTextColor: NSColor {
+    var playlistSelectionBoxColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white15Percent
+            
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white75Percent
+            
+        }
+    }
+    
+    var playlistPlayingTrackIconColor: NSColor {
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
+            
+        case .whiteBackgroundBlackForeground:  return NSColor.black
+            
+        }
+    }
+    
+    var playlistSummaryInfoColor: NSColor {
         
         switch self {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white15Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
         }
     }
+    
+    // Effects color scheme ------------------------------------------------------------------------------------------------------------------------------
     
     var effectsFunctionCaptionTextColor: NSColor {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white40Percent
             
         }
     }
@@ -406,9 +406,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white70Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white15Percent
             
         }
     }
@@ -417,7 +417,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white40Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white30Percent
             
         case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
             
@@ -436,7 +436,7 @@ enum ColorSchemePreset: String, CaseIterable {
     }
     
     var effectsSliderBackgroundGradientAmount: Int {
-        return 40
+        return 20
     }
     
     var effectsSliderKnobColor: NSColor {
@@ -445,7 +445,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return NSColor.darkGray
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -471,7 +471,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+        case .whiteBackgroundBlackForeground:  return NSColor.black
             
         }
     }
@@ -480,9 +480,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackBackgroundWhiteForeground:  return Colors.Constants.white60Percent
+        case .blackBackgroundWhiteForeground:  return Colors.Constants.white50Percent
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white50Percent
             
         }
     }
@@ -493,7 +493,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackBackgroundWhiteForeground:  return NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
             
-        case .whiteBackgroundBlackForeground:  return Colors.Constants.white70Percent
+        case .whiteBackgroundBlackForeground:  return Colors.Constants.white30Percent
             
         }
     }
@@ -510,7 +510,14 @@ enum ColorSchemePreset: String, CaseIterable {
     }
     
     var effectsSliderForegroundGradientAmount: Int {
-        return 40
+        
+        switch self {
+            
+        case .blackBackgroundWhiteForeground:  return 70
+            
+        case .whiteBackgroundBlackForeground:  return 40
+            
+        }
     }
     
 }

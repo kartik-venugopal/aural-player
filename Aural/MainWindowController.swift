@@ -23,11 +23,9 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
-    @IBOutlet weak var btnLayout: NSPopUpButton!
-    @IBOutlet weak var btnViewMenu: NSPopUpButton!
+    @IBOutlet weak var btnSettingsMenu: NSPopUpButton!
     
-    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
-    @IBOutlet weak var layoutMenuIconItem: TintedIconMenuItem!
+    @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
     
     private var eventMonitor: Any?
     
@@ -148,9 +146,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     }
     
     private func changeTextSize() {
-        
-        btnLayout.font = Fonts.Player.menuFont
-        btnViewMenu.font = Fonts.Player.menuFont
+        btnSettingsMenu.font = Fonts.Player.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -164,15 +160,14 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func changeBackgroundColor(_ color: NSColor) {
         
         rootContainerBox.fillColor = color
-//        rootContainerBox.fillColor = NSColor.white
-        
+
         containerBox.fillColor = color
         containerBox.isTransparent = !color.isOpaque
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects, viewMenuIconItem, layoutMenuIconItem].forEach({
+        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }

@@ -18,7 +18,7 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
         
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -38,11 +38,17 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
             case .changeBackgroundColor:
 
                 changeBackgroundColor(colorSchemeMsg.color)
-
+                
             default: return
 
             }
             
+            return
+        }
+        
+        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            
+            changeBackgroundColor(colorSchemeMsg.scheme.general.backgroundColor)
             return
         }
     }
