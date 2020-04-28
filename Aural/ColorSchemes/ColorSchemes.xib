@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ColorSchemesWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnSave" destination="u68-92-4SC" id="jKj-ZN-3bz"/>
                 <outlet property="tabView" destination="RoW-as-iiX" id="Ojx-ql-h92"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4TI-KA-rcz"/>
             </connections>
@@ -39,7 +40,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" identifier="" id="eRy-ia-DBE" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" id="iqw-TM-gAQ">
+                                <view key="view" ambiguous="YES" id="iqw-TM-gAQ">
                                     <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -66,7 +67,7 @@
                                 </connections>
                             </tabViewItem>
                             <tabViewItem label="Effects" identifier="" id="4Wa-HM-K1I" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
-                                <view key="view" ambiguous="YES" id="lgR-54-JSy">
+                                <view key="view" id="lgR-54-JSy">
                                     <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -117,6 +118,17 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u68-92-4SC" userLabel="Save button">
+                        <rect key="frame" x="279" y="10" width="124" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Save color scheme" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yfR-7G-VQI" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Play-Regular"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="saveSchemeAction:" target="-2" id="upo-FD-e9E"/>
+                        </connections>
+                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vto-5b-gSA" userLabel="Done button">
                         <rect key="frame" x="412" y="10" width="60" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

@@ -406,7 +406,7 @@ extension NSColor {
             
         case .gray: return NSColor(calibratedWhite: self.whiteComponent, alpha: alpha)
             
-        case .rgb:  return NSColor(calibratedRed: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
+        case .rgb:  return NSColor(red: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
             
         case .cmyk: return NSColor(deviceCyan: self.cyanComponent, magenta: self.magentaComponent, yellow: self.yellowComponent, black: self.blackComponent, alpha: alpha)
             

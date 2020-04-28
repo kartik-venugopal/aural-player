@@ -39,16 +39,24 @@ class ColorSchemesState: PersistentState {
 
 class ColorSchemeState: PersistentState {
     
+    var name: String
+    
     var general: GeneralColorSchemeState
     var player: PlayerColorSchemeState
     var playlist: PlaylistColorSchemeState
     var effects: EffectsColorSchemeState
     
     convenience init() {
-        self.init(ColorSchemes.systemScheme)
+        self.init("", ColorSchemes.systemScheme)
     }
     
-    init(_ scheme: ColorScheme) {
+    convenience init(_ name: String) {
+        self.init(name, ColorSchemes.systemScheme)
+    }
+    
+    init(_ name: String, _ scheme: ColorScheme) {
+        
+        self.name = name
         
         self.general = GeneralColorSchemeState(scheme.general)
         self.player = PlayerColorSchemeState(scheme.player)
@@ -59,6 +67,10 @@ class ColorSchemeState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = ColorSchemeState()
+        
+        if let name = map["name"] as? String {
+            state.name = name
+        }
         
         if let dict = map["general"] as? NSDictionary, let generalState = GeneralColorSchemeState.deserialize(dict) as? GeneralColorSchemeState {
             state.general = generalState

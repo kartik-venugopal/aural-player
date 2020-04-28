@@ -47,6 +47,25 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         scrollToTop()
     }
     
+    func saveToScheme(_ scheme: ColorScheme) {
+        
+        scheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
+        scheme.playlist.groupNameTextColor = groupNameTextColorPicker.color
+        scheme.playlist.indexDurationTextColor = indexDurationTextColorPicker.color
+        
+        scheme.playlist.trackNameSelectedTextColor = trackNameSelectedTextColorPicker.color
+        scheme.playlist.groupNameSelectedTextColor = groupNameSelectedTextColorPicker.color
+        scheme.playlist.indexDurationSelectedTextColor = indexDurationSelectedTextColorPicker.color
+        
+        scheme.playlist.summaryInfoColor = summaryInfoColorPicker.color
+        
+        scheme.playlist.groupIconColor = groupIconColorPicker.color
+        scheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
+        
+        scheme.playlist.selectionBoxColor = selectionBoxColorPicker.color
+        scheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
+    }
+    
     private func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView

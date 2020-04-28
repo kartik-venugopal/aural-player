@@ -50,7 +50,7 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         btnSliderBackgroundGradientBrighten.onIf(scheme.effects.sliderBackgroundGradientType == .brighten)
         
         sliderBackgroundGradientAmountStepper.enableIf(btnSliderBackgroundGradientEnabled.isOn)
-        sliderBackgroundGradientAmountStepper.integerValue = ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount
+        sliderBackgroundGradientAmountStepper.integerValue = scheme.effects.sliderBackgroundGradientAmount
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
         btnSliderForegroundGradientEnabled.onIf(scheme.effects.sliderForegroundGradientType != .none)
@@ -62,7 +62,7 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         btnSliderForegroundGradientBrighten.onIf(scheme.effects.sliderForegroundGradientType == .brighten)
         
         sliderForegroundGradientAmountStepper.enableIf(btnSliderForegroundGradientEnabled.isOn)
-        sliderForegroundGradientAmountStepper.integerValue = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+        sliderForegroundGradientAmountStepper.integerValue = scheme.effects.sliderForegroundGradientAmount
         lblSliderForegroundGradientAmount.stringValue = String(format: "%d%%", sliderForegroundGradientAmountStepper.integerValue)
         
         sliderKnobColorPicker.color = scheme.effects.sliderKnobColor
@@ -75,6 +75,28 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         suppressedUnitStateColorPicker.color = scheme.effects.suppressedUnitStateColor
         
         scrollToTop()
+    }
+    
+    func saveToScheme(_ scheme: ColorScheme) {
+        
+        scheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
+        scheme.effects.functionValueTextColor = functionValueTextColorPicker.color
+        
+        scheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
+        scheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientEnabled.isOff ? .none : (btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten)
+        scheme.effects.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
+        
+        scheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientEnabled.isOff ? .none : (btnSliderForegroundGradientDarken.isOn ? .darken : .brighten)
+        scheme.effects.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
+        
+        scheme.effects.sliderKnobColor = sliderKnobColorPicker.color
+        scheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        
+        scheme.effects.sliderTickColor = sliderTickColorPicker.color
+        
+        scheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
+        scheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
+        scheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
     }
     
     private func scrollToTop() {

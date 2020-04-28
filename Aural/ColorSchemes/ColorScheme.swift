@@ -10,7 +10,7 @@ class ColorScheme {
     var effects: EffectsColorScheme
     
     func toString() -> String {
-        return String(describing: JSONMapper.map(ColorSchemeState(self)))
+        return String(describing: JSONMapper.map(ColorSchemeState(self.name, self)))
     }
     
     let systemDefined: Bool
@@ -43,14 +43,22 @@ class ColorScheme {
     
     func applyPreset(_ preset: ColorSchemePreset) {
         
-        self.general = GeneralColorScheme(preset)
-        self.player = PlayerColorScheme(preset)
-        self.playlist = PlaylistColorScheme(preset)
-        self.effects = EffectsColorScheme(preset)
+        self.general.applyPreset(preset)
+        self.player.applyPreset(preset)
+        self.playlist.applyPreset(preset)
+        self.effects.applyPreset(preset)
+    }
+    
+    func applyScheme(_ scheme: ColorScheme) {
+        
+        self.general.applyScheme(scheme.general)
+        self.player.applyScheme(scheme.player)
+        self.playlist.applyScheme(scheme.playlist)
+        self.effects.applyScheme(scheme.effects)
     }
     
     var persistentState: ColorSchemeState {
-        return ColorSchemeState(self)
+        return ColorSchemeState(self.name, self)
     }
 }
 
@@ -86,6 +94,10 @@ class GeneralColorScheme {
         self.selectedTabButtonTextColor = appState.selectedTabButtonTextColor.toColor()
         self.buttonMenuTextColor = appState.buttonMenuTextColor.toColor()
     }
+    
+    convenience init() {
+        self.init(ColorSchemePreset.defaultScheme)
+    }
    
     init(_ preset: ColorSchemePreset) {
         
@@ -119,6 +131,44 @@ class GeneralColorScheme {
         self.tabButtonTextColor = preset.tabButtonTextColor
         self.selectedTabButtonTextColor = preset.selectedTabButtonTextColor
         self.buttonMenuTextColor = preset.buttonMenuTextColor
+    }
+    
+    func applyScheme(_ scheme: GeneralColorScheme) {
+        
+        self.appLogoColor = scheme.appLogoColor
+        self.backgroundColor = scheme.backgroundColor
+        
+        self.viewControlButtonColor = scheme.viewControlButtonColor
+        self.functionButtonColor = scheme.functionButtonColor
+        self.textButtonMenuColor = scheme.textButtonMenuColor
+        self.toggleButtonOffStateColor = scheme.toggleButtonOffStateColor
+        self.selectedTabButtonColor = scheme.selectedTabButtonColor
+        
+        self.mainCaptionTextColor = scheme.mainCaptionTextColor
+        self.tabButtonTextColor = scheme.tabButtonTextColor
+        self.selectedTabButtonTextColor = scheme.selectedTabButtonTextColor
+        self.buttonMenuTextColor = scheme.buttonMenuTextColor
+    }
+    
+    func clone() -> GeneralColorScheme {
+        
+        let copy = GeneralColorScheme()
+        
+        copy.appLogoColor = self.appLogoColor
+        copy.backgroundColor = self.backgroundColor
+        
+        copy.viewControlButtonColor = self.viewControlButtonColor
+        copy.functionButtonColor = self.functionButtonColor
+        copy.textButtonMenuColor = self.textButtonMenuColor
+        copy.toggleButtonOffStateColor = self.toggleButtonOffStateColor
+        copy.selectedTabButtonColor = self.selectedTabButtonColor
+        
+        copy.mainCaptionTextColor = self.mainCaptionTextColor
+        copy.tabButtonTextColor = self.tabButtonTextColor
+        copy.selectedTabButtonTextColor = self.selectedTabButtonTextColor
+        copy.buttonMenuTextColor = self.buttonMenuTextColor
+        
+        return copy
     }
     
     var persistentState: GeneralColorSchemeState {
@@ -201,6 +251,10 @@ class PlayerColorScheme {
         self.sliderLoopSegmentColor = appState.sliderLoopSegmentColor.toColor()
     }
     
+    convenience init() {
+        self.init(ColorSchemePreset.defaultScheme)
+    }
+    
     init(_ preset: ColorSchemePreset) {
         
         self.trackInfoPrimaryTextColor = preset.playerTrackInfoPrimaryTextColor
@@ -237,9 +291,54 @@ class PlayerColorScheme {
         self.sliderForegroundGradientAmount = preset.playerSliderForegroundGradientAmount
         
         self.sliderKnobColor = preset.playerSliderKnobColor
+        self.sliderKnobColorSameAsForeground = preset.playerSliderKnobColorSameAsForeground
         self.sliderLoopSegmentColor = preset.playerSliderLoopSegmentColor
     }
     
+    func applyScheme(_ scheme: PlayerColorScheme) {
+
+        self.trackInfoPrimaryTextColor = scheme.trackInfoPrimaryTextColor
+        self.trackInfoSecondaryTextColor = scheme.trackInfoSecondaryTextColor
+        self.trackInfoTertiaryTextColor = scheme.trackInfoTertiaryTextColor
+        self.sliderValueTextColor = scheme.sliderValueTextColor
+        
+        self.sliderBackgroundColor = scheme.sliderBackgroundColor
+        self.sliderBackgroundGradientType = scheme.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = scheme.sliderBackgroundGradientAmount
+        
+        self.sliderForegroundColor = scheme.sliderForegroundColor
+        self.sliderForegroundGradientType = scheme.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = scheme.sliderForegroundGradientAmount
+        
+        self.sliderKnobColor = scheme.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
+        self.sliderLoopSegmentColor = scheme.sliderLoopSegmentColor
+    }
+    
+    func clone() -> PlayerColorScheme {
+        
+        let copy = PlayerColorScheme()
+        
+        copy.trackInfoPrimaryTextColor = self.trackInfoPrimaryTextColor
+        copy.trackInfoSecondaryTextColor = self.trackInfoSecondaryTextColor
+        copy.trackInfoTertiaryTextColor = self.trackInfoTertiaryTextColor
+        copy.sliderValueTextColor = self.sliderValueTextColor
+        
+        copy.sliderBackgroundColor = self.sliderBackgroundColor
+        copy.sliderBackgroundGradientType = self.sliderBackgroundGradientType
+        copy.sliderBackgroundGradientAmount = self.sliderBackgroundGradientAmount
+        
+        copy.sliderForegroundColor = self.sliderForegroundColor
+        copy.sliderForegroundGradientType = self.sliderForegroundGradientType
+        copy.sliderForegroundGradientAmount = self.sliderForegroundGradientAmount
+        
+        copy.sliderKnobColor = self.sliderKnobColor
+        copy.sliderKnobColorSameAsForeground = self.sliderKnobColorSameAsForeground
+        copy.sliderLoopSegmentColor = self.sliderLoopSegmentColor
+        
+        return copy
+    }
+
     var persistentState: PlayerColorSchemeState {
         return PlayerColorSchemeState(self)
     }
@@ -282,6 +381,10 @@ class PlaylistColorScheme {
         self.groupDisclosureTriangleColor = appState.groupDisclosureTriangleColor.toColor()
     }
     
+    convenience init() {
+        self.init(ColorSchemePreset.defaultScheme)
+    }
+    
     init(_ preset: ColorSchemePreset) {
         
         self.trackNameTextColor = preset.playlistTrackNameTextColor
@@ -318,6 +421,48 @@ class PlaylistColorScheme {
         
         self.groupIconColor = preset.playlistGroupIconColor
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
+    }
+    
+    func applyScheme(_ scheme: PlaylistColorScheme) {
+        
+        self.trackNameTextColor = scheme.trackNameTextColor
+        self.groupNameTextColor = scheme.groupNameTextColor
+        self.indexDurationTextColor = scheme.indexDurationTextColor
+        
+        self.trackNameSelectedTextColor = scheme.trackNameSelectedTextColor
+        self.groupNameSelectedTextColor = scheme.groupNameSelectedTextColor
+        self.indexDurationSelectedTextColor = scheme.indexDurationSelectedTextColor
+        
+        self.summaryInfoColor = scheme.summaryInfoColor
+        
+        self.selectionBoxColor = scheme.selectionBoxColor
+        self.playingTrackIconColor = scheme.playingTrackIconColor
+        
+        self.groupIconColor = scheme.groupIconColor
+        self.groupDisclosureTriangleColor = scheme.groupDisclosureTriangleColor
+    }
+    
+    func clone() -> PlaylistColorScheme {
+        
+        let copy = PlaylistColorScheme()
+        
+        copy.trackNameTextColor = self.trackNameTextColor
+        copy.groupNameTextColor = self.groupNameTextColor
+        copy.indexDurationTextColor = self.indexDurationTextColor
+        
+        copy.trackNameSelectedTextColor = self.trackNameSelectedTextColor
+        copy.groupNameSelectedTextColor = self.groupNameSelectedTextColor
+        copy.indexDurationSelectedTextColor = self.indexDurationSelectedTextColor
+        
+        copy.summaryInfoColor = self.summaryInfoColor
+        
+        copy.selectionBoxColor = self.selectionBoxColor
+        copy.playingTrackIconColor = self.playingTrackIconColor
+        
+        copy.groupIconColor = self.groupIconColor
+        copy.groupDisclosureTriangleColor = self.groupDisclosureTriangleColor
+        
+        return copy
     }
     
     var persistentState: PlaylistColorSchemeState {
@@ -368,6 +513,10 @@ class EffectsColorScheme {
         self.suppressedUnitStateColor = appState.suppressedUnitStateColor.toColor()
     }
     
+    convenience init() {
+        self.init(ColorSchemePreset.defaultScheme)
+    }
+    
     init(_ preset: ColorSchemePreset) {
         
         self.functionCaptionTextColor = preset.effectsFunctionCaptionTextColor
@@ -410,6 +559,54 @@ class EffectsColorScheme {
         self.activeUnitStateColor = preset.effectsActiveUnitStateColor
         self.bypassedUnitStateColor = preset.effectsBypassedUnitStateColor
         self.suppressedUnitStateColor = preset.effectsSuppressedUnitStateColor
+    }
+    
+    func applyScheme(_ scheme: EffectsColorScheme) {
+        
+        self.functionCaptionTextColor = scheme.functionCaptionTextColor
+        self.functionValueTextColor = scheme.functionValueTextColor
+        
+        self.sliderBackgroundColor = scheme.sliderBackgroundColor
+        self.sliderBackgroundGradientType = scheme.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = scheme.sliderBackgroundGradientAmount
+        
+        self.sliderForegroundGradientType = scheme.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = scheme.sliderForegroundGradientAmount
+        
+        self.sliderKnobColor = scheme.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = scheme.sliderKnobColorSameAsForeground
+        
+        self.sliderTickColor = scheme.sliderTickColor
+        
+        self.activeUnitStateColor = scheme.activeUnitStateColor
+        self.bypassedUnitStateColor = scheme.bypassedUnitStateColor
+        self.suppressedUnitStateColor = scheme.suppressedUnitStateColor
+    }
+    
+    func clone() -> EffectsColorScheme {
+        
+        let copy = EffectsColorScheme()
+        
+        copy.functionCaptionTextColor = self.functionCaptionTextColor
+        copy.functionValueTextColor = self.functionValueTextColor
+        
+        copy.sliderBackgroundColor = self.sliderBackgroundColor
+        copy.sliderBackgroundGradientType = self.sliderBackgroundGradientType
+        copy.sliderBackgroundGradientAmount = self.sliderBackgroundGradientAmount
+        
+        copy.sliderForegroundGradientType = self.sliderForegroundGradientType
+        copy.sliderForegroundGradientAmount = self.sliderForegroundGradientAmount
+        
+        copy.sliderKnobColor = self.sliderKnobColor
+        copy.sliderKnobColorSameAsForeground = self.sliderKnobColorSameAsForeground
+        
+        copy.sliderTickColor = self.sliderTickColor
+        
+        copy.activeUnitStateColor = self.activeUnitStateColor
+        copy.bypassedUnitStateColor = self.bypassedUnitStateColor
+        copy.suppressedUnitStateColor = self.suppressedUnitStateColor
+        
+        return copy
     }
     
     var persistentState: EffectsColorSchemeState {

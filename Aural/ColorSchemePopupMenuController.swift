@@ -23,9 +23,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
-        if let scheme = ColorSchemes.schemeByName(sender.title) {
-            
-            ColorSchemes.systemScheme = scheme
+        if let scheme = ColorSchemes.applyScheme(sender.title) {
             SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
         }
     }

@@ -733,7 +733,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         changeBackgroundColor(scheme.general.backgroundColor)
         
         if mustReloadRows {
+            
+            let selRows = playlistView.selectedRowIndexes
             playlistView.reloadData()
+            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
         }
     }
     

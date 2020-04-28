@@ -58,6 +58,7 @@ class ReverbViewController: FXUnitViewController {
     }
     
     override func changeTextSize() {
+        
         super.changeTextSize()
         reverbView.changeTextSize()
     }
@@ -65,7 +66,9 @@ class ReverbViewController: FXUnitViewController {
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
+        
         changeSliderColor()
+        reverbView.redrawMenu()
     }
     
     func changeSliderColor() {
