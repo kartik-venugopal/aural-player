@@ -10,6 +10,19 @@ enum ColorSchemePreset: String, CaseIterable {
         return blackAttack
     }
     
+    static func presetByName(_ name: String) -> ColorSchemePreset? {
+        
+        switch name {
+            
+        case ColorSchemePreset.blackAttack.name:    return .blackAttack
+            
+        case ColorSchemePreset.whiteBlight.name:    return .whiteBlight
+            
+        default:    return nil
+            
+        }
+    }
+    
     var name: String {
         
         switch self {
@@ -279,7 +292,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white60Percent
+        case .blackAttack:  return Colors.Constants.white50Percent
             
         case .whiteBlight:  return Colors.Constants.white20Percent
             
@@ -290,7 +303,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white50Percent
+        case .blackAttack:  return Colors.Constants.white40Percent
             
         case .whiteBlight:  return Colors.Constants.white30Percent
             
@@ -301,7 +314,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white40Percent
+        case .blackAttack:  return Colors.Constants.white30Percent
             
         case .whiteBlight:  return Colors.Constants.white45Percent
             
@@ -312,7 +325,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white90Percent
+        case .blackAttack:  return Colors.Constants.white80Percent
             
         case .whiteBlight:  return Colors.Constants.white10Percent
             
@@ -323,7 +336,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white70Percent
+        case .blackAttack:  return Colors.Constants.white55Percent
             
         case .whiteBlight:  return Colors.Constants.white25Percent
             
@@ -334,7 +347,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white60Percent
+        case .blackAttack:  return Colors.Constants.white50Percent
             
         case .whiteBlight:  return Colors.Constants.white30Percent
             

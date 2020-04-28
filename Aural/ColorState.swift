@@ -118,7 +118,7 @@ class RGBColorState: ColorState {
     }
     
     override func toColor() -> NSColor {
-        return NSColor(calibratedRed: red, green: green, blue: blue, alpha: alpha)
+        return NSColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
     static func fromMap(_ map: NSDictionary) -> RGBColorState {

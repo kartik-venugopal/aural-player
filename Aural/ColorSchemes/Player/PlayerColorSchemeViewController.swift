@@ -53,7 +53,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         btnSliderBackgroundGradientBrighten.onIf(scheme.player.sliderBackgroundGradientType == .brighten)
         
         sliderBackgroundGradientAmountStepper.enableIf(btnSliderBackgroundGradientEnabled.isOn)
-        sliderBackgroundGradientAmountStepper.integerValue = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+        sliderBackgroundGradientAmountStepper.integerValue = scheme.player.sliderBackgroundGradientAmount
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
         sliderForegroundColorPicker.color = scheme.player.sliderForegroundColor
@@ -67,7 +67,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         btnSliderForegroundGradientBrighten.onIf(scheme.player.sliderForegroundGradientType == .brighten)
         
         sliderForegroundGradientAmountStepper.enableIf(btnSliderForegroundGradientEnabled.isOn)
-        sliderForegroundGradientAmountStepper.integerValue = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
+        sliderForegroundGradientAmountStepper.integerValue = scheme.player.sliderForegroundGradientAmount
         lblSliderForegroundGradientAmount.stringValue = String(format: "%d%%", sliderForegroundGradientAmountStepper.integerValue)
         
         sliderKnobColorPicker.color = scheme.player.sliderKnobColor
@@ -75,6 +75,27 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         sliderLoopSegmentColorPicker.color = scheme.player.sliderLoopSegmentColor
         
         scrollToTop()
+    }
+    
+    func saveToScheme(_ scheme: ColorScheme) {
+        
+        scheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
+        scheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
+        scheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
+        scheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
+        
+        scheme.player.sliderForegroundColor = sliderForegroundColorPicker.color
+        scheme.player.sliderForegroundGradientType = btnSliderForegroundGradientEnabled.isOff ? .none : (btnSliderForegroundGradientDarken.isOn ? .darken : .brighten)
+        scheme.player.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
+        
+        scheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
+        scheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientEnabled.isOff ? .none : (btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten)
+        scheme.player.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
+        
+        scheme.player.sliderKnobColor = sliderKnobColorPicker.color
+        scheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        
+        scheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
     }
     
     private func scrollToTop() {

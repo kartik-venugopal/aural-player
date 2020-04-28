@@ -585,7 +585,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         changeBackgroundColor(scheme.general.backgroundColor)
         
         if mustReloadRows {
+            
+            let selRows = playlistView.selectedRowIndexes
             playlistView.reloadData()
+            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
         }
     }
     

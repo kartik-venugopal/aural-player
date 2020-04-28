@@ -43,6 +43,23 @@ class GeneralColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         scrollToTop()
     }
     
+    func saveToScheme(_ scheme: ColorScheme) {
+        
+        scheme.general.appLogoColor = appLogoColorPicker.color
+        scheme.general.backgroundColor = backgroundColorPicker.color
+        
+        scheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
+        scheme.general.functionButtonColor = functionButtonColorPicker.color
+        scheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
+        scheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
+        scheme.general.selectedTabButtonColor = selectedTabButtonColorPicker.color
+        
+        scheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
+        scheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
+        scheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
+        scheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
+    }
+    
     private func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView
