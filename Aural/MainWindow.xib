@@ -410,7 +410,7 @@
                                                     <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
                                                         <items>
                                                             <menuItem isSeparatorItem="YES" id="GtB-hU-uN6"/>
-                                                            <menuItem title="Black attack (default)" id="e6H-rX-5qX">
+                                                            <menuItem title="Dark mode (default)" id="e6H-rX-5qX">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="OfO-xx-SNw"/>

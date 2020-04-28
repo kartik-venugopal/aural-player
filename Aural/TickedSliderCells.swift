@@ -55,9 +55,9 @@ class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 0}
     override var barInsetY: CGFloat {return 1.85}
-    override var knobWidth: CGFloat {return 8}
+    override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 3}
+    override var knobHeightOutsideBar: CGFloat {return 4}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
