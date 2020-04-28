@@ -34,7 +34,7 @@ class FilterChart: NSView {
         let scale: CGFloat = width / 3
         let bottomMargin: CGFloat = 5
         
-        let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height)
+        let frameRect: NSRect = NSRect(x: offset, y: bottomMargin, width: width, height: height / 2)
         
         drawPath = NSBezierPath.init(rect: frameRect)
         NSColor.lightGray.setStroke()
@@ -61,7 +61,7 @@ class FilterChart: NSView {
                 
                 let col = unitState == .active ? (band.type == .bandStop ? bandStopGradient : bandPassGradient) : inactiveUnitGradient
                 
-                let brect = NSRect(x: rx1, y: bottomMargin + 1, width: rx2 - rx1, height: height - 2)
+                let brect = NSRect(x: rx1, y: bottomMargin + 1, width: rx2 - rx1, height: (height / 2) - 2)
                 drawPath = NSBezierPath.init(rect: brect)
                 
                 col.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
@@ -75,13 +75,13 @@ class FilterChart: NSView {
                 
                 if unitState == .active {
                 
-                    GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                     
-                    GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                     
                 } else {
                     
-                    GraphicsUtils.drawVerticalLine(inactiveUnitGradient, pt1: NSPoint(x: rx, y: bottomMargin + 1), pt2: NSPoint(x: rx, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(inactiveUnitGradient, pt1: NSPoint(x: rx, y: bottomMargin + 1), pt2: NSPoint(x: rx, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                 }
                 
             case .highPass:
@@ -93,13 +93,13 @@ class FilterChart: NSView {
                 
                 if unitState == .active {
                     
-                    GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx - lineWidth / 2, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                     
-                    GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + 1), pt2: NSPoint(x: rx + lineWidth / 2, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                     
                 } else {
                     
-                    GraphicsUtils.drawVerticalLine(inactiveUnitGradient, pt1: NSPoint(x: rx, y: bottomMargin + 1), pt2: NSPoint(x: rx, y: bottomMargin + height - 2), width: lineWidth)
+                    GraphicsUtils.drawVerticalLine(inactiveUnitGradient, pt1: NSPoint(x: rx, y: bottomMargin + 1), pt2: NSPoint(x: rx, y: bottomMargin + (height / 2) - 2), width: lineWidth)
                 }
             }
         }
@@ -114,22 +114,23 @@ class FilterChart: NSView {
             let sx = offset + x * scale
 
             var text: String
-            if Int(y) % 1000 == 0 {
-                text = String(format: "%dk", Int(y) / 1000)
+            let intY: Int = Int(y)
+            if intY % 1000 == 0 {
+                text = String(format: "%dk", intY / 1000)
             } else {
-                text = String(describing: Int(y))
+                text = String(describing: intY)
             }
             
             let tw = StringUtils.sizeOfString(text, textFont)
             let tx = offset + x * scale - tw.width / 2
             
-            let trect = NSRect(x: tx, y: bottomMargin + height / 2 - 7.5, width: tw.width + 10, height: 15)
+            let trect = NSRect(x: tx, y: bottomMargin + height / 2 + 2, width: tw.width + 10, height: 15)
             
             GraphicsUtils.drawTextInRect(trect, text, Colors.filterChartTextColor, textFont)
             
             if (sx != offset && sx != offset + width) {
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 - 5), width: 1.5)
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), pt2: NSPoint(x: sx, y: bottomMargin + height), width: 1.5)
+                
+                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), width: 1.5)
             }
         }
     }
