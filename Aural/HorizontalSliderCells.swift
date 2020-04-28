@@ -67,7 +67,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var barInsetY: CGFloat {return 2}
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
     override func knobRect(flipped: Bool) -> NSRect {
         
@@ -101,7 +101,7 @@ class SeekSliderCell: HorizontalSliderCell {
     
     override var knobRadius: CGFloat {return 1.5}
     override var knobWidth: CGFloat {return 6}
-    override var knobHeightOutsideBar: CGFloat {return 4}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
     var loop: PlaybackLoopRange?
     
@@ -164,11 +164,10 @@ class SeekSliderCell: HorizontalSliderCell {
             
             let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
             let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
-            let markerRadius: CGFloat = 0
             
             // Loop start marker
             let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
-            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
+            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: knobRadius, yRadius: knobRadius)
             Colors.Player.seekBarLoopColor.setFill()
             drawPath.fill()
             
@@ -176,7 +175,7 @@ class SeekSliderCell: HorizontalSliderCell {
             if (loop.end != nil) {
             
                 let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
-                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: markerRadius, yRadius: markerRadius)
+                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: knobRadius, yRadius: knobRadius)
                 Colors.Player.seekBarLoopColor.setFill()
                 drawPath.fill()
             }
