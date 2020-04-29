@@ -4,7 +4,9 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
     
     private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
     
-    lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    
+    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -32,6 +34,10 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
     
     @IBAction func customizeSchemeAction(_ sender: NSMenuItem) {
         _ = colorsDialog.showDialog()
+    }
+    
+    @IBAction func saveSchemeAction(_ sender: NSMenuItem) {
+        userSchemesPopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     // MARK - StringInputClient functions

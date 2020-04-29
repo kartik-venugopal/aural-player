@@ -96,7 +96,7 @@ class ChaptersListSearchNavigationButtonCell: ColoredNavigationButtonCell {
 class FilterBandControlsButtonCell: ModalDialogButtonCell {
     
     override var textColor: NSColor {return Colors.buttonMenuTextColor}
-    override var textColor_disabled: NSColor {return Colors.buttonMenuTextColor.darkened(50)}
+    override var textColor_disabled: NSColor {return Colors.buttonMenuTextColor}
     
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     
