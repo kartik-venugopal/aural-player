@@ -3,11 +3,11 @@ import Cocoa
 class ColorSchemes {
     
     static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
-    static var systemScheme: ColorScheme = ColorScheme("_system_") {
+    static var systemScheme: ColorScheme = ColorScheme("_system_", ColorSchemePreset.defaultScheme) {
         
         didSet {
             
-            // Update slider gradient cache
+            // Update seek slider gradient cache
             Colors.Player.updateSliderBackgroundColor()
             Colors.Player.updateSliderForegroundColor()
         }
@@ -15,8 +15,8 @@ class ColorSchemes {
     
     static func initialize(_ schemesState: ColorSchemesState) {
         
-        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme($0.name, $0, false)})
-        systemScheme = ColorScheme("_system_", schemesState.systemScheme, true)
+        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme($0, false)})
+        systemScheme = ColorScheme(schemesState.systemScheme, true)
     }
     
     private static var userDefinedSchemesByName: [String: ColorScheme] = [:]
@@ -35,7 +35,7 @@ class ColorSchemes {
             
             systemScheme.applyScheme(scheme)
             
-            // Update slider gradient cache
+            // Update seek slider gradient cache
             Colors.Player.updateSliderBackgroundColor()
             Colors.Player.updateSliderForegroundColor()
             
@@ -45,7 +45,7 @@ class ColorSchemes {
             
             systemScheme.applyPreset(preset)
             
-            // Update slider gradient cache
+            // Update seek slider gradient cache
             Colors.Player.updateSliderBackgroundColor()
             Colors.Player.updateSliderForegroundColor()
             
@@ -78,7 +78,12 @@ class ColorSchemes {
     }
     
     static func loadUserDefinedSchemes(_ userDefinedSchemes: [ColorScheme]) {
-        userDefinedSchemes.forEach({userDefinedSchemesByName[$0.name] = $0})
+        
+        // TODO: What if the scheme's name is empty ? Should we assign a default name ?
+        
+        userDefinedSchemes.forEach({
+            userDefinedSchemesByName[$0.name] = $0
+        })
     }
     
     // Assume preset with this name doesn't already exist
@@ -91,6 +96,6 @@ class ColorSchemes {
     }
     
     static var persistentState: ColorSchemesState {
-        return ColorSchemesState(ColorSchemeState(systemScheme.name, systemScheme), userDefinedSchemes.map {ColorSchemeState($0.name, $0)})
+        return ColorSchemesState(ColorSchemeState(systemScheme), userDefinedSchemes.map {ColorSchemeState($0)})
     }
 }

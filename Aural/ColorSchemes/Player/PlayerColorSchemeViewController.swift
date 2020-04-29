@@ -77,27 +77,6 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         scrollToTop()
     }
     
-    func saveToScheme(_ scheme: ColorScheme) {
-        
-        scheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
-        scheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
-        scheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
-        scheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
-        
-        scheme.player.sliderForegroundColor = sliderForegroundColorPicker.color
-        scheme.player.sliderForegroundGradientType = btnSliderForegroundGradientEnabled.isOff ? .none : (btnSliderForegroundGradientDarken.isOn ? .darken : .brighten)
-        scheme.player.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
-        
-        scheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        scheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientEnabled.isOff ? .none : (btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten)
-        scheme.player.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
-        
-        scheme.player.sliderKnobColor = sliderKnobColorPicker.color
-        scheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        
-        scheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
-    }
-    
     private func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView
@@ -126,12 +105,6 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
         
         ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderValueTextColor, sliderValueTextColorPicker.color))
-    }
-    
-    @IBAction func sliderBackgroundColorAction(_ sender: Any) {
-        
-        ColorSchemes.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
@@ -168,7 +141,15 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     }
     
     private func sliderForegroundChanged() {
+        
+        Colors.Player.updateSliderForegroundColor()
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
+    }
+    
+    @IBAction func sliderBackgroundColorAction(_ sender: Any) {
+        
+        ColorSchemes.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
+        sliderBackgroundChanged()
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
@@ -199,6 +180,8 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
     }
     
     private func sliderBackgroundChanged() {
+        
+        Colors.Player.updateSliderBackgroundColor()
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
     }
     

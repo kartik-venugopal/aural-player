@@ -60,6 +60,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     }
     
     // MARK - StringInputClient functions
+    // TODO: Refactor this into a ColorSchemesStringInputClient class to avoid duplication
     
     var inputPrompt: String {
         return "Enter a new color scheme name:"
@@ -73,6 +74,8 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
         
         if ColorSchemes.schemeWithNameExists(string) {
             return (false, "Color scheme with this name already exists !")
+        } else if string.trim().isEmpty {
+            return (false, "Name must have at least 1 non-whitespace character.")
         } else {
             return (true, nil)
         }
@@ -81,9 +84,8 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     // Receives a new color scheme name and saves the new scheme
     func acceptInput(_ string: String) {
         
-        let newScheme: ColorScheme = ColorScheme(string)
-        subViews.forEach({$0.saveToScheme(newScheme)})
-        
+        // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
+        let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
         ColorSchemes.addUserDefinedScheme(newScheme)
     }
     
@@ -97,6 +99,4 @@ protocol ColorSchemesViewProtocol {
     var colorSchemeView: NSView {get}
     
     func resetFields(_ scheme: ColorScheme)
-    
-    func saveToScheme(_ scheme: ColorScheme)
 }

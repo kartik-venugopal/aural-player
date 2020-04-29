@@ -77,28 +77,6 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         scrollToTop()
     }
     
-    func saveToScheme(_ scheme: ColorScheme) {
-        
-        scheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
-        scheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        
-        scheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        scheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientEnabled.isOff ? .none : (btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten)
-        scheme.effects.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
-        
-        scheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientEnabled.isOff ? .none : (btnSliderForegroundGradientDarken.isOn ? .darken : .brighten)
-        scheme.effects.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
-        
-        scheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        scheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        
-        scheme.effects.sliderTickColor = sliderTickColorPicker.color
-        
-        scheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
-        scheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
-        scheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
-    }
-    
     private func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView

@@ -321,6 +321,32 @@
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="pv0-Qz-KaU"/>
+                                                <menuItem title="Text size" id="XvL-hA-H5l">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Text size" id="hPs-cs-2mQ">
+                                                        <items>
+                                                            <menuItem title="Normal" id="Fug-3L-jpt">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="Z0r-l4-bjY"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Larger" tag="1" id="SFc-2b-iH9">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="AmU-fg-q0u"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Largest" tag="2" id="xHt-uC-Uuy">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="uMa-0W-lM7"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="2kB-OR-pRg"/>
                                                 <menuItem title="Window layout" id="tGm-Ku-PMk">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Window layout" id="yiL-Aw-PVn">
@@ -380,31 +406,13 @@
                                                         </connections>
                                                     </menu>
                                                 </menuItem>
-                                                <menuItem title="Text size" id="XvL-hA-H5l">
+                                                <menuItem title="Save current layout" id="E7X-gX-sqW" userLabel="Save current layout">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="hPs-cs-2mQ">
-                                                        <items>
-                                                            <menuItem title="Normal" id="Fug-3L-jpt">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="Z0r-l4-bjY"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="SFc-2b-iH9">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="AmU-fg-q0u"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="xHt-uC-Uuy">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="uMa-0W-lM7"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
+                                                    <connections>
+                                                        <action selector="saveWindowLayoutAction:" target="lwq-x3-5V8" id="Prk-5L-Cnr"/>
+                                                    </connections>
                                                 </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
                                                 <menuItem title="Color scheme" id="i7L-so-Yi8" userLabel="Color scheme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
@@ -434,6 +442,9 @@
                                                             <outlet property="delegate" destination="df9-sN-idv" id="51x-6G-2PM"/>
                                                         </connections>
                                                     </menu>
+                                                </menuItem>
+                                                <menuItem title="Save current scheme" id="qvE-di-9Bh" userLabel="Save current scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
                                         </menu>
