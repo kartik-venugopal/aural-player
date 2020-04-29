@@ -627,7 +627,6 @@
             <connections>
                 <outlet property="btn10Band" destination="MgN-wk-Zd9" id="KpC-5v-rSc"/>
                 <outlet property="btn15Band" destination="kzz-NF-4Ri" id="fYY-Jo-g0F"/>
-                <outlet property="btnSync" destination="10c-mW-X5a" id="i0S-jS-PfK"/>
                 <outlet property="container" destination="Wxs-Jk-OPZ" id="Bl6-m7-j11"/>
                 <outlet property="eq10BandView" destination="hpc-qo-Tbm" id="APc-aI-HcY"/>
                 <outlet property="eq15BandView" destination="32O-8O-EIn" id="ADr-Yu-xx3"/>

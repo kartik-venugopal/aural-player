@@ -18,6 +18,23 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     var unitState: EffectsUnitState = .bypassed
     
+    var foregroundGradient: NSGradient {
+    
+        switch self.unitState {
+        
+        case .active:   return Colors.Effects.activeSliderGradient
+        
+        case .bypassed: return Colors.Effects.bypassedSliderGradient
+        
+        case .suppressed:   return Colors.Effects.suppressedSliderGradient
+        
+        }
+    }
+    
+    var backgroundGradient: NSGradient {
+        return Colors.Effects.sliderBackgroundGradient
+    }
+    
     var knobColor: NSColor {
         return Colors.Effects.sliderKnobColorForState(self.unitState)
     }
@@ -59,23 +76,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         // Bottom rect
         var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: barRadius, yRadius: barRadius)
         
-        let sliderColor: NSGradient
-        
-        switch self.unitState {
-            
-        case .active:   sliderColor = Colors.Effects.activeSliderGradient
-            
-        case .bypassed: sliderColor = Colors.Effects.bypassedSliderGradient
-            
-        case .suppressed:   sliderColor = Colors.Effects.suppressedSliderGradient
-            
-        }
-        
-        sliderColor.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        foregroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Top rect
         drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: barRadius, yRadius: barRadius)
-        Colors.Effects.sliderBackgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        backgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
         let tickMinX = drawRect.minX + 1.5
