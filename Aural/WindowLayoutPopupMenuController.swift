@@ -1,8 +1,10 @@
 import Cocoa
 
-class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate {
+class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputClient {
 
     private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
+    
+    private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
 
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -24,5 +26,39 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate {
 
     @IBAction func btnLayoutAction(_ sender: NSMenuItem) {
         windowManager.layout(sender.title)
+    }
+    
+    @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
+        layoutNamePopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
+    }
+    
+    // MARK - StringInputClient functions
+    
+    var inputPrompt: String {
+        return "Enter a layout name:"
+    }
+    
+    var defaultValue: String? {
+        return "<My custom layout>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        let valid = !WindowLayouts.layoutWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "A layout with this name already exists !")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        WindowLayouts.addUserDefinedLayout(string)
+    }
+    
+    var inputFontSize: TextSize {
+        return .normal
     }
 }

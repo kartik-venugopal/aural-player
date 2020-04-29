@@ -1,8 +1,10 @@
 import Cocoa
 
-class ColorSchemePopupMenuController: NSObject, NSMenuDelegate {
+class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
+    
+    lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -30,5 +32,38 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func customizeSchemeAction(_ sender: NSMenuItem) {
         _ = colorsDialog.showDialog()
+    }
+    
+    // MARK - StringInputClient functions
+    
+    var inputPrompt: String {
+        return "Enter a new color scheme name:"
+    }
+    
+    var defaultValue: String? {
+        return "<New color scheme>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        if ColorSchemes.schemeWithNameExists(string) {
+            return (false, "Color scheme with this name already exists !")
+        } else if string.trim().isEmpty {
+            return (false, "Name must have at least 1 non-whitespace character.")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new color scheme name and saves the new scheme
+    func acceptInput(_ string: String) {
+        
+        // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
+        let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
+        ColorSchemes.addUserDefinedScheme(newScheme)
+    }
+    
+    var inputFontSize: TextSize {
+        return .normal
     }
 }

@@ -2,6 +2,17 @@ import Cocoa
 
 class ColorSchemesState: PersistentState {
 
+    var userSchemes: [ColorSchemeState] = []
+    var systemScheme: ColorSchemeState?
+    
+    init() {}
+    
+    init(_ systemScheme: ColorSchemeState, _ userSchemes: [ColorSchemeState]) {
+        
+        self.systemScheme = systemScheme
+        self.userSchemes = userSchemes
+    }
+    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = ColorSchemesState()
@@ -22,41 +33,23 @@ class ColorSchemesState: PersistentState {
         
         return state
     }
-    
-    var userSchemes: [ColorSchemeState] = []
-    var systemScheme: ColorSchemeState
-    
-    convenience init() {
-        self.init(ColorSchemeState(), [])
-    }
-    
-    init(_ systemScheme: ColorSchemeState, _ userSchemes: [ColorSchemeState]) {
-        
-        self.systemScheme = systemScheme
-        self.userSchemes = userSchemes
-    }
 }
 
 class ColorSchemeState: PersistentState {
     
-    var name: String
+    var name: String = ""
     
-    var general: GeneralColorSchemeState
-    var player: PlayerColorSchemeState
-    var playlist: PlaylistColorSchemeState
-    var effects: EffectsColorSchemeState
+    var general: GeneralColorSchemeState?
+    var player: PlayerColorSchemeState?
+    var playlist: PlaylistColorSchemeState?
+    var effects: EffectsColorSchemeState?
     
-    convenience init() {
-        self.init("", ColorSchemes.systemScheme)
-    }
+    init() {}
     
-    convenience init(_ name: String) {
-        self.init(name, ColorSchemes.systemScheme)
-    }
-    
-    init(_ name: String, _ scheme: ColorScheme) {
+    // When saving app state to disk
+    init(_ scheme: ColorScheme) {
         
-        self.name = name
+        self.name = scheme.name
         
         self.general = GeneralColorSchemeState(scheme.general)
         self.player = PlayerColorSchemeState(scheme.player)
@@ -94,19 +87,19 @@ class ColorSchemeState: PersistentState {
 
 class GeneralColorSchemeState: PersistentState {
     
-    var appLogoColor: ColorState = ColorState.defaultInstance
-    var backgroundColor: ColorState = ColorState.defaultInstance
+    var appLogoColor: ColorState?
+    var backgroundColor: ColorState?
     
-    var viewControlButtonColor: ColorState = ColorState.defaultInstance
-    var functionButtonColor: ColorState = ColorState.defaultInstance
-    var textButtonMenuColor: ColorState = ColorState.defaultInstance
-    var toggleButtonOffStateColor: ColorState = ColorState.defaultInstance
-    var selectedTabButtonColor: ColorState = ColorState.defaultInstance
+    var viewControlButtonColor: ColorState?
+    var functionButtonColor: ColorState?
+    var textButtonMenuColor: ColorState?
+    var toggleButtonOffStateColor: ColorState?
+    var selectedTabButtonColor: ColorState?
     
-    var mainCaptionTextColor: ColorState = ColorState.defaultInstance
-    var tabButtonTextColor: ColorState = ColorState.defaultInstance
-    var selectedTabButtonTextColor: ColorState = ColorState.defaultInstance
-    var buttonMenuTextColor: ColorState = ColorState.defaultInstance
+    var mainCaptionTextColor: ColorState?
+    var tabButtonTextColor: ColorState?
+    var selectedTabButtonTextColor: ColorState?
+    var buttonMenuTextColor: ColorState?
     
     init() {}
     
@@ -181,23 +174,23 @@ class GeneralColorSchemeState: PersistentState {
 
 class PlayerColorSchemeState: PersistentState {
     
-    var trackInfoPrimaryTextColor: ColorState = ColorState.defaultInstance
-    var trackInfoSecondaryTextColor: ColorState = ColorState.defaultInstance
-    var trackInfoTertiaryTextColor: ColorState = ColorState.defaultInstance
-    var sliderValueTextColor: ColorState = ColorState.defaultInstance
+    var trackInfoPrimaryTextColor: ColorState?
+    var trackInfoSecondaryTextColor: ColorState?
+    var trackInfoTertiaryTextColor: ColorState?
+    var sliderValueTextColor: ColorState?
     
-    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    var sliderBackgroundColor: ColorState?
     var sliderBackgroundGradientType: GradientType = .none
     var sliderBackgroundGradientAmount: Int = 50
     
-    var sliderForegroundColor: ColorState = ColorState.defaultInstance
+    var sliderForegroundColor: ColorState?
     var sliderForegroundGradientType: GradientType = .none
     var sliderForegroundGradientAmount: Int = 50
     
     
-    var sliderKnobColor: ColorState = ColorState.defaultInstance
+    var sliderKnobColor: ColorState?
     var sliderKnobColorSameAsForeground: Bool = true
-    var sliderLoopSegmentColor: ColorState = ColorState.defaultInstance
+    var sliderLoopSegmentColor: ColorState?
     
     init() {}
     
@@ -295,21 +288,21 @@ class PlayerColorSchemeState: PersistentState {
 
 class PlaylistColorSchemeState: PersistentState {
     
-    var trackNameTextColor: ColorState = ColorState.defaultInstance
-    var groupNameTextColor: ColorState = ColorState.defaultInstance
-    var indexDurationTextColor: ColorState = ColorState.defaultInstance
+    var trackNameTextColor: ColorState?
+    var groupNameTextColor: ColorState?
+    var indexDurationTextColor: ColorState?
     
-    var trackNameSelectedTextColor: ColorState = ColorState.defaultInstance
-    var groupNameSelectedTextColor: ColorState = ColorState.defaultInstance
-    var indexDurationSelectedTextColor: ColorState = ColorState.defaultInstance
+    var trackNameSelectedTextColor: ColorState?
+    var groupNameSelectedTextColor: ColorState?
+    var indexDurationSelectedTextColor: ColorState?
     
-    var summaryInfoColor: ColorState = ColorState.defaultInstance
+    var summaryInfoColor: ColorState?
     
-    var playingTrackIconColor: ColorState = ColorState.defaultInstance
-    var selectionBoxColor: ColorState = ColorState.defaultInstance
+    var playingTrackIconColor: ColorState?
+    var selectionBoxColor: ColorState?
     
-    var groupIconColor: ColorState = ColorState.defaultInstance
-    var groupDisclosureTriangleColor: ColorState = ColorState.defaultInstance
+    var groupIconColor: ColorState?
+    var groupDisclosureTriangleColor: ColorState?
     
     init() {}
     
@@ -395,24 +388,24 @@ class PlaylistColorSchemeState: PersistentState {
 
 class EffectsColorSchemeState: PersistentState {
     
-    var functionCaptionTextColor: ColorState = ColorState.defaultInstance
-    var functionValueTextColor: ColorState = ColorState.defaultInstance
+    var functionCaptionTextColor: ColorState?
+    var functionValueTextColor: ColorState?
     
-    var sliderBackgroundColor: ColorState = ColorState.defaultInstance
+    var sliderBackgroundColor: ColorState?
     var sliderBackgroundGradientType: GradientType = .none
     var sliderBackgroundGradientAmount: Int = 50
     
     var sliderForegroundGradientType: GradientType = .none
     var sliderForegroundGradientAmount: Int = 50
     
-    var sliderKnobColor: ColorState = ColorState.defaultInstance
+    var sliderKnobColor: ColorState?
     var sliderKnobColorSameAsForeground: Bool = true
     
-    var sliderTickColor: ColorState = ColorState.defaultInstance
+    var sliderTickColor: ColorState?
     
-    var activeUnitStateColor: ColorState = ColorState.defaultInstance
-    var bypassedUnitStateColor: ColorState = ColorState.defaultInstance
-    var suppressedUnitStateColor: ColorState = ColorState.defaultInstance
+    var activeUnitStateColor: ColorState?
+    var bypassedUnitStateColor: ColorState?
+    var suppressedUnitStateColor: ColorState?
     
     init() {}
     

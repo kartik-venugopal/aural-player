@@ -142,6 +142,7 @@
             </connections>
         </customObject>
         <customObject id="UTf-sF-lj2" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YVQ-JN-BbP" customClass="PlayerViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
@@ -1347,10 +1348,40 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" hidden="YES" id="nRU-Ye-xW2"/>
-                            <menuItem title="  Always on top" hidden="YES" enabled="NO" indentationLevel="1" id="xFq-YL-7lS">
+                            <menuItem title="  Color scheme" indentationLevel="1" id="vgD-4T-WSG" userLabel="Color scheme">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Color scheme" showsStateColumn="NO" id="zD9-9p-FaJ">
+                                    <items>
+                                        <menuItem isSeparatorItem="YES" id="bjn-Ld-orE"/>
+                                        <menuItem title="Black attack (default)" id="etT-lk-xKc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="980-zp-z3n"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="White blight" id="34v-MD-ohm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="xWa-A5-mRt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>
+                                        <menuItem title="Customize ..." id="dRW-vp-94E">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="customizeSchemeAction:" target="ydk-fD-97w" id="fBw-ng-JGA"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="ydk-fD-97w" id="x1v-w7-Rzc"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Save current scheme" indentationLevel="1" id="WVj-ng-OeL" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="alwaysOnTopAction:" target="xzd-WN-BuR" id="JU8-yi-IEi"/>
+                                    <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="XER-Y0-Mw5"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
@@ -1416,7 +1447,7 @@ CA
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Manage layouts" image="WindowLayout-Editor" id="ly6-5K-P4A" userLabel="Save current layout">
+                            <menuItem title=" Manage layouts" image="WindowLayout-Editor" id="ly6-5K-P4A" userLabel="Manage layouts">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
