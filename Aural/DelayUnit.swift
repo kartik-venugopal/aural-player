@@ -56,7 +56,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     }
     
     override func savePreset(_ presetName: String) {
-        presets.addPreset(DelayPreset(presetName, state, amount, time, feedback, lowPassCutoff, false))
+        presets.addPreset(DelayPreset(presetName, .active, amount, time, feedback, lowPassCutoff, false))
     }
     
     override func applyPreset(_ presetName: String) {

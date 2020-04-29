@@ -45,7 +45,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     }
     
     override func savePreset(_ presetName: String) {
-        presets.addPreset(ReverbPreset(presetName, state, space, amount, false))
+        presets.addPreset(ReverbPreset(presetName, .active, space, amount, false))
     }
     
     override func applyPreset(_ presetName: String) {
