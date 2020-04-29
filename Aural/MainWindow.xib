@@ -346,6 +346,43 @@
                                                         </items>
                                                     </menu>
                                                 </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
+                                                <menuItem title="Color scheme" id="i7L-so-Yi8" userLabel="Color scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="GtB-hU-uN6"/>
+                                                            <menuItem title="Black attack (default)" id="e6H-rX-5qX">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="OfO-xx-SNw"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="White blight" id="41Q-2F-UWV">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="15X-5K-pbZ"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
+                                                            <menuItem title="Customize ..." id="yTa-J9-pr6">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="customizeSchemeAction:" target="df9-sN-idv" id="0OQ-fb-KJC"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="df9-sN-idv" id="51x-6G-2PM"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="Save current scheme" id="qvE-di-9Bh" userLabel="Save current scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="saveSchemeAction:" target="df9-sN-idv" id="o0Y-7q-cmF"/>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="2kB-OR-pRg"/>
                                                 <menuItem title="Window layout" id="tGm-Ku-PMk">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -411,40 +448,6 @@
                                                     <connections>
                                                         <action selector="saveWindowLayoutAction:" target="lwq-x3-5V8" id="Prk-5L-Cnr"/>
                                                     </connections>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
-                                                <menuItem title="Color scheme" id="i7L-so-Yi8" userLabel="Color scheme">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
-                                                        <items>
-                                                            <menuItem isSeparatorItem="YES" id="GtB-hU-uN6"/>
-                                                            <menuItem title="Black attack (default)" id="e6H-rX-5qX">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="OfO-xx-SNw"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="White blight" id="41Q-2F-UWV">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="15X-5K-pbZ"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
-                                                            <menuItem title="Customize ..." id="yTa-J9-pr6">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="customizeSchemeAction:" target="df9-sN-idv" id="0OQ-fb-KJC"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="df9-sN-idv" id="51x-6G-2PM"/>
-                                                        </connections>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem title="Save current scheme" id="qvE-di-9Bh" userLabel="Save current scheme">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
                                         </menu>

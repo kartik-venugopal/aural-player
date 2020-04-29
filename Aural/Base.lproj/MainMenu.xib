@@ -1347,7 +1347,7 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" hidden="YES" id="nRU-Ye-xW2"/>
+                            <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
                             <menuItem title="  Color scheme" indentationLevel="1" id="vgD-4T-WSG" userLabel="Color scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Color scheme" showsStateColumn="NO" id="zD9-9p-FaJ">
@@ -1381,7 +1381,7 @@ CA
                             <menuItem title="  Save current scheme" indentationLevel="1" id="WVj-ng-OeL" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="XER-Y0-Mw5"/>
+                                    <action selector="saveSchemeAction:" target="ydk-fD-97w" id="VPb-bV-wWK"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
