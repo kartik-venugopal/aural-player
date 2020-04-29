@@ -25,6 +25,7 @@
 		3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */; };
 		3E0835F72459A9FA00822FA8 /* ColorSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */; };
 		3E0835F92459AB9900822FA8 /* ColorSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */; };
+		3E0835FB2459C2C400822FA8 /* ColorSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */; };
 		3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08399F21944E15008D84BA /* FXUnitViewController.swift */; };
 		3E0839A22194554C008D84BA /* StateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A12194554C008D84BA /* StateFunctions.swift */; };
 		3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A92195251D008D84BA /* PresetsWrapper.swift */; };
@@ -492,6 +493,7 @@
 		3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesEditor.xib; sourceTree = "<group>"; };
 		3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
+		3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
 		3E08399F21944E15008D84BA /* FXUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FXUnitViewController.swift; sourceTree = "<group>"; };
 		3E0839A12194554C008D84BA /* StateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFunctions.swift; sourceTree = "<group>"; };
 		3E0839A92195251D008D84BA /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
@@ -1001,6 +1003,7 @@
 			children = (
 				3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */,
 				3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */,
+				3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */,
 			);
 			name = ColorSchemes;
 			sourceTree = "<group>";
@@ -2674,6 +2677,7 @@
 				3E7DCBDF2197709500C6D6D3 /* FilterUnitDelegate.swift in Sources */,
 				3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */,
 				3E4E599B1F74E78800C18182 /* Main.swift in Sources */,
+				3E0835FB2459C2C400822FA8 /* ColorSchemePreviewView.swift in Sources */,
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
 				3EA2F8F521CF6D88007D0264 /* MetadataReader.swift in Sources */,

@@ -734,6 +734,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if mustReloadRows {
             
+            playlistViewDelegate.changeGroupIconColor(scheme.playlist.groupIconColor)
+            playlistView.changeDisclosureIconColor(scheme.playlist.groupDisclosureTriangleColor)
+            
             let selRows = playlistView.selectedRowIndexes
             playlistView.reloadData()
             playlistView.selectRowIndexes(selRows, byExtendingSelection: false)

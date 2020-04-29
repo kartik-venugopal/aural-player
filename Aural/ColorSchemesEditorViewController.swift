@@ -10,7 +10,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     private var schemesCache: [ColorScheme] = []
     
-//    @IBOutlet weak var previewView: LayoutPreviewView!
+    @IBOutlet weak var previewView: ColorSchemePreviewView!
     
     private var oldSchemeName: String = ""
     
@@ -25,7 +25,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         [btnDelete, btnRename, btnApply].forEach({$0.disable()})
         
-//        previewView.clear()
+        previewView.clear()
     }
     
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
@@ -93,12 +93,11 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         if editorView.numberOfSelectedRows == 1 {
             
-//            let layout = WindowLayouts.layoutByName(selectedSchemeNames[0])!
-//            previewView.drawPreviewForLayout(layout)
+            previewView.scheme = schemesCache[editorView.selectedRow]
             
         } else {
             
-//            previewView.clear()
+            previewView.clear()
         }
     }
     
