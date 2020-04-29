@@ -22,11 +22,11 @@ class ColorSchemes {
     private static var userDefinedSchemesByName: [String: ColorScheme] = [:]
     
     static var userDefinedSchemes: [ColorScheme] {
-        return userDefinedSchemesByName.values.filter({$0.systemDefined == false})
+        return Array(userDefinedSchemesByName.values)
     }
     
-    static var systemDefinedSchemes: [ColorScheme] {
-        return userDefinedSchemesByName.values.filter({$0.systemDefined == true})
+    static var numberOfUserDefinedSchemes: Int {
+        return userDefinedSchemesByName.count
     }
     
     static func applyScheme(_ name: String) -> ColorScheme? {

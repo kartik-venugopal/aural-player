@@ -142,7 +142,11 @@
             </connections>
         </customObject>
         <customObject id="UTf-sF-lj2" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="manageSchemesMenuItem" destination="3ie-xE-Lk9" id="uvR-z9-sCl"/>
+            </connections>
+        </customObject>
         <customObject id="YVQ-JN-BbP" customClass="PlayerViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
@@ -1382,6 +1386,12 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveSchemeAction:" target="ydk-fD-97w" id="VPb-bV-wWK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Manage color schemes" indentationLevel="1" id="3ie-xE-Lk9" userLabel="Manage color schemes">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageSchemesAction:" target="ydk-fD-97w" id="waE-WY-aJ8"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>

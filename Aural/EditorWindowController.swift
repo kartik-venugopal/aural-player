@@ -8,6 +8,8 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
     
     private lazy var layoutsEditorView: NSView = ViewFactory.layoutsEditorView
     
+    private lazy var colorSchemesEditorView: NSView = ViewFactory.colorSchemesEditorView
+    
     private lazy var effectsPresetsEditorView: NSView = ViewFactory.effectsPresetsEditorView
     
     override var windowNibName: String? {return "EditorWindow"}
@@ -21,6 +23,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         theWindow.contentView?.addSubview(bookmarksEditorView)
         theWindow.contentView?.addSubview(favoritesEditorView)
         theWindow.contentView?.addSubview(layoutsEditorView)
+        theWindow.contentView?.addSubview(colorSchemesEditorView)
         theWindow.contentView?.addSubview(effectsPresetsEditorView)
         
         theWindow.isMovableByWindowBackground = true
@@ -40,9 +43,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         frame.size = NSMakeSize(frame.width, bookmarksEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        favoritesEditorView.hide()
-        layoutsEditorView.hide()
-        effectsPresetsEditorView.hide()
+        [colorSchemesEditorView, favoritesEditorView, layoutsEditorView, effectsPresetsEditorView].forEach({$0.hide()})
         
         UIUtils.showDialog(theWindow)
     }
@@ -55,9 +56,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         frame.size = NSMakeSize(frame.width, favoritesEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        bookmarksEditorView.hide()
-        layoutsEditorView.hide()
-        effectsPresetsEditorView.hide()
+        [colorSchemesEditorView, bookmarksEditorView, layoutsEditorView, effectsPresetsEditorView].forEach({$0.hide()})
         
         UIUtils.showDialog(theWindow)
     }
@@ -70,9 +69,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         frame.size = NSMakeSize(frame.width, layoutsEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        favoritesEditorView.hide()
-        bookmarksEditorView.hide()
-        effectsPresetsEditorView.hide()
+        [colorSchemesEditorView, favoritesEditorView, bookmarksEditorView, effectsPresetsEditorView].forEach({$0.hide()})
         
         UIUtils.showDialog(theWindow)
     }
@@ -85,9 +82,20 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol {
         frame.size = NSMakeSize(frame.width, effectsPresetsEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        layoutsEditorView.hide()
-        favoritesEditorView.hide()
-        bookmarksEditorView.hide()
+        [colorSchemesEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
+        
+        UIUtils.showDialog(theWindow)
+    }
+    
+    func showColorSchemesEditor() {
+        
+        colorSchemesEditorView.show()
+        
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, colorSchemesEditorView.height)
+        theWindow.setFrame(frame, display: true)
+        
+        [effectsPresetsEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
         
         UIUtils.showDialog(theWindow)
     }

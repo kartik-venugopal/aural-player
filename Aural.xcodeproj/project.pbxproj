@@ -23,6 +23,8 @@
 		3E06C02F1FB6B2BB003EE9AB /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */; };
 		3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */; };
 		3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */; };
+		3E0835F72459A9FA00822FA8 /* ColorSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */; };
+		3E0835F92459AB9900822FA8 /* ColorSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */; };
 		3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08399F21944E15008D84BA /* FXUnitViewController.swift */; };
 		3E0839A22194554C008D84BA /* StateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A12194554C008D84BA /* StateFunctions.swift */; };
 		3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0839A92195251D008D84BA /* PresetsWrapper.swift */; };
@@ -488,6 +490,8 @@
 		3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
 		3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegate.swift; sourceTree = "<group>"; };
 		3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
+		3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesEditor.xib; sourceTree = "<group>"; };
+		3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E08399F21944E15008D84BA /* FXUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FXUnitViewController.swift; sourceTree = "<group>"; };
 		3E0839A12194554C008D84BA /* StateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateFunctions.swift; sourceTree = "<group>"; };
 		3E0839A92195251D008D84BA /* PresetsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsWrapper.swift; sourceTree = "<group>"; };
@@ -992,6 +996,15 @@
 			name = History;
 			sourceTree = "<group>";
 		};
+		3E0835F52459A9B000822FA8 /* ColorSchemes */ = {
+			isa = PBXGroup;
+			children = (
+				3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */,
+				3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */,
+			);
+			name = ColorSchemes;
+			sourceTree = "<group>";
+		};
 		3E0DF1BE2431BAFC0096C2A1 /* ChaptersList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1332,6 +1345,7 @@
 				3E24F4CE21699E0600B9CDA6 /* EffectsPresets */,
 				3E2F104A215569BD0099FD06 /* Bookmarks */,
 				3E2F104D215569DB0099FD06 /* Favorites */,
+				3E0835F52459A9B000822FA8 /* ColorSchemes */,
 				3E3F29612159B66F00581EFE /* Layouts */,
 				3E10DDDD216F2884001D3B66 /* Gaps */,
 				3EB1700A2173F59E00B82D3A /* DelayedPlayback */,
@@ -2336,6 +2350,7 @@
 				3EDDF6AC1FB4FF5100DF2E9A /* MainWindow.xib in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */,
+				3E0835F72459A9FA00822FA8 /* ColorSchemesEditor.xib in Resources */,
 				3E0ED6B81FBB1C34008268B3 /* Reverb.xib in Resources */,
 				3E36E8621FC00E700005C62E /* PlaylistPreferences.xib in Resources */,
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
@@ -2762,6 +2777,7 @@
 				3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */,
 				3E5F00CC21539B5C00A76C23 /* Bookmarks.swift in Sources */,
 				3E0F947D1FBBA33C00B6E1B3 /* FilterViewController.swift in Sources */,
+				3E0835F92459AB9900822FA8 /* ColorSchemesEditorViewController.swift in Sources */,
 				3EB1701521748ED200B82D3A /* JumpToTimeEditorWindowController.swift in Sources */,
 				3ED43339216CA387000617A3 /* PlaybackGap.swift in Sources */,
 				3EFB192B1FB8268700690C60 /* MetadataDataSource.swift in Sources */,

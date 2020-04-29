@@ -89,6 +89,8 @@ struct ViewFactory {
         
         fileprivate static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
         
+        fileprivate static let colorSchemesEditorViewController: ColorSchemesEditorViewController = ColorSchemesEditorViewController()
+        
         fileprivate static let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
         
         fileprivate static let masterPresetsEditorViewController: MasterPresetsEditorViewController = MasterPresetsEditorViewController()
@@ -245,6 +247,10 @@ struct ViewFactory {
     
     static var layoutsEditorView: NSView {
         return EditorViews.layoutsEditorViewController.view
+    }
+    
+    static var colorSchemesEditorView: NSView {
+        return EditorViews.colorSchemesEditorViewController.view
     }
     
     static var effectsPresetsEditorView: NSView {
