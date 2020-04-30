@@ -1357,20 +1357,23 @@ CA
                                 <menu key="submenu" title="  Color scheme" showsStateColumn="NO" id="zD9-9p-FaJ">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="bjn-Ld-orE"/>
-                                        <menuItem title="Black attack (default)" id="etT-lk-xKc">
+                                        <menuItem title="Black attack (default)" indentationLevel="1" id="etT-lk-xKc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="980-zp-z3n"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="White blight" id="34v-MD-ohm">
+                                        <menuItem title="Black &amp; aqua" indentationLevel="1" id="KDj-TY-ROx">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="White blight" indentationLevel="1" id="34v-MD-ohm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="xWa-A5-mRt"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>
-                                        <menuItem title="Customize ..." id="dRW-vp-94E">
+                                        <menuItem title="Customize ..." indentationLevel="1" id="dRW-vp-94E">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="customizeSchemeAction:" target="ydk-fD-97w" id="fBw-ng-JGA"/>
