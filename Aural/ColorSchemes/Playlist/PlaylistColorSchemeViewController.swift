@@ -59,6 +59,8 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     
     func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
         
+        self.history = history
+        
         trackNameTextColorPicker.color = scheme.playlist.trackNameTextColor
         groupNameTextColorPicker.color = scheme.playlist.groupNameTextColor
         indexDurationTextColorPicker.color = scheme.playlist.indexDurationTextColor

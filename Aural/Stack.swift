@@ -9,12 +9,7 @@ class Stack<T: Any> {
     }
     
     func pop() -> T? {
-        
-        if arr.count > 0 {
-            return arr.removeLast()
-        }
-        
-        return nil
+        return arr.popLast()
     }
     
     func peek() -> T? {
@@ -23,5 +18,13 @@ class Stack<T: Any> {
     
     func clear() {
         arr.removeAll()
+    }
+    
+    var size: Int {
+        return arr.count
+    }
+    
+    var isEmpty: Bool {
+        return arr.count == 0
     }
 }
