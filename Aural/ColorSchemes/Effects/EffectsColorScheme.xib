@@ -17,6 +17,7 @@
                 <outlet property="btnSliderForegroundGradientEnabled" destination="xUl-yc-vvE" id="Ar0-Cr-vCx"/>
                 <outlet property="btnSliderKnobColorSameAsForeground" destination="RWQ-0R-phI" id="hhV-Hb-fds"/>
                 <outlet property="bypassedUnitStateColorPicker" destination="NfJ-8b-vGF" id="F3e-JG-DmM"/>
+                <outlet property="containerView" destination="en3-x0-24R" id="wb9-dv-xLF"/>
                 <outlet property="functionCaptionTextColorPicker" destination="VvW-sc-iFC" id="S3V-jk-pRy"/>
                 <outlet property="functionValueTextColorPicker" destination="FPb-Yg-k05" id="ZaU-ty-KLa"/>
                 <outlet property="lblSliderBackgroundGradientAmount" destination="dhy-3h-EPB" id="Kxu-kP-bk2"/>
@@ -57,7 +58,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NfJ-8b-vGF" userLabel="Playing track icon color">
+                                    <colorWell fixedFrame="YES" tag="404" translatesAutoresizingMaskIntoConstraints="NO" id="NfJ-8b-vGF" userLabel="Playing track icon color">
                                         <rect key="frame" x="410" y="427" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -65,7 +66,7 @@
                                             <action selector="bypassedUnitStateColorAction:" target="-2" id="3IY-0l-rRY"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLV-OR-yRH" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="405" translatesAutoresizingMaskIntoConstraints="NO" id="vLV-OR-yRH" userLabel="Primary text color">
                                         <rect key="frame" x="410" y="392" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -73,7 +74,7 @@
                                             <action selector="suppressedUnitStateColorAction:" target="-2" id="aav-dG-Hod"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9N9-Mg-5l4" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="403" translatesAutoresizingMaskIntoConstraints="NO" id="9N9-Mg-5l4" userLabel="Secondary text color">
                                         <rect key="frame" x="410" y="462" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -126,7 +127,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvW-sc-iFC" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="401" translatesAutoresizingMaskIntoConstraints="NO" id="VvW-sc-iFC" userLabel="Primary text color">
                                         <rect key="frame" x="410" y="587" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,7 +144,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FPb-Yg-k05" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="402" translatesAutoresizingMaskIntoConstraints="NO" id="FPb-Yg-k05" userLabel="Primary text color">
                                         <rect key="frame" x="410" y="552" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -151,7 +152,7 @@
                                             <action selector="functionValueTextColorAction:" target="-2" id="hEs-Z5-cMe"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3O-of-7iG" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="415" translatesAutoresizingMaskIntoConstraints="NO" id="M3O-of-7iG" userLabel="Control button color">
                                         <rect key="frame" x="410" y="101" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -168,7 +169,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYx-HC-5n6" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="417" translatesAutoresizingMaskIntoConstraints="NO" id="HYx-HC-5n6" userLabel="Control button color">
                                         <rect key="frame" x="410" y="40" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -185,7 +186,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWQ-0R-phI">
+                                    <button fixedFrame="YES" tag="416" translatesAutoresizingMaskIntoConstraints="NO" id="RWQ-0R-phI">
                                         <rect key="frame" x="38" y="86" width="308" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Use same color as slider foreground" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9K5-Qa-huh" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -214,7 +215,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUl-yc-vvE">
+                                    <button fixedFrame="YES" tag="411" translatesAutoresizingMaskIntoConstraints="NO" id="xUl-yc-vvE">
                                         <rect key="frame" x="37" y="210" width="165" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="PQ7-Dz-x3P" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
@@ -225,7 +226,7 @@
                                             <action selector="enableSliderForegroundGradientAction:" target="-2" id="uk8-p8-T7c"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPr-FH-fGU">
+                                    <button fixedFrame="YES" tag="412" translatesAutoresizingMaskIntoConstraints="NO" id="DPr-FH-fGU">
                                         <rect key="frame" x="62" y="187" width="202" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="3kU-Va-GqO" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -236,7 +237,7 @@
                                             <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="shg-1d-B1i"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pyc-ZV-r2u">
+                                    <button fixedFrame="YES" tag="413" translatesAutoresizingMaskIntoConstraints="NO" id="Pyc-ZV-r2u">
                                         <rect key="frame" x="62" y="166" width="137" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Jni-lV-G8r" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -260,7 +261,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJL-Pb-H1t" userLabel="Volume Increment Stepper">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="414" translatesAutoresizingMaskIntoConstraints="NO" id="VJL-Pb-H1t" userLabel="Volume Increment Stepper">
                                         <rect key="frame" x="155" y="138" width="19" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="100" doubleValue="25" id="XgR-7b-pP5"/>
@@ -268,7 +269,7 @@
                                             <action selector="sliderForegroundGradientAmountAction:" target="-2" id="gip-o6-UTZ"/>
                                         </connections>
                                     </stepper>
-                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ot9-fe-YfF" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="406" translatesAutoresizingMaskIntoConstraints="NO" id="ot9-fe-YfF" userLabel="Secondary text color">
                                         <rect key="frame" x="410" y="357" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -294,7 +295,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zWT-68-cLI">
+                                    <button fixedFrame="YES" tag="407" translatesAutoresizingMaskIntoConstraints="NO" id="zWT-68-cLI">
                                         <rect key="frame" x="37" y="338" width="165" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="cYc-7P-Ur0" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
@@ -305,7 +306,7 @@
                                             <action selector="enableSliderBackgroundGradientAction:" target="-2" id="wQL-Id-L8v"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMR-Rh-bJJ">
+                                    <button fixedFrame="YES" tag="408" translatesAutoresizingMaskIntoConstraints="NO" id="hMR-Rh-bJJ">
                                         <rect key="frame" x="62" y="315" width="202" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="6xp-tY-Dpe" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -316,7 +317,7 @@
                                             <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="P40-22-bhQ"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H6F-XG-kGn">
+                                    <button fixedFrame="YES" tag="409" translatesAutoresizingMaskIntoConstraints="NO" id="H6F-XG-kGn">
                                         <rect key="frame" x="62" y="294" width="137" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4bj-sG-1Oy" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -340,7 +341,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kcd-7j-PuF" userLabel="Volume Increment Stepper">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="410" translatesAutoresizingMaskIntoConstraints="NO" id="kcd-7j-PuF" userLabel="Volume Increment Stepper">
                                         <rect key="frame" x="155" y="266" width="19" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="100" doubleValue="25" id="bEU-VL-tmC"/>

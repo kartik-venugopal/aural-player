@@ -19,14 +19,14 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="381"/>
+            <rect key="contentRect" x="196" y="240" width="481" height="385"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="381"/>
+                <rect key="frame" x="0.0" y="0.0" width="481" height="385"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="kkp-lu-gUh" userLabel="Black Box">
-                        <rect key="frame" x="10" y="41" width="460" height="270"/>
+                        <rect key="frame" x="10" y="50" width="460" height="270"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="T5t-VL-aNf">
                             <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
@@ -35,7 +35,7 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="RoW-as-iiX" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="10" y="41" width="460" height="270"/>
+                        <rect key="frame" x="10" y="50" width="460" height="270"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
@@ -78,7 +78,7 @@
                         </tabViewItems>
                     </tabView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZZ-k4-49W" userLabel="General tab button">
-                        <rect key="frame" x="108" y="318" width="65" height="30"/>
+                        <rect key="frame" x="108" y="327" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="TNs-3q-275" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -86,7 +86,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="zU8-ra-LLn" userLabel="Player tab button">
-                        <rect key="frame" x="175" y="318" width="65" height="30"/>
+                        <rect key="frame" x="175" y="327" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Player" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="aMp-Rh-psv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -94,7 +94,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-6O-bmK" userLabel="Playlist tab button">
-                        <rect key="frame" x="242" y="318" width="65" height="30"/>
+                        <rect key="frame" x="242" y="327" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="LFL-BA-Tvt" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -102,7 +102,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="mNJ-4K-PMF" userLabel="Effects tab button">
-                        <rect key="frame" x="309" y="318" width="65" height="30"/>
+                        <rect key="frame" x="309" y="327" width="65" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Effects" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="HiP-xm-s2s" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -110,7 +110,7 @@
                         </buttonCell>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0D8-Jf-NSD">
-                        <rect key="frame" x="155" y="350" width="170" height="23"/>
+                        <rect key="frame" x="155" y="354" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Color Schemes" id="GnX-0i-Gy9">
                             <font key="font" size="13" name="Play-Regular"/>
@@ -119,7 +119,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u68-92-4SC" userLabel="Save button">
-                        <rect key="frame" x="279" y="10" width="124" height="19"/>
+                        <rect key="frame" x="279" y="19" width="124" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Save color scheme" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yfR-7G-VQI" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -130,7 +130,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vto-5b-gSA" userLabel="Done button">
-                        <rect key="frame" x="412" y="10" width="60" height="19"/>
+                        <rect key="frame" x="412" y="19" width="60" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VIL-LC-wPz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -143,6 +143,32 @@ Gw
                             <action selector="doneAction:" target="-2" id="uon-Uy-VqO"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xnW-n9-zYE" userLabel="Save button">
+                        <rect key="frame" x="145" y="19" width="124" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Undo last change" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-B5-Zbz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <string key="keyEquivalent">z</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="undoLastChangeAction:" target="-2" id="P2p-kw-nOy"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gul-p4-MZw" userLabel="Save button">
+                        <rect key="frame" x="13" y="19" width="124" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Undo all changes" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2q0-rn-Ly3" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <string key="keyEquivalent">z</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="undoAllChangesAction:" target="-2" id="dvH-e8-4x8"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <userDefinedRuntimeAttributes>
@@ -150,7 +176,7 @@ Gw
                     <color key="value" red="0.20790155440414504" green="0.20790155440414504" blue="0.20790155440414504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-369" y="-96.5"/>
+            <point key="canvasLocation" x="-368.5" y="-94.5"/>
         </window>
     </objects>
 </document>
