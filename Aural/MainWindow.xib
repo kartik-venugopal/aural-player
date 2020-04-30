@@ -41,7 +41,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pa-gv-u2a">
-                                    <rect key="frame" x="314" y="192" width="82" height="32"/>
+                                    <rect key="frame" x="391" y="192" width="35" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Colors" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4GL-S8-kIM">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -88,7 +88,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="466" y="204" width="15" height="10"/>
+                                    <rect key="frame" x="471" y="204" width="14" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -104,48 +104,10 @@
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="485" y="204" width="15" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the Effects panel"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the Effects panel"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EffectsView-Off"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EffectsView-On"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
-                                    </connections>
-                                </button>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
-                                    <rect key="frame" x="11" y="5" width="510" height="190"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </view>
-                                    <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </box>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Hg-O0-hdb">
-                                    <rect key="frame" x="97" y="191" width="82" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="Scheme" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Phl-uH-FP5">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="printSchemeAction:" target="-2" id="QSS-yf-5Ja"/>
-                                    </connections>
-                                </button>
                                 <popUpButton toolTip="Global and player view settings" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
-                                    <rect key="frame" x="496" y="202" width="25" height="15"/>
+                                    <rect key="frame" x="496" y="202" width="24" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                         <menu key="menu" autoenablesItems="NO" id="drC-pX-0Rs">
@@ -352,20 +314,26 @@
                                                     <menu key="submenu" title="Color scheme" showsStateColumn="NO" id="7oK-Kd-rX4">
                                                         <items>
                                                             <menuItem isSeparatorItem="YES" id="GtB-hU-uN6"/>
-                                                            <menuItem title="Black attack (default)" id="e6H-rX-5qX">
+                                                            <menuItem title="Black attack (default)" indentationLevel="1" id="e6H-rX-5qX">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="OfO-xx-SNw"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="White blight" id="41Q-2F-UWV">
+                                                            <menuItem title="Black &amp; aqua" indentationLevel="1" id="Q49-Xm-uru">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="Dr5-Uq-RIe"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="White blight" indentationLevel="1" id="41Q-2F-UWV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="15X-5K-pbZ"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
-                                                            <menuItem title="Customize ..." id="yTa-J9-pr6">
+                                                            <menuItem title="Customize ..." indentationLevel="1" id="yTa-J9-pr6">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="customizeSchemeAction:" target="df9-sN-idv" id="0OQ-fb-KJC"/>
@@ -453,6 +421,44 @@
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="488" y="204" width="14" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the Effects panel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the Effects panel"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EffectsView-Off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EffectsView-On"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
+                                    </connections>
+                                </button>
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
+                                    <rect key="frame" x="11" y="5" width="510" height="190"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" id="DYU-Up-NX9">
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </box>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Hg-O0-hdb">
+                                    <rect key="frame" x="360" y="191" width="35" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Scheme" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Phl-uH-FP5">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="printSchemeAction:" target="-2" id="QSS-yf-5Ja"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
