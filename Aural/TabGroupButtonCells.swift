@@ -62,6 +62,8 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var textFont: NSFont {return Fonts.Playlist.tabsFont}
     override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
     
+    override var borderInsetY: CGFloat {return 0}
+    
     override var yOffset: CGFloat {
 
         switch PlaylistViewState.textSize {
@@ -73,6 +75,24 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
         case .largest:  return -1
             
         }
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+        let font = isOn ? boldTextFont : textFont
+        
+        // Selection underline
+        if isOn {
+            
+            let underlineWidth = StringUtils.sizeOfString(title, font).width
+            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 1, width: underlineWidth, height: 1)
+            selectionBoxColor.setFill()
+            selRect.fill()
+        }
+        
+        // Title
+        let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
+        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font, yOffset - (isOn ? 2 : 0))
     }
 }
 
@@ -110,7 +130,7 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     
     override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
     override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
-    override var borderRadius: CGFloat {return 2}
+    override var borderRadius: CGFloat {return 1}
     
     override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
@@ -132,6 +152,28 @@ class EQSelectorButtonCell: TabGroupButtonCell {
         case .largest:  return -1
             
         }
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+        let font = isOn ? boldTextFont : textFont
+        
+        // Selection underline
+        if isOn {
+            
+            let textWidth = StringUtils.sizeOfString(title, font).width
+            let markerSize: CGFloat = 6
+            let markerX = cellFrame.centerX - (textWidth / 2) - 5 - markerSize
+            let markerRect = NSRect(x: markerX, y: cellFrame.centerY - (markerSize / 2) + yOffset + 1, width: markerSize, height: markerSize)
+            let roundedPath = NSBezierPath.init(roundedRect: markerRect, xRadius: borderRadius, yRadius: borderRadius)
+            
+            selectionBoxColor.setFill()
+            roundedPath.fill()
+        }
+        
+        // Title
+        let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
+        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font, yOffset)
     }
 }
 

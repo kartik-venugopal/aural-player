@@ -11,7 +11,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     
     var unitState: EffectsUnitState = .bypassed
     
-    private let imgWidth: CGFloat = 16, imgHeight: CGFloat = 16
+    private let imgWidth: CGFloat = 14, imgHeight: CGFloat = 14
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         drawInterior(withFrame: cellFrame, in: controlView)
@@ -19,20 +19,22 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        // Selection box
-        if isOn {
-            
-            let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
-            selectionBoxColor.setFill()
-            NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius).fill()
-        }
-        
         // Draw image (left aligned)
         let rectWidth: CGFloat = cellFrame.width, rectHeight: CGFloat = cellFrame.height
         let xInset = (rectWidth - imgWidth) / 2
         let yInset = (rectHeight - imgHeight) / 2
         
-        let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset)
+        // Raise the selected tab image by a few pixels so it is prominent
+        let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset).offsetBy(dx: 0, dy: isOn ? -2 : 0)
         self.image?.draw(in: imgRect)
+        
+        // Selection underline
+        if isOn {
+            
+            let underlineWidth = cellFrame.width
+            let drawRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 1, width: underlineWidth, height: 1)
+            selectionBoxColor.setFill()
+            drawRect.fill()
+        }
     }
 }

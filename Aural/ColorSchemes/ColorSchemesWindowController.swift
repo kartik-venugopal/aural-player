@@ -25,7 +25,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
         subViews = [generalSchemeView, playerSchemeView, playlistSchemeView, effectsSchemeView]
         tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
         
-        NSColorPanel.shared.showsAlpha = true
+        NSColorPanel.shared.showsAlpha = false
         ObjectGraph.windowManager.registerModalComponent(self)
     }
     
