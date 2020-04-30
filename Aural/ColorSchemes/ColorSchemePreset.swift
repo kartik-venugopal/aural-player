@@ -6,6 +6,8 @@ enum ColorSchemePreset: String, CaseIterable {
     
     case whiteBlight
     
+//    case blackAqua
+    
     static var defaultScheme: ColorSchemePreset {
         return blackAttack
     }
@@ -126,9 +128,9 @@ enum ColorSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .blackAttack:  return Colors.Constants.white17Percent
+        case .blackAttack:  return Colors.Constants.white50Percent
             
-        case .whiteBlight:  return Colors.Constants.white75Percent
+        case .whiteBlight:  return NSColor.black
             
         }
     }
