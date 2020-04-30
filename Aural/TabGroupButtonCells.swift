@@ -158,7 +158,7 @@ class EQSelectorButtonCell: TabGroupButtonCell {
         
         let font = isOn ? boldTextFont : textFont
         
-        // Selection underline
+        // Selection dot
         if isOn {
             
             let textWidth = StringUtils.sizeOfString(title, font).width
@@ -179,9 +179,6 @@ class EQSelectorButtonCell: TabGroupButtonCell {
 
 class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
-    override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
-    
     override var yOffset: CGFloat {
         
         if isOff {
@@ -197,5 +194,23 @@ class FilterBandsTabButtonCell: EQSelectorButtonCell {
         case .largest:  return 0
             
         }
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+        let font = isOn ? boldTextFont : textFont
+        
+        // Selection underline
+        if isOn {
+            
+            let underlineWidth = StringUtils.sizeOfString(title, font).width
+            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.minY + 2, width: underlineWidth, height: 1)
+            selectionBoxColor.setFill()
+            selRect.fill()
+        }
+        
+        // Title
+        let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
+        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font, yOffset - (isOn ? -1 : 0))
     }
 }

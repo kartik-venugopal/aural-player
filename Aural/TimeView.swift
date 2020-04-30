@@ -97,6 +97,10 @@ class TimeView: NSView {
     }
     
     func changeFunctionCaptionTextColor() {
+        
+        btnShiftPitch.image = btnShiftPitch.image?.applyingTint(Colors.Effects.functionCaptionTextColor)
+        btnShiftPitch.alternateImage = btnShiftPitch.alternateImage?.applyingTint(Colors.Effects.functionCaptionTextColor)
+        
         btnShiftPitch.redraw()
     }
 }
