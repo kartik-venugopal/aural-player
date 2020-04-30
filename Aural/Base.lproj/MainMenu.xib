@@ -1365,6 +1365,9 @@ CA
                                         </menuItem>
                                         <menuItem title="Black &amp; aqua" indentationLevel="1" id="KDj-TY-ROx">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="Pjb-10-EVU"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="White blight" indentationLevel="1" id="34v-MD-ohm">
                                             <modifierMask key="keyEquivalentModifierMask"/>

@@ -24,6 +24,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
             item.target = self
+            item.indentationLevel = 1
             
             menu.insertItem(item, at: 0)
         })
