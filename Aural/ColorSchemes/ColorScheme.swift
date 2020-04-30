@@ -66,6 +66,10 @@ class ColorScheme {
         self.effects.applyScheme(scheme.effects)
     }
     
+    func clone() -> ColorScheme {
+        return ColorScheme(self.name + "_clone", self.systemDefined, self)
+    }
+    
     var persistentState: ColorSchemeState {
         return ColorSchemeState(self)
     }
