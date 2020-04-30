@@ -177,7 +177,7 @@ class PlayerColorSchemeViewController: NSViewController, ColorSchemesViewProtoco
                 stepper.integerValue = intVal
             }
             
-            print("Found change:", lastChange.tag)
+            print("Found REDO change:", lastChange.tag)
             
             redoAction()
             return true

@@ -8,7 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ColorSchemesWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnRedo" destination="5YI-v6-gdm" id="IPv-Jd-cxn"/>
                 <outlet property="btnSave" destination="u68-92-4SC" id="jKj-ZN-3bz"/>
+                <outlet property="btnUndo" destination="xnW-n9-zYE" id="rlu-13-KNt"/>
                 <outlet property="tabView" destination="RoW-as-iiX" id="Ojx-ql-h92"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4TI-KA-rcz"/>
             </connections>
@@ -144,9 +146,9 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xnW-n9-zYE" userLabel="Save button">
-                        <rect key="frame" x="145" y="19" width="124" height="19"/>
+                        <rect key="frame" x="145" y="19" width="50" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Undo last change" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-B5-Zbz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="roundRect" title="Undo" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-B5-Zbz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
                             <string key="keyEquivalent">z</string>
@@ -154,6 +156,19 @@ Gw
                         </buttonCell>
                         <connections>
                             <action selector="undoLastChangeAction:" target="-2" id="P2p-kw-nOy"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5YI-v6-gdm" userLabel="Save button">
+                        <rect key="frame" x="200" y="19" width="50" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Redo" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kus-xS-con" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <string key="keyEquivalent">Z</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="redoLastChangeAction:" target="-2" id="OpW-5i-tUm"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gul-p4-MZw" userLabel="Save button">

@@ -74,6 +74,8 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     
     func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
         
+        self.history = history
+        
         functionCaptionTextColorPicker.color = scheme.effects.functionCaptionTextColor
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor
         
@@ -170,7 +172,7 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
                 stepper.integerValue = intVal
             }
             
-            print("Found change:", lastChange.tag)
+            print("Found REDO change:", lastChange.tag)
             
             redoAction()
             return true

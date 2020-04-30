@@ -4,6 +4,9 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     
     @IBOutlet weak var tabView: AuralTabView!
     @IBOutlet weak var btnSave: NSButton!
+    
+    @IBOutlet weak var btnUndo: NSButton!
+    @IBOutlet weak var btnRedo: NSButton!
 
     private lazy var generalSchemeView: ColorSchemesViewProtocol = ViewFactory.generalColorSchemeView
     private lazy var playerSchemeView: ColorSchemesViewProtocol = ViewFactory.playerColorSchemeView
@@ -40,10 +43,16 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
         }
         
         history.clear()
+        history.changeListener = {
+            self.btnUndo.enableIf(self.history.canUndo)
+            self.btnRedo.enableIf(self.history.canRedo)
+        }
         
         // Select the first tab
         subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
         tabView.selectTabViewItem(at: 0)
+        
+        [btnUndo, btnRedo].forEach({$0?.disable()})
         
         UIUtils.showDialog(self.window!)
         
@@ -75,9 +84,12 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
             subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
             
             SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
+            
+            btnUndo.disable()
+            btnRedo.enableIf(history.canRedo)
         }
         
-        // TODO: Store the "new" scheme so we can redo all changes
+        // TODO: First, store the "new" scheme so we can redo all changes
     }
     
     @IBAction func undoLastChangeAction(_ sender: Any) {
@@ -87,6 +99,26 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
             if subView.undoLastChange() {
                 
                 print("Undo successful !", subView)
+                
+                btnUndo.enableIf(history.canUndo)
+                btnRedo.enableIf(history.canRedo)
+                
+                break
+            }
+        }
+    }
+    
+    @IBAction func redoLastChangeAction(_ sender: Any) {
+        
+        for subView in subViews {
+            
+            if subView.redoLastChange() {
+                
+                print("Redo successful !", subView)
+                
+                btnUndo.enableIf(history.canUndo)
+                btnRedo.enableIf(history.canRedo)
+                
                 break
             }
         }
@@ -132,13 +164,22 @@ class ColorSchemeHistory {
     private var undoStack: Stack<ColorSchemeChange> = Stack()
     private var redoStack: Stack<ColorSchemeChange> = Stack()
     
+    var changeListener: () -> Void = {}
+    
     func clear() {
+        
         undoStack.clear()
         redoStack.clear()
     }
     
     func noteChange(_ tag: Int, _ undoValue: Any, _ redoValue: Any, _ changeType: ColorSchemeChangeType) {
+        
         undoStack.push(ColorSchemeChange(tag, undoValue, redoValue, changeType))
+        
+        // After a new change is noted, the redo changes are no longer relevant
+        redoStack.clear()
+        
+        changeListener()
     }
     
     var changeToUndo: ColorSchemeChange? {
@@ -147,6 +188,14 @@ class ColorSchemeHistory {
     
     var changeToRedo: ColorSchemeChange? {
         return redoStack.peek()
+    }
+    
+    var canUndo: Bool {
+        return !undoStack.isEmpty
+    }
+    
+    var canRedo: Bool {
+        return !redoStack.isEmpty
     }
     
     func undoLastChange() -> ColorSchemeChange? {
@@ -160,6 +209,13 @@ class ColorSchemeHistory {
         return nil
     }
     
+    func undoAll() {
+        
+        while let change = undoStack.pop() {
+            redoStack.push(change)
+        }
+    }
+    
     func redoLastChange() -> ColorSchemeChange? {
         
         if let change = redoStack.pop() {
@@ -170,11 +226,20 @@ class ColorSchemeHistory {
         
         return nil
     }
+    
+    func redoAll() {
+        
+        while let change = redoStack.pop() {
+            undoStack.push(change)
+        }
+    }
 }
 
 enum ColorSchemeChangeType {
     
     case changeColor, toggle, setIntValue
+    
+    // TODO: Add a case applyScheme for when presets are applied (value will be a ColorScheme object) ... undo / redo values will be restore points
 }
 
 struct ColorSchemeChange {
