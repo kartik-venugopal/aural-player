@@ -53,7 +53,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return NSColor(calibratedWhite: 0.08, alpha: 1)
             
-        case .whiteBlight:  return Colors.Constants.white90Percent
+        case .whiteBlight:  return Colors.Constants.white75Percent
             
         }
     }
@@ -86,7 +86,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return NSColor(calibratedWhite: 0.22, alpha: 1)
             
-        case .whiteBlight:  return Colors.Constants.white60Percent
+        case .whiteBlight:  return Colors.Constants.white30Percent
             
         }
     }
@@ -97,7 +97,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white25Percent
             
-        case .whiteBlight:  return Colors.Constants.white60Percent
+        case .whiteBlight:  return Colors.Constants.white40Percent
             
         }
     }
@@ -108,7 +108,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white40Percent
             
-        case .whiteBlight:  return Colors.Constants.white40Percent
+        case .whiteBlight:  return Colors.Constants.white30Percent
             
         }
     }
@@ -176,7 +176,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white65Percent
             
-        case .whiteBlight:  return Colors.Constants.white20Percent
+        case .whiteBlight:  return Colors.Constants.white15Percent
             
         }
     }
@@ -187,7 +187,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white55Percent
             
-        case .whiteBlight:  return Colors.Constants.white30Percent
+        case .whiteBlight:  return Colors.Constants.white25Percent
             
         }
     }
@@ -242,7 +242,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white20Percent
             
-        case .whiteBlight:  return Colors.Constants.white55Percent
+        case .whiteBlight:  return Colors.Constants.white60Percent
             
         }
     }
@@ -283,7 +283,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white60Percent
             
-        case .whiteBlight:  return Colors.Constants.green60Percent
+        case .whiteBlight:  return Colors.Constants.white40Percent
             
         }
     }
@@ -329,7 +329,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white80Percent
             
-        case .whiteBlight:  return Colors.Constants.white10Percent
+        case .whiteBlight:  return NSColor.black
             
         }
     }
@@ -340,7 +340,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white55Percent
             
-        case .whiteBlight:  return Colors.Constants.white25Percent
+        case .whiteBlight:  return Colors.Constants.white15Percent
             
         }
     }
@@ -351,7 +351,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white50Percent
             
-        case .whiteBlight:  return Colors.Constants.white30Percent
+        case .whiteBlight:  return Colors.Constants.white20Percent
             
         }
     }
@@ -373,7 +373,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white60Percent
             
-        case .whiteBlight:  return Colors.Constants.white50Percent
+        case .whiteBlight:  return Colors.Constants.white25Percent
             
         }
     }
@@ -384,7 +384,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white15Percent
             
-        case .whiteBlight:  return Colors.Constants.white75Percent
+        case .whiteBlight:  return Colors.Constants.white60Percent
             
         }
     }
@@ -406,7 +406,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white50Percent
             
-        case .whiteBlight:  return Colors.Constants.white30Percent
+        case .whiteBlight:  return Colors.Constants.white25Percent
             
         }
     }
@@ -419,7 +419,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white45Percent
             
-        case .whiteBlight:  return Colors.Constants.white40Percent
+        case .whiteBlight:  return Colors.Constants.white25Percent
             
         }
     }
@@ -430,7 +430,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white70Percent
             
-        case .whiteBlight:  return Colors.Constants.white15Percent
+        case .whiteBlight:  return Colors.Constants.white10Percent
             
         }
     }
@@ -441,7 +441,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white15Percent
             
-        case .whiteBlight:  return Colors.Constants.white70Percent
+        case .whiteBlight:  return Colors.Constants.white60Percent
             
         }
     }
@@ -452,13 +452,20 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return .brighten
             
-        case .whiteBlight:  return .brighten
+        case .whiteBlight:  return .none
             
         }
     }
     
     var effectsSliderBackgroundGradientAmount: Int {
-        return 20
+        
+        switch self {
+            
+        case .blackAttack:  return 20
+            
+        case .whiteBlight:  return 0
+            
+        }
     }
     
     var effectsSliderKnobColor: NSColor {
@@ -504,7 +511,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return Colors.Constants.white60Percent
             
-        case .whiteBlight:  return Colors.Constants.white50Percent
+        case .whiteBlight:  return Colors.Constants.white40Percent
             
         }
     }
@@ -515,7 +522,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return NSColor(red: 0.76, green: 0.69, blue: 0, alpha: 1)
             
-        case .whiteBlight:  return Colors.Constants.white30Percent
+        case .whiteBlight:  return Colors.Constants.white20Percent
             
         }
     }
@@ -537,7 +544,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return 60
             
-        case .whiteBlight:  return 40
+        case .whiteBlight:  return 30
             
         }
     }

@@ -140,9 +140,9 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5TX-uq-BeN" userLabel="Shift Pitch">
-                                <rect key="frame" x="26" y="8" width="196" height="27"/>
+                                <rect key="frame" x="30" y="8" width="196" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title=" Shift pitch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="mini" state="on" inset="2" id="7do-B3-QuC" customClass="FXFunctionCheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="bevel" title="  Shift pitch" bezelStyle="regularSquare" image="Checked" imagePosition="left" alignment="left" alternateImage="NotChecked" controlSize="mini" state="on" inset="2" id="7do-B3-QuC" customClass="FXFunctionCheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="11" name="Play-Regular"/>
                                 </buttonCell>
@@ -259,6 +259,8 @@
         </view>
     </objects>
     <resources>
+        <image name="Checked" width="12" height="12"/>
+        <image name="NotChecked" width="12" height="12"/>
         <image name="PresetsDisclosureTriangle" width="15" height="15"/>
         <image name="SaveEQPreset" width="15" height="15"/>
     </resources>
