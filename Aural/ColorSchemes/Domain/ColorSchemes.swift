@@ -37,9 +37,9 @@ class ColorSchemes {
     
     static func applyScheme(_ name: String) -> ColorScheme? {
         
-        if let scheme = userDefinedSchemesByName[name] {
+        if let preset = ColorSchemePreset.presetByName(name) {
             
-            systemScheme.applyScheme(scheme)
+            systemScheme.applyPreset(preset)
             
             // Update seek slider gradient cache
             Colors.Player.updateSliderBackgroundColor()
@@ -47,9 +47,9 @@ class ColorSchemes {
             
             return systemScheme
             
-        } else if let preset = ColorSchemePreset.presetByName(name) {
+        } else if let scheme = userDefinedSchemesByName[name] {
             
-            systemScheme.applyPreset(preset)
+            systemScheme.applyScheme(scheme)
             
             // Update seek slider gradient cache
             Colors.Player.updateSliderBackgroundColor()
@@ -68,7 +68,7 @@ class ColorSchemes {
     static func deleteScheme(_ name: String) {
         
         // User cannot modify/delete system-defined schemes
-        if let scheme = schemeByName(name), !scheme.systemDefined {
+        if userDefinedSchemesByName[name] != nil {
             userDefinedSchemesByName.removeValue(forKey: name)
         }
     }
@@ -98,7 +98,7 @@ class ColorSchemes {
     }
     
     static func schemeWithNameExists(_ name: String) -> Bool {
-        return userDefinedSchemesByName[name] != nil
+        return userDefinedSchemesByName[name] != nil || ColorSchemePreset.presetByName(name) != nil
     }
     
     static var persistentState: ColorSchemesState {

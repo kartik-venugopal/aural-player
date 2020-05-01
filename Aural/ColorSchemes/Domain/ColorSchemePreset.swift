@@ -28,6 +28,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case ColorSchemePreset.gloomyDay.name:      return .gloomyDay
             
+        case ColorSchemePreset.wood.name:      return .wood
+            
         default:    return nil
             
         }
@@ -550,7 +552,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white40Percent
             
-        case .wood:    return NSColor(red: 0.87, green: 0.76, blue: 0.63, alpha: 1)
+        case .wood:    return NSColor(red: 0.63, green: 0.355, blue: 0.146, alpha: 1)
             
         }
     }

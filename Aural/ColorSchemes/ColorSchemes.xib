@@ -119,6 +119,12 @@
                                             <action selector="applySchemeAction:" target="-2" id="fsL-3V-jMm"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Wood" indentationLevel="1" id="kdj-Tp-AWC">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="IBj-gS-eNk"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem isSeparatorItem="YES" id="xpY-pX-kmu"/>
                                     <menuItem title="Customize ..." indentationLevel="1" id="EHM-Fz-uz3">
                                         <modifierMask key="keyEquivalentModifierMask"/>

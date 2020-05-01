@@ -338,6 +338,12 @@
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="CMQ-iF-zKY"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Wood" indentationLevel="1" id="ROY-4K-3en">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="T67-nJ-ppm"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="yTa-J9-pr6">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
