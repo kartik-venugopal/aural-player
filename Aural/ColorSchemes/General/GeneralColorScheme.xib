@@ -139,7 +139,7 @@
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ER7-f7-jiS" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="20" y="228" width="252" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Selected tab button" id="1uI-cA-MsD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Selected tab marker" id="1uI-cA-MsD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="13" name="Play-Regular"/>
                                             <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
