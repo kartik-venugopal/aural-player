@@ -84,7 +84,7 @@
                     <popUpButton toolTip="Load color scheme" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3N-y5-Sxg" userLabel="Presets Menu">
                         <rect key="frame" x="130" y="35" width="35" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="kg9-ic-jom" id="5lu-BT-xYZ">
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="5lu-BT-xYZ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                             <menu key="menu" showsStateColumn="NO" id="7Xj-qr-pKQ">
@@ -92,7 +92,33 @@
                                     <menuItem image="LoadScheme" hidden="YES" id="kg9-ic-jom">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="Cug-sQ-QPX"/>
+                                    <menuItem title="Black attack (default)" indentationLevel="1" id="xB0-xT-CB3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="9uf-fH-zdN"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="o1p-ea-4Dw">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="gzT-Yd-2oi"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="White blight" indentationLevel="1" id="LSM-ny-IFJ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="zXH-HU-Nnw"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="xpY-pX-kmu"/>
+                                    <menuItem title="Customize ..." indentationLevel="1" id="EHM-Fz-uz3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="i6Z-97-nWg"/>
+                                </connections>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>

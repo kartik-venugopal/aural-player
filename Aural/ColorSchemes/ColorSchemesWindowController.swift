@@ -1,6 +1,6 @@
 import Cocoa
 
-class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, StringInputClient, NSWindowDelegate {
+class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputClient, NSWindowDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     @IBOutlet weak var btnSave: NSButton!
@@ -64,10 +64,17 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
         return self.window?.isVisible ?? false
     }
     
-    @IBAction func doneAction(_ sender: Any) {
+    @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
-        NSColorPanel.shared.close()
-        UIUtils.dismissDialog(self.window!)
+        let undoValue: ColorScheme = ColorSchemes.systemScheme.clone()
+        
+        if let scheme = ColorSchemes.applyScheme(sender.title) {
+            
+            let redoValue: ColorScheme = scheme.clone()
+            history.noteChange(1, undoValue, redoValue, .applyScheme)
+            
+            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
+        }
     }
     
     @IBAction func saveSchemeAction(_ sender: Any) {
@@ -77,49 +84,77 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     @IBAction func undoAllChangesAction(_ sender: Any) {
         
         if let restorePoint = history.undoAll() {
-            
-            ColorSchemes.systemScheme.applyScheme(restorePoint)
-            subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
-            
-            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
-            
-            updateButtonStates()
+            applyScheme(restorePoint)
         }
     }
     
     @IBAction func redoAllChangesAction(_ sender: Any) {
         
         if let restorePoint = history.redoAll() {
-            
-            ColorSchemes.systemScheme.applyScheme(restorePoint)
-            subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
-            
-            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
-            
-            updateButtonStates()
+            applyScheme(restorePoint)
         }
+    }
+    
+    private func applyScheme(_ scheme: ColorScheme) {
+        
+        ColorSchemes.systemScheme.applyScheme(scheme)
+        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
+        
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
+        
+        updateButtonStates()
     }
     
     @IBAction func undoLastChangeAction(_ sender: Any) {
         
-        for subView in subViews {
+        if let lastChange = history.undoLastChange() {
             
-            if subView.undoLastChange() {
+            // Color scheme application can be handled here
+            if lastChange.changeType == .applyScheme {
+            
+                if let scheme = lastChange.undoValue as? ColorScheme {
+                    applyScheme(scheme)
+                }
                 
-                updateButtonStates()
-                break
+            } else {
+                
+                // Other change types (single field changes) need to be deferred to subviews
+                
+                for subView in subViews {
+                    
+                    if subView.undoChange(lastChange) {
+                        
+                        updateButtonStates()
+                        break
+                    }
+                }
             }
         }
     }
     
     @IBAction func redoLastChangeAction(_ sender: Any) {
         
-        for subView in subViews {
+        if let lastChange = history.redoLastChange() {
             
-            if subView.redoLastChange() {
+            // Color scheme application can be handled here
+            if lastChange.changeType == .applyScheme {
                 
-                updateButtonStates()
-                break
+                if let scheme = lastChange.redoValue as? ColorScheme {
+                    applyScheme(scheme)
+                }
+                
+            } else {
+                
+                // Other change types (single field changes) need to be deferred to subviews
+                
+                for subView in subViews {
+                    
+                    if subView.redoChange(lastChange) {
+                        
+                        updateButtonStates()
+                        break
+                    }
+                }
             }
         }
     }
@@ -133,12 +168,39 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
         btnRedoAll.enableIf(history.canRedo)
     }
     
+    @IBAction func doneAction(_ sender: Any) {
+        
+        NSColorPanel.shared.close()
+        UIUtils.dismissDialog(self.window!)
+    }
+    
     deinit {
+        
         // Make sure the color panel closes before the app exits
         NSColorPanel.shared.close()
     }
     
-    // MARK - StringInputClient functions
+    // MARK - MenuDelegate functions
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        while let item = menu.item(at: 1), !item.isSeparatorItem {
+            menu.removeItem(at: 1)
+        }
+        
+        // Recreate the custom scheme items
+        ColorSchemes.userDefinedSchemes.forEach({
+            
+            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.indentationLevel = 1
+            
+            menu.insertItem(item, at: 1)
+        })
+    }
+    
+    // MARK - StringInputClient functions (for saving new color schemes)
     // TODO: Refactor this into a ColorSchemesStringInputClient class to avoid duplication
     
     var inputPrompt: String {
@@ -173,132 +235,16 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     }
 }
 
-class ColorSchemeHistory {
-    
-    private var undoStack: Stack<ColorSchemeChange> = Stack()
-    private var redoStack: Stack<ColorSchemeChange> = Stack()
-    
-    private var undoAllRestorePoint: ColorScheme?
-    private var redoAllRestorePoint: ColorScheme?
-    
-    var changeListener: () -> Void = {}
-    
-    func begin() {
-        
-        undoStack.clear()
-        redoStack.clear()
-        undoAllRestorePoint = ColorSchemes.systemScheme.clone()
-    }
-    
-    func noteChange(_ tag: Int, _ undoValue: Any, _ redoValue: Any, _ changeType: ColorSchemeChangeType) {
-        
-        undoStack.push(ColorSchemeChange(tag, undoValue, redoValue, changeType))
-        
-        // After a new change is noted, the redo changes are no longer relevant
-        redoStack.clear()
-        
-        changeListener()
-    }
-    
-    var changeToUndo: ColorSchemeChange? {
-        return undoStack.peek()
-    }
-    
-    var changeToRedo: ColorSchemeChange? {
-        return redoStack.peek()
-    }
-    
-    var canUndo: Bool {
-        return !undoStack.isEmpty
-    }
-    
-    var canRedo: Bool {
-        return !redoStack.isEmpty
-    }
-    
-    func undoLastChange() -> ColorSchemeChange? {
-        
-        // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
-        if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = ColorSchemes.systemScheme.clone()
-        }
-        
-        if let change = undoStack.pop() {
-            
-            redoStack.push(change)
-            return change
-        }
-        
-        return nil
-    }
-    
-    func undoAll() -> ColorScheme? {
-        
-        // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
-        if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = ColorSchemes.systemScheme.clone()
-        }
-
-        while let change = undoStack.pop() {
-            redoStack.push(change)
-        }
-        
-        return undoAllRestorePoint
-    }
-    
-    func redoLastChange() -> ColorSchemeChange? {
-        
-        if let change = redoStack.pop() {
-            
-            undoStack.push(change)
-            return change
-        }
-        
-        return nil
-    }
-    
-    func redoAll() -> ColorScheme? {
-        
-        while let change = redoStack.pop() {
-            undoStack.push(change)
-        }
-        
-        return redoAllRestorePoint
-    }
-}
-
-enum ColorSchemeChangeType {
-    
-    case changeColor, toggle, setIntValue
-    
-    // TODO: Add a case applyScheme for when presets are applied (value will be a ColorScheme object) ... undo / redo values will be restore points
-}
-
-struct ColorSchemeChange {
-    
-    let tag: Int
-    let undoValue: Any
-    let redoValue: Any
-    let changeType: ColorSchemeChangeType
-    
-    init(_ tag: Int, _ undoValue: Any, _ redoValue: Any, _ changeType: ColorSchemeChangeType) {
-        
-        self.tag = tag
-        self.undoValue = undoValue
-        self.redoValue = redoValue
-        self.changeType = changeType
-    }
-}
-
-typealias ColorChangeAction = () -> Void
-
+/*
+    Contract for all subviews that alter the color scheme, to facilitate communication between the window controller and subviews.
+ */
 protocol ColorSchemesViewProtocol {
     
     var colorSchemeView: NSView {get}
     
     func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory)
     
-    func undoLastChange() -> Bool
+    func undoChange(_ lastChange: ColorSchemeChange) -> Bool
     
-    func redoLastChange() -> Bool
+    func redoChange(_ lastChange: ColorSchemeChange) -> Bool
 }
