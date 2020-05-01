@@ -15,9 +15,11 @@
                 <outlet property="btnSliderForegroundGradientDarken" destination="8VJ-j2-h9F" id="dma-Wg-4XG"/>
                 <outlet property="btnSliderForegroundGradientEnabled" destination="T2H-el-MIF" id="wbD-qO-JRm"/>
                 <outlet property="btnSliderKnobColorSameAsForeground" destination="3SR-Yc-2r0" id="xzr-T6-MMy"/>
+                <outlet property="colorPickerContextMenu" destination="pTW-3S-XCm" id="j9G-iN-QNm"/>
                 <outlet property="containerView" destination="XB1-ft-SMR" id="Gtu-Et-bc6"/>
                 <outlet property="lblSliderBackgroundGradientAmount" destination="OLU-aF-64d" id="RhH-7t-zgG"/>
                 <outlet property="lblSliderForegroundGradientAmount" destination="oXl-rM-eM4" id="vQm-ER-WA8"/>
+                <outlet property="pasteColorMenuItem" destination="8Sq-3V-Fad" id="fbU-wd-dsA"/>
                 <outlet property="scrollView" destination="Apd-Ch-VYl" id="yek-lK-gTA"/>
                 <outlet property="sliderBackgroundColorPicker" destination="naY-wg-2GM" id="TjA-oS-bd7"/>
                 <outlet property="sliderBackgroundGradientAmountStepper" destination="zF5-gy-nuq" id="SDN-GM-Yzu"/>
@@ -49,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="445" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <colorWell fixedFrame="YES" tag="210" translatesAutoresizingMaskIntoConstraints="NO" id="NT1-Jh-EIQ" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="210" translatesAutoresizingMaskIntoConstraints="NO" id="NT1-Jh-EIQ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="227" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,7 +59,7 @@
                                             <action selector="sliderForegroundColorAction:" target="-2" id="eNK-LE-Fhk"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="217" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-bR-hEb" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="217" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-bR-hEb" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="34" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -65,7 +67,7 @@
                                             <action selector="sliderLoopSegmentColorAction:" target="-2" id="oPr-kD-B0n"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="201" translatesAutoresizingMaskIntoConstraints="NO" id="CiU-hu-xVW" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="201" translatesAutoresizingMaskIntoConstraints="NO" id="CiU-hu-xVW" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="557" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -91,7 +93,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="215" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-gq-vdO" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="215" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-gq-vdO" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="99" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,7 +137,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="202" translatesAutoresizingMaskIntoConstraints="NO" id="oZl-bo-ON6" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="202" translatesAutoresizingMaskIntoConstraints="NO" id="oZl-bo-ON6" userLabel="Secondary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="522" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -152,7 +154,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="203" translatesAutoresizingMaskIntoConstraints="NO" id="cKP-wY-TTF" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="203" translatesAutoresizingMaskIntoConstraints="NO" id="cKP-wY-TTF" userLabel="Secondary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="487" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -178,7 +180,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="205" translatesAutoresizingMaskIntoConstraints="NO" id="naY-wg-2GM" userLabel="Control button color">
+                                    <colorWell fixedFrame="YES" tag="205" translatesAutoresizingMaskIntoConstraints="NO" id="naY-wg-2GM" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="362" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -204,7 +206,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="204" translatesAutoresizingMaskIntoConstraints="NO" id="I2u-7K-uBN" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="204" translatesAutoresizingMaskIntoConstraints="NO" id="I2u-7K-uBN" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="452" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -349,12 +351,32 @@
                         <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="445" y="0.0" width="15" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
         </customView>
+        <menu autoenablesItems="NO" id="pTW-3S-XCm">
+            <items>
+                <menuItem title="Copy color" id="ual-c4-ONj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="copyColorAction:" target="-2" id="t8i-Kb-iRr"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Paste color" enabled="NO" id="8Sq-3V-Fad">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="pasteColorAction:" target="-2" id="h5e-26-9dw"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="ADz-2Z-a9U"/>
+            </connections>
+            <point key="canvasLocation" x="243" y="322"/>
+        </menu>
     </objects>
 </document>

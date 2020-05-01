@@ -2,10 +2,10 @@ import Cocoa
 
 class EffectsColorSchemeViewController: ColorSchemeViewController {
     
-    @IBOutlet weak var functionCaptionTextColorPicker: NSColorWell!
-    @IBOutlet weak var functionValueTextColorPicker: NSColorWell!
+    @IBOutlet weak var functionCaptionTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var functionValueTextColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
+    @IBOutlet weak var sliderBackgroundColorPicker: AuralColorPicker!
     @IBOutlet weak var btnSliderBackgroundGradientEnabled: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientDarken: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientBrighten: NSButton!
@@ -18,14 +18,14 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var sliderForegroundGradientAmountStepper: NSStepper!
     @IBOutlet weak var lblSliderForegroundGradientAmount: NSTextField!
     
-    @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
+    @IBOutlet weak var sliderKnobColorPicker: AuralColorPicker!
     @IBOutlet weak var btnSliderKnobColorSameAsForeground: NSButton!
     
-    @IBOutlet weak var sliderTickColorPicker: NSColorWell!
+    @IBOutlet weak var sliderTickColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var activeUnitStateColorPicker: NSColorWell!
-    @IBOutlet weak var bypassedUnitStateColorPicker: NSColorWell!
-    @IBOutlet weak var suppressedUnitStateColorPicker: NSColorWell!
+    @IBOutlet weak var activeUnitStateColorPicker: AuralColorPicker!
+    @IBOutlet weak var bypassedUnitStateColorPicker: AuralColorPicker!
+    @IBOutlet weak var suppressedUnitStateColorPicker: AuralColorPicker!
     
     override var nibName: NSNib.Name? {return "EffectsColorScheme"}
     
@@ -53,9 +53,9 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         actionsMap[suppressedUnitStateColorPicker.tag] = self.changeSuppressedUnitStateColor
     }
     
-    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
-        super.resetFields(scheme, history)
+        super.resetFields(scheme, history, clipboard)
         
         functionCaptionTextColorPicker.color = scheme.effects.functionCaptionTextColor
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor

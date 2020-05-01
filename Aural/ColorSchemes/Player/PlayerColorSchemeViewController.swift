@@ -2,30 +2,30 @@ import Cocoa
 
 class PlayerColorSchemeViewController: ColorSchemeViewController {
     
-    @IBOutlet weak var trackInfoPrimaryTextColorPicker: NSColorWell!
-    @IBOutlet weak var trackInfoSecondaryTextColorPicker: NSColorWell!
-    @IBOutlet weak var trackInfoTertiaryTextColorPicker: NSColorWell!
+    @IBOutlet weak var trackInfoPrimaryTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var trackInfoSecondaryTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var trackInfoTertiaryTextColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var sliderValueTextColorPicker: NSColorWell!
+    @IBOutlet weak var sliderValueTextColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var sliderBackgroundColorPicker: NSColorWell!
+    @IBOutlet weak var sliderBackgroundColorPicker: AuralColorPicker!
     @IBOutlet weak var btnSliderBackgroundGradientEnabled: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientDarken: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientBrighten: NSButton!
     @IBOutlet weak var sliderBackgroundGradientAmountStepper: NSStepper!
     @IBOutlet weak var lblSliderBackgroundGradientAmount: NSTextField!
     
-    @IBOutlet weak var sliderForegroundColorPicker: NSColorWell!
+    @IBOutlet weak var sliderForegroundColorPicker: AuralColorPicker!
     @IBOutlet weak var btnSliderForegroundGradientEnabled: NSButton!
     @IBOutlet weak var btnSliderForegroundGradientDarken: NSButton!
     @IBOutlet weak var btnSliderForegroundGradientBrighten: NSButton!
     @IBOutlet weak var sliderForegroundGradientAmountStepper: NSStepper!
     @IBOutlet weak var lblSliderForegroundGradientAmount: NSTextField!
     
-    @IBOutlet weak var sliderKnobColorPicker: NSColorWell!
+    @IBOutlet weak var sliderKnobColorPicker: AuralColorPicker!
     @IBOutlet weak var btnSliderKnobColorSameAsForeground: NSButton!
     
-    @IBOutlet weak var sliderLoopSegmentColorPicker: NSColorWell!
+    @IBOutlet weak var sliderLoopSegmentColorPicker: AuralColorPicker!
     
     override var nibName: NSNib.Name? {return "PlayerColorScheme"}
     
@@ -57,9 +57,9 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
         actionsMap[sliderLoopSegmentColorPicker.tag] = self.changeSliderLoopSegmentColor
     }
     
-    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
-        super.resetFields(scheme, history)
+        super.resetFields(scheme, history, clipboard)
         
         trackInfoPrimaryTextColorPicker.color = scheme.player.trackInfoPrimaryTextColor
         trackInfoSecondaryTextColorPicker.color = scheme.player.trackInfoSecondaryTextColor

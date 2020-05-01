@@ -116,3 +116,27 @@ struct ColorSchemeChange {
 }
 
 typealias ColorChangeAction = () -> Void
+
+class ColorClipboard {
+    
+    var color: NSColor? {
+        
+        didSet {
+            colorChangeCallback()
+        }
+    }
+    
+    var colorChangeCallback: () -> Void = {}
+    
+    var hasColor: Bool {
+        return color != nil
+    }
+    
+    func clear() {
+        color = nil
+    }
+    
+    func copy(_ color: NSColor) {
+        self.color = color
+    }
+}

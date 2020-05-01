@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistColorSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="colorPickerContextMenu" destination="Dxr-Qm-J8T" id="cet-uQ-QCC"/>
                 <outlet property="containerView" destination="UQI-d4-8YL" id="vdE-Xk-PkC"/>
                 <outlet property="groupDisclosureTriangleColorPicker" destination="GY8-wP-gxT" id="yQz-37-XOr"/>
                 <outlet property="groupIconColorPicker" destination="AP1-4v-paP" id="Cfu-xA-w2l"/>
@@ -15,6 +16,7 @@
                 <outlet property="groupNameTextColorPicker" destination="5jJ-t7-sLV" id="UJB-1q-KfH"/>
                 <outlet property="indexDurationSelectedTextColorPicker" destination="Ge8-YP-uac" id="wHR-vX-w18"/>
                 <outlet property="indexDurationTextColorPicker" destination="xid-fq-gWe" id="iRu-V8-c4B"/>
+                <outlet property="pasteColorMenuItem" destination="YSr-HJ-LrC" id="c6O-9a-9dO"/>
                 <outlet property="playingTrackIconColorPicker" destination="g5z-IJ-JQU" id="UMv-ed-XJC"/>
                 <outlet property="scrollView" destination="Nag-pq-GqV" id="hhl-Tn-VpE"/>
                 <outlet property="selectionBoxColorPicker" destination="w1Q-u5-R6w" id="gve-km-34a"/>
@@ -41,7 +43,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="445" height="520"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <colorWell fixedFrame="YES" tag="307" translatesAutoresizingMaskIntoConstraints="NO" id="25K-gK-PvM" userLabel="Summary info color">
+                                    <colorWell fixedFrame="YES" tag="307" translatesAutoresizingMaskIntoConstraints="NO" id="25K-gK-PvM" userLabel="Summary info color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="227" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,7 +60,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="310" translatesAutoresizingMaskIntoConstraints="NO" id="AP1-4v-paP" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="310" translatesAutoresizingMaskIntoConstraints="NO" id="AP1-4v-paP" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="67" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -66,7 +68,7 @@
                                             <action selector="groupIconColorAction:" target="-2" id="77j-d1-ORZ"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="308" translatesAutoresizingMaskIntoConstraints="NO" id="g5z-IJ-JQU" userLabel="Playing track icon color">
+                                    <colorWell fixedFrame="YES" tag="308" translatesAutoresizingMaskIntoConstraints="NO" id="g5z-IJ-JQU" userLabel="Playing track icon color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="137" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -83,7 +85,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="304" translatesAutoresizingMaskIntoConstraints="NO" id="pzu-IE-BGC" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="304" translatesAutoresizingMaskIntoConstraints="NO" id="pzu-IE-BGC" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="332" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -100,7 +102,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="306" translatesAutoresizingMaskIntoConstraints="NO" id="cRK-i7-Omu" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="306" translatesAutoresizingMaskIntoConstraints="NO" id="cRK-i7-Omu" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="262" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -117,7 +119,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="303" translatesAutoresizingMaskIntoConstraints="NO" id="5jJ-t7-sLV" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="303" translatesAutoresizingMaskIntoConstraints="NO" id="5jJ-t7-sLV" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="367" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -134,7 +136,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="305" translatesAutoresizingMaskIntoConstraints="NO" id="Ge8-YP-uac" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="305" translatesAutoresizingMaskIntoConstraints="NO" id="Ge8-YP-uac" userLabel="Secondary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="297" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -142,7 +144,7 @@
                                             <action selector="indexDurationSelectedTextColorAction:" target="-2" id="Tah-5c-0va"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="301" translatesAutoresizingMaskIntoConstraints="NO" id="Bnp-xx-WEd" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="301" translatesAutoresizingMaskIntoConstraints="NO" id="Bnp-xx-WEd" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="437" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -150,7 +152,7 @@
                                             <action selector="trackNameTextColorAction:" target="-2" id="3AZ-av-mpG"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="302" translatesAutoresizingMaskIntoConstraints="NO" id="xid-fq-gWe" userLabel="Secondary text color">
+                                    <colorWell fixedFrame="YES" tag="302" translatesAutoresizingMaskIntoConstraints="NO" id="xid-fq-gWe" userLabel="Secondary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="402" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -167,7 +169,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="311" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-wP-gxT" userLabel="Primary text color">
+                                    <colorWell fixedFrame="YES" tag="311" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-wP-gxT" userLabel="Primary text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="32" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -184,7 +186,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="309" translatesAutoresizingMaskIntoConstraints="NO" id="w1Q-u5-R6w" userLabel="Selection box color">
+                                    <colorWell fixedFrame="YES" tag="309" translatesAutoresizingMaskIntoConstraints="NO" id="w1Q-u5-R6w" userLabel="Selection box color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="102" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -262,5 +264,25 @@
                 </scrollView>
             </subviews>
         </customView>
+        <menu autoenablesItems="NO" id="Dxr-Qm-J8T">
+            <items>
+                <menuItem title="Copy color" id="vcn-lD-MgG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="copyColorAction:" target="-2" id="oS1-SD-lQs"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Paste color" enabled="NO" id="YSr-HJ-LrC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="pasteColorAction:" target="-2" id="r3S-GF-a6a"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="lt5-5y-4dM"/>
+            </connections>
+            <point key="canvasLocation" x="243" y="322"/>
+        </menu>
     </objects>
 </document>

@@ -2,21 +2,21 @@ import Cocoa
 
 class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
-    @IBOutlet weak var trackNameTextColorPicker: NSColorWell!
-    @IBOutlet weak var groupNameTextColorPicker: NSColorWell!
-    @IBOutlet weak var indexDurationTextColorPicker: NSColorWell!
+    @IBOutlet weak var trackNameTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var groupNameTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var indexDurationTextColorPicker: AuralColorPicker!
 
-    @IBOutlet weak var trackNameSelectedTextColorPicker: NSColorWell!
-    @IBOutlet weak var groupNameSelectedTextColorPicker: NSColorWell!
-    @IBOutlet weak var indexDurationSelectedTextColorPicker: NSColorWell!
+    @IBOutlet weak var trackNameSelectedTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var groupNameSelectedTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var indexDurationSelectedTextColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var summaryInfoColorPicker: NSColorWell!
+    @IBOutlet weak var summaryInfoColorPicker: AuralColorPicker!
 
-    @IBOutlet weak var groupIconColorPicker: NSColorWell!
-    @IBOutlet weak var groupDisclosureTriangleColorPicker: NSColorWell!
+    @IBOutlet weak var groupIconColorPicker: AuralColorPicker!
+    @IBOutlet weak var groupDisclosureTriangleColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var selectionBoxColorPicker: NSColorWell!
-    @IBOutlet weak var playingTrackIconColorPicker: NSColorWell!
+    @IBOutlet weak var selectionBoxColorPicker: AuralColorPicker!
+    @IBOutlet weak var playingTrackIconColorPicker: AuralColorPicker!
     
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
     
@@ -41,9 +41,9 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         actionsMap[selectionBoxColorPicker.tag] = self.changeSelectionBoxColor
     }
     
-    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
-        super.resetFields(scheme, history)
+        super.resetFields(scheme, history, clipboard)
         
         trackNameTextColorPicker.color = scheme.playlist.trackNameTextColor
         groupNameTextColorPicker.color = scheme.playlist.groupNameTextColor
