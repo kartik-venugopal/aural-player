@@ -37,8 +37,6 @@ protocol EQUnitProtocol: FXUnitProtocol {
     
     var bands: [Float] {get set}
     
-    var sync: Bool {get set}
-    
     // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
     func setBand(_ index: Int, gain: Float)
     

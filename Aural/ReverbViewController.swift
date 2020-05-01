@@ -30,7 +30,7 @@ class ReverbViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     override func initControls() {
@@ -67,11 +67,11 @@ class ReverbViewController: FXUnitViewController {
         
         super.applyColorScheme(scheme)
         
-        changeSliderColor()
+        changeSliderColors()
         reverbView.redrawMenu()
     }
     
-    func changeSliderColor() {
+    override func changeSliderColors() {
         reverbView.redrawSliders()
     }
     
@@ -125,10 +125,6 @@ class ReverbViewController: FXUnitViewController {
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
-                
-            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
-                
-                changeSliderColor()
                 
             case .changeTextButtonMenuColor:
                 

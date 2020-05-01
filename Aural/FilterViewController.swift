@@ -66,7 +66,7 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -298,7 +298,7 @@ class FilterViewController: FXUnitViewController {
         filterView.redrawChart()
     }
     
-    func changeSliderColor() {
+    override func changeSliderColors() {
         bandControllers.forEach({$0.redrawSliders()})
     }
     
@@ -392,10 +392,6 @@ class FilterViewController: FXUnitViewController {
             case .changeBackgroundColor:
                 
                 changeBackgroundColor()
-                
-            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
-                
-                changeSliderColor()
                 
             case .changeSelectedTabButtonColor:
                 

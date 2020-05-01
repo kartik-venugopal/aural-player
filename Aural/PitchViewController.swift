@@ -36,7 +36,7 @@ class PitchViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
     override func oneTimeSetup() {
@@ -121,10 +121,10 @@ class PitchViewController: FXUnitViewController {
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
-        changeSliderColor()
+        changeSliderColors()
     }
     
-    func changeSliderColor() {
+    override func changeSliderColors() {
         pitchView.redrawSliders()
     }
     
@@ -188,21 +188,6 @@ class PitchViewController: FXUnitViewController {
         if message.actionType == .changeEffectsTextSize {
             
             changeTextSize()
-            return
-        }
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
-                
-                changeSliderColor()
-                
-            default: return
-                
-            }
-            
             return
         }
     }

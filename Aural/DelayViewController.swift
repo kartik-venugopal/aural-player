@@ -33,13 +33,6 @@ class DelayViewController: FXUnitViewController {
         delayView.setState(delayUnit.time, delayUnit.formattedTime, delayUnit.amount, delayUnit.formattedAmount, delayUnit.feedback, delayUnit.formattedFeedback, delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
-    override func initSubscriptions() {
-        
-        super.initSubscriptions()
-        
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
-    }
-    
     override func stateChanged() {
         
         super.stateChanged()
@@ -77,10 +70,10 @@ class DelayViewController: FXUnitViewController {
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
-        changeSliderColor()
+        changeSliderColors()
     }
     
-    func changeSliderColor() {
+    override func changeSliderColors() {
         delayView.redrawSliders()
     }
     
@@ -101,13 +94,7 @@ class DelayViewController: FXUnitViewController {
         super.changeSuppressedUnitStateColor(color)
         delayView.redrawSliders()
     }
-    
-//    override func changeFunctionCaptionTextColor(_ color: NSColor) {
-//
-//        super.changeFunctionCaptionTextColor(color)
-//        delayView.changeFunctionCaptionTextColor()
-//    }
-    
+
     // MARK: Message handling
     
     override func consumeMessage(_ message: ActionMessage) {
@@ -117,21 +104,6 @@ class DelayViewController: FXUnitViewController {
         if message.actionType == .changeEffectsTextSize {
             
             changeTextSize()
-            return
-        }
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
-                
-                changeSliderColor()
-
-            default: return
-                
-            }
-            
             return
         }
     }

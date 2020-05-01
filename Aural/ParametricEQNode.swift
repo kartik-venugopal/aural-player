@@ -10,7 +10,6 @@ class ParametricEQ: ParametricEQProtocol {
     
     var eq10Node: ParametricEQNode
     var eq15Node: FifteenBandEQNode
-    var sync: Bool
     var allNodes: [ParametricEQNode] { return [eq10Node, eq15Node] }
     
     var bypass: Bool {
@@ -29,13 +28,12 @@ class ParametricEQ: ParametricEQProtocol {
     
     var inactiveNode: ParametricEQNode {return type == .tenBand ? eq15Node : eq10Node}
     
-    init(_ type: EQType, _ sync: Bool) {
+    init(_ type: EQType) {
         
         eq10Node = ParametricEQNode()
         eq15Node = FifteenBandEQNode()
         
         self.type = type
-        self.sync = sync
         self.bypass = false
         self.globalGain = AppDefaults.eqGlobalGain
     }
@@ -46,10 +44,9 @@ class ParametricEQ: ParametricEQProtocol {
         
         self.type = type
         
-        if sync {
-            setBands(inactiveNode.allBands())
-            globalGain = inactiveNode.globalGain
-        }
+        // Handoff band gains from the inactive node to the active node
+        setBands(inactiveNode.allBands())
+        globalGain = inactiveNode.globalGain
         
         if !self.bypass {
             eq10Node.bypass = type != .tenBand
