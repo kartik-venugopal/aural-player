@@ -203,13 +203,9 @@
                                                     <action selector="tabViewAction:" target="-2" id="TBa-2v-Ovl"/>
                                                 </connections>
                                             </button>
-                                            <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="eay-EC-eK5" userLabel="Pitch button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="eay-EC-eK5" userLabel="Pitch button" customClass="EffectsUnitTabButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="128" y="1" width="30" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <shadow key="shadow" blurRadius="2">
-                                                    <size key="offset" width="2" height="2"/>
-                                                    <color key="color" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </shadow>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="imh-UR-2or" customClass="EffectsUnitTabButtonCell" customModule="Aural" customModuleProvider="target">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                     <font key="font" metaFont="system"/>
