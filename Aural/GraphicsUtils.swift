@@ -38,8 +38,8 @@ class GraphicsUtils {
         
         let arrow = NSBezierPath()
         arrow.move(to: origin)
-        arrow.line(to: NSMakePoint(origin.x - dx, origin.y - dy))
-        arrow.line(to: NSMakePoint(origin.x + dx, origin.y - dy))
+        arrow.line(to: NSMakePoint(origin.x - dx, origin.y + dy))
+        arrow.line(to: NSMakePoint(origin.x + dx, origin.y + dy))
         arrow.close()
         
         strokeColor.setStroke()

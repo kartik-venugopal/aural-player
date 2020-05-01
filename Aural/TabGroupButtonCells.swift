@@ -85,7 +85,8 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
         if isOn {
             
             let underlineWidth = StringUtils.sizeOfString(title, font).width
-            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 1, width: underlineWidth, height: 1)
+            let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 2, width: underlineWidth, height: 2)
+            
             selectionBoxColor.setFill()
             selRect.fill()
         }

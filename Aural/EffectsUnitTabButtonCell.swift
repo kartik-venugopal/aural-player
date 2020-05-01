@@ -31,8 +31,8 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         // Selection underline
         if isOn {
             
-            let underlineWidth = cellFrame.width
-            let drawRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 1, width: underlineWidth, height: 1)
+            let drawRect = NSRect(x: cellFrame.centerX - (imgRect.width / 2), y: cellFrame.maxY - 2, width: imgRect.width, height: 2)
+            
             selectionBoxColor.setFill()
             drawRect.fill()
         }
