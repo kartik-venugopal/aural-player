@@ -1381,6 +1381,12 @@ CA
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="rTM-7N-caI"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Wood" indentationLevel="1" id="SES-GP-BW7">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="WjD-iv-00X"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="dRW-vp-94E">
                                             <modifierMask key="keyEquivalentModifierMask"/>
