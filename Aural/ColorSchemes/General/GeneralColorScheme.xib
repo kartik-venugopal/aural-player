@@ -11,6 +11,7 @@
                 <outlet property="appLogoColorPicker" destination="8fj-uN-XmC" id="zFs-wh-ndC"/>
                 <outlet property="backgroundColorPicker" destination="1Tg-2i-CV0" id="lLY-mJ-3KR"/>
                 <outlet property="buttonMenuTextColorPicker" destination="LrL-gU-hRn" id="Ut1-8v-bji"/>
+                <outlet property="colorPickerContextMenu" destination="c2x-RI-LU6" id="7d7-eT-gHa"/>
                 <outlet property="containerView" destination="Ugk-bA-WmQ" id="SEa-yK-iER"/>
                 <outlet property="functionButtonColorPicker" destination="mfG-Aq-Mc0" id="NJD-OJ-LWb"/>
                 <outlet property="mainCaptionTextColorPicker" destination="fRh-rH-B2j" id="RI2-jT-XTE"/>
@@ -67,7 +68,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="101" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color">
+                                    <colorWell fixedFrame="YES" tag="101" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-2i-CV0" userLabel="Background color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="487" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,7 +110,7 @@
                                             <action selector="toggleButtonOffStateColorAction:" target="-2" id="eXW-X1-twH"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="102" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-uN-XmC" userLabel="Logo text color">
+                                    <colorWell fixedFrame="YES" tag="102" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-uN-XmC" userLabel="Logo text color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="452" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -132,6 +133,7 @@
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="selectedTabButtonColorAction:" target="-2" id="ooS-0G-JC3"/>
+                                            <outlet property="menu" destination="c2x-RI-LU6" id="dyD-fO-b6H"/>
                                         </connections>
                                     </colorWell>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ER7-f7-jiS" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
@@ -263,5 +265,28 @@
             </subviews>
             <point key="canvasLocation" x="361" y="84"/>
         </customView>
+        <menu id="c2x-RI-LU6">
+            <items>
+                <menuItem title="Copy color" id="OYr-GS-hju">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="copyColorAction:" target="-2" id="rg3-be-tl7"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Paste color" id="tsx-1S-m7V">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Save color in palette" id="lkJ-1a-A1E">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Set to random color" id="lpN-bA-6QP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="aGc-0U-kTk" id="uKM-tV-CCa"/>
+            </connections>
+            <point key="canvasLocation" x="243" y="322"/>
+        </menu>
     </objects>
 </document>

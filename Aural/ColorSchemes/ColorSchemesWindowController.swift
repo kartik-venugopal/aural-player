@@ -6,7 +6,10 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     @IBOutlet weak var btnSave: NSButton!
     
     @IBOutlet weak var btnUndo: NSButton!
+    @IBOutlet weak var btnUndoAll: NSButton!
+    
     @IBOutlet weak var btnRedo: NSButton!
+    @IBOutlet weak var btnRedoAll: NSButton!
 
     private lazy var generalSchemeView: ColorSchemesViewProtocol = ViewFactory.generalColorSchemeView
     private lazy var playerSchemeView: ColorSchemesViewProtocol = ViewFactory.playerColorSchemeView
@@ -17,7 +20,6 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private var schemeRestorePoint: ColorScheme?
     private var history: ColorSchemeHistory = ColorSchemeHistory()
     
     override var windowNibName: NSNib.Name? {return "ColorSchemes"}
@@ -42,22 +44,18 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
             _ = self.window!
         }
         
-        history.clear()
+        history.begin()
         history.changeListener = {
-            self.btnUndo.enableIf(self.history.canUndo)
-            self.btnRedo.enableIf(self.history.canRedo)
+            self.updateButtonStates()
         }
         
         // Select the first tab
         subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
         tabView.selectTabViewItem(at: 0)
         
-        [btnUndo, btnRedo].forEach({$0?.disable()})
+        updateButtonStates()
         
         UIUtils.showDialog(self.window!)
-        
-        // Create a copy of the system scheme as a restore point (in case the user wants to undo changes)
-        schemeRestorePoint = ColorSchemes.systemScheme.clone()
         
         return .ok
     }
@@ -78,18 +76,28 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
     
     @IBAction func undoAllChangesAction(_ sender: Any) {
         
-        if let restorePoint = schemeRestorePoint {
+        if let restorePoint = history.undoAll() {
             
             ColorSchemes.systemScheme.applyScheme(restorePoint)
             subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
             
             SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
             
-            btnUndo.disable()
-            btnRedo.enableIf(history.canRedo)
+            updateButtonStates()
         }
+    }
+    
+    @IBAction func redoAllChangesAction(_ sender: Any) {
         
-        // TODO: First, store the "new" scheme so we can redo all changes
+        if let restorePoint = history.redoAll() {
+            
+            ColorSchemes.systemScheme.applyScheme(restorePoint)
+            subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
+            
+            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
+            
+            updateButtonStates()
+        }
     }
     
     @IBAction func undoLastChangeAction(_ sender: Any) {
@@ -98,11 +106,7 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
             
             if subView.undoLastChange() {
                 
-                print("Undo successful !", subView)
-                
-                btnUndo.enableIf(history.canUndo)
-                btnRedo.enableIf(history.canRedo)
-                
+                updateButtonStates()
                 break
             }
         }
@@ -114,14 +118,24 @@ class ColorSchemesWindowController: NSWindowController, ModalDialogDelegate, Str
             
             if subView.redoLastChange() {
                 
-                print("Redo successful !", subView)
-                
-                btnUndo.enableIf(history.canUndo)
-                btnRedo.enableIf(history.canRedo)
-                
+                updateButtonStates()
                 break
             }
         }
+    }
+    
+    private func updateButtonStates() {
+        
+        btnUndo.enableIf(history.canUndo)
+        btnUndoAll.enableIf(history.canUndo)
+        
+        btnRedo.enableIf(history.canRedo)
+        btnRedoAll.enableIf(history.canRedo)
+    }
+    
+    deinit {
+        // Make sure the color panel closes before the app exits
+        NSColorPanel.shared.close()
     }
     
     // MARK - StringInputClient functions
@@ -164,12 +178,16 @@ class ColorSchemeHistory {
     private var undoStack: Stack<ColorSchemeChange> = Stack()
     private var redoStack: Stack<ColorSchemeChange> = Stack()
     
+    private var undoAllRestorePoint: ColorScheme?
+    private var redoAllRestorePoint: ColorScheme?
+    
     var changeListener: () -> Void = {}
     
-    func clear() {
+    func begin() {
         
         undoStack.clear()
         redoStack.clear()
+        undoAllRestorePoint = ColorSchemes.systemScheme.clone()
     }
     
     func noteChange(_ tag: Int, _ undoValue: Any, _ redoValue: Any, _ changeType: ColorSchemeChangeType) {
@@ -200,6 +218,11 @@ class ColorSchemeHistory {
     
     func undoLastChange() -> ColorSchemeChange? {
         
+        // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
+        if redoStack.isEmpty && !undoStack.isEmpty {
+            redoAllRestorePoint = ColorSchemes.systemScheme.clone()
+        }
+        
         if let change = undoStack.pop() {
             
             redoStack.push(change)
@@ -209,11 +232,18 @@ class ColorSchemeHistory {
         return nil
     }
     
-    func undoAll() {
+    func undoAll() -> ColorScheme? {
         
+        // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
+        if redoStack.isEmpty && !undoStack.isEmpty {
+            redoAllRestorePoint = ColorSchemes.systemScheme.clone()
+        }
+
         while let change = undoStack.pop() {
             redoStack.push(change)
         }
+        
+        return undoAllRestorePoint
     }
     
     func redoLastChange() -> ColorSchemeChange? {
@@ -227,11 +257,13 @@ class ColorSchemeHistory {
         return nil
     }
     
-    func redoAll() {
+    func redoAll() -> ColorScheme? {
         
         while let change = redoStack.pop() {
             undoStack.push(change)
         }
+        
+        return redoAllRestorePoint
     }
 }
 
