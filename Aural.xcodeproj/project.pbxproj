@@ -404,6 +404,7 @@
 		3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */; };
 		3EDFFA0B1FC0283F00158177 /* ViewPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA0A1FC0283F00158177 /* ViewPreferencesViewController.swift */; };
 		3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA0C1FC0286E00158177 /* HistoryPreferencesViewController.swift */; };
+		3EE09325245C5FEE0045F8A3 /* ColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE09324245C5FEE0045F8A3 /* ColorSchemeViewController.swift */; };
 		3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */; };
 		3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4D43D21D6E2F0000110FC /* Alerts.xib */; };
 		3EE4D44021D6E5DA000110FC /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */; };
@@ -418,8 +419,8 @@
 		3EE7D733244EE0C5005D76FA /* PlaylistColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7D732244EE0C5005D76FA /* PlaylistColorScheme.xib */; };
 		3EE7D735244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7D734244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift */; };
 		3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */; };
-		3EE97B37245C05390063ADB2 /* ColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */; };
 		3EE97B39245C47C20063ADB2 /* ColorSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */; };
+		3EE97B3B245C4E1C0063ADB2 /* AuralColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE97B3A245C4E1C0063ADB2 /* AuralColorPicker.swift */; };
 		3EEACA061F5E8615003A2140 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */; };
 		3EEB25A9216EF0AF00569D35 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB25A8216EF0AF00569D35 /* Queue.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
@@ -886,6 +887,7 @@
 		3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA0A1FC0283F00158177 /* ViewPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA0C1FC0286E00158177 /* HistoryPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesViewController.swift; sourceTree = "<group>"; };
+		3EE09324245C5FEE0045F8A3 /* ColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 		3EE4D43D21D6E2F0000110FC /* Alerts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Alerts.xib; sourceTree = "<group>"; };
 		3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
@@ -900,8 +902,8 @@
 		3EE7D732244EE0C5005D76FA /* PlaylistColorScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistColorScheme.xib; sourceTree = "<group>"; };
 		3EE7D734244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
-		3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeHistory.swift; sourceTree = "<group>"; };
+		3EE97B3A245C4E1C0063ADB2 /* AuralColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuralColorPicker.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
 		3EEB25A8216EF0AF00569D35 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
@@ -2129,6 +2131,17 @@
 			name = Menus;
 			sourceTree = "<group>";
 		};
+		3EE09326245C60240045F8A3 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3E1DA6F7244D6D4A00FFF59E /* ColorScheme.swift */,
+				3EE7D720244EBF29005D76FA /* ColorSchemes.swift */,
+				3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */,
+				3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		3EE429AA1FCFCEB600E81C15 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2273,11 +2286,9 @@
 			children = (
 				3EF62FF0244C427200AD7172 /* ColorSchemes.xib */,
 				3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */,
-				3E1DA6F7244D6D4A00FFF59E /* ColorScheme.swift */,
-				3EE7D720244EBF29005D76FA /* ColorSchemes.swift */,
-				3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */,
-				3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */,
-				3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */,
+				3EE09324245C5FEE0045F8A3 /* ColorSchemeViewController.swift */,
+				3EE97B3A245C4E1C0063ADB2 /* AuralColorPicker.swift */,
+				3EE09326245C60240045F8A3 /* Domain */,
 				3EE7D727244EDAC8005D76FA /* General */,
 				3EE7D72C244EDC8D005D76FA /* Player */,
 				3EE7D731244EE0A7005D76FA /* Playlist */,
@@ -2510,6 +2521,7 @@
 				3EA3BDA422B266AA0020A908 /* MediaKeyTapInternals.swift in Sources */,
 				3E850D5C1FB44DE70017CD02 /* PlaylistSearchWindowController.swift in Sources */,
 				3E0F947B1FBBA01500B6E1B3 /* DelayViewController.swift in Sources */,
+				3EE09325245C5FEE0045F8A3 /* ColorSchemeViewController.swift in Sources */,
 				3E5F00D02153A09500A76C23 /* BookmarksMenuController.swift in Sources */,
 				3ECB858F2152677300D974F5 /* SnappingWindow.swift in Sources */,
 				3E3F82851FCD4CBE00DC9D11 /* BarModeWindowController.swift in Sources */,
@@ -2617,6 +2629,7 @@
 				3ECF12F6245784A6007209BC /* ColorSchemePopupMenuController.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
+				3EE97B3B245C4E1C0063ADB2 /* AuralColorPicker.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */,
@@ -2720,7 +2733,6 @@
 				3EF5D4282451FEFE00FD8927 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3EA3BDAC22B267B10020A908 /* VAlignedTextField.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */,
-				3EE97B37245C05390063ADB2 /* ColorSchemeViewController.swift in Sources */,
 				3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */,
 				3E23F2D122A6E6DB00A48C8C /* MediaKeyHandler.swift in Sources */,
 				3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */,

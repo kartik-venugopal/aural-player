@@ -2,19 +2,19 @@ import Cocoa
 
 class GeneralColorSchemeViewController: ColorSchemeViewController {
     
-    @IBOutlet weak var appLogoColorPicker: NSColorWell!
-    @IBOutlet weak var backgroundColorPicker: NSColorWell!
+    @IBOutlet weak var appLogoColorPicker: AuralColorPicker!
+    @IBOutlet weak var backgroundColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var viewControlButtonColorPicker: NSColorWell!
-    @IBOutlet weak var functionButtonColorPicker: NSColorWell!
-    @IBOutlet weak var textButtonMenuColorPicker: NSColorWell!
-    @IBOutlet weak var toggleButtonOffStateColorPicker: NSColorWell!
-    @IBOutlet weak var selectedTabButtonColorPicker: NSColorWell!
+    @IBOutlet weak var viewControlButtonColorPicker: AuralColorPicker!
+    @IBOutlet weak var functionButtonColorPicker: AuralColorPicker!
+    @IBOutlet weak var textButtonMenuColorPicker: AuralColorPicker!
+    @IBOutlet weak var toggleButtonOffStateColorPicker: AuralColorPicker!
+    @IBOutlet weak var selectedTabButtonColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var mainCaptionTextColorPicker: NSColorWell!
-    @IBOutlet weak var tabButtonTextColorPicker: NSColorWell!
-    @IBOutlet weak var selectedTabButtonTextColorPicker: NSColorWell!
-    @IBOutlet weak var buttonMenuTextColorPicker: NSColorWell!
+    @IBOutlet weak var mainCaptionTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var tabButtonTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var selectedTabButtonTextColorPicker: AuralColorPicker!
+    @IBOutlet weak var buttonMenuTextColorPicker: AuralColorPicker!
     
     override var nibName: NSNib.Name? {return "GeneralColorScheme"}
     
@@ -35,9 +35,9 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         actionsMap[buttonMenuTextColorPicker.tag] = self.changeButtonMenuTextColor
     }
     
-    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
-        super.resetFields(scheme, history)
+        super.resetFields(scheme, history, clipboard)
         
         appLogoColorPicker.color = scheme.general.appLogoColor
         backgroundColorPicker.color = scheme.general.backgroundColor
@@ -54,14 +54,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         buttonMenuTextColorPicker.color = scheme.general.buttonMenuTextColor
     }
     
-    @IBAction func copyColorAction(_ sender: Any) {
-        print("\nCopied color:", activeColorPicker!.color.toString())
-    }
-    
-    @IBAction func pasteColorAction(_ sender: Any) {
-        
-    }
-    
     @IBAction func appLogoColorAction(_ sender: Any) {
         
         history.noteChange(appLogoColorPicker.tag, ColorSchemes.systemScheme.general.appLogoColor, appLogoColorPicker.color, .changeColor)
@@ -69,6 +61,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func changeAppLogoColor() {
+        
+        print("--------- ", #function)
         
         ColorSchemes.systemScheme.general.appLogoColor = appLogoColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeAppLogoColor, appLogoColorPicker.color))
@@ -81,6 +75,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func changeBackgroundColor() {
+        
+        print("--------- ", #function)
         
         ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
@@ -99,6 +95,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
+        
+        print("--------- ", #function)
         
         history.noteChange(functionButtonColorPicker.tag, ColorSchemes.systemScheme.general.functionButtonColor, functionButtonColorPicker.color, .changeColor)
         changeFunctionButtonColor()
@@ -192,26 +190,5 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         
         ColorSchemes.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeButtonMenuTextColor, buttonMenuTextColorPicker.color))
-    }
-}
-
-class AuralColorPicker: NSColorWell {
-    
-    var contextMenuInvokedHandler: (NSColorWell) -> Void = {(NSColorWell) -> Void in}
-    
-//    override func mouseDown(with event: NSEvent) {
-//        print(event.buttonNumber, self.menu)
-//    }
-//
-//    override func rightMouseDown(with event: NSEvent) {
-//        print("Right !!!", self.menu)
-//    }
-//
-    override func menu(for event: NSEvent) -> NSMenu? {
-
-        print("Menu !!!")
-        contextMenuInvokedHandler(self)
-//        return menuHandler(for: event)
-        return self.menu
     }
 }

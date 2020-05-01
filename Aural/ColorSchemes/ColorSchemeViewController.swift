@@ -1,21 +1,23 @@
 import Cocoa
 
 /*
-    Base class for all subviews that alter the color scheme. Contains common logic (undo/redo, copy/paste, etc).
+ Base class for all subviews that alter the color scheme. Contains common logic (undo/redo, copy/paste, etc).
  */
-class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
+class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesViewProtocol {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var containerView: NSView!
     
     @IBOutlet weak var colorPickerContextMenu: NSMenu!
+    @IBOutlet weak var pasteColorMenuItem: NSMenuItem!
     
     var controlsMap: [Int: NSControl] = [:]
     var actionsMap: [Int: ColorChangeAction] = [:]
-    var history: ColorSchemeHistory!
     
-    var activeColorPicker: NSColorWell?
-    var clipboardColor: NSColor?
+    var history: ColorSchemeHistory!
+    var clipboard: ColorClipboard!
+    
+    var activeColorPicker: AuralColorPicker?
     
     var colorSchemeView: NSView {
         return self.view
@@ -26,23 +28,25 @@ class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
         for aView in containerView.subviews {
             
             if let control = aView as? NSControl,
-                control is NSColorWell || control is NSButton || control is NSStepper {
+                control is AuralColorPicker || control is NSButton || control is NSStepper {
                 
                 controlsMap[control.tag] = control
                 
-                if let acp = control as? AuralColorPicker {
+                if let colorPicker = control as? AuralColorPicker {
                     
-                    acp.menu = colorPickerContextMenu
-                    acp.contextMenuInvokedHandler = {(picker: NSColorWell) -> Void in self.activeColorPicker = picker}
+                    colorPicker.menu = colorPickerContextMenu
+                    colorPicker.menuInvocationCallback = {(picker: AuralColorPicker) -> Void in self.activeColorPicker = picker}
                 }
             }
         }
     }
     
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
         self.history = history
+        self.clipboard = clipboard
         
+        // If the window is already visible, no need to scroll. Only scroll to top when the window is first opened.
         if !(self.view.window?.isVisible ?? false) {
             scrollToTop()
         }
@@ -102,4 +106,44 @@ class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
         return false
     }
     
+    @IBAction func copyColorAction(_ sender: Any) {
+        
+        if let picker = activeColorPicker {
+            
+            picker.copyToClipboard(clipboard)
+            activeColorPicker = nil
+            
+            if let clipboardColor = clipboard.color {
+                print("\nCopied color:", clipboardColor.toString())
+            }
+        }
+    }
+    
+    @IBAction func pasteColorAction(_ sender: Any) {
+        
+        if let picker = activeColorPicker, let clipboardColor = clipboard.color {
+            
+            print("\nPasted color:", clipboardColor.toString())
+            
+            // Picker's current value is the undo value, clipboard color is the redo value.
+            history.noteChange(picker.tag, picker.color, clipboardColor, .changeColor)
+            
+            // Paste into the picker
+            picker.pasteFromClipboard(clipboard)
+            
+            // Perform the appropriate update notification
+            if let notifyAction = actionsMap[picker.tag] {
+                notifyAction()
+            }
+            
+            activeColorPicker = nil
+        }
+    }
+    
+    // MARK - MenuDelegate functions
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        pasteColorMenuItem.enableIf(self.clipboard.hasColor)
+    }
 }

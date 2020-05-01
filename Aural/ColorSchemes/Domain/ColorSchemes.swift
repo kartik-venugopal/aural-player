@@ -29,6 +29,12 @@ class ColorSchemes {
         return userDefinedSchemesByName.count
     }
     
+    static func applyScheme(_ scheme: ColorScheme) -> ColorScheme {
+        
+        systemScheme.applyScheme(scheme)
+        return systemScheme
+    }
+    
     static func applyScheme(_ name: String) -> ColorScheme? {
         
         if let scheme = userDefinedSchemesByName[name] {
@@ -56,7 +62,7 @@ class ColorSchemes {
     }
     
     static func schemeByName(_ name: String, _ acceptDefault: Bool = true) -> ColorScheme? {
-        return userDefinedSchemesByName[name] ?? (acceptDefault ? defaultScheme : nil)
+        return userDefinedSchemesByName[name] ??  (acceptDefault ? defaultScheme : nil)
     }
     
     static func deleteScheme(_ name: String) {

@@ -13,6 +13,8 @@
                 <outlet property="btnSave" destination="MUl-jB-2L2" id="Sxn-8P-aXB"/>
                 <outlet property="btnUndo" destination="wMK-VB-9mI" id="Vay-wV-r3E"/>
                 <outlet property="btnUndoAll" destination="c1x-IR-t1N" id="gjM-DS-WQw"/>
+                <outlet property="clipboardColorViewer" destination="Vbt-wD-yHi" id="dQ8-0g-Gia"/>
+                <outlet property="clipboardIcon" destination="fIx-Ln-dOF" id="XgV-Kl-RXo"/>
                 <outlet property="tabView" destination="RoW-as-iiX" id="Ojx-ql-h92"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4TI-KA-rcz"/>
             </connections>
@@ -240,6 +242,16 @@ Gw
                             <action selector="saveSchemeAction:" target="-2" id="LFk-po-ruN"/>
                         </connections>
                     </button>
+                    <imageView toolTip="Color clipboard" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-Ln-dOF">
+                        <rect key="frame" x="10" y="36" width="16" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Clipboard" id="iMM-ga-hYe"/>
+                    </imageView>
+                    <colorWell fixedFrame="YES" bordered="NO" continuous="NO" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbt-wD-yHi">
+                        <rect key="frame" x="32" y="36" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    </colorWell>
                 </subviews>
             </view>
             <userDefinedRuntimeAttributes>
@@ -251,6 +263,7 @@ Gw
         </window>
     </objects>
     <resources>
+        <image name="Clipboard" width="20" height="26"/>
         <image name="LoadScheme" width="40" height="40"/>
         <image name="Redo" width="28" height="26"/>
         <image name="RedoAll" width="28" height="26"/>

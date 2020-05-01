@@ -10,6 +10,9 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     
     @IBOutlet weak var btnRedo: NSButton!
     @IBOutlet weak var btnRedoAll: NSButton!
+    
+    @IBOutlet weak var clipboardIcon: NSImageView!
+    @IBOutlet weak var clipboardColorViewer: NSColorWell!
 
     private lazy var generalSchemeView: ColorSchemesViewProtocol = ViewFactory.generalColorSchemeView
     private lazy var playerSchemeView: ColorSchemesViewProtocol = ViewFactory.playerColorSchemeView
@@ -21,6 +24,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private var history: ColorSchemeHistory = ColorSchemeHistory()
+    private var clipboard: ColorClipboard = ColorClipboard()
     
     override var windowNibName: NSNib.Name? {return "ColorSchemes"}
     
@@ -33,6 +37,19 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         
         NSColorPanel.shared.showsAlpha = false
         NSColorPanel.shared.delegate = self
+        
+        clipboard.colorChangeCallback = {
+            
+            if let color = self.clipboard.color {
+                
+                self.clipboardColorViewer.color = color
+                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.show()})
+                
+            } else {
+                
+                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.hide()})
+            }
+        }
         
         ObjectGraph.windowManager.registerModalComponent(self)
     }
@@ -49,8 +66,11 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
             self.updateButtonStates()
         }
         
+        clipboard.clear()
+//        [clipboardIcon, clipboardColorViewer].forEach({$0?.hide()})
+        
         // Select the first tab
-        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
+        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history, clipboard)})
         tabView.selectTabViewItem(at: 0)
         
         updateButtonStates()
@@ -73,7 +93,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
             let redoValue: ColorScheme = scheme.clone()
             history.noteChange(1, undoValue, redoValue, .applyScheme)
             
-            SyncMessenger.publishActionMessage(ColorSchemeActionMessage(scheme))
+            schemeUpdated(scheme)
         }
     }
     
@@ -96,12 +116,13 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     }
     
     private func applyScheme(_ scheme: ColorScheme) {
+        schemeUpdated(ColorSchemes.applyScheme(scheme))
+    }
+    
+    private func schemeUpdated(_ systemScheme: ColorScheme) {
         
-        ColorSchemes.systemScheme.applyScheme(scheme)
-        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history)})
-        
-        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(ColorSchemes.systemScheme))
-        
+        subViews.forEach({$0.resetFields(systemScheme, history, clipboard)})
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(systemScheme))
         updateButtonStates()
     }
     
@@ -242,7 +263,7 @@ protocol ColorSchemesViewProtocol {
     
     var colorSchemeView: NSView {get}
     
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory)
+    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!)
     
     func undoChange(_ lastChange: ColorSchemeChange) -> Bool
     
