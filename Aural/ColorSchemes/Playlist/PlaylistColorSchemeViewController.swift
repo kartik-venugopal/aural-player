@@ -1,10 +1,7 @@
 import Cocoa
 
-class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
+class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
-    @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var containerView: NSView!
-
     @IBOutlet weak var trackNameTextColorPicker: NSColorWell!
     @IBOutlet weak var groupNameTextColorPicker: NSColorWell!
     @IBOutlet weak var indexDurationTextColorPicker: NSColorWell!
@@ -21,24 +18,11 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
     @IBOutlet weak var selectionBoxColorPicker: NSColorWell!
     @IBOutlet weak var playingTrackIconColorPicker: NSColorWell!
     
-    private var controlsMap: [Int: NSControl] = [:]
-    private var actionsMap: [Int: ColorChangeAction] = [:]
-    private var history: ColorSchemeHistory!
-    
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
-    
-    var colorSchemeView: NSView {
-        return self.view
-    }
     
     override func viewDidLoad() {
         
-        for aView in containerView.subviews {
-            
-            if let control = aView as? NSColorWell {
-                controlsMap[control.tag] = control
-            }
-        }
+        super.viewDidLoad()
         
         actionsMap[trackNameTextColorPicker.tag] = self.changeTrackNameTextColor
         actionsMap[groupNameTextColorPicker.tag] = self.changeGroupNameTextColor
@@ -57,9 +41,9 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         actionsMap[selectionBoxColorPicker.tag] = self.changeSelectionBoxColor
     }
     
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
         
-        self.history = history
+        super.resetFields(scheme, history)
         
         trackNameTextColorPicker.color = scheme.playlist.trackNameTextColor
         groupNameTextColorPicker.color = scheme.playlist.groupNameTextColor
@@ -76,53 +60,6 @@ class PlaylistColorSchemeViewController: NSViewController, ColorSchemesViewProto
         
         selectionBoxColorPicker.color = scheme.playlist.selectionBoxColor
         playingTrackIconColorPicker.color = scheme.playlist.playingTrackIconColor
-        
-        // Only do this when the window is opening
-        if !(self.view.window?.isVisible ?? true) {
-            scrollToTop()
-        }
-    }
-    
-    private func scrollToTop() {
-        
-        let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
-    }
-    
-    func undoLastChange() -> Bool {
-        
-        if let lastChange = history.changeToUndo, let colPicker = controlsMap[lastChange.tag] as? NSColorWell,
-            let undoColor = lastChange.undoValue as? NSColor, let undoAction = actionsMap[lastChange.tag] {
-            
-            _ = history.undoLastChange()
-            
-            print("Found change:", lastChange.tag)
-            
-            colPicker.color = undoColor
-            undoAction()
-            
-            return true
-        }
-        
-        return false
-    }
-    
-    func redoLastChange() -> Bool {
-        
-        if let lastChange = history.changeToRedo, let colPicker = controlsMap[lastChange.tag] as? NSColorWell,
-            let redoColor = lastChange.redoValue as? NSColor, let redoAction = actionsMap[lastChange.tag] {
-            
-            print("Found REDO change:", lastChange.tag)
-            
-            _ = history.redoLastChange()
-            
-            colPicker.color = redoColor
-            redoAction()
-            
-            return true
-        }
-        
-        return false
     }
     
     @IBAction func trackNameTextColorAction(_ sender: Any) {

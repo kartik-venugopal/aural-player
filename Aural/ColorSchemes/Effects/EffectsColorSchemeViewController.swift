@@ -1,9 +1,6 @@
 import Cocoa
 
-class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
-    
-    @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var containerView: NSView!
+class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var functionCaptionTextColorPicker: NSColorWell!
     @IBOutlet weak var functionValueTextColorPicker: NSColorWell!
@@ -30,27 +27,11 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
     @IBOutlet weak var bypassedUnitStateColorPicker: NSColorWell!
     @IBOutlet weak var suppressedUnitStateColorPicker: NSColorWell!
     
-    private var controlsMap: [Int: NSControl] = [:]
-    private var actionsMap: [Int: ColorChangeAction] = [:]
-    private var history: ColorSchemeHistory!
-    
     override var nibName: NSNib.Name? {return "EffectsColorScheme"}
-    
-    var colorSchemeView: NSView {
-        return self.view
-    }
     
     override func viewDidLoad() {
         
-        for aView in containerView.subviews {
-            
-            if let control = aView as? NSControl,
-                control is NSColorWell || control is NSButton || control is NSStepper {
-                
-                controlsMap[control.tag] = control
-                print("Effects CS, mapped:", control.tag, control.className)
-            }
-        }
+        super.viewDidLoad()
         
         actionsMap[functionCaptionTextColorPicker.tag] = self.changeFunctionCaptionTextColor
         actionsMap[functionValueTextColorPicker.tag] = self.changeFunctionValueTextColor
@@ -72,9 +53,9 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         actionsMap[suppressedUnitStateColorPicker.tag] = self.changeSuppressedUnitStateColor
     }
     
-    func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
+    override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory) {
         
-        self.history = history
+        super.resetFields(scheme, history)
         
         functionCaptionTextColorPicker.color = scheme.effects.functionCaptionTextColor
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor
@@ -112,73 +93,6 @@ class EffectsColorSchemeViewController: NSViewController, ColorSchemesViewProtoc
         activeUnitStateColorPicker.color = scheme.effects.activeUnitStateColor
         bypassedUnitStateColorPicker.color = scheme.effects.bypassedUnitStateColor
         suppressedUnitStateColorPicker.color = scheme.effects.suppressedUnitStateColor
-        
-        // Only do this when the window is opening
-        if !(self.view.window?.isVisible ?? true) {
-            scrollToTop()
-        }
-    }
-    
-    private func scrollToTop() {
-        
-        let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
-    }
-    
-    func undoLastChange() -> Bool {
-        
-        if let lastChange = history.changeToUndo, let undoAction = actionsMap[lastChange.tag] {
-            
-            _ = history.undoLastChange()
-            
-            if let colPicker = controlsMap[lastChange.tag] as? NSColorWell, let undoColor = lastChange.undoValue as? NSColor {
-                
-                colPicker.color = undoColor
-                
-            } else if let btnToggle = controlsMap[lastChange.tag] as? NSButton, let boolVal = lastChange.undoValue as? Bool {
-                
-                btnToggle.onIf(boolVal)
-                
-            } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.undoValue as? Int {
-                
-                stepper.integerValue = intVal
-            }
-            
-            print("Found change:", lastChange.tag)
-            
-            undoAction()
-            return true
-        }
-        
-        return false
-    }
-    
-    func redoLastChange() -> Bool {
-        
-        if let lastChange = history.changeToRedo, let redoAction = actionsMap[lastChange.tag] {
-            
-            _ = history.redoLastChange()
-            
-            if let colPicker = controlsMap[lastChange.tag] as? NSColorWell, let redoColor = lastChange.redoValue as? NSColor {
-                
-                colPicker.color = redoColor
-                
-            } else if let btnToggle = controlsMap[lastChange.tag] as? NSButton, let boolVal = lastChange.redoValue as? Bool {
-                
-                btnToggle.onIf(boolVal)
-                
-            } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.redoValue as? Int {
-                
-                stepper.integerValue = intVal
-            }
-            
-            print("Found REDO change:", lastChange.tag)
-            
-            redoAction()
-            return true
-        }
-        
-        return false
     }
     
     @IBAction func functionCaptionTextColorAction(_ sender: Any) {
