@@ -62,8 +62,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     private func changeAppLogoColor() {
         
-        print("--------- ", #function)
-        
         ColorSchemes.systemScheme.general.appLogoColor = appLogoColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeAppLogoColor, appLogoColorPicker.color))
     }
@@ -75,8 +73,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func changeBackgroundColor() {
-        
-        print("--------- ", #function)
         
         ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
         SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
@@ -95,8 +91,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
-        
-        print("--------- ", #function)
         
         history.noteChange(functionButtonColorPicker.tag, ColorSchemes.systemScheme.general.functionButtonColor, functionButtonColorPicker.color, .changeColor)
         changeFunctionButtonColor()
