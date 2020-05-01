@@ -8,6 +8,7 @@ struct Colors {
     
     struct Constants {
         
+        static let white7Percent: NSColor = NSColor(calibratedWhite: 0.07, alpha: 1)
         static let white8Percent: NSColor = NSColor(calibratedWhite: 0.08, alpha: 1)
         static let white10Percent: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)
         static let white13_5Percent: NSColor = NSColor(calibratedWhite: 0.135, alpha: 1)
@@ -18,6 +19,7 @@ struct Colors {
         static let white25Percent: NSColor = NSColor(calibratedWhite: 0.25, alpha: 1)
         static let white30Percent: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
         static let white35Percent: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
+        static let white37Percent: NSColor = NSColor(calibratedWhite: 0.37, alpha: 1)
         static let white40Percent: NSColor = NSColor(calibratedWhite: 0.4, alpha: 1)
         static let white45Percent: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
         static let white50Percent: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)

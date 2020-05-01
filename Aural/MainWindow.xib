@@ -332,6 +332,12 @@
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="15X-5K-pbZ"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Gloomy day" indentationLevel="1" id="w3W-IL-Xys">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="CMQ-iF-zKY"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="yTa-J9-pr6">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>

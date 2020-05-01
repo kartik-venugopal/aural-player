@@ -1375,6 +1375,12 @@ CA
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="xWa-A5-mRt"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Gloomy day" indentationLevel="1" id="PZZ-M5-60f">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="rTM-7N-caI"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="dRW-vp-94E">
                                             <modifierMask key="keyEquivalentModifierMask"/>
