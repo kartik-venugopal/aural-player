@@ -112,10 +112,6 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
             
             picker.copyToClipboard(clipboard)
             activeColorPicker = nil
-            
-            if let clipboardColor = clipboard.color {
-                print("\nCopied color:", clipboardColor.toString())
-            }
         }
     }
     
@@ -123,15 +119,13 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
         
         if let picker = activeColorPicker, let clipboardColor = clipboard.color {
             
-            print("\nPasted color:", clipboardColor.toString())
-            
             // Picker's current value is the undo value, clipboard color is the redo value.
             history.noteChange(picker.tag, picker.color, clipboardColor, .changeColor)
             
             // Paste into the picker
             picker.pasteFromClipboard(clipboard)
             
-            // Perform the appropriate update notification
+            // Perform the appropriate update/notification action
             if let notifyAction = actionsMap[picker.tag] {
                 notifyAction()
             }
