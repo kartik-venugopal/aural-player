@@ -208,7 +208,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func sliderForegroundChanged() {
         
         Colors.Player.updateSliderForegroundColor()
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderForegroundColor, sliderForegroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderColors, sliderForegroundColorPicker.color))
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -271,7 +271,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func sliderBackgroundChanged() {
         
         Colors.Player.updateSliderBackgroundColor()
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderColors, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -283,7 +283,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderColors, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -295,7 +295,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderKnobColor, btnSliderKnobColorSameAsForeground.isOn ? sliderForegroundColorPicker.color : sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderColors, btnSliderKnobColorSameAsForeground.isOn ? sliderForegroundColorPicker.color : sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
@@ -307,6 +307,6 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderLoopSegmentColor() {
         
         ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderLoopSegmentColor, sliderLoopSegmentColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderColors, sliderLoopSegmentColorPicker.color))
     }
 }

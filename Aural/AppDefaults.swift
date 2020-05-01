@@ -19,7 +19,6 @@ struct AppDefaults {
     
     static let eqState: EffectsUnitState = .bypassed
     static let eqType: EQType = .tenBand
-    static let eqSync: Bool = true
     static let eqGlobalGain: Float = 0
     static let eqBandGain: Float = 0
     

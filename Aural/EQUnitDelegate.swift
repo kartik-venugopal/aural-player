@@ -28,12 +28,6 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
         set(newValue) {unit.bands = newValue}
     }
     
-    var sync: Bool {
-        
-        get {return unit.sync}
-        set(newValue) {unit.sync = newValue}
-    }
-    
     var presets: EQPresets {return unit.presets}
     
     func setBand(_ index: Int, gain: Float) {

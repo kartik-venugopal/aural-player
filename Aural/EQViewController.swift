@@ -29,23 +29,19 @@ class EQViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
     }
     
     override func initControls() {
         
         super.initControls()
-        eqView.setState(eqUnit.type, eqUnit.bands, eqUnit.globalGain, eqUnit.sync)
+        eqView.setState(eqUnit.type, eqUnit.bands, eqUnit.globalGain)
     }
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         eqUnit.type = eqView.type
         eqView.typeChanged(eqUnit.bands, eqUnit.globalGain)
-    }
-    
-    @IBAction func eqSyncAction(_ sender: AnyObject) {
-        eqUnit.sync = eqView.sync
     }
     
     override func stateChanged() {
@@ -117,13 +113,7 @@ class EQViewController: FXUnitViewController {
         changeSelectedTabButtonColor()
         changeTabButtonTextColor()
         changeSelectedTabButtonTextColor()
-        changeSliderColor()
-    }
-    
-    override func changeFunctionCaptionTextColor(_ color: NSColor) {
-        
-        super.changeFunctionCaptionTextColor(color)
-        eqView.changeFunctionCaptionTextColor(color)
+        changeSliderColors()
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
@@ -165,7 +155,7 @@ class EQViewController: FXUnitViewController {
         eqView.changeSelectedTabButtonTextColor()
     }
     
-    func changeSliderColor() {
+    override func changeSliderColors() {
         eqView.changeSliderColor()
     }
     
@@ -217,10 +207,6 @@ class EQViewController: FXUnitViewController {
             case .changeSelectedTabButtonTextColor:
                 
                 changeSelectedTabButtonTextColor()
-                
-            case .changeEffectsSliderBackgroundColor, .changeEffectsSliderKnobColor:
-                
-                changeSliderColor()
                 
             default: return
                 

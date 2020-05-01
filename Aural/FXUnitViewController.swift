@@ -72,7 +72,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
     }
     
     func initControls() {
@@ -169,6 +169,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         
         btnSavePreset.reTint()
         presetsMenuIconItem.reTint()
+    }
+    
+    func changeSliderColors() {
+        // Do nothing. Meant to be overriden.
     }
     
     var subscriberId: String {
@@ -274,6 +278,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
             case .changeFunctionButtonColor:
                 
                 changeFunctionButtonColor()
+                
+            case .changeEffectsSliderColors:
+                
+                changeSliderColors()
                 
             default: return
                 

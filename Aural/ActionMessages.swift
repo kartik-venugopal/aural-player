@@ -352,10 +352,7 @@ enum ActionType {
     case changePlayerTrackInfoTertiaryTextColor
     case changePlayerSliderValueTextColor
     
-    case changePlayerSliderBackgroundColor
-    case changePlayerSliderForegroundColor
-    case changePlayerSliderKnobColor
-    case changePlayerSliderLoopSegmentColor
+    case changePlayerSliderColors
     
     case changePlaylistTrackNameTextColor
     case changePlaylistGroupNameTextColor
@@ -376,8 +373,7 @@ enum ActionType {
     case changeEffectsFunctionCaptionTextColor
     case changeEffectsFunctionValueTextColor
     
-    case changeEffectsSliderBackgroundColor
-    case changeEffectsSliderKnobColor
+    case changeEffectsSliderColors
     
     case changeEffectsActiveUnitStateColor
     case changeEffectsBypassedUnitStateColor

@@ -9,7 +9,7 @@ class EQUnit: FXUnit, EQUnitProtocol {
         
         let eqState = appState.eqUnit
         
-        node = ParametricEQ(eqState.type, eqState.sync)
+        node = ParametricEQ(eqState.type)
         super.init(.eq, eqState.state)
         
         bands = eqState.bands
@@ -40,12 +40,6 @@ class EQUnit: FXUnit, EQUnitProtocol {
         
         get {return node.allBands()}
         set(newValue) {node.setBands(newValue)}
-    }
-    
-    var sync: Bool {
-        
-        get {return node.sync}
-        set(newValue) {node.sync = newValue}
     }
     
     override var avNodes: [AVAudioNode] {
@@ -109,7 +103,6 @@ class EQUnit: FXUnit, EQUnitProtocol {
         unitState.type = type
         unitState.bands = bands
         unitState.globalGain = globalGain
-        unitState.sync = sync
         unitState.userPresets = presets.userDefinedPresets
 
         return unitState

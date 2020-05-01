@@ -135,7 +135,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         
         [btnSliderForegroundGradientDarken, btnSliderForegroundGradientBrighten, sliderForegroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderForegroundGradientEnabled.isOn)})
         
-        sliderForegroundChanged()
+        sliderColorsChanged()
     }
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
@@ -147,7 +147,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func brightenOrDarkenSliderForegroundGradient() {
         
         ColorSchemes.systemScheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
-        sliderForegroundChanged()
+        sliderColorsChanged()
     }
     
     @IBAction func sliderForegroundGradientAmountAction(_ sender: Any) {
@@ -161,13 +161,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
         lblSliderForegroundGradientAmount.stringValue = String(format: "%d%%", sliderForegroundGradientAmountStepper.integerValue)
         
-        sliderForegroundChanged()
-    }
-    
-    private func sliderForegroundChanged() {
-
-        // TODO - This is a hack. The message will result in a redraw regardless of whether the foreground/background has changed. Should consolidate the 2 event types into a single one - changeEffectsSliderColor
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+        sliderColorsChanged()
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -179,7 +173,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderBackgroundColor() {
         
         ColorSchemes.systemScheme.effects.sliderBackgroundColor = sliderBackgroundColorPicker.color
-        sliderBackgroundChanged()
+        sliderColorsChanged()
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
@@ -198,7 +192,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         
         [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)})
         
-        sliderBackgroundChanged()
+        sliderColorsChanged()
     }
     
     @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
@@ -210,7 +204,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func brightenOrDarkenSliderBackgroundGradient() {
         
         ColorSchemes.systemScheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
-        sliderBackgroundChanged()
+        sliderColorsChanged()
     }
     
     @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
@@ -224,11 +218,11 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
-        sliderBackgroundChanged()
+        sliderColorsChanged()
     }
     
-    private func sliderBackgroundChanged() {
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderBackgroundColorPicker.color))
+    private func sliderColorsChanged() {
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderBackgroundColorPicker.color))
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -240,7 +234,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -252,7 +246,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderKnobColor, sliderKnobColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderKnobColorPicker.color))
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
@@ -264,7 +258,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderTickColor() {
         
         ColorSchemes.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderBackgroundColor, sliderTickColorPicker.color))
+        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderTickColorPicker.color))
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {

@@ -77,7 +77,6 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
     var type: EQType = AppDefaults.eqType
     var globalGain: Float = AppDefaults.eqGlobalGain
     var bands: [Float] = [Float]() // Index -> Gain
-    var sync: Bool = AppDefaults.eqSync
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -85,7 +84,6 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
         
         eqState.state = mapEnum(map, "state", AppDefaults.eqState)
         eqState.type = mapEnum(map, "type", AppDefaults.eqType)
-        eqState.sync = mapDirectly(map, "sync", AppDefaults.eqSync)
         eqState.globalGain = mapNumeric(map, "globalGain", AppDefaults.eqGlobalGain)
         
         if let bands: NSArray = map["bands"] as? NSArray {
