@@ -419,6 +419,7 @@
 		3EE7D735244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7D734244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift */; };
 		3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */; };
 		3EE97B37245C05390063ADB2 /* ColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */; };
+		3EE97B39245C47C20063ADB2 /* ColorSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */; };
 		3EEACA061F5E8615003A2140 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */; };
 		3EEB25A9216EF0AF00569D35 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB25A8216EF0AF00569D35 /* Queue.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
@@ -900,6 +901,7 @@
 		3EE7D734244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
 		3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeViewController.swift; sourceTree = "<group>"; };
+		3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeHistory.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
 		3EEB25A8216EF0AF00569D35 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
@@ -2275,6 +2277,7 @@
 				3EE7D720244EBF29005D76FA /* ColorSchemes.swift */,
 				3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */,
 				3EE97B36245C05390063ADB2 /* ColorSchemeViewController.swift */,
+				3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */,
 				3EE7D727244EDAC8005D76FA /* General */,
 				3EE7D72C244EDC8D005D76FA /* Player */,
 				3EE7D731244EE0A7005D76FA /* Playlist */,
@@ -2489,6 +2492,7 @@
 				3EF6A0021FA313120050F0D2 /* SortComparator.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */,
+				3EE97B39245C47C20063ADB2 /* ColorSchemeHistory.swift in Sources */,
 				3E7CD3FD215B49C800DBD249 /* StringKeyedCollection.swift in Sources */,
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E850D631FB45BA90017CD02 /* PlaylistWindowController.swift in Sources */,

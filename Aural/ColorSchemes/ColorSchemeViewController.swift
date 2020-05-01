@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Base class for all subviews that alter the color scheme. Contains common logic (undo/redo, copy/paste, etc).
+ */
 class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
     
     @IBOutlet weak var scrollView: NSScrollView!
@@ -51,11 +54,9 @@ class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
         contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
     }
     
-    func undoLastChange() -> Bool {
+    func undoChange(_ lastChange: ColorSchemeChange) -> Bool {
         
-        if let lastChange = history.changeToUndo, let undoAction = actionsMap[lastChange.tag] {
-            
-            _ = history.undoLastChange()
+        if let undoAction = actionsMap[lastChange.tag] {
             
             if let colPicker = controlsMap[lastChange.tag] as? NSColorWell, let undoColor = lastChange.undoValue as? NSColor {
                 
@@ -77,11 +78,9 @@ class ColorSchemeViewController: NSViewController, ColorSchemesViewProtocol {
         return false
     }
     
-    func redoLastChange() -> Bool {
+    func redoChange(_ lastChange: ColorSchemeChange) -> Bool {
         
-        if let lastChange = history.changeToRedo, let redoAction = actionsMap[lastChange.tag] {
-            
-            _ = history.redoLastChange()
+        if let redoAction = actionsMap[lastChange.tag] {
             
             if let colPicker = controlsMap[lastChange.tag] as? NSColorWell, let redoColor = lastChange.redoValue as? NSColor {
                 
