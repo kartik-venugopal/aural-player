@@ -122,7 +122,7 @@
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4E3-lX-F33" userLabel="Reverb Space Menu">
                                             <rect key="frame" x="80" y="37" width="125" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="a7X-EB-q01" id="aCa-h9-yMV" customClass="NicerPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                            <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="a7X-EB-q01" id="aCa-h9-yMV" customClass="FXPreviewPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="Play-Regular"/>
                                                 <menu key="menu" id="h1Y-R8-eoa">
@@ -164,7 +164,7 @@
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqq-pG-1YQ" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="80" y="7" width="190" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="5fx-ZP-HNe" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                            <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="5fx-ZP-HNe" customClass="EffectsTickedSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MWy-s9-pSk">
                                             <rect key="frame" x="6" y="9" width="55" height="18"/>

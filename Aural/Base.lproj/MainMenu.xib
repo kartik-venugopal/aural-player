@@ -1422,9 +1422,9 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title=" Window Layout" image="WindowLayout" id="RWg-5h-jkO" userLabel="Window Layout">
+                            <menuItem title="  Window Layout" indentationLevel="1" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Window Layout" id="S2A-E2-dfO">
+                                <menu key="submenu" title="  Window Layout" id="S2A-E2-dfO">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="Xs7-ex-obP"/>
                                         <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="3ni-vP-4WM">
@@ -1478,13 +1478,13 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title=" Save current layout" image="WindowLayout-Save" id="dpu-pH-cKT" userLabel="Save current layout">
+                            <menuItem title="  Save current layout" indentationLevel="1" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Manage layouts" image="WindowLayout-Editor" id="ly6-5K-P4A" userLabel="Manage layouts">
+                            <menuItem title="  Manage layouts" indentationLevel="1" id="ly6-5K-P4A" userLabel="Manage layouts">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
@@ -1705,15 +1705,12 @@ CA
         <image name="UserGuide" width="1200" height="19836"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>
-        <image name="WindowLayout" width="15" height="15"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
-        <image name="WindowLayout-Editor" width="15" height="15"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
-        <image name="WindowLayout-Save" width="15" height="15"/>
         <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-VerticalStack" width="30" height="20"/>
     </resources>

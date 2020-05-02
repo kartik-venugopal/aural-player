@@ -15,6 +15,19 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
     
     var filterType: FilterBandType = .lowPass
     
+    override var knobColor: NSColor {
+        
+        switch self.unitState {
+            
+        case .active:   return Colors.Effects.defaultActiveUnitColor
+            
+        case .bypassed: return Colors.Effects.defaultBypassedUnitColor
+            
+        case .suppressed:   return Colors.Effects.defaultSuppressedUnitColor
+            
+        }
+    }
+    
     override var barPlainGradient: NSGradient {
         
         if self.unitState == .active {
@@ -26,7 +39,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:  return Colors.Effects.activeSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
             
@@ -39,7 +52,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.bypassedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
             
@@ -52,7 +65,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.suppressedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
         }
@@ -69,7 +82,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
             
@@ -82,7 +95,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
             
@@ -95,7 +108,96 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.neutralSliderGradient
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+        }
+    }
+}
+
+class CutoffFrequencySliderPreviewCell: CutoffFrequencySliderCell {
+    
+    override var barPlainGradient: NSGradient {
+        
+        if self.unitState == .active {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultSliderBackgroundGradient
+                
+            case .highPass:  return Colors.Effects.defaultActiveSliderGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+            
+        } else if self.unitState == .bypassed {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultSliderBackgroundGradient
+                
+            case .highPass:   return Colors.Effects.defaultBypassedSliderGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+            
+        } else {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultSliderBackgroundGradient
+                
+            case .highPass:   return Colors.Effects.defaultSuppressedSliderGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+        }
+    }
+    
+    override var barColoredGradient: NSGradient {
+        
+        if self.unitState == .active {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultActiveSliderGradient
+                
+            case .highPass:   return Colors.Effects.defaultSliderBackgroundGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+            
+        } else if self.unitState == .bypassed {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultBypassedSliderGradient
+                
+            case .highPass:   return Colors.Effects.defaultSliderBackgroundGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
+                
+            }
+            
+        } else {
+            
+            switch self.filterType {
+                
+            case .lowPass:   return Colors.Effects.defaultSuppressedSliderGradient
+                
+            case .highPass:   return Colors.Effects.defaultSliderBackgroundGradient.reversed()
+                
+            // IMPOSSIBLE
+            default:    return Colors.Effects.defaultSliderBackgroundGradient
                 
             }
         }
