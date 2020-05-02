@@ -12,6 +12,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     // Load these optional windows only if/when needed
     lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
     lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
+    
     lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
     
 //    private var onTop: Bool = false
@@ -24,7 +25,7 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     }
     
     var isShowingModalComponent: Bool {
-        return modalComponentRegistry.contains(where: {$0.isModal})
+        return modalComponentRegistry.contains(where: {$0.isModal}) || NSApp.modalWindow != nil
     }
     
     init(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
@@ -121,6 +122,9 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     }
     
     var isShowingChaptersList: Bool {
+        
+        // TODO: Find a way to do this without loading the window unnecessarily (add a bool var named chaptersListInitialized)
+        
         return chaptersListWindow.isVisible
     }
     

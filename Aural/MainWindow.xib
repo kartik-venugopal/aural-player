@@ -436,6 +436,9 @@
                                                     </connections>
                                                 </menuItem>
                                             </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="bsC-mz-7dU" id="aWF-rM-hN0"/>
+                                            </connections>
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
@@ -527,6 +530,12 @@
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="cqL-8W-DqF" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>
+                <outlet property="saveColorSchemeMenuItem" destination="qvE-di-9Bh" id="CAv-1G-tZt"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="AppTitle" width="100" height="40"/>

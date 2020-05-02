@@ -17,6 +17,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var playlistViewMenuItem: NSMenuItem!
     @IBOutlet weak var effectsViewMenuItem: NSMenuItem!
     
+    @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
+    @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
+    @IBOutlet weak var manageColorSchemesMenuItem: NSMenuItem!
+    
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
@@ -36,6 +40,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         playerMenuItem.enableIf(player.state != .transcoding)
         manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
+        
+        let showingModalComponent: Bool = windowManager.isShowingModalComponent
+        
+        [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (ColorSchemes.numberOfUserDefinedSchemes > 0))
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
