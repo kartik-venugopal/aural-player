@@ -13,7 +13,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     var menuGradient: NSGradient {return Colors.sliderBarGradient}
     
     var titleFont: NSFont {return Fonts.popupMenuFont}
-    var titleColor: NSColor {return Colors.popupMenuTextColor}
+    var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
     
     var arrowXMargin: CGFloat {return 5}
     var arrowYMargin: CGFloat {return 5}
@@ -148,6 +148,15 @@ class PresetsPopupMenuCell: PopupMenuCell {
         // Don't draw the title (we don't need it)
         return withFrame
     }
+}
+
+class FXPreviewPopupMenuCell: NicerPopupMenuCell {
+    
+    override var menuGradient: NSGradient {return Colors.Effects.defaultPopupMenuGradient}
+    
+    override var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
+    
+    override var arrowColor: NSColor {return titleColor}
 }
 
 // Helper function inserted by Swift 4.2 migrator.

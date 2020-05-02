@@ -451,9 +451,38 @@ struct Colors {
             }
         }
         
-        static var neutralSliderGradient: NSGradient {
-            return NSGradient(starting: Constants.white60Percent, ending: Constants.white40Percent)!
+        static var defaultSliderBackgroundGradient: NSGradient {
+            return NSGradient(starting: Constants.white40Percent, ending: Constants.white20Percent)!
         }
+        
+        // Fill color of all slider knobs
+        static let defaultActiveUnitColor: NSColor = NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
+        static let defaultBypassedUnitColor: NSColor = Constants.white60Percent
+        static let defaultSuppressedUnitColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+        
+        static let defaultActiveSliderGradient: NSGradient = {
+            return NSGradient(starting: defaultActiveUnitColor, ending: defaultActiveUnitColor)!
+        }()
+        
+        static let defaultBypassedSliderGradient: NSGradient = {
+            return NSGradient(starting: defaultBypassedUnitColor, ending: defaultBypassedUnitColor)!
+        }()
+        
+        static let defaultSuppressedSliderGradient: NSGradient = {
+            return NSGradient(starting: defaultSuppressedUnitColor, ending: defaultSuppressedUnitColor)!
+        }()
+        
+        static let defaultPopupMenuGradient: NSGradient = {
+            
+            let backgroundStart = Constants.white40Percent
+            let backgroundEnd =  Constants.white20Percent
+            return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
+        }()
+        
+        // Color of the displayed text in popup menus
+        static let defaultPopupMenuTextColor: NSColor = Constants.white90Percent
+        
+        static let defaultTickColor: NSColor = NSColor.black
     }
     
     static let fxFunctionTextColor: NSColor = Constants.white40Percent
@@ -498,11 +527,6 @@ struct Colors {
     
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
-    // Fill color of all slider knobs
-    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
-    static let bypassedKnobColor: NSColor = Constants.white60Percent
-    static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
-    
     // Outline color of buttons on modal dialogs
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
     
@@ -526,9 +550,6 @@ struct Colors {
     // A lighter version of popupMenuArrowColor
     static let fxUnitPopupMenuArrowColor: NSColor = Constants.white40Percent
     
-    // Color of the displayed text in popup menus
-    static let popupMenuTextColor: NSColor = Constants.white90Percent
-
     static let sliderBarGradient: NSGradient = {
         
         let backgroundStart = Constants.white70Percent
@@ -615,7 +636,7 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarColoredGradient: NSGradient = Colors.Effects.neutralSliderGradient
+    static let seekBarColoredGradient: NSGradient = Colors.Effects.defaultSliderBackgroundGradient
     
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black

@@ -135,3 +135,13 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
         updateState()
     }
 }
+
+class EffectsUnitTriStateBypassPreviewImage: EffectsUnitTriStateBypassImage {
+    
+    override func awakeFromNib() {
+        
+        offStateTintFunction = {return Colors.Effects.defaultBypassedUnitColor}
+        onStateTintFunction = {return Colors.Effects.defaultActiveUnitColor}
+        mixedStateTintFunction = {return Colors.Effects.defaultSuppressedUnitColor}
+    }
+}

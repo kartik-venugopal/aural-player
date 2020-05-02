@@ -5,19 +5,27 @@ class FilterChart: NSView {
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
     
-    private var bandStopColor: NSColor = Colors.Effects.bypassedUnitStateColor
-    private var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
+    var bandStopColor: NSColor = Colors.Effects.bypassedUnitStateColor
+    var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
     
-    private var inactiveUnitGradient: NSGradient {
-        return Colors.Effects.neutralSliderGradient
+    var inactiveUnitGradient: NSGradient {
+        return Colors.Effects.defaultSliderBackgroundGradient
     }
     
-    private var bandStopGradient: NSGradient {
+    var bandStopGradient: NSGradient {
         return Colors.Effects.bypassedSliderGradient
     }
     
-    private var bandPassGradient: NSGradient {
+    var bandPassGradient: NSGradient {
         return Colors.Effects.activeSliderGradient
+    }
+    
+    var backgroundColor: NSColor {
+        return Colors.windowBackgroundColor
+    }
+    
+    var textColor: NSColor {
+        return Colors.filterChartTextColor
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -25,7 +33,7 @@ class FilterChart: NSView {
         let unitState: EffectsUnitState = filterUnitStateFunction()
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
-        Colors.windowBackgroundColor.setFill()
+        backgroundColor.setFill()
         drawPath.fill()
         
         let offset: CGFloat = 5
@@ -126,12 +134,41 @@ class FilterChart: NSView {
             
             let trect = NSRect(x: tx, y: bottomMargin + height / 2 + 2, width: tw.width + 10, height: 15)
             
-            GraphicsUtils.drawTextInRect(trect, text, Colors.filterChartTextColor, textFont)
+            GraphicsUtils.drawTextInRect(trect, text, textColor, textFont)
             
             if (sx != offset && sx != offset + width) {
                 
                 GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), width: 1.5)
             }
         }
+    }
+}
+
+class FilterPreviewChart: FilterChart {
+    
+    override func awakeFromNib() {
+        
+        bandStopColor = Colors.Effects.defaultBypassedUnitColor
+        bandPassColor = Colors.Effects.defaultActiveUnitColor
+    }
+    
+    override var inactiveUnitGradient: NSGradient {
+        return Colors.Effects.defaultSliderBackgroundGradient
+    }
+    
+    override var bandStopGradient: NSGradient {
+        return Colors.Effects.defaultBypassedSliderGradient
+    }
+    
+    override var bandPassGradient: NSGradient {
+        return Colors.Effects.defaultActiveSliderGradient
+    }
+    
+    override var backgroundColor: NSColor {
+        return NSColor.black
+    }
+    
+    override var textColor: NSColor {
+        return NSColor.white
     }
 }

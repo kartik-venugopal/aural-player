@@ -131,7 +131,7 @@
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7KV-ge-hxO" userLabel="Pitch Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="68" y="36" width="230" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="Zge-eG-7dm" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="Zge-eG-7dm" customClass="EffectsTickedSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7A-WO-i2T" userLabel="-2 Octaves">
                                             <rect key="frame" x="46" y="40" width="20" height="15"/>
@@ -163,7 +163,7 @@
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddv-Yn-8xS" userLabel="Overlap Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="68" y="7" width="230" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="U4E-rP-qqk" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="U4E-rP-qqk" customClass="EffectsTickedSliderPreviewCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVO-0P-dOQ" userLabel="3 Overlap values">
                                             <rect key="frame" x="46" y="11" width="20" height="15"/>

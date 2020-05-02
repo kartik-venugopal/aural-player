@@ -97,3 +97,18 @@ class EffectsUnitTriStateLabel: OnOffLabel {
         updateState()
     }
 }
+
+class EffectsUnitTriStatePreviewLabel: EffectsUnitTriStateLabel {
+    
+    override var offStateColor: NSColor {
+        return Colors.Effects.defaultBypassedUnitColor
+    }
+    
+    override var onStateColor: NSColor {
+        return Colors.Effects.defaultActiveUnitColor
+    }
+    
+    override var mixedStateColor: NSColor {
+        return Colors.Effects.defaultSuppressedUnitColor
+    }
+}

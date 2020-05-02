@@ -106,6 +106,10 @@ class PrefsTabButtonCell: TabGroupButtonCell {
     override var selectionBoxColor: NSColor {return NSColor.black}
 }
 
+class EQPreviewTabButtonCell: TabGroupButtonCell {
+    override var selectionBoxColor: NSColor {return Colors.Constants.white15Percent}
+}
+
 class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
     
     private let _selectionBoxColor: NSColor = NSColor.black
