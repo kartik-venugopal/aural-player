@@ -8,8 +8,7 @@ class ColorSchemes {
         didSet {
             
             // Update seek slider gradient cache
-            Colors.Player.updateSliderBackgroundColor()
-            Colors.Player.updateSliderForegroundColor()
+            Colors.Player.updateSliderColors()
         }
     }
     
@@ -32,6 +31,10 @@ class ColorSchemes {
     static func applyScheme(_ scheme: ColorScheme) -> ColorScheme {
         
         systemScheme.applyScheme(scheme)
+        
+        // Update seek slider gradient cache
+        Colors.Player.updateSliderColors()
+        
         return systemScheme
     }
     
@@ -42,8 +45,7 @@ class ColorSchemes {
             systemScheme.applyPreset(preset)
             
             // Update seek slider gradient cache
-            Colors.Player.updateSliderBackgroundColor()
-            Colors.Player.updateSliderForegroundColor()
+            Colors.Player.updateSliderColors()
             
             return systemScheme
             
@@ -52,8 +54,7 @@ class ColorSchemes {
             systemScheme.applyScheme(scheme)
             
             // Update seek slider gradient cache
-            Colors.Player.updateSliderBackgroundColor()
-            Colors.Player.updateSliderForegroundColor()
+            Colors.Player.updateSliderColors()
             
             return systemScheme
         }
