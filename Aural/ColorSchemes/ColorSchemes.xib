@@ -125,6 +125,12 @@
                                             <action selector="applySchemeAction:" target="-2" id="IBj-gS-eNk"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="The blues" indentationLevel="1" id="Dyg-PN-2k1">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="cVX-2a-l5k"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem isSeparatorItem="YES" id="xpY-pX-kmu"/>
                                     <menuItem title="Customize ..." indentationLevel="1" id="EHM-Fz-uz3">
                                         <modifierMask key="keyEquivalentModifierMask"/>
