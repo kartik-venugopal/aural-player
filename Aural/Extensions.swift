@@ -205,19 +205,19 @@ extension NSControl {
         return !isEnabled
     }
     
-    func enable() {
+    @objc func enable() {
         self.enableIf(true)
     }
     
-    func disable() {
+    @objc func disable() {
         self.enableIf(false)
     }
     
-    func enableIf(_ condition: Bool) {
+    @objc func enableIf(_ condition: Bool) {
         self.isEnabled = condition
     }
     
-    func disableIf(_ condition: Bool) {
+    @objc func disableIf(_ condition: Bool) {
         self.isEnabled = !condition
     }
 }

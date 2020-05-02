@@ -28,7 +28,7 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
         for aView in containerView.subviews {
             
             if let control = aView as? NSControl,
-                control is AuralColorPicker || control is NSButton || control is NSStepper {
+                control is AuralColorPicker || control is NSButton || control is NSStepper || control is GradientOptionsRadioButtonGroup {
                 
                 controlsMap[control.tag] = control
                 
@@ -70,6 +70,10 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
                 
                 btnToggle.onIf(boolVal)
                 
+            } else if let btnGroup = controlsMap[lastChange.tag] as? GradientOptionsRadioButtonGroup, let gradientType = lastChange.undoValue as? GradientType {
+                
+                btnGroup.gradientType = gradientType
+                
             } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.undoValue as? Int {
                 
                 stepper.integerValue = intVal
@@ -93,6 +97,11 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
             } else if let btnToggle = controlsMap[lastChange.tag] as? NSButton, let boolVal = lastChange.redoValue as? Bool {
                 
                 btnToggle.onIf(boolVal)
+                
+            } else if let btnGroup = controlsMap[lastChange.tag] as? GradientOptionsRadioButtonGroup,
+                let gradientType = lastChange.redoValue as? GradientType {
+                    
+                btnGroup.gradientType = gradientType
                 
             } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.redoValue as? Int {
                 
