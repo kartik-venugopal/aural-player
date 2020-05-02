@@ -96,7 +96,7 @@ class ColorSchemeHistory {
 
 enum ColorSchemeChangeType {
     
-    case changeColor, applyScheme, toggle, setIntValue
+    case changeColor, changeGradient, applyScheme, toggle, setIntValue
 }
 
 struct ColorSchemeChange {

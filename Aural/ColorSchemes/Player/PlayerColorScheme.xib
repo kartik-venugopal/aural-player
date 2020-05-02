@@ -8,9 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerColorSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnSliderBackgroundGradientBrighten" destination="bFf-r6-Dz0" id="Y9l-6Q-WDD"/>
-                <outlet property="btnSliderBackgroundGradientDarken" destination="R53-Mu-aCh" id="HIy-Rn-76Q"/>
-                <outlet property="btnSliderBackgroundGradientEnabled" destination="e0K-Ik-m8Z" id="sIy-GG-6zx"/>
+                <outlet property="btnSliderBackgroundGradientBrighten" destination="sjm-hI-Y4L" id="NMo-1w-MGs"/>
+                <outlet property="btnSliderBackgroundGradientDarken" destination="80G-4h-kcj" id="Y1i-xx-kJq"/>
+                <outlet property="btnSliderBackgroundGradientEnabled" destination="xUy-pm-vJj" id="jFj-Kl-odT"/>
                 <outlet property="btnSliderForegroundGradientBrighten" destination="hfa-JF-Lpo" id="t05-1O-T1h"/>
                 <outlet property="btnSliderForegroundGradientDarken" destination="8VJ-j2-h9F" id="dma-Wg-4XG"/>
                 <outlet property="btnSliderForegroundGradientEnabled" destination="T2H-el-MIF" id="wbD-qO-JRm"/>
@@ -23,8 +23,10 @@
                 <outlet property="scrollView" destination="Apd-Ch-VYl" id="yek-lK-gTA"/>
                 <outlet property="sliderBackgroundColorPicker" destination="naY-wg-2GM" id="TjA-oS-bd7"/>
                 <outlet property="sliderBackgroundGradientAmountStepper" destination="zF5-gy-nuq" id="SDN-GM-Yzu"/>
+                <outlet property="sliderBackgroundGradientBtnGroup" destination="1Gg-vx-SSg" id="gxw-en-MhP"/>
                 <outlet property="sliderForegroundColorPicker" destination="NT1-Jh-EIQ" id="Axm-ma-WXC"/>
                 <outlet property="sliderForegroundGradientAmountStepper" destination="89D-ap-fhs" id="nc7-F1-I8p"/>
+                <outlet property="sliderForegroundGradientBtnGroup" destination="jXs-ke-MtP" id="pUz-tP-cOa"/>
                 <outlet property="sliderKnobColorPicker" destination="FnQ-gq-vdO" id="Ih0-II-uEA"/>
                 <outlet property="sliderLoopSegmentColorPicker" destination="qkR-bR-hEb" id="H1E-Xd-a3G"/>
                 <outlet property="sliderValueTextColorPicker" destination="I2u-7K-uBN" id="i1n-Og-pTD"/>
@@ -51,7 +53,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="445" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <colorWell fixedFrame="YES" tag="210" translatesAutoresizingMaskIntoConstraints="NO" id="NT1-Jh-EIQ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                    <colorWell fixedFrame="YES" tag="208" translatesAutoresizingMaskIntoConstraints="NO" id="NT1-Jh-EIQ" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="227" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,7 +61,7 @@
                                             <action selector="sliderForegroundColorAction:" target="-2" id="eNK-LE-Fhk"/>
                                         </connections>
                                     </colorWell>
-                                    <colorWell fixedFrame="YES" tag="217" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-bR-hEb" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                    <colorWell fixedFrame="YES" tag="213" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-bR-hEb" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="34" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,7 +95,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <colorWell fixedFrame="YES" tag="215" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-gq-vdO" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
+                                    <colorWell fixedFrame="YES" tag="211" translatesAutoresizingMaskIntoConstraints="NO" id="FnQ-gq-vdO" userLabel="Control button color" customClass="AuralColorPicker" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="410" y="99" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -214,7 +216,7 @@
                                             <action selector="sliderValueTextColorAction:" target="-2" id="rd4-wV-oEF"/>
                                         </connections>
                                     </colorWell>
-                                    <button fixedFrame="YES" tag="216" translatesAutoresizingMaskIntoConstraints="NO" id="3SR-Yc-2r0">
+                                    <button fixedFrame="YES" tag="212" translatesAutoresizingMaskIntoConstraints="NO" id="3SR-Yc-2r0">
                                         <rect key="frame" x="37" y="80" width="309" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Use same color as slider foreground" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="CGn-qU-FWX" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
@@ -223,39 +225,6 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="sliderKnobColorSameAsForegroundAction:" target="-2" id="hA7-kl-SJn"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" tag="211" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-el-MIF">
-                                        <rect key="frame" x="37" y="208" width="165" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1bS-Nk-VKS" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="12" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="enableSliderForegroundGradientAction:" target="-2" id="GWd-ME-9yC"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" tag="212" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-j2-h9F">
-                                        <rect key="frame" x="62" y="185" width="202" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Lx4-gm-mm5" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="2OH-zf-01f"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" tag="213" translatesAutoresizingMaskIntoConstraints="NO" id="hfa-JF-Lpo">
-                                        <rect key="frame" x="62" y="164" width="137" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="r4u-Uw-RYQ" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="P6e-Gi-JUz"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXl-rM-eM4" userLabel="Volume Increment Field">
@@ -271,7 +240,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="214" translatesAutoresizingMaskIntoConstraints="NO" id="89D-ap-fhs" userLabel="Volume Increment Stepper">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="210" translatesAutoresizingMaskIntoConstraints="NO" id="89D-ap-fhs" userLabel="Volume Increment Stepper">
                                         <rect key="frame" x="155" y="136" width="19" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="100" doubleValue="25" id="gmh-2K-5Rz"/>
@@ -288,39 +257,6 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" tag="206" translatesAutoresizingMaskIntoConstraints="NO" id="e0K-Ik-m8Z">
-                                        <rect key="frame" x="37" y="343" width="165" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="dre-jN-ntg" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="12" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="enableSliderBackgroundGradientAction:" target="-2" id="oyB-O1-Ogh"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" tag="207" translatesAutoresizingMaskIntoConstraints="NO" id="R53-Mu-aCh">
-                                        <rect key="frame" x="62" y="320" width="202" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="bXc-fm-YG0" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="ZjO-8m-zPH"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" tag="208" translatesAutoresizingMaskIntoConstraints="NO" id="bFf-r6-Dz0">
-                                        <rect key="frame" x="62" y="299" width="137" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Kpa-jU-oZb" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="iGt-yM-jCG"/>
-                                        </connections>
-                                    </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLU-aF-64d" userLabel="Volume Increment Field">
                                         <rect key="frame" x="116" y="275" width="40" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -334,7 +270,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="209" translatesAutoresizingMaskIntoConstraints="NO" id="zF5-gy-nuq" userLabel="Volume Increment Stepper">
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" tag="207" translatesAutoresizingMaskIntoConstraints="NO" id="zF5-gy-nuq" userLabel="Volume Increment Stepper">
                                         <rect key="frame" x="155" y="271" width="19" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="100" doubleValue="25" id="cyH-s7-KnO"/>
@@ -342,6 +278,104 @@
                                             <action selector="sliderBackgroundGradientAmountAction:" target="-2" id="BHp-UU-NwS"/>
                                         </connections>
                                     </stepper>
+                                    <customView focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Gg-vx-SSg" customClass="GradientOptionsRadioButtonGroup" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="29" y="294" width="249" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUy-pm-vJj">
+                                                <rect key="frame" x="7" y="49" width="165" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="2mJ-3u-UQB" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="12" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="enableSliderBackgroundGradientAction:" target="-2" id="HGu-34-9Jo"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80G-4h-kcj">
+                                                <rect key="frame" x="32" y="26" width="202" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="jMR-ec-Wt0" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="3Ke-J3-TjL"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjm-hI-Y4L">
+                                                <rect key="frame" x="32" y="5" width="137" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="TkC-yf-0gd" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="o4v-hf-SDh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
+                                                <integer key="value" value="206"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="btnGradientBrighten" destination="sjm-hI-Y4L" id="b0C-XT-B7m"/>
+                                            <outlet property="btnGradientDarken" destination="80G-4h-kcj" id="074-oP-FbP"/>
+                                            <outlet property="btnGradientEnabled" destination="xUy-pm-vJj" id="tjP-RH-GDE"/>
+                                        </connections>
+                                    </customView>
+                                    <customView focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXs-ke-MtP" customClass="GradientOptionsRadioButtonGroup" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="29" y="159" width="249" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-el-MIF">
+                                                <rect key="frame" x="7" y="49" width="165" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1bS-Nk-VKS" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="12" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="enableSliderForegroundGradientAction:" target="-2" id="GWd-ME-9yC"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-j2-h9F">
+                                                <rect key="frame" x="32" y="26" width="202" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Lx4-gm-mm5" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="HsQ-9r-IYA"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfa-JF-Lpo">
+                                                <rect key="frame" x="32" y="5" width="137" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="r4u-Uw-RYQ" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="Play-Regular"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="lfl-vd-dhx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
+                                                <integer key="value" value="209"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="btnGradientBrighten" destination="hfa-JF-Lpo" id="qcM-6w-Elv"/>
+                                            <outlet property="btnGradientDarken" destination="8VJ-j2-h9F" id="oI1-7X-adb"/>
+                                            <outlet property="btnGradientEnabled" destination="T2H-el-MIF" id="Wmw-Rx-CyG"/>
+                                        </connections>
+                                    </customView>
                                 </subviews>
                             </view>
                         </subviews>
@@ -351,7 +385,7 @@
                         <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.70526315789473681" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="445" y="0.0" width="15" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

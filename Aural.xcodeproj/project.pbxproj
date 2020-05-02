@@ -455,6 +455,7 @@
 		3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7EFC9215075A400E582CB /* BarModePlayerViewController.swift */; };
 		3EF7EFCC215075DD00E582CB /* BarModeNowPlaying.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF7EFCB215075DD00E582CB /* BarModeNowPlaying.xib */; };
 		3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF7EFCD215075F500E582CB /* BarModePlayer.xib */; };
+		3EF86045245D491E0067583A /* GradientOptionsRadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF86044245D491E0067583A /* GradientOptionsRadioButtonGroup.swift */; };
 		3EFB192B1FB8268700690C60 /* MetadataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
 		3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */; };
@@ -939,6 +940,7 @@
 		3EF7EFC9215075A400E582CB /* BarModePlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarModePlayerViewController.swift; sourceTree = "<group>"; };
 		3EF7EFCB215075DD00E582CB /* BarModeNowPlaying.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarModeNowPlaying.xib; sourceTree = "<group>"; };
 		3EF7EFCD215075F500E582CB /* BarModePlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarModePlayer.xib; sourceTree = "<group>"; };
+		3EF86044245D491E0067583A /* GradientOptionsRadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientOptionsRadioButtonGroup.swift; sourceTree = "<group>"; };
 		3EFB192A1FB8268700690C60 /* MetadataDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataDataSource.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
 		3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackInfoDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -2288,6 +2290,7 @@
 				3EF62FF2244C42F300AD7172 /* ColorSchemesWindowController.swift */,
 				3EE09324245C5FEE0045F8A3 /* ColorSchemeViewController.swift */,
 				3EE97B3A245C4E1C0063ADB2 /* AuralColorPicker.swift */,
+				3EF86044245D491E0067583A /* GradientOptionsRadioButtonGroup.swift */,
 				3EE09326245C60240045F8A3 /* Domain */,
 				3EE7D727244EDAC8005D76FA /* General */,
 				3EE7D72C244EDC8D005D76FA /* Player */,
@@ -2485,6 +2488,7 @@
 				3EF08DCB2156D65D000C7F11 /* WindowManagerProtocol.swift in Sources */,
 				3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */,
 				3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */,
+				3EF86045245D491E0067583A /* GradientOptionsRadioButtonGroup.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
