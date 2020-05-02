@@ -6,15 +6,20 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var functionValueTextColorPicker: AuralColorPicker!
     
     @IBOutlet weak var sliderBackgroundColorPicker: AuralColorPicker!
+    
+    @IBOutlet weak var sliderBackgroundGradientBtnGroup: GradientOptionsRadioButtonGroup!
     @IBOutlet weak var btnSliderBackgroundGradientEnabled: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientDarken: NSButton!
     @IBOutlet weak var btnSliderBackgroundGradientBrighten: NSButton!
+    
     @IBOutlet weak var sliderBackgroundGradientAmountStepper: NSStepper!
     @IBOutlet weak var lblSliderBackgroundGradientAmount: NSTextField!
     
+    @IBOutlet weak var sliderForegroundGradientBtnGroup: GradientOptionsRadioButtonGroup!
     @IBOutlet weak var btnSliderForegroundGradientEnabled: NSButton!
     @IBOutlet weak var btnSliderForegroundGradientDarken: NSButton!
     @IBOutlet weak var btnSliderForegroundGradientBrighten: NSButton!
+    
     @IBOutlet weak var sliderForegroundGradientAmountStepper: NSStepper!
     @IBOutlet weak var lblSliderForegroundGradientAmount: NSTextField!
     
@@ -37,12 +42,10 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         actionsMap[functionValueTextColorPicker.tag] = self.changeFunctionValueTextColor
         
         actionsMap[sliderBackgroundColorPicker.tag] = self.changeSliderBackgroundColor
-        actionsMap[btnSliderBackgroundGradientEnabled.tag] = self.enableSliderBackgroundGradient
-        actionsMap[btnSliderBackgroundGradientDarken.tag] = self.brightenOrDarkenSliderBackgroundGradient
+        actionsMap[sliderBackgroundGradientBtnGroup.tag] = self.changeSliderBackgroundGradient
         actionsMap[sliderBackgroundGradientAmountStepper.tag] = self.changeSliderBackgroundGradientAmount
         
-        actionsMap[btnSliderForegroundGradientEnabled.tag] = self.enableSliderForegroundGradient
-        actionsMap[btnSliderForegroundGradientDarken.tag] = self.brightenOrDarkenSliderForegroundGradient
+        actionsMap[sliderForegroundGradientBtnGroup.tag] = self.changeSliderForegroundGradient
         actionsMap[sliderForegroundGradientAmountStepper.tag] = self.changeSliderForegroundGradientAmount
         
         actionsMap[sliderKnobColorPicker.tag] = self.changeSliderKnobColor
@@ -61,25 +64,13 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor
         
         sliderBackgroundColorPicker.color = scheme.effects.sliderBackgroundColor
-        btnSliderBackgroundGradientEnabled.onIf(scheme.effects.sliderBackgroundGradientType != .none)
-        
-        btnSliderBackgroundGradientDarken.enableIf(btnSliderBackgroundGradientEnabled.isOn)
-        btnSliderBackgroundGradientDarken.onIf(scheme.effects.sliderBackgroundGradientType != .brighten)
-        
-        btnSliderBackgroundGradientBrighten.enableIf(btnSliderBackgroundGradientEnabled.isOn)
-        btnSliderBackgroundGradientBrighten.onIf(scheme.effects.sliderBackgroundGradientType == .brighten)
+        sliderBackgroundGradientBtnGroup.gradientType = scheme.effects.sliderBackgroundGradientType
         
         sliderBackgroundGradientAmountStepper.enableIf(btnSliderBackgroundGradientEnabled.isOn)
         sliderBackgroundGradientAmountStepper.integerValue = scheme.effects.sliderBackgroundGradientAmount
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
-        btnSliderForegroundGradientEnabled.onIf(scheme.effects.sliderForegroundGradientType != .none)
-        
-        btnSliderForegroundGradientDarken.enableIf(btnSliderForegroundGradientEnabled.isOn)
-        btnSliderForegroundGradientDarken.onIf(scheme.effects.sliderForegroundGradientType != .brighten)
-        
-        btnSliderForegroundGradientBrighten.enableIf(btnSliderForegroundGradientEnabled.isOn)
-        btnSliderForegroundGradientBrighten.onIf(scheme.effects.sliderForegroundGradientType == .brighten)
+        sliderForegroundGradientBtnGroup.gradientType = scheme.effects.sliderForegroundGradientType
         
         sliderForegroundGradientAmountStepper.enableIf(btnSliderForegroundGradientEnabled.isOn)
         sliderForegroundGradientAmountStepper.integerValue = scheme.effects.sliderForegroundGradientAmount
@@ -121,11 +112,12 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
         
-        history.noteChange(btnSliderForegroundGradientEnabled.tag, ColorSchemes.systemScheme.effects.sliderForegroundGradientType != .none, btnSliderForegroundGradientEnabled.isOn, .toggle)
-        enableSliderForegroundGradient()
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, ColorSchemes.systemScheme.effects.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        
+        changeSliderForegroundGradient()
     }
     
-    private func enableSliderForegroundGradient() {
+    private func changeSliderForegroundGradient() {
         
         if btnSliderForegroundGradientEnabled.isOn {
             ColorSchemes.systemScheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
@@ -140,19 +132,15 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(btnSliderForegroundGradientDarken.tag, ColorSchemes.systemScheme.effects.sliderForegroundGradientType == .darken, btnSliderForegroundGradientDarken.isOn, .toggle)
-        brightenOrDarkenSliderForegroundGradient()
-    }
-    
-    private func brightenOrDarkenSliderForegroundGradient() {
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, ColorSchemes.systemScheme.effects.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
         
-        ColorSchemes.systemScheme.effects.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
-        sliderColorsChanged()
+        changeSliderForegroundGradient()
     }
     
     @IBAction func sliderForegroundGradientAmountAction(_ sender: Any) {
         
         history.noteChange(sliderForegroundGradientAmountStepper.tag, ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
+        
         changeSliderForegroundGradientAmount()
     }
     
@@ -178,11 +166,12 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
         
-        history.noteChange(btnSliderBackgroundGradientEnabled.tag, ColorSchemes.systemScheme.effects.sliderBackgroundGradientType != .none, btnSliderBackgroundGradientEnabled.isOn, .toggle)
-        enableSliderBackgroundGradient()
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, ColorSchemes.systemScheme.effects.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        
+        changeSliderBackgroundGradient()
     }
     
-    private func enableSliderBackgroundGradient() {
+    private func changeSliderBackgroundGradient() {
         
         if btnSliderBackgroundGradientEnabled.isOn {
             ColorSchemes.systemScheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
@@ -197,14 +186,9 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(btnSliderBackgroundGradientDarken.tag, ColorSchemes.systemScheme.effects.sliderBackgroundGradientType == .darken, btnSliderBackgroundGradientDarken.isOn, .toggle)
-        brightenOrDarkenSliderBackgroundGradient()
-    }
-    
-    private func brightenOrDarkenSliderBackgroundGradient() {
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, ColorSchemes.systemScheme.effects.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
         
-        ColorSchemes.systemScheme.effects.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
-        sliderColorsChanged()
+        changeSliderBackgroundGradient()
     }
     
     @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
