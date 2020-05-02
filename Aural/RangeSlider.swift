@@ -36,7 +36,7 @@ fileprivate let bypassedColor: NSColor = Colors.Constants.white35Percent
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
 
 @IBDesignable
-class RangeSlider: NSView, EffectsUnitSliderProtocol {
+class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     
     //****************************************************************************//
     //****************************************************************************//
@@ -52,7 +52,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     @IBInspectable var index: Int = 0
     
-    @IBInspectable var enabled: Bool = true
     var unitState: EffectsUnitState = .bypassed {
         
         didSet {
@@ -249,13 +248,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     override func mouseDown(with event: NSEvent) {
         
-        if !enabled {return}
-        
-        if let theWindow = self.window {
-            
-            theWindow.isMovableByWindowBackground = false
-            theWindow.isMovable = false
-        }
+        if !isEnabled {return}
 
         let point = convert(event.locationInWindow, from: nil)
         let startSlider = startKnobFrame()
@@ -282,24 +275,10 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     override func mouseDragged(with event: NSEvent) {
         
-        if !enabled {return}
+        if isEnabled {
         
-        if let theWindow = self.window {
-            
-            theWindow.isMovableByWindowBackground = false
-            theWindow.isMovable = false
-        }
-        
-        let point = convert(event.locationInWindow, from: nil)
-        updateForClick(atPoint: point)
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        
-        if let theWindow = self.window {
-            
-            theWindow.isMovableByWindowBackground = true
-            theWindow.isMovable = true
+            let point = convert(event.locationInWindow, from: nil)
+            updateForClick(atPoint: point)
         }
     }
     

@@ -140,6 +140,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                             <real key="value" value="20000"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="enabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </customView>
                 <popUpButton toolTip="Load preset" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-NV-oeX" userLabel="Presets Cutoffs Menu">
