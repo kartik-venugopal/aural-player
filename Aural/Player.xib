@@ -71,7 +71,7 @@
                         <size key="offset" width="-2" height="-2"/>
                         <color key="color" red="0.18480812823834192" green="0.18480812823834192" blue="0.18480812823834192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </shadow>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PlayingArt" id="nDh-sM-DxS"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="nDh-sM-DxS"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="85" y="65" width="340" height="80"/>
@@ -85,7 +85,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="713-ze-Jl0">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="0MC-mR-NAm">
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
@@ -176,7 +176,7 @@
                         <size key="offset" width="-5" height="-5"/>
                         <color key="color" red="0.17193571891191706" green="0.17193571891191706" blue="0.17193571891191706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </shadow>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PlayingArt" id="tVP-u8-QCd"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="tVP-u8-QCd"/>
                 </imageView>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="H2c-eI-RaT" userLabel="Overlay Box">
                     <rect key="frame" x="170" y="15" width="170" height="170"/>
