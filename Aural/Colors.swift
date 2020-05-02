@@ -148,6 +148,11 @@ struct Colors {
             return ColorSchemes.systemScheme.player.sliderBackgroundColor
         }
         
+        static func updateSliderColors() {
+            updateSliderBackgroundGradient()
+            updateSliderForegroundGradient()
+        }
+        
         static func updateSliderBackgroundColor() {
             updateSliderBackgroundGradient()
         }
