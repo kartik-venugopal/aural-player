@@ -1,30 +1,34 @@
 import Foundation
 
+/*
+    Data structure that provides LIFO operations - push/pop/peek. Backed by an array.
+ */
 class Stack<T: Any> {
  
-    private var arr: [T] = []
+    // Backing array
+    private var array: [T] = []
     
     func push(_ elm: T) {
-        arr.append(elm)
+        array.append(elm)
     }
     
     func pop() -> T? {
-        return arr.popLast()
+        return array.popLast()
     }
     
     func peek() -> T? {
-        return arr.last
+        return array.last
     }
     
     func clear() {
-        arr.removeAll()
+        array.removeAll()
     }
     
     var size: Int {
-        return arr.count
+        return array.count
     }
     
     var isEmpty: Bool {
-        return arr.count == 0
+        return array.count == 0
     }
 }

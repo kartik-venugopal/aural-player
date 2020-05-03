@@ -1,33 +1,46 @@
 import Cocoa
 
+/*
+    View controller for the editor that allows the user to manage user-defined color schemes.
+ */
 class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
     
+    // The table listing all user-defined color schemes.
     @IBOutlet weak var editorView: NSTableView!
     
+    // Buttons for operations that can be performed on the schemes.
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
     
+    // A cache that prevents redundant fetch operations when populating the table view.
     private var schemesCache: [ColorScheme] = []
     
+    // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
+    // Used to temporarily store the original name of a color scheme that is being renamed.
     private var oldSchemeName: String = ""
     
     override var nibName: String? {return "ColorSchemesEditor"}
     
     override func viewDidAppear() {
         
+        // Populate the cache with all user-defined schemes.
         schemesCache = ColorSchemes.userDefinedSchemes
         
+        // Refresh the table view.
         editorView.reloadData()
         editorView.deselectAll(self)
         
+        // Set button states.
         [btnDelete, btnRename, btnApply].forEach({$0.disable()})
         
+        // Clear the preview view (no scheme is selected).
         previewView.clear()
     }
     
+    // Deletes all color schemes selected in the table view.
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
         // Descending order
@@ -43,23 +56,12 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         updatePreview()
     }
     
+    // Returns the names of all color schemes selected in the table view.
     private var selectedSchemeNames: [String] {
-        
-        var names = [String]()
-        
-        let selection = editorView.selectedRowIndexes
-        
-        selection.forEach({
-            
-            if let cell = editorView.view(atColumn: 0, row: $0, makeIfNecessary: true) as? NSTableCellView, let name = cell.textField?.stringValue {
-            
-                names.append(name)
-            }
-        })
-        
-        return names
+        return editorView.selectedRowIndexes.map {schemesCache[$0].name}
     }
     
+    // Updates button states depending on how many rows are selected in the table view.
     private func updateButtonStates() {
         
         let selRows: Int = editorView.numberOfSelectedRows
@@ -69,15 +71,19 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         btnRename.enableIf(selRows == 1)
     }
     
+    // Renames a single color scheme.
     @IBAction func renameSchemeAction(_ sender: AnyObject) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
+        let selectedRowView = editorView.rowView(atRow: editorView.selectedRow, makeIfNecessary: true)
+
+        if let editedTextField = (selectedRowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
         
-        self.view.window?.makeFirstResponder(editedTextField)
+            // Shift focus to the text field for the scheme being renamed.
+            self.view.window?.makeFirstResponder(editedTextField)
+        }
     }
     
+    // Applies the selected color scheme to the system.
     @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
         
         if let scheme = ColorSchemes.applyScheme(selectedSchemeNames[0]) {
@@ -85,10 +91,12 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         }
     }
     
+    // Dismisses the editor dialog.
     @IBAction func doneAction(_ sender: AnyObject) {
         UIUtils.dismissDialog(self.view.window!)
     }
     
+    // Updates the visual preview.
     private func updatePreview() {
         
         if editorView.numberOfSelectedRows == 1 {
@@ -103,21 +111,19 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     // MARK: View delegate and data source functions
     
-    // Returns the total number of playlist rows
+    // Returns the total number of color schemes
     func numberOfRows(in tableView: NSTableView) -> Int {
         return schemesCache.count
     }
     
+    // When the table selection changes, the button states and preview might need to change.
     func tableViewSelectionDidChange(_ notification: Notification) {
         
         updateButtonStates()
         updatePreview()
         
-        if editorView.numberOfSelectedRows == 1,
-            let cell = editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as? NSTableCellView,
-            let textField = cell.textField {
-                
-            oldSchemeName = textField.stringValue
+        if editorView.numberOfSelectedRows == 1 {
+            oldSchemeName = schemesCache[editorView.selectedRow].name
         }
     }
     
@@ -159,7 +165,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         let editedTextField = obj.object as! NSTextField
         
-        if let scheme = ColorSchemes.schemeByName(oldSchemeName, false) {
+        if let scheme = ColorSchemes.userDefinedSchemeByName(oldSchemeName, false) {
             
             let newSchemeName = editedTextField.stringValue
             
@@ -174,7 +180,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
                 
             } else if ColorSchemes.schemeWithNameExists(newSchemeName) {
                 
-                // Another sccheme with that name exists, can't rename
+                // Another scheme with that name exists, can't rename
                 editedTextField.stringValue = scheme.name
                 
             } else {

@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Controller for the view that allows the user to edit color scheme elements that apply to the playlist UI.
+ */
 class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var trackNameTextColorPicker: AuralColorPicker!
@@ -24,6 +27,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         
         super.viewDidLoad()
         
+        // Map control tags to their corresponding undo/redo actions
+        
         actionsMap[trackNameTextColorPicker.tag] = self.changeTrackNameTextColor
         actionsMap[groupNameTextColorPicker.tag] = self.changeGroupNameTextColor
         actionsMap[indexDurationTextColorPicker.tag] = self.changeIndexDurationTextColor
@@ -44,6 +49,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
         super.resetFields(scheme, history, clipboard)
+        
+        // Update the UI to reflect the current system color scheme
         
         trackNameTextColorPicker.color = scheme.playlist.trackNameTextColor
         groupNameTextColorPicker.color = scheme.playlist.groupNameTextColor

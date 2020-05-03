@@ -1,6 +1,11 @@
 import Cocoa
 
+/*
+    Controller for the popup menu that lists the available color schemes and opens the color scheme editor panel.
+ */
 class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClient {
+    
+    @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
     
     private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
     
@@ -8,18 +13,16 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
-    
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
-    // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        // Remove all user-defined scheme items (i.e. all items before the first separator)
         while let item = menu.item(at: 0), !item.isSeparatorItem {
             menu.removeItem(at: 0)
         }
         
-        // Recreate the custom scheme items
+        // Recreate the user-defined color scheme items
         ColorSchemes.userDefinedSchemes.forEach({
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
@@ -29,6 +32,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
             menu.insertItem(item, at: 0)
         })
         
+        // Schemes can only be managed if there is at least one user-defined scheme
         manageSchemesMenuItem?.enableIf(ColorSchemes.numberOfUserDefinedSchemes > 0)
     }
     
@@ -51,7 +55,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
         editorWindowController.showColorSchemesEditor()
     }
     
-    // MARK - StringInputClient functions
+    // MARK - StringInputClient functions (to receive the name of a new user-defined color scheme)
     
     var inputPrompt: String {
         return "Enter a new color scheme name:"

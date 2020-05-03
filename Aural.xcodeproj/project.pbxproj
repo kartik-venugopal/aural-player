@@ -195,6 +195,7 @@
 		3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC281F02759D00C36DC1 /* Timer.swift */; };
 		3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */; };
 		3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */; };
+		3E5A0480245EBEAA0088438E /* ColorClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5A047F245EBEAA0088438E /* ColorClipboard.swift */; };
 		3E5E1E5021DB539D007C62B7 /* AboutDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */; };
 		3E5E1E5321DB5688007C62B7 /* AboutDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */; };
 		3E5E1E5521DB677D007C62B7 /* FormatMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */; };
@@ -670,6 +671,7 @@
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
 		3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
+		3E5A047F245EBEAA0088438E /* ColorClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorClipboard.swift; sourceTree = "<group>"; };
 		3E5D708721D9EBFA00491D6C /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutDialog.xib; sourceTree = "<group>"; };
 		3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialogController.swift; sourceTree = "<group>"; };
@@ -2143,6 +2145,7 @@
 				3EE7D720244EBF29005D76FA /* ColorSchemes.swift */,
 				3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */,
 				3EE97B38245C47C20063ADB2 /* ColorSchemeHistory.swift */,
+				3E5A047F245EBEAA0088438E /* ColorClipboard.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -2774,6 +2777,7 @@
 				3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */,
 				3E066C31216C799600E4FE80 /* ReverbPresetsEditorViewController.swift in Sources */,
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
+				3E5A0480245EBEAA0088438E /* ColorClipboard.swift in Sources */,
 				3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */,
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
 				3EC7E8AF217B300E00F21695 /* EffectsUnitSliderCellProtocol.swift in Sources */,

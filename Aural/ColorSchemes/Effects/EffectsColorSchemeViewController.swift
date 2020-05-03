@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Controller for the view that allows the user to edit color scheme elements that apply to the effects panel UI.
+ */
 class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var functionCaptionTextColorPicker: AuralColorPicker!
@@ -38,6 +41,8 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
         
         super.viewDidLoad()
         
+        // Map control tags to their corresponding undo/redo actions
+        
         actionsMap[functionCaptionTextColorPicker.tag] = self.changeFunctionCaptionTextColor
         actionsMap[functionValueTextColorPicker.tag] = self.changeFunctionValueTextColor
         
@@ -59,6 +64,8 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
         super.resetFields(scheme, history, clipboard)
+        
+        // Update the UI to reflect the current system color scheme
         
         functionCaptionTextColorPicker.color = scheme.effects.functionCaptionTextColor
         functionValueTextColorPicker.color = scheme.effects.functionValueTextColor

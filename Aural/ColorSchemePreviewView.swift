@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    View that gives the user a visual preview of what the UI would look like if a particular color scheme is applied to it.
+ */
 class ColorSchemePreviewView: NSView {
     
     @IBOutlet weak var playerBox: NSBox!
@@ -73,6 +76,8 @@ class ColorSchemePreviewView: NSView {
         
         btnBypass.tintFunction = {return self.activeUnitColor}
     }
+    
+    // When any of the following fields is set, update the corresponding fields.
     
     var scheme: ColorScheme? {
         

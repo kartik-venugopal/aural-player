@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Encapsulates all persistent app state for color schemes.
+ */
 class ColorSchemesState: PersistentState {
 
     var userSchemes: [ColorSchemeState] = []
@@ -35,6 +38,9 @@ class ColorSchemesState: PersistentState {
     }
 }
 
+/*
+    Encapsulates persistent app state for a single color scheme.
+ */
 class ColorSchemeState: PersistentState {
     
     var name: String = ""
@@ -85,6 +91,9 @@ class ColorSchemeState: PersistentState {
     }
 }
 
+/*
+    Encapsulates persistent app state for a single GeneralColorScheme.
+ */
 class GeneralColorSchemeState: PersistentState {
     
     var appLogoColor: ColorState?
@@ -172,6 +181,9 @@ class GeneralColorSchemeState: PersistentState {
     }
 }
 
+/*
+    Encapsulates persistent app state for a single PlayerColorScheme.
+ */
 class PlayerColorSchemeState: PersistentState {
     
     var trackInfoPrimaryTextColor: ColorState?
@@ -286,6 +298,9 @@ class PlayerColorSchemeState: PersistentState {
     }
 }
 
+/*
+    Encapsulates persistent app state for a single PlaylistColorScheme.
+ */
 class PlaylistColorSchemeState: PersistentState {
     
     var trackNameTextColor: ColorState?
@@ -386,6 +401,9 @@ class PlaylistColorSchemeState: PersistentState {
     }
 }
 
+/*
+    Encapsulates persistent app state for a single EffectsColorScheme.
+ */
 class EffectsColorSchemeState: PersistentState {
     
     var functionCaptionTextColor: ColorState?

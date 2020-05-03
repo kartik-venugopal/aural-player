@@ -77,7 +77,10 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         
+        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
         let offStateTintFunction = {return Colors.toggleButtonOffStateColor}
+        
+        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
         let onStateTintFunction = {return Colors.functionButtonColor}
 
         btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
