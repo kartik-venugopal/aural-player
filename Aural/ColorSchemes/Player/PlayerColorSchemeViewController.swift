@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Controller for the view that allows the user to edit color scheme elements that apply to the player UI.
+ */
 class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var trackInfoPrimaryTextColorPicker: AuralColorPicker!
@@ -39,6 +42,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
         
         super.viewDidLoad()
         
+        // Map control tags to their corresponding undo/redo actions
+        
         actionsMap[trackInfoPrimaryTextColorPicker.tag] = self.changePrimaryTextColor
         actionsMap[trackInfoSecondaryTextColorPicker.tag] = self.changeSecondaryTextColor
         actionsMap[trackInfoTertiaryTextColorPicker.tag] = self.changeTertiaryTextColor
@@ -62,6 +67,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
         super.resetFields(scheme, history, clipboard)
+        
+        // Update the UI to reflect the current system color scheme
         
         trackInfoPrimaryTextColorPicker.color = scheme.player.trackInfoPrimaryTextColor
         trackInfoSecondaryTextColorPicker.color = scheme.player.trackInfoSecondaryTextColor

@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Controller for the view that allows the user to edit general color scheme elements.
+ */
 class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var appLogoColorPicker: AuralColorPicker!
@@ -22,6 +25,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         
         super.viewDidLoad()
         
+        // Map control tags to their corresponding undo/redo actions
+        
         actionsMap[appLogoColorPicker.tag] = self.changeAppLogoColor
         actionsMap[backgroundColorPicker.tag] = self.changeBackgroundColor
         actionsMap[viewControlButtonColorPicker.tag] = self.changeViewControlButtonColor
@@ -38,6 +43,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     override func resetFields(_ scheme: ColorScheme, _ history: ColorSchemeHistory, _ clipboard: ColorClipboard!) {
         
         super.resetFields(scheme, history, clipboard)
+        
+        // Update the UI to reflect the current system color scheme
         
         appLogoColorPicker.color = scheme.general.appLogoColor
         backgroundColorPicker.color = scheme.general.backgroundColor

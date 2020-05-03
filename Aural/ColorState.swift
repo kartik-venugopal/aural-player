@@ -1,13 +1,18 @@
 import Cocoa
 
+/*
+    Encapsulates persistent app state for a single NSColor.
+ */
 class ColorState: PersistentState {
     
     // Gray, RGB, or CMYK
     var colorSpace: Int = 1
     var alpha: CGFloat = 1
     
+    // Default color to use when deserializing and cannot construct a color.
     static let defaultInstance: ColorState = GrayscaleColorState(1, 1)
     
+    // Maps an NSColor to a ColorState object that can be persisted.
     static func fromColor(_ color: NSColor) -> ColorState {
         
         switch color.colorSpace.colorSpaceModel {
@@ -30,13 +35,15 @@ class ColorState: PersistentState {
         }
     }
     
-    // Dummy implementation
+    // Dummy implementation (meant to be overriden).
     func toColor() -> NSColor {
         return NSColor.white
     }
     
+    // Deserializes persistent state for a single NSColor.
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
+        // Depending on the color space of the color, construct different objects.
         if let colorSpace = map["colorSpace"] as? NSNumber {
             
             switch colorSpace.intValue {
@@ -55,6 +62,7 @@ class ColorState: PersistentState {
                 
             default:
                 
+                // Impossible
                 return defaultInstance
             }
         }
@@ -64,6 +72,9 @@ class ColorState: PersistentState {
     }
 }
 
+/*
+    Represents persistent state for a single NSColor defined in the Grayscale color space.
+ */
 class GrayscaleColorState: ColorState {
     
     var white: CGFloat = 1
@@ -98,6 +109,9 @@ class GrayscaleColorState: ColorState {
     }
 }
 
+/*
+    Represents persistent state for a single NSColor defined in the RGB color space.
+ */
 class RGBColorState: ColorState {
     
     var red: CGFloat = 1
@@ -145,6 +159,9 @@ class RGBColorState: ColorState {
     }
 }
 
+/*
+    Represents persistent state for a single NSColor defined in the CMYK color space.
+ */
 class CMYKColorState: ColorState {
     
     var cyan: CGFloat = 1

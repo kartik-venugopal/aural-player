@@ -1,8 +1,14 @@
 import Cocoa
 
+/*
+    Encapsulates all colors that determine a color scheme that can be appplied to the entire application.
+ */
 class ColorScheme {
     
+    // Displayed name
     var name: String
+
+    // False if defined by the user
     let systemDefined: Bool
 
     var general: GeneralColorScheme
@@ -10,6 +16,7 @@ class ColorScheme {
     var playlist: PlaylistColorScheme
     var effects: EffectsColorScheme
     
+    // Utility function (for debugging purposes only)
     func toString() -> String {
         return String(describing: JSONMapper.map(ColorSchemeState(self)))
     }
@@ -50,6 +57,7 @@ class ColorScheme {
         self.effects = EffectsColorScheme(preset)
     }
     
+    // Applies a system-defined preset to this scheme.
     func applyPreset(_ preset: ColorSchemePreset) {
         
         self.general.applyPreset(preset)
@@ -58,6 +66,7 @@ class ColorScheme {
         self.effects.applyPreset(preset)
     }
     
+    // Applies another color scheme to this scheme.
     func applyScheme(_ scheme: ColorScheme) {
         
         self.general.applyScheme(scheme.general)
@@ -66,15 +75,20 @@ class ColorScheme {
         self.effects.applyScheme(scheme.effects)
     }
     
+    // Creates an identical copy of this color scheme
     func clone() -> ColorScheme {
         return ColorScheme(self.name + "_clone", self.systemDefined, self)
     }
     
+    // State that can be persisted to disk
     var persistentState: ColorSchemeState {
         return ColorSchemeState(self)
     }
 }
 
+/*
+    Encapsulates color values that are generally applicable to the entire UI, e.g. window background color.
+ */
 class GeneralColorScheme {
     
     var appLogoColor: NSColor
@@ -192,6 +206,9 @@ class GeneralColorScheme {
     }
 }
 
+/*
+    Encapsulates color values that are applicable to the player UI, e.g. color of the track title.
+ */
 class PlayerColorScheme {
     
     var trackInfoPrimaryTextColor: NSColor
@@ -326,6 +343,9 @@ class PlayerColorScheme {
     }
 }
 
+/*
+    Encapsulates color values that are applicable to the playlist UI, e.g. color of the track name or duration.
+ */
 class PlaylistColorScheme {
     
     var trackNameTextColor: NSColor
@@ -450,6 +470,9 @@ class PlaylistColorScheme {
     }
 }
 
+/*
+    Encapsulates color values that are applicable to the effects panel UI, e.g. color of the sliders.
+ */
 class EffectsColorScheme {
     
     var functionCaptionTextColor: NSColor
@@ -590,6 +613,9 @@ class EffectsColorScheme {
     }
 }
 
+/*
+    Enumerates all different types of gradients that can be applied to colors in a color scheme.
+ */
 enum GradientType: String {
     
     case none

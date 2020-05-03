@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    A special on/off image button whose images do not change.
+ */
 class RecorderToggleButton: OnOffImageButton {
     
     override func off() {
@@ -23,7 +26,7 @@ class RecorderToggleButton: OnOffImageButton {
 }
 
 /*
-    An image button that can be toggled On/Off and displays different images depending on its state
+    An image button that can be toggled On/Off and displays different images depending on its state. It conforms to the current system color scheme by conforming to Tintable.
  */
 @IBDesignable
 class OnOffImageButton: NSButton, Tintable {
@@ -56,6 +59,7 @@ class OnOffImageButton: NSButton, Tintable {
     // The button's tooltip when the button is in an "On" state
     @IBInspectable var onStateTooltip: String?
     
+    // Tint to be applied when the button is in an "Off" state.
     var offStateTintFunction: () -> NSColor = {return Colors.toggleButtonOffStateColor} {
         
         didSet {
@@ -66,6 +70,7 @@ class OnOffImageButton: NSButton, Tintable {
         }
     }
     
+    // Tint to be applied when the button is in an "On" state.
     var onStateTintFunction: () -> NSColor = {return Colors.functionButtonColor} {
         
         didSet {
@@ -109,6 +114,7 @@ class OnOffImageButton: NSButton, Tintable {
         return _isOn
     }
     
+    // Re-apply the tint depending on state.
     func reTint() {
         
         if _isOn {
@@ -209,6 +215,7 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
         set {}
     }
     
+    // Tint to be applied when the button is in a "mixed" state (eg. when an effects unit is suppressed).
     var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
         
         didSet {
@@ -345,6 +352,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     }
 }
 
+// Special button used in the effects presets editor.
 class EffectsUnitTriStateBypassPreviewButton: EffectsUnitTriStateBypassButton {
     
     override func awakeFromNib() {
