@@ -735,6 +735,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if mustReloadRows {
             
             playlistViewDelegate.changeGroupIconColor(scheme.playlist.groupIconColor)
+            playlistViewDelegate.changeGapIndicatorColor(scheme.playlist.indexDurationSelectedTextColor)
             playlistView.changeDisclosureIconColor(scheme.playlist.groupDisclosureTriangleColor)
             
             let selRows = playlistView.selectedRowIndexes
@@ -763,6 +764,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func changeTrackNameTextColor(_ color: NSColor) {
+        
+        playlistViewDelegate.changeGapIndicatorColor(color)
         
         let trackRows = allRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
         playlistView.reloadData(forRowIndexes: trackRows, columnIndexes: IndexSet([0]))

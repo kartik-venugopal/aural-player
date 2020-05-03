@@ -6,6 +6,7 @@ import Cocoa
 class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
+    @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
     private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
     
     @IBOutlet weak var scrollView: NSScrollView!
@@ -586,6 +587,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         if mustReloadRows {
             
+            playlistViewDelegate.changeGapIndicatorColor(scheme.playlist.indexDurationSelectedTextColor)
+            
             let selRows = playlistView.selectedRowIndexes
             playlistView.reloadData()
             playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
@@ -608,6 +611,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func changeTrackNameTextColor(_ color: NSColor) {
+        
+        playlistViewDelegate.changeGapIndicatorColor(color)
         playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
     }
     
