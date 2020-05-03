@@ -360,15 +360,9 @@ public extension NSBezierPath {
     }
 }
 
-extension NSColor {
-    
-    var isOpaque: Bool {
-        return self.alphaComponent == 1
-    }
-}
-
 extension NSImage {
     
+    // Returns a copy of this image tinted with a given color. Used by several UI components for system color scheme conformance.
     func applyingTint(_ color: NSColor) -> NSImage {
         
         let image = self.copy() as! NSImage
@@ -387,24 +381,35 @@ extension NSImage {
 
 extension NSColor {
     
+    // Returns whether or not this color is opaque (i.e. alpha == 1)
+    var isOpaque: Bool {
+        return self.alphaComponent == 1
+    }
+    
+    // Computes a shadow color that would be visible in contrast to this color.
+    // eg. if this color is white, black would be a visible shadow color. However, if this color is black, we would need a bit of brightness in the shadow.
     var visibleShadowColor: NSColor {
         
+        // Convert to RGB color space to be able to determine the brightness.
         let rgb = toRGB()
         
         let myBrightness = rgb.brightnessComponent
         
+        // If the brightness is under a threshold, it is too dark for black to be visible as its shadow. In that case, return a shadow color that has a bit of brightness to it.
         if myBrightness < 0.15 {
-            return NSColor(calibratedWhite: min(0.2, myBrightness + 0.15), alpha: 1)
+            return NSColor(white: min(0.2, myBrightness + 0.15), alpha: 1)
         }
         
+        // For reasonably bright colors, black is the best shadow color.
         return NSColor.black
     }
     
+    // Clones this color, but with the alpha component set to a specified value.
     func clonedWithTransparency(_ alpha: CGFloat) -> NSColor {
         
         switch self.colorSpace.colorSpaceModel {
             
-        case .gray: return NSColor(calibratedWhite: self.whiteComponent, alpha: alpha)
+        case .gray: return NSColor(white: self.whiteComponent, alpha: alpha)
             
         case .rgb:  return NSColor(red: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: alpha)
             
@@ -415,15 +420,22 @@ extension NSColor {
         }
     }
     
+    // If necessary, converts this color to the RGB color space.
     func toRGB() -> NSColor {
         
+        // Not in RGB color space, need to convert.
         if self.colorSpace.colorSpaceModel != .rgb, let rgb = self.usingColorSpace(.deviceRGB) {
             return rgb
         }
         
+        // Already in RGB color space, no need to convert.
         return self
     }
     
+    // Returns a color that is darker than this color by a certain percentage.
+    // NOTE - The percentage parameter represents a percentage within the range of possible values.
+    // eg. For black, the range would be zero, so this function would have no effect. For white, the range would be the entire [0.0, 1.0]
+    // For a color in between black and white, the range would be [0, B] where B represents the brightness component of this color.
     func darkened(_ percentage: CGFloat) -> NSColor {
         
         let rgbSelf = self.toRGB()
@@ -431,9 +443,13 @@ extension NSColor {
         let curBrightness = rgbSelf.brightnessComponent
         let newBrightness = curBrightness - (percentage * curBrightness / 100)
         
-        return NSColor(calibratedHue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
+        return NSColor(hue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
     }
     
+    // Returns a color that is brighter than this color by a certain percentage.
+    // NOTE - The percentage parameter represents a percentage within the range of possible values.
+    // eg. For white, the range would be zero, so this function would have no effect. For black, the range would be the entire [0.0, 1.0]
+    // For a color in between black and white, the range would be [B, 1.0] where B represents the brightness component of this color.
     func brightened(_ percentage: CGFloat) -> NSColor {
         
         let rgbSelf = self.toRGB()
@@ -442,13 +458,15 @@ extension NSColor {
         let range: CGFloat = 1 - curBrightness
         let newBrightness = curBrightness + (percentage * range / 100)
         
-        return NSColor(calibratedHue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
+        return NSColor(hue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
     }
     
+    // Used for debugging purposes ... prints a JSON-style string with the different component values of this color.
     func toString() -> String {
         return String(describing: JSONMapper.map(ColorState.fromColor(self)))
     }
     
+    // Used for debugging purposes ... prints a JSON-style string with the different component values of this color represented as HSB.
     func hsbString() -> String {
         
         let rgb = self.toRGB()
@@ -458,28 +476,30 @@ extension NSColor {
 }
 
 extension NSImageView {
-    
-    var cornerRadius: CGFloat {
-        
-        get {
-            return self.layer?.cornerRadius ?? 0
-        }
-        
-        set(newValue) {
-            
-            if !self.wantsLayer {
-                
-                self.wantsLayer = true
-                self.layer?.masksToBounds = true;
-            }
-            
-            self.layer?.cornerRadius = newValue;
-        }
-    }
+
+    // Experimental code. Not currently in use.
+//    var cornerRadius: CGFloat {
+//
+//        get {
+//            return self.layer?.cornerRadius ?? 0
+//        }
+//
+//        set(newValue) {
+//
+//            if !self.wantsLayer {
+//
+//                self.wantsLayer = true
+//                self.layer?.masksToBounds = true;
+//            }
+//
+//            self.layer?.cornerRadius = newValue;
+//        }
+//    }
 }
 
 extension NSGradient {
     
+    // Returns an NSGradient with the start/end colors of this NSGradient reversed.
     func reversed() -> NSGradient {
         
         var start: NSColor = NSColor.white
