@@ -43,6 +43,10 @@ Access the color schemes manager by going to **View > Manage color schemes**.
 
 NOTE - You cannot alter built-in color schemes ... only your own.
 
+### Bug fixes
+
+* Fixed a bug in the expanded art player view - During delayed playback, album art wasn't being loaded sometimes.
+
 ### UI aesthetics
 
 UI aesthetics have been enhanced in this release.
