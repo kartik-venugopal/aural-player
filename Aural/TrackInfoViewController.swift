@@ -70,7 +70,12 @@ class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessage
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         
         if let newTrack = player.playingTrack?.track {
+            
             theView.showNowPlayingInfo(newTrack, player.state, player.sequenceInfo, player.playingChapter?.chapter.title)
+            
+        } else if let newTrack = player.waitingTrack?.track {   // If in a playback gap
+            
+            theView.artUpdated(newTrack)
         }
     }
     

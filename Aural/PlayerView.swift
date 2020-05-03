@@ -60,6 +60,10 @@ class PlayerView: NSView {
 //        infoView.showOrHideSequenceInfo()
     }
     
+    func artUpdated(_ track: Track) {
+        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
+    }
+    
     func showOrHideAlbumArt() {
         
         PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
@@ -142,7 +146,6 @@ class PlayerView: NSView {
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
-        makeOpaque(gapBox)
         showGapInfo()
         
         let track = msg.nextTrack.track
@@ -156,6 +159,8 @@ class PlayerView: NSView {
         gapBox.coLocate(infoBox)
         gapBox.show()
         hideViews(infoBox, functionsBox)
+        
+        bringViewToFront(gapBox)
     }
     
     fileprivate func showPlayingTrackInfo() {
@@ -306,7 +311,9 @@ class ExpandedArtPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         hideViews(controlsBox, overlayBox)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
+        
+        makeTransparent(gapBox)
         
         let windowColor = Colors.windowBackgroundColor
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
@@ -346,13 +353,10 @@ class ExpandedArtPlayerView: PlayerView {
     
     private func autoHideInfo_show() {
         
-        makeTransparent(gapBox)
         infoBox.showIf_elseHide(player.state.playingOrPaused())
     }
     
     private func autoHideInfo_hide() {
-        
-        makeOpaque(gapBox)
         hideViews(infoBox, centerOverlayBox)
     }
     
@@ -362,7 +366,7 @@ class ExpandedArtPlayerView: PlayerView {
         showViews(controlsBox, overlayBox)
         centerOverlayBox.hide()
         
-        makeTransparent(controlsBox, gapBox)
+        makeTransparent(controlsBox)
         [infoBox, controlsBox, functionsBox, gapBox].forEach({bringViewToFront($0)})
         
         // Re-position the info box, art view, and functions box
@@ -376,17 +380,23 @@ class ExpandedArtPlayerView: PlayerView {
         hideViews(overlayBox, controlsBox)
         centerOverlayBox.show()
         
-        makeOpaque(controlsBox, gapBox)
+        makeOpaque(controlsBox)
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         // Show info box as overlay temporarily
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
     }
     
     override func clearNowPlayingInfo() {
         
         infoView.clearNowPlayingInfo()
+        
+        if gapBox.isShown {
+            
+            gapBox.hide()
+            gapView.endGap()
+        }
         
         // Need to hide info box because it is opaque and will obscure art
         hideViews(infoBox, centerOverlayBox)
@@ -396,13 +406,13 @@ class ExpandedArtPlayerView: PlayerView {
     override fileprivate func showPlayingTrackInfo() {
         
         super.showPlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
     }
     
     override func showOrHidePlayingTrackInfo() {
         
         super.showOrHidePlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
     }
     
     override var needsMouseTracking: Bool {
@@ -415,6 +425,12 @@ class ExpandedArtPlayerView: PlayerView {
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
         
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
+    }
+    
+    override func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+
+        centerOverlayBox.show()
+        super.gapStarted(msg)
     }
 }
 
