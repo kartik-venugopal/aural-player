@@ -27,23 +27,6 @@ class ProgressArc: NSView {
         backgroundCirclePath.lineWidth = lineWidth
         backgroundCirclePath.stroke()
         
-        // Clear any previously added sublayers (otherwise, previously drawn arcs will remain)
-        layer?.sublayers?.removeAll()
-   
-        // Add a gradient layer
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = dirtyRect
-        gradientLayer.colors = [NSColor.white.cgColor, NSColor.lightGray.cgColor]
-        
-        layer?.addSublayer(gradientLayer)
-        
-        // Create a mask in the shape of an arc
-        let mask = CAShapeLayer()
-        mask.frame = dirtyRect
-        mask.lineWidth = lineWidth
-//        mask.strokeColor = NSColor.gray.cgColor
-        mask.strokeColor = foregroundColor.cgColor
-        
         let arcPath = NSBezierPath()
         
         // To prevent the arc from disappearing when we hit 100%
@@ -52,12 +35,44 @@ class ProgressArc: NSView {
         let endAngle: CGFloat = 540 - (CGFloat(percentage) * 3.6)
         arcPath.appendArc(withCenter: p0, radius: radius, startAngle: 180, endAngle: endAngle, clockwise: true)
         
-        mask.fillColor = NSColor.clear.cgColor
-        mask.lineCap = CAShapeLayerLineCap.round
-        mask.path = arcPath.CGPath
+        foregroundColor.setStroke()
+        arcPath.lineWidth = lineWidth
+        arcPath.stroke()
         
-        // Add the mask to the gradient layer
-        gradientLayer.mask = mask
+        // Clear any previously added sublayers (otherwise, previously drawn arcs will remain)
+//        layer?.sublayers?.removeAll()
+   
+        // Add a gradient layer
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = dirtyRect
+//        gradientLayer.colors = [NSColor.white.cgColor, NSColor.lightGray.cgColor]
+////        gradientLayer.colors = [NSColor.red, NSColor.red.darkened(50)]
+//        
+//        print("FC:", foregroundColor.toString())
+//        
+//        layer?.addSublayer(gradientLayer)
+//        
+//        // Create a mask in the shape of an arc
+//        let mask = CAShapeLayer()
+//        mask.frame = dirtyRect
+//        mask.lineWidth = lineWidth
+////        mask.strokeColor = NSColor.gray.cgColor
+//        mask.strokeColor = foregroundColor.cgColor
+//        
+//        let arcPath = NSBezierPath()
+//        
+//        // To prevent the arc from disappearing when we hit 100%
+//        if percentage >= 100 {percentage = 99.98}
+//        
+//        let endAngle: CGFloat = 540 - (CGFloat(percentage) * 3.6)
+//        arcPath.appendArc(withCenter: p0, radius: radius, startAngle: 180, endAngle: endAngle, clockwise: true)
+//        
+//        mask.fillColor = NSColor.clear.cgColor
+//        mask.lineCap = CAShapeLayerLineCap.round
+//        mask.path = arcPath.CGPath
+//        
+//        // Add the mask to the gradient layer
+//        gradientLayer.mask = mask
         
         // ---------------------- PERCENTAGE TEXT ----------------------
         

@@ -45,7 +45,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderColors, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderColors, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -445,6 +445,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func changeFunctionButtonColor(_ color: NSColor) {
         controlsView.changeFunctionButtonColor(color)
+        transcoderView.changeFunctionButtonColor(color)
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {
@@ -461,6 +462,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         controlsView.changeSliderColors()
         transcoderView.changeSliderColors()
+    }
+    
+    private func changeTextButtonMenuColor() {
+        transcoderView.changeTextButtonColor()
+    }
+    
+    private func changeButtonMenuTextColor() {
+        transcoderView.changeButtonTextColor()
     }
     
     // MARK: Current chapter tracking
@@ -684,6 +693,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .changePlayerSliderColors:
             
             changeSliderColors()
+            
+        case .changeTextButtonMenuColor:
+            
+            changeTextButtonMenuColor()
+            
+        case .changeButtonMenuTextColor:
+            
+            changeButtonMenuTextColor()
             
         default: return
             

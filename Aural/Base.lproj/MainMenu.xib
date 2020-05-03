@@ -865,7 +865,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Bass" keyEquivalent="1" id="8qz-AS-R99">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseBassAction:" target="YGo-hN-fxr" id="sZ7-xK-LzA"/>
                                             </connections>
@@ -878,7 +878,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Mids" keyEquivalent="2" id="Lih-pb-74i" userLabel="Less Mids">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseMidsAction:" target="YGo-hN-fxr" id="BUl-JO-oFT"/>
                                             </connections>
@@ -891,7 +891,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Less Treble" keyEquivalent="3" id="qYn-xb-8yQ">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
                                             <connections>
                                                 <action selector="decreaseTrebleAction:" target="YGo-hN-fxr" id="LeQ-yY-Q04"/>
                                             </connections>

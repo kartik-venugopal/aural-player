@@ -93,16 +93,19 @@ class ChaptersListSearchNavigationButtonCell: ColoredNavigationButtonCell {
     override var textColor_disabled: NSColor {return Colors.disabledFunctionButtonTextColor}
 }
 
-class FilterBandControlsButtonCell: ModalDialogButtonCell {
+class ColorAwareButtonCell: ModalDialogButtonCell {
     
     override var textColor: NSColor {return Colors.buttonMenuTextColor}
     override var textColor_disabled: NSColor {return Colors.buttonMenuTextColor}
     
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
-    
     override var backgroundFillGradient: NSGradient {return Colors.textButtonMenuGradient}
     override var backgroundFillGradient_disabled: NSGradient {return Colors.textButtonMenuGradient}
+}
 
+class FXTextButtonCell: ColorAwareButtonCell {
+    
+    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    
     override var yOffset: CGFloat {
         
         if isOff {
@@ -110,6 +113,24 @@ class FilterBandControlsButtonCell: ModalDialogButtonCell {
         }
         
         switch EffectsViewState.textSize {
+            
+        case .normal:   return -1
+            
+        case .larger:   return -1
+            
+        case .largest:  return -2
+            
+        }
+    }
+}
+
+class PlayerTextButtonCell: ColorAwareButtonCell {
+    
+    override var textFont: NSFont {return Fonts.Player.textButtonFont}
+    
+    override var yOffset: CGFloat {
+        
+        switch PlayerViewState.textSize {
             
         case .normal:   return -1
             
