@@ -238,7 +238,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 5
+    private let sliderWidth: CGFloat = 10
     private let sliderHeight: CGFloat = 5
     
     private let minSliderX: CGFloat = 0
