@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleShortVersionString</key>
-	<string>2.0.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>ATSApplicationFontsPath</key>
@@ -14,12 +14,6 @@
 	<string>2.0.0</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>AlegreyaSansSC-Medium.ttf</string>
-		<string>AlegreyaSansSC-Regular.ttf</string>
-		<string>Play-Regular.ttf</string>
-	</array>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -354,7 +348,7 @@
 	<string>en</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>None</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0.0</string>
 </dict>
 </plist>
