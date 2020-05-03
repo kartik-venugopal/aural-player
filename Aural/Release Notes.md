@@ -1,64 +1,57 @@
-#  What's New in Version 1.7.0
+#  What's New in Version 2.0.0
 
 
-## **Chapters support for audiobooks/podcasts**
+## **Color schemes support**
 
-Aural Player can now read and display chapter markings from tracks¹, and offers convenient chapter playback functions. This is especially useful for audiobooks or podcasts (eg. M4B audiobooks from Librivox).
+Aural Player now allows extensive customization of its UI colors and comes with a few built-in color schemes you can choose from. You can customize the color of pretty much every component on the application's 4 main windows, and can save your hand-tailored color schemes for future use.
 
-### **UI features**
+### **Demo**
 
-* Tabular display of chapters in a new "Chapters list" window (chapter title, start time, and duration). This window will automatically pop up when a track that has chapter markings begins playing (automatic popup can be disabled in Playlist preferences).
-* Type selection and search for chapter by title
-* Marker showing currently playing chapter
-* Current chapter title displayed in player window
+See a color schemes demo [here](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/ColorSchemes.gif)
 
-### **Playback functions:**
+### **Color scheme editor panel**
 
-The following functions are available within the Chapters list window and also through new menu items under the **Playback** menu.
+The new color scheme editor panel can be accessed either by going to **View > Color Scheme > Customize** under the main menu bar or from the settings popup menu at the top right corner of the main (player) window, by clicking **Color Scheme > Customize**.
 
-* Play selected chapter
-* Replay current chapter
-* Previous / next chapter
-* Loop current chapter
+* **Instant preview**  - The panel modifies the system color scheme as you change the colors of different elements, so you can instantly see how your chosen colors look in the UI.
 
-### **New allowed file extensions**
+* **38 different UI elements** whose colors can be customized. Some elements, such as sliders, allow further customization in the form of gradients.
 
-Previously, files with these extensions could not be added to the playlist.
-* M4B
-* M4R
+* **Undo/redo functionality** - You can roll back/forward individual changes (or all at once) to different versions of your customized scheme (history is reset when the panel is closed).
 
-1. Testing has been done on M4B (AAC), MP3, WMA, Opus, and Ogg Vorbis files with chapter markings, although other file formats with properly encoded chapter markings should also be readable.
+* **Color clipboard** - You can copy a color you used for one UI element, and paste it onto another color picker for a different UI element, reducing tedious work.
 
-## **Ability to show/hide playing track metadata fields**
+* **Apply/save preset schemes** - From the panel, you can load a preset color scheme as a starting point, modify a few colors, then save the new version as your own custom scheme, so you can create several variations of color schemes. You don't need to start from scratch everytime.
 
-The player window, which shows currently playing track metadata, now allows the user to individually show/hide each of the 3 metadata fields (when they are available to be displayed):
+NOTE - Only the current system color scheme (i.e. the current scheme of the app UI) will be altered by this panel. Any preset you have applied will remain unchanged (presets only serve as a starting point).
 
-* Artist
-* Album
-* Current chapter title (new field)
+### **Built-in color schemes**
 
-## **Bug fixes**
+There are 6 built-in color schemes, one of which is the default scheme, "Black attack", that is applied when the app is started up for the first time before altering the color scheme.
 
-* **Playlist text size** - The Playlist text size setting was not being remembered properly and was using the player text size setting instead. 
+They can be accessed from the submenu under **View > Color Scheme** or from the settings popup menu at the top right corner of the main (player) window, under the **Color Scheme** submenu. They can also be applied from within the editor panel.
 
-* **Player crash in rare cases** - When a segment loop was defined with its end time coinciding with the end of the track, and then the loop was removed, track completion would not be detected and the player would freeze because of a playback segment being scheduled with a zero frame count.
+### **Color schemes manager**
 
-* **Metadata text cutoff** - The **Metadata** tab in the detailed track info popover was only capable of displaying a small number of lines of text for each field, so large text values like comments would be cut off.
+The new color schemes manager allows users to preview, rename, apply, and/or delete user-defined color schemes. This is useful if:
 
-## **Enhancements**
+* You want to give your schemes more meaningful or cooler names.
+* You've forgotten what one of your custom schemes looks like, and want to preview it.
+* You have duplicates or simply want to reduce clutter and delete old schemes no longer preferred or in use.
 
-* Slight aesthetic refinements to player UI:  seek bar, volume and pan sliders, playback control icons, detailed track info popover, etc.
+Access the color schemes manager by going to **View > Manage color schemes**.
 
-## **"Show new track" preference moved**
+NOTE - You cannot alter built-in color schemes ... only your own.
 
-The **"Show new track in playlist (when track begins playing)"** user preference has been moved from the **Playback** tab to the **Playlist** tab of the Preferences dialog. Note that this change is *not* backwards compatible, so users of previous Aural Player versions will have to reset this setting as preferred after downloading v1.7.0.
+### UI aesthetics
 
-## **Shrunk the source code download ZIP archives**
+UI aesthetics have been enhanced in this release.
 
-The source code archives available with each release no longer contain the massive **Documentation** folder and ffmpeg binaries which took more than 100MB of space. The archives are now only about 11 MB in size.
+* Brand new better looking fonts (packaged with app bundle).
+* Album art frame now displays a shadow, giving it a 3D appearance.
+* Some new/smaller icons.
+* Sleeker looking selected tab markers.
+* Thinner sleeker sliders in player window.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/1.7.0)
-
-### **Free audiobooks**
-To obtain free public domain audiobooks to test these new Aural Player features, visit [LibriVox](https://librivox.org/)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.0.0)
