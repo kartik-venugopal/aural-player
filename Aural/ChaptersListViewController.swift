@@ -529,7 +529,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
-        txtSearch.textColor = scheme.playlist.trackNameTextColor
+        redrawSearchField()
         
         if mustReloadRows {
             chaptersListView.reloadData()
@@ -569,7 +569,25 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private func changeTrackNameTextColor(_ color: NSColor) {
         
         chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
-        txtSearch.textColor = color
+        redrawSearchField()
+    }
+    
+    private func redrawSearchField() {
+        
+        txtSearch.textColor = Colors.Playlist.trackNameTextColor
+        
+        if let cell: NSSearchFieldCell = txtSearch.cell as? NSSearchFieldCell {
+
+            // This is a hack to force these cells to redraw
+            cell.resetCancelButtonCell()
+            cell.resetSearchButtonCell()
+        
+            // Tint the 2 cell images according to the appropriate color.
+            cell.cancelButtonCell?.image = cell.cancelButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
+            cell.searchButtonCell?.image = cell.searchButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
+        }
+
+        txtSearch.redraw()
     }
     
     private func changeIndexDurationTextColor(_ color: NSColor) {
