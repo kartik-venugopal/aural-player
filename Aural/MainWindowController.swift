@@ -1,11 +1,11 @@
 import Cocoa
 
 /*
-    Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
+    Window controller for the main application window.
  */
 class MainWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
     
-    // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
+    // Main application window. Contains the Now Playing info box and player controls. Not resizable.
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
     }
@@ -32,16 +32,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private var gestureHandler: GestureHandler!
     
     override var windowNibName: String? {return "MainWindow"}
-    
-    private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
-    
-    @IBAction func showColorsAction(_ sender: AnyObject) {
-        _ = colorsDialog.showDialog()
-    }
-    
-    @IBAction func printSchemeAction(_ sender: AnyObject) {
-        print(ColorSchemes.systemScheme.toString())
-    }
     
     // MARK: Setup
     
