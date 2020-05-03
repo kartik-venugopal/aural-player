@@ -15,19 +15,6 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
     
     var filterType: FilterBandType = .lowPass
     
-    override var knobColor: NSColor {
-        
-        switch self.unitState {
-            
-        case .active:   return Colors.Effects.defaultActiveUnitColor
-            
-        case .bypassed: return Colors.Effects.defaultBypassedUnitColor
-            
-        case .suppressed:   return Colors.Effects.defaultSuppressedUnitColor
-            
-        }
-    }
-    
     override var barPlainGradient: NSGradient {
         
         if self.unitState == .active {
@@ -39,7 +26,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:  return Colors.Effects.activeSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
             
@@ -52,7 +39,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.bypassedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
             
@@ -65,7 +52,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.suppressedSliderGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
         }
@@ -82,7 +69,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
             
@@ -95,7 +82,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
             
@@ -108,7 +95,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
             case .highPass:   return Colors.Effects.sliderBackgroundGradient.reversed()
                 
             // IMPOSSIBLE
-            default:    return Colors.Effects.defaultSliderBackgroundGradient
+            default:    return Colors.Effects.sliderBackgroundGradient
                 
             }
         }
@@ -116,6 +103,19 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
 }
 
 class CutoffFrequencySliderPreviewCell: CutoffFrequencySliderCell {
+    
+    override var knobColor: NSColor {
+        
+        switch self.unitState {
+            
+        case .active:   return Colors.Effects.defaultActiveUnitColor
+            
+        case .bypassed: return Colors.Effects.defaultBypassedUnitColor
+            
+        case .suppressed:   return Colors.Effects.defaultSuppressedUnitColor
+            
+        }
+    }
     
     override var barPlainGradient: NSGradient {
         
