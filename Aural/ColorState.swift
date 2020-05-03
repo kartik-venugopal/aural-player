@@ -90,7 +90,7 @@ class GrayscaleColorState: ColorState {
     }
     
     override func toColor() -> NSColor {
-        return NSColor(calibratedWhite: white, alpha: alpha)
+        return NSColor(white: white, alpha: alpha)
     }
 
     static func fromMap(_ map: NSDictionary) -> GrayscaleColorState {
