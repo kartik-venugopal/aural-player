@@ -10,7 +10,7 @@ enum ColorSchemePreset: String, CaseIterable {
     
     case gloomyDay
     
-    case wood
+    case brownie
     
     case theBlues
     
@@ -30,7 +30,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case ColorSchemePreset.gloomyDay.name:      return .gloomyDay
             
-        case ColorSchemePreset.wood.name:      return .wood
+        case ColorSchemePreset.brownie.name:      return .brownie
             
         case ColorSchemePreset.theBlues.name:   return .theBlues
             
@@ -51,7 +51,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return "Gloomy day"
             
-        case .wood:         return "Wood"
+        case .brownie:         return "Brownie"
             
         case .theBlues:     return "The blues"
             
@@ -70,7 +70,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:         return NSColor(red: 0.79, green: 0.51, blue: 0.33, alpha: 1)
+        case .brownie:         return NSColor(red: 0.512, green: 0.388, blue: 0.354, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.385, green: 0.568, blue: 0.743, alpha: 1)
             
@@ -89,7 +89,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white20Percent
             
-        case .wood:         return NSColor(red: 0.25, green: 0.14, blue: 0.06, alpha: 1)
+        case .brownie:         return NSColor(red: 0.25, green: 0.162, blue: 0.131, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.078, green: 0.261, blue: 0.391, alpha: 1)
             
@@ -108,7 +108,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:         return NSColor(red: 0.79, green: 0.51, blue: 0.33, alpha: 1)
+        case .brownie:      return NSColor(red: 0.636, green: 0.483, blue: 0.44, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.385, green: 0.568, blue: 0.743, alpha: 1)
             
@@ -127,7 +127,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:         return NSColor(red: 0.79, green: 0.51, blue: 0.33, alpha: 1)
+        case .brownie:      return NSColor(red: 0.636, green: 0.483, blue: 0.44, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.385, green: 0.568, blue: 0.743, alpha: 1)
             
@@ -146,7 +146,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white8Percent
             
-        case .wood:         return NSColor(red: 0.46, green: 0.26, blue: 0.107, alpha: 1)
+        case .brownie:         return NSColor(red: 0.5, green: 0.333, blue: 0.272, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.073, green: 0.172, blue: 0.302, alpha: 1)
             
@@ -165,7 +165,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white7Percent
             
-        case .wood:         return NSColor(red: 0.46, green: 0.26, blue: 0.107, alpha: 1)
+        case .brownie:         return NSColor(red: 0.384, green: 0.292, blue: 0.266, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.11, blue: 0.161, alpha: 1)
             
@@ -184,7 +184,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white45Percent
             
-        case .wood:         return NSColor(red: 0.59, green: 0.33, blue: 0.136, alpha: 1)
+        case .brownie:         return NSColor(red: 0.536, green: 0.356, blue: 0.29, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.318, green: 0.564, blue: 0.744, alpha: 1)
             
@@ -203,7 +203,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white75Percent
             
-        case .wood:    return Colors.Constants.white75Percent
+        case .brownie:    return NSColor(red: 0.951, green: 0.631, blue: 0.515, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.493, green: 0.635, blue: 0.795, alpha: 1)
             
@@ -222,7 +222,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.737, green: 0.414, blue: 0.17, alpha: 1)
+        case .brownie:    return NSColor(red: 0.701, green: 0.465, blue: 0.38, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.166, green: 0.557, blue: 0.832, alpha: 1)
             
@@ -241,7 +241,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white45Percent
             
-        case .wood:    return NSColor(red: 0.59, green: 0.33, blue: 0.136, alpha: 1)
+        case .brownie:    return NSColor(red: 0.536, green: 0.356, blue: 0.29, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.155, green: 0.522, blue: 0.78, alpha: 1)
             
@@ -260,7 +260,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white70Percent
             
-        case .wood:    return NSColor(red: 0.737, green: 0.414, blue: 0.17, alpha: 1)
+        case .brownie:    return NSColor(red: 0.701, green: 0.465, blue: 0.38, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.199, green: 0.669, blue: 1, alpha: 1)
             
@@ -281,7 +281,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white80Percent
             
-        case .wood:    return NSColor(red: 0.87, green: 0.76, blue: 0.63, alpha: 1)
+        case .brownie:    return NSColor(red: 0.946, green: 0.628, blue: 0.513, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.622, green: 0.77, blue: 0.898, alpha: 1)
             
@@ -300,7 +300,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white65Percent
             
-        case .wood:    return NSColor(red: 0.71, green: 0.62, blue: 0.518, alpha: 1)
+        case .brownie:    return NSColor(red: 0.74, green: 0.491, blue: 0.401, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.554, green: 0.688, blue: 0.8, alpha: 1)
             
@@ -319,7 +319,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:    return NSColor(red: 0.61, green: 0.53, blue: 0.44, alpha: 1)
+        case .brownie:    return NSColor(red: 0.636, green: 0.422, blue: 0.345, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.478, green: 0.594, blue: 0.69, alpha: 1)
             
@@ -338,7 +338,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.66, green: 0.58, blue: 0.48, alpha: 1)
+        case .brownie:    return NSColor(red: 0.74, green: 0.491, blue: 0.401, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.518, green: 0.643, blue: 0.747, alpha: 1)
             
@@ -357,7 +357,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.795, green: 0.447, blue: 0.183, alpha: 1)
+        case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.744, blue: 1, alpha: 1)
             
@@ -376,7 +376,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return .darken
             
-        case .wood:    return .darken
+        case .brownie:    return .darken
             
         case .theBlues:     return .darken
             
@@ -395,7 +395,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return 50
             
-        case .wood:    return 50
+        case .brownie:    return 50
             
         case .theBlues:     return 40
             
@@ -414,7 +414,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white8Percent
             
-        case .wood:    return NSColor.black
+        case .brownie:    return NSColor.black
             
         case .theBlues:     return NSColor(red: 0, green: 0.361, blue: 0.547, alpha: 1)
             
@@ -433,7 +433,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return .none
             
-        case .wood:         return .none
+        case .brownie:         return .none
             
         case .theBlues:     return .none
             
@@ -456,7 +456,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.795, green: 0.447, blue: 0.183, alpha: 1)
+        case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.744, blue: 1, alpha: 1)
             
@@ -479,7 +479,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white60Percent
             
-        case .wood:    return NSColor(red: 0.75, green: 0.452, blue: 0.43, alpha: 1)
+        case .brownie:    return NSColor(red: 0.75, green: 0.452, blue: 0.43, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.422, green: 0.69, blue: 0.892, alpha: 1)
             
@@ -500,7 +500,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:    return NSColor(red: 0.618, green: 0.51, blue: 0.4, alpha: 1)
+        case .brownie:    return NSColor(red: 0.614, green: 0.407, blue: 0.332, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.423, green: 0.565, blue: 0.724, alpha: 1)
             
@@ -519,7 +519,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white45Percent
             
-        case .wood:    return NSColor(red: 0.545, green: 0.45, blue: 0.35, alpha: 1)
+        case .brownie:    return NSColor(red: 0.519, green: 0.345, blue: 0.281, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.352, green: 0.554, blue: 0.801, alpha: 1)
             
@@ -538,7 +538,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white37Percent
             
-        case .wood:    return NSColor(red: 0.426, green: 0.35, blue: 0.276, alpha: 1)
+        case .brownie:    return NSColor(red: 0.448, green: 0.297, blue: 0.243, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.328, green: 0.438, blue: 0.562, alpha: 1)
             
@@ -557,7 +557,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white80Percent
             
-        case .wood:    return NSColor(red: 0.91, green: 0.51, blue: 0.21, alpha: 1)
+        case .brownie:    return NSColor(red: 0.856, green: 0.346, blue: 0.286, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.528, green: 0.788, blue: 1, alpha: 1)
             
@@ -576,7 +576,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:    return NSColor(red: 0.71, green: 0.586, blue: 0.457, alpha: 1)
+        case .brownie:    return NSColor(red: 0.744, green: 0.301, blue: 0.247, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.433, green: 0.644, blue: 0.82, alpha: 1)
             
@@ -595,7 +595,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.586, green: 0.483, blue: 0.376, alpha: 1)
+        case .brownie:    return NSColor(red: 0.668, green: 0.271, blue: 0.221, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.354, green: 0.527, blue: 0.672, alpha: 1)
             
@@ -614,7 +614,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white40Percent
             
-        case .wood:    return NSColor(red: 0.63, green: 0.355, blue: 0.146, alpha: 1)
+        case .brownie:    return NSColor(red: 0.5, green: 0.332, blue: 0.271, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.166, green: 0.557, blue: 0.832, alpha: 1)
             
@@ -633,7 +633,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white60Percent
             
-        case .wood:    return NSColor(red: 0.718, green: 0.403, blue: 0.165, alpha: 1)
+        case .brownie:    return NSColor(red: 0.608, green: 0.403, blue: 0.329, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.143, green: 0.482, blue: 0.721, alpha: 1)
             
@@ -652,7 +652,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white10Percent
             
-        case .wood:    return NSColor(red: 0.073, green: 0.041, blue: 0.017, alpha: 1)
+        case .brownie:    return NSColor(red: 0.073, green: 0.047, blue: 0.038, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.049, green: 0.164, blue: 0.245, alpha: 1)
             
@@ -671,7 +671,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.aqua
             
-        case .wood:    return NSColor(red: 0.91, green: 0.51, blue: 0.21, alpha: 1)
+        case .brownie:    return NSColor(red: 0.856, green: 0.346, blue: 0.286, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.695, blue: 1, alpha: 1)
             
@@ -690,7 +690,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white50Percent
             
-        case .wood:    return NSColor(red: 0.737, green: 0.414, blue: 0.17, alpha: 1)
+        case .brownie:    return NSColor(red: 0.622, green: 0.412, blue: 0.337, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.356, green: 0.625, blue: 0.824, alpha: 1)
             
@@ -711,7 +711,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white45Percent
             
-        case .wood:    return NSColor(red: 0.681, green: 0.383, blue: 0.157, alpha: 1)
+        case .brownie:    return NSColor(red: 0.614, green: 0.407, blue: 0.333, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.314, green: 0.557, blue: 0.735, alpha: 1)
             
@@ -730,7 +730,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white70Percent
             
-        case .wood:    return NSColor(red: 0.859, green: 0.483, blue: 0.198, alpha: 1)
+        case .brownie:    return NSColor(red: 0.805, green: 0.534, blue: 0.436, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.364, green: 0.645, blue: 0.851, alpha: 1)
             
@@ -749,7 +749,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white25Percent
             
-        case .wood:    return NSColor(red: 0.287, green: 0.19, blue: 0.081, alpha: 1)
+        case .brownie:    return NSColor(red: 0.592, green: 0.381, blue: 0.309, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.361, blue: 0.547, alpha: 1)
             
@@ -768,7 +768,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return .brighten
             
-        case .wood:    return .brighten
+        case .brownie:    return .darken
             
         case .theBlues:     return .brighten
             
@@ -787,7 +787,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return 15
             
-        case .wood:    return 20
+        case .brownie:    return 50
             
         case .theBlues:     return 20
             
@@ -806,7 +806,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.aqua
             
-        case .wood:    return NSColor(red: 0.854, green: 0.579, blue: 0.457, alpha: 1)
+        case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.743, blue: 1, alpha: 1)
             
@@ -829,7 +829,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return NSColor.black
             
-        case .wood:         return NSColor.black
+        case .brownie:         return NSColor.black
             
         case .theBlues:     return NSColor.black
             
@@ -848,7 +848,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.aqua
             
-        case .wood:    return NSColor(red: 0.91, green: 0.51, blue: 0.21, alpha: 1)
+        case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.743, blue: 1, alpha: 1)
             
@@ -867,7 +867,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return Colors.Constants.white55Percent
             
-        case .wood:    return NSColor(red: 0.668, green: 0.586, blue: 0.488, alpha: 1)
+        case .brownie:    return NSColor(red: 0.668, green: 0.507, blue: 0.436, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.472, green: 0.581, blue: 0.664, alpha: 1)
             
@@ -886,7 +886,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return NSColor(red: 0, green: 0.4, blue: 0.65, alpha: 1)
             
-        case .wood:    return NSColor(red: 0.645, green: 0.362, blue: 0.149, alpha: 1)
+        case .brownie:    return NSColor(red: 0.599, green: 0.245, blue: 0.217, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.544, blue: 0.731, alpha: 1)
             
@@ -905,7 +905,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return .darken
             
-        case .wood:         return .darken
+        case .brownie:         return .darken
             
         case .theBlues:     return .darken
             
@@ -924,7 +924,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .gloomyDay:    return 60
             
-        case .wood:         return 60
+        case .brownie:         return 50
             
         case .theBlues:     return 50
             

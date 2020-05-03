@@ -119,7 +119,7 @@
                                             <action selector="applySchemeAction:" target="-2" id="fsL-3V-jMm"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Wood" indentationLevel="1" id="kdj-Tp-AWC">
+                                    <menuItem title="Brownie" indentationLevel="1" id="kdj-Tp-AWC">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="applySchemeAction:" target="-2" id="IBj-gS-eNk"/>
