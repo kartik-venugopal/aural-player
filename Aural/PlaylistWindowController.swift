@@ -205,6 +205,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             if let playingTrackIndex = self.playbackInfo.playingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
+                
+            } else if let waitingTrackIndex = self.playbackInfo.waitingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, waitingTrackIndex == updatedTrackIndex {
+                
+                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
     }
