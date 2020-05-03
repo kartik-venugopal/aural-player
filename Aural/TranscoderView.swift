@@ -3,6 +3,8 @@ import Cocoa
 class TranscoderView: NSView {
     
     @IBOutlet weak var lblTrack: NSTextField!
+    @IBOutlet weak var transcodingIcon: TintedImageView!
+    @IBOutlet weak var btnCancel: NSButton!
     
     @IBOutlet weak var lblTrackTime: NSTextField!
     @IBOutlet weak var lblTimeElapsed: NSTextField!
@@ -14,6 +16,10 @@ class TranscoderView: NSView {
     @IBOutlet weak var progressView: ProgressArc!
     
     @IBOutlet weak var containerBox: NSBox!
+    
+    override func awakeFromNib() {
+        transcodingIcon.tintFunction = {return Colors.functionButtonColor}
+    }
     
     func transcodingStarted(_ track: Track) {
         updateFields(track.conciseDisplayName, 0, track.duration, 0, 0, 0, "0x")
@@ -48,6 +54,18 @@ class TranscoderView: NSView {
         
         containerBox.fillColor = color
         containerBox.isTransparent = !color.isOpaque
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        transcodingIcon.reTint()
+    }
+    
+    func changeTextButtonColor() {
+        btnCancel.redraw()
+    }
+    
+    func changeButtonTextColor() {
+        btnCancel.redraw()
     }
     
     func changePrimaryTextColor() {

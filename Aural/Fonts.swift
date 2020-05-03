@@ -170,6 +170,23 @@ struct Fonts {
                 
             }
         }
+        
+        private static let textButtonFont_normal: NSFont = Constants.mainFont_12
+        private static let textButtonFont_larger: NSFont = Constants.mainFont_13
+        private static let textButtonFont_largest: NSFont = Constants.mainFont_14
+        
+        static var textButtonFont: NSFont {
+            
+            switch PlayerViewState.textSize {
+                
+            case .normal: return textButtonFont_normal
+                
+            case .larger: return textButtonFont_larger
+                
+            case .largest: return textButtonFont_largest
+                
+            }
+        }
     }
     
     struct Playlist {

@@ -620,7 +620,7 @@ G1BhbiBTbGlkZXI
             <rect key="frame" x="0.0" y="0.0" width="510" height="174"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx" userLabel="Black Box">
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx">
                     <rect key="frame" x="5" y="0.0" width="500" height="174"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="YEq-j3-5Be">
@@ -629,10 +629,13 @@ G1BhbiBTbGlkZXI
                     </view>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML" userLabel="Icon">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML" userLabel="Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="20" y="122" width="35" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Transcoding"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
                     <rect key="frame" x="191" y="8" width="137" height="27"/>
@@ -705,7 +708,7 @@ G1BhbiBTbGlkZXI
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEk-Bg-D3b" userLabel="Cancel button">
                     <rect key="frame" x="425" y="10" width="63" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qsy-rg-9Yz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qsy-rg-9Yz" customClass="PlayerTextButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -718,6 +721,7 @@ Gw
                 </button>
             </subviews>
             <connections>
+                <outlet property="btnCancel" destination="qEk-Bg-D3b" id="UzF-3v-iZg"/>
                 <outlet property="containerBox" destination="bbe-dH-QQx" id="fyi-El-9ns"/>
                 <outlet property="lblSpeed" destination="2s7-8c-Aou" id="pHc-pO-NxQ"/>
                 <outlet property="lblTimeElapsed" destination="GyF-IK-H49" id="Dgb-pu-TWx"/>
@@ -726,6 +730,7 @@ Gw
                 <outlet property="lblTrackTime" destination="TJW-bG-QKU" id="ci2-T3-Olu"/>
                 <outlet property="lblTranscoding" destination="6sJ-Si-KI6" id="cc7-MC-GXw"/>
                 <outlet property="progressView" destination="pgN-FL-q7F" id="DWB-sZ-Jbg"/>
+                <outlet property="transcodingIcon" destination="Syg-wk-aML" id="e1f-GA-3qf"/>
             </connections>
             <point key="canvasLocation" x="-1896" y="431"/>
         </view>
