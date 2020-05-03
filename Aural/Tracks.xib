@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="clipView" destination="fxA-zZ-X3P" id="Aqh-dW-7pC"/>
                 <outlet property="playlistView" destination="yfe-8c-y7Q" id="TvH-l8-2RB"/>
+                <outlet property="playlistViewDelegate" destination="fxO-kG-Bir" id="kFi-aW-e04"/>
                 <outlet property="scrollView" destination="gzJ-2a-yOb" id="BwM-b0-0L4"/>
                 <outlet property="view" destination="bnY-X4-HPZ" id="67h-Q5-R0r"/>
             </connections>

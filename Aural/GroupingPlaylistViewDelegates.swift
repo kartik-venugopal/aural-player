@@ -17,6 +17,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     fileprivate var playlistType: PlaylistType
     
     private var cachedGroupIcon: NSImage!
+    private var cachedGapImage: NSImage!
     
     init(_ playlistType: PlaylistType) {
         self.playlistType = playlistType
@@ -24,11 +25,17 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     override func awakeFromNib() {
         OutlineViewHolder.instances[self.playlistType] = playlistView
+        
         cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
 
     func changeGroupIconColor(_ color: NSColor) {
         cachedGroupIcon = Images.imgGroup.applyingTint(color)
+    }
+    
+    func changeGapIndicatorColor(_ color: NSColor) {
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
     
     // Returns a view for a single row
@@ -163,20 +170,27 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             if aOnly {
                 
                 cell.gapBeforeImg.hide()
+                
+                cell.gapAfterImg.image = cachedGapImage
                 cell.gapAfterImg.show()
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
             } else if bOnly {
                 
+                cell.gapBeforeImg.image = cachedGapImage
                 cell.gapBeforeImg.show()
+                
                 cell.gapAfterImg.hide()
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
                 
             } else if both {
                 
+                cell.gapBeforeImg.image = cachedGapImage
                 cell.gapBeforeImg.show()
+                
+                cell.gapAfterImg.image = cachedGapImage
                 cell.gapAfterImg.show()
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)

@@ -236,13 +236,13 @@ class DurationCellView: BasicFlatPlaylistCellView {
             
             if let gapField = self.gapBeforeTextField {
                 
-                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                 gapField.font = Fonts.Playlist.indexFont
             }
             
             if let gapField = self.gapAfterTextField {
                 
-                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                 gapField.font = Fonts.Playlist.indexFont
             }
         }
@@ -464,16 +464,15 @@ class GroupedTrackDurationCellView: NSTableCellView {
             
                 if let gapField = self.gapBeforeTextField {
                     
-                    gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                    gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                     gapField.font = Fonts.Playlist.indexFont
                 }
                 
                 if let gapField = self.gapAfterTextField {
                     
-                    gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                    gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                     gapField.font = Fonts.Playlist.indexFont
                 }
-                
             }
         }
     }

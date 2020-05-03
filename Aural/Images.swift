@@ -40,6 +40,9 @@ struct Images {
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
     
+    // Gap image displayed in the playlist
+    static let imgGap: NSImage = NSImage(named: "Gap")!
+    
     // Displayed in the History menu
     static let imgGroup_menu: NSImage = NSImage(named: "Group-Menu")!
     

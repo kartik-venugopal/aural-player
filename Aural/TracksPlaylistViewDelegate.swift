@@ -15,10 +15,17 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private var cachedGapImage: NSImage!
+    
     override func awakeFromNib() {
         
         // Store the NSTableView in a variable for convenient subsequent access
         TableViewHolder.instance = playlistView
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
+    }
+    
+    func changeGapIndicatorColor(_ color: NSColor) {
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
     
     // Returns a view for a single row
@@ -163,20 +170,27 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             if aOnly {
                 
                 cell.gapBeforeImg.hide()
+                
+                cell.gapAfterImg.image = cachedGapImage
                 cell.gapAfterImg.show()
                 
                 cell.placeTextFieldOnTop()
                 
             } else if bOnly {
                 
+                cell.gapBeforeImg.image = cachedGapImage
                 cell.gapBeforeImg.show()
+                
                 cell.gapAfterImg.hide()
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeImg)
                 
             } else if both {
                 
+                cell.gapBeforeImg.image = cachedGapImage
                 cell.gapBeforeImg.show()
+                
+                cell.gapAfterImg.image = cachedGapImage
                 cell.gapAfterImg.show()
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeImg)
