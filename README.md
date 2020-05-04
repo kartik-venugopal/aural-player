@@ -65,7 +65,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 **Developer**: (Swift 4.2) macOS 10.13.4 (High Sierra) or later, and XCode 10
 
-## Feature summary
+## Summary of features
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
