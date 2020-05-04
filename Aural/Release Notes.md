@@ -7,7 +7,7 @@ Aural Player now allows extensive customization of its UI colors and comes with 
 
 ### **Demo**
 
-See a color schemes demo [here](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/ColorSchemes.gif)
+See a color schemes demo [here](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/ColorSchemes.mp4)
 
 ### **Color scheme editor panel**
 
