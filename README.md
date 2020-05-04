@@ -90,6 +90,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/Default.png?raw=true)
 
+### Changing the color scheme
+
+![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
+
 ### Customizing the player view
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
@@ -105,10 +109,6 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 ### Detailed track info
 
 ![Detailed track info](/Documentation/Demos/DetailedInfo.gif?raw=true)
-
-### Changing the color scheme
-
-![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
 
 ### Changing the window layout
 
