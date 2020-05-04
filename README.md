@@ -79,8 +79,8 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 * **Playlist:** Grouping, searching, sorting, type selection
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
-* **UI:** Color schemes (built-in and custom), Window layout presets (built-in and custom), window snapping, collapsible UI components, adjustable text size.
-* **Usability:** Configurable media keys support, gesture recognition
+* **UI:** Color schemes (built-in and custom), window layout presets (built-in and custom), window snapping, collapsible UI components, adjustable text size.
+* **Usability:** Configurable media keys support, swipe/scroll gesture recognition
       
 ## Screenshots
 
