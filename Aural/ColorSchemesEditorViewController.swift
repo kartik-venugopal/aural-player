@@ -13,9 +13,6 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
     
-    // A cache that prevents redundant fetch operations when populating the table view.
-    private var schemesCache: [ColorScheme] = []
-    
     // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
@@ -25,9 +22,6 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "ColorSchemesEditor"}
     
     override func viewDidAppear() {
-        
-        // Populate the cache with all user-defined schemes.
-        schemesCache = ColorSchemes.userDefinedSchemes
         
         // Refresh the table view.
         editorView.reloadData()
@@ -46,9 +40,6 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         // Descending order
         selectedSchemeNames.forEach({ColorSchemes.deleteScheme($0)})
         
-        // Update the cache
-        schemesCache = ColorSchemes.userDefinedSchemes
-        
         editorView.reloadData()
         editorView.deselectAll(self)
         
@@ -58,7 +49,20 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the names of all color schemes selected in the table view.
     private var selectedSchemeNames: [String] {
-        return editorView.selectedRowIndexes.map {schemesCache[$0].name}
+        
+        var names = [String]()
+        
+        let selection = editorView.selectedRowIndexes
+        
+        selection.forEach({
+            
+            let cell = editorView.view(atColumn: 0, row: $0, makeIfNecessary: true) as! NSTableCellView
+            
+            let name = cell.textField!.stringValue
+            names.append(name)
+        })
+        
+        return names
     }
     
     // Updates button states depending on how many rows are selected in the table view.
@@ -101,7 +105,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         if editorView.numberOfSelectedRows == 1 {
             
-            previewView.scheme = schemesCache[editorView.selectedRow]
+            if let scheme = ColorSchemes.userDefinedSchemeByName(selectedSchemeNames[0]) {
+                previewView.scheme = scheme
+            }
             
         } else {
             
@@ -113,7 +119,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the total number of color schemes
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return schemesCache.count
+        return ColorSchemes.numberOfUserDefinedSchemes
     }
     
     // When the table selection changes, the button states and preview might need to change.
@@ -122,8 +128,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         updateButtonStates()
         updatePreview()
         
-        if editorView.numberOfSelectedRows == 1 {
-            oldSchemeName = schemesCache[editorView.selectedRow].name
+        if editorView.numberOfSelectedRows == 1, let cell = editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as? NSTableCellView {
+        
+            oldSchemeName = cell.textField!.stringValue
         }
     }
     
@@ -135,7 +142,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme = schemesCache[row]
+        let scheme = ColorSchemes.userDefinedSchemes[row]
         return createTextCell(tableView, tableColumn!, row, scheme.name)
     }
     
@@ -187,9 +194,6 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
                 
                 // Update the scheme name
                 ColorSchemes.renameScheme(scheme.name, newSchemeName)
-                
-                // Update the cache
-                schemesCache = ColorSchemes.userDefinedSchemes
             }
         }
     }
