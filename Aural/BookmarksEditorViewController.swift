@@ -257,7 +257,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         } else {
             
             // Update the bookmark name
-            bookmark.name = newBookmarkName
+            bookmarks.renameBookmarkAtIndex(rowIndex, newBookmarkName)
         }
         
         // Update the tool tip

@@ -22,6 +22,17 @@ class Bookmark: StringKeyedItem, PlayableItem {
         }
     }
     
+    var key: String {
+        
+        get {
+            return name
+        }
+        
+        set(newValue) {
+            name = newValue
+        }
+    }
+    
     // The file of the track being bookmarked
     let file: URL
     
@@ -32,8 +43,6 @@ class Bookmark: StringKeyedItem, PlayableItem {
     
     // Seek position within track, expressed in seconds
     let endPosition: Double?
-    
-    var key: String {return name}
     
     convenience init(_ name: String, _ file: URL, _ startPosition: Double) {
         self.init(name, file, startPosition, nil)

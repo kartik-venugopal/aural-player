@@ -3,10 +3,21 @@ import Cocoa
 /*
     Encapsulates all colors that determine a color scheme that can be appplied to the entire application.
  */
-class ColorScheme {
+class ColorScheme: StringKeyedItem {
     
     // Displayed name
     var name: String
+    
+    var key: String {
+        
+        get {
+            return name
+        }
+        
+        set(newValue) {
+            name = newValue
+        }
+    }
 
     // False if defined by the user
     let systemDefined: Bool

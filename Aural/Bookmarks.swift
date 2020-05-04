@@ -1,7 +1,7 @@
 import Foundation
 
 class Bookmarks: BookmarksProtocol {
-
+    
     private var bookmarks: StringKeyedCollection<Bookmark> = StringKeyedCollection<Bookmark>()
     
     func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark {
@@ -36,6 +36,12 @@ class Bookmarks: BookmarksProtocol {
     
     func getBookmarkWithName(_ name: String) -> Bookmark? {
         return bookmarks.itemWithKey(name)
+    }
+    
+    func renameBookmarkAtIndex(_ index: Int, _ newName: String) {
+
+        let item = bookmarks.itemAtIndex(index)
+        bookmarks.reMapForKey(item.name, newName)
     }
     
     func deleteAllBookmarks() {

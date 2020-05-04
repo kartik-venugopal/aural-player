@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    View controller for the editor that allows the user to manage user-defined color schemes.
+ View controller for the editor that allows the user to manage user-defined color schemes.
  */
 class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
     
@@ -13,6 +13,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
     
+    // A cache that prevents redundant fetch operations when populating the table view.
+    private var schemesCache: [ColorScheme] = []
+    
     // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
@@ -22,6 +25,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "ColorSchemesEditor"}
     
     override func viewDidAppear() {
+        
+        // Populate the cache with all user-defined schemes.
+        schemesCache = ColorSchemes.userDefinedSchemes
         
         // Refresh the table view.
         editorView.reloadData()
@@ -40,6 +46,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         // Descending order
         selectedSchemeNames.forEach({ColorSchemes.deleteScheme($0)})
         
+        // Update the cache
+        schemesCache = ColorSchemes.userDefinedSchemes
+        
         editorView.reloadData()
         editorView.deselectAll(self)
         
@@ -49,20 +58,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the names of all color schemes selected in the table view.
     private var selectedSchemeNames: [String] {
-        
-        var names = [String]()
-        
-        let selection = editorView.selectedRowIndexes
-        
-        selection.forEach({
-            
-            let cell = editorView.view(atColumn: 0, row: $0, makeIfNecessary: true) as! NSTableCellView
-            
-            let name = cell.textField!.stringValue
-            names.append(name)
-        })
-        
-        return names
+        return editorView.selectedRowIndexes.map {schemesCache[$0].name}
     }
     
     // Updates button states depending on how many rows are selected in the table view.
@@ -79,9 +75,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBAction func renameSchemeAction(_ sender: AnyObject) {
         
         let selectedRowView = editorView.rowView(atRow: editorView.selectedRow, makeIfNecessary: true)
-
-        if let editedTextField = (selectedRowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
         
+        if let editedTextField = (selectedRowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
+            
             // Shift focus to the text field for the scheme being renamed.
             self.view.window?.makeFirstResponder(editedTextField)
         }
@@ -105,9 +101,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         if editorView.numberOfSelectedRows == 1 {
             
-            if let scheme = ColorSchemes.userDefinedSchemeByName(selectedSchemeNames[0]) {
-                previewView.scheme = scheme
-            }
+            previewView.scheme = schemesCache[editorView.selectedRow]
             
         } else {
             
@@ -119,7 +113,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the total number of color schemes
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return ColorSchemes.numberOfUserDefinedSchemes
+        return schemesCache.count
     }
     
     // When the table selection changes, the button states and preview might need to change.
@@ -128,9 +122,8 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         updateButtonStates()
         updatePreview()
         
-        if editorView.numberOfSelectedRows == 1, let cell = editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as? NSTableCellView {
-        
-            oldSchemeName = cell.textField!.stringValue
+        if editorView.numberOfSelectedRows == 1 {
+            oldSchemeName = schemesCache[editorView.selectedRow].name
         }
     }
     
@@ -142,7 +135,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme = ColorSchemes.userDefinedSchemes[row]
+        let scheme = schemesCache[row]
         return createTextCell(tableView, tableColumn!, row, scheme.name)
     }
     
@@ -190,10 +183,15 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
                 // Another scheme with that name exists, can't rename
                 editedTextField.stringValue = scheme.name
                 
+                _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Can't rename color scheme", "Another color scheme with that name already exists.", "Please type a unique name."))
+                
             } else {
                 
                 // Update the scheme name
                 ColorSchemes.renameScheme(scheme.name, newSchemeName)
+                
+                // Update the cache
+                schemesCache = ColorSchemes.userDefinedSchemes
             }
         }
     }
