@@ -24,7 +24,16 @@ class Favorite: StringKeyedItem, PlayableItem {
         }
     }
     
-    var key: String {return file.path}
+    var key: String {
+        
+        get {
+            return file.path
+        }
+        
+        set {
+            // Do nothing
+        }
+    }
     
     var track: Track?
     

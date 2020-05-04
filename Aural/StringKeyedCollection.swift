@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    A collection that behaves like an array and a map, enabling fast lookups both by index and a String key.
+ */
 class StringKeyedCollection<T: StringKeyedItem> {
     
     private var array: [T] = [T]()
@@ -16,6 +19,19 @@ class StringKeyedCollection<T: StringKeyedItem> {
         if let index = array.index(where: {$0.key == key}) {
             array.remove(at: index)
             map.removeValue(forKey: key)
+        }
+    }
+    
+    func reMapForKey(_ oldKey: String, _ newKey: String) {
+        
+        if let index = array.index(where: {$0.key == oldKey}) {
+
+            // Modify the key within the item
+            array[index].key = newKey
+            
+            // Re-map the item to the new key
+            map.removeValue(forKey: oldKey)
+            map[newKey] = array[index]
         }
     }
     
@@ -54,7 +70,8 @@ class StringKeyedCollection<T: StringKeyedItem> {
     }
 }
 
+// A contract for items in a StringKeyedCollection
 protocol StringKeyedItem {
     
-    var key: String {get}
+    var key: String {get set}
 }

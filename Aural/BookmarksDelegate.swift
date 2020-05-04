@@ -73,6 +73,10 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         }
     }
     
+    func renameBookmarkAtIndex(_ index: Int, _ newName: String) {
+        bookmarks.renameBookmarkAtIndex(index, newName)
+    }
+    
     func deleteBookmarkAtIndex(_ index: Int) {
         bookmarks.deleteBookmarkAtIndex(index)
     }

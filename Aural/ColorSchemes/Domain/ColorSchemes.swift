@@ -26,11 +26,11 @@ class ColorSchemes {
     }
     
     // Mapping of user-defined color schemes by display name.
-    private static var userDefinedSchemesByName: [String: ColorScheme] = [:]
+    private static var userDefinedSchemesByName: StringKeyedCollection<ColorScheme> = StringKeyedCollection()
     
     // Array of all user-defined color schemes.
     static var userDefinedSchemes: [ColorScheme] {
-        return Array(userDefinedSchemesByName.values)
+        return userDefinedSchemesByName.allItems
     }
 
     static var numberOfUserDefinedSchemes: Int {
@@ -60,7 +60,7 @@ class ColorSchemes {
             
             return systemScheme
             
-        } else if let scheme = userDefinedSchemesByName[name] {
+        } else if let scheme = userDefinedSchemesByName.itemWithKey(name) {
             
             systemScheme.applyScheme(scheme)
             
@@ -75,28 +75,21 @@ class ColorSchemes {
     
     // Looks up a user-defined color scheme by name, returning the default scheme if not found and if so specified by the 2nd parameter.
     static func userDefinedSchemeByName(_ name: String, _ acceptDefault: Bool = true) -> ColorScheme? {
-        return userDefinedSchemesByName[name] ?? (acceptDefault ? defaultScheme : nil)
+        return userDefinedSchemesByName.itemWithKey(name) ?? (acceptDefault ? defaultScheme : nil)
     }
     
     // Deletes a color scheme by its name (must be a user-defined scheme)
     static func deleteScheme(_ name: String) {
         
         // User cannot modify/delete system-defined schemes
-        if userDefinedSchemesByName[name] != nil {
-            userDefinedSchemesByName.removeValue(forKey: name)
-        }
+        userDefinedSchemesByName.removeItemWithKey(name)
     }
     
     // Renames a user-defined color scheme
     static func renameScheme(_ oldName: String, _ newName: String) {
         
-        if let scheme = userDefinedSchemesByName[oldName] {
-            
-            // Update the map with the new name
-            userDefinedSchemesByName.removeValue(forKey: oldName)
-            scheme.name = newName
-            userDefinedSchemesByName[newName] = scheme
-        }
+        // Update the map with the new name
+        userDefinedSchemesByName.reMapForKey(oldName, newName)
     }
     
     // Maps the given user-defined color schemes by name
@@ -105,18 +98,18 @@ class ColorSchemes {
         // TODO: What if the scheme's name is empty ? Should we assign a default name ?
         
         userDefinedSchemes.forEach({
-            userDefinedSchemesByName[$0.name] = $0
+            userDefinedSchemesByName.addItem($0)
         })
     }
     
     // Adds a new user-defined color scheme. Assume a preset with this name doesn't already exist.
     static func addUserDefinedScheme(_ scheme: ColorScheme) {
-        userDefinedSchemesByName[scheme.name] = scheme
+        userDefinedSchemesByName.addItem(scheme)
     }
     
     // Checks whether or not a scheme (user-defined or system-defined) with the given name exists
     static func schemeWithNameExists(_ name: String) -> Bool {
-        return userDefinedSchemesByName[name] != nil || ColorSchemePreset.presetByName(name) != nil
+        return userDefinedSchemesByName.itemWithKeyExists(name) || ColorSchemePreset.presetByName(name) != nil
     }
     
     // State to be persisted to disk.
