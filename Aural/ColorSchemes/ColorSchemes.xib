@@ -25,10 +25,10 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="481" height="412"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="412"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="481" height="412"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="412"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button toolTip="Redo last change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63Z-HH-Hrj" userLabel="Save">
@@ -157,9 +157,9 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0D8-Jf-NSD">
-                        <rect key="frame" x="155" y="381" width="170" height="23"/>
+                        <rect key="frame" x="120" y="381" width="240" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Color Schemes" id="GnX-0i-Gy9">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Customize color scheme" id="GnX-0i-Gy9">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
