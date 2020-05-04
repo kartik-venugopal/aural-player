@@ -58,7 +58,7 @@
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ESy-Uk-h3y" userLabel="Container">
-                    <rect key="frame" x="77" y="1" width="350" height="140"/>
+                    <rect key="frame" x="72" y="6" width="350" height="140"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="6Lk-GK-0LZ">
                         <rect key="frame" x="0.0" y="0.0" width="350" height="140"/>
