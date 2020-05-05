@@ -39,7 +39,7 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
-        return tracks.index(of: track)
+        return tracks.firstIndex(of: track)
     }
     
     func trackAtIndex(_ index: Int) -> Track {

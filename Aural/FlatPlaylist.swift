@@ -32,7 +32,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
-        return tracks.index(of: track)
+        return tracks.firstIndex(of: track)
     }
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {

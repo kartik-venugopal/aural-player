@@ -19,7 +19,7 @@ class SyncMessenger {
             if messageSubscriberRegistry[messageType] == nil {messageSubscriberRegistry[messageType] = [MessageSubscriber]()}
             
             // Only add if it doesn't already exist
-            if messageSubscriberRegistry[messageType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
+            if messageSubscriberRegistry[messageType]!.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 messageSubscriberRegistry[messageType]!.append(subscriber)
             }
         }
@@ -31,7 +31,7 @@ class SyncMessenger {
         for messageType in messageTypes {
             
             // Find and remove the subscriber from the registry
-            if let subscribers = messageSubscriberRegistry[messageType], let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
+            if let subscribers = messageSubscriberRegistry[messageType], let subIndex = subscribers.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) {
                 messageSubscriberRegistry[messageType]!.remove(at: subIndex)
             }
         }
@@ -44,7 +44,7 @@ class SyncMessenger {
             
             if actionMessageSubscriberRegistry[actionType] == nil {actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()}
             
-            if actionMessageSubscriberRegistry[actionType]!.index(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
+            if actionMessageSubscriberRegistry[actionType]!.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
                 actionMessageSubscriberRegistry[actionType]!.append(subscriber)
             }
         }
@@ -56,7 +56,7 @@ class SyncMessenger {
         for actionType in actionTypes {
             
             // Find and remove the subscriber from the registry
-            if let subscribers = actionMessageSubscriberRegistry[actionType], let subIndex = subscribers.index(where: {$0.subscriberId == subscriber.subscriberId}) {
+            if let subscribers = actionMessageSubscriberRegistry[actionType], let subIndex = subscribers.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) {
                 actionMessageSubscriberRegistry[actionType]!.remove(at: subIndex)
             }
         }

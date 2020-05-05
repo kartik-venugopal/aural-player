@@ -16,7 +16,7 @@ class StringKeyedCollection<T: StringKeyedItem> {
     
     func removeItemWithKey(_ key: String) {
         
-        if let index = array.index(where: {$0.key == key}) {
+        if let index = array.firstIndex(where: {$0.key == key}) {
             array.remove(at: index)
             map.removeValue(forKey: key)
         }
@@ -24,7 +24,7 @@ class StringKeyedCollection<T: StringKeyedItem> {
     
     func reMapForKey(_ oldKey: String, _ newKey: String) {
         
-        if let index = array.index(where: {$0.key == oldKey}) {
+        if let index = array.firstIndex(where: {$0.key == oldKey}) {
 
             // Modify the key within the item
             array[index].key = newKey
