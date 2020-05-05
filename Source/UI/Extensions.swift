@@ -68,8 +68,9 @@ extension NSView {
     
     func bringToFront() {
         
+        let superView = self.superview
         self.removeFromSuperview()
-        self.superview?.addSubview(self, positioned: .above, relativeTo: nil)
+        superView?.addSubview(self, positioned: .above, relativeTo: nil)
     }
     
     // MARK - Static functions
