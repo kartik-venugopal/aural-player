@@ -154,26 +154,18 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     }
 
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
-
-        PlayerViewState.timeElapsedDisplayType = PlayerViewState.timeElapsedDisplayType.toggle()
         updateSeekPosition()
     }
 
     @IBAction func switchTimeRemainingDisplayAction(_ sender: Any) {
-
-        PlayerViewState.timeRemainingDisplayType = PlayerViewState.timeRemainingDisplayType.toggle()
         updateSeekPosition()
     }
 
     func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-
-        PlayerViewState.timeElapsedDisplayType = format
         updateSeekPosition()
     }
 
     func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-
-        PlayerViewState.timeRemainingDisplayType = format
         updateSeekPosition()
     }
 
@@ -254,36 +246,9 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
             seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
 
             // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
-            if (loop.isComplete()) {
+            if let loopEndTime = loop.endTime {
                 
-                seekSliderClone.doubleValue = loop.endTime! * 100 / trackDuration
-                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-            }
-
-        } else {
-
-            seekSliderCell.removeLoop()
-            btnLoop.switchState(LoopState.none)
-        }
-        
-        updateSeekPosition()
-    }
-
-    func renderLoop(_ playbackLoop: PlaybackLoop?, _ trackDuration: Double) {
-
-        if let loop = playbackLoop {
-
-            // Update loop button image
-            btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
-
-            // Mark start
-            seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
-            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-
-            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
-            if (loop.isComplete()) {
-
-                seekSliderClone.doubleValue = loop.endTime! * 100 / trackDuration
+                seekSliderClone.doubleValue = loopEndTime * 100 / trackDuration
                 seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
             }
 
@@ -360,7 +325,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
         btnLoop.switchState(loop != nil ? LoopState.complete : LoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
 
-        loop != nil ? renderLoop(loop, newTrack!.track.duration) : seekSliderCell.removeLoop()
+        loop != nil ? playbackLoopChanged(loop, newTrack!.track.duration) : seekSliderCell.removeLoop()
         newTrack != nil ? showNowPlayingInfo(newTrack!.track) : clearNowPlayingInfo()
     }
     
@@ -383,8 +348,6 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     }
 
     func showOrHideTimeElapsedRemaining() {
-
-        PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
     }
     
