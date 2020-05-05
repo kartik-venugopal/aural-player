@@ -976,44 +976,7 @@
 				3E5F00D321543D3800A76C23 /* StringInputClient.swift */,
 			);
 			name = StringInputPopover;
-			sourceTree = "<group>";
-		};
-		3E06C0251FB6AF2B003EE9AB /* CustomControls */ = {
-			isa = PBXGroup;
-			children = (
-				3EE4D43C21D6E2CA000110FC /* Alerts */,
-				3E02739A1FD91B28000F0844 /* StringInputPopover */,
-				3E53A7CF1FBD1C1B0058940D /* Menus */,
-				3E2D9E441F664C000020B99E /* Buttons */,
-				3EF4F86B1F2079F000C45840 /* Sliders */,
-				3EBA52F81FC2EB09007F902F /* TabView */,
-				3E17D03321E625A100951F81 /* PrettyScroller.swift */,
-				3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */,
-				3ECB858E2152677300D974F5 /* SnappingWindow.swift */,
-				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
-				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
-				3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */,
-				3E12AF892176FC2F00692391 /* IntervalPicker.swift */,
-				3EA3BDAB22B267B10020A908 /* VAlignedTextField.swift */,
-				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
-				3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */,
-				3E54B23822C263B3005EAEDF /* TriStateLabel.swift */,
-				3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */,
-			);
-			name = CustomControls;
-			sourceTree = "<group>";
-		};
-		3E06C0281FB6B105003EE9AB /* History */ = {
-			isa = PBXGroup;
-			children = (
-				3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */,
-				3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */,
-				3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */,
-				3E06C0291FB6B120003EE9AB /* History.swift */,
-				3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */,
-				3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */,
-			);
-			name = History;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0835F52459A9B000822FA8 /* ColorSchemes */ = {
@@ -1024,6 +987,7 @@
 				3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */,
 			);
 			name = ColorSchemes;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0DF1BE2431BAFC0096C2A1 /* ChaptersList */ = {
@@ -1036,52 +1000,7 @@
 				3EF5D4272451FEFE00FD8927 /* ChaptersListTableHeaderCell.swift */,
 			);
 			name = ChaptersList;
-			sourceTree = "<group>";
-		};
-		3E0ED6A41FBB05DF008268B3 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				3E0ED6A51FBB05FF008268B3 /* Player.xib */,
-				3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */,
-				3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */,
-				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
-				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
-				3E9B104B21C3318A008326FE /* TranscoderViewController.swift */,
-				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
-				3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */,
-				3EB3A6DB2185105A003C7F07 /* GapView.swift */,
-				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
-				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
-				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
-				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
-				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
-				3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */,
-				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
-				3E309B721FB70B7800C61E72 /* InfoPopup */,
-			);
-			name = Player;
-			sourceTree = "<group>";
-		};
-		3E0ED6AA1FBB1915008268B3 /* Effects */ = {
-			isa = PBXGroup;
-			children = (
-				3E0ED6AB1FBB1961008268B3 /* Effects.xib */,
-				3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */,
-				3E08399F21944E15008D84BA /* FXUnitViewController.swift */,
-				3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */,
-				3EB499F5244B012300711BC5 /* EffectsViewPopupMenuController.swift */,
-				3EB499F7244B019100711BC5 /* EffectsViewState.swift */,
-				3E0839A92195251D008D84BA /* PresetsWrapper.swift */,
-				3EBD557B21590B8300286439 /* Master */,
-				3E0ED6AD1FBB1AA2008268B3 /* EQ */,
-				3E0ED6B01FBB1AF1008268B3 /* Pitch */,
-				3E0ED6B31FBB1B55008268B3 /* Time */,
-				3E0ED6B61FBB1C1B008268B3 /* Reverb */,
-				3E0ED6B91FBB1C70008268B3 /* Delay */,
-				3E0ED6BA1FBB1C7A008268B3 /* Filter */,
-				3E0ED6BB1FBB1C81008268B3 /* Recorder */,
-			);
-			name = Effects;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6AD1FBB1AA2008268B3 /* EQ */ = {
@@ -1093,6 +1012,7 @@
 				3E17A8B621871D7700CADE89 /* EQSubview.swift */,
 			);
 			name = EQ;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6B01FBB1AF1008268B3 /* Pitch */ = {
@@ -1103,6 +1023,7 @@
 				3EA2E647219256BD00FB5BAC /* PitchView.swift */,
 			);
 			name = Pitch;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6B31FBB1B55008268B3 /* Time */ = {
@@ -1113,6 +1034,7 @@
 				3EA2E64D2192E60000FB5BAC /* TimeView.swift */,
 			);
 			name = Time;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6B61FBB1C1B008268B3 /* Reverb */ = {
@@ -1123,6 +1045,7 @@
 				3EA2E6512192F22F00FB5BAC /* ReverbView.swift */,
 			);
 			name = Reverb;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6B91FBB1C70008268B3 /* Delay */ = {
@@ -1133,6 +1056,7 @@
 				3E50DC90219388D200D42373 /* DelayView.swift */,
 			);
 			name = Delay;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6BA1FBB1C7A008268B3 /* Filter */ = {
@@ -1147,6 +1071,7 @@
 				3EDC3415218EA0C300905688 /* CutoffFrequencySlider.swift */,
 			);
 			name = Filter;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E0ED6BB1FBB1C81008268B3 /* Recorder */ = {
@@ -1156,6 +1081,7 @@
 				3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */,
 			);
 			name = Recorder;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E10DDDD216F2884001D3B66 /* Gaps */ = {
@@ -1165,6 +1091,7 @@
 				3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */,
 			);
 			name = Gaps;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E176600217DE334001C6CF9 /* TracksPlaylist */ = {
@@ -1185,15 +1112,6 @@
 			name = ArtistsPlaylist;
 			sourceTree = "<group>";
 		};
-		3E23F2C322A6E5E600A48C8C /* MediaKeyHandling */ = {
-			isa = PBXGroup;
-			children = (
-				3E23F2D022A6E6DB00A48C8C /* MediaKeyHandler.swift */,
-				3E23F2C422A6E5FE00A48C8C /* MediaKeyTap */,
-			);
-			name = MediaKeyHandling;
-			sourceTree = "<group>";
-		};
 		3E23F2C422A6E5FE00A48C8C /* MediaKeyTap */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,6 +1123,7 @@
 				3EA3BDA922B266E90020A908 /* NSEventExtensions.swift */,
 			);
 			name = MediaKeyTap;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E24F4CE21699E0600B9CDA6 /* EffectsPresets */ = {
@@ -1222,6 +1141,7 @@
 				3E24F4D62169A0D300B9CDA6 /* Filter */,
 			);
 			name = EffectsPresets;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E24F4D12169A0B400B9CDA6 /* EQ */ = {
@@ -1288,60 +1208,6 @@
 			name = Master;
 			sourceTree = "<group>";
 		};
-		3E2D9E411F662B8D0020B99E /* Playback */ = {
-			isa = PBXGroup;
-			children = (
-				3E84F8441F5FBFF90010BCDA /* Sequencing */,
-				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
-				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
-				3E84F8471F5FC58D0010BCDA /* PlaybackDelegate.swift */,
-				3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */,
-				3E426F7D1EFDD9CF002F5F18 /* Player.swift */,
-				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
-				3E529E9824457713004571FD /* NewScheduler.swift */,
-				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
-				3E3FB7F2215B577400974A59 /* PlayableItem.swift */,
-				3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */,
-				3ED43338216CA387000617A3 /* PlaybackGap.swift */,
-				3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */,
-			);
-			name = Playback;
-			sourceTree = "<group>";
-		};
-		3E2D9E421F662BB90020B99E /* Recorder */ = {
-			isa = PBXGroup;
-			children = (
-				3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */,
-				3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */,
-				3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */,
-				3E9A575D1F21F778007546A2 /* Recorder.swift */,
-				3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */,
-				3E23D6581F32887E00DBF426 /* RecordingInfo.swift */,
-				3E822B371F21DCF20006CDBC /* RecordingFormat.swift */,
-				3E1BF7622431048800B6B9F9 /* RecordingQuality.swift */,
-				3E1BF76424310DBD00B6B9F9 /* RecordingParams.swift */,
-			);
-			name = Recorder;
-			sourceTree = "<group>";
-		};
-		3E2D9E431F664B860020B99E /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				3E3A636A1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift */,
-				3E3A63681F690EA200F72A60 /* PreferencesDelegate.swift */,
-				3E33B4A31F3F08B8005EF359 /* Preferences.swift */,
-				3E6341D1243DB1AC00190502 /* PlaybackPreferences.swift */,
-				3E6341CF243DB11800190502 /* PlaylistPreferences.swift */,
-				3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */,
-				3E6341D3243DB1E400190502 /* SoundPreferences.swift */,
-				3E6341D5243DC25E00190502 /* ViewPreferences.swift */,
-				3E6341D7243DC28500190502 /* ControlsPreferences.swift */,
-				3E6341D9243DC50500190502 /* PreferencesDefaults.swift */,
-				3E6341DB243DC53B00190502 /* HistoryPreferences.swift */,
-			);
-			name = Preferences;
-			sourceTree = "<group>";
-		};
 		3E2D9E441F664C000020B99E /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1355,24 +1221,7 @@
 				3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */,
 			);
 			name = Buttons;
-			sourceTree = "<group>";
-		};
-		3E2F1047215562B50099FD06 /* Editors */ = {
-			isa = PBXGroup;
-			children = (
-				3E2F1048215562DD0099FD06 /* EditorWindow.xib */,
-				3E2F104B215569D40099FD06 /* EditorWindowController.swift */,
-				3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */,
-				3E24F4CE21699E0600B9CDA6 /* EffectsPresets */,
-				3E2F104A215569BD0099FD06 /* Bookmarks */,
-				3E2F104D215569DB0099FD06 /* Favorites */,
-				3E0835F52459A9B000822FA8 /* ColorSchemes */,
-				3E3F29612159B66F00581EFE /* Layouts */,
-				3E10DDDD216F2884001D3B66 /* Gaps */,
-				3EB1700A2173F59E00B82D3A /* DelayedPlayback */,
-				3EB1701121748D9600B82D3A /* JumpToTime */,
-			);
-			name = Editors;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E2F104A215569BD0099FD06 /* Bookmarks */ = {
@@ -1382,6 +1231,7 @@
 				3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */,
 			);
 			name = Bookmarks;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E2F104D215569DB0099FD06 /* Favorites */ = {
@@ -1391,6 +1241,7 @@
 				3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */,
 			);
 			name = Favorites;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E309B721FB70B7800C61E72 /* InfoPopup */ = {
@@ -1401,16 +1252,7 @@
 				3E4F9E3A1FBFA2C100C54D07 /* InfoPopupProtocol.swift */,
 			);
 			name = InfoPopup;
-			sourceTree = "<group>";
-		};
-		3E33C11A242F10D0005A062B /* ExperimentalCode */ = {
-			isa = PBXGroup;
-			children = (
-				3EE429AA1FCFCEB600E81C15 /* Modes */,
-				3EF18476217C8EE900D24F39 /* Visualizer */,
-				3EF18474217C8E8A00D24F39 /* FFT.swift */,
-			);
-			name = ExperimentalCode;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E36E85D1FBFEBCE0005C62E /* Playback */ = {
@@ -1422,6 +1264,7 @@
 				3E1CB54721C8A42700A19AAE /* TranscodingPreferencesViewController.swift */,
 			);
 			name = Playback;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E36E8601FC00E5D0005C62E /* Playlist */ = {
@@ -1431,6 +1274,7 @@
 				3EDFFA061FC0263E00158177 /* PlaylistPreferencesViewController.swift */,
 			);
 			name = Playlist;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E36E8631FC00E7F0005C62E /* Sound */ = {
@@ -1440,6 +1284,7 @@
 				3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */,
 			);
 			name = Sound;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E36E8661FC00F320005C62E /* View */ = {
@@ -1449,6 +1294,7 @@
 				3EDFFA0A1FC0283F00158177 /* ViewPreferencesViewController.swift */,
 			);
 			name = View;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E36E8691FC010710005C62E /* History */ = {
@@ -1458,20 +1304,7 @@
 				3EDFFA0C1FC0286E00158177 /* HistoryPreferencesViewController.swift */,
 			);
 			name = History;
-			sourceTree = "<group>";
-		};
-		3E3C20A41F0A3CE100AF5A62 /* AudioGraph */ = {
-			isa = PBXGroup;
-			children = (
-				3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */,
-				3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */,
-				3EDD4CD52194154500C15D5A /* Delegate */,
-				3E3ECE03242E634E000721E9 /* Utils */,
-				3E50DC942193A2B300D42373 /* FXUnits */,
-				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
-				3E3ECE02242E6312000721E9 /* PresetsAndProfiles */,
-			);
-			name = AudioGraph;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E3D48991F464BEC004C0F91 /* Errors */ = {
@@ -1480,6 +1313,7 @@
 				3E3D489A1F464C02004C0F91 /* Errors.swift */,
 			);
 			name = Errors;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E3ECE02242E6312000721E9 /* PresetsAndProfiles */ = {
@@ -1498,6 +1332,7 @@
 				3E24F4DA2169A26700B9CDA6 /* SoundProfile.swift */,
 			);
 			name = PresetsAndProfiles;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E3ECE03242E634E000721E9 /* Utils */ = {
@@ -1509,6 +1344,7 @@
 				3E33C11B242F1A88005A062B /* AudioDevice.swift */,
 			);
 			name = Utils;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E3F29612159B66F00581EFE /* Layouts */ = {
@@ -1519,6 +1355,7 @@
 				3E3F29662159FAFB00581EFE /* LayoutPreviewView.swift */,
 			);
 			name = Layouts;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E3F82831FCD4C9100DC9D11 /* BarMode */ = {
@@ -1534,18 +1371,6 @@
 			name = BarMode;
 			sourceTree = "<group>";
 		};
-		3E3FB7F1215B56FD00974A59 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				3E3FB7F4215B57B700974A59 /* Favorite.swift */,
-				3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */,
-				3E3FB7F6215B58C900974A59 /* FavoritesProtocol.swift */,
-				3E3FB7F8215B590A00974A59 /* Favorites.swift */,
-				3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */,
-			);
-			name = Favorites;
-			sourceTree = "<group>";
-		};
 		3E4045D121DDEFC700F4708C /* Transcoder */ = {
 			isa = PBXGroup;
 			children = (
@@ -1554,6 +1379,7 @@
 				3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */,
 			);
 			name = Transcoder;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E4045D221DDEFE700F4708C /* Muxer */ = {
@@ -1562,6 +1388,7 @@
 				3E4045D321DDEFF300F4708C /* Muxer.swift */,
 			);
 			name = Muxer;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E44DDC91FD8A6C000C6566C /* Delegates */ = {
@@ -1575,6 +1402,7 @@
 				3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */,
 			);
 			name = Delegates;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E4F9FD31FC9156600FA4096 /* CustomNodes */ = {
@@ -1586,6 +1414,445 @@
 				3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */,
 			);
 			name = CustomNodes;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		3E50AD952461370C00B31339 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3E50AD962461374B00B31339 /* Views */,
+				3EB2F1FE1FB311760031B6C1 /* Fonts.swift */,
+				3E58CC261F025B0D00C36DC1 /* Colors.swift */,
+				3EB2F2001FB311FB0031B6C1 /* Images.swift */,
+				3EF5E5CD1FBE843D004270A4 /* Strings.swift */,
+				3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */,
+				3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */,
+				3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		3E50AD962461374B00B31339 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E50AD97246137A700B31339 /* Menus */,
+				3E50AD98246137E200B31339 /* WindowManagement */,
+				3EF62FEF244C424E00AD7172 /* ColorSchemes */,
+				3E50AD99246137FB00B31339 /* MainWindow */,
+				3E50AD9A2461380900B31339 /* Player */,
+				3E50AD9C2461386E00B31339 /* Playlist */,
+				3E50AD9B2461383900B31339 /* Effects */,
+				3E50AD9D2461388100B31339 /* Preferences */,
+				3E50AD9F246138E200B31339 /* AboutDialog */,
+				3E50AD9E246138B600B31339 /* Editors */,
+				3E50ADA0246138F900B31339 /* CustomViews */,
+				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
+				3E850D511FB441800017CD02 /* WindowFactory.swift */,
+				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3E50AD97246137A700B31339 /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				3E85F25D1EFA78D6007BE830 /* MainMenu.xib */,
+				3E9847831F5CF3F6001A2D28 /* AuralMenuController.swift */,
+				3E06C0261FB6B0BF003EE9AB /* HistoryMenuControllers.swift */,
+				3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */,
+				3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */,
+				3E850D581FB446940017CD02 /* PlaylistMenuController.swift */,
+				3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */,
+				3EB029131FB58CEC00A2D920 /* SoundMenuController.swift */,
+				3EDDF6A81FB4FAA600DF2E9A /* ViewMenuController.swift */,
+				3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */,
+				3E9847811F5CF23D001A2D28 /* HelpMenuController.swift */,
+				3EB029111FB55EEF00A2D920 /* DockMenuController.swift */,
+				3ECF12F724578E95007209BC /* TextSizeMenuController.swift */,
+			);
+			path = Menus;
+			sourceTree = "<group>";
+		};
+		3E50AD98246137E200B31339 /* WindowManagement */ = {
+			isa = PBXGroup;
+			children = (
+				3EF08DCA2156D65D000C7F11 /* WindowManagerProtocol.swift */,
+				3E94E8612154D69000C57AD8 /* WindowManager.swift */,
+				3EDA8F2524602C13000715C8 /* WindowLayout.swift */,
+				3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */,
+				3EDA8F2724602C3D000715C8 /* WindowLayoutPresets.swift */,
+				3E69CC3D2449752100117EFA /* ModalComponentProtocols.swift */,
+			);
+			path = WindowManagement;
+			sourceTree = "<group>";
+		};
+		3E50AD99246137FB00B31339 /* MainWindow */ = {
+			isa = PBXGroup;
+			children = (
+				3EDDF6AB1FB4FF5100DF2E9A /* MainWindow.xib */,
+				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
+				3EF86046245DAB470067583A /* SettingsPopupMenuController.swift */,
+				3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */,
+				3ECF12F5245784A6007209BC /* ColorSchemePopupMenuController.swift */,
+				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
+			);
+			path = MainWindow;
+			sourceTree = "<group>";
+		};
+		3E50AD9A2461380900B31339 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
+				3E309B721FB70B7800C61E72 /* InfoPopup */,
+				3E0ED6A51FBB05FF008268B3 /* Player.xib */,
+				3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */,
+				3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */,
+				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
+				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
+				3E9B104B21C3318A008326FE /* TranscoderViewController.swift */,
+				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
+				3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */,
+				3EB3A6DB2185105A003C7F07 /* GapView.swift */,
+				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
+				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
+				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
+				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
+				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
+				3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		3E50AD9B2461383900B31339 /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				3E0ED6AB1FBB1961008268B3 /* Effects.xib */,
+				3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */,
+				3E08399F21944E15008D84BA /* FXUnitViewController.swift */,
+				3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */,
+				3EB499F5244B012300711BC5 /* EffectsViewPopupMenuController.swift */,
+				3EB499F7244B019100711BC5 /* EffectsViewState.swift */,
+				3E0839A92195251D008D84BA /* PresetsWrapper.swift */,
+				3EBD557B21590B8300286439 /* Master */,
+				3E0ED6AD1FBB1AA2008268B3 /* EQ */,
+				3E0ED6B01FBB1AF1008268B3 /* Pitch */,
+				3E0ED6B31FBB1B55008268B3 /* Time */,
+				3E0ED6B61FBB1C1B008268B3 /* Reverb */,
+				3E0ED6B91FBB1C70008268B3 /* Delay */,
+				3E0ED6BA1FBB1C7A008268B3 /* Filter */,
+				3E0ED6BB1FBB1C81008268B3 /* Recorder */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		3E50AD9C2461386E00B31339 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				3E850D5F1FB459230017CD02 /* Playlist.xib */,
+				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
+				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
+				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
+				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
+				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
+				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
+				3EF5E5B21FBDA374004270A4 /* TracksPlaylist */,
+				3EF5E5D31FBF0F8B004270A4 /* GroupingPlaylists */,
+				3E0DF1BE2431BAFC0096C2A1 /* ChaptersList */,
+				3E850D5A1FB44DD30017CD02 /* Search */,
+				3E850D551FB444D20017CD02 /* Sort */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
+		3E50AD9D2461388100B31339 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				3EAFE3C41FB40D0000B4A327 /* Preferences.xib */,
+				3EAFE3C61FB40DD400B4A327 /* PreferencesWindowController.swift */,
+				3E36E8601FC00E5D0005C62E /* Playlist */,
+				3E36E85D1FBFEBCE0005C62E /* Playback */,
+				3E36E8631FC00E7F0005C62E /* Sound */,
+				3E36E8661FC00F320005C62E /* View */,
+				3E36E8691FC010710005C62E /* History */,
+				3EA19C1F1FC16A210072929E /* Controls */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		3E50AD9E246138B600B31339 /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F1048215562DD0099FD06 /* EditorWindow.xib */,
+				3E2F104B215569D40099FD06 /* EditorWindowController.swift */,
+				3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */,
+				3E24F4CE21699E0600B9CDA6 /* EffectsPresets */,
+				3E2F104A215569BD0099FD06 /* Bookmarks */,
+				3E2F104D215569DB0099FD06 /* Favorites */,
+				3E0835F52459A9B000822FA8 /* ColorSchemes */,
+				3E3F29612159B66F00581EFE /* Layouts */,
+				3E10DDDD216F2884001D3B66 /* Gaps */,
+				3EB1700A2173F59E00B82D3A /* DelayedPlayback */,
+				3EB1701121748D9600B82D3A /* JumpToTime */,
+			);
+			path = Editors;
+			sourceTree = "<group>";
+		};
+		3E50AD9F246138E200B31339 /* AboutDialog */ = {
+			isa = PBXGroup;
+			children = (
+				3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */,
+				3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */,
+			);
+			path = AboutDialog;
+			sourceTree = "<group>";
+		};
+		3E50ADA0246138F900B31339 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				3EE4D43C21D6E2CA000110FC /* Alerts */,
+				3E02739A1FD91B28000F0844 /* StringInputPopover */,
+				3E53A7CF1FBD1C1B0058940D /* Menus */,
+				3E2D9E441F664C000020B99E /* Buttons */,
+				3EF4F86B1F2079F000C45840 /* Sliders */,
+				3EBA52F81FC2EB09007F902F /* TabView */,
+				3E17D03321E625A100951F81 /* PrettyScroller.swift */,
+				3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */,
+				3ECB858E2152677300D974F5 /* SnappingWindow.swift */,
+				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
+				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
+				3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */,
+				3E12AF892176FC2F00692391 /* IntervalPicker.swift */,
+				3EA3BDAB22B267B10020A908 /* VAlignedTextField.swift */,
+				3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */,
+				3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */,
+				3E54B23822C263B3005EAEDF /* TriStateLabel.swift */,
+				3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		3E50ADA12461398500B31339 /* MediaKeyHandling */ = {
+			isa = PBXGroup;
+			children = (
+				3E23F2D022A6E6DB00A48C8C /* MediaKeyHandler.swift */,
+				3E23F2C422A6E5FE00A48C8C /* MediaKeyTap */,
+			);
+			path = MediaKeyHandling;
+			sourceTree = "<group>";
+		};
+		3E50ADA22461399A00B31339 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				3E44DDC91FD8A6C000C6566C /* Delegates */,
+				3E97967C1F00286200690DA2 /* Track.swift */,
+				3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */,
+				3E221FB71F98530700DA3AD8 /* Group.swift */,
+				3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */,
+				3E1D93511F626BF9008AC59E /* Playlist.swift */,
+				3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */,
+				3E357B531F9C7DFB00C8F7B1 /* FlatPlaylist.swift */,
+				3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */,
+				3E221FB91F98541100DA3AD8 /* GroupingPlaylist.swift */,
+				3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */,
+				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
+				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
+				3E3BAF231F274771008F090E /* Sort.swift */,
+				3EF6A0011FA313120050F0D2 /* SortComparator.swift */,
+				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
+		3E50ADA3246139B000B31339 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				3E84F8441F5FBFF90010BCDA /* Sequencing */,
+				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
+				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
+				3E84F8471F5FC58D0010BCDA /* PlaybackDelegate.swift */,
+				3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */,
+				3E426F7D1EFDD9CF002F5F18 /* Player.swift */,
+				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
+				3E529E9824457713004571FD /* NewScheduler.swift */,
+				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
+				3E3FB7F2215B577400974A59 /* PlayableItem.swift */,
+				3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */,
+				3ED43338216CA387000617A3 /* PlaybackGap.swift */,
+				3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */,
+			);
+			path = Playback;
+			sourceTree = "<group>";
+		};
+		3E50ADA4246139CB00B31339 /* AudioGraph */ = {
+			isa = PBXGroup;
+			children = (
+				3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */,
+				3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */,
+				3EDD4CD52194154500C15D5A /* Delegate */,
+				3E3ECE03242E634E000721E9 /* Utils */,
+				3E50DC942193A2B300D42373 /* FXUnits */,
+				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
+				3E3ECE02242E6312000721E9 /* PresetsAndProfiles */,
+			);
+			path = AudioGraph;
+			sourceTree = "<group>";
+		};
+		3E50ADA5246139F300B31339 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */,
+				3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */,
+				3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */,
+				3E9A575D1F21F778007546A2 /* Recorder.swift */,
+				3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */,
+				3E23D6581F32887E00DBF426 /* RecordingInfo.swift */,
+				3E822B371F21DCF20006CDBC /* RecordingFormat.swift */,
+				3E1BF7622431048800B6B9F9 /* RecordingQuality.swift */,
+				3E1BF76424310DBD00B6B9F9 /* RecordingParams.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		3E50ADA624613A0300B31339 /* TranscodingAndMuxing */ = {
+			isa = PBXGroup;
+			children = (
+				3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */,
+				3E4045D221DDEFE700F4708C /* Muxer */,
+				3E4045D121DDEFC700F4708C /* Transcoder */,
+			);
+			path = TranscodingAndMuxing;
+			sourceTree = "<group>";
+		};
+		3E50ADA724613A1A00B31339 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */,
+				3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */,
+				3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */,
+				3E06C0291FB6B120003EE9AB /* History.swift */,
+				3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */,
+				3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		3E50ADA824613A2E00B31339 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				3E3FB7F4215B57B700974A59 /* Favorite.swift */,
+				3E3FB7FC215B5BBB00974A59 /* FavoritesDelegate.swift */,
+				3E3FB7F6215B58C900974A59 /* FavoritesProtocol.swift */,
+				3E3FB7F8215B590A00974A59 /* Favorites.swift */,
+				3E3FB7FA215B5B4800974A59 /* FavoritesDelegateProtocol.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		3E50ADA924613A5B00B31339 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				3E5F00C52153986700A76C23 /* Bookmark.swift */,
+				3E5F00C72153993100A76C23 /* BookmarksDelegateProtocol.swift */,
+				3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */,
+				3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */,
+				3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		3E50ADAA24613A6E00B31339 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */,
+				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
+				3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */,
+				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
+				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
+			);
+			path = Messaging;
+			sourceTree = "<group>";
+		};
+		3E50ADAB24613A8F00B31339 /* AppState */ = {
+			isa = PBXGroup;
+			children = (
+				3EB20B4A1EFF25EC008138A4 /* AppState.swift */,
+				3EB5784C244E4A7D002D1F87 /* UIState.swift */,
+				3EB5784E244E4B8C002D1F87 /* AudioGraphState.swift */,
+				3ECE72CC219D5D2B00419F5F /* Mapper.swift */,
+				3EB57850244E4C8D002D1F87 /* ColorSchemesState.swift */,
+				3EE7D724244EC8D1005D76FA /* ColorState.swift */,
+				3EE7D71E244EADEB005D76FA /* PlaylistState.swift */,
+			);
+			path = AppState;
+			sourceTree = "<group>";
+		};
+		3E50ADAC24613AAE00B31339 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A636A1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift */,
+				3E3A63681F690EA200F72A60 /* PreferencesDelegate.swift */,
+				3E33B4A31F3F08B8005EF359 /* Preferences.swift */,
+				3E6341D1243DB1AC00190502 /* PlaybackPreferences.swift */,
+				3E6341CF243DB11800190502 /* PlaylistPreferences.swift */,
+				3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */,
+				3E6341D3243DB1E400190502 /* SoundPreferences.swift */,
+				3E6341D5243DC25E00190502 /* ViewPreferences.swift */,
+				3E6341D7243DC28500190502 /* ControlsPreferences.swift */,
+				3E6341D9243DC50500190502 /* PreferencesDefaults.swift */,
+				3E6341DB243DC53B00190502 /* HistoryPreferences.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		3E50ADAD24613AC100B31339 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				3E3D48991F464BEC004C0F91 /* Errors */,
+				3EB20B481EFF230C008138A4 /* AppStateIO.swift */,
+				3EFFE6B81F036E81003728BD /* PlaylistIO.swift */,
+				3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */,
+				3EFFE6BA1F0372B3003728BD /* TrackIO.swift */,
+				3E4E599C1F74ED8400C18182 /* AudioIO.swift */,
+			);
+			path = IO;
+			sourceTree = "<group>";
+		};
+		3E50ADAE24613AD500B31339 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EA2F8F321CF6D4F007D0264 /* Metadata */,
+				3E6D0F8321C1D42A00640450 /* FFMpeg */,
+				3E45CC4621C5BABD005D9F19 /* CommandExecutor.swift */,
+				3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */,
+				3E7CD3FB215B497800DBD249 /* DataStructures */,
+				3E80E66E1F04FA60007480CC /* Size.swift */,
+				3E80E6711F04FA7C007480CC /* SizeUnit.swift */,
+				3E76D9BD1F0F6B2B007FF3F8 /* Concurrency */,
+				3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */,
+				3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */,
+				3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */,
+				3EDBF76E1F0339B60088574B /* Testing */,
+				3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */,
+				3E9871A11F418CB1009AE9E6 /* UIUtils.swift */,
+				3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */,
+				3EBA52F61FC2E6A2007F902F /* StateMachine.swift */,
+				3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */,
+				3EB1700F21748B7600B82D3A /* TimeIntervalFormatter.swift */,
+				3ED4257721E7EB4B00E202AB /* JSONWriter.swift */,
+				3ED4257921E803E000E202AB /* HTMLWriter.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		3E50ADAF24613B0400B31339 /* UnusedCode */ = {
+			isa = PBXGroup;
+			children = (
+				3EE429AA1FCFCEB600E81C15 /* Modes */,
+				3EF18476217C8EE900D24F39 /* Visualizer */,
+				3EF18474217C8E8A00D24F39 /* FFT.swift */,
+				3E4E599A1F74E78800C18182 /* Main.swift */,
+			);
+			path = UnusedCode;
 			sourceTree = "<group>";
 		};
 		3E50DC942193A2B300D42373 /* FXUnits */ = {
@@ -1602,6 +1869,7 @@
 				3E7DCBDC2196E8B700C6D6D3 /* FilterUnit.swift */,
 			);
 			name = FXUnits;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E51F6651FC98C40003A2210 /* StatusBar */ = {
@@ -1621,48 +1889,7 @@
 				3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */,
 			);
 			name = Menus;
-			sourceTree = "<group>";
-		};
-		3E5E1E5121DB566E007C62B7 /* AboutDialog */ = {
-			isa = PBXGroup;
-			children = (
-				3E5E1E4F21DB539D007C62B7 /* AboutDialog.xib */,
-				3E5E1E5221DB5688007C62B7 /* AboutDialogController.swift */,
-			);
-			name = AboutDialog;
-			sourceTree = "<group>";
-		};
-		3E5F00C4215397D700A76C23 /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-				3E5F00C52153986700A76C23 /* Bookmark.swift */,
-				3E5F00C72153993100A76C23 /* BookmarksDelegateProtocol.swift */,
-				3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */,
-				3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */,
-				3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */,
-			);
-			name = Bookmarks;
-			sourceTree = "<group>";
-		};
-		3E5FA43F1EFFF039001669C5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3EDDF6B11FB54B1600DF2E9A /* Menus */,
-				3E94E85E2154CA0C00C57AD8 /* WindowManagement */,
-				3EDDF6AA1FB4FF3700DF2E9A /* MainWindow */,
-				3E0ED6A41FBB05DF008268B3 /* Player */,
-				3E0ED6AA1FBB1915008268B3 /* Effects */,
-				3E850D611FB45B920017CD02 /* Playlist */,
-				3EF62FEF244C424E00AD7172 /* ColorSchemes */,
-				3E850D4E1FB4405C0017CD02 /* Preferences */,
-				3E2F1047215562B50099FD06 /* Editors */,
-				3E5E1E5121DB566E007C62B7 /* AboutDialog */,
-				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
-				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
-				3E850D511FB441800017CD02 /* WindowFactory.swift */,
-				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
-			);
-			name = Views;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E67BEC121D273120091DC6C /* ffmpeg */ = {
@@ -1677,16 +1904,6 @@
 			path = ffmpeg;
 			sourceTree = "<group>";
 		};
-		3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */ = {
-			isa = PBXGroup;
-			children = (
-				3E5E1E5421DB677D007C62B7 /* FormatMapper.swift */,
-				3E4045D221DDEFE700F4708C /* Muxer */,
-				3E4045D121DDEFC700F4708C /* Transcoder */,
-			);
-			name = TranscodingAndMuxing;
-			sourceTree = "<group>";
-		};
 		3E6D0F8321C1D42A00640450 /* FFMpeg */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,14 +1911,7 @@
 				3E6D0F8821C2542A00640450 /* LibAVInfo.swift */,
 			);
 			name = FFMpeg;
-			sourceTree = "<group>";
-		};
-		3E6F673721E19B86002219E6 /* Testing */ = {
-			isa = PBXGroup;
-			children = (
-				3E4E599A1F74E78800C18182 /* Main.swift */,
-			);
-			name = Testing;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E72FCC41F2C0A780020FD20 /* Documentation */ = {
@@ -1723,6 +1933,7 @@
 				3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */,
 			);
 			name = Concurrency;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E7CD3FB215B497800DBD249 /* DataStructures */ = {
@@ -1734,6 +1945,7 @@
 				3E56C370245AFA8C003C9D98 /* Stack.swift */,
 			);
 			name = DataStructures;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E7D4D89244FF6F6008BEEE1 /* Effects */ = {
@@ -1777,21 +1989,7 @@
 				3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */,
 			);
 			name = Sequencing;
-			sourceTree = "<group>";
-		};
-		3E850D4E1FB4405C0017CD02 /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				3EAFE3C41FB40D0000B4A327 /* Preferences.xib */,
-				3EAFE3C61FB40DD400B4A327 /* PreferencesWindowController.swift */,
-				3E36E8601FC00E5D0005C62E /* Playlist */,
-				3E36E85D1FBFEBCE0005C62E /* Playback */,
-				3E36E8631FC00E7F0005C62E /* Sound */,
-				3E36E8661FC00F320005C62E /* View */,
-				3E36E8691FC010710005C62E /* History */,
-				3EA19C1F1FC16A210072929E /* Controls */,
-			);
-			name = Preferences;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3E850D551FB444D20017CD02 /* Sort */ = {
@@ -1805,6 +2003,7 @@
 				3EB7F462217FC70F00A2CE76 /* GenresPlaylist */,
 			);
 			name = Sort;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E850D5A1FB44DD30017CD02 /* Search */ = {
@@ -1814,31 +2013,13 @@
 				3E850D5B1FB44DE70017CD02 /* PlaylistSearchWindowController.swift */,
 			);
 			name = Search;
-			sourceTree = "<group>";
-		};
-		3E850D611FB45B920017CD02 /* Playlist */ = {
-			isa = PBXGroup;
-			children = (
-				3E850D5F1FB459230017CD02 /* Playlist.xib */,
-				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
-				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
-				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
-				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
-				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
-				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
-				3EF5E5B21FBDA374004270A4 /* TracksPlaylist */,
-				3EF5E5D31FBF0F8B004270A4 /* GroupingPlaylists */,
-				3E0DF1BE2431BAFC0096C2A1 /* ChaptersList */,
-				3E850D5A1FB44DD30017CD02 /* Search */,
-				3E850D551FB444D20017CD02 /* Sort */,
-			);
-			name = Playlist;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3E85F24D1EFA78D6007BE830 = {
 			isa = PBXGroup;
 			children = (
-				3E85F2581EFA78D6007BE830 /* Aural */,
+				3E85F2581EFA78D6007BE830 /* Source */,
 				3E72FCC41F2C0A780020FD20 /* Documentation */,
 				3E85F2571EFA78D6007BE830 /* Products */,
 				3E821AEC1F953253006F8E97 /* Resources */,
@@ -1853,71 +2034,34 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3E85F2581EFA78D6007BE830 /* Aural */ = {
+		3E85F2581EFA78D6007BE830 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3ED526501F3003A800001A97 /* ObjectGraph.swift */,
 				3E3C20A71F0A697800AF5A62 /* AppConstants.swift */,
 				3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */,
-				3EA262671F0EFD9600D9BCD9 /* UI */,
-				3E23F2C322A6E5E600A48C8C /* MediaKeyHandling */,
-				3E98477F1F5CF0E6001A2D28 /* Playlist */,
-				3E2D9E411F662B8D0020B99E /* Playback */,
-				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
-				3E2D9E421F662BB90020B99E /* Recorder */,
-				3E6D0F7E21C1C80400640450 /* TranscodingAndMuxing */,
-				3E06C0281FB6B105003EE9AB /* History */,
-				3E3FB7F1215B56FD00974A59 /* Favorites */,
-				3E5F00C4215397D700A76C23 /* Bookmarks */,
-				3EA29AD61F0B473600DA239E /* Messaging */,
-				3ED2AF201F00E8B7000F702C /* AppState */,
-				3E2D9E431F664B860020B99E /* Preferences */,
-				3EFFE6BC1F0373B7003728BD /* IO */,
-				3EB20B4F1EFF2C5F008138A4 /* Utils */,
-				3E6F673721E19B86002219E6 /* Testing */,
-				3E33C11A242F10D0005A062B /* ExperimentalCode */,
+				3E50AD952461370C00B31339 /* UI */,
+				3E50ADA22461399A00B31339 /* Playlist */,
+				3E50ADA3246139B000B31339 /* Playback */,
+				3E50ADA624613A0300B31339 /* TranscodingAndMuxing */,
+				3E50ADA4246139CB00B31339 /* AudioGraph */,
+				3E50ADA5246139F300B31339 /* Recorder */,
+				3E50ADA724613A1A00B31339 /* History */,
+				3E50ADA824613A2E00B31339 /* Favorites */,
+				3E50ADA924613A5B00B31339 /* Bookmarks */,
+				3E50ADAA24613A6E00B31339 /* Messaging */,
+				3E50ADA12461398500B31339 /* MediaKeyHandling */,
+				3E50ADAB24613A8F00B31339 /* AppState */,
+				3E50ADAC24613AAE00B31339 /* Preferences */,
+				3E50ADAD24613AC100B31339 /* IO */,
+				3E50ADAE24613AD500B31339 /* Utils */,
+				3E50ADAF24613B0400B31339 /* UnusedCode */,
 				3E85F25B1EFA78D6007BE830 /* Assets.xcassets */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
 				3E33C121242FC501005A062B /* Release Notes.md */,
 			);
-			path = Aural;
-			sourceTree = "<group>";
-		};
-		3E94E85E2154CA0C00C57AD8 /* WindowManagement */ = {
-			isa = PBXGroup;
-			children = (
-				3EF08DCA2156D65D000C7F11 /* WindowManagerProtocol.swift */,
-				3E94E8612154D69000C57AD8 /* WindowManager.swift */,
-				3EDA8F2524602C13000715C8 /* WindowLayout.swift */,
-				3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */,
-				3EDA8F2724602C3D000715C8 /* WindowLayoutPresets.swift */,
-				3E69CC3D2449752100117EFA /* ModalComponentProtocols.swift */,
-			);
-			name = WindowManagement;
-			sourceTree = "<group>";
-		};
-		3E98477F1F5CF0E6001A2D28 /* Playlist */ = {
-			isa = PBXGroup;
-			children = (
-				3E44DDC91FD8A6C000C6566C /* Delegates */,
-				3E97967C1F00286200690DA2 /* Track.swift */,
-				3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */,
-				3E221FB71F98530700DA3AD8 /* Group.swift */,
-				3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */,
-				3E1D93511F626BF9008AC59E /* Playlist.swift */,
-				3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */,
-				3E357B531F9C7DFB00C8F7B1 /* FlatPlaylist.swift */,
-				3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */,
-				3E221FB91F98541100DA3AD8 /* GroupingPlaylist.swift */,
-				3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */,
-				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
-				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
-				3E3BAF231F274771008F090E /* Sort.swift */,
-				3EF6A0011FA313120050F0D2 /* SortComparator.swift */,
-				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
-			);
-			name = Playlist;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		3EA19C1F1FC16A210072929E /* Controls */ = {
@@ -1927,33 +2071,7 @@
 				3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */,
 			);
 			name = Controls;
-			sourceTree = "<group>";
-		};
-		3EA262671F0EFD9600D9BCD9 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				3E5FA43F1EFFF039001669C5 /* Views */,
-				3EB2F1FE1FB311760031B6C1 /* Fonts.swift */,
-				3E58CC261F025B0D00C36DC1 /* Colors.swift */,
-				3EB2F2001FB311FB0031B6C1 /* Images.swift */,
-				3EF5E5CD1FBE843D004270A4 /* Strings.swift */,
-				3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */,
-				3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */,
-				3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */,
-			);
-			name = UI;
-			sourceTree = "<group>";
-		};
-		3EA29AD61F0B473600DA239E /* Messaging */ = {
-			isa = PBXGroup;
-			children = (
-				3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */,
-				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
-				3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */,
-				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
-				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
-			);
-			name = Messaging;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EA2F8F321CF6D4F007D0264 /* Metadata */ = {
@@ -1966,6 +2084,7 @@
 				3ECD17451F6BBF0F00492F56 /* Parsers */,
 			);
 			name = Metadata;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3EB1700A2173F59E00B82D3A /* DelayedPlayback */ = {
@@ -1975,6 +2094,7 @@
 				3EB1700D2173F5DA00B82D3A /* DelayedPlaybackEditorWindowController.swift */,
 			);
 			name = DelayedPlayback;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EB1701121748D9600B82D3A /* JumpToTime */ = {
@@ -1984,33 +2104,7 @@
 				3EB1701421748ED200B82D3A /* JumpToTimeEditorWindowController.swift */,
 			);
 			name = JumpToTime;
-			sourceTree = "<group>";
-		};
-		3EB20B4F1EFF2C5F008138A4 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				3EA2F8F321CF6D4F007D0264 /* Metadata */,
-				3E6D0F8321C1D42A00640450 /* FFMpeg */,
-				3E45CC4621C5BABD005D9F19 /* CommandExecutor.swift */,
-				3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */,
-				3E7CD3FB215B497800DBD249 /* DataStructures */,
-				3E80E66E1F04FA60007480CC /* Size.swift */,
-				3E80E6711F04FA7C007480CC /* SizeUnit.swift */,
-				3E76D9BD1F0F6B2B007FF3F8 /* Concurrency */,
-				3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */,
-				3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */,
-				3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */,
-				3EDBF76E1F0339B60088574B /* Testing */,
-				3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */,
-				3E9871A11F418CB1009AE9E6 /* UIUtils.swift */,
-				3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */,
-				3EBA52F61FC2E6A2007F902F /* StateMachine.swift */,
-				3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */,
-				3EB1700F21748B7600B82D3A /* TimeIntervalFormatter.swift */,
-				3ED4257721E7EB4B00E202AB /* JSONWriter.swift */,
-				3ED4257921E803E000E202AB /* HTMLWriter.swift */,
-			);
-			name = Utils;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylist */ = {
@@ -2037,6 +2131,7 @@
 				3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */,
 			);
 			name = TabView;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EBD557B21590B8300286439 /* Master */ = {
@@ -2047,6 +2142,7 @@
 				3EF609B2219307DD007AB34D /* MasterView.swift */,
 			);
 			name = Master;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3ECD17451F6BBF0F00492F56 /* Parsers */ = {
@@ -2071,20 +2167,6 @@
 			name = Parsers;
 			sourceTree = "<group>";
 		};
-		3ED2AF201F00E8B7000F702C /* AppState */ = {
-			isa = PBXGroup;
-			children = (
-				3EB20B4A1EFF25EC008138A4 /* AppState.swift */,
-				3EB5784C244E4A7D002D1F87 /* UIState.swift */,
-				3EB5784E244E4B8C002D1F87 /* AudioGraphState.swift */,
-				3ECE72CC219D5D2B00419F5F /* Mapper.swift */,
-				3EB57850244E4C8D002D1F87 /* ColorSchemesState.swift */,
-				3EE7D724244EC8D1005D76FA /* ColorState.swift */,
-				3EE7D71E244EADEB005D76FA /* PlaylistState.swift */,
-			);
-			name = AppState;
-			sourceTree = "<group>";
-		};
 		3EDBF76E1F0339B60088574B /* Testing */ = {
 			isa = PBXGroup;
 			children = (
@@ -2092,6 +2174,7 @@
 				3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */,
 			);
 			name = Testing;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3EDD4CD52194154500C15D5A /* Delegate */ = {
@@ -2109,39 +2192,7 @@
 				3E7DCBDE2197709500C6D6D3 /* FilterUnitDelegate.swift */,
 			);
 			name = Delegate;
-			sourceTree = "<group>";
-		};
-		3EDDF6AA1FB4FF3700DF2E9A /* MainWindow */ = {
-			isa = PBXGroup;
-			children = (
-				3EDDF6AB1FB4FF5100DF2E9A /* MainWindow.xib */,
-				3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */,
-				3EB499F3244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift */,
-				3ECF12F5245784A6007209BC /* ColorSchemePopupMenuController.swift */,
-				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
-				3EF86046245DAB470067583A /* SettingsPopupMenuController.swift */,
-			);
-			name = MainWindow;
-			sourceTree = "<group>";
-		};
-		3EDDF6B11FB54B1600DF2E9A /* Menus */ = {
-			isa = PBXGroup;
-			children = (
-				3E85F25D1EFA78D6007BE830 /* MainMenu.xib */,
-				3E9847831F5CF3F6001A2D28 /* AuralMenuController.swift */,
-				3E06C0261FB6B0BF003EE9AB /* HistoryMenuControllers.swift */,
-				3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */,
-				3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */,
-				3E850D581FB446940017CD02 /* PlaylistMenuController.swift */,
-				3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */,
-				3EB029131FB58CEC00A2D920 /* SoundMenuController.swift */,
-				3EDDF6A81FB4FAA600DF2E9A /* ViewMenuController.swift */,
-				3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */,
-				3E9847811F5CF23D001A2D28 /* HelpMenuController.swift */,
-				3EB029111FB55EEF00A2D920 /* DockMenuController.swift */,
-				3ECF12F724578E95007209BC /* TextSizeMenuController.swift */,
-			);
-			name = Menus;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3EE09326245C60240045F8A3 /* Domain */ = {
@@ -2168,6 +2219,7 @@
 				3E3F82831FCD4C9100DC9D11 /* BarMode */,
 			);
 			name = Modes;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3EE4D43C21D6E2CA000110FC /* Alerts */ = {
@@ -2178,6 +2230,7 @@
 				3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */,
 			);
 			name = Alerts;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EE7D727244EDAC8005D76FA /* General */ = {
@@ -2215,6 +2268,7 @@
 				3EF1847B217C8F6C00D24F39 /* Spectrogram.swift */,
 			);
 			name = Visualizer;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3EF4F8691F2079B200C45840 /* DetailedTrackInfo */ = {
@@ -2230,6 +2284,7 @@
 				3E2188A51F0767290085BAB3 /* DetailedTrackInfoRowView.swift */,
 			);
 			name = DetailedTrackInfo;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EF4F86B1F2079F000C45840 /* Sliders */ = {
@@ -2242,6 +2297,7 @@
 				3EC7E8AE217B300D00F21695 /* EffectsUnitSliderCellProtocol.swift */,
 			);
 			name = Sliders;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EF5E5B21FBDA374004270A4 /* TracksPlaylist */ = {
@@ -2253,6 +2309,7 @@
 				3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */,
 			);
 			name = TracksPlaylist;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EF5E5B51FBDAEA1004270A4 /* Artists */ = {
@@ -2293,6 +2350,7 @@
 				3EF5E5BF1FBDB622004270A4 /* Genres */,
 			);
 			name = GroupingPlaylists;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		3EF62FEF244C424E00AD7172 /* ColorSchemes */ = {
@@ -2310,19 +2368,6 @@
 				3E7D4D89244FF6F6008BEEE1 /* Effects */,
 			);
 			path = ColorSchemes;
-			sourceTree = "<group>";
-		};
-		3EFFE6BC1F0373B7003728BD /* IO */ = {
-			isa = PBXGroup;
-			children = (
-				3E3D48991F464BEC004C0F91 /* Errors */,
-				3EB20B481EFF230C008138A4 /* AppStateIO.swift */,
-				3EFFE6B81F036E81003728BD /* PlaylistIO.swift */,
-				3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */,
-				3EFFE6BA1F0372B3003728BD /* TrackIO.swift */,
-				3E4E599C1F74ED8400C18182 /* AudioIO.swift */,
-			);
-			name = IO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
