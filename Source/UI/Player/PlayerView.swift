@@ -361,7 +361,6 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     private func autoHideInfo_show() {
-        
         infoBox.showIf_elseHide(player.state.playingOrPaused())
     }
     
