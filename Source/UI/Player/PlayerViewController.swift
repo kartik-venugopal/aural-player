@@ -13,7 +13,6 @@
  */
 import Cocoa
 
-// TODO: Merge this with TrackInfoViewController
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playerView: NSView!
@@ -33,15 +32,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     override func viewDidLoad() {
         
-        playerView.addSubview(defaultView)
-        playerView.addSubview(expandedArtView)
-        
-        self.view.addSubview(playerView)
-        self.view.addSubview(transcoderView)
+        playerView.addSubviews(defaultView, expandedArtView)
+        self.view.addSubviews(playerView, transcoderView)
         
         defaultView.setFrameOrigin(NSPoint.zero)
         expandedArtView.setFrameOrigin(NSPoint.zero)
-        transcoderView.setFrameOrigin(NSPoint.zero)
+        transcoderView.setFrameOrigin(NSPoint(x: 0, y: 10))
         
         textSizeables = [defaultView, expandedArtView, transcoderView, controlsView]
         changeTextSize()
