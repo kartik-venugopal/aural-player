@@ -8,11 +8,9 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
         Colors.windowBackgroundColor.setFill()
         cellPath.fill()
         
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.Playlist.chaptersListHeaderFont,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.Playlist.summaryInfoColor]
-        
-        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        let attrsDict: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: Fonts.Playlist.chaptersListHeaderFont,
+            NSAttributedString.Key.foregroundColor: Colors.Playlist.summaryInfoColor]
         
         let size: CGSize = stringValue.size(withAttributes: attrsDict)
         
@@ -44,15 +42,4 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
         let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)
         stringValue.draw(in: rect, withAttributes: attrsDict)
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-    return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-    guard let input = input else { return nil }
-    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

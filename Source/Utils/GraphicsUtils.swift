@@ -53,12 +53,11 @@ class GraphicsUtils {
     // Draws text, centered, within an NSRect, with a certain font and color
     static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont, _ offset: CGFloat = 0) {
         
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
+        let attrsDict: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: textColor]
         
         // Compute size and origin
-        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
         let size: CGSize = text.size(withAttributes: attrsDict)
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 1
@@ -69,21 +68,8 @@ class GraphicsUtils {
     // Draws text, centered, within an NSRect, with a certain font and color
     static func drawTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
         
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
-        
-        text.draw(in: rect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        text.draw(in: rect, withAttributes: [
+                            NSAttributedString.Key.font: font,
+                            NSAttributedString.Key.foregroundColor: textColor])
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
