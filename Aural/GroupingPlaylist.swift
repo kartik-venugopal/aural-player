@@ -57,7 +57,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     // Assumes group exists in groups array
     func indexOfGroup(_ group: Group) -> Int {
-        return groups.index(of: group)!
+        return groups.firstIndex(of: group)!
     }
     
     func groupingInfoForTrack(_ track: Track) -> GroupedTrack? {
@@ -193,7 +193,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         } else {
             
             // Group exists, get its index
-            groupIndex = self.groups.index(of: group!)!
+            groupIndex = self.groups.firstIndex(of: group!)!
         }
             
             // Add the track to the group
