@@ -259,29 +259,17 @@ class StringUtils {
     // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label) 
     static func numberOfLines(_ text: String, _ font: NSFont, _ lineWidth: CGFloat) -> Int {
         
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
-        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        let size: CGSize = text.size(withAttributes: [NSAttributedString.Key.font: font])
         
         return Int(ceil(size.width / lineWidth))
     }
     
     static func sizeOfString(_ text: String, _ font: NSFont) -> CGSize {
-        
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
-        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
-        
-        return size
+        return text.size(withAttributes: [NSAttributedString.Key.font: font])
     }
     
     static func widthOfString(_ text: String, _ font: NSFont) -> CGFloat {
-        
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
-        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
-        
-        return size.width
+        return text.size(withAttributes: [NSAttributedString.Key.font: font]).width
     }
     
     static func truncate(_ text: String, _ font: NSFont, _ maxWidth: CGFloat) -> String {
@@ -309,25 +297,16 @@ class StringUtils {
     }
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
-}
-
 extension String {
     
     subscript (index: Int) -> Character {
+        
         let charIndex = self.index(self.startIndex, offsetBy: index)
         return self[charIndex]
     }
     
     func substring(range: Range<Int>) -> String {
+        
         let startIndex = self.index(self.startIndex, offsetBy: range.startIndex)
         let stopIndex = self.index(self.startIndex, offsetBy: range.startIndex + range.count)
         return String(self[startIndex..<stopIndex])
