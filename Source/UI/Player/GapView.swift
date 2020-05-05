@@ -28,10 +28,9 @@ class GapView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
-    func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+    func gapStarted(_ track: Track, _ gapEndTime: Date) {
         
-        let track = msg.nextTrack.track
-        endTime = msg.gapEndTime
+        endTime = gapEndTime
         
         lblTrackName.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
         updateCountdown()

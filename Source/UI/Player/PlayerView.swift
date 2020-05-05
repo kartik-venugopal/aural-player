@@ -28,6 +28,8 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         gapView.showView(playbackState)
         
         playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
+        
+        self.show()
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -46,13 +48,13 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     func hideView() {
         
+        self.hide()
+        
         controlsBox.removeFromSuperview()
         functionsBox.removeFromSuperview()
     }
     
     func showOrHidePlayingTrackInfo() {
-        
-        PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
         infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
     }
     
@@ -65,38 +67,26 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func showOrHideAlbumArt() {
-        
-        PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
     }
     
     func showOrHideArtist() {
-        
-        PlayerViewState.showArtist = !PlayerViewState.showArtist
         infoView.metadataDisplaySettingsChanged()
     }
     
     func showOrHideAlbum() {
-        
-        PlayerViewState.showAlbum = !PlayerViewState.showAlbum
         infoView.metadataDisplaySettingsChanged()
     }
     
     func showOrHideCurrentChapter() {
-        
-        PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
         infoView.metadataDisplaySettingsChanged()
     }
     
     func showOrHidePlayingTrackFunctions() {
-        
-        PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
         functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
     }
     
     func showOrHideMainControls() {
-        
-        PlayerViewState.showControls = !PlayerViewState.showControls
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
     }
     
@@ -144,14 +134,13 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
 //        infoView.sequenceChanged(sequence)
     }
     
-    func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+    func gapStarted(_ track: Track, _ gapEndTime: Date) {
         
         showGapInfo()
         
-        let track = msg.nextTrack.track
         artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
         
-        gapView.gapStarted(msg)
+        gapView.gapStarted(track, gapEndTime)
     }
     
     fileprivate func showGapInfo() {
@@ -435,9 +424,9 @@ class ExpandedArtPlayerView: PlayerView {
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
     }
     
-    override func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+    override func gapStarted(_ track: Track, _ gapEndTime: Date) {
 
         centerOverlayBox.show()
-        super.gapStarted(msg)
+        super.gapStarted(track, gapEndTime)
     }
 }

@@ -38,15 +38,15 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .trackChangedNotification, .chapterChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
-    private func changeView(_ message: PlayerViewActionMessage) {
+    private func changeView(_ viewType: PlayerViewType) {
         
         // If this view is already the current view, do nothing
-        if PlayerViewState.viewType == message.viewType {return}
-        
-        showView(message.viewType)
+        if PlayerViewState.viewType != viewType {
+            showView(viewType)
+        }
     }
     
     private func showView(_ viewType: PlayerViewType) {
@@ -75,35 +75,35 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         
         PlayerViewState.viewType = .defaultView
         
-        expandedArtView.hide()
         expandedArtView.hideView()
-
         defaultView.showView(player.state)
-        defaultView.show()
     }
     
     private func showExpandedArtView() {
         
         PlayerViewState.viewType = .expandedArt
         
-        defaultView.hide()
         defaultView.hideView()
-        
         expandedArtView.showView(player.state)
-        expandedArtView.show()
     }
     
     private func showOrHidePlayingTrackInfo() {
+        
+        PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
         
         theView.showOrHidePlayingTrackInfo()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideSequenceInfo() {
+        
+        PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
         theView.showOrHideSequenceInfo()
     }
     
     private func showOrHidePlayingTrackFunctions() {
+        
+        PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
         
         theView.showOrHidePlayingTrackFunctions()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
@@ -111,11 +111,15 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     
     private func showOrHideAlbumArt() {
         
+        PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
+        
         theView.showOrHideAlbumArt()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideArtist() {
+        
+        PlayerViewState.showArtist = !PlayerViewState.showArtist
         
         theView.showOrHideArtist()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
@@ -123,11 +127,15 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     
     private func showOrHideAlbum() {
         
+        PlayerViewState.showAlbum = !PlayerViewState.showAlbum
+        
         theView.showOrHideAlbum()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideCurrentChapter() {
+        
+        PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
         
         theView.showOrHideCurrentChapter()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
@@ -135,23 +143,33 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     
     private func showOrHideMainControls() {
         
+        PlayerViewState.showControls = !PlayerViewState.showControls
+        
         theView.showOrHideMainControls()
         theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        
+        PlayerViewState.timeElapsedDisplayType = format
         controlsView.setTimeElapsedDisplayFormat(format)
     }
     
     private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        
+        PlayerViewState.timeRemainingDisplayType = format
         controlsView.setTimeRemainingDisplayFormat(format)
     }
     
     private func showOrHideTimeElapsedRemaining() {
+        
+        PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
         controlsView.showOrHideTimeElapsedRemaining()
     }
     
     private func sequenceChanged() {
+        
+        PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
         
         theView.sequenceChanged(player.sequenceInfo)
         controlsView.sequenceChanged()
@@ -215,7 +233,7 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        theView.gapStarted(msg)
+        theView.gapStarted(msg.nextTrack.track, msg.gapEndTime)
     }
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
@@ -237,8 +255,8 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
             
         case .changePlayerView:
             
-            if let changeViewMsg = message as? PlayerViewActionMessage {
-                changeView(changeViewMsg)
+            if let viewType = (message as? PlayerViewActionMessage)?.viewType {
+                changeView(viewType)
             }
             
         case .showOrHidePlayingTrackInfo:
@@ -275,11 +293,15 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
             
         case .setTimeElapsedDisplayFormat:
             
-            setTimeElapsedDisplayFormat((message as! SetTimeElapsedDisplayFormatActionMessage).format)
+            if let format = (message as? SetTimeElapsedDisplayFormatActionMessage)?.format {
+                setTimeElapsedDisplayFormat(format)
+            }
             
         case .setTimeRemainingDisplayFormat:
             
-            setTimeRemainingDisplayFormat((message as! SetTimeRemainingDisplayFormatActionMessage).format)
+            if let format = (message as? SetTimeRemainingDisplayFormatActionMessage)?.format {
+                setTimeRemainingDisplayFormat(format)
+            }
             
         case .showOrHideTimeElapsedRemaining:
             

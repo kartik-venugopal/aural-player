@@ -46,6 +46,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
+        
         player.seekToPercentage(controlsView.seekSliderValue)
         controlsView.updateSeekPosition()
     }
