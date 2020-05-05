@@ -1,7 +1,7 @@
 import Cocoa
 
 @IBDesignable
-class PlayerView: NSView {
+class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!
@@ -158,9 +158,9 @@ class PlayerView: NSView {
         
         gapBox.coLocate(infoBox)
         gapBox.show()
-        hideViews(infoBox, functionsBox)
+        NSView.hideViews(infoBox, functionsBox)
         
-        bringViewToFront(gapBox)
+        gapBox.bringToFront()
     }
     
     fileprivate func showPlayingTrackInfo() {
@@ -182,10 +182,18 @@ class PlayerView: NSView {
         otherView.artView.image = artView.image
     }
     
-    func changeTextSize() {
+    func changeTextSize(_ size: TextSize) {
         
-        infoView.changeTextSize()
-        gapView.changeTextSize()
+        infoView.changeTextSize(size)
+        gapView.changeTextSize(size)
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        
+        infoView.applyColorScheme(scheme)
+        gapView.applyColorScheme(scheme)
     }
     
     func changeBackgroundColor(_ color: NSColor) {
@@ -196,7 +204,8 @@ class PlayerView: NSView {
             $0?.isTransparent = !color.isOpaque
         })
         
-        artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
+        // The art view's shadow color will depend on the window background color (it needs to have contrast relative to it).
+        artView.layer?.shadowColor = color.visibleShadowColor.cgColor
     }
     
     func changePrimaryTextColor(_ color: NSColor) {
@@ -310,10 +319,10 @@ class ExpandedArtPlayerView: PlayerView {
         
         moveInfoBoxTo(infoBoxDefaultPosition)
         
-        hideViews(controlsBox, overlayBox)
+        NSView.hideViews(controlsBox, overlayBox)
         centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
         
-        makeTransparent(gapBox)
+        gapBox.makeTransparent()
         
         let windowColor = Colors.windowBackgroundColor
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
@@ -357,17 +366,17 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     private func autoHideInfo_hide() {
-        hideViews(infoBox, centerOverlayBox)
+        NSView.hideViews(infoBox, centerOverlayBox)
     }
     
     private func autoHideControls_show() {
         
         // Show controls
-        showViews(controlsBox, overlayBox)
+        NSView.showViews(controlsBox, overlayBox)
         centerOverlayBox.hide()
         
-        makeTransparent(controlsBox)
-        [infoBox, controlsBox, functionsBox, gapBox].forEach({bringViewToFront($0)})
+        controlsBox.makeTransparent()
+        [infoBox, controlsBox, functionsBox, gapBox].forEach({$0?.bringToFront()})
         
         // Re-position the info box, art view, and functions box
         moveInfoBoxTo(infoBoxTopPosition)
@@ -377,10 +386,10 @@ class ExpandedArtPlayerView: PlayerView {
     private func autoHideControls_hide() {
         
         // Hide controls
-        hideViews(overlayBox, controlsBox)
+        NSView.hideViews(overlayBox, controlsBox)
         centerOverlayBox.show()
         
-        makeOpaque(controlsBox)
+        controlsBox.makeOpaque()
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         // Show info box as overlay temporarily
@@ -399,7 +408,7 @@ class ExpandedArtPlayerView: PlayerView {
         }
         
         // Need to hide info box because it is opaque and will obscure art
-        hideViews(infoBox, centerOverlayBox)
+        NSView.hideViews(infoBox, centerOverlayBox)
         artView.image = Images.imgPlayingArt
     }
     
@@ -432,27 +441,4 @@ class ExpandedArtPlayerView: PlayerView {
         centerOverlayBox.show()
         super.gapStarted(msg)
     }
-}
-
-fileprivate func showViews(_ views: NSView...) {
-    views.forEach({$0.show()})
-}
-
-fileprivate func hideViews(_ views: NSView...) {
-    views.forEach({$0.hide()})
-}
-
-fileprivate func makeTransparent(_ boxes: NSBox...) {
-    boxes.forEach({$0.isTransparent = true})
-}
-
-fileprivate func makeOpaque(_ boxes: NSBox...) {
-    boxes.forEach({$0.isTransparent = false})
-}
-
-fileprivate func bringViewToFront(_ aView: NSView) {
-    
-    let superView = aView.superview
-    aView.removeFromSuperview()
-    superView?.addSubview(aView, positioned: .above, relativeTo: nil)
 }

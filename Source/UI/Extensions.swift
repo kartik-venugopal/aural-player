@@ -9,6 +9,97 @@ extension NSView {
     var height: CGFloat {
         return self.frame.height
     }
+    
+    var isShown: Bool {
+        return !isHidden
+    }
+    
+    func hide() {
+        self.isHidden = true
+    }
+    
+    func show() {
+        self.isHidden = false
+    }
+    
+    func hideIf_elseShow(_ condition: Bool) {
+        self.isHidden = condition
+    }
+    
+    func showIf_elseHide(_ condition: Bool) {
+        self.isHidden = !condition
+    }
+    
+    func hideIf(_ condition: Bool) {
+        if condition {hide()}
+    }
+
+    func showIf(_ condition: Bool) {
+        if condition {show()}
+    }
+    
+    var isVisible: Bool {
+        
+        var curView: NSView? = self
+        while curView != nil {
+            
+            if curView!.isHidden {return false}
+            curView = curView!.superview
+        }
+        
+        return true
+    }
+    
+    func coLocate(_ other: NSView) {
+        self.frame.origin = other.frame.origin
+    }
+    
+    func redraw() {
+        self.setNeedsDisplay(self.bounds)
+    }
+    
+    func addSubviews(_ subViews: NSView...) {
+        subViews.forEach({self.addSubview($0)})
+    }
+    
+    func positionAtZeroPoint() {
+        self.setFrameOrigin(NSPoint.zero)
+    }
+    
+    func bringToFront() {
+        
+        self.removeFromSuperview()
+        self.superview?.addSubview(self, positioned: .above, relativeTo: nil)
+    }
+    
+    // MARK - Static functions
+    
+    static func showViews(_ views: NSView...) {
+        views.forEach({$0.show()})
+    }
+
+    static func hideViews(_ views: NSView...) {
+        views.forEach({$0.hide()})
+    }
+}
+
+extension NSBox {
+    
+    func makeTransparent() {
+        self.isTransparent = true
+    }
+    
+    func makeOpaque() {
+        self.isTransparent = false
+    }
+    
+    static func makeTransparent(_ boxes: NSBox...) {
+        boxes.forEach({$0.isTransparent = true})
+    }
+
+    fileprivate func makeOpaque(_ boxes: NSBox...) {
+        boxes.forEach({$0.isTransparent = false})
+    }
 }
 
 extension NSButton {
@@ -137,65 +228,6 @@ extension NSMenuItem {
     
     func disableIf(_ condition: Bool) {
         self.isEnabled = !condition
-    }
-}
-
-extension NSView {
-    
-    var isShown: Bool {
-        return !isHidden
-    }
-    
-    func hide() {
-        self.isHidden = true
-    }
-    
-    func show() {
-        self.isHidden = false
-    }
-    
-    func hideIf_elseShow(_ condition: Bool) {
-        self.isHidden = condition
-    }
-    
-    func showIf_elseHide(_ condition: Bool) {
-        self.isHidden = !condition
-    }
-    
-    func hideIf(_ condition: Bool) {
-        if condition {hide()}
-    }
-
-    func showIf(_ condition: Bool) {
-        if condition {show()}
-    }
-    
-    var isVisible: Bool {
-        
-        var curView: NSView? = self
-        while curView != nil {
-            
-            if curView!.isHidden {return false}
-            curView = curView!.superview
-        }
-        
-        return true
-    }
-    
-    func coLocate(_ other: NSView) {
-        self.frame.origin = other.frame.origin
-    }
-    
-    func redraw() {
-        self.setNeedsDisplay(self.bounds)
-    }
-    
-    func addSubviews(_ subViews: NSView...) {
-        subViews.forEach({self.addSubview($0)})
-    }
-    
-    func positionAtZeroPoint() {
-        self.setFrameOrigin(NSPoint.zero)
     }
 }
 

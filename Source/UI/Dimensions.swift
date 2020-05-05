@@ -28,3 +28,10 @@ enum TextSize: String {
     case larger
     case largest
 }
+
+// A contract for any UI component whose text size can be altered.
+protocol TextSizeable {
+    
+    // Change the text font size of this component to the given size.
+    func changeTextSize(_ size: TextSize)
+}

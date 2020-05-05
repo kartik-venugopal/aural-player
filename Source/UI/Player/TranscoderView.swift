@@ -1,6 +1,6 @@
 import Cocoa
 
-class TranscoderView: NSView {
+class TranscoderView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var lblTrack: NSTextField!
     @IBOutlet weak var transcodingIcon: TintedImageView!
@@ -48,6 +48,24 @@ class TranscoderView: NSView {
     }
     
     func transcodingFinished() {
+    }
+    
+    func changeTextSize(_ size: TextSize) {
+        // TODO
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeBackgroundColor(scheme.general.backgroundColor)
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        changeTextButtonColor()
+        
+        changePrimaryTextColor()
+        changeSecondaryTextColor()
+        changeTertiaryTextColor()
+        
+        changeSliderColors()
+        changeSliderValueTextColor()
     }
     
     func changeBackgroundColor(_ color: NSColor) {

@@ -1,6 +1,6 @@
 import Cocoa
 
-class GapView: NSView {
+class GapView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
@@ -57,10 +57,14 @@ class GapView: NSView {
         }
     }
     
-    func changeTextSize() {
+    func changeTextSize(_ size: TextSize) {
         
         lblTrackName.font = Fonts.Player.gapBoxTitleFont
         lblTimeRemaining.font = Fonts.Player.gapBoxTitleFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        changeTextColor()
     }
     
     func changeTextColor() {

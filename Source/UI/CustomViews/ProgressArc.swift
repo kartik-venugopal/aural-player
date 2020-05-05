@@ -78,21 +78,13 @@ class ProgressArc: NSView {
         
         let text = String(format: "%d %%", Int(round(percentage)))
         
-        let attrs: [String: AnyObject] = [
-            NSAttributedString.Key.font.rawValue: textFont,
-            NSAttributedString.Key.foregroundColor.rawValue: Colors.Player.transcoderArcProgressTextColor]
-        
-        let dict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
+        let dict: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: Colors.Player.transcoderArcProgressTextColor]
         
         let size: CGSize = text.size(withAttributes: dict)
         
         // Draw title (adjacent to image)
         text.draw(in: NSRect(x: (dirtyRect.width / 2) - (size.width / 2) + 2, y: (dirtyRect.height / 2) - (size.height / 2) + 2, width: size.width, height: size.height), withAttributes: dict)
     }
-}
-
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-    
-    guard let input = input else { return nil }
-    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

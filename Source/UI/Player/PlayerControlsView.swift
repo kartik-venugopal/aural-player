@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlayerControlsView: NSView {
+class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: VALabel!
@@ -125,7 +125,7 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        changeTextSize()
+//        changeTextSize()
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -408,7 +408,7 @@ class PlayerControlsView: NSView {
         }
     }
     
-    func changeTextSize() {
+    func changeTextSize(_ size: TextSize) {
         
         lblTimeElapsed.font = Fonts.Player.trackTimesFont
         lblTimeRemaining.font = Fonts.Player.trackTimesFont
@@ -418,6 +418,15 @@ class PlayerControlsView: NSView {
         
         lblPanCaption.font = Fonts.Player.feedbackFont
         lblPanCaption2.font = Fonts.Player.feedbackFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        // This call will also take care of toggle buttons
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        
+        changeSliderValueTextColor()
+        changeSliderColors()
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {

@@ -633,3 +633,10 @@ enum GradientType: String {
     case darken
     case brighten
 }
+
+// A contract for any UI component that marks it as being able to apply a color scheme to itself.
+protocol ColorSchemeable {
+    
+    // Apply the given color scheme to this component.
+    func applyColorScheme(_ scheme: ColorScheme)
+}
