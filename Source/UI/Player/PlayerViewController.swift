@@ -1,5 +1,15 @@
 /*
-    View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
+    View controller that handles the assembly of the player view tree from its multiple pieces, and handles general concerns for the view such as text size and color scheme changes.
+ 
+    The player view tree consists of:
+        
+        - Playing track info (track info, art, etc)
+            - Default view
+            - Expanded Art view
+ 
+        - Transcoder info (when a track is being transcoded)
+ 
+        - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)
  */
 import Cocoa
 
@@ -7,21 +17,19 @@ import Cocoa
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playerView: NSView!
-    
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
+    
+    @IBOutlet weak var controlsView: PlayerControlsView!
+    
     @IBOutlet weak var transcoderView: TranscoderView!
     
-    private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.mainWindowMouseTrackingView
+    @IBOutlet weak var playingTrackFunctionsView: PlayingTrackFunctionsView!
     
-    // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    private var colorSchemeables: [ColorSchemeable] = []
+    private var textSizeables: [TextSizeable] = []
     
     override var nibName: String? {return "Player"}
-    
-    private var theView: PlayerView {
-        return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
-    }
     
     override func viewDidLoad() {
         
@@ -35,139 +43,26 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.setFrameOrigin(NSPoint.zero)
         transcoderView.setFrameOrigin(NSPoint.zero)
         
+        textSizeables = [defaultView, expandedArtView, transcoderView, controlsView]
         changeTextSize()
+        
+        colorSchemeables = [defaultView, expandedArtView, transcoderView, controlsView, playingTrackFunctionsView]
         applyColorScheme(ColorSchemes.systemScheme)
         
-        showView(PlayerViewState.viewType)
         initSubscriptions()
     }
     
     private func initSubscriptions() {
         
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView, .chapterChangedNotification], subscriber: self)
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor, .applyColorScheme], subscriber: self)
-    }
-    
-    private func changeView(_ message: PlayerViewActionMessage) {
-        
-        // If this view is already the current view, do nothing
-        if PlayerViewState.viewType == message.viewType {return}
-        
-        showView(message.viewType)
-    }
-    
-    private func showView(_ viewType: PlayerViewType) {
-        
-        PlayerViewState.viewType = viewType
-        
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-        
-        transcoderView.hide()
-        
-        switch viewType {
-            
-        case .defaultView:
-            
-            expandedArtView.handOff(defaultView)
-            showDefaultView()
-            
-        case .expandedArt:
-            
-            defaultView.handOff(expandedArtView)
-            showExpandedArtView()
-        }
-    }
-    
-    private func showDefaultView() {
-        
-        PlayerViewState.viewType = .defaultView
-        
-        expandedArtView.hide()
-        expandedArtView.hideView()
-
-        defaultView.showView(player.state)
-        defaultView.show()
-    }
-    
-    private func showExpandedArtView() {
-        
-        PlayerViewState.viewType = .expandedArt
-        
-        defaultView.hide()
-        defaultView.hideView()
-        
-        expandedArtView.showView(player.state)
-        expandedArtView.show()
-    }
-    
-    private func showOrHidePlayingTrackInfo() {
-        
-        theView.showOrHidePlayingTrackInfo()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideSequenceInfo() {
-        theView.showOrHideSequenceInfo()
-    }
-    
-    private func showOrHidePlayingTrackFunctions() {
-        
-        theView.showOrHidePlayingTrackFunctions()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideAlbumArt() {
-        
-        theView.showOrHideAlbumArt()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideArtist() {
-        
-        theView.showOrHideArtist()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideAlbum() {
-        
-        theView.showOrHideAlbum()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideCurrentChapter() {
-        
-        theView.showOrHideCurrentChapter()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    private func showOrHideMainControls() {
-        
-        theView.showOrHideMainControls()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-    }
-    
-    func mouseEntered() {
-        theView.mouseEntered()
-    }
-    
-    func mouseExited() {
-        theView.mouseExited()
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changePlayerTextSize, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderColors, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     func changeTextSize() {
-        
-        defaultView.changeTextSize()
-        expandedArtView.changeTextSize()
+        textSizeables.forEach({$0.changeTextSize(PlayerViewState.textSize)})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
-        
-        changeBackgroundColor(scheme.general.backgroundColor)
-        changePrimaryTextColor(scheme.player.trackInfoPrimaryTextColor)
-        changeSecondaryTextColor(scheme.player.trackInfoSecondaryTextColor)
-        changeTertiaryTextColor(scheme.player.trackInfoTertiaryTextColor)
+        colorSchemeables.forEach({$0.applyColorScheme(scheme)})
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -198,8 +93,37 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         transcoderView.changeTertiaryTextColor()
     }
     
-    private func chapterChanged(_ newChapter: IndexedChapter?) {
-        theView.chapterChanged(newChapter?.chapter.title)
+    private func changeFunctionButtonColor(_ color: NSColor) {
+        
+        controlsView.changeFunctionButtonColor(color)
+        transcoderView.changeFunctionButtonColor(color)
+        playingTrackFunctionsView.changeFunctionButtonColor(color)
+    }
+    
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
+
+        controlsView.changeToggleButtonOffStateColor(color)
+        playingTrackFunctionsView.changeToggleButtonOffStateColor(color)
+    }
+    
+    private func changeSliderValueTextColor(_ color: NSColor) {
+        
+        controlsView.changeSliderValueTextColor()
+        transcoderView.changeSliderValueTextColor()
+    }
+    
+    private func changeSliderColors() {
+        
+        controlsView.changeSliderColors()
+        transcoderView.changeSliderColors()
+    }
+    
+    private func changeTextButtonMenuColor() {
+        transcoderView.changeTextButtonColor()
+    }
+    
+    private func changeButtonMenuTextColor() {
+        transcoderView.changeButtonTextColor()
     }
     
     // MARK: Message handling
@@ -208,70 +132,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         return self.className
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .mouseEnteredView:
-            
-            mouseEntered()
-            
-        case .mouseExitedView:
-            
-            mouseExited()
-            
-        case .chapterChangedNotification:
-            
-            if let chapterChangedMsg = notification as? ChapterChangedNotification {
-                chapterChanged(chapterChangedMsg.newChapter)
-            }
-            
-        default: return
-            
-        }
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .changePlayerView:
-            
-            if let changeViewMsg = message as? PlayerViewActionMessage {
-                changeView(changeViewMsg)
-            }
-            
-        case .showOrHidePlayingTrackInfo:
-            
-            showOrHidePlayingTrackInfo()
-            
-        case .showOrHidePlayingTrackFunctions:
-            
-            showOrHidePlayingTrackFunctions()
-            
-        case .showOrHideAlbumArt:
-            
-            showOrHideAlbumArt()
-            
-        case .showOrHideArtist:
-            
-            showOrHideArtist()
-            
-        case .showOrHideAlbum:
-            
-            showOrHideAlbum()
-            
-        case .showOrHideCurrentChapter:
-            
-            showOrHideCurrentChapter()
-            
-        case .showOrHideMainControls:
-            
-            showOrHideMainControls()
-            
-        case .showOrHideSequenceInfo:
-            
-            showOrHideSequenceInfo()
             
         case .changePlayerTextSize:
             
@@ -304,6 +167,30 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 case .changePlayerTrackInfoTertiaryTextColor:
                     
                     changeTertiaryTextColor(colorSchemeMsg.color)
+                        
+                case .changeFunctionButtonColor:
+                    
+                    changeFunctionButtonColor(colorSchemeMsg.color)
+                    
+                case .changeToggleButtonOffStateColor:
+                    
+                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
+                    
+                case .changePlayerSliderValueTextColor:
+                    
+                    changeSliderValueTextColor(colorSchemeMsg.color)
+                    
+                case .changePlayerSliderColors:
+                    
+                    changeSliderColors()
+                    
+                case .changeTextButtonMenuColor:
+                    
+                    changeTextButtonMenuColor()
+                    
+                case .changeButtonMenuTextColor:
+                    
+                    changeButtonMenuTextColor()
                     
                 default: return
                     
@@ -311,7 +198,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             }
             
             return
-            
         }
     }
 }

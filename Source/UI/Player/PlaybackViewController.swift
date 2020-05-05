@@ -24,16 +24,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
-    override var nibName: String? {return "Player"}
-    
     override func viewDidLoad() {
 
         let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
         let rsModes = player.repeatAndShuffleModes
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
-        
-        applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
     }
@@ -45,7 +41,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderColors, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -403,14 +399,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         return controlsView.locationForBookmarkPrompt
     }
     
-    private func showOrHideTimeElapsedRemaining() {
-        controlsView.showOrHideTimeElapsedRemaining()
-    }
-    
-    private func sequenceChanged() {
-        controlsView.sequenceChanged()
-    }
-    
     private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
@@ -421,55 +409,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
 //        }
         
         alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
-    }
-    
-    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-        controlsView.setTimeElapsedDisplayFormat(format)
-    }
-    
-    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-        controlsView.setTimeRemainingDisplayFormat(format)
-    }
-    
-    private func changeTextSize() {
-        controlsView.changeTextSize()
-    }
-    
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        
-        changeFunctionButtonColor(scheme.general.functionButtonColor)
-        changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
-        changeSliderColors()
-        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
-    }
-    
-    private func changeFunctionButtonColor(_ color: NSColor) {
-        controlsView.changeFunctionButtonColor(color)
-        transcoderView.changeFunctionButtonColor(color)
-    }
-    
-    private func changeToggleButtonOffStateColor(_ color: NSColor) {
-        controlsView.changeToggleButtonOffStateColor(color)
-    }
-    
-    private func changeSliderValueTextColor(_ color: NSColor) {
-        
-        controlsView.changeSliderValueTextColor()
-        transcoderView.changeSliderValueTextColor()
-    }
-    
-    private func changeSliderColors() {
-        
-        controlsView.changeSliderColors()
-        transcoderView.changeSliderColors()
-    }
-    
-    private func changeTextButtonMenuColor() {
-        transcoderView.changeTextButtonColor()
-    }
-    
-    private func changeButtonMenuTextColor() {
-        transcoderView.changeButtonTextColor()
     }
     
     // MARK: Current chapter tracking
@@ -550,10 +489,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
-            
-        case .sequenceChangedNotification:
-            
-            sequenceChanged()
             
         default: return
             
@@ -649,58 +584,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .panLeft: panLeft()
             
         case .panRight: panRight()
-            
-        case .setTimeElapsedDisplayFormat:
-            
-            setTimeElapsedDisplayFormat((message as! SetTimeElapsedDisplayFormatActionMessage).format)
-            
-        case .setTimeRemainingDisplayFormat:
-            
-            setTimeRemainingDisplayFormat((message as! SetTimeRemainingDisplayFormatActionMessage).format)
-            
-        case .showOrHideTimeElapsedRemaining:
-            
-            showOrHideTimeElapsedRemaining()
-            
-        case .changePlayerTextSize:
-            
-            changeTextSize()
-            
-        case .applyColorScheme:
-            
-            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-                applyColorScheme(scheme)
-            }
-            
-        case .changeFunctionButtonColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeFunctionButtonColor(ctrlColor)
-            }
-            
-        case .changeToggleButtonOffStateColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeToggleButtonOffStateColor(ctrlColor)
-            }
-            
-        case .changePlayerSliderValueTextColor:
-            
-            if let txtColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeSliderValueTextColor(txtColor)
-            }
-            
-        case .changePlayerSliderColors:
-            
-            changeSliderColors()
-            
-        case .changeTextButtonMenuColor:
-            
-            changeTextButtonMenuColor()
-            
-        case .changeButtonMenuTextColor:
-            
-            changeButtonMenuTextColor()
             
         default: return
             

@@ -3,7 +3,7 @@ import Cocoa
 /*
     A view that displays info about the currently playing track in the player window.
  */
-class TrackInfoView: NSView {
+class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     
     // The text view that displays all the track info
     @IBOutlet weak var textView: NSTextView!
@@ -81,11 +81,15 @@ class TrackInfoView: NSView {
     }
     
     // Responds to a change in user-preferred text size
-    func changeTextSize() {
+    func changeTextSize(_ size: TextSize) {
         update()
     }
     
     // Responds to a change in user-defined color scheme
+    func applyColorScheme(_ scheme: ColorScheme) {
+        update()
+    }
+    
     func changeTextColor() {
         update()
     }

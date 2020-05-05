@@ -5,22 +5,18 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
     
-    // Button to show the currently playing track within the playlist
-    @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
-    
     // Button to add/remove the currently playing track to/from the Favorites list
     @IBOutlet weak var btnFavorite: OnOffImageButton!
     
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: TintedImageButton!
     
+    // Used to display the bookmark name prompt popover
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var seekSliderCell: SeekSliderCell!
-    
-    // Used to display the bookmark name prompt popover
     @IBOutlet weak var seekPositionMarker: NSView!
     
-    // Delegate that conveys all seek and playback info requests to the player
+    // Delegate that provides info about the playing track
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
@@ -38,17 +34,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     override func viewDidLoad() {
-        initSubscriptions()
-        applyColorScheme(ColorSchemes.systemScheme)
-    }
-    
-    private func initSubscriptions() {
         
         // Subscribe to various notifications
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -95,6 +86,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(BookmarkContext.bookmarkedTrackStartPosition!))
         
+        // TODO: Below code is duplicated twice
+        
         // Show popover
         let loc = locationForBookmarkPrompt
         
@@ -125,6 +118,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 let endTime = StringUtils.formatSecondsToHMS(loop.endTime!)
                 
                 BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, startTime, endTime)
+                
+                // TODO: Below code is duplicated twice
                 
                 // Show popover
                 let loc = locationForBookmarkPrompt
@@ -204,23 +199,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        
-        changeFunctionButtonColor(scheme.general.functionButtonColor)
-        changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
-    }
-    
-    private func changeFunctionButtonColor(_ color: NSColor) {
-        
-        [btnMoreInfo, btnFavorite, btnBookmark, btnShowPlayingTrackInPlaylist].forEach({
-            ($0 as? Tintable)?.reTint()
-        })
-    }
-    
-    private func changeToggleButtonOffStateColor(_ color: NSColor) {
-        btnFavorite.reTint()
-    }
-    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -263,24 +241,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         case .bookmarkPosition: bookmarkAction(self)
             
         case .bookmarkLoop: bookmarkLoop()
-            
-        case .applyColorScheme:
-            
-            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-                applyColorScheme(scheme)
-            }
-            
-        case .changeFunctionButtonColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeFunctionButtonColor(ctrlColor)
-            }
-            
-        case .changeToggleButtonOffStateColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeToggleButtonOffStateColor(ctrlColor)
-            }
 
         default: return
             
