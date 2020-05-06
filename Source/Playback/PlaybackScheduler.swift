@@ -88,6 +88,7 @@ class PlaybackScheduler {
         
         // Schedule a new segment from loopEnd -> trackEnd
         completionPollTimer?.stop()
+        completionPollTimer = nil
         
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
@@ -201,12 +202,15 @@ class PlaybackScheduler {
                     lastCompletedSession = session
                     
                     completionPollTimer?.stop()
+                    completionPollTimer = nil
                 }
             }
             
         } else {
+            
             // Theoretically impossible
             completionPollTimer?.stop()
+            completionPollTimer = nil
         }
     }
     
@@ -248,14 +252,17 @@ class PlaybackScheduler {
                 lastSeekPosn = loopEndTime
                 
                 if playerNode.isPlaying {
+                    
                     // Restart loop
                     playLoop(session, true)
                 }
             }
             
         } else {
+            
             // Theoretically impossible (no current session)
             completionPollTimer?.stop()
+            completionPollTimer = nil
         }
     }
     
@@ -286,6 +293,7 @@ class PlaybackScheduler {
         
         // Completion timer is no longer relevant for this playback session which has ended. The next session will spawn a new timer if/when needed.
         completionPollTimer?.stop()
+        completionPollTimer = nil
     }
     
     // Retrieves the current seek position, in seconds
