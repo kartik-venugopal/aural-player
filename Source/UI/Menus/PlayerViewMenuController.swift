@@ -150,11 +150,17 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     }
    
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
+        
+        if PlayerViewState.viewType != .defaultView {
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
+        }
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
+        
+        if PlayerViewState.viewType != .expandedArt {
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
+        }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {

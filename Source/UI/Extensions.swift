@@ -73,6 +73,13 @@ extension NSView {
         superView?.addSubview(self, positioned: .above, relativeTo: nil)
     }
     
+    func removeAllTrackingAreas() {
+        
+        for area in self.trackingAreas {
+            self.removeTrackingArea(area)
+        }
+    }
+    
     // MARK - Static functions
     
     static func showViews(_ views: NSView...) {
