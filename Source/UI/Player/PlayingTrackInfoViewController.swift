@@ -53,46 +53,31 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         
         PlayerViewState.viewType = viewType
         
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
-        
         transcoderView.hide()
-        
-        switch viewType {
-            
-        case .defaultView:
-            
-            expandedArtView.handOff(defaultView)
-            showDefaultView()
-            
-        case .expandedArt:
-            
-            defaultView.handOff(expandedArtView)
-            showExpandedArtView()
-        }
+        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        viewType == .defaultView ? showDefaultView() : showExpandedArtView()
     }
     
     private func showDefaultView() {
         
-        PlayerViewState.viewType = .defaultView
-        
+        expandedArtView.handOff(defaultView)
         expandedArtView.hideView()
+        
         defaultView.showView(player.state)
     }
     
     private func showExpandedArtView() {
         
-        PlayerViewState.viewType = .expandedArt
-        
+        defaultView.handOff(expandedArtView)
         defaultView.hideView()
+        
         expandedArtView.showView(player.state)
     }
     
     private func showOrHidePlayingTrackInfo() {
         
         PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
-        
         theView.showOrHidePlayingTrackInfo()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideSequenceInfo() {
@@ -104,41 +89,31 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     private func showOrHidePlayingTrackFunctions() {
         
         PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
-        
         theView.showOrHidePlayingTrackFunctions()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideAlbumArt() {
         
         PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
-        
         theView.showOrHideAlbumArt()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideArtist() {
         
         PlayerViewState.showArtist = !PlayerViewState.showArtist
-        
         theView.showOrHideArtist()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideAlbum() {
         
         PlayerViewState.showAlbum = !PlayerViewState.showAlbum
-        
         theView.showOrHideAlbum()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideCurrentChapter() {
         
         PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
-        
         theView.showOrHideCurrentChapter()
-        theView.needsMouseTracking ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideMainControls() {
