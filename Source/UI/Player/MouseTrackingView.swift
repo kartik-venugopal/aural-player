@@ -1,83 +1,50 @@
 import Cocoa
 
+/*
+    A special view that is able to track when the mouse cursor enters and/or exits the view.
+    This is useful for views that need to auto-hide certain subviews in response to mouse movements.
+ */
 class MouseTrackingView: NSView {
     
-    private var trackingArea: NSTrackingArea?
-    
+    // Flag that indicates whether or not this view is currently tracking mouse movements.
     private var isTracking: Bool = false
-    private var inArea: Bool = false
     
+    // Signals the view to start tracking mouse movements.
     func startTracking() {
         
         stopTracking()
         
         isTracking = true
-        updateTrackingAreas()
+        self.updateTrackingAreas()
     }
     
+    // Signals the view to stop tracking mouse movements.
     func stopTracking() {
-
-        isTracking = false
         
-        if let area = self.trackingArea {
-            self.removeTrackingArea(area)
-        }
+        isTracking = false
+        self.removeAllTrackingAreas()
     }
  
     override func updateTrackingAreas() {
         
-        if !isTracking {return}
+        if isTracking && self.trackingAreas.isEmpty {
         
-        // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
-        
-        self.trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways,  NSTrackingArea.Options.mouseEnteredAndExited, NSTrackingArea.Options.mouseMoved], owner: self, userInfo: nil)
-        
-        // Add the new tracking area to the view
-        addTrackingArea(self.trackingArea!)
-        
-        super.updateTrackingAreas()
+            // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
+            addTrackingArea(NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways, NSTrackingArea.Options.mouseEnteredAndExited], owner: self, userInfo: nil))
+            
+            super.updateTrackingAreas()
+        }
     }
     
     override func mouseEntered(with event: NSEvent) {
         
-        if !inArea {
-        
-            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-            inArea = true
-        }
-    }
-    
-    override func mouseMoved(with event: NSEvent) {
-        
-        if !inArea {
-            
-            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-            inArea = true
-        }
+        // Let observers know that the mouse has entered this view.
+        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
     }
     
     override func mouseExited(with event: NSEvent) {
         
-        
-//        if (!inArea) {
-//            print("Not in area")
-//            return
-//        }
-//
-//        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
-//
-//        let loc = event.locationInWindow
-//
-//        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
-//        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
-//
-//        // TODO: Assign an ID to the popover, and check for that ID here
-//        let mouseOverInfoPopover = WindowState.showingPopover
-//
-//        if (xExit || yExit || mouseOverInfoPopover) {
-//            print(mouseOverInfoPopover)
-            SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
-            inArea = false
-//        }
+        // Let observers know that the mouse has exited this view.
+        SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
     }
 }
