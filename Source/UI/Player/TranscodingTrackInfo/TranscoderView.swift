@@ -23,6 +23,7 @@ class TranscoderView: NSView, ColorSchemeable, TextSizeable {
     
     func transcodingStarted(_ track: Track) {
         updateFields(track.conciseDisplayName, 0, track.duration, 0, 0, 0, "0x")
+        self.bringToFront()
     }
     
     func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
@@ -48,6 +49,7 @@ class TranscoderView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func transcodingFinished() {
+        self.hide()
     }
     
     func changeTextSize(_ size: TextSize) {

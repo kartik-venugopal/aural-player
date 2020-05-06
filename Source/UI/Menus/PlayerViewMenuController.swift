@@ -152,51 +152,47 @@ class PlayerViewMenuController: NSObject, NSMenuDelegate {
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
         
         if PlayerViewState.viewType != .defaultView {
-            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .defaultView))
         }
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
         
         if PlayerViewState.viewType != .expandedArt {
-            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .expandedArt))
         }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackFunctions))
     }
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
-//    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
-//        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
-//    }
-    
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbumArt))
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideArtist))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideArtist))
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbum))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbum))
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideCurrentChapter))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideCurrentChapter))
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideMainControls))
     }
     
     @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTimeElapsedRemaining))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideTimeElapsedRemaining))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {

@@ -11,42 +11,30 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     // The clip view that contains the text view (used to center-align the text view vertically)
     @IBOutlet weak var clipView: NSClipView!
     
-    // Stores the track for which info is currently displayed
-    private var track: Track? = nil {
+    var trackInfo: PlayingTrackInfo? {
         
         didSet {
-            // When track is set, update the text view
             update()
         }
     }
     
     // The displayed track title
-    private var title: String {
-        
-        // Title from metadata
-        if let _title = track!.displayInfo.title {
-            return _title
-        }
-        
-        // Filename
-        return track!.conciseDisplayName
+    private var title: String? {
+        return trackInfo?.displayName
     }
     
     // The displayed track artist (displayed only if user setting allows it)
     private var artist: String? {
-        return PlayerViewState.showArtist ? track?.displayInfo.artist : nil
+        return PlayerViewState.showArtist ? trackInfo?.artist : nil
     }
     
     // The displayed track album (displayed only if user setting allows it)
     private var album: String? {
-        return PlayerViewState.showAlbum ? track?.groupingInfo.album : nil
+        return PlayerViewState.showAlbum ? trackInfo?.album : nil
     }
     
-    // The currently playing chapter's title (displayed only if user setting allows it)
-    private var chapterTitle: String?
-    
-    private var chapter: String? {
-        return PlayerViewState.showCurrentChapter ? chapterTitle : nil
+    private var chapterTitle: String? {
+        return PlayerViewState.showCurrentChapter ? trackInfo?.playingChapterTitle : nil
     }
     
     // Represents the maximum width allowed for one line of text displayed in the text view
@@ -57,27 +45,6 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
         // Set the line width to assist with truncation of title/artist/album/chapter strings,
         // with some padding to allow for slight discrepancies when truncating
         lineWidth = (textView?.frame.width ?? 300) - 15
-    }
-    
-    // Update the text view when the current chapter changes
-    func chapterChanged(_ chapterTitle: String?) {
-        
-        self.chapterTitle = chapterTitle
-        update()
-    }
-    
-    // Update the text view when the current track changes
-    func showNowPlayingInfo(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapterTitle: String?) {
-        
-        self.chapterTitle = chapterTitle
-        self.track = track
-    }
-    
-    // Clear the text view when no track is being played
-    func clearNowPlayingInfo() {
-        
-        self.chapterTitle = nil
-        self.track = nil
     }
     
     // Responds to a change in user-preferred text size
@@ -94,13 +61,6 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
         update()
     }
     
-    // Hands off track info to another TrackInfoView object
-    func handOff(_ otherView: TrackInfoView) {
-        
-        otherView.chapterTitle = self.chapterTitle
-        otherView.track = self.track
-    }
-    
     // Updates the view when the user settings that control display of metadata fields have changed
     func metadataDisplaySettingsChanged() {
         update()
@@ -112,7 +72,8 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
         // First, clear the view to remove any old text
         textView.string = ""
         
-        if track != nil {
+        // Check if there is any track info
+        if let title = self.title {
             
             var truncatedArtistAlbumStr: String? = nil
             var fullLengthArtistAlbumStr: String? = nil
@@ -137,7 +98,7 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
             
             let hasArtistAlbum: Bool = truncatedArtistAlbumStr != nil
             
-            let chapterStr = chapter
+            let chapterStr = chapterTitle
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)

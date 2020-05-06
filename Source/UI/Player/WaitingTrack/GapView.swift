@@ -2,6 +2,9 @@ import Cocoa
 
 class GapView: NSView, ColorSchemeable, TextSizeable {
     
+    @IBOutlet weak var gapBox: NSBox!
+    @IBOutlet weak var artView: NSImageView!
+    
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     
@@ -29,6 +32,8 @@ class GapView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func gapStarted(_ track: Track, _ gapEndTime: Date) {
+        
+        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
         
         endTime = gapEndTime
         

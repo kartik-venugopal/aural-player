@@ -31,6 +31,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     @IBOutlet weak var lblPanCaption: VALabel!
     @IBOutlet weak var lblPanCaption2: VALabel!
     
+    // TODO - Revisit AutoHidingView
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!
     private var autoHidingPanLabel: AutoHidingView!

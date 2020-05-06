@@ -30,7 +30,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
-            <view key="contentView" id="W7v-UI-tl4" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
+            <view key="contentView" id="W7v-UI-tl4">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
@@ -448,11 +448,11 @@
                                         <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
                                     </connections>
                                 </button>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
-                                    <rect key="frame" x="11" y="5" width="510" height="190"/>
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
+                                    <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="DYU-Up-NX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>

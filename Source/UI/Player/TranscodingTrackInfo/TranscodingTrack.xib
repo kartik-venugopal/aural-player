@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TranscoderViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theView" destination="lkp-s9-V8y" id="FQw-tr-4sf"/>
+                <outlet property="view" destination="lkp-s9-V8y" id="wZ7-EW-QbN"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view wantsLayer="YES" appearanceType="aqua" id="lkp-s9-V8y" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Deu-eh-NiI">
+                    <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="Yce-5d-sEn">
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3i9-0V-YNs" userLabel="Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="20" y="143" width="35" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="SGu-sM-cwW"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Transcoding"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzF-zV-VV4" userLabel="Caption 2">
+                    <rect key="frame" x="191" y="8" width="137" height="27"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="Ybs-fZ-maM">
+                        <font key="font" size="15" name="Play-Regular"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgZ-Rb-gZp" userLabel="Caption">
+                    <rect key="frame" x="62" y="146" width="394" height="30"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="stj-cR-28r">
+                        <font key="font" size="17" name="Play-Regular"/>
+                        <color key="textColor" white="0.44987896129999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Al9-a3-nBv" userLabel="Track time">
+                    <rect key="frame" x="21" y="102" width="193" height="23"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track time:  " id="bs8-iw-xY4">
+                        <font key="font" size="14" name="Play-Regular"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yse-zK-IqZ" userLabel="Elapsed time">
+                    <rect key="frame" x="296" y="102" width="192" height="23"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:   0:00" id="tWa-Pu-tCJ">
+                        <font key="font" size="14" name="Play-Regular"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SfP-LF-wPf" userLabel="Time rem">
+                    <rect key="frame" x="296" y="73" width="192" height="23"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:   0:00" id="ZdM-RK-RqP">
+                        <font key="font" size="14" name="Play-Regular"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YWf-ra-qom" userLabel="Speed">
+                    <rect key="frame" x="21" y="73" width="193" height="23"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Speed:   0x" id="OUQ-yD-axs">
+                        <font key="font" size="14" name="Play-Regular"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CTT-5N-eD7" userLabel="White Line">
+                    <rect key="frame" x="22" y="100" width="192" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="WhiteLine" id="Vk4-fF-kKJ"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBo-bB-hw6" userLabel="White Line">
+                    <rect key="frame" x="296" y="100" width="192" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="WhiteLine" id="LFM-aL-7j2"/>
+                </imageView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UrA-XG-QBD" customClass="ProgressArc" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="220" y="66" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gsS-6B-tpQ" userLabel="Cancel button">
+                    <rect key="frame" x="425" y="31" width="63" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N5T-bF-wPp" customClass="PlayerTextButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancelAction:" target="-2" id="JO2-dp-8tD"/>
+                    </connections>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="btnCancel" destination="gsS-6B-tpQ" id="qeI-wT-MYW"/>
+                <outlet property="containerBox" destination="Deu-eh-NiI" id="KhG-po-Lcg"/>
+                <outlet property="lblSpeed" destination="YWf-ra-qom" id="1KF-6j-vgz"/>
+                <outlet property="lblTimeElapsed" destination="Yse-zK-IqZ" id="CMV-jk-N7o"/>
+                <outlet property="lblTimeRemaining" destination="SfP-LF-wPf" id="WLe-mX-TsA"/>
+                <outlet property="lblTrack" destination="CgZ-Rb-gZp" id="imk-iM-b8d"/>
+                <outlet property="lblTrackTime" destination="Al9-a3-nBv" id="Jip-l6-NT0"/>
+                <outlet property="lblTranscoding" destination="PzF-zV-VV4" id="xLa-81-UdK"/>
+                <outlet property="progressView" destination="UrA-XG-QBD" id="v9I-hX-qHl"/>
+                <outlet property="transcodingIcon" destination="3i9-0V-YNs" id="Vua-dh-EEz"/>
+            </connections>
+            <point key="canvasLocation" x="-2859" y="736"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Transcoding" width="53" height="36"/>
+        <image name="WhiteLine" width="192" height="1"/>
+    </resources>
+</document>

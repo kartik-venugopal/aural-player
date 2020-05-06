@@ -139,11 +139,11 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .defaultView))
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .expandedArt))
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
@@ -153,10 +153,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
     }
-    
-    //    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
-    //        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
-    //    }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
