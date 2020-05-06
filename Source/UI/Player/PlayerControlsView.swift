@@ -228,6 +228,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
     func playbackStateChanged(_ newState: PlaybackState) {
+        
         btnPlayPause.onIf(newState == .playing)
         setSeekTimerState(newState == .playing)
     }
@@ -363,6 +364,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
         if interval != seekTimer?.interval {
             
             seekTimer?.stop()
+            
             seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {
                 self.updateSeekPosition()
             }, queue: DispatchQueue.main)

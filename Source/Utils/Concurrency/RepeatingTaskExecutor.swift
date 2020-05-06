@@ -1,5 +1,5 @@
 /*
-    A timer for repeating tasks.
+    A timer for tasks that repeat at regular intervals.
 
     Wrapper around a GCD dispatch source timer.
 */
@@ -20,9 +20,7 @@ class RepeatingTaskExecutor {
     // The queue on which the task will be put
     private var queue: DispatchQueue
     
-    // Flags indicating whether this timer is currently running
-    private var running: Bool = false
-    private var stopped: Bool = false
+    private var state: TimerState
     
     init(intervalMillis: Int, task: @escaping () -> Void, queue: DispatchQueue) {
         
@@ -30,44 +28,43 @@ class RepeatingTaskExecutor {
         self.task = task
         self.queue = queue
         
-        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue)
+        self.state = .notStarted
+        
+        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags.strict, queue: queue)
         
         // Allow a 10% time leeway
-        timer.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.milliseconds(intervalMillis), leeway: DispatchTimeInterval.milliseconds(intervalMillis / 10))
+        let interval = DispatchTimeInterval.milliseconds(intervalMillis)
+        let leeway = DispatchTimeInterval.milliseconds(intervalMillis / 10)
+        
+        timer.schedule(deadline: DispatchTime.now(), repeating: interval, leeway: leeway)
         
         timer.setEventHandler { [weak self] in
-            self!.task()
+            self?.task()
         }
     }
 
     // Start/resume task execution
     func startOrResume() {
         
-        if (stopped) {
-            return
-        }
-        
-        if (!running) {
+        if state == .notStarted || state == .suspended {
+            
             timer.resume()
-            running = true
+            state = .running
         }
     }
     
     // Pause task execution
     func pause() {
         
-        if (stopped) {
-            return
-        }
-        
-        if (running) {
+        if state == .running {
+            
             timer.suspend()
-            running = false
+            state = .suspended
         }
     }
     
     var isRunning: Bool {
-        return running
+        return state == .running
     }
     
     var interval: Int {
@@ -76,24 +73,26 @@ class RepeatingTaskExecutor {
     
     func stop() {
         
-        if (stopped) {
+        if state == .stopped {
             return
         }
         
-        let wasPaused = !running
-        
-        running = false
-        stopped = true
-        
         // Timer cannot be canceled while in a suspended state
-        if (wasPaused) {
+        if state != .running {
             timer.resume()
         }
         
+        state = .stopped
         timer.cancel()
     }
     
     deinit {
         stop()
     }
+}
+
+// Enumerates the lifecycle phases of a DispatchSourceTimer
+fileprivate enum TimerState {
+    
+    case notStarted, running, suspended, stopped
 }
