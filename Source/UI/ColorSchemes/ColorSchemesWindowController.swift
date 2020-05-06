@@ -3,7 +3,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputClient {
+class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -263,8 +263,8 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         })
     }
     
-    // MARK - StringInputClient functions (for saving new color schemes)
-    // TODO: Refactor this into a common ColorSchemesStringInputClient class to avoid duplication
+    // MARK - StringInputReceiver functions (for saving new color schemes)
+    // TODO: Refactor this into a common ColorSchemesStringInputReceiver class to avoid duplication
     
     var inputPrompt: String {
         return "Enter a new color scheme name:"

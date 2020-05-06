@@ -3,7 +3,7 @@ import Cocoa
 /*
     Controller for the popup menu that lists the available color schemes and opens the color scheme editor panel.
  */
-class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClient {
+class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
     
@@ -55,7 +55,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputClien
         editorWindowController.showColorSchemesEditor()
     }
     
-    // MARK - StringInputClient functions (to receive the name of a new user-defined color scheme)
+    // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)
     
     var inputPrompt: String {
         return "Enter a new color scheme name:"

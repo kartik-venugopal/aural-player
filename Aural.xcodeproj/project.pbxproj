@@ -190,6 +190,7 @@
 		3E54B23922C263B3005EAEDF /* TriStateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E54B23822C263B3005EAEDF /* TriStateLabel.swift */; };
 		3E551B871F10801100354DE2 /* AudioEngineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E551B861F10801100354DE2 /* AudioEngineHelper.swift */; };
 		3E56C371245AFA8C003C9D98 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E56C370245AFA8C003C9D98 /* Stack.swift */; };
+		3E579CF4246281D2001B8D9D /* BookmarkNameInputReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E579CF3246281D2001B8D9D /* BookmarkNameInputReceiver.swift */; };
 		3E582E7B1F6A5B440040A092 /* MetadataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E582E7A1F6A5B440040A092 /* MetadataUtils.swift */; };
 		3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC261F025B0D00C36DC1 /* Colors.swift */; };
 		3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC281F02759D00C36DC1 /* Timer.swift */; };
@@ -207,7 +208,7 @@
 		3E5F00CC21539B5C00A76C23 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */; };
 		3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */; };
 		3E5F00D02153A09500A76C23 /* BookmarksMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */; };
-		3E5F00D421543D3800A76C23 /* StringInputClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00D321543D3800A76C23 /* StringInputClient.swift */; };
+		3E5F00D421543D3800A76C23 /* StringInputReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00D321543D3800A76C23 /* StringInputReceiver.swift */; };
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
 		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
@@ -669,6 +670,7 @@
 		3E54B23822C263B3005EAEDF /* TriStateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateLabel.swift; sourceTree = "<group>"; };
 		3E551B861F10801100354DE2 /* AudioEngineHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngineHelper.swift; sourceTree = "<group>"; };
 		3E56C370245AFA8C003C9D98 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		3E579CF3246281D2001B8D9D /* BookmarkNameInputReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNameInputReceiver.swift; sourceTree = "<group>"; };
 		3E582E7A1F6A5B440040A092 /* MetadataUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataUtils.swift; sourceTree = "<group>"; };
 		3E58CC261F025B0D00C36DC1 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -687,7 +689,7 @@
 		3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksProtocol.swift; sourceTree = "<group>"; };
 		3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksMenuController.swift; sourceTree = "<group>"; };
-		3E5F00D321543D3800A76C23 /* StringInputClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringInputClient.swift; sourceTree = "<group>"; };
+		3E5F00D321543D3800A76C23 /* StringInputReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringInputReceiver.swift; sourceTree = "<group>"; };
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 				3EDAFB772461928100CE78EA /* PlayingTrackFunctionsView.swift */,
 				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
 				3EE93BD324423D4C009A70D9 /* PlayerViewPopupMenuController.swift */,
+				3E579CF3246281D2001B8D9D /* BookmarkNameInputReceiver.swift */,
 				3E807C411FC597FC0027050F /* MouseTrackingView.swift */,
 				3E4193DB24336D1B00F43162 /* SeekTimerTaskQueue.swift */,
 				3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */,
@@ -1973,7 +1976,7 @@
 			children = (
 				3E02739B1FD91B46000F0844 /* StringInputPopover.xib */,
 				3E02739C1FD91B46000F0844 /* StringInputPopoverViewController.swift */,
-				3E5F00D321543D3800A76C23 /* StringInputClient.swift */,
+				3E5F00D321543D3800A76C23 /* StringInputReceiver.swift */,
 			);
 			path = StringInputPopover;
 			sourceTree = "<group>";
@@ -2400,6 +2403,7 @@
 				3EDFFA0B1FC0283F00158177 /* ViewPreferencesViewController.swift in Sources */,
 				3E6341D6243DC25E00190502 /* ViewPreferences.swift in Sources */,
 				3EE7D735244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift in Sources */,
+				3E579CF4246281D2001B8D9D /* BookmarkNameInputReceiver.swift in Sources */,
 				3EDC3416218EA0C300905688 /* CutoffFrequencySlider.swift in Sources */,
 				3E309B781FB70D1F00C61E72 /* InfoPopupViewController.swift in Sources */,
 				3EF08DCB2156D65D000C7F11 /* WindowManagerProtocol.swift in Sources */,
@@ -2496,7 +2500,7 @@
 				3E50DC982193A3B500D42373 /* FXUnit.swift in Sources */,
 				3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */,
 				3E1BF76524310DBD00B6B9F9 /* RecordingParams.swift in Sources */,
-				3E5F00D421543D3800A76C23 /* StringInputClient.swift in Sources */,
+				3E5F00D421543D3800A76C23 /* StringInputReceiver.swift in Sources */,
 				3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */,
 				3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */,
 				3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */,

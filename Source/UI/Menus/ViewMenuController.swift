@@ -5,7 +5,7 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
  */
-class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
+class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     @IBOutlet weak var playerMenuItem: NSMenuItem!
     
@@ -116,7 +116,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         editorWindowController.showLayoutsEditor()
     }
     
-    // MARK - StringInputClient functions
+    // MARK - StringInputReceiver functions
     
     var inputPrompt: String {
         return "Enter a layout name:"

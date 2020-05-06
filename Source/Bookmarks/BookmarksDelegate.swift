@@ -18,21 +18,12 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         
         // Restore the bookmarks model object from persistent state
         state.forEach({
-            
-            if let endPos = $0.endPosition {
-                _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, endPos)
-            } else {
-                _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition)
-            }
+            _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, $0.endPosition)
         })
     }
     
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark {
-        return bookmarks.addBookmark(name, file, startPosition)
-    }
-    
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double) -> Bookmark {
-        return bookmarks.addBookmark(name, file, startPosition, endPosition)
+    func addBookmark(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) -> Bookmark {
+        return bookmarks.addBookmark(name, track.file, startPosition, endPosition)
     }
     
     var allBookmarks: [Bookmark] {

@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, StringInputClient {
+class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
@@ -31,7 +31,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
-    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
     
     override func viewDidLoad() {
         
@@ -50,11 +50,26 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         // If there is a track currently playing, load detailed track info and toggle the popover view
         if let playingTrack = player.playingTrack?.track {
             
-            // TODO: This should be done through a delegate (TrackDelegate ???)
-            playingTrack.loadDetailedInfo()
-            
-            windowManager.mainWindow.makeKeyAndOrderFront(self)
-            detailedInfoPopover.toggle(playingTrack, btnMoreInfo.isVisible ? btnMoreInfo : self.view.window!.contentView!, NSRectEdge.maxX)
+            if detailedInfoPopover.isShown {
+                
+                detailedInfoPopover.close()
+                
+            } else {
+                
+                // TODO: This should be done through a delegate (TrackDelegate ???)
+                playingTrack.loadDetailedInfo()
+                
+                windowManager.mainWindow.makeKeyAndOrderFront(self)
+                
+                if btnMoreInfo.isVisible {
+                    
+                    detailedInfoPopover.show(playingTrack, btnMoreInfo, NSRectEdge.maxX)
+                    
+                } else if let windowRootView = self.view.window?.contentView {
+                    
+                    detailedInfoPopover.show(playingTrack, windowRootView, NSRectEdge.maxX)
+                }
+            }
         }
     }
     
@@ -76,64 +91,58 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    // Adds/removes the currently playing track to/from the "Favorites" list
+    // Adds the currently playing track position to/from the "Bookmarks" list
     @IBAction func bookmarkAction(_ sender: Any) {
         
-        // Mark the playing track and position
-        BookmarkContext.bookmarkedTrack = player.playingTrack!.track
-        BookmarkContext.bookmarkedTrackStartPosition = player.seekPosition.timeElapsed
-        BookmarkContext.bookmarkedTrackEndPosition = nil
-        
-        BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(BookmarkContext.bookmarkedTrackStartPosition!))
-        
-        // TODO: Below code is duplicated twice
-        
-        // Show popover
-        let loc = locationForBookmarkPrompt
-        
-        windowManager.mainWindow.makeKeyAndOrderFront(self)
-        
-        if loc.view.isVisible {
-            bookmarkNamePopover.show(loc.view, loc.edge)
-        } else if btnBookmark.isVisible {
-            bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
-        } else {
-            bookmarkNamePopover.show(self.view.window!.contentView!, NSRectEdge.maxX)
+        if let playingTrack = player.playingTrack?.track {
+            doBookmark(playingTrack, player.seekPosition.timeElapsed)
         }
     }
     
     // When a bookmark menu item is clicked, the item is played
     private func bookmarkLoop() {
         
-        // Mark the playing track and position
-        BookmarkContext.bookmarkedTrack = player.playingTrack!.track
-        if let loop = player.playbackLoop {
+        // Check if we have a complete loop
+        if let playingTrack = player.playingTrack?.track, let loop = player.playbackLoop, let loopEndTime = loop.endTime {
+            doBookmark(playingTrack, loop.startTime, loopEndTime)
+        }
+    }
+    
+    private func doBookmark(_ playingTrack: Track, _ startTime: Double, _ endTime: Double? = nil) {
+        
+        BookmarkContext.bookmarkedTrack = playingTrack
+        BookmarkContext.bookmarkedTrackStartPosition = startTime
+        BookmarkContext.bookmarkedTrackEndPosition = endTime
+        
+        if let theEndTime = endTime {
             
-            if loop.isComplete() {
-                
-                BookmarkContext.bookmarkedTrackStartPosition = loop.startTime
-                BookmarkContext.bookmarkedTrackEndPosition = loop.endTime
-                
-                let startTime = StringUtils.formatSecondsToHMS(loop.startTime)
-                let endTime = StringUtils.formatSecondsToHMS(loop.endTime!)
-                
-                BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, startTime, endTime)
-                
-                // TODO: Below code is duplicated twice
-                
-                // Show popover
-                let loc = locationForBookmarkPrompt
-                
-                windowManager.mainWindow.makeKeyAndOrderFront(self)
-                
-                if loc.view.isVisible {
-                    bookmarkNamePopover.show(loc.view, loc.edge)
-                } else if btnBookmark.isVisible {
-                    bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
-                } else {
-                    bookmarkNamePopover.show(self.view.window!.contentView!, NSRectEdge.maxX)
-                }
-            }
+            // Loop
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.conciseDisplayName, StringUtils.formatSecondsToHMS(startTime), StringUtils.formatSecondsToHMS(theEndTime))
+            
+        } else {
+            
+            // Single position
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.conciseDisplayName, StringUtils.formatSecondsToHMS(startTime))
+        }
+        
+        // Show popover
+        let bookmarkPopoverLocation = locationForBookmarkPrompt
+        windowManager.mainWindow.makeKeyAndOrderFront(self)
+        
+        if bookmarkPopoverLocation.view.isVisible {
+            
+            // Show popover relative to seek slider
+            bookmarkNamePopover.show(bookmarkPopoverLocation.view, bookmarkPopoverLocation.edge)
+            
+        } else if btnBookmark.isVisible {
+            
+            // Show popover relative to bookmark function button
+            bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+            
+        } else if let windowRootView = self.view.window?.contentView {
+            
+            // Show popover relative to window
+            bookmarkNamePopover.show(windowRootView, NSRectEdge.maxX)
         }
     }
     
@@ -157,9 +166,15 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             windowManager.mainWindow.makeKeyAndOrderFront(self)
             
             btnFavorite.onIf(added)
-            infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !",
-                                  btnFavorite.isVisible ? btnFavorite : self.view.window!.contentView!,
-                                  NSRectEdge.maxX)
+            
+            if btnFavorite.isVisible {
+                
+                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !", btnFavorite, NSRectEdge.maxX)
+                
+            } else if let windowRootView = self.view.window?.contentView {
+                
+                infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !", windowRootView, NSRectEdge.maxX)
+            }
         }
     }
     
@@ -207,28 +222,20 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
-            
-        case .trackChangedNotification:
-            
-            trackChanged(notification as! TrackChangedNotification)
+        if let trackChangeNotification = notification as? TrackChangedNotification {
 
-        default: return
-            
+            trackChanged(trackChangeNotification)
+            return
         }
     }
     
     // Consume asynchronous messages
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if let favsUpdatedMsg = message as? FavoritesUpdatedAsyncMessage {
             
-        case .addedToFavorites, .removedFromFavorites:
-            
-            favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
-            
-        default: return
-            
+            favoritesUpdated(favsUpdatedMsg)
+            return
         }
     }
     
@@ -246,53 +253,4 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
         }
     }
-    
-    // MARK - StringInputClient functions
-    
-    var inputPrompt: String {
-        return "Enter a bookmark name:"
-    }
-    
-    var defaultValue: String? {
-        return BookmarkContext.defaultBookmarkName!
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !bookmarks.bookmarkWithNameExists(string)
-        
-        if (!valid) {
-            return (false, "A bookmark with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        
-        if (BookmarkContext.bookmarkedTrackEndPosition == nil) {
-            
-            // Track position
-            _ = bookmarks.addBookmark(string, BookmarkContext.bookmarkedTrack!.file, BookmarkContext.bookmarkedTrackStartPosition!)
-            
-        } else {
-            
-            // Loop
-            _ = bookmarks.addBookmark(string, BookmarkContext.bookmarkedTrack!.file, BookmarkContext.bookmarkedTrackStartPosition!, BookmarkContext.bookmarkedTrackEndPosition!)
-        }
-    }
-    
-    var inputFontSize: TextSize {
-        return PlayerViewState.textSize
-    }
-}
-
-fileprivate class BookmarkContext {
-    
-    // Changes whenever a bookmark is added
-    static var defaultBookmarkName: String?
-    static var bookmarkedTrack: Track?
-    static var bookmarkedTrackStartPosition: Double?
-    static var bookmarkedTrackEndPosition: Double?
 }

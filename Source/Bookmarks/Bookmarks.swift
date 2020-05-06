@@ -4,14 +4,7 @@ class Bookmarks: BookmarksProtocol {
     
     private var bookmarks: StringKeyedCollection<Bookmark> = StringKeyedCollection<Bookmark>()
     
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark {
-        
-        let bookmark = Bookmark(name, file, startPosition)
-        bookmarks.addItem(bookmark)
-        return bookmark
-    }
-    
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double) -> Bookmark {
+    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double? = nil) -> Bookmark {
         
         let bookmark = Bookmark(name, file, startPosition, endPosition)
         bookmarks.addItem(bookmark)

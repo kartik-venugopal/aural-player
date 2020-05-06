@@ -1,7 +1,7 @@
 import Foundation
 
-// Intended to be used as a callback interface for clients of StringInputPopover
-protocol StringInputClient {
+// A callback interface that allows StringInputPopover to communicate with its clients (i.e. any UI views that use StringInputPopover to receive string input from the user) in a generic loosely-coupled way.
+protocol StringInputReceiver {
     
     // Asks the client to validate the given string input. Returns true if the input string is valid, false otherwise. Optional errorMsg return value describes the validation error if there is one.
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?)
