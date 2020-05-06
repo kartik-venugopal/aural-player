@@ -628,11 +628,12 @@ struct SetTimeRemainingDisplayFormatActionMessage: ActionMessage {
 
 struct PlayerViewActionMessage: ActionMessage {
     
-    let actionType: ActionType = .changePlayerView
+    let actionType: ActionType
+    let viewType: PlayerViewType?
     
-    let viewType: PlayerViewType
-    
-    init(_ viewType: PlayerViewType) {
+    init(_ actionType: ActionType, _ viewType: PlayerViewType? = nil) {
+        
+        self.actionType = actionType
         self.viewType = viewType
     }
 }

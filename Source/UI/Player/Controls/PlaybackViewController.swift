@@ -6,7 +6,6 @@ import Cocoa
 class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     @IBOutlet weak var controlsView: PlayerControlsView!
-    @IBOutlet weak var transcoderView: TranscoderView!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -23,6 +22,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
+    
+    override var nibName: String? {return "PlayerControls"}
     
     override func viewDidLoad() {
 
@@ -41,7 +42,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .changePlayerTextSize, .applyColorScheme], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -149,6 +150,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func toggleLoop() {
         
+        // TODO: Combine if's
         if player.state.playingOrPaused() {
         
             if let _ = player.playingTrack {
@@ -440,6 +442,24 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
     
+    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        
+        PlayerViewState.timeElapsedDisplayType = format
+        controlsView.setTimeElapsedDisplayFormat(format)
+    }
+    
+    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        
+        PlayerViewState.timeRemainingDisplayType = format
+        controlsView.setTimeRemainingDisplayFormat(format)
+    }
+    
+    private func showOrHideTimeElapsedRemaining() {
+        
+        PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
+        controlsView.showOrHideTimeElapsedRemaining()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -586,8 +606,93 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .panRight: panRight()
             
+        case .setTimeElapsedDisplayFormat:
+
+            if let format = (message as? SetTimeElapsedDisplayFormatActionMessage)?.format {
+                setTimeElapsedDisplayFormat(format)
+            }
+
+        case .setTimeRemainingDisplayFormat:
+
+            if let format = (message as? SetTimeRemainingDisplayFormatActionMessage)?.format {
+                setTimeRemainingDisplayFormat(format)
+            }
+
+        case .showOrHideTimeElapsedRemaining:
+
+            showOrHideTimeElapsedRemaining()
+            
         default: return
             
         }
     }
+    
+//    func consumeMessage(_ message: ActionMessage) {
+//
+//    //        switch message.actionType {
+//    //
+//    //        case .changePlayerTextSize:
+//    //
+//    //            changeTextSize()
+//    //
+//    //        case .applyColorScheme:
+//    //
+//    //            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
+//    //                applyColorScheme(scheme)
+//    //            }
+//    //
+//    //        default:
+//    //
+//    //            if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
+//    //
+//    //                switch colorSchemeMsg.actionType {
+//    //
+//    //                case .changeBackgroundColor:
+//    //
+//    //                    changeBackgroundColor(colorSchemeMsg.color)
+//    //
+//    //                case .changePlayerTrackInfoPrimaryTextColor:
+//    //
+//    //                    changePrimaryTextColor(colorSchemeMsg.color)
+//    //
+//    //                case .changePlayerTrackInfoSecondaryTextColor:
+//    //
+//    //                    changeSecondaryTextColor(colorSchemeMsg.color)
+//    //
+//    //                case .changePlayerTrackInfoTertiaryTextColor:
+//    //
+//    //                    changeTertiaryTextColor(colorSchemeMsg.color)
+//    //
+//    //                case .changeFunctionButtonColor:
+//    //
+//    //                    changeFunctionButtonColor(colorSchemeMsg.color)
+//    //
+//    //                case .changeToggleButtonOffStateColor:
+//    //
+//    //                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
+//    //
+//    //                case .changePlayerSliderValueTextColor:
+//    //
+//    //                    changeSliderValueTextColor(colorSchemeMsg.color)
+//    //
+//    //                case .changePlayerSliderColors:
+//    //
+//    //                    changeSliderColors()
+//    //
+//    //                case .changeTextButtonMenuColor:
+//    //
+//    //                    changeTextButtonMenuColor()
+//    //
+//    //                case .changeButtonMenuTextColor:
+//    //
+//    //                    changeButtonMenuTextColor()
+//    //
+//    //                default: return
+//    //
+//    //                }
+//    //            }
+//    //
+//    //            return
+//    //        }
+//        }
 }

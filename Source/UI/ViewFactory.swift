@@ -7,11 +7,24 @@ struct ViewFactory {
     
     // Top-level sub-views (views displayed directly on the main window)
     
-    private static let playerViewController: PlayerViewController = PlayerViewController()
-    
 //    private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
 //
 //    private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
+    
+    fileprivate struct PlayerViews {
+        
+        fileprivate static let rootViewController: PlayerViewController = PlayerViewController()
+        
+        fileprivate static let playingTrackInfoViewController: PlayingTrackInfoViewController = PlayingTrackInfoViewController()
+        
+        fileprivate static let waitingTrackViewController: WaitingTrackViewController = WaitingTrackViewController()
+        
+        fileprivate static let transcodingTrackViewController: TranscoderViewController = TranscoderViewController()
+        
+        fileprivate static let playingTrackFunctionsViewController: PlayingTrackFunctionsViewController = PlayingTrackFunctionsViewController()
+        
+        fileprivate static let controlsViewController: PlaybackViewController = PlaybackViewController()
+    }
     
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
@@ -118,11 +131,32 @@ struct ViewFactory {
     
     // Returns the view that displays the player
     static var playerView: NSView {
-        return playerViewController.view
+        return PlayerViews.rootViewController.view
     }
     
-    static var mainWindowMouseTrackingView: MouseTrackingView {
-        return WindowFactory.mainWindow.contentView as! MouseTrackingView
+    // Returns the view that displays the player
+    static var playingTrackView: NSView {
+        return PlayerViews.playingTrackInfoViewController.view
+    }
+    
+    // Returns the view that displays the player
+    static var waitingTrackView: NSView {
+        return PlayerViews.waitingTrackViewController.view
+    }
+    
+    // Returns the view that displays the player
+    static var transcodingTrackView: NSView {
+        return PlayerViews.transcodingTrackViewController.view
+    }
+    
+    // Returns the view that displays the player
+    static var playingTrackFunctionsView: NSView {
+        return PlayerViews.playingTrackFunctionsViewController.view
+    }
+    
+    // Returns the view that displays the player
+    static var controlsView: NSView {
+        return PlayerViews.controlsViewController.view
     }
     
     // Returns the view that displays the Equalizer effects unit

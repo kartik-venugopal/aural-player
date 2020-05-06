@@ -13,113 +13,68 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
-    @IBOutlet weak var playerView: NSView!
-    @IBOutlet weak var defaultView: PlayerView!
-    @IBOutlet weak var expandedArtView: PlayerView!
+    private var playingTrackView: NSView = ViewFactory.playingTrackView
+//    private var waitingTrackView: NSView = ViewFactory.waitingTrackView
+//    private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
+//
+//    private var controlsView: NSView = ViewFactory.controlsView
+//    private var playingTrackFunctionsView: NSView = ViewFactory.playingTrackFunctionsView
     
-    @IBOutlet weak var controlsView: PlayerControlsView!
-    
-    @IBOutlet weak var transcoderView: TranscoderView!
-    
-    @IBOutlet weak var playingTrackFunctionsView: PlayingTrackFunctionsView!
-    
-    private var colorSchemeables: [ColorSchemeable] = []
-    private var textSizeables: [TextSizeable] = []
+    // Delegate that conveys all seek and playback info requests to the player
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override var nibName: String? {return "Player"}
     
     override func viewDidLoad() {
         
-        playerView.addSubviews(defaultView, expandedArtView)
-        self.view.addSubviews(playerView, transcoderView)
-        
-        defaultView.setFrameOrigin(NSPoint.zero)
-        expandedArtView.setFrameOrigin(NSPoint.zero)
-        transcoderView.setFrameOrigin(NSPoint(x: 0, y: 10))
-        
-        textSizeables = [defaultView, expandedArtView, transcoderView, controlsView]
-        changeTextSize()
-        
-        colorSchemeables = [defaultView, expandedArtView, transcoderView, controlsView, playingTrackFunctionsView]
-        applyColorScheme(ColorSchemes.systemScheme)
+//        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
+//            self.view.addSubview($0)
+//            $0.setFrameOrigin(NSPoint.zero)
+//        })
         
         initSubscriptions()
+        switchView()
     }
     
     private func initSubscriptions() {
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changePlayerTextSize, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderValueTextColor, .changePlayerSliderColors, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
-    }
-    
-    func changeTextSize() {
-        textSizeables.forEach({$0.changeTextSize(PlayerViewState.textSize)})
-    }
-    
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        colorSchemeables.forEach({$0.applyColorScheme(scheme)})
-    }
-    
-    private func changeBackgroundColor(_ color: NSColor) {
+        AsyncMessenger.subscribe([.gapStarted, .transcodingStarted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        defaultView.changeBackgroundColor(color)
-        expandedArtView.changeBackgroundColor(color)
-        transcoderView.changeBackgroundColor(color)
+        // TODO - Necessary ???
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
     
-    private func changePrimaryTextColor(_ color: NSColor) {
+    private func switchView() {
         
-        defaultView.changePrimaryTextColor(color)
-        expandedArtView.changePrimaryTextColor(color)
-        transcoderView.changePrimaryTextColor()
+        // TODO: Do a switch here ... on state
+//        switch player.state {
+//
+//        case .noTrack, .playing, .paused:
+//
+//            playingTrackView.show()
+//            NSView.hideViews(waitingTrackView, transcodingTrackView)
+//
+//        case .waiting:
+//
+//            waitingTrackView.show()
+//            NSView.hideViews(playingTrackView, transcodingTrackView)
+//
+//        case .transcoding:
+//
+//            transcodingTrackView.show()
+//            NSView.hideViews(playingTrackView, waitingTrackView)
+//        }
+    }
+  
+    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
     }
     
-    private func changeSecondaryTextColor(_ color: NSColor) {
+    private func transcodingStarted(_ track: Track) {
+    }
         
-        defaultView.changeSecondaryTextColor(color)
-        expandedArtView.changeSecondaryTextColor(color)
-        transcoderView.changeSecondaryTextColor()
-    }
-    
-    private func changeTertiaryTextColor(_ color: NSColor) {
-        
-        defaultView.changeTertiaryTextColor(color)
-        expandedArtView.changeTertiaryTextColor(color)
-        transcoderView.changeTertiaryTextColor()
-    }
-    
-    private func changeFunctionButtonColor(_ color: NSColor) {
-        
-        controlsView.changeFunctionButtonColor(color)
-        transcoderView.changeFunctionButtonColor(color)
-        playingTrackFunctionsView.changeFunctionButtonColor(color)
-    }
-    
-    private func changeToggleButtonOffStateColor(_ color: NSColor) {
-
-        controlsView.changeToggleButtonOffStateColor(color)
-        playingTrackFunctionsView.changeToggleButtonOffStateColor(color)
-    }
-    
-    private func changeSliderValueTextColor(_ color: NSColor) {
-        
-        controlsView.changeSliderValueTextColor()
-        transcoderView.changeSliderValueTextColor()
-    }
-    
-    private func changeSliderColors() {
-        
-        controlsView.changeSliderColors()
-        transcoderView.changeSliderColors()
-    }
-    
-    private func changeTextButtonMenuColor() {
-        transcoderView.changeTextButtonColor()
-    }
-    
-    private func changeButtonMenuTextColor() {
-        transcoderView.changeButtonTextColor()
+    private func transcodingFinished() {
     }
     
     // MARK: Message handling
@@ -128,71 +83,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         return self.className
     }
     
-    func consumeMessage(_ message: ActionMessage) {
+    func consumeNotification(_ notification: NotificationMessage) {
         
-        switch message.actionType {
+        if notification is TrackChangedNotification {
             
-        case .changePlayerTextSize:
+            switchView()
+            return
+        }
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if message is PlaybackGapStartedAsyncMessage || message is TranscodingStartedAsyncMessage || message is TranscodingFinishedAsyncMessage {
             
-            changeTextSize()
-            
-        case .applyColorScheme:
-            
-            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-                applyColorScheme(scheme)
-            }
-            
-        default:
-            
-            if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-                
-                switch colorSchemeMsg.actionType {
-                    
-                case .changeBackgroundColor:
-                    
-                    changeBackgroundColor(colorSchemeMsg.color)
-                    
-                case .changePlayerTrackInfoPrimaryTextColor:
-                    
-                    changePrimaryTextColor(colorSchemeMsg.color)
-                    
-                case .changePlayerTrackInfoSecondaryTextColor:
-                    
-                    changeSecondaryTextColor(colorSchemeMsg.color)
-                    
-                case .changePlayerTrackInfoTertiaryTextColor:
-                    
-                    changeTertiaryTextColor(colorSchemeMsg.color)
-                        
-                case .changeFunctionButtonColor:
-                    
-                    changeFunctionButtonColor(colorSchemeMsg.color)
-                    
-                case .changeToggleButtonOffStateColor:
-                    
-                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
-                    
-                case .changePlayerSliderValueTextColor:
-                    
-                    changeSliderValueTextColor(colorSchemeMsg.color)
-                    
-                case .changePlayerSliderColors:
-                    
-                    changeSliderColors()
-                    
-                case .changeTextButtonMenuColor:
-                    
-                    changeTextButtonMenuColor()
-                    
-                case .changeButtonMenuTextColor:
-                    
-                    changeButtonMenuTextColor()
-                    
-                default: return
-                    
-                }
-            }
-            
+            switchView()
             return
         }
     }

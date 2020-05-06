@@ -4,46 +4,45 @@ import Cocoa
 class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var infoBox: NSBox!
+    
     @IBOutlet weak var controlsBox: NSBox!
     @IBOutlet weak var functionsBox: NSBox!
-    @IBOutlet weak var gapBox: NSBox!
+    
     @IBOutlet weak var artView: NSImageView!
     
-    @IBOutlet weak var infoView: TrackInfoView!
-    @IBOutlet weak var gapView: GapView!
+    @IBOutlet weak var textView: TrackInfoView!
     
-    fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    var trackInfo: PlayingTrackInfo? {
+        
+        didSet {
+            trackInfoSet()
+        }
+    }
     
     fileprivate var controlsBoxPosition: NSPoint { return NSPoint(x: 0, y: 10) }
     fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 5, y: 60) }
     fileprivate var autoHideFields_showing: Bool = false
     
-    func showView(_ playbackState: PlaybackState) {
+    func update() {
+        trackInfoSet()
+    }
+    
+    fileprivate func trackInfoSet() {
+        
+        textView.trackInfo = self.trackInfo
+        artView.image = trackInfo?.art ?? Images.imgPlayingArt
+        
+        infoBox.showIf_elseHide(trackInfo != nil)
+    }
+    
+    func showView() {
         
         self.addSubview(controlsBox, positioned: .above, relativeTo: nil)
         self.addSubview(functionsBox)
         
         controlsBox.setFrameOrigin(controlsBoxPosition)
 
-        gapView.showView(playbackState)
-        
-        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
-        
         self.show()
-    }
-    
-    fileprivate func moveInfoBoxTo(_ point: NSPoint) {
-        
-        infoBox.setFrameOrigin(point)
-        gapBox.coLocate(infoBox)
-        centerFunctionsBox()
-    }
-    
-    fileprivate func centerFunctionsBox() {
-        
-        // Vertically center functions box w.r.t. info box
-        let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: funcY))
     }
     
     func hideView() {
@@ -54,6 +53,19 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         functionsBox.removeFromSuperview()
     }
     
+    fileprivate func moveInfoBoxTo(_ point: NSPoint) {
+        
+        infoBox.setFrameOrigin(point)
+        centerFunctionsBox()
+    }
+    
+    fileprivate func centerFunctionsBox() {
+        
+        // Vertically center functions box w.r.t. info box
+        let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: funcY))
+    }
+    
     func showOrHidePlayingTrackInfo() {
         infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
     }
@@ -62,8 +74,8 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
 //        infoView.showOrHideSequenceInfo()
     }
     
-    func artUpdated(_ track: Track) {
-        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
+    func artUpdated() {
+        artView.image = trackInfo?.art ?? Images.imgPlayingArt
     }
     
     func showOrHideAlbumArt() {
@@ -71,15 +83,15 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func showOrHideArtist() {
-        infoView.metadataDisplaySettingsChanged()
+        textView.metadataDisplaySettingsChanged()
     }
     
     func showOrHideAlbum() {
-        infoView.metadataDisplaySettingsChanged()
+        textView.metadataDisplaySettingsChanged()
     }
     
     func showOrHideCurrentChapter() {
-        infoView.metadataDisplaySettingsChanged()
+        textView.metadataDisplaySettingsChanged()
     }
     
     func showOrHidePlayingTrackFunctions() {
@@ -104,91 +116,20 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     // MARK: Track info functions
     
-    func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int), _ chapterTitle: String?) {
-        
-        infoView.showNowPlayingInfo(track, sequence, chapterTitle)
-        showPlayingTrackInfo()
-        
-        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
-    }
-    
-    func setPlayingInfo_dontShow(_ track: Track, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
-        
-        infoView.showNowPlayingInfo(track, sequence, nil)
-        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
-    }
-    
-    func clearNowPlayingInfo() {
-        
-        infoView.clearNowPlayingInfo()
-        showPlayingTrackInfo()
-        
-        artView.image = Images.imgPlayingArt
-    }
-    
-    func chapterChanged(_ chapterTitle: String?) {
-        infoView.chapterChanged(chapterTitle)
-    }
-    
-    func sequenceChanged(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
-//        infoView.sequenceChanged(sequence)
-    }
-    
-    func gapStarted(_ track: Track, _ gapEndTime: Date) {
-        
-        showGapInfo()
-        
-        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
-        
-        gapView.gapStarted(track, gapEndTime)
-    }
-    
-    fileprivate func showGapInfo() {
-        
-        gapBox.coLocate(infoBox)
-        gapBox.show()
-        NSView.hideViews(infoBox, functionsBox)
-        
-        gapBox.bringToFront()
-    }
-    
-    fileprivate func showPlayingTrackInfo() {
-        
-        if gapBox.isShown {
-            
-            gapBox.hide()
-            gapView.endGap()
-        }
-        
-        infoBox.showIf_elseHide(player.state.playingOrPaused() && (PlayerViewState.showTrackInfo || autoHideFields_showing))
-        functionsBox.showIf_elseHide(player.state.playingOrPaused() && PlayerViewState.showPlayingTrackFunctions)
-    }
-    
-    func handOff(_ otherView: PlayerView) {
-        
-        infoView.handOff(otherView.infoView)
-        gapView.handOff(otherView.gapView)
-        otherView.artView.image = artView.image
-    }
-    
     func changeTextSize(_ size: TextSize) {
-        
-        infoView.changeTextSize(size)
-        gapView.changeTextSize(size)
+        textView.changeTextSize(size)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        
-        infoView.applyColorScheme(scheme)
-        gapView.applyColorScheme(scheme)
+        textView.applyColorScheme(scheme)
     }
     
     func changeBackgroundColor(_ color: NSColor) {
 
         // Solid color
-        [infoBox, controlsBox, functionsBox, gapBox].forEach({
+        [infoBox, controlsBox, functionsBox].forEach({
             $0?.fillColor = color
             $0?.isTransparent = !color.isOpaque
         })
@@ -198,21 +139,15 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func changePrimaryTextColor(_ color: NSColor) {
-        
-        infoView.changeTextColor()
-        gapView.changeTextColor()
+        textView.changeTextColor()
     }
     
     func changeSecondaryTextColor(_ color: NSColor) {
-        
-        infoView.changeTextColor()
-        gapView.changeTextColor()
+        textView.changeTextColor()
     }
     
     func changeTertiaryTextColor(_ color: NSColor) {
-        
-        infoView.changeTextColor()
-        gapView.changeTextColor()
+        textView.changeTextColor()
     }
 }
 
@@ -222,16 +157,14 @@ class DefaultPlayerView: PlayerView {
     override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 85, y: 95) }
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 85, y: 67)
     
-    override func showView(_ playbackState: PlaybackState) {
+    override func showView() {
         
-        super.showView(playbackState)
+        super.showView()
 
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
-        
-        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -284,12 +217,6 @@ class DefaultPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxCenteredPosition)
     }
     
-    override fileprivate func showPlayingTrackInfo() {
-        
-        super.showPlayingTrackInfo()
-        infoBox.show()
-    }
-    
     override var needsMouseTracking: Bool {
         return !PlayerViewState.showControls
     }
@@ -302,21 +229,17 @@ class ExpandedArtPlayerView: PlayerView {
     @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var centerOverlayBox: NSBox!
     
-    override func showView(_ playbackState: PlaybackState) {
+    override func showView() {
         
-        super.showView(playbackState)
+        super.showView()
         
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         NSView.hideViews(controlsBox, overlayBox)
-        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
-        
-        gapBox.makeTransparent()
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
         
         let windowColor = Colors.windowBackgroundColor
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
-        
-        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
     override func showOrHideMainControls() {
@@ -350,7 +273,7 @@ class ExpandedArtPlayerView: PlayerView {
     }
     
     private func autoHideInfo_show() {
-        infoBox.showIf_elseHide(player.state.playingOrPaused())
+        infoBox.show()
     }
     
     private func autoHideInfo_hide() {
@@ -364,11 +287,11 @@ class ExpandedArtPlayerView: PlayerView {
         centerOverlayBox.hide()
         
         controlsBox.makeTransparent()
-        [infoBox, controlsBox, functionsBox, gapBox].forEach({$0?.bringToFront()})
+        [infoBox, controlsBox, functionsBox].forEach({$0?.bringToFront()})
         
         // Re-position the info box, art view, and functions box
         moveInfoBoxTo(infoBoxTopPosition)
-        infoBox.showIf_elseHide(player.state.playingOrPaused())
+        infoBox.show()
     }
     
     private func autoHideControls_hide() {
@@ -382,34 +305,13 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Show info box as overlay temporarily
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
-        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
-    }
-    
-    override func clearNowPlayingInfo() {
-        
-        infoView.clearNowPlayingInfo()
-        
-        if gapBox.isShown {
-            
-            gapBox.hide()
-            gapView.endGap()
-        }
-        
-        // Need to hide info box because it is opaque and will obscure art
-        NSView.hideViews(infoBox, centerOverlayBox)
-        artView.image = Images.imgPlayingArt
-    }
-    
-    override fileprivate func showPlayingTrackInfo() {
-        
-        super.showPlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override func showOrHidePlayingTrackInfo() {
         
         super.showOrHidePlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide((infoBox.isShown || gapBox.isShown) && !overlayBox.isShown)
+        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override var needsMouseTracking: Bool {
@@ -422,11 +324,5 @@ class ExpandedArtPlayerView: PlayerView {
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
         
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
-    }
-    
-    override func gapStarted(_ track: Track, _ gapEndTime: Date) {
-
-        centerOverlayBox.show()
-        super.gapStarted(track, gapEndTime)
     }
 }

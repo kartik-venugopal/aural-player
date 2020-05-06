@@ -36,15 +36,15 @@ class MouseTrackingView: NSView {
         }
     }
     
-    override func mouseEntered(with event: NSEvent) {
-        
-        // Let observers know that the mouse has entered this view.
-        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-    }
-    
-    override func mouseExited(with event: NSEvent) {
-        
-        // Let observers know that the mouse has exited this view.
-        SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
-    }
+//    override func mouseEntered(with event: NSEvent) {
+//        
+//        // Let observers know that the mouse has entered this view.
+//        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
+//    }
+//    
+//    override func mouseExited(with event: NSEvent) {
+//        
+//        // Let observers know that the mouse has exited this view.
+//        SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
+//    }
 }

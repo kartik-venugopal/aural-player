@@ -3,9 +3,11 @@ import Cocoa
 class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     
     @IBOutlet weak var theView: TranscoderView!
-    @IBOutlet weak var playerView: NSView!
+//    @IBOutlet weak var playerView: NSView!
     
     private lazy var player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    
+    override var nibName: String? {return "TranscodingTrack"}
     
     var subscriberId: String {return self.className}
     
@@ -17,20 +19,20 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
     func transcodingStarted(_ track: Track) {
         
         theView.transcodingStarted(track)
-        theView.bringToFront()
         
-        if player.state != .waiting {
-            playerView.hide()
-            theView.show()
-        }
+        // If showing gap, don't show transcoder view yet
+//        if player.state != .waiting {
+//
+//            playerView.hide()
+//            theView.show()
+//        }
     }
     
     @IBAction func cancelAction(_ sender: Any) {
         
         player.cancelTranscoding()
         theView.transcodingFinished()
-        theView.hide()
-        playerView.show()
+//        playerView.show()
     }
 
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
@@ -38,15 +40,15 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber {
         theView.transcodingProgress(msg)
         
         if theView.isHidden && player.state == .transcoding {
-            playerView.hide()
+            
+//            playerView.hide()
             theView.show()
         }
     }
     
     private func transcodingFinished() {
 
-        playerView.show()
-        theView.hide()
+//        playerView.show()
         theView.transcodingFinished()
     }
     

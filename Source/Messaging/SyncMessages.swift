@@ -255,19 +255,6 @@ struct PlaybackRateChangedNotification: NotificationMessage {
     }
 }
 
-// Notification about a change in playback state (paused/playing/noTrack).
-struct PlaybackStateChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .playbackStateChangedNotification
-    
-    // The new playback state
-    let newPlaybackState: PlaybackState
-    
-    init(_ newPlaybackState: PlaybackState) {
-        self.newPlaybackState = newPlaybackState
-    }
-}
-
 // Notification about a change in the seek position of the currently playing track (e.g. when a seek is performed)
 struct SeekPositionChangedNotification: NotificationMessage {
     
