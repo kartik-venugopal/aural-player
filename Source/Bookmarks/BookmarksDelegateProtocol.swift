@@ -1,11 +1,9 @@
 import Foundation
 
 protocol BookmarksDelegateProtocol {
-    
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark
-    
-    // Loop
-    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double) -> Bookmark
+
+    // If the endPosition parameter is nil, it means a single track position is being bookmarked. Otherwise, a loop is being bookmarked.
+    func addBookmark(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double?) -> Bookmark
     
     var allBookmarks: [Bookmark] {get}
     

@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient, MessageSubscriber, ActionMessageSubscriber {
+class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
@@ -179,7 +179,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputClient,
         return self.className
     }
     
-    // MARK - StringInputClient functions
+    // MARK - StringInputReceiver functions
     
     var inputPrompt: String {
         return "Enter a new preset name:"

@@ -100,11 +100,15 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         
         do {
             
-            try bookmarks.playBookmark(sender.bookmark!)
+            if let bookmark = sender.bookmark {
+                try bookmarks.playBookmark(bookmark)
+            }
             
         } catch let error {
             
             if let fnfError = error as? FileNotFoundError {
+                
+                // TODO: When this error occurs, offer more options like "Point to the new location of the file". See RecorderViewController for reference.
                 
                 // This needs to be done async. Otherwise, other open dialogs could hang.
                 DispatchQueue.main.async {
@@ -115,8 +119,6 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
                 }
             }
         }
-        
-        // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {

@@ -1,6 +1,6 @@
 import Cocoa
 
-class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputClient {
+class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
 
     private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
@@ -32,7 +32,7 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputClie
         layoutNamePopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
-    // MARK - StringInputClient functions
+    // MARK - StringInputReceiver functions
     
     var inputPrompt: String {
         return "Enter a layout name:"

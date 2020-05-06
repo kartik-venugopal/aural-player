@@ -26,11 +26,11 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     @IBOutlet weak var cancelBtnCell: StringInputPopoverResponseButtonCell!
     
     // A callback object so that the string input can be validated without this class knowing the logic for doing so
-    private var client: StringInputClient!
+    private var client: StringInputReceiver!
     
     override var nibName: String? {return "StringInputPopover"}
     
-    static func create(_ client: StringInputClient) -> StringInputPopoverViewController {
+    static func create(_ client: StringInputReceiver) -> StringInputPopoverViewController {
         
         let controller = StringInputPopoverViewController()
         controller.client = client
