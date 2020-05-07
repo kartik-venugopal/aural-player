@@ -32,6 +32,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
+        controlsView.applyColorScheme(ColorSchemes.systemScheme)
+        
         initSubscriptions()
     }
     

@@ -101,7 +101,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         })
         
         artView?.image = track.displayInfo.art?.image
-        lblNoArt.showIf_elseHide(artView?.image == nil)
+        lblNoArt.showIf(artView?.image == nil)
         
         lyricsView?.string = track.lyrics ?? noLyricsText
     }
@@ -334,7 +334,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             if msg.track == DetailedTrackInfoViewController.shownTrack {
                 
                 artView?.image = msg.track.displayInfo.art?.image
-                lblNoArt.showIf_elseHide(artView?.image == nil)
+                lblNoArt.showIf(artView?.image == nil)
                 coverArtTable?.reloadData()
             }
         }

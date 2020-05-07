@@ -22,20 +22,14 @@ extension NSView {
         self.isHidden = false
     }
     
-    func hideIf_elseShow(_ condition: Bool) {
-        self.isHidden = condition
-    }
-    
-    func showIf_elseHide(_ condition: Bool) {
-        self.isHidden = !condition
-    }
-    
+    // NOTE - Should not simply set the flag here because show() and hide() may be overriden and need to be called somewhere in a subview.
     func hideIf(_ condition: Bool) {
-        if condition {hide()}
+        condition ? hide() : show()
     }
-
+    
+    // NOTE - Should not simply set the flag here because show() and hide() may be overriden and need to be called somewhere in a subview.
     func showIf(_ condition: Bool) {
-        if condition {show()}
+        condition ? show() : hide()
     }
     
     var isVisible: Bool {
@@ -245,10 +239,14 @@ extension NSControl {
         return !isEnabled
     }
     
+    // TODO: Why not just set the flag to true/false here ???
+    // Is there an overriden function somewhere in a subview ?
     @objc func enable() {
         self.enableIf(true)
     }
     
+    // TODO: Why not just set the flag to true/false here ???
+    // Is there an overriden function somewhere in a subview ?
     @objc func disable() {
         self.enableIf(false)
     }

@@ -4,13 +4,16 @@ import Cocoa
 class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var infoBox: NSBox!
+    @IBOutlet weak var artView: NSImageView!
+    @IBOutlet weak var textView: TrackInfoView!
     
     @IBOutlet weak var controlsBox: NSBox!
+    private let controlsView: NSView = ViewFactory.controlsView
+    
     @IBOutlet weak var functionsBox: NSBox!
     
-    @IBOutlet weak var artView: NSImageView!
-    
-    @IBOutlet weak var textView: TrackInfoView!
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 5, y: 60) }
+    fileprivate var autoHideFields_showing: Bool = false
     
     var trackInfo: PlayingTrackInfo? {
         
@@ -19,9 +22,17 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
-    fileprivate var controlsBoxPosition: NSPoint { return NSPoint(x: 0, y: 10) }
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 5, y: 60) }
-    fileprivate var autoHideFields_showing: Bool = false
+    func showView() {
+        
+        controlsView.removeFromSuperview()
+        controlsBox.addSubview(controlsView)
+        
+        show()
+    }
+    
+    func hideView() {
+        hide()
+    }
     
     func update() {
         trackInfoSet()
@@ -32,27 +43,9 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         textView.trackInfo = self.trackInfo
         artView.image = trackInfo?.art ?? Images.imgPlayingArt
         
-        infoBox.showIf_elseHide(trackInfo != nil)
+        infoBox.showIf(trackInfo != nil)
     }
-    
-    func showView() {
-        
-        self.addSubview(controlsBox, positioned: .above, relativeTo: nil)
-        self.addSubview(functionsBox)
-        
-        controlsBox.setFrameOrigin(controlsBoxPosition)
 
-        self.show()
-    }
-    
-    func hideView() {
-        
-        self.hide()
-        
-        controlsBox.removeFromSuperview()
-        functionsBox.removeFromSuperview()
-    }
-    
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         infoBox.setFrameOrigin(point)
@@ -62,44 +55,36 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     fileprivate func centerFunctionsBox() {
         
         // Vertically center functions box w.r.t. info box
-        let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: funcY))
+        let functionsBoxY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
+        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: functionsBoxY))
     }
     
     func showOrHidePlayingTrackInfo() {
-        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
-    }
-    
-    func showOrHideSequenceInfo() {
-//        infoView.showOrHideSequenceInfo()
-    }
-    
-    func artUpdated() {
-        artView.image = trackInfo?.art ?? Images.imgPlayingArt
+        infoBox.showIf(PlayerViewState.showTrackInfo || autoHideFields_showing)
     }
     
     func showOrHideAlbumArt() {
-        artView.showIf_elseHide(PlayerViewState.showAlbumArt)
+        artView.showIf(PlayerViewState.showAlbumArt)
     }
     
     func showOrHideArtist() {
-        textView.metadataDisplaySettingsChanged()
+        textView.displayedTextChanged()
     }
     
     func showOrHideAlbum() {
-        textView.metadataDisplaySettingsChanged()
+        textView.displayedTextChanged()
     }
     
     func showOrHideCurrentChapter() {
-        textView.metadataDisplaySettingsChanged()
+        textView.displayedTextChanged()
     }
     
     func showOrHidePlayingTrackFunctions() {
-        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     func showOrHideMainControls() {
-        controlsBox.showIf_elseHide(PlayerViewState.showControls)
+        controlsBox.showIf(PlayerViewState.showControls)
     }
     
     func mouseEntered() {
@@ -114,7 +99,7 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         return false
     }
     
-    // MARK: Track info functions
+    // MARK: Appearance functions
     
     func changeTextSize(_ size: TextSize) {
         textView.changeTextSize(size)
@@ -154,17 +139,21 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 85, y: 95) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 85, y: 67)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 95) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 67)
+    
+    override var needsMouseTracking: Bool {
+        return !PlayerViewState.showControls
+    }
     
     override func showView() {
-        
-        super.showView()
-
+    
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
-        artView.showIf_elseHide(PlayerViewState.showAlbumArt)
-        controlsBox.showIf_elseHide(PlayerViewState.showControls)
+        artView.showIf(PlayerViewState.showAlbumArt)
+        controlsBox.showIf(PlayerViewState.showControls)
+        
+        super.showView()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -216,10 +205,6 @@ class DefaultPlayerView: PlayerView {
         controlsBox.hide()
         moveInfoBoxTo(infoBoxCenteredPosition)
     }
-    
-    override var needsMouseTracking: Bool {
-        return !PlayerViewState.showControls
-    }
 }
 
 @IBDesignable
@@ -229,17 +214,21 @@ class ExpandedArtPlayerView: PlayerView {
     @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var centerOverlayBox: NSBox!
     
+    override var needsMouseTracking: Bool {
+        return true
+    }
+    
     override func showView() {
-        
-        super.showView()
         
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         NSView.hideViews(controlsBox, overlayBox)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
+        centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
         
-        let windowColor = Colors.windowBackgroundColor
-        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
+        let windowColorWithTransparency = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
+        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
+        
+        super.showView()
     }
     
     override func showOrHideMainControls() {
@@ -253,31 +242,13 @@ class ExpandedArtPlayerView: PlayerView {
     override func mouseEntered() {
         
         super.mouseEntered()
-        
         autoHideControls_show()
-        
-        if !PlayerViewState.showTrackInfo {
-            autoHideInfo_show()
-        }
     }
     
     override func mouseExited() {
         
         super.mouseExited()
-        
-        if !PlayerViewState.showTrackInfo {
-            autoHideInfo_hide()
-        }
-        
         autoHideControls_hide()
-    }
-    
-    private func autoHideInfo_show() {
-        infoBox.show()
-    }
-    
-    private func autoHideInfo_hide() {
-        NSView.hideViews(infoBox, centerOverlayBox)
     }
     
     private func autoHideControls_show() {
@@ -286,10 +257,9 @@ class ExpandedArtPlayerView: PlayerView {
         NSView.showViews(controlsBox, overlayBox)
         centerOverlayBox.hide()
         
-        controlsBox.makeTransparent()
         [infoBox, controlsBox, functionsBox].forEach({$0?.bringToFront()})
         
-        // Re-position the info box, art view, and functions box
+        // Re-position the info box and functions box
         moveInfoBoxTo(infoBoxTopPosition)
         infoBox.show()
     }
@@ -298,24 +268,18 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Hide controls
         NSView.hideViews(overlayBox, controlsBox)
-        centerOverlayBox.show()
         
-        controlsBox.makeOpaque()
+        // Show info box only if the setting allows it.
+        infoBox.showIf(PlayerViewState.showTrackInfo)
+        centerOverlayBox.showIf(infoBox.isShown)
+        
         moveInfoBoxTo(infoBoxDefaultPosition)
-        
-        // Show info box as overlay temporarily
-        infoBox.hideIf(!PlayerViewState.showTrackInfo)
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
     }
     
     override func showOrHidePlayingTrackInfo() {
         
         super.showOrHidePlayingTrackInfo()
-        centerOverlayBox.showIf_elseHide(infoBox.isShown && !overlayBox.isShown)
-    }
-    
-    override var needsMouseTracking: Bool {
-        return true
+        centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
     }
     
     override func changeBackgroundColor(_ color: NSColor) {

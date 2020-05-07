@@ -59,8 +59,8 @@ class FilterBandViewController: NSViewController {
         
         filterTypeMenu.selectItem(withTitle: filterType.description)
         
-        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
-        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf(filterType == .bandPass || filterType == .bandStop)})
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf(filterType == .bandPass || filterType == .bandStop)})
         
         if filterType == .bandPass || filterType == .bandStop {
             
@@ -94,8 +94,8 @@ class FilterBandViewController: NSViewController {
         let filterType = FilterBandType.fromDescription(filterTypeMenu.titleOfSelectedItem!)
         band.type = filterType
         
-        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf_elseHide(filterType == .bandPass || filterType == .bandStop)})
-        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf_elseShow(filterType == .bandPass || filterType == .bandStop)})
+        [freqRangeSlider, lblRangeCaption, presetRangesMenu].forEach({$0?.showIf(filterType == .bandPass || filterType == .bandStop)})
+        [cutoffSlider, lblCutoffCaption, presetCutoffsMenu].forEach({$0?.hideIf(filterType == .bandPass || filterType == .bandStop)})
         
         if filterType == .bandPass || filterType == .bandStop {
             

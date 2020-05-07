@@ -29,6 +29,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     override func viewDidLoad() {
         
+        self.view.addSubview(playingTrackView)
+        playingTrackView.setFrameOrigin(NSPoint.zero)
+        
 //        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
 //            self.view.addSubview($0)
 //            $0.setFrameOrigin(NSPoint.zero)
@@ -48,6 +51,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     private func switchView() {
         
+        playingTrackView.show()
+        
         // TODO: Do a switch here ... on state
 //        switch player.state {
 //
@@ -66,15 +71,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
 //            transcodingTrackView.show()
 //            NSView.hideViews(playingTrackView, waitingTrackView)
 //        }
-    }
-  
-    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-    }
-    
-    private func transcodingStarted(_ track: Track) {
-    }
-        
-    private func transcodingFinished() {
     }
     
     // MARK: Message handling

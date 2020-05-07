@@ -118,8 +118,8 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         
         searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
         
-        btnNextSearch.showIf_elseHide(searchResult.hasNext)
-        btnPreviousSearch.showIf_elseHide(searchResult.hasPrevious)
+        btnNextSearch.showIf(searchResult.hasNext)
+        btnPreviousSearch.showIf(searchResult.hasPrevious)
     }
     
     // Selects a track within the playlist view, to show the user where the track is located within the playlist

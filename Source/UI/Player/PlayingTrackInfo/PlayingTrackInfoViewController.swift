@@ -8,12 +8,6 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     
     @IBOutlet weak var infoView: PlayingTrackInfoView!
     
-    @IBOutlet weak var controlsBox: NSBox!
-    @IBOutlet weak var functionsBox: NSBox!
-    
-//    private var controlsView: PlayerControlsView = ViewFactory.controlsView as! PlayerControlsView
-//    private var playingTrackFunctionsView: PlayingTrackFunctionsView = ViewFactory.playingTrackFunctionsView as! PlayingTrackFunctionsView
-    
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
@@ -21,11 +15,10 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     
     override func viewDidLoad() {
         
-        controlsBox.contentView?.addSubview(ViewFactory.controlsView)
-        functionsBox.contentView?.addSubview(ViewFactory.playingTrackFunctionsView)
-        
         initSubscriptions()
-        showView()
+        
+        infoView.changeTextSize(PlayerViewState.textSize)
+        infoView.applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func initSubscriptions() {
@@ -40,17 +33,10 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     }
     
     private func showView() {
-        
-    }
-    
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ newTrack: IndexedTrack?) {
-        trackChanged(newTrack?.track)
+        infoView.show()
     }
     
     private func trackChanged(_ track: Track?) {
-        
-        // TODO: Do a switch here ... on state
         infoView.trackInfo = PlayingTrackInfo(track, player.playingChapter?.chapter.title)
     }
     
@@ -68,8 +54,12 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     private func chapterChanged(_ newChapter: IndexedChapter?) {
         
         if PlayerViewState.showCurrentChapter {
-//            playerView.chapterChanged(newChapter?.chapter.title)
+            infoView.trackInfo = PlayingTrackInfo(player.playingTrack?.track, newChapter?.chapter.title)
         }
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        infoView.applyColorScheme(scheme)
     }
     
     // MARK: Message handling
@@ -92,7 +82,7 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         
         if let trackChangedMsg = notification as? TrackChangedNotification {
             
-            trackChanged(trackChangedMsg.newTrack)
+            trackChanged(trackChangedMsg.newTrack?.track)
             return
             
         } else if let trackInfoUpdatedMsg = notification as? PlayingTrackInfoUpdatedNotification {
