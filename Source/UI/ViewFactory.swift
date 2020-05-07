@@ -5,12 +5,6 @@ import Cocoa
  */
 struct ViewFactory {
     
-    // Top-level sub-views (views displayed directly on the main window)
-    
-//    private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
-//
-//    private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
-    
     fileprivate struct PlayerViews {
         
         fileprivate static let rootViewController: PlayerViewController = PlayerViewController()
@@ -87,10 +81,6 @@ struct ViewFactory {
         fileprivate static var infoPopup: InfoPopupViewController = {
             return InfoPopupViewController.create()
         }()
-        
-//        fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
-//            return StatusBarPopoverViewController.create()
-//        }()
     }
     
     // Sub-views for the different individual editor views

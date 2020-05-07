@@ -117,11 +117,17 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
     }
 }
 
-// Encapsulates displayed information for currently playing track.
+// Encapsulates displayed information for the currently playing track.
 struct PlayingTrackInfo {
     
     let track: Track?
     let playingChapterTitle: String?
+    
+    init(_ track: Track?, _ playingChapterTitle: String?) {
+        
+        self.track = track
+        self.playingChapterTitle = playingChapterTitle
+    }
     
     var art: NSImage? {
         return track?.displayInfo.art?.image
@@ -137,11 +143,5 @@ struct PlayingTrackInfo {
     
     var displayName: String? {
         return track?.displayInfo.title ?? track?.conciseDisplayName
-    }
-    
-    init(_ track: Track?, _ playingChapterTitle: String?) {
-        
-        self.track = track
-        self.playingChapterTitle = playingChapterTitle
     }
 }
