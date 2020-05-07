@@ -25,6 +25,7 @@ class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
     override func awakeFromNib() {
         
         self.addSubviews(defaultView, expandedArtView)
+        
         showView(PlayerViewState.viewType)
         setUpMouseTracking()
     }
@@ -46,43 +47,57 @@ class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
     private func showOrHidePlayingTrackInfo() {
         
         PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
-        activeView.showOrHidePlayingTrackInfo()
+        
+        defaultView.showOrHidePlayingTrackInfo()
+        expandedArtView.showOrHidePlayingTrackInfo()
     }
     
     private func showOrHidePlayingTrackFunctions() {
         
         PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
-        activeView.showOrHidePlayingTrackFunctions()
+        
+        defaultView.showOrHidePlayingTrackFunctions()
+        expandedArtView.showOrHidePlayingTrackFunctions()
     }
     
     private func showOrHideAlbumArt() {
         
         PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
-        activeView.showOrHideAlbumArt()
+        
+        defaultView.showOrHideAlbumArt()
+        expandedArtView.showOrHideAlbumArt()
     }
     
     private func showOrHideArtist() {
         
         PlayerViewState.showArtist = !PlayerViewState.showArtist
-        activeView.showOrHideArtist()
+
+        defaultView.showOrHideArtist()
+        expandedArtView.showOrHideArtist()
     }
     
     private func showOrHideAlbum() {
         
         PlayerViewState.showAlbum = !PlayerViewState.showAlbum
-        activeView.showOrHideAlbum()
+        
+        defaultView.showOrHideAlbum()
+        expandedArtView.showOrHideAlbum()
     }
     
     private func showOrHideCurrentChapter() {
         
         PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
-        activeView.showOrHideCurrentChapter()
+        
+        defaultView.showOrHideCurrentChapter()
+        expandedArtView.showOrHideCurrentChapter()
     }
     
     private func showOrHideMainControls() {
         
         PlayerViewState.showControls = !PlayerViewState.showControls
-        activeView.showOrHideMainControls()
+        
+        defaultView.showOrHideMainControls()
+        expandedArtView.showOrHideMainControls()
     }
     
     override func mouseEntered(with event: NSEvent) {
@@ -99,10 +114,60 @@ class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
         expandedArtView.changeTextSize(size)
     }
     
+    func applyColorSchemeComponent(_ msg: ColorSchemeComponentActionMessage) {
+     
+        switch msg.actionType {
+            
+        case .changeBackgroundColor:
+            
+            changeBackgroundColor(msg.color)
+            
+        case .changePlayerTrackInfoPrimaryTextColor:
+            
+            changePrimaryTextColor(msg.color)
+            
+        case .changePlayerTrackInfoSecondaryTextColor:
+            
+            changeSecondaryTextColor(msg.color)
+            
+        case .changePlayerTrackInfoTertiaryTextColor:
+            
+            changeTertiaryTextColor(msg.color)
+            
+        default:
+            
+            return
+        }
+    }
+    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         defaultView.applyColorScheme(scheme)
         expandedArtView.applyColorScheme(scheme)
+    }
+    
+    func changeBackgroundColor(_ color: NSColor) {
+        
+        defaultView.changeBackgroundColor(color)
+        expandedArtView.changeBackgroundColor(color)
+    }
+    
+    func changePrimaryTextColor(_ color: NSColor) {
+        
+        defaultView.changePrimaryTextColor(color)
+        expandedArtView.changePrimaryTextColor(color)
+    }
+    
+    func changeSecondaryTextColor(_ color: NSColor) {
+        
+        defaultView.changeSecondaryTextColor(color)
+        expandedArtView.changeSecondaryTextColor(color)
+    }
+    
+    func changeTertiaryTextColor(_ color: NSColor) {
+        
+        defaultView.changeTertiaryTextColor(color)
+        expandedArtView.changeTertiaryTextColor(color)
     }
     
     func performAction(_ action: PlayerViewActionMessage) {
@@ -163,33 +228,5 @@ class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
             
             stopTracking()
         }
-    }
-}
-
-struct PlayingTrackInfo {
-    
-    let track: Track?
-    let playingChapterTitle: String?
-    
-    var art: NSImage? {
-        return track?.displayInfo.art?.image
-    }
-    
-    var artist: String? {
-        return track?.displayInfo.artist
-    }
-    
-    var album: String? {
-        return track?.groupingInfo.album
-    }
-    
-    var displayName: String? {
-        return track?.displayInfo.title ?? track?.conciseDisplayName
-    }
-    
-    init(_ track: Track?, _ playingChapterTitle: String?) {
-        
-        self.track = track
-        self.playingChapterTitle = playingChapterTitle
     }
 }
