@@ -17,7 +17,7 @@ struct ViewFactory {
         
         fileprivate static let playingTrackFunctionsViewController: PlayingTrackFunctionsViewController = PlayingTrackFunctionsViewController()
         
-        fileprivate static let controlsViewController: PlaybackViewController = PlaybackViewController()
+        fileprivate static let controlsViewController: PlayerControlsViewController = PlayerControlsViewController()
     }
     
     // Sub-views for the different individual effects units displayed on the Effects panel
