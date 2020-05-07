@@ -128,33 +128,36 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
         
         // Show popover
-        let bookmarkPopoverLocation = locationForBookmarkPrompt
+        
+        let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+        
         windowManager.mainWindow.makeKeyAndOrderFront(self)
         
-        if bookmarkPopoverLocation.view.isVisible {
+        // If controls are being auto-hidden, don't display popover relative to any view within the window. Show it relative to the window itself.
+        if autoHideIsOn {
+
+            // Show popover relative to window
+            if let windowRootView = self.view.window?.contentView {
+                bookmarkNamePopover.show(windowRootView, NSRectEdge.maxX)
+            }
+            
+        } else {
+            
+            let seekPositionMarkerView: NSView = ViewFactory.seekPositionMarkerView
             
             // Show popover relative to seek slider
-            bookmarkNamePopover.show(bookmarkPopoverLocation.view, bookmarkPopoverLocation.edge)
-            
-        } else if btnBookmark.isVisible {
-            
-            // Show popover relative to bookmark function button
-            bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
-            
-        } else if let windowRootView = self.view.window?.contentView {
-            
-            // Show popover relative to window
-            bookmarkNamePopover.show(windowRootView, NSRectEdge.maxX)
+            if seekPositionMarkerView.isVisible {
+                bookmarkNamePopover.show(seekPositionMarkerView, NSRectEdge.maxY)
+
+            } // Show popover relative to bookmark function button
+            else if btnBookmark.isVisible {
+                bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+                
+            } // Show popover relative to window
+            else if let windowRootView = self.view.window?.contentView {
+                bookmarkNamePopover.show(windowRootView, NSRectEdge.maxX)
+            }
         }
-    }
-    
-    private var locationForBookmarkPrompt: (view: NSView, edge: NSRectEdge) {
-        
-        // Slider knob position
-        let knobRect = seekSliderCell.knobRect(flipped: false)
-        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 2, y: seekSlider.frame.origin.y + knobRect.minY))
-        
-        return (seekPositionMarker, NSRectEdge.maxY)
     }
     
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state

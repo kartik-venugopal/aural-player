@@ -425,6 +425,14 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     func changeSliderColors() {
         [seekSlider, volumeSlider, panSlider].forEach({$0?.redraw()})
     }
+    
+    // Positions the "seek position marker" view at the center of the seek slider knob.
+    func positionSeekPositionMarkerView() {
+        
+        // Slider knob position
+        let knobRect = seekSliderCell.knobRect(flipped: false)
+        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.minX + knobRect.centerX, y: seekSlider.frame.minY + knobRect.minY))
+    }
 }
 
 enum TimeElapsedDisplayType: String {

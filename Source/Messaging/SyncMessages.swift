@@ -487,21 +487,6 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
 }
 
-// TODO: This is dead code, remove it
-// Request from the User Presets popover to an effects unit controller to save a user-defined preset with a given name
-struct SaveUserPresetRequest: RequestMessage {
-    
-    let messageType: MessageType
-    
-    // Name of the new Pitch preset being saved
-    let presetName: String
-    
-    init(_ messageType: MessageType, _ presetName: String) {
-        self.messageType = messageType
-        self.presetName = presetName
-    }
-}
-
 // Notification that the main window is about to be resized
 struct MainWindowResizingNotification: NotificationMessage {
  
