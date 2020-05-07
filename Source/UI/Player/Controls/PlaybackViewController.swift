@@ -356,6 +356,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    // Returns a view that marks the current position of the seek slider knob.
+    var seekPositionMarkerView: NSView {
+        
+        controlsView.positionSeekPositionMarkerView()
+        return controlsView.seekPositionMarker
+    }
+    
     private func playChapter(_ index: Int) {
         
         player.playChapter(index)

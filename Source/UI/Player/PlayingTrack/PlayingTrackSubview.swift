@@ -226,11 +226,23 @@ class ExpandedArtPlayerView: PlayingTrackSubview {
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
+    override func trackInfoSet() {
+
+        super.trackInfoSet()
+        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
+    }
+    
     // Do nothing (this function is not allowed on the expanded art player view)
     override func showOrHideMainControls() {}
 
     // Do nothing (this function is not allowed on the expanded art player view)
     override func showOrHideAlbumArt() {}
+    
+    override func showOrHidePlayingTrackInfo() {
+        
+        super.showOrHidePlayingTrackInfo()
+        centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
+    }
     
     override func mouseEntered() {
         
@@ -269,23 +281,11 @@ class ExpandedArtPlayerView: PlayingTrackSubview {
         moveInfoBoxTo(infoBoxDefaultPosition)
     }
     
-    override func showOrHidePlayingTrackInfo() {
-        
-        super.showOrHidePlayingTrackInfo()
-        centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
-    }
-    
     override func changeBackgroundColor(_ color: NSColor) {
         
         let windowColorWithTransparency = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
         
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
-    }
-    
-    override func trackInfoSet() {
-
-        super.trackInfoSet()
-        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
     }
 }

@@ -149,6 +149,11 @@ struct ViewFactory {
         return PlayerViews.controlsViewController.view
     }
     
+    // Returns a view that marks the current position of the player's seek slider knob.
+    static var seekPositionMarkerView: NSView {
+        return PlayerViews.controlsViewController.seekPositionMarkerView
+    }
+    
     // Returns the view that displays the Equalizer effects unit
     static var masterView: NSView {
         return EffectsViews.masterViewController.view
