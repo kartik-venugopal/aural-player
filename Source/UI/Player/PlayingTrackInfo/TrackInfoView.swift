@@ -20,7 +20,8 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     
     // The displayed track title
     private var title: String? {
-        return trackInfo?.displayName
+//        return trackInfo?.displayName
+        return "Ayyappa Muthusami Chandrashekhar Ayyappa"
     }
     
     // The displayed track artist (displayed only if user setting allows it)
@@ -45,6 +46,8 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
         // Set the line width to assist with truncation of title/artist/album/chapter strings,
         // with some padding to allow for slight discrepancies when truncating
         lineWidth = (textView?.frame.width ?? 300) - 15
+        
+        print("\nLineWidth=", lineWidth, hashValue)
     }
     
     // Responds to a change in user-preferred text size
@@ -62,12 +65,14 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     }
     
     // Updates the view when the user settings that control display of metadata fields have changed
-    func metadataDisplaySettingsChanged() {
+    func displayedTextChanged() {
         update()
     }
     
     // Constructs the formatted "rich" text to be displayed in the text view
-    private func update() {
+    private func update(callingMethod: String = #function) {
+        
+        print("TIV update:", self.hashValue, ", called by:", callingMethod)
         
         // First, clear the view to remove any old text
         textView.string = ""

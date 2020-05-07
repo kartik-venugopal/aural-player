@@ -191,7 +191,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     func initSeekPosition() {
 
         seekSlider.show()
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
 
     func updateSeekPosition() {
@@ -350,7 +350,7 @@ class PlayerControlsView: NSView, ColorSchemeable, TextSizeable {
     }
 
     func showOrHideTimeElapsedRemaining() {
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
     
     func sequenceChanged() {

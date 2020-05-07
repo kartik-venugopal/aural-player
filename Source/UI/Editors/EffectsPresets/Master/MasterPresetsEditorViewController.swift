@@ -129,7 +129,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func tableViewSelectionDidChange(_ notification: Notification) {
         
         let numRows = editorView.numberOfSelectedRows
-        previewBox.showIf_elseHide(numRows == 1)
+        previewBox.showIf(numRows == 1)
         
         if numRows == 1 {
             

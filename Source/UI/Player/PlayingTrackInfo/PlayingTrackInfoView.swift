@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlayingTrackInfoView: MouseTrackingView {
+class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
@@ -22,6 +22,13 @@ class PlayingTrackInfoView: MouseTrackingView {
         }
     }
     
+    override func awakeFromNib() {
+        
+        self.addSubviews(defaultView, expandedArtView)
+        showView(PlayerViewState.viewType)
+        setUpMouseTracking()
+    }
+    
     func update() {
         
         defaultView.update()
@@ -33,8 +40,6 @@ class PlayingTrackInfoView: MouseTrackingView {
         PlayerViewState.viewType = viewType
         
         inactiveView.hideView()
-        
-        activeView.needsMouseTracking ? startTracking() : stopTracking()
         activeView.showView()
     }
     
@@ -88,6 +93,18 @@ class PlayingTrackInfoView: MouseTrackingView {
         activeView.mouseExited()
     }
     
+    func changeTextSize(_ size: TextSize) {
+        
+        defaultView.changeTextSize(size)
+        expandedArtView.changeTextSize(size)
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        defaultView.applyColorScheme(scheme)
+        expandedArtView.applyColorScheme(scheme)
+    }
+    
     func performAction(_ action: PlayerViewActionMessage) {
         
         switch action.actionType {
@@ -128,6 +145,23 @@ class PlayingTrackInfoView: MouseTrackingView {
             
         default: return
             
+        }
+        
+        setUpMouseTracking()
+    }
+
+    // Set up mouse tracking if necessary.
+    private func setUpMouseTracking() {
+        
+        if activeView.needsMouseTracking {
+            
+            if !isTracking {
+                startTracking()
+            }
+            
+        } else if isTracking {
+            
+            stopTracking()
         }
     }
 }

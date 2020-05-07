@@ -180,7 +180,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     private func newTrackStarted(_ track: Track) {
         
-        self.view.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        self.view.showIf(PlayerViewState.showPlayingTrackFunctions)
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     

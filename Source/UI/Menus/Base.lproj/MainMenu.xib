@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -150,11 +150,11 @@
                 <outlet property="manageSchemesMenuItem" destination="3ie-xE-Lk9" id="uvR-z9-sCl"/>
             </connections>
         </customObject>
-        <customObject id="YVQ-JN-BbP" customClass="PlayerViewMenuController" customModule="Aural" customModuleProvider="target">
+        <customObject id="YVQ-JN-BbP" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="qqG-bq-Cq8" id="aJ0-SD-6eZ"/>
-                <outlet property="playerMenuItem" destination="af4-4E-1QV" id="QJL-UW-wrv"/>
+                <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="QJL-UW-wrv"/>
                 <outlet property="showAlbumMenuItem" destination="Cm0-LS-Buo" id="6CI-62-71f"/>
                 <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="VSm-fb-Loh"/>
                 <outlet property="showArtistMenuItem" destination="FmK-ms-TfL" id="sJZ-zO-l0d"/>
@@ -1702,7 +1702,7 @@ CA
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up-Small" width="10" height="14"/>
-        <image name="UserGuide" width="1200" height="19836"/>
+        <image name="UserGuide" width="16" height="14"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>

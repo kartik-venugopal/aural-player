@@ -63,10 +63,10 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             }
             
             cell.textField?.stringValue = text
-            cell.textField?.showIf_elseHide(!showCurrentChapterMarker)
+            cell.textField?.showIf(!showCurrentChapterMarker)
             
             cell.imageView!.image = showCurrentChapterMarker ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
-            cell.imageView!.showIf_elseHide(showCurrentChapterMarker)
+            cell.imageView!.showIf(showCurrentChapterMarker)
             
             return cell
         }

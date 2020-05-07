@@ -2,12 +2,13 @@ import Cocoa
 
 class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var playerViewMenuItem: NSMenuItem!
+        
     @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!
     @IBOutlet weak var playerExpandedArtViewMenuItem: NSMenuItem!
     
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
-    //    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
@@ -35,8 +36,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
     private var textSizes: [NSMenuItem] = []
     
-    private let viewAppState = ObjectGraph.appState.ui.player
-    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func awakeFromNib() {
@@ -48,13 +47,12 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
     }
     
-    // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Can't change the player view while transcoding
-        for index in 2..<menu.items.count {
-            menu.items[index].disableIf(player.state == .transcoding)
-        }
+        playerViewMenuItem.enableIf(player.state != .waiting && player.state != .transcoding)
+    }
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuWillOpen(_ menu: NSMenu) {
         
         // Player view:
         playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
@@ -64,9 +62,16 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         let trackInfoVisible: Bool = PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo
         
-        let hasArtist: Bool = player.playingTrack?.track.displayInfo.artist != nil
-        let hasAlbum: Bool = player.playingTrack?.track.groupingInfo.album != nil
-        let hasChapters: Bool = player.playingTrack?.track.hasChapters ?? false
+        var hasArtist: Bool = false
+        var hasAlbum: Bool = false
+        var hasChapters: Bool = false
+        
+        if let track = player.playingTrack?.track {
+            
+            hasArtist = track.displayInfo.artist != nil
+            hasAlbum = track.groupingInfo.album != nil
+            hasChapters = track.hasChapters
+        }
         
         showArtistMenuItem.showIf_elseHide(trackInfoVisible && hasArtist)
         showArtistMenuItem.onIf(PlayerViewState.showArtist)
@@ -78,14 +83,12 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         showCurrentChapterMenuItem.onIf(PlayerViewState.showCurrentChapter)
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-        //        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
         
         let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
         showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-        //        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
@@ -125,7 +128,9 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             }
         }
         
-        textSizes.forEach({$0.off()})
+        textSizes.forEach({
+            $0.off()
+        })
         
         switch PlayerViewState.textSize {
             
@@ -137,54 +142,51 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
         }
     }
-    
+   
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .defaultView))
+        
+        if PlayerViewState.viewType != .defaultView {
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .defaultView))
+        }
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .expandedArt))
+        
+        if PlayerViewState.viewType != .expandedArt {
+            SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .expandedArt))
+        }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackFunctions))
     }
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbumArt))
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideArtist))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideArtist))
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbum))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbum))
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideCurrentChapter))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideCurrentChapter))
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideMainControls))
     }
     
     @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTimeElapsedRemaining))
-    }
-    
-    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
-        
-        if let size = TextSize(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
-            
-            PlayerViewState.textSize = size
-            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
-        }
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideTimeElapsedRemaining))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
@@ -227,5 +229,14 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
+    }
+    
+    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
+        
+        if let size = TextSize(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
+            
+            PlayerViewState.textSize = size
+            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+        }
     }
 }

@@ -482,6 +482,7 @@
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="KXZ-Ro-nbz" id="0pr-QG-a9m"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="P5U-AN-0cd" id="Bfo-1I-nwk"/>
+                <outlet property="playerViewMenuItem" destination="b3A-Wj-7Xz" id="kGC-KK-urA"/>
                 <outlet property="showAlbumMenuItem" destination="q2a-QM-USN" id="Jgu-iU-NHK"/>
                 <outlet property="showArtMenuItem" destination="1PV-wr-DCy" id="JTH-65-x6h"/>
                 <outlet property="showArtistMenuItem" destination="rVN-5f-yfe" id="RL0-5n-B7r"/>

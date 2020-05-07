@@ -8,8 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlayingTrackInfoViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="controlsBox" destination="zxW-hj-Lir" id="W2o-9X-r3Y"/>
-                <outlet property="functionsBox" destination="3P4-gg-ICU" id="aMP-aa-KS3"/>
                 <outlet property="infoView" destination="U2T-El-GXi" id="4YH-bF-X4T"/>
                 <outlet property="view" destination="U2T-El-GXi" id="tcL-M3-sO7"/>
             </connections>
@@ -25,12 +23,12 @@
             </connections>
             <point key="canvasLocation" x="-2886" y="-627"/>
         </customView>
-        <view id="QFE-uI-ERc" userLabel="Default View" customClass="DefaultPlayerView" customModule="Aural" customModuleProvider="target">
+        <view hidden="YES" id="QFE-uI-ERc" userLabel="Default View" customClass="DefaultPlayerView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbh-S0-sBA" userLabel="Art View">
-                    <rect key="frame" x="5" y="88" width="70" height="70"/>
+                    <rect key="frame" x="15" y="88" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="2">
                         <size key="offset" width="-2" height="-2"/>
@@ -39,26 +37,26 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="PPE-jn-xVn"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-Re-Tfk" userLabel="Playing Track Info Box">
-                    <rect key="frame" x="85" y="83" width="340" height="80"/>
+                    <rect key="frame" x="90" y="83" width="350" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="QfM-Lf-Nxd" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="80"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="cgU-xL-xaP">
-                                <rect key="frame" x="2" y="0.0" width="336" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="dZx-By-Pkj">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="UhT-Od-dOq">
-                                            <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="336" height="80"/>
-                                            <size key="maxSize" width="336" height="80"/>
+                                            <size key="minSize" width="350" height="80"/>
+                                            <size key="maxSize" width="350" height="80"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
@@ -83,22 +81,41 @@
                     <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
+                <box boxType="custom" borderType="none" borderWidth="0.0" id="zxW-hj-Lir" userLabel="Controls Box">
+                    <rect key="frame" x="0.0" y="10" width="530" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="PoZ-OU-SXg">
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
+                    <rect key="frame" x="513" y="84" width="14" height="82"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="4Yl-Kz-j8H">
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
             </subviews>
             <connections>
                 <outlet property="artView" destination="Vbh-S0-sBA" id="vId-Ci-BEn"/>
-                <outlet property="controlsBox" destination="zxW-hj-Lir" id="ZxL-8b-jSi"/>
-                <outlet property="functionsBox" destination="3P4-gg-ICU" id="7z5-gd-zEQ"/>
+                <outlet property="controlsBox" destination="zxW-hj-Lir" id="mBM-gx-ig3"/>
+                <outlet property="functionsBox" destination="3P4-gg-ICU" id="d6p-I8-FYP"/>
                 <outlet property="infoBox" destination="VkO-Re-Tfk" id="wxV-y9-4RO"/>
                 <outlet property="textView" destination="QfM-Lf-Nxd" id="CE7-us-7Zp"/>
             </connections>
             <point key="canvasLocation" x="-2886" y="-361"/>
         </view>
-        <customView id="brh-Ra-2RI" userLabel="Expanded Art View" customClass="ExpandedArtPlayerView" customModule="Aural" customModuleProvider="target">
+        <customView hidden="YES" id="brh-Ra-2RI" userLabel="Expanded Art View" customClass="ExpandedArtPlayerView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8O-4j-Ewn" userLabel="Art View">
-                    <rect key="frame" x="170" y="25" width="170" height="170"/>
+                    <rect key="frame" x="180" y="25" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="5">
                         <size key="offset" width="-5" height="-5"/>
@@ -107,7 +124,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="MYy-DL-qsm"/>
                 </imageView>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3Dy-34-aeO" userLabel="Overlay Box">
-                    <rect key="frame" x="170" y="25" width="170" height="170"/>
+                    <rect key="frame" x="180" y="25" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="xVn-1g-HIJ">
                         <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
@@ -117,7 +134,7 @@
                     <color key="fillColor" white="0.0" alpha="0.75129291369999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ecE-El-Da6" userLabel="Center Overlay Box">
-                    <rect key="frame" x="170" y="70" width="170" height="80"/>
+                    <rect key="frame" x="180" y="70" width="170" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="9s7-bz-PQ2">
                         <rect key="frame" x="0.0" y="0.0" width="170" height="80"/>
@@ -127,26 +144,26 @@
                     <color key="fillColor" white="0.0" alpha="0.75129291369999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E63-wi-FG7" userLabel="Playing Track Info Box">
-                    <rect key="frame" x="5" y="70" width="470" height="80"/>
+                    <rect key="frame" x="30" y="70" width="470" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="wUw-i4-0Nw" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="STV-i2-jmb">
-                                <rect key="frame" x="30" y="0.0" width="440" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="qIG-jv-yLE">
-                                    <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="SCE-U4-XKx">
-                                            <rect key="frame" x="0.0" y="0.0" width="440" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="440" height="80"/>
-                                            <size key="maxSize" width="440" height="80"/>
+                                            <size key="minSize" width="470" height="80"/>
+                                            <size key="maxSize" width="470" height="80"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
@@ -171,39 +188,37 @@
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74614876760000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
+                <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" transparent="YES" id="rKk-kb-eJV" userLabel="Controls Box">
+                    <rect key="frame" x="0.0" y="10" width="530" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="gZz-4S-o7i">
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="sSt-jd-vmZ" userLabel="Functions Box">
+                    <rect key="frame" x="513" y="69" width="14" height="82"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="lYi-RD-U6T">
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
             </subviews>
             <connections>
                 <outlet property="artView" destination="w8O-4j-Ewn" id="0Pe-hy-Ptf"/>
                 <outlet property="centerOverlayBox" destination="ecE-El-Da6" id="OR0-PZ-aLj"/>
-                <outlet property="controlsBox" destination="zxW-hj-Lir" id="tsK-3i-qKT"/>
-                <outlet property="functionsBox" destination="3P4-gg-ICU" id="irR-8t-90S"/>
+                <outlet property="controlsBox" destination="rKk-kb-eJV" id="uE5-od-ttp"/>
+                <outlet property="functionsBox" destination="sSt-jd-vmZ" id="LJe-fN-6gP"/>
                 <outlet property="infoBox" destination="E63-wi-FG7" id="tY9-by-d9h"/>
                 <outlet property="overlayBox" destination="3Dy-34-aeO" id="QeX-x2-0TJ"/>
                 <outlet property="textView" destination="wUw-i4-0Nw" id="F6M-9T-d3r"/>
             </connections>
             <point key="canvasLocation" x="-2886" y="-94"/>
         </customView>
-        <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" transparent="YES" id="zxW-hj-Lir" userLabel="Controls Box">
-            <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView" id="PoZ-OU-SXg">
-                <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            </view>
-            <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-            <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <point key="canvasLocation" x="-2876" y="391"/>
-        </box>
-        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
-            <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView" id="4Yl-Kz-j8H">
-                <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            </view>
-            <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="-3255" y="404"/>
-        </box>
     </objects>
     <resources>
         <image name="PlayingArt" width="237" height="237"/>

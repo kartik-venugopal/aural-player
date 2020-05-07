@@ -90,8 +90,8 @@ class FilterViewController: FXUnitViewController {
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
         
-        btnScrollLeft.showIf_elseHide(numTabs > 7 && tabsShown.lowerBound > 0)
-        btnScrollRight.showIf_elseHide(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
+        btnScrollLeft.showIf(numTabs > 7 && tabsShown.lowerBound > 0)
+        btnScrollRight.showIf(numTabs > 7 && tabsShown.upperBound < numTabs - 1)
     }
     
     override func stateChanged() {

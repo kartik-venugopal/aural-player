@@ -7,12 +7,12 @@ import Cocoa
 class MouseTrackingView: NSView {
     
     // Flag that indicates whether or not this view is currently tracking mouse movements.
-    private var isTracking: Bool = false
+    private(set) var isTracking: Bool = false
     
     // Signals the view to start tracking mouse movements.
     func startTracking() {
         
-        stopTracking()
+        self.removeAllTrackingAreas()
         
         isTracking = true
         self.updateTrackingAreas()
@@ -35,16 +35,4 @@ class MouseTrackingView: NSView {
             super.updateTrackingAreas()
         }
     }
-    
-//    override func mouseEntered(with event: NSEvent) {
-//        
-//        // Let observers know that the mouse has entered this view.
-//        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-//    }
-//    
-//    override func mouseExited(with event: NSEvent) {
-//        
-//        // Let observers know that the mouse has exited this view.
-//        SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
-//    }
 }
