@@ -1,15 +1,15 @@
 import Cocoa
 
-class PlayingTrackInfoView: MouseTrackingView, ColorSchemeable, TextSizeable {
+class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
-    @IBOutlet weak var defaultView: PlayerView!
-    @IBOutlet weak var expandedArtView: PlayerView!
+    @IBOutlet weak var defaultView: PlayingTrackSubview!
+    @IBOutlet weak var expandedArtView: PlayingTrackSubview!
     
-    private var activeView: PlayerView {
+    private var activeView: PlayingTrackSubview {
         return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
     }
     
-    private var inactiveView: PlayerView {
+    private var inactiveView: PlayingTrackSubview {
         return PlayerViewState.viewType == .defaultView ? expandedArtView : defaultView
     }
  

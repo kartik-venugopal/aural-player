@@ -1,7 +1,7 @@
 import Cocoa
 
 @IBDesignable
-class PlayerView: NSView, ColorSchemeable, TextSizeable {
+class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var artView: NSImageView!
@@ -133,7 +133,7 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
 }
 
 @IBDesignable
-class DefaultPlayerView: PlayerView {
+class DefaultPlayerView: PlayingTrackSubview {
     
     private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 95)
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 70)
@@ -202,7 +202,7 @@ class DefaultPlayerView: PlayerView {
 }
 
 @IBDesignable
-class ExpandedArtPlayerView: PlayerView {
+class ExpandedArtPlayerView: PlayingTrackSubview {
     
     private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 70)
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 30, y: 95)
