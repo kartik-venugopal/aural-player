@@ -33,6 +33,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
     
+    override var nibName: String? {return "PlayingTrackFunctions"}
+    
     override func viewDidLoad() {
         
         // Subscribe to various notifications

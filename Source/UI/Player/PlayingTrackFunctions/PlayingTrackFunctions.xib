@@ -17,11 +17,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="R0b-Th-zhg" customClass="PlayingTrackFunctionsView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
+            <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-6V-p3K" userLabel="More Info Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="61" width="11" height="11"/>
+                    <rect key="frame" x="3" y="58" width="11" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5ag-kg-Rbj">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <button toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H7A-ah-Yqg" userLabel="Show Playing Track Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="4" y="14" width="9" height="9"/>
+                    <rect key="frame" x="4" y="11" width="9" height="9"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="i17-r2-lUB">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -49,7 +49,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-UZ-6XC" userLabel="Favorites Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="44" width="11" height="11"/>
+                    <rect key="frame" x="3" y="41" width="11" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="aBB-Qb-dwb">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -66,7 +66,7 @@
                     </connections>
                 </button>
                 <button toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2c7-fK-LGi" userLabel="Bookmark Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="3" y="29" width="10" height="9"/>
+                    <rect key="frame" x="3" y="26" width="10" height="9"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Bookmark" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0tO-eQ-36P">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

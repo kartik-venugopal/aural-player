@@ -11,6 +11,7 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     private let controlsView: NSView = ViewFactory.controlsView
     
     @IBOutlet weak var functionsBox: NSBox!
+    private let functionsView: NSView = ViewFactory.playingTrackFunctionsView
     
     fileprivate var autoHideFields_showing: Bool = false
     
@@ -25,6 +26,9 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         
         controlsView.removeFromSuperview()
         controlsBox.addSubview(controlsView)
+        
+        functionsView.removeFromSuperview()
+        functionsBox.addSubview(functionsView)
         
         show()
     }
@@ -41,21 +45,14 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
         
         textView.trackInfo = self.trackInfo
         artView.image = trackInfo?.art ?? Images.imgPlayingArt
-        
-        infoBox.showIf(trackInfo != nil)
     }
 
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         infoBox.setFrameOrigin(point)
-        centerFunctionsBox()
-    }
-    
-    fileprivate func centerFunctionsBox() {
         
         // Vertically center functions box w.r.t. info box
-        let functionsBoxY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
-        functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - functionsBox.frame.width - 5, y: functionsBoxY))
+        functionsBox.frame.origin.y = infoBox.frame.minY
     }
     
     func showOrHidePlayingTrackInfo() {
@@ -145,14 +142,13 @@ class DefaultPlayerView: PlayerView {
         return !PlayerViewState.showControls
     }
     
-    override func showView() {
+    override func awakeFromNib() {
     
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
         artView.showIf(PlayerViewState.showAlbumArt)
         controlsBox.showIf(PlayerViewState.showControls)
-        
-        super.showView()
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -218,17 +214,16 @@ class ExpandedArtPlayerView: PlayerView {
         return true
     }
     
-    override func showView() {
-        
+    override func awakeFromNib() {
+
         moveInfoBoxTo(infoBoxDefaultPosition)
-        
+
         NSView.hideViews(controlsBox, overlayBox)
-        centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
         
-        let windowColorWithTransparency = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
-        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
+        infoBox.showIf(PlayerViewState.showTrackInfo)
+        centerOverlayBox.showIf(infoBox.isShown)
         
-        super.showView()
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     // Do nothing (this function is not allowed on the expanded art player view)
@@ -282,9 +277,15 @@ class ExpandedArtPlayerView: PlayerView {
     
     override func changeBackgroundColor(_ color: NSColor) {
         
-        let windowColor = Colors.windowBackgroundColor
-        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)})
+        let windowColorWithTransparency = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
+        [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
         
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
+    }
+    
+    override func trackInfoSet() {
+
+        super.trackInfoSet()
+        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
     }
 }

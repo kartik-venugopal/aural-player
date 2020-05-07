@@ -91,11 +91,11 @@
                     <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
-                    <rect key="frame" x="513" y="84" width="14" height="82"/>
+                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
+                    <rect key="frame" x="501" y="95" width="14" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="4Yl-Kz-j8H">
-                        <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
@@ -198,11 +198,11 @@
                     <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="sSt-jd-vmZ" userLabel="Functions Box">
-                    <rect key="frame" x="513" y="69" width="14" height="82"/>
+                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="sSt-jd-vmZ" userLabel="Functions Box">
+                    <rect key="frame" x="501" y="70" width="14" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" id="lYi-RD-U6T">
-                        <rect key="frame" x="0.0" y="0.0" width="14" height="82"/>
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
