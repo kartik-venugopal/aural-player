@@ -9,7 +9,7 @@ struct ViewFactory {
         
         fileprivate static let rootViewController: PlayerViewController = PlayerViewController()
         
-        fileprivate static let playingTrackInfoViewController: PlayingTrackInfoViewController = PlayingTrackInfoViewController()
+        fileprivate static let playingTrackViewController: PlayingTrackViewController = PlayingTrackViewController()
         
         fileprivate static let waitingTrackViewController: WaitingTrackViewController = WaitingTrackViewController()
         
@@ -126,7 +126,7 @@ struct ViewFactory {
     
     // Returns the view that displays the player
     static var playingTrackView: NSView {
-        return PlayerViews.playingTrackInfoViewController.view
+        return PlayerViews.playingTrackViewController.view
     }
     
     // Returns the view that displays the player

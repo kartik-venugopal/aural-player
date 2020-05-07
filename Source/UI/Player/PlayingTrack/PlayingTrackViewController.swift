@@ -4,14 +4,14 @@
 
 import Cocoa
 
-class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber, AsyncMessageSubscriber {
+class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber, AsyncMessageSubscriber {
     
-    @IBOutlet weak var infoView: PlayingTrackInfoView!
+    @IBOutlet weak var infoView: PlayingTrackView!
     
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    override var nibName: String? {return "PlayingTrackInfo"}
+    override var nibName: String? {return "PlayingTrack"}
     
     override func viewDidLoad() {
         
