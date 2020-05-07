@@ -12,7 +12,7 @@
 
 ### Other improvements
 
-* Upgrade to Swift v5.0
+* Upgrade to Swift v5.1.3 (Xcode v11.3)
 * Complete source code restructuring
    * Re-organized project meta files, resources, and documentation
    * Every source group now has an associated filesystem folder

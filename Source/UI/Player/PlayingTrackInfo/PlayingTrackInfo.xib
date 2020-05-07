@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbh-S0-sBA" userLabel="Art View">
-                    <rect key="frame" x="15" y="88" width="70" height="70"/>
+                    <rect key="frame" x="15" y="100" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="2">
                         <size key="offset" width="-2" height="-2"/>
@@ -37,7 +37,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="PPE-jn-xVn"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-Re-Tfk" userLabel="Playing Track Info Box">
-                    <rect key="frame" x="90" y="83" width="350" height="80"/>
+                    <rect key="frame" x="90" y="95" width="350" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="QfM-Lf-Nxd" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>

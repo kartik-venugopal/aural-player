@@ -12,7 +12,6 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var functionsBox: NSBox!
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 5, y: 60) }
     fileprivate var autoHideFields_showing: Bool = false
     
     var trackInfo: PlayingTrackInfo? {
@@ -139,8 +138,8 @@ class PlayerView: NSView, ColorSchemeable, TextSizeable {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 95) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 67)
+    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 95)
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 70)
     
     override var needsMouseTracking: Bool {
         return !PlayerViewState.showControls
@@ -159,7 +158,7 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y + 5
+        artView.frame.origin.y = infoBox.frame.origin.y + 5 // 5 is half the difference in height between infoBox and artView
     }
     
     override func showOrHideMainControls() {
@@ -170,9 +169,8 @@ class DefaultPlayerView: PlayerView {
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
     }
     
-    override func showOrHidePlayingTrackInfo() {
-        // Do nothing (this function is not allowed on the default player view)
-    }
+    // Do nothing (this function is not allowed on the default player view)
+    override func showOrHidePlayingTrackInfo() {}
     
     override func mouseEntered() {
         
@@ -210,7 +208,9 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 5, y: 90)
+    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 70)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 30, y: 95)
+    
     @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var centerOverlayBox: NSBox!
     
@@ -231,13 +231,11 @@ class ExpandedArtPlayerView: PlayerView {
         super.showView()
     }
     
-    override func showOrHideMainControls() {
-        // Do nothing (this function is not allowed on the expanded art player view)
-    }
-    
-    override func showOrHideAlbumArt() {
-        // Do nothing (this function is not allowed on the expanded art player view)
-    }
+    // Do nothing (this function is not allowed on the expanded art player view)
+    override func showOrHideMainControls() {}
+
+    // Do nothing (this function is not allowed on the expanded art player view)
+    override func showOrHideAlbumArt() {}
     
     override func mouseEntered() {
         

@@ -29,7 +29,7 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func showView() {
@@ -58,10 +58,6 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         }
     }
     
-    func applyColorScheme(_ scheme: ColorScheme) {
-        infoView.applyColorScheme(scheme)
-    }
-    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -74,6 +70,19 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
             
             infoView.performAction(pvActionMsg)
             return
+            
+        } else if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
+            
+            infoView.applyColorSchemeComponent(colorComponentActionMsg)
+            return
+            
+        } else if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
+            
+            infoView.applyColorScheme(colorSchemeActionMsg.scheme)
+            
+        } else if let textSizeMessage = message as? TextSizeActionMessage, textSizeMessage.actionType == .changePlayerTextSize {
+            
+            infoView.changeTextSize(textSizeMessage.textSize)
         }
     }
     
@@ -103,6 +112,36 @@ class PlayingTrackInfoViewController: NSViewController, ActionMessageSubscriber,
         if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
             
             trackNotPlayed(trackNotPlayedMsg)
+            return
         }
+    }
+}
+
+// Encapsulates displayed information for currently playing track.
+struct PlayingTrackInfo {
+    
+    let track: Track?
+    let playingChapterTitle: String?
+    
+    var art: NSImage? {
+        return track?.displayInfo.art?.image
+    }
+    
+    var artist: String? {
+        return track?.displayInfo.artist
+    }
+    
+    var album: String? {
+        return track?.groupingInfo.album
+    }
+    
+    var displayName: String? {
+        return track?.displayInfo.title ?? track?.conciseDisplayName
+    }
+    
+    init(_ track: Track?, _ playingChapterTitle: String?) {
+        
+        self.track = track
+        self.playingChapterTitle = playingChapterTitle
     }
 }
