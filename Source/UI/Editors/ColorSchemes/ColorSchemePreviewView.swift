@@ -294,8 +294,8 @@ class SeekSliderPreviewCell: SeekSliderCell {
     
     var _knobColor: NSColor = NSColor.white
     
-    override var barPlainGradient: NSGradient {return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
-    override var barColoredGradient: NSGradient {return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
+    override var backgroundGradient: NSGradient {return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
+    override var foregroundGradient: NSGradient {return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
     override var knobColor: NSColor {return _knobColor}
 }
 

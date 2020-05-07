@@ -39,7 +39,7 @@
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-Re-Tfk" userLabel="Playing Track Info Box">
                     <rect key="frame" x="90" y="95" width="350" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="QfM-Lf-Nxd" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" ambiguous="YES" id="QfM-Lf-Nxd" customClass="PlayingTrackTextView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -146,7 +146,7 @@
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E63-wi-FG7" userLabel="Playing Track Info Box">
                     <rect key="frame" x="30" y="70" width="470" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="wUw-i4-0Nw" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" ambiguous="YES" id="wUw-i4-0Nw" customClass="PlayingTrackTextView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -155,7 +155,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="qIG-jv-yLE">
                                     <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="SCE-U4-XKx">
                                             <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>

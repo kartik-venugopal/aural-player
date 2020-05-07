@@ -15,7 +15,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
     
     var filterType: FilterBandType = .lowPass
     
-    override var barPlainGradient: NSGradient {
+    override var backgroundGradient: NSGradient {
         
         if self.unitState == .active {
             
@@ -58,7 +58,7 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
         }
     }
     
-    override var barColoredGradient: NSGradient {
+    override var foregroundGradient: NSGradient {
         
         if self.unitState == .active {
             
@@ -117,7 +117,7 @@ class CutoffFrequencySliderPreviewCell: CutoffFrequencySliderCell {
         }
     }
     
-    override var barPlainGradient: NSGradient {
+    override var backgroundGradient: NSGradient {
         
         if self.unitState == .active {
             
@@ -160,7 +160,7 @@ class CutoffFrequencySliderPreviewCell: CutoffFrequencySliderCell {
         }
     }
     
-    override var barColoredGradient: NSGradient {
+    override var foregroundGradient: NSGradient {
         
         if self.unitState == .active {
             

@@ -3,7 +3,7 @@ import Cocoa
 /*
     A view that displays info about the currently playing track in the player window.
  */
-class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
+class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
     
     // The text view that displays all the track info
     @IBOutlet weak var textView: NSTextView!
@@ -67,7 +67,7 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     }
     
     // Constructs the formatted "rich" text to be displayed in the text view
-    private func update(callingMethod: String = #function) {
+    private func update() {
         
         // First, clear the view to remove any old text
         textView.string = ""
@@ -187,6 +187,7 @@ class TrackInfoView: NSView, ColorSchemeable, TextSizeable {
     private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor, _ lineSpacing: CGFloat? = nil) -> NSAttributedString {
         
         // TODO: Figure out how to do this flexibly and optimally
+        
 //        let shadow: NSShadow = NSShadow()
 //        shadow.shadowColor = shadowColor
 //        shadow.shadowOffset = NSSize(width: -0.5, height: -0.5)

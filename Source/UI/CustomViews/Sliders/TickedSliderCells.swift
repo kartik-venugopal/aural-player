@@ -65,7 +65,7 @@ class PanTickedSliderCell: TickedSliderCell {
         let offsetRect = aRect.offsetBy(dx: 0, dy: 0.25)
         
         var drawPath = NSBezierPath.init(roundedRect: offsetRect, xRadius: barRadius, yRadius: barRadius)
-        barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        backgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         drawTicks(aRect)
         
@@ -79,7 +79,7 @@ class PanTickedSliderCell: TickedSliderCell {
             
             let panRect = NSRect(x: panRectX, y: offsetRect.minY, width: panRectWidth, height: offsetRect.height)
             drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
-            barColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+            foregroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         }
     }
     
@@ -117,11 +117,11 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var tickVerticalSpacing: CGFloat {return 1}
     
-    override var barPlainGradient: NSGradient {
+    override var backgroundGradient: NSGradient {
         return Colors.Effects.sliderBackgroundGradient
     }
     
-    override var barColoredGradient: NSGradient {
+    override var foregroundGradient: NSGradient {
      
         switch self.unitState {
             
@@ -154,11 +154,11 @@ class EffectsTickedSliderPreviewCell: EffectsTickedSliderCell {
     
     override var tickColor: NSColor {return Colors.Effects.defaultTickColor}
     
-    override var barPlainGradient: NSGradient {
+    override var backgroundGradient: NSGradient {
         return Colors.Effects.defaultSliderBackgroundGradient
     }
     
-    override var barColoredGradient: NSGradient {
+    override var foregroundGradient: NSGradient {
         
         switch self.unitState {
             

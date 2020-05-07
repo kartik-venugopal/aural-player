@@ -11,8 +11,8 @@ class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
     
-    var barPlainGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
-    var barColoredGradient: NSGradient {return Colors.Player.sliderForegroundGradient}
+    var backgroundGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
+    var foregroundGradient: NSGradient {return Colors.Player.sliderForegroundGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     
     var barInsetX: CGFloat {return 0}
@@ -31,12 +31,12 @@ class HorizontalSliderCell: NSSliderCell {
         let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
 
         var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-        barColoredGradient.draw(in: drawPath, angle: gradientDegrees)
+        foregroundGradient.draw(in: drawPath, angle: gradientDegrees)
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
         
         drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-        barPlainGradient.draw(in: drawPath, angle: gradientDegrees)
+        backgroundGradient.draw(in: drawPath, angle: gradientDegrees)
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {
@@ -96,7 +96,7 @@ struct PlaybackLoopRange {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1}
+    override var barRadius: CGFloat {return 0}
     override var barInsetY: CGFloat {return 2}
     
     override var knobRadius: CGFloat {return 1.5}
@@ -125,30 +125,17 @@ class SeekSliderCell: HorizontalSliderCell {
         self.loop = nil
     }
     
-    override func barRect(flipped: Bool) -> NSRect {
-        
-        var superRect = super.barRect(flipped: flipped)
-        let oldOrigin = superRect.origin
-        superRect.origin = NSPoint(x: 0, y: oldOrigin.y)
-
-        return superRect
-    }
-    
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let knobFrame = knobRect(flipped: false)
         let halfKnobWidth = knobFrame.width / 2
         
         let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
-        
-        var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-        barColoredGradient.draw(in: drawPath, angle: gradientDegrees)
+        foregroundGradient.draw(in: leftRect, angle: gradientDegrees)
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
+        backgroundGradient.draw(in: rightRect, angle: gradientDegrees)
         
-        drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-        barPlainGradient.draw(in: drawPath, angle: gradientDegrees)
-
         // Render segment playback loop, if one is defined
         if let loop = self.loop {
 
@@ -216,8 +203,8 @@ class PreferencesSliderCell: HorizontalSliderCell {
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
     
-    override var barPlainGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
-    override var barColoredGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
+    override var backgroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
+    override var foregroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
     
     override var knobColor: NSColor {return Colors.Constants.white80Percent}
 }
