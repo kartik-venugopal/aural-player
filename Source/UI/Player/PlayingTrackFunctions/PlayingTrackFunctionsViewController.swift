@@ -63,7 +63,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 
                 windowManager.mainWindow.makeKeyAndOrderFront(self)
                 
-                if btnMoreInfo.isVisible {
+                let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+                
+                if btnMoreInfo.isVisible && !autoHideIsOn {
                     
                     detailedInfoPopover.show(playingTrack, btnMoreInfo, NSRectEdge.maxX)
                     
@@ -172,7 +174,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             btnFavorite.onIf(added)
             
-            if btnFavorite.isVisible {
+            let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+            
+            if btnFavorite.isVisible && !autoHideIsOn {
                 
                 infoPopup.showMessage(added ? "Track added to Favorites !" : "Track removed from Favorites !", btnFavorite, NSRectEdge.maxX)
                 
