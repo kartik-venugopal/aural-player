@@ -5,7 +5,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var artView: NSImageView!
-    @IBOutlet weak var textView: TrackInfoView!
+    @IBOutlet weak var textView: PlayingTrackTextView!
     
     @IBOutlet weak var controlsBox: NSBox!
     private let controlsView: NSView = ViewFactory.controlsView
