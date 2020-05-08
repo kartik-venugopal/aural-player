@@ -12,15 +12,15 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     private let playerNode: AVAudioPlayerNode
     
     // Helper used for actual scheduling and playback
-    private let scheduler: PlaybackScheduler
+    private let scheduler: PlaybackSchedulerProtocol
     
     var state: PlaybackState = .noTrack
     
-    init(_ graph: PlayerGraphProtocol) {
+    init(_ graph: PlayerGraphProtocol, _ scheduler: PlaybackSchedulerProtocol) {
         
         self.graph = graph
         self.playerNode = graph.playerNode
-        self.scheduler = PlaybackScheduler(self.playerNode)
+        self.scheduler = scheduler
         
         AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
