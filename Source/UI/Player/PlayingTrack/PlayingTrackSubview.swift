@@ -133,7 +133,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
 }
 
 @IBDesignable
-class DefaultPlayerView: PlayingTrackSubview {
+class DefaultPlayingTrackSubview: PlayingTrackSubview {
     
     private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 95)
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 70)
@@ -202,7 +202,7 @@ class DefaultPlayerView: PlayingTrackSubview {
 }
 
 @IBDesignable
-class ExpandedArtPlayerView: PlayingTrackSubview {
+class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
     private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 70)
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 30, y: 95)
@@ -261,8 +261,6 @@ class ExpandedArtPlayerView: PlayingTrackSubview {
         // Show controls
         NSView.showViews(controlsBox, overlayBox)
         centerOverlayBox.hide()
-        
-        [infoBox, controlsBox, functionsBox].forEach({$0?.bringToFront()})
         
         // Re-position the info box and functions box
         moveInfoBoxTo(infoBoxTopPosition)
