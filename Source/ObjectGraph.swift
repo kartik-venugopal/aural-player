@@ -21,6 +21,7 @@ class ObjectGraph {
     static var audioGraphDelegate: AudioGraphDelegateProtocol!
     
     private static var player: PlayerProtocol!
+    private static var playbackScheduler: PlaybackSchedulerProtocol!
     private static var playbackSequencer: PlaybackSequencerProtocol!
     
     static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol!
@@ -76,8 +77,19 @@ class ObjectGraph {
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState.audioGraph)
         
+        // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
+        // Instantiate the legacy scheduler if running on 10.12 Sierra.
+        if #available(macOS 10.13, *) {
+
+            playbackScheduler = NewScheduler(audioGraph.playerNode)
+            
+        } else {
+            
+            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
+        }
+        
         // Player
-        player = Player(audioGraph)
+        player = Player(audioGraph, playbackScheduler)
         
         // Playlist
         let flatPlaylist = FlatPlaylist()

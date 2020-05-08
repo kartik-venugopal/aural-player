@@ -6,7 +6,7 @@ import AVFoundation
  
  A "playback session" begins when playback is started, as a result of either play() or seekToTime(). It ends when either playback is completed or a new request is received (and stop() is called).
  */
-class PlaybackScheduler {
+class PlaybackScheduler: PlaybackSchedulerProtocol {
     
     // TODO: Use completion callback type (available in 10.13) conditionally, to simplify completion logic
     
@@ -330,4 +330,3 @@ class PlaybackScheduler {
         AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
     }
 }
-

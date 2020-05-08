@@ -20,8 +20,7 @@
 * Cleanup of old screenshots and demos from the repository
 
 * Complete refactoring of player views and associated controllers
-   * Greatly simplified, easy to maintain
-   * Reliable
+   * Greatly simplified, easy to maintain, more reliable
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.1.0)
