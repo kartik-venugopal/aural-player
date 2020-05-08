@@ -11,16 +11,13 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: TintedImageButton!
     
-    // Used to display the bookmark name prompt popover
-    @IBOutlet weak var seekSlider: NSSlider!
-    @IBOutlet weak var seekSliderCell: SeekSliderCell!
-    @IBOutlet weak var seekPositionMarker: NSView!
+    @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
     
     // Delegate that provides info about the playing track
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
@@ -35,13 +32,17 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     override var nibName: String? {return "PlayingTrackFunctions"}
     
+    private var allButtons: [Tintable] = []
+    
     override func viewDidLoad() {
+        
+        allButtons = [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark]
         
         // Subscribe to various notifications
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -223,6 +224,18 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        allButtons.forEach({$0.reTint()})
+    }
+    
+    private func changeFunctionButtonColor() {
+        allButtons.forEach({$0.reTint()})
+    }
+    
+    private func changeToggleButtonOffStateColor() {
+        btnFavorite.reTint()
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -257,6 +270,20 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         case .bookmarkPosition: bookmarkAction(self)
             
         case .bookmarkLoop: bookmarkLoop()
+            
+        case .applyColorScheme:
+        
+        if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
+            applyColorScheme(colorSchemeActionMsg.scheme)
+        }
+        
+        case .changeFunctionButtonColor:
+               
+            changeFunctionButtonColor()
+            
+        case .changeToggleButtonOffStateColor:
+            
+            changeToggleButtonOffStateColor()
 
         default: return
             
