@@ -11,6 +11,7 @@
                 <outlet property="btnBookmark" destination="2c7-fK-LGi" id="xVt-Mz-xej"/>
                 <outlet property="btnFavorite" destination="WTT-UZ-6XC" id="WP9-aC-KUK"/>
                 <outlet property="btnMoreInfo" destination="QNU-6V-p3K" id="WTn-UW-Dij"/>
+                <outlet property="btnShowPlayingTrackInPlaylist" destination="H7A-ah-Yqg" id="k7b-Yu-uSv"/>
                 <outlet property="view" destination="R0b-Th-zhg" id="bGl-C6-Ugo"/>
             </connections>
         </customObject>

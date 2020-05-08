@@ -158,8 +158,8 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     
     private func applyColorScheme(_ scheme: ColorScheme) {
         
-        // This call will also take care of toggle buttons
-        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        changeFunctionButtonColor(scheme.general.functionButtonColor)   // This call will also take care of toggle buttons.
+        changeSliderColors()
         changeSliderValueTextColor()
     }
     
