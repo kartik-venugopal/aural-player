@@ -281,7 +281,6 @@
 		3E89CA2A246329A10057D3EE /* PlayerControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E89CA29246329A10057D3EE /* PlayerControls.xib */; };
 		3E89CA2C24632CA10057D3EE /* TranscodingTrack.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E89CA2B24632CA10057D3EE /* TranscodingTrack.xib */; };
 		3E89CA2E246337590057D3EE /* PlayingTrackFunctions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E89CA2D246337590057D3EE /* PlayingTrackFunctions.xib */; };
-		3E8A2C8421C4F6A7004AD0DA /* TranscoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */; };
 		3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */; };
 		3E94E85B21549A5800C57AD8 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85A21549A5800C57AD8 /* DelayPresets.swift */; };
 		3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */; };
@@ -772,7 +771,6 @@
 		3E89CA29246329A10057D3EE /* PlayerControls.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerControls.xib; sourceTree = "<group>"; };
 		3E89CA2B24632CA10057D3EE /* TranscodingTrack.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscodingTrack.xib; sourceTree = "<group>"; };
 		3E89CA2D246337590057D3EE /* PlayingTrackFunctions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayingTrackFunctions.xib; sourceTree = "<group>"; };
-		3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderView.swift; sourceTree = "<group>"; };
 		3E8A51CF21D856FB0014C185 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabGroupButtonCells.swift; sourceTree = "<group>"; };
 		3E94E85A21549A5800C57AD8 /* DelayPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
@@ -2138,7 +2136,6 @@
 			children = (
 				3E89CA2B24632CA10057D3EE /* TranscodingTrack.xib */,
 				3E9B104B21C3318A008326FE /* TranscoderViewController.swift */,
-				3E8A2C8321C4F6A7004AD0DA /* TranscoderView.swift */,
 			);
 			path = TranscodingTrackInfo;
 			sourceTree = "<group>";
@@ -2654,7 +2651,6 @@
 				3E3AD5481F5D2BEC006123E9 /* SyncMessages.swift in Sources */,
 				3E688ABF21E3842800164E84 /* WMParser.swift in Sources */,
 				3EC947AD1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift in Sources */,
-				3E8A2C8421C4F6A7004AD0DA /* TranscoderView.swift in Sources */,
 				3E047B0E1F01436700ADE0F1 /* ReverbSpaces.swift in Sources */,
 				3E1E970F1FA44671006C8629 /* PlaybackSequencerProtocol.swift in Sources */,
 				3EDA8F2824602C3D000715C8 /* WindowLayoutPresets.swift in Sources */,

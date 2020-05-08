@@ -8,13 +8,22 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TranscoderViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="theView" destination="lkp-s9-V8y" id="FQw-tr-4sf"/>
-                <outlet property="view" destination="lkp-s9-V8y" id="wZ7-EW-QbN"/>
+                <outlet property="btnCancel" destination="gsS-6B-tpQ" id="1hr-c9-NMt"/>
+                <outlet property="containerBox" destination="Deu-eh-NiI" id="y9Z-GF-BFT"/>
+                <outlet property="lblSpeed" destination="YWf-ra-qom" id="7Xh-Sr-rQW"/>
+                <outlet property="lblTimeElapsed" destination="Yse-zK-IqZ" id="6MJ-Zy-DNL"/>
+                <outlet property="lblTimeRemaining" destination="SfP-LF-wPf" id="Erl-bE-tVV"/>
+                <outlet property="lblTrack" destination="CgZ-Rb-gZp" id="mb8-EI-jSy"/>
+                <outlet property="lblTrackTime" destination="Al9-a3-nBv" id="eOW-aa-d4e"/>
+                <outlet property="lblTranscoding" destination="PzF-zV-VV4" id="353-Ev-fgg"/>
+                <outlet property="progressView" destination="UrA-XG-QBD" id="tXN-xL-WdY"/>
+                <outlet property="transcodingIcon" destination="3i9-0V-YNs" id="aHb-8q-0Nz"/>
+                <outlet property="view" destination="lkp-s9-V8y" id="9ts-fw-d7b"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view wantsLayer="YES" appearanceType="aqua" id="lkp-s9-V8y" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
+        <view wantsLayer="YES" appearanceType="aqua" id="lkp-s9-V8y" userLabel="Transcoder View">
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -118,18 +127,6 @@ Gw
                     </connections>
                 </button>
             </subviews>
-            <connections>
-                <outlet property="btnCancel" destination="gsS-6B-tpQ" id="qeI-wT-MYW"/>
-                <outlet property="containerBox" destination="Deu-eh-NiI" id="KhG-po-Lcg"/>
-                <outlet property="lblSpeed" destination="YWf-ra-qom" id="1KF-6j-vgz"/>
-                <outlet property="lblTimeElapsed" destination="Yse-zK-IqZ" id="CMV-jk-N7o"/>
-                <outlet property="lblTimeRemaining" destination="SfP-LF-wPf" id="WLe-mX-TsA"/>
-                <outlet property="lblTrack" destination="CgZ-Rb-gZp" id="imk-iM-b8d"/>
-                <outlet property="lblTrackTime" destination="Al9-a3-nBv" id="Jip-l6-NT0"/>
-                <outlet property="lblTranscoding" destination="PzF-zV-VV4" id="xLa-81-UdK"/>
-                <outlet property="progressView" destination="UrA-XG-QBD" id="v9I-hX-qHl"/>
-                <outlet property="transcodingIcon" destination="3i9-0V-YNs" id="Vua-dh-EEz"/>
-            </connections>
             <point key="canvasLocation" x="-2859" y="736"/>
         </view>
     </objects>

@@ -25,7 +25,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -116,6 +116,11 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
             
             trackNotPlayed(trackNotPlayedMsg)
+            return
+            
+        } else if let gapMsg = message as? PlaybackGapStartedAsyncMessage {
+            
+            trackChanged(gapMsg.nextTrack.track)
             return
         }
     }
