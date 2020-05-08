@@ -238,6 +238,9 @@
 		3E78DC992464676400E6BC00 /* PlayingTrackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC982464676400E6BC00 /* PlayingTrackSubview.swift */; };
 		3E78DC9B2464896900E6BC00 /* PlayerControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */; };
 		3E78DC9D24648C0700E6BC00 /* PlayerSequencingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */; };
+		3E78DC9F24648CB700E6BC00 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */; };
+		3E78DCA124648D9200E6BC00 /* PlayerAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */; };
+		3E78DCA32464983900E6BC00 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DCA22464983900E6BC00 /* PlaybackView.swift */; };
 		3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */; };
 		3E7CA23C217E739A00356240 /* ArtistsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7CA23B217E739A00356240 /* ArtistsPlaylistSortViewController.swift */; };
 		3E7CD3FD215B49C800DBD249 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */; };
@@ -728,6 +731,9 @@
 		3E78DC982464676400E6BC00 /* PlayingTrackSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingTrackSubview.swift; sourceTree = "<group>"; };
 		3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlsViewController.swift; sourceTree = "<group>"; };
 		3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSequencingViewController.swift; sourceTree = "<group>"; };
+		3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAudioViewController.swift; sourceTree = "<group>"; };
+		3E78DCA22464983900E6BC00 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E7CA23B217E739A00356240 /* ArtistsPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsPlaylistSortViewController.swift; sourceTree = "<group>"; };
 		3E7CD3FC215B49C800DBD249 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
@@ -2120,8 +2126,11 @@
 			children = (
 				3E89CA29246329A10057D3EE /* PlayerControls.xib */,
 				3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */,
-				3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */,
 				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
+				3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */,
+				3E78DCA22464983900E6BC00 /* PlaybackView.swift */,
+				3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */,
+				3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -2473,6 +2482,7 @@
 				3E6341D6243DC25E00190502 /* ViewPreferences.swift in Sources */,
 				3EE7D735244EE1AB005D76FA /* PlaylistColorSchemeViewController.swift in Sources */,
 				3E579CF4246281D2001B8D9D /* BookmarkNameInputReceiver.swift in Sources */,
+				3E78DCA32464983900E6BC00 /* PlaybackView.swift in Sources */,
 				3EDC3416218EA0C300905688 /* CutoffFrequencySlider.swift in Sources */,
 				3E309B781FB70D1F00C61E72 /* InfoPopupViewController.swift in Sources */,
 				3EF08DCB2156D65D000C7F11 /* WindowManagerProtocol.swift in Sources */,
@@ -2488,6 +2498,7 @@
 				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
 				3EB499F2244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
+				3E78DCA124648D9200E6BC00 /* PlayerAudioViewController.swift in Sources */,
 				3E1DA6F8244D6D4A00FFF59E /* ColorScheme.swift in Sources */,
 				3E4193DC24336D1B00F43162 /* SeekTimerTaskQueue.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
@@ -2771,6 +2782,7 @@
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
 				3EC7E8AF217B300E00F21695 /* EffectsUnitSliderCellProtocol.swift in Sources */,
 				3E00122A1F26A5100059B2D0 /* SearchQuery.swift in Sources */,
+				3E78DC9F24648CB700E6BC00 /* PlaybackViewController.swift in Sources */,
 				3EE7D72B244EDB14005D76FA /* GeneralColorSchemeViewController.swift in Sources */,
 				3EF609B3219307DD007AB34D /* MasterView.swift in Sources */,
 				3E45CC4721C5BABD005D9F19 /* CommandExecutor.swift in Sources */,
