@@ -30,8 +30,10 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         
         updateRepeatAndShuffleControls(ObjectGraph.playbackDelegate.repeatAndShuffleModes)
         
+        applyColorScheme(ColorSchemes.systemScheme)
+        
         // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
     }
     
     // Toggles the repeat mode
@@ -69,21 +71,21 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         updateRepeatAndShuffleControls(player.setShuffleMode(.on))
     }
     
-    func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
+    private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
 
         btnShuffle.switchState(modes.shuffleMode)
         btnRepeat.switchState(modes.repeatMode)
     }
     
-    func applyColorScheme(_ scheme: ColorScheme) {
+    private func applyColorScheme(_ scheme: ColorScheme) {
         [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
     
-    func changeFunctionButtonColor(_ color: NSColor) {
+    private func changeFunctionButtonColor() {
         [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
     
-    func changeToggleButtonOffStateColor(_ color: NSColor) {
+    private func changeToggleButtonOffStateColor() {
         [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
     
@@ -106,6 +108,20 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         case .shuffleOff: shuffleOff()
             
         case .shuffleOn: shuffleOn()
+            
+        case .applyColorScheme:
+            
+            if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
+                applyColorScheme(colorSchemeActionMsg.scheme)
+            }
+                
+        case .changeFunctionButtonColor:
+               
+            changeFunctionButtonColor()
+            
+        case .changeToggleButtonOffStateColor:
+            
+            changeToggleButtonOffStateColor()
         
         default: return
             
