@@ -32,10 +32,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
-    private func showView() {
-        infoView.show()
-    }
-    
     private func trackChanged(_ track: Track?) {
         
         if let theTrack = track {
@@ -85,10 +81,12 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         } else if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
             
             infoView.applyColorScheme(colorSchemeActionMsg.scheme)
+            return
             
         } else if let textSizeMessage = message as? TextSizeActionMessage, textSizeMessage.actionType == .changePlayerTextSize {
             
             infoView.changeTextSize(textSizeMessage.textSize)
+            return
         }
     }
     

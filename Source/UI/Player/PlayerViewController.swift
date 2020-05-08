@@ -16,11 +16,8 @@ import Cocoa
 class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
     private var playingTrackView: NSView = ViewFactory.playingTrackView
-//    private var waitingTrackView: NSView = ViewFactory.waitingTrackView
-//    private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
-//
-//    private var controlsView: NSView = ViewFactory.controlsView
-//    private var playingTrackFunctionsView: NSView = ViewFactory.playingTrackFunctionsView
+    private var waitingTrackView: NSView = ViewFactory.waitingTrackView
+    private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
     
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -29,13 +26,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     override func viewDidLoad() {
         
-        self.view.addSubview(playingTrackView)
-        playingTrackView.setFrameOrigin(NSPoint.zero)
+        //        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
         
-//        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
-//            self.view.addSubview($0)
-//            $0.setFrameOrigin(NSPoint.zero)
-//        })
+        [playingTrackView, waitingTrackView].forEach({
+            
+            self.view.addSubview($0)
+            $0.setFrameOrigin(NSPoint.zero)
+        })
         
         initSubscriptions()
         switchView()
@@ -45,32 +42,31 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
         
         AsyncMessenger.subscribe([.gapStarted, .transcodingStarted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        // TODO - Necessary ???
+        // TODO - Necessary ??? Maybe to find out when gap has ended.
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
     
     private func switchView() {
         
-        playingTrackView.show()
-        
-        // TODO: Do a switch here ... on state
-//        switch player.state {
-//
-//        case .noTrack, .playing, .paused:
-//
-//            playingTrackView.show()
+        switch player.state {
+
+        case .noTrack, .playing, .paused:
+
+            playingTrackView.show()
 //            NSView.hideViews(waitingTrackView, transcodingTrackView)
-//
-//        case .waiting:
-//
-//            waitingTrackView.show()
+            NSView.hideViews(waitingTrackView)
+
+        case .waiting:
+
+            waitingTrackView.show()
 //            NSView.hideViews(playingTrackView, transcodingTrackView)
-//
-//        case .transcoding:
-//
-//            transcodingTrackView.show()
-//            NSView.hideViews(playingTrackView, waitingTrackView)
-//        }
+            NSView.hideViews(playingTrackView)
+
+        case .transcoding:
+
+            transcodingTrackView.show()
+            NSView.hideViews(playingTrackView, waitingTrackView)
+        }
     }
     
     // MARK: Message handling

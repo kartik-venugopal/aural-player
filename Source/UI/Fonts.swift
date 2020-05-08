@@ -86,19 +86,19 @@ struct Fonts {
             }
         }
         
-        private static let gapBoxTitleFont_normal: NSFont = Constants.mainFont_14
-        private static let gapBoxTitleFont_larger: NSFont = Constants.mainFont_15
-        private static let gapBoxTitleFont_largest: NSFont = Constants.mainFont_16
+        private static let gapCaptionFont_normal: NSFont = Constants.mainFont_14
+        private static let gapCaptionFont_larger: NSFont = Constants.mainFont_15
+        private static let gapCaptionFont_largest: NSFont = Constants.mainFont_16
         
-        static var gapBoxTitleFont: NSFont {
+        static var gapCaptionFont: NSFont {
             
             switch PlayerViewState.textSize {
                 
-            case .normal: return gapBoxTitleFont_normal
+            case .normal: return gapCaptionFont_normal
                 
-            case .larger: return gapBoxTitleFont_larger
+            case .larger: return gapCaptionFont_larger
                 
-            case .largest: return gapBoxTitleFont_largest
+            case .largest: return gapCaptionFont_largest
                 
             }
         }
