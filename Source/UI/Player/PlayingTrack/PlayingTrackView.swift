@@ -30,6 +30,21 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         setUpMouseTracking()
     }
     
+    // This is required when the player view is hidden (eg. when waiting or transcoding).
+    override func viewDidHide() {
+        
+        if isTracking {
+            stopTracking()
+        }
+    }
+    
+    // This is required when the player view was hidden and is now shown (eg. after waiting or transcoding).
+    override func viewDidUnhide() {
+     
+        setUpMouseTracking()
+        activeView.showView()
+    }
+    
     func update() {
         
         defaultView.update()
