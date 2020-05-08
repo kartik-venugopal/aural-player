@@ -5,7 +5,7 @@ import Cocoa
 
 class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
-    @IBOutlet weak var controlsView: PlayerControlsView!
+    @IBOutlet weak var playbackView: PlaybackView!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -14,8 +14,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
-    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
-    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
@@ -28,11 +26,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
 
         let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
-        let rsModes = player.repeatAndShuffleModes
         
-        controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
+        playbackView.initialize(player.state, playbackRate, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
-        controlsView.applyColorScheme(ColorSchemes.systemScheme)
+        playbackView.applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
     }
@@ -50,23 +47,23 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
         
-        player.seekToPercentage(controlsView.seekSliderValue)
-        controlsView.updateSeekPosition()
+        player.seekToPercentage(playbackView.seekSliderValue)
+        playbackView.updateSeekPosition()
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     private func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
-        controlsView.playbackRateChanged(notification.newPlaybackRate, player.state)
+        playbackView.playbackRateChanged(notification.newPlaybackRate, player.state)
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
     private func playbackStateChanged() {
-        controlsView.playbackStateChanged(player.state)
+        playbackView.playbackStateChanged(player.state)
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack!.track.duration)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack!.track.duration)
     }
     
     // Plays, pauses, or resumes playback
@@ -88,7 +85,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             let wasPaused: Bool = player.state == .paused
             
             player.replay()
-            controlsView.updateSeekPosition()
+            playbackView.updateSeekPosition()
             
             if (wasPaused) {
                 playbackStateChanged()
@@ -138,31 +135,31 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func seekForward(_ actionMode: ActionMode) {
         
         player.seekForward(actionMode)
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func seekBackward(_ actionMode: ActionMode) {
         
         player.seekBackward(actionMode)
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func seekForward_secondary() {
         
         player.seekForwardSecondary()
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func seekBackward_secondary() {
         
         player.seekBackwardSecondary()
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func jumpToTime(_ time: Double) {
         
         player.seekToTime(time)
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
@@ -186,14 +183,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        controlsView.trackChanged(player.state, player.playbackLoop, newTrack)
-        
-        // Apply sound profile if there is one for the new track and the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let track = newTrack?.track, soundProfiles.hasFor(track) {
-
-            controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
-            controlsView.panChanged(audioGraph.balance)
-        }
+        playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
         
         if let track = newTrack?.track, track.hasChapters {
             beginPollingForChapterChange()
@@ -223,7 +213,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     private func seekPositionChanged() {
-        controlsView.updateSeekPosition()
+        playbackView.updateSeekPosition()
     }
     
     private func performPlayback(_ request: PlaybackRequest) {
@@ -261,52 +251,52 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Returns a view that marks the current position of the seek slider knob.
     var seekPositionMarkerView: NSView {
         
-        controlsView.positionSeekPositionMarkerView()
-        return controlsView.seekPositionMarker
+        playbackView.positionSeekPositionMarkerView()
+        return playbackView.seekPositionMarker
     }
     
     private func playChapter(_ index: Int) {
         
         player.playChapter(index)
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
-        controlsView.playbackStateChanged(player.state)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackStateChanged(player.state)
     }
     
     private func previousChapter() {
         
         player.previousChapter()
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
-        controlsView.playbackStateChanged(player.state)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackStateChanged(player.state)
     }
     
     private func nextChapter() {
         
         player.nextChapter()
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
-        controlsView.playbackStateChanged(player.state)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackStateChanged(player.state)
     }
     
     private func replayChapter() {
         
         player.replayChapter()
-        controlsView.updateSeekPosition()
-        controlsView.playbackStateChanged(player.state)
+        playbackView.updateSeekPosition()
+        playbackView.playbackStateChanged(player.state)
     }
     
     private func addChapterLoop() {
         
         player.loopChapter()
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
     }
     
     private func removeChapterLoop() {
         
         _ = player.toggleLoop()
-        controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        controlsView.gapStarted()
+        playbackView.gapStarted()
     }
     
     private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {

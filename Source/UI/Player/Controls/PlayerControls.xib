@@ -6,15 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PlayerControlsViewController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="controlsView" destination="EU3-Qz-2UZ" id="D1w-sS-FrS"/>
-                <outlet property="view" destination="EU3-Qz-2UZ" id="AO9-mb-mqj"/>
-            </connections>
-        </customObject>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="EU3-Qz-2UZ" customClass="PlayerControlsView" customModule="Aural" customModuleProvider="target">
+        <view id="EU3-Qz-2UZ" userLabel="Controls View" customClass="PlaybackView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -242,24 +237,15 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnNextTrack" destination="efG-Ui-CkA" id="bYe-jh-sGU"/>
                 <outlet property="btnPlayPause" destination="idY-gN-RGl" id="rKa-sy-ffJ"/>
                 <outlet property="btnPreviousTrack" destination="p6H-sf-x7a" id="7JA-9j-dsX"/>
-                <outlet property="btnRepeat" destination="NcQ-UK-tCJ" id="AVe-AN-xEm"/>
                 <outlet property="btnSeekBackward" destination="hNQ-qh-6JZ" id="pnF-KZ-NNi"/>
                 <outlet property="btnSeekForward" destination="v55-En-TDQ" id="Dkg-C9-JS9"/>
-                <outlet property="btnShuffle" destination="Tho-lQ-Ouj" id="aqm-bx-FsK"/>
-                <outlet property="btnVolume" destination="5F8-7z-bne" id="IUf-Ms-LBf"/>
-                <outlet property="lblPan" destination="fOn-IC-oGq" id="lk8-ST-P3q"/>
-                <outlet property="lblPanCaption" destination="SI4-ek-QA4" id="vFq-fh-NpY"/>
-                <outlet property="lblPanCaption2" destination="A8i-Ik-XLC" id="Asw-7L-4Ad"/>
                 <outlet property="lblTimeElapsed" destination="qx8-Md-DcC" id="jiK-SD-ggQ"/>
                 <outlet property="lblTimeRemaining" destination="UH8-hm-lni" id="UUY-0A-fxe"/>
-                <outlet property="lblVolume" destination="2l2-ab-vSY" id="7Kq-NI-cAT"/>
-                <outlet property="panSlider" destination="L4U-ds-sYB" id="chv-ie-v9N"/>
                 <outlet property="seekPositionMarker" destination="yVX-Z6-bme" id="ilw-Oq-Us5"/>
                 <outlet property="seekSlider" destination="0dB-S3-Vfd" id="Sq0-Ne-Vyn"/>
                 <outlet property="seekSliderCell" destination="eqE-Mn-3Rm" id="cYM-zh-cnY"/>
                 <outlet property="seekSliderClone" destination="vif-x1-L0N" id="LwL-DJ-KjK"/>
                 <outlet property="seekSliderCloneCell" destination="ZFJ-z8-89B" id="mdZ-hu-syt"/>
-                <outlet property="volumeSlider" destination="6o6-Cn-ho4" id="Oly-cL-JTv"/>
             </connections>
             <point key="canvasLocation" x="-2876" y="540"/>
         </view>
@@ -271,20 +257,27 @@ G1BhbiBTbGlkZXI
         </slider>
         <customObject id="9HZ-bm-ZBa" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="controlsView" destination="EU3-Qz-2UZ" id="b3b-g1-hEL"/>
-                <outlet property="view" destination="EU3-Qz-2UZ" id="oNS-DB-Jx2"/>
+                <outlet property="playbackView" destination="EU3-Qz-2UZ" id="Ug8-9D-cvo"/>
+                <outlet property="view" destination="EU3-Qz-2UZ" id="jSH-3R-AHo"/>
             </connections>
         </customObject>
         <customObject id="U8l-6J-VP4" customClass="PlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="controlsView" destination="EU3-Qz-2UZ" id="hvu-W7-lL2"/>
-                <outlet property="view" destination="EU3-Qz-2UZ" id="zDa-G8-dn3"/>
+                <outlet property="btnRepeat" destination="NcQ-UK-tCJ" id="v30-2G-39u"/>
+                <outlet property="btnShuffle" destination="Tho-lQ-Ouj" id="uJJ-nD-fg0"/>
+                <outlet property="view" destination="EU3-Qz-2UZ" id="37E-gh-2jh"/>
             </connections>
         </customObject>
         <customObject id="6Eq-4t-EGn" customClass="PlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="audioView" destination="EU3-Qz-2UZ" id="yEo-1e-Qap"/>
-                <outlet property="view" destination="EU3-Qz-2UZ" id="ddc-Ct-ZvS"/>
+                <outlet property="btnVolume" destination="5F8-7z-bne" id="Awi-TC-Ald"/>
+                <outlet property="lblPan" destination="fOn-IC-oGq" id="cQv-Ni-8Rx"/>
+                <outlet property="lblPanCaption" destination="SI4-ek-QA4" id="mCD-eg-lZf"/>
+                <outlet property="lblPanCaption2" destination="A8i-Ik-XLC" id="0sE-4V-zf9"/>
+                <outlet property="lblVolume" destination="2l2-ab-vSY" id="q1S-km-xp8"/>
+                <outlet property="panSlider" destination="L4U-ds-sYB" id="a7H-vv-bKN"/>
+                <outlet property="view" destination="EU3-Qz-2UZ" id="Etb-92-9I7"/>
+                <outlet property="volumeSlider" destination="6o6-Cn-ho4" id="keT-Ph-Wou"/>
             </connections>
         </customObject>
     </objects>

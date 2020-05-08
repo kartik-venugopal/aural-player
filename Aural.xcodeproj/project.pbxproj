@@ -22,7 +22,6 @@
 		3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */; };
 		3E06C02F1FB6B2BB003EE9AB /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */; };
 		3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */; };
-		3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */; };
 		3E0835F72459A9FA00822FA8 /* ColorSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */; };
 		3E0835F92459AB9900822FA8 /* ColorSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */; };
 		3E0835FB2459C2C400822FA8 /* ColorSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */; };
@@ -236,7 +235,6 @@
 		3E76CA0221D4A4A800B45D27 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
 		3E78DC992464676400E6BC00 /* PlayingTrackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC982464676400E6BC00 /* PlayingTrackSubview.swift */; };
-		3E78DC9B2464896900E6BC00 /* PlayerControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */; };
 		3E78DC9D24648C0700E6BC00 /* PlayerSequencingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */; };
 		3E78DC9F24648CB700E6BC00 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */; };
 		3E78DCA124648D9200E6BC00 /* PlayerAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */; };
@@ -512,7 +510,6 @@
 		3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
 		3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
 		3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegate.swift; sourceTree = "<group>"; };
-		3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesEditor.xib; sourceTree = "<group>"; };
 		3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
@@ -729,7 +726,6 @@
 		3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		3E78DC982464676400E6BC00 /* PlayingTrackSubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingTrackSubview.swift; sourceTree = "<group>"; };
-		3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlsViewController.swift; sourceTree = "<group>"; };
 		3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSequencingViewController.swift; sourceTree = "<group>"; };
 		3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
 		3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAudioViewController.swift; sourceTree = "<group>"; };
@@ -2125,8 +2121,6 @@
 			isa = PBXGroup;
 			children = (
 				3E89CA29246329A10057D3EE /* PlayerControls.xib */,
-				3E78DC9A2464896900E6BC00 /* PlayerControlsViewController.swift */,
-				3E06DE70218DAD9D00CD912C /* PlayerControlsView.swift */,
 				3E78DC9E24648CB700E6BC00 /* PlaybackViewController.swift */,
 				3E78DCA22464983900E6BC00 /* PlaybackView.swift */,
 				3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */,
@@ -2633,7 +2627,6 @@
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
 				3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */,
 				3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */,
-				3E78DC9B2464896900E6BC00 /* PlayerControlsViewController.swift in Sources */,
 				3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */,
 				3ECF12F6245784A6007209BC /* ColorSchemePopupMenuController.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
@@ -2691,7 +2684,6 @@
 				3E6341DA243DC50500190502 /* PreferencesDefaults.swift in Sources */,
 				3E0839AE219569C3008D84BA /* TimeUnit.swift in Sources */,
 				3EDA8F2624602C13000715C8 /* WindowLayout.swift in Sources */,
-				3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */,
 				3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */,
 				3ECD17441F6BBEE400492F56 /* ID3Parser.swift in Sources */,
 				3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */,
