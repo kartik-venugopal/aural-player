@@ -44,7 +44,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .changePlayerTextSize, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -68,55 +68,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func playbackLoopChanged() {
         controlsView.playbackLoopChanged(player.playbackLoop, player.playingTrack!.track.duration)
     }
-    
-    // MARK - Volume and Pan
-    
-    // Updates the volume
-    @IBAction func volumeAction(_ sender: AnyObject) {
-        
-        audioGraph.volume = controlsView.volumeSliderValue
-        controlsView.volumeChanged(audioGraph.volume, audioGraph.muted)
-    }
-    
-    // Mutes or unmutes the player
-    @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        
-        audioGraph.muted = !audioGraph.muted
-        controlsView.mutedOrUnmuted(audioGraph.volume, audioGraph.muted)
-    }
-    
-    // Decreases the volume by a certain preset decrement
-    private func decreaseVolume(_ actionMode: ActionMode) {
-        
-        let newVolume = audioGraph.decreaseVolume(actionMode)
-        controlsView.volumeChanged(newVolume, audioGraph.muted)
-    }
-    
-    // Increases the volume by a certain preset increment
-    private func increaseVolume(_ actionMode: ActionMode) {
-        
-        let newVolume = audioGraph.increaseVolume(actionMode)
-        controlsView.volumeChanged(newVolume, audioGraph.muted)
-    }
-    
-    // Updates the stereo pan
-    @IBAction func panAction(_ sender: AnyObject) {
-        
-        audioGraph.balance = controlsView.panSliderValue
-        controlsView.panChanged(audioGraph.balance)
-    }
-    
-    // Pans the sound towards the left channel, by a certain preset value
-    private func panLeft() {
-        controlsView.panChanged(audioGraph.panLeft())
-    }
-    
-    // Pans the sound towards the right channel, by a certain preset value
-    private func panRight() {
-        controlsView.panChanged(audioGraph.panRight())
-    }
-    
-    // MARK: Playback
     
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
@@ -232,55 +183,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.play(group, params)
     }
 
-    // Toggles the repeat mode
-    @IBAction func repeatAction(_ sender: AnyObject) {
-        
-        let modes = player.toggleRepeatMode()
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Toggles the shuffle mode
-    @IBAction func shuffleAction(_ sender: AnyObject) {
-        
-        let modes = player.toggleShuffleMode()
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Sets the repeat mode to "Off"
-    private func repeatOff() {
-        
-        let modes = player.setRepeatMode(.off)
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Sets the repeat mode to "Repeat One"
-    private func repeatOne() {
-        
-        let modes = player.setRepeatMode(.one)
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Sets the repeat mode to "Repeat All"
-    private func repeatAll() {
-        
-        let modes = player.setRepeatMode(.all)
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Sets the shuffle mode to "Off"
-    private func shuffleOff() {
-        
-        let modes = player.setShuffleMode(.off)
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
-    // Sets the shuffle mode to "On"
-    private func shuffleOn() {
-        
-        let modes = player.setShuffleMode(.on)
-        controlsView.updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
-    }
-    
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
@@ -407,10 +309,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.gapStarted()
     }
     
-    var locationForBookmarkPrompt: (view: NSView, edge: NSRectEdge) {
-        return controlsView.locationForBookmarkPrompt
-    }
-    
     private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
@@ -449,24 +347,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Disables the chapter change polling task
     private func stopPollingForChapterChange() {
         SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
-    }
-    
-    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-        
-        PlayerViewState.timeElapsedDisplayType = format
-        controlsView.setTimeElapsedDisplayFormat(format)
-    }
-    
-    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-        
-        PlayerViewState.timeRemainingDisplayType = format
-        controlsView.setTimeRemainingDisplayFormat(format)
-    }
-    
-    private func showOrHideTimeElapsedRemaining() {
-        
-        PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
-        controlsView.showOrHideTimeElapsedRemaining()
     }
     
     // MARK: Message handling
@@ -585,123 +465,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
             jumpToTime((message as! JumpToTimeActionMessage).time)
             
-        // Repeat and Shuffle
-            
-        case .repeatOff: repeatOff()
-            
-        case .repeatOne: repeatOne()
-            
-        case .repeatAll: repeatAll()
-            
-        case .shuffleOff: shuffleOff()
-            
-        case .shuffleOn: shuffleOn()
-            
-        // Volume and Pan
-            
-        case .muteOrUnmute: muteOrUnmuteAction(self)
-            
-        case .decreaseVolume:
-            
-            let msg = message as! AudioGraphActionMessage
-            decreaseVolume(msg.actionMode)
-            
-        case .increaseVolume:
-            
-            let msg = message as! AudioGraphActionMessage
-            increaseVolume(msg.actionMode)
-            
-        case .panLeft: panLeft()
-            
-        case .panRight: panRight()
-            
-        case .setTimeElapsedDisplayFormat:
-
-            if let format = (message as? SetTimeElapsedDisplayFormatActionMessage)?.format {
-                setTimeElapsedDisplayFormat(format)
-            }
-
-        case .setTimeRemainingDisplayFormat:
-
-            if let format = (message as? SetTimeRemainingDisplayFormatActionMessage)?.format {
-                setTimeRemainingDisplayFormat(format)
-            }
-
-        case .showOrHideTimeElapsedRemaining:
-
-            showOrHideTimeElapsedRemaining()
-            
         default: return
-            
+
         }
     }
-    
-//    func consumeMessage(_ message: ActionMessage) {
-//
-//    //        switch message.actionType {
-//    //
-//    //        case .changePlayerTextSize:
-//    //
-//    //            changeTextSize()
-//    //
-//    //        case .applyColorScheme:
-//    //
-//    //            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-//    //                applyColorScheme(scheme)
-//    //            }
-//    //
-//    //        default:
-//    //
-//    //            if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-//    //
-//    //                switch colorSchemeMsg.actionType {
-//    //
-//    //                case .changeBackgroundColor:
-//    //
-//    //                    changeBackgroundColor(colorSchemeMsg.color)
-//    //
-//    //                case .changePlayerTrackInfoPrimaryTextColor:
-//    //
-//    //                    changePrimaryTextColor(colorSchemeMsg.color)
-//    //
-//    //                case .changePlayerTrackInfoSecondaryTextColor:
-//    //
-//    //                    changeSecondaryTextColor(colorSchemeMsg.color)
-//    //
-//    //                case .changePlayerTrackInfoTertiaryTextColor:
-//    //
-//    //                    changeTertiaryTextColor(colorSchemeMsg.color)
-//    //
-//    //                case .changeFunctionButtonColor:
-//    //
-//    //                    changeFunctionButtonColor(colorSchemeMsg.color)
-//    //
-//    //                case .changeToggleButtonOffStateColor:
-//    //
-//    //                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
-//    //
-//    //                case .changePlayerSliderValueTextColor:
-//    //
-//    //                    changeSliderValueTextColor(colorSchemeMsg.color)
-//    //
-//    //                case .changePlayerSliderColors:
-//    //
-//    //                    changeSliderColors()
-//    //
-//    //                case .changeTextButtonMenuColor:
-//    //
-//    //                    changeTextButtonMenuColor()
-//    //
-//    //                case .changeButtonMenuTextColor:
-//    //
-//    //                    changeButtonMenuTextColor()
-//    //
-//    //                default: return
-//    //
-//    //                }
-//    //            }
-//    //
-//    //            return
-//    //        }
-//        }
 }
