@@ -6,7 +6,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playbackView" destination="EU3-Qz-2UZ" id="zK8-hf-O5z"/>
+                <outlet property="view" destination="EU3-Qz-2UZ" id="6jq-4R-ttB"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="EU3-Qz-2UZ" userLabel="Controls View" customClass="PlaybackView" customModule="Aural" customModuleProvider="target">
@@ -93,7 +98,7 @@ G1BhbiBTbGlkZXI
                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekForward"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="seekForwardAction:" target="9HZ-bm-ZBa" id="QN2-Ja-Wc3"/>
+                        <action selector="seekForwardAction:" target="-2" id="8WY-0L-Ne4"/>
                     </connections>
                 </button>
                 <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efG-Ui-CkA" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -108,7 +113,7 @@ G1BhbiBTbGlkZXI
                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="nextTrackAction:" target="9HZ-bm-ZBa" id="9Ze-Vb-U9R"/>
+                        <action selector="nextTrackAction:" target="-2" id="6wN-LS-CPi"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idY-gN-RGl" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
@@ -125,7 +130,7 @@ G1BhbiBTbGlkZXI
                         <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Pause"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="playPauseAction:" target="9HZ-bm-ZBa" id="Qa7-6x-L98"/>
+                        <action selector="playPauseAction:" target="-2" id="rUg-nE-N9l"/>
                     </connections>
                 </button>
                 <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6H-sf-x7a" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -140,7 +145,7 @@ G1BhbiBTbGlkZXI
                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="previousTrackAction:" target="9HZ-bm-ZBa" id="LqI-gN-C6X"/>
+                        <action selector="previousTrackAction:" target="-2" id="dmP-yi-g6v"/>
                     </connections>
                 </button>
                 <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-qh-6JZ" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -154,7 +159,7 @@ G1BhbiBTbGlkZXI
                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekBackward"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="seekBackwardAction:" target="9HZ-bm-ZBa" id="LVC-pL-Ex1"/>
+                        <action selector="seekBackwardAction:" target="-2" id="m3j-FU-qXL"/>
                     </connections>
                 </button>
                 <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npW-81-sXP" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -165,7 +170,7 @@ G1BhbiBTbGlkZXI
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="toggleLoopAction:" target="9HZ-bm-ZBa" id="JH8-lx-bvc"/>
+                        <action selector="toggleLoopAction:" target="-2" id="9t6-aS-iAn"/>
                     </connections>
                 </button>
                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tho-lQ-Ouj" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -190,7 +195,7 @@ G1BhbiBTbGlkZXI
                         <action selector="repeatAction:" target="U8l-6J-VP4" id="u40-ss-TVe"/>
                     </connections>
                 </button>
-                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qx8-Md-DcC" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx8-Md-DcC" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="12" y="57" width="110" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="nhP-FE-fet" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -202,7 +207,7 @@ G1BhbiBTbGlkZXI
                         </allowedInputSourceLocales>
                     </textFieldCell>
                 </textField>
-                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UH8-hm-lni" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UH8-hm-lni" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="387" y="57" width="130" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="wwM-tA-14U" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -228,7 +233,7 @@ G1BhbiBTbGlkZXI
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="eqE-Mn-3Rm" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
-                        <action selector="seekSliderAction:" target="9HZ-bm-ZBa" id="AFC-OL-ySv"/>
+                        <action selector="seekSliderAction:" target="-2" id="rd1-Ww-dvW"/>
                     </connections>
                 </slider>
             </subviews>
@@ -255,12 +260,6 @@ G1BhbiBTbGlkZXI
             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ZFJ-z8-89B" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="-2884" y="682"/>
         </slider>
-        <customObject id="9HZ-bm-ZBa" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="playbackView" destination="EU3-Qz-2UZ" id="Ug8-9D-cvo"/>
-                <outlet property="view" destination="EU3-Qz-2UZ" id="jSH-3R-AHo"/>
-            </connections>
-        </customObject>
         <customObject id="U8l-6J-VP4" customClass="PlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnRepeat" destination="NcQ-UK-tCJ" id="v30-2G-39u"/>

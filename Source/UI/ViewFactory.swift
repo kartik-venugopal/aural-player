@@ -17,7 +17,7 @@ struct ViewFactory {
         
         fileprivate static let playingTrackFunctionsViewController: PlayingTrackFunctionsViewController = PlayingTrackFunctionsViewController()
         
-        fileprivate static let controlsViewController: PlayerControlsViewController = PlayerControlsViewController()
+        fileprivate static let playbackViewController: PlaybackViewController = PlaybackViewController()
     }
     
     // Sub-views for the different individual effects units displayed on the Effects panel
@@ -146,12 +146,12 @@ struct ViewFactory {
     
     // Returns the view that displays the player
     static var controlsView: NSView {
-        return PlayerViews.controlsViewController.view
+        return PlayerViews.playbackViewController.view
     }
     
     // Returns a view that marks the current position of the player's seek slider knob.
     static var seekPositionMarkerView: NSView {
-        return PlayerViews.controlsViewController.seekPositionMarkerView
+        return PlayerViews.playbackViewController.seekPositionMarkerView
     }
     
     // Returns the view that displays the Equalizer effects unit

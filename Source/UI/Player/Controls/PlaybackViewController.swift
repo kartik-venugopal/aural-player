@@ -29,6 +29,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         playbackView.initialize(player.state, playbackRate, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
+        playbackView.changeTextSize(PlayerViewState.textSize)
         playbackView.applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -41,7 +42,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -455,8 +456,45 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
             jumpToTime((message as! JumpToTimeActionMessage).time)
             
-        default: return
-
+        // MARK: Player view settings
+            
+        case .showOrHideTimeElapsedRemaining:
+            
+            playbackView.showOrHideTimeElapsedRemaining()
+            
+        case .setTimeElapsedDisplayFormat:
+            
+            if let format = (message as? SetTimeElapsedDisplayFormatActionMessage)?.format {
+                playbackView.setTimeElapsedDisplayFormat(format)
+            }
+            
+        case .setTimeRemainingDisplayFormat:
+            
+            if let format = (message as? SetTimeRemainingDisplayFormatActionMessage)?.format {
+                playbackView.setTimeRemainingDisplayFormat(format)
+            }
+            
+        // MARK: Appearance
+            
+        case .changePlayerTextSize:
+            
+            if let textSizeMsg = message as? TextSizeActionMessage {
+                playbackView.changeTextSize(textSizeMsg.textSize)
+            }
+            
+        case .applyColorScheme:
+            
+            if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
+                playbackView.applyColorScheme(colorSchemeActionMsg.scheme)
+            }
+            
+        default:
+            
+            if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
+                
+                playbackView.applyColorSchemeComponent(colorComponentActionMsg)
+                return
+            }
         }
     }
 }

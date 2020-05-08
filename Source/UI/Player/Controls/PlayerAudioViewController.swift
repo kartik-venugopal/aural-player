@@ -69,6 +69,8 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func decreaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.decreaseVolume(actionMode)
+        volumeSlider.floatValue = newVolume
+        
         volumeChanged(newVolume, audioGraph.muted)
     }
     
@@ -76,6 +78,8 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func increaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.increaseVolume(actionMode)
+        volumeSlider.floatValue = newVolume
+        
         volumeChanged(newVolume, audioGraph.muted)
     }
     
@@ -123,12 +127,16 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     
     // Pans the sound towards the left channel, by a certain preset value
     private func panLeft() {
+        
         panChanged(audioGraph.panLeft())
+        panSlider.floatValue = audioGraph.balance
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     private func panRight() {
+        
         panChanged(audioGraph.panRight())
+        panSlider.floatValue = audioGraph.balance
     }
     
     private func panChanged(_ pan: Float, _ showFeedback: Bool = true) {

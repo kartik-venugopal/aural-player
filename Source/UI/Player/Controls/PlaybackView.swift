@@ -82,16 +82,13 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
 
         // Allow clicks on the seek time display labels to switch to different display formats
-
-        let elapsedTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction))
-        lblTimeElapsed.addGestureRecognizer(elapsedTimeGestureRecognizer)
-
-        let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
-        lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-//        changeTextSize()
+        lblTimeElapsed.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
+
+        lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
     }
 
+    // TODO: Make this initialize method more generic or conform to some protocol for views
     func initialize(_ playbackState: PlaybackState, _ playbackRate: Float, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
 
         btnPlayPause.onIf(playbackState == .playing)
@@ -108,18 +105,26 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     }
 
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
+        
+        PlayerViewState.timeElapsedDisplayType = PlayerViewState.timeElapsedDisplayType.toggle()
         updateSeekPosition()
     }
 
     @IBAction func switchTimeRemainingDisplayAction(_ sender: Any) {
+        
+        PlayerViewState.timeRemainingDisplayType = PlayerViewState.timeRemainingDisplayType.toggle()
         updateSeekPosition()
     }
 
     func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        
+        PlayerViewState.timeElapsedDisplayType = format
         updateSeekPosition()
     }
 
     func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        
+        PlayerViewState.timeRemainingDisplayType = format
         updateSeekPosition()
     }
 
@@ -275,26 +280,52 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         changeSliderColors()
     }
     
-    func changeFunctionButtonColor() {
+    func applyColorSchemeComponent(_ msg: ColorSchemeComponentActionMessage) {
+     
+        switch msg.actionType {
+
+        case .changeFunctionButtonColor:
+            
+            changeFunctionButtonColor()
+            
+        case .changeToggleButtonOffStateColor:
+            
+            changeToggleButtonOffStateColor()
+            
+        case .changePlayerSliderColors:
+            
+            changeSliderColors()
+            
+        case .changePlayerSliderValueTextColor:
+            
+            changeSliderValueTextColor()
+            
+        default:
+            
+            return
+        }
+    }
+    
+    private func changeFunctionButtonColor() {
         
         [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }
     
-    func changeToggleButtonOffStateColor() {
+    private func changeToggleButtonOffStateColor() {
         
         // Only these buttons have off states that look different from their on states
         btnLoop.reTint()
     }
     
-    func changeSliderValueTextColor() {
+    private func changeSliderValueTextColor() {
         
         lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor
         lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor
     }
     
-    func changeSliderColors() {
+    private func changeSliderColors() {
         seekSlider.redraw()
     }
     
