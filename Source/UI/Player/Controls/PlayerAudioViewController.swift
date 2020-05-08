@@ -39,6 +39,9 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         
         panSlider.floatValue = audioGraph.balance
         panChanged(audioGraph.balance, false)
+        
+        changeTextSize(PlayerViewState.textSize)
+        applyColorScheme(ColorSchemes.systemScheme)
 
         initSubscriptions()
     }
@@ -48,7 +51,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
     }
     
     // Updates the volume
@@ -168,6 +171,10 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         lblPanCaption2.textColor = color
     }
     
+    private func changeSliderColors() {
+        [volumeSlider, panSlider].forEach({$0?.redraw()})
+    }
+    
     private func changeSliderValueTextColor() {
         
         lblVolume.textColor = Colors.Player.feedbackTextColor
@@ -227,6 +234,34 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         case .panRight:
             
             panRight()
+            
+        case .changePlayerTextSize:
+            
+            if let textSizeMsg = message as? TextSizeActionMessage {
+                changeTextSize(textSizeMsg.textSize)
+            }
+            
+        case .applyColorScheme:
+            
+            if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
+                applyColorScheme(colorSchemeActionMsg.scheme)
+            }
+            
+        case .changeFunctionButtonColor:
+            
+            if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
+                
+                changeFunctionButtonColor(colorComponentActionMsg.color)
+                return
+            }
+            
+        case .changePlayerSliderColors:
+            
+            changeSliderColors()
+            
+        case .changePlayerSliderValueTextColor:
+            
+            changeSliderValueTextColor()
             
         default: return
 
