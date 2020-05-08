@@ -135,7 +135,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
 @IBDesignable
 class DefaultPlayingTrackSubview: PlayingTrackSubview {
     
-    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 95)
+    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 100)
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 70)
     
     override var needsMouseTracking: Bool {
@@ -204,7 +204,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
 @IBDesignable
 class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
-    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 70)
+    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 65)
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 30, y: 95)
     
     @IBOutlet weak var overlayBox: NSBox!
@@ -229,7 +229,9 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     override func trackInfoSet() {
 
         super.trackInfoSet()
+        
         infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
+        centerOverlayBox.showIf(infoBox.isShown)
     }
     
     // Do nothing (this function is not allowed on the expanded art player view)
@@ -264,7 +266,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         // Re-position the info box and functions box
         moveInfoBoxTo(infoBoxTopPosition)
-        infoBox.show()
+        infoBox.showIf(trackInfo != nil)
     }
     
     private func autoHideControls_hide() {
@@ -273,7 +275,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         NSView.hideViews(overlayBox, controlsBox)
         
         // Show info box only if the setting allows it.
-        infoBox.showIf(PlayerViewState.showTrackInfo)
+        infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
         
         moveInfoBoxTo(infoBoxDefaultPosition)
