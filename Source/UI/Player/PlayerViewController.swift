@@ -28,7 +28,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
         
         //        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
         
-        [playingTrackView, waitingTrackView].forEach({
+        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
             
             self.view.addSubview($0)
             $0.setFrameOrigin(NSPoint.zero)
@@ -52,18 +52,21 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
 
         case .noTrack, .playing, .paused:
             
-            NSView.hideViews(waitingTrackView)
+            NSView.hideViews(waitingTrackView, transcodingTrackView)
             playingTrackView.showView()
 
         case .waiting:
             
             playingTrackView.hideView()
+            transcodingTrackView.hide()
+            
             waitingTrackView.show()
 
         case .transcoding:
             
             playingTrackView.hideView()
             waitingTrackView.hide()
+            
             transcodingTrackView.show()
         }
     }

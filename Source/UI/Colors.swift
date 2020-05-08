@@ -137,7 +137,7 @@ struct Colors {
         }
         
         static var transcoderArcProgressTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderValueTextColor
+            return ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor
         }
         
         static var transcoderArcForegroundColor: NSColor {

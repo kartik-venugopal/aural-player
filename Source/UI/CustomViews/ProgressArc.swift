@@ -11,11 +11,17 @@ class ProgressArc: NSView {
     }
     
     var radius: CGFloat = 30
+    
     var lineWidth: CGFloat = 4
     
-    var backColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
+    var backgroundColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
     var foregroundColor: NSColor {return Colors.Player.sliderForegroundColor}
-    var textFont: NSFont {return Fonts.progressArcFont}
+    
+    var textFont: NSFont {return Fonts.Player.infoBoxArtistAlbumFont}
+    
+    override func awakeFromNib() {
+        radius = (self.width - (2 * lineWidth)) / 2
+    }
     
     override func draw(_ dirtyRect: NSRect) {
         
@@ -23,7 +29,7 @@ class ProgressArc: NSView {
 
         let backgroundCirclePath: NSBezierPath = NSBezierPath()
         backgroundCirclePath.appendArc(withCenter: p0, radius: radius, startAngle: 0, endAngle: 360, clockwise: false)
-        backColor.setStroke()
+        backgroundColor.setStroke()
         backgroundCirclePath.lineWidth = lineWidth
         backgroundCirclePath.stroke()
         
