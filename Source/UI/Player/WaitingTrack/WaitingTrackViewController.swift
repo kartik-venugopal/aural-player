@@ -1,8 +1,9 @@
 import Cocoa
 
-class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, ActionMessageSubscriber {
+class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
  
     @IBOutlet weak var artView: NSImageView!
+    @IBOutlet weak var overlayBox: NSBox!
     
     @IBOutlet weak var lblTrackNameCaption: NSTextField!
     @IBOutlet weak var lblTrackName: NSTextField!
@@ -14,8 +15,11 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
     @IBOutlet weak var functionsBox: NSBox!
     private let functionsView: NSView = ViewFactory.playingTrackFunctionsView
     
+    private var track: Track?
     private var timer: RepeatingTaskExecutor?
     private var endTime: Date?
+    
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override var nibName: String? {return "WaitingTrack"}
     
@@ -40,7 +44,9 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
         
         AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playingTrackInfoUpdatedNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
     
     private func endGap() {
@@ -48,6 +54,8 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
         timer?.stop()
         timer = nil
         endTime = nil
+        
+        self.track = nil
     }
     
     private func updateCountdown() {
@@ -63,13 +71,18 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
     
     private func gapStarted(_ track: Track, _ gapEndTime: Date) {
         
-        artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
+        self.track = track
+        updateTrackInfo()
         
         endTime = gapEndTime
-        
-        lblTrackName.stringValue = track.conciseDisplayName
         updateCountdown()
         startTimer()
+    }
+    
+    private func updateTrackInfo() {
+
+        artView.image = track?.displayInfo.art?.image ?? Images.imgPlayingArt
+        lblTrackName.stringValue = track?.conciseDisplayName ?? ""
     }
     
     private func startTimer() {
@@ -79,26 +92,23 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
     }
     
     private func changeTextSize(_ size: TextSize) {
-        
-        lblTrackNameCaption.font = Fonts.Player.gapCaptionFont
-        lblTrackName.font = Fonts.Player.infoBoxTitleFont
-        lblTimeRemaining.font = Fonts.Player.gapCaptionFont
+        [lblTrackNameCaption, lblTrackName, lblTimeRemaining].forEach({$0?.font = Fonts.Player.infoBoxTitleFont})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
         
-        changePrimaryTextColor()
-        changeSecondaryTextColor()
+        changeBackgroundColor()
+        changeTextColor()
     }
     
-    private func changePrimaryTextColor() {
-        lblTrackName.textColor = Colors.Player.trackInfoTitleTextColor
-    }
-    
-    private func changeSecondaryTextColor() {
+    private func changeBackgroundColor() {
         
-        lblTrackNameCaption.textColor = Colors.Player.trackInfoArtistAlbumTextColor
-        lblTimeRemaining.textColor = Colors.Player.trackInfoArtistAlbumTextColor
+        overlayBox.fillColor = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
+        artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
+    }
+    
+    private func changeTextColor() {
+        [lblTrackNameCaption, lblTrackName, lblTimeRemaining].forEach({$0?.textColor = Colors.Player.trackInfoTitleTextColor})
     }
     
     // MARK: Message handling
@@ -116,17 +126,27 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Acti
         }
     }
     
+    // Consume synchronous notification messages
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if player.state == .waiting && notification is PlayingTrackInfoUpdatedNotification {
+         
+            updateTrackInfo()
+            return
+        }
+    }
+    
     func consumeMessage(_ message: ActionMessage) {
         
         if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
             
             if colorComponentActionMsg.actionType == .changePlayerTrackInfoPrimaryTextColor {
                 
-                changePrimaryTextColor()
+                changeTextColor()
                 
-            } else if colorComponentActionMsg.actionType == .changePlayerTrackInfoSecondaryTextColor {
-                
-                changeSecondaryTextColor()
+            } else if colorComponentActionMsg.actionType == .changeBackgroundColor {
+            
+                changeBackgroundColor()
             }
             
             return

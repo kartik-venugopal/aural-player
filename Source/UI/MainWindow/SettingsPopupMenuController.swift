@@ -5,12 +5,17 @@ import Cocoa
  */
 class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var playerViewMenuItem: NSMenuItem!
+    
     @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
     
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
     
     func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        playerViewMenuItem.enableIf(player.state != .waiting && player.state != .transcoding)
         
         // These items should be enabled only if there is no modal component currently shown.
         [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!windowManager.isShowingModalComponent)})

@@ -136,6 +136,7 @@
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
+                <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="0dH-2v-B7l"/>
                 <outlet property="playlistViewMenuItem" destination="eaG-Cs-3CM" id="NTn-ZH-HCr"/>
                 <outlet property="saveColorSchemeMenuItem" destination="WVj-ng-OeL" id="3XH-d1-FXP"/>
                 <outlet property="toggleChaptersListMenuItem" destination="9Al-PA-rnK" id="0SK-l3-ET4"/>
@@ -154,7 +155,6 @@
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
                 <outlet property="playerExpandedArtViewMenuItem" destination="qqG-bq-Cq8" id="aJ0-SD-6eZ"/>
-                <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="QJL-UW-wrv"/>
                 <outlet property="showAlbumMenuItem" destination="Cm0-LS-Buo" id="6CI-62-71f"/>
                 <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="VSm-fb-Loh"/>
                 <outlet property="showArtistMenuItem" destination="FmK-ms-TfL" id="sJZ-zO-l0d"/>

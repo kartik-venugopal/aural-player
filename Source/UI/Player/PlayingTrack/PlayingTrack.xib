@@ -131,7 +131,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                    <color key="fillColor" white="0.0" alpha="0.75129291369999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="fillColor" white="0.0" alpha="0.79855303693943658" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ecE-El-Da6" userLabel="Center Overlay Box">
                     <rect key="frame" x="180" y="65" width="170" height="80"/>
@@ -141,7 +141,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                    <color key="fillColor" white="0.0" alpha="0.75129291369999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="fillColor" white="0.0" alpha="0.8006161971507042" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E63-wi-FG7" userLabel="Playing Track Info Box">
                     <rect key="frame" x="30" y="65" width="470" height="80"/>

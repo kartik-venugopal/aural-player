@@ -2,8 +2,6 @@ import Cocoa
 
 class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
-    @IBOutlet weak var playerViewMenuItem: NSMenuItem!
-        
     @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!
     @IBOutlet weak var playerExpandedArtViewMenuItem: NSMenuItem!
     
@@ -45,10 +43,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
         
         textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
-    }
-    
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        playerViewMenuItem.enableIf(player.state != .waiting && player.state != .transcoding)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state

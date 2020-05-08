@@ -47,7 +47,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     }
     
     // When track info for the playing track changes, display fields need to be updated
-    private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
+    private func playingTrackInfoUpdated() {
         
         // TODO: Do a switch here ... on state
         infoView.update()
@@ -98,9 +98,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
             trackChanged(trackChangedMsg.newTrack?.track)
             return
             
-        } else if let trackInfoUpdatedMsg = notification as? PlayingTrackInfoUpdatedNotification {
+        } else if notification is PlayingTrackInfoUpdatedNotification {
          
-            playingTrackInfoUpdated(trackInfoUpdatedMsg)
+            playingTrackInfoUpdated()
             return
             
         } else if let chapterChangedMsg = notification as? ChapterChangedNotification {

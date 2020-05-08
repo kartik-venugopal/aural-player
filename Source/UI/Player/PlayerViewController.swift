@@ -15,7 +15,7 @@ import Cocoa
 
 class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
-    private var playingTrackView: NSView = ViewFactory.playingTrackView
+    private var playingTrackView: PlayingTrackView = ViewFactory.playingTrackView as! PlayingTrackView
     private var waitingTrackView: NSView = ViewFactory.waitingTrackView
     private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
     
@@ -51,21 +51,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
         switch player.state {
 
         case .noTrack, .playing, .paused:
-
-            playingTrackView.show()
-//            NSView.hideViews(waitingTrackView, transcodingTrackView)
+            
             NSView.hideViews(waitingTrackView)
+            playingTrackView.showView()
 
         case .waiting:
-
+            
+            playingTrackView.hideView()
             waitingTrackView.show()
-//            NSView.hideViews(playingTrackView, transcodingTrackView)
-            NSView.hideViews(playingTrackView)
 
         case .transcoding:
-
+            
+            playingTrackView.hideView()
+            waitingTrackView.hide()
             transcodingTrackView.show()
-            NSView.hideViews(playingTrackView, waitingTrackView)
         }
     }
     
