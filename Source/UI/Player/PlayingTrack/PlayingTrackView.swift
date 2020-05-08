@@ -26,23 +26,27 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         
         self.addSubviews(defaultView, expandedArtView)
         
-        showView(PlayerViewState.viewType)
+        switchView(PlayerViewState.viewType)
         setUpMouseTracking()
     }
     
+    // This is required when the player view was hidden and is now shown (eg. after waiting or transcoding).
+    func showView() {
+        
+        setUpMouseTracking()
+        activeView.showView()
+        
+        self.show()
+    }
+    
     // This is required when the player view is hidden (eg. when waiting or transcoding).
-    override func viewDidHide() {
+    func hideView() {
+        
+        self.hide()
         
         if isTracking {
             stopTracking()
         }
-    }
-    
-    // This is required when the player view was hidden and is now shown (eg. after waiting or transcoding).
-    override func viewDidUnhide() {
-     
-        setUpMouseTracking()
-        activeView.showView()
     }
     
     func update() {
@@ -51,7 +55,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         expandedArtView.update()
     }
     
-    private func showView(_ viewType: PlayerViewType) {
+    private func switchView(_ viewType: PlayerViewType) {
         
         PlayerViewState.viewType = viewType
         
@@ -192,7 +196,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         case .changePlayerView:
             
             if let viewType = action.viewType {
-                showView(viewType)
+                switchView(viewType)
             }
             
         case .showOrHidePlayingTrackInfo:

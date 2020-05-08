@@ -220,7 +220,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
 
         NSView.hideViews(controlsBox, overlayBox)
         
-        infoBox.showIf(PlayerViewState.showTrackInfo)
+        infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
         
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
@@ -229,9 +229,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     override func trackInfoSet() {
 
         super.trackInfoSet()
-        
-        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
-        centerOverlayBox.showIf(infoBox.isShown)
+        showOrHidePlayingTrackInfo()
     }
     
     // Do nothing (this function is not allowed on the expanded art player view)
@@ -242,7 +240,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
     override func showOrHidePlayingTrackInfo() {
         
-        super.showOrHidePlayingTrackInfo()
+        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
         centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
     }
     
@@ -283,9 +281,9 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
     override func changeBackgroundColor(_ color: NSColor) {
         
-        let windowColorWithTransparency = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
+        let windowColorWithTransparency = color.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
         
-        artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
+        artView.layer?.shadowColor = color.visibleShadowColor.cgColor
     }
 }
