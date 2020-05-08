@@ -23,7 +23,7 @@
             </connections>
             <point key="canvasLocation" x="-2886" y="-627"/>
         </customView>
-        <view hidden="YES" id="QFE-uI-ERc" userLabel="Default View" customClass="DefaultPlayerView" customModule="Aural" customModuleProvider="target">
+        <view hidden="YES" id="QFE-uI-ERc" userLabel="Default View" customClass="DefaultPlayingTrackSubview" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -110,7 +110,7 @@
             </connections>
             <point key="canvasLocation" x="-2886" y="-361"/>
         </view>
-        <customView hidden="YES" id="brh-Ra-2RI" userLabel="Expanded Art View" customClass="ExpandedArtPlayerView" customModule="Aural" customModuleProvider="target">
+        <customView hidden="YES" id="brh-Ra-2RI" userLabel="Expanded Art View" customClass="ExpandedArtPlayingTrackSubview" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -155,7 +155,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="qIG-jv-yLE">
                                     <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView focusRingType="none" ambiguous="YES" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="SCE-U4-XKx">
                                             <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>

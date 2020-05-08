@@ -37,7 +37,13 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     }
     
     private func trackChanged(_ track: Track?) {
-        infoView.trackInfo = PlayingTrackInfo(track, player.playingChapter?.chapter.title)
+        
+        if let theTrack = track {
+            infoView.trackInfo = PlayingTrackInfo(theTrack, player.playingChapter?.chapter.title)
+            
+        } else {
+            infoView.trackInfo = nil
+        }
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
@@ -53,8 +59,8 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
         
-        if PlayerViewState.showCurrentChapter {
-            infoView.trackInfo = PlayingTrackInfo(player.playingTrack?.track, newChapter?.chapter.title)
+        if let playingTrack = player.playingTrack?.track, PlayerViewState.showCurrentChapter {
+            infoView.trackInfo = PlayingTrackInfo(playingTrack, newChapter?.chapter.title)
         }
     }
     
@@ -120,28 +126,28 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
 // Encapsulates displayed information for the currently playing track.
 struct PlayingTrackInfo {
     
-    let track: Track?
+    let track: Track
     let playingChapterTitle: String?
     
-    init(_ track: Track?, _ playingChapterTitle: String?) {
+    init(_ track: Track, _ playingChapterTitle: String?) {
         
         self.track = track
         self.playingChapterTitle = playingChapterTitle
     }
     
     var art: NSImage? {
-        return track?.displayInfo.art?.image
+        return track.displayInfo.art?.image
     }
     
     var artist: String? {
-        return track?.displayInfo.artist
+        return track.displayInfo.artist
     }
     
     var album: String? {
-        return track?.groupingInfo.album
+        return track.groupingInfo.album
     }
     
     var displayName: String? {
-        return track?.displayInfo.title ?? track?.conciseDisplayName
+        return track.displayInfo.title ?? track.conciseDisplayName
     }
 }
