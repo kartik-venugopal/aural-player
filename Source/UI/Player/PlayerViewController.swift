@@ -26,8 +26,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     override func viewDidLoad() {
         
-        //        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
-        
         [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
             
             self.view.addSubview($0)
@@ -40,9 +38,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     private func initSubscriptions() {
         
+        // TODO: Do we need to respond to transcodingFinished ??? Isn't trackChanged enough (co-incides with transcodingFinished) ???
+        // NSLog both events and see the difference in timestamps ... and make sure the order is right ... trackChanged AFTER transcodingFinished.
+        // Otherwise, player could be stuck with transcodingView even when track is playing.
+        
         AsyncMessenger.subscribe([.gapStarted, .transcodingStarted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        // TODO - Necessary ??? Maybe to find out when gap has ended.
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
     
