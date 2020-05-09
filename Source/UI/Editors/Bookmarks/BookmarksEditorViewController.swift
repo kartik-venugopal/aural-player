@@ -157,7 +157,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             
         case UIConstants.bookmarkStartPositionColumnID:
             
-            let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.startPosition)
+            let formattedPosition = ValueFormatter.formatSecondsToHMS(bookmark.startPosition)
             return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
             
         case UIConstants.bookmarkEndPositionColumnID:
@@ -165,7 +165,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             var formattedPosition: String = ""
             
             if let endPos = bookmark.endPosition {
-                formattedPosition = StringUtils.formatSecondsToHMS(endPos)
+                formattedPosition = ValueFormatter.formatSecondsToHMS(endPos)
             } else {
                 formattedPosition = "-"
             }

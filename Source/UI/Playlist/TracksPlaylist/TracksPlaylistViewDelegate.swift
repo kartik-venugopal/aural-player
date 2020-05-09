@@ -110,7 +110,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.playlistDurationColumnID:
                 
-                return createDurationCell(tableView, UIConstants.playlistDurationColumnID, StringUtils.formatSecondsToHMS(track.duration), gapB, gapA, row)
+                return createDurationCell(tableView, UIConstants.playlistDurationColumnID, ValueFormatter.formatSecondsToHMS(track.duration), gapB, gapA, row)
                 
             default: return nil
                 
@@ -234,7 +234,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.hide()
                 cell.gapAfterTextField.show()
                 
-                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapAfterTextField.stringValue = ValueFormatter.formatSecondsToHMS(gap.duration)
                 
                 cell.placeTextFieldOnTop()
                 
@@ -245,7 +245,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.show()
                 cell.gapAfterTextField.hide()
                 
-                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapBeforeTextField.stringValue = ValueFormatter.formatSecondsToHMS(gap.duration)
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeTextField)
                 
@@ -257,8 +257,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.show()
                 cell.gapAfterTextField.show()
                 
-                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
-                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
+                cell.gapBeforeTextField.stringValue = ValueFormatter.formatSecondsToHMS(gapB.duration)
+                cell.gapAfterTextField.stringValue = ValueFormatter.formatSecondsToHMS(gapA.duration)
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeTextField)
                 

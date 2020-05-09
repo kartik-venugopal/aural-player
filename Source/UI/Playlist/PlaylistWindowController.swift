@@ -250,7 +250,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         let summary = playlist.summary(PlaylistViewState.current)
         
         let numTracks = summary.size
-        let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
+        let duration = ValueFormatter.formatSecondsToHMS(summary.totalDuration)
         
         lblDurationSummary.stringValue = String(format: "%@", duration)
         

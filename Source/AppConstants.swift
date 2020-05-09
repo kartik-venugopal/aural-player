@@ -121,22 +121,6 @@ struct AppConstants {
         static let treble_max: Float = audibleRangeMax
     }
     
-    struct Units {
-
-        // Units for different effects parameters
-        
-        static let eqGainDB: String = "dB"
-        static let pitchOctaves: String = "8ve"
-        static let timeStretchRate: String = "x"
-        static let reverbWetAmount: String = "wet"
-        static let reverbDryAmount: String = "dry"
-        static let delayTimeSecs: String = "s"
-        static let delayFeedbackPerc: String = "%"
-        static let frequencyHz: String = "Hz"
-        static let frequencyKHz: String = "KHz"
-        static let screenRealEstatePixel = "px"
-    }
-    
     struct ValueConversions {
         
         // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the audio graph uses a volume range of 0-1)

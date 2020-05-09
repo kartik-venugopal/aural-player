@@ -63,7 +63,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
         if let endTime = self.endTime {
         
             let seconds = max(DateUtils.timeUntil(endTime), 0)
-            lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(seconds)
+            lblTimeRemaining.stringValue = ValueFormatter.formatSecondsToHMS(seconds)
             
             if seconds == 0 {endGap()}
         }

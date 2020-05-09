@@ -3,7 +3,7 @@ import XCTest
 /*
     Unit tests for StringUtils
  */
-class StringUtilsTests: XCTestCase {
+class ValueFormatterTests: XCTestCase {
     
     func testFormatTrackTimes_formatted_startOfTrack() {
         
@@ -51,7 +51,7 @@ class StringUtilsTests: XCTestCase {
     private func doTest(_ elapsedTime: Double, _ trackDuration: Double, _ elapsedTimeFormat: TimeElapsedDisplayType, _ remainingTimeFormat: TimeRemainingDisplayType, _ expectedTimeElapsedString: String, _ expectedTimeRemainingString: String) {
         
         let perc = elapsedTime * 100.0 / trackDuration
-        let trackTimes = StringUtils.formatTrackTimes(elapsedTime, trackDuration, perc, elapsedTimeFormat, remainingTimeFormat)
+        let trackTimes = ValueFormatter.formatTrackTimes(elapsedTime, trackDuration, perc, elapsedTimeFormat, remainingTimeFormat)
         
         XCTAssertEqual(trackTimes.elapsed, expectedTimeElapsedString, String(format: "Expected Elapsed time: '%@', but found: '%@'", expectedTimeElapsedString, trackTimes.elapsed))
         

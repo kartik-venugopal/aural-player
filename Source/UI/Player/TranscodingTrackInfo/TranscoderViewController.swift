@@ -66,11 +66,11 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     private func updateFields(_ timeTranscoded: Double, _ trackDuration: Double, _ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double, _ speed: String) {
         
-        let trackTime = StringUtils.formatSecondsToHMS(timeTranscoded)
-        let trackDuration = StringUtils.formatSecondsToHMS(trackDuration)
+        let trackTime = ValueFormatter.formatSecondsToHMS(timeTranscoded)
+        let trackDuration = ValueFormatter.formatSecondsToHMS(trackDuration)
         
-        let elapsed = StringUtils.formatSecondsToHMS(timeElapsed)
-        let remaining = StringUtils.formatSecondsToHMS(timeRemaining)
+        let elapsed = ValueFormatter.formatSecondsToHMS(timeElapsed)
+        let remaining = ValueFormatter.formatSecondsToHMS(timeRemaining)
         
         lblTrackTime.stringValue = String(format: "Track time:   %@  /  %@", trackTime, trackDuration)
         lblTimeElapsed.stringValue = String(format: "Time elapsed:   %@", elapsed)

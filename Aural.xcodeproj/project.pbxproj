@@ -276,6 +276,10 @@
 		3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25D1EFA78D6007BE830 /* MainMenu.xib */; };
 		3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */; };
 		3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADC1F25E289006A7626 /* SearchResults.swift */; };
+		3E8718D02466B61D007D9672 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8718CF2466B61D007D9672 /* MathUtils.swift */; };
+		3E8718D32466B856007D9672 /* MathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8718D22466B856007D9672 /* MathUtilsTests.swift */; };
+		3E8718D42466BABF007D9672 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8718CF2466B61D007D9672 /* MathUtils.swift */; };
+		3E8718D52466DC10007D9672 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */; };
 		3E89CA24246316F10057D3EE /* PlayingTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89CA23246316F10057D3EE /* PlayingTrackViewController.swift */; };
 		3E89CA26246317B90057D3EE /* WaitingTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89CA25246317B90057D3EE /* WaitingTrackViewController.swift */; };
 		3E89CA28246323030057D3EE /* WaitingTrack.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E89CA27246323030057D3EE /* WaitingTrack.xib */; };
@@ -412,7 +416,7 @@
 		3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */; };
 		3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */; };
 		3EDEADB5216360980071C660 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */; };
-		3EDFB69C2466A49200F50610 /* StringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */; };
+		3EDFB69C2466A49200F50610 /* ValueFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB69B2466A49200F50610 /* ValueFormatterTests.swift */; };
 		3EDFB6A42466A61D00F50610 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
 		3EDFB6A72466A72900F50610 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */; };
 		3EDFB6A82466A73200F50610 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */; };
@@ -783,6 +787,8 @@
 		3E85F2601EFA78D6007BE830 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E864ADA1F25C81B006A7626 /* PlaylistDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E864ADC1F25E289006A7626 /* SearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		3E8718CF2466B61D007D9672 /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
+		3E8718D22466B856007D9672 /* MathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilsTests.swift; sourceTree = "<group>"; };
 		3E89CA23246316F10057D3EE /* PlayingTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackViewController.swift; sourceTree = "<group>"; };
 		3E89CA25246317B90057D3EE /* WaitingTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingTrackViewController.swift; sourceTree = "<group>"; };
 		3E89CA27246323030057D3EE /* WaitingTrack.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitingTrack.xib; sourceTree = "<group>"; };
@@ -922,7 +928,7 @@
 		3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackMenuController.swift; sourceTree = "<group>"; };
 		3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitTabButtonCell.swift; sourceTree = "<group>"; };
 		3EDFB6992466A49200F50610 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtilsTests.swift; sourceTree = "<group>"; };
+		3EDFB69B2466A49200F50610 /* ValueFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatterTests.swift; sourceTree = "<group>"; };
 		3EDFB69D2466A49200F50610 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimeFormats.swift; sourceTree = "<group>"; };
 		3EDFFA041FC0239F00158177 /* PlaybackPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -1412,6 +1418,7 @@
 				3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */,
 				3EBA52F61FC2E6A2007F902F /* StateMachine.swift */,
 				3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */,
+				3E8718CF2466B61D007D9672 /* MathUtils.swift */,
 				3EB1700F21748B7600B82D3A /* TimeIntervalFormatter.swift */,
 				3ED4257721E7EB4B00E202AB /* JSONWriter.swift */,
 				3ED4257921E803E000E202AB /* HTMLWriter.swift */,
@@ -2276,10 +2283,19 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		3E8718D12466B814007D9672 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EDFB69B2466A49200F50610 /* ValueFormatterTests.swift */,
+				3E8718D22466B856007D9672 /* MathUtilsTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3EDFB69A2466A49200F50610 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */,
+				3E8718D12466B814007D9672 /* Utils */,
 				3EDFB69D2466A49200F50610 /* Info.plist */,
 			);
 			path = Tests;
@@ -2522,6 +2538,7 @@
 				3EE4D44021D6E5DA000110FC /* AlertWindowController.swift in Sources */,
 				3E6341DC243DC53B00190502 /* HistoryPreferences.swift in Sources */,
 				3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */,
+				3E8718D02466B61D007D9672 /* MathUtils.swift in Sources */,
 				3ECD17471F6BBF3600492F56 /* ITunesParser.swift in Sources */,
 				3E551B871F10801100354DE2 /* AudioEngineHelper.swift in Sources */,
 				3EE7D725244EC8D1005D76FA /* ColorState.swift in Sources */,
@@ -2915,11 +2932,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8718D52466DC10007D9672 /* ValueFormatter.swift in Sources */,
+				3E8718D42466BABF007D9672 /* MathUtils.swift in Sources */,
 				3EDFB6A42466A61D00F50610 /* StringUtils.swift in Sources */,
-				3EDFB69C2466A49200F50610 /* StringUtilsTests.swift in Sources */,
+				3EDFB69C2466A49200F50610 /* ValueFormatterTests.swift in Sources */,
 				3EDFB6A82466A73200F50610 /* SeekTimeFormats.swift in Sources */,
 				3EDFB6D22466A8C400F50610 /* UIConstants.swift in Sources */,
 				3EDFB6D32466A8C400F50610 /* Extensions.swift in Sources */,
+				3E8718D32466B856007D9672 /* MathUtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -129,7 +129,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             if let group = item as? Group {
                 
-                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration), nil, nil)
+                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, true, ValueFormatter.formatSecondsToHMS(group.duration), nil, nil)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -141,7 +141,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 let gapA = playlist.getGapAfterTrack(track)
                 let gapB = playlist.getGapBeforeTrack(track)
                 
-                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration), gapB, gapA)
+                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, false, ValueFormatter.formatSecondsToHMS(track.duration), gapB, gapA)
                 cell?.item = track
                 cell?.playlistType = self.playlistType
                 return cell
@@ -323,7 +323,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.hide()
                 cell.gapAfterTextField.show()
                 
-                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapAfterTextField.stringValue = ValueFormatter.formatSecondsToHMS(gap.duration)
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
@@ -334,7 +334,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.show()
                 cell.gapAfterTextField.hide()
                 
-                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapBeforeTextField.stringValue = ValueFormatter.formatSecondsToHMS(gap.duration)
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
                 
@@ -346,8 +346,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.show()
                 cell.gapAfterTextField.show()
                 
-                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
-                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
+                cell.gapBeforeTextField.stringValue = ValueFormatter.formatSecondsToHMS(gapB.duration)
+                cell.gapAfterTextField.stringValue = ValueFormatter.formatSecondsToHMS(gapA.duration)
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
                 
