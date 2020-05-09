@@ -35,17 +35,31 @@ class ValueFormatterTests: XCTestCase {
     }
     
     func testFormatTrackTimes_percentage_startOfTrack() {
+        
         doTest(0, 3.5, .percentage, .percentage, "0%", "- 100%")
+        
+        doTest(3, 300, .percentage, .percentage, "1%", "- 99%")
+        doTest(2.9999, 300, .percentage, .percentage, "0%", "- 100%")
+        
+        doTest(150, 300, .percentage, .percentage, "50%", "- 50%")
+        doTest(149, 300, .percentage, .percentage, "49%", "- 51%")
+        doTest(153, 300, .percentage, .percentage, "51%", "- 49%")
+        
+        doTest(1.5, 300, .percentage, .percentage, "0%", "- 100%")
+        doTest(1, 300, .percentage, .percentage, "0%", "- 100%")
+        doTest(0, 300, .percentage, .percentage, "0%", "- 100%")
     }
     
     func testFormatTrackTimes_percentage_endOfTrack() {
+        
         doTest(3.5, 3.5, .percentage, .percentage, "100%", "- 0%")
         
         doTest(297, 300, .percentage, .percentage, "99%", "- 1%")
         doTest(298.4999, 300, .percentage, .percentage, "99%", "- 1%")
         
-        doTest(298.5, 300, .percentage, .percentage, "100%", "- 0%")
-        doTest(299, 300, .percentage, .percentage, "100%", "- 0%")
+        doTest(298.5, 300, .percentage, .percentage, "99%", "- 1%")
+        doTest(299, 300, .percentage, .percentage, "99%", "- 1%")
+        doTest(300, 300, .percentage, .percentage, "100%", "- 0%")
     }
     
     private func doTest(_ elapsedTime: Double, _ trackDuration: Double, _ elapsedTimeFormat: TimeElapsedDisplayType, _ remainingTimeFormat: TimeRemainingDisplayType, _ expectedTimeElapsedString: String, _ expectedTimeRemainingString: String) {

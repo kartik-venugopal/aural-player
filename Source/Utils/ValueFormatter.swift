@@ -39,7 +39,7 @@ class ValueFormatter {
 
         case .percentage:
 
-        elapsedString = String(format: "%d%%", roundedInt(percentageElapsed))
+        elapsedString = String(format: "%d%%", floorInt(percentageElapsed))
 
         }
 
@@ -62,7 +62,7 @@ class ValueFormatter {
 
         case .percentage:
 
-        let percentageRemaining = 100 - roundedInt(percentageElapsed)
+        let percentageRemaining = 100 - floorInt(percentageElapsed)
         remainingString = String(format: "- %d%%", percentageRemaining)
 
         case .duration_formatted:
