@@ -577,11 +577,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
-        if playingTrack != nil {
+        if let track = playingTrack?.track {
             
-            let seconds = player.seekPosition
-            let duration = playingTrack!.track.duration
-            return (seconds, seconds * 100 / duration, duration)
+            let elapsedTime: Double = player.seekPosition
+            let duration: Double = track.duration
+            
+            return (elapsedTime, elapsedTime * 100 / duration, duration)
         }
         
         return (0, 0, 0)
