@@ -412,6 +412,12 @@
 		3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */; };
 		3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */; };
 		3EDEADB5216360980071C660 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */; };
+		3EDFB69C2466A49200F50610 /* StringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */; };
+		3EDFB6A42466A61D00F50610 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
+		3EDFB6A72466A72900F50610 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */; };
+		3EDFB6A82466A73200F50610 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */; };
+		3EDFB6D22466A8C400F50610 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */; };
+		3EDFB6D32466A8C400F50610 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1765FE217DBAFF001C6CF9 /* Extensions.swift */; };
 		3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA041FC0239F00158177 /* PlaybackPreferencesViewController.swift */; };
 		3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA061FC0263E00158177 /* PlaylistPreferencesViewController.swift */; };
 		3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */; };
@@ -476,6 +482,16 @@
 		3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6BA1F0372B3003728BD /* TrackIO.swift */; };
 		3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6BD1F0381FA003728BD /* EQPresets.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3EDFB69E2466A49200F50610 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E85F24E1EFA78D6007BE830 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3E85F2551EFA78D6007BE830;
+			remoteInfo = Aural;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3E2604502454E70E00CFEC86 /* CopyFiles */ = {
@@ -905,6 +921,10 @@
 		3EDDF6AD1FB4FF8000DF2E9A /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackMenuController.swift; sourceTree = "<group>"; };
 		3EDEADB4216360980071C660 /* EffectsUnitTabButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitTabButtonCell.swift; sourceTree = "<group>"; };
+		3EDFB6992466A49200F50610 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtilsTests.swift; sourceTree = "<group>"; };
+		3EDFB69D2466A49200F50610 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimeFormats.swift; sourceTree = "<group>"; };
 		3EDFFA041FC0239F00158177 /* PlaybackPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA061FC0263E00158177 /* PlaylistPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA081FC026EE00158177 /* SoundPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -972,6 +992,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		3E85F2531EFA78D6007BE830 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EDFB6962466A49200F50610 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2119,6 +2146,7 @@
 				3E78DCA22464983900E6BC00 /* PlaybackView.swift */,
 				3E78DC9C24648C0700E6BC00 /* PlayerSequencingViewController.swift */,
 				3E78DCA024648D9200E6BC00 /* PlayerAudioViewController.swift */,
+				3EDFB6A62466A72900F50610 /* SeekTimeFormats.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -2205,6 +2233,7 @@
 			children = (
 				3E85F2581EFA78D6007BE830 /* Source */,
 				3E72FCC41F2C0A780020FD20 /* Documentation */,
+				3EDFB69A2466A49200F50610 /* Tests */,
 				3E85F2571EFA78D6007BE830 /* Products */,
 				3E821AEC1F953253006F8E97 /* Resources */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
@@ -2215,6 +2244,7 @@
 			isa = PBXGroup;
 			children = (
 				3E85F2561EFA78D6007BE830 /* Aural.app */,
+				3EDFB6992466A49200F50610 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2244,6 +2274,15 @@
 				3E50ADAF24613B0400B31339 /* UnusedCode */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		3EDFB69A2466A49200F50610 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3EDFB69B2466A49200F50610 /* StringUtilsTests.swift */,
+				3EDFB69D2466A49200F50610 /* Info.plist */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		3EE09326245C60240045F8A3 /* Domain */ = {
@@ -2323,12 +2362,31 @@
 			productReference = 3E85F2561EFA78D6007BE830 /* Aural.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3EDFB6982466A49200F50610 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EDFB6A02466A49200F50610 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				3EDFB6952466A49200F50610 /* Sources */,
+				3EDFB6962466A49200F50610 /* Frameworks */,
+				3EDFB6972466A49200F50610 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3EDFB69F2466A49200F50610 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = AuralTests;
+			productReference = 3EDFB6992466A49200F50610 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3E85F24E1EFA78D6007BE830 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Anonymous;
 				TargetAttributes = {
@@ -2336,6 +2394,10 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = C4YUF2G676;
 						LastSwiftMigration = 1130;
+					};
+					3EDFB6982466A49200F50610 = {
+						CreatedOnToolsVersion = 11.3.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2353,6 +2415,7 @@
 			projectRoot = "";
 			targets = (
 				3E85F2551EFA78D6007BE830 /* Aural */,
+				3EDFB6982466A49200F50610 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -2433,6 +2496,13 @@
 				3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */,
 				3E850D601FB459230017CD02 /* Playlist.xib in Resources */,
 				3EBD557D21590B9A00286439 /* Master.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EDFB6972466A49200F50610 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2616,6 +2686,7 @@
 				3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */,
 				3EB20B491EFF230C008138A4 /* AppStateIO.swift in Sources */,
 				3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */,
+				3EDFB6A72466A72900F50610 /* SeekTimeFormats.swift in Sources */,
 				3E0839AC21954AAD008D84BA /* EQUnitDelegate.swift in Sources */,
 				3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */,
 				3E3AEB101F9D361A00E9BEDE /* TracksPlaylistViewController.swift in Sources */,
@@ -2840,7 +2911,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3EDFB6952466A49200F50610 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EDFB6A42466A61D00F50610 /* StringUtils.swift in Sources */,
+				3EDFB69C2466A49200F50610 /* StringUtilsTests.swift in Sources */,
+				3EDFB6A82466A73200F50610 /* SeekTimeFormats.swift in Sources */,
+				3EDFB6D22466A8C400F50610 /* UIConstants.swift in Sources */,
+				3EDFB6D32466A8C400F50610 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3EDFB69F2466A49200F50610 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3E85F2551EFA78D6007BE830 /* Aural */;
+			targetProxy = 3EDFB69E2466A49200F50610 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3E85F25D1EFA78D6007BE830 /* MainMenu.xib */ = {
@@ -3003,6 +3094,52 @@
 			};
 			name = Release;
 		};
+		3EDFB6A12466A49200F50610 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3EDFB6A22466A49200F50610 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3020,6 +3157,15 @@
 			buildConfigurations = (
 				3E85F2641EFA78D6007BE830 /* Debug */,
 				3E85F2651EFA78D6007BE830 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EDFB6A02466A49200F50610 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EDFB6A12466A49200F50610 /* Debug */,
+				3EDFB6A22466A49200F50610 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -503,9 +503,9 @@ extension NSColor {
     }
     
     // Used for debugging purposes ... prints a JSON-style string with the different component values of this color.
-    func toString() -> String {
-        return String(describing: JSONMapper.map(ColorState.fromColor(self)))
-    }
+//    func toString() -> String {
+//        return String(describing: JSONMapper.map(ColorState.fromColor(self)))
+//    }
     
     // Used for debugging purposes ... prints a JSON-style string with the different component values of this color represented as HSB.
     func hsbString() -> String {
@@ -550,5 +550,19 @@ extension NSGradient {
         self.getColor(&end, location: nil, at: 1)
         
         return NSGradient(starting: end, ending: start)!
+    }
+}
+
+extension String {
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+}
+
+extension Substring.SubSequence {
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
 }
