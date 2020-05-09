@@ -14,6 +14,7 @@ class StringUtils {
     static func formatTrackTimes(_ elapsedSeconds: Double, _ duration: Double, _ percentageElapsed: Double, _ timeElapsedDisplayType: TimeElapsedDisplayType = .formatted, _ timeRemainingDisplayType: TimeRemainingDisplayType = .formatted) -> (elapsed: String, remaining: String) {
         
         let elapsedSecondsInt = Int(round(elapsedSeconds))
+        let durationInt = Int(round(duration))
         
         var elapsedString: String
         var remainingString: String
@@ -39,17 +40,17 @@ class StringUtils {
          
          case .formatted:
          
-         remainingString = formatSecondsToHMS(duration - Double(elapsedSecondsInt), true)
+         remainingString = formatSecondsToHMS(durationInt - elapsedSecondsInt, true)
          
          case .seconds:
          
-         let secStr = StringUtils.commaSeparatedInt(Int(round(duration - Double(elapsedSecondsInt))))
+         let secStr = StringUtils.commaSeparatedInt(durationInt - elapsedSecondsInt)
          remainingString = String(format: "- %@ sec", secStr)
          
          case .percentage:
          
-         let percentageRemaining = 100 - percentageElapsed
-         remainingString = String(format: "- %d%%", Int(round(percentageRemaining)))
+         let percentageRemaining = 100 - Int(round(percentageElapsed))
+         remainingString = String(format: "- %d%%", percentageRemaining)
          
          case .duration_formatted:
          
@@ -69,9 +70,11 @@ class StringUtils {
      
         The "includeMinusPrefix" indicates whether or not to include a prefix of "-" in the formatted string returned.
     */
-    static func formatSecondsToHMS(_ _timeSeconds: Double, _ includeMinusPrefix: Bool = false) -> String {
-        
-        let timeSeconds = Int(round(_timeSeconds))
+    static func formatSecondsToHMS(_ timeSecondsDouble: Double, _ includeMinusPrefix: Bool = false) -> String {
+        return formatSecondsToHMS(roundedInt(timeSecondsDouble))
+    }
+    
+    static func formatSecondsToHMS(_ timeSeconds: Int, _ includeMinusPrefix: Bool = false) -> String {
         
         let secs = timeSeconds % oneMin
         let mins = (timeSeconds / oneMin) % oneMin
