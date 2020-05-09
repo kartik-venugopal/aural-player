@@ -148,6 +148,9 @@ class NewScheduler: PlaybackSchedulerProtocol {
 
     private func segmentCompleted(_ session: PlaybackSession) {
         
+        // TODO: Make sure that once a session has completed (i.e. async message sent out), no other segment can be associated with that session.
+        // Otherwise, the same session can complete twice.
+        
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. when seeking), don't do anything
         if let curSession = PlaybackSession.currentSession, curSession == session {
@@ -180,7 +183,10 @@ class NewScheduler: PlaybackSchedulerProtocol {
     func resume() {
         
         if completedWhilePaused {
+
+            completedWhilePaused = false
             AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
+            
         } else {
             playerNode.play()
         }
@@ -244,6 +250,8 @@ class NewScheduler: PlaybackSchedulerProtocol {
               DispatchQueue.global(qos: .userInteractive).async {self.restartLoop(session)}
 
             }, true, startTime, loopEndTime)
+            
+            // TODO: If segment is nil, can we start at loop start time ???
 
             self.loopingSegment = loop.startTime == startTime ? segment : nil
         }
