@@ -4,14 +4,6 @@ import XCTest
     Unit tests for StringUtils
  */
 class StringUtilsTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
     
     func testFormatTrackTimes_formatted_startOfTrack() {
         
@@ -48,6 +40,12 @@ class StringUtilsTests: XCTestCase {
     
     func testFormatTrackTimes_percentage_endOfTrack() {
         doTest(3.5, 3.5, .percentage, .percentage, "100%", "- 0%")
+        
+        doTest(297, 300, .percentage, .percentage, "99%", "- 1%")
+        doTest(298.4999, 300, .percentage, .percentage, "99%", "- 1%")
+        
+        doTest(298.5, 300, .percentage, .percentage, "100%", "- 0%")
+        doTest(299, 300, .percentage, .percentage, "100%", "- 0%")
     }
     
     private func doTest(_ elapsedTime: Double, _ trackDuration: Double, _ elapsedTimeFormat: TimeElapsedDisplayType, _ remainingTimeFormat: TimeRemainingDisplayType, _ expectedTimeElapsedString: String, _ expectedTimeRemainingString: String) {
