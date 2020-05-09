@@ -82,7 +82,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         if let playingTrack = playbackInfo.playingTrack {
             
             let roundedDuration = round(playingTrack.track.duration)
-            let formattedDuration = StringUtils.formatSecondsToHMS(roundedDuration)
+            let formattedDuration = ValueFormatter.formatSecondsToHMS(roundedDuration)
             let durationInt = Int(roundedDuration)
             
             lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.track.conciseDisplayName)

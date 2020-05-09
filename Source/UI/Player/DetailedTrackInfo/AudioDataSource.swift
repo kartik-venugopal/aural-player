@@ -14,7 +14,7 @@ class AudioDataSource: TrackInfoDataSource {
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
         trackInfo.append((key: "Codec", value: track.audioInfo?.codec ?? value_unknown))
         
-        trackInfo.append((key: "Track Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
+        trackInfo.append((key: "Track Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
         
         if let bitRate = track.audioInfo?.bitRate {
             trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", bitRate)))
@@ -23,7 +23,7 @@ class AudioDataSource: TrackInfoDataSource {
         }
 
         if let sampleRate = track.playbackInfo?.sampleRate {
-            trackInfo.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(sampleRate)))))
+            trackInfo.append((key: "Sample Rate", value: String(format: "%@ Hz", ValueFormatter.readableLongInteger(Int64(sampleRate)))))
         } else {
             trackInfo.append((key: "Sample Rate", value: value_unknown))
         }
@@ -40,7 +40,7 @@ class AudioDataSource: TrackInfoDataSource {
         }
         
         if let frameCount = track.playbackInfo?.frames {
-            trackInfo.append((key: "Frames", value: StringUtils.readableLongInteger(frameCount)))
+            trackInfo.append((key: "Frames", value: ValueFormatter.readableLongInteger(frameCount)))
         } else {
             trackInfo.append((key: "Frames", value: value_unknown))
         }

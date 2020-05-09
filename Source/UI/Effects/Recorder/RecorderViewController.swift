@@ -114,7 +114,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     private func updateRecordingInfo() {
         
         recordingInfo = recorder.recordingInfo
-        lblRecorderDuration.stringValue = StringUtils.formatSecondsToHMS(recordingInfo!.duration)
+        lblRecorderDuration.stringValue = ValueFormatter.formatSecondsToHMS(recordingInfo!.duration)
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     

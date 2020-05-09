@@ -157,7 +157,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         let seekPosn = seekPositionFunction()
         seekSlider.doubleValue = seekPosn.percentageElapsed
 
-        let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
 
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining
@@ -170,7 +170,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     func resetSeekPosition(_ track: Track) {
 
-        let trackTimes = StringUtils.formatTrackTimes(0, track.duration, 0, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        let trackTimes = ValueFormatter.formatTrackTimes(0, track.duration, 0, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
 
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining

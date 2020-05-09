@@ -53,7 +53,7 @@ class FormattedIntervalLabel: NSTextField {
     @IBInspectable var interval: Double = 0 {
         
         didSet {
-            self.stringValue = interval != 0 ? StringUtils.formatSecondsToHMS_hrMinSec(Int(round(interval))) : "0 sec"
+            self.stringValue = interval != 0 ? ValueFormatter.formatSecondsToHMS_hrMinSec(Int(round(interval))) : "0 sec"
         }
     }
     

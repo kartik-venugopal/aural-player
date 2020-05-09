@@ -34,11 +34,11 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.chapterStartTimeColumnID:
                 
-                return createDurationCell(tableView, columnId, StringUtils.formatSecondsToHMS(chapter.startTime), row)
+                return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
                 
             case UIConstants.chapterDurationColumnID:
                 
-                return createDurationCell(tableView, columnId, StringUtils.formatSecondsToHMS(chapter.duration), row)
+                return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
                 
             default: return nil
                 
