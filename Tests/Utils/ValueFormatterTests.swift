@@ -1,7 +1,7 @@
 import XCTest
 
 /*
-    Unit tests for StringUtils
+    Unit tests for ValueFormatter
  */
 class ValueFormatterTests: XCTestCase {
     

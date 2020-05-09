@@ -138,20 +138,3 @@ class StringUtils {
         return str
     }
 }
-
-extension String {
-    
-    subscript (index: Int) -> Character {
-        
-        let charIndex = self.index(self.startIndex, offsetBy: index)
-        return self[charIndex]
-    }
-    
-    func substring(range: Range<Int>) -> String {
-        
-        let startIndex = self.index(self.startIndex, offsetBy: range.startIndex)
-        let stopIndex = self.index(self.startIndex, offsetBy: range.startIndex + range.count)
-        return String(self[startIndex..<stopIndex])
-    }
-    
-}

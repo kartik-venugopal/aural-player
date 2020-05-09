@@ -321,17 +321,6 @@ extension NSTabView {
     }
 }
 
-extension String {
-    
-    func capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + (self.count > 1 ? self.substring(range: 1..<self.count) : "")
-    }
-    
-    mutating func capitalizeFirstLetter() {
-        self = self.capitalizingFirstLetter()
-    }
-}
-
 extension NSWindow {
     
     var origin: NSPoint {
@@ -550,19 +539,5 @@ extension NSGradient {
         self.getColor(&end, location: nil, at: 1)
         
         return NSGradient(starting: end, ending: start)!
-    }
-}
-
-extension String {
-    
-    func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-    }
-}
-
-extension Substring.SubSequence {
-    
-    func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
 }
