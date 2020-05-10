@@ -43,7 +43,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         if let end = endPosition {
             
             // Loop is defined
-            session.loop = PlaybackLoop(startPosition, end)
+            PlaybackSession.defineLoop(startPosition, end)
             scheduler.playLoop(session, true)
             
         } else {
@@ -56,11 +56,11 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double) {
         
-        let session = PlaybackSession.currentSession!
-        
-        // Define the loop within the session
-        session.loop = PlaybackLoop(loopStartPosition, loopEndPosition)
-        scheduler.playLoop(session, seekPosition, state == .playing)
+        if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
+
+            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition)
+            scheduler.playLoop(currentSession, seekPosition, state == .playing)
+        }
     }
     
     func pause() {
@@ -98,60 +98,53 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func seekToTime(_ track: Track, _ seconds: Double) {
         
-        let timestamp = PlaybackSession.currentSession!.timestamp
-        let loop = PlaybackSession.currentSession!.loop
-        
-        let session = PlaybackSession.start(track, timestamp)
-        session.loop = loop
-        
-        scheduler.seekToTime(session, seconds, state == .playing)
+        // Create a new identical session (for the track that is playing), and perform a seek within it
+        if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            scheduler.seekToTime(curSession, seconds, state == .playing)
+        }
     }
     
     var seekPosition: Double {
-        return state.notPlaying() ? 0 : scheduler.seekPosition
+        return state.isNotPlayingOrPaused ? 0 : scheduler.seekPosition
     }
     
     var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
     
     func toggleLoop() -> PlaybackLoop? {
         
+        // Capture the current seek position
         let currentTrackTimeElapsed = seekPosition
+
+        // Make sure that there is a track currently playing.
+        if let _ = PlaybackSession.currentSession {
         
-        let curSession = PlaybackSession.currentSession!
-        
-        if let curLoop = curSession.loop {
-            
-            if curLoop.isComplete() {
+            // Check if there currently is a defined loop. If so, create a new identical session.
+            if PlaybackSession.hasLoop(), let newSession = PlaybackSession.startNewSessionForPlayingTrack(),
+                let curLoop = PlaybackSession.currentLoop {
                 
-                // Remove loop
-                PlaybackSession.removeLoop()
-                scheduler.endLoop(curSession, curLoop.endTime!)
+                if let loopEndTime = curLoop.endTime {
+                    
+                    // Loop has an end time (i.e. is complete) ... remove loop
+                    PlaybackSession.removeLoop()
+                    scheduler.endLoop(newSession, loopEndTime)
+                    
+                } else {
+                    
+                    // Loop has a start time, but no end time ... mark its end time
+                    PlaybackSession.endLoop(currentTrackTimeElapsed)
+                    scheduler.playLoop(newSession, state == .playing)
+                }
                 
             } else {
                 
-                // Mark end
-                PlaybackSession.endLoop(currentTrackTimeElapsed)
-                
-                let oldSession = PlaybackSession.currentSession!
-                
-                // Seek to loop start
-                let track = oldSession.track
-                let timestamp = oldSession.timestamp
-                let loop = oldSession.loop
-                
-                let session = PlaybackSession.start(track, timestamp)
-                session.loop = loop
-                
-                scheduler.playLoop(session, state == .playing)
+                // Loop is currently undefined, mark its start time
+                PlaybackSession.beginLoop(currentTrackTimeElapsed)
             }
             
-        } else {
-            
-            // Loop is currently undefined, mark start
-            PlaybackSession.beginLoop(currentTrackTimeElapsed)
+            return PlaybackSession.currentLoop
         }
         
-        return curSession.loop
+        return nil
     }
     
     func removeLoop() {
@@ -170,39 +163,33 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        // Handler for when the audio output changes (e.g. headphones plugged in/out). Need to restart the audio engine (and resume playback if necessary).
-        if let msg = message as? AudioOutputChangedMessage {
+        // Handler for when the audio output changes (e.g. headphones plugged in/out).
+        if message is AudioOutputChangedMessage {
             
-            let endedSession = msg.endedSession
-            
-            let playingTrack: Track? = endedSession?.track
-            var seekPosn: Double = 0
-            
-            // Mark the current seek position of the player
-            if playingTrack != nil {
-                seekPosn = seekPosition
-            }
-            
-            // Restart the audio engine
-            graph.restartAudioEngine()
-            
-            // Resume playback
-            if playingTrack != nil {
-                
-                initPlayer(playingTrack!)
-                seekToTime(endedSession!, seekPosn)
-            }
+            audioOutputDeviceChanged()
+            return
         }
     }
     
-    // Used only when audio output changes
-    private func seekToTime(_ lastSession: PlaybackSession, _ seconds: Double) {
+    // When the audio output device changes, restart the audio engine and continue playback as before.
+    private func audioOutputDeviceChanged() {
         
-        // Hand off old session info to the new session
-        let session = PlaybackSession.start(lastSession.track, lastSession.timestamp)
-        session.loop = lastSession.loop
-        
-        scheduler.seekToTime(session, seconds, state == .playing)
+        // First, check if a track is playing.
+        if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            
+            // Mark the current seek position
+            let curSeekPos = seekPosition
+            
+            graph.restartAudioEngine()
+            
+            // Resume playback from the same seek position
+            scheduler.seekToTime(curSession, curSeekPos, state == .playing)
+            
+        } else {
+            
+            // No track is playing, simply restart the audio engine.
+            graph.restartAudioEngine()
+        }
     }
     
     func tearDown() {
@@ -219,11 +206,11 @@ enum PlaybackState {
     case waiting
     case transcoding
     
-    func playingOrPaused() -> Bool {
+    var isPlayingOrPaused: Bool {
         return self == .playing || self == .paused
     }
     
-    func notPlaying() -> Bool {
-        return !playingOrPaused()
+    var isNotPlayingOrPaused: Bool {
+        return !isPlayingOrPaused
     }
 }

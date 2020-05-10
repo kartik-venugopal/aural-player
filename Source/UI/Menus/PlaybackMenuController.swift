@@ -65,7 +65,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         let playbackState = playbackInfo.state
-        let isPlayingOrPaused = playbackState.playingOrPaused()
+        let isPlayingOrPaused = playbackState.isPlayingOrPaused
         let isPlayingPausedOrTranscoding = isPlayingOrPaused || playbackState == .transcoding
         let noTrack = playbackState == .noTrack
         

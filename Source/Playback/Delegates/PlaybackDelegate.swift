@@ -94,7 +94,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareForTrackChange() {
         
-        let isPlayingOrPaused = state.playingOrPaused()
+        let isPlayingOrPaused = state.isPlayingOrPaused
         
         let curTrack = isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
         
@@ -346,13 +346,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func replay() {
         
-        let isPlayingOrPaused = state.playingOrPaused()
+        if state.isPlayingOrPaused {
         
-        if !isPlayingOrPaused {return}
-        
-        seekToTime(0)
-        if state == .paused {
-            resume()
+            seekToTime(0)
+            resumeIfPaused()
         }
     }
     
@@ -362,6 +359,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func resume() {
         player.resume()
+    }
+    
+    private func resumeIfPaused() {
+        
+        if state == .paused {
+            player.resume()
+        }
     }
     
     func stop() {
@@ -396,18 +400,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
-        if (state.notPlaying()) {
-            return
+        if state.isPlayingOrPaused {
+            doSeekForward(getPrimarySeekLength(actionMode))
         }
-        
-        doSeekForward(getPrimarySeekLength(actionMode))
     }
     
     func seekForwardSecondary() {
         
-        if (state.notPlaying()) {return}
-        
-        doSeekForward(secondarySeekLength)
+        if state.isPlayingOrPaused {
+            doSeekForward(secondarySeekLength)
+        }
     }
     
     private func doSeekForward(_ increment: Double) {
@@ -456,14 +458,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if state.playingOrPaused() {
+        if state.isPlayingOrPaused {
             doSeekBackward(getPrimarySeekLength(actionMode))
         }
     }
     
     func seekBackwardSecondary() {
         
-        if state.playingOrPaused() {
+        if state.isPlayingOrPaused {
             doSeekBackward(secondarySeekLength)
         }
     }
@@ -525,48 +527,47 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekToPercentage(_ percentage: Double) {
         
-        if (state.notPlaying()) {
-            return
-        }
+        // If transcoding or waiting, this is not a valid operation.
+        if state.isNotPlayingOrPaused {return}
         
-        // Calculate the new start position
-        let trackDuration = playingTrack!.track.duration
-        let newPosn = percentage * trackDuration / 100
-        
-        // TODO: Shorten this code block
-        // If there's a loop, check where the seek occurred relative to the loop
-        if let loop = playbackLoop {
+        // Make sure there is a track currently playing.
+        if let track = playingTrack?.track {
             
-            // Check if the loop is complete
-            if let loopEnd = loop.endTime {
+            // Calculate the new start position
+            let trackDuration = track.duration
+            let newPosn = percentage * trackDuration / 100
+            
+            // If there's a loop, check where the seek occurred relative to the loop. If the seek is outside the loop, invalidate (remove) the loop.
+            if let loop = playbackLoop, !loop.containsPosition(newPosn) {
                 
-                // If outside loop, remove loop
-                if newPosn < loop.startTime || newPosn > loopEnd {
-                    removeLoop()
-                    SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-                }
-                
-            } else if newPosn < loop.startTime {
                 removeLoop()
                 SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
             }
-        }
-        
-        // If this seek takes the track to its end, stop playback and proceed to the next track
-        
-        if (state == .playing) {
             
-            if (newPosn < trackDuration) {
-                player.seekToTime(playingTrack!.track, newPosn)
+            if state == .playing {
+                
+                if newPosn < trackDuration {
+                    player.seekToTime(track, newPosn)
+                    
+                } else {
+                    // If this seek takes the track to its end, stop playback and proceed to the next track
+                    trackPlaybackCompleted()
+                }
+                
             } else {
-                trackPlaybackCompleted()
+                
+                // Paused
+                player.seekToTime(track, min(newPosn, trackDuration))
             }
-            
-        } else {
-            
-            // Paused
-            player.seekToTime(playingTrack!.track, min(newPosn, trackDuration))
         }
+    }
+    
+    func seekToTime(_ seconds: Double) {
+        
+        // Calculate the new start position
+        let trackDuration = playingTrack!.track.duration
+        let percentage = seconds * 100 / trackDuration
+        seekToPercentage(percentage)
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {return sequencer.sequenceInfo}
@@ -607,14 +608,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return nil
     }
     
-    func seekToTime(_ seconds: Double) {
-        
-        // Calculate the new start position
-        let trackDuration = playingTrack!.track.duration
-        let percentage = seconds * 100 / trackDuration
-        seekToPercentage(percentage)
-    }
-    
     // MARK: Chapter playback functions
     
     func playChapter(_ index: Int) {
@@ -628,9 +621,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
             // Resume playback if paused
-            if player.state == .paused {
-                player.resume()
-            }
+            resumeIfPaused()
         }
     }
     
@@ -703,9 +694,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
             
             // Resume playback if paused
-            if player.state == .paused {
-                player.resume()
-            }
+            resumeIfPaused()
         }
     }
     

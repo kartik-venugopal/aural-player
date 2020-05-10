@@ -305,11 +305,10 @@ struct FavoritesUpdatedAsyncMessage: AsyncMessage {
 struct AudioOutputChangedMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .audioOutputChanged
-    let endedSession: PlaybackSession?
     
-    init(_ session: PlaybackSession?) {
-        self.endedSession = session
-    }
+    private init() {}
+    
+    static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
 }
 
 struct PlaybackGapStartedAsyncMessage: AsyncMessage {

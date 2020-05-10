@@ -93,8 +93,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     @objc func outputChanged() {
         
-        // End the current playback session and send out a notification
-        AsyncMessenger.publishMessage(AudioOutputChangedMessage(PlaybackSession.endCurrent()))
+        // Send out a notification
+        AsyncMessenger.publishMessage(AudioOutputChangedMessage.instance)
     }
     
     var volume: Float {
