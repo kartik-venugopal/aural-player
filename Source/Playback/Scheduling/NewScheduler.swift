@@ -44,17 +44,11 @@ class NewScheduler: PlaybackSchedulerProtocol {
             return
         }
         
-        if startTime >= session.track.duration {
+        // If end of track is reached and the player is paused, don't do any scheduling ... simply mark the completedWhilePaused flag.
+        if startTime >= session.track.duration && !playerNode.isPlaying {
             
-            if playerNode.isPlaying {
-                trackCompleted()
-                
-            } else {
-                
-                print("Completed while paused")
-                completedWhilePaused = true
-            }
-            
+            print("Completed while paused")
+            completedWhilePaused = true
             return
         }
         
@@ -158,7 +152,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
         
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. when seeking), don't do anything
-        if let curSession = PlaybackSession.currentSession, curSession == session {
+        if PlaybackSession.isCurrent(session) {
             
             print("Completion:", session.id)
 
@@ -255,7 +249,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
             // Define the initial segment (which may not constitute the entire portion of the loop segment)
             let segment = scheduleSegment(session, .dataPlayedBack, {(callbackType: AVAudioPlayerNodeCompletionCallbackType) -> Void in
 
-              DispatchQueue.global(qos: .userInteractive).async {self.restartLoop(session)}
+              DispatchQueue.global(qos: .userInteractive).async {self.loopSegmentCompleted(session)}
 
             }, true, startTime, loopEndTime)
             
@@ -268,10 +262,10 @@ class NewScheduler: PlaybackSchedulerProtocol {
         }
     }
 
-    private func restartLoop(_ session: PlaybackSession) {
+    private func loopSegmentCompleted(_ session: PlaybackSession) {
 
         // Validate the session and check for a complete loop
-        if let curSession = PlaybackSession.currentSession, curSession == session,
+        if PlaybackSession.isCurrent(session),
             let loop = session.loop, let loopEndTime = loop.endTime {
 
             let wasPlaying: Bool = playerNode.isPlaying
@@ -288,7 +282,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
                 // Reschedule the looping segment
                 doScheduleSegment(loopSegment, .dataPlayedBack, {(callbackType: AVAudioPlayerNodeCompletionCallbackType) -> Void in
                     
-                    DispatchQueue.global(qos: .userInteractive).async {self.restartLoop(session)}
+                    DispatchQueue.global(qos: .userInteractive).async {self.loopSegmentCompleted(session)}
                     
                 }, true)
 

@@ -1,6 +1,6 @@
 import Cocoa
 
-class Bookmark: StringKeyedItem, PlayableItem {
+class Bookmark: StringKeyedItem {
     
     // A name or description (e.g. "2nd chapter of audiobook")
     private var _name: String

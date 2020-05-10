@@ -167,38 +167,52 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     func toggleLoop() -> PlaybackLoop? {
         
         // Capture the current seek position
-        let currentTrackTimeElapsed = seekPosition
+        let currentSeekPos = seekPosition
 
         // Make sure that there is a track currently playing.
-        if let _ = PlaybackSession.currentSession {
-        
-            // Check if there currently is a defined loop. If so, create a new identical session.
-            if PlaybackSession.hasLoop(), let newSession = PlaybackSession.startNewSessionForPlayingTrack(),
-                let curLoop = PlaybackSession.currentLoop {
+        if PlaybackSession.hasCurrentSession() {
+            
+            if PlaybackSession.hasLoop() {
                 
-                if let loopEndTime = curLoop.endTime {
-                    
-                    // Loop has an end time (i.e. is complete) ... remove loop
-                    PlaybackSession.removeLoop()
-                    scheduler.endLoop(newSession, loopEndTime)
-                    
-                } else {
-                    
-                    // Loop has a start time, but no end time ... mark its end time
-                    PlaybackSession.endLoop(currentTrackTimeElapsed)
-                    scheduler.playLoop(newSession, state == .playing)
-                }
+                // If loop is complete, remove it, otherwise mark its end time.
+                PlaybackSession.hasCompleteLoop() ? removeLoop() : endLoop(currentSeekPos)
                 
             } else {
                 
-                // Loop is currently undefined, mark its start time
-                PlaybackSession.beginLoop(currentTrackTimeElapsed)
+                // No loop currently defined, mark its start time.
+                beginLoop(currentSeekPos)
             }
-            
-            return PlaybackSession.currentLoop
         }
         
-        return nil
+        return playbackLoop
+    }
+    
+    private func beginLoop(_ seekPos: Double) {
+        
+        // Loop is currently undefined, mark its start time. No changes in playback ... playback continues as before.
+        PlaybackSession.beginLoop(seekPos)
+    }
+    
+    private func endLoop(_ seekPos: Double) {
+        
+        // Loop has a start time, but no end time ... mark its end time
+        PlaybackSession.endLoop(seekPos)
+        
+        // When the loop's end time is defined, playback jumps to the loop's start time, and a new playback session is started.
+        if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            scheduler.playLoop(newSession, state == .playing)
+        }
+    }
+    
+    private func removeLoop() {
+        
+        // Loop has an end time (i.e. is complete) ... remove loop
+        PlaybackSession.removeLoop()
+        
+        // When a loop is removed, playback continues from the current position and a new playback session is started.
+        if let newSession = PlaybackSession.startNewSessionForPlayingTrack(), let loopEndTime = playbackLoop?.endTime {
+            scheduler.endLoop(newSession, loopEndTime)
+        }
     }
     
     var playbackLoop: PlaybackLoop? {
