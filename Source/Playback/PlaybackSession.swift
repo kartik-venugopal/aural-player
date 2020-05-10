@@ -18,7 +18,7 @@ import AVFoundation
 class PlaybackSession: Hashable {
     
     // Holds the current playback session
-    static var currentSession: PlaybackSession?
+    private(set) static var currentSession: PlaybackSession?
     
     // The track associated with this session
     let track: Track
@@ -52,6 +52,10 @@ class PlaybackSession: Hashable {
     
     func hasCompleteLoop() -> Bool {
         return loop?.isComplete ?? false
+    }
+    
+    func hasLoop() -> Bool {
+        return loop != nil
     }
     
     // Creates an identical copy of this PlaybackSession object.
@@ -141,7 +145,7 @@ class PlaybackSession: Hashable {
 }
 
 // A->B track segment playback loop defined on a particular track (the currently playing track)
-struct PlaybackLoop {
+struct PlaybackLoop: Equatable {
     
     // Starting point for the playback loop, expressed in seconds relative to the start of a track
     let startTime: Double
