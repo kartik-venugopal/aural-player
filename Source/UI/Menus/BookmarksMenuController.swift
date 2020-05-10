@@ -31,11 +31,11 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Can't add a bookmark if no track is playing or if the popover is currently being shown
-        let playingOrPaused = player.state.playingOrPaused()
+        let playingOrPaused = player.state.isPlayingOrPaused
         
         bookmarkTrackPositionMenuItem.enableIf(playingOrPaused && !windowManager.isShowingModalComponent)
         
-        let hasCompleteLoop = player.playbackLoop?.isComplete() ?? false
+        let hasCompleteLoop = player.playbackLoop?.isComplete ?? false
         bookmarkTrackSegmentLoopMenuItem.enableIf(playingOrPaused && hasCompleteLoop)
         
         manageBookmarksMenuItem.enableIf(bookmarks.count > 0)

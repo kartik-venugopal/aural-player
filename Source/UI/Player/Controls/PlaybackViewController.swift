@@ -102,7 +102,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func toggleLoop() {
         
         // TODO: Combine if's
-        if player.state.playingOrPaused() {
+        if player.state.isPlayingOrPaused {
         
             if let _ = player.playingTrack {
                 

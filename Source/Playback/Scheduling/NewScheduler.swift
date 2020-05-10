@@ -44,6 +44,20 @@ class NewScheduler: PlaybackSchedulerProtocol {
             return
         }
         
+        if startTime >= session.track.duration {
+            
+            if playerNode.isPlaying {
+                trackCompleted()
+                
+            } else {
+                
+                print("Completed while paused")
+                completedWhilePaused = true
+            }
+            
+            return
+        }
+        
         print("Seek to time:", session.id, startTime, beginPlayback)
 
         // Halt current playback
@@ -100,8 +114,6 @@ class NewScheduler: PlaybackSchedulerProtocol {
             let totalFrames: AVAudioFramePosition = session.track.playbackInfo?.frames {
 
             let sampleRate = playingFile.processingFormat.sampleRate
-//            let minFrames = AVAudioFrameCount(sampleRate * NewScheduler.minPlaybackTime)
-            let minFrames = AVAudioFrameCount(1)
 
             //  Multiply sample rate by the new seek time in seconds. This will produce the exact start frame.
             var firstFrame = AVAudioFramePosition(startTime * sampleRate)
@@ -126,17 +138,10 @@ class NewScheduler: PlaybackSchedulerProtocol {
 
             // If the frame count is less than the minimum required to continue playback,
             // schedule the minimum frame count for playback, to avoid scheduling problems
-            
-            // TODO: Can we just return nil and let the caller decide how to proceed ???
-            if frameCount < minFrames {
+            if frameCount < 1 {
 
-                frameCount = minFrames
-                firstFrame = AVAudioFramePosition(AVAudioFrameCount(lastFrame) - minFrames + 1)
-                
-//                frameCount = 2500
-//                firstFrame = AVAudioFramePosition(AVAudioFrameCount(lastFrame) - frameCount + 1)
-                
-                print("Scheduling frames:", frameCount)
+                frameCount = 1
+                firstFrame = lastFrame
             }
             
             return PlaybackSegment(session, playingFile, firstFrame, lastFrame, frameCount, startTime, segmentEndTime)
@@ -161,9 +166,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
             lastSeekPosn = session.track.duration
             
             if playerNode.isPlaying {
-                
-                // Signal track playback completion
-                AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
+                trackCompleted()
                 
             } else {
                 
@@ -171,6 +174,11 @@ class NewScheduler: PlaybackSchedulerProtocol {
                 completedWhilePaused = true
             }
         }
+    }
+    
+    // Signal track playback completion
+    private func trackCompleted() {
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
     }
 
     func pause() {
@@ -251,8 +259,6 @@ class NewScheduler: PlaybackSchedulerProtocol {
 
             }, true, startTime, loopEndTime)
             
-            // TODO: If segment is nil, can we start at loop start time ???
-
             self.loopingSegment = loop.startTime == startTime ? segment : nil
         }
 
@@ -297,8 +303,6 @@ class NewScheduler: PlaybackSchedulerProtocol {
         
         // Schedule a new segment starting from the loop's end time, up to the end of the track.
         
-        // TODO: Check if the loop is terminal (loopEndTime == trackDuration) ... if so, schedule a token segment for track completion.
-
         _ = scheduleSegment(session, .dataPlayedBack, {(callbackType: AVAudioPlayerNodeCompletionCallbackType) -> Void in
             
             DispatchQueue.global(qos: .userInteractive).async {self.segmentCompleted(session)}

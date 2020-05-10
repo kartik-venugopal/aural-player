@@ -198,7 +198,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         if let loop = playbackLoop {
 
             // Update loop button image
-            btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
+            btnLoop.switchState(loop.isComplete ? LoopState.complete: LoopState.started)
             
             // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
             

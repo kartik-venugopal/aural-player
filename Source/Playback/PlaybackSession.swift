@@ -24,11 +24,12 @@ class PlaybackSession: Hashable {
     let track: Track
     
     // A->B playback loop, if there is one
-    var loop: PlaybackLoop?
+    private(set) var loop: PlaybackLoop?
     
     // Time interval since last boot (i.e. system uptime), at start of track playback (i.e. 0 seconds elapsed). Used to determine when track began playing.
     let timestamp: TimeInterval
     
+    // Unique ID (i.e. UUID) ... used to differentiate two PlaybackSession objects
     let id: String
     
     private init(_ track: Track) {
@@ -45,28 +46,47 @@ class PlaybackSession: Hashable {
         self.id = UUID().uuidString
     }
     
-    static func == (lhs: PlaybackSession, rhs: PlaybackSession) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
     func hasCompleteLoop() -> Bool {
-        return loop?.isComplete() ?? false
+        return loop?.isComplete ?? false
+    }
+    
+    // Creates an identical copy of this PlaybackSession object.
+    // NOTE - Copy will have a different id (this is intended).
+    private func createCopy() -> PlaybackSession {
+        
+        let copy = PlaybackSession(self.track, self.timestamp)
+        copy.loop = self.loop
+        
+        return copy
+    }
+    
+    // MARK: Static functions
+    
+    static func == (lhs: PlaybackSession, rhs: PlaybackSession) -> Bool {
+        return lhs.id == rhs.id
     }
     
     // Start a new session, implicitly invalidating the old one (if there was one), and returns it. This function should be called when beginning playback of a track.
     static func start(_ track: Track) -> PlaybackSession {
+        
         currentSession = PlaybackSession(track)
         return currentSession!
     }
     
-    // Start a new session, implicitly invalidating the old one (if there was one), and returns it. The timestamp argument indicates when playback for this track began (0 seconds elapsed). This function should be called when seeking within an already playing track.
-    static func start(_ track: Track, _ timestamp: TimeInterval) -> PlaybackSession {
-        currentSession = PlaybackSession(track, timestamp)
-        return currentSession!
+    // Start a new session, creating a copy of the current one (if one is defined), implicitly invalidating the old one (if there was one), and returns it. This function should be called when continuing playback of a track (i.e. seeking or toggling a loop).
+    //
+    // NOTE - If there is no session currently defined, this function will not create one ... it will return nil. So, this function is also an indirect way to check if a track is currently playing.
+    static func startNewSessionForPlayingTrack() -> PlaybackSession? {
+        
+        if let curSession = currentSession {
+            currentSession = curSession.createCopy()
+        }
+        
+        return currentSession
     }
     
     // End the current session. Returns the ended session so that callers may potentially use it to hand off information to the next session (e.g. segment loop)
@@ -92,9 +112,22 @@ class PlaybackSession: Hashable {
         currentSession?.loop?.endTime = loopEndTime
     }
     
+    // Marks the start and end point for a track segment playback loop
+    static func defineLoop(_ loopStartTime: Double, _ loopEndTime: Double) {
+        currentSession?.loop = PlaybackLoop(loopStartTime, loopEndTime)
+    }
+    
     // Removes a track segment playback loop
     static func removeLoop() {
         currentSession?.loop = nil
+    }
+    
+    static func hasLoop() -> Bool {
+        return currentSession?.loop != nil
+    }
+    
+    static func hasCompleteLoop() -> Bool {
+        return currentSession?.hasCompleteLoop() ?? false
     }
     
     // Retrieves the track segment playback loop for the current playback session
@@ -110,7 +143,7 @@ struct PlaybackLoop {
     let startTime: Double
     
     // End point for the playback loop, expressed in seconds relative to the start of a track
-    var endTime: Double?
+    fileprivate(set) var endTime: Double?
     
     var duration: Double {
         
@@ -127,7 +160,7 @@ struct PlaybackLoop {
             return timePosn >= startTime && timePosn <= end
         }
         
-        return false
+        return timePosn >= startTime
     }
     
     init(_ startTime: Double) {
@@ -140,7 +173,7 @@ struct PlaybackLoop {
     }
     
     // Determines if this loop is complete (i.e. both start time and end time are defined)
-    func isComplete() -> Bool {
+    var isComplete: Bool {
         return endTime != nil
     }
 }
