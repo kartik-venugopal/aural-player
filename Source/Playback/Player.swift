@@ -54,7 +54,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         state = .playing
     }
     
-    func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
         
         if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
 
@@ -96,12 +96,66 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         state = .transcoding
     }
     
-    func seekToTime(_ track: Track, _ seconds: Double) {
+    /*
+        Attempts to seek to a given track position, checking the validity of the desired seek time. Returns an object encapsulating the result of the seek operation.
+     
+        - Parameter attemptedSeekTime: The desired seek time. May be invalid, i.e. < 0 or > track duration, or outside the bounds of a defined segment loop. If so, it will be adjusted accordingly.
+     
+        - Parameter canSeekOutsideLoop: If set to true, the seek may result in a segment loop being removed, if one was defined prior to the seek. Determines whether or not attemptedSeekTime can be outside the bounds of a segment loop.
+     
+        NOTE - If a seek reaches the end of a track, and the player is playing, track playback completion will be signaled.
+     */
+    private func doSeekToTime(_ track: Track, _ attemptedSeekTime: Double, _ canSeekOutsideLoop: Bool) -> PlayerSeekResult {
         
-        // Create a new identical session (for the track that is playing), and perform a seek within it
-        if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {
-            scheduler.seekToTime(curSession, seconds, state == .playing)
+        if PlaybackSession.hasCurrentSession() {
+            
+            var actualSeekTime: Double = attemptedSeekTime
+            var playbackCompleted: Bool
+            var loopRemoved: Bool = false
+            
+            if let loop = self.playbackLoop, !loop.containsPosition(attemptedSeekTime) {
+                
+                if canSeekOutsideLoop {
+                    
+                    PlaybackSession.removeLoop()
+                    loopRemoved = true
+                    
+                } else {
+                    
+                    // Correct the seek time
+                    if attemptedSeekTime < loop.startTime {
+                        actualSeekTime = loop.startTime
+                        
+                    } else if let loopEndTime = loop.endTime, attemptedSeekTime >= loopEndTime {
+                        actualSeekTime = loop.startTime
+                    }
+                }
+            }
+            
+            playbackCompleted = actualSeekTime >= track.duration && state == .playing
+            actualSeekTime = max(0, min(actualSeekTime, track.duration))
+            
+            // Create a new identical session (for the track that is playing), and perform a seek within it
+            if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
+                scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+            }
+            
+            return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)
         }
+        
+        // Impossible
+        return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
+    }
+    
+    // Attempts to perform a seek to a given seek position, respecting the bounds of a defined segment loop. See doSeekToTime() for more details.
+    func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
+        return doSeekToTime(track, time, false)
+    }
+    
+    // Forces a seek to a given seek position, not respecting the bounds of a defined segment loop. i.e. a previously defined segment loop
+    // may be removed as a result of this forced seek. See doSeekToTime() for more details.
+    func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
+        return doSeekToTime(track, time, true)
     }
     
     var seekPosition: Double {
@@ -145,10 +199,6 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         }
         
         return nil
-    }
-    
-    func removeLoop() {
-        PlaybackSession.removeLoop()
     }
     
     var playbackLoop: PlaybackLoop? {
