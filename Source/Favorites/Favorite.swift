@@ -1,6 +1,6 @@
 import Cocoa
 
-class Favorite: StringKeyedItem, PlayableItem {
+class Favorite: StringKeyedItem {
     
     // The file of the track being favorited
     let file: URL
