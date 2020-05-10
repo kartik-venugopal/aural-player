@@ -23,10 +23,12 @@ protocol PlayerProtocol {
     func transcoding()
     
     // Seeks to a certain time within the currently playing track
-    func seekToTime(_ track: Track, _ seconds: Double)
+    func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
-    // Define a segment loop bounded by the given start/end time values, and continue playback as before, from the same position.
-    func markLoopAndContinuePlayback(_ loopStartPosition: Double, _ loopEndPosition: Double)
+    func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
+    
+    // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double)
     
     // Gets the playback position (in seconds) of the currently playing track
     var seekPosition: Double {get}
@@ -54,12 +56,24 @@ protocol PlayerProtocol {
      */
     func toggleLoop() -> PlaybackLoop?
     
-    // Removes the segment playback loop for the currently playing track, if there is one
-    func removeLoop()
-    
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
     var playbackLoop: PlaybackLoop? {get}
     
     // Before app exits
     func tearDown()
+}
+
+// Defines objects that encapsulate the result of an attempted seek operation.
+struct PlayerSeekResult {
+    
+    // The potentially adjusted seek position (eg. if attempted seek time was < 0, it will be adjusted to 0).
+    // This is the seek position actually used in the seek operation.
+    // If no adjustment took place, this will be equal to the attempted seek position.
+    let actualSeekPosition: Double
+    
+    // Whether or not a previously defined segment loop was removed as a result of the seek.
+    let loopRemoved: Bool
+    
+    // Whether or not the seek resulted in track playback completion (i.e. reached the end of the track).
+    let trackPlaybackCompleted: Bool
 }

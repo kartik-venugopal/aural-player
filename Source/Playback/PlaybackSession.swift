@@ -99,7 +99,11 @@ class PlaybackSession: Hashable {
     
     // Compares the current session to a given session for equality
     static func isCurrent(_ session: PlaybackSession) -> Bool {
-        return session === currentSession
+        return session == currentSession
+    }
+    
+    static func hasCurrentSession() -> Bool {
+        return currentSession != nil
     }
     
     // Marks the start point for a track segment playback loop

@@ -398,97 +398,47 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func seekForward(_ actionMode: ActionMode = .discrete) {
-        
-        if state.isPlayingOrPaused {
-            doSeekForward(getPrimarySeekLength(actionMode))
-        }
-    }
-    
-    func seekForwardSecondary() {
-        
-        if state.isPlayingOrPaused {
-            doSeekForward(secondarySeekLength)
-        }
-    }
-    
-    private func doSeekForward(_ increment: Double) {
-        
-        // Calculate the new start position
-        let curPosn = player.seekPosition
-        
-        if let loop = playbackLoop {
-            
-            if let loopEnd = loop.endTime {
-                
-                let newPosn = min(loopEnd, curPosn + increment)
-                
-                if (newPosn < loopEnd) {
-                    player.seekToTime(playingTrack!.track, newPosn)
-                } else {
-                    // Restart loop
-                    player.seekToTime(playingTrack!.track, loop.startTime)
-                }
-                
-                return
-            }
-        }
-        
-        let trackDuration = playingTrack!.track.duration
-        let newPosn = min(trackDuration, curPosn + increment)
-        
-        // If this seek takes the track to its end, stop playback and proceed to the next track
-        
-        if (state == .playing) {
-            
-            if (newPosn < trackDuration) {
-                player.seekToTime(playingTrack!.track, newPosn)
-            } else {
-                
-                // Don't do this if paused
-                trackPlaybackCompleted()
-            }
-            
-        } else {
-            
-            // Paused
-            player.seekToTime(playingTrack!.track, min(newPosn, trackDuration))
-        }
-    }
+    // MARK: Seeking functions
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
-        
-        if state.isPlayingOrPaused {
-            doSeekBackward(getPrimarySeekLength(actionMode))
-        }
+        attemptSeek(player.seekPosition - getPrimarySeekLength(actionMode))
     }
     
     func seekBackwardSecondary() {
+        attemptSeek(player.seekPosition - secondarySeekLength)
+    }
+    
+    func seekForward(_ actionMode: ActionMode = .discrete) {
+        attemptSeek(player.seekPosition + getPrimarySeekLength(actionMode))
+    }
+    
+    func seekForwardSecondary() {
+        attemptSeek(player.seekPosition + secondarySeekLength)
+    }
+    
+    // An attempted seek cannot seek outside the bounds of a segment loop (if one is defined).
+    // It occurs, for instance, when seeking backward/forward.
+    private func attemptSeek(_ seekPosn: Double) {
         
-        if state.isPlayingOrPaused {
-            doSeekBackward(secondarySeekLength)
+        if state.isPlayingOrPaused, let track = playingTrack?.track {
+            
+            let seekResult = player.attemptSeekToTime(track, seekPosn)
+            
+            if seekResult.trackPlaybackCompleted {
+                trackPlaybackCompleted()
+            }
         }
     }
     
-    private func doSeekBackward(_ decrement: Double) {
-        
-        // Calculate the new start position
-        let curPosn = player.seekPosition
-        
-        if let loop = playbackLoop {
-            
-            let loopStart = loop.startTime
-            
-            let newPosn = max(loopStart, curPosn - decrement)
-            player.seekToTime(playingTrack!.track, newPosn)
-            
-            return
-        }
-        
-        let newPosn = max(0, curPosn - decrement)
-        player.seekToTime(playingTrack!.track, newPosn)
-    }
-    
+    /*
+        Computes the seek length (i.e. interval/adjustment/delta) used as an increment/decrement when performing a "primary" seek, i.e.
+        the seeking that can be performed through the player's seek control buttons.
+     
+        The "actionMode" parameter denotes whether the seeking is occurring in a discrete (using the main controls) or continuous (through a scroll gesture) mode. The amount of seeking performed
+        will vary depending on the mode.
+     
+        TODO: Clarify how useful this actionMode is, and see if it can be eliminated to prevent confusion.
+     */
     private func getPrimarySeekLength(_ actionMode: ActionMode) -> Double {
         
         if actionMode == .discrete {
@@ -497,82 +447,76 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
                 return Double(preferences.primarySeekLengthConstant)
                 
-            } else {
+            } else if let trackDuration = playingTrack?.track.duration {
                 
-                let trackDuration = playingTrack!.track.duration
-                let perc = Double(preferences.primarySeekLengthPercentage)
-                
-                return trackDuration * perc / 100.0
+                // Percentage of track duration
+                let percentage = Double(preferences.primarySeekLengthPercentage)
+                return trackDuration * percentage / 100.0
             }
             
+            // Default value
+            return 5
+            
         } else {
+            
+            // Continuous seeking
             return preferences.seekLength_continuous
         }
     }
     
+    /*
+        Computes the seek length (i.e. interval/adjustment/delta) used as an increment/decrement when performing a "secondary" seek, i.e.
+        the seeking that can only be performed through the application's menu (or associated keyboard shortcuts). There are no control buttons
+        to directly perform secondary seeking.
+    */
     private var secondarySeekLength: Double {
         
         if preferences.secondarySeekLengthOption == .constant {
             
             return Double(preferences.secondarySeekLengthConstant)
             
-        } else {
+        } else if let trackDuration = playingTrack?.track.duration {
             
-            let trackDuration = playingTrack!.track.duration
-            let perc = Double(preferences.secondarySeekLengthPercentage)
-            
-            return trackDuration * perc / 100.0
+            // Percentage of track duration
+            let percentage = Double(preferences.secondarySeekLengthPercentage)
+            return trackDuration * percentage / 100.0
         }
+        
+        // Default value
+        return 30
     }
     
     func seekToPercentage(_ percentage: Double) {
         
-        // If transcoding or waiting, this is not a valid operation.
-        if state.isNotPlayingOrPaused {return}
-        
-        // Make sure there is a track currently playing.
         if let track = playingTrack?.track {
-            
-            // Calculate the new start position
-            let trackDuration = track.duration
-            let newPosn = percentage * trackDuration / 100
-            
-            // If there's a loop, check where the seek occurred relative to the loop. If the seek is outside the loop, invalidate (remove) the loop.
-            if let loop = playbackLoop, !loop.containsPosition(newPosn) {
-                
-                removeLoop()
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-            }
-            
-            if state == .playing {
-                
-                if newPosn < trackDuration {
-                    player.seekToTime(track, newPosn)
-                    
-                } else {
-                    // If this seek takes the track to its end, stop playback and proceed to the next track
-                    trackPlaybackCompleted()
-                }
-                
-            } else {
-                
-                // Paused
-                player.seekToTime(track, min(newPosn, trackDuration))
-            }
+            forceSeek(percentage * track.duration / 100)
         }
     }
     
     func seekToTime(_ seconds: Double) {
-        
-        // Calculate the new start position
-        let trackDuration = playingTrack!.track.duration
-        let percentage = seconds * 100 / trackDuration
-        seekToPercentage(percentage)
+        forceSeek(seconds)
     }
     
-    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {return sequencer.sequenceInfo}
+    // A forced seek can seek outside the bounds of a segment loop (if one is defined).
+    // It occurs, for instance, when clicking on the seek bar, or using the "Jump to time" function.
+    private func forceSeek(_ seekPosn: Double) {
+        
+        if state.isPlayingOrPaused, let track = playingTrack?.track {
+            
+            let seekResult = player.forceSeekToTime(track, seekPosn)
+            
+            if seekResult.trackPlaybackCompleted {
+                trackPlaybackCompleted()
+                
+            } else if seekResult.loopRemoved {
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
+        }
+    }
     
-    // MARK: Seeking
+    // MARK: Variables that indicate the current player state
+    
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {return sequencer.sequenceInfo}
     
     var state: PlaybackState {return player.state}
     
@@ -701,7 +645,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func loopChapter() {
         
         if let chapter = playingChapter?.chapter {
-            player.markLoopAndContinuePlayback(chapter.startTime, chapter.endTime)
+            player.defineLoop(chapter.startTime, chapter.endTime)
         }
     }
     
@@ -773,10 +717,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         transcoder.cancel(track)
         stop()
-    }
-    
-    private func removeLoop() {
-        player.removeLoop()
     }
     
     // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.

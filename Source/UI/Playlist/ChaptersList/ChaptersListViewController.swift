@@ -44,8 +44,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private var looping: Bool = false {
         
         didSet {
+            
             // Update the loop toggle button image to reflect the looping state
-            looping ? btnLoopChapter?.on() : btnLoopChapter?.off()
+            btnLoopChapter?.onIf(looping)
         }
     }
     
