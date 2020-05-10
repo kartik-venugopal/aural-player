@@ -1,4 +1,5 @@
 import XCTest
+@testable import Aural
 
 /*
     Unit tests for ValueFormatter
