@@ -113,6 +113,7 @@
 		3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */; };
 		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
+		3E292B4024673B8300CE8B17 /* GaplessScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */; };
 		3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2CBDAD2189072800BD68B2 /* EQMapping.swift */; };
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
 		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
@@ -618,6 +619,7 @@
 		3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHidingView.swift; sourceTree = "<group>"; };
 		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
+		3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaplessScheduler.swift; sourceTree = "<group>"; };
 		3E2CBDAD2189072800BD68B2 /* EQMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMapping.swift; sourceTree = "<group>"; };
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
 		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
@@ -2195,6 +2197,7 @@
 				3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */,
 				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
 				3E529E9824457713004571FD /* NewScheduler.swift */,
+				3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */,
 			);
 			path = Scheduling;
 			sourceTree = "<group>";
@@ -2773,6 +2776,7 @@
 				3EF5E5CE1FBE843D004270A4 /* Strings.swift in Sources */,
 				3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */,
 				3E98478D1F5D0419001A2D28 /* EffectsWindowController.swift in Sources */,
+				3E292B4024673B8300CE8B17 /* GaplessScheduler.swift in Sources */,
 				3E1BF7632431048800B6B9F9 /* RecordingQuality.swift in Sources */,
 				3ECE72CD219D5D2B00419F5F /* Mapper.swift in Sources */,
 				3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */,
