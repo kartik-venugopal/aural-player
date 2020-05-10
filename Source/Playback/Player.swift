@@ -28,10 +28,11 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     // Prepares the player to play a given track
     private func initPlayer(_ track: Track) {
         
-        let fileFormat = track.playbackInfo!.audioFile!.processingFormat
-        
-        // Disconnect player and reconnect with the file's processing format
-        graph.reconnectPlayerNodeWithFormat(fileFormat)
+        if let fileFormat = track.playbackInfo?.audioFile?.processingFormat {
+
+            // Disconnect player and reconnect with the file's processing format
+            graph.reconnectPlayerNodeWithFormat(fileFormat)
+        }
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {

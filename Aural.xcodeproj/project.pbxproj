@@ -251,6 +251,9 @@
 		3E7DCBDD2196E8B700C6D6D3 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBDC2196E8B700C6D6D3 /* FilterUnit.swift */; };
 		3E7DCBDF2197709500C6D6D3 /* FilterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBDE2197709500C6D6D3 /* FilterUnitDelegate.swift */; };
 		3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DCBE02197E63400C6D6D3 /* MasterUnitDelegate.swift */; };
+		3E7DFA4C24687CDD001CD16E /* MockScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DFA4B24687CDD001CD16E /* MockScheduler.swift */; };
+		3E7DFA4E24687DE4001CD16E /* MockPlayerGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DFA4D24687DE4001CD16E /* MockPlayerGraph.swift */; };
+		3E7DFA5024687E70001CD16E /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DFA4F24687E70001CD16E /* PlayerTests.swift */; };
 		3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */; };
 		3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E807C411FC597FC0027050F /* MouseTrackingView.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
@@ -756,6 +759,9 @@
 		3E7DCBDC2196E8B700C6D6D3 /* FilterUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnit.swift; sourceTree = "<group>"; };
 		3E7DCBDE2197709500C6D6D3 /* FilterUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitDelegate.swift; sourceTree = "<group>"; };
 		3E7DCBE02197E63400C6D6D3 /* MasterUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterUnitDelegate.swift; sourceTree = "<group>"; };
+		3E7DFA4B24687CDD001CD16E /* MockScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScheduler.swift; sourceTree = "<group>"; };
+		3E7DFA4D24687DE4001CD16E /* MockPlayerGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerGraph.swift; sourceTree = "<group>"; };
+		3E7DFA4F24687E70001CD16E /* PlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTests.swift; sourceTree = "<group>"; };
 		3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniBarAppModeController.swift; sourceTree = "<group>"; };
 		3E807C411FC597FC0027050F /* MouseTrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -1015,7 +1021,10 @@
 		3E4F9A2A2468532B0064DBF1 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				3E7DFA4F24687E70001CD16E /* PlayerTests.swift */,
 				3E4F9A2B2468533D0064DBF1 /* PlaybackSessionTests.swift */,
+				3E7DFA4B24687CDD001CD16E /* MockScheduler.swift */,
+				3E7DFA4D24687DE4001CD16E /* MockPlayerGraph.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -2951,8 +2960,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EDFB69C2466A49200F50610 /* ValueFormatterTests.swift in Sources */,
+				3E7DFA4E24687DE4001CD16E /* MockPlayerGraph.swift in Sources */,
 				3E4F9A2C2468533D0064DBF1 /* PlaybackSessionTests.swift in Sources */,
 				3E8718D32466B856007D9672 /* MathUtilsTests.swift in Sources */,
+				3E7DFA5024687E70001CD16E /* PlayerTests.swift in Sources */,
+				3E7DFA4C24687CDD001CD16E /* MockScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
