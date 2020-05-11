@@ -14,7 +14,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     // Helper used for actual scheduling and playback
     private let scheduler: PlaybackSchedulerProtocol
     
-    var state: PlaybackState = .noTrack
+    private(set) var state: PlaybackState = .noTrack
     
     init(_ graph: PlayerGraphProtocol, _ scheduler: PlaybackSchedulerProtocol) {
         
@@ -53,6 +53,17 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         }
         
         state = .playing
+    }
+    
+    // Attempts to perform a seek to a given seek position, respecting the bounds of a defined segment loop. See doSeekToTime() for more details.
+    func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
+        return doSeekToTime(track, time, false)
+    }
+    
+    // Forces a seek to a given seek position, not respecting the bounds of a defined segment loop. i.e. a previously defined segment loop
+    // may be removed as a result of this forced seek. See doSeekToTime() for more details.
+    func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
+        return doSeekToTime(track, time, true)
     }
     
     func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
@@ -148,16 +159,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
     }
     
-    // Attempts to perform a seek to a given seek position, respecting the bounds of a defined segment loop. See doSeekToTime() for more details.
-    func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
-        return doSeekToTime(track, time, false)
-    }
     
-    // Forces a seek to a given seek position, not respecting the bounds of a defined segment loop. i.e. a previously defined segment loop
-    // may be removed as a result of this forced seek. See doSeekToTime() for more details.
-    func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
-        return doSeekToTime(track, time, true)
-    }
     
     var seekPosition: Double {
         return state.isNotPlayingOrPaused ? 0 : scheduler.seekPosition

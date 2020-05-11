@@ -30,10 +30,12 @@ class PlayerTests: XCTestCase {
     
     private func reset() {
         
-        mockScheduler.reset()
         player.stop()
         
-        _ = PlaybackSession.endCurrent()
+        mockScheduler.reset()
+        mockPlayerNode.resetMock()
+        
+        track.setDuration(300)
     }
 
     func testPlay_startTimeOnly() {
@@ -100,131 +102,198 @@ class PlayerTests: XCTestCase {
         XCTAssertEqual(player.state, PlaybackState.playing)
     }
     
+    // MARK: attemptSeekToTime() tests ------------------------------------------------------------------------------------------
+    
     func testAttemptSeekToTime_noLoop_timeLessThan0_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -5.12, pausedBeforeSeek: false, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -5.12, pausedBeforeSeek: false, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -5.12, pausedBeforeSeek: true, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -5.12, pausedBeforeSeek: true, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     
     func testAttemptSeekToTime_noLoop_validTime_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     
     func testAttemptSeekToTime_noLoop_validTime_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 27.89, pausedBeforeSeek: true, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: true, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_playing() {
 
         // Track should complete playback
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 302.76, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 302.76, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true)
     }
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_paused() {
 
         // Track should NOT complete playback
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 302.76, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 302.76, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBefore0_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBefore0_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeGreaterThanDuration_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeGreaterThanDuration_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeAfterLoopEnd_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeWithinLoop_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 32.43, pausedBeforeSeek: false, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: false, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeWithinLoop_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 32.43, pausedBeforeSeek: true, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: true, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBefore0_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBefore0_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeGreaterThanDuration_playing() {
         
         // Track playback should complete
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeGreaterThanDuration_paused() {
         
         // Track playback should NOT complete
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeAfterLoopStart_paused() {
         
-        doTestAttemptSeekToTime(trackDuration: 300, playStartPos: 0, attemptedSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
     }
     
-    private func doTestAttemptSeekToTime(trackDuration: Double, playStartPos: Double, attemptedSeekTime: Double, pausedBeforeSeek: Bool, expectedSeekPosition: Double, loopRemovalExpected: Bool, trackPlaybackCompletionExpected: Bool, playbackLoop: PlaybackLoop? = nil) {
+    // MARK: forceSeekToTime() tests ------------------------------------------------------------------------------------------
+    
+    
+    func testForceSeekToTime_noLoop_validTime_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+    }
+    
+    func testForceSeekToTime_noLoop_validTime_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: true, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+    }
+   
+    func testForceSeekToTime_withCompleteLoop_timeBeforeLoopStart_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_timeBeforeLoopStart_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_timeAfterLoopEnd_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_timeWithinLoop_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: false, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_timeWithinLoop_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: true, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withIncompleteLoop_timeBeforeLoopStart_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withIncompleteLoop_timeBeforeLoopStart_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withIncompleteLoop_timeAfterLoopStart_paused() {
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+    }
+    
+    private func doTestSeekToTime(trackDuration: Double, playStartPos: Double, desiredSeekTime: Double, pausedBeforeSeek: Bool, expectedSeekPosition: Double, loopRemovalExpected: Bool, trackPlaybackCompletionExpected: Bool, playbackLoop: PlaybackLoop? = nil, forceSeek: Bool = false) {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         track.setDuration(trackDuration)
         
@@ -255,7 +324,7 @@ class PlayerTests: XCTestCase {
         }
         
         // Seek
-        let seekResult = player.attemptSeekToTime(track, attemptedSeekTime)
+        let seekResult = forceSeek ? player.forceSeekToTime(track, desiredSeekTime) : player.attemptSeekToTime(track, desiredSeekTime)
         
         // Validate the seek result
         XCTAssertEqual(seekResult.actualSeekPosition, expectedSeekPosition)
@@ -268,14 +337,132 @@ class PlayerTests: XCTestCase {
     
     func testPause() {
         
-        track.setDuration(300)
-        player.play(track, 0)
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        
+        // Play
+        let sessionBeforePause: PlaybackSession = doPlay(track, 0)
+
+        // Pause
+        _ = doPause(track, sessionBeforePause)
+    }
+    
+    func testResume() {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        
+        // Play
+        let sessionBeforePause: PlaybackSession = doPlay(track, 0)
+
+        // Pause
+        let sessionBeforeResume: PlaybackSession = doPause(track, sessionBeforePause)
+        
+        // Resume
+        _ = doResume(track, sessionBeforeResume)
+    }
+    
+    func testStop_whenPlaying() {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        
+        // Play
+        let sessionBeforeStop: PlaybackSession = doPlay(track, 0)
+        
+        // Stop
+        doStop(track, sessionBeforeStop)
+    }
+    
+    func testStop_whenPaused() {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        
+        // Play
+        let sessionBeforePause: PlaybackSession = doPlay(track, 0)
+        
+        // Pause
+        let sessionBeforeStop: PlaybackSession = doPause(track, sessionBeforePause)
+        
+        // Stop
+        doStop(track, sessionBeforeStop)
+    }
+    
+    func testStop_afterPlayPauseResume() {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        
+        // Play
+        let sessionBeforePause: PlaybackSession = doPlay(track, 0)
+        
+        // Pause
+        let sessionBeforeResume: PlaybackSession = doPause(track, sessionBeforePause)
+        
+        // Resume
+        let sessionBeforeStop: PlaybackSession = doResume(track, sessionBeforeResume)
+        
+        // Stop
+        doStop(track, sessionBeforeStop)
+    }
+    
+    private func doPlay(_ track: Track, _ startPos: Double) -> PlaybackSession {
+        
+        player.play(track, startPos)
+        XCTAssertNotNil(PlaybackSession.currentSession)
+        
+        if let sessionAfterPlay = PlaybackSession.currentSession {
+            XCTAssertEqual(sessionAfterPlay.track, track)
+        }
         
         XCTAssertEqual(player.state, PlaybackState.playing)
+        return PlaybackSession.currentSession!
+    }
+    
+    private func doPause(_ track: Track, _ sessionBeforePause: PlaybackSession) -> PlaybackSession {
+        
+        XCTAssertFalse(mockScheduler.paused)
         
         player.pause()
+        XCTAssertNotNil(PlaybackSession.currentSession)
+
+        // Ensure session is still the same one
+        if let sessionAfterPause = PlaybackSession.currentSession {
+            
+            XCTAssertEqual(sessionAfterPause.track, track)
+            XCTAssertEqual(sessionAfterPause, sessionBeforePause)
+        }
         
         XCTAssertTrue(mockScheduler.paused)
         XCTAssertEqual(player.state, PlaybackState.paused)
+        
+        return PlaybackSession.currentSession!
+    }
+    
+    private func doResume(_ track: Track, _ sessionBeforeResume: PlaybackSession) -> PlaybackSession {
+        
+        XCTAssertFalse(mockScheduler.resumed)
+        
+        player.resume()
+        XCTAssertNotNil(PlaybackSession.currentSession)
+        
+        // Ensure session is still the same one
+        if let sessionAfterResume = PlaybackSession.currentSession  {
+            
+            XCTAssertEqual(sessionAfterResume.track, track)
+            XCTAssertEqual(sessionAfterResume, sessionBeforeResume)
+        }
+        
+        XCTAssertTrue(mockScheduler.resumed)
+        XCTAssertEqual(player.state, PlaybackState.playing)
+        
+        return PlaybackSession.currentSession!
+    }
+    
+    private func doStop(_ track: Track, _ sessionBeforeStop: PlaybackSession) {
+
+        XCTAssertFalse(mockScheduler.stopped)
+        
+        player.stop()
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        XCTAssertTrue(mockScheduler.stopped)
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
     }
 }
