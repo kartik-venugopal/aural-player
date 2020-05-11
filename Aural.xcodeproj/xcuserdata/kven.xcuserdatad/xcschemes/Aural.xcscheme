@@ -65,6 +65,9 @@
                   Identifier = "PlaybackSessionTests">
                </Test>
                <Test
+                  Identifier = "PlayerTests">
+               </Test>
+               <Test
                   Identifier = "ValueFormatterTests">
                </Test>
             </SkippedTests>
