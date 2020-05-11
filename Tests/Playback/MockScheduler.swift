@@ -13,6 +13,9 @@ class MockScheduler: PlaybackSchedulerProtocol {
     
     // --------------------------------
     
+    // Whether or not playTrack() has been called.
+    var playTrackInvoked: Bool = false
+    
     var playTrack_session: PlaybackSession?
     var playTrack_startPosition: Double?
     
@@ -24,23 +27,22 @@ class MockScheduler: PlaybackSchedulerProtocol {
         playTrack_startPosition = startPosition
         
         playerNode.play()
+        
+        playTrackInvoked = true
     }
     
     // --------------------------------
     
+    // Whether or not playLoop() has been called.
+    var playLoopInvoked: Bool = false
     var playLoop_session: PlaybackSession?
     var playLoop_startTime: Double?
     var playLoop_beginPlayback: Bool?
     
     func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool) {
         
-        playerNode.stop()
-        
-        playLoop_session = playbackSession
-        playLoop_beginPlayback = beginPlayback
-        
-        if beginPlayback {
-            playerNode.play()
+        if let loop = playbackSession.loop {
+            playLoop(playbackSession, loop.startTime, beginPlayback)
         }
     }
     
@@ -55,13 +57,29 @@ class MockScheduler: PlaybackSchedulerProtocol {
         if beginPlayback {
             playerNode.play()
         }
-    }
-    
-    func endLoop(_ playbackSession: PlaybackSession, _ loopEndTime: Double) {
+        
+        playLoopInvoked = true
     }
     
     // --------------------------------
     
+    // Whether or not endLoop() has been called.
+    var endLoopInvoked: Bool = false
+    var endLoop_session: PlaybackSession?
+    var endLoop_loopEndTime: Double?
+    
+    func endLoop(_ playbackSession: PlaybackSession, _ loopEndTime: Double) {
+        
+        endLoop_session = playbackSession
+        endLoop_loopEndTime = loopEndTime
+        
+        endLoopInvoked = true
+    }
+    
+    // --------------------------------
+    
+    // Whether or not seekToTime() has been called.
+    var seekToTimeInvoked: Bool = false
     var seekToTime_session: PlaybackSession?
     var seekToTime_time: Double?
     var seekToTime_beginPlayback: Bool?
@@ -77,6 +95,8 @@ class MockScheduler: PlaybackSchedulerProtocol {
         if beginPlayback {
             playerNode.play()
         }
+        
+        seekToTimeInvoked = true
     }
     
     var paused: Bool = false
@@ -114,6 +134,9 @@ class MockScheduler: PlaybackSchedulerProtocol {
         playLoop_startTime = nil
         playLoop_beginPlayback = nil
         
+        endLoop_session = nil
+        endLoop_loopEndTime = nil
+        
         seekToTime_session = nil
         seekToTime_time = nil
         seekToTime_beginPlayback = nil
@@ -121,6 +144,11 @@ class MockScheduler: PlaybackSchedulerProtocol {
         paused = false
         resumed = false
         stopped = false
+        
+        playTrackInvoked = false
+        playLoopInvoked = false
+        endLoopInvoked = false
+        seekToTimeInvoked = false
         
         playerNode.resetMock()
     }

@@ -276,7 +276,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let gapContextId = PlaybackGapContext.id
         
         // Mark the current state as "waiting" in between tracks
-        player.wait()
+        player.waiting()
         
         let gapEndTime_dt = DispatchTime.now() + delay
         let gapEndTime: Date = DateUtils.addToDate(Date(), delay)

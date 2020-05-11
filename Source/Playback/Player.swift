@@ -66,48 +66,6 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         return doSeekToTime(track, time, true)
     }
     
-    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
-        
-        if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
-
-            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition)
-            scheduler.playLoop(currentSession, seekPosition, state == .playing)
-        }
-    }
-    
-    func pause() {
-        
-        scheduler.pause()
-        graph.clearSoundTails()
-        
-        state = .paused
-    }
-    
-    func resume() {
-        
-        scheduler.resume()
-        state = .playing
-    }
-    
-    func stop() {
-        
-        _ = PlaybackSession.endCurrent()
-        
-        scheduler.stop()
-        playerNode.reset()
-        graph.clearSoundTails()
-        
-        state = .noTrack
-    }
-    
-    func wait() {
-        state = .waiting
-    }
-    
-    func transcoding() {
-        state = .transcoding
-    }
-    
     /*
         Attempts to seek to a given track position, checking the validity of the desired seek time. Returns an object encapsulating the result of the seek operation.
      
@@ -159,13 +117,53 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
     }
     
-    
-    
     var seekPosition: Double {
         return state.isNotPlayingOrPaused ? 0 : scheduler.seekPosition
     }
     
-    var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
+    func pause() {
+        
+        scheduler.pause()
+        graph.clearSoundTails()
+        
+        state = .paused
+    }
+    
+    func resume() {
+        
+        scheduler.resume()
+        state = .playing
+    }
+    
+    func stop() {
+        
+        _ = PlaybackSession.endCurrent()
+        
+        scheduler.stop()
+        playerNode.reset()
+        graph.clearSoundTails()
+        
+        state = .noTrack
+    }
+    
+    func waiting() {
+        state = .waiting
+    }
+    
+    func transcoding() {
+        state = .transcoding
+    }
+    
+    // MARK: Looping functions and state
+    
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+        
+        if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
+
+            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition)
+            scheduler.playLoop(currentSession, seekPosition, state == .playing)
+        }
+    }
     
     func toggleLoop() -> PlaybackLoop? {
         
@@ -209,18 +207,23 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     private func removeLoop() {
         
+        // Note this down before removing the loop
+        let loopEndTime = playbackLoop?.endTime
+        
         // Loop has an end time (i.e. is complete) ... remove loop
         PlaybackSession.removeLoop()
         
         // When a loop is removed, playback continues from the current position and a new playback session is started.
-        if let newSession = PlaybackSession.startNewSessionForPlayingTrack(), let loopEndTime = playbackLoop?.endTime {
-            scheduler.endLoop(newSession, loopEndTime)
+        if let newSession = PlaybackSession.startNewSessionForPlayingTrack(), let _loopEndTime = loopEndTime {
+            scheduler.endLoop(newSession, _loopEndTime)
         }
     }
     
     var playbackLoop: PlaybackLoop? {
         return PlaybackSession.currentLoop
     }
+    
+    var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
     
     // MARK: Message handling
     

@@ -184,4 +184,8 @@ struct PlaybackLoop: Equatable {
     var isComplete: Bool {
         return endTime != nil
     }
+    
+    static func ==(lhs: PlaybackLoop, rhs: PlaybackLoop) -> Bool {
+        return (lhs.startTime == rhs.startTime) && (lhs.endTime == rhs.endTime)
+    }
 }
