@@ -1,6 +1,5 @@
 import XCTest
 import Cocoa
-@testable import Aural
 
 class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     

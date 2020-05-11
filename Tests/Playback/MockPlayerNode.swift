@@ -1,5 +1,4 @@
 import AVFoundation
-@testable import Aural
 
 class MockPlayerNode: AVAudioPlayerNode {
     
