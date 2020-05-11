@@ -78,7 +78,7 @@
 		3E17D03221E604D800951F81 /* LanguageMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17D03121E604D800951F81 /* LanguageMap.swift */; };
 		3E17D03421E625A100951F81 /* PrettyScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17D03321E625A100951F81 /* PrettyScroller.swift */; };
 		3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */; };
-		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
+		3E192394215AEEB600E894B3 /* LegacyPlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1AE56E21EB79DA00664152 /* CoverArtDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */; };
 		3E1AE57021EC008D00664152 /* DefaultFFMpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AE56F21EC008D00664152 /* DefaultFFMpegMetadataParser.swift */; };
@@ -585,7 +585,7 @@
 		3E17D03121E604D800951F81 /* LanguageMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMap.swift; sourceTree = "<group>"; };
 		3E17D03321E625A100951F81 /* PrettyScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyScroller.swift; sourceTree = "<group>"; };
 		3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtCache.swift; sourceTree = "<group>"; };
-		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
+		3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyPlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtDataSource.swift; sourceTree = "<group>"; };
 		3E1AE56F21EC008D00664152 /* DefaultFFMpegMetadataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFFMpegMetadataParser.swift; sourceTree = "<group>"; };
@@ -2212,7 +2212,7 @@
 			isa = PBXGroup;
 			children = (
 				3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */,
-				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
+				3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */,
 				3E529E9824457713004571FD /* NewScheduler.swift */,
 				3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */,
 				3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */,
@@ -2703,7 +2703,7 @@
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3EB499F6244B012300711BC5 /* EffectsViewPopupMenuController.swift in Sources */,
 				3E688AC121E3967400164E84 /* VorbisCommentParser.swift in Sources */,
-				3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */,
+				3E192394215AEEB600E894B3 /* LegacyPlaybackScheduler.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
 				3EF62FF3244C42F300AD7172 /* ColorSchemesWindowController.swift in Sources */,
 				3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */,

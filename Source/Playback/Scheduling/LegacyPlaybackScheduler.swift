@@ -6,7 +6,7 @@ import AVFoundation
  
  A "playback session" begins when playback is started, as a result of either play() or seekToTime(). It ends when either playback is completed or a new request is received (and stop() is called).
  */
-class PlaybackScheduler: PlaybackSchedulerProtocol {
+class LegacyPlaybackScheduler: PlaybackSchedulerProtocol {
     
     // TODO: Use completion callback type (available in 10.13) conditionally, to simplify completion logic
     
@@ -96,7 +96,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         let sampleRate = playingFile.processingFormat.sampleRate
         
         // Minimum number of frames needed for playback
-        let minFrames = Int64(sampleRate * PlaybackScheduler.timeComparisonTolerance)
+        let minFrames = Int64(sampleRate * LegacyPlaybackScheduler.timeComparisonTolerance)
         
         //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
         var firstFrame = Int64(loopEndTime * sampleRate) + 1
@@ -169,7 +169,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         }
         
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: PlaybackScheduler.completionPollTimerIntervalMillis, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForTrackCompletion()
             
@@ -190,7 +190,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
             // This will update lastSeekPosn
             _ = seekPosition
             
-            if lastSeekPosn > (duration - PlaybackScheduler.timeComparisonTolerance) {
+            if lastSeekPosn > (duration - LegacyPlaybackScheduler.timeComparisonTolerance) {
                 
                 // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
                 lastSeekPosn = duration
@@ -226,7 +226,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         }
         
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: PlaybackScheduler.completionPollTimerIntervalMillis, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForLoopCompletion()
             
@@ -247,7 +247,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
             // This will update lastSeekPosn
             _ = seekPosition
             
-            if lastSeekPosn > (loopEndTime - PlaybackScheduler.timeComparisonTolerance) {
+            if lastSeekPosn > (loopEndTime - LegacyPlaybackScheduler.timeComparisonTolerance) {
                 
                 lastSeekPosn = loopEndTime
                 
@@ -309,14 +309,14 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
             if session.hasCompleteLoop() {
                 
                 let loopEndTime = session.loop!.endTime!
-                if lastSeekPosn > (loopEndTime - PlaybackScheduler.timeComparisonTolerance) {
+                if lastSeekPosn > (loopEndTime - LegacyPlaybackScheduler.timeComparisonTolerance) {
                     lastSeekPosn = loopEndTime
                 }
                 
             } else {
                 
                 let duration = session.track.duration
-                if lastSeekPosn > (duration - PlaybackScheduler.timeComparisonTolerance) {
+                if lastSeekPosn > (duration - LegacyPlaybackScheduler.timeComparisonTolerance) {
                     lastSeekPosn = duration
                 }
             }

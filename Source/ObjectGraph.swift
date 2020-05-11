@@ -85,7 +85,7 @@ class ObjectGraph {
             
         } else {
             
-            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
+            playbackScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
         // Player
