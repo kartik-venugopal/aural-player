@@ -6,10 +6,6 @@ import AVFoundation
  */
 @available(OSX 10.13, *)
 class NewScheduler: PlaybackSchedulerProtocol {
-    
-    // Interval (defined in seconds) used for scheduling of a minimal playback segment to prevent problems arising from zero/negative frame counts and to ensure
-    // that the completion handler is invoked (eg. at the end of a track)
-    static let minPlaybackTime: Double = 0.01
 
     // Player node used for actual playback
     private var playerNode: AVAudioPlayerNode
@@ -46,14 +42,10 @@ class NewScheduler: PlaybackSchedulerProtocol {
         
         // If end of track is reached and the player is paused, don't do any scheduling ... simply mark the completedWhilePaused flag.
         if startTime >= session.track.duration && !playerNode.isPlaying {
-            
-            print("Completed while paused")
             completedWhilePaused = true
             return
         }
         
-        print("Seek to time:", session.id, startTime, beginPlayback)
-
         // Halt current playback
         stop()
 
@@ -96,11 +88,6 @@ class NewScheduler: PlaybackSchedulerProtocol {
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
         playerNode.scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil, completionCallbackType: callbackType, completionHandler: completionHandler)
     }
-    
-    // TODO: How to deal with 0 frame segments when paused ?
-    // 1 - Schedule a few frames (downside is seek position will go back ... noticeable for very short 5 second tracks)
-    // OR
-    // 2 - Set the flag completedWhilePaused ... if so, where should it be set ... in seekToTime ???
 
     private func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil) -> PlaybackSegment? {
 
@@ -145,17 +132,12 @@ class NewScheduler: PlaybackSchedulerProtocol {
         return nil
     }
 
-    private func segmentCompleted(_ session: PlaybackSession) {
-        
-        // TODO: Make sure that once a session has completed (i.e. async message sent out), no other segment can be associated with that session.
-        // Otherwise, the same session can complete twice.
+    func segmentCompleted(_ session: PlaybackSession) {
         
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. when seeking), don't do anything
         if PlaybackSession.isCurrent(session) {
             
-            print("Completion:", session.id)
-
             // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
             lastSeekPosn = session.track.duration
             
@@ -163,8 +145,6 @@ class NewScheduler: PlaybackSchedulerProtocol {
                 trackCompleted()
                 
             } else {
-                
-                print("Completed while paused")
                 completedWhilePaused = true
             }
         }
@@ -187,7 +167,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
         if completedWhilePaused {
 
             completedWhilePaused = false
-            AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
+            trackCompleted()
             
         } else {
             playerNode.play()
@@ -197,9 +177,7 @@ class NewScheduler: PlaybackSchedulerProtocol {
     // Clears any previously scheduled segments and stops playback, in response to a request to stop playback, change a track, or when seeking to a new position. Marks the end of a "playback session".
     func stop() {
 
-        // Clear any previous buffers and stop playback
         playerNode.stop()
-        
         completedWhilePaused = false
     }
 
@@ -262,14 +240,13 @@ class NewScheduler: PlaybackSchedulerProtocol {
         }
     }
 
-    private func loopSegmentCompleted(_ session: PlaybackSession) {
+    func loopSegmentCompleted(_ session: PlaybackSession) {
 
         // Validate the session and check for a complete loop
         if PlaybackSession.isCurrent(session),
             let loop = session.loop, let loopEndTime = loop.endTime {
 
             let wasPlaying: Bool = playerNode.isPlaying
-
             stop()
 
             // The very first time (i.e. the first restart of the loop), this may be nil, so compute it.
@@ -307,67 +284,3 @@ class NewScheduler: PlaybackSchedulerProtocol {
         self.loopingSegment = nil
     }
 }
-
-// Encapsulates all data required to schedule one audio file segment for playback. Can be passed around between functions and can be cached for reuse (when playing a segment loop).
-struct PlaybackSegment {
-
-    let session: PlaybackSession
-
-    let playingFile: AVAudioFile
-
-    let startTime: Double
-    let endTime: Double?
-
-    let firstFrame: AVAudioFramePosition
-    let lastFrame: AVAudioFramePosition
-
-    let frameCount: AVAudioFrameCount
-
-    init(_ session: PlaybackSession, _ playingFile: AVAudioFile, _ firstFrame: AVAudioFramePosition, _ lastFrame: AVAudioFramePosition, _ frameCount: AVAudioFrameCount, _ startTime: Double, _ endTime: Double? = nil) {
-
-        self.session = session
-        self.playingFile = playingFile
-
-        self.startTime = startTime
-        self.endTime = endTime
-
-        self.firstFrame = firstFrame
-        self.lastFrame = lastFrame
-
-        self.frameCount = frameCount
-    }
-}
-
-// ------------------------------- TODO: Logic for calculating seek position during gapless loop playback -------------------------------
-
-////            var samplesPlayed: AVAudioFramePosition = playerTime.sampleTime
-//
-//            lastSeekPosn = Double(startFrame + playerTime.sampleTime) / playerTime.sampleRate
-//
-//            // ********** USE FIRST FRAME, LAST FRAME, AND FRAME COUNT IN LOOPING SEGMENT TO CALCULATE POSITION WHEN LOOPING ********
-//
-//            // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
-//            if let session = PlaybackSession.currentSession {
-//
-//                // Check for complete loop
-//                //                if let loopEndTime = session.loop?.endTime, let loopSegment = self.loopingSegment {
-////                if let loopSegment = self.loopingSegment, let loopEndTime = loopSegment.endTime  {
-////
-//////                    print("\nSeekPos:", lastSeekPosn)
-//////                    print("StartFrame:", startFrame!,
-//////                          "SampleTime:", playerTime.sampleTime, "SampleRate:", playerTime.sampleRate)
-////
-////                    if samplesPlayed > loopSegment.frameCount {
-////
-////                        samplesPlayed = samplesPlayed % Int64(loopSegment.frameCount)
-////                        lastSeekPosn = Double(loopSegment.firstFrame + samplesPlayed) / playerTime.sampleRate
-////                        lastSeekPosn = min(lastSeekPosn, loopEndTime)
-////
-//////                        print("NOW SeekPos:", lastSeekPosn)
-////                    }
-////
-////                } else {
-//                    lastSeekPosn = min(max(0, lastSeekPosn), session.track.duration)
-////                }
-//            }
-//        }

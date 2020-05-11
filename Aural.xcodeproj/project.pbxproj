@@ -65,6 +65,7 @@
 		3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */; };
 		3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */; };
 		3E12AC8D2468F21F00A07611 /* MockPlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC8C2468F21F00A07611 /* MockPlayerNode.swift */; };
+		3E12AC9024697E1A00A07611 /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */; };
 		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
 		3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7821DCC206006DBD22 /* AudioDataSource.swift */; };
 		3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */; };
@@ -571,6 +572,7 @@
 		3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GapsEditorDialog.xib; sourceTree = "<group>"; };
 		3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsEditorWindowController.swift; sourceTree = "<group>"; };
 		3E12AC8C2468F21F00A07611 /* MockPlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerNode.swift; sourceTree = "<group>"; };
+		3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSegment.swift; sourceTree = "<group>"; };
 		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
 		3E154D7821DCC206006DBD22 /* AudioDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataSource.swift; sourceTree = "<group>"; };
 		3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemDataSource.swift; sourceTree = "<group>"; };
@@ -2212,6 +2214,7 @@
 				3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */,
 				3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */,
 				3E529E9824457713004571FD /* NewScheduler.swift */,
+				3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */,
 				3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */,
 			);
 			path = Scheduling;
@@ -2886,6 +2889,7 @@
 				3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */,
 				3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */,
 				3E066C31216C799600E4FE80 /* ReverbPresetsEditorViewController.swift in Sources */,
+				3E12AC9024697E1A00A07611 /* PlaybackSegment.swift in Sources */,
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
 				3E5A0480245EBEAA0088438E /* ColorClipboard.swift in Sources */,
 				3E0839A021944E15008D84BA /* FXUnitViewController.swift in Sources */,
