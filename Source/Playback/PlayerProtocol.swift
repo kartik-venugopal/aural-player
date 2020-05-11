@@ -20,32 +20,23 @@ protocol PlayerProtocol {
     func stop()
     
     // Playback gap
-    func wait()
+    func waiting()
     
     func transcoding()
+    
+    // Returns the current playback state of the player. See PlaybackState for more details
+    var state: PlaybackState {get}
     
     // Seeks to a certain time within the currently playing track
     func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
     func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
-    // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
-    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double)
-    
     // Gets the playback position (in seconds) of the currently playing track
     var seekPosition: Double {get}
     
-    // Returns the current playback state of the player. See PlaybackState for more details
-    var state: PlaybackState {get}
-    
-    /*
-        Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
-     
-        The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime
-     */
-    var playingTrackStartTime: TimeInterval? {get}
-    
-    // MARK: Loop functions
+    // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double)
     
     /*
         Toggles the state of an A->B segment playback loop for the currently playing track. There are 3 possible states:
@@ -63,6 +54,13 @@ protocol PlayerProtocol {
     
     // Before app exits
     func tearDown()
+    
+    /*
+        Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
+     
+        The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime.
+     */
+    var playingTrackStartTime: TimeInterval? {get}
 }
 
 // Defines objects that encapsulate the result of an attempted seek operation.

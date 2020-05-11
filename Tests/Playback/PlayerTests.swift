@@ -36,6 +36,10 @@ class PlayerTests: XCTestCase {
         mockPlayerNode.resetMock()
         
         track.setDuration(300)
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        XCTAssertNil(PlaybackSession.currentSession)
+        XCTAssertFalse(mockScheduler.playTrackInvoked || mockScheduler.playLoopInvoked || mockScheduler.endLoopInvoked || mockScheduler.seekToTimeInvoked)
     }
 
     func testPlay_startTimeOnly() {
@@ -54,8 +58,6 @@ class PlayerTests: XCTestCase {
     }
     
     private func doTestPlay(trackDuration: Double, playStartPos: Double, playEndPos: Double? = nil) {
-        
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         track.setDuration(trackDuration)
         
@@ -293,8 +295,6 @@ class PlayerTests: XCTestCase {
     
     private func doTestSeekToTime(trackDuration: Double, playStartPos: Double, desiredSeekTime: Double, pausedBeforeSeek: Bool, expectedSeekPosition: Double, loopRemovalExpected: Bool, trackPlaybackCompletionExpected: Bool, playbackLoop: PlaybackLoop? = nil, forceSeek: Bool = false) {
         
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
-        
         track.setDuration(trackDuration)
         
         // Play and pause track
@@ -335,9 +335,56 @@ class PlayerTests: XCTestCase {
         XCTAssertEqual(player.state, pausedBeforeSeek ? PlaybackState.paused : PlaybackState.playing)
     }
     
-    func testPause() {
+    // MARK: seekPosition tests ------------------------------------------------------------------------------------
+    
+    func testSeekPosition_noTrack() {
         
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        mockScheduler.seekPosition = 15
+        
+        // The scheduler's seek position should be ignored
+        XCTAssertEqual(player.seekPosition, 0)
+    }
+    
+    func testSeekPosition_playing() {
+        
+        _ = doPlay(track, 0)
+        
+        mockScheduler.seekPosition = 15
+        XCTAssertEqual(player.seekPosition, mockScheduler.seekPosition)
+    }
+    
+    func testSeekPosition_paused() {
+        
+        let sessionBeforePause: PlaybackSession = doPlay(track, 0)
+        _ = doPause(track, sessionBeforePause)
+        
+        mockScheduler.seekPosition = 15
+        XCTAssertEqual(player.seekPosition, mockScheduler.seekPosition)
+    }
+    
+    func testSeekPosition_waiting() {
+        
+        player.waiting()
+        
+        mockScheduler.seekPosition = 15
+        
+        // The scheduler's seek position should be ignored
+        XCTAssertEqual(player.seekPosition, 0)
+    }
+    
+    func testSeekPosition_transcoding() {
+        
+        player.transcoding()
+        
+        mockScheduler.seekPosition = 15
+        
+        // The scheduler's seek position should be ignored
+        XCTAssertEqual(player.seekPosition, 0)
+    }
+    
+    // MARK: pause(), resume(), stop() tests ------------------------------------------------------------------------------------
+    
+    func testPause() {
         
         // Play
         let sessionBeforePause: PlaybackSession = doPlay(track, 0)
@@ -347,8 +394,6 @@ class PlayerTests: XCTestCase {
     }
     
     func testResume() {
-        
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         // Play
         let sessionBeforePause: PlaybackSession = doPlay(track, 0)
@@ -362,8 +407,6 @@ class PlayerTests: XCTestCase {
     
     func testStop_whenPlaying() {
         
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
-        
         // Play
         let sessionBeforeStop: PlaybackSession = doPlay(track, 0)
         
@@ -372,8 +415,6 @@ class PlayerTests: XCTestCase {
     }
     
     func testStop_whenPaused() {
-        
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         // Play
         let sessionBeforePause: PlaybackSession = doPlay(track, 0)
@@ -386,8 +427,6 @@ class PlayerTests: XCTestCase {
     }
     
     func testStop_afterPlayPauseResume() {
-        
-        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         // Play
         let sessionBeforePause: PlaybackSession = doPlay(track, 0)
@@ -464,5 +503,332 @@ class PlayerTests: XCTestCase {
         XCTAssertNil(PlaybackSession.currentSession)
         XCTAssertTrue(mockScheduler.stopped)
         XCTAssertEqual(player.state, PlaybackState.noTrack)
+    }
+    
+    func testWaiting() {
+        
+        player.waiting()
+        XCTAssertEqual(player.state, PlaybackState.waiting)
+    }
+    
+    func testTranscoding() {
+        
+        player.transcoding()
+        XCTAssertEqual(player.state, PlaybackState.transcoding)
+    }
+    
+    // MARK: defineLoop() tests ------------------------------------------------------------------------------------
+    
+    func testDefineLoop_noTrack() {
+        
+        // This should have no effect, because no track is currently playing.
+        player.defineLoop(20, 40)
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        XCTAssertNil(PlaybackSession.currentLoop)
+        XCTAssertFalse(mockScheduler.playLoopInvoked)
+    }
+    
+    func testDefineLoop_noLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+        
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, nil, false)
+    }
+    
+    func testDefineLoop_incompleteLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+        
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, PlaybackLoop(56.78), false)
+    }
+    
+    func testDefineLoop_completeLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, PlaybackLoop(56.78, 77.25), false)
+    }
+    
+    func testDefineLoop_noLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+        
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, nil, true)
+    }
+    
+    func testDefineLoop_incompleteLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+        
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, PlaybackLoop(56.78), true)
+    }
+    
+    func testDefineLoop_completeLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeDefiningLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeDefiningLoop.loop)
+
+        // defineLoop()
+        doDefineLoop(sessionBeforeDefiningLoop, 20, 40, 32, PlaybackLoop(56.78, 77.25), true)
+    }
+    
+    // Assumes a track is playing (and there is a current session).
+    private func doDefineLoop(_ sessionBeforeDefiningLoop: PlaybackSession, _ loopStartTime: Double, _ loopEndTime: Double, _ seekPosition: Double, _ preDefinedLoop: PlaybackLoop?, _ paused: Bool) {
+        
+        // Pre-define a loop if necessary
+        if let loop = preDefinedLoop {
+            
+            PlaybackSession.beginLoop(loop.startTime)
+            
+            if let loopEndTime = loop.endTime {
+                PlaybackSession.endLoop(loopEndTime)
+            }
+            
+            XCTAssertNotNil(sessionBeforeDefiningLoop.loop)
+        }
+        
+        // Pause if necessary
+        if paused {
+            
+            player.pause()
+            XCTAssertEqual(player.state, PlaybackState.paused)
+        }
+        
+        // Call defineLoop()
+        mockScheduler.seekPosition = seekPosition
+        player.defineLoop(loopStartTime, loopEndTime)
+        
+        let sessionAfterDefiningLoop = PlaybackSession.currentSession
+        XCTAssertNotNil(sessionAfterDefiningLoop)
+        
+        // The 2 sessions should be different, but be associated with the same track
+        XCTAssertNotEqual(sessionBeforeDefiningLoop, sessionAfterDefiningLoop)
+        XCTAssertEqual(sessionBeforeDefiningLoop.track, sessionAfterDefiningLoop?.track)
+        
+        if let newSession = sessionAfterDefiningLoop {
+            
+            XCTAssertEqual(newSession.track, track)
+            XCTAssertNotNil(newSession.loop)
+            
+            if let loopAfter = newSession.loop {
+                
+                XCTAssertEqual(loopAfter.startTime, loopStartTime)
+                XCTAssertEqual(loopAfter.endTime, loopEndTime)
+            }
+            
+            XCTAssertTrue(mockScheduler.playLoopInvoked)
+            XCTAssertEqual(mockScheduler.playLoop_session, newSession)
+            XCTAssertEqual(mockScheduler.playLoop_startTime, mockScheduler.seekPosition)
+            XCTAssertEqual(mockScheduler.playLoop_beginPlayback, !paused)
+        }
+        
+        // Playback state from before the call should be unchanged.
+        XCTAssertEqual(player.state, paused ? PlaybackState.paused : PlaybackState.playing)
+    }
+    
+    // MARK: toggleLoop() tests ------------------------------------------------------------------------------------
+    
+    func testToggleLoop_noLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+        
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 32, nil, false)
+    }
+    
+    func testToggleLoop_incompleteLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+        
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 65.987, PlaybackLoop(56.78), false)
+    }
+    
+    func testToggleLoop_completeLoopDefined_playing() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 69.82, PlaybackLoop(56.78, 77.25), false)
+    }
+    
+    func testToggleLoop_noLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+        
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 32, nil, true)
+    }
+    
+    func testToggleLoop_incompleteLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+        
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 65.987, PlaybackLoop(56.78), true)
+    }
+    
+    func testToggleLoop_completeLoopDefined_paused() {
+        
+        // Play
+        let sessionBeforeTogglingLoop = doPlay(track, 0)
+        XCTAssertNil(sessionBeforeTogglingLoop.loop)
+
+        // toggleLoop()
+        doToggleLoop(sessionBeforeTogglingLoop, 69.82, PlaybackLoop(56.78, 77.25), true)
+    }
+    
+    // Assumes a track is playing (and there is a current session).
+    private func doToggleLoop(_ sessionBeforeTogglingLoop: PlaybackSession, _ seekPosition: Double, _ preDefinedLoop: PlaybackLoop?, _ paused: Bool) {
+        
+        // Pre-define a loop if necessary
+        if let loop = preDefinedLoop {
+            
+            PlaybackSession.beginLoop(loop.startTime)
+            
+            if let loopEndTime = loop.endTime {
+                PlaybackSession.endLoop(loopEndTime)
+            }
+            
+            XCTAssertNotNil(sessionBeforeTogglingLoop.loop)
+        }
+        
+        // Pause if necessary
+        if paused {
+            
+            player.pause()
+            XCTAssertEqual(player.state, PlaybackState.paused)
+        }
+        
+        // Call toggleLoop()
+        mockScheduler.seekPosition = seekPosition
+        let loopReturnedAfterToggle = player.toggleLoop()
+        let sessionAfterTogglingLoop = PlaybackSession.currentSession
+        
+        XCTAssertNotNil(sessionAfterTogglingLoop)
+        XCTAssertEqual(sessionBeforeTogglingLoop.track, sessionAfterTogglingLoop?.track)
+        XCTAssertEqual(loopReturnedAfterToggle, sessionAfterTogglingLoop?.loop)
+        
+        // Switch based on pre-defined loop state
+        
+        if preDefinedLoop == nil {
+            
+            // toggleLoop() should have begun a new loop at the current seek position, with no change in session.
+            
+            XCTAssertNotNil(loopReturnedAfterToggle)
+            
+            XCTAssertEqual(sessionBeforeTogglingLoop, sessionAfterTogglingLoop)
+            XCTAssertEqual(loopReturnedAfterToggle!.startTime, seekPosition)
+            XCTAssertNil(loopReturnedAfterToggle!.endTime)
+            
+            XCTAssertFalse(mockScheduler.playLoopInvoked || mockScheduler.endLoopInvoked)
+            
+        } else if preDefinedLoop?.isComplete ?? false {
+            
+            // toggleLoop() should have removed the previously defined complete loop and created a new playback session for the same track.
+            
+            XCTAssertNil(loopReturnedAfterToggle)
+            XCTAssertNotEqual(sessionBeforeTogglingLoop, sessionAfterTogglingLoop)
+            
+            XCTAssertTrue(mockScheduler.endLoopInvoked)
+            XCTAssertEqual(mockScheduler.endLoop_session, sessionAfterTogglingLoop)
+            XCTAssertEqual(mockScheduler.endLoop_loopEndTime, preDefinedLoop!.endTime!)
+            
+        } else {
+            
+            // toggleLoop() should have marked an end time (at the current seek position) for the previously incomplete loop, thus completing it, and have created a new playback session for the same track.
+            
+            XCTAssertNotNil(loopReturnedAfterToggle)
+            
+            XCTAssertNotEqual(sessionBeforeTogglingLoop, sessionAfterTogglingLoop)
+            
+            XCTAssertEqual(loopReturnedAfterToggle!.startTime, preDefinedLoop!.startTime)
+            XCTAssertEqual(loopReturnedAfterToggle!.endTime, seekPosition)
+            
+            XCTAssertTrue(mockScheduler.playLoopInvoked)
+            XCTAssertEqual(mockScheduler.playLoop_session, sessionAfterTogglingLoop)
+            XCTAssertEqual(mockScheduler.playLoop_startTime, preDefinedLoop?.startTime)
+            XCTAssertEqual(mockScheduler.playLoop_beginPlayback, !paused)
+        }
+        
+        // Playback state from before the call should be unchanged.
+        XCTAssertEqual(player.state, paused ? PlaybackState.paused : PlaybackState.playing)
+    }
+    
+    // MARK: playbackLoop tests -----------------------------------------------------------------------
+    
+    func testPlaybackLoop_noTrack() {
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
+        XCTAssertNil(player.playbackLoop)
+    }
+    
+    func testPlaybackLoop_noLoop() {
+
+        _ = doPlay(track, 0)
+        XCTAssertNil(player.playbackLoop)
+    }
+    
+    func testPlaybackLoop_incompleteLoop() {
+
+        _ = doPlay(track, 0)
+        
+        let loopStartTime: Double = 20
+        PlaybackSession.beginLoop(loopStartTime)
+        
+        let playbackLoop = player.playbackLoop
+        XCTAssertNotNil(playbackLoop)
+        
+        XCTAssertEqual(playbackLoop, PlaybackSession.currentLoop)
+        XCTAssertEqual(playbackLoop?.startTime, loopStartTime)
+        XCTAssertEqual(playbackLoop?.isComplete, false)
+    }
+    
+    func testPlaybackLoop_completeLoop() {
+
+        _ = doPlay(track, 0)
+        
+        let loopStartTime: Double = 20
+        let loopEndTime: Double = 40
+        
+        PlaybackSession.beginLoop(loopStartTime)
+        PlaybackSession.endLoop(loopEndTime)
+        
+        let playbackLoop = player.playbackLoop
+        XCTAssertNotNil(playbackLoop)
+        
+        XCTAssertEqual(playbackLoop, PlaybackSession.currentLoop)
+        
+        XCTAssertEqual(playbackLoop?.startTime, loopStartTime)
+        XCTAssertEqual(playbackLoop?.endTime, loopEndTime)
+        
+        XCTAssertEqual(playbackLoop?.isComplete, true)
     }
 }
