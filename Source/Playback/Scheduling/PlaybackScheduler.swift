@@ -5,7 +5,7 @@ import AVFoundation
     Manages audio scheduling, and playback. See PlaybackSchedulerProtocol for more details on all the functions provided.
  */
 @available(OSX 10.13, *)
-class NewScheduler: PlaybackSchedulerProtocol {
+class PlaybackScheduler: PlaybackSchedulerProtocol {
 
     // Player node used for actual playback
     private var playerNode: AVAudioPlayerNode
