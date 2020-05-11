@@ -38,6 +38,9 @@ class Bookmark: StringKeyedItem {
     
     var track: Track?
     
+    // TODO: What if the same bookmarked file is now shorter than the startPosition or endPosition ???
+    // Playback of the bookmark will fail. Handle this scenario with an error/warning message.
+    
     // Seek position within track, expressed in seconds
     let startPosition: Double
     
