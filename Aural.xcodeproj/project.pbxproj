@@ -66,6 +66,7 @@
 		3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */; };
 		3E12AC8D2468F21F00A07611 /* MockPlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC8C2468F21F00A07611 /* MockPlayerNode.swift */; };
 		3E12AC9024697E1A00A07611 /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */; };
+		3E12AC922469829700A07611 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC912469829700A07611 /* PlaybackScheduler.swift */; };
 		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
 		3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7821DCC206006DBD22 /* AudioDataSource.swift */; };
 		3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */; };
@@ -186,7 +187,6 @@
 		3E50DC982193A3B500D42373 /* FXUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DC972193A3B500D42373 /* FXUnit.swift */; };
 		3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */; };
 		3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */; };
-		3E529E9924457713004571FD /* NewScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E529E9824457713004571FD /* NewScheduler.swift */; };
 		3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */; };
 		3E5475C722C152DB00472ABB /* FXUnitTriStateImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */; };
 		3E54B23922C263B3005EAEDF /* TriStateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E54B23822C263B3005EAEDF /* TriStateLabel.swift */; };
@@ -573,6 +573,7 @@
 		3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsEditorWindowController.swift; sourceTree = "<group>"; };
 		3E12AC8C2468F21F00A07611 /* MockPlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerNode.swift; sourceTree = "<group>"; };
 		3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSegment.swift; sourceTree = "<group>"; };
+		3E12AC912469829700A07611 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
 		3E154D7821DCC206006DBD22 /* AudioDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataSource.swift; sourceTree = "<group>"; };
 		3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemDataSource.swift; sourceTree = "<group>"; };
@@ -694,7 +695,6 @@
 		3E50DC972193A3B500D42373 /* FXUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnit.swift; sourceTree = "<group>"; };
 		3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBarPopover.xib; sourceTree = "<group>"; };
 		3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarPopoverViewController.swift; sourceTree = "<group>"; };
-		3E529E9824457713004571FD /* NewScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewScheduler.swift; sourceTree = "<group>"; };
 		3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleMenuItem.swift; sourceTree = "<group>"; };
 		3E5475C622C152DB00472ABB /* FXUnitTriStateImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitTriStateImageView.swift; sourceTree = "<group>"; };
 		3E54B23822C263B3005EAEDF /* TriStateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateLabel.swift; sourceTree = "<group>"; };
@@ -2213,7 +2213,7 @@
 			children = (
 				3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */,
 				3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */,
-				3E529E9824457713004571FD /* NewScheduler.swift */,
+				3E12AC912469829700A07611 /* PlaybackScheduler.swift */,
 				3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */,
 				3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */,
 			);
@@ -2853,6 +2853,7 @@
 				3E0839AA2195251D008D84BA /* PresetsWrapper.swift in Sources */,
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3EB5784D244E4A7D002D1F87 /* UIState.swift in Sources */,
+				3E12AC922469829700A07611 /* PlaybackScheduler.swift in Sources */,
 				3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */,
 				3EF5D4282451FEFE00FD8927 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3EA3BDAC22B267B10020A908 /* VAlignedTextField.swift in Sources */,
@@ -2951,7 +2952,6 @@
 				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,
 				3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */,
-				3E529E9924457713004571FD /* NewScheduler.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 				3EB57851244E4C8D002D1F87 /* ColorSchemesState.swift in Sources */,
 				3EE93BD424423D4C009A70D9 /* PlayerViewPopupMenuController.swift in Sources */,

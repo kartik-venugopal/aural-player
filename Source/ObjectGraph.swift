@@ -81,7 +81,7 @@ class ObjectGraph {
         // Instantiate the legacy scheduler if running on 10.12 Sierra.
         if #available(macOS 10.13, *) {
 
-            playbackScheduler = NewScheduler(audioGraph.playerNode)
+            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
             
         } else {
             
