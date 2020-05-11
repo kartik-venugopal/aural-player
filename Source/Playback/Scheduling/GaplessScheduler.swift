@@ -329,3 +329,37 @@
 //        self.loopingSegment = nil
 //    }
 //}
+
+// ------------------------------- TODO: Logic for calculating seek position during gapless loop playback -------------------------------
+
+////            var samplesPlayed: AVAudioFramePosition = playerTime.sampleTime
+//
+//            lastSeekPosn = Double(startFrame + playerTime.sampleTime) / playerTime.sampleRate
+//
+//            // ********** USE FIRST FRAME, LAST FRAME, AND FRAME COUNT IN LOOPING SEGMENT TO CALCULATE POSITION WHEN LOOPING ********
+//
+//            // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
+//            if let session = PlaybackSession.currentSession {
+//
+//                // Check for complete loop
+//                //                if let loopEndTime = session.loop?.endTime, let loopSegment = self.loopingSegment {
+////                if let loopSegment = self.loopingSegment, let loopEndTime = loopSegment.endTime  {
+////
+//////                    print("\nSeekPos:", lastSeekPosn)
+//////                    print("StartFrame:", startFrame!,
+//////                          "SampleTime:", playerTime.sampleTime, "SampleRate:", playerTime.sampleRate)
+////
+////                    if samplesPlayed > loopSegment.frameCount {
+////
+////                        samplesPlayed = samplesPlayed % Int64(loopSegment.frameCount)
+////                        lastSeekPosn = Double(loopSegment.firstFrame + samplesPlayed) / playerTime.sampleRate
+////                        lastSeekPosn = min(lastSeekPosn, loopEndTime)
+////
+//////                        print("NOW SeekPos:", lastSeekPosn)
+////                    }
+////
+////                } else {
+//                    lastSeekPosn = min(max(0, lastSeekPosn), session.track.duration)
+////                }
+//            }
+//        }
