@@ -85,6 +85,7 @@ class TrackIO {
             return
         }
         
+        // TODO: Call loadAudioInfo here, and put it before the 1st return above ^^.
         // Track is valid, prepare it for displaying info
         AudioUtils.loadPlaybackInfo_noPlayback(track)
     }
@@ -95,6 +96,8 @@ class TrackIO {
         if track.lazyLoadingInfo.detailedInfoLoaded {
             return
         }
+        
+        // TODO: Merge the 2 following calls ... prepareForInfo and loadAudioInfo
         
         if !track.lazyLoadingInfo.preparedForPlayback {
             prepareForInfo(track)

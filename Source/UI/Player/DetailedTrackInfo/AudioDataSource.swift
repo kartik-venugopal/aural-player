@@ -9,6 +9,8 @@ class AudioDataSource: TrackInfoDataSource {
     
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         
+        // TODO: Should use track.audioInfo here ... not playbackInfo.
+        
         var trackInfo: [(key: String, value: String)] = []
         
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
@@ -39,6 +41,8 @@ class AudioDataSource: TrackInfoDataSource {
             }
         }
         
+        // TODO: If playback info is present (prepared for playback), frame count is exact. Otherwise, it is an estimate.
+        // If it's an estimate, note it in the caption, i.e. "Frames (estimated)", OR actually calculate it.
         if let frameCount = track.playbackInfo?.frames {
             trackInfo.append((key: "Frames", value: ValueFormatter.readableLongInteger(frameCount)))
         } else {
