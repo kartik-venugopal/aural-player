@@ -108,42 +108,47 @@ class AudioUtils {
     
     static func loadPlaybackInfo_noPlayback(_ track: Track) {
         
+        let playbackInfo = PlaybackInfo()
+        
+        // TODO: Load audioInfo here, not playbackInfo
+        
         if track.playbackNativelySupported {
             
             if let audioFile = AudioIO.createAudioFileForReading(track.file) {
-                
-                let playbackInfo = PlaybackInfo()
                 
                 playbackInfo.audioFile = audioFile
                 track.lazyLoadingInfo.preparedForPlayback = true
                 
                 playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+                playbackInfo.frames = audioFile.length
+                playbackInfo.numChannels = Int(audioFile.fileFormat.channelCount)
                 
                 track.playbackInfo = playbackInfo
             }
             
-        } else {
+        } else if let stream = track.libAVInfo?.audioStream {
             
-            if let stream = track.libAVInfo?.audioStream {
-                
-                let playbackInfo = PlaybackInfo()
-                
-                playbackInfo.sampleRate = stream.sampleRate
-                playbackInfo.numChannels = stream.channelCount
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                
-                track.playbackInfo = playbackInfo
+            let playbackInfo = PlaybackInfo()
+            
+            if let sampleRate = stream.sampleRate {
+                playbackInfo.sampleRate = sampleRate
             }
+            
+            if let channelCount = stream.channelCount {
+                playbackInfo.numChannels = channelCount
+            }
+            
+            playbackInfo.frames = Int64(playbackInfo.sampleRate * track.duration)
         }
+        
+        track.playbackInfo = playbackInfo
     }
     
     static func prepareTrackWithFile(_ track: Track, _ file: URL) {
         
-        let playbackInfo = PlaybackInfo()
-        
         if let audioFile = AudioIO.createAudioFileForReading(file) {
+            
+            let playbackInfo = PlaybackInfo()
             
             if track.duration == 0 {
                 
@@ -156,17 +161,19 @@ class AudioUtils {
             track.playbackInfo = playbackInfo
             track.lazyLoadingInfo.preparedForPlayback = true
             
-            if !track.playbackNativelySupported, let stream = track.libAVInfo?.audioStream {
+            // TODO: Look in AVAudioFormat (i.e. processingFormat) settings property ... see what's there to be used.
+            
+            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+            playbackInfo.frames = audioFile.length
+            playbackInfo.numChannels = Int(audioFile.fileFormat.channelCount)
+            
+            let computedDuration = Double(playbackInfo.frames) / playbackInfo.sampleRate
+            
+            // If this computed duration differs from the previously estimated duration, update the track and send out a notification.
+            if computedDuration != track.duration {
                 
-                playbackInfo.sampleRate = stream.sampleRate
-                playbackInfo.numChannels = stream.channelCount
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                
-            } else {
-                
-                playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-                playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-                playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
+                track.setDuration(computedDuration)
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
             }
         }
     }
@@ -176,23 +183,36 @@ class AudioUtils {
     static func loadAudioInfo(_ track: Track) {
         
         let fileExtension = track.file.pathExtension.lowercased()
+        
+        // TODO: Make it like this ... (initialize AudioInfo with playbackInfo)
+//        if let playbackInfo = track.playbackInfo {
+//            audioInfo = AudioInfo(playbackInfo)
+//        }
+        
         let audioInfo = AudioInfo()
         
-        if !track.playbackNativelySupported || fileExtension == "flac" {
+        if (!track.playbackNativelySupported || fileExtension == "flac") {
             
-            if let avInfo = track.libAVInfo {
+            if let avInfo = track.libAVInfo, let audioStream = avInfo.audioStream {
+                
+                if let sampleRate = audioStream.sampleRate {
+                    audioInfo.sampleRate = sampleRate
+                    audioInfo.frames = Int64(sampleRate * track.duration)
+                }
+                
+                audioInfo.numChannels = audioStream.channelCount
                 
                 audioInfo.format = avInfo.fileFormatDescription
                 
-                if let codec = avInfo.audioStream?.formatDescription, codec != audioInfo.format {
+                if let codec = audioStream.formatDescription, codec != audioInfo.format {
                     audioInfo.codec = codec
                 }
                 
-                audioInfo.channelLayout = avInfo.audioStream?.channelLayout
+                audioInfo.channelLayout = audioStream.channelLayout
                 
-                if let bitRate = avInfo.audioStream?.bitRate {
+                if let bitRate = audioStream.bitRate {
                     
-                    audioInfo.bitRate = Int(round(bitRate))
+                    audioInfo.bitRate = roundedInt(bitRate)
                     
                 } else if track.duration == 0 {
                     
@@ -201,11 +221,13 @@ class AudioUtils {
                 } else {
 
                     let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
-                    audioInfo.bitRate = Int(round(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB))))
+                    audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
                 }
             }
             
         } else {
+            
+            // TODO: If playback info is present, copy over the info. Otherwise, estimate frameCount.
             
             // Natively supported file type
             

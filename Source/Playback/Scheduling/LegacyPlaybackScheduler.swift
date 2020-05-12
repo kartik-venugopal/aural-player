@@ -91,28 +91,29 @@ class LegacyPlaybackScheduler: PlaybackSchedulerProtocol {
         completionPollTimer = nil
         
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
-        let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
-        let playingFile: AVAudioFile = playbackInfo.audioFile!
-        let sampleRate = playingFile.processingFormat.sampleRate
+        if let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo, let playingFile: AVAudioFile = playbackInfo.audioFile {
+
+            let sampleRate = playingFile.processingFormat.sampleRate
         
-        // Minimum number of frames needed for playback
-        let minFrames = Int64(sampleRate * LegacyPlaybackScheduler.timeComparisonTolerance)
-        
-        //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
-        var firstFrame = Int64(loopEndTime * sampleRate) + 1
-        var frameCount = playbackInfo.frames! - firstFrame + 1
-        
-        // Check to ensure that a minimum number of frames is available for playback. If not, artificially introduce a few frames
-        // to prevent the player from crashing.
-        if frameCount < minFrames {
-            frameCount = minFrames
-            firstFrame = playbackInfo.frames! - minFrames + 1
+            // Minimum number of frames needed for playback
+            let minFrames = Int64(sampleRate * LegacyPlaybackScheduler.timeComparisonTolerance)
+            
+            //  Multiply sample rate by the seek time in seconds. This will produce the exact start and end frames.
+            var firstFrame = Int64(loopEndTime * sampleRate) + 1
+            var frameCount = playbackInfo.frames - firstFrame + 1
+            
+            // Check to ensure that a minimum number of frames is available for playback. If not, artificially introduce a few frames
+            // to prevent the player from crashing.
+            if frameCount < minFrames {
+                frameCount = minFrames
+                firstFrame = playbackInfo.frames - minFrames + 1
+            }
+            
+            // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
+            playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
+                self.segmentCompleted(playbackSession)
+            })
         }
-        
-        // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
-        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
-            self.segmentCompleted(playbackSession)
-        })
     }
     
     // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.
@@ -141,7 +142,7 @@ class LegacyPlaybackScheduler: PlaybackSchedulerProtocol {
             
         } else {
             
-            lastFrame = playbackInfo.frames!
+            lastFrame = playbackInfo.frames
         }
         
         let frameCount = lastFrame - firstFrame + 1

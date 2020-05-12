@@ -340,7 +340,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         DispatchQueue.main.async {
             
-            // NOTE - In the future, if gap info is updated, also need to update row height
             if let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index {
                 self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             }

@@ -239,10 +239,23 @@ class GroupingInfo {
     var totalTracks: Int?
 }
 
+// This info is used when actually playing the track
 class PlaybackInfo {
 
     // The audio file containing the actual audio samples
-    var audioFile: AVAudioFile?
+    var audioFile: AVAudioFile!
+    
+    // The total number of frames in the track
+    var frames: AVAudioFramePosition = 0
+    
+    // The sample rate of the track (in Hz)
+    var sampleRate: Double = 0
+    
+    // Number of audio channels
+    var numChannels: Int = 2
+}
+
+class AudioInfo {
     
     // The total number of frames in the track
     // TODO: This should be of type AVAudioFrameCount?
@@ -253,9 +266,6 @@ class PlaybackInfo {
     
     // Number of audio channels
     var numChannels: Int?
-}
-
-class AudioInfo {
     
     // Bit rate (in kbps)
     var bitRate: Int?

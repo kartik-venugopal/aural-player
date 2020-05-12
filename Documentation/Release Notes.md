@@ -3,7 +3,9 @@
 
 ### Bug fixes
 
+* Incorrect computation of duration ... now it is precisely computed just before playback
 * Auto-hide of controls in player view
+* Formatting of track times in player view ... sometimes, negative numbers were displayed
 * Width of text field in player view (was not fully extended)
 
 ### Performance improvements
