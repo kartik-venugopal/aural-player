@@ -236,7 +236,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
     
     // MARK: Segment computation and scheduling functions -------------------------------------------------------
 
-    private func scheduleSegment(_ session: PlaybackSession, _ callbackType: AVAudioPlayerNodeCompletionCallbackType, _ completionHandler: ((AVAudioPlayerNodeCompletionCallbackType) -> Void)?, _ immediatePlayback: Bool, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
+    private func scheduleSegment(_ session: PlaybackSession, _ callbackType: AVAudioPlayerNodeCompletionCallbackType, _ completionHandler: AVAudioPlayerNodeCompletionHandler?, _ immediatePlayback: Bool, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
 
         if let segment = computeSegment(session, startTime, endTime, startFrame) {
 
@@ -247,7 +247,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         return nil
     }
 
-    private func doScheduleSegment(_ segment: PlaybackSegment, _ callbackType: AVAudioPlayerNodeCompletionCallbackType, _ completionHandler: ((AVAudioPlayerNodeCompletionCallbackType) -> Void)?, _ immediatePlayback: Bool) {
+    private func doScheduleSegment(_ segment: PlaybackSegment, _ callbackType: AVAudioPlayerNodeCompletionCallbackType, _ completionHandler: AVAudioPlayerNodeCompletionHandler?, _ immediatePlayback: Bool) {
 
         // The start frame and seek position should be reset only if this segment will be played immediately.
         // If it is being scheduled for the future, doing this will cause inaccurate seek position values.
