@@ -36,7 +36,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
 protocol PlayerGraphProtocol {
     
     // The audio graph node responsible for playback
-    var playerNode: AVAudioPlayerNode {get}
+    var playerNode: AuralPlayerNode {get}
     
     // Reconnects the player node to its output node, with a new audio format
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat)

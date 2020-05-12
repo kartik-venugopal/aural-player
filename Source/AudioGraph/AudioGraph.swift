@@ -25,7 +25,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     private let audioEngine: AVAudioEngine
     
-    internal let playerNode: AVAudioPlayerNode
+    internal let playerNode: AuralPlayerNode
     internal let nodeForRecorderTap: AVAudioNode
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
@@ -51,7 +51,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     init(_ state: AudioGraphState) {
         
         audioEngine = AVAudioEngine()
-        playerNode = AVAudioPlayerNode()
+        playerNode = AuralPlayerNode()
         nodeForRecorderTap = audioEngine.mainMixerNode
         auxMixer = AVAudioMixerNode()
         

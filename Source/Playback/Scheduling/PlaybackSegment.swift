@@ -4,7 +4,6 @@ import AVFoundation
 struct PlaybackSegment {
 
     let session: PlaybackSession
-
     let playingFile: AVAudioFile
 
     let startTime: Double
