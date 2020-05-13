@@ -5,7 +5,7 @@ import Cocoa
  */
 class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
     
-    private var preferences: ControlsPreferences = ObjectGraph.preferences.controlsPreferences
+    private var preferences: ControlsPreferences
     
     private var mediaKeyTap: MediaKeyTap?
     private var monitoringEnabled: Bool = false
@@ -33,7 +33,9 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
     // Recurring task used to repeat key press events according to the preferred repeat speed
     private var repeatExecutor: RepeatingTaskExecutor?
     
-    init() {
+    init(_ preferences: ControlsPreferences) {
+        
+        self.preferences = preferences
         SyncMessenger.subscribe(messageTypes: [.appLoadedNotification], subscriber: self)
     }
     

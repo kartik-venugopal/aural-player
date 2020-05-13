@@ -153,21 +153,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     }
 }
 
-// Indicates the type of drop operation being performed
-enum DropType {
-    
-    // Drop on a destination row
-    case on
-    
-    // Drop above a destination row
-    case above
-    
-    // Converts an NSTableViewDropOperation to a DropType
-    static func fromDropOperation(_ dropOp: NSTableView.DropOperation) -> DropType {
-        return dropOp == .on ? .on : .above
-    }
-}
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
 	return NSPasteboard.PasteboardType(rawValue: input)
