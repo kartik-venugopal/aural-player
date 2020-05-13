@@ -336,12 +336,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     }
 }
 
-// Utility class to hold an NSTableView instance for convenient access
-class TableViewHolder {
-    
-    static var instance: NSTableView?
-}
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
 	return input.rawValue

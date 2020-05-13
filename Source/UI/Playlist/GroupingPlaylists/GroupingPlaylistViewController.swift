@@ -1097,14 +1097,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
 }
 
-extension IndexSet {
-
-    // Convenience function to convert an IndexSet to an array
-    func toArray() -> [Int] {
-        return self.filter({$0 >= 0})
-    }
-}
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
 	return input.map { key in NSPasteboard.PasteboardType(key) }

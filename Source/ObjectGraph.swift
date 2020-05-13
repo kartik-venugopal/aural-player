@@ -157,7 +157,7 @@ class ObjectGraph {
         apeParser = ApeV2Parser()
         defaultParser = DefaultFFMpegMetadataParser()
         
-        mediaKeyHandler = MediaKeyHandler()
+        mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
     }
     
     // Called when app exits

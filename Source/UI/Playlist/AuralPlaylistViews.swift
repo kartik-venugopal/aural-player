@@ -535,3 +535,9 @@ class BasicTableCellView: NSTableCellView {
         }
     }
 }
+
+// Utility class to hold an NSTableView instance for convenient access
+class TableViewHolder {
+    
+    static var instance: NSTableView?
+}

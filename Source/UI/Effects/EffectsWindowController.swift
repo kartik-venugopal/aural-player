@@ -299,19 +299,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
 }
 
-// Enumeration of all the effects units
-enum EffectsUnit {
-
-    case master
-    case eq
-    case pitch
-    case time
-    case reverb
-    case delay
-    case filter
-    case recorder
-}
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
 	return NSControl.StateValue(rawValue: input)

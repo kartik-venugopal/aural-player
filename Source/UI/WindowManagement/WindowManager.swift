@@ -7,16 +7,21 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     
     // TODO: Circular dependency with WindowsController
     // App's main window
-    lazy var mainWindow: NSWindow = WindowFactory.mainWindow
+//    lazy var mainWindow: NSWindow = WindowFactory.mainWindow
+    var mainWindow: NSWindow = NSWindow()
 
     // Load these optional windows only if/when needed
-    lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
-    lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
+    var effectsWindow: NSWindow = NSWindow()
+//    lazy var effectsWindow: NSWindow = WindowFactory.effectsWindow
+    
+//    lazy var playlistWindow: NSWindow = WindowFactory.playlistWindow
+    var playlistWindow: NSWindow = NSWindow()
     
     // Helps with lazy loading of chapters list window
     private var chaptersListWindowLoaded: Bool = false
     
-    lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
+//    lazy var chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
+    var chaptersListWindow: NSWindow = NSWindow()
     
 //    private var onTop: Bool = false
     
@@ -205,7 +210,8 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
         // After that, the window will be restored to its previous on-screen location
         if !chaptersListWindowLoaded {
             
-            UIUtils.centerDialogWRTWindow(chaptersListWindow, playlistWindow)
+            // TODO: Uncomment this before release
+//            UIUtils.centerDialogWRTWindow(chaptersListWindow, playlistWindow)
             chaptersListWindowLoaded = true
         }
     }
@@ -275,29 +281,29 @@ class WindowManager: NSObject, WindowManagerProtocol, ActionMessageSubscriber {
     
     func windowDidMove(_ notification: Notification) {
         
-        // Only respond if movement was user-initiated (flag on window)
-        if let movedWindow = notification.object as? SnappingWindow, movedWindow.userMovingWindow {
-            
-            var snapped = false
-            
-            if preferences.snapToWindows {
-                
-                // First check if window can be snapped to another app window
-                for mate in getCandidateWindowsForSnap(movedWindow) {
-                    
-                    if mate.isVisible && UIUtils.checkForSnapToWindow(movedWindow, mate) {
-                        
-                        snapped = true
-                        break
-                    }
-                }
-            }
-
-            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-            if preferences.snapToScreen && !snapped {
-                UIUtils.checkForSnapToVisibleFrame(movedWindow)
-            }
-        }
+//        // Only respond if movement was user-initiated (flag on window)
+//        if let movedWindow = notification.object as? SnappingWindow, movedWindow.userMovingWindow {
+//
+//            var snapped = false
+//
+//            if preferences.snapToWindows {
+//
+//                // First check if window can be snapped to another app window
+//                for mate in getCandidateWindowsForSnap(movedWindow) {
+//
+////                    if mate.isVisible && UIUtils.checkForSnapToWindow(movedWindow, mate) {
+////
+////                        snapped = true
+////                        break
+////                    }
+//                }
+//            }
+//
+//            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
+//            if preferences.snapToScreen && !snapped {
+////                UIUtils.checkForSnapToVisibleFrame(movedWindow)
+//            }
+//        }
     }
     
     // Sorted by order of relevance

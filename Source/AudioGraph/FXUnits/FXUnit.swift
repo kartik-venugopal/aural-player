@@ -50,3 +50,16 @@ class FXUnit {
     
     func applyPreset(_ presetName: String) {}
 }
+
+// Enumeration of all the effects units
+enum EffectsUnit {
+
+    case master
+    case eq
+    case pitch
+    case time
+    case reverb
+    case delay
+    case filter
+    case recorder
+}
