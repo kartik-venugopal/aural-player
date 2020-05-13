@@ -63,48 +63,45 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. old segments that complete when seeking), don't do anything
-        if PlaybackSession.isCurrent(session) {
-            
-            // Start the completion poll timer
-            completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
-                
-                self.pollForTrackCompletion()
-                
-            }, queue: completionHandlerQueue)
-            
-            NSLog("segmentCompleted() Created the timer")
-            
-            // Don't start the timer if player is paused
-            if playerNode.isPlaying {
-                completionPollTimer?.startOrResume()
-                NSLog("segmentCompleted() Started the timer")
-            }
-            
-        } else {
+        guard PlaybackSession.isCurrent(session) else {
             destroyCompletionTimer()
+            return
+        }
+            
+        // Start the completion poll timer
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
+            
+            self.pollForTrackCompletion()
+            
+        }, queue: completionHandlerQueue)
+        
+        NSLog("segmentCompleted() Created the timer")
+        
+        // Don't start the timer if player is paused
+        if playerNode.isPlaying {
+            completionPollTimer?.startOrResume()
+            NSLog("segmentCompleted() Started the timer")
         }
     }
     
     private func pollForTrackCompletion() {
         
-        if let trackDuration = PlaybackSession.currentSession?.track.duration {
+        guard let trackDuration = PlaybackSession.currentSession?.track.duration else {
+            destroyCompletionTimer()
+            return
+        }
             
-            // This will update lastSeekPosn
-            let curPos = seekPosition
+        let curPos = seekPosition
+        
+        NSLog("pollForTrackCompletion(), pos=%.2f", curPos)
+        
+        if curPos > (trackDuration - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
             
-            NSLog("pollForTrackCompletion(), pos=%.2f", curPos)
+            // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
             
-            if curPos > (trackDuration - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
-                
-                // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
-                
-                NSLog("pollForTrackCompletion() Track completed !")
-                
-                trackCompleted()
-                destroyCompletionTimer()
-            }
+            NSLog("pollForTrackCompletion() Track completed !")
             
-        } else {
+            trackCompleted()
             destroyCompletionTimer()
         }
     }
@@ -112,35 +109,33 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
     override func loopSegmentCompleted(_ session: PlaybackSession) {
 
         // Validate the session and check for a complete loop
-        if PlaybackSession.isCurrent(session), session.hasCompleteLoop() {
-            
-            // Start the completion poll timer
-            completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
-                
-                self.pollForLoopCompletion()
-                
-            }, queue: completionHandlerQueue)
-            
-            // Don't start the timer if player is paused
-            if playerNode.isPlaying {
-                completionPollTimer?.startOrResume()
-            }
-            
-        } else {
+        guard PlaybackSession.isCurrent(session) && session.hasCompleteLoop() else {
             destroyCompletionTimer()
+            return
+        }
+            
+        // Start the completion poll timer
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
+            
+            self.pollForLoopCompletion()
+            
+        }, queue: completionHandlerQueue)
+        
+        // Don't start the timer if player is paused
+        if playerNode.isPlaying {
+            completionPollTimer?.startOrResume()
         }
     }
     
     func pollForLoopCompletion() {
         
-        if let session = PlaybackSession.currentSession, let loop = session.loop, let loopEndTime = loop.endTime {
-            
-            if seekPosition > (loopEndTime - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
-                restartLoop(session, loop.startTime, loopEndTime)
-            }
-            
-        } else {
+        guard let session = PlaybackSession.currentSession, let loop = session.loop, let loopEndTime = loop.endTime else {
             destroyCompletionTimer()
+            return
+        }
+        
+        if seekPosition > (loopEndTime - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
+            restartLoop(session, loop.startTime, loopEndTime)
         }
     }
     

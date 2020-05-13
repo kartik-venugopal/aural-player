@@ -28,20 +28,18 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
     // Retrieves the current seek position, in seconds
     var seekPosition: Double {
 
+        guard let session = PlaybackSession.currentSession else {return 0}
+        
         // Prevent seekPosition from overruning the track duration (or loop start/end times)
         // to prevent weird incorrect UI displays of seek time
-        if let session = PlaybackSession.currentSession {
             
-            // Check for complete loop
-            if let loop = session.loop, let loopEndTime = loop.endTime {
-                return min(max(loop.startTime, playerNode.seekPosition), loopEndTime)
-                
-            } else {    // No loop
-                return min(max(0, playerNode.seekPosition), session.track.duration)
-            }
+        // Check for complete loop
+        if let loop = session.loop, let loopEndTime = loop.endTime {
+            return min(max(loop.startTime, playerNode.seekPosition), loopEndTime)
+            
+        } else {    // No loop
+            return min(max(0, playerNode.seekPosition), session.track.duration)
         }
-
-        return 0
     }
     
     // MARK: Track scheduling, playback, and seeking functions -------------------------------------------------------------------------------------------
@@ -59,10 +57,10 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
             playLoop(session, startTime, beginPlayback)
             return
         }
-
+        
         // Halt current playback
         stop()
-
+        
         _ = playerNode.scheduleSegment(session, segmentCompletionHandler(session), startTime)
 
         // Don't start playing if player is paused
@@ -111,18 +109,18 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
 
         stop()
 
-        if let loop = session.loop, let loopEndTime = loop.endTime {
+        // Validate the loop before proceeding
+        guard let loop = session.loop, let loopEndTime = loop.endTime, loop.containsPosition(startTime) else {return}
 
-            // Define the initial segment (which may not constitute the entire portion of the loop segment)
-            let segment = playerNode.scheduleSegment(session, loopCompletionHandler(session), startTime, loopEndTime)
-            
-            // If this segment constitutes the entire loop segment, cache it for reuse later when restarting the loop.
-            self.loopingSegment = loop.startTime == startTime ? segment : nil
-            
-            // Don't start playing if player is paused
-            if beginPlayback {
-                playerNode.play()
-            }
+        // Define the initial segment (which may not constitute the entire portion of the loop segment)
+        let segment = playerNode.scheduleSegment(session, loopCompletionHandler(session), startTime, loopEndTime)
+        
+        // If this segment constitutes the entire loop segment, cache it for reuse later when restarting the loop.
+        self.loopingSegment = loop.startTime == startTime ? segment : nil
+        
+        // Don't start playing if player is paused
+        if beginPlayback {
+            playerNode.play()
         }
     }
 
@@ -150,15 +148,14 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. old segments that complete when seeking), don't do anything
-        if PlaybackSession.isCurrent(session) {
+        guard PlaybackSession.isCurrent(session) else {return}
+        
+        if playerNode.isPlaying {
+            trackCompleted()
             
-            if playerNode.isPlaying {
-                trackCompleted()
-                
-            } else {
-                // Player is paused
-                trackCompletedWhilePaused = true
-            }
+        } else {
+            // Player is paused
+            trackCompletedWhilePaused = true
         }
     }
     
