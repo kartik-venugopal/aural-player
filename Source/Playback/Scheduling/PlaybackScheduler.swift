@@ -33,9 +33,16 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         // Prevent seekPosition from overruning the track duration (or loop start/end times)
         // to prevent weird incorrect UI displays of seek time
             
-        // Check for complete loop
-        if let loop = session.loop, let loopEndTime = loop.endTime {
-            return min(max(loop.startTime, playerNode.seekPosition), loopEndTime)
+        // Check for loop
+        if let loop = session.loop {
+            
+            if let loopEndTime = loop.endTime {
+                return min(max(loop.startTime, playerNode.seekPosition), loopEndTime)
+                
+            } else {
+                // Incomplete loop (start time only)
+                return min(max(loop.startTime, playerNode.seekPosition), session.track.duration)
+            }
             
         } else {    // No loop
             return min(max(0, playerNode.seekPosition), session.track.duration)

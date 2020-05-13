@@ -12,11 +12,16 @@ class MockPlayerNode: AuralPlayerNode {
         return _isPlaying
     }
     
+    var _seekPosition: Double = 0
+    override var seekPosition: Double {
+        return _seekPosition
+    }
+    
     var scheduleSegment_callCount: Int = 0
     
     var scheduleSegment_session: PlaybackSession? = nil
-    var scheduleSegment_startTime: Double = -1
-    var scheduleSegment_endTime: Double? = -1
+    var scheduleSegment_startTime: Double? = nil
+    var scheduleSegment_endTime: Double? = nil
     
     func resetMock() {
         
@@ -27,11 +32,13 @@ class MockPlayerNode: AuralPlayerNode {
         paused = false
         didReset = false
         
+        _seekPosition = 0
+        
         scheduleSegment_callCount = 0
         
         scheduleSegment_session = nil
-        scheduleSegment_startTime = -1
-        scheduleSegment_endTime = -1
+        scheduleSegment_startTime = nil
+        scheduleSegment_endTime = nil
     }
     
     override func scheduleSegment(_ session: PlaybackSession, _ completionHandler: @escaping SessionCompletionHandler, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil, _ immediatePlayback: Bool = true) -> PlaybackSegment? {
@@ -42,7 +49,17 @@ class MockPlayerNode: AuralPlayerNode {
         scheduleSegment_startTime = startTime
         scheduleSegment_endTime = endTime
         
-        return nil
+        // Dummy segment
+        return PlaybackSegment(session, AVAudioFile(), AVAudioFramePosition(startTime * 44100), AVAudioFramePosition(session.track.duration * 44100), AVAudioFrameCount((session.track.duration - startTime) * 44100), startTime, endTime)
+    }
+    
+    override func scheduleSegment(_ segment: PlaybackSegment, _ completionHandler: @escaping SessionCompletionHandler, _ immediatePlayback: Bool = true) {
+        
+        scheduleSegment_callCount += 1
+        
+        scheduleSegment_session = segment.session
+        scheduleSegment_startTime = segment.startTime
+        scheduleSegment_endTime = segment.endTime
     }
     
     override func play() {
