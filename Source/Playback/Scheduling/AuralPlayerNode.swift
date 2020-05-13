@@ -18,23 +18,23 @@ class AuralPlayerNode: AVAudioPlayerNode {
     var completionCallbackQueue: DispatchQueue = DispatchQueue.global()
     
     // The start frame for the current playback session (used to calculate seek position). Represents the point in the track at which playback began.
-    private var startFrame: AVAudioFramePosition = 0
+    var startFrame: AVAudioFramePosition = 0
 
     // Cached seek position (used when looping, to remember last seek position and avoid displaying 0 when player is temporarily stopped at the end of a loop)
-    private var lastSeekPosn: Double = 0
+    var cachedSeekPosn: Double = 0
     
     // The absolute minimum frame count when scheduling a segment (to prevent crashes in the playerNode).
-    private static let minFrames: AVAudioFrameCount = 2
+    static let minFrames: AVAudioFrameCount = 2
     
     // Retrieves the current seek position, in seconds
     var seekPosition: Double {
         
         if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
-            lastSeekPosn = Double(startFrame + playerTime.sampleTime) / playerTime.sampleRate
+            cachedSeekPosn = Double(startFrame + playerTime.sampleTime) / playerTime.sampleRate
         }
 
         // Default to last remembered position when nodeTime is nil
-        return lastSeekPosn
+        return cachedSeekPosn
     }
     
     func scheduleSegment(_ session: PlaybackSession, _ completionHandler: @escaping SessionCompletionHandler, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil, _ immediatePlayback: Bool = true) -> PlaybackSegment? {
@@ -53,7 +53,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
             
             // Advance the last seek position to the new position
             startFrame = segment.firstFrame
-            lastSeekPosn = segment.startTime
+            cachedSeekPosn = segment.startTime
         }
         
         if #available(OSX 10.13, *) {
