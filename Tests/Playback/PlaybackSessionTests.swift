@@ -5,6 +5,8 @@ import XCTest
  */
 class PlaybackSessionTests: XCTestCase {
     
+    // TODO: Add tests for PlaybackLoop ... isComplete, containsPosition()
+    
     private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
     
     override func setUp() {
