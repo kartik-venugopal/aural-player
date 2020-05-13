@@ -2,7 +2,7 @@ import AVFoundation
 
 class MockPlayerGraph: PlayerGraphProtocol {
     
-    var playerNode: AVAudioPlayerNode = MockPlayerNode()
+    var playerNode: AuralPlayerNode = MockPlayerNode()
     
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
     }
