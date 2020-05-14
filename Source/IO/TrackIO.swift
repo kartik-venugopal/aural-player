@@ -19,14 +19,11 @@ class TrackIO {
         MetadataUtils.loadSecondaryMetadata(track)
         track.lazyLoadingInfo.secondaryInfoLoaded = true
     }
-
-    // Load all the information required to play this track
-    static func prepareForPlayback(_ track: Track) {
-        
-        let lazyLoadInfo = track.lazyLoadingInfo
+    
+    static func loadArt(_ track: Track) {
         
         // Load art (asynchronously)
-        if !lazyLoadInfo.artLoaded {
+        if !track.lazyLoadingInfo.artLoaded {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 
@@ -38,8 +35,16 @@ class TrackIO {
                 }
             }
         }
+    }
+
+    // Load all the information required to play this track
+    static func prepareForPlayback(_ track: Track) {
         
-        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
+        loadArt(track)
+        
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        if lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed {
             return
         }
         
@@ -48,7 +53,8 @@ class TrackIO {
         
         // Track is valid, prepare it for playback
         AudioUtils.loadPlaybackInfo(track)
-        if !lazyLoadInfo.preparedForPlayback && !lazyLoadInfo.needsTranscoding {
+        
+        if !(lazyLoadInfo.preparedForPlayback || lazyLoadInfo.needsTranscoding) {
             
             // If track couldn't be prepared, mark it as not playable
             lazyLoadInfo.preparationFailed(TrackNotPlayableError(track))
@@ -57,19 +63,7 @@ class TrackIO {
     
     static func prepareForInfo(_ track: Track) {
         
-        // Art
-        if track.displayInfo.art == nil {
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                
-                MetadataUtils.loadArt(track)
-                
-                // Only do this if there is art to show
-                if track.displayInfo.art != nil {
-                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-                }
-            }
-        }
+        loadArt(track)
         
         let lazyLoadInfo = track.lazyLoadingInfo
         
@@ -106,6 +100,16 @@ class TrackIO {
         // Audio info
         AudioUtils.loadAudioInfo(track)
         
+        loadFileSystemInfo(track)
+        
+        // ID3 / ITunes / other metadata
+        MetadataUtils.loadAllMetadata(track)
+        
+        track.lazyLoadingInfo.detailedInfoLoaded = true
+    }
+    
+    static func loadFileSystemInfo(_ track: Track) {
+        
         let attrs = FileSystemUtils.fileAttributes(path: track.file.path)
         
         // Filesystem info
@@ -114,11 +118,6 @@ class TrackIO {
         track.fileSystemInfo.kindOfFile = attrs.kindOfFile
         track.fileSystemInfo.lastModified = attrs.lastModified
         track.fileSystemInfo.lastOpened = attrs.lastOpened
-        
-        // ID3 / ITunes / other metadata
-        MetadataUtils.loadAllMetadata(track)
-        
-        track.lazyLoadingInfo.detailedInfoLoaded = true
     }
     
     static func loadChapters(_ track: Track) {

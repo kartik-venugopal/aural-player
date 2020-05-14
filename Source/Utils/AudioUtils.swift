@@ -146,35 +146,35 @@ class AudioUtils {
     
     static func prepareTrackWithFile(_ track: Track, _ file: URL) {
         
-        if let audioFile = AudioIO.createAudioFileForReading(file) {
+        guard let audioFile = AudioIO.createAudioFileForReading(file) else {return}
             
-            let playbackInfo = PlaybackInfo()
+        let playbackInfo = PlaybackInfo()
+        
+        if track.duration == 0 {
             
-            if track.duration == 0 {
-                
-                // Load duration from transcoded output file
-                track.setDuration(MetadataUtils.durationForFile(file))
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-            }
+            // Load duration from metadata
+            track.setDuration(MetadataUtils.durationForFile(file))
+            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+        }
+        
+        playbackInfo.audioFile = audioFile
+        track.playbackInfo = playbackInfo
+        
+        // TODO: Look in AVAudioFormat (i.e. processingFormat) settings property ... see what's there to be used.
+        
+        playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
+        playbackInfo.frames = audioFile.length
+        playbackInfo.numChannels = Int(audioFile.fileFormat.channelCount)
+        
+        track.lazyLoadingInfo.preparedForPlayback = true
+        
+        let computedDuration = Double(playbackInfo.frames) / playbackInfo.sampleRate
+        
+        // If this computed duration differs from the previously estimated duration, update the track and send out a notification.
+        if computedDuration != track.duration {
             
-            playbackInfo.audioFile = audioFile
-            track.playbackInfo = playbackInfo
-            track.lazyLoadingInfo.preparedForPlayback = true
-            
-            // TODO: Look in AVAudioFormat (i.e. processingFormat) settings property ... see what's there to be used.
-            
-            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
-            playbackInfo.frames = audioFile.length
-            playbackInfo.numChannels = Int(audioFile.fileFormat.channelCount)
-            
-            let computedDuration = Double(playbackInfo.frames) / playbackInfo.sampleRate
-            
-            // If this computed duration differs from the previously estimated duration, update the track and send out a notification.
-            if computedDuration != track.duration {
-                
-                track.setDuration(computedDuration)
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
-            }
+            track.setDuration(computedDuration)
+            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
         }
     }
     
