@@ -33,8 +33,11 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
     @IBOutlet weak var favoritesMenu: NSMenu!
     
-    // Delegate that retrieves current playback info (e.g. repeat/shuffle modes)
+    // Delegate that retrieves current playback info (e.g. currently playing track)
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
+    // Delegate that retrieves current playback sequence info (e.g. repeat/shuffle modes)
+    private lazy var sequenceInfo: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
@@ -245,7 +248,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playbackInfo.repeatAndShuffleModes
+        let modes = sequenceInfo.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

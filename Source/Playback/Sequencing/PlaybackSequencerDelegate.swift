@@ -11,6 +11,8 @@ class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
         self.sequencer = sequencer
     }
     
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequencer.repeatAndShuffleModes}
+    
     var playingTrack: IndexedTrack? {
         return sequencer.playingTrack
     }

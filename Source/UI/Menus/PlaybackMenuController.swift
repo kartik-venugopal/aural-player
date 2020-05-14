@@ -43,6 +43,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var sequenceInfo: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
@@ -229,7 +230,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Updates the menu item states per the current playback modes
     private func updateRepeatAndShuffleMenuItemStates() {
         
-        let modes = playbackInfo.repeatAndShuffleModes
+        let modes = sequenceInfo.repeatAndShuffleModes
         
         shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
         shuffleOnMenuItem.onIf(modes.shuffleMode == .on)

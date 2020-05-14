@@ -537,8 +537,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var waitingTrack: IndexedTrack? {return state == .waiting ? sequencer.playingTrack : nil}
     
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequencer.repeatAndShuffleModes}
-    
     var playingTrackStartTime: TimeInterval? {return player.playingTrackStartTime}
     
     var playbackLoop: PlaybackLoop? {return player.playbackLoop}

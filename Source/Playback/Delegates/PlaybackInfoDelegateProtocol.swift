@@ -36,9 +36,6 @@ protocol PlaybackInfoDelegateProtocol {
     // 2 - There are chapter markings but the current seek position is not within the time bounds of any of the chapters
     var playingChapter: IndexedChapter? {get}
     
-    // Returns the current repeat and shuffle modes
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
-    
     /*
         Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
      
