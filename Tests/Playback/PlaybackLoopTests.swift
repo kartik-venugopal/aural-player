@@ -121,4 +121,52 @@ class PlaybackLoopTests: XCTestCase {
         loop2 = PlaybackLoop(10, 20)
         XCTAssertEqual(loop1, loop2)
     }
+    
+    func testTimeCorrection_validTimes() {
+        
+        // Test correction during loop instantiation
+        
+        var loop = PlaybackLoop(10, 25)
+        
+        XCTAssertEqual(loop.startTime, 10, accuracy: 0.001)
+        XCTAssertEqual(loop.endTime!, 25, accuracy: 0.001)
+        
+        // Test correction during endTime.setter
+        
+        loop = PlaybackLoop(10)
+        loop.endTime = 25
+        
+        XCTAssertEqual(loop.startTime, 10, accuracy: 0.001)
+        XCTAssertEqual(loop.endTime!, 25, accuracy: 0.001)
+        
+        // No correction when endTime is set to nil
+        
+        let startTimeBefore = loop.startTime
+        loop.endTime = nil
+        XCTAssertEqual(loop.startTime, startTimeBefore, accuracy: 0.001)
+    }
+    
+    func testTimeCorrection_startTimeGreater() {
+        
+        // Test correction during loop instantiation
+        
+        var loop = PlaybackLoop(10, 9.99998)
+        
+        XCTAssertEqual(loop.startTime, loop.endTime!)
+        XCTAssertEqual(loop.endTime!, 9.99998)
+        
+        // Test correction during endTime.setter
+        
+        loop = PlaybackLoop(10)
+        loop.endTime = 9.99998
+        
+        XCTAssertEqual(loop.startTime, loop.endTime!)
+        XCTAssertEqual(loop.endTime!, 9.99998)
+        
+        // No correction when endTime is set to nil
+        
+        let startTimeBefore = loop.startTime
+        loop.endTime = nil
+        XCTAssertEqual(loop.startTime, startTimeBefore, accuracy: 0.001)
+    }
 }
