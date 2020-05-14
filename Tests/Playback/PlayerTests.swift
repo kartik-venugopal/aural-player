@@ -913,11 +913,14 @@ class PlayerTests: XCTestCase {
     func testAudioOutputDeviceChanged_noPlayingTrack() {
         
         XCTAssertNil(PlaybackSession.currentSession)
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
         
         player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
         
         XCTAssertFalse(mockScheduler.seekToTimeInvoked)
         XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+        
+        XCTAssertEqual(player.state, PlaybackState.noTrack)
     }
     
     func testAudioOutputDeviceChanged_trackPlaying() {
@@ -926,6 +929,8 @@ class PlayerTests: XCTestCase {
         
         player.play(track, 0)
         mockScheduler.seekPosition = 27.667435
+        
+        XCTAssertEqual(player.state, PlaybackState.playing)
         
         player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
         
@@ -939,6 +944,8 @@ class PlayerTests: XCTestCase {
         XCTAssertEqual(mockScheduler.seekToTime_beginPlayback, true)
         
         XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+        
+        XCTAssertEqual(player.state, PlaybackState.playing)
     }
     
     func testAudioOutputDeviceChanged_trackPlaying_paused() {
@@ -947,8 +954,10 @@ class PlayerTests: XCTestCase {
         
         player.play(track, 0)
         mockScheduler.seekPosition = 27.667435
+        XCTAssertEqual(player.state, PlaybackState.playing)
         
         player.pause()
+        XCTAssertEqual(player.state, PlaybackState.paused)
         
         player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
         
@@ -962,6 +971,8 @@ class PlayerTests: XCTestCase {
         XCTAssertEqual(mockScheduler.seekToTime_beginPlayback, false)
         
         XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+        
+        XCTAssertEqual(player.state, PlaybackState.paused)
     }
     
     // MARK: playingTrackStartTime tests --------------------------------------------------------------------------------------------------------
