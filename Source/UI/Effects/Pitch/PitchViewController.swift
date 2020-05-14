@@ -29,7 +29,6 @@ class PitchViewController: FXUnitViewController {
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
         unitType = .pitch
         fxUnit = pitchUnit
-        unitStateFunction = pitchStateFunction
         presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
     }
     
@@ -44,7 +43,7 @@ class PitchViewController: FXUnitViewController {
         super.oneTimeSetup()
         
         // TODO: Move this to generic view
-        pitchView.initialize(unitStateFunction)
+        pitchView.initialize(self.unitStateFunction)
         
         functionLabels = [lblPitch, lblOverlap, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
     }

@@ -46,7 +46,7 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     }
     
     private func registerAsModalComponent() {
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

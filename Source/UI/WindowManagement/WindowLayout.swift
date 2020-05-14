@@ -22,14 +22,4 @@ class WindowLayout {
         self.playlistWindowFrame = playlistWindowFrame
         self.systemDefined = systemDefined
     }
-    
-    // Recomputes the layout (useful when the window gap preference changes)
-    func recompute() {
-        
-        let preset = WindowLayoutPresets.fromDisplayName(self.name)
-        
-        self.mainWindowOrigin = preset.mainWindowOrigin
-        self.effectsWindowOrigin = preset.effectsWindowOrigin
-        self.playlistWindowFrame = preset.playlistWindowFrame
-    }
 }

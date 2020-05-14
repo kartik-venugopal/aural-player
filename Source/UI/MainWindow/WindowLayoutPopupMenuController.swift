@@ -2,8 +2,6 @@ import Cocoa
 
 class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
 
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
 
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -25,11 +23,11 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     }
 
     @IBAction func btnLayoutAction(_ sender: NSMenuItem) {
-        windowManager.layout(sender.title)
+        WindowManager.layout(sender.title)
     }
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        layoutNamePopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
+        layoutNamePopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     // MARK - StringInputReceiver functions
@@ -55,7 +53,7 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        WindowLayouts.addUserDefinedLayout(string)
+        WindowLayouts.addUserDefinedLayout(string, WindowManager.currentWindowLayout)
     }
     
     var inputFontSize: TextSize {

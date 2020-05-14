@@ -69,8 +69,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     // One-time setup
     override func awakeFromNib() {
         
@@ -122,7 +120,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == _clickedTrack {
                 isPlayingTrack = true
             }
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !windowManager.isShowingChaptersList)
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
             
         case .group:
             
@@ -139,12 +137,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         if !track.lazyLoadingInfo.preparationFailed {
             
-            windowManager.playlistWindow.makeKeyAndOrderFront(self)
+            WindowManager.playlistWindow.makeKeyAndOrderFront(self)
             
             infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
             
             // If this isn't done, the app windows are hidden when the popover is displayed
-            windowManager.mainWindow.orderFront(self)
+            WindowManager.mainWindow.orderFront(self)
         }
     }
     
@@ -229,7 +227,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
         
-        windowManager.playlistWindow.makeKeyAndOrderFront(self)
+        WindowManager.playlistWindow.makeKeyAndOrderFront(self)
         
         if favoritesMenuItem.isOn {
         
@@ -245,7 +243,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        windowManager.mainWindow.orderFront(self)
+        WindowManager.mainWindow.orderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -256,10 +254,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         let rowView = playlistSelectedRowView
         
-        windowManager.playlistWindow.makeKeyAndOrderFront(self)
+        WindowManager.playlistWindow.makeKeyAndOrderFront(self)
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
         
-        windowManager.mainWindow.makeKeyAndOrderFront(self)
+        WindowManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)

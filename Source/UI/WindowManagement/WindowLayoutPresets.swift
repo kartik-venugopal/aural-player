@@ -20,6 +20,16 @@ enum WindowLayoutPresets: String, CaseIterable {
         return WindowLayoutPresets(rawValue: StringUtils.camelCase(displayName)) ?? .verticalFullStack
     }
     
+    // Recomputes the layout (useful when the window gap preference changes)
+    static func recompute(_ layout: WindowLayout) {
+        
+        let preset = WindowLayoutPresets.fromDisplayName(layout.name)
+        
+        layout.mainWindowOrigin = preset.mainWindowOrigin
+        layout.effectsWindowOrigin = preset.effectsWindowOrigin
+        layout.playlistWindowFrame = preset.playlistWindowFrame
+    }
+    
     // TODO: Write a generic split camel case function to convert rawValue to description
     var description: String {
         

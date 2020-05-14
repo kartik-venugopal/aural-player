@@ -10,6 +10,8 @@ class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
     
     var state: EffectsUnitState {return unit.state}
     
+    var stateFunction: EffectsUnitStateFunction {return unit.stateFunction}
+    
     var isActive: Bool {return unit.isActive}
     
     func toggleState() -> EffectsUnitState {

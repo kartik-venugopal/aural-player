@@ -30,7 +30,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     override var windowNibName: String? {return "GapsEditorDialog"}
     
     override func windowDidLoad() {
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

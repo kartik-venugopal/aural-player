@@ -31,7 +31,6 @@ class FilterViewController: FXUnitViewController {
         
         unitType = .filter
         fxUnit = filterUnit
-        unitStateFunction = filterStateFunction
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     
@@ -40,7 +39,7 @@ class FilterViewController: FXUnitViewController {
         super.oneTimeSetup()
 
         let bandsDataFunction = {() -> [FilterBand] in return self.filterUnit.bands}
-        filterView.initialize(filterStateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(filterUnit))
+        filterView.initialize(self.unitStateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(filterUnit))
     }
  
     override func initControls() {

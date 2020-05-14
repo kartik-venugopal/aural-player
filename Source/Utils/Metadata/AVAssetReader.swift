@@ -3,26 +3,26 @@ import AVFoundation
 
 class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
-    private let parsers: [AVAssetParser] = {
-        
-        // Audio Toolbox metadata is available >= macOS 10.13
+    var allParsers: [AVAssetParser]
+    var muxer: MuxerProtocol
+    
+    private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
+    
+    let subscriberId: String = "AVAssetReader"
+    
+    init(_ commonAVAssetParser: CommonAVAssetParser, _ id3Parser: ID3Parser, _ iTunesParser: ITunesParser, _ audioToolboxParser: AudioToolboxParser, _ muxer: MuxerProtocol) {
         
         let osVersion = SystemUtils.osVersion
         
         if (osVersion.majorVersion == 10 && osVersion.minorVersion >= 13) || osVersion.majorVersion > 10 {
-            return [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser, ObjectGraph.audioToolboxParser]
+            self.allParsers = [commonAVAssetParser, id3Parser, iTunesParser, audioToolboxParser]
+            
         } else {
-            return [ObjectGraph.commonAVAssetParser, ObjectGraph.id3Parser, ObjectGraph.iTunesParser]
+            self.allParsers = [commonAVAssetParser, id3Parser, iTunesParser]
         }
-    }()
-    
-    private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
-    
-    private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
-    
-    let subscriberId: String = "AVAssetReader"
-    
-    init() {
+        
+        self.muxer = muxer
+        
         AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
@@ -39,7 +39,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     private func mapMetadata(_ track: Track) {
         
         let mapForTrack = AVAssetMetadata()
-        parsers.forEach({$0.mapTrack(track, mapForTrack)})
+        allParsers.forEach({$0.mapTrack(track, mapForTrack)})
         metadataMap.put(track, mapForTrack)
     }
     
@@ -70,7 +70,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         var maxDuration: Double = track.audioAsset!.duration.seconds
         
-        for parser in parsers {
+        for parser in allParsers {
             
             if let map = metadataMap.getForKey(track), let duration = parser.getDuration(map), duration > maxDuration {
                 maxDuration = duration
@@ -84,7 +84,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
         
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let title = parser.getTitle(map) {
                     return title
@@ -99,7 +99,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let artist = parser.getArtist(map) {
                     return artist
@@ -114,7 +114,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let album = parser.getAlbum(map) {
                     return album
@@ -129,7 +129,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let genre = parser.getGenre(map) {
                     return genre
@@ -155,7 +155,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let discNum = parser.getDiscNumber(map) {
                     return discNum
@@ -170,7 +170,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let trackNum = parser.getTrackNumber(map) {
                     return trackNum
@@ -189,7 +189,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let lyrics = parser.getLyrics(map) {
                     return lyrics
@@ -213,7 +213,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 let parserMetadata = parser.getGenericMetadata(map)
                 parserMetadata.forEach({(k,v) in metadata[k] = v})
@@ -229,7 +229,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         if let map = metadataMap.getForKey(track) {
             
-            for parser in parsers {
+            for parser in allParsers {
                 
                 if let art = parser.getArt(map) {
                     return art
@@ -247,7 +247,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     // Retrieves artwork for a given track, if available
     private func getArt(_ asset: AVURLAsset) -> CoverArt? {
         
-        for parser in parsers {
+        for parser in allParsers {
             
             if let art = parser.getArt(asset) {
                 return art
@@ -300,7 +300,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     // Delegates to all parsers to try and find title metadata among the given items
     private func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
 
-        for parser in parsers {
+        for parser in allParsers {
             
             if let title = parser.getChapterTitle(items) {
                 // Found

@@ -56,8 +56,6 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let presetsEditor: EditorWindowController = WindowFactory.editorWindowController
     
-    private let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     // One-time setup.
     override func awakeFromNib() {
         
@@ -90,7 +88,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!windowManager.isShowingModalComponent)})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!WindowManager.isShowingModalComponent)})
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }
     

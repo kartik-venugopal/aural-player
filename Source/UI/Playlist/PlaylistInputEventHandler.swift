@@ -11,8 +11,6 @@ class PlaylistInputEventHandler {
     
     private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.preferences.controlsPreferences
     
-    private static let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
         playlistViews[playlistType] = playlistView
     }
@@ -26,7 +24,7 @@ class PlaylistInputEventHandler {
         
         // TODO: Enable top/bottom gestures for chapters list window too !!!
         
-        if event.type == .swipe, !windowManager.isShowingModalComponent && event.window === windowManager.playlistWindow,
+        if event.type == .swipe, !WindowManager.isShowingModalComponent && event.window === WindowManager.playlistWindow,
             let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
             swipeDirection.isHorizontal ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)

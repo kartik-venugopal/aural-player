@@ -17,8 +17,6 @@ class WindowLayouts {
         return map
     }()
     
-    private static let windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     static var userDefinedLayouts: [WindowLayout] {
         return layouts.values.filter({$0.systemDefined == false})
     }
@@ -36,7 +34,7 @@ class WindowLayouts {
         let layout = layouts[name] ?? (acceptDefault ? defaultLayout : nil)
         
         if let lt = layout, lt.systemDefined {
-            lt.recompute()
+            WindowLayoutPresets.recompute(lt)
         }
         
         return layout
@@ -68,23 +66,28 @@ class WindowLayouts {
     }
     
     static func recomputeSystemDefinedLayouts() {
-        systemDefinedLayouts.forEach({$0.recompute()})
+        systemDefinedLayouts.forEach({WindowLayoutPresets.recompute($0)})
     }
 
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedLayout(_ name: String) {
+    static func addUserDefinedLayout(_ name: String, _ layout: WindowLayout) {
         
-        let showEffects = windowManager.isShowingEffects
-        let showPlaylist = windowManager.isShowingPlaylist
-        
-        let mainWindowOrigin = windowManager.mainWindow.origin
-        let effectsWindowOrigin = showEffects ? windowManager.effectsWindow.origin : nil
-        let playlistWindowFrame = showPlaylist ? windowManager.playlistWindowFrame : nil
-        
-        layouts[name] = WindowLayout(name, showEffects, showPlaylist, mainWindowOrigin, effectsWindowOrigin, playlistWindowFrame, false)
+        layout.name = name
+        layouts[name] = layout
     }
 
     static func layoutWithNameExists(_ name: String) -> Bool {
         return layouts[name] != nil
+    }
+}
+
+struct WindowLayoutActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .windowLayout
+    
+    let layout: WindowLayoutPresets
+    
+    init(_ layout: WindowLayoutPresets) {
+        self.layout = layout
     }
 }

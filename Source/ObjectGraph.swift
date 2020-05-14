@@ -40,16 +40,16 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks!
     static var bookmarksDelegate: BookmarksDelegateProtocol!
     
-    static var windowManager: WindowManagerProtocol!
-    
     static var transcoder: TranscoderProtocol!
     static var muxer: MuxerProtocol!
     
+    static var avAssetReader: AVAssetReader!
     static var commonAVAssetParser: CommonAVAssetParser!
     static var id3Parser: ID3Parser!
     static var iTunesParser: ITunesParser!
     static var audioToolboxParser: AudioToolboxParser!
     
+    static var ffmpegReader: FFMpegReader!
     static var commonFFMpegParser: CommonFFMpegMetadataParser!
     static var wmParser: WMParser!
     static var vorbisParser: VorbisCommentParser!
@@ -63,8 +63,6 @@ class ObjectGraph {
     
     // Performs all necessary object initialization
     static func initialize() {
-        
-        // TODO: Can we lazily load some of these objects that may never be used ??? (e.g. Some metadata parsers)
         
         // Load persistent app state from disk
         // Use defaults if app state could not be loaded from disk
@@ -109,7 +107,7 @@ class ObjectGraph {
         // History (and delegate)
         history = History(preferences.historyPreferences)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences)
+        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerInfoDelegate, playbackInfoDelegate)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
@@ -136,14 +134,6 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
         
-        windowManager = WindowManager(appState.ui.windowLayout, preferences.viewPreferences)
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
-        ColorSchemes.initialize(appState.ui.colorSchemes)
-        
-        PlayerViewState.initialize(appState.ui.player)
-        PlaylistViewState.initialize(appState.ui.playlist)
-        EffectsViewState.initialize(appState.ui.effects)
-        
         muxer = Muxer()
         
         commonAVAssetParser = CommonAVAssetParser()
@@ -151,13 +141,35 @@ class ObjectGraph {
         iTunesParser = ITunesParser()
         audioToolboxParser = AudioToolboxParser()
         
+        avAssetReader = AVAssetReader(commonAVAssetParser, id3Parser, iTunesParser, audioToolboxParser, muxer)
+        
         commonFFMpegParser = CommonFFMpegMetadataParser()
         wmParser = WMParser()
         vorbisParser = VorbisCommentParser()
         apeParser = ApeV2Parser()
         defaultParser = DefaultFFMpegMetadataParser()
         
+        ffmpegReader = FFMpegReader(commonFFMpegParser, id3Parser, vorbisParser, apeParser, wmParser, defaultParser, muxer)
+
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
+        
+        // Initialize utility classes.
+        
+        AudioUtils.initialize(transcoder)
+        MetadataUtils.initialize(playlistDelegate, avAssetReader, ffmpegReader)
+        PlaylistIO.initialize(playlist)
+        
+        // UI-related utility classes
+        
+        WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
+        UIUtils.initialize(preferences.viewPreferences)
+        
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
+        ColorSchemes.initialize(appState.ui.colorSchemes)
+        
+        PlayerViewState.initialize(appState.ui.player)
+        PlaylistViewState.initialize(appState.ui.playlist)
+        EffectsViewState.initialize(appState.ui.effects)
     }
     
     private static let tearDownOpQueue: OperationQueue = {
@@ -182,7 +194,7 @@ class ObjectGraph {
         appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
         
         appState.ui = UIState()
-        appState.ui.windowLayout = (windowManager as! WindowManager).persistentState
+        appState.ui.windowLayout = WindowManager.persistentState
         appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState

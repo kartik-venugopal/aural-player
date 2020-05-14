@@ -17,14 +17,13 @@ class DelayViewController: FXUnitViewController {
         
         unitType = .delay
         fxUnit = delayUnit
-        unitStateFunction = delayStateFunction
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }
     
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        delayView.initialize(unitStateFunction)
+        delayView.initialize(self.unitStateFunction)
     }
 
     override func initControls() {

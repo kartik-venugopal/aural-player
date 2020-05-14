@@ -26,7 +26,6 @@ class MasterViewController: FXUnitViewController {
         
         unitType = .master
         fxUnit = masterUnit
-        unitStateFunction = masterStateFunction
         presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
     }
     
@@ -34,7 +33,7 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
-        masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
+        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchUnit.stateFunction, graph.timeUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction)
     }
     
     override func initSubscriptions() {

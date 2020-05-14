@@ -1,7 +1,6 @@
 /*
-    A collection of assorted utility functions that perform I/O for app state (settings, playlist)
+    Handles persistence to/from disk for application state.
 */
-
 import AVFoundation
 
 class AppStateIO {
@@ -14,7 +13,13 @@ class AppStateIO {
         let jsonObject = JSONMapper.map(state)
         let file = AppConstants.FilesAndPaths.appStateFile
         
-        do { try JSONWriter.writeObject(jsonObject, file, true) } catch {}
+        do {
+            
+            try JSONWriter.writeObject(jsonObject, file, true)
+            
+        } catch let error as NSError {
+           NSLog("Error saving app state config file: %@", error.description)
+        }
     }
     
     // Loads app state from default user documents directory

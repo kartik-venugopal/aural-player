@@ -13,8 +13,8 @@ class TranscoderStore: MessageSubscriber {
     var currentDiskSpaceUsage: UInt64 {return FileSystemUtils.sizeOfDirectory(baseDir)}
     
     // TODO: Accessing delegate here ?
-    private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+//    private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+//    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private let backgroundQueue: DispatchQueue = DispatchQueue.global(qos: .background)
     

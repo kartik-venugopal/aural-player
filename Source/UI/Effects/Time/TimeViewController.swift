@@ -30,7 +30,6 @@ class TimeViewController: FXUnitViewController {
         
         unitType = .time
         fxUnit = graph.timeUnit
-        unitStateFunction = timeStateFunction
         presetsWrapper = PresetsWrapper<TimePreset, TimePresets>(timeUnit.presets)
     }
     
@@ -43,7 +42,7 @@ class TimeViewController: FXUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        timeView.initialize(unitStateFunction)
+        timeView.initialize(self.unitStateFunction)
     }
 
     override func initControls() {

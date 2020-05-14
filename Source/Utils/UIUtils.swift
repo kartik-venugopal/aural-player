@@ -14,9 +14,13 @@ private var visibleFrame: NSRect = {
 
 class UIUtils {
     
-    private static var preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
+    private init() {}
     
-    private static var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
+    private static var preferences: ViewPreferences!
+    
+    static func initialize(_ preferences: ViewPreferences) {
+        UIUtils.preferences = preferences
+    }
     
     // Dismisses the given dialog
     static func dismissDialog(_ dialog: NSWindow) {
@@ -57,7 +61,7 @@ class UIUtils {
     
     // Centers a dialog with respect to the main window
     static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
-        centerDialogWRTWindow(dialog, windowManager.mainWindow)
+        centerDialogWRTWindow(dialog, WindowManager.mainWindow)
     }
     
     static func centerDialogWRTWindow(_ dialog: NSWindow, _ parent: NSWindow) {

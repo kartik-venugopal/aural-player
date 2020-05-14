@@ -59,7 +59,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         addSubViews()
 
         theWindow.isMovableByWindowBackground = true
-        theWindow.delegate = ObjectGraph.windowManager
+        theWindow.delegate = WindowManager.windowDelegate
 
         EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
         
@@ -88,14 +88,14 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
         fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
         
-        masterTabViewButton.stateFunction = masterStateFunction
-        eqTabViewButton.stateFunction = eqStateFunction
-        pitchTabViewButton.stateFunction = pitchStateFunction
-        timeTabViewButton.stateFunction = timeStateFunction
-        reverbTabViewButton.stateFunction = reverbStateFunction
-        delayTabViewButton.stateFunction = delayStateFunction
-        filterTabViewButton.stateFunction = filterStateFunction
-        recorderTabViewButton.stateFunction = recorderStateFunction
+        masterTabViewButton.stateFunction = graph.masterUnit.stateFunction
+        eqTabViewButton.stateFunction = graph.eqUnit.stateFunction
+        pitchTabViewButton.stateFunction = graph.pitchUnit.stateFunction
+        timeTabViewButton.stateFunction = graph.timeUnit.stateFunction
+        reverbTabViewButton.stateFunction = graph.reverbUnit.stateFunction
+        delayTabViewButton.stateFunction = graph.delayUnit.stateFunction
+        filterTabViewButton.stateFunction = graph.filterUnit.stateFunction
+        recorderTabViewButton.stateFunction = {return self.recorder.isRecording ? .active : .bypassed}
     }
 
     private func initUnits() {

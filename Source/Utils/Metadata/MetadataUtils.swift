@@ -5,11 +5,20 @@ import AVFoundation
     Utility for reading and categorizing track metadata
  */
 class MetadataUtils {
-
-    private static let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    private static let avAssetReader: AVAssetReader = AVAssetReader()
-    private static let ffMpegReader: FFMpegReader = FFMpegReader()
+    private init() {}
+
+    private static var playlist: PlaylistDelegateProtocol!
+    
+    private static var avAssetReader: AVAssetReader!
+    private static var ffMpegReader: FFMpegReader!
+    
+    static func initialize(_ playlist: PlaylistDelegateProtocol, _ avAssetReader: AVAssetReader, _ ffMpegReader: FFMpegReader) {
+        
+        MetadataUtils.playlist = playlist
+        MetadataUtils.avAssetReader = avAssetReader
+        MetadataUtils.ffMpegReader = ffMpegReader
+    }
     
     // Loads the required display metadata (artist/title/art) for a track
     static func loadPrimaryMetadata(_ track: Track) {

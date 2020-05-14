@@ -10,8 +10,6 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     @IBOutlet weak var previewView: LayoutPreviewView!
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     // Delegate that performs CRUD on user preferences
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
     private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
@@ -89,7 +87,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func applySelectedLayoutAction(_ sender: AnyObject) {
-        windowManager.layout(selectedLayoutNames[0])
+        WindowManager.layout(selectedLayoutNames[0])
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

@@ -4,9 +4,15 @@ import AVFoundation
 class FXUnit {
     
     var unitType: EffectsUnit
+    
     var state: EffectsUnitState {
         didSet {stateChanged()}
     }
+    
+    var stateFunction: EffectsUnitStateFunction {
+        return {return self.state}
+    }
+    
     var avNodes: [AVAudioNode] {return []}
     
     var isActive: Bool {return state == .active}
@@ -63,3 +69,5 @@ enum EffectsUnit {
     case filter
     case recorder
 }
+
+typealias EffectsUnitStateFunction = () -> EffectsUnitState
