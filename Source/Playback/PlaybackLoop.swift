@@ -4,18 +4,25 @@ import Foundation
 struct PlaybackLoop: Equatable {
     
     // Starting point for the playback loop, expressed in seconds relative to the start of a track
-    let startTime: Double
+    var startTime: Double
     
     // End point for the playback loop, expressed in seconds relative to the start of a track
-    var endTime: Double?
+    var endTime: Double? {
+        
+        didSet {
+            correctTimesIfNecessary()
+        }
+    }
     
     init(_ startTime: Double) {
         self.startTime = startTime
     }
     
     init(_ startTime: Double, _ endTime: Double) {
+        
         self.startTime = startTime
         self.endTime = endTime
+        correctTimesIfNecessary()
     }
     
     // Determines if this loop is complete (i.e. both start time and end time are defined)
@@ -26,19 +33,27 @@ struct PlaybackLoop: Equatable {
     // Calculates the duration of this loop (if end time is defined)
     var duration: Double {
         
-        if let end = endTime {
-            return end - startTime
+        if let theEndTime = endTime {
+            return theEndTime - startTime
         }
         
         return 0
+    }
+    
+    private mutating func correctTimesIfNecessary() {
+        
+        // Because of floating-point precision, this may be necessary.
+        if let theEndTime = endTime, startTime > theEndTime {
+            self.startTime = theEndTime
+        }
     }
     
     // Determines whether or not this loop contains a given time position.
     func containsPosition(_ timePosn: Double) -> Bool {
         
         // If the loop is complete, simply check if the time position is contained within the loop's bounds.
-        if let end = endTime {
-            return timePosn >= startTime && timePosn <= end
+        if let theEndTime = endTime {
+            return timePosn >= startTime && timePosn <= theEndTime
         }
         
         // If the loop is not complete, but the time position is greater than the start time, we can say that this loop contains

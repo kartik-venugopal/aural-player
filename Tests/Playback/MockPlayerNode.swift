@@ -50,7 +50,7 @@ class MockPlayerNode: AuralPlayerNode {
         scheduleSegment_endTime = endTime
         
         // Dummy segment
-        return PlaybackSegment(session, AVAudioFile(), AVAudioFramePosition(startTime * 44100), AVAudioFramePosition(session.track.duration * 44100), AVAudioFrameCount((session.track.duration - startTime) * 44100), startTime, endTime)
+        return PlaybackSegment(session, AVAudioFile(), AVAudioFramePosition(startTime * 44100), AVAudioFramePosition(session.track.duration * 44100), AVAudioFrameCount((session.track.duration - startTime) * 44100), startTime, endTime ?? session.track.duration)
     }
     
     override func scheduleSegment(_ segment: PlaybackSegment, _ completionHandler: @escaping SessionCompletionHandler, _ immediatePlayback: Bool = true) {

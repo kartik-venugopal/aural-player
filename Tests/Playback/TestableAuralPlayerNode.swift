@@ -24,9 +24,11 @@ class TestableAuralPlayerNode: AuralPlayerNode {
     }
     
     var scheduleSegment_callCount: Int = 0
+    var scheduleSegment_legacyAPI_callCount: Int = 0
     
-    var scheduleSegment_session: PlaybackSession? = nil
+    var scheduleSegment_audioFile: AVAudioFile? = nil
     var scheduleSegment_startFrame: AVAudioFramePosition? = nil
+    var scheduleSegment_lastFrame: AVAudioFramePosition? = nil
     var scheduleSegment_frameCount: AVAudioFrameCount? = nil
     
     func resetMock() {
@@ -35,19 +37,24 @@ class TestableAuralPlayerNode: AuralPlayerNode {
         sampleTime = -1
         
         scheduleSegment_callCount = 0
+        scheduleSegment_legacyAPI_callCount = 0
         
-        scheduleSegment_session = nil
+        scheduleSegment_audioFile = nil
         scheduleSegment_startFrame = nil
+        scheduleSegment_lastFrame = nil
         scheduleSegment_frameCount = nil
     }
     
     override func scheduleSegment(_ file: AVAudioFile, startingFrame startFrame: AVAudioFramePosition, frameCount numberFrames: AVAudioFrameCount, at when: AVAudioTime?, completionHandler: AVAudioNodeCompletionHandler? = nil) {
         
+        scheduleSegment_callCount += 1
+        scheduleSegment_legacyAPI_callCount += 1
+
         sampleRate = file.processingFormat.sampleRate
         
-        scheduleSegment_callCount += 1
-        
+        scheduleSegment_audioFile = file
         scheduleSegment_startFrame = startFrame
+        scheduleSegment_lastFrame = startFrame + AVAudioFramePosition(numberFrames) - 1
         scheduleSegment_frameCount = numberFrames
     }
     
@@ -56,7 +63,11 @@ class TestableAuralPlayerNode: AuralPlayerNode {
         
         scheduleSegment_callCount += 1
         
+        sampleRate = file.processingFormat.sampleRate
+        
+        scheduleSegment_audioFile = file
         scheduleSegment_startFrame = startFrame
+        scheduleSegment_lastFrame = startFrame + AVAudioFramePosition(numberFrames) - 1
         scheduleSegment_frameCount = numberFrames
     }
 }
