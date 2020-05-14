@@ -26,11 +26,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     var unitType: EffectsUnit!
     
-    override func awakeFromNib() {
-        self.unitStateFunction = fxUnit.stateFunction
-    }
-    
     override func viewDidLoad() {
+        
+        self.unitStateFunction = fxUnit.stateFunction
         
         oneTimeSetup()
         initControls()

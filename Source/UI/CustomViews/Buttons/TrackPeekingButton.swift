@@ -11,7 +11,19 @@ class TrackPeekingButton: TintedImageButton {
     // This function will be invoked, on the fly (when the user hovers over the button), to determine the button's tool tip
     var toolTipFunction: (() -> String?)?
     
+    override func awakeFromNib() {
+        
+        // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
+        addTrackingArea(NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways, NSTrackingArea.Options.mouseEnteredAndExited], owner: self, userInfo: nil))
+        
+        self.updateTrackingAreas()
+    }
+    
     func updateTooltip() {
         self.toolTip = toolTipFunction?() ?? defaultTooltip
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        updateTooltip()
     }
 }
