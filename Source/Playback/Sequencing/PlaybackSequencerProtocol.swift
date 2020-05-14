@@ -1,7 +1,7 @@
 import Foundation
 
 /*
-    Contract for a sequencer that that provides convenient CRUD access to the playback sequence to select tracks/groups for playback and/or determine which track will play next.
+    Contract for a sequencer that provides convenient CRUD access to the playback sequence to select tracks/groups for playback and/or determine which track will play next.
  */
 protocol PlaybackSequencerProtocol {
     

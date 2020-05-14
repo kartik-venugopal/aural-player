@@ -24,7 +24,9 @@ class ObjectGraph {
     private static var playbackScheduler: PlaybackSchedulerProtocol!
     private static var playbackSequencer: PlaybackSequencerProtocol!
     
-    static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol!
+    static var playbackSequencerDelegate: PlaybackSequencerDelegateProtocol!
+    static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol {return playbackSequencerDelegate}
+    
     static var playbackDelegate: PlaybackDelegateProtocol!
     static var playbackInfoDelegate: PlaybackInfoDelegateProtocol {return playbackDelegate}
     
@@ -102,12 +104,12 @@ class ObjectGraph {
         let shuffleMode = appState.playbackSequence.shuffleMode
         playbackSequencer = PlaybackSequencer(playlist, repeatMode, shuffleMode)
         
-        playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer)
+        playbackSequencerDelegate = PlaybackSequencerDelegate(playbackSequencer)
         
         // History (and delegate)
         history = History(preferences.historyPreferences)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerInfoDelegate, playbackInfoDelegate)
+        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate, playbackInfoDelegate)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
