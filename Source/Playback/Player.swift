@@ -25,21 +25,16 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
-    // Prepares the player to play a given track
-    private func initPlayer(_ track: Track) {
-        
-        if let fileFormat = track.playbackInfo?.audioFile?.processingFormat {
-
-            // Disconnect player and reconnect with the file's processing format
-            graph.reconnectPlayerNodeWithFormat(fileFormat)
-        }
-    }
-    
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
-        let session = PlaybackSession.start(track)
+        guard let fileFormat = track.playbackInfo?.audioFile?.processingFormat else {
+            return
+        }
         
-        initPlayer(track)
+        // Disconnect player and reconnect with the file's processing format
+        graph.reconnectPlayerNodeWithFormat(fileFormat)
+        
+        let session = PlaybackSession.start(track)
         
         if let end = endPosition {
             
@@ -77,44 +72,42 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
      */
     private func doSeekToTime(_ track: Track, _ attemptedSeekTime: Double, _ canSeekOutsideLoop: Bool) -> PlayerSeekResult {
         
-        if PlaybackSession.hasCurrentSession() {
+        guard PlaybackSession.hasCurrentSession() else {
+            return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
+        }
             
-            var actualSeekTime: Double = attemptedSeekTime
-            var playbackCompleted: Bool
-            var loopRemoved: Bool = false
+        var actualSeekTime: Double = attemptedSeekTime
+        var playbackCompleted: Bool
+        var loopRemoved: Bool = false
+        
+        if let loop = self.playbackLoop, !loop.containsPosition(attemptedSeekTime) {
             
-            if let loop = self.playbackLoop, !loop.containsPosition(attemptedSeekTime) {
+            if canSeekOutsideLoop {
                 
-                if canSeekOutsideLoop {
+                PlaybackSession.removeLoop()
+                loopRemoved = true
+                
+            } else {
+                
+                // Correct the seek time
+                if attemptedSeekTime < loop.startTime {
+                    actualSeekTime = loop.startTime
                     
-                    PlaybackSession.removeLoop()
-                    loopRemoved = true
-                    
-                } else {
-                    
-                    // Correct the seek time
-                    if attemptedSeekTime < loop.startTime {
-                        actualSeekTime = loop.startTime
-                        
-                    } else if let loopEndTime = loop.endTime, attemptedSeekTime >= loopEndTime {
-                        actualSeekTime = loop.startTime
-                    }
+                } else if let loopEndTime = loop.endTime, attemptedSeekTime >= loopEndTime {
+                    actualSeekTime = loop.startTime
                 }
             }
-            
-            playbackCompleted = actualSeekTime >= track.duration && state == .playing
-            actualSeekTime = max(0, min(actualSeekTime, track.duration))
-            
-            // Create a new identical session (for the track that is playing), and perform a seek within it
-            if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
-                scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
-            }
-            
-            return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)
         }
         
-        // Impossible
-        return PlayerSeekResult(actualSeekPosition: 0, loopRemoved: false, trackPlaybackCompleted: false)
+        playbackCompleted = actualSeekTime >= track.duration && state == .playing
+        actualSeekTime = max(0, min(actualSeekTime, track.duration))
+        
+        // Create a new identical session (for the track that is playing), and perform a seek within it
+        if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+        }
+        
+        return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)
     }
     
     var seekPosition: Double {
