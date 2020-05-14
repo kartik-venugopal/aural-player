@@ -1,4 +1,5 @@
 import XCTest
+import AVFoundation
 
 /*
     Unit tests for Player
@@ -15,6 +16,7 @@ class PlayerTests: XCTestCase {
     
     override func setUp() {
         
+        // Do this only once
         if player == nil {
             
             mockPlayerGraph = MockPlayerGraph()
@@ -34,11 +36,37 @@ class PlayerTests: XCTestCase {
         mockScheduler.reset()
         mockPlayerNode.resetMock()
         
-        track.setDuration(300)
+        initTrack(300, 44100)
         
         XCTAssertEqual(player.state, PlaybackState.noTrack)
         XCTAssertNil(PlaybackSession.currentSession)
         XCTAssertFalse(mockScheduler.playTrackInvoked || mockScheduler.playLoopInvoked || mockScheduler.endLoopInvoked || mockScheduler.seekToTimeInvoked)
+    }
+    
+    private func initTrack(_ duration: Double, _ sampleRate: Double) {
+        
+        let format: AVAudioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)!
+        let audioFile: AVAudioFile = MockAVAudioFile(format)
+        
+        track.setDuration(duration)
+        
+        track.playbackInfo = PlaybackInfo()
+        track.playbackInfo?.audioFile = audioFile
+        track.playbackInfo?.frames = AVAudioFramePosition.fromTrackTime(duration, sampleRate)
+        track.playbackInfo?.sampleRate = sampleRate
+    }
+    
+    func testPlay_noAudioFile() {
+        
+        track.playbackInfo = nil
+        
+        player.play(track, 0)
+        
+        XCTAssertFalse(mockScheduler.playLoopInvoked)
+        XCTAssertFalse(mockScheduler.playTrackInvoked)
+        
+        XCTAssertFalse(mockPlayerGraph.reconnectedPlayerNodeWithFormat)
+        XCTAssertNil(mockPlayerGraph.playerConnectionFormat)
     }
 
     func testPlay_startTimeOnly() {
@@ -59,8 +87,12 @@ class PlayerTests: XCTestCase {
     private func doTestPlay(trackDuration: Double, playStartPos: Double, playEndPos: Double? = nil) {
         
         track.setDuration(trackDuration)
+        let format: AVAudioFormat = track.playbackInfo!.audioFile.processingFormat
         
         player.play(track, playStartPos, playEndPos)
+        
+        XCTAssertTrue(mockPlayerGraph.reconnectedPlayerNodeWithFormat)
+        XCTAssertEqual(mockPlayerGraph.playerConnectionFormat, format)
         
         let curSession: PlaybackSession? = PlaybackSession.currentSession
         
@@ -75,6 +107,8 @@ class PlayerTests: XCTestCase {
             
             if let loop = session.loop {
                 
+                XCTAssertTrue(mockScheduler.playLoopInvoked)
+                
                 XCTAssertEqual(loop.startTime, playStartPos)
                 XCTAssertEqual(loop.endTime, playEndPos)
                 
@@ -87,6 +121,8 @@ class PlayerTests: XCTestCase {
                 XCTAssertEqual(mockScheduler.playLoop_beginPlayback, true)
                 
             } else {
+                
+                XCTAssertTrue(mockScheduler.playTrackInvoked)
                 
                 XCTAssertNotNil(mockScheduler.playTrack_session)
                 if let playTrack_session = mockScheduler.playTrack_session {
@@ -104,6 +140,23 @@ class PlayerTests: XCTestCase {
     }
     
     // MARK: attemptSeekToTime() tests ------------------------------------------------------------------------------------------
+    
+    func testAttemptSeekToTime_noCurrentSession() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        let seekResult = player.attemptSeekToTime(track, 15)
+        
+        XCTAssertEqual(seekResult.actualSeekPosition, 0)
+        XCTAssertEqual(seekResult.loopRemoved, false)
+        XCTAssertEqual(seekResult.trackPlaybackCompleted, false)
+        
+        // Validate the method invocations on the mock scheduler
+        XCTAssertFalse(mockScheduler.seekToTimeInvoked)
+        XCTAssertNil(mockScheduler.seekToTime_session)
+        XCTAssertNil(mockScheduler.seekToTime_time)
+        XCTAssertNil(mockScheduler.seekToTime_beginPlayback)
+    }
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_playing() {
         
@@ -231,6 +284,22 @@ class PlayerTests: XCTestCase {
     
     // MARK: forceSeekToTime() tests ------------------------------------------------------------------------------------------
     
+    func testForceSeekToTime_noCurrentSession() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        let seekResult = player.forceSeekToTime(track, 15)
+        
+        XCTAssertEqual(seekResult.actualSeekPosition, 0)
+        XCTAssertEqual(seekResult.loopRemoved, false)
+        XCTAssertEqual(seekResult.trackPlaybackCompleted, false)
+        
+        // Validate the method invocations on the mock scheduler
+        XCTAssertFalse(mockScheduler.seekToTimeInvoked)
+        XCTAssertNil(mockScheduler.seekToTime_session)
+        XCTAssertNil(mockScheduler.seekToTime_time)
+        XCTAssertNil(mockScheduler.seekToTime_beginPlayback)
+    }
     
     func testForceSeekToTime_noLoop_validTime_playing() {
         
@@ -325,10 +394,18 @@ class PlayerTests: XCTestCase {
         // Seek
         let seekResult = forceSeek ? player.forceSeekToTime(track, desiredSeekTime) : player.attemptSeekToTime(track, desiredSeekTime)
         
+        let newSession: PlaybackSession? = PlaybackSession.currentSession
+        
         // Validate the seek result
         XCTAssertEqual(seekResult.actualSeekPosition, expectedSeekPosition)
         XCTAssertEqual(seekResult.loopRemoved, loopRemovalExpected)
         XCTAssertEqual(seekResult.trackPlaybackCompleted, trackPlaybackCompletionExpected)
+        
+        // Validate the method invocations on the mock scheduler
+        XCTAssertEqual(mockScheduler.seekToTimeInvoked, !seekResult.trackPlaybackCompleted)
+        XCTAssertEqual(mockScheduler.seekToTime_session, seekResult.trackPlaybackCompleted ? nil : newSession)
+        XCTAssertEqual(mockScheduler.seekToTime_time, seekResult.trackPlaybackCompleted ? nil : seekResult.actualSeekPosition)
+        XCTAssertEqual(mockScheduler.seekToTime_beginPlayback, seekResult.trackPlaybackCompleted ? nil : !pausedBeforeSeek)
         
         // Validate the resulting playback state
         XCTAssertEqual(player.state, pausedBeforeSeek ? PlaybackState.paused : PlaybackState.playing)
@@ -829,5 +906,80 @@ class PlayerTests: XCTestCase {
         XCTAssertEqual(playbackLoop?.endTime, loopEndTime)
         
         XCTAssertEqual(playbackLoop?.isComplete, true)
+    }
+    
+    // MARK: audioOutputDeviceChanged() tests ----------------------------------------------------------------------------------------------
+    
+    func testAudioOutputDeviceChanged_noPlayingTrack() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        
+        XCTAssertFalse(mockScheduler.seekToTimeInvoked)
+        XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+    }
+    
+    func testAudioOutputDeviceChanged_trackPlaying() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        player.play(track, 0)
+        mockScheduler.seekPosition = 27.667435
+        
+        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        
+        let newSession = PlaybackSession.currentSession
+        XCTAssertNotNil(newSession)
+        
+        XCTAssertTrue(mockScheduler.seekToTimeInvoked)
+        
+        XCTAssertEqual(mockScheduler.seekToTime_session, newSession)
+        XCTAssertEqual(mockScheduler.seekToTime_time, mockScheduler.seekPosition)
+        XCTAssertEqual(mockScheduler.seekToTime_beginPlayback, true)
+        
+        XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+    }
+    
+    func testAudioOutputDeviceChanged_trackPlaying_paused() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        player.play(track, 0)
+        mockScheduler.seekPosition = 27.667435
+        
+        player.pause()
+        
+        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        
+        let newSession = PlaybackSession.currentSession
+        XCTAssertNotNil(newSession)
+        
+        XCTAssertTrue(mockScheduler.seekToTimeInvoked)
+        
+        XCTAssertEqual(mockScheduler.seekToTime_session, newSession)
+        XCTAssertEqual(mockScheduler.seekToTime_time, mockScheduler.seekPosition)
+        XCTAssertEqual(mockScheduler.seekToTime_beginPlayback, false)
+        
+        XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
+    }
+    
+    // MARK: playingTrackStartTime tests --------------------------------------------------------------------------------------------------------
+    
+    func testPlayingTrackStartTime_noPlayingTrack() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        XCTAssertNil(player.playingTrackStartTime)
+    }
+    
+    func testPlayingTrackStartTime_withPlayingTrack() {
+        
+        XCTAssertNil(PlaybackSession.currentSession)
+        
+        let session = PlaybackSession.start(track)
+        let playingTrackStartTime: TimeInterval? = player.playingTrackStartTime
+        
+        XCTAssertNotNil(playingTrackStartTime)
+        XCTAssertEqual(playingTrackStartTime!, session.timestamp, accuracy: 0.001)
     }
 }
