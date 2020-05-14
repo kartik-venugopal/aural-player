@@ -160,6 +160,15 @@ class ObjectGraph {
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
     }
     
+    private static let tearDownOpQueue: OperationQueue = {
+
+        let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.maxConcurrentOperationCount = 2
+        
+        return queue
+    }()
+    
     // Called when app exits
     static func tearDown() {
         
@@ -183,11 +192,21 @@ class ObjectGraph {
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
         appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
         
-        // Persist app state to disk
-        AppStateIO.save(appState!)
+        // App state persistence and shutting down the audio engine can be performed concurrently
+        // on two background threads to save some time when exiting the app.
         
+        // App state persistence to disk
+        tearDownOpQueue.addOperation {
+            AppStateIO.save(appState!)
+        }
+
         // Tear down the audio engine
-        player.tearDown()
-        audioGraph.tearDown()
+        tearDownOpQueue.addOperation {
+            player.tearDown()
+            audioGraph.tearDown()
+        }
+
+        // Wait for all concurrent operations to finish executing.
+        tearDownOpQueue.waitUntilAllOperationsAreFinished()
     }
 }
