@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Unit tests for the extensions in AVExtensions.swift
  */
-class AVExtensionsTests: XCTestCase {
+class AVAudioExtensionsTests: XCTestCase {
 
     func testFromTrackTime() {
         
