@@ -16,7 +16,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         // This will be done only once
         if scheduler == nil {
             
-            mockPlayerNode = MockPlayerNode()
+            mockPlayerNode = MockPlayerNode(false)
             scheduler = PlaybackScheduler(mockPlayerNode)
             
             AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))

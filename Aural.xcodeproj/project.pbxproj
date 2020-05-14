@@ -266,6 +266,8 @@
 		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
 		3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7821DCC206006DBD22 /* AudioDataSource.swift */; };
 		3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */; };
+		3E16722C246CFFAB00A57F64 /* AVAudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */; };
+		3E16722D246CFFF000A57F64 /* AVAudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */; };
 		3E1765FF217DBAFF001C6CF9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1765FE217DBAFF001C6CF9 /* Extensions.swift */; };
 		3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */; };
 		3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */; };
@@ -811,6 +813,7 @@
 		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
 		3E154D7821DCC206006DBD22 /* AudioDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataSource.swift; sourceTree = "<group>"; };
 		3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemDataSource.swift; sourceTree = "<group>"; };
+		3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioExtensions.swift; sourceTree = "<group>"; };
 		3E1765FE217DBAFF001C6CF9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistsPlaylistSort.xib; sourceTree = "<group>"; };
@@ -2569,6 +2572,7 @@
 			children = (
 				3E8718DC2466DEAD007D9672 /* StringExtensions.swift */,
 				3E6268C9246BED3D002FAC63 /* IndexSetExtensions.swift */,
+				3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3165,6 +3169,7 @@
 				3EB7F466217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift in Sources */,
 				3E0D664B21918E3A00A779A9 /* EQView.swift in Sources */,
 				3EB2A7E61F043989001DF748 /* HorizontalSliderCells.swift in Sources */,
+				3E16722C246CFFAB00A57F64 /* AVAudioExtensions.swift in Sources */,
 				3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */,
 				3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */,
 				3E81C64B21C5161A00EA1DFA /* TranscoderDaemon.swift in Sources */,
@@ -3423,6 +3428,7 @@
 				3E626926246BF367002FAC63 /* FFMpegReader.swift in Sources */,
 				3E12ADE12469CF5300A07611 /* ID3Parser.swift in Sources */,
 				3E12ACC32469CC0000A07611 /* PlaybackProfiles.swift in Sources */,
+				3E16722D246CFFF000A57F64 /* AVAudioExtensions.swift in Sources */,
 				3E12ACFB2469CC1F00A07611 /* RecordingParams.swift in Sources */,
 				3E12ACE42469CC1700A07611 /* ReverbSpaces.swift in Sources */,
 				3E12ACDA2469CC1000A07611 /* EQUnit.swift in Sources */,

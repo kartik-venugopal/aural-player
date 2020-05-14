@@ -7,14 +7,14 @@ struct PlaybackSegment {
     let playingFile: AVAudioFile
 
     let startTime: Double
-    let endTime: Double?
+    let endTime: Double
 
     let firstFrame: AVAudioFramePosition
     let lastFrame: AVAudioFramePosition
 
     let frameCount: AVAudioFrameCount
 
-    init(_ session: PlaybackSession, _ playingFile: AVAudioFile, _ firstFrame: AVAudioFramePosition, _ lastFrame: AVAudioFramePosition, _ frameCount: AVAudioFrameCount, _ startTime: Double, _ endTime: Double? = nil) {
+    init(_ session: PlaybackSession, _ playingFile: AVAudioFile, _ firstFrame: AVAudioFramePosition, _ lastFrame: AVAudioFramePosition, _ frameCount: AVAudioFrameCount, _ startTime: Double, _ endTime: Double) {
 
         self.session = session
         self.playingFile = playingFile

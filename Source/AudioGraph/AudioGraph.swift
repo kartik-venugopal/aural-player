@@ -51,7 +51,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     init(_ state: AudioGraphState) {
         
         audioEngine = AVAudioEngine()
-        playerNode = AuralPlayerNode()
+        
+        // If running on 10.12 Sierra or older, use the legacy AVAudioPlayerNode APIs
+        if #available(OSX 10.13, *) {
+            playerNode = AuralPlayerNode(false)
+        } else {
+            playerNode = AuralPlayerNode(true)
+        }
+        
         nodeForRecorderTap = audioEngine.mainMixerNode
         auxMixer = AVAudioMixerNode()
         
