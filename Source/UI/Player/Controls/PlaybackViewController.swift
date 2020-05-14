@@ -11,7 +11,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
+    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerDelegate
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit

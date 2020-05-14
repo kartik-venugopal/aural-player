@@ -8,11 +8,8 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     
-    // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
-    
-    // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
+    // Delegate that conveys all repeat/shuffle requests to the sequencer
+    private let sequencer: PlaybackSequencerDelegateProtocol = ObjectGraph.playbackSequencerDelegate
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
@@ -38,37 +35,37 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     
     // Toggles the repeat mode
     @IBAction func repeatAction(_ sender: AnyObject) {
-        updateRepeatAndShuffleControls(player.toggleRepeatMode())
+        updateRepeatAndShuffleControls(sequencer.toggleRepeatMode())
     }
     
     // Toggles the shuffle mode
     @IBAction func shuffleAction(_ sender: AnyObject) {
-        updateRepeatAndShuffleControls(player.toggleShuffleMode())
+        updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
     }
     
     // Sets the repeat mode to "Off"
     private func repeatOff() {
-        updateRepeatAndShuffleControls(player.setRepeatMode(.off))
+        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.off))
     }
     
     // Sets the repeat mode to "Repeat One"
     private func repeatOne() {
-        updateRepeatAndShuffleControls(player.setRepeatMode(.one))
+        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.one))
     }
     
     // Sets the repeat mode to "Repeat All"
     private func repeatAll() {
-        updateRepeatAndShuffleControls(player.setRepeatMode(.all))
+        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.all))
     }
     
     // Sets the shuffle mode to "Off"
     private func shuffleOff() {
-        updateRepeatAndShuffleControls(player.setShuffleMode(.off))
+        updateRepeatAndShuffleControls(sequencer.setShuffleMode(.off))
     }
     
     // Sets the shuffle mode to "On"
     private func shuffleOn() {
-        updateRepeatAndShuffleControls(player.setShuffleMode(.on))
+        updateRepeatAndShuffleControls(sequencer.setShuffleMode(.on))
     }
     
     private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {

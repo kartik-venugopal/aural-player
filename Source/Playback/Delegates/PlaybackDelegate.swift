@@ -685,24 +685,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return nil
     }
     
-    // MARK: Repeat and Shuffle
-    
-    func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequencer.toggleRepeatMode()
-    }
-    
-    func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequencer.setRepeatMode(repeatMode)
-    }
-    
-    func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequencer.toggleShuffleMode()
-    }
-    
-    func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequencer.setShuffleMode(shuffleMode)
-    }
-    
     func toggleLoop() -> PlaybackLoop? {
         return player.toggleLoop()
     }
