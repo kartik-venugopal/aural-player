@@ -25,7 +25,7 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
 
         btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffleOff, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffleOn, onStateTintFunction))]
         
-        updateRepeatAndShuffleControls(ObjectGraph.playbackDelegate.repeatAndShuffleModes)
+        updateRepeatAndShuffleControls(sequencer.repeatAndShuffleModes)
         
         applyColorScheme(ColorSchemes.systemScheme)
         

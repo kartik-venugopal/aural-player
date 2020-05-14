@@ -26,6 +26,9 @@ protocol PlaybackSequencerInfoDelegateProtocol {
     
     // Peeks at (without selecting for playback) the next track in the sequence
     func peekNext() -> IndexedTrack?
+    
+    // Returns the current repeat and shuffle modes
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
 }
 
 protocol PlaybackSequencerDelegateProtocol: PlaybackSequencerInfoDelegateProtocol {
