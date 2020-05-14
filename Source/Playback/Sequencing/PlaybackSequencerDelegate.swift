@@ -11,6 +11,10 @@ class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
         self.sequencer = sequencer
     }
     
+    var playingTrack: IndexedTrack? {
+        return sequencer.playingTrack
+    }
+    
     func peekSubsequent() -> IndexedTrack? {
         return sequencer.peekSubsequent()
     }

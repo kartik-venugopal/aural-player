@@ -6,6 +6,9 @@ import Foundation
 
 protocol PlaybackSequencerInfoDelegateProtocol {
     
+    // Returns the currently playing track, with its index
+    var playingTrack: IndexedTrack? {get}
+    
     /*
      
      NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.

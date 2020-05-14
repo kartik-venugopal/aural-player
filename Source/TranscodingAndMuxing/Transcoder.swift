@@ -11,13 +11,12 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private let playlist: PlaylistAccessorProtocol
     private let sequencer: PlaybackSequencerInfoDelegateProtocol
-    private let player: PlaybackInfoDelegateProtocol
     
     let subscriberId: String = "Transcoder"
     
     var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
-    init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerInfoDelegateProtocol, _ player: PlaybackInfoDelegateProtocol) {
+    init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerInfoDelegateProtocol) {
         
         self.store = TranscoderStore(state, preferences)
         self.daemon = TranscoderDaemon(preferences)
@@ -25,7 +24,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         self.playlist = playlist
         self.sequencer = sequencer
-        self.player = player
         
         AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
@@ -191,7 +189,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         // Use a Set to avoid duplicates
         var tracksToTranscode: Set<IndexedTrack> = Set<IndexedTrack>()
         
-        let playingTrack = player.playingTrack
+        let playingTrack = sequencer.playingTrack
         
         if let next = sequencer.peekNext() {tracksToTranscode.insert(next)}
         if let prev = sequencer.peekPrevious() {tracksToTranscode.insert(prev)}
