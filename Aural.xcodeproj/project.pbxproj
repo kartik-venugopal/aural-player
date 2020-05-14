@@ -1261,18 +1261,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E4F9A2A2468532B0064DBF1 /* Playback */ = {
+		3E167233246DB3FA00A57F64 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				3E7DFA4F24687E70001CD16E /* PlayerTests.swift */,
-				3E4F9A2B2468533D0064DBF1 /* PlaybackSessionTests.swift */,
 				3E7DFA4B24687CDD001CD16E /* MockScheduler.swift */,
 				3E7DFA4D24687DE4001CD16E /* MockPlayerGraph.swift */,
 				3E12AC8C2468F21F00A07611 /* MockPlayerNode.swift */,
-				3E12AC932469833000A07611 /* PlaybackSchedulerTests.swift */,
 				3E626A1B246C4BB9002FAC63 /* TestableAuralPlayerNode.swift */,
-				3E626A1F246C5007002FAC63 /* AuralPlayerNodeTests.swift */,
 				3E626A21246C5391002FAC63 /* MockAVAudioFile.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3E4F9A2A2468532B0064DBF1 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				3E167233246DB3FA00A57F64 /* Mocks */,
+				3E7DFA4F24687E70001CD16E /* PlayerTests.swift */,
+				3E12AC932469833000A07611 /* PlaybackSchedulerTests.swift */,
+				3E626A1F246C5007002FAC63 /* AuralPlayerNodeTests.swift */,
+				3E4F9A2B2468533D0064DBF1 /* PlaybackSessionTests.swift */,
 				3EC90B9B246C816C009D2181 /* PlaybackLoopTests.swift */,
 			);
 			path = Playback;
