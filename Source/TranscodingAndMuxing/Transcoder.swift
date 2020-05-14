@@ -9,19 +9,23 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private let preferences: TranscodingPreferences
     
-    private lazy var playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
-    private lazy var sequencer: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
-    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playlist: PlaylistAccessorProtocol
+    private let sequencer: PlaybackSequencerInfoDelegateProtocol
+    private let player: PlaybackInfoDelegateProtocol
     
     let subscriberId: String = "Transcoder"
     
     var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
-    init(_ state: TranscoderState, _ preferences: TranscodingPreferences) {
+    init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerInfoDelegateProtocol, _ player: PlaybackInfoDelegateProtocol) {
         
-        store = TranscoderStore(state, preferences)
-        daemon = TranscoderDaemon(preferences)
+        self.store = TranscoderStore(state, preferences)
+        self.daemon = TranscoderDaemon(preferences)
         self.preferences = preferences
+        
+        self.playlist = playlist
+        self.sequencer = sequencer
+        self.player = player
         
         AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }

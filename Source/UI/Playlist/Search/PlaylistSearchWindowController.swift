@@ -40,8 +40,9 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     override var windowNibName: String? {return "PlaylistSearch"}
     
     override func windowDidLoad() {
+        
         SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

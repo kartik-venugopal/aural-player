@@ -508,17 +508,6 @@ struct BookmarkActionMessage: ActionMessage {
     }
 }
 
-struct WindowLayoutActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .windowLayout
-    
-    let layout: WindowLayoutPresets
-    
-    init(_ layout: WindowLayoutPresets) {
-        self.layout = layout
-    }
-}
-
 struct SoundProfileActionMessage: ActionMessage {
     
     let actionType: ActionType

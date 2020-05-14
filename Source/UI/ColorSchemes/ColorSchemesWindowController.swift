@@ -73,7 +73,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         }
         
         // Register self as a modal component
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {

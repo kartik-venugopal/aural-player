@@ -45,8 +45,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
     
@@ -76,7 +74,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     override func windowDidLoad() {
         
         theWindow.isMovableByWindowBackground = true
-        theWindow.delegate = ObjectGraph.windowManager
+        theWindow.delegate = WindowManager.windowDelegate
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
@@ -480,12 +478,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         } else {
             
             // New track has no chapters, or there is no new track
-            windowManager.hideChaptersList()
+            WindowManager.hideChaptersList()
         }
     }
     
     private func viewChapters() {
-        windowManager.showChaptersList()
+        WindowManager.showChaptersList()
     }
     
     var subscriberId: String {

@@ -58,6 +58,8 @@ protocol FXUnitDelegateProtocol {
     
     var state: EffectsUnitState {get}
     
+    var stateFunction: EffectsUnitStateFunction {get}
+    
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
     func toggleState() -> EffectsUnitState
     

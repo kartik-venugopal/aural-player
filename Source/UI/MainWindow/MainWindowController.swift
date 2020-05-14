@@ -42,7 +42,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         initWindow()
         theWindow.setIsVisible(false)
         
-        theWindow.delegate = ObjectGraph.windowManager
+        theWindow.delegate = WindowManager.windowDelegate
         
         activateGestureHandler()
         initSubscriptions()

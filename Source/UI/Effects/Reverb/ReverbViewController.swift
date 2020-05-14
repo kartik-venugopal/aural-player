@@ -17,14 +17,13 @@ class ReverbViewController: FXUnitViewController {
         
         unitType = .reverb
         fxUnit = graph.reverbUnit
-        unitStateFunction = reverbStateFunction
         presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
     }
     
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        reverbView.initialize(reverbStateFunction)
+        reverbView.initialize(self.unitStateFunction)
     }
     
     override func initSubscriptions() {

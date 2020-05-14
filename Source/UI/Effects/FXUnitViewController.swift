@@ -20,13 +20,15 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!
     var presetsWrapper: PresetsWrapperProtocol!
     
     var unitType: EffectsUnit!
+    
+    override func awakeFromNib() {
+        self.unitStateFunction = fxUnit.stateFunction
+    }
     
     override func viewDidLoad() {
         

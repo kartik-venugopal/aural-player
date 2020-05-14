@@ -9,8 +9,6 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     
     private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
@@ -48,7 +46,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     }
     
     @IBAction func saveSchemeAction(_ sender: NSMenuItem) {
-        userSchemesPopover.show(windowManager.mainWindow.contentView!, NSRectEdge.maxX)
+        userSchemesPopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     @IBAction func manageSchemesAction(_ sender: NSMenuItem) {

@@ -2,18 +2,27 @@ import Cocoa
 
 class FFMpegReader: MetadataReader {
     
-    private let parsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.id3Parser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
+    private let allParsers: [FFMpegMetadataParser]
     
     // TODO: Is this useful/necessary ?
-    private let wmFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.wmParser, ObjectGraph.id3Parser, ObjectGraph.vorbisParser, ObjectGraph.apeParser, ObjectGraph.defaultParser]
-    
-    private let vorbisCommentFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.vorbisParser, ObjectGraph.id3Parser, ObjectGraph.apeParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
-    
-    private let apeTagFileParsers: [FFMpegMetadataParser] = [ObjectGraph.commonFFMpegParser, ObjectGraph.apeParser, ObjectGraph.id3Parser, ObjectGraph.vorbisParser, ObjectGraph.wmParser, ObjectGraph.defaultParser]
+    private let wmFileParsers: [FFMpegMetadataParser]
+    private let vorbisCommentFileParsers: [FFMpegMetadataParser]
+    private let apeFileParsers: [FFMpegMetadataParser]
     
     private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
     
-    private lazy var muxer: MuxerProtocol = ObjectGraph.muxer
+    private var muxer: MuxerProtocol
+    
+    init(_ commonFFMpegParser: CommonFFMpegMetadataParser, _ id3Parser: ID3Parser, _ vorbisParser: VorbisCommentParser, _ apeParser: ApeV2Parser, _ wmParser: WMParser, _ defaultParser: DefaultFFMpegMetadataParser, _ muxer: MuxerProtocol) {
+        
+        allParsers = [commonFFMpegParser, id3Parser, vorbisParser, apeParser, wmParser, defaultParser]
+        
+        wmFileParsers = [commonFFMpegParser, wmParser, id3Parser, vorbisParser, apeParser, defaultParser]
+        vorbisCommentFileParsers = [commonFFMpegParser, vorbisParser, id3Parser, apeParser, wmParser, defaultParser]
+        apeFileParsers = [commonFFMpegParser, apeParser, id3Parser, vorbisParser, wmParser, defaultParser]
+        
+        self.muxer = muxer
+    }
     
     private func ensureTrackAssetLoaded(_ track: Track) {
         
@@ -52,7 +61,9 @@ class FFMpegReader: MetadataReader {
             
         case "flac", "ogg", "opus":     return vorbisCommentFileParsers
             
-        default: return parsers
+        case "ape":     return apeFileParsers
+            
+        default: return allParsers
             
         }
     }

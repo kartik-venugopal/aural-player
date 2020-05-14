@@ -29,7 +29,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         container.addSubview(albumsPlaylistSortView.sortView)
         container.addSubview(genresPlaylistSortView.sortView)
         
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
         
         super.windowDidLoad()
     }

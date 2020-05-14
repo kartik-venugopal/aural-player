@@ -5,7 +5,13 @@ import AVFoundation
  */
 class AudioUtils {
     
-    private static let transcoder: TranscoderProtocol = ObjectGraph.transcoder
+    static var transcoder: TranscoderProtocol!
+    
+    private init() {}
+    
+    static func initialize(_ transcoder: TranscoderProtocol) {
+        AudioUtils.transcoder = transcoder
+    }
     
     private static let formatDescriptions: [String: String] = [
     

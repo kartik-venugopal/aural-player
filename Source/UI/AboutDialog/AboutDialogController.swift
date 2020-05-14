@@ -14,7 +14,7 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     }
     
     override func windowDidLoad() {
-        ObjectGraph.windowManager.registerModalComponent(self)
+        WindowManager.registerModalComponent(self)
     }
     
     var isModal: Bool {

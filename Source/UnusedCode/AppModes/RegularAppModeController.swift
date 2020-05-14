@@ -8,12 +8,12 @@
 //    
 //    func presentMode() {
 //        NSApp.setActivationPolicy(.regular)
-//        windowManager.initializeWindows()
+//        WindowManager.initializeWindows()
 //        constituentViews.forEach({$0.activate()})
 //    }
 //    
 //    func dismissMode() {
-////        windowManager.closeWindows()
+////        WindowManager.closeWindows()
 //        constituentViews.forEach({$0.deactivate()})
 //    }
 //    

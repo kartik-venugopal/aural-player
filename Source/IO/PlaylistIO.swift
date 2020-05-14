@@ -9,7 +9,11 @@ class PlaylistIO {
     private static let m3uInfoPrefix: String = "#EXTINF:"
     private static let absoluteFilePathPrefix: String = "file:///"
     
-    private static let playlist: PlaylistAccessorProtocol = ObjectGraph.playlistAccessor
+    static var playlist: PlaylistAccessorProtocol!
+    
+    static func initialize(_ playlist: PlaylistAccessorProtocol) {
+        PlaylistIO.playlist = playlist
+    }
     
     // Save current playlist to an output file
     static func savePlaylist(_ file: URL) {

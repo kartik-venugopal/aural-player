@@ -22,8 +22,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
@@ -62,7 +60,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 // TODO: This should be done through a delegate (TrackDelegate ???)
                 playingTrack.loadDetailedInfo()
                 
-                windowManager.mainWindow.makeKeyAndOrderFront(self)
+                WindowManager.mainWindow.makeKeyAndOrderFront(self)
                 
                 let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
                 
@@ -134,7 +132,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
         
-        windowManager.mainWindow.makeKeyAndOrderFront(self)
+        WindowManager.mainWindow.makeKeyAndOrderFront(self)
         
         // If controls are being auto-hidden, don't display popover relative to any view within the window. Show it relative to the window itself.
         if autoHideIsOn {
@@ -171,7 +169,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             let added: Bool = message.messageType == .addedToFavorites
             
-            windowManager.mainWindow.makeKeyAndOrderFront(self)
+            WindowManager.mainWindow.makeKeyAndOrderFront(self)
             
             btnFavorite.onIf(added)
             

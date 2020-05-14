@@ -10,11 +10,9 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
     
     override var windowNibName: String? {return "ChaptersList"}
     
-    private lazy var windowManager: WindowManagerProtocol = ObjectGraph.windowManager
-    
     override func windowDidLoad() {
         
-        self.window?.delegate = ObjectGraph.windowManager
+        self.window?.delegate = WindowManager.windowDelegate
         
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         
@@ -22,7 +20,7 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        windowManager.hideChaptersList()
+        WindowManager.hideChaptersList()
     }
     
     var subscriberId: String {

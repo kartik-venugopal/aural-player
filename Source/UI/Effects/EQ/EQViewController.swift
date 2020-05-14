@@ -16,14 +16,13 @@ class EQViewController: FXUnitViewController {
         super.awakeFromNib()
         self.unitType = .eq
         self.fxUnit = graph.eqUnit
-        self.unitStateFunction = eqStateFunction
         self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        eqView.initialize(#selector(self.eqSliderAction(_:)), self, eqStateFunction)
+        eqView.initialize(#selector(self.eqSliderAction(_:)), self, self.unitStateFunction)
     }
     
     override func initSubscriptions() {
