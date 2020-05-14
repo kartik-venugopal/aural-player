@@ -109,7 +109,7 @@ class ObjectGraph {
         // History (and delegate)
         history = History(preferences.historyPreferences)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate, playbackInfoDelegate)
+        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
