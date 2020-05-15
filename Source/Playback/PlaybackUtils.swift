@@ -15,7 +15,6 @@ class TrackChangeContext {
     }
     
     static func setNewTrack(_ track: IndexedTrack?) {
-        
         newTrack = track
     }
     

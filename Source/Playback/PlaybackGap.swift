@@ -89,7 +89,7 @@ class PlaybackGapContext {
         }
     }
     
-    static func oneTimeGaps() -> [PlaybackGap: IndexedTrack] {
+    static var oneTimeGaps: [PlaybackGap: IndexedTrack] {
         return gaps.filter({$0.key.type == .oneTime})
     }
     
