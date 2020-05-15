@@ -11,8 +11,6 @@ class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
         self.sequencer = sequencer
     }
     
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequencer.repeatAndShuffleModes}
-    
     var playingTrack: IndexedTrack? {
         return sequencer.playingTrack
     }
@@ -28,6 +26,8 @@ class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
     func peekNext() -> IndexedTrack? {
         return sequencer.peekNext()
     }
+    
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequencer.repeatAndShuffleModes}
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return sequencer.toggleRepeatMode()

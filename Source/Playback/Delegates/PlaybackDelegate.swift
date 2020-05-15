@@ -324,11 +324,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             self.player.play(track, startPosition ?? 0, endPosition)
             
-            // TODO: Can we consolidate these 2 notifications into one ?
             AsyncMessenger.publishMessage(TrackChangeContext.encapsulate())
-            
-            // Notify observers
-            AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: track))
         }
         
         if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {

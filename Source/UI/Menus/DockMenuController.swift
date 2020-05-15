@@ -51,7 +51,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         favoritesMenuItem.off()
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
         
@@ -292,21 +292,18 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         return menuItem
     }
     
-    // Responds to a track being played, by updating the Favorites menu item
-    private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
-        favoritesMenuItem.onIf(favorites.favoriteWithFileExists(message.track.file))
-    }
-    
     private func trackChanged(_ msg: TrackChangedAsyncMessage) {
         
         if let trackFile = msg.newTrack?.track.file {
             
+            favoritesMenuItem.enable()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(trackFile))
             
         } else {
             
             // No track playing
             favoritesMenuItem.off()
+            favoritesMenuItem.disable()
         }
     }
     
@@ -315,8 +312,6 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     }
     
     // MARK: Message handling
-    
-    // TODO: Respond to track changed and remove the add/remove favorite menu item when no track is playing
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -327,10 +322,6 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         } else if let favsUpdatedMsg = message as? FavoritesUpdatedAsyncMessage {
             
             favoritesUpdated(favsUpdatedMsg)
-            
-        } else if let trackPlayedMsg = message as? TrackPlayedAsyncMessage {
-            
-            trackPlayed(trackPlayedMsg)
             
         } else if let trackChangedMsg = message as? TrackChangedAsyncMessage {
             
