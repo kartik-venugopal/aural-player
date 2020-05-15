@@ -34,8 +34,6 @@ enum AsyncMessageType {
     
     case tracksRemoved
     
-    case trackPlayed
-    
     case trackNotPlayed
     
     case trackNotTranscoded
@@ -266,13 +264,6 @@ struct ItemsAddedAsyncMessage: AsyncMessage {
     
     // The files that were added to the playlist
     let files: [URL]
-}
-
-// Indicates that a track was played. This is used for the History feature, to keep track of recently played items.
-struct TrackPlayedAsyncMessage: AsyncMessage {
- 
-    let messageType: AsyncMessageType = .trackPlayed
-    let track: Track
 }
 
 // Indicates that History information has been updated. UI elements may choose to refresh their views (e.g. dock menu), in response to this message.
