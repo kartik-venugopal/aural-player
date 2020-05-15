@@ -209,6 +209,8 @@ struct DialogsAndAlerts {
     
     static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
+        // TODO: Check center alignment in track name label.
+        
         let alert = errorAlert
         
         alert.window.title = "Track not played"

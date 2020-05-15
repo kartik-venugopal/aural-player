@@ -104,9 +104,6 @@ class AudioUtils {
             // Transcode the track and let the transcoder prepare the track for playback
             track.lazyLoadingInfo.needsTranscoding = true
             
-            // If there is already a transcoded output file for this track, just use it to prepare the track. Otherwise, just return ... the transcoder will produce a file later.
-            transcoder.transcodeImmediately(track)
-            
         } else {
             prepareTrackWithFile(track, track.file)
         }
@@ -172,8 +169,6 @@ class AudioUtils {
         playbackInfo.frames = audioFile.length
         playbackInfo.numChannels = Int(audioFile.fileFormat.channelCount)
         
-        track.lazyLoadingInfo.preparedForPlayback = true
-        
         let computedDuration = Double(playbackInfo.frames) / playbackInfo.sampleRate
         
         // If this computed duration differs from the previously estimated duration, update the track and send out a notification.
@@ -182,6 +177,8 @@ class AudioUtils {
             track.setDuration(computedDuration)
             AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
         }
+        
+        track.lazyLoadingInfo.preparedForPlayback = true
     }
     
     // TODO: Split this into 2 functions (supported types vs non-supported)

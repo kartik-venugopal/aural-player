@@ -6,24 +6,24 @@ import Foundation
 class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
     // The actual player
-    private let player: PlayerProtocol
+    let player: PlayerProtocol
     
     // The actual playback sequence
-    private let sequencer: PlaybackSequencerProtocol
+    let sequencer: PlaybackSequencerProtocol
     
     // The actual playlist
-    private let playlist: PlaylistCRUDProtocol
+    let playlist: PlaylistCRUDProtocol
     
-    private let transcoder: TranscoderProtocol
+    let transcoder: TranscoderProtocol
     
     // User preferences
-    private let preferences: PlaybackPreferences
+    let preferences: PlaybackPreferences
     
     var profiles: PlaybackProfiles
     
-    private var pendingPlaybackBlock: (() -> Void) = {}
+    var pendingPlaybackBlock: (() -> Void) = {}
     
-    private let chapterPlaybackStartTimeMargin: Double = 0.025
+    let chapterPlaybackStartTimeMargin: Double = 0.025
     
     init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
@@ -75,7 +75,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    private func playImmediately(_ track: IndexedTrack) {
+    func playImmediately(_ track: IndexedTrack) {
         
         prepareForTrackChange()
         
@@ -83,7 +83,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         forcedTrackChange(track, params)
     }
     
-    private func beginPlayback() {
+    func beginPlayback() {
         
         prepareForTrackChange()
         
@@ -129,7 +129,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
-    private func subsequentTrack() {
+    func subsequentTrack() {
         
         prepareForTrackChange()
         
@@ -254,7 +254,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 if PlaybackGapContext.hasGaps() {
                     
                     // Check if those gaps were one-time gaps. If so, delete them
-                    let oneTimeGaps = PlaybackGapContext.oneTimeGaps()
+                    let oneTimeGaps = PlaybackGapContext.oneTimeGaps
                     
                     for gap in oneTimeGaps.keys {
                         playlist.removeGapForTrack(oneTimeGaps[gap]!.track, gap.position)
