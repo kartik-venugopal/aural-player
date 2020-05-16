@@ -150,6 +150,8 @@ class AudioUtils {
     static func prepareTrackWithFile(_ track: Track, _ file: URL) {
         
         guard let audioFile = AudioIO.createAudioFileForReading(file) else {return}
+        
+        print("\tAudioUtils - Preparing:", track.conciseDisplayName, " with:", file.path)
             
         let playbackInfo = PlaybackInfo()
         

@@ -62,18 +62,21 @@ class TranscoderDaemon: MessageSubscriber {
             
             let result = CommandExecutor.execute(command)
             
-            NSLog("\nFinished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
-            
             if command.cancelled {
+                
                 cancellationHandler()
+                NSLog("\nCancelled transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
                 return
             }
             
             if result.exitCode == 0 && !command.errorDetected {
                 // Success
                 successHandler(command)
+                NSLog("\nFinished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+                
             } else {
                 failureHandler(command)
+                NSLog("\nFailed to transcode: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
             }
         }
         
