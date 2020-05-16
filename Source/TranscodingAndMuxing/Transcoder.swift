@@ -70,10 +70,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             
             self.store.transcodingFinished(track)
             
+            AudioUtils.prepareTrackWithFile(track, outputFile)
+            
             // Only do this if task is in the foreground (i.e. monitoring enabled)
             if command.enableMonitoring {
-                
-                AudioUtils.prepareTrackWithFile(track, outputFile)
                 AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
             }
         }
