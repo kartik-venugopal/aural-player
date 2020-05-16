@@ -6,8 +6,6 @@ class DelayedPlaybackAction: PlaybackChainAction {
     private let sequencer: PlaybackSequencerProtocol
     private let transcoder: TranscoderProtocol
     
-//    var actions: [PlaybackPreparationAction] = []
-    
     var nextAction: PlaybackChainAction?
     
     init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ transcoder: TranscoderProtocol) {
@@ -15,12 +13,6 @@ class DelayedPlaybackAction: PlaybackChainAction {
         self.player = player
         self.sequencer = sequencer
         self.transcoder = transcoder
-        
-//        let clearGapContextAction: ClearGapContextAction = ClearGapContextAction()
-//        let audioFilePrepAction: AudioFilePreparationAction = AudioFilePreparationAction(player, sequencer, transcoder)
-//        let playbackAction: PlaybackAction = PlaybackAction(player)
-//
-//        actions = [clearGapContextAction, audioFilePrepAction, playbackAction]
     }
     
     func execute(_ context: PlaybackRequestContext) {
@@ -43,14 +35,8 @@ class DelayedPlaybackAction: PlaybackChainAction {
                     // Override the current state of the context, because there was a delay
                     context.currentState = .waiting
                     
+                    // Continue the playback chain
                     self.nextAction?.execute(context)
-                    
-                    // Begin playback
-//                    for action in self.actions {
-//
-//                        // Execute the action and check if it is ok to proceed.
-//                        if !action.execute(context) {break}
-//                    }
                 }
             }
             

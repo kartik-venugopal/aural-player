@@ -6,7 +6,7 @@ class CheckPlaybackAllowedAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext) {
         
-        print("\tChecking playback allowed for:", context.requestedTrack?.conciseDisplayName)
+//        print("\tChecking playback allowed for:", context.requestedTrack?.conciseDisplayName)
         
         /*
             Playback is allowed if either:
