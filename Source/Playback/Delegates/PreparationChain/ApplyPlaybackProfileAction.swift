@@ -5,13 +5,15 @@ class ApplyPlaybackProfileAction: PlaybackPreparationAction {
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
+    var nextAction: PlaybackPreparationAction?
+    
     init(_ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
         self.profiles = profiles
         self.preferences = preferences
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
         let params = context.requestParams
         
@@ -23,6 +25,6 @@ class ApplyPlaybackProfileAction: PlaybackPreparationAction {
             params.startPosition = (profile.lastPosition >= newTrack.track.duration ? 0 : profile.lastPosition)
         }
         
-        return true
+        nextAction?.execute(context)
     }
 }

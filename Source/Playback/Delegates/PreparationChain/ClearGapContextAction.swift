@@ -2,10 +2,12 @@ import Foundation
 
 class ClearGapContextAction: PlaybackPreparationAction {
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    var nextAction: PlaybackPreparationAction?
+    
+    func execute(_ context: PlaybackRequestContext) {
         
         // Invalidate the gap, if there is one
         PlaybackGapContext.clear()
-        return true
+        nextAction?.execute(context)
     }
 }

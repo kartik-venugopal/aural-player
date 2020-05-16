@@ -2,6 +2,8 @@ import Foundation
 
 class SavePlaybackProfileAction: PlaybackPreparationAction {
     
+    var nextAction: PlaybackPreparationAction?
+    
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
@@ -11,7 +13,7 @@ class SavePlaybackProfileAction: PlaybackPreparationAction {
         self.preferences = preferences
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
         let isPlayingOrPaused = context.currentState.isPlayingOrPaused
         let curTrack = context.currentTrack
@@ -19,7 +21,8 @@ class SavePlaybackProfileAction: PlaybackPreparationAction {
         
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the lastTrack was actually playing/paused
-        if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack?.track, preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(actualTrack) {
+        if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack?.track,
+            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(actualTrack) {
             
             // Update last position for current track
             let trackDuration = actualTrack.duration
@@ -30,6 +33,6 @@ class SavePlaybackProfileAction: PlaybackPreparationAction {
             profiles.add(actualTrack, PlaybackProfile(actualTrack.file, lastPosn))
         }
         
-        return true
+        nextAction?.execute(context)
     }
 }

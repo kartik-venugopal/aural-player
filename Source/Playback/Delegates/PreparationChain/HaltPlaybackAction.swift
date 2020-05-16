@@ -2,18 +2,20 @@ import Foundation
 
 class HaltPlaybackAction: PlaybackPreparationAction {
     
+    var nextAction: PlaybackPreparationAction?
+    
     private let player: PlayerProtocol
     
     init(_ player: PlayerProtocol) {
         self.player = player
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
         if context.currentState != .noTrack {
             player.stop()
         }
         
-        return true
+        nextAction?.execute(context)
     }
 }

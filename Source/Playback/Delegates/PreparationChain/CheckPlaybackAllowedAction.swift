@@ -2,7 +2,9 @@ import Foundation
 
 class CheckPlaybackAllowedAction: PlaybackPreparationAction {
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    var nextAction: PlaybackPreparationAction?
+    
+    func execute(_ context: PlaybackRequestContext) {
         
         /*
             Playback is allowed if either:
@@ -13,6 +15,8 @@ class CheckPlaybackAllowedAction: PlaybackPreparationAction {
          
             2 - no track is currently playing
          */
-        return context.requestParams.interruptPlayback || context.currentTrack == nil
+        if context.requestParams.interruptPlayback || context.currentTrack == nil {
+            nextAction?.execute(context)
+        }
     }
 }

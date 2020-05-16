@@ -6,23 +6,33 @@ typealias TrackProducer = () -> IndexedTrack?
 
 class NewPlaybackDelegate: PlaybackDelegate {
     
-    private let prepChain: PlaybackPreparationChain = PlaybackPreparationChain()
+    private let startPlaybackChain: PlaybackPreparationChain = PlaybackPreparationChain()
+    private let stopPlaybackChain: PlaybackPreparationChain = PlaybackPreparationChain()
     
     override init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
         super.init(appState, player, sequencer, playlist, transcoder, preferences)
         
-        // Construct chain
-        _ = prepChain.withAction(CheckPlaybackAllowedAction())
+        // Construct start playback chain
+        _ = startPlaybackChain
+        .withAction(CheckPlaybackAllowedAction())
         .withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(CancelWaitingOrTranscodingAction(transcoder))
         .withAction(HaltPlaybackAction(player))
         .withAction(ValidateNewTrackAction(sequencer))
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(SetPlaybackDelayAction(player, playlist))
+        .withAction(DelayedPlaybackAction(player, sequencer, transcoder))
         .withAction(ClearGapContextAction())
         .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
         .withAction(PlaybackAction(player))
+        
+        // Construct stop playback chain
+        _ = stopPlaybackChain
+        .withAction(SavePlaybackProfileAction(profiles, preferences))
+        .withAction(CancelWaitingOrTranscodingAction(transcoder))
+        .withAction(HaltPlaybackAction(player))
+        .withAction(EndPlaybackSequenceAction(sequencer))
     }
     
     override func beginPlayback() {
@@ -65,14 +75,21 @@ class NewPlaybackDelegate: PlaybackDelegate {
         return (self.state, curTrack, seekPosition.timeElapsed)
     }
     
-    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ requestedByUser: Bool = true) {
         
         let curState: CurrentTrackState = captureCurrentState()
             
         if let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext(curState.state, curState.track, curState.seekPosition, newTrack, false, params)
-            prepChain.execute(requestContext)
+            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack, requestedByUser, params)
+            startPlaybackChain.execute(requestContext)
         }
+    }
+    
+    override func stop() {
+        
+        let curState: CurrentTrackState = captureCurrentState()
+        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
+        stopPlaybackChain.execute(requestContext)
     }
 }

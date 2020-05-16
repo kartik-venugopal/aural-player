@@ -326,6 +326,7 @@
 		3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */; };
 		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
+		3E27D20B246FCC1800B6170B /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */; };
 		3E292B4024673B8300CE8B17 /* GaplessScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */; };
 		3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2CBDAD2189072800BD68B2 /* EQMapping.swift */; };
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
@@ -881,6 +882,7 @@
 		3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHidingView.swift; sourceTree = "<group>"; };
 		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
+		3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPlaybackSequenceAction.swift; sourceTree = "<group>"; };
 		3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaplessScheduler.swift; sourceTree = "<group>"; };
 		3E2CBDAD2189072800BD68B2 /* EQMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMapping.swift; sourceTree = "<group>"; };
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
@@ -1310,10 +1312,11 @@
 				3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */,
 				3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */,
 				3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */,
+				3E23E0AE246EEB9400367E2B /* DelayedPlaybackAction.swift */,
 				3E23E0A8246EBE8800367E2B /* ClearGapContextAction.swift */,
 				3E23E0A4246EB88F00367E2B /* AudioFilePreparationAction.swift */,
 				3E23E0AC246EC30400367E2B /* PlaybackAction.swift */,
-				3E23E0AE246EEB9400367E2B /* DelayedPlaybackAction.swift */,
+				3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */,
 			);
 			path = PreparationChain;
 			sourceTree = "<group>";
@@ -3009,6 +3012,7 @@
 				3E5F00D421543D3800A76C23 /* StringInputReceiver.swift in Sources */,
 				3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */,
 				3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */,
+				3E27D20B246FCC1800B6170B /* EndPlaybackSequenceAction.swift in Sources */,
 				3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3EB499F6244B012300711BC5 /* EffectsViewPopupMenuController.swift in Sources */,
