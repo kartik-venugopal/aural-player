@@ -6,33 +6,23 @@ typealias TrackProducer = () -> IndexedTrack?
 
 class NewPlaybackDelegate: PlaybackDelegate {
     
-    private let startPlaybackChain: PlaybackPreparationChain = PlaybackPreparationChain()
-    private let stopPlaybackChain: PlaybackPreparationChain = PlaybackPreparationChain()
+    private var startPlaybackChain: PlaybackChain = PlaybackChain()
+    private var stopPlaybackChain: PlaybackChain = PlaybackChain()
     
     override init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
         super.init(appState, player, sequencer, playlist, transcoder, preferences)
         
-        // Construct start playback chain
-        _ = startPlaybackChain
-        .withAction(CheckPlaybackAllowedAction())
-        .withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(CancelWaitingOrTranscodingAction(transcoder))
-        .withAction(HaltPlaybackAction(player))
-        .withAction(ValidateNewTrackAction(sequencer))
-        .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(SetPlaybackDelayAction(player, playlist))
-        .withAction(DelayedPlaybackAction(player, sequencer, transcoder))
-        .withAction(ClearGapContextAction())
-        .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
-        .withAction(PlaybackAction(player))
+        self.profiles = PlaybackProfiles()
+        appState.forEach({profiles.add($0.file, $0)})
         
-        // Construct stop playback chain
-        _ = stopPlaybackChain
-        .withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(CancelWaitingOrTranscodingAction(transcoder))
-        .withAction(HaltPlaybackAction(player))
-        .withAction(EndPlaybackSequenceAction(sequencer))
+        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
+        AsyncMessenger.subscribe([.playbackCompleted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
+        stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
     }
     
     override func beginPlayback() {

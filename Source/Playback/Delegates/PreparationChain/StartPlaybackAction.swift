@@ -1,10 +1,10 @@
 import Foundation
 
-class PlaybackAction: PlaybackPreparationAction {
+class StartPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     init(_ player: PlayerProtocol) {
         self.player = player

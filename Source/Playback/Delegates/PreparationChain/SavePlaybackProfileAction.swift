@@ -1,8 +1,8 @@
 import Foundation
 
-class SavePlaybackProfileAction: PlaybackPreparationAction {
+class SavePlaybackProfileAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences

@@ -1,41 +1,5 @@
 import Foundation
 
-class PlaybackPreparationChain {
-    
-    var actions: [PlaybackPreparationAction] = []
-    
-    func withAction(_ action: PlaybackPreparationAction) -> PlaybackPreparationChain {
-        
-        var lastAction = actions.last
-        actions.append(action)
-        lastAction?.nextAction = action
-        
-        return self
-    }
-    
-    func execute(_ context: PlaybackRequestContext) {
-        
-        context.begun()
-        
-        if let firstAction = actions.first {
-            firstAction.execute(context)
-        }
-    }
-}
-
-protocol PlaybackPreparationAction {
-    
-    // Returns whether or not the chain should proceed with execution.
-    func execute(_ context: PlaybackRequestContext)
-    
-    var nextAction: PlaybackPreparationAction? {get set}
-}
-
-protocol PlaybackPreparationCompositeAction: PlaybackPreparationAction {
-    
-    var actions: [PlaybackPreparationAction] {get}
-}
-
 class PlaybackRequestContext {
     
     // Current state can change (if waiting or transcoding before playback)
