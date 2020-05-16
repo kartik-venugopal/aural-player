@@ -23,8 +23,6 @@ class SetPlaybackDelayAction: PlaybackChainAction {
 
                 // An explicit delay is defined. It takes precedence over gaps.
                 PlaybackGapContext.clear()
-                
-                // TODO: Clean this up
                 PlaybackGapContext.addGap(PlaybackGap(delay, .beforeTrack), newTrack)
                 
             } else {

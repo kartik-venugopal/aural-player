@@ -85,9 +85,10 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
+        // Make sure there is no delay (i.e. state != waiting) before acting on this message.
         // Match the transcoded track to that from the deferred request context.
-        if msg.success, let theDeferredContext = deferredContext, PlaybackRequestContext.isCurrent(theDeferredContext),
-            msg.track == theDeferredContext.requestedTrack {
+        if player.state != .waiting, msg.success, let theDeferredContext = deferredContext,
+            PlaybackRequestContext.isCurrent(theDeferredContext), msg.track == theDeferredContext.requestedTrack {
 
             // Reset the deferredContext and proceed with the playback chain.
             deferredContext = nil

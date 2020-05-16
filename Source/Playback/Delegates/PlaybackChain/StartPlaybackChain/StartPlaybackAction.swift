@@ -14,7 +14,7 @@ class StartPlaybackAction: PlaybackChainAction {
         
         guard let newTrack = context.requestedTrack else {return}
         
-        print("\tStarting playback for:", newTrack.conciseDisplayName)
+//        print("\tStarting playback for:", newTrack.conciseDisplayName)
         
         let oldTrack = context.currentTrack
         let params = context.requestParams
