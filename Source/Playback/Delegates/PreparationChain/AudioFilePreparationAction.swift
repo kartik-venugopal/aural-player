@@ -1,12 +1,12 @@
 import Foundation
 
-class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMessageSubscriber {
+class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSubscriber {
     
     private let player: PlayerProtocol
     private let sequencer: PlaybackSequencerProtocol
     private let transcoder: TranscoderProtocol
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     var deferredContext: PlaybackRequestContext?
     

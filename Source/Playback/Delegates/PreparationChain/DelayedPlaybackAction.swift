@@ -1,6 +1,6 @@
 import Foundation
 
-class DelayedPlaybackAction: PlaybackPreparationAction {
+class DelayedPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     private let sequencer: PlaybackSequencerProtocol
@@ -8,7 +8,7 @@ class DelayedPlaybackAction: PlaybackPreparationAction {
     
 //    var actions: [PlaybackPreparationAction] = []
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ transcoder: TranscoderProtocol) {
         

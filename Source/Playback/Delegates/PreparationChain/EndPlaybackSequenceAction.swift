@@ -1,10 +1,10 @@
 import Foundation
 
-class EndPlaybackSequenceAction: PlaybackPreparationAction {
+class EndPlaybackSequenceAction: PlaybackChainAction {
     
     private let sequencer: PlaybackSequencerProtocol
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     init(_ sequencer: PlaybackSequencerProtocol) {
         self.sequencer = sequencer

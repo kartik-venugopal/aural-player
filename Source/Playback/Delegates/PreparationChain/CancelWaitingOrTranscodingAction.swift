@@ -1,8 +1,8 @@
 import Foundation
 
-class CancelWaitingOrTranscodingAction: PlaybackPreparationAction {
+class CancelWaitingOrTranscodingAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     private let transcoder: TranscoderProtocol
     

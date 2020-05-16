@@ -1,11 +1,11 @@
 import Foundation
 
-class ApplyPlaybackProfileAction: PlaybackPreparationAction {
+class ApplyPlaybackProfileAction: PlaybackChainAction {
     
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     init(_ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         

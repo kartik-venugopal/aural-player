@@ -1,11 +1,11 @@
 import Foundation
 
-class SetPlaybackDelayAction: PlaybackPreparationAction {
+class SetPlaybackDelayAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     private let playlist: PlaylistCRUDProtocol
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     init(_ player: PlayerProtocol, _ playlist: PlaylistCRUDProtocol) {
         

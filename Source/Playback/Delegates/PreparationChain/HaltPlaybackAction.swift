@@ -1,8 +1,8 @@
 import Foundation
 
-class HaltPlaybackAction: PlaybackPreparationAction {
+class HaltPlaybackAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     private let player: PlayerProtocol
     

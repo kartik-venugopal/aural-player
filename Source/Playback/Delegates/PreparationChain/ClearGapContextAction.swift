@@ -1,8 +1,8 @@
 import Foundation
 
-class ClearGapContextAction: PlaybackPreparationAction {
+class ClearGapContextAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     func execute(_ context: PlaybackRequestContext) {
         

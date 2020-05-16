@@ -1,8 +1,8 @@
 import Foundation
 
-class ValidateNewTrackAction: PlaybackPreparationAction {
+class ValidateNewTrackAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     // The actual playback sequence
     private let sequencer: PlaybackSequencerProtocol

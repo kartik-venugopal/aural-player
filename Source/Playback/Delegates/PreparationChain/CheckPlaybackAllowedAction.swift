@@ -1,8 +1,8 @@
 import Foundation
 
-class CheckPlaybackAllowedAction: PlaybackPreparationAction {
+class CheckPlaybackAllowedAction: PlaybackChainAction {
     
-    var nextAction: PlaybackPreparationAction?
+    var nextAction: PlaybackChainAction?
     
     func execute(_ context: PlaybackRequestContext) {
         
