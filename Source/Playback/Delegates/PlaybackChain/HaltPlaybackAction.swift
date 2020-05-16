@@ -12,6 +12,8 @@ class HaltPlaybackAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext) {
         
+        print("\tHalting playback before:", context.requestedTrack?.conciseDisplayName)
+        
         if context.currentState != .noTrack {
             player.stop()
         }

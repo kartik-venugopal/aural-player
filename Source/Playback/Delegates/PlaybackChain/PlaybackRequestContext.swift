@@ -8,24 +8,22 @@ class PlaybackRequestContext {
     let currentTrack: Track?
     let currentSeekPosition: Double
 
-    // TODO: Can this be nil ???
-    let requestedTrack: Track?
-    
-    let requestedByUser: Bool
+    var requestedTrack: Track?
+    var cancelWaitingOrTranscoding: Bool
     
     // Request params may change as the preparation chain executes.
     var requestParams: PlaybackParams
     
     var gapContextId: Int?
 
-    private init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) {
+    private init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelWaitingOrTranscoding: Bool, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
         self.currentSeekPosition = currentSeekPosition
         
         self.requestedTrack = requestedTrack
-        self.requestedByUser = requestedByUser
+        self.cancelWaitingOrTranscoding = cancelWaitingOrTranscoding
         self.requestParams = requestParams
         
         self.gapContextId = nil
@@ -45,9 +43,9 @@ class PlaybackRequestContext {
     
     static var currentContext: PlaybackRequestContext?
     
-    static func create(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
+    static func create(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelWaitingOrTranscoding: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
         
-        return PlaybackRequestContext(currentState, currentTrack, currentSeekPosition, requestedTrack, requestedByUser, requestParams)
+        return PlaybackRequestContext(currentState, currentTrack, currentSeekPosition, requestedTrack, cancelWaitingOrTranscoding, requestParams)
     }
     
     static func begun(_ context: PlaybackRequestContext) {

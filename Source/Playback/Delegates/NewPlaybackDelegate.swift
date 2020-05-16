@@ -8,6 +8,7 @@ class NewPlaybackDelegate: PlaybackDelegate {
     
     private var startPlaybackChain: PlaybackChain = PlaybackChain()
     private var stopPlaybackChain: PlaybackChain = PlaybackChain()
+    private var trackPlaybackCompletedChain: PlaybackChain = PlaybackChain()
     
     override init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
@@ -23,10 +24,11 @@ class NewPlaybackDelegate: PlaybackDelegate {
         
         startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
         stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
+        trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain as! StartPlaybackChain, stopPlaybackChain as! StopPlaybackChain, sequencer, playlist, profiles, preferences)
     }
     
     override func beginPlayback() {
-        doPlay({return sequencer.begin()})
+        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams(), false)
     }
     
     override func playImmediately(_ track: IndexedTrack) {
@@ -35,7 +37,7 @@ class NewPlaybackDelegate: PlaybackDelegate {
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     override func subsequentTrack() {
-        doPlay({return sequencer.subsequent()})
+        doPlay({return sequencer.subsequent()}, PlaybackParams.defaultParams(), false)
     }
     
     override func previousTrack() {
@@ -50,7 +52,6 @@ class NewPlaybackDelegate: PlaybackDelegate {
         doPlay({return sequencer.select(index)}, params)
     }
     
-    // TODO: If this track is already playing, just do a seek
     override func play(_ track: Track, _ params: PlaybackParams) {
         doPlay({return sequencer.select(track)}, params)
     }
@@ -65,7 +66,7 @@ class NewPlaybackDelegate: PlaybackDelegate {
         return (self.state, curTrack?.track, seekPosition.timeElapsed)
     }
     
-    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ requestedByUser: Bool = true) {
+    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
         
         let curState: CurrentTrackState = captureCurrentState()
             
@@ -73,12 +74,11 @@ class NewPlaybackDelegate: PlaybackDelegate {
             
             print("\nGoing to play:", newTrack.track.conciseDisplayName)
             
-            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack.track, requestedByUser, params)
+            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack.track, cancelWaitingOrTranscoding, params)
             
             print("\tRequest Context:", requestContext.toString())
             
             startPlaybackChain.execute(requestContext)
-            
         }
     }
     
@@ -86,6 +86,15 @@ class NewPlaybackDelegate: PlaybackDelegate {
         
         let curState: CurrentTrackState = captureCurrentState()
         let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
+        
         stopPlaybackChain.execute(requestContext)
+    }
+    
+    override func trackPlaybackCompleted() {
+        
+        let curState: CurrentTrackState = captureCurrentState()
+        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, false, PlaybackParams.defaultParams())
+        
+        trackPlaybackCompletedChain.execute(requestContext)
     }
 }
