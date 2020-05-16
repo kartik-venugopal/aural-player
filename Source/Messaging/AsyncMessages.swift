@@ -15,6 +15,20 @@ protocol AsyncMessageSubscriber {
     var subscriberId: String {get}
 }
 
+// TODO: Remove subscriberID definition from all subscribers that are NSObjects
+//extension AsyncMessageSubscriber {
+//
+//    var subscriberId: String {
+//
+//        if let selfObj = self as? NSObject {
+//            return selfObj.className
+//        }
+//
+////        return Mirror(reflecting: self).subjectType.self
+//        return ""
+//    }
+//}
+
 // An enumeration of all AsyncMessage types
 enum AsyncMessageType {
    
@@ -69,15 +83,15 @@ struct TrackChangedAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .trackChanged
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
-    let oldTrack: IndexedTrack?
+    let oldTrack: Track?
     
     // Playback state before the track change
     let oldState: PlaybackState
     
     // The track that is now playing (may be nil, meaning no track playing)
-    let newTrack: IndexedTrack?
+    let newTrack: Track?
     
-    init(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?) {
+    init(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?) {
         
         self.oldTrack = oldTrack
         self.oldState = oldState
@@ -202,12 +216,12 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .trackNotPlayed
     
     // The track that was playing before this error occurred (used to refresh certain UI elements, eg. playlist).
-    let oldTrack: IndexedTrack?
+    let oldTrack: Track?
     
     // An error object containing detailed information such as the failed track's file and the root cause.
     let error: InvalidTrackError
     
-    init(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
+    init(_ oldTrack: Track?, _ error: InvalidTrackError) {
         
         self.oldTrack = oldTrack
         self.error = error
@@ -308,10 +322,10 @@ struct PlaybackGapStartedAsyncMessage: AsyncMessage {
     
     let gapEndTime: Date
     
-    let lastPlayedTrack: IndexedTrack?
-    let nextTrack: IndexedTrack
+    let lastPlayedTrack: Track?
+    let nextTrack: Track
     
-    init(_ gapEndTime: Date, _ lastPlayedTrack: IndexedTrack?, _ nextTrack: IndexedTrack) {
+    init(_ gapEndTime: Date, _ lastPlayedTrack: Track?, _ nextTrack: Track) {
         
         self.gapEndTime = gapEndTime
         

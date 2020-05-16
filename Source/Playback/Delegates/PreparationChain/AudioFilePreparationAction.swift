@@ -28,12 +28,16 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     
     func execute(_ context: PlaybackRequestContext) {
         
-        guard let track = context.requestedTrack?.track else {return}
+        guard let track = context.requestedTrack else {return}
+        
+        print("\tPreparing:", track.conciseDisplayName)
         
         TrackIO.prepareForPlayback(track)
         
         // Track preparation failed
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
+            
+            print("\tERROR Preparing:", track.conciseDisplayName)
             
             // If an error occurs, end the playback sequence
             sequencer.end()
@@ -46,6 +50,8 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         }
         // Track needs to be transcoded (i.e. audio format is not natively supported)
         else if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
+            
+            print("\tNeeds transcoding:", track.conciseDisplayName)
             
             // Defer playback until transcoding finishes
             transcoder.transcodeImmediately(track)
@@ -81,7 +87,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         
         // Match the transcoded track to that from the deferred request context.
         if msg.success, let theDeferredContext = deferredContext, PlaybackRequestContext.isCurrent(theDeferredContext),
-            msg.track == theDeferredContext.requestedTrack?.track {
+            msg.track == theDeferredContext.requestedTrack {
 
             // Reset the deferredContext and proceed with the playback chain.
             deferredContext = nil
@@ -92,7 +98,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     private func transcodingCancelled(_ msg: TranscodingCancelledAsyncMessage) {
 
         // Previously requested transcoding was cancelled. Reset the deferred request context.
-        if let theDeferredContext = deferredContext, msg.track == theDeferredContext.requestedTrack?.track {
+        if let theDeferredContext = deferredContext, msg.track == theDeferredContext.requestedTrack {
             deferredContext = nil
         }
     }

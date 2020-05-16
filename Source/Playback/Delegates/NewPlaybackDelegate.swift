@@ -1,6 +1,6 @@
 import Foundation
 
-typealias CurrentTrackState = (state: PlaybackState, track: IndexedTrack?, seekPosition: Double)
+typealias CurrentTrackState = (state: PlaybackState, track: Track?, seekPosition: Double)
 
 typealias TrackProducer = () -> IndexedTrack?
 
@@ -59,10 +59,10 @@ class NewPlaybackDelegate: PlaybackDelegate {
         doPlay({return sequencer.select(group)}, params)
     }
     
-    private func captureCurrentState() -> (state: PlaybackState, track: IndexedTrack?, seekPosition: Double) {
+    private func captureCurrentState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
         
         let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
-        return (self.state, curTrack, seekPosition.timeElapsed)
+        return (self.state, curTrack?.track, seekPosition.timeElapsed)
     }
     
     private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ requestedByUser: Bool = true) {
@@ -71,8 +71,14 @@ class NewPlaybackDelegate: PlaybackDelegate {
             
         if let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack, requestedByUser, params)
+            print("\nGoing to play:", newTrack.track.conciseDisplayName)
+            
+            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack.track, requestedByUser, params)
+            
+            print("\tRequest Context:", requestContext.toString())
+            
             startPlaybackChain.execute(requestContext)
+            
         }
     }
     

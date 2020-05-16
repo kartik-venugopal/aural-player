@@ -42,9 +42,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         AsyncMessenger.subscribe([.playbackCompleted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
-    var subscriberId: String {
-        return "PlaybackDelegate"
-    }
+    let subscriberId: String = "PlaybackDelegate"
     
     func togglePlayPause() {
         
@@ -206,7 +204,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             sequencer.end()
             
             // Send out an async error message instead of throwing
-            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, prepError))
+            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack?.track, prepError))
             return
         }
         
@@ -234,7 +232,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 PlaybackGapContext.clear()
                 
                 let gap = PlaybackGap(delay, .beforeTrack)
-                PlaybackGapContext.addGap(gap, indexedTrack)
+                PlaybackGapContext.addGap(gap, indexedTrack.track)
                 
                 doPlayWithDelay(indexedTrack.track, delay, startPosition, endPosition)
                 return
@@ -245,7 +243,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
                 if let gapBefore = playlist.getGapBeforeTrack(indexedTrack.track) {
                     
-                    PlaybackGapContext.addGap(gapBefore, indexedTrack)
+                    PlaybackGapContext.addGap(gapBefore, indexedTrack.track)
                     
                     // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
                     PlaybackGapContext.removeImplicitGap()
@@ -257,7 +255,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                     let oneTimeGaps = PlaybackGapContext.oneTimeGaps
                     
                     for gap in oneTimeGaps.keys {
-                        playlist.removeGapForTrack(oneTimeGaps[gap]!.track, gap.position)
+                        
+                        if let track = oneTimeGaps[gap] {
+                            playlist.removeGapForTrack(track, gap.position)
+                        }
                     }
                     
                     doPlayWithDelay(indexedTrack.track, PlaybackGapContext.gapLength, startPosition, endPosition)
@@ -297,7 +298,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         TrackIO.prepareForPlayback(track)
         
         // Let observers know that a playback gap has begun
-        AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, TrackChangeContext.currentTrack, TrackChangeContext.newTrack!))
+        AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, TrackChangeContext.currentTrack?.track, TrackChangeContext.newTrack!.track))
     }
     
     // Plays the track synchronously and immediately
@@ -314,13 +315,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             sequencer.end()
             
             // Send out an async error message instead of throwing
-            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack, track.lazyLoadingInfo.preparationError!))
+            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(TrackChangeContext.currentTrack?.track, track.lazyLoadingInfo.preparationError!))
             return
         }
         
         let playbackBlock = {
             
-            SyncMessenger.publishNotification(PreTrackChangeNotification(TrackChangeContext.currentTrack, TrackChangeContext.currentState, TrackChangeContext.newTrack))
+            SyncMessenger.publishNotification(PreTrackChangeNotification(TrackChangeContext.currentTrack?.track, TrackChangeContext.currentState, TrackChangeContext.newTrack!.track))
             
             self.player.play(track, startPosition ?? 0, endPosition)
             
@@ -712,7 +713,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
                 if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack.track) {
                     
-                    PlaybackGapContext.addGap(gapAfterCompletedTrack, oldTrack)
+                    PlaybackGapContext.addGap(gapAfterCompletedTrack, oldTrack.track)
                     
                 } else if preferences.gapBetweenTracks {
                     
@@ -721,7 +722,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                     let gapDuration = Double(preferences.gapBetweenTracksDuration)
                     let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
                     
-                    PlaybackGapContext.addGap(gap, oldTrack)
+                    PlaybackGapContext.addGap(gap, oldTrack.track)
                 }
                 
                 // Continue playback

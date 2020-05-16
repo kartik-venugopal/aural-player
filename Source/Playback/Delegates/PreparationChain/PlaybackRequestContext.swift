@@ -5,11 +5,11 @@ class PlaybackRequestContext {
     // Current state can change (if waiting or transcoding before playback)
     var currentState: PlaybackState
     
-    let currentTrack: IndexedTrack?
+    let currentTrack: Track?
     let currentSeekPosition: Double
 
     // TODO: Can this be nil ???
-    let requestedTrack: IndexedTrack?
+    let requestedTrack: Track?
     
     let requestedByUser: Bool
     
@@ -18,7 +18,7 @@ class PlaybackRequestContext {
     
     var gapContextId: Int?
 
-    private init(_ currentState: PlaybackState, _ currentTrack: IndexedTrack?, _ currentSeekPosition: Double, _ requestedTrack: IndexedTrack?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) {
+    private init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
@@ -39,9 +39,13 @@ class PlaybackRequestContext {
         PlaybackRequestContext.completed(self)
     }
     
+    func toString() -> String {
+        return String(describing: JSONMapper.map(self))
+    }
+    
     static var currentContext: PlaybackRequestContext?
     
-    static func create(_ currentState: PlaybackState, _ currentTrack: IndexedTrack?, _ currentSeekPosition: Double, _ requestedTrack: IndexedTrack?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
+    static func create(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
         
         return PlaybackRequestContext(currentState, currentTrack, currentSeekPosition, requestedTrack, requestedByUser, requestParams)
     }

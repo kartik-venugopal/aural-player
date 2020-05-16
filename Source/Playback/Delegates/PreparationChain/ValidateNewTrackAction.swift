@@ -14,12 +14,14 @@ class ValidateNewTrackAction: PlaybackChainAction {
     func execute(_ context: PlaybackRequestContext) {
         
         guard let newTrack = context.requestedTrack else {return}
+        
+        print("\tValidating:", newTrack.conciseDisplayName)
             
         // Validate track before attempting to play it
-        if let preparationError = AudioUtils.validateTrack(newTrack.track) {
+        if let preparationError = AudioUtils.validateTrack(newTrack) {
         
             // Note any error encountered
-            newTrack.track.lazyLoadingInfo.preparationFailed(preparationError)
+            newTrack.lazyLoadingInfo.preparationFailed(preparationError)
             
             // Playback is halted, and the playback sequence is ended.
             sequencer.end()
