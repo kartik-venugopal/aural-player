@@ -294,7 +294,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     
     private func trackChanged(_ msg: TrackChangedAsyncMessage) {
         
-        if let trackFile = msg.newTrack?.track.file {
+        if let trackFile = msg.newTrack?.file {
             
             favoritesMenuItem.enable()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(trackFile))

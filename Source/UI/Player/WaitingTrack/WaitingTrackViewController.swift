@@ -121,7 +121,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
         
         if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
             
-            gapStarted(gapStartedMsg.nextTrack.track, gapStartedMsg.gapEndTime)
+            gapStarted(gapStartedMsg.nextTrack, gapStartedMsg.gapEndTime)
             return
         }
     }

@@ -127,7 +127,7 @@ class MasterViewController: FXUnitViewController {
     private func trackChanged(_ message: TrackChangedNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack?.track, soundProfiles.hasFor(newTrack) {
+        if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))

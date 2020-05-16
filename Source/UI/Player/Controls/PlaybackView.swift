@@ -221,14 +221,22 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         updateSeekPosition()
     }
 
-    func trackChanged(_ playbackState: PlaybackState, _ loop: PlaybackLoop?, _ newTrack: IndexedTrack?) {
+    func trackChanged(_ playbackState: PlaybackState, _ loop: PlaybackLoop?, _ newTrack: Track?) {
         
         btnPlayPause.onIf(playbackState == .playing)
         btnLoop.switchState(loop != nil ? LoopState.complete : LoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
-
-        loop != nil ? playbackLoopChanged(loop, newTrack!.track.duration) : seekSliderCell.removeLoop()
-        newTrack != nil ? showNowPlayingInfo(newTrack!.track) : clearNowPlayingInfo()
+        
+        if let track = newTrack {
+            
+            playbackLoopChanged(loop, track.duration)
+            showNowPlayingInfo(track)
+            
+        } else {
+            
+            seekSliderCell.removeLoop()
+            clearNowPlayingInfo()
+        }
     }
     
     func gapStarted() {

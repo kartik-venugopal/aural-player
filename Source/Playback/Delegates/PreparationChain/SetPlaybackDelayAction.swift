@@ -23,12 +23,14 @@ class SetPlaybackDelayAction: PlaybackChainAction {
 
                 // An explicit delay is defined. It takes precedence over gaps.
                 PlaybackGapContext.clear()
+                
+                // TODO: Clean this up
                 PlaybackGapContext.addGap(PlaybackGap(delay, .beforeTrack), newTrack)
                 
             } else {
                 
                 // No explicit delay is defined, check for a gap defined before the track (in the playlist).
-                if let gapBefore = playlist.getGapBeforeTrack(newTrack.track) {
+                if let gapBefore = playlist.getGapBeforeTrack(newTrack) {
 
                     // The explicitly defined gap before the track takes precedence over the implicit gap
                     // defined by the playback preferences, so remove the implicit gap
@@ -39,8 +41,8 @@ class SetPlaybackDelayAction: PlaybackChainAction {
                 if PlaybackGapContext.hasGaps() {
                     
                     // Check if any defined gaps were one-time gaps. If so, delete them
-                    for (gap, indexedTrack) in PlaybackGapContext.oneTimeGaps {
-                        playlist.removeGapForTrack(indexedTrack.track, gap.position)
+                    for (gap, track) in PlaybackGapContext.oneTimeGaps {
+                        playlist.removeGapForTrack(track, gap.position)
                     }
                     
                     // Set the delay request parameter to the lengtth of the gap.

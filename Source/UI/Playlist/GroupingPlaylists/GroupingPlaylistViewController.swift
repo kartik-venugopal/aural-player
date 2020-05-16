@@ -560,7 +560,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         let oldTrack = notification.oldTrack
         
-        if let _oldTrack = oldTrack?.track {
+        if let _oldTrack = oldTrack {
             
             playlistView.reloadItem(_oldTrack)
             
@@ -574,11 +574,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             // There is a new track, select it if necessary
             
-            if !newTrack.equals(oldTrack) {
+            if newTrack != oldTrack {
                 
-                playlistView.reloadItem(newTrack.track)
+                playlistView.reloadItem(newTrack)
                 
-                let row = playlistView.row(forItem: newTrack.track)
+                let row = playlistView.row(forItem: newTrack)
                 playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
             }
             
@@ -597,13 +597,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         let oldTrack = message.oldTrack
         
-        if let _oldTrack = oldTrack?.track {
+        if let _oldTrack = oldTrack {
             playlistView.reloadItem(_oldTrack)
         }
         
         if let errTrack = playlist.indexOfTrack(message.error.track) {
             
-            if !errTrack.equals(oldTrack) {
+            if errTrack != oldTrack {
                 playlistView.reloadItem(errTrack.track)
             }
             
@@ -679,10 +679,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
-        var refreshTracks: [Track] = [message.nextTrack.track]
+        var refreshTracks: [Track] = [message.nextTrack]
         
-        if let oldTrack = message.lastPlayedTrack, !message.nextTrack.equals(oldTrack) {
-            refreshTracks.append(oldTrack.track)
+        if let oldTrack = message.lastPlayedTrack, message.nextTrack != oldTrack {
+            refreshTracks.append(oldTrack)
         }
         
         var refreshIndexSet: IndexSet = IndexSet([])
@@ -697,7 +697,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         let needToShowTrack: Bool = PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
         if needToShowTrack {
-            selectTrack(message.nextTrack.track)
+            selectTrack(message.nextTrack)
         }
     }
     
