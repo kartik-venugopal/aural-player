@@ -117,6 +117,10 @@ class Track: NSObject, PlaylistItem {
     func prepareForPlayback() {
         TrackIO.prepareForPlayback(self)
     }
+    
+    static func == (lhs: Track, rhs: Track) -> Bool {
+        return lhs.file.path == rhs.file.path
+    }
 }
 
 /*

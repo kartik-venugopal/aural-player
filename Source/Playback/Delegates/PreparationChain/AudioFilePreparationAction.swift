@@ -6,6 +6,10 @@ class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMess
     private let sequencer: PlaybackSequencerProtocol
     private let transcoder: TranscoderProtocol
     
+    var nextAction: PlaybackPreparationAction?
+    
+    var deferredContext: PlaybackRequestContext?
+    
     var subscriberId: String {
         
         // There may be multiple instances of this class. subscriberId should be unique across instances.
@@ -17,11 +21,14 @@ class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMess
         self.player = player
         self.sequencer = sequencer
         self.transcoder = transcoder
+
+        super.init()
+        AsyncMessenger.subscribe([.transcodingFinished, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
-        guard let track = context.requestedTrack?.track else {return false}
+        guard let track = context.requestedTrack?.track else {return}
         
         TrackIO.prepareForPlayback(track)
         
@@ -34,7 +41,8 @@ class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMess
             // Send out an async error message instead of throwing
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
             
-            return false
+            // Terminate the chain
+            return
         }
         // Track needs to be transcoded (i.e. audio format is not natively supported)
         else if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
@@ -45,10 +53,14 @@ class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMess
             // Notify the player that transcoding has begun.
             player.transcoding()
             
-            return false
+            // Mark this context as having been deferred for later execution (when transcoding completes)
+            deferredContext = context
+            
+            // , and terminate the chain.
+            return
         }
         
-        return true
+        nextAction?.execute(context)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -57,21 +69,31 @@ class AudioFilePreparationAction: NSObject, PlaybackPreparationAction, AsyncMess
             
             transcodingFinished(transcodingFinishedMsg)
             return
+            
+        } else if let transcodingCancelledMsg = message as? TranscodingCancelledAsyncMessage {
+            
+            transcodingCancelled(transcodingCancelledMsg)
+            return
         }
     }
     
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
-//        if msg.success {
-//            
-//            
-//            
-//        } else {
-//            
-//            stop()
-//            
-//            // Send out playback error message "transcoding failed"
-//            AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(msg.track, msg.track.lazyLoadingInfo.preparationError!))
-//        }
+        // Match the transcoded track to that from the deferred request context.
+        if msg.success, let theDeferredContext = deferredContext, PlaybackRequestContext.isCurrent(theDeferredContext),
+            msg.track == theDeferredContext.requestedTrack?.track {
+
+            // Reset the deferredContext and proceed with the playback chain.
+            deferredContext = nil
+            nextAction?.execute(theDeferredContext)
+        }
+    }
+    
+    private func transcodingCancelled(_ msg: TranscodingCancelledAsyncMessage) {
+
+        // Previously requested transcoding was cancelled. Reset the deferred request context.
+        if let theDeferredContext = deferredContext, msg.track == theDeferredContext.requestedTrack?.track {
+            deferredContext = nil
+        }
     }
 }

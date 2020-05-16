@@ -4,13 +4,15 @@ class PlaybackAction: PlaybackPreparationAction {
     
     private let player: PlayerProtocol
     
+    var nextAction: PlaybackPreparationAction?
+    
     init(_ player: PlayerProtocol) {
         self.player = player
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
-        guard let newTrack = context.requestedTrack else {return false}
+        guard let newTrack = context.requestedTrack else {return}
         
         let oldTrack = context.currentTrack
         let params = context.requestParams
@@ -21,6 +23,7 @@ class PlaybackAction: PlaybackPreparationAction {
         
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, context.currentState, newTrack))
         
-        return true
+        // Chain has completed execution, inform the request context.
+        context.completed()
     }
 }

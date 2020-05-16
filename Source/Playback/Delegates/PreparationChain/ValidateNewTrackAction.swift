@@ -2,6 +2,8 @@ import Foundation
 
 class ValidateNewTrackAction: PlaybackPreparationAction {
     
+    var nextAction: PlaybackPreparationAction?
+    
     // The actual playback sequence
     private let sequencer: PlaybackSequencerProtocol
     
@@ -9,9 +11,9 @@ class ValidateNewTrackAction: PlaybackPreparationAction {
         self.sequencer = sequencer
     }
     
-    func execute(_ context: PlaybackRequestContext) -> Bool {
+    func execute(_ context: PlaybackRequestContext) {
         
-        guard let newTrack = context.requestedTrack else {return true}
+        guard let newTrack = context.requestedTrack else {return}
             
         // Validate track before attempting to play it
         if let preparationError = AudioUtils.validateTrack(newTrack.track) {
@@ -25,12 +27,12 @@ class ValidateNewTrackAction: PlaybackPreparationAction {
             // Send out an async error message instead of throwing
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
             
-            return false
+            return
             
         } else {
             
             // Track is valid, OK to proceed
-            return true
+            nextAction?.execute(context)
         }
     }
 }

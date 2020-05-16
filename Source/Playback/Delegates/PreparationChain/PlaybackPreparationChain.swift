@@ -6,16 +6,19 @@ class PlaybackPreparationChain {
     
     func withAction(_ action: PlaybackPreparationAction) -> PlaybackPreparationChain {
         
+        var lastAction = actions.last
         actions.append(action)
+        lastAction?.nextAction = action
+        
         return self
     }
     
     func execute(_ context: PlaybackRequestContext) {
         
-        for action in actions {
-            
-            // Execute the action and check if it is ok to proceed with the chain.
-            if !action.execute(context) {break}
+        context.begun()
+        
+        if let firstAction = actions.first {
+            firstAction.execute(context)
         }
     }
 }
@@ -23,7 +26,9 @@ class PlaybackPreparationChain {
 protocol PlaybackPreparationAction {
     
     // Returns whether or not the chain should proceed with execution.
-    func execute(_ context: PlaybackRequestContext) -> Bool
+    func execute(_ context: PlaybackRequestContext)
+    
+    var nextAction: PlaybackPreparationAction? {get set}
 }
 
 protocol PlaybackPreparationCompositeAction: PlaybackPreparationAction {
@@ -49,7 +54,7 @@ class PlaybackRequestContext {
     
     var gapContextId: Int?
 
-    init(_ currentState: PlaybackState, _ currentTrack: IndexedTrack?, _ currentSeekPosition: Double, _ requestedTrack: IndexedTrack?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) {
+    private init(_ currentState: PlaybackState, _ currentTrack: IndexedTrack?, _ currentSeekPosition: Double, _ requestedTrack: IndexedTrack?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
@@ -60,5 +65,39 @@ class PlaybackRequestContext {
         self.requestParams = requestParams
         
         self.gapContextId = nil
+    }
+    
+    func begun() {
+        PlaybackRequestContext.begun(self)
+    }
+    
+    func completed() {
+        PlaybackRequestContext.completed(self)
+    }
+    
+    static var currentContext: PlaybackRequestContext?
+    
+    static func create(_ currentState: PlaybackState, _ currentTrack: IndexedTrack?, _ currentSeekPosition: Double, _ requestedTrack: IndexedTrack?, _ requestedByUser: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
+        
+        return PlaybackRequestContext(currentState, currentTrack, currentSeekPosition, requestedTrack, requestedByUser, requestParams)
+    }
+    
+    static func begun(_ context: PlaybackRequestContext) {
+        currentContext = context
+    }
+    
+    static func completed(_ context: PlaybackRequestContext) {
+        
+        if isCurrent(context) {
+            clearCurrentContext()
+        }
+    }
+    
+    static func isCurrent(_ context: PlaybackRequestContext) -> Bool {
+        return context === currentContext
+    }
+    
+    static func clearCurrentContext() {
+        currentContext = nil
     }
 }
