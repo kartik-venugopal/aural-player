@@ -136,6 +136,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    func continuePlayback() {
+        
+        prepareForTrackChange()
+        
+        if let track = sequencer.subsequent() {
+            
+            prepareAndPlay(track)
+            
+        } else {
+            stop()
+        }
+    }
+    
     // MARK: play()
     
     private func forcedTrackChange(_ indexedTrack: IndexedTrack?, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
@@ -697,43 +710,36 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
-    private func trackPlaybackCompleted() {
+    func trackPlaybackCompleted() {
         
-        if let oldTrack = playingTrack {
+        guard let oldTrack = playingTrack else {return}
         
-            // Reset playback profile last position to 0 (if there is a profile for the track that completed)
-            if let profile = profiles.get(oldTrack.track) {
-                profile.lastPosition = 0
-            }
+        // Reset playback profile last position to 0 (if there is a profile for the track that completed)
+        if let profile = profiles.get(oldTrack.track) {
+            profile.lastPosition = 0
+        }
+        
+        // ----------------- GAP AFTER COMPLETED TRACK ---------------------
+        
+        if sequencer.peekSubsequent() != nil {
             
-            // ----------------- GAP AFTER COMPLETED TRACK ---------------------
-            
-            if sequencer.peekSubsequent() != nil {
+            // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
+            if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack.track) {
                 
-                // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
-                if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack.track) {
-                    
-                    PlaybackGapContext.addGap(gapAfterCompletedTrack, oldTrack.track)
-                    
-                } else if preferences.gapBetweenTracks {
-                    
-                    // Check for an implicit gap defined by playback preferences
-                    
-                    let gapDuration = Double(preferences.gapBetweenTracksDuration)
-                    let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
-                    
-                    PlaybackGapContext.addGap(gap, oldTrack.track)
-                }
+                PlaybackGapContext.addGap(gapAfterCompletedTrack, oldTrack.track)
                 
-                // Continue playback
-                subsequentTrack()
+            } else if preferences.gapBetweenTracks {
                 
-            } else {
+                // Check for an implicit gap defined by playback preferences
                 
-                // No more tracks to play, end playback
-                stop()
+                let gapDuration = Double(preferences.gapBetweenTracksDuration)
+                let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
+                
+                PlaybackGapContext.addGap(gap, oldTrack.track)
             }
         }
+        
+        continuePlayback()
     }
     
     private func saveProfile() {
