@@ -374,70 +374,71 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         trackChanged(message.oldTrack, message.newTrack)
     }
     
-    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
+    // TODO
+    private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
-        var refreshIndexes = [Int]()
-        
-        if let oldTrackIndex = oldTrack?.index {
-            refreshIndexes.append(oldTrackIndex)
-        }
-        
-        let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
-        
-        if let _newTrack = newTrack {
-            
-            // If new and old are the same, don't refresh the same row twice
-            if !_newTrack.equals(oldTrack) {
-                refreshIndexes.append(_newTrack.index)
-            }
-            
-            if needToShowTrack {
-                
-                if _newTrack.index >= playlistView.numberOfRows {
-                    
-                    // This means the track is in the playlist but has not yet been added to the playlist view (Bookmark/Recently played/Favorite item), and will be added shortly (this is a race condition). So, dispatch an async delayed handler to show the track in the playlist, after it is expected to be added.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                        self.showPlayingTrack()
-                    })
-                    
-                } else {
-                    showPlayingTrack()
-                }
-            }
-            
-        } else if needToShowTrack {
-            clearSelection()
-        }
-        
-        // Gaps may have been removed, so row heights need to be updated too
-        let indexSet: IndexSet = IndexSet(refreshIndexes)
-        
-        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+//        var refreshIndexes = [Int]()
+//
+//        if let oldTrackIndex = oldTrack?.index {
+//            refreshIndexes.append(oldTrackIndex)
+//        }
+//
+//        let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+//
+//        if let _newTrack = newTrack {
+//
+//            // If new and old are the same, don't refresh the same row twice
+//            if !_newTrack.equals(oldTrack) {
+//                refreshIndexes.append(_newTrack.index)
+//            }
+//
+//            if needToShowTrack {
+//
+//                if _newTrack.index >= playlistView.numberOfRows {
+//
+//                    // This means the track is in the playlist but has not yet been added to the playlist view (Bookmark/Recently played/Favorite item), and will be added shortly (this is a race condition). So, dispatch an async delayed handler to show the track in the playlist, after it is expected to be added.
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+//                        self.showPlayingTrack()
+//                    })
+//
+//                } else {
+//                    showPlayingTrack()
+//                }
+//            }
+//
+//        } else if needToShowTrack {
+//            clearSelection()
+//        }
+//
+//        // Gaps may have been removed, so row heights need to be updated too
+//        let indexSet: IndexSet = IndexSet(refreshIndexes)
+//
+//        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+//        playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
         
-        let oldTrack = message.oldTrack
-        var refreshIndexes = [Int]()
-        
-        if let oldTrackIndex = oldTrack?.index {
-            refreshIndexes.append(oldTrackIndex)
-        }
-        
-        if let errTrack = playlist.indexOfTrack(message.error.track) {
-            
-            // If new and old are the same, don't refresh the same row twice
-            if !errTrack.equals(oldTrack) {
-                refreshIndexes.append(errTrack.index)
-            }
-            
-            if PlaylistViewState.current == .tracks {
-                selectTrack(errTrack.index)
-            }
-        }
-        
-        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+//        let oldTrack = message.oldTrack
+//        var refreshIndexes = [Int]()
+//
+//        if let oldTrackIndex = oldTrack?.index {
+//            refreshIndexes.append(oldTrackIndex)
+//        }
+//
+//        if let errTrack = playlist.indexOfTrack(message.error.track) {
+//
+//            // If new and old are the same, don't refresh the same row twice
+//            if !errTrack.equals(oldTrack) {
+//                refreshIndexes.append(errTrack.index)
+//            }
+//
+//            if PlaylistViewState.current == .tracks {
+//                selectTrack(errTrack.index)
+//            }
+//        }
+//
+//        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single result of a search
@@ -509,24 +510,25 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
     }
     
+    // TODO
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
-        var refreshIndexes: [Int] = [message.nextTrack.index]
-        
-        if let oldTrackIndex = message.lastPlayedTrack?.index, oldTrackIndex != message.nextTrack.index {
-            refreshIndexes.append(oldTrackIndex)
-        }
-        
-        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
-        
-        // Last playing track is no longer playing. Also, one-time gaps may have been removed, so need to update the table view
-        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
-        
-        // Select the next track
-        if PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist {
-            selectTrack(message.nextTrack.index)
-        }
+//        var refreshIndexes: [Int] = [message.nextTrack.index]
+//
+//        if let oldTrackIndex = message.lastPlayedTrack?.index, oldTrackIndex != message.nextTrack.index {
+//            refreshIndexes.append(oldTrackIndex)
+//        }
+//
+//        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
+//
+//        // Last playing track is no longer playing. Also, one-time gaps may have been removed, so need to update the table view
+//        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+//        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+//
+//        // Select the next track
+//        if PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist {
+//            selectTrack(message.nextTrack.index)
+//        }
     }
     
     private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {

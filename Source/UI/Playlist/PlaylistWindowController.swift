@@ -466,7 +466,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
-    private func trackChanged(_ newTrack: IndexedTrack?) {
+    private func trackChanged(_ newTrack: Track?) {
         
         if playbackInfo.chapterCount > 0 {
             

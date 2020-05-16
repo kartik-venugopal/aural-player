@@ -70,14 +70,12 @@ class DelayedPlaybackAction: PlaybackChainAction {
     }
     
     // Returns whether or not track preparation was successful.
-    private func doPrepareTrack(_ newTrack: IndexedTrack, _ oldTrack: IndexedTrack?) -> Bool {
+    private func doPrepareTrack(_ newTrack: Track, _ oldTrack: Track?) -> Bool {
         
-        let track = newTrack.track
-        
-        TrackIO.prepareForPlayback(track)
+        TrackIO.prepareForPlayback(newTrack)
         
         // Track preparation failed
-        if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
+        if newTrack.lazyLoadingInfo.preparationFailed, let preparationError = newTrack.lazyLoadingInfo.preparationError {
             
             // If an error occurs, end the playback sequence
             sequencer.end()
@@ -88,9 +86,9 @@ class DelayedPlaybackAction: PlaybackChainAction {
             return false
         }
         // Track needs to be transcoded (i.e. audio format is not natively supported)
-        else if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
+        else if !newTrack.lazyLoadingInfo.preparedForPlayback && newTrack.lazyLoadingInfo.needsTranscoding {
             
-            transcoder.transcodeImmediately(track)
+            transcoder.transcodeImmediately(newTrack)
         }
         
         return true

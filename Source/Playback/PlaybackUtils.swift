@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Remove this class
 class TrackChangeContext {
     
     // This is the state prior to track change
@@ -19,7 +20,7 @@ class TrackChangeContext {
     }
     
     static func encapsulate() -> TrackChangedAsyncMessage {
-        return TrackChangedAsyncMessage(currentTrack, currentState, newTrack)
+        return TrackChangedAsyncMessage(currentTrack?.track, currentState, newTrack?.track)
     }
 }
 

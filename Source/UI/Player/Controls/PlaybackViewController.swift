@@ -182,11 +182,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
 
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChanged(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?, _ errorState: Bool = false) {
         
         playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
         
-        if let track = newTrack?.track, track.hasChapters {
+        if let track = newTrack, track.hasChapters {
             beginPollingForChapterChange()
         } else {
             stopPollingForChapterChange()
@@ -201,7 +201,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         handleTrackNotPlayedError(message.oldTrack, message.error)
     }
     
-    private func handleTrackNotPlayedError(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
+    private func handleTrackNotPlayedError(_ oldTrack: Track?, _ error: InvalidTrackError) {
         
         self.trackChanged(oldTrack, .playing, nil, true)
         

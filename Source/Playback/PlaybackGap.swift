@@ -55,7 +55,7 @@ extension PlaybackGap: Hashable {
 class PlaybackGapContext {
     
     static var id: Int = -1
-    private static var gaps: [PlaybackGap: IndexedTrack] = [:]
+    private static var gaps: [PlaybackGap: Track] = [:]
     
     static func hasGaps() -> Bool {
         return !gaps.isEmpty
@@ -89,7 +89,7 @@ class PlaybackGapContext {
         }
     }
     
-    static var oneTimeGaps: [PlaybackGap: IndexedTrack] {
+    static var oneTimeGaps: [PlaybackGap: Track] {
         return gaps.filter({$0.key.type == .oneTime})
     }
     
@@ -127,7 +127,7 @@ class PlaybackGapContext {
         id = Int.random(in: 0...Int.max)
     }
     
-    static func addGap(_ gap: PlaybackGap, _ track: IndexedTrack) {
+    static func addGap(_ gap: PlaybackGap, _ track: Track) {
         
         if gaps.isEmpty {
             initialize()

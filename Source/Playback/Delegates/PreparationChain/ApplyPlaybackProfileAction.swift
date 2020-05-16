@@ -18,11 +18,11 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
         let params = context.requestParams
         
         // Check for playback profile
-        if let newTrack = context.requestedTrack, params.startPosition == nil, preferences.rememberLastPosition, let profile = profiles.get(newTrack.track) {
+        if let newTrack = context.requestedTrack, params.startPosition == nil, preferences.rememberLastPosition, let profile = profiles.get(newTrack) {
         
             // Apply playback profile for new track
             // Validate the playback profile before applying it
-            params.startPosition = (profile.lastPosition >= newTrack.track.duration ? 0 : profile.lastPosition)
+            params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)
         }
         
         nextAction?.execute(context)

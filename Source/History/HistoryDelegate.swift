@@ -130,7 +130,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackChangedAsyncMessage) {
         
-        if let newTrack = message.newTrack?.track {
+        if let newTrack = message.newTrack {
         
             lastPlayedTrack = newTrack
             history.addRecentlyPlayedItem(newTrack.file, newTrack.conciseDisplayName, Date())

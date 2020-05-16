@@ -95,7 +95,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         if let trackChangedMsg = notification as? TrackChangedNotification {
             
-            trackChanged(trackChangedMsg.newTrack?.track)
+            trackChanged(trackChangedMsg.newTrack)
             return
             
         } else if notification is PlayingTrackInfoUpdatedNotification {
@@ -120,7 +120,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
             
         } else if let gapMsg = message as? PlaybackGapStartedAsyncMessage {
             
-            trackChanged(gapMsg.nextTrack.track)
+            trackChanged(gapMsg.nextTrack)
             return
         }
     }

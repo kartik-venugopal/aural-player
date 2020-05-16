@@ -182,10 +182,10 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
+    private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let track = newTrack?.track, soundProfiles.hasFor(track) {
+        if soundPreferences.rememberEffectsSettings, let track = newTrack, soundProfiles.hasFor(track) {
 
             volumeChanged(audioGraph.volume, audioGraph.muted)
             panChanged(audioGraph.balance)
