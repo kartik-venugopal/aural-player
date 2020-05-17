@@ -248,7 +248,9 @@ enum PlaylistType: String {
         }
     }
     
-    func toGroupScopeType() -> SequenceScopes? {
+    // Maps a playlist type to an optional scope type applicable if the playlist type is a grouping/hierarchical playlist, i.e. groups are its root elements.
+    // So, the tracks playlist will not have a corresponding group scope, whereas the other playlists will.
+    func toGroupScopeType() -> SequenceScopeType? {
 
         switch self {
 
@@ -263,7 +265,24 @@ enum PlaylistType: String {
         }
     }
     
-    func toIndex() -> Int {
+    // Maps this playlist type to a scope type corresponding to that playlist type. e.g., for the "Albums" playlist type, the corresponding playlist scope type will be "All Albums".
+    func toPlaylistScopeType() -> SequenceScopeType {
+
+        switch self {
+            
+        case .tracks: return .allTracks
+            
+        case .artists: return .allArtists
+            
+        case .albums: return .allAlbums
+            
+        case .genres: return .allGenres
+            
+        }
+    }
+    
+    // Index of this playlist type's view within the playlist window.
+    var index: Int {
         
         switch self {
             

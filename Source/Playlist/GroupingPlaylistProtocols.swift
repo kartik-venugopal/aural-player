@@ -122,7 +122,7 @@ enum GroupType: String {
         }
     }
     
-    func toScopeType() -> SequenceScopes {
+    func toScopeType() -> SequenceScopeType {
         
         switch self {
             
