@@ -1,5 +1,9 @@
 import Foundation
 
+fileprivate typealias CurrentTrackState = (state: PlaybackState, track: Track?, seekPosition: Double)
+
+fileprivate typealias TrackProducer = () -> Track?
+
 /*
     Concrete implementation of PlaybackDelegateProtocol and BasicPlaybackDelegateProtocol.
  */
@@ -128,11 +132,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
         if let newTrack = trackProducer() {
             
-            print("\nGoing to play:", newTrack.conciseDisplayName)
+//            print("\nGoing to play:", newTrack.conciseDisplayName)
             
             let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack, cancelWaitingOrTranscoding, params)
             
-            print("\tRequest Context:", requestContext.toString())
+//            print("\tRequest Context:", requestContext.toString())
             
             startPlaybackChain.execute(requestContext)
         }
@@ -144,6 +148,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
         
         stopPlaybackChain.execute(requestContext)
+    }
+    
+    func trackPlaybackCompleted(_ session: PlaybackSession) {
+        
+        if PlaybackSession.isCurrent(session) {
+            trackPlaybackCompleted()
+        }
     }
     
     func trackPlaybackCompleted() {
@@ -526,13 +537,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if (message is PlaybackCompletedAsyncMessage) {
-            trackPlaybackCompleted()
+        if let completionMsg = message as? PlaybackCompletedAsyncMessage {
+            
+            trackPlaybackCompleted(completionMsg.session)
             return
         }
         
-        if (message is TranscodingFinishedAsyncMessage) {
-            transcodingFinished(message as! TranscodingFinishedAsyncMessage)
+        if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
+            
+            transcodingFinished(transcodingFinishedMsg)
             return
         }
     }
