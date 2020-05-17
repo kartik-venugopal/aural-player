@@ -151,8 +151,6 @@ class AudioUtils {
         
         guard let audioFile = AudioIO.createAudioFileForReading(file) else {return}
         
-        print("\tAudioUtils - Preparing:", track.conciseDisplayName, " with:", file.path)
-            
         let playbackInfo = PlaybackInfo()
         
         if track.duration == 0 {

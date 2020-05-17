@@ -240,6 +240,7 @@ struct TrackNotTranscodedAsyncMessage: AsyncMessage {
     let error: InvalidTrackError
     
     init(_ track: Track, _ error: InvalidTrackError) {
+        
         self.track = track
         self.error = error
     }
