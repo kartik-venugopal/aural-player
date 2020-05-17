@@ -324,16 +324,23 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: IndexSet) {
         
-        // TODO: Do the remove on a background thread
+        // TODO: Do the remove on a background thread (maybe if lots are being removed)
         
         let playingTrack = playbackSequencer.playingTrack
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         
-        let playingTrackRemoved = playingTrack != nil && indexes.contains(playingTrack!.index)
+        var playingTrackRemoved: Bool = false
+        var removedPlayingTrack: Track? = nil
+        
+        if let track = playingTrack, indexes.contains(track.index) {
+            
+            playingTrackRemoved = true
+            removedPlayingTrack = track.track
+        }
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, playingTrack?.track)})
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
