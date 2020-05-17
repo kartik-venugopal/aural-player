@@ -9,6 +9,9 @@
 * Incorrect computation of track duration ... now it is precisely computed just before playback
 * Auto-hide of controls in player view
 * Formatting of track times in player view ... sometimes, negative numbers were displayed
+* The playlist would notify that the playing track was removed at times when it was not.
+* When a delayed/transcoding track was moved within the playlist, the row for the playing track would not update when playback started
+* Race condition: When a favorite/bookmark/history track was played very near the end of a currently playing track, the player would skip the user-selected track.
 * Width of text field in player view (was not fully extended)
 
 ### Performance improvements

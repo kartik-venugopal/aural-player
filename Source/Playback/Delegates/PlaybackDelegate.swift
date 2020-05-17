@@ -578,7 +578,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
-        if let theRemovedPlayingTrack = removedPlayingTrack {
+        if playingTrackRemoved, let theRemovedPlayingTrack = removedPlayingTrack {
             state == .transcoding ? cancelTranscoding(theRemovedPlayingTrack) : stop()
         }
     }
