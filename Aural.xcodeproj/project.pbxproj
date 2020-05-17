@@ -105,7 +105,7 @@
 		3E12ACBC2469CBFD00A07611 /* LegacyPlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */; };
 		3E12ACBD2469CBFD00A07611 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC912469829700A07611 /* PlaybackScheduler.swift */; };
 		3E12ACBE2469CBFD00A07611 /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */; };
-		3E12ACBF2469CBFD00A07611 /* GaplessScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */; };
+		3E12ACBF2469CBFD00A07611 /* GaplessScheduler-Concept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */; };
 		3E12ACC02469CC0000A07611 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */; };
 		3E12ACC12469CC0000A07611 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E12ACC22469CC0000A07611 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
@@ -327,8 +327,9 @@
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
 		3E27D20B246FCC1800B6170B /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */; };
 		3E27D20D246FDCB600B6170B /* PlaybackRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20C246FDCB600B6170B /* PlaybackRequestContext.swift */; };
-		3E292B4024673B8300CE8B17 /* GaplessScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */; };
+		3E292B4024673B8300CE8B17 /* GaplessScheduler-Concept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */; };
 		3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2CBDAD2189072800BD68B2 /* EQMapping.swift */; };
+		3E2D143924716DE500D6E81C /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D143824716DE500D6E81C /* IntExtensions.swift */; };
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
 		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
 		3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */; };
@@ -890,8 +891,9 @@
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPlaybackSequenceAction.swift; sourceTree = "<group>"; };
 		3E27D20C246FDCB600B6170B /* PlaybackRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackRequestContext.swift; sourceTree = "<group>"; };
-		3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaplessScheduler.swift; sourceTree = "<group>"; };
+		3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GaplessScheduler-Concept.swift"; sourceTree = "<group>"; };
 		3E2CBDAD2189072800BD68B2 /* EQMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMapping.swift; sourceTree = "<group>"; };
+		3E2D143824716DE500D6E81C /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
 		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
@@ -2530,7 +2532,7 @@
 				3E12AC912469829700A07611 /* PlaybackScheduler.swift */,
 				3ECF2388246AF9C1007B2E5F /* AuralPlayerNode.swift */,
 				3E12AC8E24697DD900A07611 /* PlaybackSegment.swift */,
-				3E292B3F24673B8300CE8B17 /* GaplessScheduler.swift */,
+				3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */,
 			);
 			path = Scheduling;
 			sourceTree = "<group>";
@@ -2636,6 +2638,7 @@
 				3E8718DC2466DEAD007D9672 /* StringExtensions.swift */,
 				3E6268C9246BED3D002FAC63 /* IndexSetExtensions.swift */,
 				3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */,
+				3E2D143824716DE500D6E81C /* IntExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3163,7 +3166,7 @@
 				3EF5E5CE1FBE843D004270A4 /* Strings.swift in Sources */,
 				3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */,
 				3E98478D1F5D0419001A2D28 /* EffectsWindowController.swift in Sources */,
-				3E292B4024673B8300CE8B17 /* GaplessScheduler.swift in Sources */,
+				3E292B4024673B8300CE8B17 /* GaplessScheduler-Concept.swift in Sources */,
 				3E1BF7632431048800B6B9F9 /* RecordingQuality.swift in Sources */,
 				3ECE72CD219D5D2B00419F5F /* Mapper.swift in Sources */,
 				3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */,
@@ -3235,6 +3238,7 @@
 				3E23F2D122A6E6DB00A48C8C /* MediaKeyHandler.swift in Sources */,
 				3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
+				3E2D143924716DE500D6E81C /* IntExtensions.swift in Sources */,
 				3E17D03021E5AC3800951F81 /* CommonFFMpegMetadataParser.swift in Sources */,
 				3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */,
 				3EE7D730244EDCC2005D76FA /* PlayerColorSchemeViewController.swift in Sources */,
@@ -3397,7 +3401,7 @@
 				3E626918246BF0E1002FAC63 /* KeyCodeConstants.swift in Sources */,
 				3E12ACDC2469CC1000A07611 /* TimeUnit.swift in Sources */,
 				3E12AD212469CC3B00A07611 /* ControlsPreferences.swift in Sources */,
-				3E12ACBF2469CBFD00A07611 /* GaplessScheduler.swift in Sources */,
+				3E12ACBF2469CBFD00A07611 /* GaplessScheduler-Concept.swift in Sources */,
 				3E12ACC72469CC0400A07611 /* TranscoderDaemon.swift in Sources */,
 				3E12ADE82469CF5300A07611 /* DefaultFFMpegMetadataParser.swift in Sources */,
 				3E12ACAA2469CBA100A07611 /* GroupingPlaylist.swift in Sources */,

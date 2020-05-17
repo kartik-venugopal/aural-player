@@ -34,86 +34,31 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return tracksCount
     }
     
-    // Resets the sequence with a new tracksCount (i.e. size)
-    func reset(tracksCount: Int) {
-        self.tracksCount = tracksCount
-        reset()
-    }
-    
-    // Invalidates the cursor
-    func resetCursor() {
+    // Ends the sequence (i.e. invalidates the cursor)
+    func end() {
         cursor = nil
     }
     
-    // Resets the sequence with the first element in the sequence being the given index
-    func reset(firstTrackIndex: Int?) {
-        
-        // If shuffle is on, recompute the shuffle sequence
-        if (shuffleMode == .on) {
-            if (firstTrackIndex != nil) {
-                shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
-            } else {
-                shuffleSequence.reset(capacity: tracksCount)
-            }
-        }
-        
-        // The given index is the new cursor (i.e. playing track sequence index)
-        cursor = firstTrackIndex
-    }
-    
     // Resets the sequence with a new size and the first track in the sequence being the given track index
-    func reset(tracksCount: Int, firstTrackIndex: Int?) {
+    func reset(tracksCount: Int, newCursor: Int? = nil) {
         
         self.tracksCount = tracksCount
-        reset()
+        self.cursor = newCursor
         
-        // If shuffle is on, recompute the shuffle sequence
-        if (shuffleMode == .on) {
-            if (firstTrackIndex != nil) {
-                shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
-            } else {
-                shuffleSequence.reset(capacity: tracksCount)
-            }
-        }
-        
-        cursor = firstTrackIndex
+        resetShuffleSequence()
     }
     
-    // Resets the sequence with the same size (intended to be used to re-shuffle the tracks)
-    private func reset() {
-        
+    // Resets the sequence with the first element in the sequence being the given index
+    private func resetShuffleSequence() {
+
         // If shuffle is on, recompute the shuffle sequence
-        if (shuffleMode == .on) {
-            
-            // TODO: Can this logic be moved to ShuffleSequence, and its sequence variable be made private ???
-            
-            let lastSequenceLastElement = shuffleSequence.sequence.last
-            let lastSequenceCount = shuffleSequence.sequence.count
-            
-            shuffleSequence.reset(capacity: tracksCount)
-            
-            // Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
-            if (lastSequenceCount > 1 && lastSequenceLastElement != nil && tracksCount > 1) {
-                if (shuffleSequence.peekNext() == lastSequenceLastElement) {
-                    swapFirstTwoShuffleSequenceElements()
-                }
-            }
-            
-            // Make sure that the first track does not match the currently playing track
-            if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
-                swapFirstTwoShuffleSequenceElements()
-            }
+        if shuffleMode == .on {
+            shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: cursor)
         }
-    }
-    
-    private func swapFirstTwoShuffleSequenceElements() {
-        
-        let temp = shuffleSequence.sequence[0]
-        shuffleSequence.sequence[0] = shuffleSequence.sequence[1]
-        shuffleSequence.sequence[1] = temp
     }
     
     func clear() {
+        
         shuffleSequence.clear()
         tracksCount = 0
         cursor = nil
@@ -123,7 +68,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         
         // When a specific index is selected, the sequence is reset
         cursor = index
-        reset(firstTrackIndex: index)
+        resetShuffleSequence()
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -154,6 +99,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         
         // If repeating one track, cannot also shuffle
         if (repeatMode == .one && shuffleMode == .on) {
+            
             shuffleMode = .off
             shuffleSequence.clear()
         }
@@ -162,43 +108,28 @@ class PlaybackSequence: PlaybackSequenceProtocol {
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        
-        switch shuffleMode {
-            
-        case .off: shuffleMode = .on
-        
-        // Can't shuffle and repeat one track
-        if (repeatMode == .one) {
-            repeatMode = .off
-        }
-            
-            reset(firstTrackIndex: cursor)
-            
-        case .on: shuffleMode = .off
-            shuffleSequence.clear()
-            
-        }
-        
-        return (repeatMode, shuffleMode)
+        return setShuffleMode(self.shuffleMode == .on ? .off : .on)
     }
     
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
+        // Execute this method only if the desired shuffle mode is different from the current shuffle mode.
+        guard shuffleMode != self.shuffleMode else {return (repeatMode, shuffleMode)}
+        
         self.shuffleMode = shuffleMode
         
-        switch shuffleMode {
-            
-        case .on:
+        if shuffleMode == .on {
         
-        // Can't shuffle and repeat one track
-        if (repeatMode == .one) {
-            repeatMode = .off
-        }
-        
-        reset(firstTrackIndex: cursor)
+            // Can't shuffle and repeat one track
+            if repeatMode == .one {
+                repeatMode = .off
+            }
             
-        case .off: shuffleSequence.clear()
+            resetShuffleSequence()
             
+        } else {    // Shuffle mode is off
+            
+            shuffleSequence.clear()
         }
         
         return (repeatMode, shuffleMode)
@@ -206,527 +137,139 @@ class PlaybackSequence: PlaybackSequenceProtocol {
     
     func subsequent() -> Int? {
 
-        if (tracksCount == 0) {
-            cursor = nil
-            return cursor
-        }
+        guard tracksCount > 0 else {return nil}
         
-        if (repeatMode == .off && shuffleMode == .off) {
+        // NOTE - If shuffle is on, it is important to call resetShuffleSequence() or next() here, and update the cursor.
+        // Cannot simply return the value from peekSubsequent().
+        if shuffleMode == .on {
             
-            // Next track sequentially
-            if (cursor != nil && (cursor! < tracksCount - 1)) {
-                
-                // Has more tracks, pick the next one
-                cursor = cursor! + 1
-                
-            } else if (cursor == nil) {
-                
-                // Nothing playing, return the first one
-                cursor = 0
-                
-            } else {
-                
-                // Last track reached, nothing further to play
-                cursor = nil
+            // If shuffle sequence has ended, just create a new one, and keep going (when repeating all)
+            if repeatMode == .all && shuffleSequence.ended() {
+                resetShuffleSequence()
             }
             
-            return cursor
+            cursor = shuffleSequence.next()
+            
+        } // Shuffle mode is off
+        else {
+            cursor = peekSubsequent()
         }
         
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence is complete (all tracks played), reset it
-            if (shuffleSequence.ended()) {
-                reset()
-                cursor = nil
-                return cursor
-            }
-            
-            // Pick the next track in the sequence
-            let next = shuffleSequence.next()!
-            cursor = next
-            
-            return cursor
-        }
-        
-        if (repeatMode == .one) {
-            
-            // Easy, just play the same thing, regardless of shuffleMode
-            
-            if (cursor == nil) {
-                cursor = 0
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the end
-            
-            // Next track sequentially
-            if (cursor != nil && (cursor! < tracksCount - 1)) {
-                
-                // Has more tracks, pick the next one
-                cursor = cursor! + 1
-                
-            } else {
-                
-                // Last track reached or nothing playing, play the first track
-                cursor = 0
-            }
-            
-            return cursor
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == .all && shuffleMode == .on) {
-            
-            // If shuffle sequence has ended, just create a new one, and keep going
-            if (shuffleSequence.ended()) {
-                reset()
-            }
-            
-            let next = shuffleSequence.next()!
-            cursor = next
-            
-            return cursor
-        }
-        
-        // Impossible
-        return nil
-    }
-    
-    func next() -> Int? {
-        
-        // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
-        
-        if (tracksCount == 0 || tracksCount == 1 || cursor == nil) {
-            return nil
-        }
-        
-        if (repeatMode == .off && shuffleMode == .off) {
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                cursor = cursor! + 1
-                
-            } else {
-                
-                // Last track reached, nothing further to play
-                return nil
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence is complete (all tracks played), nothing more to play
-            if (shuffleSequence.ended()) {
-                return nil
-            }
-            
-            // Pick the next track in the sequence
-            let next = shuffleSequence.next()!
-            cursor = next
-            
-            return cursor
-        }
-        
-        if (repeatMode == .one) {
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                cursor = cursor! + 1
-                
-            } else {
-                
-                // Last track reached, no next track
-                return nil
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the end
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                cursor = cursor! + 1
-                
-            } else {
-                
-                // Last track reached or nothing playing, play the first track
-                cursor = 0
-            }
-            
-            return cursor
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == RepeatMode.all && shuffleMode == .on) {
-            
-            // If shuffle sequence has ended, just create a new one, and keep going
-            if (shuffleSequence.ended()) {
-                reset()
-            }
-            
-            let next = shuffleSequence.next()!
-            cursor = next
-            
-            return cursor
-        }
-        
-        // Impossible
-        return nil
-    }
-    
-    func previous() -> Int? {
-        
-        // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
-        
-        if (tracksCount == 0 || tracksCount == 1 || cursor == nil) {
-            return nil
-        }
-        
-        if (repeatMode == .off && shuffleMode == .off) {
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                cursor = cursor! - 1
-                
-            } else {
-                
-                // First track reached, nothing further to play
-                return nil
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence has just started, there is no previous track
-            if (shuffleSequence.started()) {
-                return nil
-            }
-            
-            // Pick the previous track in the sequence
-            let previous = shuffleSequence.previous()!
-            cursor = previous
-            
-            return cursor
-        }
-        
-        if (repeatMode == .one) {
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                cursor = cursor! - 1
-                
-            } else {
-                
-                // First track reached, no previous track
-                return nil
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the beginning
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                cursor = cursor! - 1
-                
-            } else {
-                
-                // First track reached, play the last track
-                cursor = tracksCount - 1
-            }
-            
-            return cursor
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == RepeatMode.all && shuffleMode == .on) {
-            
-            // If the sequence has just started, there is no previous track
-            if (shuffleSequence.started()) {
-                return nil
-            }
-            
-            // Pick the previous track in the sequence
-            let previous = shuffleSequence.previous()!
-            cursor = previous
-            
-            return cursor
-        }
-        
-        // Impossible
-        return nil
+        return cursor
     }
     
     func peekSubsequent() -> Int? {
         
-        if (tracksCount == 0) {
+        guard tracksCount > 0 else {return nil}
+        
+        switch (repeatMode, shuffleMode) {
+            
+        // Repeat Off / All, Shuffle Off
+        case (.off, .off), (.all, .off):
+          
+            // Next track sequentially
+            if let theCursor = cursor, theCursor < (tracksCount - 1) {
+                
+                // Has more tracks, pick the next one
+                return theCursor + 1
+                
+            } else {
+                
+                // If repeating all, loop around to the first track.
+                // If not repeating, nothing playing, always return the first one.
+                // Else last track reached ... stop playback.
+                return repeatMode == .all ? 0 : (cursor == nil ? 0 : nil)
+            }
+        
+        // Repeat One (Shuffle Off implied)
+        case (.one, .off):
+            
+            // Easy, just play the same track again (assume shuffleMode is off)
+            return cursor == nil ? 0 : cursor
+        
+        // Repeat Off / All, Shuffle On
+        case (.off, .on), (.all, .on):
+           
+            // If the sequence is complete (all tracks played), no track
+            // Cannot predict next track because sequence will be reset
+            return shuffleSequence.peekNext()
+            
+        default:
+            
             return nil
         }
+    }
+    
+    func next() -> Int? {
         
-        if (repeatMode == .off && shuffleMode == .off) {
-            
-            // Next track sequentially
-            if (cursor != nil && (cursor! < tracksCount - 1)) {
-                
-                // Has more tracks, pick the next one
-                return cursor! + 1
-                
-            } else if (cursor == nil) {
-                
-                // Nothing playing, return the first one
-                return 0
-                
-            } else {
-                
-                // Last track reached, nothing further to play
-                return nil
-            }
-        }
+        guard tracksCount > 1, cursor != nil else {return nil}
         
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence is complete (all tracks played), no track
-            if (shuffleSequence.ended()) {
-                return nil
-            }
-            
-            // Pick the next track in the sequence
-            return shuffleSequence.peekNext()
-        }
-        
-        if (repeatMode == .one) {
-            
-            // Easy, just play the same thing, regardless of shuffleMode
-            
-            if (cursor == nil) {
-                return 0
-            }
-            
-            return cursor
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the end
-            
-            // Next track sequentially
-            if (cursor != nil && (cursor! < tracksCount - 1)) {
-                
-                // Has more tracks, pick the next one
-                return cursor! + 1
-                
-            } else {
-                
-                // Last track reached or nothing playing, play the first track
-                return 0
-            }
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == .all && shuffleMode == .on) {
+        // NOTE - If shuffle is on, it is important to call resetShuffleSequence() or next() here, and update the cursor.
+        // Cannot simply return the value from peekSubsequent().
+        if shuffleMode == .on {
             
             // If shuffle sequence has ended, just create a new one, and keep going
-            if (shuffleSequence.ended()) {
-                // Cannot predict next track because sequence will be reset
-                return nil
+            if repeatMode == .all && shuffleSequence.ended() {
+                resetShuffleSequence()
+            }
+
+            // Pick the next track in the sequence, if the sequence hasn't ended.
+            if let next = shuffleSequence.next() {
+                cursor = next
+                return next
             }
             
-            return shuffleSequence.peekNext()
+        } else if let next = peekNext() {
+            
+            // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
+            cursor = next
+            return next
         }
         
-        // Impossible
         return nil
     }
     
     func peekNext() -> Int? {
         
-        // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
+        guard tracksCount > 1, let theCursor = cursor else {return nil}
         
-        if (tracksCount == 0 || cursor == nil) {
-            return nil
-        }
-        
-        if (repeatMode == .off && shuffleMode == .off) {
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                return cursor! + 1
-                
-            } else {
-                
-                // Last track reached, nothing further to play
-                return nil
-            }
-        }
-        
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence is complete (all tracks played), nothing more to play
-            if (shuffleSequence.ended()) {
-                return nil
-            }
-            
-            // Pick the next track in the sequence
+        if shuffleMode == .on {
             return shuffleSequence.peekNext()
+            
+        } // Shuffle mode is off
+        else {
+            return theCursor < (tracksCount - 1) ? theCursor + 1 : (repeatMode == .all ? 0 : nil)
+        }
+    }
+    
+    func previous() -> Int? {
+        
+        guard tracksCount > 1, cursor != nil else {return nil}
+        
+        if shuffleMode == .on {
+            _ = shuffleSequence.previous()
+        }
+
+        // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
+        if let previous = peekPrevious() {
+            cursor = previous
+            return previous
         }
         
-        if (repeatMode == .one) {
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                return cursor! + 1
-                
-            } else {
-                
-                // Last track reached, no next track
-                return nil
-            }
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the end
-            
-            // Next track sequentially
-            if (cursor! < tracksCount - 1) {
-                
-                // Has more tracks, pick the next one
-                return cursor! + 1
-                
-            } else {
-                
-                // Last track reached or nothing playing, play the first track
-                return 0
-            }
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == RepeatMode.all && shuffleMode == .on) {
-            
-            // If shuffle sequence has ended, just create a new one, and keep going
-            if (shuffleSequence.ended()) {
-                // Cannot predict next track because sequence will be reset
-                return nil
-            }
-            
-            return shuffleSequence.peekNext()
-        }
-        
-        // Impossible
         return nil
     }
     
     func peekPrevious() -> Int? {
         
-        // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
+        guard tracksCount > 1, let theCursor = cursor else {return nil}
         
-        if (tracksCount == 0 || cursor == nil) {
-            return nil
-        }
-        
-        if (repeatMode == .off && shuffleMode == .off) {
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                return cursor! - 1
-                
-            } else {
-                
-                // First track reached, nothing further to play
-                return nil
-            }
-        }
-        
-        if (repeatMode == .off && shuffleMode == .on) {
-            
-            // If the sequence has just started, there is no previous track
-            if (shuffleSequence.started()) {
-                return nil
-            }
-            
-            // Pick the previous track in the sequence
+        if shuffleMode == .on {
             return shuffleSequence.peekPrevious()
+            
+        } // Shuffle mode is off
+        else {
+            return theCursor > 0 ? theCursor - 1 : (repeatMode == .all ? tracksCount - 1 : nil)
         }
-        
-        if (repeatMode == .one) {
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                return cursor! - 1
-                
-            } else {
-                
-                // First track reached, no previous track
-                return nil
-            }
-        }
-        
-        if (repeatMode == RepeatMode.all && shuffleMode == .off) {
-            
-            // Similar to repeat OFF, just don't stop at the beginning
-            
-            // Previous track sequentially
-            if (cursor! > 0) {
-                
-                // Has more tracks, pick the previous one
-                return cursor! - 1
-                
-            } else {
-                
-                // First track reached, play the last track
-                return tracksCount - 1
-            }
-        }
-        
-        // Repeat all, shuffle on
-        if (repeatMode == RepeatMode.all && shuffleMode == .on) {
-            
-            // If the sequence has just started, there is no previous track
-            if (shuffleSequence.started()) {
-                return nil
-            }
-            
-            // Pick the previous track in the sequence
-            return shuffleSequence.peekPrevious()
-        }
-        
-        // Impossible
-        return nil
     }
     
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {

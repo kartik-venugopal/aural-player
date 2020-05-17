@@ -36,10 +36,10 @@ protocol PlaybackSequenceProtocol {
     // Selects, for playback, the next track in the sequence
     func next() -> Int?
     
-    // Selects, for playback, the track with the given index
+    // Selects, for playback, the track with the given sequence index
     func select(_ index: Int)
     
-    // Returns the index of the currently playing track
+    // Returns the index, within this sequence, of the currently playing track
     var cursor: Int? {get}
     
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
