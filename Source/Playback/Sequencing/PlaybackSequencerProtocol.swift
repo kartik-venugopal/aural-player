@@ -43,21 +43,21 @@ protocol PlaybackSequencerProtocol {
      
         NOTE - When a single index is specified, it is implied that the playlist from which this request originated was the flat "Tracks" playlist, because this playlist locates tracks by a single absolute index. Hence, this function is intended to be called only when playback originates from the "Tracks" playlist.
     */
-    func select(_ index: Int) -> IndexedTrack
+    func select(_ index: Int) -> IndexedTrack?
     
     /*
         Selects, for playback, the specified track. This implies that the sequence consists of all tracks within the group of which this track is a child, and that the sequence will begin with this track.
  
         NOTE - When a track is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */
-    func select(_ track: Track) -> IndexedTrack
+    func select(_ track: Track) -> IndexedTrack?
     
     /*
         Selects, for playback, the specified group, which implies playback of all tracks within this group. The first track determined by the playback sequence (dependent upon the repeat/shuffle modes) will be selected for playback and returned.
      
         NOTE - When a group is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */
-    func select(_ group: Group) -> IndexedTrack
+    func select(_ group: Group) -> IndexedTrack?
     
     // Returns the currently playing track, with its index
     var playingTrack: IndexedTrack? {get}

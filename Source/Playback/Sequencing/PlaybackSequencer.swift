@@ -106,15 +106,15 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     func next() -> IndexedTrack? {
-        
-        let next = getTrackForIndex(sequence.next())
-        
+
         // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
-        if (next != nil) {
-            thePlayingTrack = next?.track
+        if let next = getTrackForIndex(sequence.next()) {
+            
+            thePlayingTrack = next.track
+            return next
         }
         
-        return next
+        return nil
     }
     
     func peekPrevious() -> IndexedTrack? {
@@ -123,21 +123,22 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     func previous() -> IndexedTrack? {
         
-        let previous = getTrackForIndex(sequence.previous())
-        
         // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
-        if (previous != nil) {
-            thePlayingTrack = previous?.track
+        if let previous = getTrackForIndex(sequence.previous()) {
+            
+            thePlayingTrack = previous.track
+            return previous
         }
         
-        return previous
+        return nil
     }
     
-    func select(_ index: Int) -> IndexedTrack {
+    func select(_ index: Int) -> IndexedTrack? {
         
         // "All tracks" playback scope implied. So, reset the scope to allTracks, and reset the sequence size, if that is not the current scope type
         
-        if (scope.type != .allTracks) {
+        if scope.type != .allTracks {
+
             scope.type = .allTracks
             sequence.reset(tracksCount: playlist.size)
         }
@@ -146,71 +147,45 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     // Helper function to select a track with a specific index within the current playback sequence
-    private func doSelectIndex(_ index: Int) -> IndexedTrack {
+    private func doSelectIndex(_ index: Int) -> IndexedTrack? {
         
         sequence.select(index)
-        let track = getTrackForIndex(index)!
-        thePlayingTrack = track.track
-        return track
+        
+        if let track = getTrackForIndex(index) {
+            
+            thePlayingTrack = track.track
+            return track
+        }
+        
+        return nil
     }
     
-    func select(_ track: Track) -> IndexedTrack {
+    func select(_ track: Track) -> IndexedTrack? {
         
-        // Determine the type of the selected track's parent group (which depends on which playlist view type is selected). This will determine the scope type.
-        
-        var groupType: GroupType
-        
-        switch playlistType {
-            
-        case .artists:
-            
-            // Scope type is Artist (i.e. one particular artist)
-            scope.type = .artist
-            groupType = .artist
-            
-        case .albums:
-            
-            // Scope type is Album (i.e. one particular album)
-            scope.type = .album
-            groupType = .album
-            
-        case .genres:
-            
-            // Scope type is Genre (i.e. one particular genre)
-            scope.type = .genre
-            groupType = .genre
-            
-        case .tracks:
-            
-            // This should never happen. This function is only for the grouping playlists.
-            return select(playlist.indexOfTrack(track)!)
+        if playlistType == .tracks, let index = playlist.indexOfTrack(track) {
+            return select(index)
         }
         
         // Get the parent group of the selected track, and set it as the playback scope
-        let groupInfo = playlist.groupingInfoForTrack(groupType, track)!
-        let group = groupInfo.group
-        scope.scope = group
+        if let scopeType = playlistType.toGroupScopeType(), let groupType = playlistType.toGroupType(), let groupInfo = playlist.groupingInfoForTrack(groupType, track) {
+            
+            scope.type = scopeType
+            scope.scope = groupInfo.group
+            
+            // Reset the sequence based on the group's size
+            sequence.reset(tracksCount: groupInfo.group.size)
+            
+            // Select the specified track within its parent group, for playback
+            return doSelectIndex(groupInfo.trackIndex)
+        }
         
-        // Reset the sequence based on the group's size
-        sequence.reset(tracksCount: group.size)
-        
-        // Select the specified track within its parent group, for playback
-        return doSelectIndex(groupInfo.trackIndex)
+        return nil
     }
     
-    func select(_ group: Group) -> IndexedTrack {
+    func select(_ group: Group) -> IndexedTrack? {
         
         // Determine the type of the selected track's parent group (which depends on which playlist view type is selected). This will determine the scope type.
-        
-        switch group.type {
-            
-        case .album: scope.type = .album
-            
-        case .artist: scope.type = .artist
-            
-        case .genre: scope.type = .genre
-            
-        }
+        scope.type = group.type.toScopeType()
         
         // Set the scope to the selected group
         scope.scope = group
@@ -220,7 +195,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         sequence.resetCursor()
         
         // Begin playing the subsequent track (first track determined by the sequence)
-        return subsequent()!
+        return subsequent()
     }
     
     var playingTrack: IndexedTrack? {
@@ -244,18 +219,30 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             switch scope.type {
                 
             // For a single group, the index is the track index within that group
-            case .artist, .album, .genre: return wrapTrack(scope.scope!.trackAtIndex(index))
+            case .artist, .album, .genre:
+                
+                if let group = scope.scope {
+                    return wrapTrack(group.trackAtIndex(index))
+                }
                 
             // For the allTracks scope, the index is the absolute index within the flat playlist
-            case .allTracks: return playlist.trackAtIndex(index)
+            case .allTracks:
+                
+                return playlist.trackAtIndex(index)
                 
             // For the allArtists, allAlbums, and allGenres scopes, the index is an absolute index that needs to be mapped to a group index and track index within that group.
                 
-            case .allArtists: return wrapTrack(getGroupedTrackForAbsoluteIndex(.artist, index))
+            case .allArtists:
                 
-            case .allAlbums: return wrapTrack(getGroupedTrackForAbsoluteIndex(.album, index))
+                return wrapTrack(getGroupedTrackForAbsoluteIndex(.artist, index))
                 
-            case .allGenres: return wrapTrack(getGroupedTrackForAbsoluteIndex(.genre, index))
+            case .allAlbums:
+                
+                return wrapTrack(getGroupedTrackForAbsoluteIndex(.album, index))
+                
+            case .allGenres:
+                
+                return wrapTrack(getGroupedTrackForAbsoluteIndex(.genre, index))
                 
             }
         }
@@ -425,20 +412,20 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
                 
                 // Recalculate the absolute index of the playing track, given its parent group and track index within that group
                 
-                let groupInfo = playlist.groupingInfoForTrack(scope.type.toGroupType()!, playingTrack)!
-                
-                return getAbsoluteIndexForGroupedTrack(scope.type.toGroupType()!, groupInfo.groupIndex, groupInfo.trackIndex)
+                if let groupType = scope.type.toGroupType(), let groupInfo = playlist.groupingInfoForTrack(groupType, playingTrack) {
+                    return getAbsoluteIndexForGroupedTrack(groupType, groupInfo.groupIndex, groupInfo.trackIndex)
+                }
                 
             case .artist, .album, .genre:
                 
                 // The index of the playing track within the group is simply its track index
-                
-                return scope.scope!.indexOfTrack(playingTrack)
+                if let group = scope.scope {
+                    return group.indexOfTrack(playingTrack)
+                }
                 
             case .allTracks:
                 
                 // The index of the playing track within the flat playlist is simply its absolute index
-                
                 return playlist.indexOfTrack(playingTrack)
             }
         }
@@ -449,36 +436,25 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     // Updates the playback sequence. This function is called in response to changes in the playlist, to update the size of the sequence, and the sequence cursor, both of which may have changed.
     private func updateSequence() {
         
-        // Calculate new sequence size
-        var sequenceSize: Int
+        // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
+        let sequenceSize: Int = scope.scope?.size ?? playlist.size
         
-        switch scope.type {
-            
-        // For any of the allXXX scopes, the sequence size is the total playlist size
-        case .allTracks, .allArtists, .allAlbums, .allGenres: sequenceSize = playlist.size
-            
-        // For any of the group scopes, the sequence size is the size of the group
-        case .artist, .album, .genre: sequenceSize = scope.scope!.size
-            
-        }
+        if sequence.cursor != nil {
         
-        // If there is a playing track, update the cursor
-        if (sequence.cursor != nil) {
-            
             // Update the cursor
             let newCursor = calculateNewCursor()
             sequence.reset(tracksCount: sequenceSize, firstTrackIndex: newCursor)
-            
+        
         } else {
             sequence.reset(tracksCount: sequenceSize)
         }
     }
     
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {return sequence.repeatAndShuffleModes}
-    
-    var subscriberId: String {
-        return "PlaybackSequencer"
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        return sequence.repeatAndShuffleModes
     }
+    
+    let subscriberId: String = "PlaybackSequencer"
     
     // MARK: Message handling
     
