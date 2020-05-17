@@ -41,7 +41,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
 
     override func stop() {
         
-        NSLog("stop()")
+//        NSLog("stop()")
 
         playerNode.stop()
         
@@ -101,7 +101,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
             
             // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
             
-            NSLog("pollForTrackCompletion() Track completed !")
+//            NSLog("pollForTrackCompletion() Track completed !")
             
             trackCompleted(curSession)
             destroyCompletionTimer()

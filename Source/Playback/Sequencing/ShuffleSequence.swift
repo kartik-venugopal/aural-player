@@ -7,114 +7,92 @@ import Foundation
 class ShuffleSequence {
     
     // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
-    var sequence: [Int]
+    var sequence: [Int] = []
     
     // The index, within this sequence, of the currently playing track index. This is NOT a track index. It is an index of an index.
-    private var cursor: Int
+    private var cursor: Int = -1
     
     // capacity = number of tracks in sequence
     init(_ capacity: Int) {
-        
-        sequence = [Int]()
-        cursor = -1
         reset(capacity: capacity)
     }
     
     // Shuffle the sequence elements
     private func shuffle() {
+        
+        print("Shuffling shuffle sequence ...")
+        
         sequence.shuffle()
     }
     
     // Clear the sequence
     func clear() {
+        
+        print("Clearing shuffle sequence ...")
+        
         sequence.removeAll()
         cursor = -1
     }
     
     // Recompute the sequence, with a given tracks count
-    func reset(capacity: Int) {
+    func reset(capacity: Int, firstTrackIndex: Int? = nil) {
+        
+        guard capacity > 0 else {return}
+        
+        print("Resetting shuffle sequence with capacity:", capacity)
         
         clear()
         
-        if (capacity > 0) {
+        sequence = Array(0..<capacity)
+        shuffle()
         
-            for i in 0...capacity - 1 {
-                sequence.append(i)
-            }
-            
-            shuffle()
-        }
-    }
-    
-    // Recompute the sequence, with the specified track index being the first element in the new sequence
-    func reset(capacity: Int, firstTrackIndex: Int) {
-        
-        clear()
-        
-        if (capacity > 0) {
-            
-            if (firstTrackIndex > 0) {
-                for i in 0 ... (firstTrackIndex - 1) {
-                    sequence.append(i)
-                }
-            }
-            
-            if (firstTrackIndex < capacity - 1) {
-                for i in (firstTrackIndex + 1) ... (capacity - 1) {
-                    sequence.append(i)
-                }
-            }
-            
-            shuffle()
-            
-            // Insert the specified first track index at index 0, making it the first element in the new sequence
-            sequence.insert(firstTrackIndex, at: 0)
+        if let theFirstElement = firstTrackIndex, let indexOfFirstElement = sequence.firstIndex(of: theFirstElement) {
+
+            // Make sure that firstTrackIndex is at index 0 in the new sequence.
+            sequence.swapAt(0, indexOfFirstElement)
             
             // Advance the cursor once, because the first track in the sequence has already been played back
             _ = next()
         }
-    }
-    
-    // Advance the cursor by one index and retrieve the element at the new index, if available
-    func next() -> Int? {
         
-        if (hasNext()) {
-            cursor += 1
-            return sequence[cursor]
-        }
+        // TODO: Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
         
-        return nil
-    }
-    
-    // Retrieve the next element, if available, without advancing the cursor. This is useful when trying to predict the next track in the sequence (to perform some sort of preparation) without actually playing it.
-    func peekNext() -> Int? {
-        
-        if (hasNext()) {
-            return sequence[cursor + 1]
-        }
-        
-        return nil
-    }
-    
-    // Retrieve the previous element, if available, without retreating the cursor. This is useful when trying to predict the previous track in the sequence (to perform some sort of preparation) without actually playing it.
-    func peekPrevious() -> Int? {
-        
-        if (hasPrevious()) {
-            return sequence[cursor - 1]
-        }
-        
-        return nil
+//        let lastSequenceLastElement = shuffleSequence.sequence.last
+//        let lastSequenceCount = shuffleSequence.sequence.count
+//
+//        shuffleSequence.reset(capacity: tracksCount)
+//
+
+//        if (lastSequenceCount > 1 && lastSequenceLastElement != nil && tracksCount > 1) {
+//            if (shuffleSequence.peekNext() == lastSequenceLastElement) {
+//                swapFirstTwoShuffleSequenceElements()
+//            }
+//        }
+//
+//        // Make sure that the first track does not match the currently playing track
+//        if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
+//            swapFirstTwoShuffleSequenceElements()
+//        }
     }
     
     // Retreat the cursor by one index and retrieve the element at the new index, if available
     func previous() -> Int? {
-        
-        if (hasPrevious()) {
-            cursor -= 1
-            return sequence[cursor]
-        }
-        
-        return nil
+        return hasPrevious() ? sequence[cursor.decrementAndGet()] : nil
+    }
+    
+    // Advance the cursor by one index and retrieve the element at the new index, if available
+    func next() -> Int? {
+        return hasNext() ? sequence[cursor.incrementAndGet()] : nil
+    }
+    
+    // Retrieve the previous element, if available, without retreating the cursor. This is useful when trying to predict the previous track in the sequence (to perform some sort of preparation) without actually playing it.
+    func peekPrevious() -> Int? {
+        return hasPrevious() ? sequence[cursor - 1] : nil
+    }
+    
+    // Retrieve the next element, if available, without advancing the cursor. This is useful when trying to predict the next track in the sequence (to perform some sort of preparation) without actually playing it.
+    func peekNext() -> Int? {
+        return hasNext() ? sequence[cursor + 1] : nil
     }
     
     // Insert a new element (new track index) randomly within the sequence, ensuring that it is inserted after the cursor, so that the new element is visited in the future.

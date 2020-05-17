@@ -53,7 +53,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     func end() {
         
         // Reset the sequence cursor (to indicate that no track is playing)
-        sequence.resetCursor()
+        sequence.end()
         thePlayingTrack = nil
         
         // Reset the scope and the scope type depending on which playlist view is currently selected
@@ -166,7 +166,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Reset the sequence based on the group's size
         sequence.reset(tracksCount: group.size)
-        sequence.resetCursor()
+        sequence.end()
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -400,29 +400,16 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
         let sequenceSize: Int = scope.group?.size ?? playlist.size
-        
-        if sequence.cursor != nil {
-            
-            // There is a playing track
-        
-            // Update the cursor
-            let newCursor = calculateNewCursor()
-            sequence.reset(tracksCount: sequenceSize, firstTrackIndex: newCursor)
-        
-        } else {
-            
-            // No playing track
-            sequence.reset(tracksCount: sequenceSize)
-        }
+        sequence.reset(tracksCount: sequenceSize, newCursor: calculateNewCursor())
     }
     
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return sequence.repeatAndShuffleModes
     }
     
-    let subscriberId: String = "PlaybackSequencer"
-    
     // MARK: Message handling
+    
+    let subscriberId: String = "PlaybackSequencer"
     
     // When the selected playlist view type changes in the UI (i.e. the selected playlist tab changes), this notification is sent out. Here, we make note of the new playlist type, so that the playback scope may be determined from it.
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
@@ -433,20 +420,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let playlistTypeChangedMsg = notification as? PlaylistTypeChangedNotification {
             
-        case .playlistTypeChangedNotification:
-            
-            playlistTypeChanged(notification as! PlaylistTypeChangedNotification)
-            
-        default: return
-            
+            playlistTypeChanged(playlistTypeChangedMsg)
+            return
         }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        // No meaningful response
-        return EmptyResponse.instance
     }
 }
