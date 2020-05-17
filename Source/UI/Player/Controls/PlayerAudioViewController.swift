@@ -35,7 +35,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         
         volumeSlider.floatValue = audioGraph.volume
-        volumeChanged(audioGraph.volume, audioGraph.muted, false)
+        volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
         panSlider.floatValue = audioGraph.balance
         panChanged(audioGraph.balance, false)
@@ -58,7 +58,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     @IBAction func volumeAction(_ sender: AnyObject) {
         
         audioGraph.volume = volumeSlider.floatValue
-        volumeChanged(audioGraph.volume, audioGraph.muted)
+        volumeChanged(audioGraph.volume, audioGraph.muted, false)
     }
     
     // Mutes or unmutes the player
@@ -72,8 +72,6 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func decreaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.decreaseVolume(actionMode)
-        volumeSlider.floatValue = newVolume
-        
         volumeChanged(newVolume, audioGraph.muted)
     }
     
@@ -81,12 +79,15 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func increaseVolume(_ actionMode: ActionMode) {
         
         let newVolume = audioGraph.increaseVolume(actionMode)
-        volumeSlider.floatValue = newVolume
-        
         volumeChanged(newVolume, audioGraph.muted)
     }
     
-    private func volumeChanged(_ volume: Float, _ muted: Bool, _ showFeedback: Bool = true) {
+    // updateSlider should be true if the action was not triggered by the slider in the first place.
+    private func volumeChanged(_ volume: Float, _ muted: Bool, _ updateSlider: Bool = true, _ showFeedback: Bool = true) {
+        
+        if updateSlider {
+            volumeSlider.floatValue = volume
+        }
         
         lblVolume.stringValue = ValueFormatter.formatVolume(volume)
         
