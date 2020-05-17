@@ -435,7 +435,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
         
         playlist.sort(sort, playlistType)
-        changeListeners.forEach({$0.playlistReordered(playlistType)})
+        changeListeners.forEach({$0.tracksReordered(playlistType)})
     }
     
     var subscriberId: String {

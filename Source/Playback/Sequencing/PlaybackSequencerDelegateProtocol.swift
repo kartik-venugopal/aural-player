@@ -10,6 +10,17 @@ protocol PlaybackSequencerInfoDelegateProtocol {
     var playingTrack: IndexedTrack? {get}
     
     /*
+        Returns summary information about the current playback sequence
+     
+        scope - the scope of the sequence which could either be an entire playlist (for ex, all tracks), or a single group (for ex, Artist "Madonna" or Genre "Pop")
+     
+        trackIndex - the relative index of the currently playing track within the sequence (as opposed to within the entire playlist)
+     
+        totalTracks - the total number of tracks in the current sequence
+     */
+    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {get}
+    
+    /*
      
      NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.
      

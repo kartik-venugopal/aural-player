@@ -15,9 +15,6 @@ protocol PlaylistChangeListenerProtocol {
     // Tracks have been moved, in the playlist of the specified type
     func tracksReordered(_ playlistType: PlaylistType)
     
-    // Playlist of the specified type has been reordered (e.g. sorting)
-    func playlistReordered(_ playlistType: PlaylistType)
-    
     // The entire playlist has been cleared
     func playlistCleared()
 }
@@ -30,8 +27,6 @@ extension PlaylistChangeListenerProtocol {
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {}
     
     func tracksReordered(_ playlistType: PlaylistType) {}
-    
-    func playlistReordered(_ playlistType: PlaylistType) {}
     
     func playlistCleared() {}
 }

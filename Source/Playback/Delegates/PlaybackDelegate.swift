@@ -298,8 +298,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Variables that indicate the current player state
     
-    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {return sequencer.sequenceInfo}
-    
     var state: PlaybackState {return player.state}
     
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
@@ -567,13 +565,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
-        if (playingTrackRemoved) {
-            
-            if state == .transcoding {
-                cancelTranscoding(removedPlayingTrack!)
-            } else {
-                stop()
-            }
+        if let theRemovedPlayingTrack = removedPlayingTrack {
+            state == .transcoding ? cancelTranscoding(theRemovedPlayingTrack) : stop()
         }
     }
     

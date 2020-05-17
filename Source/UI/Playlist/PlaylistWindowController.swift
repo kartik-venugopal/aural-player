@@ -100,7 +100,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         } else {
             
             // Remember
-            tabGroup.selectTabViewItem(at: PlaylistViewState.current.toIndex())
+            tabGroup.selectTabViewItem(at: PlaylistViewState.current.index)
         }
         
         tabGroup.delegate = self
