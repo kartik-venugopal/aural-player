@@ -120,7 +120,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return sequencer.select(group)?.track}, params)
     }
     
-    private func captureCurrentState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
+    private func captureCurrentTrackState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
         
         let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
         return (self.state, curTrack?.track, seekPosition.timeElapsed)
@@ -128,15 +128,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
         
-        let curState: CurrentTrackState = captureCurrentState()
+        let curTrackState: CurrentTrackState = captureCurrentTrackState()
             
         if let newTrack = trackProducer() {
             
-//            print("\nGoing to play:", newTrack.conciseDisplayName)
-            
-            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack, cancelWaitingOrTranscoding, params)
-            
-//            print("\tRequest Context:", requestContext.toString())
+            let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, newTrack, cancelWaitingOrTranscoding, params)
             
             startPlaybackChain.execute(requestContext)
         }
@@ -144,8 +140,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func stop() {
         
-        let curState: CurrentTrackState = captureCurrentState()
-        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
+        let curTrackState: CurrentTrackState = captureCurrentTrackState()
+        let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, nil, true, PlaybackParams.defaultParams())
         
         stopPlaybackChain.execute(requestContext)
     }
@@ -159,8 +155,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func trackPlaybackCompleted() {
         
-        let curState: CurrentTrackState = captureCurrentState()
-        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, false, PlaybackParams.defaultParams())
+        let curTrackState: CurrentTrackState = captureCurrentTrackState()
+        let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, nil, false, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
     }
@@ -184,11 +180,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         player.resume()
     }
     
-    private func resumeIfPaused() {
+    func resumeIfPaused() {
         
         if state == .paused {
             player.resume()
         }
+    }
+    
+    func toggleLoop() -> PlaybackLoop? {
+        return player.toggleLoop()
+    }
+    
+    func cancelTranscoding() {
+        
+        if let transcodingTrack = playingTrack?.track {
+            transcoder.cancel(transcodingTrack)
+        }
+        
+        stop()
     }
     
     // MARK: Seeking functions
@@ -309,7 +318,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Variables that indicate the current player state
     
-    var state: PlaybackState {return player.state}
+    var state: PlaybackState {
+        return player.state
+    }
     
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
@@ -324,13 +335,21 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return (0, 0, 0)
     }
     
-    var playingTrack: IndexedTrack? {return state == .waiting ? nil : sequencer.playingTrack}
+    var playingTrack: IndexedTrack? {
+        return state == .waiting ? nil : sequencer.playingTrack
+    }
+    // TODO: Can these 2 be merged into one ???
+    var waitingTrack: IndexedTrack? {
+        return state == .waiting ? sequencer.playingTrack : nil
+    }
     
-    var waitingTrack: IndexedTrack? {return state == .waiting ? sequencer.playingTrack : nil}
+    var playingTrackStartTime: TimeInterval? {
+        return player.playingTrackStartTime
+    }
     
-    var playingTrackStartTime: TimeInterval? {return player.playingTrackStartTime}
-    
-    var playbackLoop: PlaybackLoop? {return player.playbackLoop}
+    var playbackLoop: PlaybackLoop? {
+        return player.playbackLoop
+    }
     
     func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
         
@@ -341,192 +360,47 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return nil
     }
     
-    // MARK: Chapter playback functions
-    
-    func playChapter(_ index: Int) {
-        
-        // Validate track and index by checking the bounds of the chapters array
-        if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
-            
-            // Find the chapter with the given index and seek to its start time.
-            // HACK: Add a little margin to the chapter start time to avoid overlap in chapters (except if the start time is zero).
-            let startTime = track.chapters[index].startTime
-            seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
-            
-            // Resume playback if paused
-            resumeIfPaused()
-        }
-    }
-    
-    func previousChapter() {
-        
-        if let chapters = playingTrack?.track.chapters, !chapters.isEmpty {
-            
-            let elapsed = player.seekPosition
-            
-            for index in 0..<chapters.count {
-                
-                let chapter = chapters[index]
-                
-                // We have either reached a chapter containing the elapsed time or
-                // we have passed the elapsed time (i.e. within a gap between chapters).
-                if chapter.containsTimePosition(elapsed) || (elapsed < chapter.startTime) {
-                    
-                    // If there is a previous chapter, play it
-                    if index > 0 {
-                        playChapter(index - 1)
-                    }
-                    
-                    // No previous chapter
-                    return
-                }
-            }
-            
-            // Elapsed time > all chapter times ... it's a gap at the end
-            // i.e. need to play the last chapter
-            playChapter(chapters.count - 1)
-        }
-    }
-    
-    func nextChapter() {
-        
-        if let chapters = playingTrack?.track.chapters, !chapters.isEmpty {
-                
-            let elapsed = player.seekPosition
-            
-            for index in 0..<chapters.count {
-                
-                let chapter = chapters[index]
-                
-                if chapter.containsTimePosition(elapsed) {
-                
-                    // Play the next chapter if there is one
-                    if index < (chapters.count - 1) {
-                        playChapter(index + 1)
-                    }
-                    
-                    return
-                    
-                } else if elapsed < chapter.startTime {
-                    
-                    // Elapsed time is less than this chapter's lower time bound,
-                    // i.e. this chapter is the next chapter
-                    
-                    playChapter(index)
-                    return
-                }
-            }
-        }
-    }
-    
-    func replayChapter() {
-        
-        if let startTime = playingChapter?.chapter.startTime {
-        
-            // Seek to current chapter's start time
-            seekToTime(startTime + (startTime > 0 ? chapterPlaybackStartTimeMargin : 0))
-            
-            // Resume playback if paused
-            resumeIfPaused()
-        }
-    }
-    
-    func loopChapter() {
-        
-        if let chapter = playingChapter?.chapter {
-            player.defineLoop(chapter.startTime, chapter.endTime)
-        }
-    }
-    
-    var chapterCount: Int {
-        return playingTrack?.track.chapters.count ?? 0
-    }
-    
-    // NOTE - This function needs to be efficient because it is repeatedly called to keep track of the current chapter
-    // TODO: One possible optimization - keep track of which chapter is playing (in a variable), and in this function, check
-    // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
-    var playingChapter: IndexedChapter? {
-        
-        if let track = playingTrack?.track, track.hasChapters {
-            
-            let elapsed = player.seekPosition
-            
-            var index: Int = 0
-            for chapter in track.chapters {
-                
-                if chapter.containsTimePosition(elapsed) {
-                    
-                    // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter.
-                    return IndexedChapter(track, chapter, index)
-                    
-                } else if elapsed < chapter.startTime {
-                    
-                    // Elapsed time is less than this chapter's lower time bound,
-                    // i.e. we have already looked at all chapters up to the elapsed time and not found a match.
-                    // Since chapters are sorted, we can assume that this indicates a gap between chapters.
-                    return nil
-                }
-                
-                index += 1
-            }
-        }
-        
-        return nil
-    }
-    
-    func toggleLoop() -> PlaybackLoop? {
-        return player.toggleLoop()
-    }
-    
-    func cancelTranscoding() {
-        
-        transcoder.cancel(playingTrack!.track)
-        stop()
-    }
-    
     private func cancelTranscoding(_ track: Track) {
         
         transcoder.cancel(track)
         stop()
     }
     
-    private func saveProfile() {
+    private func savePlaybackProfile() {
         
-        if let plTrack = playingTrack?.track {
-            profiles.add(plTrack, PlaybackProfile(plTrack.file, seekPosition.timeElapsed))
+        if let track = playingTrack?.track {
+            profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
         }
     }
     
-    private func deleteProfile() {
+    private func deletePlaybackProfile() {
         
-        if let plTrack = playingTrack?.track {
-            profiles.remove(plTrack)
+        if let track = playingTrack?.track {
+            profiles.remove(track)
         }
     }
     
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
+        // If transcoding failed, stop playback and send out a notification.
         if !msg.success {
             
             stop()
             
-            // Send out playback error message "transcoding failed"
-            AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(msg.track, msg.track.lazyLoadingInfo.preparationError!))
+            if let error = msg.track.lazyLoadingInfo.preparationError {
+                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(msg.track, error))
+            }
         }
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
-        if preferences.rememberLastPosition {
+        if preferences.rememberLastPosition, let track = playingTrack?.track,
+            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
             
             // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let plTrack = playingTrack?.track {
-                
-                if preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(plTrack) {
-                    profiles.add(plTrack, PlaybackProfile(plTrack.file, seekPosition.timeElapsed))
-                }
-            }
+            profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
         }
         
         // Proceed with exit
@@ -555,10 +429,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         switch message.actionType {
             
         case .savePlaybackProfile:
-            saveProfile()
+            
+            savePlaybackProfile()
             
         case .deletePlaybackProfile:
-            deleteProfile()
+            
+            deletePlaybackProfile()
             
         default: return
             
@@ -566,12 +442,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is AppExitRequest) {
-            return onExit()
-        }
-        
-        return EmptyResponse.instance
+        return request is AppExitRequest ? onExit() : EmptyResponse.instance
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
@@ -583,6 +454,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    // Stop playback when the playlist is cleared.
     func playlistCleared() {
         stop()
     }

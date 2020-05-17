@@ -680,6 +680,7 @@
 		3EE4D43E21D6E2F0000110FC /* Alerts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4D43D21D6E2F0000110FC /* Alerts.xib */; };
 		3EE4D44021D6E5DA000110FC /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */; };
 		3EE4EC222470F9F30075374E /* SequenceScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4EC212470F9F30075374E /* SequenceScope.swift */; };
+		3EE4EC242471588C0075374E /* ChapterPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4EC232471588C0075374E /* ChapterPlayback.swift */; };
 		3EE7D71F244EADEB005D76FA /* PlaylistState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7D71E244EADEB005D76FA /* PlaylistState.swift */; };
 		3EE7D721244EBF29005D76FA /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7D720244EBF29005D76FA /* ColorSchemes.swift */; };
 		3EE7D723244EBF5A005D76FA /* ColorSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */; };
@@ -1227,6 +1228,7 @@
 		3EE4D43D21D6E2F0000110FC /* Alerts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Alerts.xib; sourceTree = "<group>"; };
 		3EE4D43F21D6E5DA000110FC /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
 		3EE4EC212470F9F30075374E /* SequenceScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceScope.swift; sourceTree = "<group>"; };
+		3EE4EC232471588C0075374E /* ChapterPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterPlayback.swift; sourceTree = "<group>"; };
 		3EE7D71E244EADEB005D76FA /* PlaylistState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistState.swift; sourceTree = "<group>"; };
 		3EE7D720244EBF29005D76FA /* ColorSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		3EE7D722244EBF5A005D76FA /* ColorSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreset.swift; sourceTree = "<group>"; };
@@ -1803,6 +1805,7 @@
 				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
 				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
 				3E84F8471F5FC58D0010BCDA /* PlaybackDelegate.swift */,
+				3EE4EC232471588C0075374E /* ChapterPlayback.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -3112,6 +3115,7 @@
 				3E7DCBE12197E63400C6D6D3 /* MasterUnitDelegate.swift in Sources */,
 				3EB4BCD02470255E005024E5 /* ResetPlaybackProfileAction.swift in Sources */,
 				3ECF12F6245784A6007209BC /* ColorSchemePopupMenuController.swift in Sources */,
+				3EE4EC242471588C0075374E /* ChapterPlayback.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3EE97B3B245C4E1C0063ADB2 /* AuralColorPicker.swift in Sources */,
