@@ -2,7 +2,7 @@ import Foundation
 
 typealias CurrentTrackState = (state: PlaybackState, track: Track?, seekPosition: Double)
 
-typealias TrackProducer = () -> IndexedTrack?
+typealias TrackProducer = () -> Track?
 
 class NewPlaybackDelegate: PlaybackDelegate {
     
@@ -27,74 +27,74 @@ class NewPlaybackDelegate: PlaybackDelegate {
         trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain as! StartPlaybackChain, stopPlaybackChain as! StopPlaybackChain, sequencer, playlist, profiles, preferences)
     }
     
-    override func beginPlayback() {
-        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams(), false)
-    }
-    
-    override func playImmediately(_ track: IndexedTrack) {
-        doPlay({return sequencer.begin()}, PlaybackParams().withAllowDelay(false))
-    }
-    
-    // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
-    override func subsequentTrack() {
-        doPlay({return sequencer.subsequent()}, PlaybackParams.defaultParams(), false)
-    }
-    
-    override func previousTrack() {
-        doPlay({return sequencer.previous()})
-    }
-    
-    override func nextTrack() {
-        doPlay({return sequencer.next()})
-    }
-    
-    override func play(_ index: Int, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(index)}, params)
-    }
-    
-    override func play(_ track: Track, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(track)}, params)
-    }
-    
-    override func play(_ group: Group, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(group)}, params)
-    }
-    
-    private func captureCurrentState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
-        
-        let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
-        return (self.state, curTrack?.track, seekPosition.timeElapsed)
-    }
-    
-    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
-        
-        let curState: CurrentTrackState = captureCurrentState()
-            
-        if let newTrack = trackProducer() {
-            
-            print("\nGoing to play:", newTrack.track.conciseDisplayName)
-            
-            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack.track, cancelWaitingOrTranscoding, params)
-            
-            print("\tRequest Context:", requestContext.toString())
-            
-            startPlaybackChain.execute(requestContext)
-        }
-    }
-    
-    override func stop() {
-        
-        let curState: CurrentTrackState = captureCurrentState()
-        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
-        
-        stopPlaybackChain.execute(requestContext)
-    }
-    
-    override func trackPlaybackCompleted() {
-        
-        let curState: CurrentTrackState = captureCurrentState()
-        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, false, PlaybackParams.defaultParams())
-        
-        trackPlaybackCompletedChain.execute(requestContext)
-    }
+//    override func beginPlayback() {
+//        doPlay({return sequencer.begin()?.track}, PlaybackParams.defaultParams(), false)
+//    }
+//
+//    override func playImmediately(_ track: IndexedTrack) {
+//        doPlay({return sequencer.begin()?.track}, PlaybackParams().withAllowDelay(false))
+//    }
+//
+//    // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
+//    override func subsequentTrack() {
+//        doPlay({return sequencer.subsequent()?.track}, PlaybackParams.defaultParams(), false)
+//    }
+//
+//    override func previousTrack() {
+//        doPlay({return sequencer.previous()?.track})
+//    }
+//
+//    override func nextTrack() {
+//        doPlay({return sequencer.next()?.track})
+//    }
+//
+//    override func play(_ index: Int, _ params: PlaybackParams) {
+//        doPlay({return sequencer.select(index)?.track}, params)
+//    }
+//
+//    override func play(_ track: Track, _ params: PlaybackParams) {
+//        doPlay({return sequencer.select(track).track}, params)
+//    }
+//
+//    override func play(_ group: Group, _ params: PlaybackParams) {
+//        doPlay({return sequencer.select(group).track}, params)
+//    }
+//
+//    private func captureCurrentState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
+//
+//        let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
+//        return (self.state, curTrack?.track, seekPosition.timeElapsed)
+//    }
+//
+//    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
+//
+//        let curState: CurrentTrackState = captureCurrentState()
+//
+//        if let newTrack = trackProducer() {
+//
+//            print("\nGoing to play:", newTrack.conciseDisplayName)
+//
+//            let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, newTrack, cancelWaitingOrTranscoding, params)
+//
+//            print("\tRequest Context:", requestContext.toString())
+//
+//            startPlaybackChain.execute(requestContext)
+//        }
+//    }
+//
+//    override func stop() {
+//
+//        let curState: CurrentTrackState = captureCurrentState()
+//        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, true, PlaybackParams.defaultParams())
+//
+//        stopPlaybackChain.execute(requestContext)
+//    }
+//
+//    override func trackPlaybackCompleted() {
+//
+//        let curState: CurrentTrackState = captureCurrentState()
+//        let requestContext = PlaybackRequestContext.create(curState.state, curState.track, curState.seekPosition, nil, false, PlaybackParams.defaultParams())
+//
+//        trackPlaybackCompletedChain.execute(requestContext)
+//    }
 }

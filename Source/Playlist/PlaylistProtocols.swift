@@ -248,6 +248,21 @@ enum PlaylistType: String {
         }
     }
     
+    func toGroupScopeType() -> SequenceScopes? {
+
+        switch self {
+
+            // Group type is not applicable for the flat "Tracks" playlist
+            case .tracks: return nil
+
+            case .artists: return .artist
+
+            case .albums: return .album
+
+            case .genres: return .genre
+        }
+    }
+    
     func toIndex() -> Int {
         
         switch self {

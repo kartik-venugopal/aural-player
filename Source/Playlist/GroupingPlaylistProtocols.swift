@@ -121,4 +121,17 @@ enum GroupType: String {
             
         }
     }
+    
+    func toScopeType() -> SequenceScopes {
+        
+        switch self {
+            
+        case .artist: return .artist
+            
+        case.album: return .album
+            
+        case.genre: return .genre
+            
+        }
+    }
 }

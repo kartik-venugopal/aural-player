@@ -269,6 +269,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.selectRowIndexes(invertedSelection, byExtendingSelection: false)
     }
     
+    // TODO: Simplify this method
+    // for row in 0..<numRows if !selRows.contains(row) invSelRows.add(row)
     private var invertedSelection: IndexSet {
         
         let selRows = playlistView.selectedRowIndexes
