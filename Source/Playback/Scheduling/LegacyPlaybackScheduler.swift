@@ -20,7 +20,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
 
     override init(_ playerNode: AuralPlayerNode) {
         super.init(playerNode)
-        NSLog("Instantiated Legacy Scheduler")
+//        NSLog("Instantiated Legacy Scheduler")
     }
     
     override func pause() {
@@ -59,7 +59,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
 
     override func segmentCompleted(_ session: PlaybackSession) {
         
-        NSLog("segmentCompleted( %@, %@, playing?=%@ )", session.id, PlaybackSession.isCurrent(session).description, playerNode.isPlaying.description)
+//        NSLog("segmentCompleted( %@, %@, playing?=%@ )", session.id, PlaybackSession.isCurrent(session).description, playerNode.isPlaying.description)
         
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. old segments that complete when seeking), don't do anything
@@ -75,25 +75,27 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
             
         }, queue: completionHandlerQueue)
         
-        NSLog("segmentCompleted() Created the timer")
+//        NSLog("segmentCompleted() Created the timer")
         
         // Don't start the timer if player is paused
         if playerNode.isPlaying {
             completionPollTimer?.startOrResume()
-            NSLog("segmentCompleted() Started the timer")
+//            NSLog("segmentCompleted() Started the timer")
         }
     }
     
     private func pollForTrackCompletion() {
         
-        guard let trackDuration = PlaybackSession.currentSession?.track.duration else {
+        guard let curSession = PlaybackSession.currentSession else {
+            
             destroyCompletionTimer()
             return
         }
             
+        let trackDuration = curSession.track.duration
         let curPos = seekPosition
         
-        NSLog("pollForTrackCompletion(), pos=%.2f", curPos)
+//        NSLog("pollForTrackCompletion(), pos=%.2f", curPos)
         
         if curPos > (trackDuration - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
             
@@ -101,7 +103,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
             
             NSLog("pollForTrackCompletion() Track completed !")
             
-            trackCompleted()
+            trackCompleted(curSession)
             destroyCompletionTimer()
         }
     }
@@ -141,7 +143,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
     
     private func destroyCompletionTimer() {
         
-        NSLog("destroyCompletionTimer()")
+//        NSLog("destroyCompletionTimer()")
         
         completionPollTimer?.stop()
         completionPollTimer = nil

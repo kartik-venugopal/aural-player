@@ -83,11 +83,11 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
     func resume() {
         
         // Check if track completion occurred while paused.
-        if trackCompletedWhilePaused {
+        if trackCompletedWhilePaused, let curSession = PlaybackSession.currentSession {
 
             // Reset the flag and signal completion.
             trackCompletedWhilePaused = false
-            trackCompleted()
+            trackCompleted(curSession)
             
         } else {
             playerNode.play()
@@ -158,7 +158,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         guard PlaybackSession.isCurrent(session) else {return}
         
         if playerNode.isPlaying {
-            trackCompleted()
+            trackCompleted(session)
             
         } else {
             // Player is paused
@@ -167,8 +167,8 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
     }
     
     // Signal track playback completion
-    func trackCompleted() {
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
+    func trackCompleted(_ session: PlaybackSession) {
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(session))
     }
     
     func loopSegmentCompleted(_ session: PlaybackSession) {

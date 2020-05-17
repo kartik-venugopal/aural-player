@@ -2645,11 +2645,11 @@
 			children = (
 				3EB4BCD3247040B8005024E5 /* StartPlaybackChain.swift */,
 				3E23E0A2246E90CF00367E2B /* CheckPlaybackAllowedAction.swift */,
+				3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */,
 				3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */,
 				3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */,
 				3E23E0AE246EEB9400367E2B /* DelayedPlaybackAction.swift */,
 				3E23E0A4246EB88F00367E2B /* AudioFilePreparationAction.swift */,
-				3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */,
 				3E23E0AC246EC30400367E2B /* StartPlaybackAction.swift */,
 			);
 			path = StartPlaybackChain;
