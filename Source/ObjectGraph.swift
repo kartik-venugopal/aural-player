@@ -112,14 +112,14 @@ class ObjectGraph {
         transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate)
         
         // Playback Delegate
-        playbackDelegate = NewPlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)
         
-        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! PlaybackSequencer, playbackDelegate as! NewPlaybackDelegate]
+        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! PlaybackSequencer, playbackDelegate as! PlaybackDelegate]
         let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
