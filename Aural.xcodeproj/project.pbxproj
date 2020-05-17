@@ -305,7 +305,6 @@
 		3E23E097246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */; };
 		3E23E099246E6F4900367E2B /* HaltPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */; };
 		3E23E09B246E6F7000367E2B /* ValidateNewTrackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */; };
-		3E23E09D246E754F00367E2B /* NewPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09C246E754F00367E2B /* NewPlaybackDelegate.swift */; };
 		3E23E09F246E84E000367E2B /* ApplyPlaybackProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */; };
 		3E23E0A1246E877F00367E2B /* SetPlaybackDelayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */; };
 		3E23E0A3246E90CF00367E2B /* CheckPlaybackAllowedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A2246E90CF00367E2B /* CheckPlaybackAllowedAction.swift */; };
@@ -868,7 +867,6 @@
 		3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelWaitingOrTranscodingAction.swift; sourceTree = "<group>"; };
 		3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaltPlaybackAction.swift; sourceTree = "<group>"; };
 		3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNewTrackAction.swift; sourceTree = "<group>"; };
-		3E23E09C246E754F00367E2B /* NewPlaybackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaybackDelegate.swift; sourceTree = "<group>"; };
 		3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPlaybackProfileAction.swift; sourceTree = "<group>"; };
 		3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPlaybackDelayAction.swift; sourceTree = "<group>"; };
 		3E23E0A2246E90CF00367E2B /* CheckPlaybackAllowedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPlaybackAllowedAction.swift; sourceTree = "<group>"; };
@@ -1805,7 +1803,6 @@
 				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
 				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
 				3E84F8471F5FC58D0010BCDA /* PlaybackDelegate.swift */,
-				3E23E09C246E754F00367E2B /* NewPlaybackDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -3122,7 +3119,6 @@
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */,
 				3E1E97111FA44833006C8629 /* PlaybackSequencer.swift in Sources */,
-				3E23E09D246E754F00367E2B /* NewPlaybackDelegate.swift in Sources */,
 				3EF1847A217C8F1500D24F39 /* VisualizerWC.swift in Sources */,
 				3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */,
 				3EDA1FBB214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift in Sources */,
