@@ -1,23 +1,29 @@
 import Foundation
 
 /*
-    A linear playback sequence that is unaware of the scope (entire playlist or specific group) from which the sequence was created. The size of the sequence will equal the number of tracks in the playback scope, and the indexes will represent absolute indexes within the sequence, that do not necessarily correspond to playlist indexes.
+    Contains the logic that determines the order in which tracks will be selected for playback.
+    The order depends on:
+ 
+    - the order of tracks in the playlist from which the sequence was created (i.e. the playback scope)
+    - the repeat and shuffle modes
+ 
+    This is a linear playback sequence that is unaware of the scope (entire playlist or specific group) from which the sequence was created. The size of the sequence will equal the number of tracks in the playback scope, and the indexes will represent absolute indexes within the sequence, that do not necessarily correspond to playlist indexes.
  
     Examples: 
  
          - If the scope was "All tracks" and there were 5 tracks in the playlist, the sequence might look like [0, 1, 2, 3, 4] or if shuffle is selected, maybe [2, 4, 3, 0, 1]
  
-        - If the scope was "Artist Madonna" and there were 3 tracks in the Madonna artist group, the sequence might look like [0, 1, 2] or if shuffle is selected, maybe [2, 0, 1] ... regardless of how many total tracks there are in the entire playlist.
+        - If the scope was "Artist: Madonna" and there were 3 tracks in the Madonna artist group, the sequence might look like [0, 1, 2] or if shuffle is selected, maybe [2, 0, 1] ... regardless of how many total tracks or groups there are in the entire playlist.
  */
-class PlaybackSequence: PlaybackSequenceProtocol {
+class PlaybackSequence {
     
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
     
-    // Total size of sequence (number of tracks)
+    // Total size of sequence (i.e. number of tracks)
     private(set) var size: Int = 0
     
-    // Cursor is the absolute sequence index of the currently playing track (nil if no track is playing)
+    // Returns the index, within this sequence, of the currently playing track (nil if no track is playing)
     internal var cursor: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
@@ -29,7 +35,8 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         self.shuffleMode = shuffleMode
     }
     
-    // Resets the sequence with a new size and the first track in the sequence being the given track index
+    // Resizes and restarts the sequence with the given size.
+    // The newCursor parameter denotes the first element (i.e. track) in the new sequence.
     func resizeAndStart(size: Int, withCursor newCursor: Int? = nil) {
         
         print(String(format: "\nResizing PLBK sequence with size: %d and newCursor: %@", size, String(describing: newCursor)))
@@ -44,7 +51,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         print("\tCursor now:", cursor)
     }
     
-    // Resets the sequence with a new size and the first track in the sequence being the given track index
+    // Restarts the sequence with the given value as the first element (i.e. track) in the new sequence.
     func start(withCursor newCursor: Int? = nil) {
         
         print(String(format: "\nStarting PLBK sequence with newCursor: %@", String(describing: newCursor)))
@@ -58,11 +65,12 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         print("\tCursor now:", cursor)
     }
     
-    // Ends the sequence (i.e. invalidates the cursor)
+    // Ends the sequence (i.e. invalidates the cursor).
     func end() {
         cursor = nil
     }
     
+    // Removes all elements from the sequence and resets the cursor. (reflects an empty playlist)
     func clear() {
         
         print(String(format: "\nClearing PLBK sequence"))
@@ -74,6 +82,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
     
     // MARK: Repeat and Shuffle functions ------------------------------------------------------------------------------------------
     
+    // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         switch repeatMode {
@@ -97,6 +106,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
+    // Sets the repeat mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         self.repeatMode = repeatMode
@@ -111,10 +121,12 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
+    // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return setShuffleMode(self.shuffleMode == .on ? .off : .on)
     }
     
+    // Sets the shuffle mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         // Execute this method only if the desired shuffle mode is different from the current shuffle mode.
@@ -142,6 +154,19 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
+    // MARK: Sequence iteration functions ---------------------------------------------
+    
+    /*
+        NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.
+    
+        By contrast, "Next track" is the track in the sequence that will be selected if the user requests the next track in the sequence. This may or may not be the same as the "Subsequent track".
+     
+        For example, if the Repeat One setting is on, and a track is playing, Subsequent track will return the same track, while Next track will return the next playlist track or nil (if end has been reached).
+     */
+    
+    // NOTE - In the following iteration functions, a non-nil return value represents the index, within the sequence, of the track selected for playback. A nil return value means no applicable track.
+    
+    // Selects, for playback, the subsequent track in the sequence
     func subsequent() -> Int? {
 
         guard size > 0 else {return nil}
@@ -153,6 +178,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return cursor
     }
     
+    // Peeks at (without selecting for playback) the subsequent track in the sequence
     func peekSubsequent() -> Int? {
         
         guard size > 0 else {return nil}
@@ -195,6 +221,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         }
     }
     
+    // Selects, for playback, the next track in the sequence
     func next() -> Int? {
         
         guard size > 1, cursor != nil else {return nil}
@@ -211,6 +238,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return computedValue
     }
     
+    // Peeks at (without selecting for playback) the next track in the sequence
     func peekNext() -> Int? {
         
         guard size > 1, let theCursor = cursor else {return nil}
@@ -224,6 +252,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         }
     }
     
+    // Selects, for playback, the previous track in the sequence
     func previous() -> Int? {
         
         guard size > 1, cursor != nil else {return nil}
@@ -240,6 +269,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return computedValue
     }
     
+    // Peeks at (without selecting for playback) the previous track in the sequence
     func peekPrevious() -> Int? {
         
         guard size > 1, let theCursor = cursor else {return nil}
@@ -253,6 +283,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         }
     }
     
+    // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return (repeatMode, shuffleMode)
     }
