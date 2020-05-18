@@ -43,6 +43,11 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.type = playlistType.toPlaylistScopeType()
         scope.group = nil
         
+        // TODO: Remove the reset() from here. It should have been done when tracks were added.
+        
+        // NOTE - This is here because when shuffle is on, the sequence will need to be reshuffled after previously ending.
+        // Can we do sequence.restart() instead ???
+        
         // Reset the sequence, with the size of the playlist
         sequence.reset(tracksCount: playlist.size)
         
@@ -113,6 +118,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             scope.type = .allTracks
             scope.group = nil
             
+            // sequence.startWith(newCursor)
             sequence.reset(tracksCount: playlist.size)
         }
         
@@ -166,7 +172,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Reset the sequence based on the group's size
         sequence.reset(tracksCount: group.size)
-        sequence.end()
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -329,29 +334,67 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
         
-        if !addResults.isEmpty {
-            updateSequence()
+        guard !addResults.isEmpty else {return}
+        
+        if let group = scope.group {
+            
+            // We are only interested in the results matching the scope's group type.
+            let filteredResults: [GroupedTrackAddResult?] = addResults.map {$0.groupingPlaylistResults[group.type]}
+
+            // Look for any results matching both the type and name of the scope group.
+            // If nothing is found, the scope is unaffected by this playlist add operation.
+            if !filteredResults.contains(where: {group == $0?.track.group}) {
+                return
+            }
         }
+        
+        updateSequence()
     }
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
         // If the playing track was removed, playback is stopped, and the current sequence has ended
         if playingTrackRemoved {
+            
             end()
+            
+        } else {
+            
+            // Playing track was not removed. If the scope is a group, it might be unaffected.
+        
+            guard !removeResults.flatPlaylistResults.isEmpty else {return}
+            
+            if let group = scope.group {
+                
+                let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
+                
+                if filteredResults == nil {return}
+                
+                // We are only interested in the results matching the scope's group type.
+                // Loop through the results to see if a result for the scope group exists.
+                if let theResults = filteredResults,
+                    !theResults.contains(where: {group == ($0 as? GroupRemovalResult)?.group || group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
+                    
+                    return
+                }
+            }
         }
         
-        if !removeResults.flatPlaylistResults.isEmpty {
-            updateSequence()
-        }
+        updateSequence()
     }
     
-    func tracksReordered(_ playlistType: PlaylistType) {
+    func tracksReordered(_ moveResults: ItemMoveResults) {
         
         // Only update the sequence if the type of the playlist that was reordered matches the playback sequence scope. In other words, if, for example, the Albums playlist was reordered, that does not affect the Artists playlist.
-        if scope.type.toPlaylistType() == playlistType {
-            updateSequence()
+        guard scope.type.toPlaylistType() == moveResults.playlistType else {return}
+
+        // If the scope is a group, it will only have been affected if any tracks within it were moved.
+        // NOTE - A group being moved doesn't affect the playback scope if the scope is limited to that group.
+        if let group = scope.group, !moveResults.results.contains(where: {group == ($0 as? TrackMoveResult)?.parentGroup}) {
+            return
         }
+        
+        updateSequence()
     }
     
     func playlistCleared() {
@@ -359,6 +402,15 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         // The sequence has ended, and needs to be cleared
         sequence.clear()
         end()
+    }
+    
+    // Updates the playback sequence. This function is called in response to changes in the playlist,
+    // to update the size of the sequence, and the sequence cursor, both of which may have changed.
+    private func updateSequence() {
+        
+        // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
+        let sequenceSize: Int = scope.group?.size ?? playlist.size
+        sequence.reset(tracksCount: sequenceSize, newCursor: calculateNewCursor())
     }
     
     // Calculates the new cursor (i.e. index of the playing track within the current playback sequence). This function is called in response to changes in the playlist, to update the cursor which may have changed.
@@ -392,15 +444,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         }
         
         return nil
-    }
-    
-    // Updates the playback sequence. This function is called in response to changes in the playlist,
-    // to update the size of the sequence, and the sequence cursor, both of which may have changed.
-    private func updateSequence() {
-        
-        // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
-        let sequenceSize: Int = scope.group?.size ?? playlist.size
-        sequence.reset(tracksCount: sequenceSize, newCursor: calculateNewCursor())
     }
     
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
