@@ -10,93 +10,104 @@ class ShuffleSequence {
     private var sequence: [Int] = []
     
     // The index, within this sequence, of the currently playing track index. This is NOT a track index. It is an index of an index.
-    private var cursor: Int = -1
+    private var curIndex: Int = -1
     
-    // size = number of tracks in sequence
-    init(_ size: Int) {
-        resize(size: size)
+    private var size: Int {
+        return sequence.count
+    }
+    
+    // Recompute the sequence, with a given tracks count
+    func resizeAndReshuffle(size: Int, startWith desiredStartValue: Int? = nil) {
+        
+        print(String(format: "\nResizing shuffle sequence with size: %d and startValue: %@", size, String(describing: desiredStartValue)))
+        
+        curIndex = desiredStartValue == nil ? -1 : 0
+        
+        if self.size != size {
+            sequence = Array(0..<size)
+            print(String(format: "\tDID ACTUALLY resize shuffle sequence with size: %d and startValue: %@", size, String(describing: desiredStartValue)))
+        }
+        
+        // NOTE - If only one track in sequence, no need to do any adjustments.
+        guard self.size > 1 else {
+            print("\tShuffle sequence now:", sequence, ",cursor:", curIndex)
+            return}
+        
+        shuffle()
+        
+        if let theStartValue = desiredStartValue, sequence.first != theStartValue, let indexOfStartValue = sequence.firstIndex(of: theStartValue) {
+
+            // Make sure that desiredStartValue is at index 0 in the new sequence.
+            sequence.swapAt(0, indexOfStartValue)
+        }
+        
+        print("\tShuffle sequence now:", sequence, ",cursor:", curIndex)
     }
     
     // Shuffle the sequence elements
     private func shuffle() {
         
-        print("Shuffling shuffle sequence ...")
+        guard size > 1 else {return}
         
+        print("\nShuffling shuffle sequence ...")
         sequence.shuffle()
     }
     
     // Clear the sequence
     func clear() {
         
-        print("Clearing shuffle sequence ...")
-        
+        print("\nClearing shuffle sequence ...")
         sequence.removeAll()
-        cursor = -1
+        curIndex = -1
     }
     
-    // Recompute the sequence, with a given tracks count
-    func resize(size: Int, firstTrackIndex: Int? = nil) {
+    // Called when sequence ends. Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row.
+    private func sequenceEnded(dontStartWith value: Int) {
         
-        print("Resizing shuffle sequence with size:", size)
+        print(String(format: "\nShuffle sequence ended dontStartValue: %@", String(describing: value)))
         
-        clear()
+        curIndex = -1
         
-        sequence = Array(0..<size)
+        // NOTE - If only one track in sequence, no need to do any adjustments.
+        guard size > 1 else {return}
+        
         shuffle()
         
-        if let theFirstElement = firstTrackIndex, let indexOfFirstElement = sequence.firstIndex(of: theFirstElement) {
-
-            // Make sure that firstTrackIndex is at index 0 in the new sequence.
-            sequence.swapAt(0, indexOfFirstElement)
-            
-            // Advance the cursor once, because the first track in the sequence has already been played back
-            _ = next()
+        if sequence.first == value {
+            sequence.swapAt(0, size - 1)
         }
         
-        // TODO: Add a func reshuffle() which will not change the capacity, only reshuffle the elements and ensure the following uniqueness.
-        
-        // TODO: Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
-        
-//        let lastSequenceLastElement = shuffleSequence.sequence.last
-//        let lastSequenceCount = shuffleSequence.sequence.count
-//
-//        shuffleSequence.reset(capacity: tracksCount)
-//
-
-//        if (lastSequenceCount > 1 && lastSequenceLastElement != nil && tracksCount > 1) {
-//            if (shuffleSequence.peekNext() == lastSequenceLastElement) {
-//                swapFirstTwoShuffleSequenceElements()
-//            }
-//        }
-//
-//        // Make sure that the first track does not match the currently playing track
-//        if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
-//            swapFirstTwoShuffleSequenceElements()
-//        }
-    }
-    
-    func reshuffle(_ previousCursor: Int) {
-        
+        print("\tShuffle sequence now:", sequence, ",cursor:", curIndex)
     }
     
     // Retreat the cursor by one index and retrieve the element at the new index, if available
     func previous() -> Int? {
-        return hasPrevious() ? sequence[cursor.decrementAndGet()] : nil
+        let val = hasPrevious() ? sequence[curIndex.decrementAndGet()] : nil
+        print("\tShuffle.Previous() ->", curIndex)
+        return val
     }
     
     // Advance the cursor by one index and retrieve the element at the new index, if available
-    func next() -> Int? {
-        return hasNext() ? sequence[cursor.incrementAndGet()] : nil
+    func next(repeatMode: RepeatMode) -> Int? {
+        
+        if repeatMode == .all, hasEnded {
+            sequenceEnded(dontStartWith: sequence[curIndex])
+        }
+        
+        let val = hasNext() ? sequence[curIndex.incrementAndGet()] : nil
+        print("\tShuffle.Next() ->", curIndex)
+        
+        return val
     }
     
     // Retrieve the previous element, if available, without retreating the cursor. This is useful when trying to predict the previous track in the sequence (to perform some sort of preparation) without actually playing it.
     func peekPrevious() -> Int? {
-        return hasPrevious() ? sequence[cursor - 1] : nil
+        return hasPrevious() ? sequence[curIndex - 1] : nil
     }
     
     // Retrieve the next element, if available, without advancing the cursor. This is useful when trying to predict the next track in the sequence (to perform some sort of preparation) without actually playing it.
     func peekNext() -> Int? {
-        return hasNext() ? sequence[cursor + 1] : nil
+        return hasNext() ? sequence[curIndex + 1] : nil
     }
     
     // TODO: This is not being used. Make it used.
@@ -104,7 +115,7 @@ class ShuffleSequence {
     func insertElement(elm: Int) {
         
         // Insert between (cursor + 1) and (sequence count), inclusive
-        let min: UInt32 = UInt32(cursor + 1)
+        let min: UInt32 = UInt32(curIndex + 1)
         let max: UInt32 = UInt32(sequence.count)
         
         let insertionPoint = arc4random_uniform(max - min + 1) + min
@@ -112,23 +123,23 @@ class ShuffleSequence {
     }
     
     // Checks if all elements have been visited, i.e. the end of the sequence has been reached
-    func ended() -> Bool {
-        return cursor == sequence.count - 1
+    private var hasEnded: Bool {
+        return curIndex == size - 1
     }
     
     // Checks if the cursor is at the beginning of the sequence. NOTE - It is possible to visit elements and return to the start position
     func started() -> Bool {
-        return cursor < 1
+        return curIndex < 1
     }
     
     // Checks if it is possible to advance the cursor
     func hasNext() -> Bool {
-        return sequence.count > 0 && cursor < sequence.count - 1
+        return size > 0 && curIndex < size - 1
     }
     
     // Checks if it is possible to retreat the cursor
     func hasPrevious() -> Bool {
-        return cursor > 0
+        return curIndex > 0
     }
 }
 

@@ -1787,14 +1787,14 @@
 		3E50ADB124613D0E00B31339 /* Sequencing */ = {
 			isa = PBXGroup;
 			children = (
-				3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */,
-				3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */,
-				3EE4EC212470F9F30075374E /* SequenceScope.swift */,
 				3EDA1FBA214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift */,
 				3E167234246DBA7400A57F64 /* PlaybackSequencerDelegate.swift */,
+				3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */,
 				3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */,
+				3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */,
 				3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */,
 				3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */,
+				3EE4EC212470F9F30075374E /* SequenceScope.swift */,
 				3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */,
 			);
 			path = Sequencing;

@@ -38,8 +38,15 @@ protocol PlaybackSequenceProtocol {
     // Selects, for playback, the next track in the sequence
     func next() -> Int?
     
-    // Selects, for playback, the track with the given sequence index
-    func select(_ index: Int)
+    // Resizes and restarts the sequence with the given size.
+    // The newCursor parameter denotes the first element (i.e. track) in the new sequence.
+    func resizeAndStart(size: Int, withCursor newCursor: Int?)
+    
+    // Restarts the sequence with the given value as the first element (i.e. track) in the new sequence.
+    func start(withCursor newCursor: Int?)
+    
+    // Ends the sequence
+    func end()
     
     // Returns the index, within this sequence, of the currently playing track
     var cursor: Int? {get}

@@ -16,8 +16,6 @@ class CancelWaitingOrTranscodingAction: PlaybackChainAction {
         // (as opposed to being performed automatically by the player when the previous track completes)
         if context.cancelWaitingOrTranscoding {
             
-            print("\tCanceling transcoding for:", context.requestedTrack?.conciseDisplayName)
-        
             if context.currentState == .transcoding, let trackBeingTranscoded = context.currentTrack,
                 trackBeingTranscoded != context.requestedTrack {
                 
