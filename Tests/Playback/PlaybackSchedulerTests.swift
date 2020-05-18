@@ -10,6 +10,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     
     var subscriberId: String {return self.className + String(describing: self.hashValue)}
     var trackCompletionMsgReceived: Bool = false
+    var completedSessionIsCurrent: Bool = false
 
     override func setUp() {
         
@@ -27,6 +28,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         mockPlayerNode.resetMock()
         
         trackCompletionMsgReceived = false
+        completedSessionIsCurrent = false
         
         _ = PlaybackSession.endCurrent()
         
@@ -41,7 +43,12 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
-        trackCompletionMsgReceived = message is PlaybackCompletedAsyncMessage
+        
+        if let completionMessage = message as? PlaybackCompletedAsyncMessage {
+            
+            trackCompletionMsgReceived = true
+            completedSessionIsCurrent = PlaybackSession.isCurrent(completionMessage.session)
+        }
     }
     
     // MARK: seekPosition tests ---------------------------------------------------------------------------------------------------------
@@ -209,7 +216,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         
         // Wait 1/2 second, then validate
         executeAfter(0.5) {
-            XCTAssertFalse(self.trackCompletionMsgReceived)
+            XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
         }
     }
     
@@ -231,7 +238,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         
         // Wait 1/2 second, then validate
         executeAfter(0.5) {
-            XCTAssertTrue(self.trackCompletionMsgReceived)
+            XCTAssertTrue(self.trackCompletionMsgReceived && self.completedSessionIsCurrent)
         }
     }
     
@@ -282,7 +289,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         
         // Wait 1/2 second, then validate (no message should be received).
         executeAfter(0.5) {
-            XCTAssertFalse(self.trackCompletionMsgReceived)
+            XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
         }
     }
     
@@ -433,6 +440,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         // Wait 1/2 second, then validate
         executeAfter(0.5) {
             XCTAssertEqual(self.trackCompletionMsgReceived, isSessionCurrent && playing)
+            XCTAssertEqual(self.completedSessionIsCurrent, isSessionCurrent && playing)
         }
     }
     
