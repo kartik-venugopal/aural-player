@@ -1,5 +1,10 @@
 /*
     Encapsulates a pre-computed shuffle sequence to be used to determine the order in which shuffled tracks will be played.
+    The sequence can flexibly be resized as the corresponding playback sequence changes.
+    Provides functions to iterate through the sequence, e.g. previous/next
+ 
+    Example:    For a shuffle sequence with 10 tracks, the sequence may look like:
+                [7, 9, 2, 4, 8, 6, 3, 0, 1, 5]
  */
 
 import Foundation
