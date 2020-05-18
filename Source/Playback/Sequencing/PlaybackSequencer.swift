@@ -6,7 +6,7 @@ import Foundation
 class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
-    private let sequence: PlaybackSequence
+    private let sequence: PlaybackSequenceProtocol
     
     // The current playback scope (See SequenceScope for more details)
     // NOTE - The default sequence scope is "All tracks"
@@ -23,7 +23,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
-        self.sequence = PlaybackSequence(0, repeatMode, shuffleMode)
+        self.sequence = PlaybackSequence(repeatMode, shuffleMode)
         self.playlist = playlist
         
         // Subscribe to notifications that the playlist view type has changed
@@ -43,13 +43,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.type = playlistType.toPlaylistScopeType()
         scope.group = nil
         
-        // TODO: Remove the reset() from here. It should have been done when tracks were added.
-        
-        // NOTE - This is here because when shuffle is on, the sequence will need to be reshuffled after previously ending.
-        // Can we do sequence.restart() instead ???
-        
         // Reset the sequence, with the size of the playlist
-        sequence.reset(tracksCount: playlist.size)
+        sequence.resizeAndStart(size: playlist.size, withCursor: nil)
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -117,20 +112,17 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
 
             scope.type = .allTracks
             scope.group = nil
-            
-            // sequence.startWith(newCursor)
-            sequence.reset(tracksCount: playlist.size)
         }
         
-        return doSelectSequenceIndex(index)
+        return startSequence(playlist.size, index)
     }
     
     // Helper function to select a track with a specific index within the current playback sequence
-    private func doSelectSequenceIndex(_ sequenceIndex: Int) -> IndexedTrack? {
+    private func startSequence(_ size: Int, _ cursor: Int) -> IndexedTrack? {
         
-        sequence.select(sequenceIndex)
+        sequence.resizeAndStart(size: size, withCursor: cursor)
         
-        if let track = getIndexedTrackForSequenceIndex(sequenceIndex) {
+        if let track = getIndexedTrackForSequenceIndex(cursor) {
             
             thePlayingTrack = track.track
             return track
@@ -152,11 +144,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             scope.type = scopeType
             scope.group = groupInfo.group
             
-            // Reset the sequence based on the group's size
-            sequence.reset(tracksCount: groupInfo.group.size)
-            
             // Select the specified track within its parent group, for playback
-            return doSelectSequenceIndex(groupInfo.trackIndex)
+            return startSequence(groupInfo.group.size, groupInfo.trackIndex)
         }
         
         return nil
@@ -171,7 +160,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.group = group
         
         // Reset the sequence based on the group's size
-        sequence.reset(tracksCount: group.size)
+        sequence.resizeAndStart(size: group.size, withCursor: nil)
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -348,7 +337,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             }
         }
         
-        updateSequence()
+        updateSequence(true)
     }
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
@@ -368,6 +357,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
                 
                 let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
                 
+                // No results for this group type means the scope was unaffected. (Should be impossible)
                 if filteredResults == nil {return}
                 
                 // We are only interested in the results matching the scope's group type.
@@ -380,12 +370,13 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             }
         }
         
-        updateSequence()
+        updateSequence(true)
     }
     
     func tracksReordered(_ moveResults: ItemMoveResults) {
         
-        // Only update the sequence if the type of the playlist that was reordered matches the playback sequence scope. In other words, if, for example, the Albums playlist was reordered, that does not affect the Artists playlist.
+        // Only update the sequence if the type of the playlist that was reordered matches the playback sequence scope.
+        // In other words, if, for example, the Albums playlist was reordered, that does not affect the Artists playlist.
         guard scope.type.toPlaylistType() == moveResults.playlistType else {return}
 
         // If the scope is a group, it will only have been affected if any tracks within it were moved.
@@ -394,7 +385,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             return
         }
         
-        updateSequence()
+        updateSequence(false)
     }
     
     func playlistSorted(_ sortResults: SortResults) {
@@ -410,7 +401,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             return
         }
         
-        updateSequence()
+        updateSequence(false)
     }
     
     func playlistCleared() {
@@ -422,11 +413,21 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     // Updates the playback sequence. This function is called in response to changes in the playlist,
     // to update the size of the sequence, and the sequence cursor, both of which may have changed.
-    private func updateSequence() {
+    private func updateSequence(_ resize: Bool) {
         
-        // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
-        let sequenceSize: Int = scope.group?.size ?? playlist.size
-        sequence.reset(tracksCount: sequenceSize, newCursor: calculateNewCursor())
+        // No need to update the sequence if no track is playing. It will get updated whenever playback begins.
+        guard thePlayingTrack != nil else {return}
+        
+        if resize {
+            
+            // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
+            let sequenceSize: Int = scope.group?.size ?? playlist.size
+            sequence.resizeAndStart(size: sequenceSize, withCursor: calculateNewCursor())
+            
+        } else {
+            
+            sequence.start(withCursor: calculateNewCursor())
+        }
     }
     
     // Calculates the new cursor (i.e. index of the playing track within the current playback sequence). This function is called in response to changes in the playlist, to update the cursor which may have changed.

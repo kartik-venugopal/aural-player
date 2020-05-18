@@ -13,12 +13,12 @@ extension Int {
     }
     
     mutating func decrement() {
-        self += 1
+        self -= 1
     }
     
     mutating func decrementAndGet() -> Int {
         
-        self += 1
+        self -= 1
         return self
     }
 }
