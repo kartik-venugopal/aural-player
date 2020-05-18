@@ -3,6 +3,8 @@
  */
 import Foundation
 
+// TODO: Clean up these structs and make them more consistent with each other.
+
 // Contains the aggregated results of adding a track to each of the playlist types
 struct TrackAddResult {
     
@@ -174,5 +176,25 @@ struct TrackMoveResult: ItemMoveResult {
         
         self.movedUp = newTrackIndex < oldTrackIndex
         self.movedDown = !self.movedUp
+    }
+}
+
+struct SortResults {
+    
+    let playlistType: PlaylistType
+
+    let tracksSorted: Bool
+    let affectedParentGroups: [Group]
+    
+    let groupsSorted: Bool
+    
+    init(_ playlistType: PlaylistType, _ sort: Sort) {
+        
+        self.playlistType = playlistType
+        
+        self.tracksSorted = sort.tracksSort != nil
+        self.groupsSorted = sort.groupsSort != nil
+        
+        self.affectedParentGroups = sort.tracksSort?.parentGroups ?? []
     }
 }

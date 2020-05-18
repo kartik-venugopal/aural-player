@@ -179,8 +179,11 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return allResults
     }
     
-    func sort(_ sort: Sort, _ playlistType: PlaylistType) {
-
+    func sort(_ sort: Sort, _ playlistType: PlaylistType) -> SortResults {
+        
+        // The results are independent of specific reordering operations, so they can be determined before the playlist is actually sorted.
+        let results = SortResults(playlistType, sort)
+        
         // Sort only the specified playlist type
         
         if playlistType == .tracks {
@@ -191,6 +194,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             
             groupingPlaylist.sort(sort)
         }
+        
+        return results
     }
     
     // Returns all state for this playlist that needs to be persisted to disk

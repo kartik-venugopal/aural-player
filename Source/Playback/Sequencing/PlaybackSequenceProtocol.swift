@@ -13,7 +13,9 @@ protocol PlaybackSequenceProtocol {
     /*
         NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.
     
-        By contrast, "Next track" is the track in the sequence that will be selected if the user requests the next track in the sequence. This may or may not be the same as the "Subsequent track"
+        By contrast, "Next track" is the track in the sequence that will be selected if the user requests the next track in the sequence. This may or may not be the same as the "Subsequent track".
+     
+        For example, if the Repeat One setting is on, and a track is playing, Subsequent track will return the same track, while Next track will return the next playlist track or nil (if end has been reached).
      */
     
     // NOTE - A non-nil value represents the index, within the sequence, of the track selected for playback. A nil return value means no applicable track.

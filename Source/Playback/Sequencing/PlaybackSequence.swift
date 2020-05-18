@@ -53,7 +53,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
 
         // If shuffle is on, recompute the shuffle sequence
         if shuffleMode == .on {
-            shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: cursor)
+            shuffleSequence.resize(size: tracksCount, firstTrackIndex: cursor)
         }
     }
     

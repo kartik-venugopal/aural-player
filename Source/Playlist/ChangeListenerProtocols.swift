@@ -13,20 +13,25 @@ protocol PlaylistChangeListenerProtocol {
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?)
     
     // Tracks have been moved, in the playlist of the specified type
-    func tracksReordered(_ playlistType: PlaylistType)
+    func tracksReordered(_ moveResults: ItemMoveResults)
+    
+    // The playlist has been sorted. The sortResults parameter provides details about the sort performed.
+    func playlistSorted(_ sortResults: SortResults)
     
     // The entire playlist has been cleared
     func playlistCleared()
 }
 
-// Default function implementations
+// Default function implementations (to provide the convenience to implementors to implement only functions they are interested in)
 extension PlaylistChangeListenerProtocol {
     
     func tracksAdded(_ addResults: [TrackAddResult]) {}
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {}
     
-    func tracksReordered(_ playlistType: PlaylistType) {}
+    func tracksReordered(_ moveResults: ItemMoveResults) {}
+    
+    func playlistSorted(_ sortResults: SortResults) {}
     
     func playlistCleared() {}
 }

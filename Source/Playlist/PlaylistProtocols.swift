@@ -174,7 +174,7 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      
         NOTE: Only the specified type of playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
      */
-    func sort(_ sort: Sort, _ playlistType: PlaylistType)
+    func sort(_ sort: Sort, _ playlistType: PlaylistType) -> SortResults
     
     /*
         Performs a drag and drop reordering operation on the flat playlist, from a set of source indexes to a destination drop index (either on or above the drop index). Returns the set of new destination indexes for the reordered items.
