@@ -360,27 +360,27 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
         
         let results = playlist.moveTracksUp(indexes)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksToTop(_ indexes: IndexSet) -> ItemMoveResults {
         
         let results = playlist.moveTracksToTop(indexes)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         let results = playlist.moveTracksDown(indexes)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksToBottom(_ indexes: IndexSet) -> ItemMoveResults {
         
         let results = playlist.moveTracksToBottom(indexes)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
@@ -400,28 +400,29 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        
         let results = playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksAndGroupsToTop(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         
         let results = playlist.moveTracksAndGroupsToTop(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         let results = playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
     func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         
         let results = playlist.moveTracksAndGroupsToBottom(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
     
@@ -441,8 +442,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
         
-        playlist.sort(sort, playlistType)
-        changeListeners.forEach({$0.tracksReordered(playlistType)})
+        let results = playlist.sort(sort, playlistType)
+        changeListeners.forEach({$0.playlistSorted(results)})
     }
     
     var subscriberId: String {
@@ -503,14 +504,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         
         let destination = playlist.dropTracks(sourceIndexes, dropIndex, dropType)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        changeListeners.forEach({$0.tracksReordered(ItemMoveResults([], .tracks))})
         return destination
     }
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         
         let results = playlist.dropTracksAndGroups(tracks, groups, groupType, dropParent, dropIndex)
-        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
 }

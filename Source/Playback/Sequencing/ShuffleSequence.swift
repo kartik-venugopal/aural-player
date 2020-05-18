@@ -7,14 +7,14 @@ import Foundation
 class ShuffleSequence {
     
     // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
-    var sequence: [Int] = []
+    private var sequence: [Int] = []
     
     // The index, within this sequence, of the currently playing track index. This is NOT a track index. It is an index of an index.
     private var cursor: Int = -1
     
-    // capacity = number of tracks in sequence
-    init(_ capacity: Int) {
-        reset(capacity: capacity)
+    // size = number of tracks in sequence
+    init(_ size: Int) {
+        resize(size: size)
     }
     
     // Shuffle the sequence elements
@@ -35,15 +35,13 @@ class ShuffleSequence {
     }
     
     // Recompute the sequence, with a given tracks count
-    func reset(capacity: Int, firstTrackIndex: Int? = nil) {
+    func resize(size: Int, firstTrackIndex: Int? = nil) {
         
-        guard capacity > 0 else {return}
-        
-        print("Resetting shuffle sequence with capacity:", capacity)
+        print("Resizing shuffle sequence with size:", size)
         
         clear()
         
-        sequence = Array(0..<capacity)
+        sequence = Array(0..<size)
         shuffle()
         
         if let theFirstElement = firstTrackIndex, let indexOfFirstElement = sequence.firstIndex(of: theFirstElement) {
@@ -54,6 +52,8 @@ class ShuffleSequence {
             // Advance the cursor once, because the first track in the sequence has already been played back
             _ = next()
         }
+        
+        // TODO: Add a func reshuffle() which will not change the capacity, only reshuffle the elements and ensure the following uniqueness.
         
         // TODO: Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
         
@@ -73,6 +73,10 @@ class ShuffleSequence {
 //        if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
 //            swapFirstTwoShuffleSequenceElements()
 //        }
+    }
+    
+    func reshuffle(_ previousCursor: Int) {
+        
     }
     
     // Retreat the cursor by one index and retrieve the element at the new index, if available
@@ -95,6 +99,7 @@ class ShuffleSequence {
         return hasNext() ? sequence[cursor + 1] : nil
     }
     
+    // TODO: This is not being used. Make it used.
     // Insert a new element (new track index) randomly within the sequence, ensuring that it is inserted after the cursor, so that the new element is visited in the future.
     func insertElement(elm: Int) {
         

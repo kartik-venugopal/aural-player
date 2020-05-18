@@ -397,6 +397,22 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         updateSequence()
     }
     
+    func playlistSorted(_ sortResults: SortResults) {
+        
+        // Only update the sequence if the type of the playlist that was sorted matches the playback sequence scope.
+        // In other words, if, for example, the Albums playlist was sorted, that does not affect the Artists playlist.
+        guard scope.type.toPlaylistType() == sortResults.playlistType else {return}
+        
+        // If the scope is a group, it will only have been affected if any tracks within it were sorted.
+        // NOTE - Groups being sorted doesn't affect the playback scope if the scope is limited to a single group (and no tracks within it were sorted).
+        // Check the parent groups of the sorted tracks, and check if the scope group was one of them.
+        if let group = scope.group, !sortResults.tracksSorted || !sortResults.affectedParentGroups.contains(group) {
+            return
+        }
+        
+        updateSequence()
+    }
+    
     func playlistCleared() {
         
         // The sequence has ended, and needs to be cleared

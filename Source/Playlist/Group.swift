@@ -26,6 +26,11 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
         self.name = name
     }
     
+    // 2 Groups are equal if they are of the same type and have the same name.
+    static func == (lhs: Group, rhs: Group) -> Bool {
+        return (lhs.type == rhs.type) && (lhs.name == rhs.name)
+    }
+    
     func allTracks() -> [Track] {
         
         // Return a copy
