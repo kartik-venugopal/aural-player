@@ -6,7 +6,7 @@ import Foundation
 class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
-    private let sequence: PlaybackSequenceProtocol
+    private let sequence: PlaybackSequence
     
     // The current playback scope (See SequenceScope for more details)
     // NOTE - The default sequence scope is "All tracks"
