@@ -3,9 +3,9 @@ import XCTest
 /*
     Unit tests for ShuffleSequence.
  */
-class ShuffleSequenceTests: XCTestCase {
+class ShuffleSequenceTests: AuralTestCase {
     
-    private let runLongRunningTests: Bool = false
+//    override var runLongRunningTests: Bool {return true}
     
     private var sequence: ShuffleSequence = ShuffleSequence()
     
@@ -38,11 +38,22 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 1 minute
-    func testSize_moreThan100Elements_startFromEmptySequence() {
+    func testSize_100To1000Elements_startFromEmptySequence_longRunning() {
         
-        guard runLongRunningTests else {return}
+        for size in 101...1000 {
+            
+            sequence.clear()
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
+        }
+    }
+    
+    // Long running test: ~ 1 minute
+    func testSize_moreThan1000Elements_startFromEmptySequence_longRunning() {
         
-        for size in 101...10000 {
+        for size in 1001...10000 {
             
             sequence.clear()
             sequence.resizeAndReshuffle(size: size)
@@ -64,11 +75,21 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 1 minute
-    func testSize_moreThan100Elements() {
+    func testSize_100To1000Elements_longRunning() {
         
-        guard runLongRunningTests else {return}
+        for size in 101...1000 {
+            
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
+        }
+    }
+    
+    // Long running test: ~ 1 minute
+    func testSize_moreThan1000Elements_longRunning() {
         
-        for size in 101...10000 {
+        for size in 1001...10000 {
             
             sequence.resizeAndReshuffle(size: size)
             
@@ -90,9 +111,7 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 1 minute
-    func testResizeAndReshuffle_100To1000Elements() {
-        
-        guard runLongRunningTests else {return}
+    func testResizeAndReshuffle_100To1000Elements_longRunning() {
         
         for size in 101...1000 {
             
@@ -112,9 +131,7 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 20 minutes
-    func testResizeAndReshuffle_moreThan1000Elements() {
-        
-        guard runLongRunningTests else {return}
+    func testResizeAndReshuffle_moreThan1000Elements_longRunning() {
         
         for size in 1001...10000 {
             
@@ -253,9 +270,7 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 1 minute
-    func testReshuffle_100To1000Elements() {
-        
-        guard runLongRunningTests else {return}
+    func testReshuffle_100To1000Elements_longRunning() {
         
         for size in 101...1000 {
             
@@ -276,9 +291,7 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     // Long running test: ~ 10 minutes
-    func testReshuffle_moreThan1000Elements() {
-        
-        guard runLongRunningTests else {return}
+    func testReshuffle_moreThan1000Elements_longRunning() {
         
         for size in 1001...10000 {
             
