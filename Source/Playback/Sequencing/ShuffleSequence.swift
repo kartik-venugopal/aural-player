@@ -69,6 +69,12 @@ class ShuffleSequence {
     
     // MARK: Sequence iteration functions and properties -----------------------------------------------------------------
     
+    // Returns the value of the element currently pointed to by curIndex (represents the currently playing track, when shuffle is on).
+    // nil value indicates that the sequence has either 1 - not yet started, i.e. no track is playing, or 2 - the sequence is empty (which could mean shuffle is off, or no tracks in the playlist).
+    var currentValue: Int? {
+        return (size > 0 && curIndex >= 0 && curIndex < size) ? sequence[curIndex] : nil
+    }
+    
     // Retreat the cursor by one index and retrieve the element at the new index, if available
     func previous() -> Int? {
         return hasPrevious ? sequence[curIndex.decrementAndGet()] : nil
@@ -94,18 +100,18 @@ class ShuffleSequence {
         return hasNext ? sequence[curIndex + 1] : nil
     }
     
+    // Checks if it is possible to retreat the cursor
+    var hasPrevious: Bool {
+        return size > 0 && curIndex > 0
+    }
+    
     // Checks if it is possible to advance the cursor
     var hasNext: Bool {
         return size > 0 && curIndex < size - 1
     }
     
-    // Checks if it is possible to retreat the cursor
-    var hasPrevious: Bool {
-        return curIndex > 0
-    }
-    
     // Checks if all elements have been visited, i.e. the end of the sequence has been reached
     var hasEnded: Bool {
-        return curIndex == size - 1
+        return size > 0 && curIndex == size - 1
     }
 }
