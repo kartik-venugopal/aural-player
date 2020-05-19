@@ -24,7 +24,7 @@ class PlaybackSequence {
     private(set) var size: Int = 0
     
     // Returns the index, within this sequence, of the currently playing track (nil if no track is playing)
-    internal var cursor: Int? = nil
+    var cursor: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
     private let shuffleSequence: ShuffleSequence = ShuffleSequence()
@@ -82,28 +82,14 @@ class PlaybackSequence {
     
     // MARK: Repeat and Shuffle functions ------------------------------------------------------------------------------------------
     
+    // Returns the current repeat and shuffle modes
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        return (repeatMode, shuffleMode)
+    }
+    
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        
-        switch repeatMode {
-            
-        case .off:
-            
-            repeatMode = .one
-            
-            // If repeating one track, cannot also shuffle
-            if shuffleMode == .on {
-                
-                shuffleMode = .off
-                shuffleSequence.clear()
-            }
-            
-        case .one: repeatMode = .all
-        case .all: repeatMode = .off
-            
-        }
-        
-        return (repeatMode, shuffleMode)
+        return setRepeatMode(self.repeatMode.toggled())
     }
     
     // Sets the repeat mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
@@ -112,18 +98,18 @@ class PlaybackSequence {
         self.repeatMode = repeatMode
         
         // If repeating one track, cannot also shuffle
-        if repeatMode == .one && shuffleMode == .on {
+        if self.repeatMode == .one && shuffleMode == .on {
             
             shuffleMode = .off
             shuffleSequence.clear()
         }
         
-        return (repeatMode, shuffleMode)
+        return (self.repeatMode, shuffleMode)
     }
     
     // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return setShuffleMode(self.shuffleMode == .on ? .off : .on)
+        return setShuffleMode(self.shuffleMode.toggled())
     }
     
     // Sets the shuffle mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
@@ -134,7 +120,7 @@ class PlaybackSequence {
         
         self.shuffleMode = shuffleMode
         
-        if shuffleMode == .on {
+        if self.shuffleMode == .on {
         
             // Can't shuffle and repeat one track
             if repeatMode == .one {
@@ -151,7 +137,7 @@ class PlaybackSequence {
             shuffleSequence.clear()
         }
         
-        return (repeatMode, shuffleMode)
+        return (repeatMode, self.shuffleMode)
     }
     
     // MARK: Sequence iteration functions ---------------------------------------------
@@ -281,10 +267,5 @@ class PlaybackSequence {
         else {
             return theCursor > 0 ? theCursor - 1 : (repeatMode == .all ? size - 1 : nil)
         }
-    }
-    
-    // Returns the current repeat and shuffle modes
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return (repeatMode, shuffleMode)
     }
 }
