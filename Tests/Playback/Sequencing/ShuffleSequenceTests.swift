@@ -6,6 +6,14 @@ import XCTest
 class ShuffleSequenceTests: XCTestCase {
     
     private var sequence: ShuffleSequence = ShuffleSequence()
+    
+    private var sequenceArray: [Int] {
+        return sequence.sequence
+    }
+    
+    private var sequenceArrayCount: Int {
+        return sequenceArray.count
+    }
 
     override func setUp() {
         
@@ -70,23 +78,27 @@ class ShuffleSequenceTests: XCTestCase {
         
         sequence.resizeAndReshuffle(size: size, startWith: desiredStartValue)
         
+        // Ensure that the sequence is pointing to either the first element or no element (i.e. nil),
+        // depending on whether desiredStartValue is nil or not (i.e. iteration).
+        XCTAssertEqual(desiredStartValue, sequence.currentValue)
+        
         // Match the actual array count with the expected size.
-        XCTAssertEqual(sequence.sequence.count, size)
+        XCTAssertEqual(sequenceArrayCount, size)
         
         // Ensure that the start value matches the desired value.
         if let startValue = desiredStartValue {
             
-            XCTAssertEqual(sequence.sequence.first, startValue)
+            XCTAssertEqual(sequenceArray.first, startValue)
             
             // If a start value has been selected, calling peekNext() should produce the 2nd value in the sequence, i.e. with index=1.
             if size > 1 {
-                XCTAssertEqual(sequence.sequence[1], sequence.peekNext())
+                XCTAssertEqual(sequenceArray[1], sequence.peekNext())
             }
             
         } else {
             
             // If no start value is given, calling peekNext() should produce the first value in the sequence.
-            XCTAssertEqual(sequence.sequence.first, sequence.peekNext())
+            XCTAssertEqual(sequenceArray.first, sequence.peekNext())
         }
     }
     
@@ -106,7 +118,7 @@ class ShuffleSequenceTests: XCTestCase {
         
         sequence.resizeAndReshuffle(size: size)
         
-        var sequenceBeforeReshuffle: [Int] = Array(sequence.sequence)
+        var sequenceBeforeReshuffle: [Int] = Array(sequenceArray)
         var sequenceAfterReshuffle: [Int]
         
         var failures: Int = 0
@@ -114,10 +126,10 @@ class ShuffleSequenceTests: XCTestCase {
         for _ in 1...repetitionCount {
         
             sequence.resizeAndReshuffle(size: size)
-            sequenceAfterReshuffle = Array(sequence.sequence)
+            sequenceAfterReshuffle = Array(sequenceArray)
             
             // Size of the sequence should have remained the same.
-            XCTAssertEqual(sequence.sequence.count, size)
+            XCTAssertEqual(sequenceArrayCount, size)
             
             if sequenceBeforeReshuffle.elementsEqual(sequenceAfterReshuffle) {
                 failures.increment()
@@ -157,7 +169,7 @@ class ShuffleSequenceTests: XCTestCase {
         XCTAssertLessThan(avgExecTime, maxExecTime_msec / 1000.0)
     }
     
-    func testReshuffle() {
+    func testReshuffle_lessThan10Elements() {
         
         for size in 1..<10 {
             
@@ -167,6 +179,9 @@ class ShuffleSequenceTests: XCTestCase {
                 doTestReshuffle(size, dontStartWith)
             }
         }
+    }
+    
+    func testReshuffle_moreThan10Elements() {
         
         for size in [10, 100, 1000, 10000] {
             
@@ -182,19 +197,22 @@ class ShuffleSequenceTests: XCTestCase {
         
         sequence.reShuffle(dontStartWith: dontStartWith)
         
+        // Ensure that the sequence is not pointing to any element (i.e. no iteration).
+        XCTAssertNil(sequence.currentValue)
+        
         // Size of the sequence should have remained the same.
-        XCTAssertEqual(sequence.sequence.count, size)
+        XCTAssertEqual(sequenceArrayCount, size)
         
         // The first element should not equal dontStartWith
         if size > 1 {
-            XCTAssertNotEqual(sequence.sequence.first, dontStartWith)
+            XCTAssertNotEqual(sequenceArray.first, dontStartWith)
         }
         
         // dontStartWith should be contained in the sequence.
-        XCTAssertTrue(sequence.sequence.contains(dontStartWith))
+        XCTAssertTrue(sequenceArray.contains(dontStartWith))
 
         // peekNext() should produce the first value, i.e. sequence should not have started yet.
-        XCTAssertEqual(sequence.sequence.first, sequence.peekNext())
+        XCTAssertEqual(sequenceArray.first, sequence.peekNext())
     }
     
     func testReshuffle_consecutiveSequenceUniqueness() {
@@ -216,7 +234,7 @@ class ShuffleSequenceTests: XCTestCase {
         
         sequence.reShuffle(dontStartWith: 0)
         
-        var sequenceBeforeReshuffle: [Int] = Array(sequence.sequence)
+        var sequenceBeforeReshuffle: [Int] = Array(sequenceArray)
         var sequenceAfterReshuffle: [Int]
         
         var failures: Int = 0
@@ -224,10 +242,10 @@ class ShuffleSequenceTests: XCTestCase {
         for _ in 1...repetitionCount {
         
             sequence.reShuffle(dontStartWith: 0)
-            sequenceAfterReshuffle = Array(sequence.sequence)
+            sequenceAfterReshuffle = Array(sequenceArray)
             
             // Size of the sequence should have remained the same.
-            XCTAssertEqual(sequence.sequence.count, size)
+            XCTAssertEqual(sequenceArrayCount, size)
             
             if sequenceBeforeReshuffle.elementsEqual(sequenceAfterReshuffle) {
                 failures.increment()
@@ -277,61 +295,892 @@ class ShuffleSequenceTests: XCTestCase {
     private func doTestClear(_ size: Int) {
         
         sequence.resizeAndReshuffle(size: size)
-        XCTAssertEqual(sequence.sequence.count, size)
+        XCTAssertEqual(sequenceArrayCount, size)
         
         sequence.clear()
-        XCTAssertEqual(sequence.sequence.count, 0)
+        XCTAssertEqual(sequenceArrayCount, 0)
         XCTAssertFalse(sequence.hasNext)
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+    }
+    
+    func testPrevious_noSequence() {
+        
+        sequence.clear()
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+
+        // previous() should produce nil when there is no sequence.
+        // Calling previous() multiple times here should always produce the same result.
+        
+        for _ in 1...5 {
+        
+            XCTAssertNil(sequence.previous())
+            
+            // Ensure that the sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
     }
     
     func testPrevious_sequenceNotStarted() {
         
-        // Don't start the sequence.
+        // Create but don't start the sequence.
         sequence.resizeAndReshuffle(size: 10)
-        XCTAssertNil(sequence.previous())
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+        
+        // Calling previous() multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            // No previous element available when sequence has not started.
+            XCTAssertNil(sequence.previous())
+            
+            // Also verify that no iteration was performed (i.e. still not pointing to any element).
+            XCTAssertNil(sequence.currentValue)
+        }
     }
     
-    func testPrevious_sequenceStarted_atFirstElement() {
+    func testPrevious_atFirstElement() {
         
-        // Start the sequence.
+        // Create and start the sequence.
         sequence.resizeAndReshuffle(size: 10, startWith: 5)
-        XCTAssertNil(sequence.previous())
+        
+        // Ensure that the sequence points to the first element).
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        // Calling previous() multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            XCTAssertNil(sequence.previous())
+            
+            // Ensure that the calls to previous() did not result in any iteration (i.e. it still points to the first element).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
     }
     
-    func testPrevious_sequenceStarted_atSecondElement() {
+    func testPrevious_atSecondElement() {
         
         sequence.resizeAndReshuffle(size: 10)
-        let seqArray = Array(sequence.sequence)
         
         // Iterate to the 2nd element.
-        XCTAssertEqual(sequence.next(repeatMode: .off), seqArray[0])
-        XCTAssertEqual(sequence.next(repeatMode: .off), seqArray[1])
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[0])
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[1])
+        
+        // Ensure sequence is pointing to the second element.
+        XCTAssertEqual(sequenceArray[1], sequence.currentValue)
         
         // Perform the test.
         let previous = sequence.previous()
         XCTAssertNotNil(previous)
-        XCTAssertEqual(previous, seqArray[0])
+        
+        // Previous value should equal the first element.
+        XCTAssertEqual(previous, sequenceArray.first)
+        
+        // Ensure that the call to previous() resulted in iteration to the first element.
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        // Any further calls should result in nil
+        for _ in 1...5 {
+            
+            XCTAssertNil(sequence.previous())
+            
+            // Ensure sequence is still pointing to the first element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
     }
     
-    func testPrevious_sequenceStarted_iterateBackwardsFromTheEnd() {
+    func testPrevious_iterateBackwardsFromTheEnd() {
         
         sequence.resizeAndReshuffle(size: 10)
-        let seqArray = Array(sequence.sequence)
         
         // Iterate to the last element.
-        for _ in 0..<seqArray.count {
+        for _ in 0..<sequenceArray.count {
             _ = sequence.next(repeatMode: .off)
         }
         
+        // Ensure sequence is pointing to the last element.
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        
         // Iterate backwards, invoking previous()
-        var cursor: Int = seqArray.count - 1
+        var cursor: Int = sequenceArray.count - 1
         while cursor > 0 {
         
             let previous = sequence.previous()
             XCTAssertNotNil(previous)
-            XCTAssertEqual(previous, seqArray[cursor - 1])
+            XCTAssertEqual(previous, sequenceArray[cursor - 1])
+            
+            // Ensure sequence is now pointing to the element at index = cursor - 1 (i.e. iteration).
+            XCTAssertEqual(sequenceArray[cursor - 1], sequence.currentValue)
             
             cursor.decrement()
+        }
+    }
+    
+    // MARK: next() tests ----------------------------------------------------------------------------------------------------
+    
+    func testNext_noSequence() {
+        
+        for repeatMode in RepeatMode.allCases {
+            
+            sequence.clear()
+            
+            // next() should produce nil, regardless of repeat mode.
+            XCTAssertNil(sequence.next(repeatMode: repeatMode))
+        }
+    }
+    
+    func testNext_sequenceNotStarted() {
+        
+        for repeatMode in RepeatMode.allCases {
+            
+            sequence.clear()
+
+            // Create but don't start the sequence.
+            sequence.resizeAndReshuffle(size: 10)
+            
+            // Ensure sequence is not pointing to any element (i.e. no iteration), because it has not been started.
+            XCTAssertNil(sequence.currentValue)
+            
+            // next() should produce the first element, regardless of repeat mode.
+            XCTAssertEqual(sequenceArray.first, sequence.next(repeatMode: repeatMode))
+            
+            // Ensure sequence is now pointing to the first element (i.e. iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testNext_atFirstElement() {
+        
+        for repeatMode in RepeatMode.allCases {
+            
+            sequence.clear()
+
+            // Create and start the sequence.
+            sequence.resizeAndReshuffle(size: 10, startWith: 5)
+            
+            // Ensure sequence is now pointing to the first element.
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+            
+            // next() should produce the second element, regardless of repeat mode.
+            XCTAssertEqual(sequenceArray[1], sequence.next(repeatMode: repeatMode))
+            
+            // Ensure sequence is now pointing to the second element (i.e. iteration).
+            XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        }
+    }
+    
+    func testNext_atSecondLastElement() {
+        
+        for repeatMode in RepeatMode.allCases {
+            
+            sequence.clear()
+
+            // Create but don't start the sequence.
+            sequence.resizeAndReshuffle(size: 10)
+            
+            // Ensure sequence is not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+            
+            // Iterate to the second-last element.
+            for index in 0..<(sequenceArrayCount - 1) {
+                XCTAssertEqual(sequence.next(repeatMode: repeatMode), sequenceArray[index])
+            }
+            
+            // Ensure sequence is now pointing to the second-last element (i.e. iteration).
+            XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+            
+            // next() should produce the last element, regardless of repeat mode.
+            XCTAssertEqual(sequenceArray.last, sequence.next(repeatMode: repeatMode))
+            
+            // Ensure sequence is now pointing to the last element (i.e. iteration).
+            XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        }
+    }
+    
+    func testNext_atLastElement_repeatOff() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+            
+        // next() should produce nil when not repeating the sequence.
+        XCTAssertNil(sequence.next(repeatMode: .off))
+        
+        // Ensure sequence is still pointing to the last element (i.e. no iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+    }
+    
+    func testNext_atLastElement_repeatOne() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            XCTAssertEqual(sequence.next(repeatMode: .one), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+            
+        // next() should produce nil when not repeating the sequence.
+        XCTAssertNil(sequence.next(repeatMode: .one))
+        
+        // Ensure sequence is still pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+    }
+    
+    func testNext_atLastElement_repeatAll() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        let seqArrayBeforeReshuffle: [Int] = Array(sequenceArray)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            XCTAssertEqual(sequence.next(repeatMode: .all), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        
+        let lastElementBeforeReshuffle = sequenceArray.last!
+            
+        // next() should cause the sequence to be reshuffled, and a value to be produced, so the value should be non-nil.
+        let next = sequence.next(repeatMode: .all)
+        XCTAssertNotNil(next)
+        
+        let seqArrayAfterReshuffle: [Int] = Array(sequenceArray)
+        let firstElementAfterReshuffle = seqArrayAfterReshuffle.first!
+        
+        // Check that next() produced the first element in the new sequence
+        XCTAssertEqual(next, firstElementAfterReshuffle)
+        
+        // Ensure the order of the sequence elements changed (i.e. new sequence), and that the last element
+        // in the old sequence is not equal the first element in the new sequence.
+        // (so that no track plays twice in a row)
+        XCTAssertFalse(seqArrayBeforeReshuffle.elementsEqual(seqArrayAfterReshuffle))
+        XCTAssertNotEqual(lastElementBeforeReshuffle, firstElementAfterReshuffle)
+        
+        // Ensure sequence is now pointing to the first element of the new sequence (i.e. iteration).
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+    }
+    
+    // MARK: peekPrevious() tests ---------------------------------------------------------------------------------------
+    
+    func testPeekPrevious_noSequence() {
+        
+        sequence.clear()
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+
+        // peekPrevious() should produce nil when there is no sequence.
+        // Calling peekPrevious() multiple times here should always produce the same result.
+        
+        for _ in 1...5 {
+        
+            XCTAssertNil(sequence.peekPrevious())
+            
+            // Ensure that the sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testPeekPrevious_sequenceNotStarted() {
+        
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+        
+        // Calling peekPrevious() multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            XCTAssertNil(sequence.peekPrevious())
+            
+            // Also verify that no iteration was performed (i.e. still not pointing to any element).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testPeekPrevious_atFirstElement() {
+        
+        // Create and start the sequence.
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        
+        // Ensure that the sequence points to the first element).
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        // Calling peekPrevious() multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            // When pointing to the first element, the previous element should be nil.
+            XCTAssertNil(sequence.peekPrevious())
+            
+            // Ensure that the calls to peekPrevious() did not result in any iteration (i.e. it still points to the first element).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testPeekPrevious_atSecondElement() {
+        
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the 2nd element.
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[0])
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[1])
+        
+        // Ensure sequence is pointing to the second element.
+        XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        
+        // Perform the test.
+        let previous = sequence.peekPrevious()
+        XCTAssertNotNil(previous)
+        
+        // Previous value should equal the first element.
+        XCTAssertEqual(previous, sequenceArray.first)
+        
+        // Ensure that the call to peekPrevious() resulted in no iteration (i.e. still pointing to the 2nd element)
+        XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        
+        // Any further calls should result in the same value being produced (i.e. first element).
+        for _ in 1...5 {
+            
+            XCTAssertEqual(previous, sequenceArray.first)
+            
+            // Ensure sequence is still pointing to the second element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        }
+    }
+    
+    func testPeekPrevious_iterateBackwardsFromTheEnd() {
+        
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for _ in 0..<sequenceArray.count {
+            _ = sequence.next(repeatMode: .off)
+        }
+        
+        // Ensure sequence is pointing to the last element.
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        
+        // Iterate backwards
+        var cursor: Int = sequenceArray.count - 1
+        while cursor > 0 {
+            
+            // Ensure sequence is pointing to the element at index = cursor.
+            XCTAssertEqual(sequenceArray[cursor], sequence.currentValue)
+            
+            // Then test peekPrevious().
+            let previous = sequence.peekPrevious()
+            XCTAssertNotNil(previous)
+            XCTAssertEqual(previous, sequenceArray[cursor - 1])
+            
+            // Call previous() to actually iterate one element back.
+            _ = sequence.previous()
+            cursor.decrement()
+        }
+    }
+    
+    // MARK: peekNext() tests ---------------------------------------------------------------------------------------
+    
+    func testPeekNext_noSequence() {
+        
+        sequence.clear()
+        
+        // Ensure sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+        
+        // peekNext() should produce nil, even with repeated calls
+        // No iteration should take place.
+        for _ in 1...5 {
+            XCTAssertNil(sequence.peekNext())
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testPeekNext_sequenceNotStarted() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration), because it has not been started.
+        XCTAssertNil(sequence.currentValue)
+        
+        // peekNext() should produce the first element, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertEqual(sequenceArray.first, sequence.peekNext())
+            
+            // Ensure sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testPeekNext_atFirstElement() {
+        
+        sequence.clear()
+        
+        // Create and start the sequence.
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        
+        // Ensure sequence is now pointing to the first element.
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        for _ in 1...5 {
+            
+            // peekNext() should produce the second element, even with repeated calls.
+            XCTAssertEqual(sequenceArray[1], sequence.peekNext())
+            
+            // Ensure sequence is still pointing to the first element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testPeekNext_atSecondLastElement() {
+        
+        sequence.clear()
+        
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration).
+        XCTAssertNil(sequence.currentValue)
+        
+        // Iterate to the second-last element.
+        for index in 0..<(sequenceArrayCount - 1) {
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the second-last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        
+        // peekNext() should produce the last element, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertEqual(sequenceArray.last, sequence.peekNext())
+            
+            // Ensure sequence is still pointing to the second-last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        }
+    }
+    
+    func testPeekNext_atLastElement() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+            
+        // peekNext() should always produce nil, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertNil(sequence.peekNext())
+            
+            // Ensure sequence is still pointing to the last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        }
+    }
+    
+    // MARK: hasPrevious tests ---------------------------------------------------------------------------------------
+    
+    func testHasPrevious_noSequence() {
+        
+        sequence.clear()
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+
+        // hasPrevious should produce false when there is no sequence.
+        // Calling hasPrevious multiple times here should always produce the same result.
+        for _ in 1...5 {
+        
+            XCTAssertFalse(sequence.hasPrevious)
+            
+            // Ensure that the sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testHasPrevious_sequenceNotStarted() {
+        
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure that the sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+        
+        // Calling hasPrevious multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            // No previous element available when sequence has not started.
+            XCTAssertFalse(sequence.hasPrevious)
+            
+            // Also verify that no iteration was performed (i.e. still not pointing to any element).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testHasPrevious_atFirstElement() {
+        
+        // Create and start the sequence.
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        
+        // Ensure that the sequence points to the first element).
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        // Calling hasPrevious multiple times here should always produce the same result.
+        for _ in 1...5 {
+            
+            // When pointing to the first element, there should be no previous element.
+            XCTAssertFalse(sequence.hasPrevious)
+            
+            // Ensure that the calls to hasPrevious did not result in any iteration (i.e. it still points to the first element).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testHasPrevious_atSecondElement() {
+        
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the 2nd element.
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[0])
+        XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[1])
+        
+        // Ensure sequence is pointing to the second element.
+        XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        
+        // Any further calls should result in the same value being produced (i.e. true).
+        for _ in 1...5 {
+            
+            XCTAssertTrue(sequence.hasPrevious)
+            
+            // Ensure sequence is still pointing to the second element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray[1], sequence.currentValue)
+        }
+    }
+    
+    func testHasPrevious_iterateBackwardsFromTheEnd() {
+        
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for _ in 0..<sequenceArray.count {
+            _ = sequence.next(repeatMode: .off)
+        }
+        
+        // Ensure sequence is pointing to the last element.
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        
+        // Iterate backwards
+        var cursor: Int = sequenceArray.count - 1
+        while cursor > 0 {
+            
+            // Ensure sequence is pointing to the element at index = cursor.
+            XCTAssertEqual(sequenceArray[cursor], sequence.currentValue)
+            
+            // Then test hasPrevious.
+            XCTAssertTrue(sequence.hasPrevious)
+            
+            // Call previous() to actually iterate one element back.
+            _ = sequence.previous()
+            cursor.decrement()
+        }
+    }
+    
+    // MARK: hasNext tests ---------------------------------------------------------------------------------------
+    
+    func testHasNext_noSequence() {
+        
+        sequence.clear()
+        
+        // Ensure sequence is not pointing to any element.
+        XCTAssertNil(sequence.currentValue)
+        
+        // hasNext should produce false, even with repeated calls
+        // No iteration should take place.
+        for _ in 1...5 {
+            
+            XCTAssertFalse(sequence.hasNext)
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testHasNext_sequenceNotStarted() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration), because it has not been started.
+        XCTAssertNil(sequence.currentValue)
+        
+        // hasNext should return true when sequence has not started, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertTrue(sequence.hasNext)
+            
+            // Ensure sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testHasNext_atFirstElement() {
+        
+        sequence.clear()
+        
+        // Create and start the sequence.
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        
+        // Ensure sequence is now pointing to the first element.
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        for _ in 1...5 {
+            
+            // hasNext should produce true, even with repeated calls.
+            XCTAssertTrue(sequence.hasNext)
+            
+            // Ensure sequence is still pointing to the first element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testHasNext_atSecondLastElement() {
+        
+        sequence.clear()
+        
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration).
+        XCTAssertNil(sequence.currentValue)
+        
+        // Iterate to the second-last element.
+        for index in 0..<(sequenceArrayCount - 1) {
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the second-last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        
+        // hasNext should produce true, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertTrue(sequence.hasNext)
+            
+            // Ensure sequence is still pointing to the second-last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        }
+    }
+    
+    func testHasNext_atLastElement() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+            
+        // hasNext should always produce false, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertFalse(sequence.hasNext)
+            
+            // Ensure sequence is still pointing to the last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        }
+    }
+    
+    // MARK: hasEnded tests ---------------------------------------------------------------------------------------
+    
+    func testHasEnded_noSequence() {
+        
+        sequence.clear()
+        
+        // An empty sequence is never considered to have started or ended.
+        XCTAssertFalse(sequence.hasEnded)
+    }
+    
+    func testHasEnded_sequenceNotStarted() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration), because it has not been started.
+        XCTAssertNil(sequence.currentValue)
+        
+        // hasEnded should return false when sequence has not started, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertFalse(sequence.hasEnded)
+            
+            // Ensure sequence is still not pointing to any element (i.e. no iteration).
+            XCTAssertNil(sequence.currentValue)
+        }
+    }
+    
+    func testHasEnded_atFirstElement() {
+        
+        sequence.clear()
+        
+        // Create and start the sequence.
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        
+        // Ensure sequence is now pointing to the first element.
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        for _ in 1...5 {
+            
+            // hasEnded should produce false, even with repeated calls.
+            XCTAssertFalse(sequence.hasEnded)
+            
+            // Ensure sequence is still pointing to the first element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        }
+    }
+    
+    func testHasEnded_atSecondLastElement() {
+        
+        sequence.clear()
+        
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Ensure sequence is not pointing to any element (i.e. no iteration).
+        XCTAssertNil(sequence.currentValue)
+        
+        // Iterate to the second-last element.
+        for index in 0..<(sequenceArrayCount - 1) {
+            
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+            
+            // hasEnded should produce false, throughout the loop.
+            XCTAssertFalse(sequence.hasEnded)
+        }
+        
+        // Ensure sequence is now pointing to the second-last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        
+        // hasEnded should still produce false, even with repeated calls.
+        for _ in 1...5 {
+            
+            XCTAssertFalse(sequence.hasEnded)
+            
+            // Ensure sequence is still pointing to the second-last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray[sequenceArrayCount - 2], sequence.currentValue)
+        }
+    }
+    
+    func testHasEnded_atLastElement() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            
+            // hasEnded should produce false, throughout the loop.
+            XCTAssertFalse(sequence.hasEnded)
+            
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+            
+        // hasEnded should now produce true, even with repeated calls, because sequence is now pointing to the last element.
+        for _ in 1...5 {
+            
+            XCTAssertTrue(sequence.hasEnded)
+            
+            // Ensure sequence is still pointing to the last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        }
+    }
+    
+    func testHasEnded_atLastElement_afterReshuffle() {
+        
+        sequence.clear()
+
+        // Create but don't start the sequence.
+        sequence.resizeAndReshuffle(size: 10)
+        
+        // Iterate to the last element.
+        for index in 0..<sequenceArrayCount {
+            
+            // hasEnded should produce false, throughout the loop.
+            XCTAssertFalse(sequence.hasEnded)
+            
+            XCTAssertEqual(sequence.next(repeatMode: .off), sequenceArray[index])
+        }
+        
+        // Ensure sequence is now pointing to the last element (i.e. iteration).
+        XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        
+        // hasEnded should now produce true, even with repeated calls, because sequence is now pointing to the last element.
+        for _ in 1...5 {
+            
+            XCTAssertTrue(sequence.hasEnded)
+            
+            // Ensure sequence is still pointing to the last element (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.last, sequence.currentValue)
+        }
+        
+        // Trigger a sequence reshuffle by calling next() with repeatMode = .all (this will cause the creation of a new sequence)
+        XCTAssertNotNil(sequence.next(repeatMode: .all))
+        
+        // Ensure sequence is pointing to the first element of the new sequence (i.e. iteration).
+        XCTAssertEqual(sequenceArray.first, sequence.currentValue)
+        
+        // Now, hasEnded should produce false, as a new sequence has been created.
+        for _ in 1...5 {
+            
+            XCTAssertFalse(sequence.hasEnded)
+            
+            // Ensure sequence is still pointing to the first element of the new sequence (i.e. no iteration).
+            XCTAssertEqual(sequenceArray.first, sequence.currentValue)
         }
     }
 }

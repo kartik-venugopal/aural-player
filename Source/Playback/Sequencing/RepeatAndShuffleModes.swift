@@ -1,7 +1,7 @@
 import Foundation
 
 // Enumeration of all possible playback repeat modes
-enum RepeatMode: String {
+enum RepeatMode: String, CaseIterable {
     
     // Play all tracks once, in sequence order
     case off
@@ -14,7 +14,7 @@ enum RepeatMode: String {
 }
 
 // Enumeration of all possible playback shuffle modes
-enum ShuffleMode: String {
+enum ShuffleMode: String, CaseIterable {
     
     // Play tracks in random order
     case on
@@ -24,7 +24,7 @@ enum ShuffleMode: String {
 }
 
 // Enumeration of all possible states of an A->B segment playback loop
-enum LoopState: String {
+enum LoopState: String, CaseIterable {
     
     case none
     case started
