@@ -228,9 +228,10 @@ class ShuffleSequenceTests: AuralTestCase {
     func testResizeAndReshuffle_performance() {
         
         doTestResizeAndReshuffle_performance(100, 2)
-        doTestResizeAndReshuffle_performance(1000, 5)
-        doTestResizeAndReshuffle_performance(5000, 25)
-        doTestResizeAndReshuffle_performance(10000, 50)
+        doTestResizeAndReshuffle_performance(500, 5)
+        doTestResizeAndReshuffle_performance(1000, 10)
+        doTestResizeAndReshuffle_performance(5000, 50)
+        doTestResizeAndReshuffle_performance(10000, 100)
     }
     
     private func doTestResizeAndReshuffle_performance(_ size: Int, _ maxExecTime_msec: Double) {
@@ -243,6 +244,7 @@ class ShuffleSequenceTests: AuralTestCase {
             
             // This is important. Must start with an empty sequence to force the sequence to actually allocate a new array each time.
             sequence.clear()
+            XCTAssertEqual(sequence.size, 0)
 
             totalExecTime += executionTimeFor {
                 sequence.resizeAndReshuffle(size: size, startWith: size / 2)
