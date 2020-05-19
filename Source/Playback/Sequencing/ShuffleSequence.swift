@@ -28,6 +28,7 @@ class ShuffleSequence {
         
         curIndex = desiredStartValue == nil ? -1 : 0
         
+        // Only recreate the array if the size has changed.
         if self.size != size {
             sequence = Array(0..<size)
         }
