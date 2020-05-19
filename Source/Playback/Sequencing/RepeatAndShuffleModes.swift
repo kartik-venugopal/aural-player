@@ -11,6 +11,25 @@ enum RepeatMode: String, CaseIterable {
     
     // Repeat all tracks forever, in sequence order
     case all
+    
+    // Returns a RepeatMode that is the result of toggling this RepeatMode.
+    func toggled() -> RepeatMode {
+        
+        switch self {
+            
+        case .off:
+            
+            return .one
+            
+        case .one:
+            
+            return .all
+            
+        case .all:
+            
+            return .off
+        }
+    }
 }
 
 // Enumeration of all possible playback shuffle modes
@@ -21,6 +40,11 @@ enum ShuffleMode: String, CaseIterable {
     
     // Don't shuffle
     case off
+    
+    // Returns a ShuffleMode that is the result of toggling this ShuffleMode.
+    func toggled() -> ShuffleMode {
+        return self == .on ? .off : .on
+    }
 }
 
 // Enumeration of all possible states of an A->B segment playback loop
