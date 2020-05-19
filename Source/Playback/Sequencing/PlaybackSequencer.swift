@@ -33,7 +33,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
         
         // The sequence cursor is the index of the currently playing track within the current playback sequence
-        return (scope, (sequence.cursor ?? -1) + 1, sequence.size)
+        return (scope, (sequence.curTrackIndex ?? -1) + 1, sequence.size)
     }
     
     func begin() -> IndexedTrack? {
@@ -44,7 +44,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.group = nil
         
         // Reset the sequence, with the size of the playlist
-        sequence.resizeAndStart(size: playlist.size, withCursor: nil)
+        sequence.resizeAndStart(size: playlist.size, withTrackIndex: nil)
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -120,7 +120,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     // Helper function to select a track with a specific index within the current playback sequence
     private func startSequence(_ size: Int, _ cursor: Int) -> IndexedTrack? {
         
-        sequence.resizeAndStart(size: size, withCursor: cursor)
+        sequence.resizeAndStart(size: size, withTrackIndex: cursor)
         
         if let track = getIndexedTrackForSequenceIndex(cursor) {
             
@@ -160,7 +160,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.group = group
         
         // Reset the sequence based on the group's size
-        sequence.resizeAndStart(size: group.size, withCursor: nil)
+        sequence.resizeAndStart(size: group.size, withTrackIndex: nil)
         
         // Begin playing the subsequent track (first track determined by the sequence)
         return subsequent()
@@ -416,22 +416,23 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     private func updateSequence(_ resize: Bool) {
         
         // No need to update the sequence if no track is playing. It will get updated whenever playback begins.
-        guard thePlayingTrack != nil else {return}
+        guard let playingTrackIndex = calculatePlayingTrackIndex() else {return}
         
         if resize {
             
-            // Calculate new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
+            // Calculate the new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
             let sequenceSize: Int = scope.group?.size ?? playlist.size
-            sequence.resizeAndStart(size: sequenceSize, withCursor: calculateNewCursor())
+            sequence.resizeAndStart(size: sequenceSize, withTrackIndex: playingTrackIndex)
             
         } else {
             
-            sequence.start(withCursor: calculateNewCursor())
+            sequence.start(withTrackIndex: playingTrackIndex)
         }
     }
     
-    // Calculates the new cursor (i.e. index of the playing track within the current playback sequence). This function is called in response to changes in the playlist, to update the cursor which may have changed.
-    private func calculateNewCursor() -> Int? {
+    // Calculates the index of the playing track within the current playback sequence.
+    // This function is called in response to changes in the playlist, to update the index which may have changed.
+    private func calculatePlayingTrackIndex() -> Int? {
         
         // We only need to do this if there is a track currently playing
         if let playingTrack = thePlayingTrack {
