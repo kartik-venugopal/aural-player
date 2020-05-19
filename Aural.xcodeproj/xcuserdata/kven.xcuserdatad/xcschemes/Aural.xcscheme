@@ -74,6 +74,9 @@
                   Identifier = "PlaybackSchedulerTests">
                </Test>
                <Test
+                  Identifier = "PlaybackSequenceTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackSessionTests">
                </Test>
                <Test

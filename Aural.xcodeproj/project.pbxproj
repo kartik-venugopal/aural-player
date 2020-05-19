@@ -22,6 +22,7 @@
 		3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */; };
 		3E06C02F1FB6B2BB003EE9AB /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */; };
 		3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */; };
+		3E07B66C2473C9480001A997 /* PlaybackSequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07B66B2473C9480001A997 /* PlaybackSequenceTests.swift */; };
 		3E0835F72459A9FA00822FA8 /* ColorSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */; };
 		3E0835F92459AB9900822FA8 /* ColorSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */; };
 		3E0835FB2459C2C400822FA8 /* ColorSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */; };
@@ -44,6 +45,7 @@
 		3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */; };
 		3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */; };
 		3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */; };
+		3E0D4F4924741CAC00DE7811 /* AuralTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0D4F4824741CAC00DE7811 /* AuralTestCase.swift */; };
 		3E0D664B21918E3A00A779A9 /* EQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0D664A21918E3A00A779A9 /* EQView.swift */; };
 		3E0DF1C02431BB1E0096C2A1 /* ChaptersList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0DF1BF2431BB1E0096C2A1 /* ChaptersList.xib */; };
 		3E0DF1C22431BC380096C2A1 /* ChaptersListViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF1C12431BC380096C2A1 /* ChaptersListViewDelegate.swift */; };
@@ -802,6 +804,7 @@
 		3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
 		3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
 		3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegate.swift; sourceTree = "<group>"; };
+		3E07B66B2473C9480001A997 /* PlaybackSequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceTests.swift; sourceTree = "<group>"; };
 		3E0835F62459A9FA00822FA8 /* ColorSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesEditor.xib; sourceTree = "<group>"; };
 		3E0835F82459AB9900822FA8 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E0835FA2459C2C400822FA8 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
@@ -824,6 +827,7 @@
 		3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPresetsEditor.xib; sourceTree = "<group>"; };
 		3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetsEditorViewController.swift; sourceTree = "<group>"; };
+		3E0D4F4824741CAC00DE7811 /* AuralTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuralTestCase.swift; sourceTree = "<group>"; };
 		3E0D664A21918E3A00A779A9 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
 		3E0DF1BF2431BB1E0096C2A1 /* ChaptersList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChaptersList.xib; sourceTree = "<group>"; };
 		3E0DF1C12431BC380096C2A1 /* ChaptersListViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersListViewDelegate.swift; sourceTree = "<group>"; };
@@ -2709,6 +2713,7 @@
 				3E4F9A2A2468532B0064DBF1 /* Playback */,
 				3E8718D12466B814007D9672 /* Utils */,
 				3EDFB69D2466A49200F50610 /* Info.plist */,
+				3E0D4F4824741CAC00DE7811 /* AuralTestCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2755,6 +2760,7 @@
 		3EF13D182472DDE2008CA5C0 /* Sequencing */ = {
 			isa = PBXGroup;
 			children = (
+				3E07B66B2473C9480001A997 /* PlaybackSequenceTests.swift */,
 				3EF13D192472DDFE008CA5C0 /* ShuffleSequenceTests.swift */,
 			);
 			path = Sequencing;
@@ -3386,6 +3392,7 @@
 				3E12ACF22469CC1B00A07611 /* AudioDevice.swift in Sources */,
 				3E12AD442469CC5100A07611 /* TimeIntervalFormatter.swift in Sources */,
 				3E12ADE02469CF5300A07611 /* ID3Spec.swift in Sources */,
+				3E07B66C2473C9480001A997 /* PlaybackSequenceTests.swift in Sources */,
 				3E12AD222469CC3B00A07611 /* PreferencesDefaults.swift in Sources */,
 				3E12AD1F2469CC3B00A07611 /* SoundPreferences.swift in Sources */,
 				3E12AD262469CC3F00A07611 /* PlaylistIO.swift in Sources */,
@@ -3581,6 +3588,7 @@
 				3E12ACC22469CC0000A07611 /* PlaybackSession.swift in Sources */,
 				3E626923246BF367002FAC63 /* MetadataUtils.swift in Sources */,
 				3E12AD232469CC3B00A07611 /* HistoryPreferences.swift in Sources */,
+				3E0D4F4924741CAC00DE7811 /* AuralTestCase.swift in Sources */,
 				3E12AD052469CC2700A07611 /* Favorites.swift in Sources */,
 				3E12AD0F2469CC2F00A07611 /* ActionMessages.swift in Sources */,
 				3EF13D172472DC0D008CA5C0 /* DelayAfterTrackCompletionAction.swift in Sources */,

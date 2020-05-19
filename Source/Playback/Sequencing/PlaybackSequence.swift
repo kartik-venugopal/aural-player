@@ -25,10 +25,10 @@ class PlaybackSequence {
     
     // Returns the index, within this sequence, of the currently playing track (nil if no track is playing)
     // aka "the cursor"
-    var curTrackIndex: Int? = nil
+    private(set) var curTrackIndex: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
-    private let shuffleSequence: ShuffleSequence = ShuffleSequence()
+    private(set) var shuffleSequence: ShuffleSequence = ShuffleSequence()
     
     init(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
@@ -40,22 +40,16 @@ class PlaybackSequence {
     // The newCursor parameter denotes the first element (i.e. track) in the new sequence.
     func resizeAndStart(size: Int, withTrackIndex trackIndex: Int? = nil) {
         
-        print(String(format: "\nResizing PLBK sequence with size: %d and trackIndex: %@", size, String(describing: trackIndex)))
-        
         self.size = size
         self.curTrackIndex = trackIndex
         
         if shuffleMode == .on {
             shuffleSequence.resizeAndReshuffle(size: size, startWith: trackIndex)
         }
-        
-        print("\trackIndex now:", curTrackIndex)
     }
     
     // Restarts the sequence with the given value as the first element (i.e. track) in the new sequence.
     func start(withTrackIndex trackIndex: Int? = nil) {
-        
-        print(String(format: "\nStarting PLBK sequence with newCursor: %@", String(describing: trackIndex)))
         resizeAndStart(size: self.size, withTrackIndex: trackIndex)
     }
     
@@ -67,8 +61,6 @@ class PlaybackSequence {
     // Removes all elements from the sequence and resets the cursor. (reflects an empty playlist)
     func clear() {
         
-        print(String(format: "\nClearing PLBK sequence"))
-
         size = 0
         curTrackIndex = nil
         shuffleSequence.clear()
