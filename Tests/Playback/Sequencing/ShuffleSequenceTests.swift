@@ -5,6 +5,8 @@ import XCTest
  */
 class ShuffleSequenceTests: XCTestCase {
     
+    private let runLongRunningTests: Bool = false
+    
     private var sequence: ShuffleSequence = ShuffleSequence()
     
     private var sequenceArray: [Int] {
@@ -20,24 +22,64 @@ class ShuffleSequenceTests: XCTestCase {
         // Start with a fresh object before each test
         sequence = ShuffleSequence()
     }
-
-    func testResizeAndReshuffle_lessThan10Elements() {
+    
+    // MARK: size tests --------------------------------------------------------------------------------------------------------------
+    
+    func testSize_upTo100Elements_startFromEmptySequence() {
         
-        for size in 1..<10 {
-            doTestResizeAndReshuffle(size)
-        }
-        
-        for size in 1..<10 {
+        for size in 1...100 {
             
-            for startValue in 1..<size {
-                doTestResizeAndReshuffle(size, startValue)
-            }
+            sequence.clear()
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
         }
     }
     
-    func testResizeAndReshuffle_10Elements() {
+    // Long running test: ~ 1 minute
+    func testSize_moreThan100Elements_startFromEmptySequence() {
         
-        for size in [10, 100, 1000, 10000] {
+        guard runLongRunningTests else {return}
+        
+        for size in 101...10000 {
+            
+            sequence.clear()
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
+        }
+    }
+    
+    func testSize_upTo100Elements() {
+        
+        for size in 1...100 {
+            
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
+        }
+    }
+    
+    // Long running test: ~ 1 minute
+    func testSize_moreThan100Elements() {
+        
+        guard runLongRunningTests else {return}
+        
+        for size in 101...10000 {
+            
+            sequence.resizeAndReshuffle(size: size)
+            
+            XCTAssertEqual(sequenceArrayCount, size)
+            XCTAssertEqual(sequence.size, size)
+        }
+    }
+
+    func testResizeAndReshuffle_upTo100Elements() {
+        
+        for size in 1...100 {
             
             doTestResizeAndReshuffle(size)
             
@@ -47,40 +89,61 @@ class ShuffleSequenceTests: XCTestCase {
         }
     }
     
-    func testResizeAndReshuffle_100Elements() {
+    // Long running test: ~ 1 minute
+    func testResizeAndReshuffle_100To1000Elements() {
         
-        doTestResizeAndReshuffle(100)
+        guard runLongRunningTests else {return}
         
-        for startValue in 0..<100 {
-            doTestResizeAndReshuffle(100, startValue)
+        for size in 101...1000 {
+            
+            doTestResizeAndReshuffle(size)
+            
+            // Generate random numbers and use them as starting values in the tests.
+            // Also test with the first and last elements
+            var testStartValues: [Int] = [0, size - 1]
+            for _ in 1...50 {
+                testStartValues.append(Int.random(in: 1..<(size - 1)))
+            }
+            
+            for startValue in testStartValues {
+                doTestResizeAndReshuffle(size, startValue)
+            }
         }
     }
     
-    func testResizeAndReshuffle_1000Elements() {
+    // Long running test: ~ 20 minutes
+    func testResizeAndReshuffle_moreThan1000Elements() {
         
-        doTestResizeAndReshuffle(1000)
+        guard runLongRunningTests else {return}
         
-        for startValue in 0..<1000 {
-            doTestResizeAndReshuffle(1000, startValue)
-        }
-    }
-    
-    func testResizeAndReshuffle_10000Elements() {
-        
-        doTestResizeAndReshuffle(10000)
-        
-        for startValue in 0..<10000 {
-            doTestResizeAndReshuffle(10000, startValue)
+        for size in 1001...10000 {
+            
+            doTestResizeAndReshuffle(size)
+            
+            // Generate random numbers and use them as starting values in the tests.
+            // Also test with the first and last elements
+            var testStartValues: [Int] = [0, size - 1]
+            for _ in 1...50 {
+                testStartValues.append(Int.random(in: 1..<(size - 1)))
+            }
+            
+            for startValue in testStartValues {
+                doTestResizeAndReshuffle(size, startValue)
+            }
         }
     }
     
     private func doTestResizeAndReshuffle(_ size: Int, _ desiredStartValue: Int? = nil) {
         
+        sequence.clear()
         sequence.resizeAndReshuffle(size: size, startWith: desiredStartValue)
         
         // Ensure that the sequence is pointing to either the first element or no element (i.e. nil),
         // depending on whether desiredStartValue is nil or not (i.e. iteration).
         XCTAssertEqual(desiredStartValue, sequence.currentValue)
+        
+        // Verify the sequence size property
+        XCTAssertEqual(sequence.size, size)
         
         // Match the actual array count with the expected size.
         XCTAssertEqual(sequenceArrayCount, size)
@@ -116,6 +179,7 @@ class ShuffleSequenceTests: XCTestCase {
     // Any 2 consecutive sequences generated by resizeAndReshuffle() should be unique.
     private func doTestResizeAndReshuffle_consecutiveSequenceUniqueness(_ size: Int, _ repetitionCount: Int, _ maxNumberOfFailures: Int) {
         
+        sequence.clear()
         sequence.resizeAndReshuffle(size: size)
         
         var sequenceBeforeReshuffle: [Int] = Array(sequenceArray)
@@ -130,6 +194,9 @@ class ShuffleSequenceTests: XCTestCase {
             
             // Size of the sequence should have remained the same.
             XCTAssertEqual(sequenceArrayCount, size)
+            
+            // Verify the sequence size property
+            XCTAssertEqual(sequence.size, size)
             
             if sequenceBeforeReshuffle.elementsEqual(sequenceAfterReshuffle) {
                 failures.increment()
@@ -163,16 +230,20 @@ class ShuffleSequenceTests: XCTestCase {
             totalExecTime += executionTimeFor {
                 sequence.resizeAndReshuffle(size: size, startWith: size / 2)
             }
+            
+            // Verify the sequence size property
+            XCTAssertEqual(sequence.size, size)
         }
         
         let avgExecTime: Double = totalExecTime / Double(numRepetitions)
         XCTAssertLessThan(avgExecTime, maxExecTime_msec / 1000.0)
     }
     
-    func testReshuffle_lessThan10Elements() {
+    func testReshuffle_upTo100Elements() {
         
-        for size in 1..<10 {
+        for size in 1...100 {
             
+            sequence.clear()
             sequence.resizeAndReshuffle(size: size)
             
             for dontStartWith in 0..<size {
@@ -181,13 +252,47 @@ class ShuffleSequenceTests: XCTestCase {
         }
     }
     
-    func testReshuffle_moreThan10Elements() {
+    // Long running test: ~ 1 minute
+    func testReshuffle_100To1000Elements() {
         
-        for size in [10, 100, 1000, 10000] {
+        guard runLongRunningTests else {return}
+        
+        for size in 101...1000 {
             
+            sequence.clear()
             sequence.resizeAndReshuffle(size: size)
             
-            for dontStartWith in 0..<size {
+            // Generate random numbers and use them as starting values in the tests.
+            // Also test with the first and last elements
+            var testDontStartWithValues: [Int] = [0, size - 1]
+            for _ in 1...50 {
+                testDontStartWithValues.append(Int.random(in: 1..<(size - 1)))
+            }
+            
+            for dontStartWith in testDontStartWithValues {
+                doTestReshuffle(size, dontStartWith)
+            }
+        }
+    }
+    
+    // Long running test: ~ 10 minutes
+    func testReshuffle_moreThan1000Elements() {
+        
+        guard runLongRunningTests else {return}
+        
+        for size in 1001...10000 {
+            
+            sequence.clear()
+            sequence.resizeAndReshuffle(size: size)
+            
+            // Generate random numbers and use them as starting values in the tests.
+            // Also test with the first and last elements
+            var testDontStartWithValues: [Int] = [0, size - 1]
+            for _ in 1...25 {
+                testDontStartWithValues.append(Int.random(in: 1..<(size - 1)))
+            }
+            
+            for dontStartWith in testDontStartWithValues {
                 doTestReshuffle(size, dontStartWith)
             }
         }
@@ -202,6 +307,9 @@ class ShuffleSequenceTests: XCTestCase {
         
         // Size of the sequence should have remained the same.
         XCTAssertEqual(sequenceArrayCount, size)
+        
+        // Verify the sequence size property
+        XCTAssertEqual(sequence.size, size)
         
         // The first element should not equal dontStartWith
         if size > 1 {
@@ -247,6 +355,9 @@ class ShuffleSequenceTests: XCTestCase {
             // Size of the sequence should have remained the same.
             XCTAssertEqual(sequenceArrayCount, size)
             
+            // Verify the sequence size property
+            XCTAssertEqual(sequence.size, size)
+            
             if sequenceBeforeReshuffle.elementsEqual(sequenceAfterReshuffle) {
                 failures.increment()
             }
@@ -278,6 +389,9 @@ class ShuffleSequenceTests: XCTestCase {
             totalExecTime += executionTimeFor {
                 sequence.reShuffle(dontStartWith: 0)
             }
+            
+            // Verify the sequence size property
+            XCTAssertEqual(sequence.size, size)
         }
         
         let avgExecTime: Double = totalExecTime / Double(numRepetitions)
@@ -299,6 +413,7 @@ class ShuffleSequenceTests: XCTestCase {
         
         sequence.clear()
         XCTAssertEqual(sequenceArrayCount, 0)
+        XCTAssertEqual(sequence.size, 0)
         XCTAssertFalse(sequence.hasNext)
         
         // Ensure that the sequence is not pointing to any element.
@@ -306,8 +421,6 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     func testPrevious_noSequence() {
-        
-        sequence.clear()
         
         // Ensure that the sequence is not pointing to any element.
         XCTAssertNil(sequence.currentValue)
@@ -394,7 +507,7 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPrevious_iterateBackwardsFromTheEnd() {
         
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for _ in 0..<sequenceArray.count {
@@ -479,7 +592,7 @@ class ShuffleSequenceTests: XCTestCase {
             sequence.clear()
 
             // Create but don't start the sequence.
-            sequence.resizeAndReshuffle(size: 10)
+            sequence.resizeAndReshuffle(size: 1000)
             
             // Ensure sequence is not pointing to any element (i.e. no iteration).
             XCTAssertNil(sequence.currentValue)
@@ -502,10 +615,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testNext_atLastElement_repeatOff() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
@@ -524,10 +635,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testNext_atLastElement_repeatOne() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
@@ -546,10 +655,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testNext_atLastElement_repeatAll() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         let seqArrayBeforeReshuffle: [Int] = Array(sequenceArray)
         
         // Iterate to the last element.
@@ -585,8 +692,6 @@ class ShuffleSequenceTests: XCTestCase {
     // MARK: peekPrevious() tests ---------------------------------------------------------------------------------------
     
     func testPeekPrevious_noSequence() {
-        
-        sequence.clear()
         
         // Ensure that the sequence is not pointing to any element.
         XCTAssertNil(sequence.currentValue)
@@ -673,7 +778,7 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPeekPrevious_iterateBackwardsFromTheEnd() {
         
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for _ in 0..<sequenceArray.count {
@@ -705,8 +810,6 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPeekNext_noSequence() {
         
-        sequence.clear()
-        
         // Ensure sequence is not pointing to any element.
         XCTAssertNil(sequence.currentValue)
         
@@ -720,8 +823,6 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPeekNext_sequenceNotStarted() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
         sequence.resizeAndReshuffle(size: 10)
         
@@ -739,8 +840,6 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     func testPeekNext_atFirstElement() {
-        
-        sequence.clear()
         
         // Create and start the sequence.
         sequence.resizeAndReshuffle(size: 10, startWith: 5)
@@ -760,10 +859,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPeekNext_atSecondLastElement() {
         
-        sequence.clear()
-        
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Ensure sequence is not pointing to any element (i.e. no iteration).
         XCTAssertNil(sequence.currentValue)
@@ -788,10 +885,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testPeekNext_atLastElement() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
@@ -814,8 +909,6 @@ class ShuffleSequenceTests: XCTestCase {
     // MARK: hasPrevious tests ---------------------------------------------------------------------------------------
     
     func testHasPrevious_noSequence() {
-        
-        sequence.clear()
         
         // Ensure that the sequence is not pointing to any element.
         XCTAssertNil(sequence.currentValue)
@@ -892,7 +985,7 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasPrevious_iterateBackwardsFromTheEnd() {
         
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for _ in 0..<sequenceArray.count {
@@ -922,8 +1015,6 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasNext_noSequence() {
         
-        sequence.clear()
-        
         // Ensure sequence is not pointing to any element.
         XCTAssertNil(sequence.currentValue)
         
@@ -938,8 +1029,6 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasNext_sequenceNotStarted() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
         sequence.resizeAndReshuffle(size: 10)
         
@@ -957,8 +1046,6 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     func testHasNext_atFirstElement() {
-        
-        sequence.clear()
         
         // Create and start the sequence.
         sequence.resizeAndReshuffle(size: 10, startWith: 5)
@@ -978,10 +1065,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasNext_atSecondLastElement() {
         
-        sequence.clear()
-        
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Ensure sequence is not pointing to any element (i.e. no iteration).
         XCTAssertNil(sequence.currentValue)
@@ -1006,10 +1091,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasNext_atLastElement() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
@@ -1033,16 +1116,12 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasEnded_noSequence() {
         
-        sequence.clear()
-        
         // An empty sequence is never considered to have started or ended.
         XCTAssertFalse(sequence.hasEnded)
     }
     
     func testHasEnded_sequenceNotStarted() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
         sequence.resizeAndReshuffle(size: 10)
         
@@ -1060,8 +1139,6 @@ class ShuffleSequenceTests: XCTestCase {
     }
     
     func testHasEnded_atFirstElement() {
-        
-        sequence.clear()
         
         // Create and start the sequence.
         sequence.resizeAndReshuffle(size: 10, startWith: 5)
@@ -1081,10 +1158,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasEnded_atSecondLastElement() {
         
-        sequence.clear()
-        
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Ensure sequence is not pointing to any element (i.e. no iteration).
         XCTAssertNil(sequence.currentValue)
@@ -1113,10 +1188,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasEnded_atLastElement() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
@@ -1142,10 +1215,8 @@ class ShuffleSequenceTests: XCTestCase {
     
     func testHasEnded_atLastElement_afterReshuffle() {
         
-        sequence.clear()
-
         // Create but don't start the sequence.
-        sequence.resizeAndReshuffle(size: 10)
+        sequence.resizeAndReshuffle(size: 1000)
         
         // Iterate to the last element.
         for index in 0..<sequenceArrayCount {
