@@ -84,7 +84,7 @@ class PlaybackSequence {
         self.repeatMode = repeatMode
         
         // If repeating one track, cannot also shuffle
-        if self.repeatMode == .one && shuffleMode == .on {
+        if self.repeatAndShuffleModes == (.one, .on) {
             
             shuffleMode = .off
             shuffleSequence.clear()
