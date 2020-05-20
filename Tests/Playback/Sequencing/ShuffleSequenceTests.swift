@@ -23,6 +23,8 @@ class ShuffleSequenceTests: AuralTestCase {
         sequence = ShuffleSequence()
     }
     
+    // TODO: In testResizeAndReshuffle, test for uniqueness of elements !!! 0...100 should contain all numbers in the range and no duplicates.
+    
     // MARK: size tests --------------------------------------------------------------------------------------------------------------
     
     func testSize_upTo100Elements_startFromEmptySequence() {

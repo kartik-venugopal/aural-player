@@ -2690,8 +2690,8 @@
 		3EB4BCCD2470243C005024E5 /* StopPlaybackChain */ = {
 			isa = PBXGroup;
 			children = (
-				3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */,
 				3EB4BCD5247040D4005024E5 /* StopPlaybackChain.swift */,
+				3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */,
 			);
 			path = StopPlaybackChain;
 			sourceTree = "<group>";

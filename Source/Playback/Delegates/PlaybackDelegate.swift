@@ -136,6 +136,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             startPlaybackChain.execute(requestContext)
         }
+        
+        // TODO: Don't we need to do stop() on else ??? Otherwise playback won't stop, state won't be updated, profiles won't get saved.
     }
     
     func stop() {
