@@ -26,6 +26,11 @@ class ShuffleSequence {
     // Recompute the sequence, with a given tracks count
     func resizeAndReshuffle(size: Int, startWith desiredStartValue: Int? = nil) {
         
+        guard size > 0 else {
+            clear()
+            return
+        }
+        
         curIndex = desiredStartValue == nil ? -1 : 0
         
         // Only recreate the array if the size has changed.

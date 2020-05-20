@@ -421,8 +421,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         if resize {
             
             // Calculate the new sequence size (either the size of the group scope, if there is one, or of the entire playlist).
-            let sequenceSize: Int = scope.group?.size ?? playlist.size
-            sequence.resizeAndStart(size: sequenceSize, withTrackIndex: playingTrackIndex)
+            let newSequenceSize: Int = scope.group?.size ?? playlist.size
+            newSequenceSize == 0 ? sequence.clear() : sequence.resizeAndStart(size: newSequenceSize, withTrackIndex: playingTrackIndex)
             
         } else {
             

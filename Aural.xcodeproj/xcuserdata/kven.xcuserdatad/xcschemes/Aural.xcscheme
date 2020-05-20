@@ -74,16 +74,10 @@
                   Identifier = "PlaybackSchedulerTests">
                </Test>
                <Test
-                  Identifier = "PlaybackSequenceTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackSessionTests">
                </Test>
                <Test
                   Identifier = "PlayerTests">
-               </Test>
-               <Test
-                  Identifier = "ShuffleSequenceTests/testReshuffle()">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">
