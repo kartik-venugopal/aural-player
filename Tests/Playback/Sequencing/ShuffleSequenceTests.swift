@@ -5,7 +5,7 @@ import XCTest
  */
 class ShuffleSequenceTests: AuralTestCase {
     
-//    override var runLongRunningTests: Bool {return true}
+    override var runLongRunningTests: Bool {return true}
     
     private var sequence: ShuffleSequence = ShuffleSequence()
     
@@ -25,73 +25,68 @@ class ShuffleSequenceTests: AuralTestCase {
     
     // TODO: In testResizeAndReshuffle, test for uniqueness of elements !!! 0...100 should contain all numbers in the range and no duplicates.
     
+    // Check that in a sequence of size n, all the numbers from 0 to n-1 are present exactly once.
+    private func checkSequenceRangeAndUniqueness() {
+        
+        var numberCounts: [Int: Int] = [:]
+        
+        for num in sequenceArray {
+            
+            if numberCounts[num] == nil {
+                numberCounts[num] = 1
+                
+            } else if let curCountOfNum = numberCounts[num] {
+                numberCounts[num] = curCountOfNum + 1
+            }
+        }
+        
+        // Ensure that the dictionary contains exactly as many elements as the sequence array
+        // (this implies that there are n unique elements in the array).
+        XCTAssertEqual(numberCounts.count, sequenceArrayCount)
+        
+        // Finally, check that the numbers in the sequence are 0, 1, 2, ..., n - 1
+        for num in 0..<sequenceArrayCount {
+            XCTAssertEqual(numberCounts[num], 1)
+        }
+    }
+    
     // MARK: size tests --------------------------------------------------------------------------------------------------------------
     
     func testSize_upTo100Elements_startFromEmptySequence() {
-        
-        for size in 1...100 {
-            
-            sequence.clear()
-            sequence.resizeAndReshuffle(size: size)
-            
-            XCTAssertEqual(sequenceArrayCount, size)
-            XCTAssertEqual(sequence.size, size)
-        }
+        doTestSize(1...100, true)
     }
     
     // Long running test: ~ 1 minute
     func testSize_100To1000Elements_startFromEmptySequence_longRunning() {
-        
-        for size in 101...1000 {
-            
-            sequence.clear()
-            sequence.resizeAndReshuffle(size: size)
-            
-            XCTAssertEqual(sequenceArrayCount, size)
-            XCTAssertEqual(sequence.size, size)
-        }
+        doTestSize(101...1000, true)
     }
     
     // Long running test: ~ 1 minute
     func testSize_moreThan1000Elements_startFromEmptySequence_longRunning() {
-        
-        for size in 1001...10000 {
-            
-            sequence.clear()
-            sequence.resizeAndReshuffle(size: size)
-            
-            XCTAssertEqual(sequenceArrayCount, size)
-            XCTAssertEqual(sequence.size, size)
-        }
+        doTestSize(1001...10000, true)
     }
     
     func testSize_upTo100Elements() {
-        
-        for size in 1...100 {
-            
-            sequence.resizeAndReshuffle(size: size)
-            
-            XCTAssertEqual(sequenceArrayCount, size)
-            XCTAssertEqual(sequence.size, size)
-        }
+        doTestSize(1...100, false)
     }
     
     // Long running test: ~ 1 minute
     func testSize_100To1000Elements_longRunning() {
-        
-        for size in 101...1000 {
-            
-            sequence.resizeAndReshuffle(size: size)
-            
-            XCTAssertEqual(sequenceArrayCount, size)
-            XCTAssertEqual(sequence.size, size)
-        }
+        doTestSize(101...1000, false)
     }
     
     // Long running test: ~ 1 minute
     func testSize_moreThan1000Elements_longRunning() {
+        doTestSize(1001...10000, false)
+    }
+    
+    private func doTestSize(_ sizes: ClosedRange<Int>, _ clearSequenceBeforeTest: Bool) {
         
-        for size in 1001...10000 {
+        for size in sizes {
+            
+            if clearSequenceBeforeTest {
+                sequence.clear()
+            }
             
             sequence.resizeAndReshuffle(size: size)
             
@@ -101,60 +96,70 @@ class ShuffleSequenceTests: AuralTestCase {
     }
 
     func testResizeAndReshuffle_upTo100Elements() {
-        
-        for size in 1...100 {
-            
-            doTestResizeAndReshuffle(size)
-            
-            for startValue in 0..<size {
-                doTestResizeAndReshuffle(size, startValue)
-            }
-        }
+        doTestResizeAndReshuffle_sizeRange(1...100, nil, false)
     }
     
-    // Long running test: ~ 1 minute
+    // Long running test: ~ 2 minutes
     func testResizeAndReshuffle_100To1000Elements_longRunning() {
-        
-        for size in 101...1000 {
-            
-            doTestResizeAndReshuffle(size)
-            
-            // Generate random numbers and use them as starting values in the tests.
-            // Also test with the first and last elements
-            var testStartValues: [Int] = [0, size - 1]
-            for _ in 1...50 {
-                testStartValues.append(Int.random(in: 1..<(size - 1)))
-            }
-            
-            for startValue in testStartValues {
-                doTestResizeAndReshuffle(size, startValue)
-            }
-        }
+        doTestResizeAndReshuffle_sizeRange(101...1000, 50, false)
     }
     
     // Long running test: ~ 20 minutes
     func testResizeAndReshuffle_moreThan1000Elements_longRunning() {
+        doTestResizeAndReshuffle_sizeRange(1001...10000, 50, false)
+    }
+    
+    func testResizeAndReshuffle_upTo100Elements_startWithEmptySequence() {
+        doTestResizeAndReshuffle_sizeRange(1...100, nil, true)
+    }
+    
+    // Long running test: ~ 2 minutes
+    func testResizeAndReshuffle_100To1000Elements_startWithEmptySequence_longRunning() {
+        doTestResizeAndReshuffle_sizeRange(101...1000, 50, true)
+    }
+    
+    // Long running test: ~ 20 minutes
+    func testResizeAndReshuffle_moreThan1000Elements_startWithEmptySequence_longRunning() {
+        doTestResizeAndReshuffle_sizeRange(1001...10000, 50, true)
+    }
+    
+    private func doTestResizeAndReshuffle_sizeRange(_ sizeRange: ClosedRange<Int>, _ numberOfStartValues: Int?, _ clearSequenceBeforeEachTest: Bool) {
         
-        for size in 1001...10000 {
+        for size in sizeRange {
             
-            doTestResizeAndReshuffle(size)
+            doTestResizeAndReshuffle(size, nil, clearSequenceBeforeEachTest)
             
-            // Generate random numbers and use them as starting values in the tests.
-            // Also test with the first and last elements
-            var testStartValues: [Int] = [0, size - 1]
-            for _ in 1...50 {
-                testStartValues.append(Int.random(in: 1..<(size - 1)))
+            var testStartValues: [Int]
+            
+            if let startValuesCount = numberOfStartValues {
+                
+                // Test with random start values, limit count to the number specified.
+                // Generate random numbers and use them as starting values in the tests.
+                // Also test with the first and last elements
+                testStartValues = [0, size - 1]
+                
+                for _ in 1...startValuesCount {
+                    testStartValues.append(Int.random(in: 1..<(size - 1)))
+                }
+                
+            } else {
+                
+                // Test with all values from 0 to size - 1 as the start value.
+                testStartValues = Array(0..<size)
             }
             
             for startValue in testStartValues {
-                doTestResizeAndReshuffle(size, startValue)
+                doTestResizeAndReshuffle(size, startValue, clearSequenceBeforeEachTest)
             }
         }
     }
     
-    private func doTestResizeAndReshuffle(_ size: Int, _ desiredStartValue: Int? = nil) {
+    private func doTestResizeAndReshuffle(_ size: Int, _ desiredStartValue: Int?, _ clearSequenceBeforeTest: Bool) {
         
-        sequence.clear()
+        if clearSequenceBeforeTest {
+            sequence.clear()
+        }
+        
         sequence.resizeAndReshuffle(size: size, startWith: desiredStartValue)
         
         // Ensure that the sequence is pointing to either the first element or no element (i.e. nil),
@@ -166,6 +171,8 @@ class ShuffleSequenceTests: AuralTestCase {
         
         // Match the actual array count with the expected size.
         XCTAssertEqual(sequenceArrayCount, size)
+        
+        checkSequenceRangeAndUniqueness()
         
         // Ensure that the start value matches the desired value.
         if let startValue = desiredStartValue {
@@ -217,6 +224,8 @@ class ShuffleSequenceTests: AuralTestCase {
             // Verify the sequence size property
             XCTAssertEqual(sequence.size, size)
             
+            checkSequenceRangeAndUniqueness()
+            
             if sequenceBeforeReshuffle.elementsEqual(sequenceAfterReshuffle) {
                 failures.increment()
             }
@@ -261,52 +270,60 @@ class ShuffleSequenceTests: AuralTestCase {
     }
     
     func testReshuffle_upTo100Elements() {
-        
-        for size in 1...100 {
-            
-            sequence.clear()
-            sequence.resizeAndReshuffle(size: size)
-            
-            for dontStartWith in 0..<size {
-                doTestReshuffle(size, dontStartWith)
-            }
-        }
+        doTestReshuffle_sizeRange(1...100, nil, false)
     }
     
     // Long running test: ~ 1 minute
     func testReshuffle_100To1000Elements_longRunning() {
-        
-        for size in 101...1000 {
-            
-            sequence.clear()
-            sequence.resizeAndReshuffle(size: size)
-            
-            // Generate random numbers and use them as starting values in the tests.
-            // Also test with the first and last elements
-            var testDontStartWithValues: [Int] = [0, size - 1]
-            for _ in 1...50 {
-                testDontStartWithValues.append(Int.random(in: 1..<(size - 1)))
-            }
-            
-            for dontStartWith in testDontStartWithValues {
-                doTestReshuffle(size, dontStartWith)
-            }
-        }
+        doTestReshuffle_sizeRange(101...1000, 50, false)
     }
     
     // Long running test: ~ 10 minutes
     func testReshuffle_moreThan1000Elements_longRunning() {
+        doTestReshuffle_sizeRange(1001...10000, 50, false)
+    }
+    
+    func testReshuffle_upTo100Elements_startWithEmptySequence() {
+        doTestReshuffle_sizeRange(1...100, nil, true)
+    }
+    
+    // Long running test: ~ 1 minute
+    func testReshuffle_100To1000Elements_startWithEmptySequence_longRunning() {
+        doTestReshuffle_sizeRange(101...1000, 50, true)
+    }
+    
+    // Long running test: ~ 10 minutes
+    func testReshuffle_moreThan1000Elements_startWithEmptySequence_longRunning() {
+        doTestReshuffle_sizeRange(1001...10000, 50, true)
+    }
+    
+    private func doTestReshuffle_sizeRange(_ sizeRange: ClosedRange<Int>, _ numberOfDontStartWithValues: Int?, _ clearSequenceBeforeEachTest: Bool) {
         
-        for size in 1001...10000 {
+        for size in sizeRange {
             
-            sequence.clear()
+            if clearSequenceBeforeEachTest {
+                sequence.clear()
+            }
+            
             sequence.resizeAndReshuffle(size: size)
             
-            // Generate random numbers and use them as starting values in the tests.
-            // Also test with the first and last elements
-            var testDontStartWithValues: [Int] = [0, size - 1]
-            for _ in 1...25 {
-                testDontStartWithValues.append(Int.random(in: 1..<(size - 1)))
+            var testDontStartWithValues: [Int]
+            
+            if let dontStartWithValuesCount = numberOfDontStartWithValues {
+                
+                // Test with random start values, limit count to the number specified.
+                // Generate random numbers and use them as starting values in the tests.
+                // Also test with the first and last elements
+                testDontStartWithValues = [0, size - 1]
+                
+                for _ in 1...dontStartWithValuesCount {
+                    testDontStartWithValues.append(Int.random(in: 1..<(size - 1)))
+                }
+                
+            } else {
+                
+                // Test with all values from 0 to size - 1 as the start value.
+                testDontStartWithValues = Array(0..<size)
             }
             
             for dontStartWith in testDontStartWithValues {
@@ -327,6 +344,8 @@ class ShuffleSequenceTests: AuralTestCase {
         
         // Verify the sequence size property
         XCTAssertEqual(sequence.size, size)
+        
+        checkSequenceRangeAndUniqueness()
         
         // The first element should not equal dontStartWith
         if size > 1 {
