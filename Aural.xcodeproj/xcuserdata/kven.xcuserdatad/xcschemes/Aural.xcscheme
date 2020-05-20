@@ -80,6 +80,9 @@
                   Identifier = "PlayerTests">
                </Test>
                <Test
+                  Identifier = "ShuffleSequenceTests">
+               </Test>
+               <Test
                   Identifier = "ValueFormatterTests">
                </Test>
             </SkippedTests>

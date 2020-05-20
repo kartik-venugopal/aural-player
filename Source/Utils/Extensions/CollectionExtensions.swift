@@ -18,4 +18,8 @@ extension MutableCollection where Indices.Iterator.Element == Index {
             self.swapAt(firstUnshuffled, swapIndex)
         }
     }
+    
+    var lastIndex: Int? {
+        return count > 0 ? count - 1 : nil
+    }
 }
