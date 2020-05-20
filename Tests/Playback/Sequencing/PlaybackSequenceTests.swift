@@ -249,39 +249,55 @@ class PlaybackSequenceTests: AuralTestCase {
     
     func testEnd() {
         
-        _ = sequence.setRepeatMode(.off)
-        _ = sequence.setShuffleMode(.off)
+        for size in [0, 1, 2, 3, 4, 5, 10, 100, 500, 1000, 5000, 10000] {
         
-        sequence.resizeAndStart(size: 10, withTrackIndex: 3)
-        XCTAssertEqual(sequence.curTrackIndex, 3)
-        
-        _ = sequence.next()     // Iterate from #3 to #4
-        _ = sequence.next()     // Iterate from #4 to #5
-        
-        XCTAssertEqual(sequence.curTrackIndex, 5)
-        
-        sequence.end()
-        XCTAssertNil(sequence.curTrackIndex)
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                _ = sequence.setRepeatMode(repeatMode)
+                let modes = sequence.setShuffleMode(shuffleMode)
+                
+                XCTAssertEqual(modes.repeatMode, repeatMode)
+                XCTAssertEqual(modes.shuffleMode, shuffleMode)
+                
+                sequence.resizeAndStart(size: size, withTrackIndex: size / 2)
+                
+                XCTAssertEqual(sequence.size, size)
+                XCTAssertEqual(sequence.curTrackIndex, size / 2)
+                
+                sequence.end()
+                
+                // The sequence should no longer be pointing to any element.
+                XCTAssertNil(sequence.curTrackIndex)
+                
+                // The sequence size should not have changed.
+                XCTAssertEqual(sequence.size, size)
+            }
+        }
     }
     
     func testClear() {
         
-        for size in [1, 2, 3, 5, 10, 100, 1000, 5000, 10000] {
-            doTestClear(size)
+        for size in [0, 1, 2, 3, 5, 10, 100, 1000, 5000, 10000] {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+            
+                _ = sequence.setRepeatMode(repeatMode)
+                let modes = sequence.setShuffleMode(shuffleMode)
+                
+                XCTAssertEqual(modes.repeatMode, repeatMode)
+                XCTAssertEqual(modes.shuffleMode, shuffleMode)
+            
+                sequence.resizeAndStart(size: size)
+                XCTAssertEqual(sequence.size, size)
+                
+                sequence.clear()
+                XCTAssertEqual(sequence.size, 0)
+                
+                XCTAssertNil(sequence.peekSubsequent())
+                XCTAssertNil(sequence.peekPrevious())
+                XCTAssertNil(sequence.peekNext())
+            }
         }
-    }
-    
-    private func doTestClear(_ size: Int) {
-        
-        sequence.resizeAndStart(size: size)
-        XCTAssertEqual(sequence.size, size)
-        
-        sequence.clear()
-        XCTAssertEqual(sequence.size, 0)
-        
-        XCTAssertNil(sequence.peekSubsequent())
-        XCTAssertNil(sequence.peekPrevious())
-        XCTAssertNil(sequence.peekNext())
     }
     
     // MARK: toggleRepeatMode() tests ----------------------------------------------------------------------------
@@ -1108,7 +1124,7 @@ class PlaybackSequenceTests: AuralTestCase {
         for size in randomSizes {
             
             // Select a random start index (playing track index).
-            let startIndex: Int? = size == 1 ? 0 : Int.random(in: 0..<(size - 1))
+            let startIndex: Int = size == 1 ? 0 : Int.random(in: 0..<(size - 1))
             
             initSequence(size, startIndex, repeatMode, shuffleMode)
             
@@ -1252,6 +1268,298 @@ class PlaybackSequenceTests: AuralTestCase {
         for _ in 1...10 {
             
             XCTAssertNil(sequence.next())
+            
+            // Ensure that no resizing/iteration has taken place.
+            XCTAssertEqual(sequence.size, 0)
+            XCTAssertEqual(sequence.curTrackIndex, nil)
+        }
+    }
+    
+    // MARK: previous() tests ------------------------------------------------------------------------------
+    
+    func testPrevious_repeatOff_shuffleOff_withPlayingTrack() {
+        
+        doTestPrevious(.off, .off, {(size: Int, startIndex: Int?) -> [Int?] in
+            
+            // When there is a playing track, startIndex cannot be nil.
+            XCTAssertNotNil(startIndex)
+            
+            // If there aren't at least 2 tracks in the sequence, previous() should always produce nil, even with repeated calls.
+            if size < 2 {return Array(repeating: nil, count: 10)}
+            
+            // Because there is a playing track (represented by startIndex), the test should start at startIndex + 1.
+            var previousIndices: [Int?] = Array((0..<startIndex!).reversed())
+//            print("\nPI:", previousIndices, ", size=", size)
+            
+            // Test that once the first track has been reached (i.e. at the beginning of the sequence), nil should be returned, even with repeated calls.
+            previousIndices.append(contentsOf: Array(repeating: nil, count: 10))
+            
+            // The test results should look like this:
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, nil, nil, ... where n is the size of the array
+            
+            return previousIndices
+        })
+    }
+    
+//    func testPrevious_repeatOff_shuffleOff_noPlayingTrack() {
+//
+//        for size in [1, 2, 3, 5, 10, 100, 500, 1000, 5000, 10000] {
+//
+//            initSequence(size, nil, .off, .off)
+//
+//            // When no track is currently playing, nil should be returned, even with repeated calls.
+//            for _ in 1...10 {
+//
+//                XCTAssertNil(sequence.previous())
+//
+//                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+//                XCTAssertNil(sequence.curTrackIndex)
+//            }
+//        }
+//    }
+//
+//    func testPrevious_repeatOne_shuffleOff_withPlayingTrack() {
+//
+//        doTestPrevious(.one, .off, {(size: Int, startIndex: Int?) -> [Int?] in
+//
+//            // When there is a playing track, startIndex cannot be nil.
+//            XCTAssertNotNil(startIndex)
+//
+//            // If there aren't at least 2 tracks in the sequence, previous() should always produce nil, even with repeated calls.
+//            if size < 2 {return Array(repeating: nil, count: 10)}
+//
+//            // Because there is a playing track (represented by startIndex), the test should start at startIndex + 1.
+//            var previousIndices: [Int?] = Array((startIndex! + 1)..<size)
+//
+//            // Test that after the last track (i.e. at the end of the sequence), nil should be returned, even with repeated calls.
+//            previousIndices.append(contentsOf: Array(repeating: nil, count: 10))
+//
+//            // The test results should look like this:
+//            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, nil, nil, ... where n is the size of the array
+//
+//            return previousIndices
+//        })
+//    }
+//
+//    func testPrevious_repeatOne_shuffleOff_noPlayingTrack() {
+//
+//        for size in [1, 2, 3, 5, 10, 100, 500, 1000, 5000, 10000] {
+//
+//            initSequence(size, nil, .one, .off)
+//
+//            // When no track is currently playing, nil should be returned, even with repeated calls.
+//            for _ in 1...10 {
+//
+//                XCTAssertNil(sequence.previous())
+//
+//                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+//                XCTAssertNil(sequence.curTrackIndex)
+//            }
+//        }
+//    }
+//
+//    func testPrevious_repeatAll_shuffleOff_withPlayingTrack() {
+//
+//        doTestPrevious(.all, .off, {(size: Int, startIndex: Int?) -> [Int?] in
+//
+//            // When there is a playing track, startIndex cannot be nil.
+//            XCTAssertNotNil(startIndex)
+//
+//            // If there aren't at least 2 tracks in the sequence, previous() should always produce nil, even with repeated calls.
+//            if size < 2 {return Array(repeating: nil, count: 10)}
+//
+//            // Because there is a playing track (represented by startIndex), the test should start at startIndex + 1.
+//
+//            // The test results should look like this:
+//            // startIndex + 1, startIndex + 2, ..., (n - 1), 0, 1, 2, ... (n - 1), where n is the size of the array.
+//
+//            return Array((startIndex! + 1)..<size)
+//
+//        }, 10)
+//    }
+//
+//    func testPrevious_repeatAll_shuffleOff_noPlayingTrack() {
+//
+//        for size in [1, 2, 3, 5, 10, 100, 500, 1000, 5000, 10000] {
+//
+//            initSequence(size, nil, .all, .off)
+//
+//            // When no track is currently playing, nil should be returned, even with repeated calls.
+//            for _ in 1...10 {
+//
+//                XCTAssertNil(sequence.previous())
+//
+//                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+//                XCTAssertNil(sequence.curTrackIndex)
+//            }
+//        }
+//    }
+//
+//    func testPrevious_repeatOff_shuffleOn_withPlayingTrack() {
+//
+//        doTestPrevious(.off, .on, {(size: Int, startIndex: Int?) -> [Int?] in
+//
+//            // The sequence of elements produced by calls to previous() should match the shuffle sequence array,
+//            // starting with its 2nd element (the first element is already playing).
+//            var previousIndices: [Int?] = sequence.shuffleSequence.sequence.suffix(size - 1)
+//
+//            // Test that after the last track (i.e. at the end of the sequence), nil is returned, even with repeated calls.
+//            previousIndices.append(contentsOf: Array(repeating: nil, count: 10))
+//
+//            return previousIndices
+//        })
+//    }
+//
+//    func testPrevious_repeatOff_shuffleOn_noPlayingTrack() {
+//
+//        for size in [1, 2, 3, 5, 10, 100, 500, 1000, 5000, 10000] {
+//
+//            initSequence(size, nil, .off, .on)
+//
+//            // When no track is currently playing, nil should be returned, even with repeated calls.
+//            for _ in 1...10 {
+//
+//                XCTAssertNil(sequence.previous())
+//
+//                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+//                XCTAssertNil(sequence.curTrackIndex)
+//            }
+//        }
+//    }
+//
+//    func testPrevious_repeatAll_shuffleOn_withPlayingTrack() {
+//
+//        doTestPrevious(.all, .on, {(size: Int, startIndex: Int?) -> [Int?] in
+//
+//            // The sequence of elements produced by calls to previous() should exactly match
+//            // the shuffle sequence array (minus the first element, which represents the already
+//            // playing track)
+//            return Array(sequence.shuffleSequence.sequence.suffix(size - 1))
+//
+//        }, 10)   // Repeat sequence iteration 10 times to test repeat all.
+//    }
+//
+//    func testPrevious_repeatAll_shuffleOn_noPlayingTrack() {
+//
+//        for size in [1, 2, 3, 5, 10, 100, 500, 1000, 5000, 10000] {
+//
+//            initSequence(size, nil, .all, .on)
+//
+//            // When no track is currently playing, nil should be returned, even with repeated calls.
+//            for _ in 1...10 {
+//
+//                XCTAssertNil(sequence.previous())
+//
+//                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+//                XCTAssertNil(sequence.curTrackIndex)
+//            }
+//        }
+//    }
+    
+    private func doTestPrevious(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
+        
+        var randomSizes: [Int] = [1, 2, 3, 4]
+        
+        for _ in 1...100 {
+            randomSizes.append(Int.random(in: 5...10000))
+        }
+        
+        for size in randomSizes {
+            
+            for _ in 1...min(50, size) {
+            
+                // Select a random start index (playing track index).
+                let startIndex: Int = size == 1 ? 0 : Int.random(in: 0..<(size - 1))    // TODO: Should this be 0..<size ???
+    //            let startIndex: Int = 3
+                
+                initSequence(size, startIndex, repeatMode, shuffleMode)
+                
+                // Before any testing can be done, we need to iterate to the start index.
+                // We can iterate backwards from there.
+                while sequence.curTrackIndex! < startIndex {
+                    _ = sequence.next()
+                }
+                
+                XCTAssertEqual(sequence.curTrackIndex, startIndex)
+                
+                // Exercise the given indices function to obtain an array of expected results from repeated calls to previous().
+                // NOTE - The size of the expectedIndices array will determine how many times previous() will be called (and tested).
+                let expectedIndices: [Int?] = expectedIndicesFunction(size, startIndex)
+                
+    //            print("\nExp-Indices:", expectedIndices)
+                
+                // For each expected index value, call previous() and match its return value.
+                for value in expectedIndices {
+                    
+                    let indexBeforePrevious = sequence.curTrackIndex
+                    XCTAssertEqual(sequence.previous(), value)
+
+                    // Also verify that,
+                    // if previous() produced a non-nil value, the sequence is now pointing at this new value (i.e. iteration took place)
+                    // OR
+                    // if previous() produced nil, the sequence is pointing at the same value it was pointing to before the call to previous()
+                    // (i.e. no iteration took place)
+    //                print("\nAND Comparing:", sequence.curTrackIndex, value != nil ? value : indexBeforePrevious, ", size=", size)
+                    XCTAssertEqual(sequence.curTrackIndex, value != nil ? value : indexBeforePrevious)
+                }
+                
+                // When repeatMode = .all, the sequence will be restarted the previous time subsequent() is called.
+                // If a repeatCount is given, perform further testing by looping through the sequence again.
+                if repeatCount > 0 && repeatMode == .all && shuffleMode == .off && size > 1 {
+                    doTestPrevious_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                }
+            }
+        }
+    }
+    
+    // Loop around to the beginning of the sequence and iterate through it.
+    private func doTestPrevious_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+        
+        for _ in 1...repeatCount {
+        
+            // Iterate through the same sequence again, from the beginning, and verify that calls to previous()
+            // produce the same sequence again.
+            for value in (0..<sequence.size).reversed() {
+                
+                XCTAssertEqual(sequence.previous(), value)
+                
+                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                XCTAssertEqual(sequence.curTrackIndex, value)
+            }
+        }
+    }
+    
+    func testPrevious_repeatOff_shuffleOff_emptySequence() {
+        doTestPrevious_emptySequence(.off, .off)
+    }
+    
+    func testPrevious_repeatOne_shuffleOff_emptySequence() {
+        doTestPrevious_emptySequence(.one, .off)
+    }
+    
+    func testPrevious_repeatAll_shuffleOff_emptySequence() {
+        doTestPrevious_emptySequence(.all, .off)
+    }
+    
+    func testPrevious_repeatOff_shuffleOn_emptySequence() {
+        doTestPrevious_emptySequence(.off, .on)
+    }
+    
+    func testPrevious_repeatAll_shuffleOn_emptySequence() {
+        doTestPrevious_emptySequence(.all, .on)
+    }
+    
+    private func doTestPrevious_emptySequence(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
+        
+        // Create and verify an empty sequence.
+        initSequence(0, nil, repeatMode, shuffleMode)
+        XCTAssertEqual(sequence.size, 0)
+        XCTAssertEqual(sequence.curTrackIndex, nil)
+        
+        // Repeated calls to previous() should all produce nil.
+        for _ in 1...10 {
+            
+            XCTAssertNil(sequence.previous())
             
             // Ensure that no resizing/iteration has taken place.
             XCTAssertEqual(sequence.size, 0)
