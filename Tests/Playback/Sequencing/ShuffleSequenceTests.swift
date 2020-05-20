@@ -5,7 +5,7 @@ import XCTest
  */
 class ShuffleSequenceTests: AuralTestCase {
     
-    override var runLongRunningTests: Bool {return true}
+//    override var runLongRunningTests: Bool {return true}
     
     private var sequence: ShuffleSequence = ShuffleSequence()
     
@@ -22,8 +22,6 @@ class ShuffleSequenceTests: AuralTestCase {
         // Start with a fresh object before each test
         sequence = ShuffleSequence()
     }
-    
-    // TODO: In testResizeAndReshuffle, test for uniqueness of elements !!! 0...100 should contain all numbers in the range and no duplicates.
     
     // Check that in a sequence of size n, all the numbers from 0 to n-1 are present exactly once.
     private func checkSequenceRangeAndUniqueness() {
@@ -189,6 +187,28 @@ class ShuffleSequenceTests: AuralTestCase {
             // If no start value is given, calling peekNext() should produce the first value in the sequence.
             XCTAssertEqual(sequenceArray.first, sequence.peekNext())
         }
+    }
+    
+    func testResizeAndReshuffle_size0_withStartIndex() {
+        
+        sequence.resizeAndReshuffle(size: 10, startWith: 5)
+        XCTAssertEqual(sequence.size, 10)
+        XCTAssertEqual(sequence.currentValue, 5)
+        
+        sequence.resizeAndReshuffle(size: 0, startWith: 7)
+        XCTAssertEqual(sequence.size, 0)
+        XCTAssertEqual(sequence.currentValue, nil)
+    }
+    
+    func testResizeAndReshuffle_size0_noStartIndex() {
+        
+        sequence.resizeAndReshuffle(size: 10)
+        XCTAssertEqual(sequence.size, 10)
+        XCTAssertEqual(sequence.currentValue, nil)
+        
+        sequence.resizeAndReshuffle(size: 0)
+        XCTAssertEqual(sequence.size, 0)
+        XCTAssertEqual(sequence.currentValue, nil)
     }
     
     func testResizeAndReshuffle_consecutiveSequenceUniqueness() {
