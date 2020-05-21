@@ -200,11 +200,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            if let playingTrackIndex = self.playbackInfo.playingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
+            if let playingTrack = self.playbackInfo.playingTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
                 
-            } else if let waitingTrackIndex = self.playbackInfo.waitingTrack?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, waitingTrackIndex == updatedTrackIndex {
+            } else if let waitingTrack = self.playbackInfo.waitingTrack, let waitingTrackIndex = self.playlist.indexOfTrack(waitingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, waitingTrackIndex == updatedTrackIndex {
                 
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
@@ -219,7 +219,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            if let playingTrackIndex = self.playbackInfo.playingTrack?.index, playingTrackIndex == message.index {
+            if let playingTrack = self.playbackInfo.playingTrack,
+                let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == message.index {
+                
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }

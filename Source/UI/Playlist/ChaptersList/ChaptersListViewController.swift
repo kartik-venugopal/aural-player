@@ -214,7 +214,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         searchResults.removeAll()
         
         // Ensure that there is some query text and that the playing track has some chapters
-        if !queryText.isEmpty, let chapters = player.playingTrack?.track.chapters {
+        if !queryText.isEmpty, let chapters = player.playingTrack?.chapters {
 
             // Compare the query text with all chapter titles
             for index in 0..<chapters.count {

@@ -6,7 +6,7 @@ extension PlaybackDelegate {
     func playChapter(_ index: Int) {
         
         // Validate track and index by checking the bounds of the chapters array
-        if let track = playingTrack?.track, track.hasChapters, index >= 0 && index < track.chapters.count {
+        if let track = playingTrack, track.hasChapters, index >= 0 && index < track.chapters.count {
             
             // Find the chapter with the given index and seek to its start time.
             // HACK: Add a little margin to the chapter start time to avoid overlap in chapters (except if the start time is zero).
@@ -20,7 +20,7 @@ extension PlaybackDelegate {
     
     func previousChapter() {
         
-        if let chapters = playingTrack?.track.chapters, !chapters.isEmpty {
+        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
             
             let elapsed = player.seekPosition
             
@@ -50,7 +50,7 @@ extension PlaybackDelegate {
     
     func nextChapter() {
         
-        if let chapters = playingTrack?.track.chapters, !chapters.isEmpty {
+        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
                 
             let elapsed = player.seekPosition
             
@@ -99,7 +99,7 @@ extension PlaybackDelegate {
     }
     
     var chapterCount: Int {
-        return playingTrack?.track.chapters.count ?? 0
+        return playingTrack?.chapters.count ?? 0
     }
     
     // NOTE - This function needs to be efficient because it is repeatedly called to keep track of the current chapter
@@ -107,7 +107,7 @@ extension PlaybackDelegate {
     // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
     var playingChapter: IndexedChapter? {
         
-        if let track = playingTrack?.track, track.hasChapters {
+        if let track = playingTrack, track.hasChapters {
             
             let elapsed = player.seekPosition
             

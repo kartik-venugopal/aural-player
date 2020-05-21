@@ -64,7 +64,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack!.track.duration)
+        
+        if let playingTrack = player.playingTrack {
+            playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
+        }
     }
     
     // Plays, pauses, or resumes playback
@@ -259,21 +262,21 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func playChapter(_ index: Int) {
         
         player.playChapter(index)
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
         playbackView.playbackStateChanged(player.state)
     }
     
     private func previousChapter() {
         
         player.previousChapter()
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
         playbackView.playbackStateChanged(player.state)
     }
     
     private func nextChapter() {
         
         player.nextChapter()
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
         playbackView.playbackStateChanged(player.state)
     }
     
@@ -287,13 +290,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func addChapterLoop() {
         
         player.loopChapter()
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
     }
     
     private func removeChapterLoop() {
         
         _ = player.toggleLoop()
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.track.duration ?? 0)
+        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {

@@ -26,7 +26,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         // Continue playback with the subsequent track.
         if let subsequentTrack = sequencer.subsequent() {
             
-            context.requestedTrack = subsequentTrack.track
+            context.requestedTrack = subsequentTrack
             context.cancelWaitingOrTranscoding = false
             
             startPlaybackChain.execute(context)

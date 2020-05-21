@@ -187,7 +187,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         // TODO: Check preference "eagerTranscodingEnabled" first
         
         // Use a Set to avoid duplicates
-        var tracksToTranscode: Set<IndexedTrack> = Set<IndexedTrack>()
+        var tracksToTranscode: Set<Track> = Set<Track>()
         
         let playingTrack = sequencer.playingTrack
         
@@ -197,8 +197,8 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         for track in tracksToTranscode {
             
-            if !track.equals(playingTrack) && trackNeedsTranscoding(track.track) {
-                doTranscodeInBackground(track.track, false)
+            if track != playingTrack && trackNeedsTranscoding(track) {
+                doTranscodeInBackground(track, false)
             }
         }
     }

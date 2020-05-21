@@ -63,7 +63,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
             () -> String? in
 
             if let prevTrack = self.playbackSequence.peekPrevious() {
-                return String(format: "Previous track: '%@'", prevTrack.track.conciseDisplayName)
+                return String(format: "Previous track: '%@'", prevTrack.conciseDisplayName)
             }
 
             return nil
@@ -73,7 +73,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
             () -> String? in
 
             if let nextTrack = self.playbackSequence.peekNext() {
-                return String(format: "Next track: '%@'", nextTrack.track.conciseDisplayName)
+                return String(format: "Next track: '%@'", nextTrack.conciseDisplayName)
             }
 
             return nil

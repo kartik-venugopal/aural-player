@@ -12,10 +12,10 @@ protocol PlaybackInfoDelegateProtocol {
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {get}
     
     // Returns the currently playing track (with its index), if a track is currently playing
-    var playingTrack: IndexedTrack? {get}
+    var playingTrack: Track? {get}
     
     // Currently waiting track
-    var waitingTrack: IndexedTrack? {get}
+    var waitingTrack: Track? {get}
     
     // For the currently playing track, returns the total number of defined chapter markings
     var chapterCount: Int {get}

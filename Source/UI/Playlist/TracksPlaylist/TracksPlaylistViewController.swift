@@ -319,7 +319,15 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
-        selectTrack(playbackInfo.playingTrack?.index)
+        
+        if let playingTrack = self.playbackInfo.playingTrack,
+            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
+            
+            selectTrack(playingTrackIndex)
+            
+        } else {
+            selectTrack(nil)
+        }
     }
     
     private func showSelectedTrackInfo() {
@@ -647,11 +655,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrackIndex = playbackInfo.playingTrack?.index {
+        if let playingTrack = self.playbackInfo.playingTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
             
             playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
             
-        } else if let waitingTrackIndex = playbackInfo.waitingTrack?.index {
+        } else if let waitingTrack = playbackInfo.waitingTrack, let waitingTrackIndex = playlist.indexOfTrack(waitingTrack)?.index {
             
             playlistView.reloadData(forRowIndexes: IndexSet([waitingTrackIndex]), columnIndexes: IndexSet([0]))
         }

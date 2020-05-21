@@ -7,7 +7,7 @@ import Foundation
 protocol PlaybackSequencerInfoDelegateProtocol {
     
     // Returns the currently playing track, with its index
-    var playingTrack: IndexedTrack? {get}
+    var playingTrack: Track? {get}
     
     /*
         Returns summary information about the current playback sequence
@@ -30,13 +30,13 @@ protocol PlaybackSequencerInfoDelegateProtocol {
     // NOTE - Nil return values mean no applicable track
     
     // Peeks at (without selecting for playback) the subsequent track in the sequence
-    func peekSubsequent() -> IndexedTrack?
+    func peekSubsequent() -> Track?
     
     // Peeks at (without selecting for playback) the previous track in the sequence
-    func peekPrevious() -> IndexedTrack?
+    func peekPrevious() -> Track?
     
     // Peeks at (without selecting for playback) the next track in the sequence
-    func peekNext() -> IndexedTrack?
+    func peekNext() -> Track?
     
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}

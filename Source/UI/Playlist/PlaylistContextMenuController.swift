@@ -107,7 +107,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let _clickedTrack = clickedTrack
             
             transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
-            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack!.track == _clickedTrack)})
+            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack == _clickedTrack)})
             
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
             
@@ -117,7 +117,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             
             var isPlayingTrack: Bool = false
-            if let playingTrack = playbackInfo.playingTrack?.track, playingTrack == _clickedTrack {
+            if let playingTrack = playbackInfo.playingTrack, playingTrack == _clickedTrack {
                 isPlayingTrack = true
             }
             viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
