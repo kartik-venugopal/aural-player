@@ -74,6 +74,81 @@
                   Identifier = "PlaybackSchedulerTests">
                </Test>
                <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOff_noPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOn_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOn_noPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOn_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOff_noPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOn_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOn_noPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOff_shuffleOn_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOne_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOne_shuffleOff_noPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatOne_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatAll_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatAll_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatAll_shuffleOn_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatAll_shuffleOn_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOff_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOff_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOff_shuffleOn_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOff_shuffleOn_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOne_shuffleOff_emptySequence()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOne_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
                   Identifier = "PlaybackSessionTests">
                </Test>
                <Test

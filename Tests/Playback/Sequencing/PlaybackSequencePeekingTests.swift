@@ -6,7 +6,28 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
     
     // MARK: peekSubsequent() tests -----------------------------------------------------------------------------------------------
     
-    func testPeekSubsequent_repeatOff_shuffleOff_withPlayingTrack() {
+    func testPeekSubsequent_emptySequence() {
+        
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
+            
+            // Create and verify an empty sequence.
+            initSequence(0, nil, repeatMode, shuffleMode)
+            XCTAssertEqual(sequence.size, 0)
+            XCTAssertEqual(sequence.curTrackIndex, nil)
+            
+            // Repeated calls to peekSubsequent() should all produce nil.
+            for _ in 1...10 {
+                
+                XCTAssertNil(sequence.peekSubsequent())
+                
+                // Ensure that no resizing/iteration has taken place.
+                XCTAssertEqual(sequence.size, 0)
+                XCTAssertEqual(sequence.curTrackIndex, nil)
+            }
+        }
+    }
+    
+    func testPeekSubsequent_repeatOff_shuffleOff() {
         
         doTestPeekSubsequent(true, .off, .off, {(size: Int, startIndex: Int?) -> [Int?] in
             
@@ -22,7 +43,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
             
             // The test results should look like this:
-            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), 0, 1, 2, ... where n is the size of the array
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), nil, 0, 1, 2, ... where n is the size of the array
             
             return peekSubsequentIndices
             
@@ -36,21 +57,20 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // Because there is no playing track, the test should start at 0 and contain the entire sequence.
             var peekSubsequentIndices: [Int?] = Array(0..<size)
 
-            // Test that:
-            // 1 - after the last track (i.e. at the end of the sequence), nil is returned.
-            // 2 - after the sequence has ended and nil is returned, the following call to peekSubsequent() should return 0 because the sequence restarts.
-            // 3 - the sequence should then repeat again sequentially: 0, 1, 2, ...
+            // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             peekSubsequentIndices.append(nil)
-            peekSubsequentIndices += Array(0..<size)
-
+            
+            // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
+            
             // The test results should look like this:
-            // 0, 1, 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), where n is the size of the array
+            // 0, 1, 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), nil, 0, 1, 2, ... where n is the size of the array
 
             return peekSubsequentIndices
-        })
+            
+        }, sequenceRestart_count)  // Repeat sequence recreation
     }
 
-    func testPeekSubsequent_repeatOne_shuffleOff_withPlayingTrack() {
+    func testPeekSubsequent_repeatOne_shuffleOff() {
 
         doTestPeekSubsequent(true, .one, .off, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -74,7 +94,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         })
     }
 
-    func testPeekSubsequent_repeatAll_shuffleOff_withPlayingTrack() {
+    func testPeekSubsequent_repeatAll_shuffleOff() {
 
         doTestPeekSubsequent(true, .all, .off, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -105,7 +125,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         }, sequenceRestart_count)
     }
 
-    func testPeekSubsequent_repeatOff_shuffleOn_withPlayingTrack() {
+    func testPeekSubsequent_repeatOff_shuffleOn() {
 
         doTestPeekSubsequent(true, .off, .on, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -137,7 +157,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         })
     }
 
-    func testPeekSubsequent_repeatAll_shuffleOn_withPlayingTrack() {
+    func testPeekSubsequent_repeatAll_shuffleOn() {
 
         doTestPeekSubsequent(true, .all, .on, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -146,7 +166,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // playing track)
             return Array(sequence.shuffleSequence.sequence.suffix(size - 1))
 
-        }, sequenceRestart_count)   // Repeat sequence iteration 10 times to test repeat all.
+        }, sequenceRestart_count)   // Repeat sequence iteration to test repeat all.
     }
 
     func testPeekSubsequent_repeatAll_shuffleOn_noPlayingTrack() {
@@ -157,7 +177,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // the shuffle sequence array.
             return Array(sequence.shuffleSequence.sequence)
 
-        }, sequenceRestart_count)  // Repeat sequence iteration 10 times to test repeat all.
+        }, sequenceRestart_count)  // Repeat sequence iteration to test repeat all.
     }
     
     private func doTestPeekSubsequent(_ hasPlayingTrack: Bool, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
@@ -334,47 +354,50 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         }
     }
     
-    func testPeekSubsequent_repeatOff_shuffleOff_emptySequence() {
-        doTestPeekSubsequent_emptySequence(.off, .off)
-    }
-
-    func testPeekSubsequent_repeatOne_shuffleOff_emptySequence() {
-        doTestPeekSubsequent_emptySequence(.one, .off)
-    }
-
-    func testPeekSubsequent_repeatAll_shuffleOff_emptySequence() {
-        doTestPeekSubsequent_emptySequence(.all, .off)
-    }
-
-    func testPeekSubsequent_repeatOff_shuffleOn_emptySequence() {
-        doTestPeekSubsequent_emptySequence(.off, .on)
-    }
-
-    func testPeekSubsequent_repeatAll_shuffleOn_emptySequence() {
-        doTestPeekSubsequent_emptySequence(.all, .on)
-    }
+    // MARK: peekNext() tests ------------------------------------------------------------------------------
     
-    private func doTestPeekSubsequent_emptySequence(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
+    func testPeekNext_emptySequence() {
         
-        // Create and verify an empty sequence.
-        initSequence(0, nil, repeatMode, shuffleMode)
-        XCTAssertEqual(sequence.size, 0)
-        XCTAssertEqual(sequence.curTrackIndex, nil)
-        
-        // Repeated calls to peekSubsequent() should all produce nil.
-        for _ in 1...10 {
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
             
-            XCTAssertNil(sequence.peekSubsequent())
-            
-            // Ensure that no resizing/iteration has taken place.
+            // Create and verify an empty sequence.
+            initSequence(0, nil, repeatMode, shuffleMode)
             XCTAssertEqual(sequence.size, 0)
             XCTAssertEqual(sequence.curTrackIndex, nil)
+            
+            // Repeated calls to peekNext() should all produce nil.
+            for _ in 1...10 {
+                
+                XCTAssertNil(sequence.peekNext())
+                
+                // Ensure that no resizing/iteration has taken place.
+                XCTAssertEqual(sequence.size, 0)
+                XCTAssertEqual(sequence.curTrackIndex, nil)
+            }
         }
     }
     
-    // MARK: peekNext() tests ------------------------------------------------------------------------------
+    func testPeekNext_noPlayingTrack() {
+
+        for size in testSequenceSizes {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                initSequence(size, nil, repeatMode, shuffleMode)
+                
+                // When no track is currently playing, nil should be returned, even with repeated calls.
+                for _ in 1...10 {
+                    
+                    XCTAssertNil(sequence.peekNext())
+                    
+                    // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+                    XCTAssertNil(sequence.curTrackIndex)
+                }
+            }
+        }
+    }
     
-    func testPeekNext_repeatOff_shuffleOff_withPlayingTrack() {
+    func testPeekNext_repeatOff_shuffleOff() {
         
         doTestPeekNext(.off, .off, {(size: Int, startIndex: Int?) -> [Int?] in
             
@@ -397,24 +420,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         })
     }
     
-    func testPeekNext_repeatOff_shuffleOff_noPlayingTrack() {
-
-        for size in testSequenceSizes {
-
-            initSequence(size, nil, .off, .off)
-
-            // When no track is currently playing, nil should be returned, even with repeated calls.
-            for _ in 1...10 {
-
-                XCTAssertNil(sequence.peekNext())
-
-                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
-                XCTAssertNil(sequence.curTrackIndex)
-            }
-        }
-    }
-
-    func testPeekNext_repeatOne_shuffleOff_withPlayingTrack() {
+    func testPeekNext_repeatOne_shuffleOff() {
 
         doTestPeekNext(.one, .off, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -437,24 +443,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         })
     }
 
-    func testPeekNext_repeatOne_shuffleOff_noPlayingTrack() {
-
-        for size in testSequenceSizes {
-
-            initSequence(size, nil, .one, .off)
-
-            // When no track is currently playing, nil should be returned, even with repeated calls.
-            for _ in 1...10 {
-
-                XCTAssertNil(sequence.peekNext())
-
-                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
-                XCTAssertNil(sequence.curTrackIndex)
-            }
-        }
-    }
-
-    func testPeekNext_repeatAll_shuffleOff_withPlayingTrack() {
+    func testPeekNext_repeatAll_shuffleOff() {
 
         doTestPeekNext(.all, .off, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -474,24 +463,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         }, sequenceRestart_count)
     }
 
-    func testPeekNext_repeatAll_shuffleOff_noPlayingTrack() {
-
-        for size in testSequenceSizes {
-
-            initSequence(size, nil, .all, .off)
-
-            // When no track is currently playing, nil should be returned, even with repeated calls.
-            for _ in 1...10 {
-
-                XCTAssertNil(sequence.peekNext())
-
-                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
-                XCTAssertNil(sequence.curTrackIndex)
-            }
-        }
-    }
-
-    func testPeekNext_repeatOff_shuffleOn_withPlayingTrack() {
+    func testPeekNext_repeatOff_shuffleOn() {
 
         doTestPeekNext(.off, .on, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -506,24 +478,7 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         })
     }
 
-    func testPeekNext_repeatOff_shuffleOn_noPlayingTrack() {
-
-        for size in testSequenceSizes {
-
-            initSequence(size, nil, .off, .on)
-
-            // When no track is currently playing, nil should be returned, even with repeated calls.
-            for _ in 1...10 {
-
-                XCTAssertNil(sequence.peekNext())
-
-                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
-                XCTAssertNil(sequence.curTrackIndex)
-            }
-        }
-    }
-
-    func testPeekNext_repeatAll_shuffleOn_withPlayingTrack() {
+    func testPeekNext_repeatAll_shuffleOn() {
 
         doTestPeekNext(.all, .on, {(size: Int, startIndex: Int?) -> [Int?] in
 
@@ -533,23 +488,6 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             return Array(sequence.shuffleSequence.sequence.suffix(size - 1))
 
         }, sequenceRestart_count)   // Repeat sequence iteration 10 times to test repeat all.
-    }
-
-    func testPeekNext_repeatAll_shuffleOn_noPlayingTrack() {
-
-        for size in testSequenceSizes {
-
-            initSequence(size, nil, .all, .on)
-
-            // When no track is currently playing, nil should be returned, even with repeated calls.
-            for _ in 1...10 {
-
-                XCTAssertNil(sequence.peekNext())
-
-                // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
-                XCTAssertNil(sequence.curTrackIndex)
-            }
-        }
     }
     
     private func doTestPeekNext(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
@@ -710,42 +648,271 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         }
     }
     
-    func testPeekNext_repeatOff_shuffleOff_emptySequence() {
-        doTestPeekNext_emptySequence(.off, .off)
-    }
+    // MARK: peekPrevious() tests ------------------------------------------------------------------------------
     
-    func testPeekNext_repeatOne_shuffleOff_emptySequence() {
-        doTestPeekNext_emptySequence(.one, .off)
-    }
-    
-    func testPeekNext_repeatAll_shuffleOff_emptySequence() {
-        doTestPeekNext_emptySequence(.all, .off)
-    }
-    
-    func testPeekNext_repeatOff_shuffleOn_emptySequence() {
-        doTestPeekNext_emptySequence(.off, .on)
-    }
-    
-    func testPeekNext_repeatAll_shuffleOn_emptySequence() {
-        doTestPeekNext_emptySequence(.all, .on)
-    }
-    
-    private func doTestPeekNext_emptySequence(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
+    func testPeekPrevious_emptySequence() {
         
-        // Create and verify an empty sequence.
-        initSequence(0, nil, repeatMode, shuffleMode)
-        XCTAssertEqual(sequence.size, 0)
-        XCTAssertEqual(sequence.curTrackIndex, nil)
-        
-        // Repeated calls to peekNext() should all produce nil.
-        for _ in 1...10 {
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
             
-            XCTAssertNil(sequence.peekNext())
+            // Create and verify an empty sequence.
+            initSequence(0, nil, repeatMode, shuffleMode)
             
-            // Ensure that no resizing/iteration has taken place.
             XCTAssertEqual(sequence.size, 0)
             XCTAssertEqual(sequence.curTrackIndex, nil)
+            
+            // Repeated calls to peekPrevious() should all produce nil.
+            for _ in 1...10 {
+                
+                XCTAssertNil(sequence.peekPrevious())
+                
+                // Ensure that no resizing/iteration has taken place.
+                XCTAssertEqual(sequence.size, 0)
+                XCTAssertEqual(sequence.curTrackIndex, nil)
+            }
         }
     }
     
+    func testPeekPrevious_noPlayingTrack() {
+
+        for size in testSequenceSizes {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                initSequence(size, nil, repeatMode, shuffleMode)
+                
+                // When no track is currently playing, nil should be returned, even with repeated calls.
+                for _ in 1...10 {
+                    
+                    XCTAssertNil(sequence.peekPrevious())
+                    
+                    // Also ensure that the sequence is still not pointing to any particular element (i.e. no iteration)
+                    XCTAssertNil(sequence.curTrackIndex)
+                }
+            }
+        }
+    }
+    
+    func testPeekPrevious_repeatOff_shuffleOff() {
+        
+        doTestPeekPrevious_noShuffle(.off, {(size: Int, startIndex: Int?) -> [Int?] in
+            
+            // When there is a playing track, startIndex cannot be nil.
+            XCTAssertNotNil(startIndex)
+            
+            // If there aren't at least 2 tracks in the sequence, peekPrevious() should always produce nil, even with repeated calls.
+            if size < 2 {return Array(repeating: nil, count: 10)}
+            
+            // Because there is a playing track (represented by startIndex), the test should start at startIndex - 1.
+            var previousIndices: [Int?] = Array((0..<startIndex!).reversed())
+            
+            // Test that once the first track has been reached (i.e. at the beginning of the sequence), nil should be returned, even with repeated calls.
+            previousIndices += Array(repeating: nil, count: 10)
+            
+            // The test results should look like this:
+            // startIndex - 1, startIndex - 2, ..., 0, nil, nil, nil, ...
+            
+            return previousIndices
+        })
+    }
+
+    func testPeekPrevious_repeatOne_shuffleOff() {
+
+        doTestPeekPrevious_noShuffle(.one, {(size: Int, startIndex: Int?) -> [Int?] in
+
+            // When there is a playing track, startIndex cannot be nil.
+            XCTAssertNotNil(startIndex)
+
+            // If there aren't at least 2 tracks in the sequence, peekPrevious() should always produce nil, even with repeated calls.
+            if size < 2 {return Array(repeating: nil, count: 10)}
+
+            // Because there is a playing track (represented by startIndex), the test should start at startIndex - 1.
+            var previousIndices: [Int?] = Array((0..<startIndex!).reversed())
+
+            // Test that once the first track has been reached (i.e. at the beginning of the sequence), nil should be returned, even with repeated calls.
+            previousIndices += Array(repeating: nil, count: 10)
+
+            // The test results should look like this:
+            // startIndex - 1, startIndex - 2, ..., 0, nil, nil, nil, ...
+
+            return previousIndices
+        })
+    }
+
+    func testPeekPrevious_repeatAll_shuffleOff() {
+
+        doTestPeekPrevious_noShuffle(.all, {(size: Int, startIndex: Int?) -> [Int?] in
+
+            // When there is a playing track, startIndex cannot be nil.
+            XCTAssertNotNil(startIndex)
+
+            // If there aren't at least 2 tracks in the sequence, peekPrevious() should always produce nil, even with repeated calls.
+            if size < 2 {return Array(repeating: nil, count: 10)}
+
+            // Because there is a playing track (represented by startIndex), the test should start at startIndex - 1.
+            return Array((0..<startIndex!).reversed())
+
+            // With a repeat count, test that once the first track has been reached (i.e. at the beginning of the sequence),
+            // the sequence resumes from the end.
+
+            // The test results should look like this:
+            // startIndex - 1, startIndex - 2, ..., 0, n - 1, n - 2, ... 3, 2, 1, 0, n - 1, n - 2, ... where n is the size of the sequence.
+
+        }, sequenceRestart_count)
+    }
+
+    func testPeekPrevious_repeatOff_shuffleOn() {
+
+        doTestPeekPrevious_shuffleOn(.off, {(size: Int, startIndex: Int?) -> [Int?] in
+
+            // When shuffle is on, the test will begin with the last element in the shuffle sequence selected.
+
+            // The sequence of elements produced by calls to peekPrevious() should match the shuffle sequence array,
+            // starting with its 2nd-last element (the last element cannot be visited by peekPrevious()).
+            var previousIndices: [Int?] = sequence.shuffleSequence.sequence.prefix(size - 1).reversed()
+
+            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned, even with repeated calls.
+            previousIndices += Array(repeating: nil, count: 10)
+
+            return previousIndices
+        })
+    }
+
+    func testPeekPrevious_repeatAll_shuffleOn() {
+
+        doTestPeekPrevious_shuffleOn(.all, {(size: Int, startIndex: Int?) -> [Int?] in
+
+            // When shuffle is on, the test will begin with the last element in the shuffle sequence selected.
+
+            // The sequence of elements produced by calls to peekPrevious() should match the shuffle sequence array,
+            // starting with its 2nd-last element (the last element cannot be visited by peekPrevious()).
+            var previousIndices: [Int?] = sequence.shuffleSequence.sequence.prefix(size - 1).reversed()
+
+            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned, even with repeated calls.
+
+            // NOTE - Even though repeat = .all, the shuffle sequence cannot go back to the previous sequence (because it no longer exists),
+            // so it will stop at the first element, as if repeat were off.
+
+            previousIndices += Array(repeating: nil, count: 10)
+
+            return previousIndices
+        })
+    }
+    
+    private func doTestPeekPrevious_noShuffle(_ repeatMode: RepeatMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
+        
+        for size in testSequenceSizes {
+            
+            var startIndices: Set<Int> = Set()
+            
+            // These 2 indices are essential for testing and should always be present.
+            startIndices.insert(0)
+            startIndices.insert(size - 1)
+            
+            // Select up to 10 other random indices for the test
+            for _ in 1...min(size, maxStartIndices_count) {
+                startIndices.insert(size == 1 ? 0 : Int.random(in: 0..<size))
+            }
+            
+            for startIndex in startIndices {
+                
+                initSequence(size, startIndex, repeatMode, .off)
+                
+                // Exercise the given indices function to obtain an array of expected results from repeated calls to peekPrevious().
+                // NOTE - The size of the expectedIndices array will determine how many times peekPrevious() will be called (and tested).
+                let expectedIndices: [Int?] = expectedIndicesFunction(size, startIndex)
+                
+                // For each expected index value, call peekPrevious() and match its return value.
+                for expectedIndex in expectedIndices {
+                    
+                    // Capture the track index before the peek calls.
+                    let indexBeforePeeking: Int? = sequence.curTrackIndex
+                    
+                    // Repeated calls to peekSubsequent() should produce the same value.
+                    for _ in 1...5 {
+                    
+                        XCTAssertEqual(sequence.peekPrevious(), expectedIndex)
+                        
+                        // Also verify that the sequence is still pointing at the same value as that before the peek (i.e. no iteration).
+                        XCTAssertEqual(sequence.curTrackIndex, indexBeforePeeking)
+                    }
+                    
+                    // Retreat by one element so the test can be repeated for the previous value in the sequence.
+                    _ = sequence.previous()
+                }
+                
+                // When repeatMode = .all, the sequence will be restarted (i.e. loop around to the end) the next time peekPrevious() is called.
+                // If a repeatCount is given, perform further testing by looping through the sequence again.
+                if repeatCount > 0 && repeatMode == .all && size > 1 {
+                    doTestPeekPrevious_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                }
+            }
+        }
+    }
+    
+    // Loop around to the beginning of the sequence and iterate through it.
+    private func doTestPeekPrevious_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+        
+        let reversedSequenceRange: [Int] = (0..<sequence.size).reversed()
+        
+        for _ in 1...repeatCount {
+            
+            // Iterate through the same sequence again, from the beginning, and verify that calls to peekPrevious()
+            // produce the same sequence again.
+            for value in reversedSequenceRange {
+                
+                // Capture the track index before the peek calls.
+                let indexBeforePeeking: Int? = sequence.curTrackIndex
+                
+                // Repeated calls to peekSubsequent() should produce the same value.
+                for _ in 1...5 {
+                
+                    XCTAssertEqual(sequence.peekPrevious(), value)
+                    
+                    // Also verify that the sequence is still pointing at the same value as that before the peek (i.e. no iteration).
+                    XCTAssertEqual(sequence.curTrackIndex, indexBeforePeeking)
+                }
+                
+                // Retreat by one element so the test can be repeated for the previous value in the sequence.
+                _ = sequence.previous()
+            }
+        }
+    }
+    
+    private func doTestPeekPrevious_shuffleOn(_ repeatMode: RepeatMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
+        
+        for size in testSequenceSizes {
+            
+            let startIndex = Int.random(in: 0..<size)
+            
+            initSequence(size, startIndex, repeatMode, .on)
+            
+            // When shuffle is on, begin the test at the end of the sequence (otherwise, peekPrevious() cannot be tested).
+            while sequence.peekNext() != nil {
+                _ = sequence.next()
+            }
+            
+            // Exercise the given indices function to obtain an array of expected results from repeated calls to peekPrevious().
+            // NOTE - The size of the expectedIndices array will determine how many times peekPrevious() will be called (and tested).
+            let expectedIndices: [Int?] = expectedIndicesFunction(size, startIndex)
+            
+            // For each expected index value, call peekPrevious() and match its return value.
+            for expectedIndex in expectedIndices {
+                
+                // Capture the track index before the peek calls.
+                let indexBeforePeeking: Int? = sequence.curTrackIndex
+                
+                // Repeated calls to peekSubsequent() should produce the same value.
+                for _ in 1...5 {
+                
+                    XCTAssertEqual(sequence.peekPrevious(), expectedIndex)
+                    
+                    // Also verify that the sequence is still pointing at the same value as that before the peek (i.e. no iteration).
+                    XCTAssertEqual(sequence.curTrackIndex, indexBeforePeeking)
+                }
+                
+                // Retreat by one element so the test can be repeated for the previous value in the sequence.
+                _ = sequence.previous()
+            }
+        }
+    }
 }
