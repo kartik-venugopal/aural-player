@@ -476,6 +476,8 @@
 		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
 		3E7022B52465CA1E00E64581 /* PlaybackSchedulerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */; };
+		3E7266C1247664C7007D6DAA /* PlaybackSequenceIterationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */; };
+		3E7266C324766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */; };
 		3E76C9FE21D4471000B45D27 /* PlayerViewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */; };
 		3E76CA0221D4A4A800B45D27 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
@@ -1046,6 +1048,8 @@
 		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
 		3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSchedulerProtocol.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDataSource.swift; sourceTree = "<group>"; };
+		3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceIterationTests.swift; sourceTree = "<group>"; };
+		3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceRepeatAndShuffleTests.swift; sourceTree = "<group>"; };
 		3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewMenuController.swift; sourceTree = "<group>"; };
 		3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -2761,6 +2765,8 @@
 			isa = PBXGroup;
 			children = (
 				3E07B66B2473C9480001A997 /* PlaybackSequenceTests.swift */,
+				3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */,
+				3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */,
 				3EF13D192472DDFE008CA5C0 /* ShuffleSequenceTests.swift */,
 			);
 			path = Sequencing;
@@ -3556,6 +3562,7 @@
 				3E12AC992469CB5A00A07611 /* AppConstants.swift in Sources */,
 				3E626A1C246C4BB9002FAC63 /* TestableAuralPlayerNode.swift in Sources */,
 				3EF13D082472DC03008CA5C0 /* CancelWaitingOrTranscodingAction.swift in Sources */,
+				3E7266C324766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */,
 				3E8718D32466B856007D9672 /* MathUtilsTests.swift in Sources */,
 				3E12AC9F2469CBA100A07611 /* PlaylistMutatorDelegate.swift in Sources */,
 				3E12ACA42469CBA100A07611 /* GroupAccessorProtocol.swift in Sources */,
@@ -3564,6 +3571,7 @@
 				3E7DFA5024687E70001CD16E /* PlayerTests.swift in Sources */,
 				3E12ACE12469CC1300A07611 /* ParametricEQNode.swift in Sources */,
 				3E12AD462469CC5100A07611 /* HTMLWriter.swift in Sources */,
+				3E7266C1247664C7007D6DAA /* PlaybackSequenceIterationTests.swift in Sources */,
 				3E12AD032469CC2700A07611 /* FavoritesDelegate.swift in Sources */,
 				3E626914246BF0E1002FAC63 /* Images.swift in Sources */,
 				3E12ACAB2469CBA100A07611 /* SearchResults.swift in Sources */,
