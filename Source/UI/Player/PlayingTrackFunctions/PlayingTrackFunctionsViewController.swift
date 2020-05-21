@@ -49,7 +49,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        if let playingTrack = player.playingTrack?.track {
+        if let playingTrack = player.playingTrack {
             
             if detailedInfoPopover.isShown {
                 
@@ -84,7 +84,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
-        if let playingTrack = player.playingTrack?.track {
+        if let playingTrack = player.playingTrack {
             
             // Toggle the button state
             btnFavorite.toggle()
@@ -97,7 +97,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Adds the currently playing track position to/from the "Bookmarks" list
     @IBAction func bookmarkAction(_ sender: Any) {
         
-        if let playingTrack = player.playingTrack?.track {
+        if let playingTrack = player.playingTrack {
             doBookmark(playingTrack, player.seekPosition.timeElapsed)
         }
     }
@@ -106,7 +106,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func bookmarkLoop() {
         
         // Check if we have a complete loop
-        if let playingTrack = player.playingTrack?.track, let loop = player.playbackLoop, let loopEndTime = loop.endTime {
+        if let playingTrack = player.playingTrack, let loop = player.playbackLoop, let loopEndTime = loop.endTime {
             doBookmark(playingTrack, loop.startTime, loopEndTime)
         }
     }
@@ -165,7 +165,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.playingTrack?.track, message.file.path == playingTrack.file.path {
+        if let playingTrack = player.playingTrack, message.file.path == playingTrack.file.path {
             
             let added: Bool = message.messageType == .addedToFavorites
             

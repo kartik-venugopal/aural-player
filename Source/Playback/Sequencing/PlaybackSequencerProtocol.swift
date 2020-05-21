@@ -14,64 +14,57 @@ protocol PlaybackSequencerProtocol {
     
     // NOTE - Nil return values mean no applicable track
     
-    // Peeks at (without selecting for playback) the subsequent track in the sequence
-    func peekSubsequent() -> IndexedTrack?
-    
-    // Begins a new playback sequence, and selects, for playback, the first track in that sequence. This function will be called only when no track is currently playing and no specific track/group is selected by the user for playback. For ex, when the user just hits the play button and no track is currently playing. 
-    func begin() -> IndexedTrack?
+    // Begins a new playback sequence, and selects, for playback, the first track in that sequence. This function will be called only when no track is currently playing and no specific track/group is selected by the user for playback. For ex, when the user just hits the play button and no track is currently playing.
+    // NOTE - This function will always create a sequence that contains all playlist tracks - e.g. All tracks, All artists, etc.
+    func begin() -> Track?
     
     // Ends the current playback sequence (when playback is stopped or the last track in the sequence has finished playing)
     func end()
     
     // Selects, for playback, the subsequent track in the sequence
-    func subsequent() -> IndexedTrack?
-    
-    // Peeks at (without selecting for playback) the previous track in the sequence
-    func peekPrevious() -> IndexedTrack?
+    func subsequent() -> Track?
     
     // Selects, for playback, the previous track in the sequence
-    func previous() -> IndexedTrack?
-    
-    // Peeks at (without selecting for playback) the next track in the sequence
-    func peekNext() -> IndexedTrack?
+    func previous() -> Track?
     
     // Selects, for playback, the next track in the sequence
-    func next() -> IndexedTrack?
+    func next() -> Track?
+    
+    // Peeks at (without selecting for playback) the subsequent track in the sequence
+    func peekSubsequent() -> Track?
+    
+    // Peeks at (without selecting for playback) the previous track in the sequence
+    func peekPrevious() -> Track?
+    
+    // Peeks at (without selecting for playback) the next track in the sequence
+    func peekNext() -> Track?
     
     /*
         Selects, for playback, the track with the given index in the flat "Tracks" playlist. This implies that the sequence consists of all tracks within the flat "Tracks playlist, and that the sequence will begin with this track.
      
         NOTE - When a single index is specified, it is implied that the playlist from which this request originated was the flat "Tracks" playlist, because this playlist locates tracks by a single absolute index. Hence, this function is intended to be called only when playback originates from the "Tracks" playlist.
     */
-    func select(_ index: Int) -> IndexedTrack?
+    func select(_ index: Int) -> Track?
     
     /*
-        Selects, for playback, the specified track. This implies that the sequence consists of all tracks within the group of which this track is a child, and that the sequence will begin with this track.
- 
-        NOTE - When a track is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
+        Selects, for playback, the specified track. When this function is called, a new sequence will be created, consisting of:
+     
+        - either all tracks in the group (artist/album/genre) that this track is a child of,
+        - OR all tracks in the flat "Tracks" playlist,
+     
+        depending on where the request originated from.
      */
-    func select(_ track: Track) -> IndexedTrack?
+    func select(_ track: Track) -> Track?
     
     /*
         Selects, for playback, the specified group, which implies playback of all tracks within this group. The first track determined by the playback sequence (dependent upon the repeat/shuffle modes) will be selected for playback and returned.
      
         NOTE - When a group is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */
-    func select(_ group: Group) -> IndexedTrack?
+    func select(_ group: Group) -> Track?
     
-    // Returns the currently playing track, with its index
-    var playingTrack: IndexedTrack? {get}
-    
-    /* 
-        Returns summary information about the current playback sequence
-     
-        scope - the scope of the sequence which could either be an entire playlist (for ex, all tracks), or a single group (for ex, Artist "Madonna" or Genre "Pop")
-     
-        trackIndex - the relative index of the currently playing track within the sequence (as opposed to within the entire playlist)
-     
-        totalTracks - the total number of tracks in the current sequence
-     */
-    var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {get}
+    // Returns the currently playing track, with its index (within the All Tracks playlist)
+    var playingTrack: Track? {get}
     
     // Toggles between repeat modes. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
@@ -87,4 +80,15 @@ protocol PlaybackSequencerProtocol {
     
     // Returns the current repeat and shuffle modes
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
+    
+    /*
+       Returns summary information about the current playback sequence
+    
+       scope - the scope of the sequence which could either be an entire playlist (for ex, all tracks), or a single group (for ex, Artist "Madonna" or Genre "Pop")
+    
+       trackIndex - the relative index of the currently playing track within the sequence (as opposed to within the entire playlist)
+    
+       totalTracks - the total number of tracks in the current sequence
+    */
+   var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {get}
 }

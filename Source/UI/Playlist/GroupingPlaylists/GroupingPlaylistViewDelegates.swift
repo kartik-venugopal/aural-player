@@ -94,7 +94,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 var image: NSImage?
                 
-                let isPlayingTrack: Bool = track == playbackInfo.playingTrack?.track
+                let isPlayingTrack: Bool = track == playbackInfo.playingTrack
                 
                 switch playbackInfo.state {
                     
@@ -108,7 +108,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     
                 case .waiting:
                     
-                    image = track == playbackInfo.waitingTrack?.track ? Images.imgWaitingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
+                    image = track == playbackInfo.waitingTrack ? Images.imgWaitingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .noTrack:
                     

@@ -326,16 +326,18 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // TODO: Do the remove on a background thread (maybe if lots are being removed)
         
-        let playingTrack = playbackSequencer.playingTrack
+        let playingTrack: Track? = playbackSequencer.playingTrack
+        let indexOfPlayingTrack: Int? = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!)
+        
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         
         var playingTrackRemoved: Bool = false
         var removedPlayingTrack: Track? = nil
         
-        if let track = playingTrack, indexes.contains(track.index) {
+        if let thePlayingTrack = playingTrack, let playingTrackIndex = indexOfPlayingTrack, indexes.contains(playingTrackIndex) {
             
             playingTrackRemoved = true
-            removedPlayingTrack = track.track
+            removedPlayingTrack = thePlayingTrack
         }
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
@@ -347,14 +349,21 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // TODO: Do the remove on a background thread
         
-        let playingTrack = playbackSequencer.playingTrack
+        let playingTrack: Track? = playbackSequencer.playingTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
-        let playingTrackRemoved = playingTrack != nil && playlist.indexOfTrack(playingTrack!.track) == nil
+        var playingTrackRemoved: Bool = false
+        var removedPlayingTrack: Track? = nil
+        
+        if let thePlayingTrack = playingTrack, playlist.indexOfTrack(thePlayingTrack) == nil {
+            
+            playingTrackRemoved = true
+            removedPlayingTrack = thePlayingTrack
+        }
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, playingTrack?.track)})
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {

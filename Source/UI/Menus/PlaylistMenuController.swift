@@ -104,7 +104,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
         
-        if numSelectedRows == 1 && !onlyGroupsSelected && playbackInfo.state == .transcoding && (selectedTrack == playbackInfo.playingTrack?.track) {
+        if numSelectedRows == 1 && !onlyGroupsSelected && playbackInfo.state == .transcoding && (selectedTrack == playbackInfo.playingTrack) {
             playSelectedItemMenuItem.disable()
             playSelectedItemDelayedMenuItem.disable()
         }

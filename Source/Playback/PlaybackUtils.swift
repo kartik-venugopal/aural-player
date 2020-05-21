@@ -1,29 +1,5 @@
 import Foundation
 
-// TODO: Remove this class
-class TrackChangeContext {
-    
-    // This is the state prior to track change
-    static var currentTrack: IndexedTrack?
-    static var currentState: PlaybackState = .noTrack
-    
-    static var newTrack: IndexedTrack?
-    
-    static func setCurrentState(_ curTrack: IndexedTrack?, _ curState: PlaybackState) {
-        
-        currentTrack = curTrack
-        currentState = curState
-    }
-    
-    static func setNewTrack(_ track: IndexedTrack?) {
-        newTrack = track
-    }
-    
-    static func encapsulate() -> TrackChangedAsyncMessage {
-        return TrackChangedAsyncMessage(currentTrack?.track, currentState, newTrack?.track)
-    }
-}
-
 class PlaybackParams {
     
     var allowDelay: Bool = true     // This flag applies to gaps as well. A false value indicates immediate playback.

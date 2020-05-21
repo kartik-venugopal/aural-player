@@ -55,7 +55,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     
     private func chapterChanged(_ newChapter: IndexedChapter?) {
         
-        if let playingTrack = player.playingTrack?.track, PlayerViewState.showCurrentChapter {
+        if let playingTrack = player.playingTrack, PlayerViewState.showCurrentChapter {
             infoView.trackInfo = PlayingTrackInfo(playingTrack, newChapter?.chapter.title)
         }
     }

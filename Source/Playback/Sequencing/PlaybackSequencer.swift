@@ -19,7 +19,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     private let playlist: PlaylistAccessorProtocol
     
     // Stores the currently playing track, if there is one
-    private var thePlayingTrack: Track?
+    private(set) var playingTrack: Track?
     
     init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
@@ -36,7 +36,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return (scope, (sequence.curTrackIndex ?? -1) + 1, sequence.size)
     }
     
-    func begin() -> IndexedTrack? {
+    func begin() -> Track? {
         
         // Set the scope of the new sequence according to the playlist view type. For ex, if the "Artists" playlist view is selected, the new sequence will consist of all tracks in the "Artists" playlist, and the order of playback will be determined by the ordering within the Artists playlist (in addition to the repeat/shuffle modes).
         
@@ -54,57 +54,57 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // Reset the sequence cursor (to indicate that no track is playing)
         sequence.end()
-        thePlayingTrack = nil
+        playingTrack = nil
         
         // Reset the scope and the scope type depending on which playlist view is currently selected
         scope.group = nil
         scope.type = playlistType.toPlaylistScopeType()
     }
     
-    func peekSubsequent() -> IndexedTrack? {
-        return getIndexedTrackForSequenceIndex(sequence.peekSubsequent())
+    func peekSubsequent() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekSubsequent())
     }
     
-    func subsequent() -> IndexedTrack? {
+    func subsequent() -> Track? {
         
-        let subsequent = getIndexedTrackForSequenceIndex(sequence.subsequent())
-        thePlayingTrack = subsequent?.track
+        let subsequent = getTrackForSequenceIndex(sequence.subsequent())
+        playingTrack = subsequent
         return subsequent
     }
     
-    func peekNext() -> IndexedTrack? {
-        return getIndexedTrackForSequenceIndex(sequence.peekNext())
+    func peekNext() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekNext())
     }
     
-    func next() -> IndexedTrack? {
+    func next() -> Track? {
 
         // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
-        if let next = getIndexedTrackForSequenceIndex(sequence.next()) {
+        if let next = getTrackForSequenceIndex(sequence.next()) {
             
-            thePlayingTrack = next.track
+            playingTrack = next
             return next
         }
         
         return nil
     }
     
-    func peekPrevious() -> IndexedTrack? {
-        return getIndexedTrackForSequenceIndex(sequence.peekPrevious())
+    func peekPrevious() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekPrevious())
     }
     
-    func previous() -> IndexedTrack? {
+    func previous() -> Track? {
         
         // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
-        if let previous = getIndexedTrackForSequenceIndex(sequence.previous()) {
+        if let previous = getTrackForSequenceIndex(sequence.previous()) {
             
-            thePlayingTrack = previous.track
+            playingTrack = previous
             return previous
         }
         
         return nil
     }
     
-    func select(_ index: Int) -> IndexedTrack? {
+    func select(_ index: Int) -> Track? {
         
         // "All tracks" playback scope implied. So, reset the scope to allTracks, and reset the sequence size, if that is not the current scope type
         
@@ -118,20 +118,20 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     // Helper function to select a track with a specific index within the current playback sequence
-    private func startSequence(_ size: Int, _ cursor: Int) -> IndexedTrack? {
+    private func startSequence(_ size: Int, _ cursor: Int) -> Track? {
         
         sequence.resizeAndStart(size: size, withTrackIndex: cursor)
         
-        if let track = getIndexedTrackForSequenceIndex(cursor) {
+        if let track = getTrackForSequenceIndex(cursor) {
             
-            thePlayingTrack = track.track
+            playingTrack = track
             return track
         }
         
         return nil
     }
     
-    func select(_ track: Track) -> IndexedTrack? {
+    func select(_ track: Track) -> Track? {
         
         if playlistType == .tracks, let index = playlist.indexOfTrack(track) {
             return select(index)
@@ -151,7 +151,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return nil
     }
     
-    func select(_ group: Group) -> IndexedTrack? {
+    func select(_ group: Group) -> Track? {
         
         // Determine the type of the selected track's parent group (which depends on which playlist view type is selected). This will determine the scope type.
         scope.type = group.type.toScopeType()
@@ -166,21 +166,9 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return subsequent()
     }
     
-    var playingTrack: IndexedTrack? {
-        
-        // TODO: Race condition here ? During autoplay ?
-        
-        // Wrap the playing track with its flat playlist index, before returning it
-        if let track = thePlayingTrack {
-            return wrapTrack(track)
-        }
-        
-        return nil
-    }
-    
     // Helper function that, given the index of a track within the current plyback sequence,
     // returns the corresponding track and its index within the playlist.
-    private func getIndexedTrackForSequenceIndex(_ sequenceIndex: Int?) -> IndexedTrack? {
+    private func getTrackForSequenceIndex(_ sequenceIndex: Int?) -> Track? {
         
         // Unwrap optional cursor value
         if let index = sequenceIndex {
@@ -191,20 +179,20 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             case .artist, .album, .genre:
                 
                 if let group = scope.group {
-                    return wrapTrack(group.trackAtIndex(index))
+                    return group.trackAtIndex(index)
                 }
                 
             // For the allTracks scope, the index is the absolute index within the flat playlist
             case .allTracks:
                 
-                return playlist.trackAtIndex(index)
+                return playlist.trackAtIndex(index)?.track
                 
             // For the allArtists, allAlbums, and allGenres scopes, the index is an absolute index that needs to be mapped to a group index and track index within that group.
                 
             case .allArtists, .allAlbums, .allGenres:
                 
                 if let groupType = scope.type.toGroupType() {
-                    return wrapTrack(getGroupedTrackForAbsoluteIndex(groupType, index))
+                    return getGroupedTrackForAbsoluteIndex(groupType, index)
                 }
             }
         }
@@ -279,17 +267,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         
         // The target group has been reached. Now, simply add the track index to absIndexSoFar, and that is the desired value
         return absIndexSoFar + trackIndex
-    }
-    
-    // Wraps a non-indexed track into an indexed track so that it can be located within the flat playlist.
-    private func wrapTrack(_ track: Track) -> IndexedTrack? {
-        
-        // Flat playlist index
-        if let index = playlist.indexOfTrack(track) {
-            return IndexedTrack(track, index)
-        }
-        
-        return nil
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -435,7 +412,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     private func calculatePlayingTrackIndex() -> Int? {
         
         // We only need to do this if there is a track currently playing
-        if let playingTrack = thePlayingTrack {
+        if let playingTrack = playingTrack {
             
             switch scope.type {
                 

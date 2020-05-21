@@ -116,7 +116,7 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .trackInfoUpdated
     
-    // The index of the track that has been updated
+    // The track that has been updated
     let track: Track
     
     init(_ track: Track) {

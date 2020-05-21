@@ -76,7 +76,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         case .waiting:
             
             // Skip gap and start playback
-            if let track = waitingTrack?.track {
+            if let track = waitingTrack {
                 playImmediately(track)
             }
             
@@ -88,7 +88,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func beginPlayback() {
-        doPlay({return sequencer.begin()?.track}, PlaybackParams.defaultParams(), false)
+        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams(), false)
     }
     
     func playImmediately(_ track: Track) {
@@ -97,33 +97,33 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     func subsequentTrack() {
-        doPlay({return sequencer.subsequent()?.track}, PlaybackParams.defaultParams(), false)
+        doPlay({return sequencer.subsequent()}, PlaybackParams.defaultParams(), false)
     }
     
     func previousTrack() {
-        doPlay({return sequencer.previous()?.track})
+        doPlay({return sequencer.previous()})
     }
     
     func nextTrack() {
-        doPlay({return sequencer.next()?.track})
+        doPlay({return sequencer.next()})
     }
     
     func play(_ index: Int, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(index)?.track}, params)
+        doPlay({return sequencer.select(index)}, params)
     }
     
     func play(_ track: Track, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(track)?.track}, params)
+        doPlay({return sequencer.select(track)}, params)
     }
     
     func play(_ group: Group, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(group)?.track}, params)
+        doPlay({return sequencer.select(group)}, params)
     }
     
     private func captureCurrentTrackState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
         
         let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
-        return (self.state, curTrack?.track, seekPosition.timeElapsed)
+        return (self.state, curTrack, seekPosition.timeElapsed)
     }
     
     private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
@@ -195,7 +195,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func cancelTranscoding() {
         
-        if let transcodingTrack = playingTrack?.track {
+        if let transcodingTrack = playingTrack {
             transcoder.cancel(transcodingTrack)
         }
         
@@ -224,7 +224,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // It occurs, for instance, when seeking backward/forward.
     private func attemptSeek(_ seekPosn: Double) {
         
-        if state.isPlayingOrPaused, let track = playingTrack?.track {
+        if state.isPlayingOrPaused, let track = playingTrack {
             
             let seekResult = player.attemptSeekToTime(track, seekPosn)
             
@@ -251,7 +251,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
                 return Double(preferences.primarySeekLengthConstant)
                 
-            } else if let trackDuration = playingTrack?.track.duration {
+            } else if let trackDuration = playingTrack?.duration {
                 
                 // Percentage of track duration
                 let percentage = Double(preferences.primarySeekLengthPercentage)
@@ -279,7 +279,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             return Double(preferences.secondarySeekLengthConstant)
             
-        } else if let trackDuration = playingTrack?.track.duration {
+        } else if let trackDuration = playingTrack?.duration {
             
             // Percentage of track duration
             let percentage = Double(preferences.secondarySeekLengthPercentage)
@@ -292,7 +292,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekToPercentage(_ percentage: Double) {
         
-        if let track = playingTrack?.track {
+        if let track = playingTrack {
             forceSeek(percentage * track.duration / 100)
         }
     }
@@ -305,7 +305,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // It occurs, for instance, when clicking on the seek bar, or using the "Jump to time" function.
     private func forceSeek(_ seekPosn: Double) {
         
-        if state.isPlayingOrPaused, let track = playingTrack?.track {
+        if state.isPlayingOrPaused, let track = playingTrack {
             
             let seekResult = player.forceSeekToTime(track, seekPosn)
             
@@ -326,7 +326,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
-        if let track = playingTrack?.track {
+        if let track = playingTrack {
             
             let elapsedTime: Double = player.seekPosition
             let duration: Double = track.duration
@@ -337,11 +337,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return (0, 0, 0)
     }
     
-    var playingTrack: IndexedTrack? {
+    var playingTrack: Track? {
         return state == .waiting ? nil : sequencer.playingTrack
     }
     // TODO: Can these 2 be merged into one ???
-    var waitingTrack: IndexedTrack? {
+    var waitingTrack: Track? {
         return state == .waiting ? sequencer.playingTrack : nil
     }
     
@@ -356,7 +356,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
         
         if let playingTrack = sequencer.playingTrack {
-            return playlist.groupingInfoForTrack(groupType, playingTrack.track)
+            return playlist.groupingInfoForTrack(groupType, playingTrack)
         }
         
         return nil
@@ -370,14 +370,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func savePlaybackProfile() {
         
-        if let track = playingTrack?.track {
+        if let track = playingTrack {
             profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
         }
     }
     
     private func deletePlaybackProfile() {
         
-        if let track = playingTrack?.track {
+        if let track = playingTrack {
             profiles.remove(track)
         }
     }
@@ -398,7 +398,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
-        if preferences.rememberLastPosition, let track = playingTrack?.track,
+        if preferences.rememberLastPosition, let track = playingTrack,
             preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
             
             // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.

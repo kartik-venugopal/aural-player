@@ -80,19 +80,25 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     
                     case .playing, .paused:
                         
-                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
+                        if let playingTrack = self.playbackInfo.playingTrack,
+                            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == row {
+                            
                             return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     
                     case .transcoding:
                     
-                        if let playingTrackIndex = playbackInfo.playingTrack?.index, playingTrackIndex == row {
+                        if let playingTrack = self.playbackInfo.playingTrack,
+                            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == row {
+                            
                             return createTranscodingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     
                     case .waiting:
                         
-                        if let waitingTrackIndex = playbackInfo.waitingTrack?.index, waitingTrackIndex == row {
+                        if let waitingTrack = self.playbackInfo.waitingTrack,
+                            let waitingTrackIndex = self.playlist.indexOfTrack(waitingTrack)?.index, waitingTrackIndex == row {
+                            
                             return createWaitingImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
                     
