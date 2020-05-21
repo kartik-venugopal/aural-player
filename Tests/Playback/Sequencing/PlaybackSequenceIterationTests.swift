@@ -1,5 +1,10 @@
 import XCTest
 
+// A function that, given the size and start index of a sequence ... produces a sequence of indices in the order that they should be
+// produced by calls to any of the iteration functions e.g. subsequent(), previous(), etc. This is passed from a test function
+// to a helper function to set the right expectations for the test.
+typealias ExpectedIndicesFunction = (_ size: Int, _ startIndex: Int?) -> [Int?]
+
 class PlaybackSequenceIterationTests: AuralTestCase {
     
     //    override var runLongRunningTests: Bool {return true}
@@ -30,11 +35,6 @@ class PlaybackSequenceIterationTests: AuralTestCase {
     
     // MARK: subsequent() tests -----------------------------------------------------------------------------------------------
     
-    // A function that, given the size and start index of a sequence ... produces a sequence of indices in the order that they should be
-    // produced by calls to any of the iteration functions e.g. subsequent(), previous(), etc. This is passed from a test function
-    // to a helper function to set the right expectations for the test.
-    fileprivate typealias ExpectedIndicesFunction = (_ size: Int, _ startIndex: Int?) -> [Int?]
-    
     func testSubsequent_repeatOff_shuffleOff_withPlayingTrack() {
         
         doTestSubsequent(true, .off, .off, {(size: Int, startIndex: Int?) -> [Int?] in
@@ -45,39 +45,37 @@ class PlaybackSequenceIterationTests: AuralTestCase {
             // Because there is a playing track (represented by startIndex), the test should start at startIndex + 1.
             var subsequentIndices: [Int?] = size == 1 ? [] : Array((startIndex! + 1)..<size)
             
-            // Test that:
-            // 1 - after the last track (i.e. at the end of the sequence), nil is returned.
-            // 2 - after the sequence has ended and nil is returned, the following call to subsequent() should return 0 because the sequence restarts.
-            // 3 - the sequence should then repeat again sequentially: 0, 1, 2, ...
+            // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             subsequentIndices.append(nil)
-            subsequentIndices += Array(0..<size)
+            
+            // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
             
             // The test results should look like this:
-            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), where n is the size of the array
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), 0, 1, 2, ... where n is the size of the array
             
             return subsequentIndices
-        })
+            
+        }, 10)
     }
     
     func testSubsequent_repeatOff_shuffleOff_noPlayingTrack() {
         
         doTestSubsequent(false, .off, .off, {(size: Int, startIndex: Int?) -> [Int?] in
             
-            // Because there is no playing track, the test should start at 0 and contain the entire sequence.
+            // Because there is no playing track, the test should start at 0.
             var subsequentIndices: [Int?] = Array(0..<size)
             
-            // Test that:
-            // 1 - after the last track (i.e. at the end of the sequence), nil is returned.
-            // 2 - after the sequence has ended and nil is returned, the following call to subsequent() should return 0 because the sequence restarts.
-            // 3 - the sequence should then repeat again sequentially: 0, 1, 2, ...
+            // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             subsequentIndices.append(nil)
-            subsequentIndices += Array(0..<size)
+            
+            // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
             
             // The test results should look like this:
-            // 0, 1, 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), where n is the size of the array
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), 0, 1, 2, ... where n is the size of the array
             
             return subsequentIndices
-        })
+            
+        }, 10)
     }
     
     func testSubsequent_repeatOne_shuffleOff_withPlayingTrack() {
@@ -192,10 +190,10 @@ class PlaybackSequenceIterationTests: AuralTestCase {
     
     private func doTestSubsequent(_ hasPlayingTrack: Bool, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
         
-        var randomSizes: [Int] = [1, 2, 3, 4]
+        var randomSizes: [Int] = [1, 2, 3, 5, 10, 100, 500, 1000]
         
-        for _ in 1...100 {
-            randomSizes.append(Int.random(in: 5...10000))
+        for _ in 1...10 {
+            randomSizes.append(Int.random(in: 5...1000))
         }
         
         for size in randomSizes {
@@ -234,31 +232,39 @@ class PlaybackSequenceIterationTests: AuralTestCase {
                     // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
                     XCTAssertEqual(sequence.curTrackIndex, value)
                 }
+            }
+            
+            // Test sequence restart once per size
+            
+            // When repeatMode = .all, the sequence will be restarted the next time peekSubsequent() is called.
+            // If a repeatCount is given, perform further testing by looping through the sequence again.
+            if repeatCount > 0 && repeatMode != .one {
                 
-                // When repeatMode = .all, the sequence will be restarted the next time subsequent() is called.
-                // If a repeatCount is given, perform further testing by looping through the sequence again.
-                if repeatCount > 0 && repeatMode == .all {
+                if shuffleMode == .on {
                     
-                    if shuffleMode == .on {
-                        
-                        // This test is not meaningful for very small sequences.
-                        if size >= 3 {
-                            doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
-                        }
-                        
-                    } else {
-                        
-                        doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                    // This test is not meaningful for very small sequences.
+                    if repeatMode == .all && size >= 3 {
+                        doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
                     }
+                    
+                } else {
+                    
+                    doTestSubsequent_sequenceRestart_shuffleOff(repeatCount)
                 }
             }
         }
     }
     
     // Loop around to the beginning of the sequence and iterate through it.
-    private func doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+    private func doTestSubsequent_sequenceRestart_shuffleOff(_ repeatCount: Int) {
         
-        let sequenceRange: Range<Int> = 0..<sequence.size
+        var sequenceRange: [Int?] = Array(0..<sequence.size)
+        
+        // When repeat mode is off, track playback will stop before the sequence is restarted.
+        // This corresponds to a nil value before sequence restart.
+        if sequence.repeatAndShuffleModes.repeatMode == .off {
+            sequenceRange.append(nil)
+        }
         
         for _ in 1...repeatCount {
             
@@ -607,7 +613,7 @@ class PlaybackSequenceIterationTests: AuralTestCase {
                     XCTAssertEqual(sequence.curTrackIndex, expectedIndex != nil ? expectedIndex : indexBeforeNext)
                 }
                 
-                // When repeatMode = .all, the sequence will be restarted the next time subsequent() is called.
+                // When repeatMode = .all, the sequence will be restarted the next time next() is called.
                 // If a repeatCount is given, perform further testing by looping through the sequence again.
                 if repeatCount > 0 && repeatMode == .all {
                     
@@ -978,7 +984,7 @@ class PlaybackSequenceIterationTests: AuralTestCase {
                     XCTAssertEqual(sequence.curTrackIndex, expectedIndex != nil ? expectedIndex : indexBeforePrevious)
                 }
                 
-                // When repeatMode = .all, the sequence will be restarted the previous time subsequent() is called.
+                // When repeatMode = .all, the sequence will be restarted (i.e. loop around to the end) the next time previous() is called.
                 // If a repeatCount is given, perform further testing by looping through the sequence again.
                 if repeatCount > 0 && repeatMode == .all && size > 1 {
                     doTestPrevious_sequenceRestart_repeatAll_shuffleOff(repeatCount)
@@ -1084,5 +1090,5 @@ class PlaybackSequenceIterationTests: AuralTestCase {
             XCTAssertEqual(sequence.size, 0)
             XCTAssertEqual(sequence.curTrackIndex, nil)
         }
-    }    
+    }
 }
