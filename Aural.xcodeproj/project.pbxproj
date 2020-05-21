@@ -479,6 +479,7 @@
 		3E7266C324766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */; };
 		3E7266C524766636007D6DAA /* PlaybackSequenceCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C424766636007D6DAA /* PlaybackSequenceCreationTests.swift */; };
 		3E7266C7247666FC007D6DAA /* PlaybackSequencePeekingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C6247666FC007D6DAA /* PlaybackSequencePeekingTests.swift */; };
+		3E7266C92476B172007D6DAA /* PlaybackSequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C82476B172007D6DAA /* PlaybackSequenceTests.swift */; };
 		3E76C9FE21D4471000B45D27 /* PlayerViewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */; };
 		3E76CA0221D4A4A800B45D27 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
@@ -1052,6 +1053,7 @@
 		3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceRepeatAndShuffleTests.swift; sourceTree = "<group>"; };
 		3E7266C424766636007D6DAA /* PlaybackSequenceCreationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceCreationTests.swift; sourceTree = "<group>"; };
 		3E7266C6247666FC007D6DAA /* PlaybackSequencePeekingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequencePeekingTests.swift; sourceTree = "<group>"; };
+		3E7266C82476B172007D6DAA /* PlaybackSequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceTests.swift; sourceTree = "<group>"; };
 		3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewMenuController.swift; sourceTree = "<group>"; };
 		3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -2766,6 +2768,7 @@
 		3EF13D182472DDE2008CA5C0 /* Sequencing */ = {
 			isa = PBXGroup;
 			children = (
+				3E7266C82476B172007D6DAA /* PlaybackSequenceTests.swift */,
 				3E7266C424766636007D6DAA /* PlaybackSequenceCreationTests.swift */,
 				3E7266C224766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift */,
 				3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */,
@@ -3466,6 +3469,7 @@
 				3E12AD002469CC2300A07611 /* HistoryItems.swift in Sources */,
 				3EF13D102472DC0D008CA5C0 /* DelayedPlaybackAction.swift in Sources */,
 				3E12AD312469CC4C00A07611 /* LibAVInfo.swift in Sources */,
+				3E7266C92476B172007D6DAA /* PlaybackSequenceTests.swift in Sources */,
 				3E12AD092469CC2900A07611 /* BookmarksDelegate.swift in Sources */,
 				3E167235246DBA7400A57F64 /* PlaybackSequencerDelegate.swift in Sources */,
 				3E12AD042469CC2700A07611 /* FavoritesProtocol.swift in Sources */,
