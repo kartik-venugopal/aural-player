@@ -1,30 +1,6 @@
 import XCTest
 
-class PlaybackSequenceRepeatAndShuffleTests: AuralTestCase {
-    
-    private var sequence: PlaybackSequence = PlaybackSequence(.off, .off)
-    
-    override func setUp() {
-        sequence.clear()
-    }
-    
-    private var repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] {
-        
-        var array: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = []
-        
-        for repeatMode in RepeatMode.allCases {
-            
-            for shuffleMode in ShuffleMode.allCases {
-                
-                // Repeat One / Shuffle On is not a valid permutation
-                if (repeatMode, shuffleMode) != (.one, .on) {
-                    array.append((repeatMode, shuffleMode))
-                }
-            }
-        }
-        
-        return array
-    }
+class PlaybackSequenceRepeatAndShuffleTests: PlaybackSequenceTests {
 
     // MARK: toggleRepeatMode() tests ----------------------------------------------------------------------------
     
