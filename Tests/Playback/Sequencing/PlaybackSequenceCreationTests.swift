@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackSequenceTests: AuralTestCase {
+class PlaybackSequenceCreationTests: AuralTestCase {
     
 //    override var runLongRunningTests: Bool {return true}
     
