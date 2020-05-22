@@ -61,48 +61,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         scope.type = playlistType.toPlaylistScopeType()
     }
     
-    func peekSubsequent() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekSubsequent())
-    }
-    
-    func subsequent() -> Track? {
-        
-        let subsequent = getTrackForSequenceIndex(sequence.subsequent())
-        playingTrack = subsequent
-        return subsequent
-    }
-    
-    func peekNext() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekNext())
-    }
-    
-    func next() -> Track? {
-
-        // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
-        if let next = getTrackForSequenceIndex(sequence.next()) {
-            
-            playingTrack = next
-            return next
-        }
-        
-        return nil
-    }
-    
-    func peekPrevious() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekPrevious())
-    }
-    
-    func previous() -> Track? {
-        
-        // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
-        if let previous = getTrackForSequenceIndex(sequence.previous()) {
-            
-            playingTrack = previous
-            return previous
-        }
-        
-        return nil
-    }
+    // MARK: Specific track selection functions -------------------------------------------------------------------------------------
     
     func select(_ index: Int) -> Track? {
         
@@ -166,6 +125,53 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return subsequent()
     }
     
+    // MARK: Sequence iteration functions -------------------------------------------------------------------------------------
+    
+    func peekSubsequent() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekSubsequent())
+    }
+    
+    func subsequent() -> Track? {
+        
+        let subsequent = getTrackForSequenceIndex(sequence.subsequent())
+        playingTrack = subsequent
+        return subsequent
+    }
+    
+    func peekNext() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekNext())
+    }
+    
+    func next() -> Track? {
+
+        // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
+        if let next = getTrackForSequenceIndex(sequence.next()) {
+            
+            playingTrack = next
+            return next
+        }
+        
+        return nil
+    }
+    
+    func peekPrevious() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekPrevious())
+    }
+    
+    func previous() -> Track? {
+        
+        // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
+        if let previous = getTrackForSequenceIndex(sequence.previous()) {
+            
+            playingTrack = previous
+            return previous
+        }
+        
+        return nil
+    }
+    
+    
+    
     // Helper function that, given the index of a track within the current plyback sequence,
     // returns the corresponding track and its index within the playlist.
     private func getTrackForSequenceIndex(_ sequenceIndex: Int?) -> Track? {
@@ -201,7 +207,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     /* 
-     
         Given an absolute index within a grouping/hierarchical playlist, maps the absolute index to a group index and track index within that group, and returns the corresponding track at that location.
      
         Example: The track with an absolute index of 5, is Track 0 under Group 2, below.
@@ -232,17 +237,17 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             tracksSoFar += playlist.groupAtIndex(groupType, groupIndex).size
             
             // Increment the groupIndex to iterate to the next group
-            groupIndex += 1
+            groupIndex.increment()
         }
         
         // If you've overshot the target index, go back one group, and use the offset to calculate track index within that previous group
         if tracksSoFar > absoluteIndex {
             
-            groupIndex -= 1
+            groupIndex.decrement()
             trackIndexInGroup = playlist.groupAtIndex(groupType, groupIndex).size - (tracksSoFar - absoluteIndex)
         }
         
-        // Given the groupIndex and trackIndex, retrive the desired track
+        // Given the groupIndex and trackIndex, retrieve the desired track
         let group = playlist.groupAtIndex(groupType, groupIndex)
         let track = group.trackAtIndex(trackIndexInGroup)
         
@@ -250,7 +255,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
    
     /*
-        Does the opposite/inverse of what getGroupedTrackForAbsoluteIndex() does. Maps a track within a grouping/hierarchical playlist to its absolute index within that playlist.
+        Does the opposite/inverse of what getGroupedTrackForAbsoluteIndex() does.
+        Maps a track within a grouping/hierarchical playlist to its absolute index within that playlist.
      */
     private func getAbsoluteIndexForGroupedTrack(_ groupType: GroupType, _ groupIndex: Int, _ trackIndex: Int) -> Int {
         
@@ -269,6 +275,8 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return absIndexSoFar + trackIndex
     }
     
+    // MARK: Repeat/Shuffle functions -------------------------------------------------------------------------------------
+    
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         return sequence.setRepeatMode(repeatMode)
     }
@@ -285,18 +293,11 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return sequence.toggleShuffleMode()
     }
     
-    var persistentState: PersistentState {
-        
-        let state = PlaybackSequenceState()
-        
-        let modes = sequence.repeatAndShuffleModes
-        state.repeatMode = modes.repeatMode
-        state.shuffleMode = modes.shuffleMode
-        
-        return state
+    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        return sequence.repeatAndShuffleModes
     }
     
-    // --------------- PlaylistChangeListenerProtocol methods ----------------
+    // MARK: PlaylistChangeListenerProtocol methods --------------------------------------------------------------
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
         
@@ -441,11 +442,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return nil
     }
     
-    var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return sequence.repeatAndShuffleModes
-    }
-    
-    // MARK: Message handling
+    // MARK: Message handling -----------------------------------------------------------------------------------------------------------------------------
     
     let subscriberId: String = "PlaybackSequencer"
     
@@ -463,5 +460,16 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             playlistTypeChanged(playlistTypeChangedMsg)
             return
         }
+    }
+    
+    var persistentState: PersistentState {
+        
+        let state = PlaybackSequenceState()
+        
+        let modes = sequence.repeatAndShuffleModes
+        state.repeatMode = modes.repeatMode
+        state.shuffleMode = modes.shuffleMode
+        
+        return state
     }
 }

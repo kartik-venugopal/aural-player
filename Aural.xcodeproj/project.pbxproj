@@ -357,6 +357,7 @@
 		3E3BAF241F274771008F090E /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3BAF231F274771008F090E /* Sort.swift */; };
 		3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */; };
 		3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A71F0A697800AF5A62 /* AppConstants.swift */; };
+		3E3CABE124770C32002E78AE /* PlaybackSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CABE024770C32002E78AE /* PlaybackSequencerTests.swift */; };
 		3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D489A1F464C02004C0F91 /* Errors.swift */; };
 		3E3DCAC0244B31F100563AE4 /* PlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */; };
 		3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
@@ -952,6 +953,7 @@
 		3E3BAF231F274771008F090E /* Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsAndAlerts.swift; sourceTree = "<group>"; };
 		3E3C20A71F0A697800AF5A62 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		3E3CABE024770C32002E78AE /* PlaybackSequencerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequencerTests.swift; sourceTree = "<group>"; };
 		3E3D489A1F464C02004C0F91 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewState.swift; sourceTree = "<group>"; };
 		3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessages.swift; sourceTree = "<group>"; };
@@ -2774,6 +2776,7 @@
 				3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */,
 				3E7266C6247666FC007D6DAA /* PlaybackSequencePeekingTests.swift */,
 				3EF13D192472DDFE008CA5C0 /* ShuffleSequenceTests.swift */,
+				3E3CABE024770C32002E78AE /* PlaybackSequencerTests.swift */,
 			);
 			path = Sequencing;
 			sourceTree = "<group>";
@@ -3451,6 +3454,7 @@
 				3E12ACBD2469CBFD00A07611 /* PlaybackScheduler.swift in Sources */,
 				3E62691E246BF18A002FAC63 /* AuralPlaylistViews.swift in Sources */,
 				3EF13D152472DC0D008CA5C0 /* TrackPlaybackCompletedChain.swift in Sources */,
+				3E3CABE124770C32002E78AE /* PlaybackSequencerTests.swift in Sources */,
 				3E12AD0D2469CC2F00A07611 /* AsyncMessenger.swift in Sources */,
 				3E12ACD12469CC0C00A07611 /* EQUnitDelegate.swift in Sources */,
 				3E626918246BF0E1002FAC63 /* KeyCodeConstants.swift in Sources */,

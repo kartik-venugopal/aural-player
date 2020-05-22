@@ -3,7 +3,7 @@ import Foundation
 /*
     Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
  */
-class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
+class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
     
     let type: GroupType
     
@@ -24,6 +24,11 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
     init(_ type: GroupType, _ name: String) {
         self.type = type
         self.name = name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(name)
     }
     
     // 2 Groups are equal if they are of the same type and have the same name.

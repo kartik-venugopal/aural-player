@@ -217,7 +217,7 @@ protocol CommonPlaylistMutatorProtocol {
 }
 
 // Enumeration of each of the playlist types
-enum PlaylistType: String {
+enum PlaylistType: String, CaseIterable {
     
     // Flat playlist listing all tracks
     case tracks
