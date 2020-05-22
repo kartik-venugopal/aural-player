@@ -127,19 +127,11 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     // MARK: Sequence iteration functions -------------------------------------------------------------------------------------
     
-    func peekSubsequent() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekSubsequent())
-    }
-    
     func subsequent() -> Track? {
         
         let subsequent = getTrackForSequenceIndex(sequence.subsequent())
         playingTrack = subsequent
         return subsequent
-    }
-    
-    func peekNext() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekNext())
     }
     
     func next() -> Track? {
@@ -154,10 +146,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return nil
     }
     
-    func peekPrevious() -> Track? {
-        return getTrackForSequenceIndex(sequence.peekPrevious())
-    }
-    
     func previous() -> Track? {
         
         // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
@@ -170,7 +158,17 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return nil
     }
     
+    func peekSubsequent() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekSubsequent())
+    }
     
+    func peekNext() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekNext())
+    }
+    
+    func peekPrevious() -> Track? {
+        return getTrackForSequenceIndex(sequence.peekPrevious())
+    }
     
     // Helper function that, given the index of a track within the current plyback sequence,
     // returns the corresponding track and its index within the playlist.
