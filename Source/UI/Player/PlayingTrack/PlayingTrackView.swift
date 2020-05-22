@@ -65,7 +65,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHidePlayingTrackInfo() {
         
-        PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
+        PlayerViewState.showTrackInfo.toggle()
         
         defaultView.showOrHidePlayingTrackInfo()
         expandedArtView.showOrHidePlayingTrackInfo()
@@ -73,7 +73,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHidePlayingTrackFunctions() {
         
-        PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
+        PlayerViewState.showPlayingTrackFunctions.toggle()
         
         defaultView.showOrHidePlayingTrackFunctions()
         expandedArtView.showOrHidePlayingTrackFunctions()
@@ -81,7 +81,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideAlbumArt() {
         
-        PlayerViewState.showAlbumArt = !PlayerViewState.showAlbumArt
+        PlayerViewState.showAlbumArt.toggle()
         
         defaultView.showOrHideAlbumArt()
         expandedArtView.showOrHideAlbumArt()
@@ -89,7 +89,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideArtist() {
         
-        PlayerViewState.showArtist = !PlayerViewState.showArtist
+        PlayerViewState.showArtist.toggle()
 
         defaultView.showOrHideArtist()
         expandedArtView.showOrHideArtist()
@@ -97,7 +97,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideAlbum() {
         
-        PlayerViewState.showAlbum = !PlayerViewState.showAlbum
+        PlayerViewState.showAlbum.toggle()
         
         defaultView.showOrHideAlbum()
         expandedArtView.showOrHideAlbum()
@@ -105,7 +105,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideCurrentChapter() {
         
-        PlayerViewState.showCurrentChapter = !PlayerViewState.showCurrentChapter
+        PlayerViewState.showCurrentChapter.toggle()
         
         defaultView.showOrHideCurrentChapter()
         expandedArtView.showOrHideCurrentChapter()
@@ -113,7 +113,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideMainControls() {
         
-        PlayerViewState.showControls = !PlayerViewState.showControls
+        PlayerViewState.showControls.toggle()
         
         defaultView.showOrHideMainControls()
         expandedArtView.showOrHideMainControls()

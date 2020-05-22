@@ -91,7 +91,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             player.replay()
             playbackView.updateSeekPosition()
             
-            if (wasPaused) {
+            if wasPaused {
                 playbackStateChanged()
             }
         }
@@ -104,15 +104,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func toggleLoop() {
         
-        // TODO: Combine if's
         if player.state.isPlayingOrPaused {
-        
-            if let _ = player.playingTrack {
                 
-                _ = player.toggleLoop()
-                playbackLoopChanged()
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-            }
+            _ = player.toggleLoop()
+            playbackLoopChanged()
+            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
         }
     }
     
@@ -224,12 +220,23 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch request.type {
             
-        case .index: playTrackWithIndex(request.index!, request.delay)
+        case .index:
             
-        case .track: playTrack(request.track!, request.delay)
+            if let index = request.index {
+                playTrackWithIndex(index, request.delay)
+            }
             
-        case .group: playGroup(request.group!, request.delay)
+        case .track:
             
+            if let track = request.track {
+                playTrack(track, request.delay)
+            }
+            
+        case .group:
+            
+            if let group = request.group {
+                playGroup(group, request.delay)
+            }
         }
     }
     
@@ -237,7 +244,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch request.type {
             
-        case .playSelectedChapter:  playChapter(request.index!)
+        case .playSelectedChapter:
+            
+            if let index = request.index {
+                playChapter(index)
+            }
             
         case .previousChapter:  previousChapter()
             
@@ -329,7 +340,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             let playingChapter: IndexedChapter? = self.player.playingChapter
     
             // Compare the current chapter with the last known value of current chapter
-            if !IndexedChapter.areEqual(self.curChapter, playingChapter) {
+            if self.curChapter != playingChapter {
                 
                 // There has been a change ... notify observers and update the variable
                 SyncMessenger.publishNotification(ChapterChangedNotification(self.curChapter, playingChapter))

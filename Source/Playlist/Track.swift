@@ -366,7 +366,7 @@ class IndexedTrack: NSObject {
 }
 
 // Wrapper around Chapter that includes its parent track and chronological index
-class IndexedChapter: NSObject {
+class IndexedChapter: Equatable {
     
     // The track to which this chapter belongs
     let track: Track
@@ -384,32 +384,14 @@ class IndexedChapter: NSObject {
         self.index = index
     }
     
-    func equals(_ other: IndexedChapter?) -> Bool {
-        
-        if let otherChapter = other {
-            
-            // Two IndexedChapter objects are equal if they belong to the same track and have the same index
-            return self.track === otherChapter.track && self.index == otherChapter.index
-        }
-
-        return false
+    static func == (lhs: IndexedChapter, rhs: IndexedChapter) -> Bool {
+        return lhs.track == rhs.track && lhs.index == rhs.index
     }
     
-    // Helper function to compare two optional IndexedChapter references for equality
-    static func areEqual(_ c1: IndexedChapter?, _ c2: IndexedChapter?) -> Bool {
+    func hash(into hasher: inout Hasher) {
         
-        if c1 == nil && c2 == nil {
-            return true
-        }
-        else if let chapter1 = c1 {
-            return chapter1.equals(c2)
-        }
-        else if let chapter2 = c2 {
-            return chapter2.equals(c1)
-        }
-        
-        // Impossible
-        return false
+        hasher.combine(track.file.path)
+        hasher.combine(index)
     }
 }
 
