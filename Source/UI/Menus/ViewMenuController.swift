@@ -97,7 +97,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleChaptersList))
+        WindowManager.toggleChaptersList()
     }
     
     // TODO: Revisit this
