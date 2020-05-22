@@ -84,7 +84,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Replays the currently playing track, from the beginning, if there is one
     private func replayTrack() {
         
-        if let _ = player.playingTrack {
+        if player.state.isPlayingOrPaused {
             
             let wasPaused: Bool = player.state == .paused
             
@@ -370,15 +370,21 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .trackNotPlayed:
             
-            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
+            if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
+                trackNotPlayed(trackNotPlayedMsg)
+            }
             
         case .trackNotTranscoded:
             
-            trackNotTranscoded(message as! TrackNotTranscodedAsyncMessage)
+            if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
+                trackNotTranscoded(trackNotTranscodedMsg)
+            }
             
         case .gapStarted:
             
-            gapStarted(message as! PlaybackGapStartedAsyncMessage)
+            if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
+                gapStarted(gapStartedMsg)
+            }
             
         default: return
             
@@ -395,7 +401,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .playbackRateChangedNotification:
             
-            playbackRateChanged(notification as! PlaybackRateChangedNotification)
+            if let playbackRateChangedMsg = notification as? PlaybackRateChangedNotification {
+                playbackRateChanged(playbackRateChangedMsg)
+            }
             
         case .playbackLoopChangedNotification:
             
@@ -412,11 +420,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .playbackRequest:
             
-            performPlayback(request as! PlaybackRequest)
+            if let playbackRequest = request as? PlaybackRequest {
+                performPlayback(playbackRequest)
+            }
             
         case .chapterPlaybackRequest:
             
-            performChapterPlayback(request as! ChapterPlaybackRequest)
+            if let playbackRequest = request as? ChapterPlaybackRequest {
+                performChapterPlayback(playbackRequest)
+            }
             
         default: break
             
@@ -446,13 +458,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .seekBackward:
             
-            let msg = message as! PlaybackActionMessage
-            seekBackward(msg.actionMode)
+            if let playbackActionMessage = message as? PlaybackActionMessage {
+                seekBackward(playbackActionMessage.actionMode)
+            }
             
         case .seekForward:
             
-            let msg = message as! PlaybackActionMessage
-            seekForward(msg.actionMode)
+            if let playbackActionMessage = message as? PlaybackActionMessage {
+                seekForward(playbackActionMessage.actionMode)
+            }
             
         case .seekBackward_secondary:
             
@@ -464,7 +478,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .jumpToTime:
             
-            jumpToTime((message as! JumpToTimeActionMessage).time)
+            if let jumpToTimeActionMessage = message as? JumpToTimeActionMessage {
+                jumpToTime(jumpToTimeActionMessage.time)
+            }
             
         // MARK: Player view settings
             
