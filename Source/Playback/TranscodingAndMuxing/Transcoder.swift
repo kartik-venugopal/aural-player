@@ -12,8 +12,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let playlist: PlaylistAccessorProtocol
     private let sequencer: PlaybackSequencerInfoDelegateProtocol
     
-    let subscriberId: String = "Transcoder"
-    
     var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerInfoDelegateProtocol) {

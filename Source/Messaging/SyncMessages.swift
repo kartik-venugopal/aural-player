@@ -23,6 +23,17 @@ extension MessageSubscriber {
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
     }
+    
+    var subscriberId: String {
+        
+        let className = String(describing: mirrorFor(self).subjectType)
+        
+        if let obj = self as? NSObject {
+            return String(format: "%@-%d", className, obj.hashValue)
+        }
+        
+        return className
+    }
 }
 
 /*

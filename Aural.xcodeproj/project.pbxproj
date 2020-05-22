@@ -2725,11 +2725,11 @@
 		3EDFB69A2466A49200F50610 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3E0D4F4824741CAC00DE7811 /* AuralTestCase.swift */,
 				3E12AC95246985F500A07611 /* Utils.swift */,
 				3E4F9A2A2468532B0064DBF1 /* Playback */,
 				3E8718D12466B814007D9672 /* Utils */,
 				3EDFB69D2466A49200F50610 /* Info.plist */,
-				3E0D4F4824741CAC00DE7811 /* AuralTestCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

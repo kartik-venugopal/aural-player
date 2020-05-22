@@ -7,8 +7,6 @@ class TranscoderDaemon: MessageSubscriber {
     
     var tasks: [Track: TranscodingTask] = [:]
     
-    let subscriberId: String = "TranscoderDaemon"
-    
     private let preferences: TranscodingPreferences
     
     init(_ preferences: TranscodingPreferences) {

@@ -442,8 +442,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     // MARK: Message handling -----------------------------------------------------------------------------------------------------------------------------
     
-    let subscriberId: String = "PlaybackSequencer"
-    
     // When the selected playlist view type changes in the UI (i.e. the selected playlist tab changes), this notification is sent out. Here, we make note of the new playlist type, so that the playback scope may be determined from it.
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         

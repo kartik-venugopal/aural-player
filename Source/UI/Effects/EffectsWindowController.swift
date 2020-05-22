@@ -198,10 +198,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
 
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
 
     func consumeNotification(_ notification: NotificationMessage) {
 

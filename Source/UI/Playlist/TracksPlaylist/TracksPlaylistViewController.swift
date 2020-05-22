@@ -667,10 +667,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {

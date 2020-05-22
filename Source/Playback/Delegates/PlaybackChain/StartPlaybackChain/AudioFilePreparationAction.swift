@@ -9,13 +9,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     var nextAction: PlaybackChainAction?
     
     var deferredContext: PlaybackRequestContext?
-    
-    var subscriberId: String {
-        
-        // There may be multiple instances of this class. subscriberId should be unique across instances.
-        return String(format: "%@-%d", self.className, self.hashValue)
-    }
-    
+
     init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ transcoder: TranscoderProtocol) {
         
         self.player = player

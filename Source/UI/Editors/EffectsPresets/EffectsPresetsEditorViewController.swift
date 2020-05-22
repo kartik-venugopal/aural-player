@@ -142,10 +142,6 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let msg = notification as? EditorSelectionChangedNotification {

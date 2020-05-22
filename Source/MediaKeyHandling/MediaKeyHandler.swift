@@ -39,10 +39,6 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         SyncMessenger.subscribe(messageTypes: [.appLoadedNotification], subscriber: self)
     }
     
-    var subscriberId: String {
-        return "MediaKeyHandler"
-    }
-    
     func startMonitoring() {
         
         if !monitoringEnabled {

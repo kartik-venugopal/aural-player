@@ -8,8 +8,6 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private var metadataMap: ConcurrentMap<Track, AVAssetMetadata> = ConcurrentMap<Track, AVAssetMetadata>("metadataMap")
     
-    let subscriberId: String = "AVAssetReader"
-    
     init(_ commonAVAssetParser: CommonAVAssetParser, _ id3Parser: ID3Parser, _ iTunesParser: ITunesParser, _ audioToolboxParser: AudioToolboxParser, _ muxer: MuxerProtocol) {
         
         let osVersion = SystemUtils.osVersion

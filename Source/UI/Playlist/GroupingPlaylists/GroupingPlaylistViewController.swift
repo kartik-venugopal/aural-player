@@ -832,10 +832,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // MARK: Message handlers
     
-    var subscriberId: String {
-        return String(format: "%@-%@", self.className, String(describing: self.groupType))
-    }
-    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {

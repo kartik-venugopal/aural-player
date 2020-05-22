@@ -242,10 +242,6 @@ class WindowManager {
     
     // MARK ----------- Message handling ----------------------------------------------------
     
-    static var subscriberId: String {
-        return "LayoutManager"
-    }
-    
     static var persistentState: WindowLayoutState {
         
         let uiState = WindowLayoutState()

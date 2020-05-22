@@ -175,10 +175,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         // Do nothing. Meant to be overriden.
     }
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     // MARK - StringInputReceiver functions
     
     var inputPrompt: String {

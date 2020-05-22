@@ -488,10 +488,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         WindowManager.showChaptersList()
     }
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

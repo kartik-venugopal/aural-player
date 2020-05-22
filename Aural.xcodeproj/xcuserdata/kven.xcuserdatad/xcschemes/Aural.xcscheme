@@ -59,30 +59,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "AVAudioExtensionsTests">
-               </Test>
-               <Test
-                  Identifier = "AuralPlayerNodeTests">
-               </Test>
-               <Test
-                  Identifier = "MathUtilsTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackLoopTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSchedulerTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSequenceCreationTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSequenceIterationTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSequencePeekingTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOff_emptySequence()">
                </Test>
                <Test
@@ -156,30 +132,6 @@
                </Test>
                <Test
                   Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOne_shuffleOff_withPlayingTrack()">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSequenceRepeatAndShuffleTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSequenceTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackSessionTests">
-               </Test>
-               <Test
-                  Identifier = "PlayerTests">
-               </Test>
-               <Test
-                  Identifier = "SequencerBeginAndEndTests">
-               </Test>
-               <Test
-                  Identifier = "SequencerTrackSelectionTests">
-               </Test>
-               <Test
-                  Identifier = "ShuffleSequenceTests">
-               </Test>
-               <Test
-                  Identifier = "ValueFormatterTests">
                </Test>
             </SkippedTests>
          </TestableReference>

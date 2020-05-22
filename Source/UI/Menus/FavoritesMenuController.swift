@@ -132,12 +132,6 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     @IBAction func manageFavoritesAction(_ sender: Any) {
         editorWindowController.showFavoritesEditor()
     }
-    
-    // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
 }
 
 class FavoritesMenuItem: NSMenuItem {
