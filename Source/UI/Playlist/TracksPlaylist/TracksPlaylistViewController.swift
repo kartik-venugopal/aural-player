@@ -438,7 +438,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if let errTrack = playlist.indexOfTrack(message.error.track) {
 
             // If new and old are the same, don't refresh the same row twice
-            if errTrack != oldTrack {
+            if errTrack.track != oldTrack {
                 refreshIndexes.append(errTrack.index)
             }
 

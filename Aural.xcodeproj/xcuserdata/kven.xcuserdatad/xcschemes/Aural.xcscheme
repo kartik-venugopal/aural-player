@@ -74,6 +74,15 @@
                   Identifier = "PlaybackSchedulerTests">
                </Test>
                <Test
+                  Identifier = "PlaybackSequenceCreationTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceIterationTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackSequencePeekingTests/testPeekNext_repeatAll_shuffleOff_emptySequence()">
                </Test>
                <Test
@@ -147,6 +156,12 @@
                </Test>
                <Test
                   Identifier = "PlaybackSequencePeekingTests/testPeekSubsequent_repeatOne_shuffleOff_withPlayingTrack()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceRepeatAndShuffleTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceTests">
                </Test>
                <Test
                   Identifier = "PlaybackSessionTests">

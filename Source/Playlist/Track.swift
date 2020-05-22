@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Encapsulates all information about a single track
  */
-class Track: NSObject, PlaylistItem {
+class Track: Hashable, PlaylistItem {
     
     let playbackNativelySupported: Bool
     let metadataNativelySupported: Bool
@@ -120,6 +120,10 @@ class Track: NSObject, PlaylistItem {
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs.file.path == rhs.file.path
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(file.path)
     }
 }
 
