@@ -13,7 +13,7 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // Create and verify an empty sequence.
             initSequence(0, nil, repeatMode, shuffleMode)
             XCTAssertEqual(sequence.size, 0)
-            XCTAssertEqual(sequence.curTrackIndex, nil)
+            XCTAssertNil(sequence.curTrackIndex)
             
             // Repeated calls to subsequent() should all produce nil.
             for _ in 1...10 {
@@ -22,7 +22,7 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
                 
                 // Ensure that no resizing/iteration has taken place.
                 XCTAssertEqual(sequence.size, 0)
-                XCTAssertEqual(sequence.curTrackIndex, nil)
+                XCTAssertNil(sequence.curTrackIndex)
             }
         }
     }
@@ -40,14 +40,11 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             subsequentIndices.append(nil)
             
-            // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
-            
             // The test results should look like this:
-            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), 0, 1, 2, ... where n is the size of the array
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, where n is the size of the array
             
             return subsequentIndices
-            
-        }, sequenceRestart_count)
+        })
     }
     
     func testSubsequent_repeatOff_shuffleOff_noPlayingTrack() {
@@ -60,14 +57,11 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             subsequentIndices.append(nil)
             
-            // Following the nil value, the sequence should restart at index 0. Test this with a repeat count.
-            
             // The test results should look like this:
-            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, 0, 1, 2, ... (n - 1), 0, 1, 2, ... where n is the size of the array
+            // startIndex + 1, startIndex + 2, ..., (n - 1), nil, where n is the size of the array
             
             return subsequentIndices
-            
-        }, sequenceRestart_count)
+        })
     }
     
     func testSubsequent_repeatOne_shuffleOff() {
@@ -102,6 +96,8 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             XCTAssertNotNil(startIndex)
             
             // Because there is a playing track (represented by startIndex), the test should start at startIndex + 1.
+            
+            // After the end of the sequence, it should restart because of the repeat all setting.
             
             // The test results should look like this:
             // startIndex + 1, startIndex + 2, ..., (n - 1), 0, 1, 2, ... (n - 1), where n is the size of the array.
@@ -224,33 +220,24 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             
             // When repeatMode = .all, the sequence will be restarted the next time peekSubsequent() is called.
             // If a repeatCount is given, perform further testing by looping through the sequence again.
-            if repeatCount > 0 && repeatMode != .one {
+            if repeatCount > 0 && repeatMode == .all {
                 
-                if shuffleMode == .on {
+                if shuffleMode == .off {
+                    doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                    
+                } else if size >= 3 {
                     
                     // This test is not meaningful for very small sequences.
-                    if repeatMode == .all && size >= 3 {
-                        doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
-                    }
-                    
-                } else {
-                    
-                    doTestSubsequent_sequenceRestart_shuffleOff(repeatCount)
+                    doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
                 }
             }
         }
     }
     
     // Loop around to the beginning of the sequence and iterate through it.
-    private func doTestSubsequent_sequenceRestart_shuffleOff(_ repeatCount: Int) {
+    private func doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
         
-        var sequenceRange: [Int?] = Array(0..<sequence.size)
-        
-        // When repeat mode is off, track playback will stop before the sequence is restarted.
-        // This corresponds to a nil value before sequence restart.
-        if sequence.repeatAndShuffleModes.repeatMode == .off {
-            sequenceRange.append(nil)
-        }
+        let sequenceRange: Range<Int> = 0..<sequence.size
         
         for _ in 1...repeatCount {
             
@@ -500,19 +487,15 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // If a repeatCount is given, perform further testing by looping through the sequence again.
             if repeatCount > 0 && repeatMode == .all {
                 
-                if shuffleMode == .on {
-                    
-                    // This test is not meaningful for very small sequences.
-                    if size >= 3 {
-                        doTestNext_sequenceRestart_repeatAll_shuffleOn(repeatCount)
-                    }
-                    
-                } else {
+                if shuffleMode == .off && size > 1 {
                     
                     // For sequences with only one element, this test is not relevant.
-                    if size > 1 {
-                        doTestNext_sequenceRestart_repeatAll_shuffleOff(repeatCount)
-                    }
+                    doTestNext_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                    
+                } else if shuffleMode == .on && size >= 3 {
+                    
+                    // This test is not meaningful for very small sequences.
+                    doTestNext_sequenceRestart_repeatAll_shuffleOn(repeatCount)
                 }
             }
         }

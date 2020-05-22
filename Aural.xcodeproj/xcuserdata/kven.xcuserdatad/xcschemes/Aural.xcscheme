@@ -170,6 +170,12 @@
                   Identifier = "PlayerTests">
                </Test>
                <Test
+                  Identifier = "SequencerBeginAndEndTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerTrackSelectionTests">
+               </Test>
+               <Test
                   Identifier = "ShuffleSequenceTests">
                </Test>
                <Test
