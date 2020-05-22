@@ -17,8 +17,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     private var gapsBefore: [Track: PlaybackGap] = [:]
     private var gapsAfter: [Track: PlaybackGap] = [:]
     
-    let subscriberId: String = "Playlist"
-    
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist

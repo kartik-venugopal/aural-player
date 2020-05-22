@@ -162,10 +162,6 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
         if let msg = message as? EffectsPresetsEditorActionMessage {

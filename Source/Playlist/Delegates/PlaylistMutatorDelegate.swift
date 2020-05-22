@@ -455,10 +455,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistSorted(results)})
     }
     
-    var subscriberId: String {
-        return "PlaylistMutatorDelegate"
-    }
-    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {

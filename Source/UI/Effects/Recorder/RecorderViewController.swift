@@ -214,10 +214,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
         if (request is AppExitRequest) {

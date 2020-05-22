@@ -9,6 +9,20 @@ protocol ActionMessageSubscriber {
     var subscriberId: String {get}
 }
 
+extension ActionMessageSubscriber {
+
+    var subscriberId: String {
+
+        let className = String(describing: mirrorFor(self).subjectType)
+
+        if let obj = self as? NSObject {
+            return String(format: "%@-%d", className, obj.hashValue)
+        }
+
+        return className
+    }
+}
+
 /*
     A message sent from one UI component to another, to request that some action be performed. Example - the master playlist view controller (PlaylistViewController) sends action messsages to its child view controllers (for each of the 4 playlist views) requesting each of them to refresh their views when new tracks are added to the playlist.
  */

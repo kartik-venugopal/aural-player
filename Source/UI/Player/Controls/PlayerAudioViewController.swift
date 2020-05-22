@@ -194,11 +194,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     }
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
-    
+
     func consumeNotification(_ notification: NotificationMessage) {
      
         if let trackChangedMsg = notification as? TrackChangedNotification {

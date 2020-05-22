@@ -112,11 +112,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
     }
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
-    
+
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {

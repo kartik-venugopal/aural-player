@@ -74,10 +74,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is TrackChangedNotification {

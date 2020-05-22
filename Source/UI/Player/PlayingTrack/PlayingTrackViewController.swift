@@ -61,11 +61,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     }
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
-    
+
     func consumeMessage(_ message: ActionMessage) {
         
         if let pvActionMsg = message as? PlayerViewActionMessage {

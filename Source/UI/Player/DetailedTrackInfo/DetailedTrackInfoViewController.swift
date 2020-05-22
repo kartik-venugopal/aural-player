@@ -59,8 +59,6 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         return formatter
     }()
     
-    let subscriberId: String = "DetailedTrackInfoViewController"
-    
     private let noLyricsText: String = "< No lyrics available for this track >"
     
     override var nibName: String? {return "DetailedTrackInfo"}

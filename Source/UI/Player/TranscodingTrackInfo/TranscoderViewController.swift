@@ -154,8 +154,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     // MARK: Message handling
     
-    var subscriberId: String {return self.className}
-    
     func consumeMessage(_ message: ActionMessage) {
         
         if let textSizeMessage = message as? TextSizeActionMessage, textSizeMessage.actionType == .changePlayerTextSize {

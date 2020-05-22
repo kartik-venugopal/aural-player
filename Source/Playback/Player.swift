@@ -219,11 +219,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     var playingTrackStartTime: TimeInterval? {return PlaybackSession.currentSession?.timestamp}
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return "Player"
-    }
-    
+
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         // Handler for when the audio output changes (e.g. headphones plugged in/out).

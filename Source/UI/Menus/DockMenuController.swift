@@ -307,10 +307,6 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         }
     }
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

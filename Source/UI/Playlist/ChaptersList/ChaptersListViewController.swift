@@ -325,10 +325,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeNotification(_ message: NotificationMessage) {
         
         switch message.messageType {

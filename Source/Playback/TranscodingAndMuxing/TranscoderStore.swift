@@ -8,8 +8,6 @@ class TranscoderStore: MessageSubscriber {
     
     let preferences: TranscodingPreferences
     
-    let subscriberId: String = "TranscoderStore"
-    
     var currentDiskSpaceUsage: UInt64 {return FileSystemUtils.sizeOfDirectory(baseDir)}
     
     // TODO: Accessing delegate here ?

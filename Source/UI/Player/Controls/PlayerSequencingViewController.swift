@@ -87,11 +87,7 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     }
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
-    
+
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {

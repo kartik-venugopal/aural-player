@@ -15,19 +15,19 @@ protocol AsyncMessageSubscriber {
     var subscriberId: String {get}
 }
 
-// TODO: Remove subscriberID definition from all subscribers that are NSObjects
-//extension AsyncMessageSubscriber {
-//
-//    var subscriberId: String {
-//
-//        if let selfObj = self as? NSObject {
-//            return selfObj.className
-//        }
-//
-////        return Mirror(reflecting: self).subjectType.self
-//        return ""
-//    }
-//}
+extension AsyncMessageSubscriber {
+
+    var subscriberId: String {
+
+        let className = String(describing: mirrorFor(self).subjectType)
+
+        if let obj = self as? NSObject {
+            return String(format: "%@-%d", className, obj.hashValue)
+        }
+
+        return className
+    }
+}
 
 // An enumeration of all AsyncMessage types
 enum AsyncMessageType {

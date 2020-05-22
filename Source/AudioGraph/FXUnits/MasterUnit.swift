@@ -123,10 +123,6 @@ class MasterUnit: FXUnit, MessageSubscriber {
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return "MasterFXUnit"
-    }
-    
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification.messageType == .fxUnitActivatedNotification {

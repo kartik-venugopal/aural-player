@@ -200,10 +200,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         updateSearch()
     }
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {

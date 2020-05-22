@@ -151,9 +151,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     // MARK: Message handling
     
-    var subscriberId: String {
-        return "AudioGraphDelegate"
-    }
+    let subscriberId: String = "AudioGraphDelegate"
     
     func consumeNotification(_ notification: NotificationMessage) {
         

@@ -23,10 +23,6 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
         WindowManager.hideChaptersList()
     }
     
-    var subscriberId: String {
-        return self.className
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
     
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {

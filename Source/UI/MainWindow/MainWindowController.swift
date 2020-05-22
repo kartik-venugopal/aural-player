@@ -229,8 +229,4 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
         }
     }
-    
-    var subscriberId: String {
-        return self.className
-    }
 }

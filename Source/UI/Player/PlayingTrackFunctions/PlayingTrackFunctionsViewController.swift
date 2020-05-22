@@ -235,11 +235,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     }
     
     // MARK: Message handling
-    
-    var subscriberId: String {
-        return self.className
-    }
-    
+
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let trackChangeNotification = notification as? TrackChangedNotification {
