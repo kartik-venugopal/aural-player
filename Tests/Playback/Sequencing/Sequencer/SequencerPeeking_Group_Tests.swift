@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerPeeking_Group_Tests: PlaybackSequencerTests {
+class SequencerPeeking_Group_Tests: SequencerTests {
     
     var scopeTracks: [Track] = []
     var scopeSize: Int {return scopeTracks.count}

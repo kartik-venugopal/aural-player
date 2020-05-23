@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerBeginAndEndTests: PlaybackSequencerTests {
+class SequencerBeginAndEndTests: SequencerTests {
 
     func testBegin_emptyPlaylist() {
         

@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerPlaylistTypeChangeTests: PlaybackSequencerTests {
+class SequencerPlaylistTypeChangeTests: SequencerTests {
 
     func testPlaylistTypeChange() {
         
