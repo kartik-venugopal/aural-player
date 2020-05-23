@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerTrackSelectionTests: PlaybackSequencerTests {
+class SequencerTrackSelectionTests: SequencerTests {
 
     func testSelectIndex() {
         

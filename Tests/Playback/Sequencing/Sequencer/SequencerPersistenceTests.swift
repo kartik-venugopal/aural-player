@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerPersistenceTests: PlaybackSequencerTests {
+class SequencerPersistenceTests: SequencerTests {
 
     func testPersistentState() {
         

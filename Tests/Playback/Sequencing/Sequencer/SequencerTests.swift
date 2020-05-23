@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackSequencerTests: AuralTestCase {
+class SequencerTests: AuralTestCase {
 
     var sequencer: PlaybackSequencer!
     var playlist: Playlist!

@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerRepeatAndShuffleTests: PlaybackSequencerTests {
+class SequencerRepeatAndShuffleTests: SequencerTests {
 
     // MARK: toggleRepeatMode() tests ----------------------------------------------------------------------------
     
