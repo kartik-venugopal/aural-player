@@ -95,17 +95,18 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return track}, PlaybackParams().withAllowDelay(false))
     }
     
-    // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
-    func subsequentTrack() {
-        doPlay({return sequencer.subsequent()}, PlaybackParams.defaultParams(), false)
-    }
-    
     func previousTrack() {
-        doPlay({return sequencer.previous()})
+        
+        if state != .noTrack {
+            doPlay({return sequencer.previous()})
+        }
     }
     
     func nextTrack() {
-        doPlay({return sequencer.next()})
+        
+        if state != .noTrack {
+            doPlay({return sequencer.next()})
+        }
     }
     
     func play(_ index: Int, _ params: PlaybackParams) {

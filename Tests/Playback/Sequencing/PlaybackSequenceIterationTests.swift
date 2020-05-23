@@ -218,7 +218,7 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             
             // Test sequence restart once per size
             
-            // When repeatMode = .all, the sequence will be restarted the next time peekSubsequent() is called.
+            // When repeatMode = .all, the sequence will be restarted the next time subsequent() is called.
             // If a repeatCount is given, perform further testing by looping through the sequence again.
             if repeatCount > 0 && repeatMode == .all {
                 
@@ -270,10 +270,9 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
             
-            // NOTE - The first element of the new shuffle sequence cannot be predicted, but it suffices to test that it is
-            // non-nil and that it differs from the last element of the first sequence (this is by requirement).
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling subsequent(),
+            // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstElementOfNewSequence: Int? = sequence.subsequent()
-            XCTAssertNotNil(firstElementOfNewSequence)
             
             // If there is only one element in the sequence, this comparison is not valid.
             if size > 1 {
@@ -283,6 +282,9 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // Capture the newly created sequence, and ensure it's of the same size as the previous one.
             let newShuffleSequence = Array(sequence.shuffleSequence.sequence)
             XCTAssertEqual(newShuffleSequence.count, previousShuffleSequence.count)
+            
+            // Now that we have the new sequence, we can test the first element that we couldn't predict before.
+            XCTAssertEqual(firstElementOfNewSequence, newShuffleSequence[0])
             
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
@@ -537,10 +539,9 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
             
-            // NOTE - The first element of the new shuffle sequence cannot be predicted, but it suffices to test that it is
-            // non-nil and that it differs from the last element of the first sequence (this is by requirement).
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling next(),
+            // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstElementOfNewSequence: Int? = sequence.next()
-            XCTAssertNotNil(firstElementOfNewSequence)
             
             // If there is only one element in the sequence, this comparison is not valid.
             if size > 1 {
@@ -550,6 +551,9 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             // Capture the newly created sequence, and ensure it's of the same size as the previous one.
             let newShuffleSequence = Array(sequence.shuffleSequence.sequence)
             XCTAssertEqual(newShuffleSequence.count, previousShuffleSequence.count)
+            
+            // Now that we have the new sequence, we can test the first element that we couldn't predict before.
+            XCTAssertEqual(firstElementOfNewSequence, newShuffleSequence[0])
             
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
@@ -789,13 +793,11 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
         }
     }
     
-    private func doTestPrevious_shuffleOn(_ repeatMode: RepeatMode, _ expectedIndicesFunction: ExpectedIndicesFunction, _ repeatCount: Int = 0) {
+    private func doTestPrevious_shuffleOn(_ repeatMode: RepeatMode, _ expectedIndicesFunction: ExpectedIndicesFunction) {
         
         for size in testSequenceSizes {
             
-            let startIndex = Int.random(in: 0..<size)
-            
-            initSequence(size, startIndex, repeatMode, .on)
+            initSequence(size, size - 1, repeatMode, .on)
             
             // When shuffle is on, begin the test at the end of the sequence (otherwise, previous() cannot be tested).
             while sequence.peekNext() != nil {
@@ -804,7 +806,7 @@ class PlaybackSequenceIterationTests: PlaybackSequenceTests {
             
             // Exercise the given indices function to obtain an array of expected results from repeated calls to previous().
             // NOTE - The size of the expectedIndices array will determine how many times previous() will be called (and tested).
-            let expectedIndices: [Int?] = expectedIndicesFunction(size, startIndex)
+            let expectedIndices: [Int?] = expectedIndicesFunction(size, size - 1)
             
             // For each expected index value, call previous() and match its return value.
             for expectedIndex in expectedIndices {

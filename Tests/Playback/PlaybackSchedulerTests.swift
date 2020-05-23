@@ -8,7 +8,6 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     
     private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
     
-    var subscriberId: String {return self.className + String(describing: self.hashValue)}
     var trackCompletionMsgReceived: Bool = false
     var completedSessionIsCurrent: Bool = false
 

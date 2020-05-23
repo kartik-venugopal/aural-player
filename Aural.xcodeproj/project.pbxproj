@@ -262,7 +262,7 @@
 		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
 		3E136A952477E648001C0A7C /* SequencerTrackSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E136A942477E648001C0A7C /* SequencerTrackSelectionTests.swift */; };
 		3E136A972477E698001C0A7C /* SequencerBeginAndEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E136A962477E698001C0A7C /* SequencerBeginAndEndTests.swift */; };
-		3E136A992477E769001C0A7C /* SequencerIterationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E136A982477E769001C0A7C /* SequencerIterationTests.swift */; };
+		3E136A992477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E136A982477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift */; };
 		3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7821DCC206006DBD22 /* AudioDataSource.swift */; };
 		3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */; };
 		3E16722C246CFFAB00A57F64 /* AVAudioExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */; };
@@ -862,7 +862,7 @@
 		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
 		3E136A942477E648001C0A7C /* SequencerTrackSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerTrackSelectionTests.swift; sourceTree = "<group>"; };
 		3E136A962477E698001C0A7C /* SequencerBeginAndEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerBeginAndEndTests.swift; sourceTree = "<group>"; };
-		3E136A982477E769001C0A7C /* SequencerIterationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerIterationTests.swift; sourceTree = "<group>"; };
+		3E136A982477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerIteration_TracksPlaylist_Tests.swift; sourceTree = "<group>"; };
 		3E154D7821DCC206006DBD22 /* AudioDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataSource.swift; sourceTree = "<group>"; };
 		3E154D7A21DCC21F006DBD22 /* FileSystemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemDataSource.swift; sourceTree = "<group>"; };
 		3E16722B246CFFAB00A57F64 /* AVAudioExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioExtensions.swift; sourceTree = "<group>"; };
@@ -2785,7 +2785,7 @@
 				3E3CABE024770C32002E78AE /* PlaybackSequencerTests.swift */,
 				3E136A962477E698001C0A7C /* SequencerBeginAndEndTests.swift */,
 				3E136A942477E648001C0A7C /* SequencerTrackSelectionTests.swift */,
-				3E136A982477E769001C0A7C /* SequencerIterationTests.swift */,
+				3E136A982477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift */,
 			);
 			path = Sequencing;
 			sourceTree = "<group>";
@@ -3581,7 +3581,7 @@
 				3E12ACE72469CC1700A07611 /* EQPresets.swift in Sources */,
 				3E12AD242469CC3F00A07611 /* AppStateIO.swift in Sources */,
 				3E12AC9D2469CBA100A07611 /* PlaylistDelegateProtocol.swift in Sources */,
-				3E136A992477E769001C0A7C /* SequencerIterationTests.swift in Sources */,
+				3E136A992477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift in Sources */,
 				3E12AC992469CB5A00A07611 /* AppConstants.swift in Sources */,
 				3E626A1C246C4BB9002FAC63 /* TestableAuralPlayerNode.swift in Sources */,
 				3EF13D082472DC03008CA5C0 /* CancelWaitingOrTranscodingAction.swift in Sources */,
