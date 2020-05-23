@@ -6,14 +6,14 @@ import Foundation
 class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
-    private let sequence: PlaybackSequence
+    let sequence: PlaybackSequence
     
     // The current playback scope (See SequenceScope for more details)
     // NOTE - The default sequence scope is "All tracks"
-    private let scope: SequenceScope = SequenceScope(.allTracks)
+    let scope: SequenceScope = SequenceScope(.allTracks)
     
     // The current playlist view type selected by the user (this is used to determine the scope)
-    private var playlistType: PlaylistType = .tracks
+    private(set) var playlistType: PlaylistType = .tracks
     
     // Used to access the playlist's tracks/groups
     private let playlist: PlaylistAccessorProtocol
@@ -65,13 +65,9 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     
     func select(_ index: Int) -> Track? {
         
-        // "All tracks" playback scope implied. So, reset the scope to allTracks, and reset the sequence size, if that is not the current scope type
-        
-        if scope.type != .allTracks {
-
-            scope.type = .allTracks
-            scope.group = nil
-        }
+        // "All tracks" playback scope implied. So, reset the scope to allTracks, and reset the sequence size.
+        scope.type = .allTracks
+        scope.group = nil
         
         return startSequence(playlist.size, index)
     }

@@ -53,7 +53,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
         
         _ = createNTracks(Int.random(in: 10...1000))
         
-        for playlistType: PlaylistType in [.tracks, .artists, .albums, .genres] {
+        for playlistType in PlaylistType.allCases {
         
             for repeatMode: RepeatMode in [.off, .all] {
                 doTestBegin_withShuffle(playlistType, repeatMode, false, true, nil, 1...playlist.size, playlist.size)
@@ -100,6 +100,8 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
     }
     
     private func doTestBegin_withShuffle(_ playlistType: PlaylistType, _ repeatMode: RepeatMode, _ matchPlayingTrack: Bool, _ playingTrackMustBeNonNil: Bool, _ expectedPlayingTrack: Track? = nil, _ expectedTrackIndexRange: ClosedRange<Int>, _ expectedTotalTracks: Int? = nil) {
+        
+        // TODO: Get the shuffle sequence here, map it to playlist tracks, and check the first track
         
         sequencer.end()
         XCTAssertNil(sequencer.playingTrack)

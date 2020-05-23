@@ -288,11 +288,9 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
             
-            // NOTE - The first element of the new shuffle sequence cannot be predicted, but it suffices to test that it is
-            // non-nil and that it differs from the last element of the first sequence (this is by requirement).
-            
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling subsequent(),
+            // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstElementOfNewSequence: Int? = sequence.subsequent()
-            XCTAssertNotNil(firstElementOfNewSequence)
             
             if size > 1 {
                 XCTAssertNotEqual(firstElementOfNewSequence, previousShuffleSequence.last)
@@ -301,6 +299,9 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // Capture the newly created sequence, and ensure it's of the same size as the previous one.
             let newShuffleSequence = Array(sequence.shuffleSequence.sequence)
             XCTAssertEqual(newShuffleSequence.count, previousShuffleSequence.count)
+            
+            // Now that we have the new sequence, we can test the first element that we couldn't predict before.
+            XCTAssertEqual(firstElementOfNewSequence, newShuffleSequence[0])
             
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
@@ -577,10 +578,9 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
             
-            // NOTE - The first element of the new shuffle sequence cannot be predicted, but it suffices to test that it is
-            // non-nil and that it differs from the last element of the first sequence (this is by requirement).
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling next(),
+            // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstElementOfNewSequence: Int? = sequence.next()
-            XCTAssertNotNil(firstElementOfNewSequence)
             
             // If there is only one element in the sequence, this comparison is not valid.
             if size > 1 {
@@ -590,6 +590,9 @@ class PlaybackSequencePeekingTests: PlaybackSequenceTests {
             // Capture the newly created sequence, and ensure it's of the same size as the previous one.
             let newShuffleSequence = Array(sequence.shuffleSequence.sequence)
             XCTAssertEqual(newShuffleSequence.count, previousShuffleSequence.count)
+            
+            // Now that we have the new sequence, we can test the first element that we couldn't predict before.
+            XCTAssertEqual(firstElementOfNewSequence, newShuffleSequence[0])
             
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.

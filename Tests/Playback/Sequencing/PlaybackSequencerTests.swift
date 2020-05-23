@@ -132,5 +132,5 @@ class PlaybackSequencerTests: AuralTestCase {
     // produced by calls to any of the iteration functions e.g. subsequent(), previous(), etc.
     //
     // This array is passed from a test function to a helper function to set the right expectations for the test.
-    typealias ExpectedTracksFunction = (_ playlistSize: Int, _ playingTrackIndex: Int?, _ scope: SequenceScope) -> (expectedTracks: [Track?], expectedIndices: [Int?])
+    typealias ExpectedTracksFunction = (_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> (expectedTracks: [Track?], expectedIndices: [Int])
 }
