@@ -122,6 +122,11 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
                 let playingTrack = sequencer.begin()
                 
+                let sequence = sequencer.sequenceInfo
+                XCTAssertEqual(sequence.scope.type, playlistType.toPlaylistScopeType())
+                XCTAssertNil(sequence.scope.group)
+                XCTAssertEqual(sequence.totalTracks, scopeSize)
+                
                 // Exercise the given function to obtain an array of expected results from repeated calls to peekSubsequent().
                 // NOTE - The size of the expectedTracks array will determine how many times peekSubsequent() will be called (and tested).
                 let expectedTracksAndIndices = expectedTracksFunction(scopeSize, sequencer.sequenceInfo.trackIndex - 1, sequencer.sequenceInfo.scope)
@@ -129,7 +134,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 var expectedIndices = expectedTracksAndIndices.expectedIndices
                 
                 XCTAssertEqual(playingTrack, expectedTracks[0])
-                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[0])
+                XCTAssertEqual(sequence.trackIndex, expectedIndices[0])
                 
                 // The first track in the sequence has already been tested. Remove it from the expectations so that it is not tested again in the loop below.
                 expectedTracks.remove(at: 0)
@@ -398,6 +403,11 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
                 let playingTrack = sequencer.begin()
                 
+                let sequence = sequencer.sequenceInfo
+                XCTAssertEqual(sequence.scope.type, playlistType.toPlaylistScopeType())
+                XCTAssertNil(sequence.scope.group)
+                XCTAssertEqual(sequence.totalTracks, scopeSize)
+                
                 // Exercise the given function to obtain an array of expected results from repeated calls to peekSubsequent().
                 // NOTE - The size of the expectedTracks array will determine how many times peekSubsequent() will be called (and tested).
                 let expectedTracksAndIndices = expectedTracksFunction(scopeSize, sequencer.sequenceInfo.trackIndex - 1, sequencer.sequenceInfo.scope)
@@ -405,7 +415,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 var expectedIndices = expectedTracksAndIndices.expectedIndices
                 
                 XCTAssertEqual(playingTrack, expectedTracks[0])
-                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[0])
+                XCTAssertEqual(sequence.trackIndex, expectedIndices[0])
                 
                 // The first track in the sequence has already been tested. Remove it from the expectations so that it is not tested again in the loop below.
                 expectedTracks.remove(at: 0)
@@ -676,6 +686,11 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
                 let playingTrack = sequencer.begin()
                 
+                let sequence = sequencer.sequenceInfo
+                XCTAssertEqual(sequence.scope.type, playlistType.toPlaylistScopeType())
+                XCTAssertNil(sequence.scope.group)
+                XCTAssertEqual(sequence.totalTracks, scopeSize)
+                
                 // Exercise the given function to obtain an array of expected results from repeated calls to peekSubsequent().
                 // NOTE - The size of the expectedTracks array will determine how many times peekSubsequent() will be called (and tested).
                 let expectedTracksAndIndices = expectedTracksFunction(scopeSize, sequencer.sequenceInfo.trackIndex - 1, sequencer.sequenceInfo.scope)
@@ -683,7 +698,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 var expectedIndices = expectedTracksAndIndices.expectedIndices
                 
                 XCTAssertEqual(playingTrack, expectedTracks[0])
-                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[0])
+                XCTAssertEqual(sequence.trackIndex, expectedIndices[0])
                 
                 // The first track in the sequence has already been tested. Remove it from the expectations so that it is not tested again in the loop below.
                 expectedTracks.remove(at: 0)
@@ -758,6 +773,12 @@ class SequencerPeeking_GroupingPlaylists_Tests: PlaybackSequencerTests {
                 
                 // Start the sequence and iterate to the end.
                 _ = sequencer.begin()
+                
+                let sequence = sequencer.sequenceInfo
+                XCTAssertEqual(sequence.scope.type, playlistType.toPlaylistScopeType())
+                XCTAssertNil(sequence.scope.group)
+                XCTAssertEqual(sequence.totalTracks, scopeSize)
+                
                 while sequencer.peekNext() != nil {
                     _ = sequencer.next()
                 }

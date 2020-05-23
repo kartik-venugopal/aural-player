@@ -296,4 +296,43 @@ class PlaybackSequenceRepeatAndShuffleTests: PlaybackSequenceTests {
         XCTAssertEqual(sequence.shuffleSequence.size, 0)
         XCTAssertNil(sequence.shuffleSequence.currentValue)
     }
+    
+    // MARK: repeatAndShuffleModes() tests
+    
+    func testRepeatAndShuffleModes_validModes() {
+
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
+
+            _ = sequence.setRepeatMode(repeatMode)
+            _ = sequence.setShuffleMode(shuffleMode)
+
+            let modes = sequence.repeatAndShuffleModes
+
+            XCTAssertEqual(modes.repeatMode, repeatMode)
+            XCTAssertEqual(modes.shuffleMode, shuffleMode)
+        }
+    }
+    
+    func testRepeatAndShuffleModes_invalidModes() {
+        
+        // Set repeat one, then shuffle on
+        _ = sequence.setRepeatMode(.one)
+        _ = sequence.setShuffleMode(.on)
+        
+        var modes = sequence.repeatAndShuffleModes
+
+        // Repeat should have been disabled
+        XCTAssertEqual(modes.repeatMode, .off)
+        XCTAssertEqual(modes.shuffleMode, .on)
+        
+        // Set shuffle on, then repeat one
+        _ = sequence.setShuffleMode(.on)
+        _ = sequence.setRepeatMode(.one)
+        
+        modes = sequence.repeatAndShuffleModes
+
+        // Shuffle should have been disabled
+        XCTAssertEqual(modes.repeatMode, .one)
+        XCTAssertEqual(modes.shuffleMode, .off)
+    }
 }
