@@ -11,7 +11,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
                 if shuffleMode == .off {
                     doTestBegin_noShuffle(playlistType, repeatMode, nil, 0, 0)
                 } else {
-                    doTestBegin_withShuffle(playlistType, repeatMode, true, false, nil, 0...0, 0)
+                    doTestBegin_withShuffle(playlistType, repeatMode)
                 }
             }
         }
@@ -28,7 +28,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
                 if shuffleMode == .off {
                     doTestBegin_noShuffle(playlistType, repeatMode, track, 1, 1)
                 } else {
-                    doTestBegin_withShuffle(playlistType, repeatMode, true, true, track, 1...1, 1)
+                    doTestBegin_withShuffle(playlistType, repeatMode)
                 }
             }
         }
@@ -56,7 +56,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
         for playlistType in PlaylistType.allCases {
         
             for repeatMode: RepeatMode in [.off, .all] {
-                doTestBegin_withShuffle(playlistType, repeatMode, false, true, nil, 1...playlist.size, playlist.size)
+                doTestBegin_withShuffle(playlistType, repeatMode)
             }
         }
     }
@@ -99,9 +99,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
         }
     }
     
-    private func doTestBegin_withShuffle(_ playlistType: PlaylistType, _ repeatMode: RepeatMode, _ matchPlayingTrack: Bool, _ playingTrackMustBeNonNil: Bool, _ expectedPlayingTrack: Track? = nil, _ expectedTrackIndexRange: ClosedRange<Int>, _ expectedTotalTracks: Int? = nil) {
-        
-        // TODO: Get the shuffle sequence here, map it to playlist tracks, and check the first track
+    private func doTestBegin_withShuffle(_ playlistType: PlaylistType, _ repeatMode: RepeatMode) {
         
         sequencer.end()
         XCTAssertNil(sequencer.playingTrack)
@@ -112,23 +110,46 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
 
         // Check that the returned track matches the sequencer's playingTrack property
         XCTAssertEqual(sequencer.playingTrack, track)
-
-        playingTrackMustBeNonNil ? XCTAssertNotNil(track) : XCTAssertNil(track)
         
-        // Check that the returned track matches the expected playing track
-        if matchPlayingTrack {
-            XCTAssertEqual(track, expectedPlayingTrack)
+        if playlist.size == 0 {
+            
+            XCTAssertNil(track)
+            return
         }
+
+        // Check that the returned track matches the expected playing track
+        let shuffleSequence = sequencer.sequence.shuffleSequence.sequence
+        
+        // Compute scope tracks
+        let tracksForPlaylist = getPlaylistTracks(sequencer.scope)
+        let totalTracks = tracksForPlaylist.count
+        
+        // Match track
+        XCTAssertEqual(track, tracksForPlaylist[shuffleSequence[0]])
         
         let sequence = sequencer.sequenceInfo
         
         XCTAssertEqual(sequence.scope.type, playlistType.toPlaylistScopeType())
         XCTAssertEqual(sequence.scope.group, nil)
         
-        XCTAssertTrue(expectedTrackIndexRange.contains(sequence.trackIndex))
+        XCTAssertEqual(sequence.trackIndex, shuffleSequence[0] + 1)
+        XCTAssertEqual(sequence.totalTracks, totalTracks)
+    }
+    
+    private func getPlaylistTracks(_ scope: SequenceScope) -> [Track] {
         
-        if let totalTracks = expectedTotalTracks {
-            XCTAssertEqual(sequence.totalTracks, totalTracks)
+        if scope.type.toPlaylistType() == .tracks {
+            
+            return playlist.tracks
+            
+        } else {
+            
+            let groups = playlist.allGroups(scope.type.toGroupType()!)
+            
+            var tracks: [Track] = []
+            groups.forEach({tracks.append(contentsOf: $0.allTracks())})
+            
+            return tracks
         }
     }
     
@@ -158,7 +179,7 @@ class SequencerBeginAndEndTests: PlaybackSequencerTests {
         
             for repeatMode: RepeatMode in [.off, .all] {
                 
-                doTestBegin_withShuffle(playlistType, repeatMode, false, true, nil, 1...playlist.size, playlist.size)
+                doTestBegin_withShuffle(playlistType, repeatMode)
                 
                 sequencer.end()
                 XCTAssertNil(sequencer.playingTrack)
