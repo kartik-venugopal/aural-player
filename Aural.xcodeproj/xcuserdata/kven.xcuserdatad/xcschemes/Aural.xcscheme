@@ -179,6 +179,12 @@
                   Identifier = "SequencerBeginAndEndTests">
                </Test>
                <Test
+                  Identifier = "SequencerIteration_TracksPlaylist_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_TracksPlaylist_Tests">
+               </Test>
+               <Test
                   Identifier = "SequencerTrackSelectionTests">
                </Test>
                <Test
