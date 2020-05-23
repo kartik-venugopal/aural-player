@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerIteration_Group_Tests: PlaybackSequencerTests {
+class SequencerPeeking_Group_Tests: PlaybackSequencerTests {
     
     var scopeTracks: [Track] = []
     var scopeSize: Int {return scopeTracks.count}
@@ -13,30 +13,30 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         XCTAssertEqual(scopeSize, group.size)
     }
 
-    // MARK: subsequent() tests -----------------------------------------------------------------------------------------------
+    // MARK: peekSubsequent() tests -----------------------------------------------------------------------------------------------
     
-    func testSubsequent_group_repeatOff_shuffleOff() {
-
-        doTestSubsequent_group(.off, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
-
+    func testPeekSubsequent_group_repeatOff_shuffleOff() {
+        
+        doTestPeekSubsequent_group(.off, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+            
             // Start the test with the track at index playingTrackIndex.
             var subsequentTracks: [Track?] = scopeTracks.suffix(playlistSize - playingTrackIndex)
             var subsequentIndices: [Int] = Array(1...playlistSize).suffix(playlistSize - playingTrackIndex)
-
+            
             // Test that after the last track (i.e. at the end of the sequence), nil is returned.
             subsequentTracks.append(nil)
             subsequentIndices.append(0)
-
+            
             // The test results should consist of tracks having the indices:
             // playingTrackIndex, playingTrackIndex + 1, playingTrackIndex + 2, ..., (n - 1), nil, where n is the size of the array
-
+            
             return (subsequentTracks, subsequentIndices)
         })
     }
+    
+    func testPeekSubsequent_group_repeatOne_shuffleOff() {
 
-    func testSubsequent_group_repeatOne_shuffleOff() {
-
-        doTestSubsequent_group(.one, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekSubsequent_group(.one, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             let playingTrack: Track = scopeTracks[playingTrackIndex]
 
@@ -48,9 +48,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    func testSubsequent_group_repeatAll_shuffleOff() {
+    func testPeekSubsequent_group_repeatAll_shuffleOff() {
 
-        doTestSubsequent_group(.all, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekSubsequent_group(.all, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             // Start the test with the track at index playingTrackIndex.
             let subsequentTracks: [Track?] = scopeTracks.suffix(playlistSize - playingTrackIndex)
@@ -66,9 +66,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }, sequenceRestart_count)   // Restart the sequence and repeat the test.
     }
 
-    func testSubsequent_group_repeatOff_shuffleOn() {
+    func testPeekSubsequent_group_repeatOff_shuffleOn() {
 
-        doTestSubsequent_group(.off, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekSubsequent_group(.off, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             // Obtain the shuffle sequence ... this will determine the order of playback.
             let shuffleSequence = Array(sequencer.sequence.shuffleSequence.sequence)
@@ -85,9 +85,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    func testSubsequent_group_repeatAll_shuffleOn() {
+    func testPeekSubsequent_group_repeatAll_shuffleOn() {
 
-        doTestSubsequent_group(.all, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekSubsequent_group(.all, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             // Obtain the shuffle sequence
             let shuffleSequence = Array(sequencer.sequence.shuffleSequence.sequence)
@@ -101,9 +101,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }, sequenceRestart_count)   // Restart the sequence and repeat the test.
     }
     
-    private func doTestSubsequent_group(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode,
-                                                 _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
-
+    private func doTestPeekSubsequent_group(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode,
+                                                     _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
+        
         for playlistType: PlaylistType in [.artists, .albums, .genres] {
         
             preTest(playlistType, repeatMode, shuffleMode)
@@ -146,77 +146,89 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
                         expectedTracks.remove(at: 0)
                         expectedIndices.remove(at: 0)
                         
-                        // For each expected track, call subsequent() and match its return value to the expectation.
+                        // For each expected track, call peekSubsequent() and match its return value to the expectation.
                         for index in 0..<expectedTracks.count {
                             
-                            XCTAssertEqual(sequencer.subsequent(), expectedTracks[index])
+                            let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
                             
-                            // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                            XCTAssertEqual(sequencer.peekSubsequent(), expectedTracks[index])
+                            
+                            // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                            XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+                            
+                            // Advance by one track, and verify that iteration took place
+                            _ = sequencer.subsequent()
                             XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[index])
                         }
                     }
                     
                     // Test sequence restart once per group
                     
-                    // When repeatMode = .all, the sequence will be restarted the next time subsequent() is called.
+                    // When repeatMode = .all, the sequence will be restarted the next time peekSubsequent() is called.
                     // If a repeatCount is given, perform further testing by looping through the sequence again.
                     if repeatCount > 0 && repeatMode == .all {
                         
                         if shuffleMode == .off {
-                            doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                            doTestPeekSubsequent_sequenceRestart_repeatAll_shuffleOff(repeatCount)
                         } else {
-                            doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
+                            doTestPeekSubsequent_sequenceRestart_repeatAll_shuffleOn(repeatCount)
                         }
                     }
                 }
             }
         }
     }
-
+    
     // Loop around to the beginning of the sequence and iterate through it.
-    private func doTestSubsequent_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
-
+    private func doTestPeekSubsequent_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+        
         let sequenceRange: Range<Int> = 0..<scopeSize
         
         for _ in 1...repeatCount {
-
-            // Iterate through the same sequence again, from the beginning, and verify that calls to subsequent()
+            
+            // Iterate through the same sequence again, from the beginning, and verify that calls to peekSubsequent()
             // produce the same sequence again.
             for value in sequenceRange {
-
-                XCTAssertEqual(sequencer.subsequent(), scopeTracks[value])
-
-                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                
+                let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
+                
+                XCTAssertEqual(sequencer.peekSubsequent(), scopeTracks[value])
+                
+                // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+                
+                // Advance by one track, and verify that iteration took place
+                _ = sequencer.subsequent()
                 XCTAssertEqual(sequencer.sequenceInfo.trackIndex, value + 1)
             }
         }
     }
-
+    
     // Helper function that iterates through an entire shuffle sequence, testing that calls to
-    // subsequent() produce values matching the sequence. Based on the given repeatCount,
+    // peekSubsequent() produce values matching the sequence. Based on the given repeatCount,
     // the iteration through the sequence is repeated a number of times so that multiple new
     // sequences are created (as a result of the repeat all setting).
     //
     // firstShuffleSequence is used for comparison to the new sequence created when it ends.
     // As each following sequence ends, a new one is created (because of the repeat all setting).
     // Need to ensure that each new sequence differs from the last.
-    private func doTestSubsequent_sequenceRestart_repeatAll_shuffleOn(_ repeatCount: Int) {
-
+    private func doTestPeekSubsequent_sequenceRestart_repeatAll_shuffleOn(_ repeatCount: Int) {
+        
         // Start the loop with firstShuffleSequence
         var previousShuffleSequence: [Track] = sequencer.sequence.shuffleSequence.sequence.map {scopeTracks[$0]}
         
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
-
-            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling subsequent(),
+            
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling peekSubsequent(),
             // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstTrackInNewSequence: Track? = sequencer.subsequent()
-
+            
             // If there is only one element in the sequence, this comparison is not valid.
             if scopeSize > 1 {
                 XCTAssertNotEqual(firstTrackInNewSequence, previousShuffleSequence.last)
             }
-
+            
             // Capture the newly created sequence, and ensure it's of the same size as the previous one.
             let newShuffleSequence: [Track] = sequencer.sequence.shuffleSequence.sequence.map {scopeTracks[$0]}
             let newShuffleSequenceIndices: [Int] = sequencer.sequence.shuffleSequence.sequence.map {$0 + 1}
@@ -226,60 +238,39 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
             XCTAssertEqual(sequencer.sequenceInfo.trackIndex, newShuffleSequenceIndices[0])
             
             XCTAssertEqual(newShuffleSequence.count, previousShuffleSequence.count)
-
+            
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
             if scopeSize >= 10 {
                 XCTAssertFalse(newShuffleSequence.elementsEqual(previousShuffleSequence))
             }
-
-            // Now, ensure that the following calls to subsequent() produce a sequence matching the new shuffle sequence (minus the first element).
+            
+            // Now, ensure that the following calls to peekSubsequent() produce a sequence matching the new shuffle sequence (minus the first element).
             // NOTE - Skip the first element which has already been produced and tested.
             for index in 1..<scopeSize {
-
-                XCTAssertEqual(sequencer.subsequent(), newShuffleSequence[index])
-
-                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                
+                let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
+                
+                XCTAssertEqual(sequencer.peekSubsequent(), newShuffleSequence[index])
+                
+                // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+                
+                // Advance by one track, and verify that iteration took place
+                _ = sequencer.subsequent()
                 XCTAssertEqual(sequencer.sequenceInfo.trackIndex, newShuffleSequenceIndices[index])
             }
-
+            
             // Update the previousShuffleSequence variable with the new sequence, to be used for comparison in the next loop iteration.
             previousShuffleSequence = newShuffleSequence
         }
     }
     
-    // MARK: next() tests ------------------------------------------------------------------------------
+    // MARK: peekNext() tests ------------------------------------------------------------------------------
     
-    func testNext_group_repeatOff_shuffleOff() {
+    func testPeekNext_group_repeatOff_shuffleOff() {
 
-        doTestNext_group(.off, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
-
-            if playlistSize == 1 {
-
-                let nextTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
-                return (nextTracks, Array(repeating: 1, count: 11))
-            }
-
-            // Start the test with the track at index playingTrackIndex.
-            var nextTracks: [Track?] = scopeTracks.suffix(playlistSize - playingTrackIndex)
-            var nextIndices: [Int] = Array(1...playlistSize).suffix(playlistSize - playingTrackIndex)
-
-            // Test that after the last track (i.e. at the end of the sequence), nil is returned, even with repeated calls.
-            nextTracks.append(contentsOf: Array(repeating: nil, count: 10))
-
-            // When next() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
-            nextIndices.append(contentsOf: Array(repeating: nextIndices.last!, count: 10))
-
-            // The test results should consist of tracks having the indices:
-            // playingTrackIndex, playingTrackIndex + 1, playingTrackIndex + 2, ..., (n - 1), nil, where n is the size of the array
-
-            return (nextTracks, nextIndices)
-        })
-    }
-
-    func testNext_group_repeatOne_shuffleOff() {
-
-        doTestNext_group(.one, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekNext_group(.off, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -294,7 +285,7 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
             // Test that after the last track (i.e. at the end of the sequence), nil is returned, even with repeated calls.
             nextTracks.append(contentsOf: Array(repeating: nil, count: 10))
 
-            // When next() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
+            // When peekNext() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
             nextIndices.append(contentsOf: Array(repeating: nextIndices.last!, count: 10))
 
             // The test results should consist of tracks having the indices:
@@ -304,9 +295,36 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    func testNext_group_repeatAll_shuffleOff() {
+    func testPeekNext_group_repeatOne_shuffleOff() {
 
-        doTestNext_group(.all, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekNext_group(.one, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+
+            if playlistSize == 1 {
+
+                let nextTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
+                return (nextTracks, Array(repeating: 1, count: 11))
+            }
+
+            // Start the test with the track at index playingTrackIndex.
+            var nextTracks: [Track?] = scopeTracks.suffix(playlistSize - playingTrackIndex)
+            var nextIndices: [Int] = Array(1...playlistSize).suffix(playlistSize - playingTrackIndex)
+
+            // Test that after the last track (i.e. at the end of the sequence), nil is returned, even with repeated calls.
+            nextTracks.append(contentsOf: Array(repeating: nil, count: 10))
+
+            // When peekNext() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
+            nextIndices.append(contentsOf: Array(repeating: nextIndices.last!, count: 10))
+
+            // The test results should consist of tracks having the indices:
+            // playingTrackIndex, playingTrackIndex + 1, playingTrackIndex + 2, ..., (n - 1), nil, where n is the size of the array
+
+            return (nextTracks, nextIndices)
+        })
+    }
+
+    func testPeekNext_group_repeatAll_shuffleOff() {
+
+        doTestPeekNext_group(.all, .off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -326,9 +344,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }, sequenceRestart_count)
     }
 
-    func testNext_group_repeatOff_shuffleOn() {
+    func testPeekNext_group_repeatOff_shuffleOn() {
 
-        doTestNext_group(.off, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekNext_group(.off, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -351,9 +369,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    func testNext_group_repeatAll_shuffleOn() {
+    func testPeekNext_group_repeatAll_shuffleOn() {
 
-        doTestNext_group(.all, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekNext_group(.all, .on, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -373,8 +391,8 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }, sequenceRestart_count)   // Restart the sequence and repeat the test.
     }
 
-    private func doTestNext_group(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode,
-                                           _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
+    private func doTestPeekNext_group(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode,
+                                               _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
 
         for playlistType: PlaylistType in [.artists, .albums, .genres] {
         
@@ -418,26 +436,32 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
                         expectedTracks.remove(at: 0)
                         expectedIndices.remove(at: 0)
 
-                        // For each expected track, call next() and match its return value to the expectation.
+                        // For each expected track, call peekNext() and match its return value to the expectation.
                         for index in 0..<expectedTracks.count {
 
-                            XCTAssertEqual(sequencer.next(), expectedTracks[index])
+                            let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
 
-                            // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                            XCTAssertEqual(sequencer.peekNext(), expectedTracks[index])
+
+                            // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                            XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                            // Advance by one track, and verify that iteration took place
+                            _ = sequencer.next()
                             XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[index])
                         }
                     }
 
                     // Test sequence restart once per group
 
-                    // When repeatMode = .all, the sequence will be restarted the next time next() is called.
+                    // When repeatMode = .all, the sequence will be restarted the next time peekNext() is called.
                     // If a repeatCount is given, perform further testing by looping through the sequence again.
                     if repeatCount > 0 && repeatMode == .all && scopeSize > 1 {
 
                         if shuffleMode == .off {
-                            doTestNext_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                            doTestPeekNext_sequenceRestart_repeatAll_shuffleOff(repeatCount)
                         } else {
-                            doTestNext_sequenceRestart_repeatAll_shuffleOn(repeatCount)
+                            doTestPeekNext_sequenceRestart_repeatAll_shuffleOn(repeatCount)
                         }
                     }
                 }
@@ -446,33 +470,39 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
     }
 
     // Loop around to the beginning of the sequence and iterate through it.
-    private func doTestNext_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+    private func doTestPeekNext_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
 
         let sequenceRange: Range<Int> = 0..<scopeSize
 
         for _ in 1...repeatCount {
 
-            // Iterate through the same sequence again, from the beginning, and verify that calls to next()
+            // Iterate through the same sequence again, from the beginning, and verify that calls to peekNext()
             // produce the same sequence again.
             for trackIndex in sequenceRange {
 
-                XCTAssertEqual(sequencer.next(), scopeTracks[trackIndex])
+                let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
 
-                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                XCTAssertEqual(sequencer.peekNext(), scopeTracks[trackIndex])
+
+                // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                // Advance by one track, and verify that iteration took place
+                _ = sequencer.next()
                 XCTAssertEqual(sequencer.sequenceInfo.trackIndex, trackIndex + 1)
             }
         }
     }
 
     // Helper function that iterates through an entire shuffle sequence, testing that calls to
-    // next() produce values matching the sequence. Based on the given repeatCount,
+    // peekNext() produce values matching the sequence. Based on the given repeatCount,
     // the iteration through the sequence is repeated a number of times so that multiple new
     // sequences are created (as a result of the repeat all setting).
     //
     // firstShuffleSequence is used for comparison to the new sequence created when it ends.
     // As each following sequence ends, a new one is created (because of the repeat all setting).
     // Need to ensure that each new sequence differs from the last.
-    private func doTestNext_sequenceRestart_repeatAll_shuffleOn(_ repeatCount: Int) {
+    private func doTestPeekNext_sequenceRestart_repeatAll_shuffleOn(_ repeatCount: Int) {
 
         // Start the loop with firstShuffleSequence
         var previousShuffleSequence: [Track] = sequencer.sequence.shuffleSequence.sequence.map {scopeTracks[$0]}
@@ -480,7 +510,7 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
 
-            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling next(),
+            // NOTE - The first element of the new shuffle sequence cannot be predicted before calling peekNext(),
             // but it suffices to test that it differs from the last element of the first sequence (this is by requirement).
             let firstTrackInNewSequence: Track? = sequencer.next()
 
@@ -505,13 +535,19 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
                 XCTAssertFalse(newShuffleSequence.elementsEqual(previousShuffleSequence))
             }
 
-            // Now, ensure that the following calls to next() produce a sequence matching the new shuffle sequence (minus the first element).
+            // Now, ensure that the following calls to peekNext() produce a sequence matching the new shuffle sequence (minus the first element).
             // NOTE - Skip the first element which has already been produced and tested.
             for index in 1..<scopeSize {
 
-                XCTAssertEqual(sequencer.next(), newShuffleSequence[index])
+                let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
 
-                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                XCTAssertEqual(sequencer.peekNext(), newShuffleSequence[index])
+
+                // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                // Advance by one track, and verify that iteration took place
+                _ = sequencer.next()
                 XCTAssertEqual(sequencer.sequenceInfo.trackIndex, newShuffleSequenceIndices[index])
             }
 
@@ -520,38 +556,11 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }
     }
 
-    // MARK: previous() tests ------------------------------------------------------------------------------
+    // MARK: peekPrevious() tests ------------------------------------------------------------------------------
 
-    func testPrevious_group_repeatOff_shuffleOff() {
+    func testPeekPrevious_group_repeatOff_shuffleOff() {
 
-        doTestPrevious_group_noShuffle(.off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
-
-            if playlistSize == 1 {
-
-                let previousTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
-                return (previousTracks, Array(repeating: 1, count: 11))
-            }
-
-            // Start the test with the track at index playingTrackIndex.
-            var previousTracks: [Track?] = scopeTracks.prefix(playingTrackIndex + 1).reversed()
-            var previousIndices: [Int] = Array(1...(playingTrackIndex + 1)).reversed()
-
-            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned, even with repeated calls.
-            previousTracks.append(contentsOf: Array(repeating: nil, count: 10))
-
-            // When previous() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
-            previousIndices.append(contentsOf: Array(repeating: 1, count: 10))
-
-            // The test results should consist of tracks having the indices:
-            // playingTrackIndex, playingTrackIndex - 1, playingTrackIndex - 2, ..., 0, nil, nil, nil, ...
-
-            return (previousTracks, previousIndices)
-        })
-    }
-
-    func testPrevious_group_repeatOne_shuffleOff() {
-
-        doTestPrevious_group_noShuffle(.one, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekPrevious_group_noShuffle(.off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -566,7 +575,7 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
             // Test that after the first track (i.e. at the beginning of the sequence), nil is returned, even with repeated calls.
             previousTracks.append(contentsOf: Array(repeating: nil, count: 10))
 
-            // When previous() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
+            // When peekPrevious() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
             previousIndices.append(contentsOf: Array(repeating: 1, count: 10))
 
             // The test results should consist of tracks having the indices:
@@ -576,9 +585,36 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    func testPrevious_group_repeatAll_shuffleOff() {
+    func testPeekPrevious_group_repeatOne_shuffleOff() {
 
-        doTestPrevious_group_noShuffle(.all, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekPrevious_group_noShuffle(.one, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+
+            if playlistSize == 1 {
+
+                let previousTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
+                return (previousTracks, Array(repeating: 1, count: 11))
+            }
+
+            // Start the test with the track at index playingTrackIndex.
+            var previousTracks: [Track?] = scopeTracks.prefix(playingTrackIndex + 1).reversed()
+            var previousIndices: [Int] = Array(1...(playingTrackIndex + 1)).reversed()
+
+            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned, even with repeated calls.
+            previousTracks.append(contentsOf: Array(repeating: nil, count: 10))
+
+            // When peekPrevious() returns nil, the sequence index should not change from the previous value (i.e. track will continue playing).
+            previousIndices.append(contentsOf: Array(repeating: 1, count: 10))
+
+            // The test results should consist of tracks having the indices:
+            // playingTrackIndex, playingTrackIndex - 1, playingTrackIndex - 2, ..., 0, nil, nil, nil, ...
+
+            return (previousTracks, previousIndices)
+        })
+    }
+
+    func testPeekPrevious_group_repeatAll_shuffleOff() {
+
+        doTestPeekPrevious_group_noShuffle(.all, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -598,34 +634,9 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         }, sequenceRestart_count)
     }
 
-    func testPrevious_group_repeatOff_shuffleOn() {
+    func testPeekPrevious_group_repeatOff_shuffleOn() {
 
-        doTestPrevious_group_shuffleOn(.off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
-
-            if playlistSize == 1 {
-
-                let nextTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
-                return (nextTracks, Array(repeating: 1, count: 11))
-            }
-
-            // Obtain the shuffle sequence ... this will determine the order of playback.
-            let shuffleSequence = Array(sequencer.sequence.shuffleSequence.sequence)
-
-            // Map the sequence indices to playlist tracks.
-            var nextTracks: [Track?] = (shuffleSequence.map {scopeTracks[$0]}).reversed()
-            var nextIndices: [Int] = (Array(shuffleSequence).map {$0 + 1}).reversed()
-
-            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned.
-            nextTracks.append(contentsOf: Array(repeating: nil, count: 10))
-            nextIndices.append(contentsOf: Array(repeating: nextIndices.last!, count: 10))
-
-            return (nextTracks, nextIndices)
-        })
-    }
-
-    func testPrevious_group_repeatAll_shuffleOn() {
-
-        doTestPrevious_group_shuffleOn(.all, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+        doTestPeekPrevious_group_shuffleOn(.off, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
 
             if playlistSize == 1 {
 
@@ -648,7 +659,32 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
         })
     }
 
-    private func doTestPrevious_group_noShuffle(_ repeatMode: RepeatMode, _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
+    func testPeekPrevious_group_repeatAll_shuffleOn() {
+
+        doTestPeekPrevious_group_shuffleOn(.all, {(_ playlistSize: Int, _ playingTrackIndex: Int, _ scope: SequenceScope) -> ([Track?], [Int]) in
+
+            if playlistSize == 1 {
+
+                let nextTracks: [Track?] = [scopeTracks[0]] + Array(repeating: nil, count: 10)
+                return (nextTracks, Array(repeating: 1, count: 11))
+            }
+
+            // Obtain the shuffle sequence ... this will determine the order of playback.
+            let shuffleSequence = Array(sequencer.sequence.shuffleSequence.sequence)
+
+            // Map the sequence indices to playlist tracks.
+            var nextTracks: [Track?] = (shuffleSequence.map {scopeTracks[$0]}).reversed()
+            var nextIndices: [Int] = (Array(shuffleSequence).map {$0 + 1}).reversed()
+
+            // Test that after the first track (i.e. at the beginning of the sequence), nil is returned.
+            nextTracks.append(contentsOf: Array(repeating: nil, count: 10))
+            nextIndices.append(contentsOf: Array(repeating: nextIndices.last!, count: 10))
+
+            return (nextTracks, nextIndices)
+        })
+    }
+
+    private func doTestPeekPrevious_group_noShuffle(_ repeatMode: RepeatMode, _ expectedTracksFunction: ExpectedTracksFunction, _ repeatCount: Int = 0) {
 
         for playlistType: PlaylistType in [.artists, .albums, .genres] {
         
@@ -692,22 +728,28 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
                         expectedTracks.remove(at: 0)
                         expectedIndices.remove(at: 0)
 
-                        // For each expected track, call previous() and match its return value to the expectation.
+                        // For each expected track, call peekPrevious() and match its return value to the expectation.
                         for index in 0..<expectedTracks.count {
 
-                            XCTAssertEqual(sequencer.previous(), expectedTracks[index])
+                            let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
 
-                            // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                            XCTAssertEqual(sequencer.peekPrevious(), expectedTracks[index])
+
+                            // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                            XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                            // Retreat by one track, and verify that iteration took place
+                            _ = sequencer.previous()
                             XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[index])
                         }
                     }
 
                     // Test sequence restart once per group
 
-                    // When repeatMode = .all, the sequence will be restarted the next time previous() is called.
+                    // When repeatMode = .all, the sequence will be restarted the next time peekPrevious() is called.
                     // If a repeatCount is given, perform further testing by looping through the sequence again.
                     if repeatCount > 0 && repeatMode == .all && scopeSize > 1 {
-                        doTestPrevious_sequenceRestart_repeatAll_shuffleOff(repeatCount)
+                        doTestPeekPrevious_sequenceRestart_repeatAll_shuffleOff(repeatCount)
                     }
                 }
             }
@@ -715,29 +757,35 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
     }
 
     // Loop around to the end of the sequence and iterate backwards through it.
-    private func doTestPrevious_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
+    private func doTestPeekPrevious_sequenceRestart_repeatAll_shuffleOff(_ repeatCount: Int) {
 
         // Iteration will start at the end of the sequence and proceed towards the beginning (i.e. index 0).
         let sequenceRange = (0..<scopeSize).reversed()
 
         for _ in 1...repeatCount {
 
-            // Iterate through the same sequence again, from the end, and verify that calls to previous()
+            // Iterate through the same sequence again, from the end, and verify that calls to peekPrevious()
             // produce the same sequence again.
             for trackIndex in sequenceRange {
 
-                XCTAssertEqual(sequencer.previous(), scopeTracks[trackIndex])
+                let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
 
-                // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+                XCTAssertEqual(sequencer.peekPrevious(), scopeTracks[trackIndex])
+
+                // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                // Retreat by one track, and verify that iteration took place
+                _ = sequencer.previous()
                 XCTAssertEqual(sequencer.sequenceInfo.trackIndex, trackIndex + 1)
             }
         }
     }
 
-    private func doTestPrevious_group_shuffleOn(_ repeatMode: RepeatMode, _ expectedTracksFunction: ExpectedTracksFunction) {
+    private func doTestPeekPrevious_group_shuffleOn(_ repeatMode: RepeatMode, _ expectedTracksFunction: ExpectedTracksFunction) {
 
         for playlistType: PlaylistType in [.artists, .albums, .genres] {
-            
+        
             preTest(playlistType, repeatMode, .on)
             
             for size in testPlaylistSizes {
@@ -768,17 +816,23 @@ class SequencerIteration_Group_Tests: PlaybackSequencerTests {
                     // The last track in the sequence (i.e. now the current track) should match the first expectation.
                     XCTAssertEqual(sequencer.playingTrack, expectedTracks[0])
                     XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[0])
-                    
+
                     // The first track in the sequence has already been tested. Remove it from the expectations so that it is not tested again in the loop below.
                     expectedTracks.remove(at: 0)
                     expectedIndices.remove(at: 0)
-                    
-                    // For each expected track, call previous() and match its return value to the expectation.
+
+                    // For each expected track, call peekPrevious() and match its return value to the expectation.
                     for index in 0..<expectedTracks.count {
-                        
-                        XCTAssertEqual(sequencer.previous(), expectedTracks[index])
-                        
-                        // Also verify that the sequence is now pointing at this new value (i.e. iteration took place)
+
+                        let indexBeforePeek: Int = sequencer.sequenceInfo.trackIndex
+
+                        XCTAssertEqual(sequencer.peekPrevious(), expectedTracks[index])
+
+                        // Also verify that the sequence is still pointing to the same track (i.e. no iteration took place)
+                        XCTAssertEqual(sequencer.sequenceInfo.trackIndex, indexBeforePeek)
+
+                        // Retreat by one track, and verify that iteration took place
+                        _ = sequencer.previous()
                         XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[index])
                     }
                 }
