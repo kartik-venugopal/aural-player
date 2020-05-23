@@ -191,7 +191,6 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
 
         // Start the loop with firstShuffleSequence
         var previousShuffleSequence: [Track] = sequencer.sequence.shuffleSequence.sequence.map {scopeTracks[$0]}
-        let size: Int = previousShuffleSequence.count
         
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
@@ -201,7 +200,7 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
             let firstTrackInNewSequence: Track? = sequencer.subsequent()
 
             // If there is only one element in the sequence, this comparison is not valid.
-            if size > 1 {
+            if scopeSize > 1 {
                 XCTAssertNotEqual(firstTrackInNewSequence, previousShuffleSequence.last)
             }
 
@@ -217,13 +216,13 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
 
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
-            if size >= 10 {
+            if scopeSize >= 10 {
                 XCTAssertFalse(newShuffleSequence.elementsEqual(previousShuffleSequence))
             }
 
             // Now, ensure that the following calls to subsequent() produce a sequence matching the new shuffle sequence (minus the first element).
             // NOTE - Skip the first element which has already been produced and tested.
-            for index in 1..<size {
+            for index in 1..<scopeSize {
 
                 XCTAssertEqual(sequencer.subsequent(), newShuffleSequence[index])
 
@@ -449,7 +448,6 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
         
         // Start the loop with firstShuffleSequence
         var previousShuffleSequence: [Track] = sequencer.sequence.shuffleSequence.sequence.map {scopeTracks[$0]}
-        let size: Int = previousShuffleSequence.count
         
         // Each loop iteration will trigger the creation of a new shuffle sequence, and iterate through it.
         for _ in 1...repeatCount {
@@ -459,7 +457,7 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
             let firstTrackInNewSequence: Track? = sequencer.next()
             
             // If there is only one element in the sequence, this comparison is not valid.
-            if size > 1 {
+            if scopeSize > 1 {
                 XCTAssertNotEqual(firstTrackInNewSequence, previousShuffleSequence.last)
             }
             
@@ -475,13 +473,13 @@ class SequencerIteration_GroupingPlaylists_Tests: PlaybackSequencerTests {
             
             // Test that the newly created shuffle sequence differs from the last one, if it is sufficiently large.
             // NOTE - For small sequences, the new sequence might co-incidentally be the same as the first one.
-            if size >= 10 {
+            if scopeSize >= 10 {
                 XCTAssertFalse(newShuffleSequence.elementsEqual(previousShuffleSequence))
             }
             
             // Now, ensure that the following calls to next() produce a sequence matching the new shuffle sequence (minus the first element).
             // NOTE - Skip the first element which has already been produced and tested.
-            for index in 1..<size {
+            for index in 1..<scopeSize {
                 
                 XCTAssertEqual(sequencer.next(), newShuffleSequence[index])
                 
