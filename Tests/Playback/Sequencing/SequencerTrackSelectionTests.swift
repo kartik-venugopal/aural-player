@@ -233,13 +233,13 @@ class SequencerTrackSelectionTests: PlaybackSequencerTests {
             if shuffleMode == .off {
                 
                 // If shuffle is off, the first track in the group should be selected.
-                XCTAssertEqual(group.trackAtIndex(0), playingTrack)
+                XCTAssertEqual(playingTrack, group.trackAtIndex(0))
                 
             } else {
                 
-                // If shuffle is on, we cannot predict the index of the track within the group.
-                // It suffices to check the selected group contains the playing track.
-                XCTAssertTrue(group.allTracks().contains(playingTrack!))
+                // If shuffle is on, the shuffle sequence's first element should match the index of the track selected.
+                let shuffleSequence = sequencer.sequence.shuffleSequence.sequence
+                XCTAssertEqual(playingTrack, group.trackAtIndex(shuffleSequence[0]))
             }
             
             let sequence = sequencer.sequenceInfo
