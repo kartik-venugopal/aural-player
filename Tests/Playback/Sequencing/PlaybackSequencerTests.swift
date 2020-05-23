@@ -9,7 +9,7 @@ class PlaybackSequencerTests: AuralTestCase {
     
     let albums: [String] = ["Exilarch", "Halfaxa", "Vogue", "The Wall", "Brothers in Arms", "The Sign", "Music Box Opera", "Messages", "Mai Mai", "Reflections"]
     
-    let genres: [String] = ["Electronica", "Pop", "Rock", "Dance"]
+    let genres: [String] = ["Electronica", "Pop", "Rock", "Dance", "International", "Jazz", "Ambient", "House", "Trance", "Techno", "Psybient", "PsyTrance", "Classical", "Opera"]
     
     func randomArtist() -> String {
         return artists[Int.random(in: 0..<artists.count)]
