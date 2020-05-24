@@ -36,7 +36,7 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectTrack_tracksPlaylist() {
      
-        let tracks = createNTracks(Int.random(in: 10...1000))
+        let tracks = createNTracks(Int.random(in: 10...1000)).map {$0.track}
         
         let indexOfSelTrack = Int.random(in: 0..<playlist.size)
         let selTrack = tracks[indexOfSelTrack]
@@ -69,7 +69,7 @@ class SequencerTrackSelectionTests: SequencerTests {
         _ = createNTracks(Int.random(in: 5...10), "Conjure One")
         
         let artist_madonna = "Madonna"
-        let madonnaTracks = createNTracks(Int.random(in: 10...20), artist_madonna)
+        let madonnaTracks = createNTracks(Int.random(in: 10...20), artist_madonna).map {$0.track}
         let selectedTrack = madonnaTracks[Int.random(in: 0..<madonnaTracks.count)]
 
         // Select a track by artist "Madonna"
@@ -82,7 +82,7 @@ class SequencerTrackSelectionTests: SequencerTests {
         _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera")
         
         let album_exilarch = "Exilarch"
-        let exilarchTracks = createNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch)
+        let exilarchTracks = createNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch).map {$0.track}
         let selectedTrack = exilarchTracks[Int.random(in: 0..<exilarchTracks.count)]
 
         // Select a track from album "Exilarch"
@@ -95,8 +95,8 @@ class SequencerTrackSelectionTests: SequencerTests {
         _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
         
         let genre_rock = "Rock"
-        var rockTracks = createNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock)
-        rockTracks.append(contentsOf: createNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock))
+        var rockTracks = createNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock).map {$0.track}
+        rockTracks.append(contentsOf: createNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock).map {$0.track})
         let selectedTrack = rockTracks[Int.random(in: 0..<rockTracks.count)]
 
         // Select a track from genre "Rock"

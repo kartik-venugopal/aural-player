@@ -397,7 +397,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
             newSequenceSize == 0 ? sequence.clear() : sequence.resizeAndStart(size: newSequenceSize, withTrackIndex: playingTrackIndex)
             
         } else {
-            
             sequence.start(withTrackIndex: playingTrackIndex)
         }
     }
