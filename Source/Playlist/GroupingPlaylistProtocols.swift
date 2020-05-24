@@ -97,7 +97,7 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}
 
 // Enumerates the different types of track groups
-enum GroupType: String {
+enum GroupType: String, CaseIterable {
     
     // Group of tracks categorized by their artist
     case artist
