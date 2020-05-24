@@ -524,7 +524,7 @@ class SequencerPlaylistChangeListenerTests: SequencerTests {
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
             let tracksToRemoveFromMadonnaGroup: [Track] = [1, 9, 17].map {madonnaArtistGroup.trackAtIndex($0)}
-            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, tracksToRemoveFromMadonnaGroup, [grimesArtistGroup])
+            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, tracksToRemoveFromMadonnaGroup + Array(grimesArtistGroup.allTracks().suffix(5)), [])
         }
     }
     
@@ -546,7 +546,7 @@ class SequencerPlaylistChangeListenerTests: SequencerTests {
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
-            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, [], [grimesArtistGroup])
+            doTestTracksRemoved_groupPlaying(madonnaArtistGroup, Array(grimesArtistGroup.allTracks().prefix(5)), [])
         }
     }
 
@@ -646,6 +646,7 @@ class SequencerPlaylistChangeListenerTests: SequencerTests {
         let playingTrack = sequencer.select(group)
 
         XCTAssertNotNil(playingTrack)
+        XCTAssertEqual(sequencer.playingTrack, playingTrack)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, group.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, group.size)
         XCTAssertEqual(sequencer.scope.type, group.type.toScopeType())
@@ -667,6 +668,31 @@ class SequencerPlaylistChangeListenerTests: SequencerTests {
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, group.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.scope.type, group.type.toScopeType())
         XCTAssertEqual(sequencer.scope.group, group)
+    }
+    
+    func testTracksRemoved_playingTrackRemoved() {
+
+        playlist.clear()
+        sequencer.end()
+        
+        preTest(.tracks, .off, .off)
+        
+        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+        
+        let playingTrack = sequencer.select(3)
+        
+        XCTAssertNotNil(playingTrack)
+        XCTAssertEqual(sequencer.playingTrack, playingTrack)
+        XCTAssertEqual(sequencer.sequence.curTrackIndex!, 3)
+        XCTAssertEqual(sequencer.sequence.size, playlist.size)
+        XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
+        XCTAssertNil(sequencer.scope.group)
+        
+        let trackRemovalResults = playlist.removeTracks(IndexSet([3]))
+        sequencer.tracksRemoved(trackRemovalResults, true, playingTrack)
+        
+        XCTAssertNil(sequencer.playingTrack)
+        XCTAssertNil(sequencer.sequence.curTrackIndex)
     }
 }
 
