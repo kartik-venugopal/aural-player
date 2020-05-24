@@ -104,10 +104,10 @@ class SequencerTests: AuralTestCase {
         return track
     }
     
-    func createNTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> [Track] {
+    func createNTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> [TrackAddResult] {
         
         let sizeBeforeAdd = playlist.size
-        var tracks: [Track] = []
+        var tracks: [TrackAddResult] = []
         
         for counter in 1...numTracks {
             
@@ -119,8 +119,7 @@ class SequencerTests: AuralTestCase {
             let track = Track(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
             track.setPrimaryMetadata(theArtist, title, theAlbum, theGenre, Double.random(in: 60...600))
             
-            _ = playlist.addTrack(track)
-            tracks.append(track)
+            tracks.append(playlist.addTrack(track)!)
         }
         
         XCTAssertEqual(playlist.size, sizeBeforeAdd + numTracks)
