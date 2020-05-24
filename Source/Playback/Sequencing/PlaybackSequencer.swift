@@ -73,11 +73,11 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     // Helper function to select a track with a specific index within the current playback sequence
-    private func startSequence(_ size: Int, _ cursor: Int) -> Track? {
+    private func startSequence(_ size: Int, _ trackIndex: Int) -> Track? {
         
-        sequence.resizeAndStart(size: size, withTrackIndex: cursor)
+        sequence.resizeAndStart(size: size, withTrackIndex: trackIndex)
         
-        if let track = getTrackForSequenceIndex(cursor) {
+        if let track = getTrackForSequenceIndex(trackIndex) {
             
             playingTrack = track
             return track
