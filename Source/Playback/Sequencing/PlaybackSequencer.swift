@@ -322,27 +322,23 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         } else {
             
             // Playing track was not removed. If the scope is a group, it might be unaffected.
-        
-            guard !removeResults.flatPlaylistResults.isEmpty else {return}
+            guard !removeResults.tracks.isEmpty else {return}
             
             if let group = scope.group {
                 
                 let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
                 
-                // No results for this group type means the scope was unaffected. (Should be impossible)
-                if filteredResults == nil {return}
-                
                 // We are only interested in the results matching the scope's group type.
                 // Loop through the results to see if a result for the scope group exists.
                 if let theResults = filteredResults,
-                    !theResults.contains(where: {group == ($0 as? GroupRemovalResult)?.group || group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
+                    !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
                     
                     return
                 }
             }
+            
+            updateSequence(true)
         }
-        
-        updateSequence(true)
     }
     
     func tracksReordered(_ moveResults: ItemMoveResults) {
