@@ -1,6 +1,6 @@
 import XCTest
 
-class SequencerPlaylistChangeListenerTests: SequencerTests {
+class SequencerPlaylistResizingTests: SequencerTests {
     
     // MARK: tracksAdded() tests --------------------------------------------------------------------------------------------------
     
@@ -890,6 +890,96 @@ class SequencerPlaylistChangeListenerTests: SequencerTests {
         // Check that the sequence has ended.
         XCTAssertNil(sequencer.playingTrack)
         XCTAssertNil(sequencer.sequence.curTrackIndex)
+    }
+    
+    // MARK: playlistCleared() tests --------------------------------------------------------
+    
+    func testPlaylistCleared_noPlayingTrack() {
+        
+        for playlistType in PlaylistType.allCases {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                playlist.clear()
+                sequencer.end()
+                preTest(playlistType, repeatMode, shuffleMode)
+                
+                let addedTracks = createNTracks(100)
+                sequencer.tracksAdded(addedTracks)
+                
+                XCTAssertNil(sequencer.sequence.curTrackIndex)
+                XCTAssertNil(sequencer.playingTrack)
+                
+                sequencer.playlistCleared()
+                
+                XCTAssertNil(sequencer.sequence.curTrackIndex)
+                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertEqual(sequencer.sequence.size, 0)
+                XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
+            }
+        }
+    }
+    
+    func testPlaylistCleared_playlistScopes_withPlayingTrack() {
+        
+        for playlistType in PlaylistType.allCases {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                playlist.clear()
+                sequencer.end()
+                preTest(playlistType, repeatMode, shuffleMode)
+                
+                let addedTracks = createNTracks(100)
+                sequencer.tracksAdded(addedTracks)
+                
+                let playingTrack = sequencer.begin()
+                
+                XCTAssertEqual(sequencer.playingTrack!, playingTrack!)
+                XCTAssertEqual(sequencer.sequence.curTrackIndex!, playlistIndexOfTrack(playlistType, playingTrack!))
+                XCTAssertEqual(sequencer.scope.type, playlistType.toPlaylistScopeType())
+                XCTAssertNil(sequencer.scope.group)
+                
+                sequencer.playlistCleared()
+                
+                XCTAssertNil(sequencer.sequence.curTrackIndex)
+                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertEqual(sequencer.sequence.size, 0)
+                XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
+            }
+        }
+    }
+    
+    func testPlaylistCleared_groupScopes_withPlayingTrack() {
+        
+        for groupType in GroupType.allCases {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                playlist.clear()
+                sequencer.end()
+                preTest(groupType.toPlaylistType(), repeatMode, shuffleMode)
+                
+                let addedTracks = createNTracks(100)
+                sequencer.tracksAdded(addedTracks)
+                
+                let groups = playlist.allGroups(groupType)
+                let randomGroup = groups[Int.random(in: 0..<groups.count)]
+                let playingTrack = sequencer.select(randomGroup)
+                
+                XCTAssertEqual(sequencer.playingTrack!, playingTrack!)
+                XCTAssertEqual(sequencer.sequence.curTrackIndex!, randomGroup.indexOfTrack(playingTrack!)!)
+                XCTAssertEqual(sequencer.scope.group, randomGroup)
+                XCTAssertEqual(sequencer.scope.type, groupType.toScopeType())
+                
+                sequencer.playlistCleared()
+                
+                XCTAssertNil(sequencer.sequence.curTrackIndex)
+                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertEqual(sequencer.sequence.size, 0)
+                XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
+            }
+        }
     }
 }
 
