@@ -34,7 +34,4 @@ protocol PlaybackInfoDelegateProtocol {
     
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
     var playbackLoop: PlaybackLoop? {get}
-    
-    // Returns grouping info for the playing track, for a specific group type
-    func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack?
 }
