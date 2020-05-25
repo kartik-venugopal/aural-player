@@ -354,15 +354,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return player.playbackLoop
     }
     
-    func playingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
-        
-        if let playingTrack = sequencer.playingTrack {
-            return playlist.groupingInfoForTrack(groupType, playingTrack)
-        }
-        
-        return nil
-    }
-    
     private func cancelTranscoding(_ track: Track) {
         
         transcoder.cancel(track)
