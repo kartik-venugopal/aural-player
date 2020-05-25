@@ -5,9 +5,9 @@ class ValidateNewTrackAction: PlaybackChainAction {
     var nextAction: PlaybackChainAction?
     
     // The actual playback sequence
-    private let sequencer: PlaybackSequencerProtocol
+    private let sequencer: SequencerProtocol
     
-    init(_ sequencer: PlaybackSequencerProtocol) {
+    init(_ sequencer: SequencerProtocol) {
         self.sequencer = sequencer
     }
     

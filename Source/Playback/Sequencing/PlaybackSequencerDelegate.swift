@@ -5,9 +5,9 @@ import Foundation
  */
 class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
     
-    private let sequencer: PlaybackSequencerProtocol
+    private let sequencer: SequencerProtocol
     
-    init(_ sequencer: PlaybackSequencerProtocol) {
+    init(_ sequencer: SequencerProtocol) {
         self.sequencer = sequencer
     }
     

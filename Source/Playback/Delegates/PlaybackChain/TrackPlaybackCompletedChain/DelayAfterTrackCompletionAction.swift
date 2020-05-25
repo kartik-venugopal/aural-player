@@ -4,13 +4,13 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
     
     private let playlist: PlaylistAccessorProtocol
     
-    private let sequencer: PlaybackSequencerProtocol
+    private let sequencer: SequencerProtocol
     
     private let preferences: PlaybackPreferences
     
     var nextAction: PlaybackChainAction?
     
-    init(_ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerProtocol, _ preferences: PlaybackPreferences) {
+    init(_ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ preferences: PlaybackPreferences) {
         
         self.playlist = playlist
         self.sequencer = sequencer

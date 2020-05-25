@@ -9,7 +9,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let playlist: PlaylistCRUDProtocol
     
     // The actual playback sequence
-    private let playbackSequencer: PlaybackSequencerProtocol
+    private let playbackSequencer: SequencerProtocol
     
     // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListenerProtocol]
@@ -34,7 +34,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return addSession != nil
     }
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: SequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
         self.playbackSequencer = playbackSequencer

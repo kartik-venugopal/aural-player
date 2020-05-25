@@ -3,14 +3,14 @@ import Foundation
 class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSubscriber {
     
     private let player: PlayerProtocol
-    private let sequencer: PlaybackSequencerProtocol
+    private let sequencer: SequencerProtocol
     private let transcoder: TranscoderProtocol
     
     var nextAction: PlaybackChainAction?
     
     var deferredContext: PlaybackRequestContext?
 
-    init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ transcoder: TranscoderProtocol) {
+    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol) {
         
         self.player = player
         self.sequencer = sequencer

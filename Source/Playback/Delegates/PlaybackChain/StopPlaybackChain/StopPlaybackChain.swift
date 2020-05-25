@@ -3,7 +3,7 @@ import Foundation
 // A playback chain specifically for stopping playback.
 class StopPlaybackChain: PlaybackChain {
     
-    init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ transcoder: TranscoderProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
         super.init()
         
