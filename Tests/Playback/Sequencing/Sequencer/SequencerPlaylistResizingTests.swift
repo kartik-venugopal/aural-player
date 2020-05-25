@@ -411,6 +411,60 @@ class SequencerPlaylistResizingTests: SequencerTests {
     
     // When the second-last track in the sequence is playing, and the last track is removed,
     // the return values of peekSubsequent() and peekNext() should change from non-nil to nil.
+    func testTracksRemoved_tracksPlaylist_allTracksRemoved() {
+        
+        for (repeatMode, shuffleMode) in repeatShufflePermutations {
+            
+            playlist.clear()
+            sequencer.end()
+            preTest(.tracks, repeatMode, shuffleMode)
+            
+            _ = createNTracks(5)
+            let playingTrack = sequencer.select(3)
+            
+            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.sequence.curTrackIndex!, 3)
+            
+            let removeResults = playlist.removeTracks(IndexSet(0...4))
+            sequencer.tracksRemoved(removeResults, true, playingTrack)
+            
+            XCTAssertNil(sequencer.sequence.curTrackIndex)
+            XCTAssertNil(sequencer.playingTrack)
+            XCTAssertNil(sequencer.scope.group)
+        }
+    }
+    
+    func testTracksRemoved_groupingPlaylists_allTracksRemoved() {
+        
+        for playlistType: PlaylistType in [.artists, .albums, .genres] {
+            
+            for (repeatMode, shuffleMode) in repeatShufflePermutations {
+                
+                playlist.clear()
+                sequencer.end()
+                preTest(playlistType, repeatMode, shuffleMode)
+                
+                _ = createNTracks(50)
+                
+                let groups = playlist.allGroups(playlistType.toGroupType()!)
+                let randomGroup = groups[Int.random(in: 0..<groups.count)]
+                let playingTrack = sequencer.select(randomGroup)
+                
+                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.sequence.curTrackIndex!, randomGroup.indexOfTrack(playingTrack!))
+                
+                let removeResults = playlist.removeTracksAndGroups([], groups, playlistType.toGroupType()!)
+                sequencer.tracksRemoved(removeResults, true, playingTrack)
+                
+                XCTAssertNil(sequencer.sequence.curTrackIndex)
+                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.scope.group)
+            }
+        }
+    }
+    
+    // When the second-last track in the sequence is playing, and the last track is removed,
+    // the return values of peekSubsequent() and peekNext() should change from non-nil to nil.
     func testTracksRemoved_tracksPlaylist_secondLastTrackPlaying_lastTrackRemoved() {
         
         playlist.clear()
@@ -914,6 +968,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.scope.group)
                 XCTAssertEqual(sequencer.sequence.size, 0)
                 XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
             }
@@ -944,6 +999,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.scope.group)
                 XCTAssertEqual(sequencer.sequence.size, 0)
                 XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
             }
@@ -976,6 +1032,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.scope.group)
                 XCTAssertEqual(sequencer.sequence.size, 0)
                 XCTAssertEqual(sequencer.sequence.shuffleSequence.size, 0)
             }

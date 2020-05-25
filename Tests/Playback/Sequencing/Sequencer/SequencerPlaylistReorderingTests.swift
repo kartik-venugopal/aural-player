@@ -986,6 +986,8 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         let sortResults = playlist.sort(sort, playingGroup.type.toPlaylistType())
         XCTAssertEqual(sortResults.tracksSorted, sort.tracksSort != nil)
         
+        sequencer.playlistSorted(sortResults)
+        
         XCTAssertEqual(sequencer.playingTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingGroup.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, groupSizeBeforeSort)
