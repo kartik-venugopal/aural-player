@@ -26,7 +26,8 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         
 //        print("\tPreparing:", track.conciseDisplayName)
         
-        TrackIO.prepareForPlayback(track)
+//        TrackIO.prepareForPlayback(track)
+        track.prepareForPlayback()
         
         // Track preparation failed
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {

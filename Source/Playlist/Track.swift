@@ -113,9 +113,17 @@ class Track: Hashable, PlaylistItem {
         TrackIO.loadDetailedInfo(self)
     }
     
+    func validateAudio() -> InvalidTrackError? {
+        return AudioUtils.validateTrack(self)
+    }
+    
     // Prepares this track for playback
     func prepareForPlayback() {
         TrackIO.prepareForPlayback(self)
+    }
+    
+    func prepareWithAudioFile(_ file: URL) {
+        AudioUtils.prepareTrackWithFile(self, file)
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
