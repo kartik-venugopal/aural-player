@@ -58,7 +58,8 @@ class DelayedPlaybackAction: PlaybackChainAction {
     // Returns whether or not track preparation was successful.
     private func doPrepareTrack(_ newTrack: Track, _ oldTrack: Track?) -> Bool {
         
-        TrackIO.prepareForPlayback(newTrack)
+//        TrackIO.prepareForPlayback(newTrack)
+        newTrack.prepareForPlayback()
         
         // Track preparation failed
         if newTrack.lazyLoadingInfo.preparationFailed, let preparationError = newTrack.lazyLoadingInfo.preparationError {

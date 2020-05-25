@@ -72,7 +72,8 @@ class TrackIO {
         }
         
         // Validate the audio track
-        if let prepError = AudioUtils.validateTrack(track) {
+//        if let prepError = AudioUtils.validateTrack(track) {
+        if let prepError = track.validateAudio() {
             
             // Note any error encountered
             lazyLoadInfo.preparationFailed(prepError)

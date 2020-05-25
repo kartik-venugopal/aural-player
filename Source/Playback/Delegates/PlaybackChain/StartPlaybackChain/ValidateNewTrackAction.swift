@@ -16,7 +16,8 @@ class ValidateNewTrackAction: PlaybackChainAction {
         guard let newTrack = context.requestedTrack else {return}
         
         // Validate track before attempting to play it
-        if let preparationError = AudioUtils.validateTrack(newTrack) {
+//        if let preparationError = AudioUtils.validateTrack(newTrack) {
+        if let preparationError = newTrack.validateAudio() {
         
             // Note any error encountered
             newTrack.lazyLoadingInfo.preparationFailed(preparationError)
