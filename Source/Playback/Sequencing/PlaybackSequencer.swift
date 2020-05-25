@@ -365,8 +365,18 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         // If the scope is a group, it will only have been affected if any tracks within it were sorted.
         // NOTE - Groups being sorted doesn't affect the playback scope if the scope is limited to a single group (and no tracks within it were sorted).
         // Check the parent groups of the sorted tracks, and check if the scope group was one of them.
-        if let group = scope.group, !sortResults.tracksSorted || !sortResults.affectedParentGroups.contains(group) {
-            return
+        if let group = scope.group {
+            
+            // No tracks were sorted (only groups were sorted) ... just return.
+            if !sortResults.tracksSorted {
+                return
+            }
+            
+            // Tracks (within selected groups) were sorted ... if the scope group was not affected, return.
+            if let trackSortGroupsScope = sortResults.affectedGroupsScope, trackSortGroupsScope == .selectedGroups, !sortResults.affectedParentGroups.contains(group) {
+                
+                return
+            }
         }
         
         updateSequence(false)
