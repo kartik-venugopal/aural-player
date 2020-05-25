@@ -5,9 +5,9 @@ class TrackPlaybackCompletedChain: PlaybackChain {
     private let startPlaybackChain: StartPlaybackChain
     private let stopPlaybackChain: StopPlaybackChain
     
-    private let sequencer: PlaybackSequencerProtocol
+    private let sequencer: SequencerProtocol
     
-    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
         self.startPlaybackChain = startPlaybackChain
         self.stopPlaybackChain = stopPlaybackChain

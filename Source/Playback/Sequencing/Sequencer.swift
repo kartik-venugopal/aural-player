@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaybackSequencerProtocol. Also implements PlaylistChangeListenerProtocol, to respond to changes in the playlist, and MessageSubscriber to respond to changes in the playlist view.
  */
-class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
+class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
     let sequence: PlaybackSequence

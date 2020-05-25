@@ -22,7 +22,7 @@ class ObjectGraph {
     
     private static var player: PlayerProtocol!
     private static var playbackScheduler: PlaybackSchedulerProtocol!
-    private static var playbackSequencer: PlaybackSequencerProtocol!
+    private static var playbackSequencer: SequencerProtocol!
     
     static var playbackSequencerDelegate: PlaybackSequencerDelegateProtocol!
     static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol {return playbackSequencerDelegate}
@@ -102,7 +102,7 @@ class ObjectGraph {
         // Playback Sequencer and delegate
         let repeatMode = appState.playbackSequence.repeatMode
         let shuffleMode = appState.playbackSequence.shuffleMode
-        playbackSequencer = PlaybackSequencer(playlist, repeatMode, shuffleMode)
+        playbackSequencer = Sequencer(playlist, repeatMode, shuffleMode)
         
         playbackSequencerDelegate = PlaybackSequencerDelegate(playbackSequencer)
         
@@ -119,7 +119,7 @@ class ObjectGraph {
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)
         
-        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! PlaybackSequencer, playbackDelegate as! PlaybackDelegate]
+        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! Sequencer, playbackDelegate as! PlaybackDelegate]
         let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
@@ -190,7 +190,7 @@ class ObjectGraph {
         
         appState.audioGraph = (audioGraph as! AudioGraph).persistentState as! AudioGraphState
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
-        appState.playbackSequence = (playbackSequencer as! PlaybackSequencer).persistentState as! PlaybackSequenceState
+        appState.playbackSequence = (playbackSequencer as! Sequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
         
         appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState

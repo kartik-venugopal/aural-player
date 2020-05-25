@@ -2,7 +2,7 @@ import XCTest
 
 class SequencerTests: AuralTestCase {
 
-    var sequencer: PlaybackSequencer!
+    var sequencer: Sequencer!
     var playlist: Playlist!
     
     let artists: [String] = ["Conjure One", "Grimes", "Madonna", "Pink Floyd", "Dire Straits", "Ace of Base", "Delerium", "Blue Stone", "Jaia", "Paul Van Dyk"]
@@ -76,7 +76,7 @@ class SequencerTests: AuralTestCase {
             let genresPlaylist = GroupingPlaylist(.genres, .genre)
             
             playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
-            sequencer = PlaybackSequencer(playlist, .off, .off)
+            sequencer = Sequencer(playlist, .off, .off)
         }
         
         playlist.clear()

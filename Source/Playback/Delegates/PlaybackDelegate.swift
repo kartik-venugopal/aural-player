@@ -13,7 +13,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     let player: PlayerProtocol
     
     // The actual playback sequence
-    let sequencer: PlaybackSequencerProtocol
+    let sequencer: SequencerProtocol
     
     // The actual playlist
     let playlist: PlaylistCRUDProtocol
@@ -31,7 +31,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     let chapterPlaybackStartTimeMargin: Double = 0.025
     
-    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
+    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.sequencer = sequencer
@@ -87,11 +87,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func beginPlayback() {
+    private func beginPlayback() {
         doPlay({return sequencer.begin()}, PlaybackParams.defaultParams(), false)
     }
     
-    func playImmediately(_ track: Track) {
+    private func playImmediately(_ track: Track) {
         doPlay({return track}, PlaybackParams().withAllowDelay(false))
     }
     
@@ -137,8 +137,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             startPlaybackChain.execute(requestContext)
         }
-        
-        // TODO: Don't we need to do stop() on else ??? Otherwise playback won't stop, state won't be updated, profiles won't get saved.
     }
     
     func stop() {
@@ -197,10 +195,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func cancelTranscoding() {
         
         if let transcodingTrack = playingTrack {
-            transcoder.cancel(transcodingTrack)
+            cancelTranscoding(transcodingTrack)
         }
-        
-        stop()
     }
     
     // MARK: Seeking functions
