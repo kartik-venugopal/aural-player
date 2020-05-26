@@ -813,13 +813,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrack = playbackInfo.playingTrack {
-            
+        if let playingTrack = playbackInfo.currentTrack {
             playlistView.reloadItem(playingTrack)
-            
-        } else if let waitingTrack = playbackInfo.waitingTrack {
-            
-            playlistView.reloadItem(waitingTrack)
         }
     }
     

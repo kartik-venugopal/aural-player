@@ -337,12 +337,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return (0, 0, 0)
     }
     
-    var playingTrack: Track? {
-        return state == .waiting ? nil : sequencer.playingTrack
+    var currentTrack: Track? {
+        return sequencer.currentTrack
     }
-    // TODO: Can these 2 be merged into one ???
+    
+    var playingTrack: Track? {
+        return state.isPlayingOrPaused ? sequencer.currentTrack : nil
+    }
+    
     var waitingTrack: Track? {
-        return state == .waiting ? sequencer.playingTrack : nil
+        return state == .waiting ? sequencer.currentTrack : nil
+    }
+    
+    var transcodingTrack: Track? {
+        return state == .transcoding ? sequencer.currentTrack : nil
     }
     
     var playingTrackStartTime: TimeInterval? {

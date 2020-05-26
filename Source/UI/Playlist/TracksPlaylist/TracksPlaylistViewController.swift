@@ -655,13 +655,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrack = self.playbackInfo.playingTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
+        if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
             
             playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
-            
-        } else if let waitingTrack = playbackInfo.waitingTrack, let waitingTrackIndex = playlist.indexOfTrack(waitingTrack)?.index {
-            
-            playlistView.reloadData(forRowIndexes: IndexSet([waitingTrackIndex]), columnIndexes: IndexSet([0]))
         }
     }
     

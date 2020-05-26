@@ -182,14 +182,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     private func saveSoundProfile() {
         
-        if let plTrack = player.playingTrack {
+        if let plTrack = player.currentTrack {
             soundProfiles.add(plTrack)
         }
     }
     
     private func deleteSoundProfile() {
         
-        if let plTrack = player.playingTrack {
+        if let plTrack = player.currentTrack {
             soundProfiles.remove(plTrack)
         }
     }
@@ -230,7 +230,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     private func onExit() -> AppExitResponse {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if preferences.rememberEffectsSettings, let plTrack = player.playingTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
+        if preferences.rememberEffectsSettings, let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting

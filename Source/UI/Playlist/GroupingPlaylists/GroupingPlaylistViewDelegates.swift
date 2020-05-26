@@ -94,17 +94,15 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 var image: NSImage?
                 
-                let isPlayingTrack: Bool = track == playbackInfo.playingTrack
-                
                 switch playbackInfo.state {
                     
                 case .playing, .paused:
                     
-                    image = isPlayingTrack ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
+                    image = track == playbackInfo.playingTrack ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .transcoding:
                     
-                    image = isPlayingTrack ? Images.imgTranscodingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
+                    image = track == playbackInfo.transcodingTrack ? Images.imgTranscodingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
                     
                 case .waiting:
                     
@@ -115,7 +113,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                     image = nil
                 }
                 
-                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
+                let cell = createImageAndTextCell_gaps(outlineView, tableColumn!.identifier.rawValue, playlist.displayNameForTrack(playlistType, track), image, gapB, gapA)
                 
                 cell?.item = track
                 cell?.playlistType = self.playlistType
@@ -152,7 +150,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
     }
     
-    private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {
+    private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
@@ -368,7 +366,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     }
     
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
-    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackNameCellView? {
+    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage?) -> GroupedTrackNameCellView? {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             

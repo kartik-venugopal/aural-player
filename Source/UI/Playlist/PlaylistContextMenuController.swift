@@ -107,7 +107,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let _clickedTrack = clickedTrack
             
             transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
-            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.state == .transcoding && playbackInfo.playingTrack == _clickedTrack)})
+            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)})
             
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
             
@@ -116,10 +116,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             
-            var isPlayingTrack: Bool = false
-            if let playingTrack = playbackInfo.playingTrack, playingTrack == _clickedTrack {
-                isPlayingTrack = true
-            }
+            let isPlayingTrack: Bool = playbackInfo.playingTrack == _clickedTrack
             viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
             
         case .group:
@@ -277,7 +274,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
@@ -290,7 +287,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
@@ -303,7 +300,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToTop, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item down one row in the playlist
@@ -316,7 +313,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
@@ -329,7 +326,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {

@@ -76,6 +76,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 let indexText: String = String(describing: row + 1)
                 
+                // TODO: switch is not required, just do an if-else-if
                 switch playbackInfo.state {
                     
                     case .playing, .paused:
@@ -88,8 +89,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     
                     case .transcoding:
                     
-                        if let playingTrack = self.playbackInfo.playingTrack,
-                            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == row {
+                        if let transcodingTrack = self.playbackInfo.transcodingTrack,
+                            let transcodingTrackIndex = self.playlist.indexOfTrack(transcodingTrack)?.index, transcodingTrackIndex == row {
                             
                             return createTranscodingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }

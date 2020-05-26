@@ -48,8 +48,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated() {
-        
-        // TODO: Do a switch here ... on state
         infoView.update()
     }
     

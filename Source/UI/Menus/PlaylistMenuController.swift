@@ -104,7 +104,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
         
-        if numSelectedRows == 1 && !onlyGroupsSelected && playbackInfo.state == .transcoding && (selectedTrack == playbackInfo.playingTrack) {
+        if numSelectedRows == 1 && !onlyGroupsSelected && selectedTrack == playbackInfo.transcodingTrack {
             playSelectedItemMenuItem.disable()
             playSelectedItemDelayedMenuItem.disable()
         }
@@ -196,7 +196,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
@@ -226,7 +226,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
@@ -239,7 +239,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToTop, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves any selected playlist items down one row in the playlist
@@ -252,7 +252,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
@@ -265,7 +265,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     @IBAction func insertGapsAction(_ sender: NSMenuItem) {
@@ -388,7 +388,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.cropSelection, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
@@ -435,7 +435,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
     private func sequenceChanged() {
         
-        if (playbackInfo.playingTrack != nil) {
+        if playbackInfo.currentTrack != nil {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
     }
