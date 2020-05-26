@@ -20,7 +20,7 @@ class SequencerTrackSelectionTests: SequencerTests {
                 XCTAssertNotNil(track)
                 
                 // Check that the returned track matches the sequencer's playingTrack property
-                XCTAssertEqual(sequencer.playingTrack, track)
+                XCTAssertEqual(sequencer.currentTrack, track)
                 XCTAssertEqual(playlist.tracks[index], track)
                 
                 let sequence = sequencer.sequenceInfo
@@ -50,7 +50,7 @@ class SequencerTrackSelectionTests: SequencerTests {
             XCTAssertNotNil(track)
             
             // Check that the returned track matches the sequencer's playingTrack property
-            XCTAssertEqual(sequencer.playingTrack, track)
+            XCTAssertEqual(sequencer.currentTrack, track)
             XCTAssertEqual(selTrack, track)
             
             let sequence = sequencer.sequenceInfo
@@ -114,7 +114,7 @@ class SequencerTrackSelectionTests: SequencerTests {
             XCTAssertNotNil(playingTrack)
             
             // Check that the returned track matches the sequencer's playingTrack property
-            XCTAssertEqual(sequencer.playingTrack, playingTrack)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack)
             XCTAssertEqual(track, playingTrack)
             
             let sequence = sequencer.sequenceInfo
@@ -228,7 +228,7 @@ class SequencerTrackSelectionTests: SequencerTests {
             XCTAssertNotNil(playingTrack)
             
             // Check that the returned track matches the sequencer's playingTrack property
-            XCTAssertEqual(sequencer.playingTrack, playingTrack)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack)
             
             if shuffleMode == .off {
                 

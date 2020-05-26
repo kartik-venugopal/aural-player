@@ -11,8 +11,8 @@ class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
         self.sequencer = sequencer
     }
     
-    var playingTrack: Track? {
-        return sequencer.playingTrack
+    var currentTrack: Track? {
+        return sequencer.currentTrack
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {

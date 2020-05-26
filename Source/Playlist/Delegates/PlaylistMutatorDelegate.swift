@@ -326,7 +326,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // TODO: Do the remove on a background thread (maybe if lots are being removed)
         
-        let playingTrack: Track? = playbackSequencer.playingTrack
+        let playingTrack: Track? = playbackSequencer.currentTrack
         let indexOfPlayingTrack: Int? = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!)
         
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
@@ -349,7 +349,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // TODO: Do the remove on a background thread
         
-        let playingTrack: Track? = playbackSequencer.playingTrack
+        let playingTrack: Track? = playbackSequencer.currentTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
         var playingTrackRemoved: Bool = false

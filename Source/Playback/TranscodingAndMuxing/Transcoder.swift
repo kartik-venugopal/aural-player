@@ -190,7 +190,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         // Use a Set to avoid duplicates
         var tracksToTranscode: Set<Track> = Set<Track>()
         
-        let playingTrack = sequencer.playingTrack
+        let playingTrack = sequencer.currentTrack
         
         if let next = sequencer.peekNext() {tracksToTranscode.insert(next)}
         if let prev = sequencer.peekPrevious() {tracksToTranscode.insert(prev)}

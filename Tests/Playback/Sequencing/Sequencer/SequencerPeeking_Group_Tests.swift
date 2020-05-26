@@ -111,7 +111,7 @@ class SequencerPeeking_Group_Tests: SequencerTests {
             for size in testPlaylistSizes {
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
                 _ = createNTracks(size)
@@ -406,7 +406,7 @@ class SequencerPeeking_Group_Tests: SequencerTests {
             for size in testPlaylistSizes {
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
                 _ = createNTracks(size)
@@ -703,7 +703,7 @@ class SequencerPeeking_Group_Tests: SequencerTests {
             for size in testPlaylistSizes {
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
                 _ = createNTracks(size)
@@ -806,7 +806,7 @@ class SequencerPeeking_Group_Tests: SequencerTests {
             for size in testPlaylistSizes {
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
                 _ = createNTracks(size)
@@ -835,7 +835,7 @@ class SequencerPeeking_Group_Tests: SequencerTests {
                     var expectedIndices = expectedTracksAndIndices.expectedIndices
                     
                     // The last track in the sequence (i.e. now the current track) should match the first expectation.
-                    XCTAssertEqual(sequencer.playingTrack, expectedTracks[0])
+                    XCTAssertEqual(sequencer.currentTrack, expectedTracks[0])
                     XCTAssertEqual(sequencer.sequenceInfo.trackIndex, expectedIndices[0])
 
                     // The first track in the sequence has already been tested. Remove it from the expectations so that it is not tested again in the loop below.
