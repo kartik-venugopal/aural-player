@@ -7,7 +7,7 @@ import Foundation
 protocol PlaybackSequencerInfoDelegateProtocol {
     
     // Returns the currently playing track, with its index
-    var playingTrack: Track? {get}
+    var currentTrack: Track? {get}
     
     /*
         Returns summary information about the current playback sequence

@@ -207,7 +207,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
 //        XCTAssertEqual(playlist.size, sizeBeforeAdd + numTracks)
 //        sequencer.tracksAdded(tracks)
 //
-//        if sequencer.playingTrack != nil {
+//        if sequencer.currentTrack != nil {
 //            XCTAssertEqual(sequencer.sequence.size, playlist.size)
 //        }
 //    }

@@ -19,7 +19,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     private let playlist: PlaylistAccessorProtocol
     
     // Stores the currently playing track, if there is one
-    private(set) var playingTrack: Track?
+    private(set) var currentTrack: Track?
     
     init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
@@ -54,7 +54,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         
         // Reset the sequence cursor (to indicate that no track is playing)
         sequence.end()
-        playingTrack = nil
+        currentTrack = nil
         
         // Reset the scope and the scope type depending on which playlist view is currently selected
         scope.group = nil
@@ -79,7 +79,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         
         if let track = getTrackForSequenceIndex(trackIndex) {
             
-            playingTrack = track
+            currentTrack = track
             return track
         }
         
@@ -126,7 +126,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     func subsequent() -> Track? {
         
         let subsequent = getTrackForSequenceIndex(sequence.subsequent())
-        playingTrack = subsequent
+        currentTrack = subsequent
         return subsequent
     }
     
@@ -135,7 +135,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing
         if let next = getTrackForSequenceIndex(sequence.next()) {
             
-            playingTrack = next
+            currentTrack = next
             return next
         }
         
@@ -147,7 +147,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         // If there is no previous track, don't change the playingTrack variable, because the playing track will continue playing
         if let previous = getTrackForSequenceIndex(sequence.previous()) {
             
-            playingTrack = previous
+            currentTrack = previous
             return previous
         }
         
@@ -412,7 +412,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     private func calculatePlayingTrackIndex() -> Int? {
         
         // We only need to do this if there is a track currently playing
-        if let playingTrack = playingTrack {
+        if let playingTrack = currentTrack {
             
             switch scope.type {
                 

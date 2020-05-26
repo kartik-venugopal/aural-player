@@ -7,7 +7,7 @@ class MockSequencer: SequencerProtocol {
     var previousTrack: Track?
     var nextTrack: Track?
     
-    var playingTrack: Track? = nil
+    var currentTrack: Track? = nil
     
     var selectionTracksByIndex: [Int: Track] = [:]
     var selectionTracksByGroup: [Group: Track] = [:]
@@ -43,23 +43,23 @@ class MockSequencer: SequencerProtocol {
         
         beginCallCount.increment()
         
-        playingTrack = beginTrack
-        return playingTrack
+        currentTrack = beginTrack
+        return currentTrack
     }
     
     func end() {
         
         endCallCount.increment()
         
-        playingTrack = nil
+        currentTrack = nil
     }
     
     func subsequent() -> Track? {
         
         subsequentCallCount.increment()
         
-        playingTrack = subsequentTrack
-        return playingTrack
+        currentTrack = subsequentTrack
+        return currentTrack
     }
     
     func previous() -> Track? {
@@ -67,7 +67,7 @@ class MockSequencer: SequencerProtocol {
         previousCallCount.increment()
         
         if previousTrack != nil {
-            playingTrack = previousTrack
+            currentTrack = previousTrack
             return previousTrack
         }
         
@@ -79,7 +79,7 @@ class MockSequencer: SequencerProtocol {
         nextCallCount.increment()
         
         if nextTrack != nil {
-            playingTrack = nextTrack
+            currentTrack = nextTrack
             return nextTrack
         }
         
@@ -108,24 +108,24 @@ class MockSequencer: SequencerProtocol {
         
         selectIndexCallCount.increment()
         
-        playingTrack = selectionTracksByIndex[index]
-        return playingTrack
+        currentTrack = selectionTracksByIndex[index]
+        return currentTrack
     }
     
     func select(_ track: Track) -> Track? {
         
         selectTrackCallCount.increment()
         
-        playingTrack = track
-        return playingTrack
+        currentTrack = track
+        return currentTrack
     }
     
     func select(_ group: Group) -> Track? {
         
         selectGroupCallCount.increment()
         
-        playingTrack = selectionTracksByGroup[group]
-        return playingTrack
+        currentTrack = selectionTracksByGroup[group]
+        return currentTrack
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {

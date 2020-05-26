@@ -32,7 +32,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let playingTrackIndexBeforeMove: Int = 67
             let playingTrack = sequencer.select(playingTrackIndexBeforeMove)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playlist.size)
             XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -47,7 +47,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.tracksReordered(moveResults)
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
                 XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -88,7 +88,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             let playingTrackIndexBeforeMove: Int = playingGroup.indexOfTrack(playingTrack!)!
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
             XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -105,7 +105,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.tracksReordered(moveResults)
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
                 XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
                 XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -119,7 +119,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             sequencer.tracksReordered(moveResults)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
             XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -139,7 +139,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             _ = createNTracks(25)
             
-            XCTAssertNil(sequencer.playingTrack)
+            XCTAssertNil(sequencer.currentTrack)
             XCTAssertNil(sequencer.sequence.curTrackIndex)
             XCTAssertNil(sequencer.scope.group)
             
@@ -152,7 +152,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             sequencer.tracksReordered(moveResults)
             
-            XCTAssertNil(sequencer.playingTrack)
+            XCTAssertNil(sequencer.currentTrack)
             XCTAssertNil(sequencer.sequence.curTrackIndex)
             XCTAssertNil(sequencer.scope.group)
         }
@@ -171,7 +171,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 _ = createNTracks(25)
                 
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.scope.group)
                 
@@ -182,7 +182,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.tracksReordered(moveResults)
                 
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.scope.group)
             }
@@ -202,7 +202,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let playingTrackIndexBeforeMove: Int = 23
             let playingTrack = sequencer.select(playingTrackIndexBeforeMove)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playlist.size)
             XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -218,7 +218,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             sequencer.tracksReordered(moveResults)
             XCTAssertEqual(playlist.indexOfTrack(playingTrack!), playingTrackIndexBeforeMove - 1)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove - 1)
             XCTAssertEqual(sequencer.sequence.size, playlist.size)
             XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -449,7 +449,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         
         let playingTrack = sequencer.select(playingGroup)
         
-        XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+        XCTAssertEqual(sequencer.currentTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingGroup.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
         XCTAssertEqual(sequencer.scope.type, playingGroup.type.toScopeType())
@@ -462,7 +462,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         
         sequencer.tracksReordered(moveResults)
         
-        XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+        XCTAssertEqual(sequencer.currentTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingGroup.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, groupSizeBeforeMove)
         XCTAssertEqual(sequencer.scope.type, playingGroup.type.toScopeType())
@@ -485,7 +485,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let playingTrackIndexBeforeMove: Int = 67
             let playingTrack = sequencer.select(playingTrackIndexBeforeMove)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playlist.size)
             XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -499,7 +499,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.playlistSorted(sortResults)
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
                 XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
@@ -540,7 +540,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             let playingTrackIndexBeforeMove: Int = sequencer.sequence.curTrackIndex!
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
             XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -556,7 +556,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.playlistSorted(sortResults)
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
                 XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
                 XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -571,7 +571,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             sequencer.playlistSorted(sortResults)
             
-            XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+            XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingTrackIndexBeforeMove)
             XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
             XCTAssertEqual(sequencer.scope.type, playingGroupType.toScopeType())
@@ -590,7 +590,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             _ = createNTracks(25)
             
-            XCTAssertNil(sequencer.playingTrack)
+            XCTAssertNil(sequencer.currentTrack)
             XCTAssertNil(sequencer.sequence.curTrackIndex)
             XCTAssertNil(sequencer.scope.group)
             
@@ -600,7 +600,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             
             sequencer.playlistSorted(sortResults)
             
-            XCTAssertNil(sequencer.playingTrack)
+            XCTAssertNil(sequencer.currentTrack)
             XCTAssertNil(sequencer.sequence.curTrackIndex)
             XCTAssertNil(sequencer.scope.group)
         }
@@ -619,7 +619,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 _ = createNTracks(25)
                 
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.scope.group)
                 
@@ -629,7 +629,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.playlistSorted(sortResults)
                 
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.scope.group)
             }
@@ -650,7 +650,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 _ = createNTracks(25)
                 let playingTrack = sequencer.begin()
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playlistIndexOfTrack(playlistType, playingTrack!))
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
                 XCTAssertEqual(sequencer.scope.type, playlistType.toPlaylistScopeType())
@@ -667,7 +667,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
                 
                 sequencer.playlistSorted(sortResults)
                 
-                XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+                XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, playlistIndexOfTrack(playlistType, playingTrack!))
                 
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
@@ -975,7 +975,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         
         let playingTrack = sequencer.select(playingGroup)
         
-        XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+        XCTAssertEqual(sequencer.currentTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingGroup.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, playingGroup.size)
         XCTAssertEqual(sequencer.scope.type, playingGroup.type.toScopeType())
@@ -988,7 +988,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
         
         sequencer.playlistSorted(sortResults)
         
-        XCTAssertEqual(sequencer.playingTrack, playingTrack!)
+        XCTAssertEqual(sequencer.currentTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, playingGroup.indexOfTrack(playingTrack!))
         XCTAssertEqual(sequencer.sequence.size, groupSizeBeforeSort)
         XCTAssertEqual(sequencer.scope.type, playingGroup.type.toScopeType())

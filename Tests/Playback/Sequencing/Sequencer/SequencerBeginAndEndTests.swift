@@ -64,14 +64,14 @@ class SequencerBeginAndEndTests: SequencerTests {
     private func doTestBegin_noShuffle(_ playlistType: PlaylistType, _ repeatMode: RepeatMode, _ expectedPlayingTrack: Track? = nil, _ expectedTrackIndex: Int? = nil, _ expectedTotalTracks: Int? = nil) {
         
         sequencer.end()
-        XCTAssertNil(sequencer.playingTrack)
+        XCTAssertNil(sequencer.currentTrack)
         
         preTest(playlistType, repeatMode, .off)
         
         let track = sequencer.begin()
 
         // Check that the returned track matches the sequencer's playingTrack property
-        XCTAssertEqual(sequencer.playingTrack, track)
+        XCTAssertEqual(sequencer.currentTrack, track)
 
         if let theExpectedTrack = expectedPlayingTrack {
             
@@ -102,14 +102,14 @@ class SequencerBeginAndEndTests: SequencerTests {
     private func doTestBegin_withShuffle(_ playlistType: PlaylistType, _ repeatMode: RepeatMode) {
         
         sequencer.end()
-        XCTAssertNil(sequencer.playingTrack)
+        XCTAssertNil(sequencer.currentTrack)
         
         preTest(playlistType, repeatMode, .on)
         
         let track = sequencer.begin()
 
         // Check that the returned track matches the sequencer's playingTrack property
-        XCTAssertEqual(sequencer.playingTrack, track)
+        XCTAssertEqual(sequencer.currentTrack, track)
         
         if playlist.size == 0 {
             
@@ -166,7 +166,7 @@ class SequencerBeginAndEndTests: SequencerTests {
                 doTestBegin_noShuffle(playlistType, repeatMode, expectedTrack, 1, playlist.size)
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
             }
         }
     }
@@ -182,7 +182,7 @@ class SequencerBeginAndEndTests: SequencerTests {
                 doTestBegin_withShuffle(playlistType, repeatMode)
                 
                 sequencer.end()
-                XCTAssertNil(sequencer.playingTrack)
+                XCTAssertNil(sequencer.currentTrack)
             }
         }
     }
