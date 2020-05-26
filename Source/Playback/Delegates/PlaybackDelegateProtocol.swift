@@ -16,18 +16,14 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     func togglePlayPause()
     
     /* 
-        Plays the track at a given index in the player playlist. Returns complete track information for the track.
- 
-        Throws an error if the selected track cannot be played back.
+        Plays the track at a given index in the player playlist.
  
         NOTE - When a single index is specified, it is implied that the playlist from which this request originated was the flat "Tracks" playlist, because this playlist locates tracks by a single absolute index. Hence, this function is intended to be called only when playback originates from the "Tracks" playlist.
      */
     func play(_ index: Int, _ params: PlaybackParams)
     
     /*
-        Plays the given track. Returns complete track information for the track.
-        
-        Throws an error if the selected track cannot be played back.
+        Plays the given track.
         
         NOTE - When a track is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */

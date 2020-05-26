@@ -25,9 +25,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var profiles: PlaybackProfiles
     
-    private var startPlaybackChain: PlaybackChain = PlaybackChain()
-    private var stopPlaybackChain: PlaybackChain = PlaybackChain()
-    private var trackPlaybackCompletedChain: PlaybackChain = PlaybackChain()
+    var startPlaybackChain: PlaybackChain
+    var stopPlaybackChain: PlaybackChain
+    var trackPlaybackCompletedChain: PlaybackChain
     
     let chapterPlaybackStartTimeMargin: Double = 0.025
     
@@ -40,16 +40,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.preferences = preferences
         
         self.profiles = PlaybackProfiles()
-        appState.forEach({profiles.add($0.file, $0)})
+        
+        for profile in appState {
+            profiles.add(profile.file, profile)
+        }
+        
+        startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
+        stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
+        trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain as! StartPlaybackChain, stopPlaybackChain as! StopPlaybackChain, sequencer, playlist, profiles, preferences)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
         AsyncMessenger.subscribe([.playbackCompleted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
-        startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
-        stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-        trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain as! StartPlaybackChain, stopPlaybackChain as! StopPlaybackChain, sequencer, playlist, profiles, preferences)
     }
     
     let subscriberId: String = "PlaybackDelegate"

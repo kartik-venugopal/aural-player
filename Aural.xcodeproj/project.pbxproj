@@ -396,8 +396,10 @@
 		3E4B546A247BF5A7009CE7EA /* Sequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5468247BF541009CE7EA /* Sequencer.swift */; };
 		3E4B546C247BF64B009CE7EA /* PlaybackDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B546B247BF64B009CE7EA /* PlaybackDelegateTests.swift */; };
 		3E4B546E247BF716009CE7EA /* MockTranscoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B546D247BF716009CE7EA /* MockTranscoder.swift */; };
-		3E4B5472247BF84D009CE7EA /* PlaybackDelegateTogglePlayPauseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5471247BF84D009CE7EA /* PlaybackDelegateTogglePlayPauseTests.swift */; };
+		3E4B5472247BF84D009CE7EA /* PlaybackDelegate_TogglePlayPauseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5471247BF84D009CE7EA /* PlaybackDelegate_TogglePlayPauseTests.swift */; };
 		3E4B5474247C0591009CE7EA /* MockTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5473247C0591009CE7EA /* MockTrack.swift */; };
+		3E4B5476247C0C7A009CE7EA /* MockSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5475247C0C7A009CE7EA /* MockSequencer.swift */; };
+		3E4B5478247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4B5477247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift */; };
 		3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */; };
 		3E4E599B1F74E78800C18182 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E599A1F74E78800C18182 /* Main.swift */; };
 		3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E599C1F74ED8400C18182 /* AudioIO.swift */; };
@@ -567,6 +569,8 @@
 		3E98478D1F5D0419001A2D28 /* EffectsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */; };
 		3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */; };
 		3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */; };
+		3E986942247CF1C300EC9EB7 /* TestablePlaybackChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E986941247CF1C300EC9EB7 /* TestablePlaybackChains.swift */; };
+		3E986944247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E986943247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift */; };
 		3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9871A11F418CB1009AE9E6 /* UIUtils.swift */; };
 		3E98CBC3216B0AC60025A77E /* MasterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98CBC2216B0AC60025A77E /* MasterPresetsEditorViewController.swift */; };
 		3E98CBC5216B0D990025A77E /* MasterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98CBC4216B0D990025A77E /* MasterPresetsEditor.xib */; };
@@ -1007,8 +1011,10 @@
 		3E4B5468247BF541009CE7EA /* Sequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sequencer.swift; sourceTree = "<group>"; };
 		3E4B546B247BF64B009CE7EA /* PlaybackDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegateTests.swift; sourceTree = "<group>"; };
 		3E4B546D247BF716009CE7EA /* MockTranscoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTranscoder.swift; sourceTree = "<group>"; };
-		3E4B5471247BF84D009CE7EA /* PlaybackDelegateTogglePlayPauseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegateTogglePlayPauseTests.swift; sourceTree = "<group>"; };
+		3E4B5471247BF84D009CE7EA /* PlaybackDelegate_TogglePlayPauseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_TogglePlayPauseTests.swift; sourceTree = "<group>"; };
 		3E4B5473247C0591009CE7EA /* MockTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTrack.swift; sourceTree = "<group>"; };
+		3E4B5475247C0C7A009CE7EA /* MockSequencer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSequencer.swift; sourceTree = "<group>"; };
+		3E4B5477247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_IterationTests.swift; sourceTree = "<group>"; };
 		3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		3E4E599A1F74E78800C18182 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		3E4E599C1F74ED8400C18182 /* AudioIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioIO.swift; sourceTree = "<group>"; };
@@ -1163,6 +1169,8 @@
 		3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsWindowController.swift; sourceTree = "<group>"; };
 		3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegate.swift; sourceTree = "<group>"; };
+		3E986941247CF1C300EC9EB7 /* TestablePlaybackChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestablePlaybackChains.swift; sourceTree = "<group>"; };
+		3E986943247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_SpecificTrackPlaybackTests.swift; sourceTree = "<group>"; };
 		3E9871A11F418CB1009AE9E6 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		3E98CBC2216B0AC60025A77E /* MasterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E98CBC4216B0D990025A77E /* MasterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterPresetsEditor.xib; sourceTree = "<group>"; };
@@ -1386,6 +1394,7 @@
 				3E626A21246C5391002FAC63 /* MockAVAudioFile.swift */,
 				3E4B546D247BF716009CE7EA /* MockTranscoder.swift */,
 				3E4B5473247C0591009CE7EA /* MockTrack.swift */,
+				3E4B5475247C0C7A009CE7EA /* MockSequencer.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1410,7 +1419,10 @@
 			isa = PBXGroup;
 			children = (
 				3E4B546B247BF64B009CE7EA /* PlaybackDelegateTests.swift */,
-				3E4B5471247BF84D009CE7EA /* PlaybackDelegateTogglePlayPauseTests.swift */,
+				3E986941247CF1C300EC9EB7 /* TestablePlaybackChains.swift */,
+				3E4B5471247BF84D009CE7EA /* PlaybackDelegate_TogglePlayPauseTests.swift */,
+				3E4B5477247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift */,
+				3E986943247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3493,6 +3505,7 @@
 				3E12AD452469CC5100A07611 /* JSONWriter.swift in Sources */,
 				3E12ACA62469CBA100A07611 /* Track.swift in Sources */,
 				3E12ACA52469CBA100A07611 /* ChangeListenerProtocols.swift in Sources */,
+				3E986944247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift in Sources */,
 				3E12ADDC2469CF5300A07611 /* LanguageMap.swift in Sources */,
 				3E12ACD62469CC0C00A07611 /* FilterUnitDelegate.swift in Sources */,
 				3E12AD132469CC3700A07611 /* UIState.swift in Sources */,
@@ -3537,6 +3550,7 @@
 				3E12AD0D2469CC2F00A07611 /* AsyncMessenger.swift in Sources */,
 				3E12ACD12469CC0C00A07611 /* EQUnitDelegate.swift in Sources */,
 				3E626918246BF0E1002FAC63 /* KeyCodeConstants.swift in Sources */,
+				3E4B5478247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift in Sources */,
 				3E12ACDC2469CC1000A07611 /* TimeUnit.swift in Sources */,
 				3E12AD212469CC3B00A07611 /* ControlsPreferences.swift in Sources */,
 				3E12ACBF2469CBFD00A07611 /* GaplessScheduler-Concept.swift in Sources */,
@@ -3608,7 +3622,7 @@
 				3E12ACB22469CBF400A07611 /* PlaybackDelegate.swift in Sources */,
 				3E12AD192469CC3B00A07611 /* PreferencesDelegateProtocol.swift in Sources */,
 				3EF13D0E2472DC0D008CA5C0 /* ApplyPlaybackProfileAction.swift in Sources */,
-				3E4B5472247BF84D009CE7EA /* PlaybackDelegateTogglePlayPauseTests.swift in Sources */,
+				3E4B5472247BF84D009CE7EA /* PlaybackDelegate_TogglePlayPauseTests.swift in Sources */,
 				3E12ACAD2469CBA100A07611 /* Sort.swift in Sources */,
 				3E12ACD02469CC0C00A07611 /* MasterUnitDelegate.swift in Sources */,
 				3E12ACEE2469CC1700A07611 /* SoundProfile.swift in Sources */,
@@ -3704,6 +3718,7 @@
 				3E6268CB246BED48002FAC63 /* IndexSetExtensions.swift in Sources */,
 				3E12ACBC2469CBFD00A07611 /* LegacyPlaybackScheduler.swift in Sources */,
 				3E6268D6246BEF2E002FAC63 /* EffectsViewState.swift in Sources */,
+				3E4B5476247C0C7A009CE7EA /* MockSequencer.swift in Sources */,
 				3E626926246BF367002FAC63 /* FFMpegReader.swift in Sources */,
 				3E12ADE12469CF5300A07611 /* ID3Parser.swift in Sources */,
 				3E12ACC32469CC0000A07611 /* PlaybackProfiles.swift in Sources */,
@@ -3721,6 +3736,7 @@
 				3E12ADDF2469CF5300A07611 /* AudioToolboxParser.swift in Sources */,
 				3E12AC9E2469CBA100A07611 /* PlaylistAccessorDelegate.swift in Sources */,
 				3E12ACF52469CC1F00A07611 /* RecorderProtocol.swift in Sources */,
+				3E986942247CF1C300EC9EB7 /* TestablePlaybackChains.swift in Sources */,
 				3EF13D072472DC03008CA5C0 /* SavePlaybackProfileAction.swift in Sources */,
 				3E12ACD52469CC0C00A07611 /* DelayUnitDelegate.swift in Sources */,
 				3E12ACCA2469CC0400A07611 /* FormatMapper.swift in Sources */,
