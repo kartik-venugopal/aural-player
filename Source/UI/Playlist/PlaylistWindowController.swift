@@ -163,13 +163,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         updatePlaylistSummary()
         
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // When the playback sequence has changed, the UI needs to show the updated info
     private func sequenceChanged() {
         
-        if playbackInfo.playingTrack != nil {
+        if playbackInfo.currentTrack != nil {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
     }
@@ -200,12 +200,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            if let playingTrack = self.playbackInfo.playingTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
+            if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
-                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-                
-            } else if let waitingTrack = self.playbackInfo.waitingTrack, let waitingTrackIndex = self.playlist.indexOfTrack(waitingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, waitingTrackIndex == updatedTrackIndex {
-                
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
@@ -219,7 +215,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             self.updatePlaylistSummary()
             
             // If this is the playing track, tell other views that info has been updated
-            if let playingTrack = self.playbackInfo.playingTrack,
+            if let playingTrack = self.playbackInfo.currentTrack,
                 let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == message.index {
                 
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
@@ -240,7 +236,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         playlist.removeTracks([indexedTrack!.index])
         
-        sequenceChanged()
+//        sequenceChanged()
         updatePlaylistSummary()
     }
     
@@ -282,7 +278,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
         
-        sequenceChanged()
+//        sequenceChanged()
         updatePlaylistSummary()
     }
     
@@ -334,7 +330,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Moves any selected playlist items down one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
@@ -347,7 +343,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
-        sequenceChanged()
+//        sequenceChanged()
     }
     
     // Shows the currently playing track, within the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
