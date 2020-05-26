@@ -5,12 +5,10 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
     // MARK: previousTrack() tests ------------------------------------------------------------------------------------------
 
     // When no track is playing, previous() does nothing.
-    func testPrevious_noTrackPlaying() {
+    func testPreviousTrack_noTrackPlaying() {
 
         delegate.previousTrack()
-        
-        XCTAssertNil(delegate.playingTrack)
-        XCTAssertEqual(delegate.state, PlaybackState.noTrack)
+        assertNoTrack()
         
         XCTAssertEqual(startPlaybackChain.executionCount, 0)
         XCTAssertEqual(sequencer.previousCallCount, 0)
@@ -20,36 +18,27 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testPrevious_trackPlaying_noPreviousTrack() {
+    func testPreviousTrack_trackPlaying_noPreviousTrack() {
         
-        sequencer.beginTrack = createTrack("FirstTrack", 300)
+        let someTrack = createTrack("FirstTrack", 300)
+        sequencer.beginTrack = someTrack
     
         // Begin playback
         delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(sequencer.beginCallCount, 1)
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
         sequencer.previousTrack = nil
-        
         delegate.previousTrack()
         
         // Track should not have changed, because previous() returned nil.
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.previousCallCount, 1)
@@ -59,42 +48,30 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testPrevious_trackPaused_noPreviousTrack() {
+    func testPreviousTrack_trackPaused_noPreviousTrack() {
         
-        sequencer.beginTrack = createTrack("FirstTrack", 300)
+        let someTrack = createTrack("FirstTrack", 300)
+        sequencer.beginTrack = someTrack
     
         // Begin playback
         delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.beginCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
         // Pause playback
-        delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
+        doPausePlayback(someTrack)
         
         sequencer.previousTrack = nil
-        
         delegate.previousTrack()
         
         // Track and playback state should not have changed, because previous() returned nil.
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPausedTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.previousCallCount, 1)
@@ -104,128 +81,86 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testPrevious_trackPlaying_trackChanges() {
+    func testPreviousTrack_trackPlaying_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
-        sequencer.previousTrack = createTrack("PreviousTrack", 400)
-        
+        let previousTrack = createTrack("PreviousTrack", 400)
+        sequencer.previousTrack = previousTrack
         delegate.previousTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.previousTrack!)
+        assertPlayingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 2)
-            
-            let trackChangeMsg = self.trackChangeMessages[1]
-            XCTAssertEqual(trackChangeMsg.oldTrack, self.sequencer.selectedTrack!)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.playing)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(someTrack, .playing, previousTrack, 2)
         }
     }
     
-    func testPrevious_trackPaused_trackChanges() {
+    func testPreviousTrack_trackPaused_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.selectedTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack, 1)
         }
         
         // Pause playback
-        delegate.togglePlayPause()
+        doPausePlayback(someTrack)
         
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
-        
-        sequencer.previousTrack = createTrack("PreviousTrack", 400)
-        
+        let previousTrack = createTrack("PreviousTrack", 400)
+        sequencer.previousTrack = previousTrack
         delegate.previousTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.previousTrack)
+        assertPlayingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 2)
-            
-            let trackChangeMsg = self.trackChangeMessages[1]
-            XCTAssertEqual(trackChangeMsg.oldTrack, someTrack)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.paused)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(someTrack, .paused, previousTrack, 2)
         }
     }
     
-    func testPrevious_trackWaiting_noPreviousTrack() {
+    func testPreviousTrack_trackWaiting_noPreviousTrack() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback with a delay
         delegate.play(someTrack, PlaybackParams.defaultParams().withDelay(5))
-        
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack, sequencer.selectedTrack!)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let gapStartedMsg = self.gapStartedMessages.first!
-            XCTAssertEqual(gapStartedMsg.lastPlayedTrack, nil)
-            XCTAssertEqual(gapStartedMsg.nextTrack, self.delegate.waitingTrack!)
-            XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+            self.assertGapStarted(nil, someTrack)
         }
         
         // Play the previous track
@@ -233,85 +168,64 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         delegate.previousTrack()
         
         // Track and playback state should not have changed
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack!, someTrack)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
             XCTAssertEqual(self.gapStartedMessages.count, 1)
         }
     }
     
-    func testPrevious_trackWaiting_trackChanges() {
+    func testPreviousTrack_trackWaiting_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback with a delay
         delegate.play(someTrack, PlaybackParams.defaultParams().withDelay(5))
-        
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack, sequencer.selectedTrack!)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let gapStartedMsg = self.gapStartedMessages.first!
-            XCTAssertEqual(gapStartedMsg.lastPlayedTrack, nil)
-            XCTAssertEqual(gapStartedMsg.nextTrack, self.delegate.waitingTrack!)
-            XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+            self.assertGapStarted(nil, someTrack)
         }
         
         // Play the previous track
-        sequencer.previousTrack = createTrack("PreviousTrack", 400)
+        let previousTrack = createTrack("PreviousTrack", 400)
+        sequencer.previousTrack = previousTrack
         delegate.previousTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.previousTrack!)
+        assertPlayingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            self.assertTrackChange(someTrack, .waiting, previousTrack)
             XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, someTrack)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.waiting)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
         }
     }
     
-    func testPrevious_trackTranscoding_trackChanges() {
+    func testPreviousTrack_trackTranscoding_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", "ape", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.transcoding)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
-        XCTAssertNil(delegate.waitingTrack)
+        assertTranscodingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, delegate.playingTrack!)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, someTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
@@ -319,50 +233,35 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
         
         // Play the previous track
-        sequencer.previousTrack = createTrack("PreviousTrack", 400)
+        let previousTrack = createTrack("PreviousTrack", 400)
+        sequencer.previousTrack = previousTrack
         delegate.previousTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.previousTrack!)
+        assertPlayingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, someTrack)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.waiting)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(someTrack, .transcoding, previousTrack)
         }
     }
     
-    func testPrevious_gapBeforePreviousTrack() {
+    func testPreviousTrack_gapBeforePreviousTrack() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
         let previousTrack: Track = createTrack("PreviousTrack", 400)
@@ -375,61 +274,45 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         delegate.previousTrack()
         
         // Track should have changed (and should be in waiting state)
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack, sequencer.previousTrack!)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 1)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let gapStartedMsg = self.gapStartedMessages.first!
-            XCTAssertEqual(gapStartedMsg.lastPlayedTrack, someTrack)
-            XCTAssertEqual(gapStartedMsg.nextTrack, self.delegate.waitingTrack!)
-            XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+            self.assertGapStarted(someTrack, previousTrack)
         }
     }
     
-    func testPrevious_previousTrackNeedsTranscoding() {
+    func testPreviousTrack_previousTrackNeedsTranscoding() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
-        sequencer.previousTrack = createTrack("PreviousTrack", "wma", 400)
+        let previousTrack = createTrack("PreviousTrack", "wma", 400)
+        sequencer.previousTrack = previousTrack
         
         delegate.previousTrack()
         
         // Track should have changed (and should now be in transcoding state)
-        XCTAssertEqual(delegate.state, PlaybackState.transcoding)
-        XCTAssertEqual(delegate.playingTrack, sequencer.previousTrack!)
+        assertTranscodingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, delegate.playingTrack!)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, previousTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -438,13 +321,11 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
     
     // MARK: nextTrack() tests ------------------------------------------------------------------------------------------
     
-    // When no track is playing, next() does nothing.
-    func testNext_noTrackPlaying() {
+    // When no track is playing, previous() does nothing.
+    func testNextTrack_noTrackPlaying() {
 
         delegate.nextTrack()
-        
-        XCTAssertNil(delegate.playingTrack)
-        XCTAssertEqual(delegate.state, PlaybackState.noTrack)
+        assertNoTrack()
         
         XCTAssertEqual(startPlaybackChain.executionCount, 0)
         XCTAssertEqual(sequencer.nextCallCount, 0)
@@ -454,36 +335,27 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testNext_trackPlaying_noNextTrack() {
+    func testNextTrack_trackPlaying_noNextTrack() {
         
-        sequencer.beginTrack = createTrack("FirstTrack", 300)
+        let someTrack = createTrack("FirstTrack", 300)
+        sequencer.beginTrack = someTrack
     
         // Begin playback
         delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(sequencer.beginCallCount, 1)
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.beginTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
         sequencer.nextTrack = nil
-        
         delegate.nextTrack()
         
         // Track should not have changed, because next() returned nil.
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.nextCallCount, 1)
@@ -493,42 +365,30 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testNext_trackPaused_noNextTrack() {
+    func testNextTrack_trackPaused_noNextTrack() {
         
-        sequencer.beginTrack = createTrack("FirstTrack", 300)
+        let someTrack = createTrack("FirstTrack", 300)
+        sequencer.beginTrack = someTrack
     
         // Begin playback
         delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.beginCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.beginTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
         // Pause playback
-        delegate.togglePlayPause()
-        
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
+        doPausePlayback(someTrack)
         
         sequencer.nextTrack = nil
-        
         delegate.nextTrack()
         
-        // Track should not have changed, because next() returned nil.
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
-        XCTAssertEqual(delegate.playingTrack, sequencer.beginTrack!)
+        // Track and playback state should not have changed, because next() returned nil.
+        assertPausedTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.nextCallCount, 1)
@@ -538,189 +398,241 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         }
     }
     
-    func testNext_trackPlaying_trackChanges() {
+    func testNextTrack_trackPlaying_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.selectedTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack)
         }
         
-        sequencer.nextTrack = createTrack("NextTrack", 400)
-        
+        let nextTrack = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
         delegate.nextTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.nextTrack!)
+        assertPlayingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 2)
-            
-            let trackChangeMsg = self.trackChangeMessages[1]
-            XCTAssertEqual(trackChangeMsg.oldTrack, self.sequencer.selectedTrack!)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.playing)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.nextTrack!)
+            self.assertTrackChange(someTrack, .playing, nextTrack, 2)
         }
     }
     
-    func testNext_trackPaused_trackChanges() {
+    func testNextTrack_trackPaused_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback
         delegate.play(someTrack)
-        
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack)
+        assertPlayingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, nil)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.noTrack)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.sequencer.selectedTrack!)
+            self.assertTrackChange(nil, .noTrack, someTrack, 1)
         }
         
         // Pause playback
-        delegate.togglePlayPause()
+        doPausePlayback(someTrack)
         
-        XCTAssertEqual(delegate.playingTrack, sequencer.selectedTrack!)
-        XCTAssertEqual(delegate.state, PlaybackState.paused)
-        
-        sequencer.nextTrack = createTrack("NextTrack", 400)
-        
+        let nextTrack = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
         delegate.nextTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.nextTrack)
+        assertPlayingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 2)
+            self.assertTrackChange(someTrack, .paused, nextTrack, 2)
         }
     }
     
-    func testNext_trackWaiting_noNextTrack() {
+    func testNextTrack_trackWaiting_noNextTrack() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback with a delay
         delegate.play(someTrack, PlaybackParams.defaultParams().withDelay(5))
-        
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack, sequencer.selectedTrack!)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let gapStartedMsg = self.gapStartedMessages.first!
-            XCTAssertEqual(gapStartedMsg.lastPlayedTrack, nil)
-            XCTAssertEqual(gapStartedMsg.nextTrack, self.delegate.waitingTrack!)
-            XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+            self.assertGapStarted(nil, someTrack)
         }
         
-        // Play the previous track
+        // Play the next track
         sequencer.nextTrack = nil
         delegate.nextTrack()
         
         // Track and playback state should not have changed
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack!, someTrack)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
             XCTAssertEqual(self.gapStartedMessages.count, 1)
         }
     }
     
-    func testNext_trackWaiting_trackChanges() {
+    func testNextTrack_trackWaiting_trackChanges() {
         
         let someTrack = createTrack("SomeTrack", 300)
         sequencer.selectedTrack = someTrack
     
         // Begin playback with a delay
         delegate.play(someTrack, PlaybackParams.defaultParams().withDelay(5))
-        
-        XCTAssertEqual(delegate.state, PlaybackState.waiting)
-        XCTAssertEqual(delegate.waitingTrack, sequencer.selectedTrack!)
-        XCTAssertNil(delegate.playingTrack)
+        assertWaitingTrack(someTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         
         executeAfter(0.5) {
-            
             XCTAssertEqual(self.trackChangeMessages.count, 0)
-            XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let gapStartedMsg = self.gapStartedMessages.first!
-            XCTAssertEqual(gapStartedMsg.lastPlayedTrack, nil)
-            XCTAssertEqual(gapStartedMsg.nextTrack, self.delegate.waitingTrack!)
-            XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+            self.assertGapStarted(nil, someTrack)
         }
         
-        // Play the previous track
-        sequencer.nextTrack = createTrack("NextTrack", 400)
+        // Play the next track
+        let nextTrack = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
         delegate.nextTrack()
         
         // Track should have changed
-        XCTAssertEqual(delegate.state, PlaybackState.playing)
-        XCTAssertEqual(delegate.playingTrack, sequencer.nextTrack!)
+        assertPlayingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            self.assertTrackChange(someTrack, .waiting, nextTrack)
             XCTAssertEqual(self.gapStartedMessages.count, 1)
-            
-            let trackChangeMsg = self.trackChangeMessages.first!
-            XCTAssertEqual(trackChangeMsg.oldTrack, someTrack)
-            XCTAssertEqual(trackChangeMsg.oldState, PlaybackState.waiting)
-            XCTAssertEqual(trackChangeMsg.newTrack, self.delegate.playingTrack!)
+        }
+    }
+    
+    func testNextTrack_trackTranscoding_trackChanges() {
+        
+        let someTrack = createTrack("SomeTrack", "ape", 300)
+        sequencer.selectedTrack = someTrack
+    
+        // Begin playback
+        delegate.play(someTrack)
+        assertTranscodingTrack(someTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        XCTAssertEqual(sequencer.selectTrackCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, someTrack)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.gapStartedMessages.count, 0)
+        }
+        
+        // Play the next track
+        let nextTrack = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
+        delegate.nextTrack()
+        
+        // Track should have changed
+        assertPlayingTrack(nextTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        XCTAssertEqual(sequencer.nextCallCount, 1)
+        
+        executeAfter(0.5) {
+            self.assertTrackChange(someTrack, .transcoding, nextTrack)
+        }
+    }
+    
+    func testNextTrack_gapBeforeNextTrack() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        sequencer.selectedTrack = someTrack
+    
+        // Begin playback
+        delegate.play(someTrack)
+        assertPlayingTrack(someTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        XCTAssertEqual(sequencer.selectTrackCallCount, 1)
+        
+        executeAfter(0.5) {
+            self.assertTrackChange(nil, .noTrack, someTrack)
+        }
+        
+        let nextTrack: Track = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
+        
+        // Set a gap before next track (in the playlist)
+        playlist.setGapsForTrack(nextTrack, PlaybackGap(5, .beforeTrack, .oneTime), nil)
+        XCTAssertNotNil(playlist.getGapBeforeTrack(nextTrack))
+        
+        delegate.nextTrack()
+        
+        // Track should have changed (and should be in waiting state)
+        assertWaitingTrack(nextTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        XCTAssertEqual(sequencer.nextCallCount, 1)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            self.assertGapStarted(someTrack, nextTrack)
+        }
+    }
+    
+    func testNextTrack_nextTrackNeedsTranscoding() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        sequencer.selectedTrack = someTrack
+    
+        // Begin playback
+        delegate.play(someTrack)
+        assertPlayingTrack(someTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        XCTAssertEqual(sequencer.selectTrackCallCount, 1)
+        
+        executeAfter(0.5) {
+            self.assertTrackChange(nil, .noTrack, someTrack)
+        }
+        
+        let nextTrack = createTrack("NextTrack", "wma", 400)
+        sequencer.nextTrack = nextTrack
+        
+        delegate.nextTrack()
+        
+        // Track should have changed (and should now be in transcoding state)
+        assertTranscodingTrack(nextTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        XCTAssertEqual(sequencer.nextCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, nextTrack)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
         }
     }
 }

@@ -18,3 +18,10 @@ class AuralTestCase: XCTestCase {
         super.perform(run)
     }
 }
+
+extension XCTestCase {
+    
+    func XCTAssertAllNil(_ expressions: Any?...) {
+        expressions.forEach({XCTAssertNil($0)})
+    }
+}
