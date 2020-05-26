@@ -69,7 +69,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     @IBAction func favoritesAction(_ sender: Any) {
         
         // Check if there is a track playing (this function cannot be invoked otherwise)
-        if let playingTrack = playbackInfo.playingTrack {
+        if let playingTrack = playbackInfo.currentTrack {
             
             // Toggle the menu item
             favoritesMenuItem.toggle()
@@ -99,7 +99,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             }
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.playingTrack, plTrack.file.path == message.file.path {
+            if let plTrack = playbackInfo.currentTrack, plTrack.file.path == message.file.path {
                 favoritesMenuItem.on()
             }
             
@@ -116,7 +116,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             })
             
             // Update the toggle menu item
-            if let plTrack = playbackInfo.playingTrack, plTrack.file.path == message.file.path {
+            if let plTrack = playbackInfo.currentTrack, plTrack.file.path == message.file.path {
                 favoritesMenuItem.off()
             }
         }

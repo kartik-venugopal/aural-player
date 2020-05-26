@@ -197,8 +197,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if player.state == .transcoding && notification is PlayingTrackInfoUpdatedNotification,
-            let track = player.playingTrack {
+        if let track = player.transcodingTrack, notification is PlayingTrackInfoUpdatedNotification {
          
             updateTrackInfo(track)
             return

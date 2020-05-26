@@ -49,7 +49,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        if let playingTrack = player.playingTrack {
+        if let playingTrack = player.currentTrack {
             
             if detailedInfoPopover.isShown {
                 
@@ -84,7 +84,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
-        if let playingTrack = player.playingTrack {
+        if let playingTrack = player.currentTrack {
             
             // Toggle the button state
             btnFavorite.toggle()
@@ -165,7 +165,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.playingTrack, message.file.path == playingTrack.file.path {
+        if let playingTrack = player.currentTrack, message.file.path == playingTrack.file.path {
             
             let added: Bool = message.messageType == .addedToFavorites
             

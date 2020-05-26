@@ -223,9 +223,9 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 refreshView(outlineView, results)
                 
                 // The playback sequence may have changed and the UI may need to be updated
-                if (playbackInfo.playingTrack != nil) {
-                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-                }
+//                if playbackInfo.currentTrack != nil {
+//                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+//                }
                 
                 return true
             }
