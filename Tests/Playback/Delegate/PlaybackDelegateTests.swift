@@ -59,8 +59,12 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         delegate.stop()
         stopPlaybackChain.executionCount = 0
         
+        XCTAssertNil(delegate.currentTrack)
         XCTAssertNil(delegate.playingTrack)
+        XCTAssertNil(delegate.waitingTrack)
+        XCTAssertNil(delegate.transcodingTrack)
         XCTAssertEqual(delegate.state, PlaybackState.noTrack)
+        
         XCTAssertEqual(startPlaybackChain.executionCount, 0)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, 0)
@@ -75,6 +79,194 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         // Prevent test case objects from receiving each other's messages.
         AsyncMessenger.unsubscribe([.trackChanged, .gapStarted], subscriber: self)
+    }
+    
+    func assertNoTrack() {
+        
+        XCTAssertEqual(delegate.state, PlaybackState.noTrack)
+        XCTAssertAllNil(delegate.currentTrack, delegate.playingTrack, delegate.waitingTrack, delegate.transcodingTrack)
+    }
+    
+    func assertPlayingTrack(_ track: Track?) {
+        
+        XCTAssertNotNil(track)
+        
+        XCTAssertEqual(delegate.state, PlaybackState.playing)
+        
+        XCTAssertEqual(delegate.currentTrack, track)
+        XCTAssertEqual(delegate.playingTrack, track)
+        
+        XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+    }
+    
+    func assertPausedTrack(_ track: Track?) {
+        
+        XCTAssertNotNil(track)
+        
+        XCTAssertEqual(delegate.state, PlaybackState.paused)
+        
+        XCTAssertEqual(delegate.currentTrack, track)
+        XCTAssertEqual(delegate.playingTrack, track)
+        
+        XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+    }
+    
+    func assertWaitingTrack(_ track: Track?) {
+        
+        XCTAssertNotNil(track)
+        
+        XCTAssertEqual(delegate.state, PlaybackState.waiting)
+        
+        XCTAssertEqual(delegate.currentTrack, track)
+        XCTAssertEqual(delegate.waitingTrack, track)
+        
+        XCTAssertAllNil(delegate.playingTrack, delegate.transcodingTrack)
+    }
+    
+    func assertTranscodingTrack(_ track: Track?) {
+        
+        XCTAssertNotNil(track)
+        
+        XCTAssertEqual(delegate.state, PlaybackState.transcoding)
+        
+        XCTAssertEqual(delegate.currentTrack, track)
+        XCTAssertEqual(delegate.transcodingTrack, track)
+        
+        XCTAssertAllNil(delegate.playingTrack, delegate.waitingTrack)
+    }
+    
+    func assertTrackChange(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?, _ totalMsgCount: Int = 1) {
+        
+        XCTAssertEqual(trackChangeMessages.count, totalMsgCount)
+        
+        let trackChangeMsg = trackChangeMessages.last!
+        XCTAssertEqual(trackChangeMsg.oldTrack, oldTrack)
+        XCTAssertEqual(trackChangeMsg.oldState, oldState)
+        XCTAssertEqual(trackChangeMsg.newTrack, newTrack)
+    }
+    
+    func assertGapStarted(_ lastPlayedTrack: Track?, _ nextTrack: Track, _ totalMsgCount: Int = 1) {
+        
+        XCTAssertEqual(self.gapStartedMessages.count, totalMsgCount)
+        
+        let gapStartedMsg = self.gapStartedMessages.last!
+        
+        XCTAssertEqual(gapStartedMsg.lastPlayedTrack, lastPlayedTrack)
+        XCTAssertEqual(gapStartedMsg.nextTrack, nextTrack)
+        
+        // Assert that the gap end time is in the future (i.e. > now)
+        XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+    }
+    
+    func doBeginPlayback(_ track: Track?) {
+        
+        sequencer.beginTrack = track
+        
+        // Begin playback
+        delegate.togglePlayPause()
+        
+        XCTAssertEqual(sequencer.beginCallCount, 1)
+        
+        if let theTrack = track {
+        
+            assertPlayingTrack(theTrack)
+            
+            XCTAssertEqual(startPlaybackChain.executionCount, 1)
+            
+            executeAfter(0.5) {
+                self.assertTrackChange(nil, .noTrack, theTrack)
+            }
+            
+        } else {
+            
+            assertNoTrack()
+            
+            XCTAssertEqual(startPlaybackChain.executionCount, 0)
+            
+            executeAfter(0.5) {
+                XCTAssertEqual(self.trackChangeMessages.count, 0)
+            }
+        }
+    }
+    
+    func doPausePlayback(_ track: Track) {
+        
+        let trackChangeMsgCountBefore = trackChangeMessages.count
+        let gapStartedMsgCountBefore = gapStartedMessages.count
+        
+        let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
+        let stopPlaybackChainExecCountBefore = stopPlaybackChain.executionCount
+        
+        let sequencerBeginCallCountBefore = sequencer.beginCallCount
+        
+        let sequencerSubsequentCallCountBefore = sequencer.subsequentCallCount
+        let sequencerPreviousCallCountBefore = sequencer.previousCallCount
+        let sequencerNextCallCountBefore = sequencer.nextCallCount
+        
+        let sequencerSelectIndexCallCountBefore = sequencer.selectIndexCallCount
+        let sequencerSelectTrackCallCountBefore = sequencer.selectTrackCallCount
+        let sequencerSelectGroupCallCountBefore = sequencer.selectGroupCallCount
+        
+        delegate.togglePlayPause()
+        assertPausedTrack(track)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainExecCountBefore)
+        XCTAssertEqual(stopPlaybackChain.executionCount, stopPlaybackChainExecCountBefore)
+        
+        XCTAssertEqual(sequencer.beginCallCount, sequencerBeginCallCountBefore)
+        
+        XCTAssertEqual(sequencer.subsequentCallCount, sequencerSubsequentCallCountBefore)
+        XCTAssertEqual(sequencer.previousCallCount, sequencerPreviousCallCountBefore)
+        XCTAssertEqual(sequencer.nextCallCount, sequencerNextCallCountBefore)
+        
+        XCTAssertEqual(sequencer.selectIndexCallCount, sequencerSelectIndexCallCountBefore)
+        XCTAssertEqual(sequencer.selectTrackCallCount, sequencerSelectTrackCallCountBefore)
+        XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBefore)
+            XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
+        }
+    }
+    
+    func doResumePlayback(_ track: Track) {
+        
+        let trackChangeMsgCountBefore = trackChangeMessages.count
+        let gapStartedMsgCountBefore = gapStartedMessages.count
+        
+        let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
+        let stopPlaybackChainExecCountBefore = stopPlaybackChain.executionCount
+        
+        let sequencerBeginCallCountBefore = sequencer.beginCallCount
+        
+        let sequencerSubsequentCallCountBefore = sequencer.subsequentCallCount
+        let sequencerPreviousCallCountBefore = sequencer.previousCallCount
+        let sequencerNextCallCountBefore = sequencer.nextCallCount
+        
+        let sequencerSelectIndexCallCountBefore = sequencer.selectIndexCallCount
+        let sequencerSelectTrackCallCountBefore = sequencer.selectTrackCallCount
+        let sequencerSelectGroupCallCountBefore = sequencer.selectGroupCallCount
+        
+        delegate.togglePlayPause()
+        assertPlayingTrack(track)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainExecCountBefore)
+        XCTAssertEqual(stopPlaybackChain.executionCount, stopPlaybackChainExecCountBefore)
+        
+        XCTAssertEqual(sequencer.beginCallCount, sequencerBeginCallCountBefore)
+        
+        XCTAssertEqual(sequencer.subsequentCallCount, sequencerSubsequentCallCountBefore)
+        XCTAssertEqual(sequencer.previousCallCount, sequencerPreviousCallCountBefore)
+        XCTAssertEqual(sequencer.nextCallCount, sequencerNextCallCountBefore)
+        
+        XCTAssertEqual(sequencer.selectIndexCallCount, sequencerSelectIndexCallCountBefore)
+        XCTAssertEqual(sequencer.selectTrackCallCount, sequencerSelectTrackCallCountBefore)
+        XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBefore)
+            XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
+        }
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

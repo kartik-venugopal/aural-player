@@ -1,7 +1,5 @@
 import Foundation
 
-fileprivate typealias CurrentTrackState = (state: PlaybackState, track: Track?, seekPosition: Double)
-
 fileprivate typealias TrackProducer = () -> Track?
 
 /*
@@ -124,19 +122,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return sequencer.select(group)}, params)
     }
     
-    private func captureCurrentTrackState() -> (state: PlaybackState, track: Track?, seekPosition: Double) {
-        
-        let curTrack = state.isPlayingOrPaused ? playingTrack : (state == .waiting ? waitingTrack : playingTrack)
-        return (self.state, curTrack, seekPosition.timeElapsed)
-    }
-    
     private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
         
-        let curTrackState: CurrentTrackState = captureCurrentTrackState()
+        let trackBeforeChange = currentTrack
+        let stateBeforeChange = state
+        let seekPositionBeforeChange = seekPosition.timeElapsed
             
         if let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, newTrack, cancelWaitingOrTranscoding, params)
+            let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelWaitingOrTranscoding, params)
             
             startPlaybackChain.execute(requestContext)
         }
@@ -144,8 +138,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func stop() {
         
-        let curTrackState: CurrentTrackState = captureCurrentTrackState()
-        let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, nil, true, PlaybackParams.defaultParams())
+        let trackBeforeChange = currentTrack
+        let stateBeforeChange = state
+        let seekPositionBeforeChange = seekPosition.timeElapsed
+        
+        let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, true, PlaybackParams.defaultParams())
         
         stopPlaybackChain.execute(requestContext)
     }
@@ -159,8 +156,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func trackPlaybackCompleted() {
         
-        let curTrackState: CurrentTrackState = captureCurrentTrackState()
-        let requestContext = PlaybackRequestContext.create(curTrackState.state, curTrackState.track, curTrackState.seekPosition, nil, false, PlaybackParams.defaultParams())
+        let trackBeforeChange = currentTrack
+        let stateBeforeChange = state
+        let seekPositionBeforeChange = seekPosition.timeElapsed
+        
+        let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, false, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
     }
