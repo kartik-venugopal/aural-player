@@ -50,24 +50,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack()
     
-    // For the currently playing track, plays the chapter with the given index, from the start time.
-    // If this chapter is already playing, it is played from the start time.
-    // NOTE - If there is a segment loop defined that does not contain the chapter start time, it will be removed to allow seeking
-    // to the chapter start time.
-    func playChapter(_ index: Int)
-    
-    // For the currently playing track, plays the previous chapter (relative to the current seek position or chapter)
-    func previousChapter()
-    
-    // For the currently playing track, plays the next chapter (relative to the current seek position or chapter)
-    func nextChapter()
-    
-    // For the currently playing track, replays the currently playing chapter (i.e. seeks to the chapter's start time)
-    func replayChapter()
-    
-    // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
-    func loopChapter()
-    
     /*
         Seeks forward by a preset time interval, within the current track.
      
@@ -112,6 +94,24 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
         Returns the definition of the current loop, if one is defined, after the execution of this function
      */
     func toggleLoop() -> PlaybackLoop?
+    
+    // For the currently playing track, plays the chapter with the given index, from the start time.
+    // If this chapter is already playing, it is played from the start time.
+    // NOTE - If there is a segment loop defined that does not contain the chapter start time, it will be removed to allow seeking
+    // to the chapter start time.
+    func playChapter(_ index: Int)
+    
+    // For the currently playing track, plays the previous chapter (relative to the current seek position or chapter)
+    func previousChapter()
+    
+    // For the currently playing track, plays the next chapter (relative to the current seek position or chapter)
+    func nextChapter()
+    
+    // For the currently playing track, replays the currently playing chapter (i.e. seeks to the chapter's start time)
+    func replayChapter()
+    
+    // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
+    func loopChapter()
     
     func cancelTranscoding()
     

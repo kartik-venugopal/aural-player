@@ -651,6 +651,7 @@
 		3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF621589E54007869EC /* FavoritesEditor.xib */; };
 		3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC593971F28A0C600153D34 /* RangeSlider.swift */; };
 		3EC76A41247E878A0001CE28 /* PlaybackDelegate_PlaybackParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC76A40247E878A0001CE28 /* PlaybackDelegate_PlaybackParamsTests.swift */; };
+		3EC76A43247E9E6E0001CE28 /* PlaybackDelegate_StopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC76A42247E9E6E0001CE28 /* PlaybackDelegate_StopTests.swift */; };
 		3EC7E8AF217B300E00F21695 /* EffectsUnitSliderCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7E8AE217B300D00F21695 /* EffectsUnitSliderCellProtocol.swift */; };
 		3EC90B99246C811E009D2181 /* PlaybackLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC90B98246C811E009D2181 /* PlaybackLoop.swift */; };
 		3EC90B9A246C8122009D2181 /* PlaybackLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC90B98246C811E009D2181 /* PlaybackLoop.swift */; };
@@ -1251,6 +1252,7 @@
 		3EBF7EF621589E54007869EC /* FavoritesEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesEditor.xib; sourceTree = "<group>"; };
 		3EC593971F28A0C600153D34 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		3EC76A40247E878A0001CE28 /* PlaybackDelegate_PlaybackParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_PlaybackParamsTests.swift; sourceTree = "<group>"; };
+		3EC76A42247E9E6E0001CE28 /* PlaybackDelegate_StopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_StopTests.swift; sourceTree = "<group>"; };
 		3EC7E8AE217B300D00F21695 /* EffectsUnitSliderCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSliderCellProtocol.swift; sourceTree = "<group>"; };
 		3EC90B98246C811E009D2181 /* PlaybackLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackLoop.swift; sourceTree = "<group>"; };
 		3EC90B9B246C816C009D2181 /* PlaybackLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackLoopTests.swift; sourceTree = "<group>"; };
@@ -1423,6 +1425,7 @@
 				3E4B5477247C34ED009CE7EA /* PlaybackDelegate_IterationTests.swift */,
 				3E986943247D234400EC9EB7 /* PlaybackDelegate_SpecificTrackPlaybackTests.swift */,
 				3EC76A40247E878A0001CE28 /* PlaybackDelegate_PlaybackParamsTests.swift */,
+				3EC76A42247E9E6E0001CE28 /* PlaybackDelegate_StopTests.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3513,6 +3516,7 @@
 				3E12ADDE2469CF5300A07611 /* CommonAVAssetParser.swift in Sources */,
 				3E12ACEB2469CC1700A07611 /* DelayPresets.swift in Sources */,
 				3E12ACDB2469CC1000A07611 /* PitchUnit.swift in Sources */,
+				3EC76A43247E9E6E0001CE28 /* PlaybackDelegate_StopTests.swift in Sources */,
 				3E12ACC92469CC0400A07611 /* Muxer.swift in Sources */,
 				3E12AE252469CFDE00A07611 /* NSEventExtensions.swift in Sources */,
 				3EF13D042472DBFB008CA5C0 /* ChapterPlayback.swift in Sources */,
