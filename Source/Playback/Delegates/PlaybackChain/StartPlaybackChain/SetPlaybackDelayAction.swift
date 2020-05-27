@@ -21,6 +21,8 @@ class SetPlaybackDelayAction: PlaybackChainAction {
             
             if let delay = params.delay {
 
+                // TODO: This gap stuff should not even be needed here !!!
+                
                 // An explicit delay is defined. It takes precedence over gaps.
                 PlaybackGapContext.clear()
                 PlaybackGapContext.addGap(PlaybackGap(delay, .beforeTrack), newTrack)

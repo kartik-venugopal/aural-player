@@ -205,6 +205,8 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectedTrack, track)
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         
+        XCTAssertEqual(PlaybackGapContext.gapLength, delay)
+        
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
             self.assertGapStarted(nil, track)

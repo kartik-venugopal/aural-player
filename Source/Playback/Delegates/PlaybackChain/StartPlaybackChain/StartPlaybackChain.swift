@@ -7,8 +7,7 @@ class StartPlaybackChain: PlaybackChain {
         
         super.init()
         
-        _ = self.withAction(CheckPlaybackAllowedAction())
-        .withAction(SavePlaybackProfileAction(profiles, preferences))
+        _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(CancelWaitingOrTranscodingAction(transcoder))
         .withAction(HaltPlaybackAction(player))
         .withAction(ValidateNewTrackAction(sequencer))

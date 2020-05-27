@@ -127,8 +127,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let trackBeforeChange = currentTrack
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
+        
+        let okToPlay = params.interruptPlayback || trackBeforeChange == nil
             
-        if let newTrack = trackProducer() {
+        if okToPlay, let newTrack = trackProducer() {
             
             let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelWaitingOrTranscoding, params)
             
