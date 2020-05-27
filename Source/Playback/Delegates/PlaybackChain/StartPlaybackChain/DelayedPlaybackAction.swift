@@ -19,7 +19,7 @@ class DelayedPlaybackAction: PlaybackChainAction {
         
         guard let newTrack = context.requestedTrack else {return}
         
-        if let delay = context.requestParams.delay {
+        if context.requestParams.allowDelay, let delay = context.requestParams.delay {
                     
             // Mark the current state as "waiting" in between tracks
             player.waiting()

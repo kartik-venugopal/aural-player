@@ -100,6 +100,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(previousTrack)
+        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.previousCallCount, 1)
@@ -287,6 +288,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(nextTrack)
+        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(sequencer.nextCallCount, 1)
