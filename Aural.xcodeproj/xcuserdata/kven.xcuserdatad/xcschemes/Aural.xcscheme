@@ -74,6 +74,12 @@
                   Identifier = "PlaybackDelegateTests">
                </Test>
                <Test
+                  Identifier = "PlaybackDelegate_SpecificTrackPlaybackTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_TogglePlayPauseTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackLoopTests">
                </Test>
                <Test

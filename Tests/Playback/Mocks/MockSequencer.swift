@@ -11,7 +11,10 @@ class MockSequencer: SequencerProtocol {
     
     var selectionTracksByIndex: [Int: Track] = [:]
     var selectionTracksByGroup: [Group: Track] = [:]
+    
+    var selectedIndex: Int?
     var selectedTrack: Track?
+    var selectedGroup: Group?
     
     var beginCallCount: Int = 0
     var endCallCount: Int = 0
@@ -107,6 +110,7 @@ class MockSequencer: SequencerProtocol {
     func select(_ index: Int) -> Track? {
         
         selectIndexCallCount.increment()
+        selectedIndex = index
         
         currentTrack = selectionTracksByIndex[index]
         return currentTrack
@@ -115,6 +119,7 @@ class MockSequencer: SequencerProtocol {
     func select(_ track: Track) -> Track? {
         
         selectTrackCallCount.increment()
+        selectedTrack = track
         
         currentTrack = track
         return currentTrack
@@ -123,6 +128,7 @@ class MockSequencer: SequencerProtocol {
     func select(_ group: Group) -> Track? {
         
         selectGroupCallCount.increment()
+        selectedGroup = group
         
         currentTrack = selectionTracksByGroup[group]
         return currentTrack

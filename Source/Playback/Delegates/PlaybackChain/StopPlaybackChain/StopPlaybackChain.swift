@@ -7,8 +7,6 @@ class StopPlaybackChain: PlaybackChain {
         
         super.init()
         
-        // TODO: Add save sound profile action ???
-        
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(CancelWaitingOrTranscodingAction(transcoder))
         .withAction(HaltPlaybackAction(player))

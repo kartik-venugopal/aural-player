@@ -97,6 +97,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(delegate.playingTrack, track)
         
         XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func assertPausedTrack(_ track: Track?) {
@@ -121,6 +122,8 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(delegate.waitingTrack, track)
         
         XCTAssertAllNil(delegate.playingTrack, delegate.transcodingTrack)
+        
+        XCTAssertTrue(PlaybackGapContext.hasGaps())
     }
     
     func assertTranscodingTrack(_ track: Track?) {
@@ -133,6 +136,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(delegate.transcodingTrack, track)
         
         XCTAssertAllNil(delegate.playingTrack, delegate.waitingTrack)
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func assertTrackChange(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?, _ totalMsgCount: Int = 1) {
@@ -156,6 +160,8 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         // Assert that the gap end time is in the future (i.e. > now)
         XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+        
+        XCTAssertTrue(PlaybackGapContext.hasGaps())
     }
     
     func doBeginPlayback(_ track: Track?) {
@@ -186,6 +192,43 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             executeAfter(0.5) {
                 XCTAssertEqual(self.trackChangeMessages.count, 0)
             }
+        }
+    }
+    
+    func doBeginPlaybackWithDelay(_ track: Track, _ delay: Double) {
+        
+        // Begin playback
+        delegate.play(track, PlaybackParams.defaultParams().withDelay(delay))
+        assertWaitingTrack(track)
+        
+        XCTAssertEqual(sequencer.selectTrackCallCount, 1)
+        XCTAssertEqual(sequencer.selectedTrack, track)
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            self.assertGapStarted(nil, track)
+        }
+    }
+    
+    func doBeginPlayback_trackNeedsTranscoding(_ track: Track) {
+        
+        XCTAssertFalse(track.playbackNativelySupported)
+        
+        // Begin playback
+        delegate.play(track)
+        assertTranscodingTrack(track)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        XCTAssertEqual(sequencer.selectTrackCallCount, 1)
+        XCTAssertEqual(sequencer.selectedTrack, track)
+        
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.gapStartedMessages.count, 0)
         }
     }
     

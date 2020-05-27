@@ -13,6 +13,7 @@ class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
     func testTogglePlayPause_playing_pausesPlayback() {
         
         let track = createTrack("TestTrack", 300)
+        
         doBeginPlayback(track)
         doPausePlayback(track)
     }
@@ -26,31 +27,43 @@ class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
         doResumePlayback(track)
     }
     
-    func testTogglePlayPause_waiting_immediatePlayback() {
+    func testTogglePlayPause_gapBeforeTrack() {
         
-        let trackIndex: Int = 10
         let track = createTrack("TestTrack", 300)
-        sequencer.selectionTracksByIndex[trackIndex] = track
         
-        // Begin playback with a delay
-        delegate.play(trackIndex, PlaybackParams.defaultParams().withDelay(5))
-        
-        XCTAssertEqual(sequencer.selectIndexCallCount, 1)
-        XCTAssertEqual(startPlaybackChain.executionCount, 1)
-        
+        // Set a gap before the track (in the playlist)
+        playlist.setGapsForTrack(track, PlaybackGap(5, .beforeTrack, .persistent), nil)
+        XCTAssertNotNil(playlist.getGapBeforeTrack(track))
+
+        // Begin playback
+        sequencer.beginTrack = track
+        delegate.togglePlayPause()
         assertWaitingTrack(track)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 1)
+        XCTAssertEqual(sequencer.beginCallCount, 1)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
+    }
+    
+    func testTogglePlayPause_trackNeedsTranscoding() {
+        doBeginPlayback_trackNeedsTranscoding(createTrack("TestTrack", "ogg", 300))
+    }
+    
+    func testTogglePlayPause_waiting_immediatePlayback() {
+        
+        let track = createTrack("TestTrack", 300)
+        doBeginPlaybackWithDelay(track, 5)
         
         // Cancel the delay and request immediate playback
         delegate.togglePlayPause()
-        
         assertPlayingTrack(track)
         
-        XCTAssertEqual(sequencer.selectIndexCallCount, 1)
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
+        
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         
         executeAfter(0.5) {
@@ -60,25 +73,11 @@ class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
     
     func testTogglePlayPause_transcoding() {
         
-        let trackIndex: Int = 10
         let track = createTrack("TestTrack", "ogg", 300)
-        
-        // Specify an "ogg" file extension to trigger track transcoding
-        sequencer.selectionTracksByIndex[trackIndex] = track
-        
-        // Begin playback
-        delegate.play(trackIndex)
-        
-        assertTranscodingTrack(track)
-        
-        XCTAssertEqual(sequencer.selectIndexCallCount, 1)
-        XCTAssertEqual(startPlaybackChain.executionCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        doBeginPlayback_trackNeedsTranscoding(track)
         
         // Try to request immediate playback (should have no effect)
         delegate.togglePlayPause()
-        
         assertTranscodingTrack(track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
