@@ -59,6 +59,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         sequencer.reset()
         delegate.stop()
+        _ = PlaybackSession.endCurrent()
         stopPlaybackChain.executionCount = 0
         
         XCTAssertNil(delegate.currentTrack)
@@ -354,61 +355,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         return genres[Int.random(in: 0..<genres.count)]
     }
     
-//    var testPlaylistSizes: [Int] {
-//
-//        var sizes: [Int] = [1, 2, 3, 5, 10, 50, 100, 500, 1000]
-//
-//        if runLongRunningTests {sizes.append(10000)}
-//
-//        let numRandomSizes = runLongRunningTests ? 100 : 10
-//        let maxSize = runLongRunningTests ? 10000 : 1000
-//
-//        for _ in 1...numRandomSizes {
-//            sizes.append(Int.random(in: 5...maxSize))
-//        }
-//
-//        return sizes
-//    }
-//
-//    var repeatOneIdempotence_count: Int {
-//        return runLongRunningTests ? 10000 : 100
-//    }
-//
-//    var sequenceRestart_count: Int {
-//        return runLongRunningTests ? 10 : 3
-//    }
-//
-//    let repeatShufflePermutations: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = {
-//
-//        var array: [(repeatMode: RepeatMode, shuffleMode: ShuffleMode)] = []
-//
-//        for repeatMode in RepeatMode.allCases {
-//
-//            for shuffleMode in ShuffleMode.allCases {
-//
-//                // Repeat One / Shuffle On is not a valid permutation
-//                if (repeatMode, shuffleMode) != (.one, .on) {
-//                    array.append((repeatMode, shuffleMode))
-//                }
-//            }
-//        }
-//
-//        return array
-//
-//    }()
-//
-//    func preTest(_ playlistType: PlaylistType, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
-//
-//        sequencer.consumeNotification(PlaylistTypeChangedNotification(newPlaylistType: playlistType))
-//        XCTAssertEqual(sequencer.playlistType, playlistType)
-//
-//        _ = sequencer.setRepeatMode(repeatMode)
-//        let modes = sequencer.setShuffleMode(shuffleMode)
-//
-//        XCTAssertEqual(modes.repeatMode, repeatMode)
-//        XCTAssertEqual(modes.shuffleMode, shuffleMode)
-//    }
-//
     func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
         return createTrack(title, "mp3", duration, artist, album, genre)
     }
@@ -421,30 +367,4 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         return track
     }
-    
-//    func createTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) {
-//
-//        let sizeBeforeAdd = playlist.size
-//        var tracks: [TrackAddResult] = []
-//
-//        for counter in 1...numTracks {
-//
-//            let title = "Track-" + String(sizeBeforeAdd + counter)
-//            let theArtist = artist ?? randomArtist()
-//            let theAlbum = album ?? randomAlbum()
-//            let theGenre = genre ?? randomGenre()
-//
-//            let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
-//            track.setPrimaryMetadata(theArtist, title, theAlbum, theGenre, Double.random(in: 60...600))
-//
-//            tracks.append(playlist.addTrack(track)!)
-//        }
-//
-//        XCTAssertEqual(playlist.size, sizeBeforeAdd + numTracks)
-//        sequencer.tracksAdded(tracks)
-//
-//        if sequencer.currentTrack != nil {
-//            XCTAssertEqual(sequencer.sequence.size, playlist.size)
-//        }
-//    }
 }
