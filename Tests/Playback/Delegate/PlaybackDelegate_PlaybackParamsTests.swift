@@ -120,7 +120,7 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         
         XCTAssertTrue(mockScheduler.playTrackInvoked)
-        XCTAssertEqual(mockScheduler.playTrack_startPosition, startPosition)
+        XCTAssertEqual(mockScheduler.playTrack_startPosition!, startPosition, accuracy: 0.001)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -142,8 +142,8 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         
         XCTAssertTrue(mockScheduler.playLoopInvoked)
-        XCTAssertEqual(mockScheduler.playLoop_session!.loop!.startTime, startPosition)
-        XCTAssertEqual(mockScheduler.playLoop_session!.loop!.endTime, endPosition)
+        XCTAssertEqual(mockScheduler.playLoop_session!.loop!.startTime, startPosition, accuracy: 0.001)
+        XCTAssertEqual(mockScheduler.playLoop_session!.loop!.endTime!, endPosition, accuracy: 0.001)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)

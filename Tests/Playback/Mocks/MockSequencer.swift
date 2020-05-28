@@ -40,6 +40,25 @@ class MockSequencer: SequencerProtocol {
 
         selectionTracksByIndex.removeAll()
         selectionTracksByGroup.removeAll()
+        
+        selectedIndex = nil
+        selectedTrack = nil
+        selectedGroup = nil
+        
+        beginCallCount = 0
+        endCallCount = 0
+        
+        subsequentCallCount = 0
+        previousCallCount = 0
+        nextCallCount = 0
+        
+        peekSubsequentCallCount = 0
+        peekPreviousCallCount = 0
+        peekNextCallCount = 0
+        
+        selectIndexCallCount = 0
+        selectTrackCallCount = 0
+        selectGroupCallCount = 0
     }
     
     func begin() -> Track? {
