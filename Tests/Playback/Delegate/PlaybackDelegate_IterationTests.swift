@@ -148,7 +148,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         if track != nil {
 
-            assertPlayingTrack(track)
+            assertPlayingTrack(track!)
             
         } else {
             
@@ -162,19 +162,19 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
                 
             case .playing:
                 
-                assertPlayingTrack(trackBeforeChange)
+                assertPlayingTrack(trackBeforeChange!)
                 
             case .paused:
                 
-                assertPausedTrack(trackBeforeChange)
+                assertPausedTrack(trackBeforeChange!)
                 
             case .waiting:
                 
-                assertWaitingTrack(trackBeforeChange)
+                assertWaitingTrack(trackBeforeChange!)
                 
             case .transcoding:
                 
-                assertTranscodingTrack(trackBeforeChange)
+                assertTranscodingTrack(trackBeforeChange!)
             }
         }
         
@@ -337,7 +337,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         if track != nil {
 
-            assertPlayingTrack(track)
+            assertPlayingTrack(track!)
             
         } else {
             
@@ -351,19 +351,19 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
                 
             case .playing:
                 
-                assertPlayingTrack(trackBeforeChange)
+                assertPlayingTrack(trackBeforeChange!)
                 
             case .paused:
                 
-                assertPausedTrack(trackBeforeChange)
+                assertPausedTrack(trackBeforeChange!)
                 
             case .waiting:
                 
-                assertWaitingTrack(trackBeforeChange)
+                assertWaitingTrack(trackBeforeChange!)
                 
             case .transcoding:
                 
-                assertTranscodingTrack(trackBeforeChange)
+                assertTranscodingTrack(trackBeforeChange!)
             }
         }
         

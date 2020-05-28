@@ -16,12 +16,6 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayIndex_trackNeedsTranscoding(10)
     }
     
-    func testPlayIndex_trackPlaying() {
-        
-        doBeginPlayback(createTrack("FirstTrack", 300))
-        doPlayIndex(10)
-    }
-    
     func testPlayIndex_trackPaused() {
         
         let firstTrack = createTrack("FirstTrack", 300)
@@ -31,10 +25,44 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayIndex(10)
     }
     
+    func testPlayIndex_trackPaused_gapBeforeTrack() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayIndex_gapBeforeTrack(10, 5)
+    }
+    
+    func testPlayIndex_trackPaused_trackNeedsTranscoding() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayIndex_trackNeedsTranscoding(10)
+    }
+    
     func testPlayIndex_trackWaiting() {
         
         doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
         doPlayIndex(10)
+        
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
+    }
+    
+    func testPlayIndex_trackWaiting_gapBeforeTrack() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayIndex_gapBeforeTrack(10, 10)
+    }
+    
+    func testPlayIndex_trackWaiting_trackNeedsTranscoding() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayIndex_trackNeedsTranscoding(10)
+        
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func testPlayIndex_trackTranscoding() {
@@ -46,6 +74,34 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayIndex_trackTranscoding_gapBeforeTrack() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayIndex_gapBeforeTrack(10, 5)
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayIndex_trackTranscoding_trackNeedsTranscoding() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayIndex_trackNeedsTranscoding(10)
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayIndex_trackPlaying() {
+        
+        doBeginPlayback(createTrack("FirstTrack", 300))
+        doPlayIndex(10)
     }
     
     func testPlayIndex_trackPlaying_gapBeforeTrack() {
@@ -123,6 +179,8 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectIndexCallCountBeforeChange = sequencer.selectIndexCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
+        let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
+        
         let trackChangeMsgCountBeforeChange = trackChangeMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
@@ -137,7 +195,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectIndexCallCount, selectIndexCallCountBeforeChange + 1)
         XCTAssertEqual(sequencer.selectedIndex, index)
         
-        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
@@ -162,12 +220,6 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayTrack_trackNeedsTranscoding(createTrack("TestTrack", "ogg", 200))
     }
     
-    func testPlayTrack_trackPlaying() {
-        
-        doBeginPlayback(createTrack("FirstTrack", 300))
-        doPlayTrack(createTrack("TestTrack", 200))
-    }
-    
     func testPlayTrack_trackPaused() {
         
         let firstTrack = createTrack("FirstTrack", 300)
@@ -177,10 +229,42 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayTrack(createTrack("TestTrack", 200))
     }
     
+    func testPlayTrack_trackPaused_gapBeforeTrack() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayTrack_gapBeforeTrack(createTrack("WaitingTrack", 200), 5)
+    }
+    
+    func testPlayTrack_trackPaused_trackNeedsTranscoding() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayTrack_trackNeedsTranscoding(createTrack("TranscodingTrack", "ogg", 200))
+    }
+    
     func testPlayTrack_trackWaiting() {
         
         doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
         doPlayTrack(createTrack("TestTrack", 200))
+        
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
+    }
+    
+    func testPlayTrack_trackWaiting_gapBeforeTrack() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayTrack_gapBeforeTrack(createTrack("TestTrack", 200), 12)
+    }
+    
+    func testPlayTrack_trackWaiting_trackNeedsTranscoding() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayTrack_trackNeedsTranscoding(createTrack("TestTrack", "wma", 200))
         
         XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
@@ -194,6 +278,34 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayTrack_trackTranscoding_gapBeforeTrack() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayTrack_gapBeforeTrack(createTrack("TestTrack", 200), 5)
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayTrack_trackTranscoding_trackNeedsTranscoding() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayTrack_trackNeedsTranscoding(createTrack("TestTrack", "ogg", 200))
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayTrack_trackPlaying() {
+        
+        doBeginPlayback(createTrack("FirstTrack", 300))
+        doPlayTrack(createTrack("TestTrack", 200))
     }
     
     func testPlayTrack_trackPlaying_gapBeforeTrack() {
@@ -265,6 +377,8 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectTrackCallCountBeforeChange = sequencer.selectTrackCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
+        let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
+        
         let trackChangeMsgCountBeforeChange = trackChangeMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
@@ -276,7 +390,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectTrackCallCount, selectTrackCallCountBeforeChange + 1)
         XCTAssertEqual(sequencer.selectedTrack, track)
         
-        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
@@ -301,12 +415,6 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayGroup_trackNeedsTranscoding(Group(.genre, "Electronica"))
     }
     
-    func testPlayGroup_trackPlaying() {
-        
-        doBeginPlayback(createTrack("FirstTrack", 300))
-        doPlayGroup(Group(.artist, "Madonna"))
-    }
-    
     func testPlayGroup_trackPaused() {
         
         let firstTrack = createTrack("FirstTrack", 300)
@@ -316,10 +424,44 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayGroup(Group(.genre, "Pop"))
     }
     
+    func testPlayGroup_trackPaused_gapBeforeTrack() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayGroup_gapBeforeTrack(Group(.genre, "Pop"), 5)
+    }
+    
+    func testPlayGroup_trackPaused_trackNeedsTranscoding() {
+        
+        let firstTrack = createTrack("FirstTrack", 300)
+        doBeginPlayback(firstTrack)
+        doPausePlayback(firstTrack)
+        
+        doPlayGroup_trackNeedsTranscoding(Group(.genre, "Pop"))
+    }
+    
     func testPlayGroup_trackWaiting() {
         
         doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
         doPlayGroup(Group(.artist, "Madonna"))
+        
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
+    }
+    
+    func testPlayGroup_trackWaiting_gapBeforeTrack() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayGroup_gapBeforeTrack(Group(.artist, "Madonna"), 12)
+    }
+    
+    func testPlayGroup_trackWaiting_trackNeedsTranscoding() {
+        
+        doBeginPlaybackWithDelay(createTrack("FirstTrack", 300), 5)
+        doPlayGroup_trackNeedsTranscoding(Group(.artist, "Madonna"))
+        
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func testPlayGroup_trackTranscoding() {
@@ -331,6 +473,34 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayGroup_trackTranscoding_gapBeforeTrack() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayGroup_gapBeforeTrack(Group(.album, "Exilarch"), 5)
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayGroup_trackTranscoding_trackNeedsTranscoding() {
+        
+        let track = createTrack("FirstTrack", "wma", 300)
+        doBeginPlayback_trackNeedsTranscoding(track)
+        
+        doPlayGroup_trackNeedsTranscoding(Group(.album, "Exilarch"))
+        
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+    }
+    
+    func testPlayGroup_trackPlaying() {
+        
+        doBeginPlayback(createTrack("FirstTrack", 300))
+        doPlayGroup(Group(.artist, "Madonna"))
     }
     
     func testPlayGroup_trackPlaying_gapBeforeTrack() {
@@ -408,6 +578,8 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectGroupCallCountBeforeChange = sequencer.selectGroupCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
+        let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
+        
         let trackChangeMsgCountBeforeChange = trackChangeMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
@@ -422,7 +594,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectGroupCallCount, selectGroupCallCountBeforeChange + 1)
         XCTAssertEqual(sequencer.selectedGroup, group)
         
-        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)

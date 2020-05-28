@@ -22,20 +22,28 @@ class TestablePlayer: Player {
     var forceSeekToTime_track: Track?
     var forceSeekToTime_time: Double?
     
+    var forceSeekResult: PlayerSeekResult?
+    
     override func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult {
         
         forceSeekToTimeCallCount.increment()
         forceSeekToTime_track = track
         forceSeekToTime_time = time
         
-        return super.forceSeekToTime(track, time)
+        forceSeekResult = super.forceSeekToTime(track, time)
+        return forceSeekResult!
     }
     
     func reset() {
         
         attemptSeekToTimeCallCount = 0
         attemptSeekToTime_track = nil
-        attemptSeekToTime_time = 0
+        attemptSeekToTime_time = nil
         attemptSeekResult = nil
+        
+        forceSeekToTimeCallCount = 0
+        forceSeekToTime_track = nil
+        forceSeekToTime_time = nil
+        forceSeekResult = nil
     }
 }
