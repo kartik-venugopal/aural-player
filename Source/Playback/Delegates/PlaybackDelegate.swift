@@ -194,6 +194,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func toggleLoop() -> PlaybackLoop? {
+        
+        guard state.isPlayingOrPaused else {return nil}
+        
         return player.toggleLoop()
     }
     

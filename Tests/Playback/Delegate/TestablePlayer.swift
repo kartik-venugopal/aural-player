@@ -34,6 +34,16 @@ class TestablePlayer: Player {
         return forceSeekResult!
     }
     
+    var toggleLoopCallCount: Int = 0
+    var toggleLoopResult: PlaybackLoop?
+    
+    override func toggleLoop() -> PlaybackLoop? {
+        
+        toggleLoopCallCount.increment()
+        toggleLoopResult = super.toggleLoop()
+        return toggleLoopResult
+    }
+    
     func reset() {
         
         attemptSeekToTimeCallCount = 0

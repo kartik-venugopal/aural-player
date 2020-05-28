@@ -482,6 +482,7 @@
 		3E6341D8243DC28500190502 /* ControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D7243DC28500190502 /* ControlsPreferences.swift */; };
 		3E6341DA243DC50500190502 /* PreferencesDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D9243DC50500190502 /* PreferencesDefaults.swift */; };
 		3E6341DC243DC53B00190502 /* HistoryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341DB243DC53B00190502 /* HistoryPreferences.swift */; };
+		3E680DE82480341A00ACE971 /* PlaybackDelegate_LoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E680DE72480341A00ACE971 /* PlaybackDelegate_LoopTests.swift */; };
 		3E688ABF21E3842800164E84 /* WMParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688ABE21E3842800164E84 /* WMParser.swift */; };
 		3E688AC121E3967400164E84 /* VorbisCommentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC021E3967400164E84 /* VorbisCommentParser.swift */; };
 		3E688AC321E3978600164E84 /* ApeV2Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688AC221E3978600164E84 /* ApeV2Parser.swift */; };
@@ -1084,6 +1085,7 @@
 		3E6341D9243DC50500190502 /* PreferencesDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDefaults.swift; sourceTree = "<group>"; };
 		3E6341DB243DC53B00190502 /* HistoryPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferences.swift; sourceTree = "<group>"; };
 		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
+		3E680DE72480341A00ACE971 /* PlaybackDelegate_LoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_LoopTests.swift; sourceTree = "<group>"; };
 		3E688ABE21E3842800164E84 /* WMParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMParser.swift; sourceTree = "<group>"; };
 		3E688AC021E3967400164E84 /* VorbisCommentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VorbisCommentParser.swift; sourceTree = "<group>"; };
 		3E688AC221E3978600164E84 /* ApeV2Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApeV2Parser.swift; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 				3EC76A48247EAC180001CE28 /* PlaybackDelegate_PrimarySeekingTests.swift */,
 				3E40A537247FDFC500C831B7 /* PlaybackDelegate_SecondarySeekingTests.swift */,
 				3E40A539247FE49C00C831B7 /* PlaybackDelegate_ForcedSeekingTests.swift */,
+				3E680DE72480341A00ACE971 /* PlaybackDelegate_LoopTests.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3665,6 +3668,7 @@
 				3E12ACAC2469CBA100A07611 /* SearchQuery.swift in Sources */,
 				3E12AD282469CC3F00A07611 /* TrackIO.swift in Sources */,
 				3EF13D122472DC0D008CA5C0 /* StartPlaybackAction.swift in Sources */,
+				3E680DE82480341A00ACE971 /* PlaybackDelegate_LoopTests.swift in Sources */,
 				3E12ACE92469CC1700A07611 /* TimePresets.swift in Sources */,
 				3E12AD412469CC5100A07611 /* StateMachine.swift in Sources */,
 				3E626917246BF0E1002FAC63 /* UIConstants.swift in Sources */,
