@@ -102,7 +102,7 @@ class LayoutOnStartup {
     static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
 }
 
-enum ScrollSensitivity: String {
+enum ScrollSensitivity: String, CaseIterable {
     
     case low
     case medium

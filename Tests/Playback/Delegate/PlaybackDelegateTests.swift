@@ -4,7 +4,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     
     var delegate: PlaybackDelegate!
     
-    var player: PlayerProtocol!
+    var player: TestablePlayer!
     var mockPlayerGraph: MockPlayerGraph!
     var mockScheduler: MockScheduler!
     var mockPlayerNode: MockPlayerNode!
@@ -13,6 +13,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     var playlist: Playlist!
     var transcoder: MockTranscoder!
     var preferences: PlaybackPreferences!
+    var controlsPreferences: ControlsPreferences!
     var profiles: PlaybackProfiles!
     
     var startPlaybackChain: TestableStartPlaybackChain!
@@ -30,7 +31,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             mockPlayerNode = (mockPlayerGraph.playerNode as! MockPlayerNode)
             mockScheduler = MockScheduler(mockPlayerNode)
             
-            player = Player(mockPlayerGraph, mockScheduler)
+            player = TestablePlayer(mockPlayerGraph, mockScheduler)
             
             let flatPlaylist = FlatPlaylist()
             let artistsPlaylist = GroupingPlaylist(.artists, .artist)
@@ -41,7 +42,8 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             sequencer = MockSequencer()
             
             transcoder = MockTranscoder()
-            preferences = PlaybackPreferences([:])
+            controlsPreferences = ControlsPreferences([:])
+            preferences = PlaybackPreferences([:], controlsPreferences)
             profiles = PlaybackProfiles()
             
             delegate = PlaybackDelegate([], player, sequencer, playlist, transcoder, preferences)

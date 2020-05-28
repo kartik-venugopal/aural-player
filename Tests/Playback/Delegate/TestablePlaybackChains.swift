@@ -9,6 +9,10 @@ class TestableStartPlaybackChain: StartPlaybackChain {
         executionCount.increment()
         super.execute(context)
     }
+    
+    func reset() {
+        executionCount = 0
+    }
 }
 
 class TestableStopPlaybackChain: StopPlaybackChain {
@@ -20,6 +24,10 @@ class TestableStopPlaybackChain: StopPlaybackChain {
         executionCount.increment()
         super.execute(context)
     }
+    
+    func reset() {
+        executionCount = 0
+    }
 }
 
 class TestableTrackPlaybackCompletedChain: TrackPlaybackCompletedChain {
@@ -30,5 +38,9 @@ class TestableTrackPlaybackCompletedChain: TrackPlaybackCompletedChain {
         
         executionCount.increment()
         super.execute(context)
+    }
+    
+    func reset() {
+        executionCount = 0
     }
 }
