@@ -170,6 +170,8 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_validTime_playing() {
         
+        // TODO: Add a loop with multiple random valid times
+        
         doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
     }
     

@@ -89,34 +89,33 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertAllNil(delegate.currentTrack, delegate.playingTrack, delegate.waitingTrack, delegate.transcodingTrack)
     }
     
-    func assertPlayingTrack(_ track: Track?) {
-        
-        XCTAssertNotNil(track)
+    func assertPlayingTrack(_ track: Track, _ skipNilChecks: Bool = false) {
         
         XCTAssertEqual(delegate.state, PlaybackState.playing)
         
         XCTAssertEqual(delegate.currentTrack, track)
         XCTAssertEqual(delegate.playingTrack, track)
         
-        XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+        if !skipNilChecks {
+            XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+        }
+            
         XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
-    func assertPausedTrack(_ track: Track?) {
-        
-        XCTAssertNotNil(track)
+    func assertPausedTrack(_ track: Track, _ skipNilChecks: Bool = false) {
         
         XCTAssertEqual(delegate.state, PlaybackState.paused)
         
         XCTAssertEqual(delegate.currentTrack, track)
         XCTAssertEqual(delegate.playingTrack, track)
         
-        XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+        if !skipNilChecks {
+            XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
+        }
     }
     
-    func assertWaitingTrack(_ track: Track?) {
-        
-        XCTAssertNotNil(track)
+    func assertWaitingTrack(_ track: Track) {
         
         XCTAssertEqual(delegate.state, PlaybackState.waiting)
         
@@ -128,9 +127,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertTrue(PlaybackGapContext.hasGaps())
     }
     
-    func assertTranscodingTrack(_ track: Track?) {
-        
-        XCTAssertNotNil(track)
+    func assertTranscodingTrack(_ track: Track) {
         
         XCTAssertEqual(delegate.state, PlaybackState.transcoding)
         

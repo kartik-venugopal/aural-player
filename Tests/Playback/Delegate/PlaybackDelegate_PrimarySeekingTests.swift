@@ -9,6 +9,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         assertNoTrack()
         delegate.seekBackward()
         
+        assertNoTrack()
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -19,6 +20,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward()
         
+        assertWaitingTrack(track)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -29,6 +31,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward()
         
+        assertTranscodingTrack(track)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -83,6 +86,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         preferences.primarySeekLengthConstant = seekLength
         
         delegate.seekBackward()
+        
+        assertPlayingTrack(track, true)
         
         let expectedSeekPosition = currentPosition - Double(seekLength)
         
@@ -150,6 +155,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward()
         
+        assertPausedTrack(track, true)
+        
         let expectedSeekPosition = currentPosition - Double(seekLength)
         
         XCTAssertEqual(player.attemptSeekToTimeCallCount, seekToTimeCallCountBefore + 1)
@@ -207,6 +214,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         preferences.primarySeekLengthPercentage = percentage
         
         delegate.seekBackward()
+        
+        assertPlayingTrack(track, true)
         
         XCTAssertEqual(player.attemptSeekToTimeCallCount, seekToTimeCallCountBefore + 1)
         XCTAssertEqual(player.attemptSeekToTime_track!, track)
@@ -271,6 +280,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward()
         
+        assertPausedTrack(track, true)
+        
         XCTAssertEqual(player.attemptSeekToTimeCallCount, seekToTimeCallCountBefore + 1)
         XCTAssertEqual(player.attemptSeekToTime_track!, track)
         
@@ -321,6 +332,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         controlsPreferences.seekSensitivity = sensitivity
         
         delegate.seekBackward(.continuous)
+        
+        assertPlayingTrack(track, true)
         
         let expectedSeekPosition = currentPosition - preferences.seekLength_continuous
         
@@ -376,6 +389,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward(.continuous)
         
+        assertPausedTrack(track, true)
+        
         let expectedSeekPosition = currentPosition - preferences.seekLength_continuous
         
         XCTAssertEqual(player.attemptSeekToTimeCallCount, seekToTimeCallCountBefore + 1)
@@ -393,6 +408,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         assertNoTrack()
         delegate.seekForward()
         
+        assertNoTrack()
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -403,6 +419,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekForward()
         
+        assertWaitingTrack(track)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -413,6 +430,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekForward()
         
+        assertTranscodingTrack(track)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -477,6 +495,10 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         let trackCompleted: Bool = expectedSeekPosition >= track.duration
         XCTAssertEqual(player.attemptSeekResult!.trackPlaybackCompleted, trackCompleted)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, trackCompletionCountBefore + (trackCompleted ? 1 : 0))
+        
+        if !trackCompleted {
+            assertPlayingTrack(track, true)
+        }
     }
     
     func testSeekForward_constantSeekLength_trackPaused() {
@@ -534,6 +556,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         preferences.primarySeekLengthConstant = seekLength
         
         delegate.seekForward()
+        
+        assertPausedTrack(track, true)
         
         let expectedSeekPosition = currentPosition + Double(seekLength)
         
@@ -602,6 +626,10 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         let trackCompleted: Bool = expectedSeekPosition >= track.duration
         XCTAssertEqual(player.attemptSeekResult!.trackPlaybackCompleted, trackCompleted)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, trackCompletionCountBefore + (trackCompleted ? 1 : 0))
+        
+        if !trackCompleted {
+            assertPlayingTrack(track, true)
+        }
     }
     
     func testSeekForward_trackDurationPercentage_trackPaused() {
@@ -655,6 +683,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         preferences.primarySeekLengthPercentage = percentage
         
         delegate.seekForward()
+        
+        assertPausedTrack(track, true)
         
         XCTAssertEqual(player.attemptSeekToTimeCallCount, seekToTimeCallCountBefore + 1)
         XCTAssertEqual(player.attemptSeekToTime_track!, track)
@@ -716,6 +746,10 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         let trackCompleted: Bool = expectedSeekPosition >= track.duration
         XCTAssertEqual(player.attemptSeekResult!.trackPlaybackCompleted, trackCompleted)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, trackCompletionCountBefore + (trackCompleted ? 1 : 0))
+        
+        if !trackCompleted {
+            assertPlayingTrack(track, true)
+        }
     }
     
     func testSeekForward_continuousActionMode_trackPaused() {
@@ -761,6 +795,8 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         controlsPreferences.seekSensitivity = sensitivity
         
         delegate.seekForward(.continuous)
+        
+        assertPausedTrack(track, true)
         
         let expectedSeekPosition = currentPosition + preferences.seekLength_continuous
         
