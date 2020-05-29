@@ -65,7 +65,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 **User**: macOS 10.12 (Sierra) or later versions
 
-**Developer**: (Swift 4.2) macOS 10.13.4 (High Sierra) or later, and XCode 10
+**Developer**: (Swift 5.1) macOS 10.14.4 (Mojave) or later, and XCode 11.3
 
 ## Summary of features
 
