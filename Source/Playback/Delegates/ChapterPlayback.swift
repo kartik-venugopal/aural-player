@@ -1,5 +1,7 @@
 import Foundation
 
+fileprivate let chapterPlaybackStartTimeMargin: Double = 0.01
+
 // Chapter playback functions
 extension PlaybackDelegate {
     
@@ -20,62 +22,15 @@ extension PlaybackDelegate {
     
     func previousChapter() {
         
-        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
-            
-            let elapsed = player.seekPosition
-            
-            for index in 0..<chapters.count {
-                
-                let chapter = chapters[index]
-                
-                // We have either reached a chapter containing the elapsed time or
-                // we have passed the elapsed time (i.e. within a gap between chapters).
-                if chapter.containsTimePosition(elapsed) || (elapsed < chapter.startTime) {
-                    
-                    // If there is a previous chapter, play it
-                    if index > 0 {
-                        playChapter(index - 1)
-                    }
-                    
-                    // No previous chapter
-                    return
-                }
-            }
-            
-            // Elapsed time > all chapter times ... it's a gap at the end
-            // i.e. need to play the last chapter
-            playChapter(chapters.count - 1)
+        if let index = previousChapterIndex {
+            playChapter(index)
         }
     }
     
     func nextChapter() {
         
-        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
-                
-            let elapsed = player.seekPosition
-            
-            for index in 0..<chapters.count {
-                
-                let chapter = chapters[index]
-                
-                if chapter.containsTimePosition(elapsed) {
-                
-                    // Play the next chapter if there is one
-                    if index < (chapters.count - 1) {
-                        playChapter(index + 1)
-                    }
-                    
-                    return
-                    
-                } else if elapsed < chapter.startTime {
-                    
-                    // Elapsed time is less than this chapter's lower time bound,
-                    // i.e. this chapter is the next chapter
-                    
-                    playChapter(index)
-                    return
-                }
-            }
+        if let index = nextChapterIndex {
+            playChapter(index)
         }
     }
     
@@ -107,27 +62,141 @@ extension PlaybackDelegate {
     // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
     var playingChapter: IndexedChapter? {
         
-        if let track = playingTrack, track.hasChapters {
+        if let track = playingTrack, let index = currentChapterIndex {
+            return IndexedChapter(track, track.chapters[index], index)
+        }
+        
+        return nil
+    }
+    
+    var currentChapterIndex: Int? {
+        
+        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
             
-            let elapsed = player.seekPosition
+            let seekTime = player.seekPosition
             
-            var index: Int = 0
-            for chapter in track.chapters {
+            // Binary search algorithm (assumes chapters are chronologically arranged and non-overlapping).
+            // Able to handle gaps around chapters.
+            
+            var first = 0
+            var last = chapters.count - 1
+            var center = (first + last) / 2
+            var centerChapter = chapters[center]
+            
+            while first <= last {
                 
-                if chapter.containsTimePosition(elapsed) {
+                if centerChapter.containsTimePosition(seekTime) {
                     
-                    // Elapsed time is within this chapter's lower and upper time bounds ... found the chapter.
-                    return IndexedChapter(track, chapter, index)
+                    // Found a matching chapter
+                    return center
                     
-                } else if elapsed < chapter.startTime {
+                } else if seekTime < centerChapter.startTime {
                     
-                    // Elapsed time is less than this chapter's lower time bound,
-                    // i.e. we have already looked at all chapters up to the elapsed time and not found a match.
-                    // Since chapters are sorted, we can assume that this indicates a gap between chapters.
-                    return nil
+                    last = center - 1
+                    
+                } else if seekTime > centerChapter.endTime {
+                    
+                    first = center + 1
                 }
                 
-                index += 1
+                center = (first + last) / 2
+                centerChapter = chapters[center]
+            }
+        }
+        
+        return nil
+    }
+    
+    var previousChapterIndex: Int? {
+        
+        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
+            
+            let seekTime = player.seekPosition
+            
+            // Binary search algorithm (assumes chapters are chronologically arranged and non-overlapping).
+            // Able to handle gaps around chapters.
+            
+            var first = 0
+            var last = chapters.count - 1
+            var center = (first + last) / 2
+            var centerChapter = chapters[center]
+            
+            while first <= last {
+                
+                if centerChapter.containsTimePosition(seekTime) {
+                    
+                    // Found a matching chapter
+                    return center - 1 < 0 ? nil : center - 1
+                    
+                } else if seekTime < centerChapter.startTime {
+                    
+                    last = center - 1
+                    
+                } else if seekTime > centerChapter.endTime {
+                    
+                    first = center + 1
+                }
+                
+                center = (first + last) / 2
+                centerChapter = chapters[center]
+            }
+            
+            // If no matching chapter was found for the current seek position, try to determine a previous chapter.
+            if seekTime < centerChapter.startTime {
+                
+                return center - 1 < 0 ? nil : center - 1
+                
+            } else {
+                
+                return center
+            }
+        }
+        
+        return nil
+    }
+    
+    var nextChapterIndex: Int? {
+        
+        if let chapters = playingTrack?.chapters, !chapters.isEmpty {
+            
+            let seekTime = player.seekPosition
+            
+            // Binary search algorithm (assumes chapters are chronologically arranged and non-overlapping).
+            // Able to handle gaps around chapters.
+            
+            var first = 0
+            var last = chapters.count - 1
+            var center = (first + last) / 2
+            var centerChapter = chapters[center]
+            
+            while first <= last {
+                
+                if centerChapter.containsTimePosition(seekTime) {
+                    
+                    // Found a matching chapter
+                    return center + 1 >= chapters.count ? nil : center + 1
+                    
+                } else if seekTime < centerChapter.startTime {
+                    
+                    last = center - 1
+                    
+                } else if seekTime > centerChapter.endTime {
+                    
+                    first = center + 1
+                }
+                
+                center = (first + last) / 2
+                centerChapter = chapters[center]
+            }
+            
+            // If no matching chapter was found for the current seek position, try to determine a next chapter.
+            if seekTime < centerChapter.startTime {
+                
+                return center
+                
+            } else {
+                
+                return center + 1 >= chapters.count ? nil : center + 1
             }
         }
         
