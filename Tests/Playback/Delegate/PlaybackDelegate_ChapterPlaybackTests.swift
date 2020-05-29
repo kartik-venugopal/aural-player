@@ -1150,4 +1150,326 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
     }
+    
+    // MARK: loopChapter() tests --------------------------------------------------------------------------------------------
+    
+    func testLoopChapter_noTrackPlaying() {
+        
+        assertNoTrack()
+        
+        delegate.loopChapter()
+            
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertNoTrack()
+    }
+    
+    func testLoopChapter_trackWaiting() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
+        assertWaitingTrack(track)
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertWaitingTrack(track)
+    }
+    
+    func testLoopChapter_trackTranscoding() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", "ogg", 600)
+        delegate.play(track)
+        assertTranscodingTrack(track)
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertTranscodingTrack(track)
+    }
+    
+    func testLoopChapter_trackPlaying_noChapters() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        XCTAssertEqual(track.chapters.count, 0)
+        
+        delegate.play(track)
+        assertPlayingTrack(track)
+        XCTAssertEqual(delegate.chapterCount, 0)
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertPlayingTrack(track)
+    }
+    
+    func testLoopChapter_trackPlaying_playingBetweenChapters() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        
+        var chapters: [Chapter] = []
+        chapters.append(Chapter("Introduction", 10, 60))
+        chapters.append(Chapter("Chapter 1 - Unconsciousness", 60, 240))
+        chapters.append(Chapter("Chapter 2 - Presence", 250, 600))
+        
+        track.chapters = chapters
+        
+        delegate.play(track)
+        assertPlayingTrack(track)
+        XCTAssertEqual(delegate.chapterCount, chapters.count)
+        
+        // Seek to a position between chapter 1 and 2
+        mockScheduler.seekPosition = 245
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertPlayingTrack(track)
+    }
+    
+    func testLoopChapter_trackPlaying_playingChapter_noPredefinedLoop() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        assertPlayingTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPlayingTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    func testLoopChapter_trackPlaying_playingChapter_predefinedLoopStarted() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        assertPlayingTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Begin a predefined loop
+            mockScheduler.seekPosition = Double.random(in: 0...(track.duration / 2))
+            let loop = delegate.toggleLoop()
+            XCTAssertFalse(loop!.isComplete)
+        
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPlayingTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    func testLoopChapter_trackPlaying_playingChapter_predefinedLoopComplete() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        assertPlayingTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Begin a predefined loop
+            mockScheduler.seekPosition = Double.random(in: 0..<(track.duration / 2))
+            var loop = delegate.toggleLoop()
+            XCTAssertFalse(loop!.isComplete)
+            
+            // Complete the predefined loop
+            mockScheduler.seekPosition = Double.random(in: (track.duration / 2)..<track.duration)
+            loop = delegate.toggleLoop()
+            XCTAssertTrue(loop!.isComplete)
+        
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPlayingTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    func testLoopChapter_trackPaused_noChapters() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        XCTAssertEqual(track.chapters.count, 0)
+        
+        delegate.play(track)
+        delegate.togglePlayPause()
+        
+        assertPausedTrack(track)
+        XCTAssertEqual(delegate.chapterCount, 0)
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertPausedTrack(track)
+    }
+    
+    func testLoopChapter_trackPaused_playingBetweenChapters() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        
+        var chapters: [Chapter] = []
+        chapters.append(Chapter("Introduction", 10, 60))
+        chapters.append(Chapter("Chapter 1 - Unconsciousness", 60, 240))
+        chapters.append(Chapter("Chapter 2 - Presence", 250, 600))
+        
+        track.chapters = chapters
+        
+        delegate.play(track)
+        delegate.togglePlayPause()
+        
+        assertPausedTrack(track)
+        XCTAssertEqual(delegate.chapterCount, chapters.count)
+        
+        // Seek to a position between chapter 1 and 2
+        mockScheduler.seekPosition = 245
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, 0)
+        XCTAssertNil(delegate.playbackLoop)
+        assertPausedTrack(track)
+    }
+    
+    func testLoopChapter_trackPaused_playingChapter_noPredefinedLoop() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        delegate.togglePlayPause()
+        
+        assertPausedTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPausedTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    func testLoopChapter_trackPaused_playingChapter_predefinedLoopStarted() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        delegate.togglePlayPause()
+        
+        assertPausedTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Begin a predefined loop
+            mockScheduler.seekPosition = Double.random(in: 0...(track.duration / 2))
+            let loop = delegate.toggleLoop()
+            XCTAssertFalse(loop!.isComplete)
+        
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPausedTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    func testLoopChapter_trackPaused_playingChapter_predefinedLoopComplete() {
+        
+        let track = createTrack("Eckhart Tolle - Art of Presence", 600)
+        track.chapters = createChapters(10)
+        
+        delegate.play(track)
+        delegate.togglePlayPause()
+        
+        assertPausedTrack(track)
+        XCTAssertEqual(delegate.chapterCount, track.chapters.count)
+        
+        for chapterIndex in 0..<delegate.chapterCount {
+            
+            XCTAssertNil(delegate.playbackLoop)
+            
+            // Begin a predefined loop
+            mockScheduler.seekPosition = Double.random(in: 0..<(track.duration / 2))
+            var loop = delegate.toggleLoop()
+            XCTAssertFalse(loop!.isComplete)
+            
+            // Complete the predefined loop
+            mockScheduler.seekPosition = Double.random(in: (track.duration / 2)..<track.duration)
+            loop = delegate.toggleLoop()
+            XCTAssertTrue(loop!.isComplete)
+        
+            // Seek to chapter and define the chapter loop
+            seekToChapter(chapterIndex)
+            doLoopChapter(chapterIndex)
+            
+            assertPausedTrack(track)
+            
+            // After each test iteration, remove the chapter loop
+            XCTAssertNil(delegate.toggleLoop())
+        }
+    }
+    
+    private func doLoopChapter(_ chapterIndex: Int) {
+        
+        let track = delegate.playingTrack!
+        let defineLoopCallCountBefore: Int = player.defineLoopCallCount
+        
+        delegate.loopChapter()
+        
+        XCTAssertEqual(player.defineLoopCallCount, defineLoopCallCountBefore + 1)
+        XCTAssertEqual(player.defineLoop_startTime!, track.chapters[chapterIndex].startTime, accuracy: 0.001)
+        XCTAssertEqual(player.defineLoop_endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.001)
+        
+        let loop = delegate.playbackLoop
+        XCTAssertTrue(loop!.isComplete)
+        XCTAssertEqual(loop!.startTime, track.chapters[chapterIndex].startTime, accuracy: 0.001)
+        XCTAssertEqual(loop!.endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.001)
+    }
 }

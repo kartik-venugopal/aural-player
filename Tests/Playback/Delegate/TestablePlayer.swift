@@ -44,6 +44,19 @@ class TestablePlayer: Player {
         return toggleLoopResult
     }
     
+    var defineLoopCallCount: Int = 0
+    var defineLoop_startTime: Double?
+    var defineLoop_endTime: Double?
+    
+    override func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+        
+        defineLoopCallCount.increment()
+        defineLoop_startTime = loopStartPosition
+        defineLoop_endTime = loopEndPosition
+        
+        super.defineLoop(loopStartPosition, loopEndPosition)
+    }
+    
     func reset() {
         
         attemptSeekToTimeCallCount = 0
@@ -55,5 +68,12 @@ class TestablePlayer: Player {
         forceSeekToTime_track = nil
         forceSeekToTime_time = nil
         forceSeekResult = nil
+        
+        toggleLoopCallCount = 0
+        toggleLoopResult = nil
+        
+        defineLoopCallCount = 0
+        defineLoop_startTime = nil
+        defineLoop_endTime = nil
     }
 }
