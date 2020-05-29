@@ -74,6 +74,135 @@
                   Identifier = "PlaybackDelegateTests">
                </Test>
                <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_noTrackPlaying()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingAfterLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingBeforeFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingBetweenMiddleChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPaused_playingMiddleChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingAfterLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingBeforeFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingBetweenMiddleChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackPlaying_playingMiddleChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackTranscoding()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testNextChapter_trackWaiting()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_noTrackPlaying()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPaused_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPaused_trackHasChapters_invalidIndices()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPaused_trackHasChapters_validIndices()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPlaying_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPlaying_trackHasChapters_invalidIndices()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackPlaying_trackHasChapters_validIndices()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackTranscoding()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPlayChapter_trackWaiting()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_noTrackPlaying()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingAfterLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingBeforeFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingBetweenMiddleChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPaused_playingMiddleChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_noChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingAfterLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingBeforeFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingBetweenMiddleChapters()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingFirstChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingLastChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackPlaying_playingMiddleChapter()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackTranscoding()">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests/testPreviousChapter_trackWaiting()">
+               </Test>
+               <Test
                   Identifier = "PlaybackDelegate_ForcedSeekingTests">
                </Test>
                <Test
