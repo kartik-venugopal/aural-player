@@ -2,9 +2,6 @@ import Foundation
 
 fileprivate typealias TrackProducer = () -> Track?
 
-/*
-    Concrete implementation of PlaybackDelegateProtocol and BasicPlaybackDelegateProtocol.
- */
 class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
     // The actual player
@@ -26,8 +23,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     var startPlaybackChain: PlaybackChain
     var stopPlaybackChain: PlaybackChain
     var trackPlaybackCompletedChain: PlaybackChain
-    
-    let chapterPlaybackStartTimeMargin: Double = 0.025
     
     init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
         
