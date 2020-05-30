@@ -251,14 +251,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 return trackDuration * percentage / 100.0
             }
             
-            // Default value
-            return 5
-            
         } else {
             
             // Continuous seeking
             return preferences.seekLength_continuous
         }
+        
+        // Default value
+        return 5
     }
     
     /*
