@@ -18,7 +18,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // User preferences
     let preferences: PlaybackPreferences
     
-    var profiles: PlaybackProfiles
+    let profiles: PlaybackProfiles
     
     var startPlaybackChain: PlaybackChain
     var stopPlaybackChain: PlaybackChain
@@ -195,13 +195,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return player.toggleLoop()
     }
     
-    func cancelTranscoding() {
-        
-        if let transcodingTrack = playingTrack {
-            cancelTranscoding(transcodingTrack)
-        }
-    }
-    
     // MARK: Seeking functions
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
@@ -361,12 +354,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return player.playbackLoop
     }
     
-    private func cancelTranscoding(_ track: Track) {
-        
-        transcoder.cancel(track)
-        stop()
-    }
-    
     private func savePlaybackProfile() {
         
         if let track = playingTrack {
@@ -394,13 +381,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
+    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if playback settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
+        // Save playback settings if the option either requires saving settings for all tracks, or if
+        // the option has been set for this particular playing track.
         if preferences.rememberLastPosition, let track = playingTrack,
             preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
             
-            // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            // Remember the current playback settings the next time this track plays.
+            // Update the profile with the latest settings for this track.
             profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
         }
         
@@ -450,8 +440,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
-        if playingTrackRemoved, let theRemovedPlayingTrack = removedPlayingTrack {
-            state == .transcoding ? cancelTranscoding(theRemovedPlayingTrack) : stop()
+        if playingTrackRemoved {
+            stop()
         }
     }
     

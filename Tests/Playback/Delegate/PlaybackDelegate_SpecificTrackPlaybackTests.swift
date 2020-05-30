@@ -73,7 +73,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayIndex(10)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayIndex_trackTranscoding_gapBeforeTrack() {
@@ -84,7 +84,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayIndex_gapBeforeTrack(10, 5)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayIndex_trackTranscoding_trackNeedsTranscoding() {
@@ -95,7 +95,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayIndex_trackNeedsTranscoding(10)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayIndex_trackPlaying() {
@@ -277,7 +277,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayTrack(createTrack("TestTrack", 200))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayTrack_trackTranscoding_gapBeforeTrack() {
@@ -288,7 +288,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayTrack_gapBeforeTrack(createTrack("TestTrack", 200), 5)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayTrack_trackTranscoding_trackNeedsTranscoding() {
@@ -299,7 +299,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayTrack_trackNeedsTranscoding(createTrack("TestTrack", "ogg", 200))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayTrack_trackPlaying() {
@@ -472,7 +472,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayGroup(Group(.album, "Exilarch"))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayGroup_trackTranscoding_gapBeforeTrack() {
@@ -483,7 +483,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayGroup_gapBeforeTrack(Group(.album, "Exilarch"), 5)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayGroup_trackTranscoding_trackNeedsTranscoding() {
@@ -494,7 +494,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         doPlayGroup_trackNeedsTranscoding(Group(.album, "Exilarch"))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPlayGroup_trackPlaying() {

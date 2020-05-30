@@ -41,7 +41,9 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Restarts the current track, if there is one (i.e. seek to 0)
     func replay()
     
-    // Stops playback
+    // Stops playback.
+    // If the track is waiting to play (i.e. delayed playback), or is being transcoded for playback, the waiting or
+    // transcoding will be cancelled, and no deferred playback will occur.
     func stop()
     
     // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back
@@ -112,8 +114,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
     func loopChapter()
-    
-    func cancelTranscoding()
     
     var profiles: PlaybackProfiles {get}
 }
