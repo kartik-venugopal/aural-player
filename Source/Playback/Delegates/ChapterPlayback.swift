@@ -57,9 +57,7 @@ extension PlaybackDelegate {
         return playingTrack?.chapters.count ?? 0
     }
     
-    // NOTE - This function needs to be efficient because it is repeatedly called to keep track of the current chapter
-    // TODO: One possible optimization - keep track of which chapter is playing (in a variable), and in this function, check
-    // against it first. In most cases, that check will produce a quick result. Or, implement a binary search. Or both.
+    // NOTE - This property getter needs to be efficient because it is repeatedly called to keep track of the current chapter
     var playingChapter: IndexedChapter? {
         
         if let track = playingTrack, let index = currentChapterIndex {
