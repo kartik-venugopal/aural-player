@@ -6,7 +6,7 @@ class MockTranscoder: TranscoderProtocol {
     var transcodeImmediatelyTrack: Track?
     
     var transcodeCancelCallCount: Int = 0
-    var transcodeCancelTrack: Track?
+    var transcodeCancel_track: Track?
     
     func transcodeImmediately(_ track: Track) {
         
@@ -20,7 +20,7 @@ class MockTranscoder: TranscoderProtocol {
     func cancel(_ track: Track) {
         
         transcodeCancelCallCount.increment()
-        transcodeCancelTrack = track
+        transcodeCancel_track = track
     }
     
     var currentDiskSpaceUsage: UInt64 {return 0}

@@ -54,6 +54,8 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        XCTAssertFalse(PlaybackGapContext.hasGaps())
+        XCTAssertEqual(PlaybackGapContext.gapLength, 0)
         
         executeAfter(0.5) {
             self.assertTrackChange(track, .waiting, nil)
@@ -69,6 +71,8 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeCancel_track!, track)
         
         executeAfter(0.5) {
             self.assertTrackChange(track, .transcoding, nil)

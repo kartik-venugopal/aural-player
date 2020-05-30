@@ -71,7 +71,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doPreviousTrack(nil)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 0)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, nil)
+        XCTAssertEqual(transcoder.transcodeCancel_track, nil)
     }
     
     func testPreviousTrack_trackTranscoding_trackChanges() {
@@ -81,7 +81,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doPreviousTrack(createTrack("PreviousTrack", 400))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testPreviousTrack_trackPlaying_gapBeforePreviousTrack() {
@@ -259,7 +259,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doNextTrack(nil)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 0)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, nil)
+        XCTAssertEqual(transcoder.transcodeCancel_track, nil)
     }
     
     func testNextTrack_trackTranscoding_trackChanges() {
@@ -269,7 +269,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doNextTrack(createTrack("NextTrack", 400))
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeCancelTrack, track)
+        XCTAssertEqual(transcoder.transcodeCancel_track, track)
     }
     
     func testNextTrack_trackPlaying_gapBeforeNextTrack() {

@@ -153,6 +153,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // Sort descending
         let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
         
+        // TODO: Use .map {} instead of forEach
         // Collect the tracks as they are removed
         var removedTracks = [Track]()
         sortedIndexes.forEach({removedTracks.append(removeTrackAtIndex($0))})

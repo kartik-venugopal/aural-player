@@ -86,13 +86,16 @@
                   Identifier = "PlaybackDelegate_LoopTests">
                </Test>
                <Test
-                  Identifier = "PlaybackDelegate_MessageHandlingTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackDelegate_PlaybackParamsTests">
                </Test>
                <Test
+                  Identifier = "PlaybackDelegate_PlaylistChangeListenerTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackDelegate_PrimarySeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_PropertyGettersTests">
                </Test>
                <Test
                   Identifier = "PlaybackDelegate_ReplayTests">

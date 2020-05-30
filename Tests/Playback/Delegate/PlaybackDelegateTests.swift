@@ -80,7 +80,11 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         // Prevent test case objects from receiving each other's messages.
         AsyncMessenger.unsubscribe([.trackChanged, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackNotTranscoded], subscriber: self)
+        
         AsyncMessenger.unsubscribe([.playbackCompleted, .transcodingFinished], subscriber: delegate)
+        SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
+        SyncMessenger.unsubscribe(messageTypes: [.appExitRequest], subscriber: delegate)
     }
     
     func assertNoTrack() {
