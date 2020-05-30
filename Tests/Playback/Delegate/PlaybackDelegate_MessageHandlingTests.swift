@@ -8,6 +8,8 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
     
     override func consumeAsyncMessage(_ message: AsyncMessage) {
         
+        super.consumeAsyncMessage(message)
+        
         if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
             
             trackNotTranscodedMsgCount.increment()
@@ -45,17 +47,20 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
     func testConsumeAsyncMessage_playbackCompleted_currentSession() {
         
         let track = createTrack("Money for Nothing", 420)
-        let currentSession = PlaybackSession.start(track)
+        doBeginPlayback(track)
         
-        XCTAssertTrue(PlaybackSession.isCurrent(currentSession))
+        XCTAssertTrue(PlaybackSession.hasCurrentSession())
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(currentSession))
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
         
         asyncOnMainAfter(0.5) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
+            self.verifyRequestContext_trackPlaybackCompletedChain(.playing, track, seekPosBeforeChange)
         }
     }
     

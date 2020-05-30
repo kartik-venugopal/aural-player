@@ -1,6 +1,6 @@
 import Foundation
 
-class PlaybackGap {
+class PlaybackGap: Hashable {
     
     // For identity when hashing
     let id: Int
@@ -21,6 +21,15 @@ class PlaybackGap {
         self.position = position
         self.type = type
     }
+    
+    static func == (lhs: PlaybackGap, rhs: PlaybackGap) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    // Needed for Hashable conformance
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
 }
 
 enum PlaybackGapPosition: String {
@@ -38,18 +47,6 @@ enum PlaybackGapType: String {
     
     // Implicit gap as specified by Playback preferences (i.e. applies to all playlist tracks)
     case implicit
-}
-
-extension PlaybackGap: Hashable {
-    
-    static func == (lhs: PlaybackGap, rhs: PlaybackGap) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    // Needed for Hashable conformance
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
 }
 
 class PlaybackGapContext {

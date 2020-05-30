@@ -8,6 +8,7 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        verifyRequestContext_stopPlaybackChain(.noTrack, nil, 0)
         
         executeAfter(0.5) {
             self.assertTrackChange(nil, .noTrack, nil)
@@ -19,10 +20,13 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         let track = createTrack("Like a Virgin", 249.99887766)
         doBeginPlayback(track)
         
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.stop()
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        verifyRequestContext_stopPlaybackChain(.playing, track, seekPosBeforeChange)
         
         executeAfter(0.5) {
             self.assertTrackChange(track, .playing, nil, 2)
@@ -35,10 +39,13 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         doBeginPlayback(track)
         doPausePlayback(track)
         
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.stop()
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        verifyRequestContext_stopPlaybackChain(.paused, track, seekPosBeforeChange)
         
         executeAfter(0.5) {
             self.assertTrackChange(track, .paused, nil, 2)
@@ -54,6 +61,8 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        verifyRequestContext_stopPlaybackChain(.waiting, track, 0)
+        
         XCTAssertFalse(PlaybackGapContext.hasGaps())
         XCTAssertEqual(PlaybackGapContext.gapLength, 0)
         
@@ -71,6 +80,8 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         assertNoTrack()
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
+        verifyRequestContext_stopPlaybackChain(.transcoding, track, 0)
+        
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancel_track!, track)
         
