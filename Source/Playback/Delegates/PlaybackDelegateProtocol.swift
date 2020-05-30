@@ -115,7 +115,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     func cancelTranscoding()
     
-    var profiles: PlaybackProfiles {get set}
+    var profiles: PlaybackProfiles {get}
 }
 
 // Default function implementations

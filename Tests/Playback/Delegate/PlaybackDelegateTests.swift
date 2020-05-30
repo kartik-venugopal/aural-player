@@ -14,7 +14,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     var transcoder: MockTranscoder!
     var preferences: PlaybackPreferences!
     var controlsPreferences: ControlsPreferences!
-    var profiles: PlaybackProfiles!
     
     var startPlaybackChain: TestableStartPlaybackChain!
     var stopPlaybackChain: TestableStopPlaybackChain!
@@ -44,13 +43,12 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             transcoder = MockTranscoder()
             controlsPreferences = ControlsPreferences([:])
             preferences = PlaybackPreferences([:], controlsPreferences)
-            profiles = PlaybackProfiles()
             
             delegate = PlaybackDelegate([], player, sequencer, playlist, transcoder, preferences)
             
-            startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
-            stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-            trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+            startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, delegate.profiles, preferences)
+            stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, delegate.profiles, preferences)
+            trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, delegate.profiles, preferences)
             
             delegate.startPlaybackChain = startPlaybackChain
             delegate.stopPlaybackChain = stopPlaybackChain
@@ -82,6 +80,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         // Prevent test case objects from receiving each other's messages.
         AsyncMessenger.unsubscribe([.trackChanged, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.playbackCompleted, .transcodingFinished], subscriber: delegate)
     }
     
     func assertNoTrack() {

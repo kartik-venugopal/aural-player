@@ -15,3 +15,12 @@ func executeAfter(_ timeSeconds: Double, work: @escaping @convention(block) () -
     
     work()
 }
+
+func asyncOnMainAfter(_ timeSeconds: Double, work: @escaping @convention(block) () -> Void) {
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + timeSeconds, execute: {
+        work()
+    })
+    
+    RunLoop.current.run(until: Date() + timeSeconds + 0.5)
+}
