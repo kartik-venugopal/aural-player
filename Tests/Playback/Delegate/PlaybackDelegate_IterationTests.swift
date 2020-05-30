@@ -96,6 +96,8 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         playlist.setGapsForTrack(previousTrack, PlaybackGap(5, .beforeTrack, .oneTime), nil)
         XCTAssertNotNil(playlist.getGapBeforeTrack(previousTrack))
         
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.previousTrack()
         
         // Track should have changed (and should be in waiting state)
@@ -103,6 +105,9 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
@@ -118,12 +123,80 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         let previousTrack = createTrack("PreviousTrack", "wma", 400)
         sequencer.previousTrack = previousTrack
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.previousTrack()
         
         // Track should have changed (and should now be in transcoding state)
         assertTranscodingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
+        
+        XCTAssertEqual(sequencer.previousCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, previousTrack)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
+        }
+    }
+    
+    func testPreviousTrack_trackPaused_gapBeforePreviousTrack() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        doBeginPlayback(someTrack)
+        doPausePlayback(someTrack)
+        
+        let previousTrack: Track = createTrack("PreviousTrack", 400)
+        sequencer.previousTrack = previousTrack
+        
+        // Set a gap before previous track (in the playlist)
+        playlist.setGapsForTrack(previousTrack, PlaybackGap(5, .beforeTrack, .oneTime), nil)
+        XCTAssertNotNil(playlist.getGapBeforeTrack(previousTrack))
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
+        delegate.previousTrack()
+        
+        // Track should have changed (and should be in waiting state)
+        assertWaitingTrack(previousTrack)
+        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        
+        XCTAssertEqual(sequencer.previousCallCount, 1)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            self.assertGapStarted(someTrack, previousTrack)
+        }
+    }
+    
+    func testPreviousTrack_trackPaused_previousTrackNeedsTranscoding() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        doBeginPlayback(someTrack)
+        doPausePlayback(someTrack)
+        
+        let previousTrack = createTrack("PreviousTrack", "wma", 400)
+        sequencer.previousTrack = previousTrack
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
+        delegate.previousTrack()
+        
+        // Track should have changed (and should now be in transcoding state)
+        assertTranscodingTrack(previousTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
+        
         XCTAssertEqual(sequencer.previousCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, previousTrack)
@@ -137,6 +210,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         let trackBeforeChange = delegate.currentTrack
         let stateBeforeChange = delegate.state
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
         
         let previousCallCountBeforeChange = sequencer.previousCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
@@ -149,6 +223,9 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         if track != nil {
 
             assertPlayingTrack(track!)
+            
+            verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+            seekPosBeforeChange, track!, PlaybackParams.defaultParams(), true)
             
         } else {
             
@@ -284,6 +361,8 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         playlist.setGapsForTrack(nextTrack, PlaybackGap(5, .beforeTrack, .oneTime), nil)
         XCTAssertNotNil(playlist.getGapBeforeTrack(nextTrack))
         
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.nextTrack()
         
         // Track should have changed (and should be in waiting state)
@@ -291,6 +370,9 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
@@ -307,12 +389,79 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         let nextTrack = createTrack("NextTrack", "wma", 400)
         sequencer.nextTrack = nextTrack
         
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
         delegate.nextTrack()
         
         // Track should have changed (and should now be in transcoding state)
         assertTranscodingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
+        
+        XCTAssertEqual(sequencer.nextCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, nextTrack)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
+        }
+    }
+    
+    func testNextTrack_trackPaused_gapBeforeNextTrack() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        doBeginPlayback(someTrack)
+        doPausePlayback(someTrack)
+        
+        let nextTrack: Track = createTrack("NextTrack", 400)
+        sequencer.nextTrack = nextTrack
+        
+        // Set a gap before next track (in the playlist)
+        playlist.setGapsForTrack(nextTrack, PlaybackGap(5, .beforeTrack, .oneTime), nil)
+        XCTAssertNotNil(playlist.getGapBeforeTrack(nextTrack))
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
+        delegate.nextTrack()
+        
+        // Track should have changed (and should be in waiting state)
+        assertWaitingTrack(nextTrack)
+        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        
+        XCTAssertEqual(sequencer.nextCallCount, 1)
+        
+        executeAfter(0.5) {
+            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            self.assertGapStarted(someTrack, nextTrack)
+        }
+    }
+    
+    func testNextTrack_trackPaused_nextTrackNeedsTranscoding() {
+        
+        let someTrack = createTrack("SomeTrack", 300)
+        doBeginPlayback(someTrack)
+        doPausePlayback(someTrack)
+        
+        let nextTrack = createTrack("NextTrack", "wma", 400)
+        sequencer.nextTrack = nextTrack
+        
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
+        
+        delegate.nextTrack()
+        
+        // Track should have changed (and should now be in transcoding state)
+        assertTranscodingTrack(nextTrack)
+        
+        XCTAssertEqual(startPlaybackChain.executionCount, 2)
+        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
+        
         XCTAssertEqual(sequencer.nextCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, nextTrack)
@@ -326,6 +475,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         let trackBeforeChange = delegate.currentTrack
         let stateBeforeChange = delegate.state
+        let seekPosBeforeChange = delegate.seekPosition.timeElapsed
         
         let nextCallCountBeforeChange = sequencer.nextCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
@@ -338,6 +488,9 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         if track != nil {
 
             assertPlayingTrack(track!)
+            
+            verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+            seekPosBeforeChange, track!, PlaybackParams.defaultParams(), true)
             
         } else {
             

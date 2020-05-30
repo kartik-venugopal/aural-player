@@ -29,6 +29,8 @@ class SetPlaybackDelayAction: PlaybackChainAction {
                 
             } else {
                 
+                // TODO: Instead of using PlaybackGapContext, simply append (increment) gaps to the request context delay
+                
                 // No explicit delay is defined, check for a gap defined before the track (in the playlist).
                 if let gapBefore = playlist.getGapBeforeTrack(newTrack) {
 
