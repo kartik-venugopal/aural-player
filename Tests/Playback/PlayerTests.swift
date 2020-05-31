@@ -160,128 +160,286 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -5.12, pausedBeforeSeek: false, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        }
     }
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -5.12, pausedBeforeSeek: true, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 0, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        }
     }
     
     func testAttemptSeekToTime_noLoop_validTime_playing() {
         
-        // TODO: Add a loop with multiple random valid times
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: 0..<300)
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        }
     }
     
     func testAttemptSeekToTime_noLoop_validTime_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: true, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: 0...300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        }
     }
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_playing() {
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300..<(300 + 100))
 
-        // Track should complete playback
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 302.76, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true)
+            // Track should complete playback
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true)
+        }
     }
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_paused() {
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300..<(300 + 100))
 
-        // Track should NOT complete playback
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 302.76, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+            // Track should NOT complete playback
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBefore0_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBefore0_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeGreaterThanDuration_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: 300..<(300 + 100))
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeGreaterThanDuration_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: 300..<(300 + 100))
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: -100..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: -100..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: loop.endTime!..<(300 + 100))
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeAfterLoopEnd_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: loop.endTime!..<(300 + 100))
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeWithinLoop_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: false, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: loop.startTime...loop.endTime!)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withCompleteLoop_timeWithinLoop_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: true, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40))
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+            
+            let seekTime = Double.random(in: loop.startTime...loop.endTime!)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBefore0_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBefore0_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: -2.67, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: -100..<0)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeGreaterThanDuration_playing() {
         
-        // Track playback should complete
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300..<(300 + 100))
+        
+            // Track playback should complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeGreaterThanDuration_paused() {
         
-        // Track playback should NOT complete
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 310.11, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300..<(300 + 100))
+        
+            // Track playback should NOT complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: -100..<loop.startTime)
+        
+            // Track playback should complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 20, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: -100..<loop.startTime)
+        
+            // Track playback should complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime..<300)
+        
+            // Track playback should NOT complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeAfterLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20))
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime..<300)
+        
+            // Track playback should NOT complete
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        }
     }
     
     // MARK: forceSeekToTime() tests ------------------------------------------------------------------------------------------
@@ -304,63 +462,211 @@ class PlayerTests: XCTestCase {
     }
     
     func testForceSeekToTime_noLoop_validTime_playing() {
+     
+        for _ in 1...100 {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: false, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+            let seekTime = Double.random(in: 0..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_noLoop_validTime_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 27.89, pausedBeforeSeek: true, expectedSeekPosition: 27.89, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 0..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+        }
     }
    
     func testForceSeekToTime_withCompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 0..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withCompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 0..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.endTime!..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withCompleteLoop_timeAfterLoopEnd_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.endTime!..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withCompleteLoop_timeWithinLoop_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: false, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime...loop.endTime!)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withCompleteLoop_timeWithinLoop_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 32.43, pausedBeforeSeek: true, expectedSeekPosition: 32.43, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20, 40), forceSeek: true)
+        let loop = PlaybackLoop(20, 40)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime...loop.endTime!)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withIncompleteLoop_timeBeforeLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: false, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 0..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withIncompleteLoop_timeBeforeLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 10.59, pausedBeforeSeek: true, expectedSeekPosition: 10.59, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 0..<loop.startTime)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: false, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     func testForceSeekToTime_withIncompleteLoop_timeAfterLoopStart_paused() {
         
-        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: 56.78, pausedBeforeSeek: true, expectedSeekPosition: 56.78, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: PlaybackLoop(20), forceSeek: true)
+        let loop = PlaybackLoop(20)
+        
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: loop.startTime..<300)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: seekTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_noLoop_trackCompletion_playing() {
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_completeLoop_trackCompletion_playing() {
+        
+        let loop = PlaybackLoop(20, 40)
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: true, trackPlaybackCompletionExpected: true, playbackLoop: loop, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_incompleteLoop_trackCompletion_playing() {
+        
+        let loop = PlaybackLoop(20)
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: true, playbackLoop: loop, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_noLoop_trackEnd_paused() {
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_completeLoop_trackEnd_paused() {
+        
+        let loop = PlaybackLoop(20, 40)
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: true, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
+    }
+    
+    func testForceSeekToTime_incompleteLoop_trackEnd_paused() {
+        
+        let loop = PlaybackLoop(20)
+     
+        for _ in 1...100 {
+        
+            let seekTime = Double.random(in: 300...301)
+        
+            doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: 300, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        }
     }
     
     private func doTestSeekToTime(trackDuration: Double, playStartPos: Double, desiredSeekTime: Double, pausedBeforeSeek: Bool, expectedSeekPosition: Double, loopRemovalExpected: Bool, trackPlaybackCompletionExpected: Bool, playbackLoop: PlaybackLoop? = nil, forceSeek: Bool = false) {
@@ -427,8 +733,13 @@ class PlayerTests: XCTestCase {
         
         _ = doPlay(track, 0)
         
-        mockScheduler.seekPosition = 15
-        XCTAssertEqual(player.seekPosition, mockScheduler.seekPosition)
+        for _ in 1...100000 {
+            
+            let seekPosition = Double.random(in: 0..<track.duration)
+            
+            mockScheduler.seekPosition = seekPosition
+            XCTAssertEqual(player.seekPosition, seekPosition)
+        }
     }
     
     func testSeekPosition_paused() {
@@ -436,8 +747,13 @@ class PlayerTests: XCTestCase {
         let sessionBeforePause: PlaybackSession = doPlay(track, 0)
         _ = doPause(track, sessionBeforePause)
         
-        mockScheduler.seekPosition = 15
-        XCTAssertEqual(player.seekPosition, mockScheduler.seekPosition)
+        for _ in 1...100000 {
+            
+            let seekPosition = Double.random(in: 0..<track.duration)
+            
+            mockScheduler.seekPosition = seekPosition
+            XCTAssertEqual(player.seekPosition, seekPosition)
+        }
     }
     
     func testSeekPosition_waiting() {
