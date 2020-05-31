@@ -165,7 +165,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         sequencer.selectionTracksByIndex[index] = track
         
         delegate.play(index)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, gapBeforeTrack)
         XCTAssertEqual(PlaybackGapContext.gapLength, gapBeforeTrack)
         
         XCTAssertEqual(sequencer.selectIndexCallCount, selectIndexCallCountBeforeChange + 1)
@@ -376,7 +376,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertNotNil(playlist.getGapBeforeTrack(track))
         
         delegate.play(track)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, gapBeforeTrack)
         XCTAssertEqual(PlaybackGapContext.gapLength, gapBeforeTrack)
         
         XCTAssertEqual(sequencer.selectTrackCallCount, selectTrackCallCountBeforeChange + 1)
@@ -590,7 +590,7 @@ class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
         sequencer.selectionTracksByGroup[group] = track
         
         delegate.play(group)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, gapBeforeTrack)
         XCTAssertEqual(PlaybackGapContext.gapLength, gapBeforeTrack)
         
         XCTAssertEqual(sequencer.selectGroupCallCount, selectGroupCallCountBeforeChange + 1)

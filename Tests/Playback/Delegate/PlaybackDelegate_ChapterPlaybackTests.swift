@@ -34,12 +34,12 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         delegate.playChapter(0)
         
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testPlayChapter_trackTranscoding() {
@@ -185,12 +185,12 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         delegate.previousChapter()
         
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testPreviousChapter_trackTranscoding() {
@@ -515,12 +515,12 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         delegate.nextChapter()
         
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testNextChapter_trackTranscoding() {
@@ -837,12 +837,12 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         delegate.replayChapter()
         
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testReplayChapter_trackTranscoding() {
@@ -1166,13 +1166,13 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         delegate.loopChapter()
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testLoopChapter_trackTranscoding() {
@@ -1539,7 +1539,7 @@ class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
         track.chapters = createChapters(10)
         
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         
         XCTAssertNil(delegate.playingChapter)
     }

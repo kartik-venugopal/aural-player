@@ -25,7 +25,7 @@ class PlaybackDelegate_ForcedSeekingTests: PlaybackDelegateTests, MessageSubscri
             
             delegate.seekToPercentage(percentage)
             
-            assertWaitingTrack(track)
+            assertWaitingTrack(track, 5)
             XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
         }
     }
@@ -275,7 +275,7 @@ class PlaybackDelegate_ForcedSeekingTests: PlaybackDelegateTests, MessageSubscri
         
         delegate.seekToTime(10)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertEqual(player.forceSeekToTimeCallCount, 0)
     }
     

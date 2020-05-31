@@ -20,7 +20,7 @@ class PlaybackDelegate_SecondarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackwardSecondary()
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -311,7 +311,7 @@ class PlaybackDelegate_SecondarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekForwardSecondary()
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     

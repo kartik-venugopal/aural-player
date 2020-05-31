@@ -12,7 +12,7 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         let track = createTrack("Like a Virgin", 249)
         delegate.play(track, params)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, delay)
         XCTAssertEqual(PlaybackGapContext.gapLength, delay)
         
         executeAfter(0.5) {
@@ -55,7 +55,7 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         
         delegate.play(track, params)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, gapBeforeTrack)
         XCTAssertEqual(PlaybackGapContext.gapLength, gapBeforeTrack)
         
         executeAfter(0.5) {

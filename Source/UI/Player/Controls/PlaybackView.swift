@@ -245,6 +245,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         btnLoop.switchState(LoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
 
+        // TODO: Encapsulate slider, time elapsed/remaining into one view/control
         [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.hide()})
     }
 

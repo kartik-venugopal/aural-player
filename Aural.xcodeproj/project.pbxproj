@@ -304,13 +304,12 @@
 		3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23D6581F32887E00DBF426 /* RecordingInfo.swift */; };
 		3E23E092246E567600367E2B /* PlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E091246E567600367E2B /* PlaybackChain.swift */; };
 		3E23E095246E6EF200367E2B /* SavePlaybackProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E094246E6EF200367E2B /* SavePlaybackProfileAction.swift */; };
-		3E23E097246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */; };
+		3E23E097246E6F1900367E2B /* CancelTranscodingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E096246E6F1900367E2B /* CancelTranscodingAction.swift */; };
 		3E23E099246E6F4900367E2B /* HaltPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */; };
 		3E23E09B246E6F7000367E2B /* ValidateNewTrackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */; };
 		3E23E09F246E84E000367E2B /* ApplyPlaybackProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */; };
 		3E23E0A1246E877F00367E2B /* SetPlaybackDelayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */; };
 		3E23E0A5246EB88F00367E2B /* AudioFilePreparationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A4246EB88F00367E2B /* AudioFilePreparationAction.swift */; };
-		3E23E0A9246EBE8800367E2B /* ClearGapContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A8246EBE8800367E2B /* ClearGapContextAction.swift */; };
 		3E23E0AD246EC30400367E2B /* StartPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0AC246EC30400367E2B /* StartPlaybackAction.swift */; };
 		3E23E0AF246EEB9400367E2B /* DelayedPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0AE246EEB9400367E2B /* DelayedPlaybackAction.swift */; };
 		3E23F2D122A6E6DB00A48C8C /* MediaKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23F2D022A6E6DB00A48C8C /* MediaKeyHandler.swift */; };
@@ -743,9 +742,8 @@
 		3EF13D052472DC03008CA5C0 /* PlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E091246E567600367E2B /* PlaybackChain.swift */; };
 		3EF13D062472DC03008CA5C0 /* PlaybackRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20C246FDCB600B6170B /* PlaybackRequestContext.swift */; };
 		3EF13D072472DC03008CA5C0 /* SavePlaybackProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E094246E6EF200367E2B /* SavePlaybackProfileAction.swift */; };
-		3EF13D082472DC03008CA5C0 /* CancelWaitingOrTranscodingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */; };
+		3EF13D082472DC03008CA5C0 /* CancelTranscodingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E096246E6F1900367E2B /* CancelTranscodingAction.swift */; };
 		3EF13D092472DC03008CA5C0 /* HaltPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */; };
-		3EF13D0A2472DC03008CA5C0 /* ClearGapContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E0A8246EBE8800367E2B /* ClearGapContextAction.swift */; };
 		3EF13D0B2472DC0D008CA5C0 /* StartPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BCD3247040B8005024E5 /* StartPlaybackChain.swift */; };
 		3EF13D0D2472DC0D008CA5C0 /* ValidateNewTrackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */; };
 		3EF13D0E2472DC0D008CA5C0 /* ApplyPlaybackProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */; };
@@ -930,13 +928,12 @@
 		3E23D6581F32887E00DBF426 /* RecordingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingInfo.swift; sourceTree = "<group>"; };
 		3E23E091246E567600367E2B /* PlaybackChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackChain.swift; sourceTree = "<group>"; };
 		3E23E094246E6EF200367E2B /* SavePlaybackProfileAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlaybackProfileAction.swift; sourceTree = "<group>"; };
-		3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelWaitingOrTranscodingAction.swift; sourceTree = "<group>"; };
+		3E23E096246E6F1900367E2B /* CancelTranscodingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelTranscodingAction.swift; sourceTree = "<group>"; };
 		3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaltPlaybackAction.swift; sourceTree = "<group>"; };
 		3E23E09A246E6F7000367E2B /* ValidateNewTrackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNewTrackAction.swift; sourceTree = "<group>"; };
 		3E23E09E246E84E000367E2B /* ApplyPlaybackProfileAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPlaybackProfileAction.swift; sourceTree = "<group>"; };
 		3E23E0A0246E877F00367E2B /* SetPlaybackDelayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPlaybackDelayAction.swift; sourceTree = "<group>"; };
 		3E23E0A4246EB88F00367E2B /* AudioFilePreparationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFilePreparationAction.swift; sourceTree = "<group>"; };
-		3E23E0A8246EBE8800367E2B /* ClearGapContextAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearGapContextAction.swift; sourceTree = "<group>"; };
 		3E23E0AC246EC30400367E2B /* StartPlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPlaybackAction.swift; sourceTree = "<group>"; };
 		3E23E0AE246EEB9400367E2B /* DelayedPlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedPlaybackAction.swift; sourceTree = "<group>"; };
 		3E23F2D022A6E6DB00A48C8C /* MediaKeyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaKeyHandler.swift; sourceTree = "<group>"; };
@@ -1431,9 +1428,8 @@
 				3EB4BCCD2470243C005024E5 /* StopPlaybackChain */,
 				3EB4BCCE24702538005024E5 /* TrackPlaybackCompletedChain */,
 				3E23E094246E6EF200367E2B /* SavePlaybackProfileAction.swift */,
-				3E23E096246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift */,
+				3E23E096246E6F1900367E2B /* CancelTranscodingAction.swift */,
 				3E23E098246E6F4900367E2B /* HaltPlaybackAction.swift */,
-				3E23E0A8246EBE8800367E2B /* ClearGapContextAction.swift */,
 			);
 			path = PlaybackChain;
 			sourceTree = "<group>";
@@ -3105,7 +3101,6 @@
 				3E6341DC243DC53B00190502 /* HistoryPreferences.swift in Sources */,
 				3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */,
 				3E8718D02466B61D007D9672 /* MathUtils.swift in Sources */,
-				3E23E0A9246EBE8800367E2B /* ClearGapContextAction.swift in Sources */,
 				3ECD17471F6BBF3600492F56 /* ITunesParser.swift in Sources */,
 				3E551B871F10801100354DE2 /* AudioEngineHelper.swift in Sources */,
 				3EE7D725244EC8D1005D76FA /* ColorState.swift in Sources */,
@@ -3380,7 +3375,7 @@
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3E62691B246BF129002FAC63 /* DragDropType.swift in Sources */,
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
-				3E23E097246E6F1900367E2B /* CancelWaitingOrTranscodingAction.swift in Sources */,
+				3E23E097246E6F1900367E2B /* CancelTranscodingAction.swift in Sources */,
 				3EA2F8F521CF6D88007D0264 /* MetadataReader.swift in Sources */,
 				3E17D03221E604D800951F81 /* LanguageMap.swift in Sources */,
 				3E0DF1C42431C0300096C2A1 /* ChaptersListWindowController.swift in Sources */,
@@ -3621,7 +3616,6 @@
 				3E12AD3A2469CC5100A07611 /* SizeUnit.swift in Sources */,
 				3E4B546A247BF5A7009CE7EA /* Sequencer.swift in Sources */,
 				3E12AD152469CC3700A07611 /* Mapper.swift in Sources */,
-				3EF13D0A2472DC03008CA5C0 /* ClearGapContextAction.swift in Sources */,
 				3E12ACF32469CC1F00A07611 /* RecorderDelegateProtocol.swift in Sources */,
 				3E12ACE02469CC1300A07611 /* VariableRateNode.swift in Sources */,
 				3E12AD072469CC2900A07611 /* Bookmark.swift in Sources */,
@@ -3714,7 +3708,7 @@
 				3E136A992477E769001C0A7C /* SequencerIteration_TracksPlaylist_Tests.swift in Sources */,
 				3E12AC992469CB5A00A07611 /* AppConstants.swift in Sources */,
 				3E626A1C246C4BB9002FAC63 /* TestableAuralPlayerNode.swift in Sources */,
-				3EF13D082472DC03008CA5C0 /* CancelWaitingOrTranscodingAction.swift in Sources */,
+				3EF13D082472DC03008CA5C0 /* CancelTranscodingAction.swift in Sources */,
 				3E7266C324766542007D6DAA /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */,
 				3E8718D32466B856007D9672 /* MathUtilsTests.swift in Sources */,
 				3E12AC9F2469CBA100A07611 /* PlaylistMutatorDelegate.swift in Sources */,

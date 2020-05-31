@@ -20,7 +20,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekBackward()
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     
@@ -419,7 +419,7 @@ class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
         
         delegate.seekForward()
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
     

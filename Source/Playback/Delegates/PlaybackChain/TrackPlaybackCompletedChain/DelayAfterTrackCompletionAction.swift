@@ -2,19 +2,16 @@ import Foundation
 
 class DelayAfterTrackCompletionAction: PlaybackChainAction {
     
-    private let playlist: PlaylistAccessorProtocol
+    private let playlist: PlaylistCRUDProtocol
     
     private let sequencer: SequencerProtocol
     
-    private let preferences: PlaybackPreferences
-    
     var nextAction: PlaybackChainAction?
     
-    init(_ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ preferences: PlaybackPreferences) {
+    init(_ playlist: PlaylistCRUDProtocol, _ sequencer: SequencerProtocol) {
         
         self.playlist = playlist
         self.sequencer = sequencer
-        self.preferences = preferences
     }
     
     func execute(_ context: PlaybackRequestContext) {
@@ -24,16 +21,12 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
         // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
         if let gapAfterCompletedTrack = playlist.getGapAfterTrack(completedTrack) {
             
-            PlaybackGapContext.addGap(gapAfterCompletedTrack, completedTrack)
+            context.addDelay(gapAfterCompletedTrack.duration)
             
-        } else if preferences.gapBetweenTracks {
-            
-            // Check for an implicit gap defined by playback preferences
-            
-            let gapDuration = Double(preferences.gapBetweenTracksDuration)
-            let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
-            
-            PlaybackGapContext.addGap(gap, completedTrack)
+            // If the gap is a one-time gap, remove it from the playlist
+            if gapAfterCompletedTrack.type == .oneTime {
+                playlist.removeGapForTrack(completedTrack, gapAfterCompletedTrack.position)
+            }
         }
         
         nextAction?.execute(context)

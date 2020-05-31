@@ -87,14 +87,14 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         SyncMessenger.unsubscribe(messageTypes: [.appExitRequest], subscriber: delegate)
     }
     
-    func verifyRequestContext_startPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track, _ requestParams: PlaybackParams, _ cancelWaitingOrTranscoding: Bool) {
+    func verifyRequestContext_startPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track, _ requestParams: PlaybackParams, _ cancelTranscoding: Bool) {
         
         XCTAssertEqual(startPlaybackChain.executedContext!.currentState, currentState)
         XCTAssertEqual(startPlaybackChain.executedContext!.currentTrack, currentTrack)
         XCTAssertEqual(startPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
         
         XCTAssertEqual(startPlaybackChain.executedContext!.requestedTrack, requestedTrack)
-        XCTAssertEqual(startPlaybackChain.executedContext!.cancelWaitingOrTranscoding, cancelWaitingOrTranscoding)
+        XCTAssertEqual(startPlaybackChain.executedContext!.cancelTranscoding, cancelTranscoding)
 
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.allowDelay, requestParams.allowDelay)
@@ -110,7 +110,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(stopPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
         
         XCTAssertNil(stopPlaybackChain.executedContext!.requestedTrack)
-        XCTAssertTrue(stopPlaybackChain.executedContext!.cancelWaitingOrTranscoding)
+        XCTAssertTrue(stopPlaybackChain.executedContext!.cancelTranscoding)
         
         let requestParams = PlaybackParams.defaultParams()
         
@@ -168,7 +168,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         }
     }
     
-    func assertWaitingTrack(_ track: Track) {
+    func assertWaitingTrack(_ track: Track, _ delay: Double? = nil) {
         
         XCTAssertEqual(delegate.state, PlaybackState.waiting)
         
@@ -177,7 +177,11 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         XCTAssertAllNil(delegate.playingTrack, delegate.transcodingTrack)
         
-        XCTAssertTrue(PlaybackGapContext.hasGaps())
+        if let theDelay = delay {
+            XCTAssertEqual(startPlaybackChain.executedContext!.delay, theDelay)
+        } else {
+            XCTAssertNotNil(startPlaybackChain.executedContext!.delay)
+        }
     }
     
     func assertTranscodingTrack(_ track: Track) {
@@ -253,7 +257,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         // Begin playback
         let params = PlaybackParams.defaultParams().withDelay(delay)
         delegate.play(track, params)
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, delay)
         
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         XCTAssertEqual(sequencer.selectedTrack, track)
