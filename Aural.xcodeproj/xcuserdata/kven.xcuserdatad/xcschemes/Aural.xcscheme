@@ -71,6 +71,60 @@
                   Identifier = "MathUtilsTests">
                </Test>
                <Test
+                  Identifier = "PlaybackDelegateTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ChapterPlaybackTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_DelayedPlaybackWithTranscodingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ForcedSeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_Init_PlaybackProfilesTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_IterationTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_LoopTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_MessageHandlingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_PlaybackParamsTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_PlaylistChangeListenerTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_PrimarySeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_PropertyGettersTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_ReplayTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_SecondarySeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_SpecificTrackPlaybackTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_StopTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_TogglePlayPauseTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackDelegate_TrackCompletionTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackLoopTests">
                </Test>
                <Test
@@ -168,9 +222,6 @@
                </Test>
                <Test
                   Identifier = "PlaybackSessionTests">
-               </Test>
-               <Test
-                  Identifier = "PlayerTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">
