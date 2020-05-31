@@ -54,7 +54,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doBeginPlaybackWithDelay(createTrack("SomeTrack", 300), 5)
         doPreviousTrack(nil)
         
-        XCTAssertTrue(PlaybackGapContext.hasGaps())
+        XCTAssertEqual(startPlaybackChain.executedContext!.delay, 5)
     }
     
     func testPreviousTrack_trackWaiting_trackChanges() {
@@ -62,7 +62,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doBeginPlaybackWithDelay(createTrack("SomeTrack", 300), 5)
         doPreviousTrack(createTrack("PreviousTrack", 400))
         
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
+        XCTAssertNil(startPlaybackChain.executedContext!.delay)
     }
     
     func testPreviousTrack_trackTranscoding_noPreviousTrack() {
@@ -102,11 +102,10 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(previousTrack, 5)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         verifyRequestContext_startPlaybackChain(.playing, someTrack,
-                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams().withDelay(5), true)
+                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
@@ -163,11 +162,10 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(previousTrack, 5)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         verifyRequestContext_startPlaybackChain(.paused, someTrack,
-                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams().withDelay(5), true)
+                                                seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
@@ -319,7 +317,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doBeginPlaybackWithDelay(createTrack("SomeTrack", 300), 5)
         doNextTrack(nil)
         
-        XCTAssertTrue(PlaybackGapContext.hasGaps())
+        XCTAssertEqual(startPlaybackChain.executedContext!.delay, 5)
     }
     
     func testNextTrack_trackWaiting_trackChanges() {
@@ -327,7 +325,7 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         doBeginPlaybackWithDelay(createTrack("SomeTrack", 300), 5)
         doNextTrack(createTrack("NextTrack", 400))
         
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
+        XCTAssertNil(startPlaybackChain.executedContext!.delay)
     }
     
     func testNextTrack_trackTranscoding_noNextTrack() {
@@ -367,11 +365,10 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(nextTrack, 5)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         verifyRequestContext_startPlaybackChain(.playing, someTrack,
-        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
@@ -428,11 +425,10 @@ class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
         
         // Track should have changed (and should be in waiting state)
         assertWaitingTrack(nextTrack, 5)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         verifyRequestContext_startPlaybackChain(.paused, someTrack,
-        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams().withDelay(5), true)
+        seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         

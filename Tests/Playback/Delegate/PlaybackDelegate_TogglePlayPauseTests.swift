@@ -39,7 +39,6 @@ class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
         sequencer.beginTrack = track
         delegate.togglePlayPause()
         assertWaitingTrack(track, 5)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.beginCallCount, 1)
@@ -63,7 +62,7 @@ class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
         delegate.togglePlayPause()
         assertPlayingTrack(track)
         
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
+        XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         

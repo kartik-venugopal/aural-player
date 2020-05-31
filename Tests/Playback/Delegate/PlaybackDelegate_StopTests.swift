@@ -63,8 +63,7 @@ class PlaybackDelegate_StopTests: PlaybackDelegateTests {
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         verifyRequestContext_stopPlaybackChain(.waiting, track, 0)
         
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
-        XCTAssertEqual(PlaybackGapContext.gapLength, 0)
+        XCTAssertNil(stopPlaybackChain.executedContext!.delay)
         
         executeAfter(0.5) {
             self.assertTrackChange(track, .waiting, nil)
