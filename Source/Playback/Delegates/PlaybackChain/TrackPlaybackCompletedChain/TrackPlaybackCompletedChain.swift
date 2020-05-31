@@ -16,7 +16,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         super.init()
         
         _ = withAction(ResetPlaybackProfileAction(profiles))
-        .withAction(DelayAfterTrackCompletionAction(playlist, sequencer, preferences))
+        .withAction(DelayAfterTrackCompletionAction(playlist, sequencer))
     }
     
     override func execute(_ context: PlaybackRequestContext) {
@@ -27,16 +27,15 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         if let subsequentTrack = sequencer.subsequent() {
             
             context.requestedTrack = subsequentTrack
-            context.cancelWaitingOrTranscoding = false
+            context.cancelTranscoding = false
             
             startPlaybackChain.execute(context)
             
-        }
-        // Stop playback if there is no subsequent track.
+        } // Stop playback if there is no subsequent track.
         else {
             
             context.requestedTrack = nil
-            context.cancelWaitingOrTranscoding = true
+            context.cancelTranscoding = true
             
             stopPlaybackChain.execute(context)
         }

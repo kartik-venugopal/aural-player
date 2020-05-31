@@ -118,7 +118,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     // TODO: Add unit tests for this func to verify request context is being set correctly with all params
-    func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelWaitingOrTranscoding: Bool = true) {
+    func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelTranscoding: Bool = true) {
         
         let trackBeforeChange = currentTrack
         let stateBeforeChange = state
@@ -128,7 +128,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
         if okToPlay, let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelWaitingOrTranscoding, params)
+            let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelTranscoding, params)
             
             startPlaybackChain.execute(requestContext)
         }

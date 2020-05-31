@@ -24,15 +24,10 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         
         guard let track = context.requestedTrack else {return}
         
-//        print("\tPreparing:", track.conciseDisplayName)
-        
-//        TrackIO.prepareForPlayback(track)
         track.prepareForPlayback()
         
         // Track preparation failed
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
-            
-//            print("\tERROR Preparing:", track.conciseDisplayName)
             
             // If an error occurs, end the playback sequence
             sequencer.end()
@@ -41,14 +36,15 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
             
             // Terminate the chain
+            context.completed()
+            
             return
         }
         // Track needs to be transcoded (i.e. audio format is not natively supported)
         else if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
             
-//            print("\tNeeds transcoding, will defer playback:", track.conciseDisplayName)
-            
-            // Defer playback until transcoding finishes
+            // Start transcoding the track and defer playback until transcoding finishes
+            // NOTE - Transcoding for this track may have already begun (triggered by a previous action).
             transcoder.transcodeImmediately(track)
             
             // Notify the player that transcoding has begun.
@@ -57,7 +53,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
             // Mark this context as having been deferred for later execution (when transcoding completes)
             deferredContext = context
             
-            // , and terminate the chain.
+            // , and suspend the chain for now.
             return
         }
         

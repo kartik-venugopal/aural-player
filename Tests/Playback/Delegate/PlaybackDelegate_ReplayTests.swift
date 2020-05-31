@@ -44,7 +44,7 @@ class PlaybackDelegate_ReplayTests: PlaybackDelegateTests {
         delegate.replay()
 
         // replay() should have had no effect.
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
         XCTAssertFalse(mockScheduler.seekToTimeInvoked)
     }
     

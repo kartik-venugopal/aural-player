@@ -8,13 +8,11 @@ class StartPlaybackChain: PlaybackChain {
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(CancelWaitingOrTranscodingAction(transcoder))
-        .withAction(HaltPlaybackAction(player))
+        .withAction(CancelTranscodingAction(transcoder))
         .withAction(ValidateNewTrackAction(sequencer))
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(SetPlaybackDelayAction(player, playlist))
+        .withAction(SetPlaybackDelayAction(player, playlist, preferences))
         .withAction(DelayedPlaybackAction(player, sequencer, transcoder))
-        .withAction(ClearGapContextAction())
         .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
         .withAction(StartPlaybackAction(player))
     }

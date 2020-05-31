@@ -19,7 +19,7 @@ class DelayedPlaybackAction: PlaybackChainAction {
         
         guard let newTrack = context.requestedTrack else {return}
         
-        if context.requestParams.allowDelay, let delay = context.requestParams.delay {
+        if context.requestParams.allowDelay, let delay = context.delay {
                     
             // Mark the current state as "waiting" in between tracks
             player.waiting()
@@ -29,7 +29,7 @@ class DelayedPlaybackAction: PlaybackChainAction {
             
             DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
                 
-                // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track)
+                // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track or Stop)
                 if PlaybackRequestContext.isCurrent(context) {
 
                     // Override the current state of the context, because there was a delay
@@ -45,9 +45,14 @@ class DelayedPlaybackAction: PlaybackChainAction {
             
                 // Let observers know that a playback gap has begun
                 AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, context.currentTrack, newTrack))
+                
+            } else {
+                
+                // Some error occurred during track preparation. Terminate the chain.
+                context.completed()
             }
             
-            // Playback chain has ended.
+            // Playback chain has been deferred for later.
             return
         }
         
@@ -58,7 +63,6 @@ class DelayedPlaybackAction: PlaybackChainAction {
     // Returns whether or not track preparation was successful.
     private func doPrepareTrack(_ newTrack: Track, _ oldTrack: Track?) -> Bool {
         
-//        TrackIO.prepareForPlayback(newTrack)
         newTrack.prepareForPlayback()
         
         // Track preparation failed

@@ -4,55 +4,48 @@ class SetPlaybackDelayAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     private let playlist: PlaylistCRUDProtocol
+    private let preferences: PlaybackPreferences
     
     var nextAction: PlaybackChainAction?
     
-    init(_ player: PlayerProtocol, _ playlist: PlaylistCRUDProtocol) {
+    init(_ player: PlayerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.playlist = playlist
+        self.preferences = preferences
     }
     
     func execute(_ context: PlaybackRequestContext) {
         
+        guard let newTrack = context.requestedTrack else {return}
+        
         let params = context.requestParams
         
-        if params.allowDelay, let newTrack = context.requestedTrack {
-            
+        if params.allowDelay {
+
+            // An explicit delay is defined in the request parameters. It takes precedence over any gaps.
             if let delay = params.delay {
+                
+                context.setDelay(delay)
+                
+            }   // No explicit delay in the request parameters is defined, check for a gap defined before the track (in the playlist).
+            else if let gapBeforeNewTrack = playlist.getGapBeforeTrack(newTrack) {
+                
+                // Add the gap's duration to the total delay before playback.
+                context.addDelay(gapBeforeNewTrack.duration)
 
-                // TODO: This gap stuff should not even be needed here !!!
-                
-                // An explicit delay is defined. It takes precedence over gaps.
-                PlaybackGapContext.clear()
-                PlaybackGapContext.addGap(PlaybackGap(delay, .beforeTrack), newTrack)
-                
-            } else {
-                
-                // TODO: Instead of using PlaybackGapContext, simply append (increment) gaps to the request context delay
-                
-                // No explicit delay is defined, check for a gap defined before the track (in the playlist).
-                if let gapBefore = playlist.getGapBeforeTrack(newTrack) {
-
-                    // The explicitly defined gap before the track takes precedence over the implicit gap
-                    // defined by the playback preferences, so remove the implicit gap
-                    PlaybackGapContext.addGap(gapBefore, newTrack)
-                    PlaybackGapContext.removeImplicitGap()
-                }
-                
-                if PlaybackGapContext.hasGaps() {
-                    
-                    // Check if any defined gaps were one-time gaps. If so, delete them
-                    for (gap, track) in PlaybackGapContext.oneTimeGaps {
-                        playlist.removeGapForTrack(track, gap.position)
-                    }
-                    
-                    // Set the delay request parameter to the lengtth of the gap.
-                    params.delay = PlaybackGapContext.gapLength
+                // If the gap is a one-time gap, remove it from the playlist
+                if gapBeforeNewTrack.type == .oneTime {
+                    playlist.removeGapForTrack(newTrack, gapBeforeNewTrack.position)
                 }
             }
+            
+            // No explicit delay or playlist gaps defined, check for an implicit gap defined by playback preferences.
+            if context.delay == nil && preferences.gapBetweenTracks {
+                context.setDelay(Double(preferences.gapBetweenTracksDuration))
+            }
         }
-        
+            
         nextAction?.execute(context)
     }
 }

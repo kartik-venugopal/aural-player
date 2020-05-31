@@ -22,7 +22,7 @@ class PlaybackDelegate_LoopTests: PlaybackDelegateTests {
         XCTAssertNil(delegate.playbackLoop)
         XCTAssertEqual(player.toggleLoopCallCount, 0)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 5)
     }
     
     func testToggleLoop_trackTranscoding() {

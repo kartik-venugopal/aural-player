@@ -8,7 +8,7 @@ class StopPlaybackChain: PlaybackChain {
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(CancelWaitingOrTranscodingAction(transcoder))
+        .withAction(CancelTranscodingAction(transcoder))
         .withAction(HaltPlaybackAction(player))
         .withAction(EndPlaybackSequenceAction(sequencer))
     }
