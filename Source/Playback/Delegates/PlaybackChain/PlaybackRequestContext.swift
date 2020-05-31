@@ -14,7 +14,11 @@ class PlaybackRequestContext {
     // Request params may change as the preparation chain executes.
     var requestParams: PlaybackParams
     
-    var delay: Double?
+    var gaps: [PlaybackGap] = []
+    
+    var delay: Double? {
+        return gaps.count > 0 ? gaps.map {$0.duration}.reduce(0, +) : nil
+    }
     
     var transcodingBegun: Bool = false
 
@@ -37,16 +41,13 @@ class PlaybackRequestContext {
         PlaybackRequestContext.completed(self)
     }
     
-    func setDelay(_ newDelay: Double) {
-        delay = newDelay
-    }
-    
-    func addDelay(_ newDelay: Double) {
+    func addGap(_ gap: PlaybackGap) {
         
-        if let theDelay = delay {
-            delay = theDelay + newDelay
-        } else {
-            delay = newDelay
+        gaps.append(gap)
+        
+        // If a non-implicit gap is defined, it invalidates any implicit gaps.
+        if gap.type != .implicit {
+            gaps.removeAll(where: {$0.type == .implicit})
         }
     }
     

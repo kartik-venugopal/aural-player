@@ -11,7 +11,7 @@ class StartPlaybackChain: PlaybackChain {
         .withAction(CancelTranscodingAction(transcoder))
         .withAction(ValidateNewTrackAction(sequencer))
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(SetPlaybackDelayAction(player, playlist, preferences))
+        .withAction(SetPlaybackDelayAction(player, playlist))
         .withAction(DelayedPlaybackAction(player, sequencer, transcoder))
         .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
         .withAction(StartPlaybackAction(player))
