@@ -117,7 +117,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return sequencer.select(group)}, params)
     }
     
-    // TODO: Add unit tests for this func to verify request context is being set correctly with all params
     func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelTranscoding: Bool = true) {
         
         let trackBeforeChange = currentTrack
@@ -134,7 +133,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    // TODO: Add unit tests for this func to verify request context is being set correctly with all params
     func stop() {
         
         let trackBeforeChange = currentTrack
@@ -153,7 +151,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    // TODO: Add unit tests for this func to verify request context is being set correctly with all params
     func trackPlaybackCompleted() {
         
         let trackBeforeChange = currentTrack

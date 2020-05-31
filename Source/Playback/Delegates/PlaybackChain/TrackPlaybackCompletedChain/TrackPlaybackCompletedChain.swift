@@ -16,7 +16,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         super.init()
         
         _ = withAction(ResetPlaybackProfileAction(profiles))
-        .withAction(DelayAfterTrackCompletionAction(playlist, sequencer))
+        .withAction(DelayAfterTrackCompletionAction(playlist, sequencer, preferences))
     }
     
     override func execute(_ context: PlaybackRequestContext) {
