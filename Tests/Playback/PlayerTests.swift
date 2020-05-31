@@ -160,7 +160,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_playing() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: -100..<0)
         
@@ -170,7 +170,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_timeLessThan0_paused() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: -100..<0)
         
@@ -180,7 +180,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_validTime_playing() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: 0..<300)
         
@@ -190,7 +190,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_validTime_paused() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: 0...300)
         
@@ -200,7 +200,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_playing() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300..<(300 + 100))
 
@@ -211,7 +211,7 @@ class PlayerTests: XCTestCase {
     
     func testAttemptSeekToTime_noLoop_timeGreaterThanDuration_paused() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300..<(300 + 100))
 
@@ -224,7 +224,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: -100..<0)
         
@@ -236,7 +236,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: -100..<0)
         
@@ -248,7 +248,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: 300..<(300 + 100))
         
@@ -260,7 +260,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: 300..<(300 + 100))
         
@@ -272,7 +272,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: -100..<loop.startTime)
         
@@ -284,7 +284,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: -100..<loop.startTime)
         
@@ -292,11 +292,29 @@ class PlayerTests: XCTestCase {
         }
     }
     
+    func testAttemptSeekToTime_withCompleteLoop_loopStartAndEndTimes_playing() {
+        
+        let loop = PlaybackLoop(20, 40)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.endTime!, pausedBeforeSeek: false, expectedSeekPosition: loop.endTime!, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+    }
+    
+    func testAttemptSeekToTime_withCompleteLoop_loopStartAndEndTimes_paused() {
+        
+        let loop = PlaybackLoop(20, 40)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.endTime!, pausedBeforeSeek: true, expectedSeekPosition: loop.endTime!, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+    }
+    
     func testAttemptSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: loop.endTime!..<(300 + 100))
         
@@ -308,7 +326,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: loop.endTime!..<(300 + 100))
         
@@ -320,7 +338,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: loop.startTime...loop.endTime!)
         
@@ -332,7 +350,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
             
             let seekTime = Double.random(in: loop.startTime...loop.endTime!)
         
@@ -344,7 +362,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: -100..<0)
         
@@ -356,7 +374,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: -100..<0)
         
@@ -368,7 +386,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300..<(300 + 100))
         
@@ -381,7 +399,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300..<(300 + 100))
         
@@ -394,11 +412,10 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: -100..<loop.startTime)
         
-            // Track playback should complete
             doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
         }
     }
@@ -407,20 +424,33 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: -100..<loop.startTime)
         
-            // Track playback should complete
             doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: seekTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
         }
+    }
+    
+    func testAttemptSeekToTime_withIncompleteLoop_loopStartTime_playing() {
+        
+        let loop = PlaybackLoop(20)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
+    }
+    
+    func testAttemptSeekToTime_withIncompleteLoop_loopStartTime_paused() {
+        
+        let loop = PlaybackLoop(20)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop)
     }
     
     func testAttemptSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime..<300)
         
@@ -433,7 +463,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime..<300)
         
@@ -463,7 +493,7 @@ class PlayerTests: XCTestCase {
     
     func testForceSeekToTime_noLoop_validTime_playing() {
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<300)
         
@@ -473,7 +503,7 @@ class PlayerTests: XCTestCase {
     
     func testForceSeekToTime_noLoop_validTime_paused() {
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<300)
         
@@ -485,7 +515,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<loop.startTime)
         
@@ -497,7 +527,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<loop.startTime)
         
@@ -505,11 +535,29 @@ class PlayerTests: XCTestCase {
         }
     }
     
+    func testForceSeekToTime_withCompleteLoop_loopStartAndEndTimes_playing() {
+        
+        let loop = PlaybackLoop(20, 40)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.endTime!, pausedBeforeSeek: false, expectedSeekPosition: loop.endTime!, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withCompleteLoop_loopStartAndEndTimes_paused() {
+        
+        let loop = PlaybackLoop(20, 40)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.endTime!, pausedBeforeSeek: true, expectedSeekPosition: loop.endTime!, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+    }
+    
     func testForceSeekToTime_withCompleteLoop_timeAfterLoopEnd_playing() {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.endTime!..<300)
         
@@ -521,7 +569,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.endTime!..<300)
         
@@ -533,7 +581,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime...loop.endTime!)
         
@@ -545,7 +593,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime...loop.endTime!)
         
@@ -557,7 +605,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<loop.startTime)
         
@@ -569,7 +617,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 0..<loop.startTime)
         
@@ -577,11 +625,25 @@ class PlayerTests: XCTestCase {
         }
     }
     
+    func testForceSeekToTime_withIncompleteLoop_loopStartTime_playing() {
+        
+        let loop = PlaybackLoop(20)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: false, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+    }
+    
+    func testForceSeekToTime_withIncompleteLoop_loopStartTime_paused() {
+        
+        let loop = PlaybackLoop(20)
+        
+        doTestSeekToTime(trackDuration: 300, playStartPos: 0, desiredSeekTime: loop.startTime, pausedBeforeSeek: true, expectedSeekPosition: loop.startTime, loopRemovalExpected: false, trackPlaybackCompletionExpected: false, playbackLoop: loop, forceSeek: true)
+    }
+    
     func testForceSeekToTime_withIncompleteLoop_timeAfterLoopStart_playing() {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime..<300)
         
@@ -593,7 +655,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
         
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: loop.startTime..<300)
         
@@ -603,7 +665,7 @@ class PlayerTests: XCTestCase {
     
     func testForceSeekToTime_noLoop_trackCompletion_playing() {
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -615,7 +677,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -627,7 +689,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -637,7 +699,7 @@ class PlayerTests: XCTestCase {
     
     func testForceSeekToTime_noLoop_trackEnd_paused() {
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -649,7 +711,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20, 40)
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -661,7 +723,7 @@ class PlayerTests: XCTestCase {
         
         let loop = PlaybackLoop(20)
      
-        for _ in 1...100 {
+        for _ in 1...10000 {
         
             let seekTime = Double.random(in: 300...301)
         
@@ -1306,9 +1368,6 @@ class PlayerTests: XCTestCase {
         XCTAssertNil(PlaybackSession.currentSession)
         
         let session = PlaybackSession.start(track)
-        let playingTrackStartTime: TimeInterval? = player.playingTrackStartTime
-        
-        XCTAssertNotNil(playingTrackStartTime)
-        XCTAssertEqual(playingTrackStartTime!, session.timestamp, accuracy: 0.001)
+        XCTAssertEqual(player.playingTrackStartTime!, session.timestamp, accuracy: 0.001)
     }
 }

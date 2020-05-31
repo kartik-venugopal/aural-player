@@ -82,32 +82,69 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     }
     
     func testSeekPosition_playing_validNodePosition() {
-        doTestSeekPosition(true, true, nil, 25, 25)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: 0...300)
+            doTestSeekPosition(true, true, nil, seekPos, seekPos)
+        }
     }
     
     // Test correction logic (seek pos <= track duration).
     func testSeekPosition_playing_nodePositionLessThan0() {
-        doTestSeekPosition(true, true, nil, -3, 0)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: -100..<0)
+            doTestSeekPosition(true, true, nil, seekPos, 0)
+        }
     }
     
     // Test correction logic (seek pos <= track duration).
     func testSeekPosition_playing_nodePositionGreaterThanDuration() {
-        doTestSeekPosition(true, true, nil, track.duration + 5, track.duration)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: track.duration...(track.duration + 10))
+            doTestSeekPosition(true, true, nil, seekPos, track.duration)
+        }
     }
     
     // Test correction logic (seek pos <= track duration).
     func testSeekPosition_playing_completeLoop_nodePositionLessThanLoopStartTime() {
-        doTestSeekPosition(true, true, PlaybackLoop(10, 25), 9.98, 10)
+        
+        let loop = PlaybackLoop(10, 25)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: 0..<loop.startTime)
+            doTestSeekPosition(true, true, loop, seekPos, loop.startTime)
+        }
     }
     
-    // Test correction logic (seek pos <= track duration).
+    // Test correction logic (seek pos <= loop end time).
     func testSeekPosition_playing_completeLoop_nodePositionGreaterThanLoopEndTime() {
-        doTestSeekPosition(true, true, PlaybackLoop(10, 25), 25.005, 25)
+        
+        let loop = PlaybackLoop(10, 25)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: loop.endTime!..<(loop.endTime! + 1))
+            doTestSeekPosition(true, true, loop, seekPos, loop.endTime!)
+        }
     }
     
     // Test correction logic (seek pos <= track duration).
     func testSeekPosition_playing_incompleteLoop_nodePositionLessThanLoopStartTime() {
         doTestSeekPosition(true, true, PlaybackLoop(10), 9.98, 10)
+        
+        let loop = PlaybackLoop(10)
+        
+        for _ in 1...100000 {
+            
+            let seekPos = Double.random(in: 0..<loop.startTime)
+            doTestSeekPosition(true, true, loop, seekPos, loop.startTime)
+        }
     }
     
     // MARK: playTrack() tests ---------------------------------------------------------------------------------------------------------
@@ -139,7 +176,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         doSeekToTime(30, true, PlaybackLoop(25))
     }
     
-    func testSeekToTime_withIncomplete_paused() {
+    func testSeekToTime_withIncompleteLoop_paused() {
         doSeekToTime(30, false, PlaybackLoop(25))
     }
     
@@ -319,19 +356,57 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
     }
 
     func testPlayLoop_startPositionOutsideLoop_playing() {
-        _ = doPlayLoop(10, 25, 45, true, 0, nil, nil)
+        
+        for _ in 1...50000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 25.001...track.duration)
+            _ = doPlayLoop(10, 25, startPos, true, 0, nil, nil)
+        }
+        
+        for _ in 1...50000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 0..<10)
+            _ = doPlayLoop(10, 25, startPos, true, 0, nil, nil)
+        }
     }
     
     func testPlayLoop_startPositionOutsideLoop_paused() {
-        _ = doPlayLoop(10, 25, 45, false, 0, nil, nil)
+        
+        for _ in 1...50000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 25.001...track.duration)
+            _ = doPlayLoop(10, 25, startPos, false, 0, nil, nil)
+        }
+        
+        for _ in 1...50000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 0..<10)
+            _ = doPlayLoop(10, 25, startPos, false, 0, nil, nil)
+        }
     }
 
     func testPlayLoop_withStartPosition_playing() {
-        _ = doPlayLoop(10, 25, 15.78, true, 1, 15.78, 25)
+        
+        for _ in 1...100000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 10...25)
+            _ = doPlayLoop(10, 25, startPos, true, 1, startPos, 25)
+        }
     }
 
     func testPlayLoop_withStartPosition_paused() {
-        _ = doPlayLoop(10, 25, 15.78, false, 1, 15.78, 25)
+        
+        for _ in 1...100000 {
+            
+            mockPlayerNode.resetMock()
+            let startPos = Double.random(in: 10...25)
+            _ = doPlayLoop(10, 25, startPos, false, 1, startPos, 25)
+        }
     }
     
     private func doPlayLoop(_ loopStartTime: Double? = nil, _ loopEndTime: Double? = nil, _ seekTime: Double? = nil, _ playing: Bool = true, _ expectedScheduleSegmentCallCount: Int, _ expectedScheduleSegmentStartTime: Double?, _ expectedScheduleSegmentEndTime: Double?) -> PlaybackSession {
@@ -461,7 +536,7 @@ class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
         doLoopSegmentCompleted(false, false)
     }
     
-    private func doLoopSegmentCompleted(_ isSessionCurrent: Bool, _ playing: Bool, _ numberOfLoopIterations: Int = 1) {
+    private func doLoopSegmentCompleted(_ isSessionCurrent: Bool, _ playing: Bool) {
         
         // Start a session, define a loop, and put the player node in a playing state, then invoke loopSegmentCompleted() with that same session.
         // This should result in a new loop segment being scheduled.
