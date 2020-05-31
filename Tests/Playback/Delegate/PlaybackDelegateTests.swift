@@ -152,8 +152,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         if !skipNilChecks {
             XCTAssertAllNil(delegate.waitingTrack, delegate.transcodingTrack)
         }
-            
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func assertPausedTrack(_ track: Track, _ skipNilChecks: Bool = false) {
@@ -178,7 +176,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertAllNil(delegate.playingTrack, delegate.transcodingTrack)
         
         if let theDelay = delay {
-            XCTAssertEqual(startPlaybackChain.executedContext!.delay, theDelay)
+            XCTAssertEqual(startPlaybackChain.executedContext!.delay!, theDelay, accuracy: 0.001)
         } else {
             XCTAssertNotNil(startPlaybackChain.executedContext!.delay)
         }
@@ -192,7 +190,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(delegate.transcodingTrack, track)
         
         XCTAssertAllNil(delegate.playingTrack, delegate.waitingTrack)
-        XCTAssertFalse(PlaybackGapContext.hasGaps())
     }
     
     func assertTrackChange(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?, _ totalMsgCount: Int = 1) {
@@ -216,8 +213,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         // Assert that the gap end time is in the future (i.e. > now)
         XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
-        
-        XCTAssertTrue(PlaybackGapContext.hasGaps())
     }
     
     func doBeginPlayback(_ track: Track?) {
@@ -263,8 +258,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectedTrack, track)
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         verifyRequestContext_startPlaybackChain(.noTrack, nil, 0, track, params, true)
-        
-        XCTAssertEqual(PlaybackGapContext.gapLength, delay)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)

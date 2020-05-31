@@ -13,7 +13,6 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         delegate.play(track, params)
         
         assertWaitingTrack(track, delay)
-        XCTAssertEqual(PlaybackGapContext.gapLength, delay)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
@@ -32,7 +31,7 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         delegate.play(track, params)
         
         assertPlayingTrack(track)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 0)
+        XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -56,7 +55,6 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         delegate.play(track, params)
         
         assertWaitingTrack(track, gapBeforeTrack)
-        XCTAssertEqual(PlaybackGapContext.gapLength, gapBeforeTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
@@ -80,7 +78,7 @@ class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
         delegate.play(track, params)
         
         assertPlayingTrack(track)
-        XCTAssertEqual(PlaybackGapContext.gapLength, 0)
+        XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
