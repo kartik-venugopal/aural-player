@@ -4,7 +4,7 @@ class SequencerTrackSelectionTests: SequencerTests {
 
     func testSelectIndex() {
         
-        _ = createNTracks(Int.random(in: 10...1000))
+        _ = createAndAddNTracks(Int.random(in: 10...1000))
         
         for (repeatMode, shuffleMode) in repeatShufflePermutations {
             
@@ -36,7 +36,7 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectTrack_tracksPlaylist() {
      
-        let tracks = createNTracks(Int.random(in: 10...1000)).map {$0.track}
+        let tracks = createAndAddNTracks(Int.random(in: 10...1000)).map {$0.track}
         
         let indexOfSelTrack = Int.random(in: 0..<playlist.size)
         let selTrack = tracks[indexOfSelTrack]
@@ -65,11 +65,11 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectTrack_artistsPlaylist() {
         
-        _ = createNTracks(Int.random(in: 5...10), "Grimes")
-        _ = createNTracks(Int.random(in: 5...10), "Conjure One")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One")
         
         let artist_madonna = "Madonna"
-        let madonnaTracks = createNTracks(Int.random(in: 10...20), artist_madonna).map {$0.track}
+        let madonnaTracks = createAndAddNTracks(Int.random(in: 10...20), artist_madonna).map {$0.track}
         let selectedTrack = madonnaTracks[Int.random(in: 0..<madonnaTracks.count)]
 
         // Select a track by artist "Madonna"
@@ -78,11 +78,11 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectTrack_albumsPlaylist() {
      
-        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
-        _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera")
         
         let album_exilarch = "Exilarch"
-        let exilarchTracks = createNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch).map {$0.track}
+        let exilarchTracks = createAndAddNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch).map {$0.track}
         let selectedTrack = exilarchTracks[Int.random(in: 0..<exilarchTracks.count)]
 
         // Select a track from album "Exilarch"
@@ -91,12 +91,12 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectTrack_genresPlaylist() {
      
-        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-        _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
         
         let genre_rock = "Rock"
-        var rockTracks = createNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock).map {$0.track}
-        rockTracks.append(contentsOf: createNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock).map {$0.track})
+        var rockTracks = createAndAddNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock).map {$0.track}
+        rockTracks.append(contentsOf: createAndAddNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock).map {$0.track})
         let selectedTrack = rockTracks[Int.random(in: 0..<rockTracks.count)]
 
         // Select a track from genre "Rock"
@@ -154,11 +154,11 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectGroup_artist() {
      
-        _ = createNTracks(Int.random(in: 5...10), "Grimes")
-        _ = createNTracks(Int.random(in: 5...10), "Conjure One")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One")
         
         let artist_madonna = "Madonna"
-        let madonnaTracks = createNTracks(Int.random(in: 5...10), artist_madonna)
+        let madonnaTracks = createAndAddNTracks(Int.random(in: 5...10), artist_madonna)
         
         let madonnaArtistGroup: Group? = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first
         XCTAssertNotNil(madonnaArtistGroup)
@@ -175,11 +175,11 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectGroup_album() {
      
-        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
-        _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera")
         
         let album_exilarch = "Exilarch"
-        let exilarchTracks = createNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch)
+        let exilarchTracks = createAndAddNTracks(Int.random(in: 10...20), "Conjure One", album_exilarch)
         
         let exilarchAlbumGroup: Group? = playlist.allGroups(.album).filter({$0.name == album_exilarch}).first
         XCTAssertNotNil(exilarchAlbumGroup)
@@ -196,12 +196,12 @@ class SequencerTrackSelectionTests: SequencerTests {
     
     func testSelectGroup_genre() {
      
-        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-        _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
         
         let genre_rock = "Rock"
-        var rockTracks = createNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock)
-        rockTracks.append(contentsOf: createNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock))
+        var rockTracks = createAndAddNTracks(Int.random(in: 10...20), "Pink Floyd", "The Dark Side of the Moon", genre_rock)
+        rockTracks.append(contentsOf: createAndAddNTracks(Int.random(in: 5...12), "Dire Straits", "Brothers in Arms", genre_rock))
         
         let rockGenreGroup: Group? = playlist.allGroups(.genre).filter({$0.name == genre_rock}).first
         XCTAssertNotNil(rockGenreGroup)

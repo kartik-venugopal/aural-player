@@ -411,17 +411,4 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     func randomGenre() -> String {
         return genres[Int.random(in: 0..<genres.count)]
     }
-    
-    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
-        return createTrack(title, "mp3", duration, artist, album, genre)
-    }
-    
-    func createTrack(_ title: String, _ fileExtension: String, _ duration: Double,
-                     _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
-        
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)))
-        track.setPrimaryMetadata(artist, title, album, genre, duration)
-        
-        return track
-    }
 }

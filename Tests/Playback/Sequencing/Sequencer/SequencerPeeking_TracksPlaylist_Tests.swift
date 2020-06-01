@@ -101,7 +101,7 @@ class SequencerPeeking_TracksPlaylist_Tests: SequencerTests {
             XCTAssertNil(sequencer.currentTrack)
             
             playlist.clear()
-            _ = createNTracks(size)
+            _ = createAndAddNTracks(size)
             
             var playingTrackIndices: Set<Int> = Set([0, size - 1])
             
@@ -388,7 +388,7 @@ class SequencerPeeking_TracksPlaylist_Tests: SequencerTests {
             XCTAssertNil(sequencer.currentTrack)
             
             playlist.clear()
-            _ = createNTracks(size)
+            _ = createAndAddNTracks(size)
             
             var playingTrackIndices: Set<Int> = Set([0, size - 1])
             
@@ -677,7 +677,7 @@ class SequencerPeeking_TracksPlaylist_Tests: SequencerTests {
             XCTAssertNil(sequencer.currentTrack)
             
             playlist.clear()
-            _ = createNTracks(size)
+            _ = createAndAddNTracks(size)
             
             var playingTrackIndices: Set<Int> = Set([0, size - 1])
             
@@ -771,7 +771,7 @@ class SequencerPeeking_TracksPlaylist_Tests: SequencerTests {
             XCTAssertNil(sequencer.currentTrack)
             
             playlist.clear()
-            _ = createNTracks(size)
+            _ = createAndAddNTracks(size)
             
             // Start the sequence and iterate to the end.
             _ = sequencer.begin()
