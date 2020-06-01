@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_StopTests: PlaybackDelegateTests {
+class StopTests: PlaybackDelegateTests {
 
     func testStop_noPlayingTrack() {
         

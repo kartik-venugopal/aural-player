@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_PlaybackParamsTests: PlaybackDelegateTests {
+class PlaybackParamsTests: PlaybackDelegateTests {
 
     func testParams_allowDelay_explicitDelay() {
         

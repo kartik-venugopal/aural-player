@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests {
+class DelayAndTranscoding_EndToEndTests: PlaybackDelegateTests {
     
     // MARK: play() tests -----------------------------------------------------------------------------
     
@@ -237,6 +237,54 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
         executeAfter(4) {
             
             // Delay should be over, new track should be playing
+            self.assertPlayingTrack(subsequentTrack)
+        }
+    }
+    
+    func testTrackCompletion_gapBeforeNewTrack_newTrackNeedsTranscoding_transcodingTimeLongerThanDelay() {
+        
+        let track = createTrack("Money for Nothing", 420)
+        XCTAssertNil(playlist.getGapAfterTrack(track))
+        
+        doBeginPlayback(track)
+        XCTAssertTrue(PlaybackSession.hasCurrentSession())
+        
+        let subsequentTrack = createTrack("Private Investigations", "wma", 360)
+        sequencer.subsequentTrack = subsequentTrack
+        
+        let gapBeforeSubsequentTrack = PlaybackGap(3, .afterTrack)
+        playlist.setGapsForTrack(subsequentTrack, gapBeforeSubsequentTrack, nil)
+        XCTAssertEqual(playlist.getGapBeforeTrack(subsequentTrack), gapBeforeSubsequentTrack)
+        
+        // Publish a message for the delegate to process
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        
+        executeAfter(0.5) {
+            
+            // Message should have been processed ... track playback should have continued
+            XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
+            
+            // 0 + 3 = 3 seconds total delay
+            self.assertWaitingTrack(subsequentTrack, 3)
+        }
+        
+        executeAfter(3) {
+            
+            // Delay should be over, new track should be transcoding
+            self.assertTranscodingTrack(subsequentTrack)
+        }
+        
+        executeAfter(2) {
+            
+            // Prepare track and signal transcoding finished
+            subsequentTrack.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/TranscoderOutputFile.m4a"))
+            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(subsequentTrack, true))
+            
+            usleep(500000)
+            
+            // Track should still be waiting and ready for playback when the delay ends
+            XCTAssertTrue(subsequentTrack.lazyLoadingInfo.preparedForPlayback)
             self.assertPlayingTrack(subsequentTrack)
         }
     }

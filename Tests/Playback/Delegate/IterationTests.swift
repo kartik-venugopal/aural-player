@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_IterationTests: PlaybackDelegateTests {
+class IterationTests: PlaybackDelegateTests {
     
     // MARK: previousTrack() tests ------------------------------------------------------------------------------------------
     

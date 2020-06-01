@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_PlaylistChangeListenerTests: PlaybackDelegateTests {
+class PlaylistChangeListenerTests: PlaybackDelegateTests {
 
     func testTracksRemoved_playingTrackNotRemoved() {
         

@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_PropertyGettersTests: PlaybackDelegateTests {
+class PropertyGettersTests: PlaybackDelegateTests {
 
     // MARK: state tests -------------------------------------------------------------------------------------
     

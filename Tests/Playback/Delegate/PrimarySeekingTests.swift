@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_PrimarySeekingTests: PlaybackDelegateTests {
+class PrimarySeekingTests: PlaybackDelegateTests {
     
     // MARK: seekBackward() tests ------------------------------------------------------------------------
     
