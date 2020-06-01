@@ -690,6 +690,7 @@
 		3ED5264F1F2FA27200001A97 /* ChangeListenerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
 		3ED5E80A2485268A00D4AECE /* MessageHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5E8092485268A00D4AECE /* MessageHandlingTests.swift */; };
+		3ED5E80C2485279300D4AECE /* TrackCompletion_EndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5E80B2485279300D4AECE /* TrackCompletion_EndToEndTests.swift */; };
 		3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */; };
 		3EDA1FBB214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FBA214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift */; };
 		3EDA1FBF214F8B77003591FA /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FBE214F8B77003591FA /* ConstituentView.swift */; };
@@ -1301,6 +1302,7 @@
 		3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListenerProtocols.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
 		3ED5E8092485268A00D4AECE /* MessageHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandlingTests.swift; sourceTree = "<group>"; };
+		3ED5E80B2485279300D4AECE /* TrackCompletion_EndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCompletion_EndToEndTests.swift; sourceTree = "<group>"; };
 		3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPeekingButton.swift; sourceTree = "<group>"; };
 		3EDA1FBA214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequencerDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EDA1FBE214F8B77003591FA /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
@@ -1462,6 +1464,7 @@
 				3E18DF392483DEFC00E498BC /* TrackCompletionTests.swift */,
 				3ED5E8092485268A00D4AECE /* MessageHandlingTests.swift */,
 				3E18DF3B2483E12C00E498BC /* DelayAndTranscoding_EndToEndTests.swift */,
+				3ED5E80B2485279300D4AECE /* TrackCompletion_EndToEndTests.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3765,6 +3768,7 @@
 				3EC76A41247E878A0001CE28 /* PlaybackParamsTests.swift in Sources */,
 				3E0D4F4924741CAC00DE7811 /* AuralTestCase.swift in Sources */,
 				3E12AD052469CC2700A07611 /* Favorites.swift in Sources */,
+				3ED5E80C2485279300D4AECE /* TrackCompletion_EndToEndTests.swift in Sources */,
 				3E12AD0F2469CC2F00A07611 /* ActionMessages.swift in Sources */,
 				3EF13D172472DC0D008CA5C0 /* DelayAfterTrackCompletionAction.swift in Sources */,
 				3E12ACF82469CC1F00A07611 /* RecordingInfo.swift in Sources */,
