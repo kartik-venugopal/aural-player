@@ -14,8 +14,6 @@ class StartPlaybackAction: PlaybackChainAction {
         
         guard let newTrack = context.requestedTrack else {return}
         
-//        print("\tStarting playback for:", newTrack.conciseDisplayName)
-        
         let oldTrack = context.currentTrack
         let params = context.requestParams
         
@@ -26,6 +24,6 @@ class StartPlaybackAction: PlaybackChainAction {
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, context.currentState, newTrack))
         
         // Chain has completed execution, inform the request context.
-        context.completed()
+        PlaybackRequestContext.completed(context)
     }
 }

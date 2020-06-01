@@ -68,7 +68,28 @@
                   Identifier = "AuralTestCase">
                </Test>
                <Test
+                  Identifier = "ChapterPlaybackTests">
+               </Test>
+               <Test
+                  Identifier = "DelayAndTranscoding_EndToEndTests">
+               </Test>
+               <Test
+                  Identifier = "ForcedSeekingTests">
+               </Test>
+               <Test
+                  Identifier = "Init_PlaybackProfilesTests">
+               </Test>
+               <Test
+                  Identifier = "IterationTests">
+               </Test>
+               <Test
+                  Identifier = "LoopTests">
+               </Test>
+               <Test
                   Identifier = "MathUtilsTests">
+               </Test>
+               <Test
+                  Identifier = "MessageHandlingTests">
                </Test>
                <Test
                   Identifier = "PlaybackDelegateTests">
@@ -125,6 +146,9 @@
                   Identifier = "PlaybackLoopTests">
                </Test>
                <Test
+                  Identifier = "PlaybackParamsTests">
+               </Test>
+               <Test
                   Identifier = "PlaybackSchedulerTests">
                </Test>
                <Test
@@ -147,6 +171,21 @@
                </Test>
                <Test
                   Identifier = "PlayerTests">
+               </Test>
+               <Test
+                  Identifier = "PlaylistChangeListenerTests">
+               </Test>
+               <Test
+                  Identifier = "PrimarySeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PropertyGettersTests">
+               </Test>
+               <Test
+                  Identifier = "ReplayTests">
+               </Test>
+               <Test
+                  Identifier = "SecondarySeekingTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">
@@ -195,6 +234,21 @@
                </Test>
                <Test
                   Identifier = "ShuffleSequenceTests">
+               </Test>
+               <Test
+                  Identifier = "SpecificTrackPlaybackTests">
+               </Test>
+               <Test
+                  Identifier = "StopTests">
+               </Test>
+               <Test
+                  Identifier = "TogglePlayPauseTests">
+               </Test>
+               <Test
+                  Identifier = "TrackCompletionTests">
+               </Test>
+               <Test
+                  Identifier = "TrackCompletion_EndToEndTests">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">

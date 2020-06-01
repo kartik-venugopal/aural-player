@@ -15,7 +15,7 @@ class PlaybackChain {
     
     func execute(_ context: PlaybackRequestContext) {
         
-        context.begun()
+        PlaybackRequestContext.begun(context)
         actions.first?.execute(context)
     }
 }
