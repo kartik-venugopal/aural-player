@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_SpecificTrackPlaybackTests: PlaybackDelegateTests {
+class SpecificTrackPlaybackTests: PlaybackDelegateTests {
     
     // MARK: play(index) tests ------------------------------------------------------------------------------------
 

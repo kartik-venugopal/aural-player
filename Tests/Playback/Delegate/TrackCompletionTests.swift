@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_TrackCompletionTests: PlaybackDelegateTests {
+class TrackCompletionTests: PlaybackDelegateTests {
 
     func testTrackPlaybackCompleted_noSubsequentTrack() {
         

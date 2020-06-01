@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_ChapterPlaybackTests: PlaybackDelegateTests {
+class ChapterPlaybackTests: PlaybackDelegateTests {
 
     private func createChapters(_ count: Int) -> [Chapter] {
         

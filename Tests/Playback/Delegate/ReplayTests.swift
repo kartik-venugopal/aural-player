@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_ReplayTests: PlaybackDelegateTests {
+class ReplayTests: PlaybackDelegateTests {
 
     func testReplay_noPlayingTrack() {
         

@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
+class MessageHandlingTests: PlaybackDelegateTests {
     
     private var trackNotTranscodedMsgCount: Int = 0
     private var trackNotTranscodedMsg_track: Track?

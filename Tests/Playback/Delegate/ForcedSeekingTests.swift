@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
+class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     
     // MARK: seekToPercentage() tests ------------------------------------------------------------------------
     

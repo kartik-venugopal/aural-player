@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_Init_PlaybackProfilesTests: PlaybackDelegateTests {
+class Init_PlaybackProfilesTests: PlaybackDelegateTests {
 
     // Create a PlaybackDelegate instance with no playback profiles
     func testInit_noProfiles() {

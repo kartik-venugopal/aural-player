@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_LoopTests: PlaybackDelegateTests {
+class LoopTests: PlaybackDelegateTests {
     
     func testToggleLoop_noTrackPlaying() {
         

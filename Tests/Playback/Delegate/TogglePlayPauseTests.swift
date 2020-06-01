@@ -1,6 +1,6 @@
 import XCTest
 
-class PlaybackDelegate_TogglePlayPauseTests: PlaybackDelegateTests {
+class TogglePlayPauseTests: PlaybackDelegateTests {
 
     func testTogglePlayPause_noTrackPlaying_emptyPlaylist() {
         doBeginPlayback(nil)
