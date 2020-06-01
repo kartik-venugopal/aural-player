@@ -690,6 +690,7 @@
 		3ED43339216CA387000617A3 /* PlaybackGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43338216CA387000617A3 /* PlaybackGap.swift */; };
 		3ED5264F1F2FA27200001A97 /* ChangeListenerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
+		3ED5E8072484C62500D4AECE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5E8062484C62500D4AECE /* File.swift */; };
 		3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */; };
 		3EDA1FBB214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FBA214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift */; };
 		3EDA1FBF214F8B77003591FA /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDA1FBE214F8B77003591FA /* ConstituentView.swift */; };
@@ -1301,6 +1302,7 @@
 		3ED43338216CA387000617A3 /* PlaybackGap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackGap.swift; sourceTree = "<group>"; };
 		3ED5264E1F2FA27200001A97 /* ChangeListenerProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListenerProtocols.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
+		3ED5E8062484C62500D4AECE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPeekingButton.swift; sourceTree = "<group>"; };
 		3EDA1FBA214F305C003591FA /* PlaybackSequencerDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequencerDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EDA1FBE214F8B77003591FA /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
@@ -1461,6 +1463,7 @@
 				3E7740062482887F00298B92 /* PlaybackDelegate_Init_PlaybackProfilesTests.swift */,
 				3E18DF392483DEFC00E498BC /* PlaybackDelegate_TrackCompletionTests.swift */,
 				3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift */,
+				3ED5E8062484C62500D4AECE /* File.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3746,6 +3749,7 @@
 				3E626925246BF367002FAC63 /* AVAssetReader.swift in Sources */,
 				3E12ACE82469CC1700A07611 /* PitchPresets.swift in Sources */,
 				3E12AD342469CC4C00A07611 /* ConcurrentCollections.swift in Sources */,
+				3ED5E8072484C62500D4AECE /* File.swift in Sources */,
 				3E12AD062469CC2700A07611 /* FavoritesDelegateProtocol.swift in Sources */,
 				3E12AD292469CC3F00A07611 /* AudioIO.swift in Sources */,
 				3E136A972477E698001C0A7C /* SequencerBeginAndEndTests.swift in Sources */,

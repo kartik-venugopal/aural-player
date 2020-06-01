@@ -8,16 +8,16 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     
     var nextAction: PlaybackChainAction?
     
-    var deferredContext: PlaybackRequestContext?
-
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol) {
+        
+        NSLog("AFPA-Init() from: %@", Thread.callStackSymbols[1])
         
         self.player = player
         self.sequencer = sequencer
         self.transcoder = transcoder
 
         super.init()
-        AsyncMessenger.subscribe([.transcodingFinished, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     func execute(_ context: PlaybackRequestContext) {
@@ -50,9 +50,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
             // Notify the player that transcoding has begun.
             player.transcoding()
             
-            // Mark this context as having been deferred for later execution (when transcoding completes)
-            deferredContext = context
-            
             // , and suspend the chain for now.
             return
         }
@@ -64,36 +61,26 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
        
         if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
             
+            NSLog("Received TF msg from: %@", Thread.callStackSymbols[1])
+            
             transcodingFinished(transcodingFinishedMsg)
-            return
-            
-        } else if let transcodingCancelledMsg = message as? TranscodingCancelledAsyncMessage {
-            
-            transcodingCancelled(transcodingCancelledMsg)
             return
         }
     }
     
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
+        NSLog("Received TF msg for: %@", msg.track.conciseDisplayName)
+        
         // Make sure there is no delay (i.e. state != waiting) before acting on this message.
         // And match the transcoded track to that from the deferred request context.
-        if player.state != .waiting, msg.success, let theDeferredContext = deferredContext,
-            PlaybackRequestContext.isCurrent(theDeferredContext), msg.track == theDeferredContext.requestedTrack {
+        if player.state != .waiting, msg.success,
+            let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
+            
+            NSLog("Proceeding with playback for: %@", msg.track.conciseDisplayName)
 
             // Proceed with the playback chain.
-            nextAction?.execute(theDeferredContext)
-        }
-        
-        // Reset the deferredContext.
-        deferredContext = nil
-    }
-    
-    private func transcodingCancelled(_ msg: TranscodingCancelledAsyncMessage) {
-
-        // Previously requested transcoding was cancelled. Reset the deferred request context.
-        if let theDeferredContext = deferredContext, msg.track == theDeferredContext.requestedTrack {
-            deferredContext = nil
+            nextAction?.execute(currentContext)
         }
     }
 }

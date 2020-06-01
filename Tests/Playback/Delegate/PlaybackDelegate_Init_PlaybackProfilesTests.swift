@@ -5,7 +5,14 @@ class PlaybackDelegate_Init_PlaybackProfilesTests: PlaybackDelegateTests {
     // Create a PlaybackDelegate instance with no playback profiles
     func testInit_noProfiles() {
         
-        let testDelegate = PlaybackDelegate([], player, sequencer, playlist, transcoder, preferences)
+        let profiles = PlaybackProfiles()
+        
+        startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
+        stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
+        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+        
+        let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        
         XCTAssertEqual(testDelegate.profiles.all().count, 0)
     }
 
@@ -18,9 +25,18 @@ class PlaybackDelegate_Init_PlaybackProfilesTests: PlaybackDelegateTests {
         let profile1 = PlaybackProfile(track1.file, 102.25345345)
         let profile2 = PlaybackProfile(track2.file, 257.93487834)
         
-        let profiles: [PlaybackProfile] = [profile1, profile2]
+        let profiles = PlaybackProfiles()
+        let profilesArr: [PlaybackProfile] = [profile1, profile2]
         
-        let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences)
+        for profile in profilesArr {
+            profiles.add(profile.file, profile)
+        }
+        
+        startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
+        stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
+        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+        
+        let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         XCTAssertEqual(testDelegate.profiles.all().count, 2)
         

@@ -20,27 +20,22 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     let profiles: PlaybackProfiles
     
-    var startPlaybackChain: PlaybackChain
-    var stopPlaybackChain: PlaybackChain
-    var trackPlaybackCompletedChain: PlaybackChain
+    let startPlaybackChain: StartPlaybackChain
+    let stopPlaybackChain: StopPlaybackChain
+    let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    init(_ appState: [PlaybackProfile], _ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences) {
+    init(_ profiles: PlaybackProfiles, _ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences, _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
         self.player = player
         self.sequencer = sequencer
         self.playlist = playlist
         self.transcoder = transcoder
         self.preferences = preferences
+        self.profiles = profiles
         
-        self.profiles = PlaybackProfiles()
-        
-        for profile in appState {
-            profiles.add(profile.file, profile)
-        }
-        
-        startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
-        stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-        trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain as! StartPlaybackChain, stopPlaybackChain as! StopPlaybackChain, sequencer, playlist, profiles, preferences)
+        self.startPlaybackChain = startPlaybackChain
+        self.stopPlaybackChain = stopPlaybackChain
+        self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
