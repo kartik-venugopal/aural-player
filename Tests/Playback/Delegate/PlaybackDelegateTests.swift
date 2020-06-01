@@ -83,6 +83,11 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         AsyncMessenger.unsubscribe([.playbackCompleted, .transcodingFinished], subscriber: delegate)
         SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
         SyncMessenger.unsubscribe(messageTypes: [.appExitRequest], subscriber: delegate)
+        
+        let prepAction: PlaybackChainAction =
+            startPlaybackChain.actions.filter({$0 is AudioFilePreparationAction}).first!
+
+        AsyncMessenger.unsubscribe([.transcodingFinished], subscriber: prepAction as! AudioFilePreparationAction)
     }
     
     func verifyRequestContext_startPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track, _ requestParams: PlaybackParams, _ cancelTranscoding: Bool) {

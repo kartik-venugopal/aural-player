@@ -1,7 +1,7 @@
 import XCTest
 import Cocoa
 
-class PlaybackSchedulerTests: XCTestCase, AsyncMessageSubscriber {
+class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
     
     private var scheduler: PlaybackScheduler!
     private var mockPlayerNode: MockPlayerNode!

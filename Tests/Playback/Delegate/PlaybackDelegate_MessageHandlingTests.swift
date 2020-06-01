@@ -37,7 +37,7 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
         // Publish a message for the delegate to process
         AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(expiredSession))
         
-        asyncOnMainAfter(0.5) {
+        executeAfter(0.5) {
             
             // Message should have been ignored because the session has expired
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 0)
@@ -56,7 +56,7 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
         // Publish a message for the delegate to process
         AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
         
-        asyncOnMainAfter(0.5) {
+        executeAfter(0.5) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -75,7 +75,7 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
         // Publish a message for the delegate to process
         AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, true))
         
-        asyncOnMainAfter(0.5) {
+        executeAfter(0.5) {
             
             // Message should have been ignored
             XCTAssertEqual(self.stopPlaybackChain.executionCount, 0)
@@ -93,7 +93,7 @@ class PlaybackDelegate_MessageHandlingTests: PlaybackDelegateTests {
         // Publish a message for the delegate to process
         AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
         
-        asyncOnMainAfter(0.5) {
+        executeAfter(0.5) {
             
             // Message should have been processed
             XCTAssertEqual(self.stopPlaybackChain.executionCount, 1)
