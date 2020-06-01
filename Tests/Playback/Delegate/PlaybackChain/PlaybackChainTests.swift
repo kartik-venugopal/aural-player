@@ -15,6 +15,37 @@ class PlaybackChainTests: AuralTestCase {
         }
     }
     
+    func testExecute() {
+        
+        let track1 = createTrack("Hydropoetry Cathedra", 597)
+        let track2 = createTrack("Sub-Sea Engineering", 360)
+        
+        for numActions in [0, 1, 2, 3, 5, 10, 25, 50, 100] {
+            
+            doTestChainConstruction(numActions, false)
+
+            let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams())
+            chain.execute(context)
+            XCTAssertTrue(PlaybackRequestContext.isCurrent(context))
+            
+            for actionIndex in 0..<numActions {
+                
+                let action = chain.actions[actionIndex] as! MockPlaybackChainAction
+                XCTAssertEqual(action.executionCount, 1)
+                XCTAssertTrue(action.executedContext! === context)
+                XCTAssertNotNil(action.executionTimestamp)
+                
+                if actionIndex > 0 {
+                    
+                    // The execution timestamp of this action should be greater than that of the previous one.
+                    // This establishes relative execution order of the 2 actions (i.e. this action executed after the previous one).
+                    let previousAction = chain.actions[actionIndex - 1] as! MockPlaybackChainAction
+                    XCTAssertGreaterThan(action.executionTimestamp!, previousAction.executionTimestamp!)
+                }
+            }
+        }
+    }
+    
     private func doTestChainConstruction(_ length: Int, _ performAssertions: Bool = true) {
         
         chain = TestablePlaybackChain()
@@ -31,39 +62,12 @@ class PlaybackChainTests: AuralTestCase {
                 
                 if index > 0 {
                     
+                    // Ensure that the actions in the chain have been linked (through the nextAction property of each action)
+                    // so that execution proceeds from one action to the next, in the intended order.
                     let previousAction = chain.actions[index - 1] as! MockPlaybackChainAction
                     XCTAssertTrue((previousAction.nextAction as! MockPlaybackChainAction) === action)
                 }
             }
         }
-    }
-    
-    func testExecute() {
-        
-        let track1 = createTrack("Hydropoetry Cathedra", 597)
-        let track2 = createTrack("Sub-Sea Engineering", 360)
-        
-        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams())
-        
-//        for numActions in [0, 1, 2, 3, 5, 10, 25, 50, 100] {
-            for numActions in [1, 2, 3] {
-            
-            doTestChainConstruction(numActions, false)
-            
-            chain.execute(context)
-        }
-    }
-    
-    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
-        return createTrack(title, "mp3", duration, artist, album, genre)
-    }
-    
-    func createTrack(_ title: String, _ fileExtension: String, _ duration: Double,
-                     _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
-        
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)))
-        track.setPrimaryMetadata(artist, title, album, genre, duration)
-        
-        return track
     }
 }

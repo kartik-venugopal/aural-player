@@ -33,6 +33,9 @@ class MockPlaybackChainAction: PlaybackChainAction {
         executedContext = context
         executionCount.increment()
         
+        // Simulate some work being done
+        usleep(10000)
+        
         nextAction?.execute(context)
     }
 }

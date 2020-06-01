@@ -19,7 +19,7 @@ class SequencerBeginAndEndTests: SequencerTests {
     
     func testBegin_singleTrackInPlaylist() {
         
-        let track = createTrack("Track-1", 300, randomArtist(), randomAlbum())
+        let track = createAndAddTrack("Track-1", 300, randomArtist(), randomAlbum())
         
         for playlistType in PlaylistType.allCases {
         
@@ -36,7 +36,7 @@ class SequencerBeginAndEndTests: SequencerTests {
 
     func testBegin_shuffleOff() {
         
-        _ = createNTracks(Int.random(in: 10...1000))
+        _ = createAndAddNTracks(Int.random(in: 10...1000))
         
         for playlistType in PlaylistType.allCases {
         
@@ -51,7 +51,7 @@ class SequencerBeginAndEndTests: SequencerTests {
     
     func testBegin_shuffleOn() {
         
-        _ = createNTracks(Int.random(in: 10...1000))
+        _ = createAndAddNTracks(Int.random(in: 10...1000))
         
         for playlistType in PlaylistType.allCases {
         
@@ -155,7 +155,7 @@ class SequencerBeginAndEndTests: SequencerTests {
     
     func testEnd_shuffleOff() {
         
-        _ = createNTracks(Int.random(in: 10...1000))
+        _ = createAndAddNTracks(Int.random(in: 10...1000))
         
         for playlistType in PlaylistType.allCases {
         
@@ -173,7 +173,7 @@ class SequencerBeginAndEndTests: SequencerTests {
     
     func testEnd_shuffleOn() {
         
-        _ = createNTracks(Int.random(in: 10...1000))
+        _ = createAndAddNTracks(Int.random(in: 10...1000))
         
         for playlistType: PlaylistType in [.tracks, .artists, .albums, .genres] {
         

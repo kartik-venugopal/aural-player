@@ -116,7 +116,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 playlistUpdated(playlistType)
                 
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
@@ -397,7 +397,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 playlistUpdated(playlistType)
                 
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
@@ -680,7 +680,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 playlistUpdated(playlistType)
                 
                 // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
@@ -768,7 +768,7 @@ class SequencerPeeking_GroupingPlaylists_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 playlistUpdated(playlistType)
                 
                 // Start the sequence and iterate to the end.

@@ -12,7 +12,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         sequencer.end()
         preTest(.tracks, .off, .off)
         
-        _ = createNTracks(5)
+        _ = createAndAddNTracks(5)
         let playingTrack = sequencer.select(4)
         
         XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -23,7 +23,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         
         let sequenceTrackIndexBeforeAdd = sequencer.sequence.curTrackIndex
         
-        let trackAdd = createNTracks(1)
+        let trackAdd = createAndAddNTracks(1)
         sequencer.tracksAdded(trackAdd)
         
         XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -43,7 +43,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             sequencer.end()
             preTest(groupType.toPlaylistType(), .off, .off)
             
-            _ = createNTracks(25)
+            _ = createAndAddNTracks(25)
             
             let lastGroup = playlist.allGroups(groupType).last!
             let lastTrack = lastGroup.allTracks().last!
@@ -62,11 +62,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             switch groupType {
                 
-            case .artist:   trackAdd = createNTracks(1, lastGroup.name)
+            case .artist:   trackAdd = createAndAddNTracks(1, lastGroup.name)
                 
-            case .album:    trackAdd = createNTracks(1, randomArtist(), lastGroup.name)
+            case .album:    trackAdd = createAndAddNTracks(1, randomArtist(), lastGroup.name)
                 
-            case .genre:    trackAdd = createNTracks(1, randomArtist(), randomAlbum(), lastGroup.name)
+            case .genre:    trackAdd = createAndAddNTracks(1, randomArtist(), randomAlbum(), lastGroup.name)
                 
             }
             
@@ -91,7 +91,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                _ = createNTracks(5)
+                _ = createAndAddNTracks(5)
                 let playingTrack = sequencer.begin()
                 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -125,7 +125,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                _ = createNTracks(100)
+                _ = createAndAddNTracks(100)
                 
                 let groups = playlist.allGroups(playlistType.toGroupType()!)
                 let randomGroup = groups[Int.random(in: 0..<groups.count)]
@@ -164,12 +164,12 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 preTest(playlistType, repeatMode, shuffleMode)
                 
                 // Add tracks to the playlist, but don't begin playback.
-                sequencer.tracksAdded(createNTracks(5))
+                sequencer.tracksAdded(createAndAddNTracks(5))
 
                 XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 
-                sequencer.tracksAdded(createNTracks(3))
+                sequencer.tracksAdded(createAndAddNTracks(3))
                 
                 XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
@@ -186,7 +186,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             sequencer.end()
             preTest(.tracks, repeatMode, shuffleMode)
             
-            var tracks = createNTracks(5)
+            var tracks = createAndAddNTracks(5)
             let playingTrack = sequencer.select(2)
             
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -195,7 +195,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             XCTAssertEqual(sequencer.scope.type, SequenceScopeType.allTracks)
             XCTAssertNil(sequencer.scope.group)
             
-            tracks = createNTracks(12)
+            tracks = createAndAddNTracks(12)
             sequencer.tracksAdded(tracks)
             
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -217,7 +217,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                var tracks = createNTracks(5)
+                var tracks = createAndAddNTracks(5)
                 let playingTrack = sequencer.begin()
                 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -226,7 +226,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 XCTAssertEqual(sequencer.scope.type, playlistType.toPlaylistScopeType())
                 XCTAssertNil(sequencer.scope.group)
                 
-                tracks = createNTracks(12)
+                tracks = createAndAddNTracks(12)
                 sequencer.tracksAdded(tracks)
                 
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
@@ -262,11 +262,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.artists, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Grimes")
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One")
             
             let artist_madonna = "Madonna"
-            _ = createNTracks(Int.random(in: 5...10), artist_madonna)
+            _ = createAndAddNTracks(Int.random(in: 5...10), artist_madonna)
             
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
@@ -284,11 +284,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.artists, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Grimes")
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One")
             
             let artist_madonna = "Madonna"
-            _ = createNTracks(Int.random(in: 5...10), artist_madonna)
+            _ = createAndAddNTracks(Int.random(in: 5...10), artist_madonna)
             
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
@@ -306,11 +306,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.albums, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
             
             let album_visions = "Visions"
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", album_visions)
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", album_visions)
             
             let visionsAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_visions}).first!
             
@@ -328,11 +328,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.albums, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
             
             let album_visions = "Visions"
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", album_visions)
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", album_visions)
             
             let visionsAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_visions}).first!
             
@@ -350,11 +350,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.genres, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-            _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
             
             let genre_pop = "Pop"
-            _ = createNTracks(Int.random(in: 5...10), "Madonna", "Ray of Light", genre_pop)
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Madonna", "Ray of Light", genre_pop)
             
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
             
@@ -372,11 +372,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             preTest(.genres, repeatMode, shuffleMode)
             
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-            _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
             
             let genre_pop = "Pop"
-            _ = createNTracks(Int.random(in: 5...10), "Madonna", "Ray of Light", genre_pop)
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Madonna", "Ray of Light", genre_pop)
             
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
             
@@ -397,7 +397,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         
         let groupSizeBeforeAdd = group.size
         
-        sequencer.tracksAdded(createNTracks(numTracksToAdd, artist, album, genre))
+        sequencer.tracksAdded(createAndAddNTracks(numTracksToAdd, artist, album, genre))
             
         XCTAssertEqual(group.size, groupSizeBeforeAdd + (groupAffectedByAdd ? numTracksToAdd : 0))
         XCTAssertEqual(sequencer.sequence.size, group.size)
@@ -419,7 +419,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             sequencer.end()
             preTest(.tracks, repeatMode, shuffleMode)
             
-            _ = createNTracks(5)
+            _ = createAndAddNTracks(5)
             let playingTrack = sequencer.select(3)
             
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -444,7 +444,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                _ = createNTracks(50)
+                _ = createAndAddNTracks(50)
                 
                 let groups = playlist.allGroups(playlistType.toGroupType()!)
                 let randomGroup = groups[Int.random(in: 0..<groups.count)]
@@ -471,7 +471,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         sequencer.end()
         preTest(.tracks, .off, .off)
         
-        _ = createNTracks(5)
+        _ = createAndAddNTracks(5)
         let playingTrack = sequencer.select(3)
         
         XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -502,7 +502,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             sequencer.end()
             preTest(groupType.toPlaylistType(), .off, .off)
             
-            _ = createNTracks(100)
+            _ = createAndAddNTracks(100)
             
             let lastGroup = playlist.allGroups(groupType).last!
             
@@ -511,11 +511,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
             
             switch groupType {
                 
-            case .artist:   trackAdd = createNTracks(5, lastGroup.name)
+            case .artist:   trackAdd = createAndAddNTracks(5, lastGroup.name)
                 
-            case .album:    trackAdd = createNTracks(5, randomArtist(), lastGroup.name)
+            case .album:    trackAdd = createAndAddNTracks(5, randomArtist(), lastGroup.name)
                 
-            case .genre:    trackAdd = createNTracks(5, randomArtist(), randomAlbum(), lastGroup.name)
+            case .genre:    trackAdd = createAndAddNTracks(5, randomArtist(), randomAlbum(), lastGroup.name)
                 
             }
             
@@ -562,7 +562,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                _ = createNTracks(5)
+                _ = createAndAddNTracks(5)
                 let playingTrack = sequencer.begin()
                 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -596,7 +596,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
 
-                _ = createNTracks(100)
+                _ = createAndAddNTracks(100)
 
                 let groups = playlist.allGroups(playlistType.toGroupType()!)
                 let randomGroup = groups[Int.random(in: 0..<groups.count)]
@@ -636,7 +636,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 preTest(playlistType, repeatMode, shuffleMode)
 
                 // Add tracks to the playlist, but don't begin playback.
-                _ = createNTracks(100)
+                _ = createAndAddNTracks(100)
                 
                 XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
@@ -665,7 +665,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             sequencer.end()
             preTest(.tracks, repeatMode, shuffleMode)
 
-            _ = createNTracks(50)
+            _ = createAndAddNTracks(50)
             let playingTrack = sequencer.select(23)
 
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -709,7 +709,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
 
-                _ = createNTracks(20)
+                _ = createAndAddNTracks(20)
                 let playingTrack = sequencer.begin()
 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -757,11 +757,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.artists, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 10...20), "Grimes")
-            _ = createNTracks(Int.random(in: 10...20), "Conjure One")
+            _ = createAndAddNTracks(Int.random(in: 10...20), "Grimes")
+            _ = createAndAddNTracks(Int.random(in: 10...20), "Conjure One")
 
             let artist_madonna = "Madonna"
-            _ = createNTracks(Int.random(in: 20...40), artist_madonna)
+            _ = createAndAddNTracks(Int.random(in: 20...40), artist_madonna)
 
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
@@ -781,11 +781,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.artists, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 10...20), "Grimes")
-            _ = createNTracks(Int.random(in: 10...20), "Conjure One")
+            _ = createAndAddNTracks(Int.random(in: 10...20), "Grimes")
+            _ = createAndAddNTracks(Int.random(in: 10...20), "Conjure One")
 
             let artist_madonna = "Madonna"
-            _ = createNTracks(Int.random(in: 20...40), artist_madonna)
+            _ = createAndAddNTracks(Int.random(in: 20...40), artist_madonna)
 
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
@@ -804,11 +804,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.albums, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
 
             let album_visions = "Visions"
-            _ = createNTracks(Int.random(in: 20...30), "Grimes", album_visions)
+            _ = createAndAddNTracks(Int.random(in: 20...30), "Grimes", album_visions)
 
             let halfaxaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == "Halfaxa"}).first!
             let visionsAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_visions}).first!
@@ -829,11 +829,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.albums, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Conjure One", "Exilarch")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa")
 
             let album_visions = "Visions"
-            _ = createNTracks(Int.random(in: 20...30), "Grimes", album_visions)
+            _ = createAndAddNTracks(Int.random(in: 20...30), "Grimes", album_visions)
 
             let halfaxaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == "Halfaxa"}).first!
             let visionsAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_visions}).first!
@@ -852,11 +852,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.genres, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-            _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
 
             let genre_pop = "Pop"
-            _ = createNTracks(Int.random(in: 20...30), "Madonna", "Ray of Light", genre_pop)
+            _ = createAndAddNTracks(Int.random(in: 20...30), "Madonna", "Ray of Light", genre_pop)
 
             let intlGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == "International"}).first!
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
@@ -876,11 +876,11 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             preTest(.genres, repeatMode, shuffleMode)
 
-            _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
-            _ = createNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+            _ = createAndAddNTracks(Int.random(in: 5...10), "Delerium", "Music Box Opera", "International")
 
             let genre_pop = "Pop"
-            _ = createNTracks(Int.random(in: 20...30), "Madonna", "Ray of Light", genre_pop)
+            _ = createAndAddNTracks(Int.random(in: 20...30), "Madonna", "Ray of Light", genre_pop)
 
             let intlGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == "International"}).first!
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
@@ -928,7 +928,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         
         preTest(.tracks, .off, .off)
         
-        _ = createNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
+        _ = createAndAddNTracks(Int.random(in: 5...10), "Grimes", "Halfaxa", "Dance & DJ")
         
         let playingTrack = sequencer.select(3)
         
@@ -958,7 +958,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                let addedTracks = createNTracks(100)
+                let addedTracks = createAndAddNTracks(100)
                 sequencer.tracksAdded(addedTracks)
                 
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
@@ -985,7 +985,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(playlistType, repeatMode, shuffleMode)
                 
-                let addedTracks = createNTracks(100)
+                let addedTracks = createAndAddNTracks(100)
                 sequencer.tracksAdded(addedTracks)
                 
                 let playingTrack = sequencer.begin()
@@ -1016,7 +1016,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 sequencer.end()
                 preTest(groupType.toPlaylistType(), repeatMode, shuffleMode)
                 
-                let addedTracks = createNTracks(100)
+                let addedTracks = createAndAddNTracks(100)
                 sequencer.tracksAdded(addedTracks)
                 
                 let groups = playlist.allGroups(groupType)

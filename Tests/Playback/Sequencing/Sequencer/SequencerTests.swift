@@ -94,7 +94,7 @@ class SequencerTests: AuralTestCase {
         XCTAssertEqual(modes.shuffleMode, shuffleMode)
     }
     
-    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
+    func createAndAddTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
         
         let track = Track(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
         track.setPrimaryMetadata(artist, title, album, genre, duration)
@@ -104,7 +104,7 @@ class SequencerTests: AuralTestCase {
         return track
     }
     
-    func createNTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> [TrackAddResult] {
+    func createAndAddNTracks(_ numTracks: Int, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> [TrackAddResult] {
         
         let sizeBeforeAdd = playlist.size
         var tracks: [TrackAddResult] = []

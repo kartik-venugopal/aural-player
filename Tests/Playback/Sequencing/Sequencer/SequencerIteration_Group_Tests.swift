@@ -114,7 +114,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 
                 // Select different groups as the scope for the tests.
                 for group in playlist.allGroups(playlistType.toGroupType()!) {
@@ -391,7 +391,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 
                 // Select different groups as the scope for the tests.
                 for group in playlist.allGroups(playlistType.toGroupType()!) {
@@ -670,7 +670,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 
                 // Select different groups as the scope for the tests.
                 for group in playlist.allGroups(playlistType.toGroupType()!) {
@@ -761,7 +761,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                 XCTAssertNil(sequencer.currentTrack)
                 
                 playlist.clear()
-                _ = createNTracks(size)
+                _ = createAndAddNTracks(size)
                 
                 // Select different groups as the scope for the tests.
                 for group in playlist.allGroups(playlistType.toGroupType()!) {
