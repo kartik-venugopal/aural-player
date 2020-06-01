@@ -57,6 +57,14 @@ class TestablePlayer: Player {
         super.defineLoop(loopStartPosition, loopEndPosition)
     }
     
+    var stopCallCount: Int = 0
+    
+    override func stop() {
+        
+        stopCallCount.increment()
+        super.stop()
+    }
+    
     func reset() {
         
         attemptSeekToTimeCallCount = 0
@@ -75,5 +83,7 @@ class TestablePlayer: Player {
         defineLoopCallCount = 0
         defineLoop_startTime = nil
         defineLoop_endTime = nil
+        
+        stopCallCount = 0
     }
 }

@@ -533,6 +533,7 @@
 		3E8103D7244DD82F00ACCFA1 /* TintedIconMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */; };
 		3E8103D9244DDAB800ACCFA1 /* TintedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */; };
 		3E810ACC24853A4E00525442 /* PlaybackChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */; };
+		3E810ACE2485876E00525442 /* HaltPlaybackActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E810ACD2485876E00525442 /* HaltPlaybackActionTests.swift */; };
 		3E81C64B21C5161A00EA1DFA /* TranscoderDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */; };
 		3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E822B371F21DCF20006CDBC /* RecordingFormat.swift */; };
 		3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */; };
@@ -1144,6 +1145,7 @@
 		3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedIconMenuItem.swift; sourceTree = "<group>"; };
 		3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageView.swift; sourceTree = "<group>"; };
 		3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackChainTests.swift; sourceTree = "<group>"; };
+		3E810ACD2485876E00525442 /* HaltPlaybackActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaltPlaybackActionTests.swift; sourceTree = "<group>"; };
 		3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderDaemon.swift; sourceTree = "<group>"; };
 		3E822B371F21DCF20006CDBC /* RecordingFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingFormat.swift; sourceTree = "<group>"; };
 		3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -2858,6 +2860,7 @@
 			children = (
 				3ED5E80E2485295E00D4AECE /* PlaybackRequestContextTests.swift */,
 				3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */,
+				3E810ACD2485876E00525442 /* HaltPlaybackActionTests.swift */,
 			);
 			path = PlaybackChain;
 			sourceTree = "<group>";
@@ -3750,6 +3753,7 @@
 				3E12AD032469CC2700A07611 /* FavoritesDelegate.swift in Sources */,
 				3E626914246BF0E1002FAC63 /* Images.swift in Sources */,
 				3E12ACAB2469CBA100A07611 /* SearchResults.swift in Sources */,
+				3E810ACE2485876E00525442 /* HaltPlaybackActionTests.swift in Sources */,
 				3E12ACFF2469CC2300A07611 /* History.swift in Sources */,
 				3EF13D0F2472DC0D008CA5C0 /* SetPlaybackDelayAction.swift in Sources */,
 				3E6268D1246BEEBC002FAC63 /* WindowLayout.swift in Sources */,
