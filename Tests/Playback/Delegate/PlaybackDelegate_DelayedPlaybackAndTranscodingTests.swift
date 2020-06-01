@@ -9,7 +9,7 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
         let track = createTrack("Enchantment", "wma", 180)
         doBeginPlaybackWithDelay(track, 2)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 2)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
         
@@ -34,7 +34,7 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
         let track = createTrack("Odyssey", "wma", 180)
         doBeginPlaybackWithDelay(track, 4)
         
-        assertWaitingTrack(track)
+        assertWaitingTrack(track, 4)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
         
@@ -48,7 +48,7 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
             
             // Track should still be waiting and ready for playback when the delay ends
             XCTAssertTrue(track.lazyLoadingInfo.preparedForPlayback)
-            self.assertWaitingTrack(track)
+            self.assertWaitingTrack(track, 4)
         }
         
         executeAfter(3.5) {
@@ -57,6 +57,52 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
     }
     
     // MARK: Track completion tests -----------------------------------------------------------------------------
+    
+    func testTrackCompletion_noSubsequentTrack() {
+        
+        let track = createTrack("Money for Nothing", 420)
+        doBeginPlayback(track)
+        XCTAssertTrue(PlaybackSession.hasCurrentSession())
+        
+        sequencer.subsequentTrack = nil
+        
+        // Publish a message for the delegate to process
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        
+        executeAfter(0.5) {
+            
+            // Message should have been processed ... track playback should have continued
+            XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 1)
+            XCTAssertEqual(self.stopPlaybackChain.executionCount, 1)
+            
+            self.assertNoTrack()
+        }
+    }
+    
+    func testTrackCompletion_noDelay() {
+        
+        let track = createTrack("Money for Nothing", 420)
+        doBeginPlayback(track)
+        XCTAssertTrue(PlaybackSession.hasCurrentSession())
+        
+        let subsequentTrack = createTrack("Private Investigations", 360)
+        sequencer.subsequentTrack = subsequentTrack
+        
+        preferences.gapBetweenTracks = false
+        
+        // Publish a message for the delegate to process
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        
+        executeAfter(0.5) {
+            
+            // Message should have been processed ... track playback should have continued
+            XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
+            
+            self.assertPlayingTrack(subsequentTrack)
+        }
+    }
 
     func testTrackCompletion_gapBetweenTracks() {
         
@@ -77,7 +123,9 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
-            self.assertWaitingTrack(subsequentTrack)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
+            
+            self.assertWaitingTrack(subsequentTrack, 3)
         }
         
         executeAfter(3) {
@@ -108,7 +156,9 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
-            self.assertWaitingTrack(subsequentTrack)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
+            
+            self.assertWaitingTrack(subsequentTrack, 3)
         }
         
         executeAfter(3) {
@@ -143,13 +193,48 @@ class PlaybackDelegate_DelayedPlaybackAndTranscodingTests: PlaybackDelegateTests
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
-            self.assertWaitingTrack(subsequentTrack)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
             
             // 2 + 4 = 6 seconds total delay
-            XCTAssertEqual(self.startPlaybackChain.executedContext!.delay, 6)
+            self.assertWaitingTrack(subsequentTrack, 6)
         }
         
         executeAfter(6) {
+            
+            // Delay should be over, new track should be playing
+            self.assertPlayingTrack(subsequentTrack)
+        }
+    }
+    
+    func testTrackCompletion_gapBeforeNewTrack() {
+        
+        let track = createTrack("Money for Nothing", 420)
+        XCTAssertNil(playlist.getGapAfterTrack(track))
+        
+        doBeginPlayback(track)
+        XCTAssertTrue(PlaybackSession.hasCurrentSession())
+        
+        let subsequentTrack = createTrack("Private Investigations", 360)
+        sequencer.subsequentTrack = subsequentTrack
+        
+        let gapBeforeSubsequentTrack = PlaybackGap(4, .afterTrack)
+        playlist.setGapsForTrack(subsequentTrack, gapBeforeSubsequentTrack, nil)
+        XCTAssertEqual(playlist.getGapBeforeTrack(subsequentTrack), gapBeforeSubsequentTrack)
+        
+        // Publish a message for the delegate to process
+        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        
+        executeAfter(0.5) {
+            
+            // Message should have been processed ... track playback should have continued
+            XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
+            XCTAssertEqual(self.startPlaybackChain.executionCount, 2)
+            
+            // 0 + 4 = 4 seconds total delay
+            self.assertWaitingTrack(subsequentTrack, 4)
+        }
+        
+        executeAfter(4) {
             
             // Delay should be over, new track should be playing
             self.assertPlayingTrack(subsequentTrack)
