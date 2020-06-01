@@ -532,6 +532,7 @@
 		3E8103D5244DD4DF00ACCFA1 /* TintedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D4244DD4DF00ACCFA1 /* TintedImageButton.swift */; };
 		3E8103D7244DD82F00ACCFA1 /* TintedIconMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */; };
 		3E8103D9244DDAB800ACCFA1 /* TintedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */; };
+		3E810ACC24853A4E00525442 /* PlaybackChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */; };
 		3E81C64B21C5161A00EA1DFA /* TranscoderDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */; };
 		3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E822B371F21DCF20006CDBC /* RecordingFormat.swift */; };
 		3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */; };
@@ -1142,6 +1143,7 @@
 		3E8103D4244DD4DF00ACCFA1 /* TintedImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageButton.swift; sourceTree = "<group>"; };
 		3E8103D6244DD82F00ACCFA1 /* TintedIconMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedIconMenuItem.swift; sourceTree = "<group>"; };
 		3E8103D8244DDAB800ACCFA1 /* TintedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageView.swift; sourceTree = "<group>"; };
+		3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackChainTests.swift; sourceTree = "<group>"; };
 		3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderDaemon.swift; sourceTree = "<group>"; };
 		3E822B371F21DCF20006CDBC /* RecordingFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingFormat.swift; sourceTree = "<group>"; };
 		3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -2855,6 +2857,7 @@
 			isa = PBXGroup;
 			children = (
 				3ED5E80E2485295E00D4AECE /* PlaybackRequestContextTests.swift */,
+				3E810ACB24853A4E00525442 /* PlaybackChainTests.swift */,
 			);
 			path = PlaybackChain;
 			sourceTree = "<group>";
@@ -3785,6 +3788,7 @@
 				3E12ADE12469CF5300A07611 /* ID3Parser.swift in Sources */,
 				3E12ACC32469CC0000A07611 /* PlaybackProfiles.swift in Sources */,
 				3E16722D246CFFF000A57F64 /* AVAudioExtensions.swift in Sources */,
+				3E810ACC24853A4E00525442 /* PlaybackChainTests.swift in Sources */,
 				3E12ACFB2469CC1F00A07611 /* RecordingParams.swift in Sources */,
 				3E12ACE42469CC1700A07611 /* ReverbSpaces.swift in Sources */,
 				3E12ACDA2469CC1000A07611 /* EQUnit.swift in Sources */,

@@ -2,7 +2,7 @@ import Foundation
 
 class PlaybackChain {
     
-    var actions: [PlaybackChainAction] = []
+    private(set) var actions: [PlaybackChainAction] = []
     
     func withAction(_ action: PlaybackChainAction) -> PlaybackChain {
         
