@@ -10,8 +10,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol) {
         
-        NSLog("AFPA-Init() from: %@", Thread.callStackSymbols[1])
-        
         self.player = player
         self.sequencer = sequencer
         self.transcoder = transcoder
@@ -60,8 +58,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     func consumeAsyncMessage(_ message: AsyncMessage) {
        
         if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
-            
-            NSLog("Received TF msg from: %@", Thread.callStackSymbols[1])
             
             transcodingFinished(transcodingFinishedMsg)
             return
