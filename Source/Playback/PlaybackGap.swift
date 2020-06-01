@@ -1,8 +1,8 @@
 import Foundation
 
-class PlaybackGap: Hashable {
+class PlaybackGap: Equatable {
     
-    // For identity when hashing
+    // For identity when comparing instances
     let id: Int
     
     var duration: Double
@@ -24,11 +24,6 @@ class PlaybackGap: Hashable {
     
     static func == (lhs: PlaybackGap, rhs: PlaybackGap) -> Bool {
         return lhs.id == rhs.id
-    }
-    
-    // Needed for Hashable conformance
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
     }
 }
 

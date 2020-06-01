@@ -24,3 +24,7 @@ func asyncOnMainAfter(_ timeSeconds: Double, work: @escaping @convention(block) 
     
     RunLoop.current.run(until: Date() + timeSeconds + 0.5)
 }
+
+func keepAlive(_ timeSeconds: Double) {
+    RunLoop.current.run(until: Date() + timeSeconds)
+}

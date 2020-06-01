@@ -111,8 +111,18 @@ class ObjectGraph {
         
         transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate)
         
+        let profiles = PlaybackProfiles()
+        
+        for profile in appState.playbackProfiles {
+            profiles.add(profile.file, profile)
+        }
+        
+        let startPlaybackChain = StartPlaybackChain(player, playbackSequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
+        let stopPlaybackChain = StopPlaybackChain(player, playbackSequencer, transcoder, profiles, preferences.playbackPreferences)
+        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, playbackSequencer, playlist, profiles, preferences.playbackPreferences)
+        
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
+        playbackDelegate = PlaybackDelegate(profiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
