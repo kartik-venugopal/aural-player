@@ -22,7 +22,7 @@ class PlaybackRequestContext {
     
     var transcodingBegun: Bool = false
 
-    private init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelTranscoding: Bool, _ requestParams: PlaybackParams) {
+    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelTranscoding: Bool, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
@@ -33,24 +33,17 @@ class PlaybackRequestContext {
         self.requestParams = requestParams
     }
     
-    func begun() {
-        PlaybackRequestContext.begun(self)
-    }
-    
-    func completed() {
-        PlaybackRequestContext.completed(self)
-    }
-    
     func addGap(_ gap: PlaybackGap) {
         
         gaps.append(gap)
         
         // If a non-implicit gap is defined, it invalidates any implicit gaps.
-        if gap.type != .implicit {
+        if gaps.contains(where: {$0.type != .implicit}) {
             gaps.removeAll(where: {$0.type == .implicit})
         }
     }
     
+    // TODO: Remove this func after testing
     func toString() -> String {
         return String(describing: JSONMapper.map(self))
     }
@@ -58,12 +51,7 @@ class PlaybackRequestContext {
     // MARK: Static members to keep track of context instances
     
     static var currentContext: PlaybackRequestContext?
-    
-    static func create(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelTranscoding: Bool, _ requestParams: PlaybackParams) -> PlaybackRequestContext {
-        
-        return PlaybackRequestContext(currentState, currentTrack, currentSeekPosition, requestedTrack, cancelTranscoding, requestParams)
-    }
-    
+
     static func begun(_ context: PlaybackRequestContext) {
         currentContext = context
     }

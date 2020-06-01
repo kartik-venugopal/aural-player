@@ -49,7 +49,7 @@ class DelayedPlaybackAction: PlaybackChainAction {
             } else {
                 
                 // Some error occurred during track preparation. Terminate the chain.
-                context.completed()
+                PlaybackRequestContext.completed(context)
             }
             
             // Playback chain has been deferred for later.

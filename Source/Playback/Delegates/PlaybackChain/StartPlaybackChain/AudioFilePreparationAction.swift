@@ -34,7 +34,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
             
             // Terminate the chain
-            context.completed()
+            PlaybackRequestContext.completed(context)
             
             return
         }
@@ -71,8 +71,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         if player.state != .waiting, msg.success,
             let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
             
-            NSLog("Proceeding with playback for: %@", msg.track.conciseDisplayName)
-
             // Proceed with the playback chain.
             nextAction?.execute(currentContext)
         }

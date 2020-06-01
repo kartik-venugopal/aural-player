@@ -122,7 +122,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
         if okToPlay, let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelTranscoding, params)
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelTranscoding, params)
             
             startPlaybackChain.execute(requestContext)
         }
@@ -134,7 +134,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, true, PlaybackParams.defaultParams())
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, true, PlaybackParams.defaultParams())
         
         stopPlaybackChain.execute(requestContext)
     }
@@ -152,7 +152,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext.create(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, false, PlaybackParams.defaultParams())
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, false, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
     }
