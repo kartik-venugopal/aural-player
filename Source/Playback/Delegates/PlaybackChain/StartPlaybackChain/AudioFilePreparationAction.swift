@@ -66,8 +66,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
     
     private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
         
-        NSLog("Received TF msg for: %@", msg.track.conciseDisplayName)
-        
         // Make sure there is no delay (i.e. state != waiting) before acting on this message.
         // And match the transcoded track to that from the deferred request context.
         if player.state != .waiting, msg.success,

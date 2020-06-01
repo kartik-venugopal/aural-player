@@ -17,6 +17,19 @@ class AuralTestCase: XCTestCase {
         
         super.perform(run)
     }
+    
+    func executeAfter(_ timeSeconds: Double, _ work: (@escaping () -> Void)) {
+        
+        let theExpectation = expectation(description: "some expectation")
+        
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + timeSeconds) {
+            
+            work()
+            theExpectation.fulfill()
+        }
+        
+        wait(for: [theExpectation], timeout: timeSeconds + 1)
+    }
 }
 
 extension XCTestCase {

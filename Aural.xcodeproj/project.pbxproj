@@ -280,7 +280,7 @@
 		3E17D03421E625A100951F81 /* PrettyScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17D03321E625A100951F81 /* PrettyScroller.swift */; };
 		3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */; };
 		3E18DF3A2483DEFC00E498BC /* PlaybackDelegate_TrackCompletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E18DF392483DEFC00E498BC /* PlaybackDelegate_TrackCompletionTests.swift */; };
-		3E18DF3C2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift */; };
+		3E18DF3C2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift */; };
 		3E192394215AEEB600E894B3 /* LegacyPlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1AE56E21EB79DA00664152 /* CoverArtDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */; };
@@ -906,7 +906,7 @@
 		3E17D03321E625A100951F81 /* PrettyScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyScroller.swift; sourceTree = "<group>"; };
 		3E186FBF21CE2CE400FD5F34 /* AlbumArtCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtCache.swift; sourceTree = "<group>"; };
 		3E18DF392483DEFC00E498BC /* PlaybackDelegate_TrackCompletionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_TrackCompletionTests.swift; sourceTree = "<group>"; };
-		3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift; sourceTree = "<group>"; };
+		3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* LegacyPlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyPlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1AE56D21EB79DA00664152 /* CoverArtDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtDataSource.swift; sourceTree = "<group>"; };
@@ -1460,7 +1460,7 @@
 				3E77400424825A0300298B92 /* PlaybackDelegate_PlaylistChangeListenerTests.swift */,
 				3E7740062482887F00298B92 /* PlaybackDelegate_Init_PlaybackProfilesTests.swift */,
 				3E18DF392483DEFC00E498BC /* PlaybackDelegate_TrackCompletionTests.swift */,
-				3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift */,
+				3E18DF3B2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -3524,7 +3524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E18DF3C2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackWithTranscodingTests.swift in Sources */,
+				3E18DF3C2483E12C00E498BC /* PlaybackDelegate_DelayedPlaybackAndTranscodingTests.swift in Sources */,
 				3EB5ABFD2479C37600B40A82 /* SequencerPlaylistResizingTests.swift in Sources */,
 				3E12AD082469CC2900A07611 /* BookmarksDelegateProtocol.swift in Sources */,
 				3E12AD4C2469CE6100A07611 /* ColorSchemePreset.swift in Sources */,
