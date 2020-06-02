@@ -99,23 +99,23 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     // Shows/hides the playlist window (by delegating)
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
+        togglePlaylist()
     }
     
     private func togglePlaylist() {
-        
-        // This class does not actually show/hide the playlist view
+
+        WindowManager.togglePlaylist()
         btnTogglePlaylist.toggle()
     }
     
     // Shows/hides the effects panel on the main window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+        toggleEffects()
     }
     
     private func toggleEffects() {
         
-        // This class does not actually show/hide the effects view
+        WindowManager.toggleEffects()
         btnToggleEffects.toggle()
     }
     
