@@ -1,12 +1,10 @@
 import Foundation
 
-class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSubscriber {
+class AudioFilePreparationAction: NSObject, PlaybackChainAction {
     
     private let player: PlayerProtocol
     private let sequencer: SequencerProtocol
     private let transcoder: TranscoderProtocol
-    
-    var nextAction: PlaybackChainAction?
     
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol) {
         
@@ -15,64 +13,77 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction, AsyncMessageSub
         self.transcoder = transcoder
 
         super.init()
-        AsyncMessenger.subscribe([.transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let track = context.requestedTrack else {return}
+        guard let newTrack = context.requestedTrack else {return}
+        
+        var isWaiting: Bool = false
+        
+        if context.requestParams.allowDelay, let delay = context.delay {
+            
+            isWaiting = true
+                    
+            // Mark the current state as "waiting" in between tracks
+            player.waiting()
+            
+            let gapEndTime_dt = DispatchTime.now() + delay
+            let gapEndTime: Date = DateUtils.addToDate(Date(), delay)
+            
+            DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
+                
+                // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track or Stop)
+                if PlaybackRequestContext.isCurrent(context) {
+                    
+                    // Override the current state of the context, because there was a delay
+                    context.currentState = .waiting
+                    
+                    // Need to call prepare again to ensure that preparation is completed before playback
+                    self.prepareTrackAndProceed(newTrack, context, chain, false)
+                }
+            }
+            
+            // Let observers know that a playback gap has begun
+            AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, context.currentTrack, newTrack))
+        }
+        
+        prepareTrackAndProceed(newTrack, context, chain, isWaiting)
+    }
+    
+    func prepareTrackAndProceed(_ track: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain, _ isWaiting: Bool) {
         
         track.prepareForPlayback()
         
         // Track preparation failed
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
             
-            // If an error occurs, end the playback sequence
-            sequencer.end()
-            
-            // Send out an async error message instead of throwing
-            AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
-            
-            // Terminate the chain
-            PlaybackRequestContext.completed(context)
-            
+            chain.terminate(context, preparationError)
             return
         }
+        
         // Track needs to be transcoded (i.e. audio format is not natively supported)
-        else if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
+        if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
             
             // Start transcoding the track and defer playback until transcoding finishes
-            // NOTE - Transcoding for this track may have already begun (triggered by a previous action).
+            // NOTE - Transcoding for this track may have already begun (triggered during a delay).
             transcoder.transcodeImmediately(track)
             
-            // Notify the player that transcoding has begun.
-            player.transcoding()
+            // Notify the player that transcoding has begun, and defer playback.
+            // NOTE - The waiting state takes precedence over the transcoding state.
+            // If a track is both waiting and transcoding, its state will be waiting.
+            if !isWaiting {
+                player.transcoding()
+            }
             
-            // , and suspend the chain for now.
             return
         }
         
-        nextAction?.execute(context)
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-       
-        if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
-            
-            transcodingFinished(transcodingFinishedMsg)
-            return
+        // Proceed if not waiting
+        if !isWaiting {
+            chain.proceed(context)
         }
     }
     
-    private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
-        
-        // Make sure there is no delay (i.e. state != waiting) before acting on this message.
-        // And match the transcoded track to that from the deferred request context.
-        if player.state != .waiting, msg.success,
-            let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
-            
-            // Proceed with the playback chain.
-            nextAction?.execute(currentContext)
-        }
-    }
+    
 }

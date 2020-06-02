@@ -3,29 +3,49 @@ import Foundation
 class PlaybackChain {
     
     private(set) var actions: [PlaybackChainAction] = []
+    private(set) var actionIndex: Int = -1
+    private(set) var executingContext: PlaybackRequestContext?
     
     func withAction(_ action: PlaybackChainAction) -> PlaybackChain {
         
-        var lastAction = actions.last
         actions.append(action)
-        lastAction?.nextAction = action
-        
         return self
     }
     
     func execute(_ context: PlaybackRequestContext) {
         
+        executingContext = context
+        
         PlaybackRequestContext.begun(context)
-        actions.first?.execute(context)
+        proceed(context)
+    }
+    
+    func proceed(_ context: PlaybackRequestContext) {
+        
+        actionIndex.increment()
+        
+        if actionIndex < actions.count {
+            executeAction(actions[actionIndex], context)
+            
+        } else {
+            complete(context)
+        }
+    }
+    
+    func terminate(_ context: PlaybackRequestContext, _ error: InvalidTrackError) {
+        complete(context)
+    }
+    
+    func complete(_ context: PlaybackRequestContext) {
+        PlaybackRequestContext.completed(context)
+    }
+    
+    private func executeAction(_ action: PlaybackChainAction, _ context: PlaybackRequestContext) {
+        action.execute(context, self)
     }
 }
 
 protocol PlaybackChainAction {
     
-    func execute(_ context: PlaybackRequestContext)
-
-    // The next action in the playback chain. Will be executed by this action object,
-    // if execution of this object's action was completed successfully and further execution
-    // of the playback chain has not been deferred.
-    var nextAction: PlaybackChainAction? {get set}
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain)
 }

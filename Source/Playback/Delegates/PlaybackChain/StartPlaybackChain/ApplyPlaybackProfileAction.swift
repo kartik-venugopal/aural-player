@@ -5,15 +5,13 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
-    var nextAction: PlaybackChainAction?
-    
     init(_ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
         self.profiles = profiles
         self.preferences = preferences
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         if let newTrack = context.requestedTrack {
             
@@ -28,6 +26,6 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
             }
         }
         
-        nextAction?.execute(context)
+        chain.proceed(context)
     }
 }

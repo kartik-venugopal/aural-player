@@ -31,14 +31,14 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
-    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
-        return createTrack(title, "mp3", duration, artist, album, genre)
+    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
+        return createTrack(title, "mp3", duration, artist, album, genre, isValid: isValid)
     }
     
     func createTrack(_ title: String, _ fileExtension: String, _ duration: Double,
-                     _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
+                     _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
         
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)))
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)), isValid)
         track.setPrimaryMetadata(artist, title, album, genre, duration)
         
         return track

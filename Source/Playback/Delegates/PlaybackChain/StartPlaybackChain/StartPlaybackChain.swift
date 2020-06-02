@@ -1,19 +1,57 @@
 import Foundation
 
 // A playback chain specifically for starting playback of a specific track.
-class StartPlaybackChain: PlaybackChain {
+class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
+
+    private let player: PlayerProtocol
+    private let sequencer: SequencerProtocol
     
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
         
+        self.player = player
+        self.sequencer = sequencer
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(CancelTranscodingAction(transcoder))
-        .withAction(ValidateNewTrackAction(sequencer))
+        .withAction(ValidateNewTrackAction())
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(SetPlaybackDelayAction(player, playlist))
-        .withAction(DelayedPlaybackAction(player, sequencer, transcoder))
         .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
         .withAction(StartPlaybackAction(player))
+        
+        AsyncMessenger.subscribe([.transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+    }
+    
+    override func terminate(_ context: PlaybackRequestContext, _ error: InvalidTrackError) {
+        
+        // End the playback sequence
+        sequencer.end()
+        
+        // Send out an async error message instead of throwing
+        AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, error))
+        
+        complete(context)
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+       
+        if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
+            
+            transcodingFinished(transcodingFinishedMsg)
+            return
+        }
+    }
+    
+    private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
+        
+        // Make sure there is no delay (i.e. state != waiting) before acting on this message.
+        // And match the transcoded track to that from the deferred request context.
+        if player.state != .waiting, msg.success,
+            let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
+            
+            // Proceed with the playback chain.
+            proceed(currentContext)
+        }
     }
 }

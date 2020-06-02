@@ -9,9 +9,15 @@ class PlaybackProfile {
     // Last playback position
     var lastPosition: Double = 0
     
-    // TODO: Seek length ? Long for audiobooks, short for tracks
     init(_ file: URL, _ lastPosition: Double) {
+        
         self.file = file
+        self.lastPosition = lastPosition
+    }
+    
+    init(_ track: Track, _ lastPosition: Double) {
+        
+        self.file = track.file
         self.lastPosition = lastPosition
     }
 }

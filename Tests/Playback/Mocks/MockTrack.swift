@@ -2,11 +2,31 @@ import Foundation
 
 class MockTrack: Track {
     
+    let isValid: Bool
+    
+    override init(_ file: URL) {
+        
+        self.isValid = true
+        super.init(file)
+    }
+    
+    init(_ file: URL, _ isValid: Bool) {
+        
+        self.isValid = isValid
+        super.init(file)
+    }
+    
     override func validateAudio() -> InvalidTrackError? {
-        return nil
+        return isValid ? nil : NoAudioTracksError(self)
     }
     
     override func prepareForPlayback() {
+        
+        if !isValid {
+            
+            lazyLoadingInfo.preparationFailed(NoAudioTracksError(self))
+            return
+        }
         
         if !playbackNativelySupported {
             

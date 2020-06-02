@@ -2,8 +2,6 @@ import Foundation
 
 class SavePlaybackProfileAction: PlaybackChainAction {
     
-    var nextAction: PlaybackChainAction?
-    
     private let profiles: PlaybackProfiles
     private let preferences: PlaybackPreferences
     
@@ -13,26 +11,25 @@ class SavePlaybackProfileAction: PlaybackChainAction {
         self.preferences = preferences
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         let isPlayingOrPaused = context.currentState.isPlayingOrPaused
-        let curTrack = context.currentTrack
-        let curPosn = context.currentSeekPosition
         
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the lastTrack was actually playing/paused
-        if preferences.rememberLastPosition && isPlayingOrPaused, let actualTrack = curTrack,
-            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(actualTrack) {
+        if preferences.rememberLastPosition && isPlayingOrPaused, let currentTrack = context.currentTrack,
+            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(currentTrack) {
             
             // Update last position for current track
-            let trackDuration = actualTrack.duration
+            let trackDuration = currentTrack.duration
+            let currentSeekPosition = context.currentSeekPosition
             
             // If track finished playing the last time, reset the last position to 0
-            let lastPosn = (curPosn >= trackDuration ? 0 : curPosn)
+            let lastPosition = (currentSeekPosition >= trackDuration ? 0 : currentSeekPosition)
             
-            profiles.add(actualTrack, PlaybackProfile(actualTrack.file, lastPosn))
+            profiles.add(currentTrack, PlaybackProfile(currentTrack, lastPosition))
         }
         
-        nextAction?.execute(context)
+        chain.proceed(context)
     }
 }
