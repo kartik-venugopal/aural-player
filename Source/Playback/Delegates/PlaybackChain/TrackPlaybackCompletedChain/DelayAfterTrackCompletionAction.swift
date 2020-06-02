@@ -6,8 +6,6 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
     private let sequencer: SequencerProtocol
     private let preferences: PlaybackPreferences
     
-    var nextAction: PlaybackChainAction?
-    
     init(_ playlist: PlaylistCRUDProtocol, _ sequencer: SequencerProtocol, _ preferences: PlaybackPreferences) {
         
         self.playlist = playlist
@@ -15,7 +13,7 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
         self.preferences = preferences
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         guard let completedTrack = context.currentTrack, sequencer.peekSubsequent() != nil else {return}
         
@@ -35,6 +33,6 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
             context.addGap(PlaybackGap(Double(preferences.gapBetweenTracksDuration), .afterTrack, .implicit))
         }
         
-        nextAction?.execute(context)
+        chain.proceed(context)
     }
 }

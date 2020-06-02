@@ -113,8 +113,11 @@ class Track: Hashable, PlaylistItem {
         TrackIO.loadDetailedInfo(self)
     }
     
-    func validateAudio() -> InvalidTrackError? {
-        return AudioUtils.validateTrack(self)
+    func validateAudio() {
+        
+        if let error = AudioUtils.validateTrack(self) {
+            lazyLoadingInfo.preparationFailed(error)
+        }
     }
     
     // Prepares this track for playback

@@ -13,7 +13,7 @@ class SetPlaybackDelayAction: PlaybackChainAction {
         self.playlist = playlist
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         guard let newTrack = context.requestedTrack else {return}
         
@@ -38,7 +38,5 @@ class SetPlaybackDelayAction: PlaybackChainAction {
                 }
             }
         }
-        
-        nextAction?.execute(context)
     }
 }

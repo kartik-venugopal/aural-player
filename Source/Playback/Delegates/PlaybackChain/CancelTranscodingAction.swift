@@ -2,15 +2,13 @@ import Foundation
 
 class CancelTranscodingAction: PlaybackChainAction {
     
-    var nextAction: PlaybackChainAction?
-    
     private let transcoder: TranscoderProtocol
     
     init(_ transcoder: TranscoderProtocol) {
         self.transcoder = transcoder
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         // This action should be performed only if the new track was explicitly requested by the user
         // (as opposed to being requested automatically by the player when the previous track completes)
@@ -24,6 +22,6 @@ class CancelTranscodingAction: PlaybackChainAction {
             transcoder.cancel(trackBeingTranscoded)
         }
         
-        nextAction?.execute(context)
+        chain.proceed(context)
     }
 }

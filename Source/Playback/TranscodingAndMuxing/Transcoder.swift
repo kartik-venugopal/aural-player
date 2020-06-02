@@ -30,7 +30,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
         if let outFile = store.getForTrack(track) {
             
-//            AudioUtils.prepareTrackWithFile(track, outFile)
             track.prepareWithAudioFile(outFile)
             return
         }
@@ -45,15 +44,14 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func doTranscodeInBackground(_ track: Track, _ userAction: Bool = true) {
         
-//        if let prepError = AudioUtils.validateTrack(track) {
-        if let prepError = track.validateAudio() {
+        track.validateAudio()
             
-            // Note any error encountered
-            track.lazyLoadingInfo.preparationFailed(prepError)
+        if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
             
             if userAction {
-                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, prepError))
+                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, preparationError))
             }
+            
             return
         }
         
@@ -70,7 +68,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             
             self.store.transcodingFinished(track)
             
-//            AudioUtils.prepareTrackWithFile(track, outputFile)
             track.prepareWithAudioFile(outputFile)
             
             // Only do this if task is in the foreground (i.e. monitoring enabled)

@@ -4,13 +4,11 @@ class StartPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     
-    var nextAction: PlaybackChainAction?
-    
     init(_ player: PlayerProtocol) {
         self.player = player
     }
     
-    func execute(_ context: PlaybackRequestContext) {
+    func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
         guard let newTrack = context.requestedTrack else {return}
         
