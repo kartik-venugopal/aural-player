@@ -3,7 +3,7 @@ import Foundation
 class MockTranscoder: TranscoderProtocol {
     
     var transcodeImmediatelyCallCount: Int = 0
-    var transcodeImmediatelyTrack: Track?
+    var transcodeImmediately_track: Track?
     
     var transcodeCancelCallCount: Int = 0
     var transcodeCancel_track: Track?
@@ -11,7 +11,7 @@ class MockTranscoder: TranscoderProtocol {
     func transcodeImmediately(_ track: Track) {
         
         transcodeImmediatelyCallCount.increment()
-        transcodeImmediatelyTrack = track
+        transcodeImmediately_track = track
     }
     
     func transcodeInBackground(_ track: Track) {

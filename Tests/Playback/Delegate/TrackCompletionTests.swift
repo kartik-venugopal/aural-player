@@ -207,7 +207,7 @@ class TrackCompletionTests: PlaybackDelegateTests {
             if needsTranscoding {
                 
                 XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-                XCTAssertEqual(transcoder.transcodeImmediatelyTrack, theSubsequentTrack)
+                XCTAssertEqual(transcoder.transcodeImmediately_track, theSubsequentTrack)
             }
             
         } else {
