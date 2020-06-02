@@ -253,7 +253,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectedIndex, index)
         
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
@@ -506,7 +506,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectedTrack, track)
         
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
@@ -768,7 +768,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectedGroup, group)
         
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, transcoderCallCountBeforeChange + 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,

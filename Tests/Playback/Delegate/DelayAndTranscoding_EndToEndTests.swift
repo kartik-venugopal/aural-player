@@ -11,7 +11,7 @@ class DelayAndTranscoding_EndToEndTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, 2)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         executeAfter(3) {
             
@@ -36,7 +36,7 @@ class DelayAndTranscoding_EndToEndTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, 4)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         executeAfter(1) {
             

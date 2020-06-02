@@ -77,6 +77,9 @@
                   Identifier = "ForcedSeekingTests">
                </Test>
                <Test
+                  Identifier = "HaltPlaybackActionTests">
+               </Test>
+               <Test
                   Identifier = "Init_PlaybackProfilesTests">
                </Test>
                <Test

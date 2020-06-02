@@ -136,7 +136,7 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, previousTrack)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -197,7 +197,7 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, previousTrack)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -399,7 +399,7 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, nextTrack)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)
@@ -460,7 +460,7 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, nextTrack)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 1)

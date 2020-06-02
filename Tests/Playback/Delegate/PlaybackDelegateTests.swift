@@ -283,7 +283,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectedTrack, track)
         
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
-        XCTAssertEqual(transcoder.transcodeImmediatelyTrack, track)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         executeAfter(0.5) {
             XCTAssertEqual(self.trackChangeMessages.count, 0)
