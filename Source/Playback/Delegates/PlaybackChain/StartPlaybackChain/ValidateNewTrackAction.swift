@@ -27,6 +27,9 @@ class ValidateNewTrackAction: PlaybackChainAction {
             // Send out an async error message instead of throwing
             AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, preparationError))
             
+            // Terminate the chain
+            PlaybackRequestContext.completed(context)
+            
             return
             
         } else {
