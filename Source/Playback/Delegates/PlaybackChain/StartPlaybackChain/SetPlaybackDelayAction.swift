@@ -15,7 +15,11 @@ class SetPlaybackDelayAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let newTrack = context.requestedTrack else {return}
+        guard let newTrack = context.requestedTrack else {
+            
+            chain.terminate(context, InvalidTrackError.noRequestedTrack)
+            return
+        }
         
         let params = context.requestParams
         
@@ -38,5 +42,7 @@ class SetPlaybackDelayAction: PlaybackChainAction {
                 }
             }
         }
+        
+        chain.proceed(context)
     }
 }

@@ -209,7 +209,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
 //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
 //        }
         
-        alertDialog.showAlert(.error, "Track not played", error.track.conciseDisplayName, error.message)
+        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
     }
     
     private func seekPositionChanged() {

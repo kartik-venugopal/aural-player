@@ -4,7 +4,6 @@ class PlaybackChain {
     
     private(set) var actions: [PlaybackChainAction] = []
     private(set) var actionIndex: Int = -1
-    private(set) var executingContext: PlaybackRequestContext?
     
     func withAction(_ action: PlaybackChainAction) -> PlaybackChain {
         
@@ -14,8 +13,7 @@ class PlaybackChain {
     
     func execute(_ context: PlaybackRequestContext) {
         
-        executingContext = context
-        
+        actionIndex = -1
         PlaybackRequestContext.begun(context)
         proceed(context)
     }

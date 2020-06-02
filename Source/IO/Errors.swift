@@ -13,13 +13,21 @@ protocol DisplayableError {
 // Base error class indicating a track that cannot be played
 class InvalidTrackError: Error, DisplayableError {
     
-    var track: Track
+    var track: Track?
     var message: String
+    
+    init(_ message: String) {
+        
+        self.track = nil
+        self.message = message
+    }
     
     init(_ track: Track) {
         self.track = track
         self.message = "Invalid track"
     }
+    
+    static let noRequestedTrack: InvalidTrackError = InvalidTrackError("No requested track !")
 }
 
 // Denotes a non-existent file
