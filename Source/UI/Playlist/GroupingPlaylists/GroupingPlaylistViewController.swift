@@ -606,7 +606,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             playlistView.reloadItem(_oldTrack)
         }
         
-        if let errTrack = playlist.indexOfTrack(message.error.track) {
+        if let track = message.error.track, let errTrack = playlist.indexOfTrack(track) {
             
             if errTrack.track != oldTrack {
                 playlistView.reloadItem(errTrack.track)

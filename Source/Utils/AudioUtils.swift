@@ -43,7 +43,7 @@ class AudioUtils {
     }()
     
     // Validates a track to determine if it is playable. If the track is not playable, returns an error object describing the problem.
-    static func validateTrack(_ track: Track) -> InvalidTrackError? {
+    static func validateTrack(_ track: Track) throws {
         
         // TODO: What if file has protected content
         // Check sourceAsset.hasProtectedContent()
@@ -60,14 +60,14 @@ class AudioUtils {
             let avInfo = track.libAVInfo!
             
             if !avInfo.hasValidAudioTrack {
-                return TrackNotPlayableError(track)
+                throw TrackNotPlayableError(track)
             }
             
             if avInfo.drmProtected {
-                return DRMProtectionError(track)
+                throw DRMProtectionError(track)
             }
             
-            return nil
+            return
             
         } else {
             
@@ -76,23 +76,23 @@ class AudioUtils {
             }
             
             if track.audioAsset!.hasProtectedContent {
-                return DRMProtectionError(track)
+                throw DRMProtectionError(track)
             }
             
             let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaType.audio)
             
             // Check if the asset has any audio tracks
             if (assetTracks?.count == 0) {
-                return NoAudioTracksError(track)
+                throw NoAudioTracksError(track)
             }
             
             // Find out if track is playable
             // TODO: What does isPlayable actually mean ?
             if let assetTrack = assetTracks?.first, !assetTrack.isPlayable {
-                return TrackNotPlayableError(track)
+                throw TrackNotPlayableError(track)
             }
             
-            return nil
+            return
         }
     }
     

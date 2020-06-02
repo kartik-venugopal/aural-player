@@ -38,6 +38,7 @@ class TrackIO {
     }
 
     // Load all the information required to play this track
+    // Assumes that the track is valid (i.e. has at least one audio track, is supported, etc.)
     static func prepareForPlayback(_ track: Track) {
         
         loadArt(track)
@@ -72,9 +73,8 @@ class TrackIO {
         }
         
         // Validate the audio track
-        if let validationError = AudioUtils.validateTrack(track) {
-            
-            lazyLoadInfo.preparationFailed(validationError)
+        track.validateAudio()
+        if lazyLoadInfo.preparationFailed {
             return
         }
         

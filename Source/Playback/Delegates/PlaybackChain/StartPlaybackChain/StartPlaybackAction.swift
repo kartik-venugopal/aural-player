@@ -10,7 +10,11 @@ class StartPlaybackAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let newTrack = context.requestedTrack else {return}
+        guard let newTrack = context.requestedTrack else {
+            
+            chain.terminate(context, InvalidTrackError.noRequestedTrack)
+            return
+        }
         
         let oldTrack = context.currentTrack
         let params = context.requestParams
@@ -21,7 +25,6 @@ class StartPlaybackAction: PlaybackChainAction {
         
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, context.currentState, newTrack))
         
-        // Chain has completed execution, inform the request context.
-        PlaybackRequestContext.completed(context)
+        chain.proceed(context)
     }
 }

@@ -17,7 +17,11 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let newTrack = context.requestedTrack else {return}
+        guard let newTrack = context.requestedTrack else {
+            
+            chain.terminate(context, InvalidTrackError.noRequestedTrack)
+            return
+        }
         
         var isWaiting: Bool = false
         
@@ -65,7 +69,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         // Track needs to be transcoded (i.e. audio format is not natively supported)
         if !track.lazyLoadingInfo.preparedForPlayback && track.lazyLoadingInfo.needsTranscoding {
             
-            // Start transcoding the track and defer playback until transcoding finishes
+            // Start transcoding the track
             // NOTE - Transcoding for this track may have already begun (triggered during a delay).
             transcoder.transcodeImmediately(track)
             
@@ -84,6 +88,4 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             chain.proceed(context)
         }
     }
-    
-    
 }

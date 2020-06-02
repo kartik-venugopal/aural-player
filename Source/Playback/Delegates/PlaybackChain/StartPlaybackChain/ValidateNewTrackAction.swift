@@ -4,7 +4,11 @@ class ValidateNewTrackAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let newTrack = context.requestedTrack else {return}
+        guard let newTrack = context.requestedTrack else {
+            
+            chain.terminate(context, InvalidTrackError.noRequestedTrack)
+            return
+        }
         
         newTrack.validateAudio()
         
@@ -12,7 +16,6 @@ class ValidateNewTrackAction: PlaybackChainAction {
         if newTrack.lazyLoadingInfo.preparationFailed, let preparationError = newTrack.lazyLoadingInfo.preparationError {
         
             chain.terminate(context, preparationError)
-            return
             
         } else {
             

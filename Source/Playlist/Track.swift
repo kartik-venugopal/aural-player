@@ -115,9 +115,15 @@ class Track: Hashable, PlaylistItem {
     
     func validateAudio() {
         
-        if let error = AudioUtils.validateTrack(self) {
+        do {
+            
+            try AudioUtils.validateTrack(self)
+                
+        } catch let error as InvalidTrackError {
+            
             lazyLoadingInfo.preparationFailed(error)
-        }
+            
+        } catch {}
     }
     
     // Prepares this track for playback
