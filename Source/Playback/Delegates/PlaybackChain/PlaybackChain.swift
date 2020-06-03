@@ -3,7 +3,7 @@ import Foundation
 class PlaybackChain {
     
     private(set) var actions: [PlaybackChainAction] = []
-    private(set) var actionIndex: Int = -1
+    private var actionIndex: Int = -1
     
     func withAction(_ action: PlaybackChainAction) -> PlaybackChain {
         
