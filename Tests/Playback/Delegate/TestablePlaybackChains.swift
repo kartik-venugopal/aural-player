@@ -101,9 +101,15 @@ class MockPlaybackChain: PlaybackChain {
 
 class MockPlaybackChainAction: PlaybackChainAction {
     
+    var proceedAfterExecution: Bool
+    
     var executionCount: Int = 0
     var executedContext: PlaybackRequestContext?
     var executionTimestamp: TimeInterval?
+    
+    init(_ proceedAfterExecution: Bool) {
+        self.proceedAfterExecution = proceedAfterExecution
+    }
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
@@ -115,7 +121,9 @@ class MockPlaybackChainAction: PlaybackChainAction {
         // Simulate some work being done
         usleep(5000)
         
-        chain.proceed(context)
+        if proceedAfterExecution {
+            chain.proceed(context)
+        }
     }
 }
 
