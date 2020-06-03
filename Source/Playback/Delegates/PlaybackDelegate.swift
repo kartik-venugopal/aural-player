@@ -40,7 +40,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
-        AsyncMessenger.subscribe([.playbackCompleted, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     let subscriberId: String = "PlaybackDelegate"
@@ -79,7 +79,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     private func beginPlayback() {
-        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams(), false)
+        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams())
     }
     
     private func playImmediately(_ track: Track) {
@@ -112,7 +112,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return sequencer.select(group)}, params)
     }
     
-    func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams(), _ cancelTranscoding: Bool = true) {
+    func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
         let trackBeforeChange = currentTrack
         let stateBeforeChange = state
@@ -122,7 +122,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
         if okToPlay, let newTrack = trackProducer() {
             
-            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, cancelTranscoding, params)
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
             
             startPlaybackChain.execute(requestContext)
         }
@@ -134,7 +134,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, true, PlaybackParams.defaultParams())
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
         
         stopPlaybackChain.execute(requestContext)
     }
@@ -152,7 +152,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, false, PlaybackParams.defaultParams())
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
     }
@@ -363,19 +363,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
-        
-        // If transcoding failed, stop playback and send out a notification.
-        if !msg.success {
-            
-            stop()
-            
-            if let error = msg.track.lazyLoadingInfo.preparationError {
-                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(msg.track, error))
-            }
-        }
-    }
-    
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if playback settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
@@ -400,12 +387,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         if let completionMsg = message as? PlaybackCompletedAsyncMessage {
             
             trackPlaybackCompleted(completionMsg.session)
-            return
-        }
-        
-        if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
-            
-            transcodingFinished(transcodingFinishedMsg)
             return
         }
     }

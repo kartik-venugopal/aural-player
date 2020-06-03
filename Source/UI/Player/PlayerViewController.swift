@@ -7,6 +7,8 @@
             - Default view
             - Expanded Art view
  
+        - Waiting track info (when a track is waiting to play after a delay)
+ 
         - Transcoder info (when a track is being transcoded)
  
         - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)

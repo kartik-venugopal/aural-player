@@ -115,6 +115,8 @@ class Track: Hashable, PlaylistItem {
     
     func validateAudio() {
         
+        if lazyLoadingInfo.validated {return}
+        
         do {
             
             try AudioUtils.validateTrack(self)
@@ -124,11 +126,16 @@ class Track: Hashable, PlaylistItem {
             lazyLoadingInfo.preparationFailed(error)
             
         } catch {}
+        
+        lazyLoadingInfo.validated = true
     }
     
     // Prepares this track for playback
     func prepareForPlayback() {
-        TrackIO.prepareForPlayback(self)
+        
+        if !(lazyLoadingInfo.preparedForPlayback || lazyLoadingInfo.preparationFailed) {
+            TrackIO.prepareForPlayback(self)
+        }
     }
     
     func prepareWithAudioFile(_ file: URL) {
@@ -325,6 +332,7 @@ class FileSystemInfo {
 class LazyLoadingInfo {
     
     // Whether or not the track is ready for playback
+    var validated: Bool = false
     var preparedForPlayback: Bool = false
     
     var needsTranscoding: Bool = false
@@ -342,6 +350,7 @@ class LazyLoadingInfo {
     var preparationError: InvalidTrackError?
     
     func preparationFailed(_ error: InvalidTrackError?) {
+        
         preparationFailed = true
         preparationError = error
     }

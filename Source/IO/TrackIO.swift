@@ -43,17 +43,13 @@ class TrackIO {
         
         loadArt(track)
         
-        let lazyLoadInfo = track.lazyLoadingInfo
-        
-        if lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed {
-            return
-        }
-        
         // Chapters
         loadChapters(track)
         
         // Track is valid, prepare it for playback
         AudioUtils.loadPlaybackInfo(track)
+        
+        let lazyLoadInfo = track.lazyLoadingInfo
         
         if !(lazyLoadInfo.preparedForPlayback || lazyLoadInfo.needsTranscoding) {
             
@@ -64,13 +60,13 @@ class TrackIO {
     
     static func prepareForInfo(_ track: Track) {
         
-        loadArt(track)
-        
         let lazyLoadInfo = track.lazyLoadingInfo
         
         if lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed {
             return
         }
+        
+        loadArt(track)
         
         // Validate the audio track
         track.validateAudio()

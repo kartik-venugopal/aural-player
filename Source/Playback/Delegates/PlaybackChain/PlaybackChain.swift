@@ -23,7 +23,7 @@ class PlaybackChain {
         actionIndex.increment()
         
         if actionIndex < actions.count {
-            executeAction(actions[actionIndex], context)
+            actions[actionIndex].execute(context, self)
             
         } else {
             complete(context)
@@ -36,10 +36,6 @@ class PlaybackChain {
     
     func complete(_ context: PlaybackRequestContext) {
         PlaybackRequestContext.completed(context)
-    }
-    
-    private func executeAction(_ action: PlaybackChainAction, _ context: PlaybackRequestContext) {
-        action.execute(context, self)
     }
 }
 

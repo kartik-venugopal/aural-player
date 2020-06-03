@@ -15,22 +15,24 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        guard let completedTrack = context.currentTrack, sequencer.peekSubsequent() != nil else {return}
-        
-        // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
-        if let gapAfterCompletedTrack = playlist.getGapAfterTrack(completedTrack) {
+        // Adding a delay is only required when there is a subsequent track to play.
+        if sequencer.peekSubsequent() != nil {
             
-            context.addGap(gapAfterCompletedTrack)
-            
-            // If the gap is a one-time gap, remove it from the playlist
-            if gapAfterCompletedTrack.type == .oneTime {
-                playlist.removeGapForTrack(completedTrack, gapAfterCompletedTrack.position)
+            // First, check for an explicit gap defined in the playlist (takes precedence over global preference).
+            if let completedTrack = context.currentTrack, let gapAfterCompletedTrack = playlist.getGapAfterTrack(completedTrack) {
+                
+                context.addGap(gapAfterCompletedTrack)
+                
+                // If the gap is a one-time gap, remove it from the playlist
+                if gapAfterCompletedTrack.type == .oneTime {
+                    playlist.removeGapForTrack(completedTrack, gapAfterCompletedTrack.position)
+                }
+                
+            } // No playlist gap defined, check for an implicit gap defined by playback preferences.
+            else if preferences.gapBetweenTracks {
+                
+                context.addGap(PlaybackGap(Double(preferences.gapBetweenTracksDuration), .afterTrack, .implicit))
             }
-            
-        } // No playlist gap defined, check for an implicit gap defined by playback preferences.
-        else if preferences.gapBetweenTracks {
-            
-            context.addGap(PlaybackGap(Double(preferences.gapBetweenTracksDuration), .afterTrack, .implicit))
         }
         
         chain.proceed(context)
