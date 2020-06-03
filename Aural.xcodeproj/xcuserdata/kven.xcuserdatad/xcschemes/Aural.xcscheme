@@ -77,9 +77,6 @@
                   Identifier = "ForcedSeekingTests">
                </Test>
                <Test
-                  Identifier = "HaltPlaybackActionTests">
-               </Test>
-               <Test
                   Identifier = "Init_PlaybackProfilesTests">
                </Test>
                <Test
@@ -95,9 +92,6 @@
                   Identifier = "MessageHandlingTests">
                </Test>
                <Test
-                  Identifier = "PlaybackChainTests">
-               </Test>
-               <Test
                   Identifier = "PlaybackDelegateTests">
                </Test>
                <Test
@@ -105,9 +99,6 @@
                </Test>
                <Test
                   Identifier = "PlaybackParamsTests">
-               </Test>
-               <Test
-                  Identifier = "PlaybackRequestContextTests">
                </Test>
                <Test
                   Identifier = "PlaybackSchedulerTests">

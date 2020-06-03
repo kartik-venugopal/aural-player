@@ -16,8 +16,11 @@ class MockTrack: Track {
         super.init(file)
     }
     
-    override func validateAudio() -> InvalidTrackError? {
-        return isValid ? nil : NoAudioTracksError(self)
+    override func validateAudio() {
+        
+        if !isValid {
+            lazyLoadingInfo.preparationFailed(NoAudioTracksError(self))
+        }
     }
     
     override func prepareForPlayback() {

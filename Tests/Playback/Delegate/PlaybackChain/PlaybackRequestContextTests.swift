@@ -5,13 +5,13 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
     func testBegun() {
         
         let track1 = createTrack("Hydropoetry Cathedra", 597)
-        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, false, PlaybackParams.defaultParams())
+        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
         
         let track2 = createTrack("Sub-Sea Engineering", 360)
-        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams().withDelay(5))
+        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
         
         let track3 = createTrack("LSD", 250)
-        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, true, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
+        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
         
         PlaybackRequestContext.begun(context1)
         
@@ -47,13 +47,13 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
     func testCompleted() {
         
         let track1 = createTrack("Hydropoetry Cathedra", 597)
-        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, false, PlaybackParams.defaultParams())
+        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
         
         let track2 = createTrack("Sub-Sea Engineering", 360)
-        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams().withDelay(5))
+        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
         
         let track3 = createTrack("LSD", 250)
-        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, true, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
+        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
         
         // ------------------------
         
@@ -86,13 +86,13 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
     func testCompleted_nonCurrentContextCompleted() {
         
         let track1 = createTrack("Hydropoetry Cathedra", 597)
-        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, false, PlaybackParams.defaultParams())
+        let context1 = PlaybackRequestContext(.noTrack, nil, 0, track1, PlaybackParams.defaultParams())
         
         let track2 = createTrack("Sub-Sea Engineering", 360)
-        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams().withDelay(5))
+        let context2 = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams().withDelay(5))
         
         let track3 = createTrack("LSD", 250)
-        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, true, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
+        let context3 = PlaybackRequestContext(.paused, track2, 101.182829828, track3, PlaybackParams.defaultParams().withAllowDelay(false).withInterruptPlayback(false))
         
         // ------------------------
         
@@ -156,7 +156,7 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
         let track1 = createTrack("Hydropoetry Cathedra", 597)
         let track2 = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
         
         context.addGap(nonImplicitGap1)
         XCTAssertEqual(context.delay!, nonImplicitGap1.duration, accuracy: 0.001)
@@ -176,7 +176,7 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
         let track1 = createTrack("Hydropoetry Cathedra", 597)
         let track2 = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
         
         // The implicit gap should be added because there are no non-implicit gaps defined.
         context.addGap(implicitGap)
@@ -194,7 +194,7 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
     func testClearContext_hasCurrentContext() {
         
         let track = createTrack("Hydropoetry Cathedra", 597)
-        let context = PlaybackRequestContext(.noTrack, nil, 0, track, false, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.noTrack, nil, 0, track, PlaybackParams.defaultParams())
         
         PlaybackRequestContext.begun(context)
         assertCurrentContext(context)

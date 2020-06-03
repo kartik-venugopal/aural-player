@@ -84,10 +84,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
         SyncMessenger.unsubscribe(messageTypes: [.appExitRequest], subscriber: delegate)
         
-        let prepAction: PlaybackChainAction =
-            startPlaybackChain.actions.filter({$0 is AudioFilePreparationAction}).first!
-
-        AsyncMessenger.unsubscribe([.transcodingFinished], subscriber: prepAction as! AudioFilePreparationAction)
+        AsyncMessenger.unsubscribe([.transcodingFinished], subscriber: startPlaybackChain)
     }
     
     func verifyRequestContext_startPlaybackChain(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track, _ requestParams: PlaybackParams, _ cancelTranscoding: Bool) {
@@ -97,7 +94,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(startPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
         
         XCTAssertEqual(startPlaybackChain.executedContext!.requestedTrack, requestedTrack)
-        XCTAssertEqual(startPlaybackChain.executedContext!.cancelTranscoding, cancelTranscoding)
 
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.interruptPlayback, requestParams.interruptPlayback)
         XCTAssertEqual(startPlaybackChain.executedContext!.requestParams.allowDelay, requestParams.allowDelay)
@@ -113,7 +109,6 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(stopPlaybackChain.executedContext!.currentSeekPosition, currentSeekPosition, accuracy: 0.001)
         
         XCTAssertNil(stopPlaybackChain.executedContext!.requestedTrack)
-        XCTAssertTrue(stopPlaybackChain.executedContext!.cancelTranscoding)
         
         let requestParams = PlaybackParams.defaultParams()
         

@@ -3,7 +3,7 @@ import XCTest
 class CancelTranscodingActionTests: AuralTestCase {
 
     var action: CancelTranscodingAction!
-    var nextAction: MockPlaybackChainAction!
+    var chain: MockPlaybackChain!
     
     var transcoder: MockTranscoder!
     
@@ -11,88 +11,87 @@ class CancelTranscodingActionTests: AuralTestCase {
         
         transcoder = MockTranscoder()
         action = CancelTranscodingAction(transcoder)
-        
-        nextAction = MockPlaybackChainAction()
-        action.nextAction = nextAction
+        chain = MockPlaybackChain()
     }
     
-    func testCancelTranscodingAction_noCurrentTrack_cancelTranscoding_requestedTrackDifferent() {
+    func testCancelTranscodingAction_noCurrentTrack_noRequestedTrack() {
         
         let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
-    func testCancelTranscodingAction_trackTranscoding_dontCancelTranscoding() {
+    func testCancelTranscodingAction_noCurrentTrack_hasRequestedTrack() {
         
-        let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, false, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.noTrack, nil, 0, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
-    func testCancelTranscodingAction_trackTranscoding_cancelTranscoding_requestedTrackDifferent() {
+    func testCancelTranscodingAction_trackTranscoding_noRequestedTrack() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-        let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, nil, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 1)
     }
     
-    func testCancelTranscodingAction_trackTranscoding_cancelTranscoding_noRequestedTrack() {
+    func testCancelTranscodingAction_trackTranscoding_requestedTrackDifferent() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, nil, true, PlaybackParams.defaultParams())
+        let requestedTrack = createTrack("Sub-Sea Engineering", 360)
+        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 1)
     }
     
-    func testCancelTranscodingAction_trackTranscoding_cancelTranscoding_requestedTrackSame() {
+    func testCancelTranscodingAction_trackTranscoding_requestedTrackSame() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
-        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, currentTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, currentTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
-    func testCancelTranscodingAction_trackPlaying_cancelTranscoding() {
+    func testCancelTranscodingAction_trackPlaying() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.playing, currentTrack, 304.3425435, requestedTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, currentTrack, 304.3425435, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
-    func testCancelTranscodingAction_trackPaused_cancelTranscoding() {
+    func testCancelTranscodingAction_trackPaused() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.paused, currentTrack, 304.3425435, requestedTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.paused, currentTrack, 304.3425435, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
-    func testCancelTranscodingAction_trackWaiting_cancelTranscoding() {
+    func testCancelTranscodingAction_trackWaiting() {
         
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let requestedTrack = createTrack("Sub-Sea Engineering", 360)
-        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.waiting, currentTrack, 0, requestedTrack, PlaybackParams.defaultParams())
         
         doTestCancelTranscodingAction(context, 0)
     }
     
     private func doTestCancelTranscodingAction(_ context: PlaybackRequestContext, _ expectedTranscoderCancelCallCount: Int) {
         
-        action.execute(context)
+        action.execute(context, chain)
         
         XCTAssertEqual(transcoder.transcodeCancelCallCount, expectedTranscoderCancelCallCount)
         XCTAssertEqual(transcoder.transcodeCancel_track, expectedTranscoderCancelCallCount == 0 ? nil : context.currentTrack!)
         
-        XCTAssertEqual(nextAction.executionCount, 1)
-        XCTAssertTrue(nextAction.executedContext! === context)
+        // Ensure the chain proceeded
+        XCTAssertEqual(chain.proceedCount, 1)
+        XCTAssertTrue(chain.proceededContext! === context)
+        XCTAssertEqual(chain.terminationCount, 0)
     }
 }
