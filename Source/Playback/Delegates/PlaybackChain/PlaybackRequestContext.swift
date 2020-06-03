@@ -9,7 +9,6 @@ class PlaybackRequestContext {
     let currentSeekPosition: Double
 
     var requestedTrack: Track?
-    var cancelTranscoding: Bool
     
     // Request params may change as the preparation chain executes.
     var requestParams: PlaybackParams
@@ -22,14 +21,13 @@ class PlaybackRequestContext {
     
     var transcodingBegun: Bool = false
 
-    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ cancelTranscoding: Bool, _ requestParams: PlaybackParams) {
+    init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
         self.currentTrack = currentTrack
         self.currentSeekPosition = currentSeekPosition
         
         self.requestedTrack = requestedTrack
-        self.cancelTranscoding = cancelTranscoding
         self.requestParams = requestParams
     }
     

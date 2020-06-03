@@ -23,21 +23,9 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         
         super.execute(context)
         
-        // Continue playback with the subsequent track.
-        if let subsequentTrack = sequencer.subsequent() {
-            
-            context.requestedTrack = subsequentTrack
-            context.cancelTranscoding = false
-            
-            startPlaybackChain.execute(context)
-            
-        } // Stop playback if there is no subsequent track.
-        else {
-            
-            context.requestedTrack = nil
-            context.cancelTranscoding = true
-            
-            stopPlaybackChain.execute(context)
-        }
+        context.requestedTrack = sequencer.subsequent()
+        
+        // Continue playback with the subsequent track (or stop if no subsequent track).
+        context.requestedTrack != nil ? startPlaybackChain.execute(context) : stopPlaybackChain.execute(context)
     }
 }

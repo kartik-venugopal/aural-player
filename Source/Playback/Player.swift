@@ -140,14 +140,10 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     }
     
     func waiting() {
-        
-        stop()
         state = .waiting
     }
     
     func transcoding() {
-        
-        stop()
         state = .transcoding
     }
     

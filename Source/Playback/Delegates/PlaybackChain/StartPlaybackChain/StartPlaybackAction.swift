@@ -25,6 +25,6 @@ class StartPlaybackAction: PlaybackChainAction {
         
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, context.currentState, newTrack))
         
-        chain.proceed(context)
+        chain.complete(context)
     }
 }

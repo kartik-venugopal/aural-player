@@ -16,8 +16,8 @@ class CancelTranscodingAction: PlaybackChainAction {
         // NOTE - Don't cancel transcoding if the same track will play next
         // (but with different params e.g. delay or start position)
         
-        if context.cancelTranscoding && context.currentState == .transcoding,
-            let trackBeingTranscoded = context.currentTrack, trackBeingTranscoded != context.requestedTrack {
+        if context.currentState == .transcoding, let trackBeingTranscoded = context.currentTrack,
+            trackBeingTranscoded != context.requestedTrack {
                 
             transcoder.cancel(trackBeingTranscoded)
         }

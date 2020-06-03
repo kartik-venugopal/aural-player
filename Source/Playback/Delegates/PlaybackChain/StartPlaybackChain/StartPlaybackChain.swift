@@ -14,6 +14,7 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(CancelTranscodingAction(transcoder))
+        .withAction(HaltPlaybackAction(player))
         .withAction(ValidateNewTrackAction())
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(SetPlaybackDelayAction(player, playlist))
@@ -24,11 +25,10 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
     }
     
     override func terminate(_ context: PlaybackRequestContext, _ error: InvalidTrackError) {
-        
+
         // End the playback sequence
         sequencer.end()
         
-        // Send out an async error message instead of throwing
         AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, error))
         
         complete(context)
@@ -47,11 +47,19 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         
         // Make sure there is no delay (i.e. state != waiting) before acting on this message.
         // And match the transcoded track to that from the deferred request context.
-        if player.state != .waiting, msg.success,
-            let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
+        
+        if let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
             
-            // Proceed with the playback chain.
-            proceed(currentContext)
+            if player.state != .waiting && msg.success {
+                
+                // Transcoding succeeded, proceed with the playback chain.
+                proceed(currentContext)
+                
+            } else if !msg.success, let error = msg.track.lazyLoadingInfo.preparationError {
+                
+                // Transcoding failed, terminate the chain
+                terminate(currentContext, error)
+            }
         }
     }
 }
