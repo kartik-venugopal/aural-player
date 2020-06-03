@@ -3,7 +3,7 @@ import XCTest
 class HaltPlaybackActionTests: AuralTestCase {
     
     var action: HaltPlaybackAction!
-    var nextAction: MockPlaybackChainAction!
+    var chain: MockPlaybackChain!
     
     var player: TestablePlayer!
     var mockPlayerGraph: MockPlayerGraph!
@@ -19,14 +19,13 @@ class HaltPlaybackActionTests: AuralTestCase {
         player = TestablePlayer(mockPlayerGraph, mockScheduler)
         action = HaltPlaybackAction(player)
         
-        nextAction = MockPlaybackChainAction()
-        action.nextAction = nextAction
+        chain = MockPlaybackChain()
     }
 
     func testHaltPlaybackAction_noTrack() {
         
         let newTrack = createTrack("Hydropoetry Cathedra", 597)
-        let context = PlaybackRequestContext(.noTrack, nil, 0, newTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.noTrack, nil, 0, newTrack, PlaybackParams.defaultParams())
         
         doTestHaltPlaybackAction(context, 0)
     }
@@ -36,7 +35,7 @@ class HaltPlaybackActionTests: AuralTestCase {
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let newTrack = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, newTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, currentTrack, currentTrack.duration, newTrack, PlaybackParams.defaultParams())
         
         doTestHaltPlaybackAction(context, 1)
     }
@@ -46,7 +45,7 @@ class HaltPlaybackActionTests: AuralTestCase {
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let newTrack = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.paused, currentTrack, 101.327623, newTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.paused, currentTrack, 101.327623, newTrack, PlaybackParams.defaultParams())
         
         doTestHaltPlaybackAction(context, 1)
     }
@@ -56,7 +55,7 @@ class HaltPlaybackActionTests: AuralTestCase {
         let currentTrack = createTrack("Hydropoetry Cathedra", 597)
         let newTrack = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.waiting, currentTrack, 0, newTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.waiting, currentTrack, 0, newTrack, PlaybackParams.defaultParams())
         
         doTestHaltPlaybackAction(context, 1)
     }
@@ -66,19 +65,21 @@ class HaltPlaybackActionTests: AuralTestCase {
         let currentTrack = createTrack("Hydropoetry Cathedra", "ogg", 597)
         let newTrack = createTrack("Sub-Sea Engineering", 360)
         
-        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, newTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.transcoding, currentTrack, 0, newTrack, PlaybackParams.defaultParams())
         
         doTestHaltPlaybackAction(context, 1)
     }
     
     private func doTestHaltPlaybackAction(_ context: PlaybackRequestContext, _ expectedPlayerStopCallCount: Int) {
         
-        action.execute(context)
+        action.execute(context, chain)
         
         XCTAssertEqual(player.stopCallCount,expectedPlayerStopCallCount)
         XCTAssertEqual(player.state, PlaybackState.noTrack)
         
-        XCTAssertEqual(nextAction.executionCount, 1)
-        XCTAssertTrue(nextAction.executedContext! === context)
+        // Ensure the chain proceeded
+        XCTAssertEqual(chain.proceedCount, 1)
+        XCTAssertTrue(chain.proceededContext! === context)
+        XCTAssertEqual(chain.terminationCount, 0)
     }
 }

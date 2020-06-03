@@ -5,15 +5,14 @@ class ResetPlaybackProfileActionTests: AuralTestCase {
     var profiles: PlaybackProfiles!
     
     var action: ResetPlaybackProfileAction!
-    var nextAction: MockPlaybackChainAction!
+    var chain: MockPlaybackChain!
     
     override func setUp() {
         
         profiles = PlaybackProfiles()
         action = ResetPlaybackProfileAction(profiles)
         
-        nextAction = MockPlaybackChainAction()
-        action.nextAction = nextAction
+        chain = MockPlaybackChain()
     }
     
     func testResetPlaybackProfileAction_noProfileForCompletedTrack() {
@@ -27,14 +26,15 @@ class ResetPlaybackProfileActionTests: AuralTestCase {
         profiles.add(someOtherTrack.file, PlaybackProfile(someOtherTrack.file, 59.769487))
         XCTAssertNil(profiles.get(completedTrack))
         
-        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nextTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nextTrack, PlaybackParams.defaultParams())
         
-        action.execute(context)
+        action.execute(context, chain)
         
         XCTAssertNil(profiles.get(completedTrack))
         
-        XCTAssertEqual(nextAction.executionCount, 1)
-        XCTAssertTrue(nextAction.executedContext! === context)
+        XCTAssertEqual(chain.proceedCount, 1)
+        XCTAssertTrue(chain.proceededContext! === context)
+        XCTAssertEqual(chain.terminationCount, 0)
     }
     
     func testResetPlaybackProfileAction_completedTrackHasProfile() {
@@ -49,16 +49,18 @@ class ResetPlaybackProfileActionTests: AuralTestCase {
         XCTAssertTrue(profiles.get(completedTrack)! === completedTrackProfile)
         XCTAssertEqual(profiles.get(completedTrack)!.lastPosition, completedTrackProfile.lastPosition, accuracy: 0.001)
         
-        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nextTrack, true, PlaybackParams.defaultParams())
+        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nextTrack, PlaybackParams.defaultParams())
         
-        action.execute(context)
+        action.execute(context, chain)
         
         // Ensure that the profile's last position has been reset to 0
         let updatedProfileForCompletedTrack = profiles.get(completedTrack)
         XCTAssertNotNil(updatedProfileForCompletedTrack)
         XCTAssertEqual(updatedProfileForCompletedTrack!.lastPosition, 0)
         
-        XCTAssertEqual(nextAction.executionCount, 1)
-        XCTAssertTrue(nextAction.executedContext! === context)
+        // Ensure the chain proceeded
+        XCTAssertEqual(chain.proceedCount, 1)
+        XCTAssertTrue(chain.proceededContext! === context)
+        XCTAssertEqual(chain.terminationCount, 0)
     }
 }

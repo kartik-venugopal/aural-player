@@ -7,6 +7,8 @@ class PlaybackChainTests: AuralTestCase {
     override func setUp() {
         chain = TestablePlaybackChain()
     }
+    
+    // TODO: Tests for proceed(), complete(), and terminate()
 
     func testChainConstruction() {
         
@@ -24,9 +26,15 @@ class PlaybackChainTests: AuralTestCase {
             
             doTestChainConstruction(numActions, false)
 
-            let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, true, PlaybackParams.defaultParams())
+            let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
             chain.execute(context)
-            XCTAssertTrue(PlaybackRequestContext.isCurrent(context))
+            
+            // Context should have completed (i.e. no longer current)
+            XCTAssertFalse(PlaybackRequestContext.isCurrent(context))
+            
+            XCTAssertEqual(chain.proceedCount, numActions + 1)
+            XCTAssertEqual(chain.completionCount, 1)
+            XCTAssertTrue(chain.completedContext! === context)
             
             for actionIndex in 0..<numActions {
                 
@@ -59,14 +67,6 @@ class PlaybackChainTests: AuralTestCase {
             
                 XCTAssertEqual(chain.actions.count, index + 1)
                 XCTAssertTrue((chain.actions[index] as! MockPlaybackChainAction) === action)
-                
-                if index > 0 {
-                    
-                    // Ensure that the actions in the chain have been linked (through the nextAction property of each action)
-                    // so that execution proceeds from one action to the next, in the intended order.
-                    let previousAction = chain.actions[index - 1] as! MockPlaybackChainAction
-                    XCTAssertTrue((previousAction.nextAction as! MockPlaybackChainAction) === action)
-                }
             }
         }
     }
