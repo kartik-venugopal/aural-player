@@ -13,6 +13,7 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
         SyncMessenger.publishNotification(PreTrackChangeNotification(context.currentTrack, context.currentState, nil))
         
         sequencer.end()
+        
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(context.currentTrack, context.currentState, nil))
         
         chain.complete(context)
