@@ -150,16 +150,58 @@ class TestableStopPlaybackChain: StopPlaybackChain {
     var executionCount: Int = 0
     var executedContext: PlaybackRequestContext?
     
+    var proceedCount: Int = 0
+    var proceededContext: PlaybackRequestContext?
+    
+    var completionCount: Int = 0
+    var completedContext: PlaybackRequestContext?
+    
+    var terminationCount: Int = 0
+    var terminatedContext: PlaybackRequestContext?
+    
     override func execute(_ context: PlaybackRequestContext) {
         
         executedContext = context
         executionCount.increment()
+        
         super.execute(context)
     }
     
+    override func proceed(_ context: PlaybackRequestContext) {
+        
+        proceededContext = context
+        proceedCount.increment()
+        
+        super.proceed(context)
+    }
+    
+    override func complete(_ context: PlaybackRequestContext) {
+        
+        completedContext = context
+        completionCount.increment()
+        
+        super.complete(context)
+    }
+    
+    override func terminate(_ context: PlaybackRequestContext, _ error: InvalidTrackError) {
+        
+        terminatedContext = context
+        terminationCount.increment()
+        
+        super.terminate(context, error)
+    }
+    
     func reset() {
+        
         executionCount = 0
+        terminationCount = 0
+        proceedCount = 0
+        completionCount = 0
+
         executedContext = nil
+        terminatedContext = nil
+        proceededContext = nil
+        completedContext = nil
     }
 }
 

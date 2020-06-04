@@ -72,7 +72,6 @@ class MockSequencer: SequencerProtocol {
     func end() {
         
         endCallCount.increment()
-        
         currentTrack = nil
     }
     
