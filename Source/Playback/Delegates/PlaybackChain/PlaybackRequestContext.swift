@@ -41,6 +41,10 @@ class PlaybackRequestContext {
         }
     }
     
+    func removeAllGaps() {
+        gaps.removeAll()
+    }
+    
     // TODO: Remove this func after testing
     func toString() -> String {
         return String(describing: JSONMapper.map(self))

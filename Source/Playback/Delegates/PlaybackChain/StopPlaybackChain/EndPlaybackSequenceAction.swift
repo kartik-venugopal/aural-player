@@ -4,8 +4,6 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
     
     private let sequencer: SequencerProtocol
     
-    var nextAction: PlaybackChainAction?
-    
     init(_ sequencer: SequencerProtocol) {
         self.sequencer = sequencer
     }

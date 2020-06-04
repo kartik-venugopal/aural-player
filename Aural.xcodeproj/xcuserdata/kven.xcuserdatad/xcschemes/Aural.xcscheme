@@ -62,10 +62,16 @@
                   Identifier = "AVAudioExtensionsTests">
                </Test>
                <Test
+                  Identifier = "ApplyPlaybackProfileActionTests">
+               </Test>
+               <Test
                   Identifier = "AuralPlayerNodeTests">
                </Test>
                <Test
                   Identifier = "AuralTestCase">
+               </Test>
+               <Test
+                  Identifier = "CancelTranscodingActionTests">
                </Test>
                <Test
                   Identifier = "ChapterPlaybackTests">
@@ -75,6 +81,9 @@
                </Test>
                <Test
                   Identifier = "ForcedSeekingTests">
+               </Test>
+               <Test
+                  Identifier = "HaltPlaybackActionTests">
                </Test>
                <Test
                   Identifier = "Init_PlaybackProfilesTests">
@@ -90,6 +99,9 @@
                </Test>
                <Test
                   Identifier = "MessageHandlingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackChainTests">
                </Test>
                <Test
                   Identifier = "PlaybackDelegateTests">
@@ -135,6 +147,9 @@
                </Test>
                <Test
                   Identifier = "ReplayTests">
+               </Test>
+               <Test
+                  Identifier = "ResetPlaybackProfileActionTests">
                </Test>
                <Test
                   Identifier = "SecondarySeekingTests">
@@ -201,6 +216,9 @@
                </Test>
                <Test
                   Identifier = "TrackCompletion_EndToEndTests">
+               </Test>
+               <Test
+                  Identifier = "ValidateNewTrackActionTests">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">

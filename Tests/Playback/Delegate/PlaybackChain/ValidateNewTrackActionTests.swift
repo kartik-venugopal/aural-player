@@ -36,6 +36,7 @@ class ValidateNewTrackActionTests: AuralTestCase {
         
         action.execute(context, chain)
         
+        XCTAssertTrue(requestedTrack.lazyLoadingInfo.validated)
         XCTAssertFalse(requestedTrack.lazyLoadingInfo.preparationFailed)
         XCTAssertNil(requestedTrack.lazyLoadingInfo.preparationError)
         
@@ -54,6 +55,7 @@ class ValidateNewTrackActionTests: AuralTestCase {
         
         action.execute(context, chain)
         
+        XCTAssertTrue(requestedTrack.lazyLoadingInfo.validated)
         XCTAssertTrue(requestedTrack.lazyLoadingInfo.preparationFailed)
         XCTAssertNotNil(requestedTrack.lazyLoadingInfo.preparationError)
 
