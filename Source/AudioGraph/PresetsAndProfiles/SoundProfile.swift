@@ -2,7 +2,7 @@ import Foundation
 
 class SoundProfiles: TrackKeyedMap<SoundProfile> {
     
-    // TODO: Can this (circular) dependency be removed ???
+    // TODO: Remove this (circular) dependency !!!
     var audioGraph: AudioGraphProtocol!
     
     func add(_ track: Track) {
@@ -54,5 +54,9 @@ class TrackKeyedMap<T> {
     
     func all() -> [T] {
         return [T](map.values)
+    }
+    
+    var size: Int {
+        return map.count
     }
 }

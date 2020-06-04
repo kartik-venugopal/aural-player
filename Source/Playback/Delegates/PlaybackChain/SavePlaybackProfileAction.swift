@@ -21,11 +21,8 @@ class SavePlaybackProfileAction: PlaybackChainAction {
             preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(currentTrack) {
             
             // Update last position for current track
-            let trackDuration = currentTrack.duration
-            let currentSeekPosition = context.currentSeekPosition
-            
             // If track finished playing the last time, reset the last position to 0
-            let lastPosition = (currentSeekPosition >= trackDuration ? 0 : currentSeekPosition)
+            let lastPosition = (context.currentSeekPosition >= currentTrack.duration ? 0 : context.currentSeekPosition)
             
             profiles.add(currentTrack, PlaybackProfile(currentTrack, lastPosition))
         }

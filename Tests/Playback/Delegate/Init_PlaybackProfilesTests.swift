@@ -13,7 +13,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         
         let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
-        XCTAssertEqual(testDelegate.profiles.all().count, 0)
+        XCTAssertEqual(testDelegate.profiles.size, 0)
     }
 
     // Create a PlaybackDelegate instance with some playback profiles
@@ -38,7 +38,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         
         let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
-        XCTAssertEqual(testDelegate.profiles.all().count, 2)
+        XCTAssertEqual(testDelegate.profiles.size, 2)
         
         let profileForTrack1 = testDelegate.profiles.get(track1)
         XCTAssertEqual(profileForTrack1!.file, track1.file)
