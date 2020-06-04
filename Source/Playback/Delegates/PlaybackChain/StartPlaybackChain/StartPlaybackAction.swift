@@ -16,14 +16,11 @@ class StartPlaybackAction: PlaybackChainAction {
             return
         }
         
-        let oldTrack = context.currentTrack
-        let params = context.requestParams
+        SyncMessenger.publishNotification(PreTrackChangeNotification(context.currentTrack, context.currentState, newTrack))
         
-        SyncMessenger.publishNotification(PreTrackChangeNotification(oldTrack, context.currentState, newTrack))
+        player.play(newTrack, context.requestParams.startPosition ?? 0, context.requestParams.endPosition)
         
-        player.play(newTrack, params.startPosition ?? 0, params.endPosition)
-        
-        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, context.currentState, newTrack))
+        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(context.currentTrack, context.currentState, newTrack))
         
         chain.complete(context)
     }

@@ -112,6 +112,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ selIndex: Int?) {
         
+        // TODO: Check if index is within the bounds ( < numRows)
+        
         if let index = selIndex, playlistView.numberOfRows > 0, index >= 0 {
             
             playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
