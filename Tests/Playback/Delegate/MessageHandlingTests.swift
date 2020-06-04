@@ -110,11 +110,11 @@ class MessageHandlingTests: PlaybackDelegateTests {
     func testConsumeMessage_savePlaybackProfile_noTrack() {
         
         assertNoTrack()
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save)
         
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
     }
     
     func testConsumeMessage_savePlaybackProfile_noProfileYet() {
@@ -132,7 +132,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNil(delegate.profiles.get(track))
         
         // Verify that only 1 profile exists - the profile for the non-playing track
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
         
         // Set the player's seek position to a specific value that will be saved to the new playback profile
@@ -146,7 +146,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(newProfile.lastPosition, mockScheduler.seekPosition, accuracy: 0.001)
         
         // Verify that the profile for the non-playing track still exists.
-        XCTAssertEqual(delegate.profiles.all().count, 2)
+        XCTAssertEqual(delegate.profiles.size, 2)
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
     }
     
@@ -169,7 +169,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         // Verify that both profiles exist
         XCTAssertNotNil(delegate.profiles.get(track))
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
-        XCTAssertEqual(delegate.profiles.all().count, 2)
+        XCTAssertEqual(delegate.profiles.size, 2)
         
         // Set the player's seek position to a specific value that will be saved to the new playback profile
         mockScheduler.seekPosition = 27.9349894387
@@ -185,7 +185,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNotEqual(newProfile.lastPosition, oldProfile.lastPosition)
         
         // Verify that the profile for the non-playing track still exists.
-        XCTAssertEqual(delegate.profiles.all().count, 2)
+        XCTAssertEqual(delegate.profiles.size, 2)
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
     }
     
@@ -198,12 +198,12 @@ class MessageHandlingTests: PlaybackDelegateTests {
         delegate.profiles.add(track.file, profile)
         
         assertNoTrack()
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
         
         // Previously added profile should remain undeleted.
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
     }
     
     func testConsumeMessage_deletePlaybackProfile_noProfileYet() {
@@ -224,7 +224,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
         
         // Verify that only one profile exists
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
 
@@ -232,7 +232,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNil(delegate.profiles.get(track))
         
         // Verify that the profile for the non-playing track still exists.
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
     }
     
@@ -256,7 +256,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
         
         // Verify that both profiles exist
-        XCTAssertEqual(delegate.profiles.all().count, 2)
+        XCTAssertEqual(delegate.profiles.size, 2)
         
         SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
 
@@ -264,7 +264,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertNil(delegate.profiles.get(track))
         
         // Verify that the profile for the non-playing track still exists.
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         XCTAssertNotNil(delegate.profiles.get(otherTrack))
     }
     
@@ -273,7 +273,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
     func testOnAppExit_noTrackPlaying() {
         
         assertNoTrack()
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -281,7 +281,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         let response = SyncMessenger.publishRequest(AppExitRequest.instance)
         
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -294,7 +294,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile for track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -303,7 +303,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         let response = SyncMessenger.publishRequest(AppExitRequest.instance)
         
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
     
@@ -317,7 +317,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         delegate.profiles.add(track.file, oldProfile)
         
         XCTAssertNotNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -330,7 +330,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(newProfile.file, track.file)
         XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
         
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -343,7 +343,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile for track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -353,7 +353,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile was saved for track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -368,7 +368,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         delegate.profiles.add(track.file, oldProfile)
         
         XCTAssertNotNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -381,7 +381,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(newProfile.file, track.file)
         XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
         
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -394,7 +394,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile for playing track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to false so that the last playback position will not be remembered for the playing track
         preferences.rememberLastPosition = false
@@ -402,7 +402,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         let response = SyncMessenger.publishRequest(AppExitRequest.instance)
         
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -415,7 +415,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile for playing track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -430,7 +430,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(profile!.file, track.file)
         XCTAssertEqual(profile!.lastPosition, delegate.seekPosition.timeElapsed)
         
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
     
@@ -444,7 +444,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         delegate.profiles.add(track.file, profile)
         
         XCTAssertNotNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         // Set this option to true for all tracks so that the last playback position will be remembered for any playing track
         preferences.rememberLastPosition = true
@@ -459,7 +459,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(updatedProfile!.file, track.file)
         XCTAssertEqual(updatedProfile!.lastPosition, delegate.seekPosition.timeElapsed)
         
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -472,7 +472,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // No profile for playing track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         // Set this option to true for individual tracks (any track having a profile will remember its playback position)
         preferences.rememberLastPosition = true
@@ -484,7 +484,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         // Verify that no profile was saved for the playing track
         XCTAssertNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 0)
+        XCTAssertEqual(delegate.profiles.size, 0)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
@@ -499,7 +499,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         delegate.profiles.add(track.file, profile)
         
         XCTAssertNotNil(delegate.profiles.get(track))
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         // Set this option to true for individual tracks (any track having a profile will remember its playback position)
         preferences.rememberLastPosition = true
@@ -514,7 +514,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(updatedProfile!.file, track.file)
         XCTAssertEqual(updatedProfile!.lastPosition, delegate.seekPosition.timeElapsed)
         
-        XCTAssertEqual(delegate.profiles.all().count, 1)
+        XCTAssertEqual(delegate.profiles.size, 1)
         
         XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
     }
