@@ -21,43 +21,39 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             return
         }
         
-        let isWaiting: Bool = checkForDelayAndDefer(newTrack, context, chain)
-        prepareTrackAndProceed(newTrack, context, chain, isWaiting)
+        let delayInfo = checkForDelayAndDefer(newTrack, context, chain)
+        prepareTrackAndProceed(newTrack, context, chain, delayInfo.isWaiting, delayInfo.gapEndTime)
     }
     
-    func checkForDelayAndDefer(_ newTrack: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain) -> Bool {
+    func checkForDelayAndDefer(_ newTrack: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain) -> (isWaiting: Bool, gapEndTime: Date?) {
         
         if context.requestParams.allowDelay, let delay = context.delay {
-            
-            // Mark the current state as "waiting" in between tracks
-            player.waiting()
             
             let gapEndTime_dt = DispatchTime.now() + delay
             let gapEndTime: Date = DateUtils.addToDate(Date(), delay)
             
-            DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
+            // Continue playback after delay
+            DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt, qos: .userInteractive) {
                 
-                // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track or Stop)
+                // Perform this check to account for the possibility that the gap has been skipped
+                // (e.g. user performs Play or Next/Previous track or Stop)
                 if PlaybackRequestContext.isCurrent(context) {
                     
-                    // Override the current state of the context, because there was a delay
+                    // Override the current track/state in the context, because there was a delay
                     context.currentState = .waiting
                     
                     // Need to call prepare again to ensure that preparation is completed before playback
-                    self.prepareTrackAndProceed(newTrack, context, chain, false)
+                    self.prepareTrackAndProceed(newTrack, context, chain, false, nil)
                 }
             }
             
-            // Let observers know that a playback gap has begun
-            AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, context.currentTrack, newTrack))
-            
-            return true
+            return (true, gapEndTime)
         }
         
-        return false
+        return (false, nil)
     }
     
-    func prepareTrackAndProceed(_ track: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain, _ isWaiting: Bool) {
+    func prepareTrackAndProceed(_ track: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain, _ isWaiting: Bool, _ gapEndTime: Date?) {
         
         track.prepareForPlayback()
         
@@ -66,6 +62,15 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             
             chain.terminate(context, preparationError)
             return
+        }
+        
+        if isWaiting, let theGapEndTime = gapEndTime {
+         
+            // Mark the current state as "waiting" between tracks
+            player.waiting()
+            
+            // Let observers know that a playback gap has begun
+            AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(theGapEndTime, context.currentTrack, track))
         }
         
         // Track needs to be transcoded (i.e. audio format is not natively supported)

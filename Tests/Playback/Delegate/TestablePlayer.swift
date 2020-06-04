@@ -81,6 +81,22 @@ class TestablePlayer: Player {
         super.stop()
     }
     
+    var waitingCallCount: Int = 0
+    
+    override func waiting() {
+        
+        waitingCallCount.increment()
+        super.waiting()
+    }
+    
+    var transcodingCallCount: Int = 0
+    
+    override func transcoding() {
+        
+        transcodingCallCount.increment()
+        super.transcoding()
+    }
+    
     func reset() {
         
         attemptSeekToTimeCallCount = 0
