@@ -3,13 +3,11 @@ import Foundation
 class AudioFilePreparationAction: NSObject, PlaybackChainAction {
     
     private let player: PlayerProtocol
-    private let sequencer: SequencerProtocol
     private let transcoder: TranscoderProtocol
     
-    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ transcoder: TranscoderProtocol) {
+    init(_ player: PlayerProtocol, _ transcoder: TranscoderProtocol) {
         
         self.player = player
-        self.sequencer = sequencer
         self.transcoder = transcoder
 
         super.init()
@@ -23,12 +21,14 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             return
         }
         
-        var isWaiting: Bool = false
+        let isWaiting: Bool = checkForDelayAndDefer(newTrack, context, chain)
+        prepareTrackAndProceed(newTrack, context, chain, isWaiting)
+    }
+    
+    func checkForDelayAndDefer(_ newTrack: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain) -> Bool {
         
         if context.requestParams.allowDelay, let delay = context.delay {
             
-            isWaiting = true
-                    
             // Mark the current state as "waiting" in between tracks
             player.waiting()
             
@@ -50,16 +50,18 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             
             // Let observers know that a playback gap has begun
             AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, context.currentTrack, newTrack))
+            
+            return true
         }
         
-        prepareTrackAndProceed(newTrack, context, chain, isWaiting)
+        return false
     }
     
     func prepareTrackAndProceed(_ track: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain, _ isWaiting: Bool) {
         
         track.prepareForPlayback()
         
-        // Track preparation failed
+        // Track preparation failed, terminate the chain.
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
             
             chain.terminate(context, preparationError)
