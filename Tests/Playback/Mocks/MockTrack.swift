@@ -21,6 +21,8 @@ class MockTrack: Track {
         if !isValid {
             lazyLoadingInfo.preparationFailed(NoAudioTracksError(self))
         }
+        
+        lazyLoadingInfo.validated = true
     }
     
     override func prepareForPlayback() {

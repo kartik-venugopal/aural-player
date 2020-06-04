@@ -2,14 +2,9 @@ import Foundation
 
 class SetPlaybackDelayAction: PlaybackChainAction {
     
-    private let player: PlayerProtocol
     private let playlist: PlaylistCRUDProtocol
     
-    var nextAction: PlaybackChainAction?
-    
-    init(_ player: PlayerProtocol, _ playlist: PlaylistCRUDProtocol) {
-        
-        self.player = player
+    init(_ playlist: PlaylistCRUDProtocol) {
         self.playlist = playlist
     }
     
@@ -25,15 +20,17 @@ class SetPlaybackDelayAction: PlaybackChainAction {
         
         if params.allowDelay {
 
-            // An explicit delay is defined in the request parameters. It takes precedence over any gaps.
+            // An explicit delay is defined in the request parameters. It takes precedence over any playlist gaps.
             if let delay = params.delay {
                 
+                // Remove any previously defined gaps (eg. when track completion occurred)
+                context.removeAllGaps()
                 context.addGap(PlaybackGap(delay, .beforeTrack, .oneTime))
-                
-            }   // No explicit delay in the request parameters is defined, check for a gap defined before the track (in the playlist).
+            }
+            // No explicit delay in the request parameters is defined, check for a gap defined before the track (in the playlist).
             else if let gapBeforeNewTrack = playlist.getGapBeforeTrack(newTrack) {
                 
-                // Add the gap's duration to the total delay before playback.
+                // Add the gap's dura tion to the total delay before playback.
                 context.addGap(gapBeforeNewTrack)
 
                 // If the gap is a one-time gap, remove it from the playlist

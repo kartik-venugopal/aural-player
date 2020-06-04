@@ -183,6 +183,55 @@ class PlaybackRequestContextTests: PlaybackDelegateTests {
         XCTAssertEqual(context.delay!, implicitGap.duration, accuracy: 0.001)
     }
     
+    func testRemoveAllGaps_noGapsDefined() {
+        
+        let track1 = createTrack("Hydropoetry Cathedra", 597)
+        let track2 = createTrack("Sub-Sea Engineering", 360)
+        
+        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
+        
+        XCTAssertNil(context.delay)
+        
+        context.removeAllGaps()
+        XCTAssertNil(context.delay)
+    }
+    
+    func testRemoveAllGaps_nonImplicitGaps() {
+        
+        let nonImplicitGap1: PlaybackGap = PlaybackGap(5, .afterTrack)
+        let nonImplicitGap2: PlaybackGap = PlaybackGap(3, .beforeTrack)
+        
+        let track1 = createTrack("Hydropoetry Cathedra", 597)
+        let track2 = createTrack("Sub-Sea Engineering", 360)
+        
+        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
+        
+        context.addGap(nonImplicitGap1)
+        XCTAssertEqual(context.delay!, nonImplicitGap1.duration, accuracy: 0.001)
+        
+        context.addGap(nonImplicitGap2)
+        XCTAssertEqual(context.delay!, nonImplicitGap1.duration + nonImplicitGap2.duration, accuracy: 0.001)
+        
+        context.removeAllGaps()
+        XCTAssertNil(context.delay)
+    }
+    
+    func testRemoveAllGaps_implicitGap() {
+        
+        let implicitGap: PlaybackGap = PlaybackGap(10, .afterTrack, .implicit)
+        
+        let track1 = createTrack("Hydropoetry Cathedra", 597)
+        let track2 = createTrack("Sub-Sea Engineering", 360)
+        
+        let context = PlaybackRequestContext(.playing, track1, 283.34686234, track2, PlaybackParams.defaultParams())
+        
+        context.addGap(implicitGap)
+        XCTAssertEqual(context.delay!, implicitGap.duration, accuracy: 0.001)
+        
+        context.removeAllGaps()
+        XCTAssertNil(context.delay)
+    }
+    
     func testClearContext_noCurrentContext() {
         
         XCTAssertNil(PlaybackRequestContext.currentContext)

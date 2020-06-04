@@ -339,6 +339,7 @@
 		3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */; };
 		3E309B741FB70BB800C61E72 /* InfoPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E309B731FB70BB800C61E72 /* InfoPopup.xib */; };
 		3E309B781FB70D1F00C61E72 /* InfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */; };
+		3E30F5892488BAE400EF7F8C /* TestablePlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30F5882488BAE400EF7F8C /* TestablePlaylist.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
 		3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B4A31F3F08B8005EF359 /* Preferences.swift */; };
 		3E33C11C242F1A88005A062B /* AudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C11B242F1A88005A062B /* AudioDevice.swift */; };
@@ -705,6 +706,7 @@
 		3EDAE69F1F7613C800D6F808 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */; };
 		3EDC3416218EA0C300905688 /* CutoffFrequencySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDC3415218EA0C300905688 /* CutoffFrequencySlider.swift */; };
 		3EDD1B942487978E00461B70 /* ApplyPlaybackProfileActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD1B932487978E00461B70 /* ApplyPlaybackProfileActionTests.swift */; };
+		3EDD1B962487E82800461B70 /* SetPlaybackDelayActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD1B952487E82800461B70 /* SetPlaybackDelayActionTests.swift */; };
 		3EDD4CD22193EA3300C15D5A /* EQUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD4CD12193EA3300C15D5A /* EQUnit.swift */; };
 		3EDD4CD42193FAE300C15D5A /* PitchUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD4CD32193FAE300C15D5A /* PitchUnit.swift */; };
 		3EDD4CD72194155E00C15D5A /* FXUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD4CD62194155E00C15D5A /* FXUnitDelegate.swift */; };
@@ -970,6 +972,7 @@
 		3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewController.swift; sourceTree = "<group>"; };
 		3E309B731FB70BB800C61E72 /* InfoPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoPopup.xib; sourceTree = "<group>"; };
 		3E309B771FB70D1F00C61E72 /* InfoPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopupViewController.swift; sourceTree = "<group>"; };
+		3E30F5882488BAE400EF7F8C /* TestablePlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestablePlaylist.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E33B4A31F3F08B8005EF359 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		3E33C11B242F1A88005A062B /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
@@ -1321,6 +1324,7 @@
 		3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 		3EDC3415218EA0C300905688 /* CutoffFrequencySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutoffFrequencySlider.swift; sourceTree = "<group>"; };
 		3EDD1B932487978E00461B70 /* ApplyPlaybackProfileActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPlaybackProfileActionTests.swift; sourceTree = "<group>"; };
+		3EDD1B952487E82800461B70 /* SetPlaybackDelayActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPlaybackDelayActionTests.swift; sourceTree = "<group>"; };
 		3EDD4CD12193EA3300C15D5A /* EQUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUnit.swift; sourceTree = "<group>"; };
 		3EDD4CD32193FAE300C15D5A /* PitchUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchUnit.swift; sourceTree = "<group>"; };
 		3EDD4CD62194155E00C15D5A /* FXUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitDelegate.swift; sourceTree = "<group>"; };
@@ -2869,6 +2873,8 @@
 				3E27C15624863145002E2BF4 /* ResetPlaybackProfileActionTests.swift */,
 				3E27C1582486387F002E2BF4 /* ValidateNewTrackActionTests.swift */,
 				3EDD1B932487978E00461B70 /* ApplyPlaybackProfileActionTests.swift */,
+				3EDD1B952487E82800461B70 /* SetPlaybackDelayActionTests.swift */,
+				3E30F5882488BAE400EF7F8C /* TestablePlaylist.swift */,
 			);
 			path = PlaybackChain;
 			sourceTree = "<group>";
@@ -3753,6 +3759,7 @@
 				3E12ACA42469CBA100A07611 /* GroupAccessorProtocol.swift in Sources */,
 				3E12ACB12469CBF400A07611 /* PlaybackDelegateProtocol.swift in Sources */,
 				3E12ACDE2469CC1000A07611 /* DelayUnit.swift in Sources */,
+				3E30F5892488BAE400EF7F8C /* TestablePlaylist.swift in Sources */,
 				3E7DFA5024687E70001CD16E /* PlayerTests.swift in Sources */,
 				3E12ACE12469CC1300A07611 /* ParametricEQNode.swift in Sources */,
 				3E12AD462469CC5100A07611 /* HTMLWriter.swift in Sources */,
@@ -3792,6 +3799,7 @@
 				3E12AD052469CC2700A07611 /* Favorites.swift in Sources */,
 				3ED5E80C2485279300D4AECE /* TrackCompletion_EndToEndTests.swift in Sources */,
 				3E12AD0F2469CC2F00A07611 /* ActionMessages.swift in Sources */,
+				3EDD1B962487E82800461B70 /* SetPlaybackDelayActionTests.swift in Sources */,
 				3EF13D172472DC0D008CA5C0 /* DelayAfterTrackCompletionAction.swift in Sources */,
 				3E12ACF82469CC1F00A07611 /* RecordingInfo.swift in Sources */,
 				3E12ACC82469CC0400A07611 /* TranscoderStore.swift in Sources */,
