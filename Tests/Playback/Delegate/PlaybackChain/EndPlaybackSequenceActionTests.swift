@@ -72,6 +72,8 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
         
         assertPreTrackChange(nil, .noTrack)
         assertTrackChange(nil, .noTrack)
+        
+        assertChainCompleted(context)
     }
     
     func testEndPlaybackSequenceAction_trackPlaying() {
@@ -85,6 +87,8 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
         
         assertPreTrackChange(currentTrack, .playing)
         assertTrackChange(currentTrack, .playing)
+        
+        assertChainCompleted(context)
     }
     
     func testEndPlaybackSequenceAction_trackPaused() {
@@ -98,6 +102,8 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
         
         assertPreTrackChange(currentTrack, .paused)
         assertTrackChange(currentTrack, .paused)
+        
+        assertChainCompleted(context)
     }
     
     func testEndPlaybackSequenceAction_trackWaiting() {
@@ -111,6 +117,8 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
         
         assertPreTrackChange(currentTrack, .waiting)
         assertTrackChange(currentTrack, .waiting)
+        
+        assertChainCompleted(context)
     }
     
     func testEndPlaybackSequenceAction_trackTranscoding() {
@@ -124,6 +132,8 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
         
         assertPreTrackChange(currentTrack, .transcoding)
         assertTrackChange(currentTrack, .transcoding)
+        
+        assertChainCompleted(context)
     }
     
     private func assertPreTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState) {
@@ -143,5 +153,16 @@ class EndPlaybackSequenceActionTests: AuralTestCase, MessageSubscriber, AsyncMes
             XCTAssertEqual(self.trackChangeMsg_currentState, currentState)
             XCTAssertEqual(self.trackChangeMsg_newTrack, nil)
         }
+    }
+    
+    private func assertChainCompleted(_ context: PlaybackRequestContext) {
+        
+        // Ensure chain completed
+        
+        XCTAssertEqual(chain.proceedCount, 0)
+        XCTAssertEqual(chain.terminationCount, 0)
+        
+        XCTAssertEqual(chain.completionCount, 1)
+        XCTAssertTrue(chain.completedContext! === context)
     }
 }

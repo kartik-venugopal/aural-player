@@ -2,6 +2,22 @@ import Foundation
 
 class TestablePlayer: Player {
     
+    var playCallCount: Int = 0
+    var play_track: Track?
+    var play_startPosition: Double?
+    var play_endPosition: Double?
+    
+    override func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?) {
+        
+        playCallCount.increment()
+        
+        play_track = track
+        play_startPosition = startPosition
+        play_endPosition = endPosition
+        
+        super.play(track, startPosition, endPosition)
+    }
+    
     var attemptSeekToTimeCallCount: Int = 0
     var attemptSeekToTime_track: Track?
     var attemptSeekToTime_time: Double?
