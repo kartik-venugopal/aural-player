@@ -18,7 +18,7 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         .withAction(ValidateNewTrackAction())
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(SetPlaybackDelayAction(playlist))
-        .withAction(AudioFilePreparationAction(player, sequencer, transcoder))
+        .withAction(AudioFilePreparationAction(player, transcoder))
         .withAction(StartPlaybackAction(player))
         
         AsyncMessenger.subscribe([.transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
