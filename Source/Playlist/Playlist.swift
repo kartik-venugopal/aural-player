@@ -85,8 +85,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
         
-        removeGapsForTrack(track)
-        
         gapsBefore[track] = gapBeforeTrack
         gapsAfter[track] = gapAfterTrack
     }
