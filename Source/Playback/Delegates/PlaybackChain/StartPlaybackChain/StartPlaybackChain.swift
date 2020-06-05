@@ -29,6 +29,8 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         // End the playback sequence
         sequencer.end()
         
+        player.stop()
+        
         AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, error))
         
         complete(context)
