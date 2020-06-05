@@ -25,7 +25,7 @@ class BookmarkNameInputReceiver: StringInputReceiver {
         return valid ? (true, nil) : (false, "A bookmark with this name already exists !")
     }
     
-    // Receives a new EQ preset name and saves the new preset
+    // Receives a new bookmark name and saves the new bookmark
     func acceptInput(_ string: String) {
         
         if let track = BookmarkContext.bookmarkedTrack, let startPosition = BookmarkContext.bookmarkedTrackStartPosition {

@@ -13,22 +13,20 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     // These are feedback labels that are shown briefly and automatically hidden
     @IBOutlet weak var lblVolume: VALabel!
     @IBOutlet weak var lblPan: VALabel!
-    @IBOutlet weak var lblPanCaption: VALabel!
-    @IBOutlet weak var lblPanCaption2: VALabel!
     
-    // TODO - Revisit AutoHidingView
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
     private var autoHidingVolumeLabel: AutoHidingView!
     private var autoHidingPanLabel: AutoHidingView!
     
+    @IBOutlet weak var lblPanCaption: VALabel!
+    @IBOutlet weak var lblPanCaption2: VALabel!
+    
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
-    
     private let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
     
-    private let appState: PlayerUIState = ObjectGraph.appState.ui.player
-    
+    // Numerical ranges
     private let highVolumeRange: ClosedRange<Float> = 200.0/3...100
     private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
     private let lowVolumeRange: Range<Float> = 1..<100.0/3
@@ -194,7 +192,6 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         lblPan.textColor = Colors.Player.feedbackTextColor
     }
     
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: Track?) {
         
         // Apply sound profile if there is one for the new track and the preferences allow it
