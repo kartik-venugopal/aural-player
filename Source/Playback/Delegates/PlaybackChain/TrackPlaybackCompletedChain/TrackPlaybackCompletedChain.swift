@@ -7,7 +7,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
     
     private let sequencer: SequencerProtocol
     
-    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {
+    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.startPlaybackChain = startPlaybackChain
         self.stopPlaybackChain = stopPlaybackChain
@@ -15,8 +15,7 @@ class TrackPlaybackCompletedChain: PlaybackChain {
         
         super.init()
         
-        _ = withAction(ResetPlaybackProfileAction(profiles))
-        .withAction(DelayAfterTrackCompletionAction(playlist, sequencer, preferences))
+        _ = withAction(DelayAfterTrackCompletionAction(playlist, sequencer, preferences))
     }
     
     override func execute(_ context: PlaybackRequestContext) {
