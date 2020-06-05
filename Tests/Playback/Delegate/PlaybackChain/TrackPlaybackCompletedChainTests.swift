@@ -36,6 +36,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
     
     var trackNotPlayedMsgCount: Int = 0
     var trackNotPlayedMsg_oldTrack: Track?
+    var trackNotPlayedMsg_error: InvalidTrackError?
 
     override func setUp() {
         
@@ -60,7 +61,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
         stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
         
-        chain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+        chain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
         
         SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
         AsyncMessenger.subscribe([.trackChanged, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
@@ -114,6 +115,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
             
             trackNotPlayedMsgCount.increment()
             trackNotPlayedMsg_oldTrack = trackNotPlayedMsg.oldTrack
+            trackNotPlayedMsg_error = trackNotPlayedMsg.error
             
             return
         }
@@ -130,7 +132,8 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         
         let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
         
-        XCTAssertNil(context.requestedTrack)
+        preferences.rememberLastPosition = true
+        preferences.rememberLastPositionOption = .individualTracks
         
         chain.execute(context)
         
@@ -193,7 +196,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         
         XCTAssertEqual(context.requestedTrack!, subsequentTrack)
         
-        assertTrackNotPlayed(completedTrack)
+        assertTrackNotPlayed(completedTrack, subsequentTrack)
     }
     
     func testTrackPlaybackCompleted_hasSubsequentTrack() {
@@ -211,7 +214,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         assertTrackChange(completedTrack, .playing, subsequentTrack)
     }
     
-    func testTrackPlaybackCompleted_hasSubsequentTrack_hasPlaybackProfile_resetTo0() {
+    func testTrackPlaybackCompleted_hasSubsequentTrack_completedTrackHasPlaybackProfile_resetTo0() {
         
         let completedTrack = createTrack("Hydropoetry Cathedra", 597)
         let subsequentTrack = createTrack("Silene", 420)
@@ -220,6 +223,9 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         let oldProfile = PlaybackProfile(completedTrack, 125.324235346746)
         profiles.add(completedTrack, oldProfile)
         XCTAssertNotNil(profiles.get(completedTrack))
+        
+        preferences.rememberLastPosition = true
+        preferences.rememberLastPositionOption = .individualTracks
         
         let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
         
@@ -275,7 +281,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         XCTAssertEqual(context.delay!, playlist.getGapAfterTrack(completedTrack)!.duration)
         
         assertGapNotStarted()
-        assertTrackNotPlayed(completedTrack)
+        assertTrackNotPlayed(completedTrack, subsequentTrack)
     }
     
     func testTrackPlaybackCompleted_gapBetweenTracks_hasSubsequentTrack() {
@@ -325,8 +331,8 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         // Simulate transcoding finished
         subsequentTrack.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/AudioFile.m4a"))
         AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(subsequentTrack, true))
-        
         justWait(0.5)
+        
         assertTrackChange(completedTrack, .playing, subsequentTrack)
     }
     
@@ -354,12 +360,12 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         // Simulate transcoding failed
         subsequentTrack.lazyLoadingInfo.preparationFailed(NoAudioTracksError(subsequentTrack))
         AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(subsequentTrack, false))
-        
         justWait(0.5)
-        assertTrackNotPlayed(completedTrack)
+        
+        assertTrackNotPlayed(completedTrack, subsequentTrack)
     }
     
-    private func assertTrackNotPlayed(_ oldTrack: Track) {
+    private func assertTrackNotPlayed(_ oldTrack: Track, _ newTrack: Track) {
 
         XCTAssertEqual(player.state, .noTrack)
         XCTAssertEqual(preTrackChangeMsgCount, 0)
@@ -370,6 +376,7 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
             
             XCTAssertEqual(self.trackNotPlayedMsgCount, 1)
             XCTAssertEqual(self.trackNotPlayedMsg_oldTrack, oldTrack)
+            XCTAssertEqual(self.trackNotPlayedMsg_error!.track, newTrack)
         }
     }
     
