@@ -17,7 +17,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     @IBOutlet weak var btnSeekForward: NSButton!
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
+    private let playbackSequence: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate

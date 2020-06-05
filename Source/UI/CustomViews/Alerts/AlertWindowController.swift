@@ -2,8 +2,6 @@ import Cocoa
 
 class AlertWindowController: NSWindowController, ModalComponentProtocol {
     
-    static var instance: AlertWindowController = AlertWindowController()
-    
     override var windowNibName: String? {return "Alerts"}
     
     @IBOutlet weak var icon: NSImageView!

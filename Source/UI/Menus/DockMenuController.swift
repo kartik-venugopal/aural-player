@@ -37,7 +37,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that retrieves current playback sequence info (e.g. repeat/shuffle modes)
-    private lazy var sequenceInfo: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
+    private lazy var sequenceInfo: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate

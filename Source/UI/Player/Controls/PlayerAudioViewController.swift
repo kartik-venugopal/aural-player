@@ -25,7 +25,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
+    private let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
@@ -64,7 +64,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
         
-        audioGraph.muted = !audioGraph.muted
+        audioGraph.muted.toggle()
         updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
     }
     
