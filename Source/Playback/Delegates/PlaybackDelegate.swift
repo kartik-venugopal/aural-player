@@ -143,6 +143,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         if PlaybackSession.isCurrent(session) {
             trackPlaybackCompleted()
+            
+        } else {
+            
+            // If the session has expired, the track completion chain will not execute
+            // and the track's profile will not be updated, so ensure that it is.
+            savePlaybackProfileIfNeeded(session.track, 0)
         }
     }
     
@@ -352,7 +358,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func savePlaybackProfile() {
         
         if let track = playingTrack {
-            profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
+            profiles.add(track, PlaybackProfile(track, seekPosition.timeElapsed))
+        }
+    }
+    
+    private func savePlaybackProfileIfNeeded(_ track: Track, _ position: Double? = nil) {
+        
+        // Save playback settings if the option either requires saving settings for all tracks, or if
+        // the option has been set for this particular playing track.
+        if preferences.rememberLastPosition,
+            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
+            
+            // Remember the current playback settings the next time this track plays.
+            // Update the profile with the latest settings for this track.
+            
+            // If a specific position has been specified, use it. Otherwise, use the current seek position.
+            // NOTE - If the seek position has reached the end of the track, the profile position will be reset to 0.
+            let lastPosition = position ?? (seekPosition.timeElapsed >= track.duration ? 0 : seekPosition.timeElapsed)
+            profiles.add(track, PlaybackProfile(track, lastPosition))
         }
     }
     
@@ -366,14 +389,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if playback settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
-        // Save playback settings if the option either requires saving settings for all tracks, or if
-        // the option has been set for this particular playing track.
-        if preferences.rememberLastPosition, let track = playingTrack,
-            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
-            
-            // Remember the current playback settings the next time this track plays.
-            // Update the profile with the latest settings for this track.
-            profiles.add(track, PlaybackProfile(track.file, seekPosition.timeElapsed))
+        if let track = playingTrack {
+            savePlaybackProfileIfNeeded(track)
         }
         
         // Proceed with exit
