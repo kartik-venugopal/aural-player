@@ -29,6 +29,10 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
+    private let highVolumeRange: ClosedRange<Float> = 200.0/3...100
+    private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
+    private let lowVolumeRange: Range<Float> = 1..<100.0/3
+    
     override func viewDidLoad() {
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
@@ -102,21 +106,29 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func updateVolumeMuteButtonImage(_ volume: Float, _ muted: Bool) {
 
         if muted {
+            
             btnVolume.baseImage = Images.imgMute
             
         } else {
 
             // Zero / Low / Medium / High (different images)
-            if (volume > 200/3) {
+            
+            switch volume {
+                
+            case highVolumeRange:
+                
                 btnVolume.baseImage = Images.imgVolumeHigh
                 
-            } else if (volume > 100/3) {
+            case mediumVolumeRange:
+                
                 btnVolume.baseImage = Images.imgVolumeMedium
                 
-            } else if (volume > 0) {
+            case lowVolumeRange:
+                
                 btnVolume.baseImage = Images.imgVolumeLow
                 
-            } else {
+            default:
+                
                 btnVolume.baseImage = Images.imgVolumeZero
             }
         }
