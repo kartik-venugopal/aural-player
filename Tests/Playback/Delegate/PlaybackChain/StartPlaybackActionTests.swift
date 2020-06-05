@@ -94,9 +94,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(nil, .noTrack, requestedTrack)
-        assertTrackChange(nil, .noTrack, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -114,9 +112,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, requestParams.startPosition!)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(nil, .noTrack, requestedTrack)
-        assertTrackChange(nil, .noTrack, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -134,9 +130,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, requestParams.startPosition!)
         XCTAssertEqual(player.play_endPosition!, requestParams.endPosition!)
         
-        assertPreTrackChange(nil, .noTrack, requestedTrack)
-        assertTrackChange(nil, .noTrack, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -154,9 +148,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(currentTrack, .playing, requestedTrack)
-        assertTrackChange(currentTrack, .playing, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -174,9 +166,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(currentTrack, .paused, requestedTrack)
-        assertTrackChange(currentTrack, .paused, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -194,9 +184,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(currentTrack, .waiting, requestedTrack)
-        assertTrackChange(currentTrack, .waiting, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -214,9 +202,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(currentTrack, .transcoding, requestedTrack)
-        assertTrackChange(currentTrack, .transcoding, requestedTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
@@ -233,28 +219,23 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         XCTAssertEqual(player.play_startPosition!, 0)
         XCTAssertEqual(player.play_endPosition, nil)
         
-        assertPreTrackChange(currentTrack, .playing, currentTrack)
-        assertTrackChange(currentTrack, .playing, currentTrack)
-        
+        assertTrackChange(context)
         assertChainCompleted(context)
     }
     
-    private func assertPreTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState, _ newTrack: Track?) {
-
+    private func assertTrackChange(_ context: PlaybackRequestContext) {
+        
         XCTAssertEqual(preTrackChangeMsgCount, 1)
-        XCTAssertEqual(preTrackChangeMsg_currentTrack, currentTrack)
-        XCTAssertEqual(preTrackChangeMsg_currentState, currentState)
-        XCTAssertEqual(preTrackChangeMsg_newTrack, newTrack)
-    }
-    
-    private func assertTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState, _ newTrack: Track?) {
+        XCTAssertEqual(preTrackChangeMsg_currentTrack, context.currentTrack)
+        XCTAssertEqual(preTrackChangeMsg_currentState, context.currentState)
+        XCTAssertEqual(preTrackChangeMsg_newTrack!, context.requestedTrack!)
         
         executeAfter(0.5) {
         
             XCTAssertEqual(self.trackChangeMsgCount, 1)
-            XCTAssertEqual(self.trackChangeMsg_currentTrack, currentTrack)
-            XCTAssertEqual(self.trackChangeMsg_currentState, currentState)
-            XCTAssertEqual(self.trackChangeMsg_newTrack, newTrack)
+            XCTAssertEqual(self.trackChangeMsg_currentTrack, context.currentTrack)
+            XCTAssertEqual(self.trackChangeMsg_currentState, context.currentState)
+            XCTAssertEqual(self.trackChangeMsg_newTrack!, context.requestedTrack!)
         }
     }
     

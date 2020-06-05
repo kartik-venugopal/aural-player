@@ -330,6 +330,35 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, MessageSubscriber, AsyncM
         assertTrackChange(completedTrack, .playing, subsequentTrack)
     }
     
+    func testTrackPlaybackCompleted_subsequentTrackNeedsTranscoding_transcodingFailed() {
+        
+        let completedTrack = createTrack("Hydropoetry Cathedra", 597)
+        let subsequentTrack = createTrack("Silene", "ogg", 420)
+        sequencer.subsequentTrack = subsequentTrack
+        
+        let context = PlaybackRequestContext(.playing, completedTrack, completedTrack.duration, nil, PlaybackParams.defaultParams())
+        
+        chain.execute(context)
+        
+        XCTAssertEqual(context.requestedTrack!, subsequentTrack)
+        
+        XCTAssertFalse(subsequentTrack.lazyLoadingInfo.preparedForPlayback)
+        XCTAssertTrue(subsequentTrack.lazyLoadingInfo.needsTranscoding)
+        XCTAssertFalse(subsequentTrack.lazyLoadingInfo.preparationFailed)
+        
+        XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
+        XCTAssertEqual(transcoder.transcodeImmediately_track, subsequentTrack)
+        
+        XCTAssertEqual(player.state, .transcoding)
+        
+        // Simulate transcoding failed
+        subsequentTrack.lazyLoadingInfo.preparationFailed(NoAudioTracksError(subsequentTrack))
+        AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(subsequentTrack, false))
+        
+        justWait(0.5)
+        assertTrackNotPlayed(completedTrack)
+    }
+    
     private func assertTrackNotPlayed(_ oldTrack: Track) {
 
         XCTAssertEqual(player.state, .noTrack)
