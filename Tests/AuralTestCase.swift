@@ -31,6 +31,17 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
+    func justWait(_ timeSeconds: Double) {
+        
+        let theExpectation = expectation(description: "some expectation")
+        
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + timeSeconds) {
+            theExpectation.fulfill()
+        }
+        
+        wait(for: [theExpectation], timeout: timeSeconds + 1)
+    }
+    
     func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
         return createTrack(title, "mp3", duration, artist, album, genre, isValid: isValid)
     }
