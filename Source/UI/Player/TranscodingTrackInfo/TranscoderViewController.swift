@@ -40,7 +40,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
         
-        AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress, .transcodingCancelled, .transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     private func transcodingStarted(_ track: Track) {
@@ -54,14 +54,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
         
         updateFields(msg.timeTranscoded, msg.track.duration, msg.timeElapsed, msg.timeRemaining, msg.percTranscoded, msg.speed)
-    }
-    
-    private func transcodingFinished() {
-        // TODO - Do we even need this method ???
-    }
-    
-    private func transcodingCancelled() {
-        transcodingFinished()
     }
     
     private func updateFields(_ timeTranscoded: Double, _ trackDuration: Double, _ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double, _ speed: String) {
@@ -87,9 +79,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     }
     
     @IBAction func cancelAction(_ sender: Any) {
-        
         player.stop()
-        transcodingFinished()
     }
 
     // MARK: Appearance
@@ -219,14 +209,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
             if let progressMsg = message as? TranscodingProgressAsyncMessage {
                 transcodingProgress(progressMsg)
             }
-            
-        case .transcodingCancelled:
-            
-            transcodingCancelled()
-            
-        case .transcodingFinished:
-            
-            transcodingFinished()
             
         default:
             

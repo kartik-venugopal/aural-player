@@ -143,7 +143,7 @@ class Track: Hashable, PlaylistItem {
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
-        return lhs.file.path == rhs.file.path
+        return lhs.file == rhs.file
     }
     
     func hash(into hasher: inout Hasher) {

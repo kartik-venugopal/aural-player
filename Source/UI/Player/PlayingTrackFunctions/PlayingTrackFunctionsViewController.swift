@@ -35,6 +35,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     override func viewDidLoad() {
         
         allButtons = [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark]
+        redrawButtons()
         
         // Subscribe to various notifications
         
@@ -165,7 +166,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.currentTrack, message.file.path == playingTrack.file.path {
+        if let playingTrack = player.currentTrack, message.file == playingTrack.file {
             
             let added: Bool = message.messageType == .addedToFavorites
             
@@ -222,11 +223,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        allButtons.forEach({$0.reTint()})
-    }
-    
-    private func changeFunctionButtonColor() {
+    private func redrawButtons() {
         allButtons.forEach({$0.reTint()})
     }
     
@@ -265,15 +262,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
         case .bookmarkLoop: bookmarkLoop()
             
-        case .applyColorScheme:
-        
-        if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
-            applyColorScheme(colorSchemeActionMsg.scheme)
-        }
-        
-        case .changeFunctionButtonColor:
+        case .applyColorScheme, .changeFunctionButtonColor:
                
-            changeFunctionButtonColor()
+            redrawButtons()
             
         case .changeToggleButtonOffStateColor:
             

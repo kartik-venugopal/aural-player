@@ -28,6 +28,7 @@ class AutoHidingView: NSObject {
         // Capture the current callId into a token used later to validate the async task.
         let token = callId.incrementAndGet()
 
+        // Run a task later, to hide the view. If multiple tasks are spawned in quick succession, only one of them (the most recent one) should run.
         DispatchQueue.main.asyncAfter(deadline: .now() + autoHideInterval, qos: .userInteractive, flags: .enforceQoS, execute: {
             
             // Execute this task only if the current callId matches the previously obtained token.
