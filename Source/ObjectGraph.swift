@@ -119,7 +119,7 @@ class ObjectGraph {
         
         let startPlaybackChain = StartPlaybackChain(player, playbackSequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
         let stopPlaybackChain = StopPlaybackChain(player, playbackSequencer, transcoder, profiles, preferences.playbackPreferences)
-        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, playbackSequencer, playlist, profiles, preferences.playbackPreferences)
+        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, playbackSequencer, playlist, preferences.playbackPreferences)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(profiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)

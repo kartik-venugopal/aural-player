@@ -48,7 +48,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             
             startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
             stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-            trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+            trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
             
             delegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         }
@@ -71,16 +71,15 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         trackChangeMessages.removeAll()
         gapStartedMessages.removeAll()
         
-        AsyncMessenger.subscribe([.trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        AsyncMessenger.subscribe([.trackChanged, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
     }
     
     override func tearDown() {
         
         // Prevent test case objects from receiving each other's messages.
-        AsyncMessenger.unsubscribe([.trackChanged, .gapStarted], subscriber: self)
-        AsyncMessenger.unsubscribe([.trackNotTranscoded], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackChanged, .trackNotPlayed, .gapStarted], subscriber: self)
         
-        AsyncMessenger.unsubscribe([.playbackCompleted, .transcodingFinished], subscriber: delegate)
+        AsyncMessenger.unsubscribe([.playbackCompleted], subscriber: delegate)
         SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
         SyncMessenger.unsubscribe(messageTypes: [.appExitRequest], subscriber: delegate)
         

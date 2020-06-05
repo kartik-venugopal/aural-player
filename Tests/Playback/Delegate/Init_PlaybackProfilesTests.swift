@@ -9,7 +9,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         
         startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
         stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
         
         let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
@@ -34,7 +34,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         
         startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
         stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
-        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, profiles, preferences)
+        trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
         
         let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
