@@ -136,6 +136,8 @@ protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var rate: Float {get set}
     
+    var effectiveRate: Float {get}
+    
     var formattedRate: String {get}
     
     var overlap: Float {get set}

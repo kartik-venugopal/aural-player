@@ -36,14 +36,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         lblTimeElapsed.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
         lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
         
-        seekSliderCell.removeLoop()
-        
-        let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
-        let seekTimerInterval = roundedInt(1000 / (2 * playbackRate))
-        
-        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {
-            self.updateSeekPosition()
-        }, queue: DispatchQueue.main)
+        playbackRateChanged(timeUnit.effectiveRate, .noTrack)
         
         changeTextSize(PlayerViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
@@ -73,28 +66,23 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         updateSeekPosition()
     }
     
-    func showNowPlayingInfo() {
+    func trackStartedPlaying() {
         
-        initSeekPosition()
-        seekSlider.enable()
         updateSeekPosition()
+        seekSlider.enable()
+        seekSlider.show()
+        
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
         setSeekTimerState(true)
     }
     
-    func clearNowPlayingInfo() {
+    func noTrackPlaying() {
         
-        lblTimeElapsed.hide()
-        lblTimeRemaining.hide()
-        seekSlider.floatValue = 0
+        NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
+        
+        seekSlider.doubleValue = 0
         seekSlider.disable()
-        seekSlider.hide()
         setSeekTimerState(false)
-    }
-    
-    func initSeekPosition() {
-        
-        seekSlider.show()
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
     
     func updateSeekPosition() {
@@ -110,19 +98,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         for task in SeekTimerTaskQueue.tasksArray {
             task()
         }
-    }
-    
-    // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
-    func resetSeekPosition(_ track: Track) {
-        
-        let trackTimes = ValueFormatter.formatTrackTimes(0, track.duration, 0, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
-        
-        lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemaining.stringValue = trackTimes.remaining
-        
-        NSView.showViews(lblTimeElapsed, lblTimeRemaining)
-        
-        seekSlider.floatValue = 0
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -164,12 +139,12 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         if let track = newTrack {
             
             playbackLoopChanged(loop, track.duration)
-            showNowPlayingInfo()
+            trackStartedPlaying()
             
         } else {
             
             seekSliderCell.removeLoop()
-            clearNowPlayingInfo()
+            noTrackPlaying()
         }
     }
     
@@ -178,6 +153,8 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func showOrHideTimeElapsedRemaining() {
+        
+        PlayerViewState.showTimeElapsedRemaining.toggle()
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
     
