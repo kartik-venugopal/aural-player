@@ -10,28 +10,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerDelegate
-    
-    // Delegate that conveys all volume/pan adjustments to the audio graph
-    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
-    
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
-    
-    private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
     override var nibName: String? {return "PlayerControls"}
     
     override func viewDidLoad() {
 
-        let playbackRate = timeUnit.isActive ? timeUnit.rate : Float(1.0)
-        
-        playbackView.initialize(player.state, playbackRate, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
-        
-        playbackView.changeTextSize(PlayerViewState.textSize)
-        playbackView.applyColorScheme(ColorSchemes.systemScheme)
-        
         initSubscriptions()
     }
     
@@ -40,182 +25,20 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
-    // Moving the seek slider results in seeking the track to the new slider position
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        
-        player.seekToPercentage(playbackView.seekSliderValue)
-        playbackView.updateSeekPosition()
-    }
-    
-    // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
-    private func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
-        playbackView.playbackRateChanged(notification.newPlaybackRate, player.state)
-    }
-    
-    // When the playback state changes (e.g. playing -> paused), fields may need to be updated
-    private func playbackStateChanged() {
-        playbackView.playbackStateChanged(player.state)
-    }
-    
-    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
-    private func playbackLoopChanged() {
-        
-        if let playingTrack = player.playingTrack {
-            playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
-        }
-    }
+    // MARK: Track playback actions/functions ------------------------------------------------------------
     
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
         player.togglePlayPause()
-        playbackStateChanged()
-    }
-    
-    private func stop() {
-        player.stop()
-    }
-    
-    // Replays the currently playing track, from the beginning, if there is one
-    private func replayTrack() {
-        
-        if player.state.isPlayingOrPaused {
-            
-            let wasPaused: Bool = player.state == .paused
-            
-            player.replay()
-            playbackView.updateSeekPosition()
-            
-            if wasPaused {
-                playbackStateChanged()
-            }
-        }
-    }
-    
-    // Toggles the state of the segment playback loop for the currently playing track
-    @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        toggleLoop()
-    }
-    
-    private func toggleLoop() {
-        
-        if player.state.isPlayingOrPaused {
-                
-            _ = player.toggleLoop()
-            playbackLoopChanged()
-            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-        }
-    }
-    
-    // Plays the previous track in the current playback sequence
-    @IBAction func previousTrackAction(_ sender: AnyObject) {
-        player.previousTrack()
-    }
-    
-    // Plays the next track in the current playback sequence
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        player.nextTrack()
-    }
-    
-    // Seeks backward within the currently playing track
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        seekBackward(.discrete)
-    }
-    
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        seekForward(.discrete)
-    }
-    
-    private func seekForward(_ actionMode: ActionMode) {
-        
-        player.seekForward(actionMode)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekBackward(_ actionMode: ActionMode) {
-        
-        player.seekBackward(actionMode)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekForward_secondary() {
-        
-        player.seekForwardSecondary()
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekBackward_secondary() {
-        
-        player.seekBackwardSecondary()
-        playbackView.updateSeekPosition()
-    }
-    
-    private func jumpToTime(_ time: Double) {
-        
-        player.seekToTime(time)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
-        
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(trackIndex, params)
+        playbackView.playbackStateChanged(player.state)
     }
 
-    private func playTrack(_ track: Track, _ delay: Double?) {
-
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(track, params)
-    }
-    
-    private func playGroup(_ group: Group, _ delay: Double?) {
-        
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(group, params)
-    }
-
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ newTrack: Track?) {
-        
-        playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
-        
-        if let track = newTrack, track.hasChapters {
-            beginPollingForChapterChange()
-        } else {
-            stopPollingForChapterChange()
-        }
-    }
-    
-    private func trackChanged(_ message: TrackChangedAsyncMessage) {
-        trackChanged(message.newTrack)
-    }
-    
-    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
-        handleTrackNotPlayedError(message.oldTrack, message.error)
-    }
-    
-    private func handleTrackNotPlayedError(_ oldTrack: Track?, _ error: InvalidTrackError) {
-        
-        self.trackChanged(nil)
-        
-//        DispatchQueue.main.async {
-//            // Position and display an alert with error info
-//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
-//        }
-        
-        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
-    }
-    
-    private func seekPositionChanged() {
-        playbackView.updateSeekPosition()
-    }
-    
     private func performPlayback(_ request: PlaybackRequest) {
         
         switch request.type {
@@ -240,6 +63,104 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
+        
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(trackIndex, params)
+    }
+
+    private func playTrack(_ track: Track, _ delay: Double?) {
+
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(track, params)
+    }
+    
+    private func playGroup(_ group: Group, _ delay: Double?) {
+        
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(group, params)
+    }
+    
+    // Plays the previous track in the current playback sequence
+    @IBAction func previousTrackAction(_ sender: AnyObject) {
+        player.previousTrack()
+    }
+    
+    // Plays the next track in the current playback sequence
+    @IBAction func nextTrackAction(_ sender: AnyObject) {
+        player.nextTrack()
+    }
+    
+    private func stop() {
+        player.stop()
+    }
+    
+    // Replays the currently playing track, from the beginning, if there is one
+    private func replayTrack() {
+        
+        if player.state.isPlayingOrPaused {
+            
+            let wasPaused: Bool = player.state == .paused
+            
+            player.replay()
+            playbackView.updateSeekPosition()
+            
+            if wasPaused {
+                playbackView.playbackStateChanged(player.state)
+            }
+        }
+    }
+    
+    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
+    private func trackChanged(_ newTrack: Track?) {
+        
+        playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
+        
+        if let track = newTrack, track.hasChapters {
+            beginPollingForChapterChange()
+        } else {
+            stopPollingForChapterChange()
+        }
+    }
+    
+    private func trackChanged(_ message: TrackChangedAsyncMessage) {
+        trackChanged(message.newTrack)
+    }
+    
+    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+        handleTrackNotPlayedError(message.oldTrack, message.error)
+    }
+    
+    private func handleTrackNotPlayedError(_ oldTrack: Track?, _ error: InvalidTrackError) {
+        
+        self.trackChanged(nil)
+        
+        //        DispatchQueue.main.async {
+        //            // Position and display an alert with error info
+        //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
+        //        }
+        
+        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
+    }
+    
+    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+            playbackView.gapStarted()
+        }
+        
+        private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
+            
+            // This needs to be done async. Otherwise, other open dialogs could hang.
+    //        DispatchQueue.main.async {
+    //
+    //            // Position and display an alert with error info
+    //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
+    //        }
+            
+            alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
+        }
+    
+    // MARK: Chapter playback functions ------------------------------------------------------------
+    
     private func performChapterPlayback(_ request: ChapterPlaybackRequest) {
         
         switch request.type {
@@ -261,13 +182,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .removeChapterLoop:    removeChapterLoop()
             
         }
-    }
-    
-    // Returns a view that marks the current position of the seek slider knob.
-    var seekPositionMarkerView: NSView {
-        
-        playbackView.positionSeekPositionMarkerView()
-        return playbackView.seekPositionMarker
     }
     
     private func playChapter(_ index: Int) {
@@ -310,23 +224,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
     }
     
-    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        playbackView.gapStarted()
-    }
-    
-    private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
-        
-        // This needs to be done async. Otherwise, other open dialogs could hang.
-//        DispatchQueue.main.async {
-//
-//            // Position and display an alert with error info
-//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
-//        }
-        
-        alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
-    }
-    
-    // MARK: Current chapter tracking
+    // MARK: Current chapter tracking ---------------------------------------------------------------------
     
     // Keeps track of the last known value of the current chapter (used to detect chapter changes)
     private var curChapter: IndexedChapter? = nil
@@ -354,7 +252,88 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
     
-    // MARK: Message handling
+    // MARK: Seeking actions/functions ------------------------------------------------------------
+    
+    // Moving the seek slider results in seeking the track to the new slider position
+    @IBAction func seekSliderAction(_ sender: AnyObject) {
+        
+        player.seekToPercentage(playbackView.seekSliderValue)
+        playbackView.updateSeekPosition()
+    }
+    
+    // Seeks backward within the currently playing track
+    @IBAction func seekBackwardAction(_ sender: AnyObject) {
+        seekBackward(.discrete)
+    }
+    
+    // Seeks forward within the currently playing track
+    @IBAction func seekForwardAction(_ sender: AnyObject) {
+        seekForward(.discrete)
+    }
+    
+    private func seekForward(_ actionMode: ActionMode) {
+        
+        player.seekForward(actionMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekBackward(_ actionMode: ActionMode) {
+        
+        player.seekBackward(actionMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekForward_secondary() {
+        
+        player.seekForwardSecondary()
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekBackward_secondary() {
+        
+        player.seekBackwardSecondary()
+        playbackView.updateSeekPosition()
+    }
+    
+    private func jumpToTime(_ time: Double) {
+        
+        player.seekToTime(time)
+        playbackView.updateSeekPosition()
+    }
+    
+    // Returns a view that marks the current position of the seek slider knob.
+    var seekPositionMarkerView: NSView {
+        
+        playbackView.positionSeekPositionMarkerView()
+        return playbackView.seekPositionMarker
+    }
+    
+    // MARK: Segment looping actions/functions ------------------------------------------------------------
+    
+    // Toggles the state of the segment playback loop for the currently playing track
+    @IBAction func toggleLoopAction(_ sender: AnyObject) {
+        toggleLoop()
+    }
+    
+    private func toggleLoop() {
+        
+        if player.state.isPlayingOrPaused {
+                
+            _ = player.toggleLoop()
+            playbackLoopChanged()
+            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+        }
+    }
+    
+    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+    private func playbackLoopChanged() {
+        
+        if let playingTrack = player.playingTrack {
+            playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
+        }
+    }
+    
+    // MARK: Message handling ---------------------------------------------------------------------
 
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -397,12 +376,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .seekPositionChangedNotification:
             
-            seekPositionChanged()
+            playbackView.updateSeekPosition()
             
         case .playbackRateChangedNotification:
             
+            // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
             if let playbackRateChangedMsg = notification as? PlaybackRateChangedNotification {
-                playbackRateChanged(playbackRateChangedMsg)
+                playbackView.playbackRateChanged(playbackRateChangedMsg.newPlaybackRate, player.state)
             }
             
         case .playbackLoopChangedNotification:
