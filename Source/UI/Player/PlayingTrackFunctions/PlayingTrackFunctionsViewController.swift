@@ -205,14 +205,14 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: Track?, _ errorState: Bool = false) {
         
-        if let track = newTrack {
+        if let theNewTrack = newTrack {
             
-            newTrackStarted(track)
+            newTrackStarted(theNewTrack)
             
             if !errorState && detailedInfoPopover.isShown {
                 
-                track.loadDetailedInfo()
-                detailedInfoPopover.refresh(track)
+                theNewTrack.loadDetailedInfo()
+                detailedInfoPopover.refresh(theNewTrack)
             }
             
         } else {
