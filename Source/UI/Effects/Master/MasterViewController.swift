@@ -92,10 +92,9 @@ class MasterViewController: FXUnitViewController {
     // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
-        let timeUnitActive = timeUnit.toggleState() == .active
-        let newRate = timeUnitActive ? timeUnit.rate : 1
+        _ = timeUnit.toggleState()
         
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
+        SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.effectiveRate))
         updateButtons()
         broadcastStateChangeNotification()
     }

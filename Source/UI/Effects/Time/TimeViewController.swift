@@ -63,7 +63,7 @@ class TimeViewController: FXUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.isActive ? timeUnit.rate : 1))
+        SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.effectiveRate))
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit

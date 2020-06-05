@@ -10,6 +10,10 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
         set(newValue) {unit.rate = newValue}
     }
     
+    var effectiveRate: Float {
+        return isActive ? rate : 1.0
+    }
+    
     var formattedRate: String {return ValueFormatter.formatTimeStretchRate(rate)}
     
     var overlap: Float {

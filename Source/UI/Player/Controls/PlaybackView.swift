@@ -19,9 +19,6 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.playbackSequencerInfoDelegate
     
-    // Delegate that conveys all volume/pan adjustments to the audio graph
-    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
@@ -82,13 +79,11 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     func playbackLoopChanged(_ playbackLoop: PlaybackLoop?, _ trackDuration: Double) {
 
+        // Update loop button image
         if let loop = playbackLoop {
-
-            // Update loop button image
             btnLoop.switchState(loop.isComplete ? LoopState.complete: LoopState.started)
 
         } else {
-
             btnLoop.switchState(LoopState.none)
         }
         
