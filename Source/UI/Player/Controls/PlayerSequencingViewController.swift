@@ -9,7 +9,7 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     
     // Delegate that conveys all repeat/shuffle requests to the sequencer
-    private let sequencer: PlaybackSequencerDelegateProtocol = ObjectGraph.playbackSequencerDelegate
+    private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
     
     private let appState: PlayerUIState = ObjectGraph.appState.ui.player
     
@@ -27,7 +27,7 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         
         updateRepeatAndShuffleControls(sequencer.repeatAndShuffleModes)
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        redrawButtons()
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
@@ -43,46 +43,13 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
     }
     
-    // Sets the repeat mode to "Off"
-    private func repeatOff() {
-        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.off))
-    }
-    
-    // Sets the repeat mode to "Repeat One"
-    private func repeatOne() {
-        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.one))
-    }
-    
-    // Sets the repeat mode to "Repeat All"
-    private func repeatAll() {
-        updateRepeatAndShuffleControls(sequencer.setRepeatMode(.all))
-    }
-    
-    // Sets the shuffle mode to "Off"
-    private func shuffleOff() {
-        updateRepeatAndShuffleControls(sequencer.setShuffleMode(.off))
-    }
-    
-    // Sets the shuffle mode to "On"
-    private func shuffleOn() {
-        updateRepeatAndShuffleControls(sequencer.setShuffleMode(.on))
-    }
-    
     private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
 
         btnShuffle.switchState(modes.shuffleMode)
         btnRepeat.switchState(modes.repeatMode)
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        [btnRepeat, btnShuffle].forEach({$0.reTint()})
-    }
-    
-    private func changeFunctionButtonColor() {
-        [btnRepeat, btnShuffle].forEach({$0.reTint()})
-    }
-    
-    private func changeToggleButtonOffStateColor() {
+    private func redrawButtons() {
         [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
     
@@ -92,29 +59,29 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         
         switch message.actionType {
       
-        case .repeatOff: repeatOff()
+        case .repeatOff:
             
-        case .repeatOne: repeatOne()
+            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.off))
             
-        case .repeatAll: repeatAll()
+        case .repeatOne:
             
-        case .shuffleOff: shuffleOff()
+            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.one))
             
-        case .shuffleOn: shuffleOn()
+        case .repeatAll:
             
-        case .applyColorScheme:
+            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.all))
             
-            if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
-                applyColorScheme(colorSchemeActionMsg.scheme)
-            }
-                
-        case .changeFunctionButtonColor:
-               
-            changeFunctionButtonColor()
+        case .shuffleOff:
             
-        case .changeToggleButtonOffStateColor:
+            updateRepeatAndShuffleControls(sequencer.setShuffleMode(.off))
             
-            changeToggleButtonOffStateColor()
+        case .shuffleOn:
+            
+            updateRepeatAndShuffleControls(sequencer.setShuffleMode(.on))
+            
+        case .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor:
+            
+            redrawButtons()
         
         default: return
             

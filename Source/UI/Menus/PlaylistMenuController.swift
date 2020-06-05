@@ -53,7 +53,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
+    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 

@@ -29,6 +29,8 @@ class WindowFactory {
     
     private static var colorSchemesWindowController: ColorSchemesWindowController = ColorSchemesWindowController()
     
+    static var alertWindowController: AlertWindowController = AlertWindowController()
+    
     // MARK: Accessor functions for the different windows/dialogs
     
     static var mainWindow: NSWindow {

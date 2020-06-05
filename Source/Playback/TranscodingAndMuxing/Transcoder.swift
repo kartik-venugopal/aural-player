@@ -10,11 +10,11 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private let preferences: TranscodingPreferences
     
     private let playlist: PlaylistAccessorProtocol
-    private let sequencer: PlaybackSequencerInfoDelegateProtocol
+    private let sequencer: SequencerInfoDelegateProtocol
     
     var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
-    init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: PlaybackSequencerInfoDelegateProtocol) {
+    init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerInfoDelegateProtocol) {
         
         self.store = TranscoderStore(state, preferences)
         self.daemon = TranscoderDaemon(preferences)

@@ -10,17 +10,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
+    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     override var nibName: String? {return "PlayerControls"}
     
     override func viewDidLoad() {
-
-        initSubscriptions()
-    }
-    
-    private func initSubscriptions() {
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -38,7 +32,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.togglePlayPause()
         playbackView.playbackStateChanged(player.state)
     }
-
+    
     private func performPlayback(_ request: PlaybackRequest) {
         
         switch request.type {
@@ -68,9 +62,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         let params = PlaybackParams.defaultParams().withDelay(delay)
         player.play(trackIndex, params)
     }
-
+    
     private func playTrack(_ track: Track, _ delay: Double?) {
-
+        
         let params = PlaybackParams.defaultParams().withDelay(delay)
         player.play(track, params)
     }
@@ -144,20 +138,20 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-            playbackView.gapStarted()
-        }
+        playbackView.gapStarted()
+    }
+    
+    private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
         
-        private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
-            
-            // This needs to be done async. Otherwise, other open dialogs could hang.
-    //        DispatchQueue.main.async {
-    //
-    //            // Position and display an alert with error info
-    //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
-    //        }
-            
-            alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
-        }
+        // This needs to be done async. Otherwise, other open dialogs could hang.
+        //        DispatchQueue.main.async {
+        //
+        //            // Position and display an alert with error info
+        //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
+        //        }
+        
+        alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
+    }
     
     // MARK: Chapter playback functions ------------------------------------------------------------
     
@@ -236,7 +230,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
             
             let playingChapter: IndexedChapter? = self.player.playingChapter
-    
+            
             // Compare the current chapter with the last known value of current chapter
             if self.curChapter != playingChapter {
                 
@@ -318,7 +312,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func toggleLoop() {
         
         if player.state.isPlayingOrPaused {
-                
+            
             _ = player.toggleLoop()
             playbackLoopChanged()
             SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
@@ -334,7 +328,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     // MARK: Message handling ---------------------------------------------------------------------
-
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -422,7 +416,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch message.actionType {
             
-        // Player functions
+        // MARK: Player functions
             
         case .playOrPause: playPauseAction(self)
             

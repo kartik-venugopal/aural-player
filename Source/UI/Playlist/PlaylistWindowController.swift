@@ -51,7 +51,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Sort dialog
     private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.playlistSortDialog
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
+    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     // For gesture handling
     private var eventMonitor: Any?

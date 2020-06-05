@@ -4,7 +4,7 @@ import Foundation
     Contract for a middleman/delegate that retrieves information about playback sequence state
  */
 
-protocol PlaybackSequencerInfoDelegateProtocol {
+protocol SequencerInfoDelegateProtocol {
     
     // Returns the currently playing track, with its index
     var currentTrack: Track? {get}
@@ -42,7 +42,7 @@ protocol PlaybackSequencerInfoDelegateProtocol {
     var repeatAndShuffleModes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {get}
 }
 
-protocol PlaybackSequencerDelegateProtocol: PlaybackSequencerInfoDelegateProtocol {
+protocol SequencerDelegateProtocol: SequencerInfoDelegateProtocol {
     
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)

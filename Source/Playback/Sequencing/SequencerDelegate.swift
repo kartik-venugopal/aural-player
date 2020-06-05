@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaybackSequencerInfoDelegateProtocol
  */
-class PlaybackSequencerDelegate: PlaybackSequencerDelegateProtocol {
+class SequencerDelegate: SequencerDelegateProtocol {
     
     private let sequencer: SequencerProtocol
     

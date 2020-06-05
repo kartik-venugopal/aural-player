@@ -64,7 +64,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Delegate that provides access to History information
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
-    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
+    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
     private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog

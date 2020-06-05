@@ -12,23 +12,23 @@ class ObjectGraph {
     static var preferencesDelegate: PreferencesDelegate!
     
     private static var playlist: PlaylistCRUDProtocol!
-    static var playlistAccessor: PlaylistAccessorProtocol {return playlist}
+    static var playlistAccessor: PlaylistAccessorProtocol! {return playlist}
     
     static var playlistDelegate: PlaylistDelegateProtocol!
-    static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {return playlistDelegate}
+    static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol! {return playlistDelegate}
     
     private static var audioGraph: AudioGraphProtocol!
     static var audioGraphDelegate: AudioGraphDelegateProtocol!
     
     private static var player: PlayerProtocol!
     private static var playbackScheduler: PlaybackSchedulerProtocol!
-    private static var playbackSequencer: SequencerProtocol!
+    private static var sequencer: SequencerProtocol!
     
-    static var playbackSequencerDelegate: PlaybackSequencerDelegateProtocol!
-    static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegateProtocol {return playbackSequencerDelegate}
+    static var sequencerDelegate: SequencerDelegateProtocol!
+    static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {return sequencerDelegate}
     
     static var playbackDelegate: PlaybackDelegateProtocol!
-    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol {return playbackDelegate}
+    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol! {return playbackDelegate}
     
     private static var recorder: Recorder!
     static var recorderDelegate: RecorderDelegateProtocol!
@@ -102,14 +102,14 @@ class ObjectGraph {
         // Playback Sequencer and delegate
         let repeatMode = appState.playbackSequence.repeatMode
         let shuffleMode = appState.playbackSequence.shuffleMode
-        playbackSequencer = Sequencer(playlist, repeatMode, shuffleMode)
+        sequencer = Sequencer(playlist, repeatMode, shuffleMode)
         
-        playbackSequencerDelegate = PlaybackSequencerDelegate(playbackSequencer)
+        sequencerDelegate = SequencerDelegate(sequencer)
         
         // History (and delegate)
         history = History(preferences.historyPreferences)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, playbackSequencerDelegate)
+        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, sequencerDelegate)
         
         let profiles = PlaybackProfiles()
         
@@ -117,20 +117,20 @@ class ObjectGraph {
             profiles.add(profile.file, profile)
         }
         
-        let startPlaybackChain = StartPlaybackChain(player, playbackSequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
-        let stopPlaybackChain = StopPlaybackChain(player, playbackSequencer, transcoder, profiles, preferences.playbackPreferences)
-        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, playbackSequencer, playlist, preferences.playbackPreferences)
+        let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
+        let stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences.playbackPreferences)
+        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences.playbackPreferences)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(profiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        playbackDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)
         
-        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackSequencer as! Sequencer, playbackDelegate as! PlaybackDelegate]
-        let mutator = PlaylistMutatorDelegate(playlist, playbackSequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
+        let changeListeners: [PlaylistChangeListenerProtocol] = [sequencer as! Sequencer, playbackDelegate as! PlaybackDelegate]
+        let mutator = PlaylistMutatorDelegate(playlist, sequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
         
@@ -200,7 +200,7 @@ class ObjectGraph {
         
         appState.audioGraph = (audioGraph as! AudioGraph).persistentState as! AudioGraphState
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
-        appState.playbackSequence = (playbackSequencer as! Sequencer).persistentState as! PlaybackSequenceState
+        appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
         
         appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
