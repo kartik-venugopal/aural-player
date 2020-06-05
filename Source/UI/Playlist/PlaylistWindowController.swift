@@ -464,7 +464,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
-    private func trackChanged(_ newTrack: Track?) {
+    private func trackChanged() {
         
         if playbackInfo.chapterCount > 0 {
             
@@ -529,7 +529,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .trackChangedNotification:
             
-            trackChanged((message as! TrackChangedNotification).newTrack)
+            trackChanged()
         
         case .playlistTypeChangedNotification:
         
