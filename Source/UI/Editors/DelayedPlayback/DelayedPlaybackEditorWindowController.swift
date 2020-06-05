@@ -53,7 +53,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         // Max = 24 hours from now
         // TODO: Put this constant value in a constants file
         timePicker.minDate = now
-        timePicker.maxDate = DateUtils.addToDate(now, 86400)
+        timePicker.maxDate = now + 86400
         timePickerAction(self)
     }
     

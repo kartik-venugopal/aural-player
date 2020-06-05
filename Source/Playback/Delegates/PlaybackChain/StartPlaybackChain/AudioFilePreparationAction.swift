@@ -30,7 +30,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         if context.requestParams.allowDelay, let delay = context.delay {
             
             let gapEndTime_dt = DispatchTime.now() + delay
-            let gapEndTime: Date = DateUtils.addToDate(Date(), delay)
+            let gapEndTime: Date = Date() + delay
             
             // Continue playback after delay
             DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt, qos: .userInteractive) {
