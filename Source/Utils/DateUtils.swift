@@ -38,10 +38,6 @@ class DateUtils {
         return .pastHour
     }
     
-    static func addToDate(_ date: Date, _ seconds: Double) -> Date {
-        return Calendar.current.date(byAdding: .second, value: Int(seconds), to: date)!
-    }
-    
     static func timeUntil(_ date: Date) -> Double {
         return ceil(date.timeIntervalSince(Date()))
     }
