@@ -299,6 +299,7 @@
 		3E1E970D1FA42AE5006C8629 /* GroupAccessorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */; };
 		3E1E970F1FA44671006C8629 /* SequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E970E1FA44671006C8629 /* SequencerProtocol.swift */; };
 		3E20B7872489754B0028945C /* StopPlaybackChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E20B7862489754B0028945C /* StopPlaybackChainTests.swift */; };
+		3E20B789248983D30028945C /* TrackPlaybackCompletedChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E20B788248983D30028945C /* TrackPlaybackCompletedChainTests.swift */; };
 		3E2188A61F0767290085BAB3 /* DetailedTrackInfoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A51F0767290085BAB3 /* DetailedTrackInfoRowView.swift */; };
 		3E2188A81F0771390085BAB3 /* DetailedTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A71F0771390085BAB3 /* DetailedTrackInfoViewController.swift */; };
 		3E2188AC1F0781970085BAB3 /* DetailedTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2188AB1F0781970085BAB3 /* DetailedTrackInfo.xib */; };
@@ -938,6 +939,7 @@
 		3E1E970C1FA42AE5006C8629 /* GroupAccessorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAccessorProtocol.swift; sourceTree = "<group>"; };
 		3E1E970E1FA44671006C8629 /* SequencerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencerProtocol.swift; sourceTree = "<group>"; };
 		3E20B7862489754B0028945C /* StopPlaybackChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopPlaybackChainTests.swift; sourceTree = "<group>"; };
+		3E20B788248983D30028945C /* TrackPlaybackCompletedChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPlaybackCompletedChainTests.swift; sourceTree = "<group>"; };
 		3E2188A51F0767290085BAB3 /* DetailedTrackInfoRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedTrackInfoRowView.swift; sourceTree = "<group>"; };
 		3E2188A71F0771390085BAB3 /* DetailedTrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedTrackInfoViewController.swift; sourceTree = "<group>"; };
 		3E2188AB1F0781970085BAB3 /* DetailedTrackInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedTrackInfo.xib; sourceTree = "<group>"; };
@@ -2893,6 +2895,7 @@
 				3E30F5902489101200EF7F8C /* SavePlaybackProfileActionTests.swift */,
 				3E30F59224891D7D00EF7F8C /* AudioFilePreparationActionTests.swift */,
 				3E20B7862489754B0028945C /* StopPlaybackChainTests.swift */,
+				3E20B788248983D30028945C /* TrackPlaybackCompletedChainTests.swift */,
 			);
 			path = PlaybackChain;
 			sourceTree = "<group>";
@@ -3723,6 +3726,7 @@
 				3E12ACD02469CC0C00A07611 /* MasterUnitDelegate.swift in Sources */,
 				3E12ACEE2469CC1700A07611 /* SoundProfile.swift in Sources */,
 				3E12AE232469CFDE00A07611 /* MediaKeyTapInternals.swift in Sources */,
+				3E20B789248983D30028945C /* TrackPlaybackCompletedChainTests.swift in Sources */,
 				3E4B5464247BCB64009CE7EA /* SequencerPlaylistReorderingTests.swift in Sources */,
 				3E6268C8246BABD3002FAC63 /* AuralPlayerNode.swift in Sources */,
 				3E12ADDB2469CF5300A07611 /* ParserProtocols.swift in Sources */,
