@@ -36,7 +36,7 @@ class RepeatingTaskExecutor {
         let interval = DispatchTimeInterval.milliseconds(intervalMillis)
         let leeway = DispatchTimeInterval.milliseconds(intervalMillis / 10)
         
-        timer.schedule(deadline: DispatchTime.now(), repeating: interval, leeway: leeway)
+        timer.schedule(deadline: .now(), repeating: interval, leeway: leeway)
         
         timer.setEventHandler { [weak self] in
             self?.task()
