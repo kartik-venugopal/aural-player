@@ -17,7 +17,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
@@ -137,8 +137,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
     }
     
-    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        playbackView.gapStarted()
+    private func gapOrTranscodingStarted() {
+        playbackView.gapOrTranscodingStarted()
     }
     
     private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
@@ -353,11 +353,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 trackNotTranscoded(trackNotTranscodedMsg)
             }
             
-        case .gapStarted:
+        case .gapStarted, .transcodingStarted:
             
-            if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
-                gapStarted(gapStartedMsg)
-            }
+            gapOrTranscodingStarted()
             
         default: return
             
