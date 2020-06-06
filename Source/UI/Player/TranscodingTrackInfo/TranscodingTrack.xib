@@ -9,14 +9,13 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TranscoderViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="gzu-7W-JI7" id="kBf-w5-XNv"/>
-                <outlet property="btnCancel" destination="gsS-6B-tpQ" id="1hr-c9-NMt"/>
                 <outlet property="containerBox" destination="Deu-eh-NiI" id="y9Z-GF-BFT"/>
+                <outlet property="controlsBox" destination="ppO-zg-MXQ" id="eNa-Zh-hTL"/>
                 <outlet property="lblSpeed" destination="YWf-ra-qom" id="7Xh-Sr-rQW"/>
                 <outlet property="lblTimeElapsed" destination="Yse-zK-IqZ" id="6MJ-Zy-DNL"/>
                 <outlet property="lblTimeRemaining" destination="SfP-LF-wPf" id="Erl-bE-tVV"/>
                 <outlet property="lblTrack" destination="CgZ-Rb-gZp" id="mb8-EI-jSy"/>
                 <outlet property="lblTrackTime" destination="Al9-a3-nBv" id="eOW-aa-d4e"/>
-                <outlet property="lblTranscoding" destination="PzF-zV-VV4" id="353-Ev-fgg"/>
                 <outlet property="overlayBox" destination="rVi-ka-yBl" id="1iJ-kI-kQS"/>
                 <outlet property="progressView" destination="UrA-XG-QBD" id="tXN-xL-WdY"/>
                 <outlet property="transcodingIcon" destination="3i9-0V-YNs" id="aHb-8q-0Nz"/>
@@ -57,7 +56,7 @@
                     <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.0" alpha="0.80111135560000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3i9-0V-YNs" userLabel="Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                <imageView toolTip="Track is being transcoded" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3i9-0V-YNs" userLabel="Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="13" y="148" width="35" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="SGu-sM-cwW"/>
@@ -71,15 +70,6 @@
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="stj-cR-28r">
                         <font key="font" size="17" name="Play-Regular"/>
                         <color key="textColor" white="0.44987896129999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzF-zV-VV4" userLabel="Caption 2" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="185" y="18" width="180" height="30"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="Ybs-fZ-maM">
-                        <font key="font" size="15" name="Play-Regular"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -133,20 +123,16 @@
                     <rect key="frame" x="230" y="66" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gsS-6B-tpQ" userLabel="Cancel button">
-                    <rect key="frame" x="425" y="31" width="63" height="19"/>
+                <box boxType="custom" borderType="none" borderWidth="0.0" transparent="YES" id="ppO-zg-MXQ" userLabel="Controls Box">
+                    <rect key="frame" x="0.0" y="15" width="530" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N5T-bF-wPp" customClass="PlayerTextButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                    </buttonCell>
-                    <connections>
-                        <action selector="cancelAction:" target="-2" id="JO2-dp-8tD"/>
-                    </connections>
-                </button>
+                    <view key="contentView" id="sn6-Rf-KbF">
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
             </subviews>
             <point key="canvasLocation" x="-2859" y="736"/>
         </view>

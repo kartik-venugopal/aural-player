@@ -7,16 +7,16 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     @IBOutlet weak var lblTrack: NSTextField!
     @IBOutlet weak var transcodingIcon: TintedImageView!
-    @IBOutlet weak var btnCancel: NSButton!
     
     @IBOutlet weak var lblTrackTime: NSTextField!
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var lblSpeed: NSTextField!
     
-    @IBOutlet weak var lblTranscoding: NSTextField!
-    
     @IBOutlet weak var progressView: ProgressArc!
+    
+    @IBOutlet weak var controlsBox: NSBox!
+    private let controlsView: NSView = ViewFactory.controlsView
     
     @IBOutlet weak var containerBox: NSBox!
     
@@ -34,11 +34,17 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         initSubscriptions()
     }
     
+    override func viewDidAppear() {
+        
+        controlsView.removeFromSuperview()
+        controlsBox.addSubview(controlsView)
+    }
+    
     private func initSubscriptions() {
         
         SyncMessenger.subscribe(messageTypes: [.playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
         AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
@@ -77,10 +83,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         lblTrack.stringValue = track.conciseDisplayName
         artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
     }
-    
-    @IBAction func cancelAction(_ sender: Any) {
-        player.stop()
-    }
 
     // MARK: Appearance
     
@@ -88,19 +90,15 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         
         lblTrack.font = Fonts.Player.infoBoxTitleFont
         [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({$0?.font = Fonts.Player.trackTimesFont})
-        lblTranscoding.font = Fonts.Player.infoBoxArtistAlbumFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
-        changeTextButtonColor()
         
         changePrimaryTextColor()
         changeSecondaryTextColor()
-        
-        changeSliderColors()
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -116,29 +114,20 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         transcodingIcon.reTint()
     }
     
-    private func changeTextButtonColor() {
-        btnCancel.redraw()
-    }
-    
-    private func changeButtonTextColor() {
-        btnCancel.redraw()
-    }
-    
     private func changePrimaryTextColor() {
-        
         lblTrack.textColor = Colors.Player.trackInfoTitleTextColor
-        lblTranscoding.textColor = Colors.Player.trackInfoTitleTextColor
     }
     
     private func changeSecondaryTextColor() {
-        [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({$0?.textColor = Colors.Player.trackInfoArtistAlbumTextColor})
-    }
-    
-    private func changeSliderColors() {
+        
+        [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({
+            $0?.textColor = Colors.Player.trackInfoArtistAlbumTextColor
+        })
+        
         progressView.redraw()
     }
     
-    private func changeSliderValueTextColor() {
+    private func changeSliderColors() {
         progressView.redraw()
     }
     
@@ -175,6 +164,10 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
             case .changePlayerTrackInfoSecondaryTextColor:
                 
                 changeSecondaryTextColor()
+                
+            case .changePlayerSliderColors:
+                
+                changeSliderColors()
                 
             default:
                 
