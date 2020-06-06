@@ -13,7 +13,7 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         super.init()
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
-        .withAction(CancelTranscodingAction(transcoder))
+//        .withAction(CancelTranscodingAction(transcoder))
         .withAction(HaltPlaybackAction(player))
         .withAction(ValidateNewTrackAction())
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
