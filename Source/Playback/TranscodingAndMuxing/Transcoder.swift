@@ -23,7 +23,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         self.playlist = playlist
         self.sequencer = sequencer
         
-        AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+        AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
     func transcodeImmediately(_ track: Track) {
@@ -36,6 +36,10 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
         doTranscode(track, false)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.beginEagerTranscoding()
+        }
     }
     
     func transcodeInBackground(_ track: Track) {
@@ -162,14 +166,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
     }
     
-    func checkDiskSpaceUsage() {
-//        store.checkDiskSpaceUsage()
-    }
-    
-    func setMaxBackgroundTasks(_ numTasks: Int) {
-        daemon.setMaxBackgroundTasks(numTasks)
-    }
-    
     var persistentState: PersistentState {
         
         let state = TranscoderState()
@@ -180,24 +176,32 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     // MARK: Message handling
     
-    private func trackChanged() {
-        
-        // TODO: Check preference "eagerTranscodingEnabled" first
-        
-        // Use a Set to avoid duplicates
-        var tracksToTranscode: Set<Track> = Set<Track>()
+    private func beginEagerTranscoding() {
         
         let playingTrack = sequencer.currentTrack
         
-        if let next = sequencer.peekNext() {tracksToTranscode.insert(next)}
-        if let prev = sequencer.peekPrevious() {tracksToTranscode.insert(prev)}
-        if let subsequent = sequencer.peekSubsequent() {tracksToTranscode.insert(subsequent)}
+        let subsequentTracks: Set<Track> = Set([sequencer.peekNext(), sequencer.peekPrevious(), sequencer.peekSubsequent()]
+            .compactMap {$0})
+
+        // Use a Set to avoid duplicates
+        let tracksToTranscode: Set<Track> = Set(subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)}))
+        
+        let ttt = tracksToTranscode.map {$0.conciseDisplayName}
+        print("\nCur:", playingTrack?.conciseDisplayName)
+        print("\n\tTTT:", ttt)
+        
+        let transcodingTasks = daemon.tasks.keys
+        let tasksToCancel = transcodingTasks.filter({!subsequentTracks.contains($0) && $0 != playingTrack})
+        let ttc = tasksToCancel.map {$0.conciseDisplayName}
+        print("\n\tToCancel:", ttc, "\n")
+        
+        for track in tasksToCancel {
+            doCancel(track, false)
+        }
         
         for track in tracksToTranscode {
-            
-            if track != playingTrack && trackNeedsTranscoding(track) {
-                doTranscodeInBackground(track, false)
-            }
+            doTranscodeInBackground(track, false)
+            print("\tTranscoding in BG:", track.conciseDisplayName)
         }
     }
     
@@ -210,22 +214,15 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
     
-    private func doneAddingTracks() {
-        trackChanged()
-    }
-    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
             
-        case .trackChanged:
-            trackChanged()
+        case .trackChanged, .doneAddingTracks, .gapStarted:
+            beginEagerTranscoding()
             
         case .tracksRemoved:
             tracksRemoved(message as! TracksRemovedAsyncMessage)
-            
-        case .doneAddingTracks:
-            doneAddingTracks()
             
         default: return
             
@@ -261,6 +258,14 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     //            }
     //        }
     //    }
+    
+    func checkDiskSpaceUsage() {
+        //        store.checkDiskSpaceUsage()
+    }
+    
+    func setMaxBackgroundTasks(_ numTasks: Int) {
+        daemon.setMaxBackgroundTasks(numTasks)
+    }
 }
 
 protocol TranscoderProtocol {
