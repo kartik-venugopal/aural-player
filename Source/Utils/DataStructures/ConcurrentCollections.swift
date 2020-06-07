@@ -9,9 +9,48 @@ class ConcurrentMap<T: Hashable, U: Any> {
         syncQueue = DispatchQueue(label: id, attributes: .concurrent)
     }
     
-    func kvPairs() -> [T: U] {
+    var kvPairs: [T: U] {
+        
         let copy = map
         return copy
+    }
+    
+    var keys: [T] {
+        return Array(map.keys)
+    }
+    
+    var values: [U] {
+        return Array(map.values)
+    }
+    
+    subscript(_ key: T) -> U? {
+        
+        get {
+            
+            var value: U? = nil
+            
+            syncQueue.sync(flags: .barrier) {
+                value = map[key]
+            }
+            
+            return value
+        }
+        
+        set (newValue) {
+            
+            if let theValue = newValue {
+                
+                // newValue is non-nil
+                syncQueue.sync(flags: .barrier) {
+                    map[key] = theValue
+                }
+                
+            } else {
+                
+                // newValue is nil, implying that any existing value should be removed for this key.
+                _ = remove(key)
+            }
+        }
     }
     
     func hasForKey(_ key: T) -> Bool {
@@ -19,40 +58,27 @@ class ConcurrentMap<T: Hashable, U: Any> {
         var hasValue: Bool = false
         
         syncQueue.sync(flags: .barrier) {
-            
-            if map[key] != nil {
-                hasValue = true
-            }
+            hasValue = map[key] != nil
         }
         
         return hasValue
     }
     
-    func getForKey(_ key: T) -> U? {
+    func remove(_ key: T) -> U? {
         
-        var value: U? = nil
+        var removedValue: U? = nil
         
         syncQueue.sync(flags: .barrier) {
-            
-            if let v = map[key] {
-                value = v
-            }
+            removedValue = map.removeValue(forKey: key)
         }
         
-        return value
+        return removedValue
     }
     
-    func put(_ key: T, _ value: U) {
+    func removeAll() {
         
-        _ = syncQueue.sync(flags: .barrier) {
-            map[key] = value
-        }
-    }
-    
-    func remove(_ key: T) {
-        
-        _ = syncQueue.sync(flags: .barrier) {
-            map.removeValue(forKey: key)
+        syncQueue.sync(flags: .barrier) {
+            map.removeAll()
         }
     }
 }
@@ -71,10 +97,7 @@ class ConcurrentSet<T: Hashable> {
         var hasValue: Bool = false
         
         syncQueue.sync(flags: .barrier) {
-            
-            if set.contains(value) {
-                hasValue = true
-            }
+            hasValue = set.contains(value)
         }
         
         return hasValue

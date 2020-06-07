@@ -5,8 +5,11 @@ class TranscoderDaemon: MessageSubscriber {
     let immediateExecutionQueue: OperationQueue = OperationQueue()
     let backgroundExecutionQueue: OperationQueue = OperationQueue()
     
-    // TODO: This should be a ConcurrentMap
-    var tasks: [Track: TranscodingTask] = [:]
+    var tasks: ConcurrentMap<Track, TranscodingTask> = ConcurrentMap("transcoderDaemon-tasks")
+    
+    var transcodingTracks: [Track] {
+        return tasks.keys
+    }
     
     private let preferences: TranscodingPreferences
     
@@ -15,18 +18,18 @@ class TranscoderDaemon: MessageSubscriber {
         self.preferences = preferences
         
         immediateExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        immediateExecutionQueue.maxConcurrentOperationCount = 1
+        immediateExecutionQueue.maxConcurrentOperationCount = 2
         immediateExecutionQueue.qualityOfService = .userInteractive
         
         backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
         backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks
-        backgroundExecutionQueue.qualityOfService = .background
+        backgroundExecutionQueue.qualityOfService = .utility
         
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
     }
     
     func hasTaskForTrack(_ track: Track) -> Bool {
-        return tasks[track] != nil
+        return tasks.hasForKey(track)
     }
     
     func submitImmediateTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
@@ -34,11 +37,13 @@ class TranscoderDaemon: MessageSubscriber {
         // Track is already being transcoded
         if let task = tasks[track] {
             
-            // Running in foreground, nothing further to do
-            if task.priority == .immediate {return}
+            // If running in foreground, nothing further to do
+            if task.priority != .immediate {
+                
+                // Task is running in the background, bring it to the foreground.
+                doMoveTaskToForeground(task)
+            }
             
-            // Task is running in background, bring it to the foreground.
-            doMoveTaskToForeground(task)
             return
         }
         
@@ -47,50 +52,57 @@ class TranscoderDaemon: MessageSubscriber {
     
     func submitBackgroundTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
         
-        // Track is already being transcoded. Just return.
-        if tasks[track] != nil {return}
-        
-        doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .background)
+        // If track is already being transcoded, just return.
+        if !tasks.hasForKey(track) {
+            doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .background)
+        }
     }
     
     private func doSubmitTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void), _ priority: TranscoderPriority) {
         
         let block = {
             
-            NSLog("\nStarted transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent, self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
+            NSLog("\nStarted transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent,
+                  self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
             
             let result = CommandExecutor.execute(command)
             
             if command.cancelled {
                 
                 cancellationHandler()
-                NSLog("\nCancelled transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+                NSLog("\nCancelled transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent, self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
+                
                 return
             }
             
             if result.exitCode == 0 && !command.errorDetected {
+                
                 // Success
                 successHandler(command)
+                
                 NSLog("\nFinished transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent, self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
                 
             } else {
+                
                 failureHandler(command)
                 NSLog("\nFailed to transcode: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
             }
         }
         
         let operation = BlockOperation(block: block)
-        operation.completionBlock = {
-            
-            // Task completed, remove it from the map
-            self.tasks.removeValue(forKey: track)
-        }
-        
-        priority == .immediate ? immediateExecutionQueue.addOperation(operation) : backgroundExecutionQueue.addOperation(operation)
-        print("\nAdded task to", priority == .immediate ? "FG:" : "BG:", track.conciseDisplayName)
         
         let task = TranscodingTask(track, priority, command, operation, block)
         tasks[track] = task
+        
+        operation.completionBlock = {
+            
+            // Task completed, remove it from the map
+            if let taskForTrack = self.tasks[track], taskForTrack == task {
+                _ = self.tasks.remove(track)
+            }
+        }
+        
+        priority == .immediate ? immediateExecutionQueue.addOperation(operation) : backgroundExecutionQueue.addOperation(operation)
     }
     
     func cancelTask(_ track: Track) {
@@ -99,7 +111,8 @@ class TranscoderDaemon: MessageSubscriber {
             
             CommandExecutor.cancel(task.command)
             task.operation.cancel()
-            tasks.removeValue(forKey: track)
+            
+            _ = tasks.remove(track)
         }
     }
     
@@ -135,10 +148,13 @@ class TranscoderDaemon: MessageSubscriber {
             // Duplicate the operation and add it to the immediate execution queue.
             let opClone = BlockOperation(block: task.block)
             opClone.completionBlock = {
-                self.tasks.removeValue(forKey: task.track)
+                
+                // Task completed, remove it from the map
+                if let taskForTrack = self.tasks[task.track], taskForTrack == task {
+                    _ = self.tasks.remove(task.track)
+                }
             }
             
-            print("\nMoved task to FG:", task.track.conciseDisplayName)
             immediateExecutionQueue.addOperation(opClone)
         }
         
@@ -152,7 +168,7 @@ class TranscoderDaemon: MessageSubscriber {
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
-        for (_, task) in tasks {
+        for task in tasks.values {
             CommandExecutor.cancel(task.command)
         }
         
@@ -165,17 +181,12 @@ class TranscoderDaemon: MessageSubscriber {
     // MARK: Message handling
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is AppExitRequest) {
-            return onExit()
-        }
-        
-        return EmptyResponse.instance
+        return request is AppExitRequest ? onExit() : EmptyResponse.instance
     }
 }
 
-class TranscodingTask {
-
+class TranscodingTask: Equatable {
+    
     var track: Track
 
     var priority: TranscoderPriority
@@ -186,6 +197,9 @@ class TranscodingTask {
     var operation: BlockOperation
     var block: (() -> Void)
     
+    // Unique ID (i.e. UUID) string ... used to differentiate two instances
+    let id: String
+    
     init(_ track: Track, _ priority: TranscoderPriority, _ command: MonitoredCommand, _ operation: BlockOperation, _ block: @escaping (() -> Void)) {
         
         self.track = track
@@ -193,6 +207,12 @@ class TranscodingTask {
         self.command = command
         self.operation = operation
         self.block = block
+        
+        self.id = UUID().uuidString
+    }
+    
+    static func == (lhs: TranscodingTask, rhs: TranscodingTask) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 

@@ -6,13 +6,14 @@ class AlbumArtCache {
     private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>("threadSafeAccess-filesWithNoArt")
     
     static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?) {
-        return (filesWithNoArt.contains(file), cache.getForKey(file))
+        return (filesWithNoArt.contains(file), cache[file])
     }
     
     static func addEntry(_ file: URL, _ art: CoverArt?) {
         
-        if let art = art {
-            cache.put(file, art)
+        if let theArt = art {
+            cache[file] = theArt
+            
         } else {
             filesWithNoArt.insert(file)
         }
