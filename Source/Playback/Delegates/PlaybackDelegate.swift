@@ -130,13 +130,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func stop() {
         
-        let trackBeforeChange = currentTrack
         let stateBeforeChange = state
-        let seekPositionBeforeChange = seekPosition.timeElapsed
         
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
-        
-        stopPlaybackChain.execute(requestContext)
+        if stateBeforeChange != .noTrack {
+            
+            let trackBeforeChange = currentTrack
+            let seekPositionBeforeChange = seekPosition.timeElapsed
+            
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+            stopPlaybackChain.execute(requestContext)
+        }
     }
     
     func trackPlaybackCompleted(_ session: PlaybackSession) {

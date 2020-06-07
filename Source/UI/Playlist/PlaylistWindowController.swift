@@ -119,7 +119,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
@@ -199,6 +199,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             // Track duration may have changed, affecting the total playlist duration
             self.updatePlaylistSummary()
             
+            // TODO: Just compare playingTrack == message.track !!!
+            
             // If this is the playing track, tell other views that info has been updated
             if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
@@ -231,6 +233,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
             return
         }
+        
+        // TODO: Just call playlist.removeTracks([track])
         
         let indexedTrack = playlist.indexOfTrack(request.track)
         
@@ -527,9 +531,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         switch message.messageType {
             
-        case .trackChangedNotification:
+        case .trackTransitionNotification:
             
-            trackChanged()
+            if (message as? TrackTransitionNotification)?.playbackStarted ?? false {
+                trackChanged()
+            }
         
         case .playlistTypeChangedNotification:
         

@@ -56,9 +56,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .gapStarted, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .trackGroupedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
@@ -561,9 +561,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         groupsToReload.forEach({playlistView.reloadItem($0)})
     }
     
-    private func trackChanged(_ notification: TrackChangedNotification) {
+    private func trackTransitioned(_ message: TrackTransitionNotification) {
         
-        let oldTrack = notification.oldTrack
+        let oldTrack = message.beginTrack
         
         if let _oldTrack = oldTrack {
             
@@ -575,7 +575,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         let needToShowTrack: Bool = PlaylistViewState.current.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist
         
-        if let newTrack = notification.newTrack {
+        if let newTrack = message.endTrack {
             
             // There is a new track, select it if necessary
             
@@ -606,6 +606,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             playlistView.reloadItem(_oldTrack)
         }
         
+        // TODO: Remove errTrack, simply reference track
         if let track = message.error.track, let errTrack = playlist.indexOfTrack(track) {
             
             if errTrack.track != oldTrack {
@@ -615,28 +616,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             // Only need to do this if this playlist view is shown
             if PlaylistViewState.current.toGroupType() == self.groupType {
                 selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack.track))
-            }
-        }
-    }
-    
-    private func transcodingStarted(_ track: Track) {
-        
-        let lastPlayedTrack = history.lastPlayedTrack
-        let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
-        
-        if let _oldTrack = oldTrack?.track {
-            playlistView.reloadItem(_oldTrack)
-        }
-        
-        if let newTrack = playlist.indexOfTrack(track) {
-            
-            if !newTrack.equals(oldTrack) {
-                playlistView.reloadItem(track)
-            }
-            
-            // Only need to do this if this playlist view is shown
-            if PlaylistViewState.current.toGroupType() == self.groupType {
-                selectTrack(playlist.groupingInfoForTrack(self.groupType, track))
             }
         }
     }
@@ -679,30 +658,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             playlist.removeGapsForTrack(selTrack)
             SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(selTrack))
-        }
-    }
-    
-    private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
-        
-        var refreshTracks: [Track] = [message.nextTrack]
-        
-        if let oldTrack = message.lastPlayedTrack, message.nextTrack != oldTrack {
-            refreshTracks.append(oldTrack)
-        }
-        
-        var refreshIndexSet: IndexSet = IndexSet([])
-        refreshTracks.forEach({refreshIndexSet.insert(playlistView.row(forItem: $0))})
-        
-        // Don't include -1 when a row is not found
-        refreshIndexSet = IndexSet(refreshIndexSet.filter({$0 >= 0}))
-        
-        // Playing track is no longer playing. One-time gaps may have been removed, so need to update the table view
-        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
-        
-        let needToShowTrack: Bool = PlaylistViewState.current == self.playlistType && preferences.showNewTrackInPlaylist
-        if needToShowTrack {
-            selectTrack(message.nextTrack)
         }
     }
     
@@ -850,14 +805,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
             
-        case .gapStarted:
-            
-            gapStarted(message as! PlaybackGapStartedAsyncMessage)
-            
-        case .transcodingStarted:
-            
-            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
-            
         case .transcodingCancelled:
             
             transcodingCancelled((message as! TranscodingCancelledAsyncMessage).track)
@@ -871,9 +818,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         switch notification.messageType {
             
-        case .trackChangedNotification:
+        case .trackTransitionNotification:
             
-            trackChanged(notification as! TrackChangedNotification)
+            if let trackTransitionMsg = notification as? TrackTransitionNotification {
+                trackTransitioned(trackTransitionMsg)
+            }
             
         case .gapUpdatedNotification:
             

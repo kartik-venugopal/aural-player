@@ -29,7 +29,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         
         if context.requestParams.allowDelay, let delay = context.delay {
             
-            let gapEndTime_dt = DispatchTime.now() + delay
+            let gapEndTime_dt: DispatchTime = .now() + delay
             let gapEndTime: Date = Date() + delay
             
             // Continue playback after delay
@@ -39,10 +39,10 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
                 // (e.g. user performs Play or Next/Previous track or Stop)
                 if PlaybackRequestContext.isCurrent(context) {
                     
-                    // Override the current track/state in the context, because there was a delay
-                    context.currentState = .waiting
-                    
+                    // Proceed with playback
                     // Need to call prepare again to ensure that preparation is completed before playback
+                    // (It may not have completed when prepare() was called previously, before the gap completed
+                    // ... esp. if the gap was very short)
                     self.prepareTrackAndProceed(newTrack, context, chain, false, nil)
                 }
             }
@@ -65,12 +65,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         }
         
         if isWaiting, let theGapEndTime = gapEndTime {
-         
-            // Mark the current state as "waiting" between tracks
-            player.waiting()
-            
-            // Let observers know that a playback gap has begun
-            AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(theGapEndTime, context.currentTrack, track))
+            transitionToWaitingState(context, theGapEndTime)
         }
         
         // Track needs to be transcoded (i.e. audio format is not natively supported)
@@ -84,7 +79,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             // NOTE - The waiting state takes precedence over the transcoding state.
             // If a track is both waiting and transcoding, its state will be waiting.
             if !isWaiting {
-                player.transcoding()
+                transitionToTranscodingState(context)
             }
             
             return
@@ -94,5 +89,29 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         if !isWaiting {
             chain.proceed(context)
         }
+    }
+    
+    private func transitionToWaitingState(_ context: PlaybackRequestContext, _ gapEndTime: Date) {
+        
+        // Mark the current state as "waiting" before the requested track
+        player.waiting()
+        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .waiting, gapEndTime))
+        
+        // Update the context to reflect this transition
+        context.currentTrack = context.requestedTrack
+        context.currentState = .waiting
+        context.currentSeekPosition = 0
+    }
+    
+    private func transitionToTranscodingState(_ context: PlaybackRequestContext) {
+        
+        // Mark the current state as "transcoding" the requested track
+        player.transcoding()
+        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .transcoding))
+        
+        // Update the context to reflect this transition
+        context.currentTrack = context.requestedTrack
+        context.currentState = .transcoding
+        context.currentSeekPosition = 0
     }
 }

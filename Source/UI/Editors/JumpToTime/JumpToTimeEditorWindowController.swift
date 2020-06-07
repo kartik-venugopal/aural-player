@@ -55,7 +55,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         
         percentageFormatter.maxValue = 100
         
-        AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         WindowManager.registerModalComponent(self)
     }
     
@@ -66,51 +66,50 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     func showDialog() -> ModalDialogResponse {
         
         // Force loading of the window if it hasn't been loaded yet (only once)
-        if (!self.isWindowLoaded) {
+        if !self.isWindowLoaded {
             _ = self.window!
         }
         
-        resetFields()
-        
+        guard let playingTrack = playbackInfo.playingTrack else {
+            
+            // Should never happen
+            cancelAction(self)
+            return modalDialogResponse
+        }
+            
+        resetFields(playingTrack)
         UIUtils.showDialog(self.window!)
+        modalDialogResponse = .ok
         
-        return .ok
+        return modalDialogResponse
     }
     
-    func resetFields() {
+    func resetFields(_ playingTrack: Track) {
+    
+        let roundedDuration = round(playingTrack.duration)
+        let formattedDuration = ValueFormatter.formatSecondsToHMS(roundedDuration)
+        let durationInt = Int(roundedDuration)
         
-        if let playingTrack = playbackInfo.playingTrack {
-            
-            let roundedDuration = round(playingTrack.duration)
-            let formattedDuration = ValueFormatter.formatSecondsToHMS(roundedDuration)
-            let durationInt = Int(roundedDuration)
-            
-            lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.conciseDisplayName)
-            lblTrackDuration.stringValue = String(format: "Duration:   %@", formattedDuration)
-            
-            btnHMS.on()
-            radioButtonAction(self)
-            
-            btnHMS.title = String(format: "Specify as hh : mm : ss (00:00:00 to %@)", formattedDuration)
-            btnSeconds.title = String(format: "Specify as seconds (0 to %d)", durationInt)
-            
-            // Reset to 00:00:00
-            timePicker.maxInterval = roundedDuration
-            timePicker.reset()
-            
-            secondsFormatter.maxValue = roundedDuration
-            secondsStepper.maxValue = roundedDuration
-            secondsStepper.doubleValue = 0
-            secondsStepperAction(self)
-            
-            percentageStepper.doubleValue = 0
-            percentageStepperAction(self)
-            
-        } else {
-            
-            // No track playing
-            cancelAction(self)
-        }
+        lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.conciseDisplayName)
+        lblTrackDuration.stringValue = String(format: "Duration:   %@", formattedDuration)
+        
+        btnHMS.on()
+        radioButtonAction(self)
+        
+        btnHMS.title = String(format: "Specify as hh : mm : ss (00:00:00 to %@)", formattedDuration)
+        btnSeconds.title = String(format: "Specify as seconds (0 to %d)", durationInt)
+        
+        // Reset to 00:00:00
+        timePicker.maxInterval = roundedDuration
+        timePicker.reset()
+        
+        secondsFormatter.maxValue = roundedDuration
+        secondsStepper.maxValue = roundedDuration
+        secondsStepper.doubleValue = 0
+        secondsStepperAction(self)
+        
+        percentageStepper.doubleValue = 0
+        percentageStepperAction(self)
     }
     
     @IBAction func radioButtonAction(_ sender: Any) {
@@ -118,13 +117,13 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         timePicker.enableIf(btnHMS.isOn)
         [txtSeconds, secondsStepper].forEach({$0?.enableIf(btnSeconds.isOn)})
         
-        if (txtSeconds.isEnabled) {
+        if txtSeconds.isEnabled {
             self.window?.makeFirstResponder(txtSeconds)
         }
         
         [txtPercentage, percentageStepper].forEach({$0?.enableIf(btnPercentage.isOn)})
         
-        if (txtPercentage.isEnabled) {
+        if txtPercentage.isEnabled {
             self.window?.makeFirstResponder(txtPercentage)
         }
     }
@@ -170,32 +169,24 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         UIUtils.dismissDialog(self.window!)
     }
     
-    private func trackChanged(_ msg: TrackChangedAsyncMessage) {
-        resetFields()
+    private func trackTransitioned(_ msg: TrackTransitionAsyncMessage) {
+        
+        if msg.endState == .playing, let playingTrack = msg.endTrack {
+            resetFields(playingTrack)
+            
+        } else {
+            cancelAction(self)
+        }
     }
     
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
             
-        case .trackChanged:
-            
-            // Update the track duration
-            trackChanged(message as! TrackChangedAsyncMessage)
-            
-        default:
-            
+            trackTransitioned(trackTransitionMsg)
             return
-            
         }
-    }
-}
-
-extension Date {
-    
-    var startOfDay: Date {
-        return Calendar.current.startOfDay(for: self)
     }
 }

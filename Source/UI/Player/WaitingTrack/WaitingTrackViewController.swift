@@ -42,7 +42,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
     
     private func initSubscriptions() {
         
-        AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -115,9 +115,10 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
 
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.gapStarted,
+            let track = trackTransitionMsg.endTrack, let endTime = trackTransitionMsg.gapEndTime {
             
-            gapStarted(gapStartedMsg.nextTrack, gapStartedMsg.gapEndTime)
+            gapStarted(track, endTime)
             return
         }
     }

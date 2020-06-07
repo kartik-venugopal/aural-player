@@ -60,6 +60,11 @@ enum TimeElapsed: String {
 // Convenience utility functions
 extension Date {
     
+    // Returns this date with time set to 00:00:00
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+    
     // Returns a String suitable for serialization as a timestamp, in the format: YYYY_MM_DD_hh_mm
     func serializableString() -> String {
         

@@ -40,7 +40,7 @@ class MasterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
     }
     
@@ -123,10 +123,10 @@ class MasterViewController: FXUnitViewController {
         broadcastStateChangeNotification()
     }
     
-    private func trackChanged(_ message: TrackChangedNotification) {
+    private func trackChanged(_ message: TrackTransitionNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack, soundProfiles.hasFor(newTrack) {
+        if soundPreferences.rememberEffectsSettings, let newTrack = message.endTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
             _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
@@ -175,9 +175,11 @@ class MasterViewController: FXUnitViewController {
             
             updateButtons()
             
-        case .trackChangedNotification:
+        case .trackTransitionNotification:
             
-            trackChanged(notification as! TrackChangedNotification)
+            if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
+                trackChanged(trackTransitionMsg)
+            }
             
         default: return
             
