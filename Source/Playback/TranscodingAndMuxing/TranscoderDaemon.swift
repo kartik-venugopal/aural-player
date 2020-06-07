@@ -5,6 +5,7 @@ class TranscoderDaemon: MessageSubscriber {
     let immediateExecutionQueue: OperationQueue = OperationQueue()
     let backgroundExecutionQueue: OperationQueue = OperationQueue()
     
+    // TODO: This should be a ConcurrentMap
     var tasks: [Track: TranscodingTask] = [:]
     
     private let preferences: TranscodingPreferences
@@ -17,7 +18,7 @@ class TranscoderDaemon: MessageSubscriber {
         immediateExecutionQueue.maxConcurrentOperationCount = 1
         immediateExecutionQueue.qualityOfService = .userInteractive
         
-        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .background)
+        backgroundExecutionQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
         backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks
         backgroundExecutionQueue.qualityOfService = .background
         
@@ -56,7 +57,7 @@ class TranscoderDaemon: MessageSubscriber {
         
         let block = {
             
-            NSLog("\nStarted transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+            NSLog("\nStarted transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent, self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
             
             let result = CommandExecutor.execute(command)
             
@@ -70,7 +71,7 @@ class TranscoderDaemon: MessageSubscriber {
             if result.exitCode == 0 && !command.errorDetected {
                 // Success
                 successHandler(command)
-                NSLog("\nFinished transcoding: %@ BGTasks=%d", track.file.lastPathComponent, self.backgroundExecutionQueue.operationCount)
+                NSLog("\nFinished transcoding: %@ ImmTasks=%d, BGTasks=%d", track.file.lastPathComponent, self.immediateExecutionQueue.operationCount, self.backgroundExecutionQueue.operationCount)
                 
             } else {
                 failureHandler(command)
@@ -86,6 +87,7 @@ class TranscoderDaemon: MessageSubscriber {
         }
         
         priority == .immediate ? immediateExecutionQueue.addOperation(operation) : backgroundExecutionQueue.addOperation(operation)
+        print("\nAdded task to", priority == .immediate ? "FG:" : "BG:", track.conciseDisplayName)
         
         let task = TranscodingTask(track, priority, command, operation, block)
         tasks[track] = task
@@ -136,6 +138,7 @@ class TranscoderDaemon: MessageSubscriber {
                 self.tasks.removeValue(forKey: task.track)
             }
             
+            print("\nMoved task to FG:", task.track.conciseDisplayName)
             immediateExecutionQueue.addOperation(opClone)
         }
         

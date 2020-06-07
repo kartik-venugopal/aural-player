@@ -4,6 +4,8 @@ class TranscoderStore: MessageSubscriber {
     
     let baseDir: URL
     var files: [URL: URL] = [:]
+    
+    // TODO: ConcurrentMap
     var filesBeingTranscoded: [URL: URL] = [:]
     
     let preferences: TranscodingPreferences

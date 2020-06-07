@@ -19,9 +19,7 @@ class CancelTranscodingAction: PlaybackChainAction {
         if context.currentState == .transcoding, let trackBeingTranscoded = context.currentTrack,
             trackBeingTranscoded != context.requestedTrack {
 
-            DispatchQueue.global().async {
-                self.transcoder.moveToBackground(trackBeingTranscoded)
-            }
+            self.transcoder.moveToBackground(trackBeingTranscoded)
         }
         
         chain.proceed(context)
