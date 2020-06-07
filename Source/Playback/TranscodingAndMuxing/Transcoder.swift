@@ -37,9 +37,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
         doTranscode(track, false)
         
-        DispatchQueue.global(qos: .background).async {
-            self.beginEagerTranscoding()
-        }
+//        DispatchQueue.global(qos: .background).async {
+//            self.beginEagerTranscoding()
+//        }
     }
     
     func transcodeInBackground(_ track: Track) {
@@ -146,8 +146,11 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         }
     }
 
-    func cancel(_ track: Track) {
-        doCancel(track)
+    func moveToBackground(_ track: Track) {
+        
+        DispatchQueue.global(qos: .background).async {
+            self.daemon.moveTaskToBackground(track)
+        }
     }
     
     private func doCancel(_ track: Track, _ notifyFrontEnd: Bool = true) {
@@ -274,7 +277,7 @@ protocol TranscoderProtocol {
     
     func transcodeInBackground(_ track: Track)
     
-    func cancel(_ track: Track)
+    func moveToBackground(_ track: Track)
     
     // MARK: Query functions
     
