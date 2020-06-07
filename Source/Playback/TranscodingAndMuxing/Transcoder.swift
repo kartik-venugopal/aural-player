@@ -2,8 +2,6 @@ import Foundation
 
 class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
-    private let ffmpegBinaryPath: String = Bundle.main.url(forResource: "ffmpeg", withExtension: "")!.path
-    
     private let store: TranscoderStore
     private let daemon: TranscoderDaemon
     
@@ -109,9 +107,6 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func transcodingProgress(_ command: MonitoredCommand, _ progressStr: String) {
         
-//        NSLog("CALLBACK() %@", command.track.conciseDisplayName)
-//        print("\n\n")
-        
         if command.cancelled {return}
 
         let line = progressStr.trim()
@@ -162,8 +157,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     var persistentState: PersistentState {
         
         let state = TranscoderState()
-        store.files.forEach({state.entries[$0.key] = $0.value})
-        
+        state.entries = store.files.kvPairs
         return state
     }
     
@@ -172,37 +166,27 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     private func beginEagerTranscoding() {
         
         let playingTrack = sequencer.currentTrack
-        
         let subsequentTracks: Set<Track> = Set([sequencer.peekNext(), sequencer.peekPrevious(), sequencer.peekSubsequent()]
-            .compactMap {$0})
+        .compactMap {$0})
+        
+        let transcodingTracks = daemon.transcodingTracks
+        let tasksToCancel = transcodingTracks.filter({(!subsequentTracks.contains($0)) && $0 != playingTrack})
+
+        for track in tasksToCancel {
+            cancelTranscoding(track)
+        }
 
         // Use a Set to avoid duplicates
-        let tracksToTranscode: Set<Track> = Set(subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)}))
-        
-//        let ttt = tracksToTranscode.map {$0.conciseDisplayName}
-//        print("\nCur:", playingTrack?.conciseDisplayName)
-//        print("\n\tTTT:", ttt)
-        
-//        let transcodingTasks = daemon.tasks.keys
-//        let tasksToCancel = transcodingTasks.filter({!subsequentTracks.contains($0) && $0 != playingTrack})
-//        let ttc = tasksToCancel.map {$0.conciseDisplayName}
-////        print("\n\tToCancel:", ttc, "\n")
-//
-//        for track in tasksToCancel {
-//            doCancel(track, false)
-//        }
+        let tracksToTranscode: Set<Track> = subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)})
         
         for track in tracksToTranscode {
             doTranscodeInBackground(track, false)
-//            print("\tTranscoding in BG:", track.conciseDisplayName)
         }
     }
     
     private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
         
-        let tracks = message.results.tracks
-        
-        for track in tracks {
+        for track in message.results.tracks {
             cancelTranscoding(track)
         }
     }

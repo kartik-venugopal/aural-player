@@ -19,7 +19,7 @@ class CancelTranscodingAction: PlaybackChainAction {
         if context.currentState == .transcoding, let trackBeingTranscoded = context.currentTrack,
             trackBeingTranscoded != context.requestedTrack {
 
-            self.transcoder.moveToBackground(trackBeingTranscoded)
+            transcoder.cancelTranscoding(trackBeingTranscoded)
         }
         
         chain.proceed(context)

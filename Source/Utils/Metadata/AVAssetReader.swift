@@ -38,7 +38,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         let mapForTrack = AVAssetMetadata()
         allParsers.forEach({$0.mapTrack(track, mapForTrack)})
-        metadataMap.put(track, mapForTrack)
+        metadataMap[track] = mapForTrack
     }
     
     func getPrimaryMetadata(_ track: Track) -> PrimaryMetadata {
@@ -70,7 +70,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         for parser in allParsers {
             
-            if let map = metadataMap.getForKey(track), let duration = parser.getDuration(map), duration > maxDuration {
+            if let map = metadataMap[track], let duration = parser.getDuration(map), duration > maxDuration {
                 maxDuration = duration
             }
         }
@@ -80,7 +80,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getTitle(_ track: Track) -> String? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
         
             for parser in allParsers {
                 
@@ -95,7 +95,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getArtist(_ track: Track) -> String? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -110,7 +110,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getAlbum(_ track: Track) -> String? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -125,7 +125,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getGenre(_ track: Track) -> String? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -151,7 +151,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getDiscNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -166,7 +166,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     
     private func getTrackNumber(_ track: Track) -> (number: Int?, total: Int?)? {
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -185,7 +185,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             return lyrics
         }
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -209,7 +209,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -225,7 +225,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         ensureTrackAssetLoaded(track)
         
-        if let map = metadataMap.getForKey(track) {
+        if let map = metadataMap[track] {
             
             for parser in allParsers {
                 
@@ -316,7 +316,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             
             let msg = message as! TracksRemovedAsyncMessage
             for track in msg.results.tracks {
-                metadataMap.remove(track)
+                _ = metadataMap.remove(track)
             }
         }
     }

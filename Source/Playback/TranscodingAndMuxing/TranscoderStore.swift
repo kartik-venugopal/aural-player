@@ -3,10 +3,8 @@ import Foundation
 class TranscoderStore: MessageSubscriber {
     
     let baseDir: URL
-    var files: [URL: URL] = [:]
-    
-    // TODO: ConcurrentMap
-    var filesBeingTranscoded: [URL: URL] = [:]
+    var files: ConcurrentMap<URL, URL> = ConcurrentMap("transcoderStore-files")
+    var filesBeingTranscoded: ConcurrentMap<URL, URL> = ConcurrentMap("transcoderStore-filesBeingTranscoded")
     
     let preferences: TranscodingPreferences
     
@@ -53,7 +51,7 @@ class TranscoderStore: MessageSubscriber {
     
     func transcodingCancelledOrFailed(_ track: Track) {
         
-        if let outFile = filesBeingTranscoded.removeValue(forKey: track.file) {
+        if let outFile = filesBeingTranscoded.remove(track.file) {
             FileSystemUtils.deleteFile(outFile.path)
         }
     }
@@ -61,18 +59,15 @@ class TranscoderStore: MessageSubscriber {
     // When transcoding is canceled
     func deleteEntry(_ track: Track) {
         
-        if let outputFile = files[track.file] {
-            
+        if let outputFile = files.remove(track.file) {
             FileSystemUtils.deleteFile(outputFile.path)
-            files.removeValue(forKey: track.file)
         }
     }
     
     // Notification from Transcoder that a new file has been added to the store. Need to check that store disk space usage is under the user-preferred limit.
     func transcodingFinished(_ track: Track) {
         
-        files[track.file] = filesBeingTranscoded[track.file]
-        filesBeingTranscoded.removeValue(forKey: track.file)
+        files[track.file] = filesBeingTranscoded.remove(track.file)
         
         // HACK: Couple of seconds delay to allow the track that was just transcoded to be added to the "Recently played" History list (this is needed for the comparison between tracks)
 //        backgroundQueue.asyncAfter(deadline: .now() + 2, execute: {
@@ -88,7 +83,8 @@ class TranscoderStore: MessageSubscriber {
                 return outFile
             }
             
-            files.removeValue(forKey: track.file)
+            // File doesn't exist in the filesystem, so remove it from the map (because it's an invalid mapping).
+            _ = files.remove(track.file)
         }
         
         return nil
@@ -119,12 +115,7 @@ class TranscoderStore: MessageSubscriber {
     // MARK: Message handling
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is AppExitRequest) {
-            return onExit()
-        }
-        
-        return EmptyResponse.instance
+        return request is AppExitRequest ? onExit() : EmptyResponse.instance
     }
     
     //    func checkDiskSpaceUsage() {
