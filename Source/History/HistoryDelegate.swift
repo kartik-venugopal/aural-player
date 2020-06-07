@@ -23,7 +23,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         self.player = player
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackChanged, .itemsAdded], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
+        AsyncMessenger.subscribe([.trackTransition, .itemsAdded], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
         
         // Restore the history model object from persistent state
         
@@ -124,9 +124,9 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
-    private func trackPlayed(_ message: TrackChangedAsyncMessage) {
+    private func trackPlayed(_ message: TrackTransitionAsyncMessage) {
         
-        if let newTrack = message.newTrack {
+        if let newTrack = message.endTrack {
         
             lastPlayedTrack = newTrack
             history.addRecentlyPlayedItem(newTrack.file, newTrack.conciseDisplayName, Date())
@@ -161,9 +161,11 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         
         switch message.messageType {
             
-        case .trackChanged:
+        case .trackTransition:
             
-            trackPlayed(message as! TrackChangedAsyncMessage)
+            if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.playbackStarted {
+                trackPlayed(trackTransitionMsg)
+            }
             
         case .itemsAdded:
             

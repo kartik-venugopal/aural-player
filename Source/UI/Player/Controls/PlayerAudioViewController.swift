@@ -51,7 +51,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
     }
@@ -206,9 +206,9 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
 
     func consumeNotification(_ notification: NotificationMessage) {
      
-        if let trackChangedMsg = notification as? TrackChangedNotification {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
             
-            trackChanged(trackChangedMsg.newTrack)
+            trackChanged(trackTransitionMsg.endTrack)
             return
         }
     }

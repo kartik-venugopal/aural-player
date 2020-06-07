@@ -17,7 +17,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
@@ -117,15 +117,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
-    private func trackChanged(_ message: TrackChangedAsyncMessage) {
-        trackChanged(message.newTrack)
-    }
-    
-    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
-        handleTrackNotPlayedError(message.oldTrack, message.error)
-    }
-    
-    private func handleTrackNotPlayedError(_ oldTrack: Track?, _ error: InvalidTrackError) {
+    private func trackNotPlayed(_ oldTrack: Track?, _ error: InvalidTrackError) {
         
         self.trackChanged(nil)
         
@@ -151,6 +143,87 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         //        }
         
         alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
+    }
+    
+    // MARK: Seeking actions/functions ------------------------------------------------------------
+    
+    // Moving the seek slider results in seeking the track to the new slider position
+    @IBAction func seekSliderAction(_ sender: AnyObject) {
+        
+        player.seekToPercentage(playbackView.seekSliderValue)
+        playbackView.updateSeekPosition()
+    }
+    
+    // Seeks backward within the currently playing track
+    @IBAction func seekBackwardAction(_ sender: AnyObject) {
+        seekBackward(.discrete)
+    }
+    
+    // Seeks forward within the currently playing track
+    @IBAction func seekForwardAction(_ sender: AnyObject) {
+        seekForward(.discrete)
+    }
+    
+    private func seekForward(_ actionMode: ActionMode) {
+        
+        player.seekForward(actionMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekBackward(_ actionMode: ActionMode) {
+        
+        player.seekBackward(actionMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekForward_secondary() {
+        
+        player.seekForwardSecondary()
+        playbackView.updateSeekPosition()
+    }
+    
+    private func seekBackward_secondary() {
+        
+        player.seekBackwardSecondary()
+        playbackView.updateSeekPosition()
+    }
+    
+    private func jumpToTime(_ time: Double) {
+        
+        player.seekToTime(time)
+        playbackView.updateSeekPosition()
+    }
+    
+    // Returns a view that marks the current position of the seek slider knob.
+    var seekPositionMarkerView: NSView {
+        
+        playbackView.positionSeekPositionMarkerView()
+        return playbackView.seekPositionMarker
+    }
+    
+    // MARK: Segment looping actions/functions ------------------------------------------------------------
+    
+    // Toggles the state of the segment playback loop for the currently playing track
+    @IBAction func toggleLoopAction(_ sender: AnyObject) {
+        toggleLoop()
+    }
+    
+    private func toggleLoop() {
+        
+        if player.state.isPlayingOrPaused {
+            
+            _ = player.toggleLoop()
+            playbackLoopChanged()
+            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+        }
+    }
+    
+    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+    private func playbackLoopChanged() {
+        
+        if let playingTrack = player.playingTrack {
+            playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
+        }
     }
     
     // MARK: Chapter playback functions ------------------------------------------------------------
@@ -246,105 +319,28 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
     
-    // MARK: Seeking actions/functions ------------------------------------------------------------
-    
-    // Moving the seek slider results in seeking the track to the new slider position
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        
-        player.seekToPercentage(playbackView.seekSliderValue)
-        playbackView.updateSeekPosition()
-    }
-    
-    // Seeks backward within the currently playing track
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        seekBackward(.discrete)
-    }
-    
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        seekForward(.discrete)
-    }
-    
-    private func seekForward(_ actionMode: ActionMode) {
-        
-        player.seekForward(actionMode)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekBackward(_ actionMode: ActionMode) {
-        
-        player.seekBackward(actionMode)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekForward_secondary() {
-        
-        player.seekForwardSecondary()
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekBackward_secondary() {
-        
-        player.seekBackwardSecondary()
-        playbackView.updateSeekPosition()
-    }
-    
-    private func jumpToTime(_ time: Double) {
-        
-        player.seekToTime(time)
-        playbackView.updateSeekPosition()
-    }
-    
-    // Returns a view that marks the current position of the seek slider knob.
-    var seekPositionMarkerView: NSView {
-        
-        playbackView.positionSeekPositionMarkerView()
-        return playbackView.seekPositionMarker
-    }
-    
-    // MARK: Segment looping actions/functions ------------------------------------------------------------
-    
-    // Toggles the state of the segment playback loop for the currently playing track
-    @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        toggleLoop()
-    }
-    
-    private func toggleLoop() {
-        
-        if player.state.isPlayingOrPaused {
-            
-            _ = player.toggleLoop()
-            playbackLoopChanged()
-            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-        }
-    }
-    
-    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
-    private func playbackLoopChanged() {
-        
-        if let playingTrack = player.playingTrack {
-            playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
-        }
-    }
-    
     // MARK: Message handling ---------------------------------------------------------------------
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
             
-        case .trackChanged:
+        case .trackTransition:
             
-            if let msg = message as? TrackChangedAsyncMessage {
+            if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
                 
-                trackChanged(msg)
-                SyncMessenger.publishNotification(TrackChangedNotification(msg.oldTrack, msg.newTrack, false))
+                if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
+                    gapOrTranscodingStarted()
+                    
+                } else {
+                    trackChanged(trackTransitionMsg.endTrack)
+                }
             }
             
         case .trackNotPlayed:
             
             if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
-                trackNotPlayed(trackNotPlayedMsg)
+                trackNotPlayed(trackNotPlayedMsg.oldTrack, trackNotPlayedMsg.error)
             }
             
         case .trackNotTranscoded:
@@ -352,10 +348,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
                 trackNotTranscoded(trackNotTranscodedMsg)
             }
-            
-        case .gapStarted, .transcodingStarted:
-            
-            gapOrTranscodingStarted()
             
         default: return
             

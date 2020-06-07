@@ -5,8 +5,8 @@ class PlaybackRequestContext {
     // Current state can change (if waiting or transcoding before playback)
     var currentState: PlaybackState
     
-    let currentTrack: Track?
-    let currentSeekPosition: Double
+    var currentTrack: Track?
+    var currentSeekPosition: Double
 
     var requestedTrack: Track?
     

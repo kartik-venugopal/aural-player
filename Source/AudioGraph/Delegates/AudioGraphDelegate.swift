@@ -88,7 +88,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         
         SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification, .appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)
-        AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: notificationQueue)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: notificationQueue)
     }
     
     var settingsAsMasterPreset: MasterPreset {
@@ -156,7 +156,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let msg = notification as? PreTrackChangeNotification {
-            preTrackChange(msg.oldTrack, msg.oldState, msg.newTrack)
+            
+            preTrackChange(msg.oldTrack, msg.newTrack)
+            return
         }
     }
     
@@ -171,8 +173,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let msg = message as? PlaybackGapStartedAsyncMessage {
-            gapStarted(msg)
+        if let msg = message as? TrackTransitionAsyncMessage, msg.gapStarted || msg.transcodingStarted {
+            
+            preTrackChange(msg.beginTrack, msg.endTrack)
+            return
         }
     }
     
@@ -194,13 +198,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         }
     }
     
-    private func preTrackChange(_ lastPlayedTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?) {
+    private func preTrackChange(_ lastPlayedTrack: Track?, _ newTrack: Track?) {
         
         // Save/apply sound profile
         if preferences.rememberEffectsSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let oldTrack = lastPlayedTrack, oldState != .waiting, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(oldTrack) {
+            if let oldTrack = lastPlayedTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(oldTrack) {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
                 soundProfiles.add(oldTrack)
@@ -213,16 +217,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
                 graph.balance = profile.balance
                 masterUnit.applyPreset(profile.effects)
             }
-        }
-    }
-    
-    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        
-        if preferences.rememberEffectsSettings, let oldTrack = msg.lastPlayedTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(oldTrack) {
-            
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-            soundProfiles.add(oldTrack)
         }
     }
     

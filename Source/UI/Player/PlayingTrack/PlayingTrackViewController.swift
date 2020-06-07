@@ -25,9 +25,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .chapterChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
@@ -87,9 +87,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     // Consume synchronous notification messages
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let trackChangedMsg = notification as? TrackChangedNotification {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
             
-            trackChanged(trackChangedMsg.newTrack)
+            trackChanged(trackTransitionMsg.endTrack)
             return
             
         } else if notification is PlayingTrackInfoUpdatedNotification {
@@ -110,11 +110,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
             
             trackNotPlayed(trackNotPlayedMsg)
-            return
-            
-        } else if let gapMsg = message as? PlaybackGapStartedAsyncMessage {
-            
-            trackChanged(gapMsg.nextTrack)
             return
         }
     }

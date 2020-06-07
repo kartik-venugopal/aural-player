@@ -108,7 +108,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private func initSubscriptions() {
         
         // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
@@ -329,9 +329,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         switch message.messageType {
             
-        case .trackChangedNotification:
+        case .trackTransitionNotification:
             
-            trackChanged()
+            if (message as? TrackTransitionNotification)?.playbackStarted ?? false {
+                trackChanged()
+            }
             
         case .chapterChangedNotification:
             

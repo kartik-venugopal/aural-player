@@ -40,9 +40,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     private func initSubscriptions() {
         
-        AsyncMessenger.subscribe([.gapStarted, .transcodingStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     private func switchView() {
@@ -72,18 +70,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if notification is TrackChangedNotification {
-            
-            switchView()
-            return
-        }
-    }
-    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if message is PlaybackGapStartedAsyncMessage || message is TranscodingStartedAsyncMessage {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
+            
+            SyncMessenger.publishNotification(TrackTransitionNotification(trackTransitionMsg.beginTrack, trackTransitionMsg.beginState, trackTransitionMsg.endTrack, trackTransitionMsg.endState, trackTransitionMsg.gapEndTime))
             
             switchView()
             return

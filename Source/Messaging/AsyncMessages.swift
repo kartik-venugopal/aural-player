@@ -34,7 +34,7 @@ enum AsyncMessageType {
    
     case playbackCompleted
 
-    case trackChanged
+    case trackTransition
     
     case trackInfoUpdated
     
@@ -66,10 +66,6 @@ enum AsyncMessageType {
     
     case audioOutputChanged
     
-    case gapStarted
-    
-    case transcodingStarted
-    
     case transcodingProgress
     
     case transcodingCancelled
@@ -77,25 +73,54 @@ enum AsyncMessageType {
     case transcodingFinished
 }
 
-// AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
-struct TrackChangedAsyncMessage: AsyncMessage {
+struct TrackTransitionAsyncMessage: AsyncMessage {
     
-    let messageType: AsyncMessageType = .trackChanged
+    let messageType: AsyncMessageType = .trackTransition
     
-    // The track that was playing before the track change (may be nil, meaning no track was playing)
-    let oldTrack: Track?
+    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    let beginTrack: Track?
     
-    // Playback state before the track change
-    let oldState: PlaybackState
+    // Playback state before the track transition
+    let beginState: PlaybackState
     
-    // The track that is now playing (may be nil, meaning no track playing)
-    let newTrack: Track?
+    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    let endTrack: Track?
     
-    init(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?) {
+    // Playback state before the track transition
+    let endState: PlaybackState
+    
+    // nil unless a playback gap has started
+    let gapEndTime: Date?
+    
+    var trackChanged: Bool {
+        return beginTrack != endTrack
+    }
+    
+    var playbackStarted: Bool {
+        return endState == .playing
+    }
+    
+    var stateChanged: Bool {
+        return beginState != endState
+    }
+    
+    var gapStarted: Bool {
+        return endState == .waiting
+    }
+    
+    var transcodingStarted: Bool {
+        return endState == .transcoding
+    }
+    
+    init(_ beginTrack: Track?, _ beginState: PlaybackState, _ endTrack: Track?, _ endState: PlaybackState, _ gapEndTime: Date? = nil) {
         
-        self.oldTrack = oldTrack
-        self.oldState = oldState
-        self.newTrack = newTrack
+        self.beginTrack = beginTrack
+        self.beginState = beginState
+        
+        self.endTrack = endTrack
+        self.endState = endState
+        
+        self.gapEndTime = gapEndTime
     }
 }
 
@@ -316,44 +341,6 @@ struct AudioOutputChangedMessage: AsyncMessage {
     private init() {}
     
     static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
-}
-
-struct PlaybackGapStartedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .gapStarted
-    
-    let gapEndTime: Date
-    
-    let lastPlayedTrack: Track?
-    let nextTrack: Track
-    
-    init(_ gapEndTime: Date, _ lastPlayedTrack: Track?, _ nextTrack: Track) {
-        
-        self.gapEndTime = gapEndTime
-        
-        self.lastPlayedTrack = lastPlayedTrack
-        self.nextTrack = nextTrack
-    }
-}
-
-struct TranscodingStartedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .transcodingStarted
-    let track: Track
-    
-    init(_ track: Track) {
-        self.track = track
-    }
-}
-
-struct TranscodingCancelledAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .transcodingCancelled
-    let track: Track
-    
-    init(_ track: Track) {
-        self.track = track
-    }
 }
 
 struct TranscodingProgressAsyncMessage: AsyncMessage {

@@ -51,7 +51,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         favoritesMenuItem.off()
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
         
@@ -292,9 +292,9 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         return menuItem
     }
     
-    private func trackChanged(_ msg: TrackChangedAsyncMessage) {
+    private func trackTransitioned(_ msg: TrackTransitionAsyncMessage) {
         
-        if let trackFile = msg.newTrack?.file {
+        if let trackFile = msg.endTrack?.file {
             
             favoritesMenuItem.enable()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(trackFile))
@@ -319,9 +319,9 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             
             favoritesUpdated(favsUpdatedMsg)
             
-        } else if let trackChangedMsg = message as? TrackChangedAsyncMessage {
+        } else if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.trackChanged {
             
-            trackChanged(trackChangedMsg)
+            trackTransitioned(trackTransitionMsg)
         }
     }
 }

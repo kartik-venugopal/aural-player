@@ -68,7 +68,7 @@ enum MessageType {
     
     case preTrackChangeNotification
     
-    case trackChangedNotification
+    case trackTransitionNotification
     
     case chapterChangedNotification
     
@@ -147,25 +147,54 @@ enum MessageType {
     case fxUnitActivatedNotification
 }
 
-// Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
-struct TrackChangedNotification: NotificationMessage {
+struct TrackTransitionNotification: NotificationMessage {
     
-    let messageType: MessageType = .trackChangedNotification
+    let messageType: MessageType = .trackTransitionNotification
     
-    // The track that was playing before the track change (may be nil, meaning no track was playing)
-    let oldTrack: Track?
+    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    let beginTrack: Track?
     
-    // The track that is now playing (may be nil, meaning no track playing)
-    let newTrack: Track?
+    // Playback state before the track transition
+    let beginState: PlaybackState
     
-    // Flag indicating whether or not playback resulted in an error
-    let errorState: Bool
+    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    let endTrack: Track?
     
-    init(_ oldTrack: Track?, _ newTrack: Track?, _ errorState: Bool = false) {
+    // Playback state before the track transition
+    let endState: PlaybackState
+    
+    // nil unless a playback gap has started
+    let gapEndTime: Date?
+    
+    var trackChanged: Bool {
+        return beginTrack != endTrack
+    }
+    
+    var playbackStarted: Bool {
+        return endState == .playing
+    }
+    
+    var stateChanged: Bool {
+        return beginState != endState
+    }
+    
+    var gapStarted: Bool {
+        return endState == .waiting
+    }
+    
+    var transcodingStarted: Bool {
+        return endState == .transcoding
+    }
+    
+    init(_ beginTrack: Track?, _ beginState: PlaybackState, _ endTrack: Track?, _ endState: PlaybackState, _ gapEndTime: Date? = nil) {
         
-        self.oldTrack = oldTrack
-        self.newTrack = newTrack
-        self.errorState = errorState
+        self.beginTrack = beginTrack
+        self.beginState = beginState
+        
+        self.endTrack = endTrack
+        self.endState = endState
+        
+        self.gapEndTime = gapEndTime
     }
 }
 

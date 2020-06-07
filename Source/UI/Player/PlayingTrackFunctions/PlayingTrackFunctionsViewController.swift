@@ -43,7 +43,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -199,18 +199,13 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         self.view.hide()
     }
     
-    private func trackChanged(_ notification: TrackChangedNotification) {
-        trackChanged(notification.newTrack, notification.errorState)
-    }
-    
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ newTrack: Track?, _ errorState: Bool = false) {
+    private func trackChanged(_ newTrack: Track?) {
         
         if let theNewTrack = newTrack {
             
             newTrackStarted(theNewTrack)
             
-            if !errorState && detailedInfoPopover.isShown {
+            if detailedInfoPopover.isShown {
                 
                 theNewTrack.loadDetailedInfo()
                 detailedInfoPopover.refresh(theNewTrack)
@@ -235,9 +230,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
 
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let trackChangeNotification = notification as? TrackChangedNotification {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
 
-            trackChanged(trackChangeNotification)
+            trackChanged(trackTransitionMsg.endTrack)
             return
         }
     }

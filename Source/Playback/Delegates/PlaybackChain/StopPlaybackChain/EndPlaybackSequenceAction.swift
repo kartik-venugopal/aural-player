@@ -14,7 +14,7 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
         
         sequencer.end()
         
-        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(context.currentTrack, context.currentState, nil))
+        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, nil, .noTrack))
         
         chain.complete(context)
     }

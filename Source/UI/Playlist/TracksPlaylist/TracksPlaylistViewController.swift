@@ -42,9 +42,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .tracksRemoved, .trackInfoUpdated, .gapStarted, .trackNotPlayed, .transcodingStarted, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
@@ -380,11 +380,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteNumberOfRowsChanged()
     }
     
-    private func trackChanged(_ message: TrackChangedNotification) {
-        trackChanged(message.oldTrack, message.newTrack)
+    private func trackTransitioned(_ message: TrackTransitionNotification) {
+        trackTransitioned(message.beginTrack, message.endTrack)
     }
     
-    private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
+    private func trackTransitioned(_ oldTrack: Track?, _ newTrack: Track?) {
         
         var refreshIndexes = [Int]()
 
@@ -521,31 +521,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
     }
     
-    private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
-        
-        var refreshIndexes: [Int] = []
-
-        let nextTrackIndex = playlist.indexOfTrack(message.nextTrack)?.index
-        if let index = nextTrackIndex {
-            refreshIndexes.append(index)
-        }
-
-        if let oldTrack = message.lastPlayedTrack, let oldTrackIndex = playlist.indexOfTrack(oldTrack)?.index, oldTrackIndex != nextTrackIndex {
-            refreshIndexes.append(oldTrackIndex)
-        }
-
-        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
-
-        // Last playing track is no longer playing. Also, one-time gaps may have been removed, so need to update the table view
-        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
-
-        // Select the next track
-        if PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist {
-            selectTrack(nextTrackIndex)
-        }
-    }
-    
     private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
         
         // Find track and refresh it
@@ -558,29 +533,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         playlistView.reloadData(forRowIndexes: IndexSet([row]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
-    }
-    
-    private func transcodingStarted(_ track: Track) {
-        
-        let lastPlayedTrack = history.lastPlayedTrack
-        let oldTrack = lastPlayedTrack == nil ? nil : playlist.indexOfTrack(lastPlayedTrack!)
-        
-        var refreshIndexes = [Int]()
-        
-        if let oldTrackIndex = oldTrack?.index {
-            refreshIndexes.append(oldTrackIndex)
-        }
-        
-        if let newTrack = playlist.indexOfTrack(track) {
-
-            if !newTrack.equals(oldTrack) {
-                refreshIndexes.append(newTrack.index)
-            }
-            
-            selectTrack(newTrack.index)
-        }
-        
-        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     private func transcodingCancelled(_ track: Track) {
@@ -685,17 +637,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
             
-        case .gapStarted:
-            
-            gapStarted(message as! PlaybackGapStartedAsyncMessage)
-            
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        case .transcodingStarted:
-            
-            transcodingStarted((message as! TranscodingStartedAsyncMessage).track)
             
         case .transcodingCancelled:
             
@@ -710,9 +654,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         switch notification.messageType {
             
-        case .trackChangedNotification:
+        case .trackTransitionNotification:
             
-            trackChanged(notification as! TrackChangedNotification)
+            if let trackTransitionMsg = notification as? TrackTransitionNotification {
+                trackTransitioned(trackTransitionMsg)
+            }
             
         case .gapUpdatedNotification:
             
