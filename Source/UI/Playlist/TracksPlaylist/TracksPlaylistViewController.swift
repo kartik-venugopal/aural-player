@@ -535,13 +535,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
-    private func transcodingCancelled(_ track: Track) {
-        
-        if let index = playlist.indexOfTrack(track)?.index {
-            playlistView.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        }
-    }
-    
     private func changeTextSize() {
         
         let selRows = playlistView.selectedRowIndexes
@@ -640,10 +633,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        case .transcodingCancelled:
-            
-            transcodingCancelled((message as! TranscodingCancelledAsyncMessage).track)
             
         default: return
             

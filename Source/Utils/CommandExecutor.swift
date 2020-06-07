@@ -137,12 +137,27 @@ enum CommandOutputType {
 }
 
 class MonitoredCommand: Command {
+    
+    static var callbackOpQueue: OperationQueue = {
+        
+        let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.maxConcurrentOperationCount = 2
+        queue.qualityOfService = .userInteractive
+        
+        return queue
+    }()
  
     var track: Track
     var errorDetected: Bool = false
     
     var enableMonitoring: Bool
     var callback: ((_ command: MonitoredCommand, _ output: String) -> Void)?
+    
+    var stdOutPipe: Pipe?
+    var stdErrPipe: Pipe?
+    var pipes: [Pipe] = []
+    var registeredPipeCallback: Bool = false
     
     var cancelled: Bool = false
     
@@ -156,12 +171,17 @@ class MonitoredCommand: Command {
         self.callback = callback
         
         super.init(cmd, args, timeout, readOutput, readErr, outputType)
+        
+        self.stdOutPipe = process.standardOutput as? Pipe
+        self.stdErrPipe = process.standardError as? Pipe
+        self.pipes = [stdOutPipe, stdErrPipe].compactMap {$0}
       
         if callback != nil || (readOutput || readErr) {
             
             if enableMonitoring && callback != nil {
-                registerCallbackForPipe(process.standardOutput as! Pipe)
-                registerCallbackForPipe(process.standardError as! Pipe)
+
+                pipes.forEach({self.registerCallbackForPipe($0)})
+                registeredPipeCallback = true
             }
         }
     }
@@ -172,21 +192,32 @@ class MonitoredCommand: Command {
             
             enableMonitoring = true
             
-            registerCallbackForPipe(process.standardOutput as! Pipe)
-            registerCallbackForPipe(process.standardError as! Pipe)
+            if !registeredPipeCallback {
+                
+                pipes.forEach({self.registerCallbackForPipe($0)})
+                registeredPipeCallback = true
+            }
         }
     }
     
     func stopMonitoring() {
+        
         enableMonitoring = false
+        
+        if registeredPipeCallback {
+            
+            pipes.forEach({self.unregisterCallbackForPipe($0)})
+            registeredPipeCallback = false
+        }
     }
     
     private func registerCallbackForPipe(_ pipe: Pipe) {
         
         pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: pipe.fileHandleForReading , queue: nil) {
-            notification in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
+                                               object: pipe.fileHandleForReading, queue: MonitoredCommand.callbackOpQueue) {
+                                                notification in
             
             if self.process.isRunning && self.enableMonitoring {
                 
@@ -194,12 +225,24 @@ class MonitoredCommand: Command {
                 let output = pipe.fileHandleForReading.availableData
                 let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
                 
-                self.callback!(self, outputString)
+                if let theCallback = self.callback {
+                    theCallback(self, outputString)
+                }
                 
-                // Continue monitoring
-                pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+                // If not done on the main thread, this doesn't work.
+                // TODO: Investigate this further.
+                DispatchQueue.main.async {
+                    
+                    // Continue monitoring
+                    pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+                }
             }
         }
+    }
+    
+    private func unregisterCallbackForPipe(_ pipe: Pipe) {
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSFileHandleDataAvailable, object: pipe.fileHandleForReading)
     }
     
     static func create(track: Track, cmd : String, args : [String], qualityOfService: QualityOfService, timeout: Double?, callback: @escaping ((_ command: MonitoredCommand, _ output: String) -> Void), enableMonitoring: Bool) -> MonitoredCommand {

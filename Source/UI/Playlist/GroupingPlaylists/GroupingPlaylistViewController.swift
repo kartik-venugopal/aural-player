@@ -620,10 +620,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
-    private func transcodingCancelled(_ track: Track) {
-        playlistView.reloadItem(track)
-    }
-    
     // Selects an item within the playlist view, to show a single result of a search
     private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
         
@@ -804,10 +800,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        case .transcodingCancelled:
-            
-            transcodingCancelled((message as! TranscodingCancelledAsyncMessage).track)
             
         default: return
             

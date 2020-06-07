@@ -23,7 +23,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         self.playlist = playlist
         self.sequencer = sequencer
         
-        AsyncMessenger.subscribe([.trackChanged, .tracksRemoved, .doneAddingTracks, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+        AsyncMessenger.subscribe([.trackTransition, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
     func transcodeImmediately(_ track: Track) {
@@ -34,12 +34,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             return
         }
         
-        AsyncMessenger.publishMessage(TranscodingStartedAsyncMessage(track))
         doTranscode(track, false)
-        
-//        DispatchQueue.global(qos: .background).async {
-//            self.beginEagerTranscoding()
-//        }
     }
     
     func transcodeInBackground(_ track: Track) {
@@ -114,6 +109,9 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func transcodingProgress(_ command: MonitoredCommand, _ progressStr: String) {
         
+//        NSLog("CALLBACK() %@", command.track.conciseDisplayName)
+//        print("\n\n")
+        
         if command.cancelled {return}
 
         let line = progressStr.trim()
@@ -148,21 +146,13 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
 
     func moveToBackground(_ track: Track) {
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             self.daemon.moveTaskToBackground(track)
         }
     }
     
-    private func doCancel(_ track: Track, _ notifyFrontEnd: Bool = true) {
-        
-        if daemon.hasTaskForTrack(track) {
-            
-            daemon.cancelTask(track)
-            
-            if notifyFrontEnd {
-                AsyncMessenger.publishMessage(TranscodingCancelledAsyncMessage(track))
-            }
-        }
+    func cancelTranscoding(_ track: Track) {
+        daemon.cancelTask(track)
     }
     
     func trackNeedsTranscoding(_ track: Track) -> Bool {
@@ -189,22 +179,22 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         // Use a Set to avoid duplicates
         let tracksToTranscode: Set<Track> = Set(subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)}))
         
-        let ttt = tracksToTranscode.map {$0.conciseDisplayName}
-        print("\nCur:", playingTrack?.conciseDisplayName)
-        print("\n\tTTT:", ttt)
+//        let ttt = tracksToTranscode.map {$0.conciseDisplayName}
+//        print("\nCur:", playingTrack?.conciseDisplayName)
+//        print("\n\tTTT:", ttt)
         
-        let transcodingTasks = daemon.tasks.keys
-        let tasksToCancel = transcodingTasks.filter({!subsequentTracks.contains($0) && $0 != playingTrack})
-        let ttc = tasksToCancel.map {$0.conciseDisplayName}
-        print("\n\tToCancel:", ttc, "\n")
-        
-        for track in tasksToCancel {
-            doCancel(track, false)
-        }
+//        let transcodingTasks = daemon.tasks.keys
+//        let tasksToCancel = transcodingTasks.filter({!subsequentTracks.contains($0) && $0 != playingTrack})
+//        let ttc = tasksToCancel.map {$0.conciseDisplayName}
+////        print("\n\tToCancel:", ttc, "\n")
+//
+//        for track in tasksToCancel {
+//            doCancel(track, false)
+//        }
         
         for track in tracksToTranscode {
             doTranscodeInBackground(track, false)
-            print("\tTranscoding in BG:", track.conciseDisplayName)
+//            print("\tTranscoding in BG:", track.conciseDisplayName)
         }
     }
     
@@ -213,7 +203,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         let tracks = message.results.tracks
         
         for track in tracks {
-            doCancel(track, false)
+            cancelTranscoding(track)
         }
     }
     
@@ -221,7 +211,12 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         switch message.messageType {
             
-        case .trackChanged, .doneAddingTracks, .gapStarted:
+        case .trackTransition:
+            
+            beginEagerTranscoding()
+            
+        case .doneAddingTracks:
+            
             beginEagerTranscoding()
             
         case .tracksRemoved:
@@ -278,6 +273,8 @@ protocol TranscoderProtocol {
     func transcodeInBackground(_ track: Track)
     
     func moveToBackground(_ track: Track)
+    
+    func cancelTranscoding(_ track: Track)
     
     // MARK: Query functions
     

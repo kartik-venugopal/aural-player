@@ -4,6 +4,13 @@
 
 import Foundation
 
+func measureTime(_ task: () -> Void) -> Double {
+    
+    let startTime = CFAbsoluteTimeGetCurrent()
+    task()
+    return CFAbsoluteTimeGetCurrent() - startTime
+}
+
 open class CodeTimer: NSObject {
     
     var startTime: Date?

@@ -46,7 +46,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
-        AsyncMessenger.subscribe([.transcodingStarted, .transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackTransition, .transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     private func transcodingStarted(_ track: Track) {
@@ -191,15 +191,19 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         
         switch message.messageType {
             
-        case .transcodingStarted:
+        case .trackTransition:
             
-            if let track = (message as? TranscodingStartedAsyncMessage)?.track {
+            if let trackTransitionMsg = (message as? TrackTransitionAsyncMessage), trackTransitionMsg.transcodingStarted,
+                let track = trackTransitionMsg.endTrack {
+                
                 transcodingStarted(track)
             }
             
         case .transcodingProgress:
             
             if let progressMsg = message as? TranscodingProgressAsyncMessage {
+                
+//                NSLog("\n\nTranscoding Progress: %@", progressMsg.track.conciseDisplayName)
                 transcodingProgress(progressMsg)
             }
             
