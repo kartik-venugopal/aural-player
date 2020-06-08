@@ -2,6 +2,8 @@ import Foundation
 
 class TranscoderStore: MessageSubscriber {
     
+    // TODO: Be more careful when deleting files from file system (don't want to delete unrelated files)
+    
     let baseDir: URL
     
     var files: ConcurrentMap<URL, URL> = ConcurrentMap("transcoderStore-files")
@@ -50,18 +52,21 @@ class TranscoderStore: MessageSubscriber {
         return file
     }
     
-    func transcodingCancelledOrFailed(_ track: Track) {
+    func transcodingCancelledOrFailed(_ file: URL) {
         
-        if let outFile = filesBeingTranscoded.remove(track.file) {
-            FileSystemUtils.deleteFile(outFile.path)
+        // Remove mapping and filesystem file
+        
+        // TODO: Add a method to ConcurrentMap that does this (removeValue), if possible.
+        for (inFile, outFile) in filesBeingTranscoded.kvPairs {
+            
+            if outFile == file {
+                _ = filesBeingTranscoded.remove(inFile)
+                break
+            }
         }
-    }
-    
-    // When transcoding is canceled
-    func deleteEntry(_ track: Track) {
         
-        if let outputFile = files.remove(track.file) {
-            FileSystemUtils.deleteFile(outputFile.path)
+        backgroundQueue.async {
+            FileSystemUtils.deleteFile(file.path)
         }
     }
     
@@ -107,6 +112,19 @@ class TranscoderStore: MessageSubscriber {
             
             FileSystemUtils.deleteContentsOfDirectory(baseDir)
             files.removeAll()
+            
+        } else {
+            
+            // Clean up files that are unmapped
+            
+            let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir)!
+            let mappedFiles = files.values
+            let unmappedFiles = allFiles.filter({!mappedFiles.contains($0)})
+            
+            // Clean up the store folder
+            for file in unmappedFiles {
+                FileSystemUtils.deleteFile(file.path)
+            }
         }
         
         // Proceed with exit

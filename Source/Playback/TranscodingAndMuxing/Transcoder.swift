@@ -88,11 +88,11 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
                 AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
             }
             
-            self.store.transcodingCancelledOrFailed(track)
+            self.store.transcodingCancelledOrFailed(outputFile)
         }
         
         let cancellationHandler = {
-            self.store.transcodingCancelledOrFailed(track)
+            self.store.transcodingCancelledOrFailed(outputFile)
         }
         
         daemon.submitTask(track, command, successHandler, failureHandler, cancellationHandler, inBackground)
@@ -105,7 +105,8 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
 
         let inputFileName = track.file.lastPathComponent
         let nowString = Date().serializableString_hms()
-        let randomNum = Int.random(in: 0..<Int.max)
+        let randomNum = Int.random(in: 0..<10000)
+        
         let outputFileName = String(format: "%@-transcoded-%@-%d.%@", inputFileName, nowString, randomNum, outputFileExtension)
         
         return store.createOutputFile(track, outputFileName)
@@ -169,7 +170,7 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
     
     // MARK: Message handling
     
-    private func beginEagerTranscoding() {
+    private func beginEagerTranscoding(_ dontTranscodeTrack: Track? = nil) {
         
         let playingTrack = sequencer.currentTrack
         let subsequentTracks: Set<Track> = Set([sequencer.peekNext(), sequencer.peekPrevious(), sequencer.peekSubsequent()]
@@ -182,7 +183,7 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
             cancelTranscoding(track)
         }
         
-        let tracksToTranscode: Set<Track> = subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)})
+        let tracksToTranscode: Set<Track> = subsequentTracks.filter({$0 != playingTrack && $0 != dontTranscodeTrack && self.trackNeedsTranscoding($0)})
         
         for track in tracksToTranscode {
             doTranscodeInBackground(track, false)
@@ -202,7 +203,7 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
             
         case .trackTransition:
             
-            beginEagerTranscoding()
+            beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
             
         case .doneAddingTracks:
             
