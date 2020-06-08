@@ -22,6 +22,7 @@ struct PlaybackLoop: Equatable {
         
         self.startTime = startTime
         self.endTime = endTime
+        
         correctTimesIfNecessary()
     }
     

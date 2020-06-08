@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    Actually stops playback by commanding the player.
+ */
 class HaltPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol

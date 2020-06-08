@@ -23,10 +23,11 @@ class ShuffleSequence {
     
     // MARK: Sequence creation/mutation functions -------------------------------------------------------------------------
     
-    // Recompute the sequence, with a given tracks count
+    // Recompute the sequence, with a given tracks count and starting track index
     func resizeAndReshuffle(size: Int, startWith desiredStartValue: Int? = nil) {
         
         guard size > 0 else {
+            
             clear()
             return
         }
@@ -49,7 +50,10 @@ class ShuffleSequence {
         }
     }
     
-    // Called when the sequence ends.
+    // Called when the sequence ends, to produce a new shuffle sequence.
+    // The "dontStartWith" parameter is used to ensure that no track plays twice in a row.
+    // i.e. the last element of the previous (ended) sequence should differ from the first
+    // element in the new sequence.
     func reShuffle(dontStartWith value: Int) {
         
         curIndex = -1
@@ -89,6 +93,7 @@ class ShuffleSequence {
     // Advance the cursor by one index and retrieve the element at the new index, if available
     func next(repeatMode: RepeatMode) -> Int? {
         
+        // Reshuffle if sequence has ended and need to repeat.
         if repeatMode == .all, hasEnded {
             reShuffle(dontStartWith: sequence[curIndex])
         }

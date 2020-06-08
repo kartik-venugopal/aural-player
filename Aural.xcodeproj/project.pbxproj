@@ -39,7 +39,7 @@
 		3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
 		3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */; };
 		3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */; };
-		3E09D1A121751EC40083C2AF /* PlaybackUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */; };
+		3E09D1A121751EC40083C2AF /* PlaybackParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D1A021751EC40083C2AF /* PlaybackParams.swift */; };
 		3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */; };
 		3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */; };
 		3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */; };
@@ -111,7 +111,7 @@
 		3E12ACC22469CC0000A07611 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
 		3E12ACC32469CC0000A07611 /* PlaybackProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */; };
 		3E12ACC42469CC0000A07611 /* PlaybackGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43338216CA387000617A3 /* PlaybackGap.swift */; };
-		3E12ACC52469CC0000A07611 /* PlaybackUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */; };
+		3E12ACC52469CC0000A07611 /* PlaybackParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D1A021751EC40083C2AF /* PlaybackParams.swift */; };
 		3E12ACC62469CC0400A07611 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E12ACC72469CC0400A07611 /* TranscoderDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81C64A21C5161A00EA1DFA /* TranscoderDaemon.swift */; };
 		3E12ACC82469CC0400A07611 /* TranscoderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9B104D21C3CB4C008326FE /* TranscoderStore.swift */; };
@@ -869,7 +869,7 @@
 		3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSession.swift; sourceTree = "<group>"; };
 		3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
-		3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackUtils.swift; sourceTree = "<group>"; };
+		3E09D1A021751EC40083C2AF /* PlaybackParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackParams.swift; sourceTree = "<group>"; };
 		3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackProfiles.swift; sourceTree = "<group>"; };
 		3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelayPresetsEditor.xib; sourceTree = "<group>"; };
 		3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
@@ -1759,7 +1759,7 @@
 				3EC90B98246C811E009D2181 /* PlaybackLoop.swift */,
 				3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */,
 				3ED43338216CA387000617A3 /* PlaybackGap.swift */,
-				3E09D1A021751EC40083C2AF /* PlaybackUtils.swift */,
+				3E09D1A021751EC40083C2AF /* PlaybackParams.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -3280,7 +3280,7 @@
 				3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */,
 				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3EBD20081F6C6EC300E1354C /* ParserProtocols.swift in Sources */,
-				3E09D1A121751EC40083C2AF /* PlaybackUtils.swift in Sources */,
+				3E09D1A121751EC40083C2AF /* PlaybackParams.swift in Sources */,
 				3EE7D723244EBF5A005D76FA /* ColorSchemePreset.swift in Sources */,
 				3E3DCAC0244B31F100563AE4 /* PlayerViewState.swift in Sources */,
 				3E357B521F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift in Sources */,
@@ -3618,7 +3618,7 @@
 				3E12ACA12469CBA100A07611 /* PlaylistProtocols.swift in Sources */,
 				3E12AC942469833000A07611 /* PlaybackSchedulerTests.swift in Sources */,
 				3E12ACDF2469CC1000A07611 /* FilterUnit.swift in Sources */,
-				3E12ACC52469CC0000A07611 /* PlaybackUtils.swift in Sources */,
+				3E12ACC52469CC0000A07611 /* PlaybackParams.swift in Sources */,
 				3E12AD0A2469CC2900A07611 /* BookmarksProtocol.swift in Sources */,
 				3E12AD022469CC2700A07611 /* Favorite.swift in Sources */,
 				3E626924246BF367002FAC63 /* MetadataReader.swift in Sources */,

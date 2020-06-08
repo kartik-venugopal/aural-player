@@ -27,23 +27,24 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
-        guard let fileFormat = track.playbackInfo?.audioFile?.processingFormat else {
+        guard let audioFormat = track.playbackInfo?.audioFile?.processingFormat else {
             return
         }
         
         // Disconnect player and reconnect with the file's processing format
-        graph.reconnectPlayerNodeWithFormat(fileFormat)
+        graph.reconnectPlayerNodeWithFormat(audioFormat)
         
         let session = PlaybackSession.start(track)
         
         if let end = endPosition {
             
-            // Loop is defined
+            // Segment loop is defined
             PlaybackSession.defineLoop(startPosition, end)
             scheduler.playLoop(session, true)
             
         } else {
             
+            // No segment loop
             scheduler.playTrack(session, startPosition)
         }
         
@@ -83,13 +84,16 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         if let loop = self.playbackLoop, !loop.containsPosition(attemptedSeekTime) {
             
             if canSeekOutsideLoop {
+
+                // Seeking outside the loop is allowed, so remove the loop.
                 
                 PlaybackSession.removeLoop()
                 loopRemoved = true
                 
             } else {
                 
-                // Correct the seek time
+                // Correct the seek time to within the loop's time bounds
+                
                 if attemptedSeekTime < loop.startTime {
                     actualSeekTime = loop.startTime
                     
@@ -99,7 +103,10 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             }
         }
         
+        // Check if playback has completed (seek time has crossed the track duration)
         playbackCompleted = actualSeekTime >= track.duration && state == .playing
+        
+        // Correct the seek time to within the track's time bounds
         actualSeekTime = max(0, min(actualSeekTime, track.duration))
         
         // Create a new identical session (for the track that is playing), and perform a seek within it
@@ -111,7 +118,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     }
     
     var seekPosition: Double {
-        return state.isNotPlayingOrPaused ? 0 : scheduler.seekPosition
+        return state.isPlayingOrPaused ? scheduler.seekPosition : 0
     }
     
     func pause() {
@@ -201,14 +208,15 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     private func removeLoop() {
         
         // Note this down before removing the loop
-        let loopEndTime = playbackLoop?.endTime
-        
-        // Loop has an end time (i.e. is complete) ... remove loop
-        PlaybackSession.removeLoop()
-        
-        // When a loop is removed, playback continues from the current position and a new playback session is started.
-        if let newSession = PlaybackSession.startNewSessionForPlayingTrack(), let _loopEndTime = loopEndTime {
-            scheduler.endLoop(newSession, _loopEndTime)
+        if let loopEndTime = playbackLoop?.endTime {
+            
+            // Loop has an end time (i.e. is complete) ... remove loop
+            PlaybackSession.removeLoop()
+            
+            // When a loop is removed, playback continues from the current position and a new playback session is started.
+            if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
+                scheduler.endLoop(newSession, loopEndTime)
+            }
         }
     }
     
@@ -223,7 +231,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         // Handler for when the audio output changes (e.g. headphones plugged in/out).
-        if message is AudioOutputChangedMessage {
+        if message.messageType == .audioOutputChanged {
             
             audioOutputDeviceChanged()
             return

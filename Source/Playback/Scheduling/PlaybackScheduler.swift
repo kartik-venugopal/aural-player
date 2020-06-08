@@ -61,6 +61,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         
         // If a complete loop is defined (i.e. seeking within a loop), call playLoop() instead.
         if session.hasCompleteLoop() {
+            
             playLoop(session, startTime, beginPlayback)
             return
         }

@@ -1,20 +1,25 @@
 import Foundation
 
+/*
+   Validates a requested track (i.e. audio) prior to playback.
+*/
 class ValidateNewTrackAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
+        // Terminate if no requested track is specified
         guard let newTrack = context.requestedTrack else {
             
             chain.terminate(context, InvalidTrackError.noRequestedTrack)
             return
         }
         
+        // Validate the track
         newTrack.validateAudio()
-        
-        // Validate track before attempting to play it
+
         if newTrack.lazyLoadingInfo.preparationFailed, let preparationError = newTrack.lazyLoadingInfo.preparationError {
-        
+
+            // Validation failed, terminate the chain.
             chain.terminate(context, preparationError)
             
         } else {
