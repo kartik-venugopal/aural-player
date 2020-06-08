@@ -17,7 +17,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     @IBOutlet weak var btnSeekForward: NSButton!
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let playbackSequence: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
+    private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -46,7 +46,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         btnPreviousTrack.toolTipFunction = {
             () -> String? in
 
-            if let prevTrack = self.playbackSequence.peekPrevious() {
+            if let prevTrack = self.sequencer.peekPrevious() {
                 return String(format: "Previous track: '%@'", prevTrack.conciseDisplayName)
             }
 
@@ -56,7 +56,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         btnNextTrack.toolTipFunction = {
             () -> String? in
 
-            if let nextTrack = self.playbackSequence.peekNext() {
+            if let nextTrack = self.sequencer.peekNext() {
                 return String(format: "Next track: '%@'", nextTrack.conciseDisplayName)
             }
 

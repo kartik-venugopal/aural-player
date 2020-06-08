@@ -107,7 +107,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let _clickedTrack = clickedTrack
             
             transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
-            [playTrackMenuItem, playTrackDelayedMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)})
+            [playTrackMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)})
+            
+            // playTrackDelayedMenuItem
             
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
             
