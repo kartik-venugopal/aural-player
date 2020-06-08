@@ -73,16 +73,25 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
             
             // Start transcoding the track
             // NOTE - Transcoding for this track may have already begun (triggered during a delay).
-            transcoder.transcodeImmediately(track)
+            let transcodeResult = transcoder.transcodeImmediately(track)
             
-            // Notify the player that transcoding has begun, and defer playback.
-            // NOTE - The waiting state takes precedence over the transcoding state.
-            // If a track is both waiting and transcoding, its state will be waiting.
-            if !isWaiting {
-                transitionToTranscodingState(context)
+            if transcodeResult.transcodingFailed, let error = track.lazyLoadingInfo.preparationError {
+                
+                chain.terminate(context, error)
+                return
             }
             
-            return
+            if !transcodeResult.readyForPlayback {
+            
+                // Notify the player that transcoding has begun, and defer playback.
+                // NOTE - The waiting state takes precedence over the transcoding state.
+                // If a track is both waiting and transcoding, its state will be waiting.
+                if !isWaiting {
+                    transitionToTranscodingState(context)
+                }
+                
+                return
+            }
         }
         
         // Proceed if not waiting

@@ -24,15 +24,16 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
         AsyncMessenger.subscribe([.trackTransition, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
     }
     
-    func transcodeImmediately(_ track: Track) {
+    func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {
     
         if let outFile = store.getForTrack(track) {
             
             track.prepareWithAudioFile(outFile)
-            return
+            return (track.lazyLoadingInfo.preparedForPlayback, track.lazyLoadingInfo.preparationFailed)
         }
         
         doTranscode(track, false)
+        return (false, false)
     }
     
     func transcodeInBackground(_ track: Track) {
@@ -229,7 +230,7 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
 
 protocol TranscoderProtocol {
     
-    func transcodeImmediately(_ track: Track)
+    func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool)
     
     func transcodeInBackground(_ track: Track)
     
@@ -247,3 +248,4 @@ protocol TranscoderProtocol {
     
     func setMaxBackgroundTasks(_ numTasks: Int)
 }
+
