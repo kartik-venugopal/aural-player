@@ -108,11 +108,8 @@ class Command {
         process.arguments = args
         process.qualityOfService = .userInteractive
         
-        let outpipe = Pipe()
-        process.standardOutput = outpipe
-        
-        let errpipe = Pipe()
-        process.standardError = errpipe
+        process.standardOutput = Pipe()
+        process.standardError = Pipe()
         
         self.timeout = timeout
         
@@ -128,12 +125,6 @@ class Command {
     static func createSimpleCommand(cmd : String, args : [String], timeout: Double?) -> Command {
         return Command(cmd, args, timeout, false, false, nil)
     }
-}
-
-enum CommandOutputType {
-    
-    case lines
-    case json
 }
 
 class MonitoredCommand: Command {
@@ -175,28 +166,16 @@ class MonitoredCommand: Command {
         self.stdOutPipe = process.standardOutput as? Pipe
         self.stdErrPipe = process.standardError as? Pipe
         self.pipes = [stdOutPipe, stdErrPipe].compactMap {$0}
-      
-        if callback != nil || (readOutput || readErr) {
-            
-            if enableMonitoring && callback != nil {
-
-                pipes.forEach({self.registerCallbackForPipe($0)})
-                registeredPipeCallback = true
-            }
-        }
     }
     
     func startMonitoring() {
         
-        if !enableMonitoring && callback != nil {
+        enableMonitoring = true
+        
+        if callback != nil && !registeredPipeCallback {
             
-            enableMonitoring = true
-            
-            if !registeredPipeCallback {
-                
-                pipes.forEach({self.registerCallbackForPipe($0)})
-                registeredPipeCallback = true
-            }
+            pipes.forEach({self.registerCallbackForPipe($0)})
+            registeredPipeCallback = true
         }
     }
     
@@ -213,7 +192,9 @@ class MonitoredCommand: Command {
     
     private func registerCallbackForPipe(_ pipe: Pipe) {
         
-        pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        DispatchQueue.main.async {
+            pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
                                                object: pipe.fileHandleForReading, queue: MonitoredCommand.callbackOpQueue) {
@@ -271,4 +252,10 @@ class CommandResult {
         self.error = error
         self.exitCode = exitCode
     }
+}
+
+enum CommandOutputType {
+    
+    case lines
+    case json
 }

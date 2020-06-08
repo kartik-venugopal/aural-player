@@ -3,6 +3,7 @@ import Foundation
 class TranscoderStore: MessageSubscriber {
     
     let baseDir: URL
+    
     var files: ConcurrentMap<URL, URL> = ConcurrentMap("transcoderStore-files")
     var filesBeingTranscoded: ConcurrentMap<URL, URL> = ConcurrentMap("transcoderStore-filesBeingTranscoded")
     

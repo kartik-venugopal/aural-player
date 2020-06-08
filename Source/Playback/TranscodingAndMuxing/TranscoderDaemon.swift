@@ -32,33 +32,26 @@ class TranscoderDaemon: MessageSubscriber {
         return tasks.hasForKey(track)
     }
     
-    func submitImmediateTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
+    func rePrioritize(_ track: Track, _ inBackground: Bool) {
         
-        // Track is already being transcoded
+        // Track is already being transcoded. If running in foreground, nothing further to do.
         if let task = tasks[track] {
             
-            // If running in foreground, nothing further to do
-            if task.priority != .immediate {
-                
+            if !inBackground && task.priority != .immediate {
+            
                 // Task is running in the background, bring it to the foreground.
                 doMoveTaskToForeground(task)
+                
+            } else if inBackground && task.priority != .background {
+                
+                doMoveTaskToBackground(task)
             }
-            
-            return
-        }
-        
-        doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .immediate)
-    }
-    
-    func submitBackgroundTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void)) {
-        
-        // If track is already being transcoded, just return.
-        if !tasks.hasForKey(track) {
-            doSubmitTask(track, command, successHandler, failureHandler, cancellationHandler, .background)
         }
     }
     
-    private func doSubmitTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void), _ priority: TranscoderPriority) {
+    func submitTask(_ track: Track, _ command: MonitoredCommand, _ successHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ failureHandler: @escaping ((_ command: MonitoredCommand) -> Void), _ cancellationHandler: @escaping (() -> Void), _ inBackground: Bool) {
+        
+        let priority: TranscoderPriority = inBackground ? .background : .immediate
         
         let block = {
             
@@ -102,12 +95,18 @@ class TranscoderDaemon: MessageSubscriber {
             }
         }
         
+        if command.enableMonitoring {
+            command.startMonitoring()
+        }
+        
         priority == .immediate ? immediateExecutionQueue.addOperation(operation) : backgroundExecutionQueue.addOperation(operation)
     }
     
     func cancelTask(_ track: Track) {
         
         if let task = tasks[track] {
+            
+            task.command.stopMonitoring()
             
             CommandExecutor.cancel(task.command)
             task.operation.cancel()
@@ -117,12 +116,16 @@ class TranscoderDaemon: MessageSubscriber {
     }
     
     func moveTaskToBackground(_ track: Track) {
-
+        
         if let task = tasks[track] {
-            
-            task.command.stopMonitoring()
-            task.priority = .background
+            doMoveTaskToBackground(task)
         }
+    }
+    
+    func doMoveTaskToBackground(_ task: TranscodingTask) {
+        
+        task.command.stopMonitoring()
+        task.priority = .background
     }
 
     func moveTaskToForeground(_ track: Track) {
@@ -132,33 +135,10 @@ class TranscoderDaemon: MessageSubscriber {
         }
     }
     
-    // TODO: Because of the .background QoS, this is not straightforward. Perhaps always cancel the old task and start a new one ? Check time remaining on task and make decision ?
     func doMoveTaskToForeground(_ task: TranscodingTask) {
         
         task.command.startMonitoring()
         task.priority = .immediate
-        
-        let op = task.operation
-        
-        if !op.isExecuting && !op.isFinished {
-            
-            // This should prevent it from executing on the background queue
-            op.cancel()
-            
-            // Duplicate the operation and add it to the immediate execution queue.
-            let opClone = BlockOperation(block: task.block)
-            opClone.completionBlock = {
-                
-                // Task completed, remove it from the map
-                if let taskForTrack = self.tasks[task.track], taskForTrack == task {
-                    _ = self.tasks.remove(task.track)
-                }
-            }
-            
-            immediateExecutionQueue.addOperation(opClone)
-        }
-        
-        // If op is already executing, let it finish on the background queue. If finished, nothing left to do.
     }
     
     func setMaxBackgroundTasks(_ numTasks: Int) {

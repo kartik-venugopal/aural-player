@@ -1,6 +1,6 @@
 import Foundation
 
-class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, PersistentModelObject {
+class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
     private let store: TranscoderStore
     private let daemon: TranscoderDaemon
@@ -57,6 +57,12 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
     
     private func doTranscode(_ track: Track, _ inBackground: Bool) {
         
+        if daemon.hasTaskForTrack(track) {
+            
+            daemon.rePrioritize(track, inBackground)
+            return
+        }
+        
         let formatMapping = FormatMapper.outputFormatForTranscoding(track)
         let outputFile = outputFileForTrack(track, formatMapping.outputExtension)
         let command = FFMpegWrapper.createTranscoderCommand(track, outputFile, formatMapping, self.transcodingProgress, inBackground ? .background : .userInteractive , !inBackground)
@@ -89,7 +95,7 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             self.store.transcodingCancelledOrFailed(track)
         }
         
-        inBackground ? daemon.submitBackgroundTask(track, command, successHandler, failureHandler, cancellationHandler) : daemon.submitImmediateTask(track, command, successHandler, failureHandler, cancellationHandler)
+        daemon.submitTask(track, command, successHandler, failureHandler, cancellationHandler, inBackground)
     }
     
     private func outputFileForTrack(_ track: Track, _ outputFileExtension: String) -> URL {
@@ -171,12 +177,11 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
         
         let transcodingTracks = daemon.transcodingTracks
         let tasksToCancel = transcodingTracks.filter({(!subsequentTracks.contains($0)) && $0 != playingTrack})
-
+        
         for track in tasksToCancel {
             cancelTranscoding(track)
         }
-
-        // Use a Set to avoid duplicates
+        
         let tracksToTranscode: Set<Track> = subsequentTracks.filter({$0 != playingTrack && self.trackNeedsTranscoding($0)})
         
         for track in tracksToTranscode {
@@ -204,42 +209,13 @@ class Transcoder: TranscoderProtocol, PlaylistChangeListenerProtocol, AsyncMessa
             beginEagerTranscoding()
             
         case .tracksRemoved:
+            
             tracksRemoved(message as! TracksRemovedAsyncMessage)
             
         default: return
             
         }
     }
-    
-    //    func tracksAdded(_ addResults: [TrackAddResult]) {
-    //
-    //        if preferences.eagerTranscodingEnabled {
-    //
-    //            if preferences.eagerTranscodingOption == .allFiles {
-    //
-    //                let task = {
-    //
-    //                    let tracks = self.playlist.tracks
-    //                    for track in tracks {
-    //
-    //                        if !track.playbackNativelySupported && self.store.getForTrack(track) == nil {
-    //
-    //                            let outputFile = self.outputFileForTrack(track)
-    //
-    //                            if FFMpegWrapper.transcode(track.file, outputFile, self.transcodingProgress) {
-    //                                self.store.fileAddedToStore(outputFile)
-    //                            }
-    //
-    //                            // TODO: How to continue transcoding more tracks ???
-    //                            return
-    //                        }
-    //                    }
-    //                }
-    //
-    //                daemon.submitTask(task, .background)
-    //            }
-    //        }
-    //    }
     
     func checkDiskSpaceUsage() {
         //        store.checkDiskSpaceUsage()
