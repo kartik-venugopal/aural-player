@@ -256,9 +256,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         case .changeFunctionButtonColor:
             
             if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
-                
                 changeFunctionButtonColor(colorComponentActionMsg.color)
-                return
             }
             
         case .changePlayerSliderColors:

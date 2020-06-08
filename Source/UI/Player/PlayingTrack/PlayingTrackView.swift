@@ -57,15 +57,11 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func switchView(_ viewType: PlayerViewType) {
         
-        PlayerViewState.viewType = viewType
-        
         inactiveView.hideView()
         activeView.showView()
     }
     
     private func showOrHidePlayingTrackInfo() {
-        
-        PlayerViewState.showTrackInfo.toggle()
         
         defaultView.showOrHidePlayingTrackInfo()
         expandedArtView.showOrHidePlayingTrackInfo()
@@ -73,15 +69,11 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHidePlayingTrackFunctions() {
         
-        PlayerViewState.showPlayingTrackFunctions.toggle()
-        
         defaultView.showOrHidePlayingTrackFunctions()
         expandedArtView.showOrHidePlayingTrackFunctions()
     }
     
     private func showOrHideAlbumArt() {
-        
-        PlayerViewState.showAlbumArt.toggle()
         
         defaultView.showOrHideAlbumArt()
         expandedArtView.showOrHideAlbumArt()
@@ -89,15 +81,11 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideArtist() {
         
-        PlayerViewState.showArtist.toggle()
-
         defaultView.showOrHideArtist()
         expandedArtView.showOrHideArtist()
     }
     
     private func showOrHideAlbum() {
-        
-        PlayerViewState.showAlbum.toggle()
         
         defaultView.showOrHideAlbum()
         expandedArtView.showOrHideAlbum()
@@ -105,15 +93,11 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     private func showOrHideCurrentChapter() {
         
-        PlayerViewState.showCurrentChapter.toggle()
-        
         defaultView.showOrHideCurrentChapter()
         expandedArtView.showOrHideCurrentChapter()
     }
     
     private func showOrHideMainControls() {
-        
-        PlayerViewState.showControls.toggle()
         
         defaultView.showOrHideMainControls()
         expandedArtView.showOrHideMainControls()

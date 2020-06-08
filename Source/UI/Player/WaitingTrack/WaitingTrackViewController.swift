@@ -55,7 +55,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
         timer = nil
         endTime = nil
         
-        self.track = nil
+        track = nil
     }
     
     private func updateCountdown() {

@@ -55,14 +55,10 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-        
-        PlayerViewState.timeElapsedDisplayType = format
         updateSeekPosition()
     }
     
     func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-        
-        PlayerViewState.timeRemainingDisplayType = format
         updateSeekPosition()
     }
     
@@ -153,8 +149,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func showOrHideTimeElapsedRemaining() {
-        
-        PlayerViewState.showTimeElapsedRemaining.toggle()
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
     

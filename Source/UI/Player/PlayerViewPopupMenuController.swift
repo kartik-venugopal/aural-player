@@ -140,6 +140,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
         
         if PlayerViewState.viewType != .defaultView {
+            
+            PlayerViewState.viewType = .defaultView
             SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .defaultView))
         }
     }
@@ -147,39 +149,57 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
         
         if PlayerViewState.viewType != .expandedArt {
+            
+            PlayerViewState.viewType = .expandedArt
             SyncMessenger.publishActionMessage(PlayerViewActionMessage(.changePlayerView, .expandedArt))
         }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showPlayingTrackFunctions.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackFunctions))
     }
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showTrackInfo.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showAlbumArt.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbumArt))
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showArtist.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideArtist))
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showAlbum.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideAlbum))
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showCurrentChapter.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideCurrentChapter))
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showControls.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideMainControls))
     }
     
     @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
+        
+        PlayerViewState.showTimeElapsedRemaining.toggle()
         SyncMessenger.publishActionMessage(PlayerViewActionMessage(.showOrHideTimeElapsedRemaining))
     }
     
@@ -198,6 +218,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         default: format = .formatted
             
         }
+        
+        PlayerViewState.timeElapsedDisplayType = format
         
         SyncMessenger.publishActionMessage(SetTimeElapsedDisplayFormatActionMessage(format))
     }
@@ -221,6 +243,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         default: format = .formatted
             
         }
+        
+        PlayerViewState.timeRemainingDisplayType = format
         
         SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
     }
