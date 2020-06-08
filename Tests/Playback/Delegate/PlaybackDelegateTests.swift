@@ -19,7 +19,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     var stopPlaybackChain: TestableStopPlaybackChain!
     var trackPlaybackCompletedChain: TestableTrackPlaybackCompletedChain!
     
-    var trackChangeMessages: [TrackChangedAsyncMessage] = []
+    var trackChangeMessages: [TrackTransitionAsyncMessage] = []
     var gapStartedMessages: [PlaybackGapStartedAsyncMessage] = []
     
     override func setUp() {
@@ -71,13 +71,13 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         trackChangeMessages.removeAll()
         gapStartedMessages.removeAll()
         
-        AsyncMessenger.subscribe([.trackChanged, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        AsyncMessenger.subscribe([.trackTransition, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
     }
     
     override func tearDown() {
         
         // Prevent test case objects from receiving each other's messages.
-        AsyncMessenger.unsubscribe([.trackChanged, .trackNotPlayed, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition, .trackNotPlayed, .gapStarted], subscriber: self)
         
         AsyncMessenger.unsubscribe([.playbackCompleted], subscriber: delegate)
         SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
@@ -193,10 +193,10 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         XCTAssertEqual(trackChangeMessages.count, totalMsgCount)
         
-        let trackChangeMsg = trackChangeMessages.last!
-        XCTAssertEqual(trackChangeMsg.oldTrack, oldTrack)
-        XCTAssertEqual(trackChangeMsg.oldState, oldState)
-        XCTAssertEqual(trackChangeMsg.newTrack, newTrack)
+        let trackTransitionMsg = trackChangeMessages.last!
+        XCTAssertEqual(trackTransitionMsg.beginTrack, oldTrack)
+        XCTAssertEqual(trackTransitionMsg.beginState, oldState)
+        XCTAssertEqual(trackTransitionMsg.endTrack, newTrack)
     }
     
     func assertGapStarted(_ lastPlayedTrack: Track?, _ nextTrack: Track, _ totalMsgCount: Int = 1) {
@@ -287,7 +287,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     
     func doPausePlayback(_ track: Track) {
         
-        let trackChangeMsgCountBefore = trackChangeMessages.count
+        let trackTransitionMsgCountBefore = trackChangeMessages.count
         let gapStartedMsgCountBefore = gapStartedMessages.count
         
         let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
@@ -320,14 +320,14 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBefore)
+            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBefore)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
         }
     }
     
     func doResumePlayback(_ track: Track) {
         
-        let trackChangeMsgCountBefore = trackChangeMessages.count
+        let trackTransitionMsgCountBefore = trackChangeMessages.count
         let gapStartedMsgCountBefore = gapStartedMessages.count
         
         let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
@@ -360,16 +360,16 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBefore)
+            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBefore)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
         }
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let trackChangeMsg = message as? TrackChangedAsyncMessage {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
             
-            trackChangeMessages.append(trackChangeMsg)
+            trackChangeMessages.append(trackTransitionMsg)
             return
             
         } else if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
