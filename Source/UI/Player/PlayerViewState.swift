@@ -1,6 +1,6 @@
 import Foundation
 
-// Convenient accessor for information about the current playlist view
+// Convenient accessor for the current state of the player UI
 class PlayerViewState {
     
     static var viewType: PlayerViewType = .defaultView

@@ -1,6 +1,13 @@
 import Foundation
 
-class AudioFilePreparationAction: NSObject, PlaybackChainAction {
+/*
+    Prepares a track for playback:
+
+    - delay (if defined in the request)
+    - transcoding (if required)
+    - reading audio metadata
+ */
+class AudioFilePreparationAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     private let transcoder: TranscoderProtocol
@@ -9,8 +16,6 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         
         self.player = player
         self.transcoder = transcoder
-
-        super.init()
     }
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
@@ -25,14 +30,16 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
         prepareTrackAndProceed(newTrack, context, chain, delayInfo.isWaiting, delayInfo.gapEndTime)
     }
     
+    // If a delay is defined in the request params, defers chain execution
     func checkForDelayAndDefer(_ newTrack: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain) -> (isWaiting: Bool, gapEndTime: Date?) {
         
         if context.requestParams.allowDelay, let delay = context.delay {
             
+            // Dispatch an async task that will continue chain execution after the delay
+            
             let gapEndTime_dt: DispatchTime = .now() + delay
             let gapEndTime: Date = Date() + delay
             
-            // Continue playback after delay
             DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt, qos: .userInteractive) {
                 
                 // Perform this check to account for the possibility that the gap has been skipped
@@ -102,7 +109,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
     
     private func transitionToWaitingState(_ context: PlaybackRequestContext, _ gapEndTime: Date) {
         
-        // Mark the current state as "waiting" before the requested track
+        // Mark the current state as "waiting" before the requested track, and notify observers.
         player.waiting()
         AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .waiting, gapEndTime))
         
@@ -114,7 +121,7 @@ class AudioFilePreparationAction: NSObject, PlaybackChainAction {
     
     private func transitionToTranscodingState(_ context: PlaybackRequestContext) {
         
-        // Mark the current state as "transcoding" the requested track
+        // Mark the current state as "transcoding" the requested track, and notify observers.
         player.transcoding()
         AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .transcoding))
         

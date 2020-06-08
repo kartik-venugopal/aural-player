@@ -27,9 +27,17 @@ protocol PlayerProtocol {
     // Returns the current playback state of the player. See PlaybackState for more details
     var state: PlaybackState {get}
     
-    // Seeks to a certain time within the currently playing track
+    // Attempts to seek to a certain time within the currently playing track
+    // If the provided time parameter is invalid (e.g. < 0 or > track duration),
+    // it will be adjusted to a valid value.
+    //
+    // NOTE - If a segment loop exists, it will be preserved
     func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
+    // Seeks to an exact time within the currently playing track.
+    //
+    // NOTE - If a segment loop exists, and the requested seek time is outside the
+    // loop's time bounds, the loop will be removed.
     func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
     // Gets the playback position (in seconds) of the currently playing track
@@ -49,10 +57,11 @@ protocol PlayerProtocol {
      */
     func toggleLoop() -> PlaybackLoop?
     
-    // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
+    // Retrieves information about the playback loop defined on a segment of the
+    // currently playing track, if there is a playing track and a loop for it.
     var playbackLoop: PlaybackLoop? {get}
     
-    // Before app exits
+    // Performs any required cleanup before the app exits
     func tearDown()
     
     /*
@@ -63,7 +72,7 @@ protocol PlayerProtocol {
     var playingTrackStartTime: TimeInterval? {get}
 }
 
-// Defines objects that encapsulate the result of an attempted seek operation.
+// Defines objects that encapsulate the result of a seek operation.
 struct PlayerSeekResult {
     
     // The potentially adjusted seek position (eg. if attempted seek time was < 0, it will be adjusted to 0).

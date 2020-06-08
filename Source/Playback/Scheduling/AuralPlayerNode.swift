@@ -26,6 +26,8 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // The absolute minimum frame count when scheduling a segment (to prevent crashes in the playerNode).
     static let minFrames: AVAudioFrameCount = 1
     
+    // This flag determines whether the legacy scheduling API should be used (i.e. <= macOS 10.12)
+    // If false, the newer APIs will be used.
     var useLegacyAPI: Bool
     
     init(_ useLegacyAPI: Bool) {
@@ -85,9 +87,11 @@ class AuralPlayerNode: AVAudioPlayerNode {
         return startTime >= 0
     }
     
+    // Computes an audio file segment. Given seek times, computes the corresponding audio frames.
     func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
         
-        guard let playbackInfo = session.track.playbackInfo, let playingFile: AVAudioFile = playbackInfo.audioFile, areStartAndEndTimeValid(startTime, endTime) else {
+        guard let playbackInfo = session.track.playbackInfo, let playingFile: AVAudioFile = playbackInfo.audioFile,
+            areStartAndEndTimeValid(startTime, endTime) else {
             return nil
         }
 

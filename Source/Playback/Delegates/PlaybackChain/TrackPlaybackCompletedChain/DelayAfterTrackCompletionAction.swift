@@ -1,5 +1,9 @@
 import Foundation
 
+/*
+    Computes the delay after the completion of playback of a requested track
+    (as defined in either playback preferences or as a gap after the track in the playlist).
+*/
 class DelayAfterTrackCompletionAction: PlaybackChainAction {
     
     private let playlist: PlaylistCRUDProtocol
@@ -28,7 +32,7 @@ class DelayAfterTrackCompletionAction: PlaybackChainAction {
                     playlist.removeGapForTrack(completedTrack, gapAfterCompletedTrack.position)
                 }
                 
-            } // No playlist gap defined, check for an implicit gap defined by playback preferences.
+            } // No playlist gap defined, check for an "implicit" gap defined by playback preferences.
             else if preferences.gapBetweenTracks {
                 
                 context.addGap(PlaybackGap(Double(preferences.gapBetweenTracksDuration), .afterTrack, .implicit))

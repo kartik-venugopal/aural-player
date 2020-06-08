@@ -173,7 +173,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let msg = message as? TrackTransitionAsyncMessage, msg.gapStarted || msg.transcodingStarted {
+        if let msg = message as? TrackTransitionAsyncMessage, msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) {
             
             preTrackChange(msg.beginTrack, msg.endTrack)
             return

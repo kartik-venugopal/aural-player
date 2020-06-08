@@ -1,5 +1,6 @@
 import Foundation
 
+// A function that produces an optional Track (used when deciding which track will play next)
 typealias TrackProducer = () -> Track?
 
 class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
@@ -7,29 +8,25 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // The actual player
     let player: PlayerProtocol
     
-    // The actual playback sequence
+    // The playback sequence
     let sequencer: SequencerProtocol
-    
-    // The actual playlist
-    let playlist: PlaylistCRUDProtocol
-    
-    let transcoder: TranscoderProtocol
     
     // User preferences
     let preferences: PlaybackPreferences
     
+    // Playback settings per track
     let profiles: PlaybackProfiles
     
+    // "Chain of responsibility" chains that are used to perform a sequence of actions when changing tracks
     let startPlaybackChain: StartPlaybackChain
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    init(_ profiles: PlaybackProfiles, _ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ transcoder: TranscoderProtocol, _ preferences: PlaybackPreferences, _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
+    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
+         _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
         self.player = player
         self.sequencer = sequencer
-        self.playlist = playlist
-        self.transcoder = transcoder
         self.preferences = preferences
         self.profiles = profiles
         
@@ -112,6 +109,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         doPlay({return sequencer.select(group)}, params)
     }
     
+    // Captures the current player state and proceeds with playback according to the playback sequence
     func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
         let trackBeforeChange = currentTrack
@@ -144,6 +142,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func trackPlaybackCompleted(_ session: PlaybackSession) {
         
+        // If the given session has expired, do not continue playback.
         if PlaybackSession.isCurrent(session) {
             trackPlaybackCompleted()
             
@@ -151,10 +150,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             // If the session has expired, the track completion chain will not execute
             // and the track's profile will not be updated, so ensure that it is.
+            // Reset the seek position to 0 since the track completed playback.
             savePlaybackProfileIfNeeded(session.track, 0)
         }
     }
     
+    // Continues playback when a track finishes playing.
     func trackPlaybackCompleted() {
         
         let trackBeforeChange = currentTrack
@@ -365,6 +366,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    // Saves playback settings for the current track if required by the preferences and existing profiles.
     private func savePlaybackProfileIfNeeded(_ track: Track, _ position: Double? = nil) {
         
         // Save playback settings if the option either requires saving settings for all tracks, or if
@@ -389,7 +391,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if playback settings for the track need to be remembered.
+    // This function is invoked when the user attempts to exit the app. It checks if there
+    // is a track playing and if playback settings for the track need to be remembered.
     private func onExit() -> AppExitResponse {
         
         if let track = playingTrack {
@@ -435,7 +438,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
-        
+    
+        // Cannot continue playback if the playing track was removed from the playlist.
         if playingTrackRemoved {
             stop()
         }

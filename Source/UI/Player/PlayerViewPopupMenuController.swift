@@ -220,7 +220,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeElapsedDisplayType = format
-        
         SyncMessenger.publishActionMessage(SetTimeElapsedDisplayFormatActionMessage(format))
     }
     
@@ -245,7 +244,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeRemainingDisplayType = format
-        
         SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
     }
     

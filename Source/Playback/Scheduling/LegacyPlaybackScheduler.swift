@@ -3,20 +3,22 @@ import AVFoundation
 
 /*
     Manages audio scheduling, and playback. See PlaybackSchedulerProtocol for more details on all the functions provided.
+ 
+    NOTE - This class is only used on macOS 10.12 and older systems. It will be deprecated and/or decommissioned at some
+    point in the future.
  */
 class LegacyPlaybackScheduler: PlaybackScheduler {
 
     // A timer used to check if track playback has completed. This is required because the playerNode sends completion notifications prematurely, before track
-    // playback has been completed. This problem has been fixed in PlaybackScheduler. It is the reason why this class is now deprecated, and only in use on macOS Sierra
-    // systems.
+    // playback has been completed. This problem has been fixed in PlaybackScheduler. It is the reason why this class is now deprecated, and only in use on macOS Sierra systems.
     private var completionPollTimer: RepeatingTaskExecutor?
     
     // The interval at which the completionPollTimer repeats its task.
     static let completionPollTimerIntervalMillis: Int = 125     // 1/8th of a second
     
     // Interval used for comparing two Double values (to avoid problems with Double precision resulting in equal values being considered inequal)
-    // If two Double track seek times are within 0.01 seconds of each other, we'll consider them equal (used to detect the completion of playback of a loop or segment)
-    static let timeComparisonTolerance: Double = 0.01
+    // If two Double track seek times are within 0.001 seconds of each other, we'll consider them equal (used to detect the completion of playback of a loop or segment)
+    static let timeComparisonTolerance: Double = 0.001
 
     override init(_ playerNode: AuralPlayerNode) {
         super.init(playerNode)
@@ -64,6 +66,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         // If the segment-associated session is not the same as the current session
         // (possible if stop() was called, eg. old segments that complete when seeking), don't do anything
         guard PlaybackSession.isCurrent(session) else {
+            
             destroyCompletionTimer()
             return
         }
@@ -112,6 +115,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
 
         // Validate the session and check for a complete loop
         guard PlaybackSession.isCurrent(session) && session.hasCompleteLoop() else {
+            
             destroyCompletionTimer()
             return
         }
@@ -132,6 +136,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
     func pollForLoopCompletion() {
         
         guard let session = PlaybackSession.currentSession, let loop = session.loop, let loopEndTime = loop.endTime else {
+            
             destroyCompletionTimer()
             return
         }

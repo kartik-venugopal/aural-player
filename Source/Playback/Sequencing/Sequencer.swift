@@ -1,7 +1,7 @@
 import Foundation
 
 /*
-    Concrete implementation of PlaybackSequencerProtocol. Also implements PlaylistChangeListenerProtocol, to respond to changes in the playlist, and MessageSubscriber to respond to changes in the playlist view.
+    See SequencerProtocol.
  */
 class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
@@ -325,10 +325,10 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
             guard !removeResults.tracks.isEmpty else {return}
             
             if let group = scope.group {
-                
+
+                // We are only interested in the results matching the scope's group type.
                 let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
                 
-                // We are only interested in the results matching the scope's group type.
                 // Loop through the results to see if a result for the scope group exists.
                 if let theResults = filteredResults,
                     !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {

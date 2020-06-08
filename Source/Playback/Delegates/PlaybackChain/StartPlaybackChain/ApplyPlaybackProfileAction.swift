@@ -1,5 +1,9 @@
 import Foundation
 
+/*
+    Applies a playback profile for a track (i.e. any previously remembered playback settings, e.g. seek position)
+    to an executing playback chain.
+ */
 class ApplyPlaybackProfileAction: PlaybackChainAction {
     
     private let profiles: PlaybackProfiles
@@ -17,10 +21,10 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
             
             let params = context.requestParams
             
-            // Check for an existing playback profile for the requested track
+            // Check for an existing playback profile for the requested track, and only apply the profile
+            // if no start position is defined in the request params.
             if preferences.rememberLastPosition, let profile = profiles.get(newTrack), params.startPosition == nil {
                 
-                // Apply playback profile for new track
                 // Validate the playback profile before applying it
                 params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)
             }

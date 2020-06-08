@@ -114,8 +114,8 @@ class PlaybackSequence {
             }
             
             // No need to do this if no track is currently playing.
-            if let theCursor = self.curTrackIndex {
-                shuffleSequence.resizeAndReshuffle(size: size, startWith: theCursor)
+            if let theCurTrackIndex = self.curTrackIndex {
+                shuffleSequence.resizeAndReshuffle(size: size, startWith: theCurTrackIndex)
             }
             
         } // Shuffle mode is off
@@ -144,7 +144,7 @@ class PlaybackSequence {
 
         guard size > 0 else {return nil}
         
-        // NOTE - If shuffle is on, it is important to call resetShuffleSequence() or next() here, and update the cursor.
+        // NOTE - If shuffle is on, it is important to call shuffleSequence.next() here, and update curTrackIndex.
         // Cannot simply return the value from peekSubsequent().
         
         curTrackIndex = shuffleMode == .on ? shuffleSequence.next(repeatMode: repeatMode) : peekSubsequent()
@@ -162,10 +162,10 @@ class PlaybackSequence {
         case (.off, .off), (.all, .off):
           
             // Next track sequentially
-            if let theCursor = curTrackIndex, theCursor < (size - 1) {
+            if let theCurTrackIndex = curTrackIndex, theCurTrackIndex < (size - 1) {
                 
                 // Has more tracks, pick the next one
-                return theCursor + 1
+                return theCurTrackIndex + 1
                 
             } else {
                 
@@ -199,7 +199,7 @@ class PlaybackSequence {
         
         guard size > 1, curTrackIndex != nil else {return nil}
         
-        // NOTE - If shuffle is on, it is important to call resetShuffleSequence() or next() here, and update the cursor.
+        // NOTE - If shuffle is on, it is important to call shuffleSequence.next() here, and update curTrackIndex.
         // Cannot simply return the value from peekNext().
         let computedValue = shuffleMode == .on ? shuffleSequence.next(repeatMode: repeatMode) : peekNext()
         
@@ -214,14 +214,14 @@ class PlaybackSequence {
     // Peeks at (without selecting for playback) the next track in the sequence
     func peekNext() -> Int? {
         
-        guard size > 1, let theCursor = curTrackIndex else {return nil}
+        guard size > 1, let theCurTrackIndex = curTrackIndex else {return nil}
         
         if shuffleMode == .on {
             return shuffleSequence.peekNext()
             
         } // Shuffle mode is off
         else {
-            return theCursor < (size - 1) ? theCursor + 1 : (repeatMode == .all ? 0 : nil)
+            return theCurTrackIndex < (size - 1) ? theCurTrackIndex + 1 : (repeatMode == .all ? 0 : nil)
         }
     }
     
@@ -245,14 +245,14 @@ class PlaybackSequence {
     // Peeks at (without selecting for playback) the previous track in the sequence
     func peekPrevious() -> Int? {
         
-        guard size > 1, let theCursor = curTrackIndex else {return nil}
+        guard size > 1, let theCurTrackIndex = curTrackIndex else {return nil}
         
         if shuffleMode == .on {
             return shuffleSequence.peekPrevious()
             
         } // Shuffle mode is off
         else {
-            return theCursor > 0 ? theCursor - 1 : (repeatMode == .all ? size - 1 : nil)
+            return theCurTrackIndex > 0 ? theCurTrackIndex - 1 : (repeatMode == .all ? size - 1 : nil)
         }
     }
 }
