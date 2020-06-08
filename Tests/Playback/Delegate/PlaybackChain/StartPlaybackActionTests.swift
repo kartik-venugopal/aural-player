@@ -15,10 +15,10 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
     var preTrackChangeMsg_currentState: PlaybackState?
     var preTrackChangeMsg_newTrack: Track?
     
-    var trackChangeMsgCount: Int = 0
-    var trackChangeMsg_currentTrack: Track?
-    var trackChangeMsg_currentState: PlaybackState?
-    var trackChangeMsg_newTrack: Track?
+    var trackTransitionMsgCount: Int = 0
+    var trackTransitionMsg_currentTrack: Track?
+    var trackTransitionMsg_currentState: PlaybackState?
+    var trackTransitionMsg_newTrack: Track?
 
     override func setUp() {
         
@@ -32,13 +32,13 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         chain = MockPlaybackChain()
         
         SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
     }
     
     override func tearDown() {
         
         SyncMessenger.unsubscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.unsubscribe([.trackChanged], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -57,13 +57,13 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let trackChangeMsg = message as? TrackChangedAsyncMessage {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
             
-            trackChangeMsgCount.increment()
+            trackTransitionMsgCount.increment()
             
-            trackChangeMsg_currentTrack = trackChangeMsg.oldTrack
-            trackChangeMsg_currentState = trackChangeMsg.oldState
-            trackChangeMsg_newTrack = trackChangeMsg.newTrack
+            trackTransitionMsg_currentTrack = trackTransitionMsg.beginTrack
+            trackTransitionMsg_currentState = trackTransitionMsg.beginState
+            trackTransitionMsg_newTrack = trackTransitionMsg.endTrack
             
             return
         }
@@ -77,7 +77,7 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         
         XCTAssertEqual(player.playCallCount, 0)
         XCTAssertEqual(preTrackChangeMsgCount, 0)
-        XCTAssertEqual(trackChangeMsgCount, 0)
+        XCTAssertEqual(trackTransitionMsgCount, 0)
         
         assertChainTerminated(context)
     }
@@ -232,10 +232,10 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
         
         executeAfter(0.5) {
         
-            XCTAssertEqual(self.trackChangeMsgCount, 1)
-            XCTAssertEqual(self.trackChangeMsg_currentTrack, context.currentTrack)
-            XCTAssertEqual(self.trackChangeMsg_currentState, context.currentState)
-            XCTAssertEqual(self.trackChangeMsg_newTrack!, context.requestedTrack!)
+            XCTAssertEqual(self.trackTransitionMsgCount, 1)
+            XCTAssertEqual(self.trackTransitionMsg_currentTrack, context.currentTrack)
+            XCTAssertEqual(self.trackTransitionMsg_currentState, context.currentState)
+            XCTAssertEqual(self.trackTransitionMsg_newTrack!, context.requestedTrack!)
         }
     }
     

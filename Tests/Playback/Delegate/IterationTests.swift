@@ -213,7 +213,7 @@ class IterationTests: PlaybackDelegateTests {
         let previousCallCountBeforeChange = sequencer.previousCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackChangeMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
         
         sequencer.previousTrack = track
         delegate.previousTrack()
@@ -259,9 +259,9 @@ class IterationTests: PlaybackDelegateTests {
         executeAfter(0.5) {
             
             if track != nil {
-                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackChangeMsgCountBeforeChange + 1)
+                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
             } else {
-                XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBeforeChange)
+                XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
             }
         }
     }
@@ -476,7 +476,7 @@ class IterationTests: PlaybackDelegateTests {
         let nextCallCountBeforeChange = sequencer.nextCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackChangeMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
         
         sequencer.nextTrack = track
         delegate.nextTrack()
@@ -522,9 +522,9 @@ class IterationTests: PlaybackDelegateTests {
         executeAfter(0.5) {
             
             if track != nil {
-                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackChangeMsgCountBeforeChange + 1)
+                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
             } else {
-                XCTAssertEqual(self.trackChangeMessages.count, trackChangeMsgCountBeforeChange)
+                XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
             }
         }
     }
