@@ -5,6 +5,8 @@ class AlbumArtCache {
     private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>("threadSafeAccess-artCache")
     private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>("threadSafeAccess-filesWithNoArt")
     
+    // TODO: Clean out albumArt store (filesystem folder)
+    
     static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?) {
         return (filesWithNoArt.contains(file), cache[file])
     }

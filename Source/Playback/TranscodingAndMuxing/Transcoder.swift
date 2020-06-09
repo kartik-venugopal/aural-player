@@ -2,6 +2,8 @@ import Foundation
 
 class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
+    // TODO: On appExit(), cancel all tasks and delete in-progress output files.
+    
     private let store: TranscoderStore
     private let daemon: TranscoderDaemon
     
