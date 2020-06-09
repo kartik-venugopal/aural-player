@@ -161,7 +161,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectIndexCallCountBeforeChange = sequencer.selectIndexCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         
         let track = createTrack("TestTrack", 217.4565434)
         sequencer.selectionTracksByIndex[index] = track
@@ -190,7 +190,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectIndexCallCountBeforeChange = sequencer.selectIndexCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         let track = createTrack("TestTrack", 217.4565434)
@@ -218,11 +218,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
         
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
         }
     }
@@ -238,7 +238,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         let track = createTrack("TestTrack", "mka", 217.4565434)
@@ -256,11 +256,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
         }
     }
@@ -424,7 +424,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectTrackCallCountBeforeChange = sequencer.selectTrackCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         
         let track = createTrack("TestTrack", 217.4565434)
         delegate.play(track)
@@ -451,7 +451,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectTrackCallCountBeforeChange = sequencer.selectTrackCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         let requestParams = PlaybackParams.defaultParams()
@@ -474,11 +474,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectedTrack, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
         }
     }
@@ -494,7 +494,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         XCTAssertFalse(track.playbackNativelySupported)
@@ -509,11 +509,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
         }
     }
@@ -677,7 +677,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectGroupCallCountBeforeChange = sequencer.selectGroupCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         
         let track = createTrack("TestTrack", 217.4565434)
         sequencer.selectionTracksByGroup[group] = track
@@ -706,7 +706,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         let selectGroupCallCountBeforeChange = sequencer.selectGroupCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         let track = createTrack("TestTrack", 217.4565434)
@@ -733,11 +733,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.selectedGroup, group)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
         }
     }
@@ -753,7 +753,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         
         let transcoderCallCountBeforeChange = transcoder.transcodeImmediatelyCallCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         let gapStartedMsgCountBeforeChange = gapStartedMessages.count
         
         let track = createTrack("TestTrack", "mka", 217.4565434)
@@ -771,11 +771,11 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + 1)
-        verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
+        verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
         }
     }

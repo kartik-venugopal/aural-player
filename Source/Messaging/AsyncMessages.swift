@@ -100,6 +100,10 @@ struct TrackTransitionAsyncMessage: AsyncMessage {
         return endState == .playing
     }
     
+    var playbackEnded: Bool {
+        return endState == .noTrack
+    }
+    
     var stateChanged: Bool {
         return beginState != endState
     }

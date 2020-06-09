@@ -225,10 +225,16 @@ class StartPlaybackActionTests: AuralTestCase, MessageSubscriber, AsyncMessageSu
     
     private func assertTrackChange(_ context: PlaybackRequestContext) {
         
-        XCTAssertEqual(preTrackChangeMsgCount, 1)
-        XCTAssertEqual(preTrackChangeMsg_currentTrack, context.currentTrack)
-        XCTAssertEqual(preTrackChangeMsg_currentState, context.currentState)
-        XCTAssertEqual(preTrackChangeMsg_newTrack!, context.requestedTrack!)
+        let trackChanged = context.currentTrack != context.requestedTrack
+        
+        XCTAssertEqual(preTrackChangeMsgCount, trackChanged ? 1 : 0)
+        
+        if trackChanged {
+            
+            XCTAssertEqual(preTrackChangeMsg_currentTrack, context.currentTrack)
+            XCTAssertEqual(preTrackChangeMsg_currentState, context.currentState)
+            XCTAssertEqual(preTrackChangeMsg_newTrack!, context.requestedTrack!)
+        }
         
         executeAfter(0.5) {
         
