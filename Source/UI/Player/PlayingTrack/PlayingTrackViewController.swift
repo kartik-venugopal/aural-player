@@ -77,7 +77,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
             infoView.applyColorScheme(colorSchemeActionMsg.scheme)
             return
             
-        } else if let textSizeMessage = message as? TextSizeActionMessage, textSizeMessage.actionType == .changePlayerTextSize {
+        } else if let textSizeMessage = message as? TextSizeActionMessage {
             
             infoView.changeTextSize(textSizeMessage.textSize)
             return

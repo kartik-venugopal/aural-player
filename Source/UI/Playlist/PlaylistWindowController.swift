@@ -533,9 +533,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .trackTransitionNotification:
             
-            if (message as? TrackTransitionNotification)?.playbackStarted ?? false {
-                trackChanged()
-            }
+            trackChanged()
         
         case .playlistTypeChangedNotification:
         
