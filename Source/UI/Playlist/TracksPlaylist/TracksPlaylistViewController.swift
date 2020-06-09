@@ -322,7 +322,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         
-        if let playingTrack = self.playbackInfo.playingTrack,
+        if let playingTrack = self.playbackInfo.currentTrack,
             let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
             
             selectTrack(playingTrackIndex)

@@ -30,7 +30,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // If false, the newer APIs will be used.
     var useLegacyAPI: Bool
     
-    init(_ useLegacyAPI: Bool) {
+    init(useLegacyAPI: Bool) {
         self.useLegacyAPI = useLegacyAPI
     }
     
