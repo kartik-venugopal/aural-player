@@ -1,5 +1,11 @@
 import Cocoa
 
+/*
+    View controller for the subview within the player view that displays info about a track that is currently
+    being transcoded, e.g. an Ogg Vorbis file.
+ 
+    Displays transcoding progress, e.g. percentage transcoded, speed, and estimated time remaining.
+*/
 class TranscoderViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var artView: NSImageView!

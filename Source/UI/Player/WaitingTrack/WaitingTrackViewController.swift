@@ -1,5 +1,13 @@
 import Cocoa
 
+/*
+    View controller for the subview within the player view that displays info about a track that is currently
+    waiting to play, e.g. when a user requests delayed playback.
+ 
+    Displays a countdown with the remaining wait time: e.g. "Track will play in: 00:00:15"
+
+    Also handles such requests from app menus.
+*/
 class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
  
     @IBOutlet weak var artView: NSImageView!
@@ -58,6 +66,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
         track = nil
     }
     
+    // Updates the countdown info fields with the remaining wait time.
     private func updateCountdown() {
         
         if let endTime = self.endTime {

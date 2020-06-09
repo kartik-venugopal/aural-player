@@ -1,7 +1,9 @@
 import Cocoa
 
 /*
-    A view that displays info about the currently playing track in the player window.
+    A rich text field that displays nicely formatted info about the currently playing track in the player window.
+    Dynamically updates itself based on view settings to show either a single line or multiple
+    lines of information.
  */
 class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
     

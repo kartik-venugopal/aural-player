@@ -1,18 +1,25 @@
 import Cocoa
 
+/*
+    A container view for the 2 types of player views - Default / Expanded Art view.
+    Switches between the 2 views, shows/hides individual UI components, and handles functions such as auto-hide.
+ */
 class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     
     @IBOutlet weak var defaultView: PlayingTrackSubview!
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
-    
+ 
+    // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {
         return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
     }
     
+    // The player view that is NOT currently displayed
     private var inactiveView: PlayingTrackSubview {
         return PlayerViewState.viewType == .defaultView ? expandedArtView : defaultView
     }
  
+    // Info about the currently playing track
     var trackInfo: PlayingTrackInfo? {
         
         didSet {
@@ -55,6 +62,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         expandedArtView.update()
     }
     
+    // Switches between the 2 sub-views (Default and Expanded Art)
     private func switchView(_ viewType: PlayerViewType) {
         
         inactiveView.hideView()
@@ -218,7 +226,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         setUpMouseTracking()
     }
 
-    // Set up mouse tracking if necessary.
+    // Set up mouse tracking if necessary (for auto-hide).
     private func setUpMouseTracking() {
         
         if activeView.needsMouseTracking {

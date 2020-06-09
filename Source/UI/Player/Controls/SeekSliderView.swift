@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+   View that encapsulates the seek slider and seek time labels.
+*/
 class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     
     // Fields that display/control seek position within the playing track
