@@ -61,6 +61,8 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
     
     private func doTranscode(_ track: Track, _ inBackground: Bool) {
         
+        // If this track is already being transcoded, just adjust the
+        // task priority (i.e. background/foreground) as required.
         if daemon.hasTaskForTrack(track) {
             
             daemon.rePrioritize(track, inBackground)

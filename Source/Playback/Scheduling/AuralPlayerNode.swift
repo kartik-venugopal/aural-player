@@ -12,10 +12,10 @@ typealias SessionCompletionHandler = (PlaybackSession) -> Void
  */
 class AuralPlayerNode: AVAudioPlayerNode {
 
-    // This property will have no effect on macOS 10.12 or older.
+    // This property will have no effect on macOS 10.12 or older systems.
     var completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
     
-    var completionCallbackQueue: DispatchQueue = DispatchQueue.global()
+    var completionCallbackQueue: DispatchQueue = DispatchQueue.global(qos: .userInteractive)
     
     // The start frame for the current playback session (used to calculate seek position). Represents the point in the track at which playback began.
     var startFrame: AVAudioFramePosition = 0
@@ -65,7 +65,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
         
         if #available(OSX 10.13, *), !useLegacyAPI {
-
+            
             scheduleSegment(segment.playingFile, startingFrame: segment.firstFrame, frameCount: segment.frameCount, at: nil, completionCallbackType: completionCallbackType, completionHandler: {(callbackType: AVAudioPlayerNodeCompletionCallbackType) -> Void in
                 self.completionCallbackQueue.async {completionHandler(segment.session)}
             })
