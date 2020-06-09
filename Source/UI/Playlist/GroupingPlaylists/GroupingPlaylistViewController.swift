@@ -569,10 +569,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if let _oldTrack = oldTrack {
             
-            playlistView.reloadItem(_oldTrack)
+            // If this is not done async, the row view could get garbled.
+            // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
+            DispatchQueue.main.async {
             
-            let row = playlistView.row(forItem: _oldTrack)
-            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+                self.playlistView.reloadItem(_oldTrack)
+            
+                let row = self.playlistView.row(forItem: _oldTrack)
+                self.playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+            }
         }
         
         let needToShowTrack: Bool = PlaylistViewState.current.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist
@@ -583,10 +588,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             if newTrack != oldTrack {
                 
-                playlistView.reloadItem(newTrack)
+                // If this is not done async, the row view could get garbled.
+                // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
+                DispatchQueue.main.async {
                 
-                let row = playlistView.row(forItem: newTrack)
-                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+                    self.playlistView.reloadItem(newTrack)
+                    
+                    let row = self.playlistView.row(forItem: newTrack)
+                    self.playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+                }
             }
             
             if needToShowTrack {

@@ -424,8 +424,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // Gaps may have been removed, so row heights need to be updated too
         let indexSet: IndexSet = IndexSet(refreshIndexes)
 
-        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+        // If this is not done async, the row view could get garbled.
+        // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
+        DispatchQueue.main.async {
+            
+            self.playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            self.playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+        }
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
