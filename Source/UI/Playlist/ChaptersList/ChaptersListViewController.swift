@@ -453,7 +453,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private func trackChanged() {
         
         // Don't need to do this if the window is not visible
-        if let _window = view.window, _window.isVisible {
+        if view.window?.isVisible ?? false {
             
             chaptersListView.reloadData()
             chaptersListView.scrollRowToVisible(0)
