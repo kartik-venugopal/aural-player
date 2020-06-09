@@ -139,6 +139,11 @@ class Track: Hashable, PlaylistItem {
     }
     
     func prepareWithAudioFile(_ file: URL) {
+        
+        // TODO: Improve this
+        // If this isn't done, art won't be loaded
+        TrackIO.prepareForPlayback(self)
+        
         AudioUtils.prepareTrackWithFile(self, file)
     }
     
