@@ -1,31 +1,32 @@
 #  What's New in Version 2.1.0
 
-### Enhancements
+### Player (back end) redesign
 
-* Playback scheduling - The playback scheduler has been significantly redesigned and rewritten, greatly improving reliability and eliminating the possibility of crashes in the player. 
+All back end player sub-components have been significantly redesigned and rewritten, improving reliability and testability, and reducing the possibility of crashes.
+
+Unit tests have been added for critical player components
 
 ### Bug fixes
 
-* Incorrect computation of track duration ... now it is precisely computed just before playback
-* Auto-hide of controls in player view
+* Incorrect computation of track duration in some cases ... now it is precisely computed just before playback
+* Auto-hide of controls in player view was inconsistent
+* Formatting of track seek times in the player view ... sometimes, negative numbers were displayed
 * Width of text field in player view (was not fully extended)
-* Formatting of track times in player view ... sometimes, negative numbers were displayed
 * When a delayed/transcoding track was moved within the playlist, the row for the playing track would not update when playback started
 * The playlist would notify that the playing track was removed at times when it was not.
 * Race condition: When a favorite/bookmark/history track was played very near the end of a currently playing track, the player would skip the user-selected track.
 * Per-track sound settings were not saved when a track was stopped.
 
-### Performance improvements
-
-* Lazy loading of chapters list window (should reduce memory usage on startup)
-
 ### Other improvements
 
+* Lazy loading of chapters list window (should reduce some memory usage on app startup)
+
+* Transcoder view (in player window) improved and made consistent with other track info views
+
 * Complete refactoring of player views and associated controllers
-    * Greatly simplified, easy to maintain, more reliable
-    * Unit tests added for critical player components
+    * Simplified, easier to maintain, more reliable
     
-* Upgrade to Swift v5.1.3 (Xcode v11.3)
+* Upgrade of source code to Swift v5.1.3 (Xcode v11.3)
 
 * Complete source code restructuring
    * Re-organized project meta files, resources, and documentation

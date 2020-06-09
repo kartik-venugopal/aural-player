@@ -3,7 +3,7 @@ import AVFoundation
 
 class AuralPlayerNodeTests: XCTestCase {
     
-    private var playerNode: TestableAuralPlayerNode = TestableAuralPlayerNode(false)
+    private var playerNode: TestableAuralPlayerNode = TestableAuralPlayerNode(useLegacyAPI: false)
     private var track: Track = Track(URL(fileURLWithPath: "/Dummy/Path"))
 
     override func setUp() {
