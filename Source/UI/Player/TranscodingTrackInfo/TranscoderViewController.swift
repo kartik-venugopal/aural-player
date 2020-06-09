@@ -194,7 +194,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         case .trackTransition:
             
             if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.transcodingStarted,
-                trackTransitionMsg.trackChanged, let track = trackTransitionMsg.endTrack {
+                let track = trackTransitionMsg.endTrack {
                 
                 transcodingStarted(track)
             }
