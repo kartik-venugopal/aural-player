@@ -153,7 +153,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
             applyColorScheme(colorSchemeActionMsg.scheme)
             return
             
-        } else if let textSizeMessage = message as? TextSizeActionMessage, textSizeMessage.actionType == .changePlayerTextSize {
+        } else if let textSizeMessage = message as? TextSizeActionMessage {
             
             changeTextSize(textSizeMessage.textSize)
             return

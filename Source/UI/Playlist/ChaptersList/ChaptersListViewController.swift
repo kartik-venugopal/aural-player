@@ -331,9 +331,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             
         case .trackTransitionNotification:
             
-            if (message as? TrackTransitionNotification)?.playbackStarted ?? false {
-                trackChanged()
-            }
+            trackChanged()
             
         case .chapterChangedNotification:
             

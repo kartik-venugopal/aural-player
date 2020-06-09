@@ -29,6 +29,9 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
         if let outFile = store.getForTrack(track) {
             
             track.prepareWithAudioFile(outFile)
+            
+            // TODO: If preparation ^ fails, should we delete the output file to retry and prevent recurring errors ???
+            
             return (track.lazyLoadingInfo.preparedForPlayback, track.lazyLoadingInfo.preparationFailed)
         }
         
