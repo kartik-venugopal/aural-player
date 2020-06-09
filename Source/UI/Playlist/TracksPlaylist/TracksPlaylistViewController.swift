@@ -531,6 +531,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // Find track and refresh it
         if let updatedRow = playlist.indexOfTrack(message.updatedTrack)?.index, updatedRow >= 0 {
             refreshRow(updatedRow)
+            
+            // TODO
+//            playlistView.scrollRowToVisible(updatedRow)
         }
     }
     
