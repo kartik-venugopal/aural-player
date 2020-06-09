@@ -255,7 +255,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progressMsg))
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
-                    autoplay(result.flatPlaylistResult, addSession.autoplayOptions.interruptPlayback)
+                    autoplay(result.track, addSession.autoplayOptions.interruptPlayback, addSession.autoplayOptions.playFirstAddedTrack)
                 }
             }
         }
@@ -313,12 +313,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Performs autoplay, by delegating a playback request to the player
-    private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
+    private func autoplay(_ track: Track, _ interruptPlayback: Bool, _ playFirstAddedTrack: Bool) {
         
         DispatchQueue.main.async {
 
             let params = PlaybackParams().withInterruptPlayback(interruptPlayback)
-            self.player.play(index, params)
+            
+            // On app startup, just begin the sequence by calling togglePlayPause()
+            // When adding tracks, play the first added track
+            playFirstAddedTrack ?
+                self.player.play(track, params) :
+                (self.player.state == .noTrack ? self.player.togglePlayPause() : self.player.play(track, params))
         }
     }
     
@@ -473,18 +478,18 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
+                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
                 
             } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
                 
                 if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
+                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
                 }
                 
             } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
                 
                 if let folder: URL = preferences.playlistPreferences.tracksFolder {
-                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true), false)
+                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
                 }
             }
             
@@ -548,11 +553,17 @@ class AutoplayOptions {
     // Whether or not existing track playback should be interrupted, to perform autoplay
     var interruptPlayback: Bool
     
+    // Whether or not the first added track should be selected for playback.
+    // If false, the first track in the playlist will play.
+    var playFirstAddedTrack: Bool
+    
     init(_ autoplay: Bool,
-         _ interruptPlayback: Bool) {
+         _ interruptPlayback: Bool,
+         _ playFirstAddedTrack: Bool = true) {
         
         self.autoplay = autoplay
         self.interruptPlayback = interruptPlayback
+        self.playFirstAddedTrack = playFirstAddedTrack
     }
 }
 

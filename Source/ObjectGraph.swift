@@ -99,11 +99,12 @@ class ObjectGraph {
         
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
-        // Playback Sequencer and delegate
+        // Sequencer and delegate
         let repeatMode = appState.playbackSequence.repeatMode
         let shuffleMode = appState.playbackSequence.shuffleMode
-        sequencer = Sequencer(playlist, repeatMode, shuffleMode)
+        let playlistType = PlaylistType(rawValue: appState.ui.playlist.view.lowercased()) ?? .tracks
         
+        sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
         
         // History (and delegate)
@@ -129,7 +130,7 @@ class ObjectGraph {
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)
         
-        let changeListeners: [PlaylistChangeListenerProtocol] = [sequencer as! Sequencer, playbackDelegate as! PlaybackDelegate]
+        let changeListeners: [PlaylistChangeListenerProtocol] = [playbackDelegate as! PlaybackDelegate, sequencer as! Sequencer]
         let mutator = PlaylistMutatorDelegate(playlist, sequencer, playbackDelegate, appState.playlist, preferences, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)

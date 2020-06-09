@@ -10,7 +10,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     
     // The current playback scope (See SequenceScope for more details)
     // NOTE - The default sequence scope is "All tracks"
-    let scope: SequenceScope = SequenceScope(.allTracks)
+    let scope: SequenceScope
     
     // The current playlist view type selected by the user (this is used to determine the scope)
     private(set) var playlistType: PlaylistType = .tracks
@@ -21,10 +21,13 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     // Stores the currently playing track, if there is one
     private(set) var currentTrack: Track?
     
-    init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
+    init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ playlistType: PlaylistType) {
         
         self.sequence = PlaybackSequence(repeatMode, shuffleMode)
         self.playlist = playlist
+        
+        self.playlistType = playlistType
+        self.scope = SequenceScope(playlistType.toPlaylistScopeType())
         
         // Subscribe to notifications that the playlist view type has changed
         SyncMessenger.subscribe(messageTypes: [.playlistTypeChangedNotification], subscriber: self)
@@ -315,11 +318,7 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
         // If the playing track was removed, playback is stopped, and the current sequence has ended
-        if playingTrackRemoved {
-            
-            end()
-            
-        } else {
+        if !playingTrackRemoved {
             
             // Playing track was not removed. If the scope is a group, it might be unaffected.
             guard !removeResults.tracks.isEmpty else {return}
@@ -373,7 +372,8 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
             }
             
             // Tracks (within selected groups) were sorted ... if the scope group was not affected, return.
-            if let trackSortGroupsScope = sortResults.affectedGroupsScope, trackSortGroupsScope == .selectedGroups, !sortResults.affectedParentGroups.contains(group) {
+            if let trackSortGroupsScope = sortResults.affectedGroupsScope, trackSortGroupsScope == .selectedGroups,
+                !sortResults.affectedParentGroups.contains(group) {
                 
                 return
             }
@@ -386,7 +386,6 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         
         // The sequence has ended, and needs to be cleared
         sequence.clear()
-        end()
     }
     
     // Updates the playback sequence. This function is called in response to changes in the playlist,
