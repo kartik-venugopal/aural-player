@@ -185,6 +185,11 @@ class TrackCompletionTests: PlaybackDelegateTests {
             preferences.gapBetweenTracks = false
         }
         
+        if needsTranscoding {
+            transcoder.transcodeImmediately_readyForPlayback = false
+            transcoder.transcodeImmediately_failed = false
+        }
+        
         delegate.trackPlaybackCompleted()
         
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, 1)

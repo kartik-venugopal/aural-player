@@ -15,7 +15,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.previousCallCount, 0)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
         }
     }
     
@@ -104,13 +104,13 @@ class IterationTests: PlaybackDelegateTests {
         assertWaitingTrack(previousTrack, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        verifyRequestContext_startPlaybackChain(.waiting, previousTrack,
                                                 seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             self.assertGapStarted(someTrack, previousTrack)
         }
     }
@@ -131,7 +131,7 @@ class IterationTests: PlaybackDelegateTests {
         assertTranscodingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        verifyRequestContext_startPlaybackChain(.transcoding, previousTrack,
         seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
@@ -139,7 +139,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -164,13 +164,13 @@ class IterationTests: PlaybackDelegateTests {
         assertWaitingTrack(previousTrack, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        verifyRequestContext_startPlaybackChain(.waiting, previousTrack,
                                                 seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             self.assertGapStarted(someTrack, previousTrack)
         }
     }
@@ -192,7 +192,7 @@ class IterationTests: PlaybackDelegateTests {
         assertTranscodingTrack(previousTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        verifyRequestContext_startPlaybackChain(.transcoding, previousTrack,
         seekPosBeforeChange, previousTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
@@ -200,7 +200,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -213,7 +213,7 @@ class IterationTests: PlaybackDelegateTests {
         let previousCallCountBeforeChange = sequencer.previousCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         
         sequencer.previousTrack = track
         delegate.previousTrack()
@@ -261,7 +261,7 @@ class IterationTests: PlaybackDelegateTests {
             if track != nil {
                 self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
             } else {
-                XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+                XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             }
         }
     }
@@ -278,7 +278,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.nextCallCount, 0)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
         }
     }
     
@@ -367,13 +367,13 @@ class IterationTests: PlaybackDelegateTests {
         assertWaitingTrack(nextTrack, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        verifyRequestContext_startPlaybackChain(.waiting, nextTrack,
         seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             self.assertGapStarted(someTrack, nextTrack)
         }
     }
@@ -394,7 +394,7 @@ class IterationTests: PlaybackDelegateTests {
         assertTranscodingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.playing, someTrack,
+        verifyRequestContext_startPlaybackChain(.transcoding, nextTrack,
         seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
@@ -402,7 +402,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -427,13 +427,13 @@ class IterationTests: PlaybackDelegateTests {
         assertWaitingTrack(nextTrack, 5)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        verifyRequestContext_startPlaybackChain(.waiting, nextTrack,
         seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             self.assertGapStarted(someTrack, nextTrack)
         }
     }
@@ -455,7 +455,7 @@ class IterationTests: PlaybackDelegateTests {
         assertTranscodingTrack(nextTrack)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
-        verifyRequestContext_startPlaybackChain(.paused, someTrack,
+        verifyRequestContext_startPlaybackChain(.transcoding, nextTrack,
         seekPosBeforeChange, nextTrack, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
@@ -463,7 +463,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -476,7 +476,7 @@ class IterationTests: PlaybackDelegateTests {
         let nextCallCountBeforeChange = sequencer.nextCallCount
         let startPlaybackChainCallCountBeforeChange = startPlaybackChain.executionCount
         
-        let trackTransitionMsgCountBeforeChange = trackChangeMessages.count
+        let trackTransitionMsgCountBeforeChange = trackTransitionMessages.count
         
         sequencer.nextTrack = track
         delegate.nextTrack()
@@ -524,7 +524,7 @@ class IterationTests: PlaybackDelegateTests {
             if track != nil {
                 self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
             } else {
-                XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBeforeChange)
+                XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
             }
         }
     }

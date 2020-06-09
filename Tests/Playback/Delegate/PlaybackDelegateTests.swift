@@ -19,8 +19,9 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     var stopPlaybackChain: TestableStopPlaybackChain!
     var trackPlaybackCompletedChain: TestableTrackPlaybackCompletedChain!
     
-    var trackChangeMessages: [TrackTransitionAsyncMessage] = []
-    var gapStartedMessages: [PlaybackGapStartedAsyncMessage] = []
+    var trackTransitionMessages: [TrackTransitionAsyncMessage] = []
+    var gapStartedMessages: [TrackTransitionAsyncMessage] = []
+    var transcodingStartedMessages: [TrackTransitionAsyncMessage] = []
     
     override func setUp() {
         
@@ -50,7 +51,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
             trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
             
-            delegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+            delegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         }
         
         sequencer.reset()
@@ -68,16 +69,15 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, 0)
         
-        trackChangeMessages.removeAll()
-        gapStartedMessages.removeAll()
+        trackTransitionMessages.removeAll()
         
-        AsyncMessenger.subscribe([.trackTransition, .trackNotPlayed, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        AsyncMessenger.subscribe([.trackTransition, .trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
     }
     
     override func tearDown() {
         
         // Prevent test case objects from receiving each other's messages.
-        AsyncMessenger.unsubscribe([.trackTransition, .trackNotPlayed, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition, .trackNotPlayed], subscriber: self)
         
         AsyncMessenger.unsubscribe([.playbackCompleted], subscriber: delegate)
         SyncMessenger.unsubscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: delegate)
@@ -191,9 +191,9 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
     
     func assertTrackChange(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?, _ totalMsgCount: Int = 1) {
         
-        XCTAssertEqual(trackChangeMessages.count, totalMsgCount)
+        XCTAssertEqual(trackTransitionMessages.count, totalMsgCount)
         
-        let trackTransitionMsg = trackChangeMessages.last!
+        let trackTransitionMsg = trackTransitionMessages.last!
         XCTAssertEqual(trackTransitionMsg.beginTrack, oldTrack)
         XCTAssertEqual(trackTransitionMsg.beginState, oldState)
         XCTAssertEqual(trackTransitionMsg.endTrack, newTrack)
@@ -205,11 +205,11 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         let gapStartedMsg = self.gapStartedMessages.last!
         
-        XCTAssertEqual(gapStartedMsg.lastPlayedTrack, lastPlayedTrack)
-        XCTAssertEqual(gapStartedMsg.nextTrack, nextTrack)
+        XCTAssertEqual(gapStartedMsg.beginTrack, lastPlayedTrack)
+        XCTAssertEqual(gapStartedMsg.endTrack, nextTrack)
         
         // Assert that the gap end time is in the future (i.e. > now)
-        XCTAssertEqual(gapStartedMsg.gapEndTime.compare(Date()), ComparisonResult.orderedDescending)
+        XCTAssertEqual(gapStartedMsg.gapEndTime!.compare(Date()), ComparisonResult.orderedDescending)
     }
     
     func doBeginPlayback(_ track: Track?) {
@@ -239,7 +239,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
             XCTAssertEqual(startPlaybackChain.executionCount, 0)
             
             executeAfter(0.5) {
-                XCTAssertEqual(self.trackChangeMessages.count, 0)
+                XCTAssertEqual(self.trackTransitionMessages.count, 0)
             }
         }
     }
@@ -254,10 +254,11 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         XCTAssertEqual(sequencer.selectedTrack, track)
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
-        verifyRequestContext_startPlaybackChain(.noTrack, nil, 0, track, params, true)
+        verifyRequestContext_startPlaybackChain(.waiting, track, 0, track, params, true)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
     }
@@ -266,12 +267,15 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         XCTAssertFalse(track.playbackNativelySupported)
         
+        transcoder.transcodeImmediately_readyForPlayback = false
+        transcoder.transcodeImmediately_failed = false
+        
         // Begin playback
         delegate.play(track)
         assertTranscodingTrack(track)
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
-        verifyRequestContext_startPlaybackChain(.noTrack, nil, 0, track, PlaybackParams.defaultParams(), true)
+        verifyRequestContext_startPlaybackChain(.transcoding, track, 0, track, PlaybackParams.defaultParams(), true)
         
         XCTAssertEqual(sequencer.selectTrackCallCount, 1)
         XCTAssertEqual(sequencer.selectedTrack, track)
@@ -280,14 +284,16 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(transcoder.transcodeImmediately_track, track)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
             XCTAssertEqual(self.gapStartedMessages.count, 0)
+            XCTAssertEqual(self.transcodingStartedMessages.count, 1)
         }
     }
     
     func doPausePlayback(_ track: Track) {
         
-        let trackTransitionMsgCountBefore = trackChangeMessages.count
+        let trackTransitionMsgCountBefore = trackTransitionMessages.count
         let gapStartedMsgCountBefore = gapStartedMessages.count
         
         let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
@@ -320,14 +326,14 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBefore)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBefore)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
         }
     }
     
     func doResumePlayback(_ track: Track) {
         
-        let trackTransitionMsgCountBefore = trackChangeMessages.count
+        let trackTransitionMsgCountBefore = trackTransitionMessages.count
         let gapStartedMsgCountBefore = gapStartedMessages.count
         
         let startPlaybackChainExecCountBefore = startPlaybackChain.executionCount
@@ -360,7 +366,7 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertEqual(sequencer.selectGroupCallCount, sequencerSelectGroupCallCountBefore)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, trackTransitionMsgCountBefore)
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBefore)
             XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBefore)
         }
     }
@@ -369,12 +375,16 @@ class PlaybackDelegateTests: AuralTestCase, AsyncMessageSubscriber {
         
         if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
             
-            trackChangeMessages.append(trackTransitionMsg)
-            return
+            if trackTransitionMsg.gapStarted {
+                gapStartedMessages.append(trackTransitionMsg)
+                
+            } else if trackTransitionMsg.transcodingStarted {
+                transcodingStartedMessages.append(trackTransitionMsg)
+                
+            } else if trackTransitionMsg.playbackStarted || trackTransitionMsg.playbackEnded {
+                trackTransitionMessages.append(trackTransitionMsg)
+            }
             
-        } else if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
-            
-            gapStartedMessages.append(gapStartedMsg)
             return
         }
     }

@@ -5,19 +5,27 @@ class MockTranscoder: TranscoderProtocol {
     var transcodeImmediatelyCallCount: Int = 0
     var transcodeImmediately_track: Track?
     
+    var transcodeImmediately_readyForPlayback: Bool = false
+    var transcodeImmediately_failed: Bool = false
+    
     var transcodeCancelCallCount: Int = 0
     var transcodeCancel_track: Track?
     
-    func transcodeImmediately(_ track: Track) {
+    func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {
         
         transcodeImmediatelyCallCount.increment()
         transcodeImmediately_track = track
+        
+        return (transcodeImmediately_readyForPlayback, transcodeImmediately_failed)
     }
     
     func transcodeInBackground(_ track: Track) {
     }
     
-    func cancel(_ track: Track) {
+    func moveToBackground(_ track: Track) {
+    }
+    
+    func cancelTranscoding(_ track: Track) {
         
         transcodeCancelCallCount.increment()
         transcodeCancel_track = track

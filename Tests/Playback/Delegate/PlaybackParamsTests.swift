@@ -15,7 +15,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertWaitingTrack(track, delay)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
     }
@@ -34,7 +34,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             XCTAssertEqual(self.gapStartedMessages.count, 0)
         }
     }
@@ -57,7 +57,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertWaitingTrack(track, gapBeforeTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 0)
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
     }
@@ -81,7 +81,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
             XCTAssertEqual(self.gapStartedMessages.count, 0)
         }
     }
@@ -101,7 +101,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertEqual(mockScheduler.playTrack_startPosition, 0)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -121,7 +121,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertEqual(mockScheduler.playTrack_startPosition!, startPosition, accuracy: 0.001)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -144,7 +144,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertEqual(mockScheduler.playLoop_session!.loop!.endTime!, endPosition, accuracy: 0.001)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -159,7 +159,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -177,7 +177,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 2)
+            XCTAssertEqual(self.trackTransitionMessages.count, 2)
         }
     }
     
@@ -192,7 +192,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
     
@@ -211,7 +211,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(firstTrack)
         
         executeAfter(0.5) {
-            XCTAssertEqual(self.trackChangeMessages.count, 1)
+            XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
 }

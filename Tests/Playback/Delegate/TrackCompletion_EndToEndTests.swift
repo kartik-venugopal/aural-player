@@ -6,45 +6,6 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
 
     // MARK: Track completion tests -----------------------------------------------------------------------------
     
-//    func testTrackPlaybackCompleted_noSubsequentTrack_gapAfterCompletedTrack() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_noSubsequentTrack_gapBetweenTracks() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_noDelay_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBetweenTracks() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBetweenTracks_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_gapBetweenTracks() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_gapBetweenTracks_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_gapBetweenTracks() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_gapBetweenTracks_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_trackNeedsTranscoding() {
-//    }
-//    
-//    func testTrackPlaybackCompleted_gapBetweenTracks_trackNeedsTranscoding() {
-//    }
-    
     func testTrackCompletion_noSubsequentTrack() {
         
         let track = createTrack("Money for Nothing", 420)
@@ -275,4 +236,43 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
             self.assertPlayingTrack(subsequentTrack)
         }
     }
+    
+    //    func testTrackPlaybackCompleted_noSubsequentTrack_gapAfterCompletedTrack() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_noSubsequentTrack_gapBetweenTracks() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_noDelay_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBetweenTracks() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBetweenTracks_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_gapBetweenTracks() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapAfterCompletedTrack_gapBeforeSubsequentTrack_gapBetweenTracks_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_gapBetweenTracks() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_gapBetweenTracks_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapBeforeSubsequentTrack_trackNeedsTranscoding() {
+    //    }
+    //
+    //    func testTrackPlaybackCompleted_gapBetweenTracks_trackNeedsTranscoding() {
+    //    }
 }

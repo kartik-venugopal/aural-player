@@ -47,7 +47,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -98,7 +98,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -159,7 +159,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToPercentage_loopRemoved() {
         
         // Don't want track change notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         // Subscribe to loop change messages
         SyncMessenger.subscribe(messageTypes: [.playbackLoopChangedNotification], subscriber: self)
@@ -293,7 +293,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -343,7 +343,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -392,7 +392,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime_loopRemoved() {
         
         // Don't want track change notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition, .gapStarted], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
         
         // Subscribe to loop change messages
         SyncMessenger.subscribe(messageTypes: [.playbackLoopChangedNotification], subscriber: self)

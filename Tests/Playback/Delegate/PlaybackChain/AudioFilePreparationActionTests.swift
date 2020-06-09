@@ -29,20 +29,20 @@ class AudioFilePreparationActionTests: AuralTestCase, AsyncMessageSubscriber {
         action = AudioFilePreparationAction(player, transcoder)
         chain = MockPlaybackChain()
         
-        AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: .main)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: .main)
         
         PlaybackRequestContext.clearCurrentContext()
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let gapStartedMsg = message as? PlaybackGapStartedAsyncMessage {
+        if let gapStartedMsg = message as? TrackTransitionAsyncMessage, gapStartedMsg.gapStarted {
             
             gapStartedMsgCount.increment()
             
-            gapStartedMsg_oldTrack = gapStartedMsg.lastPlayedTrack
+            gapStartedMsg_oldTrack = gapStartedMsg.beginTrack
             gapStartedMsg_endTime = gapStartedMsg.gapEndTime
-            gapStartedMsg_newTrack = gapStartedMsg.nextTrack
+            gapStartedMsg_newTrack = gapStartedMsg.endTrack
             
             return
         }
@@ -284,8 +284,8 @@ class AudioFilePreparationActionTests: AuralTestCase, AsyncMessageSubscriber {
         // Wait for the delay to transpire
         executeAfter(context.delay! + 1) {
             
-            // Verify that the context current state was set to waiting
-            XCTAssertEqual(context.currentState, PlaybackState.waiting)
+            // Verify that the context current state was set to transcoding
+            XCTAssertEqual(context.currentState, PlaybackState.transcoding)
             
             // Verify that the player is now in transcoding state
             XCTAssertEqual(self.player.state, PlaybackState.transcoding)

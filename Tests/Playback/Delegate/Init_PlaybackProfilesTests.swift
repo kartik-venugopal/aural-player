@@ -11,7 +11,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
         trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
         
-        let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        let testDelegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         XCTAssertEqual(testDelegate.profiles.size, 0)
     }
@@ -36,7 +36,7 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
         trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
         
-        let testDelegate = PlaybackDelegate(profiles, player, sequencer, playlist, transcoder, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        let testDelegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         XCTAssertEqual(testDelegate.profiles.size, 2)
         

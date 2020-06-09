@@ -7,11 +7,10 @@ class StopTests: PlaybackDelegateTests {
         delegate.stop()
         assertNoTrack()
         
-        XCTAssertEqual(stopPlaybackChain.executionCount, 1)
-        verifyRequestContext_stopPlaybackChain(.noTrack, nil, 0)
+        XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
         executeAfter(0.5) {
-            self.assertTrackChange(nil, .noTrack, nil)
+            XCTAssertEqual(self.trackTransitionMessages.count, 0)
         }
     }
     
