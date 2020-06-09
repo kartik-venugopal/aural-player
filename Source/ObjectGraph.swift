@@ -78,15 +78,15 @@ class ObjectGraph {
         audioGraph = AudioGraph(appState.audioGraph)
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
-        // Instantiate the legacy scheduler if running on 10.12 Sierra.
-//        if #available(macOS 10.13, *) {
-//
-//            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
-//
-//        } else {
-//
+        // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
+        if #available(macOS 10.13, *) {
+
+            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
+
+        } else {
+
             playbackScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
-//        }
+        }
         
         // Player
         player = Player(audioGraph, playbackScheduler)
