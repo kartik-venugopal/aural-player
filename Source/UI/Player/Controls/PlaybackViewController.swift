@@ -18,9 +18,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override func viewDidLoad() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .trackTransitionNotification, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -326,18 +326,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch message.messageType {
             
-        case .trackTransition:
-            
-            if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
-                
-                if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
-                    gapOrTranscodingStarted()
-                    
-                } else {
-                    trackChanged(trackTransitionMsg.endTrack)
-                }
-            }
-            
         case .trackNotPlayed:
             
             if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
@@ -358,6 +346,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func consumeNotification(_ notification: NotificationMessage) {
         
         switch notification.messageType {
+            
+        case .trackTransitionNotification:
+            
+            if let trackTransitionMsg = notification as? TrackTransitionNotification {
+                
+                if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
+                    gapOrTranscodingStarted()
+                    
+                } else {
+                    trackChanged(trackTransitionMsg.endTrack)
+                }
+            }
             
         case .seekPositionChangedNotification:
             
