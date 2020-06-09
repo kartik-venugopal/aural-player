@@ -1,5 +1,11 @@
 import Cocoa
 
+/*
+    View controller for the functions toolbar that is displayed whenever a track is currently playing.
+    Handles functions relevant to the playing track, such as favoriting, bookmarking, viewing detailed info, etc.
+ 
+    Also handles such requests from app menus.
+ */
 class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     // Button to display more details about the playing track

@@ -1,7 +1,6 @@
 /*
     View controller for the Now Playing info box which displays information about the currently playing track
  */
-
 import Cocoa
 
 class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber, AsyncMessageSubscriber {

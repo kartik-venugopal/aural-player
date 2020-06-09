@@ -1,5 +1,6 @@
 /*
-    View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
+    View controller for playback sequencing controls (repeat/shuffle).
+    Also handles sequencing requests from app menus.
  */
 import Cocoa
 

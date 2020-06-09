@@ -1,5 +1,5 @@
 /*
-    View controller that handles the assembly of the player view tree from its multiple pieces, and handles general concerns for the view such as text size and color scheme changes.
+    View controller that handles the assembly of the player view tree from its multiple pieces, and switches between high-level views depending on current player state (i.e. playing / transcoding / stopped, etc).
  
     The player view tree consists of:
         
@@ -12,6 +12,8 @@
         - Transcoder info (when a track is being transcoded)
  
         - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)
+ 
+        - Functions toolbar (detailed track info / favorite / bookmark, etc)
  */
 import Cocoa
 
@@ -43,6 +45,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
         AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
+    // Depending on current player state, switch to one of the 3 views.
     private func switchView() {
         
         switch player.state {

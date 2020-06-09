@@ -4,8 +4,6 @@
 
 All back end player sub-components have been significantly redesigned and rewritten, improving reliability and testability, and reducing the possibility of crashes.
 
-Unit tests have been added for critical player components
-
 ### Bug fixes
 
 * Incorrect computation of track duration in some cases ... now it is precisely computed just before playback
@@ -33,6 +31,12 @@ Unit tests have been added for critical player components
    * Every source group now has an associated filesystem folder
    
 * Cleanup of old screenshots and demos from the repository
+
+#### Introduction of unit tests
+
+* Unit tests have been added for critical player components.
+
+* How dependencies are created / injected has been modified in many classes, in order to facilitate mocking and unit testing.
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.1.0)

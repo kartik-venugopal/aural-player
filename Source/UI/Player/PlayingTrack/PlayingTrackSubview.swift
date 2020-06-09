@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    A base class for the 2 player views - Default and Expanded Art
+ */
 @IBDesignable
 class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     
@@ -132,6 +135,9 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     }
 }
 
+/*
+   The "Default" player view.
+*/
 @IBDesignable
 class DefaultPlayingTrackSubview: PlayingTrackSubview {
     
@@ -201,12 +207,16 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
     }
 }
 
+/*
+   The "Expanded Art" player view.
+*/
 @IBDesignable
 class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
     private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 30, y: 65)
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 30, y: 95)
     
+    // Overlay boxes that provide a background so that text and controls are legible when displayed over the album art.
     @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var centerOverlayBox: NSBox!
     

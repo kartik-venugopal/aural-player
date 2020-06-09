@@ -1,6 +1,11 @@
 import Cocoa
 
 // TODO: Make this more reusable, clean it up
+/*
+    Displays task progress as a circular arc, with progress percentage displayed inside the arc.
+ 
+    Currently being used only by the transcoder view.
+ */
 class ProgressArc: NSView {
     
     var percentage: Double = 0 {

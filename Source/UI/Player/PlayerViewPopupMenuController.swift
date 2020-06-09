@@ -1,5 +1,9 @@
 import Cocoa
 
+/*
+    Handles requests to show/hide or adjust different fields in the player view.
+    e.g. show/hide album art or adjust seek time format.
+ */
 class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!

@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    View that encapsulates all playback-related controls (play/pause, prev/next track, seeking, segment looping).
+*/
 class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     
     // Fields that display/control seek position within the playing track
