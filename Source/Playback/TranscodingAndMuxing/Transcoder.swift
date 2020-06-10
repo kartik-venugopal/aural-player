@@ -146,9 +146,7 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
                     if totalTime == Double.infinity || totalTime == Double.nan || totalTime == Double.greatestFiniteMagnitude {totalTime = 0}
                     let timeRemaining = abs(totalTime - timeElapsed)
                     
-                    let speed = String(tokens.last!).trim()
-                    
-                    AsyncMessenger.publishMessage(TranscodingProgressAsyncMessage(track, time, perc, timeElapsed, timeRemaining, speed))
+                    AsyncMessenger.publishMessage(TranscodingProgressAsyncMessage(track, perc, timeElapsed, timeRemaining))
                 }
             }
         }

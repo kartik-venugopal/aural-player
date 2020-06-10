@@ -11,11 +11,10 @@
                 <outlet property="artView" destination="gzu-7W-JI7" id="kBf-w5-XNv"/>
                 <outlet property="containerBox" destination="Deu-eh-NiI" id="y9Z-GF-BFT"/>
                 <outlet property="controlsBox" destination="ppO-zg-MXQ" id="eNa-Zh-hTL"/>
-                <outlet property="lblSpeed" destination="YWf-ra-qom" id="7Xh-Sr-rQW"/>
+                <outlet property="functionsBox" destination="qHi-BC-Fmo" id="Rrw-YH-X5g"/>
                 <outlet property="lblTimeElapsed" destination="Yse-zK-IqZ" id="6MJ-Zy-DNL"/>
                 <outlet property="lblTimeRemaining" destination="SfP-LF-wPf" id="Erl-bE-tVV"/>
                 <outlet property="lblTrack" destination="CgZ-Rb-gZp" id="mb8-EI-jSy"/>
-                <outlet property="lblTrackTime" destination="Al9-a3-nBv" id="eOW-aa-d4e"/>
                 <outlet property="overlayBox" destination="rVi-ka-yBl" id="1iJ-kI-kQS"/>
                 <outlet property="progressView" destination="UrA-XG-QBD" id="tXN-xL-WdY"/>
                 <outlet property="transcodingIcon" destination="3i9-0V-YNs" id="aHb-8q-0Nz"/>
@@ -73,26 +72,17 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Al9-a3-nBv" userLabel="Track time" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="14" y="103" width="205" height="30"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track time:  " id="bs8-iw-xY4">
-                        <font key="font" size="14" name="Play-Regular"/>
-                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yse-zK-IqZ" userLabel="Elapsed time" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="310" y="103" width="205" height="30"/>
+                    <rect key="frame" x="63" y="98" width="150" height="30"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:   0:00" id="tWa-Pu-tCJ">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Time elapsed:   0:00" id="tWa-Pu-tCJ">
                         <font key="font" size="14" name="Play-Regular"/>
                         <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SfP-LF-wPf" userLabel="Time rem" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="310" y="73" width="205" height="30"/>
+                    <rect key="frame" x="317" y="98" width="150" height="30"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:   0:00" id="ZdM-RK-RqP">
                         <font key="font" size="14" name="Play-Regular"/>
@@ -100,25 +90,25 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YWf-ra-qom" userLabel="Speed" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="14" y="73" width="205" height="30"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Speed:   0x" id="OUQ-yD-axs">
-                        <font key="font" size="14" name="Play-Regular"/>
-                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CTT-5N-eD7" userLabel="White Line">
-                    <rect key="frame" x="15" y="100" width="205" height="1"/>
+                    <rect key="frame" x="65" y="95" width="150" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="WhiteLine" id="Vk4-fF-kKJ"/>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBo-bB-hw6" userLabel="White Line">
-                    <rect key="frame" x="310" y="100" width="205" height="1"/>
+                    <rect key="frame" x="315" y="95" width="150" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="WhiteLine" id="LFM-aL-7j2"/>
                 </imageView>
+                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="qHi-BC-Fmo" userLabel="Functions Box">
+                    <rect key="frame" x="501" y="65" width="14" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="j09-YM-xHW">
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UrA-XG-QBD" customClass="ProgressArc" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="230" y="66" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
