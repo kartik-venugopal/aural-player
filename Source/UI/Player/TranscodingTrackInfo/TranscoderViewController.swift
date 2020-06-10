@@ -14,15 +14,16 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     @IBOutlet weak var lblTrack: NSTextField!
     @IBOutlet weak var transcodingIcon: TintedImageView!
     
-    @IBOutlet weak var lblTrackTime: NSTextField!
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
-    @IBOutlet weak var lblSpeed: NSTextField!
     
     @IBOutlet weak var progressView: ProgressArc!
     
     @IBOutlet weak var controlsBox: NSBox!
     private let controlsView: NSView = ViewFactory.controlsView
+    
+    @IBOutlet weak var functionsBox: NSBox!
+    private let functionsView: NSView = ViewFactory.playingTrackFunctionsView
     
     @IBOutlet weak var containerBox: NSBox!
     
@@ -42,8 +43,19 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     override func viewDidAppear() {
         
-        controlsView.removeFromSuperview()
-        controlsBox.addSubview(controlsView)
+        if !controlsView.isDescendant(of: controlsBox) {
+            
+            controlsView.removeFromSuperview()
+            controlsBox.addSubview(controlsView)
+        }
+        
+        if !functionsView.isDescendant(of: functionsBox) {
+            
+            functionsView.removeFromSuperview()
+            functionsBox.addSubview(functionsView)
+        }
+        
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     private func initSubscriptions() {
@@ -60,26 +72,20 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         lblTrack.stringValue = track.conciseDisplayName
         artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
         
-        updateFields(0, track.duration, 0, 0, 0, "0x")
+        updateFields(0, 0, 0)
     }
     
     private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
-        
-        updateFields(msg.timeTranscoded, msg.track.duration, msg.timeElapsed, msg.timeRemaining, msg.percTranscoded, msg.speed)
+        updateFields(msg.timeElapsed, msg.timeRemaining, msg.percTranscoded)
     }
     
-    private func updateFields(_ timeTranscoded: Double, _ trackDuration: Double, _ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double, _ speed: String) {
-        
-        let trackTime = ValueFormatter.formatSecondsToHMS(timeTranscoded)
-        let trackDuration = ValueFormatter.formatSecondsToHMS(trackDuration)
+    private func updateFields(_ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double) {
         
         let elapsed = ValueFormatter.formatSecondsToHMS(timeElapsed)
         let remaining = ValueFormatter.formatSecondsToHMS(timeRemaining)
         
-        lblTrackTime.stringValue = String(format: "Track time:   %@  /  %@", trackTime, trackDuration)
         lblTimeElapsed.stringValue = String(format: "Time elapsed:   %@", elapsed)
         lblTimeRemaining.stringValue = String(format: "Time remaining:   %@", remaining)
-        lblSpeed.stringValue = String(format: "Speed:   %@", speed)
         
         progressView.percentage = percentage
     }
@@ -95,7 +101,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     private func changeTextSize(_ size: TextSize) {
         
         lblTrack.font = Fonts.Player.infoBoxTitleFont
-        [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({$0?.font = Fonts.Player.trackTimesFont})
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = Fonts.Player.trackTimesFont})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -126,7 +132,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     private func changeSecondaryTextColor() {
         
-        [lblTrackTime, lblTimeElapsed, lblTimeRemaining, lblSpeed].forEach({
+        [lblTimeElapsed, lblTimeRemaining].forEach({
             $0?.textColor = Colors.Player.trackInfoArtistAlbumTextColor
         })
         
