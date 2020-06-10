@@ -437,16 +437,43 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
     
+    // TODO: Revisit all these functions
+    
+    func tracksAdded(_ addResults: [TrackAddResult]) {
+        sequencer.tracksAdded(addResults)
+    }
+    
+    func tracksReordered(_ moveResults: ItemMoveResults) {
+        sequencer.tracksReordered(moveResults)
+    }
+    
+    func playlistSorted(_ sortResults: SortResults) {
+        sequencer.playlistSorted(sortResults)
+    }
+    
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
     
         // Cannot continue playback if the playing track was removed from the playlist.
-        if playingTrackRemoved {
-            stop()
-        }
+        playingTrackRemoved ? stop() : sequencer.tracksRemoved(removeResults, playingTrackRemoved, removedPlayingTrack)
     }
     
     // Stop playback when the playlist is cleared.
     func playlistCleared() {
-        stop()
+        
+        // Capture current track before the sequence is cleared
+        let trackBeforeChange = currentTrack
+
+        sequencer.playlistCleared()
+        
+        // Essentially stop()
+        
+        let stateBeforeChange = state
+        
+        if stateBeforeChange != .noTrack {
+            
+            let seekPositionBeforeChange = seekPosition.timeElapsed
+            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+            stopPlaybackChain.execute(requestContext)
+        }
     }
 }
