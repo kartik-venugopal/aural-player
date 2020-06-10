@@ -8,7 +8,7 @@ import Cocoa
 
     Also handles such requests from app menus.
 */
-class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
+class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
  
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!
@@ -58,9 +58,7 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
     
     private func initSubscriptions() {
         
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
-        SyncMessenger.subscribe(messageTypes: [.playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
@@ -130,20 +128,16 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
     
     // MARK: Message handling
 
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    // Consume synchronous notification messages
+    func consumeNotification(_ notification: NotificationMessage) {
         
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.gapStarted,
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.gapStarted,
             let track = trackTransitionMsg.endTrack, let endTime = trackTransitionMsg.gapEndTime {
             
             gapStarted(track, endTime)
             return
-        }
-    }
-    
-    // Consume synchronous notification messages
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if player.state == .waiting && notification is PlayingTrackInfoUpdatedNotification {
+            
+        } else if player.state == .waiting && notification is PlayingTrackInfoUpdatedNotification {
          
             updateTrackInfo()
             return

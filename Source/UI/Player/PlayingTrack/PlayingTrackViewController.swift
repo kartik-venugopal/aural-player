@@ -86,7 +86,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     // Consume synchronous notification messages
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification {
             
             trackChanged(trackTransitionMsg.endTrack)
             return
