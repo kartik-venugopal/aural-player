@@ -76,7 +76,7 @@ class SequencerTests: AuralTestCase {
             let genresPlaylist = GroupingPlaylist(.genres, .genre)
             
             playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
-            sequencer = Sequencer(playlist, .off, .off)
+            sequencer = Sequencer(playlist, .off, .off, .tracks)
         }
         
         playlist.clear()

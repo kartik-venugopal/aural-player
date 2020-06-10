@@ -8,6 +8,7 @@ All back end player sub-components have been significantly redesigned and rewrit
 
 * Incorrect computation of track duration in some cases ... now it is precisely computed just before playback
 * Auto-hide of controls in player view was inconsistent
+* Tool tips for previous/next track buttons now always show the correct track name
 * Formatting of track seek times in the player view ... sometimes, negative numbers were displayed
 * Width of text field in player view (was not fully extended)
 * When a delayed/transcoding track was moved within the playlist, the row for the playing track would not update when playback started
