@@ -60,11 +60,11 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     private func initSubscriptions() {
         
-        SyncMessenger.subscribe(messageTypes: [.playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
-        AsyncMessenger.subscribe([.trackTransition, .transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     private func transcodingStarted(_ track: Track) {
@@ -192,7 +192,13 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let track = player.transcodingTrack, notification is PlayingTrackInfoUpdatedNotification {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.transcodingStarted,
+            let track = trackTransitionMsg.endTrack {
+            
+            transcodingStarted(track)
+            return
+            
+        } else if let track = player.transcodingTrack, notification is PlayingTrackInfoUpdatedNotification {
          
             updateTrackInfo(track)
             return
@@ -202,14 +208,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .trackTransition:
-            
-            if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.transcodingStarted,
-                let track = trackTransitionMsg.endTrack {
-                
-                transcodingStarted(track)
-            }
             
         case .transcodingProgress:
             

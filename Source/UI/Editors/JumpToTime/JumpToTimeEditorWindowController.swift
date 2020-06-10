@@ -1,6 +1,6 @@
 import Cocoa
 
-class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscriber, ModalDialogDelegate {
+class JumpToTimeEditorWindowController: NSWindowController, MessageSubscriber, ModalDialogDelegate {
     
     override var windowNibName: String? {return "JumpToTimeEditorDialog"}
     
@@ -55,7 +55,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         
         percentageFormatter.maxValue = 100
         
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         WindowManager.registerModalComponent(self)
     }
     
@@ -169,9 +169,9 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         UIUtils.dismissDialog(self.window!)
     }
     
-    private func trackTransitioned(_ msg: TrackTransitionAsyncMessage) {
+    private func trackTransitioned(_ msg: TrackTransitionNotification) {
         
-        if msg.endState == .playing, let playingTrack = msg.endTrack {
+        if msg.playbackStarted, let playingTrack = msg.endTrack {
             resetFields(playingTrack)
             
         } else {
@@ -181,9 +181,9 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     // MARK: Message handling
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    func consumeNotification(_ notification: NotificationMessage) {
         
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
+        if self.window?.isVisible ?? false, let trackTransitionMsg = notification as? TrackTransitionNotification {
             
             trackTransitioned(trackTransitionMsg)
             return

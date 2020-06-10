@@ -37,7 +37,7 @@
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzu-7W-JI7" userLabel="Art View">
-                    <rect key="frame" x="180" y="15" width="170" height="170"/>
+                    <rect key="frame" x="180" y="20" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="5">
                         <size key="offset" width="-5" height="-5"/>
@@ -46,7 +46,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="B7D-9u-daN"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-ka-yBl" userLabel="Overlay Box">
-                    <rect key="frame" x="180" y="15" width="170" height="170"/>
+                    <rect key="frame" x="180" y="20" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="k91-f9-ufw">
                         <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>

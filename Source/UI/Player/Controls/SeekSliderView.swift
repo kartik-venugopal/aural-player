@@ -79,6 +79,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         
         NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
         
+        seekSliderCell.removeLoop()
         seekSlider.doubleValue = 0
         seekSlider.disable()
         setSeekTimerState(false)
@@ -142,7 +143,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
             
         } else {
             
-            seekSliderCell.removeLoop()
             noTrackPlaying()
         }
     }
