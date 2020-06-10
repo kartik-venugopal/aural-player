@@ -3,7 +3,7 @@ import Foundation
 /*
     See SequencerProtocol.
  */
-class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
+class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
     let sequence: PlaybackSequence
@@ -315,31 +315,6 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         updateSequence(true)
     }
     
-    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
-        
-        // If the playing track was removed, playback is stopped, and the current sequence has ended
-        if !playingTrackRemoved {
-            
-            // Playing track was not removed. If the scope is a group, it might be unaffected.
-            guard !removeResults.tracks.isEmpty else {return}
-            
-            if let group = scope.group {
-
-                // We are only interested in the results matching the scope's group type.
-                let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
-                
-                // Loop through the results to see if a result for the scope group exists.
-                if let theResults = filteredResults,
-                    !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
-                    
-                    return
-                }
-            }
-            
-            updateSequence(true)
-        }
-    }
-    
     func tracksReordered(_ moveResults: ItemMoveResults) {
         
         // Only update the sequence if the type of the playlist that was reordered matches the playback sequence scope.
@@ -382,9 +357,32 @@ class Sequencer: SequencerProtocol, PlaylistChangeListenerProtocol, MessageSubsc
         updateSequence(false)
     }
     
-    func playlistCleared() {
+    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
-        // The sequence has ended, and needs to be cleared
+        // If the playing track was removed, playback is stopped, and the current sequence has ended
+        if !playingTrackRemoved {
+            
+            // Playing track was not removed. If the scope is a group, it might be unaffected.
+            guard !removeResults.tracks.isEmpty else {return}
+            
+            if let group = scope.group {
+
+                // We are only interested in the results matching the scope's group type.
+                let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
+                
+                // Loop through the results to see if a result for the scope group exists.
+                if let theResults = filteredResults,
+                    !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
+                    
+                    return
+                }
+            }
+            
+            updateSequence(true)
+        }
+    }
+    
+    func playlistCleared() {
         sequence.clear()
     }
     
