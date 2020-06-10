@@ -32,8 +32,8 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     override func awakeFromNib() {
         
         self.addSubviews(defaultView, expandedArtView)
+        inactiveView.hideView()
         
-        switchView(PlayerViewState.viewType)
         setUpMouseTracking()
     }
     
@@ -116,7 +116,12 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     }
     
     override func mouseExited(with event: NSEvent) {
-        activeView.mouseExited()
+
+        // If this check is not performed, the track-peeking buttons (previous/next track)
+        // will cause a false positive mouse exit event.
+        if !self.frame.contains(event.locationInWindow) {
+            activeView.mouseExited()
+        }
     }
     
     func changeTextSize(_ size: TextSize) {
