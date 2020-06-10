@@ -194,15 +194,11 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     }
     
     private func newTrackStarted(_ track: Track) {
-        
-        self.view.showIf(PlayerViewState.showPlayingTrackFunctions)
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     
     private func noTrackPlaying() {
-        
         detailedInfoPopover.close()
-        self.view.hide()
     }
     
     private func trackChanged(_ newTrack: Track?) {
@@ -222,6 +218,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             // No track playing, clear the info fields
             noTrackPlaying()
         }
+        
+        self.view.showIf(newTrack != nil)
     }
     
     private func redrawButtons() {

@@ -41,11 +41,19 @@ class WaitingTrackViewController: NSViewController, AsyncMessageSubscriber, Mess
     
     override func viewDidAppear() {
         
-        controlsView.removeFromSuperview()
-        controlsBox.addSubview(controlsView)
+        if !controlsView.isDescendant(of: controlsBox) {
+            
+            controlsView.removeFromSuperview()
+            controlsBox.addSubview(controlsView)
+        }
         
-        functionsView.removeFromSuperview()
-        functionsBox.addSubview(functionsView)
+        if !functionsView.isDescendant(of: functionsBox) {
+            
+            functionsView.removeFromSuperview()
+            functionsBox.addSubview(functionsView)
+        }
+        
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     private func initSubscriptions() {

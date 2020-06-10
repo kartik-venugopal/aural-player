@@ -27,11 +27,17 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     
     func showView() {
         
-        controlsView.removeFromSuperview()
-        controlsBox.addSubview(controlsView)
+        if !controlsView.isDescendant(of: controlsBox) {
+            
+            controlsView.removeFromSuperview()
+            controlsBox.addSubview(controlsView)
+        }
         
-        functionsView.removeFromSuperview()
-        functionsBox.addSubview(functionsView)
+        if !functionsView.isDescendant(of: functionsBox) {
+            
+            functionsView.removeFromSuperview()
+            functionsBox.addSubview(functionsView)
+        }
         
         show()
     }
