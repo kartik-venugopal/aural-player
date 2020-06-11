@@ -620,6 +620,9 @@
 		3EA3BDA822B266AA0020A908 /* MediaApplicationWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3BDA322B266AA0020A908 /* MediaApplicationWatcher.swift */; };
 		3EA3BDAA22B266E90020A908 /* NSEventExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3BDA922B266E90020A908 /* NSEventExtensions.swift */; };
 		3EA3BDAC22B267B10020A908 /* VAlignedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3BDAB22B267B10020A908 /* VAlignedTextField.swift */; };
+		3EAC65ED249109E600E7D56B /* libswiftAVFoundation.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EB249109D800E7D56B /* libswiftAVFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3EAC65EE249109E600E7D56B /* libswiftsimd.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EC249109D800E7D56B /* libswiftsimd.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3EAC65EF249109E600E7D56B /* libswiftSwiftOnoneSupport.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EA249109D800E7D56B /* libswiftSwiftOnoneSupport.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD098E216478440007D7DF /* MasterPresets.swift */; };
 		3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */; };
 		3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */; };
@@ -832,6 +835,18 @@
 				3E2604512454E72800CFEC86 /* AlegreyaSansSC-Medium.ttf in CopyFiles */,
 				3E2604522454E72800CFEC86 /* AlegreyaSansSC-Regular.ttf in CopyFiles */,
 				3E2604532454E72800CFEC86 /* Play-Regular.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EAC65E72491091200E7D56B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3EAC65ED249109E600E7D56B /* libswiftAVFoundation.dylib in CopyFiles */,
+				3EAC65EE249109E600E7D56B /* libswiftsimd.dylib in CopyFiles */,
+				3EAC65EF249109E600E7D56B /* libswiftSwiftOnoneSupport.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1245,6 +1260,9 @@
 		3EA3BDA322B266AA0020A908 /* MediaApplicationWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaApplicationWatcher.swift; sourceTree = "<group>"; };
 		3EA3BDA922B266E90020A908 /* NSEventExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSEventExtensions.swift; sourceTree = "<group>"; };
 		3EA3BDAB22B267B10020A908 /* VAlignedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VAlignedTextField.swift; sourceTree = "<group>"; };
+		3EAC65EA249109D800E7D56B /* libswiftSwiftOnoneSupport.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftSwiftOnoneSupport.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftSwiftOnoneSupport.dylib"; sourceTree = DEVELOPER_DIR; };
+		3EAC65EB249109D800E7D56B /* libswiftAVFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftAVFoundation.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftAVFoundation.dylib"; sourceTree = DEVELOPER_DIR; };
+		3EAC65EC249109D800E7D56B /* libswiftsimd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftsimd.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftsimd.dylib"; sourceTree = DEVELOPER_DIR; };
 		3EAD098E216478440007D7DF /* MasterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitPreset.swift; sourceTree = "<group>"; };
 		3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerLabel.swift; sourceTree = "<group>"; };
@@ -1875,13 +1893,13 @@
 				3E3A636A1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift */,
 				3E3A63681F690EA200F72A60 /* PreferencesDelegate.swift */,
 				3E33B4A31F3F08B8005EF359 /* Preferences.swift */,
+				3E6341D9243DC50500190502 /* PreferencesDefaults.swift */,
 				3E6341D1243DB1AC00190502 /* PlaybackPreferences.swift */,
 				3E6341CF243DB11800190502 /* PlaylistPreferences.swift */,
 				3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */,
 				3E6341D3243DB1E400190502 /* SoundPreferences.swift */,
 				3E6341D5243DC25E00190502 /* ViewPreferences.swift */,
 				3E6341D7243DC28500190502 /* ControlsPreferences.swift */,
-				3E6341D9243DC50500190502 /* PreferencesDefaults.swift */,
 				3E6341DB243DC53B00190502 /* HistoryPreferences.swift */,
 			);
 			path = Preferences;
@@ -2784,6 +2802,7 @@
 				3E72FCC41F2C0A780020FD20 /* Documentation */,
 				3E85F2571EFA78D6007BE830 /* Products */,
 				3E821AEC1F953253006F8E97 /* Resources */,
+				3EAC65E9249109C800E7D56B /* Frameworks */,
 				3E85F2601EFA78D6007BE830 /* Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -2843,6 +2862,16 @@
 				3EF13CFF2472D59F008CA5C0 /* CollectionExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3EAC65E9249109C800E7D56B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EAC65EB249109D800E7D56B /* libswiftAVFoundation.dylib */,
+				3EAC65EC249109D800E7D56B /* libswiftsimd.dylib */,
+				3EAC65EA249109D800E7D56B /* libswiftSwiftOnoneSupport.dylib */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		3EB4BCCC247023DA005024E5 /* StartPlaybackChain */ = {
@@ -2987,6 +3016,7 @@
 				3E85F2531EFA78D6007BE830 /* Frameworks */,
 				3E85F2541EFA78D6007BE830 /* Resources */,
 				3E2604502454E70E00CFEC86 /* CopyFiles */,
+				3EAC65E72491091200E7D56B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -3912,6 +3942,7 @@
 		3E85F2611EFA78D6007BE830 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3939,6 +3970,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3962,6 +3994,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3969,6 +4002,7 @@
 		3E85F2621EFA78D6007BE830 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3996,6 +4030,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4013,6 +4048,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
@@ -4025,6 +4061,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = C4YUF2G676;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -4050,6 +4088,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = C4YUF2G676;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
