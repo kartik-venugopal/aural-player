@@ -36,6 +36,15 @@
                     </shadow>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayingArt" id="PPE-jn-xVn"/>
                 </imageView>
+                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
+                    <rect key="frame" x="501" y="95" width="14" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="4Yl-Kz-j8H">
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-Re-Tfk" userLabel="Playing Track Info Box">
                     <rect key="frame" x="90" y="95" width="350" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -91,15 +100,6 @@
                     <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="3P4-gg-ICU" userLabel="Functions Box">
-                    <rect key="frame" x="501" y="95" width="14" height="80"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" id="4Yl-Kz-j8H">
-                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
-                </box>
             </subviews>
             <connections>
                 <outlet property="artView" destination="Vbh-S0-sBA" id="vId-Ci-BEn"/>
@@ -114,6 +114,15 @@
             <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="sSt-jd-vmZ" userLabel="Functions Box">
+                    <rect key="frame" x="501" y="65" width="14" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="lYi-RD-U6T">
+                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
                 <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8O-4j-Ewn" userLabel="Art View">
                     <rect key="frame" x="180" y="20" width="170" height="170"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -197,15 +206,6 @@
                     </view>
                     <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </box>
-                <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="sSt-jd-vmZ" userLabel="Functions Box">
-                    <rect key="frame" x="501" y="65" width="14" height="80"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" id="lYi-RD-U6T">
-                        <rect key="frame" x="0.0" y="0.0" width="14" height="80"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
             <connections>

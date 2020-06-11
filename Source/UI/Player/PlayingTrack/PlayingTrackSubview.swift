@@ -31,6 +31,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
             
             if !self.controlsView.isDescendant(of: self.controlsBox) {
                 self.controlsBox.addSubview(self.controlsView)
+                self.controlsBox.bringToFront()
             }
 
             if !self.functionsView.isDescendant(of: self.functionsBox) {

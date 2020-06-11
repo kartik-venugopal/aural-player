@@ -43,16 +43,6 @@
                     <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.0" alpha="0.80111135560140845" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
-                <box boxType="custom" borderType="none" borderWidth="0.0" transparent="YES" id="fYt-HH-gOX" userLabel="Controls Box">
-                    <rect key="frame" x="0.0" y="15" width="530" height="80"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" id="Q1N-m0-0sA">
-                        <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </box>
                 <box wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="gR1-XJ-bbN" userLabel="Functions Box">
                     <rect key="frame" x="501" y="65" width="14" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -100,6 +90,16 @@
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box boxType="custom" borderType="none" borderWidth="0.0" transparent="YES" id="fYt-HH-gOX" userLabel="Controls Box">
+                    <rect key="frame" x="0.0" y="15" width="530" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="Q1N-m0-0sA">
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.74713908449999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
             <point key="canvasLocation" x="-2886" y="179"/>
