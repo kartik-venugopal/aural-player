@@ -237,6 +237,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
+        infoBox.bringToFront()
         
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
@@ -257,6 +258,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
         centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
+        infoBox.bringToFront()
     }
     
     override func mouseEntered() {
@@ -280,6 +282,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         // Re-position the info box and functions box
         moveInfoBoxTo(infoBoxTopPosition)
         infoBox.showIf(trackInfo != nil)
+        infoBox.bringToFront()
     }
     
     private func autoHideControls_hide() {
@@ -290,6 +293,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         // Show info box only if the setting allows it.
         infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
+        infoBox.bringToFront()
         
         moveInfoBoxTo(infoBoxDefaultPosition)
     }
