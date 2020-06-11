@@ -50,6 +50,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        
+        self.view.hide()
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one

@@ -92,6 +92,7 @@ enum WindowLayoutStartupOptions: String {
 // Window layout on startup preference
 class LayoutOnStartup {
     
+    // TODO: This should be set to remember by default, and WindowManager should load vertical stack the first time
     var option: WindowLayoutStartupOptions = .specific
     
     // This is used only if option == .specific
