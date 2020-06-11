@@ -44,11 +44,14 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         DispatchQueue.main.async {
             
             if !self.controlsView.isDescendant(of: self.controlsBox) {
+                
+                self.controlsView.removeFromSuperview()
                 self.controlsBox.addSubview(self.controlsView)
-                self.controlsBox.bringToFront()
             }
 
             if !self.functionsView.isDescendant(of: self.functionsBox) {
+                
+                self.functionsView.removeFromSuperview()
                 self.functionsBox.addSubview(self.functionsView)
             }
 
