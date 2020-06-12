@@ -166,7 +166,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y + 5 // 5 is half the difference in height between infoBox and artView
+        artView.frame.origin.y = infoBox.frame.origin.y // 5 is half the difference in height between infoBox and artView
     }
     
     override func showOrHideMainControls() {
