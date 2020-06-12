@@ -11,6 +11,8 @@ extension Notification.Name {
     static let appReopened = Notification.Name("appReopened")
     static let appExitRequest = Notification.Name("appExitRequest")
     
+    static let playbackRateChanged = Notification.Name("playbackRateChanged")
+    
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
 }
 

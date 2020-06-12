@@ -20,7 +20,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .trackTransitionNotification, .seekPositionChangedNotification, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
+        
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -359,17 +361,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 }
             }
             
-        case .seekPositionChangedNotification:
-            
-            playbackView.updateSeekPosition()
-            
-        case .playbackRateChangedNotification:
-            
-            // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
-            if let playbackRateChangedMsg = notification as? PlaybackRateChangedNotification {
-                playbackView.playbackRateChanged(playbackRateChangedMsg.newPlaybackRate, player.state)
-            }
-            
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
@@ -377,6 +368,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         default: return
             
         }
+    }
+    
+    // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
+    func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
+        playbackView.playbackRateChanged(notification.newPlaybackRate, player.state)
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
