@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -43,11 +43,11 @@
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wnD-Di-RRh" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="2F9-Xy-D8l">
+                        <view key="contentView" id="2F9-Xy-D8l">
                             <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <popUpButton toolTip="Effects View" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">
+                                <popUpButton toolTip="Effects View" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">
                                     <rect key="frame" x="496" y="202" width="24" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="g9l-VG-eGh" id="wQk-S7-HzL">
@@ -96,7 +96,7 @@
                                 <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Jtw-Y5-1IX" userLabel="Effects Box">
                                     <rect key="frame" x="12" y="0.0" width="518" height="195"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" ambiguous="YES" id="906-wq-IiK">
+                                    <view key="contentView" id="906-wq-IiK">
                                         <rect key="frame" x="0.0" y="0.0" width="518" height="195"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -106,7 +106,7 @@
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Master" identifier="0" id="83v-kE-bxA" userLabel="Master">
-                                                        <view key="view" ambiguous="YES" id="3tH-T8-1bs">
+                                                        <view key="view" id="3tH-T8-1bs">
                                                             <rect key="frame" x="0.0" y="0.0" width="600" height="185"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
@@ -163,7 +163,7 @@
                                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-zz-laJ" userLabel="Tab Buttons Box">
                                     <rect key="frame" x="36" y="194" width="460" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" ambiguous="YES" id="b0o-w1-EZ9">
+                                    <view key="contentView" id="b0o-w1-EZ9">
                                         <rect key="frame" x="0.0" y="0.0" width="460" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -325,7 +325,7 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
-                    <button toolTip="Hide the effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDE-AU-hEg" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button toolTip="Hide the effects panel" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDE-AU-hEg" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="15" y="204" width="10" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LZT-fd-SBv">
