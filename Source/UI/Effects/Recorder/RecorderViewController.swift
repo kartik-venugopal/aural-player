@@ -38,7 +38,8 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        
         SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
@@ -118,41 +119,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.
-    private func onExit() -> AppExitResponse {
-        
-        if recorder.isRecording {
-            
-            // Recording ongoing, prompt the user to save/discard it
-            let response = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert).rawValue
-            
-            switch response {
-                
-            case RecordingAlertResponse.dontExit.rawValue:
-                
-                return AppExitResponse.dontExit
-                
-            case RecordingAlertResponse.saveAndExit.rawValue:
-                
-                stopRecording()
-                return AppExitResponse.okToExit
-                
-            case RecordingAlertResponse.discardAndExit.rawValue:
-                
-                recorder.deleteRecording()
-                return AppExitResponse.okToExit
-                
-            // Impossible
-            default:
-                
-                return AppExitResponse.okToExit
-            }
-        }
-        
-        // No ongoing recording, proceed with exit
-        return AppExitResponse.okToExit
-    }
-    
     private func changeTextSize() {
         
         lblCaption.font = Fonts.Effects.unitCaptionFont
@@ -214,13 +180,27 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Message handling
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+    // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.
+    private func onAppExit(_ request: AppExitRequestNotification) {
         
-        if (request is AppExitRequest) {
-            return onExit()
+        if recorder.isRecording {
+            
+            // Recording ongoing, prompt the user to save/discard it
+            let userResponse = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert).rawValue
+            
+            if userResponse == RecordingAlertResponse.saveAndExit.rawValue {
+                stopRecording()
+                
+            } else if userResponse == RecordingAlertResponse.discardAndExit.rawValue {
+                recorder.deleteRecording()
+            }
+            
+            request.appendResponse(okToExit: userResponse != RecordingAlertResponse.dontExit.rawValue)
+            
+        } else {
+            
+            request.appendResponse(okToExit: true)
         }
-        
-        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {

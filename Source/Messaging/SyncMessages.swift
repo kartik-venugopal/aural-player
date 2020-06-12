@@ -90,10 +90,6 @@ enum MessageType {
     
     case searchTextChangedNotification
     
-    case appLoadedNotification
-    
-    case appReopenedNotification
-    
     case playlistTypeChangedNotification
     
     case editorSelectionChangedNotification
@@ -323,33 +319,24 @@ struct SearchTextChangedNotification: NotificationMessage {
 }
 
 // Notification that the app has loaded
-struct AppLoadedNotification: NotificationMessage {
+struct AppLoadedNotification: NotificationPayload {
     
-    let messageType: MessageType = .appLoadedNotification
+    let notificationName: Notification.Name = Notifications.appLoaded
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
     let filesToOpen: [URL]
-    
-    init(_ filesToOpen: [URL]) {
-        self.filesToOpen = filesToOpen
-    }
 }
 
 // Notification that the app has been reopened with a request to open certain files
-struct AppReopenedNotification: NotificationMessage {
+struct AppReopenedNotification: NotificationPayload {
     
-    let messageType: MessageType = .appReopenedNotification
+    let notificationName: Notification.Name = Notifications.appReopened
     
     // Files specified as launch parameters (files that the app needs to open)
     let filesToOpen: [URL]
     
     // Whether or not the app has already sent a notification of this type very recently
     let isDuplicateNotification: Bool
-    
-    init(_ filesToOpen: [URL], _ isDuplicateNotification: Bool) {
-        self.filesToOpen = filesToOpen
-        self.isDuplicateNotification = isDuplicateNotification
-    }
 }
 
 // Notification that the playlist view (tracks/artists, etc) has been changed, by switching playlist tabs, within the UI
@@ -430,32 +417,18 @@ enum PlaybackRequestType {
 }
 
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
-struct AppExitRequest: RequestMessage {
+class AppExitRequestNotification: NotificationPayload {
     
-    let messageType: MessageType = .appExitRequest
+    let notificationName: Notification.Name = Notifications.appExitRequest
     
-    private init() {}
+    private var responses: [Bool] = []
     
-    // Singleton
-    static let instance: AppExitRequest = AppExitRequest()
-}
-
-// Response to an AppExitRequest
-struct AppExitResponse: ResponseMessage {
+    var okToExit: Bool {
+        return !responses.contains(false)
+    }
     
-    let messageType: MessageType = .appExitResponse
-    
-    // Whether or not it is ok for the application to exit
-    let okToExit: Bool
-    
-    // Instance indicating an "Ok to exit" response
-    static let okToExit: AppExitResponse = AppExitResponse(true)
-    
-    // Instance indicating a "Don't exit" response
-    static let dontExit: AppExitResponse = AppExitResponse(false)
-    
-    private init(_ okToExit: Bool) {
-        self.okToExit = okToExit
+    func appendResponse(okToExit: Bool) {
+        responses.append(okToExit)
     }
 }
 

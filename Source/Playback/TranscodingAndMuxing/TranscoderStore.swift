@@ -33,7 +33,7 @@ class TranscoderStore: MessageSubscriber {
             })
         }
         
-        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
         
 //        backgroundQueue.async {
 //            self.cleanUpMappings()
@@ -105,8 +105,10 @@ class TranscoderStore: MessageSubscriber {
         return false
     }
     
+    // MARK: Message handling
+
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
-    private func onExit() -> AppExitResponse {
+    func onAppExit(_ request: AppExitRequestNotification) {
         
         if preferences.persistenceOption == .delete {
             
@@ -128,13 +130,7 @@ class TranscoderStore: MessageSubscriber {
         }
         
         // Proceed with exit
-        return AppExitResponse.okToExit
-    }
-    
-    // MARK: Message handling
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return request is AppExitRequest ? onExit() : EmptyResponse.instance
+        request.appendResponse(okToExit: true)
     }
     
     //    func checkDiskSpaceUsage() {

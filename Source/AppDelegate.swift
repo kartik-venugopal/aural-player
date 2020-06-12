@@ -46,20 +46,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let now = Date()
         
         // Clear previously added files from filesToOpen array, and add new files
-        filesToOpen.removeAll()
-        for file in filenames {
-            filesToOpen.append(URL(fileURLWithPath: file))
-        }
+        filesToOpen = filenames.map {URL(fileURLWithPath: $0)}
         
         // If app has already launched, that means the app is "reopening" with the specified set of files
-        if (appLaunched) {
+        if appLaunched {
             
             // Check when the last file open operation was performed, to see if this is a chunk of a single larger operation
             let timeSinceLastFileOpen = lastFileOpenTime != nil ? now.timeIntervalSince(lastFileOpenTime!) : (fileOpenNotificationWindow_seconds + 1)
             
             // Publish a notification to the app that it needs to open the new set of files
-            let reopenMsg = AppReopenedNotification(filesToOpen, timeSinceLastFileOpen < fileOpenNotificationWindow_seconds)
-            SyncMessenger.publishNotification(reopenMsg)
+            let reopenMsg = AppReopenedNotification(filesToOpen: filesToOpen, isDuplicateNotification: timeSinceLastFileOpen < fileOpenNotificationWindow_seconds)
+            Messenger.publish(reopenMsg)
         }
         
         // Update the lastFileOpenTime timestamp to the current time
@@ -80,23 +77,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         appLaunched = true
         
         // Tell app components that the app has finished loading, and pass along any launch parameters (set of files to open)
-        SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))
+        Messenger.publish(AppLoadedNotification(filesToOpen: filesToOpen))
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         
         // Broadcast a request to all app components that the app needs to exit. Check responses to see if it is safe to exit. Some components may need to do some work before the app is able to safely exit, or cancel the exit operation altogether.
-        let exitResponses = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let request = AppExitRequestNotification()
+        Messenger.publish(request)
         
-        for _response in exitResponses {
-            
-            if let response = _response as? AppExitResponse, !response.okToExit {
-                return .terminateCancel
-            }
-        }
-        
-        // Ok to exit
-        return .terminateNow
+        return request.okToExit ? .terminateNow : .terminateCancel
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

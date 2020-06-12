@@ -35,7 +35,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
         AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
@@ -391,18 +392,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there
-    // is a track playing and if playback settings for the track need to be remembered.
-    private func onExit() -> AppExitResponse {
-        
-        if let track = playingTrack {
-            savePlaybackProfileIfNeeded(track)
-        }
-        
-        // Proceed with exit
-        return AppExitResponse.okToExit
-    }
-    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -431,8 +420,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return request is AppExitRequest ? onExit() : EmptyResponse.instance
+    // This function is invoked when the user attempts to exit the app. It checks if there
+    // is a track playing and if playback settings for the track need to be remembered.
+    func onAppExit(_ request: AppExitRequestNotification) {
+        
+        if let track = playingTrack {
+            savePlaybackProfileIfNeeded(track)
+        }
+        
+        // Proceed with exit
+        request.appendResponse(okToExit: true)
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------

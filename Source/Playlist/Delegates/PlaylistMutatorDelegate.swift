@@ -56,7 +56,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.appLoadedNotification, .appReopenedNotification], subscriber: self)
+        Messenger.subscribe(self, Notifications.appLoaded, self.appLoaded(_:))
+        Messenger.subscribe(self, Notifications.appReopened, self.appReopened(_:))
     }
     
     func addFiles(_ files: [URL]) {
@@ -462,49 +463,39 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func appLoaded(_ notification: AppLoadedNotification) {
         
-        if (notification is AppLoadedNotification) {
+        let filesToOpen = notification.filesToOpen
+        
+        // Check if any launch parameters were specified
+        if !filesToOpen.isEmpty {
             
-            let msg = notification as! AppLoadedNotification
-            let filesToOpen = msg.filesToOpen
+            // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
+            addFiles_async(filesToOpen, AutoplayOptions(true, true), false)
             
-            // Check if any launch parameters were specified
-            if (!filesToOpen.isEmpty) {
-                
-                // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-                addFiles_async(filesToOpen, AutoplayOptions(true, true), false)
-                
-            } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
-                
-                // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
-                
-            } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
-                
-                if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
-                }
-                
-            } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
-                
-                if let folder: URL = preferences.playlistPreferences.tracksFolder {
-                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
-                }
+        } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            
+            // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
+            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
+            
+        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
+            
+            if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
+                addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
             }
             
-            return
+        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
+            
+            if let folder: URL = preferences.playlistPreferences.tracksFolder {
+                addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
+            }
         }
+    }
+    
+    func appReopened(_ notification: AppReopenedNotification) {
         
-        if (notification is AppReopenedNotification) {
-            
-            let msg = notification as! AppReopenedNotification
-            
-            // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-            addFiles_async(msg.filesToOpen, AutoplayOptions(!msg.isDuplicateNotification, true))
-            
-            return
-        }
+        // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
+        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification, true))
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
