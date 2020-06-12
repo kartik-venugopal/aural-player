@@ -58,19 +58,9 @@ protocol ResponseMessage: SyncMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
-    case trackUpdatedNotification
-    
-    case trackGroupUpdatedNotification
-    
-    case trackAddedNotification
-    
-    case trackGroupedNotification
-    
     case preTrackChangeNotification
     
     case trackTransitionNotification
-    
-    case chapterChangedNotification
     
     case sequenceChangedNotification
     
@@ -204,21 +194,15 @@ struct PreTrackChangeNotification: NotificationMessage {
 }
 
 // Notification to indicate that the currently playing chapter has changed
-struct ChapterChangedNotification: NotificationMessage {
+struct ChapterChangedNotification: NotificationPayload {
     
-    let messageType: MessageType = .chapterChangedNotification
+    let notificationName: Notification.Name = .chapterChanged
     
     // The chapter that was playing before the chapter change (may be nil, meaning no defined chapter was playing)
     let oldChapter: IndexedChapter?
     
     // The chapter that is now playing (may be nil, meaning no chapter playing)
     let newChapter: IndexedChapter?
-    
-    init(_ oldChapter: IndexedChapter?, _ newChapter: IndexedChapter?) {
-        
-        self.oldChapter = oldChapter
-        self.newChapter = newChapter
-    }
 }
 
 // Notification indicating the the playback sequence may have changed and that the UI may need to be refreshed to show updated sequence information
@@ -528,42 +512,5 @@ struct PlaybackGapUpdatedNotification: NotificationMessage {
     
     init(_ updatedTrack: Track) {
         self.updatedTrack = updatedTrack
-    }
-}
-
-struct TrackGroupedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .trackGroupedNotification
-    
-    let grouping: GroupedTrack
-    let groupCreated: Bool
-    
-    init(_ grouping: GroupedTrack, _ groupCreated: Bool) {
-        self.grouping = grouping
-        self.groupCreated = groupCreated
-    }
-}
-
-struct TrackAddedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .trackAddedNotification
-    
-    // The index of the newly added track
-    let trackIndex: Int
-    
-    let groupInfo: [GroupType: GroupedTrackAddResult]
-    
-    // The current progress of the track add operation (See TrackAddedMessageProgress)
-    let progress: TrackAddedMessageProgress
-    
-    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
-        
-        self.trackIndex = trackIndex
-        self.groupInfo = groupInfo
-        self.progress = progress
-    }
-    
-    static func fromTrackAddResult(_ result: TrackAddResult, _ progress: TrackAddedMessageProgress) -> TrackAddedNotification {
-        return TrackAddedNotification(result.flatPlaylistResult, result.groupingPlaylistResults, progress)
     }
 }

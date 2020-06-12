@@ -107,8 +107,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private func initSubscriptions() {
         
+        Messenger.subscribe(self, .chapterChanged, self.chapterChanged(_:))
+        
         // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .chapterChangedNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
@@ -333,11 +335,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             
             trackChanged()
             
-        case .chapterChangedNotification:
-            
-            let msg = message as! ChapterChangedNotification
-            chapterChanged(msg.oldChapter, msg.newChapter)
-            
         case .playbackLoopChangedNotification:
             
             loopChanged()
@@ -473,20 +470,13 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     // When the currently playing chapter changes, the marker icon in the chapters list needs to move to the
     // new chapter.
-    private func chapterChanged(_ oldChapter: IndexedChapter?, _ newChapter: IndexedChapter?) {
+    func chapterChanged(_ notification: ChapterChangedNotification) {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
         
-            var refreshRows: [Int] = []
-            
-            if let _oldIndex = oldChapter?.index, _oldIndex >= 0 {
-                refreshRows.append(_oldIndex)
-            }
-            
-            if let _newIndex = newChapter?.index, _newIndex >= 0 {
-                refreshRows.append(_newIndex)
-            }
+            let refreshRows: [Int] = [notification.oldChapter?.index, notification.newChapter?.index]
+                                        .compactMap {$0}.filter({$0 >= 0})
             
             if !refreshRows.isEmpty {
                 self.chaptersListView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])

@@ -26,7 +26,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         AsyncMessenger.subscribe([.trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .chapterChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        Messenger.subscribe(self, .chapterChanged, self.chapterChanged(_:))
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
@@ -50,10 +52,10 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         infoView.update()
     }
     
-    private func chapterChanged(_ newChapter: IndexedChapter?) {
+    func chapterChanged(_ notification: ChapterChangedNotification) {
         
         if let playingTrack = player.playingTrack, PlayerViewState.showCurrentChapter {
-            infoView.trackInfo = PlayingTrackInfo(playingTrack, newChapter?.chapter.title)
+            infoView.trackInfo = PlayingTrackInfo(playingTrack, notification.newChapter?.chapter.title)
         }
     }
     
@@ -94,11 +96,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         } else if notification is PlayingTrackInfoUpdatedNotification {
          
             playingTrackInfoUpdated()
-            return
-            
-        } else if let chapterChangedMsg = notification as? ChapterChangedNotification {
-            
-            chapterChanged(chapterChangedMsg.newChapter)
             return
         }
     }
