@@ -311,7 +311,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             if self.curChapter != playingChapter {
                 
                 // There has been a change ... notify observers and update the variable
-                SyncMessenger.publishNotification(ChapterChangedNotification(self.curChapter, playingChapter))
+                Messenger.publish(ChapterChangedNotification(oldChapter: self.curChapter, newChapter: playingChapter))
                 self.curChapter = playingChapter
             }
         })

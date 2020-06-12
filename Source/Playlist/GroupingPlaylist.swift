@@ -200,13 +200,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         let trackIndex: Int = group!.addTrack(track)
         let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
         
-        // TODO: Remove this if it's not being used.
-        
-            // UI notification
-//            DispatchQueue.main.async {
-//                SyncMessenger.publishNotification(TrackGroupedNotification(groupedTrack!, groupCreated))
-//            }
-        
         return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }
     
