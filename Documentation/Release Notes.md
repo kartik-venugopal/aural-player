@@ -16,16 +16,23 @@ All back end player sub-components have been significantly redesigned and rewrit
 * Race condition: When a favorite/bookmark/history track was played very near the end of a currently playing track, the player would skip the user-selected track.
 * Per-track sound settings were not saved when a track was stopped.
 
+### Bug fixes (for Sierra and High Sierra systems)
+
+* Vertical alignment of playing track info text in the player window
+* Slider and player controls would hide behind the album art in some cases (i.e. z-order problem)
+* Chapter end times and durations would be incorrectly computed by AVFoundation APIs (i.e. Apple bug)
+* Button clicks would result in white flashes
+
 ### Other improvements
 
 * Lazy loading of chapters list window (should reduce some memory usage on app startup)
 
-* Transcoder view (in player window) improved and made consistent with other track info views
+* Transcoder view (in player window) simplified and made consistent with other track info views
 
 * Complete refactoring of player views and associated controllers
     * Simplified, easier to maintain, more reliable
     
-* Upgrade of source code to Swift v5.1.3 (Xcode v11.3)
+* Upgrade of source code to Swift v5.2 (Xcode v11.5)
 
 * Complete source code restructuring
    * Re-organized project meta files, resources, and documentation
