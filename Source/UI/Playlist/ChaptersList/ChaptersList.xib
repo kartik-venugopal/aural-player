@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,7 +55,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Hide the chapters list" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Hide the chapters list" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="14" y="354" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="FQB-Oe-tVg"/>
@@ -84,7 +84,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Previous chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Previous chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="247" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="dEO-mN-5K5"/>
@@ -101,7 +101,7 @@
                                         <action selector="playPreviousChapterAction:" target="uhU-UR-xwr" id="NdA-MV-VOd"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Previous search result" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-Ro-Dis" userLabel="Previous Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Previous search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-Ro-Dis" userLabel="Previous Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="522" y="316" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="11" id="EKB-Bw-bRp"/>
@@ -120,7 +120,7 @@
                                         <action selector="previousSearchResultAction:" target="uhU-UR-xwr" id="2fM-vP-DC4"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Next chapter" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Next chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="266" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Zcc-HB-5qH"/>
@@ -137,7 +137,7 @@
                                         <action selector="playNextChapterAction:" target="uhU-UR-xwr" id="4x0-K9-PQF"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Toggle current chapter loop" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Toggle current chapter loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="312" y="6" width="13" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="9GP-DR-xzf"/>
@@ -157,7 +157,7 @@
                                         <action selector="toggleCurrentChapterLoopAction:" target="uhU-UR-xwr" id="RaD-7e-AiX"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Replay current chapter" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Replay current chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="290" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="16" id="Tmw-pA-lzr"/>
@@ -188,7 +188,7 @@
                                         <action selector="searchAction:" target="uhU-UR-xwr" id="inD-GP-kZ9"/>
                                     </connections>
                                 </searchField>
-                                <button toolTip="Case sensitive search (disabled)" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Case sensitive search (disabled)" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="386" y="314" width="20" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="EiF-Jn-i3E"/>
@@ -208,7 +208,7 @@
                                         <action selector="toggleCaseSensitiveSearchAction:" target="uhU-UR-xwr" id="PQX-uK-8jd"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Next search result" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-oP-CME" userLabel="Next Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Next search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-oP-CME" userLabel="Next Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="540" y="316" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="ERd-05-UW2"/>
@@ -267,14 +267,13 @@
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="540" height="221"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="gridColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <tableColumns>
                                         <tableColumn identifier="cid_chapterIndex" width="30" minWidth="25" maxWidth="40" id="dL7-vf-6qi" userLabel="Index">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="#">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
@@ -325,7 +324,6 @@
                                         </tableColumn>
                                         <tableColumn identifier="cid_chapterTitle" width="338" minWidth="275" maxWidth="10000" id="Uah-kz-dKu" userLabel="Title">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
@@ -365,7 +363,6 @@
                                         </tableColumn>
                                         <tableColumn identifier="cid_chapterStartTime" width="80" minWidth="75" maxWidth="85" id="aYO-tj-iAD" userLabel="Start Time">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Start Time">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
@@ -405,7 +402,6 @@
                                         </tableColumn>
                                         <tableColumn identifier="cid_chapterDuration" width="80" minWidth="71" maxWidth="85" id="LOl-ff-SWb">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
@@ -457,7 +453,7 @@
                             <rect key="frame" x="-100" y="-100" width="383" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" arrowsPosition="none" horizontal="NO" id="bNx-Pe-jTD" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontal="NO" id="bNx-Pe-jTD" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
