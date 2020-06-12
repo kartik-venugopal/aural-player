@@ -90,8 +90,6 @@ enum MessageType {
     
     case searchTextChangedNotification
     
-    case playlistTypeChangedNotification
-    
     case editorSelectionChangedNotification
     
     case searchResultSelectionRequest
@@ -106,17 +104,9 @@ enum MessageType {
     
     case layoutChangedNotification
     
-    case mouseEnteredView
-    
-    case mouseExitedView
-    
     case playbackRequest
     
     case chapterPlaybackRequest
-    
-    case appExitRequest
-    
-    case appExitResponse
     
     case emptyResponse
     
@@ -321,7 +311,7 @@ struct SearchTextChangedNotification: NotificationMessage {
 // Notification that the app has loaded
 struct AppLoadedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = Notifications.appLoaded
+    let notificationName: Notification.Name = .appLoaded
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
     let filesToOpen: [URL]
@@ -330,7 +320,7 @@ struct AppLoadedNotification: NotificationPayload {
 // Notification that the app has been reopened with a request to open certain files
 struct AppReopenedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = Notifications.appReopened
+    let notificationName: Notification.Name = .appReopened
     
     // Files specified as launch parameters (files that the app needs to open)
     let filesToOpen: [URL]
@@ -340,9 +330,9 @@ struct AppReopenedNotification: NotificationPayload {
 }
 
 // Notification that the playlist view (tracks/artists, etc) has been changed, by switching playlist tabs, within the UI
-struct PlaylistTypeChangedNotification: NotificationMessage {
+struct PlaylistTypeChangedNotification: NotificationPayload {
     
-    let messageType: MessageType = .playlistTypeChangedNotification
+    let notificationName: Notification.Name = .playlistTypeChanged
     let newPlaylistType: PlaylistType
 }
 
@@ -419,7 +409,7 @@ enum PlaybackRequestType {
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
 class AppExitRequestNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = Notifications.appExitRequest
+    let notificationName: Notification.Name = .appExitRequest
     
     private var responses: [Bool] = []
     
@@ -527,18 +517,6 @@ struct LayoutChangedNotification: NotificationMessage {
         self.showingEffects = showingEffects
         self.showingPlaylist = showingPlaylist
     }
-}
-
-struct MouseTrackingNotification: NotificationMessage {
-    
-    let messageType: MessageType
-    
-    private init(_ messageType: MessageType) {
-        self.messageType = messageType
-    }
-    
-    static let mouseEntered = MouseTrackingNotification(.mouseEnteredView)
-    static let mouseExited = MouseTrackingNotification(.mouseExitedView)
 }
 
 struct ApplyEffectsPresetRequest: RequestMessage {

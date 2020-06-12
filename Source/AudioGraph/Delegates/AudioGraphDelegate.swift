@@ -86,7 +86,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
             masterUnit.applyPreset(presetName)
         }
         
-        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         
         SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)

@@ -25,7 +25,7 @@ class TranscoderDaemon: MessageSubscriber {
         backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks
         backgroundExecutionQueue.qualityOfService = .utility
         
-        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
     }
     
     func hasTaskForTrack(_ track: Track) -> Bool {

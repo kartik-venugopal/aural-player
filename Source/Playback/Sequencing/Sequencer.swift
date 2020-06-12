@@ -30,7 +30,7 @@ class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
         self.scope = SequenceScope(playlistType.toPlaylistScopeType())
         
         // Subscribe to notifications that the playlist view type has changed
-        SyncMessenger.subscribe(messageTypes: [.playlistTypeChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
@@ -438,22 +438,13 @@ class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
         return nil
     }
     
-    // MARK: Message handling -----------------------------------------------------------------------------------------------------------------------------
+    // MARK: Message handling --------------------------------------------------------------------------------------------------------------
     
     // When the selected playlist view type changes in the UI (i.e. the selected playlist tab changes), this notification is sent out. Here, we make note of the new playlist type, so that the playback scope may be determined from it.
-    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
+    func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         
         // Updates the instance variable playlistType, with the new playlistType value
         self.playlistType = notification.newPlaylistType
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let playlistTypeChangedMsg = notification as? PlaylistTypeChangedNotification {
-            
-            playlistTypeChanged(playlistTypeChangedMsg)
-            return
-        }
     }
     
     var persistentState: PersistentState {

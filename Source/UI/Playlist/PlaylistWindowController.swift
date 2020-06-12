@@ -119,7 +119,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .removeTrackRequest], subscriber: self)
+        
+        Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
@@ -463,11 +465,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         (tabGroup.selectedTabViewItem as? AuralTabViewItem)?.tabButton.redraw()
     }
     
-    // Updates the summary in response to a change in the tab group selected tab
-    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
-        updatePlaylistSummary()
-    }
-    
     private func trackChanged() {
         
         if playbackInfo.chapterCount > 0 {
@@ -489,6 +486,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // MARK: Message handling
+    
+    // Updates the summary in response to a change in the tab group selected tab
+    func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
+        updatePlaylistSummary()
+    }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -535,10 +537,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             trackChanged()
         
-        case .playlistTypeChangedNotification:
-        
-            playlistTypeChanged(message as! PlaylistTypeChangedNotification)
-            
         default: return
             
         }

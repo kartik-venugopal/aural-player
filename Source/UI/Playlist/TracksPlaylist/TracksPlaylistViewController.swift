@@ -64,7 +64,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         PlaylistViewState.current = .tracks
         PlaylistViewState.currentView = playlistView
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
+
+        Messenger.publish(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.

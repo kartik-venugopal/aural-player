@@ -36,7 +36,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
     init(_ preferences: ControlsPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, Notifications.appLoaded, self.startMonitoring, filter: {preferences.respondToMediaKeys})
+        Messenger.subscribe(self, .appLoaded, self.startMonitoring, filter: {preferences.respondToMediaKeys})
     }
     
     func startMonitoring() {

@@ -38,7 +38,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to message notifications
-        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         
         SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
