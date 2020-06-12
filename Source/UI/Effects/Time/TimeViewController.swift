@@ -63,7 +63,7 @@ class TimeViewController: FXUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.effectiveRate))
+        Messenger.publish(PlaybackRateChangedNotification(newPlaybackRate: timeUnit.effectiveRate))
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -81,7 +81,7 @@ class TimeViewController: FXUnitViewController {
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeUnit.isActive {
-            SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeUnit.rate))
+            Messenger.publish(PlaybackRateChangedNotification(newPlaybackRate: timeUnit.rate))
         }
     }
 
@@ -113,7 +113,7 @@ class TimeViewController: FXUnitViewController {
 
         showThisTab()
 
-        SyncMessenger.publishNotification(PlaybackRateChangedNotification(rateInfo.rate))
+        Messenger.publish(PlaybackRateChangedNotification(newPlaybackRate: rateInfo.rate))
     }
 
     // Updates the Overlap parameter of the Time stretch effects unit

@@ -80,13 +80,7 @@ enum MessageType {
     
     case removeTrackRequest
     
-    case playbackStateChangedNotification
-    
-    case playbackRateChangedNotification
-    
     case playbackLoopChangedNotification
-    
-    case seekPositionChangedNotification
     
     case searchTextChangedNotification
     
@@ -274,27 +268,12 @@ struct RemoveTrackRequest: RequestMessage {
 }
 
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
-struct PlaybackRateChangedNotification: NotificationMessage {
+struct PlaybackRateChangedNotification: NotificationPayload {
     
-    let messageType: MessageType = .playbackRateChangedNotification
+    let notificationName: Notification.Name = .playbackRateChanged
     
     // The new playback rate
     let newPlaybackRate: Float
-    
-    init(_ newPlaybackRate: Float) {
-        self.newPlaybackRate = newPlaybackRate
-    }
-}
-
-// Notification about a change in the seek position of the currently playing track (e.g. when a seek is performed)
-struct SeekPositionChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .seekPositionChangedNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: SeekPositionChangedNotification = SeekPositionChangedNotification()
 }
 
 // Notification that the search query text in the search modal dialog has changed, triggering a new search with the new search text
