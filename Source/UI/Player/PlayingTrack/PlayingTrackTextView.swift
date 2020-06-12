@@ -173,6 +173,10 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
 
         if let txtHeight = textView.layoutManager?.usedRect(for: textView.textContainer!).height {
 
+            // If this isn't done, the text view frame occupies the whole ScrollView, and the text
+            // is not vertically aligned on older systems (Sierra / HighSierra)
+            textView.setFrameSize(NSSize(width: textView.frame.width, height: txtHeight + 10))
+            
             // Move the text view down from the top, by adjusting the top insets of the clip view.
             let heightDifference = self.frame.height - txtHeight
             clipView.contentInsets.top = heightDifference / 2
