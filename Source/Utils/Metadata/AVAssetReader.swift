@@ -259,6 +259,15 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
     // NOTE - This code does not account for potential overlaps in chapter times due to bad metadata ... assumes no overlaps
     func getChapters(_ track: Track) -> [Chapter] {
         
+        // On older systems (Sierra/HighSierra), the end times are not properly read by AVFoundation
+        // So, use start times to compute end times / duration
+        let fileExtension = track.file.pathExtension.lowercased()
+        let useAlternativeComputation = SystemUtils.osVersion.minorVersion < 14 && !["m4a", "m4b"].contains(fileExtension)
+        
+        if useAlternativeComputation {
+            return getChapters_olderSystems(track)
+        }
+        
         var chapters: [Chapter] = []
         
         if let asset = track.audioAsset, let langCode = asset.availableChapterLocales.first?.languageCode {
@@ -276,7 +285,11 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
                 let duration = timeRange.duration.seconds
                 
                 // Validate the time fields for NaN and negative values
-                chapters.append(Chapter(title, (start.isNaN || start < 0) ? 0 : start, (end.isNaN || end < 0) ? 0 : end, (duration.isNaN || duration < 0) ? nil : duration))
+                let correctedStart = (start.isNaN || start < 0) ? 0 : start
+                let correctedEnd = (end.isNaN || end < 0) ? 0 : end
+                let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
+                
+                chapters.append(Chapter(title, correctedStart, correctedEnd, correctedDuration))
             }
             
             // Sort chapters by start time, in ascending order
@@ -285,6 +298,56 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
             // Correct the (empty) chapter titles if required
             for index in 0..<chapters.count {
                 
+                // If no title is available, create a default one using the chapter index
+                if chapters[index].title.trim().isEmpty {
+                    chapters[index].title = String(format: "Chapter %d", index + 1)
+                }
+            }
+        }
+        
+        return chapters
+    }
+    
+    // On older systems (Sierra/HighSierra), the end times are not properly read by AVFoundation
+    // So, use start times to compute end times / duration
+    func getChapters_olderSystems(_ track: Track) -> [Chapter] {
+        
+        var chapters: [Chapter] = []
+        
+        if let asset = track.audioAsset, let langCode = asset.availableChapterLocales.first?.languageCode {
+            
+            let chapterMetadataGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
+            
+            // Collect title and start time from each group
+            let titlesAndStartTimes: [(title: String, startTime: Double)] =
+                chapterMetadataGroups.map {(getChapterTitle($0.items) ?? "", $0.timeRange.start.seconds)}
+            
+            if titlesAndStartTimes.isEmpty {return chapters}
+            
+            for index in 0..<titlesAndStartTimes.count {
+                
+                let title = titlesAndStartTimes[index].title
+                let start = titlesAndStartTimes[index].startTime
+
+                // Use start times to compute end times and durations
+                
+                let end = index == titlesAndStartTimes.count - 1 ? track.duration : titlesAndStartTimes[index + 1].startTime
+                let duration = end - start
+                
+                // Validate the time fields for NaN and negative values
+                let correctedStart = (start.isNaN || start < 0) ? 0 : start
+                let correctedEnd = (end.isNaN || end < 0) ? 0 : end
+                let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
+                
+                chapters.append(Chapter(title, correctedStart, correctedEnd, correctedDuration))
+            }
+            
+            // Sort chapters by start time, in ascending order
+            chapters.sort(by: {(c1, c2) -> Bool in c1.startTime < c2.startTime})
+
+            // Correct the (empty) chapter titles if required
+            for index in 0..<chapters.count {
+
                 // If no title is available, create a default one using the chapter index
                 if chapters[index].title.trim().isEmpty {
                     chapters[index].title = String(format: "Chapter %d", index + 1)

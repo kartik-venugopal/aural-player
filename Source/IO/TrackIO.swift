@@ -43,11 +43,11 @@ class TrackIO {
         
         loadArt(track)
         
-        // Chapters
-        loadChapters(track)
-        
         // Track is valid, prepare it for playback
         AudioUtils.loadPlaybackInfo(track)
+        
+        // Chapters
+        loadChapters(track)
         
         let lazyLoadInfo = track.lazyLoadingInfo
         
