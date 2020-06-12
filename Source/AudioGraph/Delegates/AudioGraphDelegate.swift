@@ -86,7 +86,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
             masterUnit.applyPreset(presetName)
         }
         
-        SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification, .appExitRequest], subscriber: self)
+        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        
+        SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)
         AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: notificationQueue)
     }
@@ -162,15 +164,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is AppExitRequest) {
-            return onExit()
-        }
-        
-        return EmptyResponse.instance
-    }
-    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if let msg = message as? TrackTransitionAsyncMessage, msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) {
@@ -221,7 +214,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
-    private func onExit() -> AppExitResponse {
+    func onAppExit(_ request: AppExitRequestNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if preferences.rememberEffectsSettings, let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
@@ -232,6 +225,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         }
         
         // Proceed with exit
-        return AppExitResponse.okToExit
+        request.appendResponse(okToExit: true)
     }
 }

@@ -25,7 +25,7 @@ class TranscoderDaemon: MessageSubscriber {
         backgroundExecutionQueue.maxConcurrentOperationCount = preferences.maxBackgroundTasks
         backgroundExecutionQueue.qualityOfService = .utility
         
-        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
     }
     
     func hasTaskForTrack(_ track: Track) -> Bool {
@@ -145,8 +145,10 @@ class TranscoderDaemon: MessageSubscriber {
         backgroundExecutionQueue.maxConcurrentOperationCount = numTasks
     }
     
+    // MARK: Message handling
+
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
-    private func onExit() -> AppExitResponse {
+    func onAppExit(_ request: AppExitRequestNotification) {
         
         for task in tasks.values {
             CommandExecutor.cancel(task.command)
@@ -155,13 +157,7 @@ class TranscoderDaemon: MessageSubscriber {
         tasks.removeAll()
         
         // Proceed with exit
-        return AppExitResponse.okToExit
-    }
-    
-    // MARK: Message handling
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return request is AppExitRequest ? onExit() : EmptyResponse.instance
+        request.appendResponse(okToExit: true)
     }
 }
 
