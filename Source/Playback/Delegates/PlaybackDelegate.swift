@@ -35,7 +35,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to message notifications
-        Messenger.subscribe(self, Notifications.appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
         AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.main)

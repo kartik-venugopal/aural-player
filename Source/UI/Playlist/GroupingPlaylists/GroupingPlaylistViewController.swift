@@ -69,7 +69,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         PlaylistViewState.current = self.playlistType
         PlaylistViewState.currentView = playlistView
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: self.playlistType))
+
+        Messenger.publish(PlaylistTypeChangedNotification(newPlaylistType: self.playlistType))
     }
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.

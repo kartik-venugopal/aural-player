@@ -56,8 +56,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to message notifications
-        Messenger.subscribe(self, Notifications.appLoaded, self.appLoaded(_:))
-        Messenger.subscribe(self, Notifications.appReopened, self.appReopened(_:))
+        Messenger.subscribe(self, .appLoaded, self.appLoaded(_:))
+        Messenger.subscribe(self, .appReopened, self.appReopened(_:))
     }
     
     func addFiles(_ files: [URL]) {

@@ -5,11 +5,13 @@ import Foundation
 //    var subscriberId: String {get}
 //}
 
-struct Notifications {
+extension Notification.Name {
     
     static let appLoaded = Notification.Name("appLoaded")
     static let appReopened = Notification.Name("appReopened")
     static let appExitRequest = Notification.Name("appExitRequest")
+    
+    static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
 }
 
 protocol NotificationPayload {
@@ -56,6 +58,8 @@ class Messenger {
         
         print("\nSubscribed subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
     }
+    
+    // TODO: Add subscribe() methods with a subscriberId parameter. For static utilities to subscribe without an instance.
     
     // No payload
     static func subscribe(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
