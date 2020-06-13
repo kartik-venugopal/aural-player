@@ -78,14 +78,6 @@ enum MessageType {
     
     case searchResultSelectionRequest
     
-    case appInBackgroundNotification
-    
-    case appInForegroundNotification
-    
-    case appResignedActiveNotification
-    
-    case mainWindowResizingNotification
-    
     case layoutChangedNotification
     
     case playbackRequest
@@ -396,38 +388,6 @@ struct EmptyResponse: ResponseMessage {
     static let instance: EmptyResponse = EmptyResponse()
 }
 
-// Notification indicating that the application has moved to the background and is no longer both visible and in focus.
-struct AppInBackgroundNotification: NotificationMessage {
-    
-    let messageType: MessageType = .appInBackgroundNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: AppInBackgroundNotification = AppInBackgroundNotification()
-}
-
-struct AppResignedActiveNotification: NotificationMessage {
-    
-    let messageType: MessageType = .appResignedActiveNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: AppResignedActiveNotification = AppResignedActiveNotification()
-}
-
-// Notification indicating that the application has moved to the foreground and is both visible and in focus.
-struct AppInForegroundNotification: NotificationMessage {
-    
-    let messageType: MessageType = .appInForegroundNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: AppInForegroundNotification = AppInForegroundNotification()
-}
-
 // Notification indicating that one of the effects units has either become active or inactive. The Effects panel tab group may use this information to update its view.
 struct EffectsUnitStateChangedNotification: NotificationMessage {
     
@@ -456,17 +416,6 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     
     // Singleton
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
-}
-
-// Notification that the main window is about to be resized
-struct MainWindowResizingNotification: NotificationMessage {
- 
-    let messageType: MessageType = .mainWindowResizingNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: MainWindowResizingNotification = MainWindowResizingNotification()
 }
 
 // Notification that the layout manager has changed the window layout
