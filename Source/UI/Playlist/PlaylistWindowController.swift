@@ -118,8 +118,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         Messenger.subscribeAsync(self, .startedAddingTracks, self.startedAddingTracks, queue: DispatchQueue.main)
         Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: DispatchQueue.main)
         
+        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
+        
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
@@ -188,10 +190,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // Handles a notification that a single track has been added to the playlist
-    private func trackAdded(_ message: TrackAddedAsyncMessage) {
+    func trackAdded(_ notification: TrackAddedNotification) {
         
         DispatchQueue.main.async {
-            self.updatePlaylistSummary(message.progress)
+            self.updatePlaylistSummary(notification.addOperationProgress)
         }
     }
     
@@ -214,7 +216,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
-    private func updatePlaylistSummary(_ trackAddProgress: TrackAddedMessageProgress? = nil) {
+    private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgressNotification? = nil) {
         
         let summary = playlist.summary(PlaylistViewState.current)
         
@@ -462,10 +464,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .trackAdded:
-            
-            trackAdded(message as! TrackAddedAsyncMessage)
             
         case .trackInfoUpdated:
             
