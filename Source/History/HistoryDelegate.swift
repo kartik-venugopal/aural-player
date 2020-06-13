@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, PersistentModelObject {
+class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageSubscriber, PersistentModelObject {
     
     // The actual underlying History model object
     private let history: HistoryProtocol
@@ -16,14 +16,20 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     
     var lastPlayedTrack: Track?
     
+    let backgroundQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+    
+    let subscriberId: String = "HistoryDelegate"
+    
     init(_ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ historyState: HistoryState) {
         
         self.history = history
         self.playlist = playlist
         self.player = player
         
+        Messenger.subscribeAsync(self, .historyItemsAdded, self.itemsAdded(_:), queue: backgroundQueue)
+        
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackTransition, .itemsAdded], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: backgroundQueue)
         
         // Restore the history model object from persistent state
         
@@ -135,12 +141,13 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     }
     
     // Whenever items are added to the playlist, add entries to the "Recently added" list
-    private func itemsAdded(_ message: ItemsAddedAsyncMessage) {
+    private func itemsAdded(_ notification: HistoryItemsAddedNotification) {
         
         let now = Date()
-        message.files.forEach({
+        
+        for file in notification.files {
             
-            if let track = playlist.findFile($0) {
+            if let track = playlist.findFile(file) {
                 
                 // Track
                 history.addRecentlyAddedItem(track.track, now)
@@ -148,9 +155,9 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
             } else {
                 
                 // Folder or playlist
-                history.addRecentlyAddedItem($0, now)
+                history.addRecentlyAddedItem(file, now)
             }
-        })
+        }
         
         Messenger.publish(.historyUpdated)
     }
@@ -159,20 +166,10 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.playbackStarted {
             
-        case .trackTransition:
-            
-            if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.playbackStarted {
-                trackPlayed(trackTransitionMsg)
-            }
-            
-        case .itemsAdded:
-            
-            itemsAdded(message as! ItemsAddedAsyncMessage)
-            
-        default: return
-            
+            trackPlayed(trackTransitionMsg)
+            return
         }
     }
 }
