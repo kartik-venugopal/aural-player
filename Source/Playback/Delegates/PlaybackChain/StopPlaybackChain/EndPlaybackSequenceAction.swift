@@ -13,7 +13,7 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        SyncMessenger.publishNotification(PreTrackChangeNotification(context.currentTrack, context.currentState, nil))
+        Messenger.publish(PreTrackChangeNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: nil))
         
         sequencer.end()
         
