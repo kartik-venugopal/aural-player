@@ -139,7 +139,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         if let selRow = chaptersListView.selectedRowIndexes.first {
         
-            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.playSelectedChapter, selRow))
+            Messenger.publish(ChapterPlaybackCommandNotification(commandType: .playSelectedChapter, chapterIndex: selRow))
             
             if player.playbackLoop == nil {
                 looping = false
@@ -152,7 +152,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
         
-        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.previousChapter))
+        Messenger.publish(ChapterPlaybackCommandNotification(commandType: .previousChapter))
         
         if player.playbackLoop == nil {
             looping = false
@@ -164,7 +164,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
         
-        _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.nextChapter))
+        Messenger.publish(ChapterPlaybackCommandNotification(commandType: .nextChapter))
         
         if player.playbackLoop == nil {
             looping = false
@@ -180,7 +180,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // (possible if chapters don't cover the entire timespan of the track)
         if player.playingChapter != nil {
         
-            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(.replayChapter))
+            Messenger.publish(ChapterPlaybackCommandNotification(commandType: .replayChapter))
             
             if player.playbackLoop == nil {
                 looping = false
@@ -198,8 +198,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         if player.playingChapter != nil {
         
             // Toggle the loop
-            _ = SyncMessenger.publishRequest(ChapterPlaybackRequest(looping ? .removeChapterLoop : .addChapterLoop))
-            looping = !looping
+            Messenger.publish(ChapterPlaybackCommandNotification(commandType: looping ? .removeChapterLoop : .addChapterLoop))
+            looping.toggle()
         }
         
         // Remove focus from the search field (if necessary)

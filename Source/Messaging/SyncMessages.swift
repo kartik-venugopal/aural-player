@@ -74,8 +74,6 @@ enum MessageType {
     
     case editorSelectionChangedNotification
     
-    case chapterPlaybackRequest
-    
     case emptyResponse
     
     case gapUpdatedNotification
@@ -247,7 +245,7 @@ struct PlaylistTypeChangedNotification: NotificationPayload {
     let newPlaylistType: PlaylistType
 }
 
-// Request to the playback controller to initiate playback for a particular track/group
+// A command to initiate playback for a particular track/group
 struct TrackPlaybackCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .playTrack
@@ -288,31 +286,42 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
     }
 }
 
-struct ChapterPlaybackRequest: RequestMessage {
+// A command related to playback of a chapter within a track.
+struct ChapterPlaybackCommandNotification: NotificationPayload {
+
+    let notificationName: Notification.Name = .chapterPlayback
     
-    let messageType: MessageType = .chapterPlaybackRequest
+    let commandType: ChapterPlaybackCommandType
     
-    let type: ChapterPlaybackRequestType
-    
-    var index: Int? = nil
-    
-    init(_ type: ChapterPlaybackRequestType) {
-        self.type = type
-    }
-    
-    init(_ type: ChapterPlaybackRequestType, _ index: Int) {
-        self.type = type
-        self.index = index
+    // The index of the chapter to which this command applies (may be nil).
+    var chapterIndex: Int? = nil
+   
+    init(commandType: ChapterPlaybackCommandType, chapterIndex: Int? = nil) {
+        
+        self.commandType = commandType
+        self.chapterIndex = chapterIndex
     }
 }
 
-enum ChapterPlaybackRequestType {
+// The various types of chapter playback commands. See ChapterPlaybackCommandNotification.
+enum ChapterPlaybackCommandType {
     
+    // Play the chapter selected in the chapters list
     case playSelectedChapter
+    
+    // Play the previous chapter (relative to the currently playing chapter)
     case previousChapter
+    
+    // Play the next chapter (relative to the currently playing chapter)
     case nextChapter
+    
+    // Replay the currently playing chapter from its start time
     case replayChapter
+    
+    // Loop the currently playing chapter from its start time
     case addChapterLoop
+    
+    // Remove the previously added loop for the current chapter
     case removeChapterLoop
 }
 
