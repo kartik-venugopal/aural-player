@@ -36,8 +36,6 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
-    case trackNotPlayed
-    
     case trackNotTranscoded
     
     case tracksNotAdded
@@ -174,21 +172,15 @@ struct TrackAddOperationProgressNotification {
 }
 
 // AsyncMessage indicating that an error was encountered while attempting to play back a track
-struct TrackNotPlayedAsyncMessage: AsyncMessage {
+struct TrackNotPlayedNotification: NotificationPayload {
  
-    let messageType: AsyncMessageType = .trackNotPlayed
+    let notificationName: Notification.Name = .trackNotPlayed
     
     // The track that was playing before this error occurred (used to refresh certain UI elements, eg. playlist).
     let oldTrack: Track?
     
     // An error object containing detailed information such as the failed track's file and the root cause.
     let error: InvalidTrackError
-    
-    init(_ oldTrack: Track?, _ error: InvalidTrackError) {
-        
-        self.oldTrack = oldTrack
-        self.error = error
-    }
 }
 
 struct TrackNotTranscodedAsyncMessage: AsyncMessage {

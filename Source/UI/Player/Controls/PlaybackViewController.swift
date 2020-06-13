@@ -17,8 +17,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     override func viewDidLoad() {
         
+        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
+        
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
@@ -122,7 +124,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
-    private func trackNotPlayed(_ oldTrack: Track?, _ error: InvalidTrackError) {
+    func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         self.trackChanged(nil)
         
@@ -131,6 +133,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
         //        }
         
+        let error = notification.error
         alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
     }
     
@@ -329,12 +332,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .trackNotPlayed:
-            
-            if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
-                trackNotPlayed(trackNotPlayedMsg.oldTrack, trackNotPlayedMsg.error)
-            }
             
         case .trackNotTranscoded:
             

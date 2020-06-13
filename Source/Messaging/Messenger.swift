@@ -26,6 +26,7 @@ extension Notification.Name {
     static let playbackCompleted = Notification.Name("playbackCompleted")
     static let playTrack = Notification.Name("playTrack")
     static let chapterPlayback = Notification.Name("chapterPlayback")
+    static let trackNotPlayed = Notification.Name("trackNotPlayed")
     
     static let startedAddingTracks = Notification.Name("startedAddingTracks")
     static let doneAddingTracks = Notification.Name("doneAddingTracks")

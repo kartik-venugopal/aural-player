@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber, AsyncMessageSubscriber {
+class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber {
     
     @IBOutlet weak var infoView: PlayingTrackView!
     
@@ -23,10 +23,8 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     private func initSubscriptions() {
         
         // Subscribe to various notifications
-        
-        AsyncMessenger.subscribe([.trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
         Messenger.subscribe(self, .chapterChanged, self.chapterChanged(_:))
+        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed)
         
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -43,7 +41,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         }
     }
     
-    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+    func trackNotPlayed() {
         self.trackChanged(nil as Track?)
     }
     
@@ -96,16 +94,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         } else if notification is PlayingTrackInfoUpdatedNotification {
          
             playingTrackInfoUpdated()
-            return
-        }
-    }
-    
-    // Consume asynchronous messages
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
-            
-            trackNotPlayed(trackNotPlayedMsg)
             return
         }
     }

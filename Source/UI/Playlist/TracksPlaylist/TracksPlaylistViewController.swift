@@ -44,8 +44,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.main)
         
+        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
+        
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         
@@ -431,16 +433,18 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+    // TODO: Test with one-time gap before bad track (see if playlist updates properly after receiving this notif)
+    // If not, call this code from main.async()
+    func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
-        let oldTrack = message.oldTrack
+        let oldTrack = notification.oldTrack
         var refreshIndexes = [Int]()
 
         if let _oldTrack = oldTrack, let oldTrackIndex = playlist.indexOfTrack(_oldTrack)?.index {
             refreshIndexes.append(oldTrackIndex)
         }
 
-        if let track = message.error.track, let errTrack = playlist.indexOfTrack(track) {
+        if let track = notification.error.track, let errTrack = playlist.indexOfTrack(track) {
 
             // If new and old are the same, don't refresh the same row twice
             if errTrack.track != oldTrack {
@@ -618,10 +622,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        case .trackNotPlayed:
-            
-            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
             
         default: return
             
