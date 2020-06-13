@@ -28,8 +28,9 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         self.sequencer = sequencer
         
         Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: backgroundQueue)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: backgroundQueue)
         
-        AsyncMessenger.subscribe([.trackTransition, .tracksRemoved], subscriber: self, dispatchQueue: backgroundQueue)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: backgroundQueue)
     }
     
     func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {
@@ -202,7 +203,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         }
     }
     
-    private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
+    private func tracksRemoved(_ message: TracksRemovedNotification) {
         
         for track in message.results.tracks {
             cancelTranscoding(track)
@@ -220,11 +221,6 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         case .trackTransition:
             
             beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
-            
-            
-        case .tracksRemoved:
-            
-            tracksRemoved(message as! TracksRemovedAsyncMessage)
             
         default: return
             

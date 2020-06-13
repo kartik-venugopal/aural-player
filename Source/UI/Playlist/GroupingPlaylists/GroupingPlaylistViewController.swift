@@ -56,9 +56,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func initSubscriptions() {
         
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.main)
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksNotAdded, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         
@@ -540,9 +541,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
-    private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
+    private func tracksRemoved(_ notification: TracksRemovedNotification) {
         
-        let removals = message.results.groupingPlaylistResults[self.groupType]!
+        let removals = notification.results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
 
         for removal in removals {
@@ -799,10 +800,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        case .tracksRemoved:
-            
-            tracksRemoved(message as! TracksRemovedAsyncMessage)
             
         case .trackNotPlayed:
             
