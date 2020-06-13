@@ -122,7 +122,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .removeTrackRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
         
@@ -211,25 +211,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
-    }
-    
-    // Handles a request to remove a single track from the playlist
-    private func removeTrack(_ request: RemoveTrackRequest) {
-        
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
-        
-        // TODO: Just call playlist.removeTracks([track])
-        
-        let indexedTrack = playlist.indexOfTrack(request.track)
-        
-        playlist.removeTracks([indexedTrack!.index])
-        
-//        sequenceChanged()
-        updatePlaylistSummary()
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -519,10 +500,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
         switch request.messageType {
-            
-        case .removeTrackRequest:
-            
-            removeTrack(request as! RemoveTrackRequest)
             
         default: break
             

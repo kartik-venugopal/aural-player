@@ -68,15 +68,11 @@ enum MessageType {
     
     case playingTrackInfoUpdatedNotification
     
-    case removeTrackRequest
-    
     case playbackLoopChangedNotification
     
     case searchTextChangedNotification
     
     case editorSelectionChangedNotification
-    
-    case searchResultSelectionRequest
     
     case layoutChangedNotification
     
@@ -218,29 +214,11 @@ struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
     static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
 }
 
-// Request from the playlist search dialog to the playlist, to show a specific search result within the playlist.
-struct SearchResultSelectionRequest: RequestMessage {
+// Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
+struct SelectSearchResultCommandNotification: NotificationPayload {
     
-    let messageType: MessageType = .searchResultSelectionRequest
-    
+    let notificationName: Notification.Name = .selectSearchResult
     let searchResult: SearchResult
-    
-    init(_ searchResult: SearchResult) {
-        self.searchResult = searchResult
-    }
-}
-
-// Request from the playback view to the playlist view to remove a specific track from the playlist
-struct RemoveTrackRequest: RequestMessage {
-    
-    let messageType: MessageType = .removeTrackRequest
-    
-    // Track that needs to be removed
-    let track: Track
-    
-    init(_ track: Track) {
-        self.track = track
-    }
 }
 
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
