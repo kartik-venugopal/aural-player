@@ -66,8 +66,6 @@ enum MessageType {
     
     case playbackLoopChangedNotification
     
-    case searchTextChangedNotification
-    
     case editorSelectionChangedNotification
     
     case emptyResponse
@@ -189,17 +187,6 @@ struct PlaybackRateChangedNotification: NotificationPayload {
     
     // The new playback rate
     let newPlaybackRate: Float
-}
-
-// Notification that the search query text in the search modal dialog has changed, triggering a new search with the new search text
-struct SearchTextChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .searchTextChangedNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: SearchTextChangedNotification = SearchTextChangedNotification()
 }
 
 // Notification that the app has launched (used to perform UI initialization)

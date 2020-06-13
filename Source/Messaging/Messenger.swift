@@ -35,7 +35,10 @@ extension Notification.Name {
     static let tracksNotAdded = Notification.Name("tracksNotAdded")
     
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
+    
     static let selectSearchResult = Notification.Name("selectSearchResult")
+    static let searchTextChanged = Notification.Name("searchTextChanged")
+    
     static let trackAdded = Notification.Name("trackAdded")
     static let tracksRemoved = Notification.Name("tracksRemoved")
     static let gapUpdated = Notification.Name("gapUpdated")

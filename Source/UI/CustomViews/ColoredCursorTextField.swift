@@ -24,6 +24,6 @@ class ColoredCursorSearchField: ColoredCursorTextField {
     override func textDidChange(_ notification: Notification) {
         
         // Notify the search view that the query text has changed
-        SyncMessenger.publishNotification(SearchTextChangedNotification.instance)
+        Messenger.publish(.searchTextChanged)
     }
 }
