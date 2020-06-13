@@ -71,13 +71,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        WindowManager.initializeWindows()
-        
         // Update the appLaunched flag
         appLaunched = true
         
-        // Tell app components that the app has finished loading, and pass along any launch parameters (set of files to open)
-        Messenger.publish(AppLoadedNotification(filesToOpen: filesToOpen))
+        // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
+        Messenger.publish(AppLaunchedNotification(filesToOpen: filesToOpen))
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

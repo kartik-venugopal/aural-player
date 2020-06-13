@@ -240,9 +240,9 @@ struct SearchTextChangedNotification: NotificationMessage {
 }
 
 // Notification that the app has loaded
-struct AppLoadedNotification: NotificationPayload {
+struct AppLaunchedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .appLoaded
+    let notificationName: Notification.Name = .appLaunched
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
     let filesToOpen: [URL]
