@@ -6,7 +6,7 @@ import Cocoa
  
     Also handles such requests from app menus.
  */
-class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
@@ -45,7 +45,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
+        // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
+        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.favoritesUpdated(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.favoritesUpdated(_:), queue: DispatchQueue.main)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
@@ -171,12 +173,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     }
     
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
-    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
+    func favoritesUpdated(_ notification: FavoritesUpdatedNotification) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.currentTrack, message.file == playingTrack.file {
+        if let playingTrack = player.currentTrack, notification.trackFile == playingTrack.file {
             
-            let added: Bool = message.messageType == .addedToFavorites
+            let added: Bool = notification.notificationName == .trackAddedToFavorites
             
             WindowManager.mainWindow.makeKeyAndOrderFront(self)
             
@@ -246,7 +248,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Consume asynchronous messages
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let favsUpdatedMsg = message as? FavoritesUpdatedAsyncMessage {
+        if let favsUpdatedMsg = message as? FavoritesUpdatedNotification {
             
             favoritesUpdated(favsUpdatedMsg)
             return
