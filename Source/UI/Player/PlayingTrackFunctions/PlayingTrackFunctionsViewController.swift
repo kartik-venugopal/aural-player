@@ -46,8 +46,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         // Subscribe to various notifications
         
         // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
-        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.favoritesUpdated(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.favoritesUpdated(_:), queue: DispatchQueue.main)
+        Messenger.subscribe(self, .trackAddedToFavorites, self.favoritesUpdated(_:))
+        Messenger.subscribe(self, .trackRemovedFromFavorites, self.favoritesUpdated(_:))
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
@@ -180,6 +180,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             let added: Bool = notification.notificationName == .trackAddedToFavorites
             
+            // TODO: Is this really required ???
             WindowManager.mainWindow.makeKeyAndOrderFront(self)
             
             btnFavorite.onIf(added)

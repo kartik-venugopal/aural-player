@@ -254,17 +254,6 @@ struct ItemsAddedAsyncMessage: AsyncMessage {
     let files: [URL]
 }
 
-// Indicates that History information has been updated. UI elements may choose to refresh their views (e.g. dock menu), in response to this message.
-struct HistoryUpdatedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .historyUpdated
- 
-    private init() {}
-    
-    // Singleton
-    static let instance: HistoryUpdatedAsyncMessage = HistoryUpdatedAsyncMessage()
-}
-
 // Indicates that the playing track has either been added to, or removed from, the Favorites list
 struct FavoritesUpdatedNotification: NotificationPayload {
     

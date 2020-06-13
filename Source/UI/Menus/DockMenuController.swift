@@ -52,9 +52,10 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
         
         Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: DispatchQueue.main)
         Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: DispatchQueue.main)
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
         
@@ -309,13 +310,10 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if message is HistoryUpdatedAsyncMessage {
-
-            recreateHistoryMenus()
-            
-        } else if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.trackChanged {
+        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.trackChanged {
             
             trackTransitioned(trackTransitionMsg)
+            return
         }
     }
 }
