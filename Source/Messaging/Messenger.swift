@@ -15,6 +15,9 @@ extension Notification.Name {
     static let chapterChanged = Notification.Name("chapterChanged")
     static let playbackCompleted = Notification.Name("playbackCompleted")
     
+    static let startedAddingTracks = Notification.Name("startedAddingTracks")
+    static let doneAddingTracks = Notification.Name("doneAddingTracks")
+    
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
 }
 
@@ -102,7 +105,7 @@ class Messenger {
     
     // No payload
     static func subscribeAsync(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
-                                  filter: (() -> Bool)? = nil, queue: DispatchQueue = DispatchQueue.main) {
+                                  filter: (() -> Bool)? = nil, queue: DispatchQueue) {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             

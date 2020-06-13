@@ -78,7 +78,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // ------------------ ADD --------------------
             
-            AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
+            Messenger.publish(.startedAddingTracks)
             
             self.collectTracks(files, false)
             self.addSessionTracks()
@@ -98,7 +98,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 self.changeListeners.forEach({$0.tracksAdded(results)})
             }
             
-            AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
+            Messenger.publish(.doneAddingTracks)
             
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")

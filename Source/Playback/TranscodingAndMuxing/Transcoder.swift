@@ -1,6 +1,6 @@
 import Foundation
 
-class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObject {
+class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber, PersistentModelObject {
     
     // TODO: On appExit(), cancel all tasks and delete in-progress output files.
     
@@ -14,6 +14,10 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
     
     var currentDiskSpaceUsage: UInt64 {return store.currentDiskSpaceUsage}
     
+    private let backgroundQueue: DispatchQueue = DispatchQueue.global(qos: .background)
+    
+    let subscriberId: String = "Transcoder"
+    
     init(_ state: TranscoderState, _ preferences: TranscodingPreferences, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerInfoDelegateProtocol) {
         
         self.store = TranscoderStore(state, preferences)
@@ -23,7 +27,9 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
         self.playlist = playlist
         self.sequencer = sequencer
         
-        AsyncMessenger.subscribe([.trackTransition, .tracksRemoved, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: backgroundQueue)
+        
+        AsyncMessenger.subscribe([.trackTransition, .tracksRemoved], subscriber: self, dispatchQueue: backgroundQueue)
     }
     
     func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {
@@ -203,6 +209,10 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
         }
     }
     
+    func doneAddingTracks() {
+        beginEagerTranscoding()
+    }
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -211,9 +221,6 @@ class Transcoder: TranscoderProtocol, AsyncMessageSubscriber, PersistentModelObj
             
             beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
             
-        case .doneAddingTracks:
-            
-            beginEagerTranscoding()
             
         case .tracksRemoved:
             

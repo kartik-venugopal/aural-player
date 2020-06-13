@@ -36,11 +36,7 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
-    case trackMetadataUpdated
-    
     case trackAdded
-    
-    case trackGrouped
     
     case itemsAdded
     
@@ -51,10 +47,6 @@ enum AsyncMessageType {
     case trackNotTranscoded
     
     case tracksNotAdded
-    
-    case startedAddingTracks
-    
-    case doneAddingTracks
     
     case historyUpdated
     
@@ -146,17 +138,6 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     }
 }
 
-struct TrackMetadataUpdatedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .trackMetadataUpdated
-    
-    let track: Track
-    
-    init(_ track: Track) {
-        self.track = track
-    }
-}
-
 // AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedAsyncMessage: AsyncMessage {
     
@@ -180,19 +161,6 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     static func fromTrackAddResult(_ result: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
     
         return TrackAddedAsyncMessage(result, groupInfo, progress)
-    }
-}
-
-struct TrackGroupedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .trackGrouped
-    
-    let index: Int
-    let groupingResults: [GroupType: GroupedTrackAddResult]
-    
-    init(_ index: Int, _ groupingResults: [GroupType: GroupedTrackAddResult]) {
-        self.index = index
-        self.groupingResults = groupingResults
     }
 }
 
@@ -279,20 +247,6 @@ struct TracksNotAddedAsyncMessage: AsyncMessage {
     init(_ errors: [DisplayableError]) {
         self.errors = errors
     }
-}
-
-// AsyncMessage indicating that tracks are now being added to the playlist in a background thread
-struct StartedAddingTracksAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .startedAddingTracks
-    static let instance = StartedAddingTracksAsyncMessage()
-}
-
-// AsyncMessage indicating that tracks are done being added to the playlist in a background thread
-struct DoneAddingTracksAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .doneAddingTracks
-    static let instance = DoneAddingTracksAsyncMessage()
 }
 
 // Indicates that some items were added to the playlist. This is used for the History feature, to keep track of recently added items.
