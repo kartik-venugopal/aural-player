@@ -30,6 +30,8 @@ extension Notification.Name {
     static let trackNotPlayed = Notification.Name("trackNotPlayed")
     static let preTrackChange = Notification.Name("preTrackChange")
     
+    static let transcodingProgress = Notification.Name("transcodingProgress")
+    
     static let startedAddingTracks = Notification.Name("startedAddingTracks")
     static let doneAddingTracks = Notification.Name("doneAddingTracks")
     static let tracksNotAdded = Notification.Name("tracksNotAdded")
@@ -121,7 +123,7 @@ class Messenger {
     
     // With payload
     static func subscribeAsync<P>(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
-                                  filter: ((P) -> Bool)? = nil, queue: DispatchQueue = DispatchQueue.main) where P: NotificationPayload {
+                                  filter: ((P) -> Bool)? = nil, queue: DispatchQueue) where P: NotificationPayload {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             

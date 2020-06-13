@@ -6,7 +6,7 @@ import Cocoa
  
     Displays transcoding progress, e.g. percentage transcoded, speed, and estimated time remaining.
 */
-class TranscoderViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
+class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!
@@ -65,7 +65,7 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
-        AsyncMessenger.subscribe([.transcodingProgress], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: DispatchQueue.main)
     }
     
     private func transcodingStarted(_ track: Track) {
@@ -76,8 +76,8 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         updateFields(0, 0, 0)
     }
     
-    private func transcodingProgress(_ msg: TranscodingProgressAsyncMessage) {
-        updateFields(msg.timeElapsed, msg.timeRemaining, msg.percTranscoded)
+    private func transcodingProgress(_ notification: TranscodingProgressNotification) {
+        updateFields(notification.timeElapsed, notification.timeRemaining, notification.percentageTranscoded)
     }
     
     private func updateFields(_ timeElapsed: Double, _ timeRemaining: Double, _ percentage: Double) {
@@ -202,22 +202,6 @@ class TranscoderViewController: NSViewController, AsyncMessageSubscriber, Messag
         } else if let track = player.transcodingTrack, notification is PlayingTrackInfoUpdatedNotification {
          
             updateTrackInfo(track)
-            return
-        }
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .transcodingProgress:
-            
-            if let progressMsg = message as? TranscodingProgressAsyncMessage {
-                transcodingProgress(progressMsg)
-            }
-            
-        default:
-            
             return
         }
     }
