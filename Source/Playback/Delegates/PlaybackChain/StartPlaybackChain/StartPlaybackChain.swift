@@ -35,7 +35,7 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         sequencer.end()
 
         // Notify observers of the error, and complete the request context.
-        AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(context.currentTrack, error))
+        Messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, error: error))
         complete(context)
     }
     
