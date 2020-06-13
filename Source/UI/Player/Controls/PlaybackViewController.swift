@@ -21,8 +21,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
+        Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .chapterPlaybackRequest, .trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.chapterPlaybackRequest, .trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -36,26 +37,26 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         playbackView.playbackStateChanged(player.state)
     }
     
-    private func performPlayback(_ request: PlaybackRequest) {
+    func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {
         
-        switch request.type {
+        switch command.type {
             
         case .index:
             
-            if let index = request.index {
-                playTrackWithIndex(index, request.delay)
+            if let index = command.index {
+                playTrackWithIndex(index, command.delay)
             }
             
         case .track:
             
-            if let track = request.track {
-                playTrack(track, request.delay)
+            if let track = command.track {
+                playTrack(track, command.delay)
             }
             
         case .group:
             
-            if let group = request.group {
-                playGroup(group, request.delay)
+            if let group = command.group {
+                playGroup(group, command.delay)
             }
         }
     }
@@ -378,12 +379,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
         switch request.messageType {
-            
-        case .playbackRequest:
-            
-            if let playbackRequest = request as? PlaybackRequest {
-                performPlayback(playbackRequest)
-            }
             
         case .chapterPlaybackRequest:
             

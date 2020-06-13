@@ -74,29 +74,9 @@ enum MessageType {
     
     case editorSelectionChangedNotification
     
-    case playbackRequest
-    
     case chapterPlaybackRequest
     
     case emptyResponse
-    
-    case saveEQUserPresetRequest
-    
-    case savePitchUserPresetRequest
-    
-    case saveTimeUserPresetRequest
-    
-    case applyEQPreset
-    
-    case applyPitchPreset
-    
-    case applyTimePreset
-    
-    case applyReverbPreset
-    
-    case applyDelayPreset
-    
-    case applyFilterPreset
     
     case gapUpdatedNotification
     
@@ -239,7 +219,7 @@ struct SearchTextChangedNotification: NotificationMessage {
     static let instance: SearchTextChangedNotification = SearchTextChangedNotification()
 }
 
-// Notification that the app has loaded
+// Notification that the app has launched (used to perform UI initialization)
 struct AppLaunchedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .appLaunched
@@ -268,36 +248,43 @@ struct PlaylistTypeChangedNotification: NotificationPayload {
 }
 
 // Request to the playback controller to initiate playback for a particular track/group
-struct PlaybackRequest: RequestMessage {
+struct TrackPlaybackCommandNotification: NotificationPayload {
     
-    let messageType: MessageType = .playbackRequest
+    let notificationName: Notification.Name = .playTrack
     
     // Type indicates whether the request parameter is an index, track, or group. This is used to initialize the new playback sequence.
-    let type: PlaybackRequestType
-    
-    var delay: Double? = nil
+    let type: PlaybackCommandType
     
     // Only one of these 3 fields will be non-nil, depending on the request type
     var index: Int? = nil
     var track: Track? = nil
     var group: Group? = nil
     
+    // An (optional) delay before starting playback.
+    var delay: Double? = nil
+    
     // Initialize the request with a track index. This will be done from the Tracks playlist.
-    init(index: Int) {
+    init(index: Int, delay: Double? = nil) {
+        
         self.index = index
         self.type = .index
+        self.delay = delay
     }
     
     // Initialize the request with a track. This will be done from a grouping/hierarchical playlist.
-    init(track: Track) {
+    init(track: Track, delay: Double? = nil) {
+        
         self.track = track
         self.type = .track
+        self.delay = delay
     }
     
     // Initialize the request with a group. This will be done from a grouping/hierarchical playlist.
-    init(group: Group) {
+    init(group: Group, delay: Double? = nil) {
+        
         self.group = group
         self.type = .group
+        self.delay = delay
     }
 }
 
@@ -329,11 +316,16 @@ enum ChapterPlaybackRequestType {
     case removeChapterLoop
 }
 
-// Enumerates all the possible playback request types. See PlaybackRequest.
-enum PlaybackRequestType {
+// Enumerates all the possible playback command types. See PlaybackCommandNotification.
+enum PlaybackCommandType {
     
+    // Play the track with the given index
     case index
+    
+    // Play the given track
     case track
+    
+    // Play the given group
     case group
 }
 
