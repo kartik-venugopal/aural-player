@@ -44,7 +44,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // Register as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
@@ -454,14 +456,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
-    // Selects an item within the playlist view, to show a single result of a search
-    private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
-        
-        if PlaylistViewState.current == .tracks {
-            
-            // Select (show) the search result within the playlist view
-            selectTrack(request.searchResult.location.trackIndex)
-        }
+    // Selects an item within the playlist view, to show a single search result
+    func selectSearchResult(_ command: SelectSearchResultCommandNotification) {
+        selectTrack(command.searchResult.location.trackIndex)
     }
     
     // Show the selected track in Finder
@@ -657,22 +654,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         default: return
             
         }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        switch request.messageType {
-            
-        case .searchResultSelectionRequest:
-            
-            handleSearchResultSelection(request as! SearchResultSelectionRequest)
-            
-        default: break
-            
-        }
-        
-        // No meaningful response to return
-        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {

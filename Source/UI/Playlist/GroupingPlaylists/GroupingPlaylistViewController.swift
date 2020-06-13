@@ -58,7 +58,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // Register self as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
+        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
@@ -633,14 +635,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
-    // Selects an item within the playlist view, to show a single result of a search
-    private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
-        
-        if PlaylistViewState.current == self.playlistType {
-            
-            // Select (show) the search result within the playlist view
-            selectTrack(request.searchResult.location.groupInfo)
-        }
+    // Selects an item within the playlist view, to show a single search result
+    func selectSearchResult(_ command: SelectSearchResultCommandNotification) {
+        selectTrack(command.searchResult.location.groupInfo)
     }
     
     // Show the selected track in Finder
@@ -836,22 +833,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         default: return
             
         }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        switch request.messageType {
-            
-        case .searchResultSelectionRequest:
-            
-            handleSearchResultSelection(request as! SearchResultSelectionRequest)
-            
-        default: break
-            
-        }
-        
-        // No meaningful response to return
-        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {

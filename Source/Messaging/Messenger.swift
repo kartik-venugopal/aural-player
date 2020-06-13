@@ -19,6 +19,7 @@ extension Notification.Name {
     static let doneAddingTracks = Notification.Name("doneAddingTracks")
     
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
+    static let selectSearchResult = Notification.Name("selectSearchResult")
 }
 
 protocol NotificationPayload {

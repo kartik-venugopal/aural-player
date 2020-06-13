@@ -17,6 +17,8 @@ class ColoredCursorTextField: NSTextField {
 /*
  Customizes the color of the cursor of the search modal dialog's text field
  */
+
+// TODO: Use an NSSearchField and remove this class/notification if changing its cursor/text colors is possible.
 class ColoredCursorSearchField: ColoredCursorTextField {
     
     override func textDidChange(_ notification: Notification) {
