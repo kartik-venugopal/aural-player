@@ -56,7 +56,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to message notifications
-        Messenger.subscribe(self, .appLoaded, self.appLoaded(_:))
+        Messenger.subscribe(self, .appLaunched, self.appLaunched(_:))
         Messenger.subscribe(self, .appReopened, self.appReopened(_:))
     }
     
@@ -463,7 +463,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     // MARK: Message handling
     
-    func appLoaded(_ notification: AppLoadedNotification) {
+    func appLaunched(_ notification: AppLaunchedNotification) {
         
         let filesToOpen = notification.filesToOpen
         

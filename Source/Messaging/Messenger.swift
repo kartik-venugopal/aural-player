@@ -7,7 +7,7 @@ import Foundation
 
 extension Notification.Name {
     
-    static let appLoaded = Notification.Name("appLoaded")
+    static let appLaunched = Notification.Name("appLaunched")
     static let appReopened = Notification.Name("appReopened")
     static let appExitRequest = Notification.Name("appExitRequest")
     
@@ -57,23 +57,35 @@ class Messenger {
     static func subscribe<P>(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
                              filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: NotificationPayload {
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
+        subscribe(subscriber.subscriberId, notifName, msgHandler, filter: filter, opQueue: opQueue)
+    }
+    
+    // With payload
+    static func subscribe<P>(_ subscriberId: String, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
+                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: NotificationPayload {
+        
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             
             if let payload = notif.payload as? P, filter?(payload) ?? true {
                 msgHandler(payload)
             }
         })
         
-        registerSubscription(subscriber, notifName, observer)
+        registerSubscription(subscriberId, notifName, observer)
         
-        print("\nSubscribed subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
+        print("\nSubscribed subscriber:", subscriberId, "to notif:", notifName.rawValue)
     }
-    
-    // TODO: Add subscribe() methods with a subscriberId parameter. For static utilities to subscribe without an instance.
     
     // No payload
     static func subscribe(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
                           filter: (() -> Bool)? = nil, opQueue: OperationQueue? = nil) {
+        
+        subscribe(subscriber.subscriberId, notifName, msgHandler, filter: filter, opQueue: opQueue)
+    }
+    
+    // No payload
+    static func subscribe(_ subscriberId: String, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
+                            filter: (() -> Bool)? = nil, opQueue: OperationQueue? = nil) {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
             
@@ -82,9 +94,9 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber, notifName, observer)
+        registerSubscription(subscriberId, notifName, observer)
         
-        print("\nSubscribed subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
+        print("\nSubscribed subscriber:", subscriberId, "to notif:", notifName.rawValue)
     }
     
     // With payload
@@ -101,7 +113,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber, notifName, observer)
+        registerSubscription(subscriber.subscriberId, notifName, observer)
         
         print("\nSubscribedAsync subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
     }
@@ -120,7 +132,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber, notifName, observer)
+        registerSubscription(subscriber.subscriberId, notifName, observer)
         
         print("\nSubscribedAsync subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
     }
@@ -134,9 +146,7 @@ class Messenger {
         }
     }
     
-    private static func registerSubscription(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ observer: NSObjectProtocol) {
-        
-        let subscriberId: String = subscriber.subscriberId
+    private static func registerSubscription(_ subscriberId: String, _ notifName: Notification.Name, _ observer: NSObjectProtocol) {
         
         if subscriptions[subscriberId] == nil {
             subscriptions[subscriberId] = [:]
