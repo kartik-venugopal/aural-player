@@ -375,15 +375,6 @@ struct EffectsUnitStateChangedNotification: NotificationMessage {
     static let instance: EffectsUnitStateChangedNotification = EffectsUnitStateChangedNotification()
 }
 
-// Audio graph
-struct FXUnitActivatedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .fxUnitActivatedNotification
-    private init() {}
-    
-    static let instance: FXUnitActivatedNotification = FXUnitActivatedNotification()
-}
-
 // Notification that the state of the segment playback loop for the currently playing track has been changed and the UI may need to be updated as a result
 struct PlaybackLoopChangedNotification: NotificationMessage {
     

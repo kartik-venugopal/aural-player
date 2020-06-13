@@ -26,7 +26,7 @@ class MasterUnit: FXUnit, MessageSubscriber {
         super.init(.master, appState.masterUnit.state)
         presets.addPresets(appState.masterUnit.userPresets)
         
-        SyncMessenger.subscribe(messageTypes: [.fxUnitActivatedNotification], subscriber: self)
+        Messenger.subscribe(self, .fxUnitActivated, self.ensureActive)
     }
     
     override func toggleState() -> EffectsUnitState {
@@ -119,14 +119,5 @@ class MasterUnit: FXUnit, MessageSubscriber {
         unitState.userPresets = presets.userDefinedPresets
 
         return unitState
-    }
-    
-    // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if notification.messageType == .fxUnitActivatedNotification {
-            ensureActive()
-        }
     }
 }

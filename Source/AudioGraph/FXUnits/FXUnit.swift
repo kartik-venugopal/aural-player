@@ -27,7 +27,7 @@ class FXUnit {
     func stateChanged() {
         
         if isActive && unitType != .master {
-            SyncMessenger.publishNotification(FXUnitActivatedNotification.instance)
+            Messenger.publish(.fxUnitActivated)
         }
     }
     
@@ -38,6 +38,8 @@ class FXUnit {
         return state
     }
     
+    // TODO: There is a feedback loop going from slaveUnit -> masterUnit that results in this function being called
+    // again a 2nd time from its first call. FIX IT !!!
     func ensureActive() {
         if !isActive {_ = toggleState()}
     }
