@@ -37,6 +37,7 @@ extension Notification.Name {
     static let selectSearchResult = Notification.Name("selectSearchResult")
     static let trackAdded = Notification.Name("trackAdded")
     static let tracksRemoved = Notification.Name("tracksRemoved")
+    static let gapUpdated = Notification.Name("gapUpdated")
 }
 
 protocol NotificationPayload {

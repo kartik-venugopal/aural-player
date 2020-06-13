@@ -50,8 +50,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         AsyncMessenger.subscribe([.trackInfoUpdated, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
+        Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
@@ -508,25 +509,31 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
-        let track = playlist.trackAtIndex(playlistView.selectedRow)
-        playlist.setGapsForTrack(track!.track, gapBefore, gapAfter)
-        
-        SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
+        if let track = playlist.trackAtIndex(playlistView.selectedRow)?.track {
+            
+            playlist.setGapsForTrack(track, gapBefore, gapAfter)
+            
+            // This should also refresh this view
+            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: track))
+        }
     }
     
     private func removeGaps() {
         
-        let track = playlist.trackAtIndex(playlistView.selectedRow)
-        playlist.removeGapsForTrack(track!.track)
-        
-        // This should also refresh this view
-        SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
+        if let track = playlist.trackAtIndex(playlistView.selectedRow)?.track {
+            
+            playlist.removeGapsForTrack(track)
+            
+            // This should also refresh this view
+            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: track))
+        }
     }
     
-    private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
+    func gapUpdated(_ notification: PlaybackGapUpdatedNotification) {
         
         // Find track and refresh it
-        if let updatedRow = playlist.indexOfTrack(message.updatedTrack)?.index, updatedRow >= 0 {
+        if let updatedRow = playlist.indexOfTrack(notification.updatedTrack)?.index, updatedRow >= 0 {
+            
             refreshRow(updatedRow)
             
             // TODO
@@ -630,20 +637,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification {
             
-        case .trackTransitionNotification:
-            
-            if let trackTransitionMsg = notification as? TrackTransitionNotification {
-                trackTransitioned(trackTransitionMsg)
-            }
-            
-        case .gapUpdatedNotification:
-            
-            gapUpdated(notification as! PlaybackGapUpdatedNotification)
-            
-        default: return
-            
+            trackTransitioned(trackTransitionMsg)
+            return
         }
     }
     
