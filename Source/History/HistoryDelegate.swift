@@ -30,7 +30,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         historyState.recentlyAdded.reversed().forEach({history.addRecentlyAddedItem($0.file, $0.name, $0.time)})
         historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.name, $0.time)})
         
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+        Messenger.publish(.historyUpdated)
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
@@ -83,7 +83,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
         history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize)
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+        Messenger.publish(.historyUpdated)
     }
     
     var persistentState: PersistentState {
@@ -130,7 +130,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         
             lastPlayedTrack = newTrack
             history.addRecentlyPlayedItem(newTrack.file, newTrack.conciseDisplayName, Date())
-            AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+            Messenger.publish(.historyUpdated)
         }
     }
     
@@ -152,7 +152,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
             }
         })
         
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+        Messenger.publish(.historyUpdated)
     }
     
     // MARK: Message handling
