@@ -41,7 +41,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     override func windowDidLoad() {
         
-        SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .searchTextChanged, self.searchTextChanged)
         WindowManager.registerModalComponent(self)
     }
     
@@ -133,13 +133,14 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         UIUtils.dismissDialog(self.window!)
     }
     
-    private func searchTextChanged() {
+    func searchTextChanged() {
         
         let searchText = searchField.stringValue
         searchQuery.text = searchText
         
         // No search text, don't do the search
-        if (searchText == "") {
+        if searchText.isEmpty {
+            
             resetSearchFields()
             return
         }
@@ -201,13 +202,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     }
     
     // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if (notification is SearchTextChangedNotification) {
-            searchTextChanged()
-        }
-    }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
