@@ -351,7 +351,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             removedPlayingTrack = thePlayingTrack
         }
         
-        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
+        Messenger.publish(TracksRemovedNotification(results: results, playingTrackRemoved: playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
     }
@@ -372,7 +372,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             removedPlayingTrack = thePlayingTrack
         }
         
-        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
+        Messenger.publish(TracksRemovedNotification(results: results, playingTrackRemoved: playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
     }

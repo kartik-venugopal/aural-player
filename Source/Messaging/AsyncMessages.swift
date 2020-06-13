@@ -36,8 +36,6 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
-    case tracksRemoved
-    
     case trackNotPlayed
     
     case trackNotTranscoded
@@ -144,20 +142,15 @@ struct TrackAddedNotification: NotificationPayload {
 }
 
 // Message indicating that some tracks have been removed from the playlist.
-struct TracksRemovedAsyncMessage: AsyncMessage {
+struct TracksRemovedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .tracksRemoved
+    let notificationName: Notification.Name = .tracksRemoved
     
     // Information about which tracks were removed and their former locations within the playlist (used to refresh the playlist views)
     let results: TrackRemovalResults
     
     // Flag indicating whether or not the currently playing track was removed. If no track was playing, this will be false.
     let playingTrackRemoved: Bool
-    
-    init(_ results: TrackRemovalResults, _ playingTrackRemoved: Bool) {
-        self.results = results
-        self.playingTrackRemoved = playingTrackRemoved
-    }
 }
 
 // Indicates current progress associated with a TrackAddedNotification

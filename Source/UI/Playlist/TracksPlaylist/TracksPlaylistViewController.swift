@@ -42,9 +42,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.main)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         
@@ -351,9 +352,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
+    private func tracksRemoved(_ notification: TracksRemovedNotification) {
         
-        let indexes = message.results.flatPlaylistResults
+        // TODO: Can we simply use playlistView.removeRows() here ??? Analogous to playlistView.insertRows on tracksAdded.
+        
+        let indexes = notification.results.flatPlaylistResults
         
         if indexes.isEmpty {
             return
@@ -611,10 +614,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .tracksRemoved:
-            
-            tracksRemoved(message as! TracksRemovedAsyncMessage)
             
         case .trackInfoUpdated:
             

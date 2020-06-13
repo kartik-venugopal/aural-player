@@ -119,9 +119,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: DispatchQueue.main)
         
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: DispatchQueue.main)
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
@@ -195,6 +196,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         DispatchQueue.main.async {
             self.updatePlaylistSummary(notification.addOperationProgress)
         }
+    }
+    
+    func tracksRemoved() {
+        updatePlaylistSummary()
     }
     
     // Handles a notification that a single track has been updated
@@ -468,10 +473,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        case .tracksRemoved:
-            
-            updatePlaylistSummary()
             
         case .tracksNotAdded:
             

@@ -1,7 +1,7 @@
 import Cocoa
 import AVFoundation
 
-class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
+class AVAssetReader: MetadataReader, MessageSubscriber {
     
     var allParsers: [AVAssetParser]
     var muxer: MuxerProtocol
@@ -21,7 +21,7 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         
         self.muxer = muxer
         
-        AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .background))
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.global(qos: .background))
     }
     
     // Helper function that ensures that a track's AVURLAsset has been initialized
@@ -373,14 +373,10 @@ class AVAssetReader: MetadataReader, AsyncMessageSubscriber {
         return nil
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    func tracksRemoved(_ notification: TracksRemovedNotification) {
         
-        if message.messageType == .tracksRemoved {
-            
-            let msg = message as! TracksRemovedAsyncMessage
-            for track in msg.results.tracks {
-                _ = metadataMap.remove(track)
-            }
+        for track in notification.results.tracks {
+            _ = metadataMap.remove(track)
         }
     }
 }
