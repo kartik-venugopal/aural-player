@@ -77,8 +77,6 @@ enum MessageType {
     case emptyResponse
     
     case gapUpdatedNotification
-    
-    case fxUnitActivatedNotification
 }
 
 struct TrackTransitionNotification: NotificationMessage {

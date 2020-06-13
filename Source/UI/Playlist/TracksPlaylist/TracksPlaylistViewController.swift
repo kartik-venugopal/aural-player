@@ -41,8 +41,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
+        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
+        
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         
@@ -335,8 +337,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         track.loadDetailedInfo()
     }
     
-    private func trackAdded(_ message: TrackAddedAsyncMessage) {
-        self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
+    func trackAdded(_ notification: TrackAddedNotification) {
+        self.playlistView.insertRows(at: IndexSet([notification.trackIndex]), withAnimation: .slideDown)
     }
     
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
@@ -609,10 +611,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .trackAdded:
-            
-            trackAdded(message as! TrackAddedAsyncMessage)
             
         case .tracksRemoved:
             

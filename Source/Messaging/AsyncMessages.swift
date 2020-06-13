@@ -36,8 +36,6 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
-    case trackAdded
-    
     case itemsAdded
     
     case tracksRemoved
@@ -47,8 +45,6 @@ enum AsyncMessageType {
     case trackNotTranscoded
     
     case tracksNotAdded
-    
-    case historyUpdated
     
     case audioOutputChanged
     
@@ -134,30 +130,19 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     }
 }
 
-// AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
-struct TrackAddedAsyncMessage: AsyncMessage {
+// Indicates that a new track has been added to the playlist, and that the UI should refresh itself to show the new information.
+struct TrackAddedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .trackAdded
+    let notificationName: Notification.Name = .trackAdded
     
     // The index of the newly added track
     let trackIndex: Int
     
-    let groupInfo: [GroupType: GroupedTrackAddResult]
+    // Grouping info (parent groups) for the newly added track
+    let groupingInfo: [GroupType: GroupedTrackAddResult]
     
     // The current progress of the track add operation (See TrackAddedMessageProgress)
-    let progress: TrackAddedMessageProgress
-    
-    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
-        
-        self.trackIndex = trackIndex
-        self.groupInfo = groupInfo
-        self.progress = progress
-    }
-    
-    static func fromTrackAddResult(_ result: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
-    
-        return TrackAddedAsyncMessage(result, groupInfo, progress)
-    }
+    let addOperationProgress: TrackAddOperationProgressNotification
 }
 
 // Message indicating that some tracks have been removed from the playlist.
@@ -177,8 +162,8 @@ struct TracksRemovedAsyncMessage: AsyncMessage {
     }
 }
 
-// Indicates current progress associated with a TrackAddedAsyncMessage
-struct TrackAddedMessageProgress {
+// Indicates current progress associated with a TrackAddedNotification
+struct TrackAddOperationProgressNotification {
     
     // Number of tracks added so far
     let tracksAdded: Int

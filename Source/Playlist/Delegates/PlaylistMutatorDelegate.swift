@@ -252,8 +252,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 addSession.progress.tracksAdded += 1
                 addSession.progress.results.append(result)
                 
-                let progressMsg = TrackAddedMessageProgress(addSession.progress.tracksAdded, addSession.progress.totalTracks)
-                AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progressMsg))
+                let progressMsg = TrackAddOperationProgressNotification(addSession.progress.tracksAdded, addSession.progress.totalTracks)
+                let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults, addOperationProgress: progressMsg)
+                
+                Messenger.publish(trackAddedNotification)
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
                     autoplay(result.track, addSession.autoplayOptions.interruptPlayback, addSession.autoplayOptions.playFirstAddedTrack)
@@ -292,7 +294,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
             self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
             
-            AsyncMessenger.publishMessage(TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, TrackAddedMessageProgress(1, 1)))
+            let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults,
+                                                      addOperationProgress: TrackAddOperationProgressNotification(1, 1))
+            
+            Messenger.publish(trackAddedNotification)
+            
             AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
