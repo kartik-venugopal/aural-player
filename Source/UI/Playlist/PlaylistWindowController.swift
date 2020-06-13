@@ -115,8 +115,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             return event
         });
         
+        Messenger.subscribeAsync(self, .startedAddingTracks, self.startedAddingTracks, queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: DispatchQueue.main)
+        
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .removeTrackRequest], subscriber: self)
@@ -144,13 +147,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSApplication.ModalResponse.OK) {
-            startedAddingTracks()
             playlist.addFiles(dialog.urls)
         }
     }
     
     // When a track add operation starts, the progress spinner needs to be initialized
-    private func startedAddingTracks() {
+    func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
         playlistWorkSpinner.show()
@@ -158,7 +160,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // When a track add operation ends, the progress spinner needs to be de-initialized
-    private func doneAddingTracks() {
+    func doneAddingTracks() {
         
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.hide()
@@ -206,22 +208,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             // If this is the playing track, tell other views that info has been updated
             if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
             
-                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-            }
-        }
-    }
-    
-    private func trackGrouped(_ message: TrackGroupedAsyncMessage) {
-        
-        DispatchQueue.main.async {
-            
-            // Track duration may have changed, affecting the total playlist duration
-            self.updatePlaylistSummary()
-            
-            // If this is the playing track, tell other views that info has been updated
-            if let playingTrack = self.playbackInfo.currentTrack,
-                let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == message.index {
-                
                 SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
             }
         }
@@ -500,10 +486,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
             trackAdded(message as! TrackAddedAsyncMessage)
             
-        case .trackGrouped:
-            
-            trackGrouped(message as! TrackGroupedAsyncMessage)
-            
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
@@ -515,14 +497,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .tracksNotAdded:
             
             tracksNotAdded(message as! TracksNotAddedAsyncMessage)
-            
-        case .startedAddingTracks:
-            
-            startedAddingTracks()
-            
-        case .doneAddingTracks:
-            
-            doneAddingTracks()
             
         default: return
             

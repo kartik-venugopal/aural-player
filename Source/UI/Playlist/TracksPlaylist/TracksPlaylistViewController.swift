@@ -42,7 +42,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .trackNotPlayed, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
@@ -343,10 +343,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         self.playlistView.insertRows(at: IndexSet([message.trackIndex]), withAnimation: .slideDown)
     }
     
-    private func trackGrouped(_ message: TrackGroupedAsyncMessage) {
-        self.playlistView.reloadData(forRowIndexes: IndexSet(integer: message.index), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-    }
-    
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
         DispatchQueue.main.async {
@@ -626,10 +622,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackAdded:
             
             trackAdded(message as! TrackAddedAsyncMessage)
-            
-        case .trackGrouped:
-            
-            trackGrouped(message as! TrackGroupedAsyncMessage)
             
         case .tracksRemoved:
             
