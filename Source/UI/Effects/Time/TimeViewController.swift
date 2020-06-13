@@ -106,7 +106,7 @@ class TimeViewController: FXUnitViewController {
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
 
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
 
         timeView.setRate(rateInfo.rate, rateInfo.rateString, timeUnit.formattedPitch)
         stateChanged()

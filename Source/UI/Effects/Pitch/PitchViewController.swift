@@ -78,7 +78,7 @@ class PitchViewController: FXUnitViewController {
         btnBypass.updateState()
         pitchView.stateChanged()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
         
         // Show the Pitch tab
         showThisTab()
@@ -108,7 +108,7 @@ class PitchViewController: FXUnitViewController {
     // Changes the pitch to a specified value
     private func pitchChange(_ pitch: Float, _ pitchString: String) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
         
         pitchView.setPitch(pitch, pitchString)
         pitchView.stateChanged()
@@ -155,15 +155,6 @@ class PitchViewController: FXUnitViewController {
     }
     
     // MARK: Message handling
-    
-    override func consumeNotification(_ notification: NotificationMessage) {
-        
-        super.consumeNotification(notification)
-        
-        if notification is EffectsUnitStateChangedNotification {
-            pitchView.stateChanged()
-        }
-    }
     
     override func consumeMessage(_ message: ActionMessage) {
         

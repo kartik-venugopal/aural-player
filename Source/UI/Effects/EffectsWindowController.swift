@@ -111,7 +111,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
     private func initSubscriptions() {
 
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
+        
         SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
@@ -199,14 +200,11 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
     // MARK: Message handling
 
-    func consumeNotification(_ notification: NotificationMessage) {
+    // Notification that an effect unit's state has changed (active/inactive)
+    func stateChanged() {
 
-        // Notification that an effect unit's state has changed (active/inactive)
-        if notification is EffectsUnitStateChangedNotification {
-
-            // Update the corresponding tab button's state
-            fxTabViewButtons.forEach({$0.updateState()})
-        }
+        // Update the tab button states
+        fxTabViewButtons.forEach({$0.updateState()})
     }
 
     // Dummy implementation

@@ -93,7 +93,7 @@ class EQViewController: FXUnitViewController {
         stateChanged()
         eqView.bandsUpdated(bands, eqUnit.globalGain)
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
         showThisTab()
     }
     
