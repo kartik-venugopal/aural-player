@@ -120,9 +120,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .tracksNotAdded, self.tracksNotAdded(_:), queue: DispatchQueue.main)
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
@@ -182,11 +183,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // Handles an error when tracks could not be added to the playlist
-    private func tracksNotAdded(_ message: TracksNotAddedAsyncMessage) {
+    func tracksNotAdded(_ notification: TracksNotAddedNotification) {
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(message.errors))
+            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(notification.errors))
         }
     }
     
@@ -473,10 +474,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        case .tracksNotAdded:
-            
-            tracksNotAdded(message as! TracksNotAddedAsyncMessage)
             
         default: return
             

@@ -38,8 +38,6 @@ enum AsyncMessageType {
     
     case trackNotTranscoded
     
-    case tracksNotAdded
-    
     case audioOutputChanged
     
     case transcodingProgress
@@ -200,23 +198,18 @@ struct TrackNotTranscodedAsyncMessage: AsyncMessage {
     }
 }
 
-// AsyncMessage indicating that some selected files were not loaded into the playlist
-struct TracksNotAddedAsyncMessage: AsyncMessage {
+// Indicates that some selected files were not loaded into the playlist
+struct TracksNotAddedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .tracksNotAdded
+    let notificationName: Notification.Name = .tracksNotAdded
     
     // An array of error objects containing detailed information such as the track file and the root cause
     let errors: [DisplayableError]
-    
-    init(_ errors: [DisplayableError]) {
-        self.errors = errors
-    }
 }
 
 // Indicates that some items were added to the playlist. This is used for the History feature, to keep track of recently added items.
 struct HistoryItemsAddedNotification: NotificationPayload {
     
-//    let messageType: AsyncMessageType = .itemsAdded
     let notificationName: Notification.Name = .historyItemsAdded
     
     // The files that were added to the playlist

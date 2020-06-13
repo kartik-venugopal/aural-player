@@ -32,6 +32,7 @@ extension Notification.Name {
     
     static let startedAddingTracks = Notification.Name("startedAddingTracks")
     static let doneAddingTracks = Notification.Name("doneAddingTracks")
+    static let tracksNotAdded = Notification.Name("tracksNotAdded")
     
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
     static let selectSearchResult = Notification.Name("selectSearchResult")
