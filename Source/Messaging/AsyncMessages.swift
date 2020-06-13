@@ -32,8 +32,6 @@ extension AsyncMessageSubscriber {
 // An enumeration of all AsyncMessage types
 enum AsyncMessageType {
    
-    case playbackCompleted
-
     case trackTransition
     
     case trackInfoUpdated
@@ -128,16 +126,11 @@ struct TrackTransitionAsyncMessage: AsyncMessage {
     }
 }
 
-// AsyncMessage indicating that playback of the currently playing track has completed
-struct PlaybackCompletedAsyncMessage: AsyncMessage {
+// Indicates that playback of the currently playing track has completed
+struct PlaybackCompletedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .playbackCompleted
-    
-    let session: PlaybackSession
-    
-    init(_ session: PlaybackSession) {
-        self.session = session
-    }
+    let notificationName: Notification.Name = .playbackCompleted
+    let completedSession: PlaybackSession
 }
 
 // AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information

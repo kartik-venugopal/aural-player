@@ -3,7 +3,7 @@ import Foundation
 // A function that produces an optional Track (used when deciding which track will play next)
 typealias TrackProducer = () -> Track?
 
-class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, ActionMessageSubscriber {
     
     // The actual player
     let player: PlayerProtocol
@@ -36,9 +36,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Subscribe to message notifications
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
+        Messenger.subscribeAsync(self, .playbackCompleted, self.trackPlaybackCompleted(_:), queue: DispatchQueue.main)
         
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
-        AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     let subscriberId: String = "PlaybackDelegate"
@@ -141,33 +141,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
-    func trackPlaybackCompleted(_ session: PlaybackSession) {
-        
-        // If the given session has expired, do not continue playback.
-        if PlaybackSession.isCurrent(session) {
-            trackPlaybackCompleted()
-            
-        } else {
-            
-            // If the session has expired, the track completion chain will not execute
-            // and the track's profile will not be updated, so ensure that it is.
-            // Reset the seek position to 0 since the track completed playback.
-            savePlaybackProfileIfNeeded(session.track, 0)
-        }
-    }
-    
-    // Continues playback when a track finishes playing.
-    func trackPlaybackCompleted() {
-        
-        let trackBeforeChange = currentTrack
-        let stateBeforeChange = state
-        let seekPositionBeforeChange = seekPosition.timeElapsed
-        
-        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
-        
-        trackPlaybackCompletedChain.execute(requestContext)
-    }
-    
     // MARK: Other functions
     
     func replay() {
@@ -228,7 +201,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             let seekResult = player.attemptSeekToTime(track, seekPosn)
             
             if seekResult.trackPlaybackCompleted {
-                trackPlaybackCompleted()
+                doTrackPlaybackCompleted()
             }
         }
     }
@@ -309,7 +282,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             let seekResult = player.forceSeekToTime(track, seekPosn)
             
             if seekResult.trackPlaybackCompleted {
-                trackPlaybackCompleted()
+                doTrackPlaybackCompleted()
                 
             } else if seekResult.loopRemoved {
                 SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
@@ -394,13 +367,31 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Message handling
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    func trackPlaybackCompleted(_ notification: PlaybackCompletedNotification) {
         
-        if let completionMsg = message as? PlaybackCompletedAsyncMessage {
+        // If the given session has expired, do not continue playback.
+        if PlaybackSession.isCurrent(notification.completedSession) {
+            doTrackPlaybackCompleted()
             
-            trackPlaybackCompleted(completionMsg.session)
-            return
+        } else {
+            
+            // If the session has expired, the track completion chain will not execute
+            // and the track's profile will not be updated, so ensure that it is.
+            // Reset the seek position to 0 since the track completed playback.
+            savePlaybackProfileIfNeeded(notification.completedSession.track, 0)
         }
+    }
+    
+    // Continues playback when a track finishes playing.
+    func doTrackPlaybackCompleted() {
+        
+        let trackBeforeChange = currentTrack
+        let stateBeforeChange = state
+        let seekPositionBeforeChange = seekPosition.timeElapsed
+        
+        let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
+        
+        trackPlaybackCompletedChain.execute(requestContext)
     }
     
     func consumeMessage(_ message: ActionMessage) {

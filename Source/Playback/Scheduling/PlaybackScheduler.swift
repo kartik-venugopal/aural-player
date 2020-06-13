@@ -169,7 +169,7 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
     
     // Signal track playback completion
     func trackCompleted(_ session: PlaybackSession) {
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(session))
+        Messenger.publish(PlaybackCompletedNotification(completedSession: session))
     }
     
     func loopSegmentCompleted(_ session: PlaybackSession) {
