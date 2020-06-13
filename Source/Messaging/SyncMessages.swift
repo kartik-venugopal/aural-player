@@ -74,8 +74,6 @@ enum MessageType {
     
     case editorSelectionChangedNotification
     
-    case layoutChangedNotification
-    
     case playbackRequest
     
     case chapterPlaybackRequest
@@ -397,16 +395,12 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
 }
 
 // Notification that the layout manager has changed the window layout
-struct LayoutChangedNotification: NotificationMessage {
+struct WindowLayoutChangedNotification: NotificationPayload {
     
-    let messageType: MessageType = .layoutChangedNotification
+    let notificationName: Notification.Name = .windowLayoutChanged
+    
     let showingEffects: Bool
     let showingPlaylist: Bool
-    
-    init(_ showingEffects: Bool, _ showingPlaylist: Bool) {
-        self.showingEffects = showingEffects
-        self.showingPlaylist = showingPlaylist
-    }
 }
 
 struct ApplyEffectsPresetRequest: RequestMessage {

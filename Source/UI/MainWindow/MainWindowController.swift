@@ -94,7 +94,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
         
-        SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -117,12 +117,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         WindowManager.toggleEffects()
         btnToggleEffects.toggle()
-    }
-    
-    private func layoutChanged(_ message: LayoutChangedNotification) {
-        
-        btnToggleEffects.onIf(message.showingEffects)
-        btnTogglePlaylist.onIf(message.showingPlaylist)
     }
     
     // Quits the app
@@ -176,13 +170,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func windowLayoutChanged(_ notification: WindowLayoutChangedNotification) {
         
-        if let layoutChangedMsg = notification as? LayoutChangedNotification {
-            
-            layoutChanged(layoutChangedMsg)
-            return
-        }
+        btnToggleEffects.onIf(notification.showingEffects)
+        btnTogglePlaylist.onIf(notification.showingPlaylist)
     }
     
     func consumeMessage(_ message: ActionMessage) {
