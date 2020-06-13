@@ -58,8 +58,6 @@ protocol ResponseMessage: SyncMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
-    case preTrackChangeNotification
-    
     case trackTransitionNotification
     
     case sequenceChangedNotification
@@ -134,9 +132,9 @@ struct TrackTransitionNotification: NotificationMessage {
     }
 }
 
-struct PreTrackChangeNotification: NotificationMessage {
+struct PreTrackChangeNotification: NotificationPayload {
     
-    let messageType: MessageType = .preTrackChangeNotification
+    let notificationName: Notification.Name = .preTrackChange
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let oldTrack: Track?
@@ -146,13 +144,6 @@ struct PreTrackChangeNotification: NotificationMessage {
     
     // The track that is now playing (may be nil, meaning no track playing)
     let newTrack: Track?
-    
-    init(_ oldTrack: Track?, _ oldState: PlaybackState, _ newTrack: Track?) {
-        
-        self.oldTrack = oldTrack
-        self.oldState = oldState
-        self.newTrack = newTrack
-    }
 }
 
 // Notification to indicate that the currently playing chapter has changed
