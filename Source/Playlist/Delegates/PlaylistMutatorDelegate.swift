@@ -91,7 +91,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if atLeastOneTrackAdded {
 
                 if userAction {
-                    AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: self.addSession.addedItems))
+                    Messenger.publish(HistoryItemsAddedNotification(files: self.addSession.addedItems))
                 }
                 
                 // Notify change listeners
@@ -101,7 +101,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             Messenger.publish(.doneAddingTracks)
             
             // If errors > 0, send AsyncMessage to UI
-            // TODO: Display non-intrusive popover instead of annoying alert (error details optional "Click for more details")
+            // TODO: Display a non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if self.addSession.progress.errors.count > 0 {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.progress.errors))
             }
@@ -298,8 +298,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                                                       addOperationProgress: TrackAddOperationProgressNotification(1, 1))
             
             Messenger.publish(trackAddedNotification)
-            
-            AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+            Messenger.publish(HistoryItemsAddedNotification(files: [file]))
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
             

@@ -36,8 +36,6 @@ enum AsyncMessageType {
     
     case trackInfoUpdated
     
-    case itemsAdded
-    
     case tracksRemoved
     
     case trackNotPlayed
@@ -231,9 +229,10 @@ struct TracksNotAddedAsyncMessage: AsyncMessage {
 }
 
 // Indicates that some items were added to the playlist. This is used for the History feature, to keep track of recently added items.
-struct ItemsAddedAsyncMessage: AsyncMessage {
+struct HistoryItemsAddedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .itemsAdded
+//    let messageType: AsyncMessageType = .itemsAdded
+    let notificationName: Notification.Name = .historyItemsAdded
     
     // The files that were added to the playlist
     let files: [URL]
