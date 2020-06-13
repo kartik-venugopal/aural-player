@@ -71,8 +71,6 @@ enum MessageType {
     case editorSelectionChangedNotification
     
     case emptyResponse
-    
-    case gapUpdatedNotification
 }
 
 struct TrackTransitionNotification: NotificationMessage {
@@ -394,13 +392,8 @@ struct EditorSelectionChangedNotification: NotificationMessage {
     }
 }
 
-struct PlaybackGapUpdatedNotification: NotificationMessage {
+struct PlaybackGapUpdatedNotification: NotificationPayload {
     
-    let messageType: MessageType = .gapUpdatedNotification
-    
+    let notificationName: Notification.Name = .gapUpdated
     let updatedTrack: Track
-    
-    init(_ updatedTrack: Track) {
-        self.updatedTrack = updatedTrack
-    }
 }

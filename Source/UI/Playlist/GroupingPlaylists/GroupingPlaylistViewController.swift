@@ -64,8 +64,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         AsyncMessenger.subscribe([.trackInfoUpdated, .tracksNotAdded, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
+        Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
@@ -658,7 +659,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
-            SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(selTrack))
+            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: selTrack))
         }
     }
     
@@ -667,14 +668,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.removeGapsForTrack(selTrack)
-            SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(selTrack))
+            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: selTrack))
         }
     }
     
-    private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
+    func gapUpdated(_ notification: PlaybackGapUpdatedNotification) {
         
         // Find track and refresh it
-        let updatedRow = playlistView.row(forItem: message.updatedTrack)
+        let updatedRow = playlistView.row(forItem: notification.updatedTrack)
         
         if updatedRow >= 0 {
             refreshRow(updatedRow)
@@ -810,20 +811,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification {
             
-        case .trackTransitionNotification:
-            
-            if let trackTransitionMsg = notification as? TrackTransitionNotification {
-                trackTransitioned(trackTransitionMsg)
-            }
-            
-        case .gapUpdatedNotification:
-            
-            gapUpdated(notification as! PlaybackGapUpdatedNotification)
-            
-        default: return
-            
+            trackTransitioned(trackTransitionMsg)
+            return
         }
     }
     
