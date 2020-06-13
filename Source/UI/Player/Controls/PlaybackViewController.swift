@@ -22,8 +22,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
+        Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.chapterPlaybackRequest, .trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -232,13 +233,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Chapter playback functions ------------------------------------------------------------
     
-    private func performChapterPlayback(_ request: ChapterPlaybackRequest) {
+    func performChapterPlayback(_ command: ChapterPlaybackCommandNotification) {
         
-        switch request.type {
+        switch command.commandType {
             
         case .playSelectedChapter:
             
-            if let index = request.index {
+            if let index = command.chapterIndex {
                 playChapter(index)
             }
             
@@ -374,24 +375,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
         playbackView.playbackRateChanged(notification.newPlaybackRate, player.state)
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        switch request.messageType {
-            
-        case .chapterPlaybackRequest:
-            
-            if let playbackRequest = request as? ChapterPlaybackRequest {
-                performChapterPlayback(playbackRequest)
-            }
-            
-        default: break
-            
-        }
-        
-        // This class does not return any meaningful responses
-        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {
