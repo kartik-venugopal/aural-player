@@ -61,7 +61,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         
         // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .tracksNotAdded, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackInfoUpdated, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))

@@ -102,8 +102,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display a non-intrusive popover instead of annoying alert (error details optional "Click for more details")
-            if self.addSession.progress.errors.count > 0 {
-                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(self.addSession.progress.errors))
+            if !self.addSession.progress.errors.isEmpty {
+                Messenger.publish(TracksNotAddedNotification(errors: self.addSession.progress.errors))
             }
             
             self.addSession = nil
