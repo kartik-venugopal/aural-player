@@ -77,14 +77,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func playSelectedTrackWithDelay(_ delay: Double?) {
         
-        let selRowIndexes = playlistView.selectedRowIndexes
-        
-        if (!selRowIndexes.isEmpty) {
-            
-            var request = PlaybackRequest(index: selRowIndexes.min()!)
-            request.delay = delay
-            
-            _ = SyncMessenger.publishRequest(request)
+        if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
+            Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow, delay: delay))
         }
     }
     

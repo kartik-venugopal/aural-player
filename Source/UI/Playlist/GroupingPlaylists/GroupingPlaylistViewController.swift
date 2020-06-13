@@ -80,19 +80,18 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playSelectedItemWithDelay(nil)
     }
     
-    private func playSelectedItemWithDelay(_ delay: Double?) {
+    func playSelectedItemWithDelay(_ delay: Double?) {
         
-        let selRowIndexes = playlistView.selectedRowIndexes
-        
-        if (!selRowIndexes.isEmpty) {
+        if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
             
-            let item = playlistView.item(atRow: selRowIndexes.min()!)
+            let item = playlistView.item(atRow: firstSelectedRow)
             
-            // The selected item is either a track or a group
-            var request: PlaybackRequest = item is Track ? PlaybackRequest(track: item as! Track) : PlaybackRequest(group: item as! Group)
-            request.delay = delay
-            
-            _ = SyncMessenger.publishRequest(request)
+            if let track = item as? Track {
+                Messenger.publish(TrackPlaybackCommandNotification(track: track, delay: delay))
+                
+            } else if let group = item as? Group {
+                Messenger.publish(TrackPlaybackCommandNotification(group: group, delay: delay))
+            }
         }
     }
     
