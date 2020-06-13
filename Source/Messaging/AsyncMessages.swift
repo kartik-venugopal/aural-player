@@ -40,8 +40,6 @@ enum AsyncMessageType {
     
     case audioOutputChanged
     
-    case transcodingProgress
-    
     case transcodingCancelled
     
     case transcodingFinished
@@ -241,24 +239,15 @@ struct AudioOutputChangedMessage: AsyncMessage {
     static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
 }
 
-struct TranscodingProgressAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .transcodingProgress
+struct TranscodingProgressNotification: NotificationPayload {
+
+    let notificationName: Notification.Name = .transcodingProgress
     
     let track: Track
     
-    let percTranscoded: Double
+    let percentageTranscoded: Double
     let timeElapsed: Double
     let timeRemaining: Double
-    
-    init(_ track: Track, _ percTranscoded: Double, _ timeElapsed: Double, _ timeRemaining: Double) {
-        
-        self.track = track
-        
-        self.percTranscoded = percTranscoded
-        self.timeElapsed = timeElapsed
-        self.timeRemaining = timeRemaining
-    }
 }
 
 struct TranscodingFinishedAsyncMessage: AsyncMessage {

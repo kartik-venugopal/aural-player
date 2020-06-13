@@ -153,7 +153,8 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
                     if totalTime == Double.infinity || totalTime == Double.nan || totalTime == Double.greatestFiniteMagnitude {totalTime = 0}
                     let timeRemaining = abs(totalTime - timeElapsed)
                     
-                    AsyncMessenger.publishMessage(TranscodingProgressAsyncMessage(track, perc, timeElapsed, timeRemaining))
+                    Messenger.publish(TranscodingProgressNotification(track: track, percentageTranscoded: perc,
+                                                                      timeElapsed: timeElapsed, timeRemaining: timeRemaining))
                 }
             }
         }
