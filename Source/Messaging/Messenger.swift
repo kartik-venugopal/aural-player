@@ -18,6 +18,8 @@ extension Notification.Name {
     
     static let historyUpdated = Notification.Name("historyUpdated")
     
+    static let fxUnitActivated = Notification.Name("fxUnitActivated")
+    
     static let playbackRateChanged = Notification.Name("playbackRateChanged")
     static let chapterChanged = Notification.Name("chapterChanged")
     static let playbackCompleted = Notification.Name("playbackCompleted")
