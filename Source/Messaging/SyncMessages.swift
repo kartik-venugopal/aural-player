@@ -62,8 +62,6 @@ enum MessageType {
     
     case sequenceChangedNotification
     
-    case effectsUnitStateChangedNotification
-    
     case playingTrackInfoUpdatedNotification
     
     case playbackLoopChangedNotification
@@ -352,16 +350,6 @@ struct EmptyResponse: ResponseMessage {
     
     // Singleton
     static let instance: EmptyResponse = EmptyResponse()
-}
-
-// Notification indicating that one of the effects units has either become active or inactive. The Effects panel tab group may use this information to update its view.
-struct EffectsUnitStateChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .effectsUnitStateChangedNotification
-    
-    private init() {}
-    
-    static let instance: EffectsUnitStateChangedNotification = EffectsUnitStateChangedNotification()
 }
 
 // Notification that the state of the segment playback loop for the currently playing track has been changed and the UI may need to be updated as a result

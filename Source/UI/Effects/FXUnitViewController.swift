@@ -70,7 +70,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     func initSubscriptions() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
         
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
     }
@@ -94,7 +94,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         _ = fxUnit.toggleState()
         stateChanged()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
     }
     
     // Applies a preset to the effects unit
@@ -221,13 +221,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     }
     
     // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if notification.messageType == .effectsUnitStateChangedNotification {
-            stateChanged()
-        }
-    }
     
     func consumeMessage(_ message: ActionMessage) {
         

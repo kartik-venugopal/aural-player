@@ -71,7 +71,7 @@ class MasterViewController: FXUnitViewController {
     
     private func broadcastStateChangeNotification() {
         // Update the bypass buttons for the effects units
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
@@ -168,22 +168,16 @@ class MasterViewController: FXUnitViewController {
     
     // MARK: Message handling
     
-    override func consumeNotification(_ notification: NotificationMessage) {
+    override func stateChanged() {
+        updateButtons()
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
             
-        case .effectsUnitStateChangedNotification:
-            
-            updateButtons()
-            
-        case .trackTransitionNotification:
-            
-            if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
-                trackChanged(trackTransitionMsg)
-            }
-            
-        default: return
-            
+            trackChanged(trackTransitionMsg)
+            return
         }
     }
     

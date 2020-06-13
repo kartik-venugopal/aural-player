@@ -77,7 +77,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.show()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
     }
     
     // Stops the current recording
@@ -93,7 +93,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         saveRecording(recordingInfo!.format)
         recordingInfoBox.hide()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        Messenger.publish(.fxUnitStateChanged)
     }
     
     // Prompts the user to save the new recording
