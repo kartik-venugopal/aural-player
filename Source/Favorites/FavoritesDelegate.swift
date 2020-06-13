@@ -22,14 +22,16 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func addFavorite(_ track: Track) -> Favorite {
         
         let fav = favorites.addFavorite(track.file, track.conciseDisplayName)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track.file))
+        Messenger.publish(FavoritesUpdatedNotification(notificationName: .trackAddedToFavorites, trackFile: track.file))
+        
         return fav
     }
     
     func addFavorite(_ file: URL, _ name: String) -> Favorite {
         
         let fav = favorites.addFavorite(file, name)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, file))
+        Messenger.publish(FavoritesUpdatedNotification(notificationName: .trackAddedToFavorites, trackFile: file))
+        
         return fav
     }
     
@@ -49,12 +51,13 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let fav = getFavoriteAtIndex(index)
         favorites.deleteFavoriteAtIndex(index)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, fav.file))
+        Messenger.publish(FavoritesUpdatedNotification(notificationName: .trackRemovedFromFavorites, trackFile: fav.file))
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
+        
         favorites.deleteFavoriteWithFile(file)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, file))
+        Messenger.publish(FavoritesUpdatedNotification(notificationName: .trackRemovedFromFavorites, trackFile: file))
     }
     
     var count: Int {

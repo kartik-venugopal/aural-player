@@ -50,10 +50,6 @@ enum AsyncMessageType {
     
     case historyUpdated
     
-    case addedToFavorites
-    
-    case removedFromFavorites
-    
     case audioOutputChanged
     
     case transcodingProgress
@@ -270,17 +266,17 @@ struct HistoryUpdatedAsyncMessage: AsyncMessage {
 }
 
 // Indicates that the playing track has either been added to, or removed from, the Favorites list
-struct FavoritesUpdatedAsyncMessage: AsyncMessage {
+struct FavoritesUpdatedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType
+    let notificationName: Notification.Name
     
-    // The track that was added to or removed from Favorites
-    let file: URL
+    // The filesystem file of the track that was added to or removed from Favorites
+    let trackFile: URL
     
-    init(_ messageType: AsyncMessageType, _ file: URL) {
+    init(notificationName: Notification.Name, trackFile: URL) {
         
-        self.messageType = messageType
-        self.file = file
+        self.notificationName = notificationName
+        self.trackFile = trackFile
     }
 }
 

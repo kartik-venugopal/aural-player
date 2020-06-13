@@ -13,6 +13,9 @@ extension Notification.Name {
     
     static let windowLayoutChanged = Notification.Name("windowLayoutChanged")
     
+    static let trackAddedToFavorites = Notification.Name("trackAddedToFavorites")
+    static let trackRemovedFromFavorites = Notification.Name("trackRemovedFromFavorites")
+    
     static let playbackRateChanged = Notification.Name("playbackRateChanged")
     static let chapterChanged = Notification.Name("chapterChanged")
     static let playbackCompleted = Notification.Name("playbackCompleted")

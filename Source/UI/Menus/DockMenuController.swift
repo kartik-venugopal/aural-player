@@ -9,7 +9,7 @@ import Cocoa
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
  */
-class DockMenuController: NSObject, AsyncMessageSubscriber {
+class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
     
     // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     
@@ -50,8 +50,11 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         
         favoritesMenuItem.off()
         
+        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: DispatchQueue.main)
+        
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
         
@@ -74,51 +77,46 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             // Toggle the menu item
             favoritesMenuItem.toggle()
             
-            // Publish an action message to add/remove the item to/from Favorites
-            if favoritesMenuItem.isOn {
-                _ = favorites.addFavorite(playingTrack)
-            } else {
-                favorites.deleteFavoriteWithFile(playingTrack.file)
-            }
+            // Add/remove the item to/from Favorites
+            favoritesMenuItem.isOn ? _ = favorites.addFavorite(playingTrack) : favorites.deleteFavoriteWithFile(playingTrack.file)
         }
     }
     
-    // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu
-    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
+    // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu
+    func trackAddedToFavorites(_ notification: FavoritesUpdatedNotification) {
         
-        if message.messageType == .addedToFavorites {
+        if let fav = favorites.getFavoriteWithFile(notification.trackFile) {
             
-            if let fav = favorites.getFavoriteWithFile(message.file) {
+            // Add it to the menu
+            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.favorite = fav
+            
+            favoritesMenu.addItem(item)
+        }
+        
+        // Update the toggle menu item
+        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == notification.trackFile.path {
+            favoritesMenuItem.on()
+        }
+    }
+    
+    // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu
+    func trackRemovedFromFavorites(_ notification: FavoritesUpdatedNotification) {
+        
+        // Remove it from the menu
+        favoritesMenu.items.forEach({
+            
+            if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == notification.trackFile.path {
                 
-                // Add it to the menu
-                let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
-                item.target = self
-                item.favorite = fav
-                
-                favoritesMenu.addItem(item)
+                favoritesMenu.removeItem($0)
+                return
             }
-            
-            // Update the toggle menu item
-            if let plTrack = playbackInfo.currentTrack, plTrack.file.path == message.file.path {
-                favoritesMenuItem.on()
-            }
-            
-        } else {
-            
-            // Remove it from the menu
-            favoritesMenu.items.forEach({
-                
-                if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == message.file.path {
-                    
-                    favoritesMenu.removeItem($0)
-                    return
-                }
-            })
-            
-            // Update the toggle menu item
-            if let plTrack = playbackInfo.currentTrack, plTrack.file.path == message.file.path {
-                favoritesMenuItem.off()
-            }
+        })
+        
+        // Update the toggle menu item
+        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == notification.trackFile.path {
+            favoritesMenuItem.off()
         }
     }
     
@@ -314,10 +312,6 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         if message is HistoryUpdatedAsyncMessage {
 
             recreateHistoryMenus()
-            
-        } else if let favsUpdatedMsg = message as? FavoritesUpdatedAsyncMessage {
-            
-            favoritesUpdated(favsUpdatedMsg)
             
         } else if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.trackChanged {
             
