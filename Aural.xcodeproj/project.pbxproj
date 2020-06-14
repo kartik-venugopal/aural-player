@@ -181,8 +181,7 @@
 		3E12AD092469CC2900A07611 /* BookmarksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */; };
 		3E12AD0A2469CC2900A07611 /* BookmarksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */; };
 		3E12AD0B2469CC2900A07611 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */; };
-		3E12AD0C2469CC2F00A07611 /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
-		3E12AD0E2469CC2F00A07611 /* SyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */; };
+		3E12AD0E2469CC2F00A07611 /* MessageDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */; };
 		3E12AD0F2469CC2F00A07611 /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
 		3E12AD102469CC2F00A07611 /* SyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */; };
 		3E12AD112469CC3300A07611 /* MediaKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23F2D022A6E6DB00A48C8C /* MediaKeyHandler.swift */; };
@@ -363,7 +362,7 @@
 		3E3A63691F690EA200F72A60 /* PreferencesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A63681F690EA200F72A60 /* PreferencesDelegate.swift */; };
 		3E3A636B1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A636A1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift */; };
 		3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */; };
-		3E3AD5481F5D2BEC006123E9 /* SyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */; };
+		3E3AD5481F5D2BEC006123E9 /* MessageDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */; };
 		3E3AEB101F9D361A00E9BEDE /* TracksPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AEB0F1F9D361A00E9BEDE /* TracksPlaylistViewController.swift */; };
 		3E3AEB121F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AEB111F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift */; };
 		3E3BAF241F274771008F090E /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3BAF231F274771008F090E /* Sort.swift */; };
@@ -373,7 +372,6 @@
 		3E3D0923247950450009506E /* SequencerPeeking_TracksPlaylist_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D0922247950450009506E /* SequencerPeeking_TracksPlaylist_Tests.swift */; };
 		3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D489A1F464C02004C0F91 /* Errors.swift */; };
 		3E3DCAC0244B31F100563AE4 /* PlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */; };
-		3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
 		3E3ECDFF242E2CC4000721E9 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3ECDFE242E2CC4000721E9 /* DeviceManager.swift */; };
 		3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F29622159B69900581EFE /* LayoutsEditor.xib */; };
 		3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F29642159B7E800581EFE /* LayoutsEditorViewController.swift */; };
@@ -1019,7 +1017,7 @@
 		3E3A63681F690EA200F72A60 /* PreferencesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesDelegate.swift; sourceTree = "<group>"; };
 		3E3A636A1F690EBB00F72A60 /* PreferencesDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessenger.swift; sourceTree = "<group>"; };
-		3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessages.swift; sourceTree = "<group>"; };
+		3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDefinitions.swift; sourceTree = "<group>"; };
 		3E3AEB0F1F9D361A00E9BEDE /* TracksPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewController.swift; sourceTree = "<group>"; };
 		3E3AEB111F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistViewController.swift; sourceTree = "<group>"; };
 		3E3BAF231F274771008F090E /* Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
@@ -1029,7 +1027,6 @@
 		3E3D0922247950450009506E /* SequencerPeeking_TracksPlaylist_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerPeeking_TracksPlaylist_Tests.swift; sourceTree = "<group>"; };
 		3E3D489A1F464C02004C0F91 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewState.swift; sourceTree = "<group>"; };
-		3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessages.swift; sourceTree = "<group>"; };
 		3E3ECDFE242E2CC4000721E9 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		3E3F29622159B69900581EFE /* LayoutsEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LayoutsEditor.xib; sourceTree = "<group>"; };
 		3E3F29642159B7E800581EFE /* LayoutsEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutsEditorViewController.swift; sourceTree = "<group>"; };
@@ -1865,8 +1862,7 @@
 		3E50ADAA24613A6E00B31339 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */,
-				3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */,
+				3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */,
 				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
 				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
 				3E8E2C472493D3FF00D795F6 /* Messenger.swift */,
@@ -3340,7 +3336,6 @@
 				3E3ECDFF242E2CC4000721E9 /* DeviceManager.swift in Sources */,
 				3E89CA24246316F10057D3EE /* PlayingTrackViewController.swift in Sources */,
 				3EA3BDA522B266AA0020A908 /* MKExtensions.swift in Sources */,
-				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
 				3EB1700E2173F5DA00B82D3A /* DelayedPlaybackEditorWindowController.swift in Sources */,
 				3E1765FF217DBAFF001C6CF9 /* Extensions.swift in Sources */,
 				3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */,
@@ -3411,7 +3406,7 @@
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,
 				3E23E0A5246EB88F00367E2B /* AudioFilePreparationAction.swift in Sources */,
 				3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */,
-				3E3AD5481F5D2BEC006123E9 /* SyncMessages.swift in Sources */,
+				3E3AD5481F5D2BEC006123E9 /* MessageDefinitions.swift in Sources */,
 				3E688ABF21E3842800164E84 /* WMParser.swift in Sources */,
 				3EB4BCD6247040D4005024E5 /* StopPlaybackChain.swift in Sources */,
 				3E047B0E1F01436700ADE0F1 /* ReverbSpaces.swift in Sources */,
@@ -3698,7 +3693,6 @@
 				3E12AD092469CC2900A07611 /* BookmarksDelegate.swift in Sources */,
 				3E167235246DBA7400A57F64 /* SequencerDelegate.swift in Sources */,
 				3E12AD042469CC2700A07611 /* FavoritesProtocol.swift in Sources */,
-				3E12AD0C2469CC2F00A07611 /* AsyncMessages.swift in Sources */,
 				3E12AC9B2469CBA100A07611 /* PlaylistAccessorDelegateProtocol.swift in Sources */,
 				3E12AD422469CC5100A07611 /* DateUtils.swift in Sources */,
 				3E12ACF02469CC1B00A07611 /* DeviceManager.swift in Sources */,
@@ -3729,7 +3723,7 @@
 				3E12ACA92469CBA100A07611 /* FlatPlaylist.swift in Sources */,
 				3E62691C246BF130002FAC63 /* DragDropType.swift in Sources */,
 				3E12AE222469CFDE00A07611 /* MediaKeyTap.swift in Sources */,
-				3E12AD0E2469CC2F00A07611 /* SyncMessages.swift in Sources */,
+				3E12AD0E2469CC2F00A07611 /* MessageDefinitions.swift in Sources */,
 				3E12AD272469CC3F00A07611 /* SavedPlaylist.swift in Sources */,
 				3E12ACF72469CC1F00A07611 /* RecordingSession.swift in Sources */,
 				3E12ACB32469CBF800A07611 /* SequencerProtocol.swift in Sources */,
