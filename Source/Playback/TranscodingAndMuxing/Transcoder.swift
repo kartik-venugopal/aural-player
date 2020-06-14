@@ -90,7 +90,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
             
             // Only do this if task is in the foreground (i.e. monitoring enabled)
             if command.enableMonitoring {
-                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, track.lazyLoadingInfo.preparedForPlayback))
+                Messenger.publish(TranscodingFinishedNotification(track: track, success: track.lazyLoadingInfo.preparedForPlayback))
             }
         }
         
@@ -100,7 +100,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
             if command.enableMonitoring {
                 
                 track.lazyLoadingInfo.preparationError = TranscodingFailedError(track)
-                AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, false))
+                Messenger.publish(TranscodingFinishedNotification(track: track, success: false))
             }
             
             self.store.transcodingCancelledOrFailed(outputFile)
