@@ -3,7 +3,7 @@ import Cocoa
 /*
     Base view controller for the hierarchical/grouping ("Artists", "Albums", and "Genres") playlist views
  */
-class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
+class GroupingPlaylistViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -60,8 +60,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         
-        // Register self as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        // Don't bother responding if only album art was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
+                                 queue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
@@ -532,9 +534,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
-    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
+    private func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         
-        let track = message.track
+        let track = notification.updatedTrack
+        
         if let groupInfo = playlist.groupingInfoForTrack(self.groupType, track) {
             
             // Reload the parent group and the track
@@ -795,19 +798,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // MARK: Message handlers
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .trackInfoUpdated:
-            
-            trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        default: return
-            
-        }
-    }
     
     func consumeNotification(_ notification: NotificationMessage) {
         

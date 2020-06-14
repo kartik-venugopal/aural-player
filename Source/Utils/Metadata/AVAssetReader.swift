@@ -312,6 +312,9 @@ class AVAssetReader: MetadataReader, MessageSubscriber {
     // So, use start times to compute end times / duration
     func getChapters_olderSystems(_ track: Track) -> [Chapter] {
         
+        // TODO: BUG - This code assumes chapters are sorted by startTime.
+        // First sort by startTime, then use start times to compute end times / durations.
+        
         var chapters: [Chapter] = []
         
         if let asset = track.audioAsset, let langCode = asset.availableChapterLocales.first?.languageCode {
@@ -323,6 +326,8 @@ class AVAssetReader: MetadataReader, MessageSubscriber {
                 chapterMetadataGroups.map {(getChapterTitle($0.items) ?? "", $0.timeRange.start.seconds)}
             
             if titlesAndStartTimes.isEmpty {return chapters}
+            
+            // TODO: First sort by start time
             
             for index in 0..<titlesAndStartTimes.count {
                 

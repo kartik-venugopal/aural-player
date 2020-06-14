@@ -3,7 +3,7 @@ import Cocoa
 /*
  View controller for the flat ("Tracks") playlist view
  */
-class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
+class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
@@ -46,8 +46,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         
-        // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated, .transcodingCancelled], subscriber: self, dispatchQueue: DispatchQueue.main)
+        // Don't bother responding if only album art was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
+                                 queue: DispatchQueue.main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
@@ -345,11 +347,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         self.playlistView.insertRows(at: IndexSet([notification.trackIndex]), withAnimation: .slideDown)
     }
     
-    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
+    private func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         
         DispatchQueue.main.async {
             
-            if let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index {
+            if let updatedTrackIndex = self.playlist.indexOfTrack(notification.updatedTrack)?.index {
+                
                 self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             }
         }
@@ -621,19 +624,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // MARK: Message handling
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .trackInfoUpdated:
-            
-            trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        default: return
-            
-        }
-    }
     
     func consumeNotification(_ notification: NotificationMessage) {
         

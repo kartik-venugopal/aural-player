@@ -31,9 +31,11 @@ class TrackIO {
                 
                 // Only do this if there is art to show
                 if track.displayInfo.art != nil {
-                    AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
                 }
             }
+            
+            track.lazyLoadingInfo.artLoaded = true
         }
     }
 

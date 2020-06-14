@@ -3,7 +3,7 @@
 */
 import Cocoa
 
-class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, AsyncMessageSubscriber {
+class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, MessageSubscriber {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -67,7 +67,12 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     private let vertHTMLTablePadding: Int = 5
     
     override func awakeFromNib() {
-        AsyncMessenger.subscribe([.trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        // Only respond to these messages when the popover is shown, the updated track matches the displayed track,
+        // and the album art field of the track was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+                                 filter: {msg in self.popover.isShown && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
+                                 queue: DispatchQueue.main)
     }
     
     static func create() -> DetailedTrackInfoViewController {
@@ -323,18 +328,10 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         close()
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
     
-        if popover.isShown && message.messageType == .trackInfoUpdated {
-            
-            let msg = message as! TrackUpdatedAsyncMessage
-                
-            if msg.track == DetailedTrackInfoViewController.shownTrack {
-                
-                artView?.image = msg.track.displayInfo.art?.image
-                lblNoArt.showIf(artView?.image == nil)
-                coverArtTable?.reloadData()
-            }
-        }
+        artView?.image = notification.updatedTrack.displayInfo.art?.image
+        lblNoArt.showIf(artView?.image == nil)
+        coverArtTable?.reloadData()
     }
 }

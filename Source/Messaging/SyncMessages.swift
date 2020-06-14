@@ -62,8 +62,6 @@ enum MessageType {
     
     case sequenceChangedNotification
     
-    case playingTrackInfoUpdatedNotification
-    
     case playbackLoopChangedNotification
     
     case editorSelectionChangedNotification
@@ -160,17 +158,6 @@ struct SequenceChangedNotification: NotificationMessage {
     
     // Singleton
     static let instance: SequenceChangedNotification = SequenceChangedNotification()
-}
-
-// Notification indicating that new information is available for the currently playing track, and the UI needs to be refreshed with the new information
-struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .playingTrackInfoUpdatedNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
 }
 
 // Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.

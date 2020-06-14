@@ -51,7 +51,6 @@ class MetadataUtils {
         }
         
         track.displayInfo.art = art
-        track.lazyLoadingInfo.artLoaded = true
     }
     
     static func loadChapters(_ track: Track) {
