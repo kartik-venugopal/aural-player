@@ -5,47 +5,6 @@ import Foundation
 //    var subscriberId: String {get}
 //}
 
-extension Notification.Name {
-    
-    static let appLaunched = Notification.Name("appLaunched")
-    static let appReopened = Notification.Name("appReopened")
-    static let appExitRequest = Notification.Name("appExitRequest")
-    
-    static let windowLayoutChanged = Notification.Name("windowLayoutChanged")
-    
-    static let trackAddedToFavorites = Notification.Name("trackAddedToFavorites")
-    static let trackRemovedFromFavorites = Notification.Name("trackRemovedFromFavorites")
-    
-    static let historyItemsAdded = Notification.Name("historyItemsAdded")
-    static let historyUpdated = Notification.Name("historyUpdated")
-    
-    static let fxUnitActivated = Notification.Name("fxUnitActivated")
-    static let fxUnitStateChanged = Notification.Name("fxUnitStateChanged")
-    
-    static let playbackRateChanged = Notification.Name("playbackRateChanged")
-    static let chapterChanged = Notification.Name("chapterChanged")
-    static let playbackCompleted = Notification.Name("playbackCompleted")
-    static let playTrack = Notification.Name("playTrack")
-    static let chapterPlayback = Notification.Name("chapterPlayback")
-    static let trackNotPlayed = Notification.Name("trackNotPlayed")
-    static let preTrackChange = Notification.Name("preTrackChange")
-    
-    static let transcodingProgress = Notification.Name("transcodingProgress")
-    
-    static let startedAddingTracks = Notification.Name("startedAddingTracks")
-    static let doneAddingTracks = Notification.Name("doneAddingTracks")
-    static let tracksNotAdded = Notification.Name("tracksNotAdded")
-    
-    static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
-    
-    static let selectSearchResult = Notification.Name("selectSearchResult")
-    static let searchTextChanged = Notification.Name("searchTextChanged")
-    
-    static let trackAdded = Notification.Name("trackAdded")
-    static let tracksRemoved = Notification.Name("tracksRemoved")
-    static let gapUpdated = Notification.Name("gapUpdated")
-}
-
 protocol NotificationPayload {
     
     var notificationName: Notification.Name {get}
@@ -127,9 +86,9 @@ class Messenger {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             
-            if let payload = notif.payload as? P, filter?(payload) ?? true {
-                
-                queue.async {
+            queue.async {
+            
+                if let payload = notif.payload as? P, filter?(payload) ?? true {
                     msgHandler(payload)
                 }
             }
@@ -146,9 +105,9 @@ class Messenger {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             
-            if filter?() ?? true {
+            queue.async {
                 
-                queue.async {
+                if filter?() ?? true {
                     msgHandler()
                 }
             }

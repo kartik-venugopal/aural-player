@@ -19,14 +19,20 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         infoView.changeTextSize(PlayerViewState.textSize)
         infoView.applyColorScheme(ColorSchemes.systemScheme)
     }
-    
+
+    // Subscribe to various notifications
     private func initSubscriptions() {
         
-        // Subscribe to various notifications
         Messenger.subscribe(self, .chapterChanged, self.chapterChanged(_:))
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        // Only respond if the playing track was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.playingTrackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedTrack == self.player.currentTrack &&
+                                    msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
+                                 queue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
@@ -46,7 +52,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     }
     
     // When track info for the playing track changes, display fields need to be updated
-    private func playingTrackInfoUpdated() {
+    func playingTrackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         infoView.update()
     }
     
@@ -91,10 +97,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
             trackChanged(trackTransitionMsg.endTrack)
             return
             
-        } else if notification is PlayingTrackInfoUpdatedNotification {
-         
-            playingTrackInfoUpdated()
-            return
         }
     }
 }

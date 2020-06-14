@@ -151,13 +151,14 @@ class AudioUtils {
         
         guard let audioFile = AudioIO.createAudioFileForReading(file) else {return}
         
+        let trackDurationBeforePrep: Double = track.duration
+        
         let playbackInfo = PlaybackInfo()
         
         if track.duration == 0 {
             
             // Load duration from metadata
             track.setDuration(MetadataUtils.durationForFile(file))
-            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
         }
         
         playbackInfo.audioFile = audioFile
@@ -173,9 +174,11 @@ class AudioUtils {
         
         // If this computed duration differs from the previously estimated duration, update the track and send out a notification.
         if computedDuration != track.duration {
-            
             track.setDuration(computedDuration)
-            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(track))
+        }
+        
+        if track.duration != trackDurationBeforePrep {
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
         }
         
         track.lazyLoadingInfo.preparedForPlayback = true

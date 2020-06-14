@@ -34,8 +34,6 @@ enum AsyncMessageType {
    
     case trackTransition
     
-    case trackInfoUpdated
-    
     case trackNotTranscoded
     
     case audioOutputChanged
@@ -104,20 +102,46 @@ struct TrackTransitionAsyncMessage: AsyncMessage {
 struct PlaybackCompletedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .playbackCompleted
+    
+    // The playback session corresponding to the track that just finished playing.
     let completedSession: PlaybackSession
 }
 
-// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
-struct TrackUpdatedAsyncMessage: AsyncMessage {
+// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name/art, etc), and that the UI should refresh itself to show the new information
+struct TrackInfoUpdatedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .trackInfoUpdated
+    let notificationName: Notification.Name = .trackInfoUpdated
     
     // The track that has been updated
-    let track: Track
+    let updatedTrack: Track
     
-    init(_ track: Track) {
-        self.track = track
+    // The track info fields that have been updated
+    let updatedFields: Set<UpdatedTrackInfoField>
+    
+    init(updatedTrack: Track, updatedFields: UpdatedTrackInfoField...) {
+        
+        self.updatedTrack = updatedTrack
+        self.updatedFields = Set(updatedFields)
     }
+}
+
+// An enumeration of different track info fields that can be updated
+enum UpdatedTrackInfoField: CaseIterable {
+    
+    // Album art
+    case art
+    
+    // Track duration
+    case duration
+    
+    // Any primary info, other than album art and duration, that is displayed in the app's main windows
+    // (eg. title / artist / album, etc)
+    // NOTE - This may not be a valid case because all display info (i.e. grouping info)
+    // is read before the track is added to the playlist
+    case displayInfo
+    
+    // Any info that is not essential for display in the app's main windows
+    case metadata
 }
 
 // Indicates that a new track has been added to the playlist, and that the UI should refresh itself to show the new information.

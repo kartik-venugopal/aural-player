@@ -332,6 +332,7 @@
 		3E27D20B246FCC1800B6170B /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */; };
 		3E27D20D246FDCB600B6170B /* PlaybackRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E27D20C246FDCB600B6170B /* PlaybackRequestContext.swift */; };
 		3E292B4024673B8300CE8B17 /* GaplessScheduler-Concept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */; };
+		3E29C9112495F0040066D8B9 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E29C9102495F0040066D8B9 /* NotificationNames.swift */; };
 		3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2CBDAD2189072800BD68B2 /* EQMapping.swift */; };
 		3E2D143924716DE500D6E81C /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D143824716DE500D6E81C /* IntExtensions.swift */; };
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
@@ -987,6 +988,7 @@
 		3E27D20A246FCC1800B6170B /* EndPlaybackSequenceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPlaybackSequenceAction.swift; sourceTree = "<group>"; };
 		3E27D20C246FDCB600B6170B /* PlaybackRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackRequestContext.swift; sourceTree = "<group>"; };
 		3E292B3F24673B8300CE8B17 /* GaplessScheduler-Concept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GaplessScheduler-Concept.swift"; sourceTree = "<group>"; };
+		3E29C9102495F0040066D8B9 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		3E2CBDAD2189072800BD68B2 /* EQMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMapping.swift; sourceTree = "<group>"; };
 		3E2D143824716DE500D6E81C /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
@@ -1872,6 +1874,7 @@
 				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
 				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
 				3E8E2C472493D3FF00D795F6 /* Messenger.swift */,
+				3E29C9102495F0040066D8B9 /* NotificationNames.swift */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -3303,6 +3306,7 @@
 				3EF7EFC82150757D00E582CB /* BarModeNowPlayingViewController.swift in Sources */,
 				3E24F4D92169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift in Sources */,
 				3E3FB7F5215B57B700974A59 /* Favorite.swift in Sources */,
+				3E29C9112495F0040066D8B9 /* NotificationNames.swift in Sources */,
 				3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */,
 				3E4F9E3B1FBFA2C100C54D07 /* InfoPopupProtocol.swift in Sources */,
 				3E7022B52465CA1E00E64581 /* PlaybackSchedulerProtocol.swift in Sources */,

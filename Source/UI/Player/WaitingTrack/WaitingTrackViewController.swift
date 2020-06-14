@@ -39,6 +39,19 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         initSubscriptions()
     }
     
+    private func initSubscriptions() {
+        
+        // Only respond if the waiting track was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.waitingTrackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedTrack == self.player.waitingTrack &&
+                                    msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
+                                 queue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         DispatchQueue.main.async {
@@ -57,13 +70,6 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
 
             self.functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         }
-    }
-    
-    private func initSubscriptions() {
-        
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
     
     private func endGap() {
@@ -97,7 +103,11 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         startTimer()
     }
     
-    private func updateTrackInfo() {
+    func waitingTrackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
+        updateTrackInfo()
+    }
+    
+    func updateTrackInfo() {
 
         artView.image = track?.displayInfo.art?.image ?? Images.imgPlayingArt
         lblTrackName.stringValue = track?.conciseDisplayName ?? ""
@@ -138,11 +148,6 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
             let track = trackTransitionMsg.endTrack, let endTime = trackTransitionMsg.gapEndTime {
             
             gapStarted(track, endTime)
-            return
-            
-        } else if player.state == .waiting && notification is PlayingTrackInfoUpdatedNotification {
-         
-            updateTrackInfo()
             return
         }
     }

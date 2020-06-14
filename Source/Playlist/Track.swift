@@ -140,7 +140,7 @@ class Track: Hashable, PlaylistItem {
     
     func prepareWithAudioFile(_ file: URL) {
         
-        // TODO: Improve this
+        // TODO: Improve this (It will be called twice for tracks that have already been transcoded)
         // If this isn't done, art won't be loaded
         TrackIO.prepareForPlayback(self)
         

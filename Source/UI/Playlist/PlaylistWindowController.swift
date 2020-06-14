@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
+class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -122,8 +122,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: DispatchQueue.main)
         Messenger.subscribeAsync(self, .tracksNotAdded, self.tracksNotAdded(_:), queue: DispatchQueue.main)
         
-        // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe([.trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+        // Respond only if track duration has changed (affecting the summary)
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedFields.contains(.duration)},
+                                 queue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
@@ -204,21 +206,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // Handles a notification that a single track has been updated
-    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
+    func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         
-        DispatchQueue.main.async {
-            
-            // Track duration may have changed, affecting the total playlist duration
-            self.updatePlaylistSummary()
-            
-            // TODO: Just compare playingTrack == message.track !!!
-            
-            // If this is the playing track, tell other views that info has been updated
-            if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, let updatedTrackIndex = self.playlist.indexOfTrack(message.track)?.index, playingTrackIndex == updatedTrackIndex {
-            
-                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-            }
-        }
+        // Track duration may have changed, affecting the total playlist duration
+        self.updatePlaylistSummary()
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -465,19 +456,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Updates the summary in response to a change in the tab group selected tab
     func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .trackInfoUpdated:
-            
-            trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
-            
-        default: return
-            
-        }
     }
     
     func consumeNotification(_ message: NotificationMessage) {

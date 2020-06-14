@@ -41,7 +41,20 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         initSubscriptions()
     }
     
-    private var added: Bool = false
+    private func initSubscriptions() {
+        
+        // Only respond if the waiting track was updated
+        Messenger.subscribeAsync(self, .trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
+                                 filter: {msg in msg.updatedTrack == self.player.transcodingTrack &&
+                                        msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
+                                 queue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
+        
+        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: DispatchQueue.main)
+    }
     
     override func viewDidAppear() {
         
@@ -57,15 +70,6 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
 
             self.functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         }
-    }
-    
-    private func initSubscriptions() {
-        
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
-        
-        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: DispatchQueue.main)
     }
     
     private func transcodingStarted(_ track: Track) {
@@ -91,8 +95,10 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         progressView.percentage = percentage
     }
     
-    private func updateTrackInfo(_ track: Track) {
+    func transcodingTrackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
 
+        let track = notification.updatedTrack
+        
         lblTrack.stringValue = track.conciseDisplayName
         artView.image = track.displayInfo.art?.image ?? Images.imgPlayingArt
     }
@@ -197,11 +203,6 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
             let track = trackTransitionMsg.endTrack {
             
             transcodingStarted(track)
-            return
-            
-        } else if let track = player.transcodingTrack, notification is PlayingTrackInfoUpdatedNotification {
-         
-            updateTrackInfo(track)
             return
         }
     }
