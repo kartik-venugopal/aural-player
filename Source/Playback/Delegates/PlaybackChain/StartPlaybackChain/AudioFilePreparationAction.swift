@@ -111,7 +111,9 @@ class AudioFilePreparationAction: PlaybackChainAction {
         
         // Mark the current state as "waiting" before the requested track, and notify observers.
         player.waiting()
-        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .waiting, gapEndTime))
+        
+        Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
+                                                      endTrack: context.requestedTrack, endState: .waiting, gapEndTime: gapEndTime))
         
         // Update the context to reflect this transition
         context.currentTrack = context.requestedTrack
@@ -123,7 +125,8 @@ class AudioFilePreparationAction: PlaybackChainAction {
         
         // Mark the current state as "transcoding" the requested track, and notify observers.
         player.transcoding()
-        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .transcoding))
+        Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
+                                                      endTrack: context.requestedTrack, endState: .transcoding))
         
         // Update the context to reflect this transition
         context.currentTrack = context.requestedTrack

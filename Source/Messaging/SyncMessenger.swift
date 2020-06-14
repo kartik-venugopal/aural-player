@@ -7,36 +7,8 @@ class SyncMessenger {
     
     // Keeps track of subscribers. For each message type, stores a list of subscribers
     
-    private static var messageSubscriberRegistry: [MessageType: [MessageSubscriber]] = [MessageType: [MessageSubscriber]]()
-    
     private static var actionMessageSubscriberRegistry: [ActionType: [ActionMessageSubscriber]] = [ActionType: [ActionMessageSubscriber]]()
-    
-    // Called by a subscriber who is interested in a certain type of message
-    static func subscribe(messageTypes: [MessageType], subscriber: MessageSubscriber) {
-        
-        for messageType in messageTypes {
-            
-            if messageSubscriberRegistry[messageType] == nil {messageSubscriberRegistry[messageType] = [MessageSubscriber]()}
-            
-            // Only add if it doesn't already exist
-            if messageSubscriberRegistry[messageType]!.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) == nil {
-                messageSubscriberRegistry[messageType]!.append(subscriber)
-            }
-        }
-    }
-    
-    // Called by a subscriber who is no longer interested in a certain type of message
-    static func unsubscribe(messageTypes: [MessageType], subscriber: MessageSubscriber) {
-        
-        for messageType in messageTypes {
-            
-            // Find and remove the subscriber from the registry
-            if let subscribers = messageSubscriberRegistry[messageType], let subIndex = subscribers.firstIndex(where: {$0.subscriberId == subscriber.subscriberId}) {
-                messageSubscriberRegistry[messageType]!.remove(at: subIndex)
-            }
-        }
-    }
-    
+
     // Called by a subscriber who is interested in a certain type of message
     static func subscribe(actionTypes: [ActionType], subscriber: ActionMessageSubscriber) {
         
@@ -60,14 +32,6 @@ class SyncMessenger {
                 actionMessageSubscriberRegistry[actionType]!.remove(at: subIndex)
             }
         }
-    }
-    
-    // Called by a publisher to publish a notification message
-    static func publishNotification(_ notification: NotificationMessage) {
-        
-        messageSubscriberRegistry[notification.messageType]?.forEach({
-            $0.consumeNotification(notification)
-        })
     }
     
     static func publishActionMessage(_ message: ActionMessage) {

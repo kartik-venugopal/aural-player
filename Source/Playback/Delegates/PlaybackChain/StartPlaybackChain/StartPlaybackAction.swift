@@ -31,7 +31,8 @@ class StartPlaybackAction: PlaybackChainAction {
         player.play(newTrack, context.requestParams.startPosition ?? 0, context.requestParams.endPosition)
         
         // Inform observers of the track change/transition.
-        AsyncMessenger.publishMessage(TrackTransitionAsyncMessage(context.currentTrack, context.currentState, context.requestedTrack, .playing))
+        Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
+                                                      endTrack: context.requestedTrack, endState: .playing))
         
         // Mark the playback chain as having completed execution.
         chain.complete(context)

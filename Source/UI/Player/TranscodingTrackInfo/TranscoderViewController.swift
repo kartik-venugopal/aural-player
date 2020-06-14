@@ -47,9 +47,11 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.transcodingTrack &&
                                         msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in msg.transcodingStarted},
+                                 queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
@@ -197,13 +199,10 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         }
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.transcodingStarted,
-            let track = trackTransitionMsg.endTrack {
-            
+        if let track = notification.endTrack {
             transcodingStarted(track)
-            return
         }
     }
 }

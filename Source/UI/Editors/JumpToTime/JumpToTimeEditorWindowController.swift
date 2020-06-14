@@ -55,7 +55,9 @@ class JumpToTimeEditorWindowController: NSWindowController, MessageSubscriber, M
         
         percentageFormatter.maxValue = 100
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in self.window?.isVisible ?? false},
+                                 queue: .main)
         WindowManager.registerModalComponent(self)
     }
     
@@ -169,24 +171,13 @@ class JumpToTimeEditorWindowController: NSWindowController, MessageSubscriber, M
         UIUtils.dismissDialog(self.window!)
     }
     
-    private func trackTransitioned(_ msg: TrackTransitionNotification) {
+    func trackTransitioned(_ msg: TrackTransitionNotification) {
         
         if msg.playbackStarted, let playingTrack = msg.endTrack {
             resetFields(playingTrack)
             
         } else {
             cancelAction(self)
-        }
-    }
-    
-    // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if self.window?.isVisible ?? false, let trackTransitionMsg = notification as? TrackTransitionNotification {
-            
-            trackTransitioned(trackTransitionMsg)
-            return
         }
     }
 }

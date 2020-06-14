@@ -63,12 +63,12 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         // Don't bother responding if only album art was updated
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
@@ -574,7 +574,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         groupsToReload.forEach({playlistView.reloadItem($0)})
     }
     
-    private func trackTransitioned(_ message: TrackTransitionNotification) {
+    func trackTransitioned(_ message: TrackTransitionNotification) {
         
         let oldTrack = message.beginTrack
         
@@ -798,15 +798,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     }
     
     // MARK: Message handlers
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let trackTransitionMsg = notification as? TrackTransitionNotification {
-            
-            trackTransitioned(trackTransitionMsg)
-            return
-        }
-    }
     
     func consumeMessage(_ message: ActionMessage) {
         

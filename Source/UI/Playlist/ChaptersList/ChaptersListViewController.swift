@@ -112,7 +112,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
         
         // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
@@ -329,15 +329,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     // MARK: Message handling
     
-    func consumeNotification(_ message: NotificationMessage) {
-        
-        if message.messageType == .trackTransitionNotification {
-            
-            trackChanged()
-            return
-        }
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
@@ -437,7 +428,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         }
     }
     
-    private func trackChanged() {
+    func trackChanged() {
         
         // Don't need to do this if the window is not visible
         if view.window?.isVisible ?? false {

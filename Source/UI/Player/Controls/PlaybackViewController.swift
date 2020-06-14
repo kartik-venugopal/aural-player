@@ -26,7 +26,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
         Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -330,18 +330,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Message handling ---------------------------------------------------------------------
 
-    func consumeNotification(_ notification: NotificationMessage) {
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        if let trackTransitionMsg = notification as? TrackTransitionNotification {
+        if notification.gapStarted || notification.transcodingStarted {
+            gapOrTranscodingStarted()
             
-            if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
-                gapOrTranscodingStarted()
-                
-            } else {
-                trackChanged(trackTransitionMsg.endTrack)
-            }
-            
-            return
+        } else {
+            trackChanged(notification.endTrack)
         }
     }
     

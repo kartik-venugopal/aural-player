@@ -49,12 +49,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         // Don't bother responding if only album art was updated
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
@@ -624,16 +624,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
     }
     
     // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let trackTransitionMsg = notification as? TrackTransitionNotification {
-            
-            trackTransitioned(trackTransitionMsg)
-            return
-        }
-    }
-    
+
     func consumeMessage(_ message: ActionMessage) {
         
         if let msg = message as? PlaylistActionMessage {
