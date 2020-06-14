@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playbackView: PlaybackView!
     
@@ -19,8 +19,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         
-        // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotTranscoded], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
         
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
@@ -142,7 +141,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         playbackView.gapOrTranscodingStarted()
     }
     
-    private func trackNotTranscoded(_ msg: TrackNotTranscodedAsyncMessage) {
+    func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
         //        DispatchQueue.main.async {
@@ -151,7 +150,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
         //        }
         
-        alertDialog.showAlert(.error, "Track not transcoded", msg.track.conciseDisplayName, msg.error.message)
+        alertDialog.showAlert(.error, "Track not transcoded", notification.track.conciseDisplayName, notification.error.message)
     }
     
     // MARK: Seeking actions/functions ------------------------------------------------------------
@@ -330,16 +329,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     // MARK: Message handling ---------------------------------------------------------------------
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
-            
-            trackNotTranscoded(trackNotTranscodedMsg)
-            return
-        }
-    }
-    
+
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let trackTransitionMsg = notification as? TrackTransitionNotification {

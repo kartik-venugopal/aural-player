@@ -50,9 +50,9 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
         
         favoritesMenuItem.off()
         
-        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: .main)
+        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: .main)
+        Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: .main)
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)

@@ -115,12 +115,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
             return event
         });
         
-        Messenger.subscribeAsync(self, .startedAddingTracks, self.startedAddingTracks, queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .startedAddingTracks, self.startedAddingTracks, queue: .main)
+        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: .main)
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .tracksNotAdded, self.tracksNotAdded(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: .main)
+        Messenger.subscribeAsync(self, .tracksNotAdded, self.tracksNotAdded(_:), queue: .main)
         
         // Respond only if track duration has changed (affecting the summary)
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),

@@ -53,7 +53,7 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerSliderColors], subscriber: self)
         
-        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: .main)
     }
     
     override func viewDidAppear() {

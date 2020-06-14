@@ -41,8 +41,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
         
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         
