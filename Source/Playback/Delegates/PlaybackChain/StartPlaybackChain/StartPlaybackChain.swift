@@ -5,7 +5,7 @@ import Foundation
     It is composed of several actions that perform any required
     pre-processing or notifications.
  */
-class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
+class StartPlaybackChain: PlaybackChain, MessageSubscriber {
 
     private let player: PlayerProtocol
     private let sequencer: SequencerProtocol
@@ -25,7 +25,7 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         .withAction(AudioFilePreparationAction(player, transcoder))
         .withAction(StartPlaybackAction(player))
         
-        AsyncMessenger.subscribe([.transcodingFinished], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .transcodingFinished, self.transcodingFinished(_:), queue: .main)
     }
     
     // Halts playback and ends the playback sequence when an error is encountered.
@@ -39,29 +39,20 @@ class StartPlaybackChain: PlaybackChain, AsyncMessageSubscriber {
         complete(context)
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-       
-        if let transcodingFinishedMsg = message as? TranscodingFinishedAsyncMessage {
-            
-            transcodingFinished(transcodingFinishedMsg)
-            return
-        }
-    }
-    
     // Responds when transcoding for a track has finished.
     // Either proceeds with playback, or terminates the chain, depending on
     // transcoding success/failure.
-    private func transcodingFinished(_ msg: TranscodingFinishedAsyncMessage) {
+    func transcodingFinished(_ notification: TranscodingFinishedNotification) {
         
         // Match the transcoded track to that from the deferred (i.e. current) request context.
-        if let currentContext = PlaybackRequestContext.currentContext, msg.track == currentContext.requestedTrack {
+        if let currentContext = PlaybackRequestContext.currentContext, notification.track == currentContext.requestedTrack {
 
             // Make sure there is no delay (i.e. state != waiting) before proceeding.
-            if player.state != .waiting && msg.success {
+            if player.state != .waiting && notification.success {
 
                 proceed(currentContext)
                 
-            } else if !msg.success, let error = msg.track.lazyLoadingInfo.preparationError {
+            } else if !notification.success, let error = notification.track.lazyLoadingInfo.preparationError {
                 
                 terminate(currentContext, error)
             }

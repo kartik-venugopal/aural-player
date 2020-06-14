@@ -50,8 +50,6 @@ extension Notification.Name {
 
     static let audioOutputChanged = Notification.Name("audioOutputChanged")
 
-    static let transcodingCancelled = Notification.Name("transcodingCancelled")
-
     static let transcodingFinished = Notification.Name("transcodingFinished")
 
     static let sequenceChanged = Notification.Name("sequenceChanged")

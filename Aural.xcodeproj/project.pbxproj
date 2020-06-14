@@ -1869,8 +1869,8 @@
 			isa = PBXGroup;
 			children = (
 				3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */,
-				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
 				3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */,
+				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
 				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
 				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
 				3E8E2C472493D3FF00D795F6 /* Messenger.swift */,

@@ -35,10 +35,6 @@ enum AsyncMessageType {
     case trackTransition
     
     case audioOutputChanged
-    
-    case transcodingCancelled
-    
-    case transcodingFinished
 }
 
 struct TrackTransitionAsyncMessage: AsyncMessage {
@@ -266,15 +262,10 @@ struct TranscodingProgressNotification: NotificationPayload {
     let timeRemaining: Double
 }
 
-struct TranscodingFinishedAsyncMessage: AsyncMessage {
+struct TranscodingFinishedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .transcodingFinished
+    let notificationName: Notification.Name = .transcodingFinished
     
     let track: Track
     let success: Bool
-    
-    init(_ track: Track, _ success: Bool) {
-        self.track = track
-        self.success = success
-    }
 }
