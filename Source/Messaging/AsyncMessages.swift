@@ -33,8 +33,6 @@ extension AsyncMessageSubscriber {
 enum AsyncMessageType {
    
     case trackTransition
-    
-    case audioOutputChanged
 }
 
 struct TrackTransitionAsyncMessage: AsyncMessage {
@@ -239,16 +237,6 @@ struct FavoritesUpdatedNotification: NotificationPayload {
         self.notificationName = notificationName
         self.trackFile = trackFile
     }
-}
-
-// Indicates that the system's audio output device has changed (e.g. when headphones are plugged in/out)
-struct AudioOutputChangedMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .audioOutputChanged
-    
-    private init() {}
-    
-    static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
 }
 
 struct TranscodingProgressNotification: NotificationPayload {

@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class Player: PlayerProtocol, AsyncMessageSubscriber {
+class Player: PlayerProtocol, MessageSubscriber {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol
@@ -22,7 +22,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         self.playerNode = graph.playerNode
         self.scheduler = scheduler
         
-        AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .audioOutputChanged, self.audioOutputDeviceChanged, queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
@@ -228,18 +228,8 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     // MARK: Message handling
 
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        // Handler for when the audio output changes (e.g. headphones plugged in/out).
-        if message.messageType == .audioOutputChanged {
-            
-            audioOutputDeviceChanged()
-            return
-        }
-    }
-    
     // When the audio output device changes, restart the audio engine and continue playback as before.
-    private func audioOutputDeviceChanged() {
+    func audioOutputDeviceChanged() {
         
         // First, check if a track is playing.
         if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {

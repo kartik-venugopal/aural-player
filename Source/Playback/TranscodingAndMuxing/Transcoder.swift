@@ -216,16 +216,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .trackTransition:
-            
-            beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
-            
-        default: return
-            
-        }
+        beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
     }
     
     func checkDiskSpaceUsage() {
