@@ -60,8 +60,6 @@ enum MessageType {
     
     case trackTransitionNotification
     
-    case playbackLoopChangedNotification
-    
     case editorSelectionChangedNotification
     
     case emptyResponse
@@ -310,17 +308,6 @@ struct EmptyResponse: ResponseMessage {
     
     // Singleton
     static let instance: EmptyResponse = EmptyResponse()
-}
-
-// Notification that the state of the segment playback loop for the currently playing track has been changed and the UI may need to be updated as a result
-struct PlaybackLoopChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .playbackLoopChangedNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
 }
 
 // Notification that the layout manager has changed the window layout

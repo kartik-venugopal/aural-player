@@ -25,8 +25,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
         Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
+        Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
@@ -222,12 +223,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
             _ = player.toggleLoop()
             playbackLoopChanged()
-            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            
+            Messenger.publish(.playbackLoopChanged)
         }
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
-    private func playbackLoopChanged() {
+    func playbackLoopChanged() {
         
         if let playingTrack = player.playingTrack {
             playbackView.playbackLoopChanged(player.playbackLoop, playingTrack.duration)
@@ -331,41 +333,25 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        switch message.messageType {
+        if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
             
-        case .trackNotTranscoded:
-            
-            if let trackNotTranscodedMsg = message as? TrackNotTranscodedAsyncMessage {
-                trackNotTranscoded(trackNotTranscodedMsg)
-            }
-            
-        default: return
-            
+            trackNotTranscoded(trackNotTranscodedMsg)
+            return
         }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        switch notification.messageType {
+        if let trackTransitionMsg = notification as? TrackTransitionNotification {
             
-        case .trackTransitionNotification:
-            
-            if let trackTransitionMsg = notification as? TrackTransitionNotification {
+            if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
+                gapOrTranscodingStarted()
                 
-                if trackTransitionMsg.gapStarted || trackTransitionMsg.transcodingStarted {
-                    gapOrTranscodingStarted()
-                    
-                } else {
-                    trackChanged(trackTransitionMsg.endTrack)
-                }
+            } else {
+                trackChanged(trackTransitionMsg.endTrack)
             }
             
-        case .playbackLoopChangedNotification:
-            
-            playbackLoopChanged()
-            
-        default: return
-            
+            return
         }
     }
     

@@ -285,7 +285,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 doTrackPlaybackCompleted()
                 
             } else if seekResult.loopRemoved {
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+                Messenger.publish(.playbackLoopChanged)
             }
         }
     }

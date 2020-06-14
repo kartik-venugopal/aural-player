@@ -83,7 +83,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private func initHeader() {
         
-        headerHeight()
+        setHeaderHeight()
         header.wantsLayer = true
         header.layer?.backgroundColor = NSColor.black.cgColor
         
@@ -99,7 +99,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         })
     }
     
-    private func headerHeight() {
+    private func setHeaderHeight() {
         
         header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 5))
         clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 5))
@@ -109,8 +109,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         Messenger.subscribe(self, .chapterChanged, self.chapterChanged(_:))
         
+        Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
+        
         // Register self as a subscriber to synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
@@ -329,18 +331,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     func consumeNotification(_ message: NotificationMessage) {
         
-        switch message.messageType {
-            
-        case .trackTransitionNotification:
+        if message.messageType == .trackTransitionNotification {
             
             trackChanged()
-            
-        case .playbackLoopChangedNotification:
-            
-            loopChanged()
-            
-        default: return
-            
+            return
         }
     }
     
@@ -485,7 +479,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     // When the player's segment loop has been changed externally (from the player), it invalidates the chapter loop if there is one
-    private func loopChanged() {
+    func playbackLoopChanged() {
         looping = false
     }
     
