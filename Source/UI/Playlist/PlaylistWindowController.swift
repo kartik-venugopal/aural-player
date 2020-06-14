@@ -177,12 +177,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
     }
     
     // When the playback sequence has changed, the UI needs to show the updated info
-    private func sequenceChanged() {
-        
-        if playbackInfo.currentTrack != nil {
-            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-        }
-    }
+//    private func sequenceChanged() {
+//        
+//        if playbackInfo.currentTrack != nil {
+//            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+//        }
+//    }
     
     // Handles an error when tracks could not be added to the playlist
     func tracksNotAdded(_ notification: TracksNotAddedNotification) {

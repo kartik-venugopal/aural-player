@@ -60,8 +60,6 @@ enum MessageType {
     
     case trackTransitionNotification
     
-    case sequenceChangedNotification
-    
     case playbackLoopChangedNotification
     
     case editorSelectionChangedNotification
@@ -148,16 +146,6 @@ struct ChapterChangedNotification: NotificationPayload {
     
     // The chapter that is now playing (may be nil, meaning no chapter playing)
     let newChapter: IndexedChapter?
-}
-
-// Notification indicating the the playback sequence may have changed and that the UI may need to be refreshed to show updated sequence information
-struct SequenceChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .sequenceChangedNotification
-    private init() {}
-    
-    // Singleton
-    static let instance: SequenceChangedNotification = SequenceChangedNotification()
 }
 
 // Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
