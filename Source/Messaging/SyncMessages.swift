@@ -46,8 +46,6 @@ protocol NotificationMessage: SyncMessage {
 enum MessageType {
     
     case trackTransitionNotification
-    
-    case editorSelectionChangedNotification
 }
 
 struct TrackTransitionNotification: NotificationMessage {
@@ -293,14 +291,10 @@ struct WindowLayoutChangedNotification: NotificationPayload {
     let showingPlaylist: Bool
 }
 
-struct EditorSelectionChangedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .editorSelectionChangedNotification
+struct EditorSelectionChangedNotification: NotificationPayload {
+
+    let notificationName: Notification.Name = .editorSelectionChanged
     let numberOfSelectedRows: Int
-    
-    init(_ numberOfSelectedRows: Int) {
-        self.numberOfSelectedRows = numberOfSelectedRows
-    }
 }
 
 struct PlaybackGapUpdatedNotification: NotificationPayload {

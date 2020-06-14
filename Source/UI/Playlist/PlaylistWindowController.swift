@@ -459,16 +459,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
     }
     
     func consumeNotification(_ message: NotificationMessage) {
-        
-        switch message.messageType {
-            
-        case .trackTransitionNotification:
-            
-            trackChanged()
-        
-        default: return
-            
-        }
+        trackChanged()
     }
     
     func consumeMessage(_ message: ActionMessage) {
