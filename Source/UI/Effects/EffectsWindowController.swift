@@ -207,11 +207,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         fxTabViewButtons.forEach({$0.updateState()})
     }
 
-    // Dummy implementation
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
-
     func consumeMessage(_ message: ActionMessage) {
 
         if let message = message as? EffectsViewActionMessage {

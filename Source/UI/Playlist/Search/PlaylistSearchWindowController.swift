@@ -200,10 +200,4 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         
         updateSearch()
     }
-    
-    // MARK: Message handling
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
 }

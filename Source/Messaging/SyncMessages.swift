@@ -7,21 +7,16 @@ protocol MessageSubscriber {
     
     // Every message subscriber must implement this method to consume a type of message it is interested in
     func consumeNotification(_ notification: NotificationMessage)
-    
-    // Every message subscriber must implement this method to process a type of request it serves
-    func processRequest(_ request: RequestMessage) -> ResponseMessage
-    
+
+    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
     var subscriberId: String {get}
 }
 
+// Default implementations
 extension MessageSubscriber {
     
     func consumeNotification(_ notification: NotificationMessage) {
         // Do nothing
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
     }
     
     var subscriberId: String {
@@ -47,22 +42,12 @@ protocol SyncMessage {
 protocol NotificationMessage: SyncMessage {
 }
 
-// Marker protocol denoting a SyncMessage that is a request, requiring a response
-protocol RequestMessage: SyncMessage {
-}
-
-// Marker protocol denoting a SyncMessage that is a response to a RequestMessage
-protocol ResponseMessage: SyncMessage {
-}
-
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
     case trackTransitionNotification
     
     case editorSelectionChangedNotification
-    
-    case emptyResponse
 }
 
 struct TrackTransitionNotification: NotificationMessage {
@@ -299,17 +284,6 @@ class AppExitRequestNotification: NotificationPayload {
     }
 }
 
-// Dummy message to be used when there is no other appropriate response message type
-struct EmptyResponse: ResponseMessage {
-    
-    let messageType: MessageType = .emptyResponse
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: EmptyResponse = EmptyResponse()
-}
-
 // Notification that the layout manager has changed the window layout
 struct WindowLayoutChangedNotification: NotificationPayload {
     
@@ -317,18 +291,6 @@ struct WindowLayoutChangedNotification: NotificationPayload {
     
     let showingEffects: Bool
     let showingPlaylist: Bool
-}
-
-struct ApplyEffectsPresetRequest: RequestMessage {
-    
-    let messageType: MessageType
-    let preset: EffectsUnitPreset
-    
-    init(_ messageType: MessageType, _ preset: EffectsUnitPreset) {
-        
-        self.messageType = messageType
-        self.preset = preset
-    }
 }
 
 struct EditorSelectionChangedNotification: NotificationMessage {

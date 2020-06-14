@@ -503,10 +503,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification, true))
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
-    
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         
         let destination = playlist.dropTracks(sourceIndexes, dropIndex, dropType)

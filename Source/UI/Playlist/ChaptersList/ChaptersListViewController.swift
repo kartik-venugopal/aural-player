@@ -338,10 +338,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {

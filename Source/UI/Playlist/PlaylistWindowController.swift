@@ -178,7 +178,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
     
     // When the playback sequence has changed, the UI needs to show the updated info
 //    private func sequenceChanged() {
-//        
+//
 //        if playbackInfo.currentTrack != nil {
 //            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
 //        }
@@ -469,18 +469,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
         default: return
             
         }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        switch request.messageType {
-            
-        default: break
-            
-        }
-        
-        // This class does not return any meaningful responses
-        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {

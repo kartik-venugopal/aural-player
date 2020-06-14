@@ -70,14 +70,6 @@ class SyncMessenger {
         })
     }
     
-    // Called by a publisher to publish a request message. Returns an array of responses, one per request consumer.
-    static func publishRequest(_ request: RequestMessage) -> [ResponseMessage] {
-        
-        var responseMsgs: [ResponseMessage] = [ResponseMessage]()
-        messageSubscriberRegistry[request.messageType]?.forEach({responseMsgs.append($0.processRequest(request))})
-        return responseMsgs
-    }
-    
     static func publishActionMessage(_ message: ActionMessage) {
         actionMessageSubscriberRegistry[message.actionType]?.forEach({$0.consumeMessage(message)})
     }
