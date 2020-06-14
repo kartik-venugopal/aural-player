@@ -216,6 +216,19 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
     }
 }
 
+// Enumerates all the possible playback command types. See PlaybackCommandNotification.
+enum PlaybackCommandType {
+    
+    // Play the track with the given index
+    case index
+    
+    // Play the given track
+    case track
+    
+    // Play the given group
+    case group
+}
+
 // A command related to playback of a chapter within a track.
 struct ChapterPlaybackCommandNotification: NotificationPayload {
 
@@ -253,19 +266,6 @@ enum ChapterPlaybackCommandType {
     
     // Remove the previously added loop for the current chapter
     case removeChapterLoop
-}
-
-// Enumerates all the possible playback command types. See PlaybackCommandNotification.
-enum PlaybackCommandType {
-    
-    // Play the track with the given index
-    case index
-    
-    // Play the given track
-    case track
-    
-    // Play the given group
-    case group
 }
 
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.

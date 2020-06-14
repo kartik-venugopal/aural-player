@@ -45,7 +45,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func initControls() {
         
-        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
+        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: .main)
         
         btnRecord.off()
         

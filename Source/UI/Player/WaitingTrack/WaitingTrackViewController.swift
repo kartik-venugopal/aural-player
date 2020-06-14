@@ -115,7 +115,7 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
     
     private func startTimer() {
         
-        timer = RepeatingTaskExecutor(intervalMillis: 500, task: {self.updateCountdown()}, queue: DispatchQueue.main)
+        timer = RepeatingTaskExecutor(intervalMillis: 500, task: {self.updateCountdown()}, queue: .main)
         timer?.startOrResume()
     }
     

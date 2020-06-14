@@ -55,8 +55,8 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     
     private func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: DispatchQueue.main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
         
         Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         

@@ -59,7 +59,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         if track.lazyLoadingInfo.preparationFailed, let preparationError = track.lazyLoadingInfo.preparationError {
             
             if userAction {
-                AsyncMessenger.publishMessage(TrackNotTranscodedAsyncMessage(track, preparationError))
+                Messenger.publish(TrackNotTranscodedNotification(track: track, error: preparationError))
             }
             
             return

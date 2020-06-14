@@ -108,7 +108,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
                     
-                }, queue: DispatchQueue.main)
+                }, queue: .main)
                 
                 repeatExecutor?.startOrResume()
             }
@@ -151,7 +151,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
                     
-                }, queue: DispatchQueue.main)
+                }, queue: .main)
                 
                 repeatExecutor?.startOrResume()
             }
@@ -185,7 +185,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                     
                     SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
                     
-                }, queue: DispatchQueue.main)
+                }, queue: .main)
                 
                 repeatExecutor?.startOrResume()
             }

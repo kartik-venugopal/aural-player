@@ -34,8 +34,6 @@ enum AsyncMessageType {
    
     case trackTransition
     
-    case trackNotTranscoded
-    
     case audioOutputChanged
     
     case transcodingCancelled
@@ -203,21 +201,15 @@ struct TrackNotPlayedNotification: NotificationPayload {
     let error: InvalidTrackError
 }
 
-struct TrackNotTranscodedAsyncMessage: AsyncMessage {
+struct TrackNotTranscodedNotification: NotificationPayload {
     
-    let messageType: AsyncMessageType = .trackNotTranscoded
+    let notificationName: Notification.Name = .trackNotTranscoded
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let track: Track
     
     // An error object containing detailed information such as the track file and the root cause
     let error: InvalidTrackError
-    
-    init(_ track: Track, _ error: InvalidTrackError) {
-        
-        self.track = track
-        self.error = error
-    }
 }
 
 // Indicates that some selected files were not loaded into the playlist
