@@ -1,9 +1,28 @@
 import Foundation
 
-//protocol MessageSubscriber {
-//
-//    var subscriberId: String {get}
-//}
+/*
+    Contract for all subscribers of messages
+ */
+protocol MessageSubscriber {
+    
+    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
+    var subscriberId: String {get}
+}
+
+// Default implementations
+extension MessageSubscriber {
+    
+    var subscriberId: String {
+        
+        let className = String(describing: mirrorFor(self).subjectType)
+        
+        if let obj = self as? NSObject {
+            return String(format: "%@-%d", className, obj.hashValue)
+        }
+        
+        return className
+    }
+}
 
 protocol NotificationPayload {
     

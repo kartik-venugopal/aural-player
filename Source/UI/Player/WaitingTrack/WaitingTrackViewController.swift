@@ -45,9 +45,12 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.waitingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.waitingTrack &&
                                     msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in msg.gapStarted},
+                                 queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
@@ -142,13 +145,10 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
     // MARK: Message handling
 
     // Consume synchronous notification messages
-    func consumeNotification(_ notification: NotificationMessage) {
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.gapStarted,
-            let track = trackTransitionMsg.endTrack, let endTime = trackTransitionMsg.gapEndTime {
-            
+        if let track = notification.endTrack, let endTime = notification.gapEndTime {
             gapStarted(track, endTime)
-            return
         }
     }
     

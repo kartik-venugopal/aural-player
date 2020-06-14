@@ -1,56 +1,8 @@
 import Foundation
 
-/*
- Contract for all subscribers of synchronous messages
- */
-protocol MessageSubscriber {
-    
-    // Every message subscriber must implement this method to consume a type of message it is interested in
-    func consumeNotification(_ notification: NotificationMessage)
+struct TrackTransitionNotification: NotificationPayload {
 
-    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
-    var subscriberId: String {get}
-}
-
-// Default implementations
-extension MessageSubscriber {
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        // Do nothing
-    }
-    
-    var subscriberId: String {
-        
-        let className = String(describing: mirrorFor(self).subjectType)
-        
-        if let obj = self as? NSObject {
-            return String(format: "%@-%d", className, obj.hashValue)
-        }
-        
-        return className
-    }
-}
-
-/*
- Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) that may return a response to the caller.
- */
-protocol SyncMessage {
-    var messageType: MessageType {get}
-}
-
-// Marker protocol denoting a SyncMessage that does not need a response, i.e. a notification
-protocol NotificationMessage: SyncMessage {
-}
-
-// Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
-enum MessageType {
-    
-    case trackTransitionNotification
-}
-
-struct TrackTransitionNotification: NotificationMessage {
-    
-    let messageType: MessageType = .trackTransitionNotification
+    let notificationName: Notification.Name = .trackTransition
     
     // The track that was playing before the track transition (may be nil, meaning no track was playing)
     let beginTrack: Track?
@@ -91,7 +43,7 @@ struct TrackTransitionNotification: NotificationMessage {
         return endState == .transcoding
     }
     
-    init(_ beginTrack: Track?, _ beginState: PlaybackState, _ endTrack: Track?, _ endState: PlaybackState, _ gapEndTime: Date? = nil) {
+    init(beginTrack: Track?, beginState: PlaybackState, endTrack: Track?, endState: PlaybackState, gapEndTime: Date? = nil) {
         
         self.beginTrack = beginTrack
         self.beginState = beginState

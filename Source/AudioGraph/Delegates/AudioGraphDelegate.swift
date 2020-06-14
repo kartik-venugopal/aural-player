@@ -4,11 +4,12 @@
 
 import AVFoundation
 
-class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionMessageSubscriber {
     
     var availableDevices: [AudioDevice] {
         return graph.availableDevices
     }
+    
     var systemDevice: AudioDevice {return graph.systemDevice}
     
     var outputDevice: AudioDevice {
@@ -37,7 +38,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     var soundProfiles: SoundProfiles {return graph.soundProfiles}
     
-    private let notificationQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+    private let notificationQueue: DispatchQueue = .global(qos: .userInteractive)
     
     init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
         
@@ -87,10 +88,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         }
         
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .preTrackChange, self.preTrackChange(_:))
+        Messenger.subscribe(self, .preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
+        
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) && self.preferences.rememberEffectsSettings},
+                                 queue: notificationQueue)
         
         SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: notificationQueue)
     }
     
     var settingsAsMasterPreset: MasterPreset {
@@ -155,15 +159,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     
     let subscriberId: String = "AudioGraphDelegate"
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let msg = message as? TrackTransitionAsyncMessage, msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) {
-            
-            trackChanged(msg.beginTrack, msg.endTrack)
-            return
-        }
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         message.actionType == .saveSoundProfile ? saveSoundProfile() : deleteSoundProfile()
     }
@@ -182,6 +177,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
         }
     }
     
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        trackChanged(notification.beginTrack, notification.endTrack)
+    }
+    
     func preTrackChange(_ notification: PreTrackChangeNotification) {
         trackChanged(notification.oldTrack, notification.newTrack)
     }
@@ -189,22 +188,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     private func trackChanged(_ oldTrack: Track?, _ newTrack: Track?) {
         
         // Save/apply sound profile
-        if preferences.rememberEffectsSettings {
+        
+        // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+        if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
             
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
-                
-                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                soundProfiles.add(theOldTrack)
-            }
+            // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
+            soundProfiles.add(theOldTrack)
+        }
+        
+        // Apply sound profile if there is one for the new track and the preferences allow it
+        if let theNewTrack = newTrack, let profile = soundProfiles.get(theNewTrack) {
             
-            // Apply sound profile if there is one for the new track and the preferences allow it
-            if let theNewTrack = newTrack, let profile = soundProfiles.get(theNewTrack) {
-                
-                graph.volume = profile.volume
-                graph.balance = profile.balance
-                masterUnit.applyPreset(profile.effects)
-            }
+            graph.volume = profile.volume
+            graph.balance = profile.balance
+            masterUnit.applyPreset(profile.effects)
         }
     }
     

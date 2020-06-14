@@ -49,9 +49,11 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         Messenger.subscribe(self, .trackAddedToFavorites, self.favoritesUpdated(_:))
         Messenger.subscribe(self, .trackRemovedFromFavorites, self.favoritesUpdated(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in msg.trackChanged},
+                                 queue: .main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         self.view.hide()
     }
@@ -236,24 +238,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     }
     
     // MARK: Message handling
-
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let trackTransitionMsg = notification as? TrackTransitionNotification, trackTransitionMsg.trackChanged {
-
-            trackChanged(trackTransitionMsg.endTrack)
-            return
-        }
-    }
     
-    // Consume asynchronous messages
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let favsUpdatedMsg = message as? FavoritesUpdatedNotification {
-            
-            favoritesUpdated(favsUpdatedMsg)
-            return
-        }
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        trackChanged(notification.endTrack)
     }
     
     func consumeMessage(_ message: ActionMessage) {

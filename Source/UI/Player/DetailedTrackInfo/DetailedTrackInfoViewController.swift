@@ -72,7 +72,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         // and the album art field of the track was updated
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in self.popover.isShown && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
     }
     
     static func create() -> DetailedTrackInfoViewController {

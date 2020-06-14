@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageSubscriber, PersistentModelObject {
+class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, PersistentModelObject {
     
     // The actual underlying History model object
     private let history: HistoryProtocol
@@ -26,17 +26,17 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageS
         self.playlist = playlist
         self.player = player
         
-        Messenger.subscribeAsync(self, .historyItemsAdded, self.itemsAdded(_:), queue: backgroundQueue)
-        
-        // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: backgroundQueue)
-        
         // Restore the history model object from persistent state
         
         historyState.recentlyAdded.reversed().forEach({history.addRecentlyAddedItem($0.file, $0.name, $0.time)})
         historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.name, $0.time)})
-        
         Messenger.publish(.historyUpdated)
+        
+        Messenger.subscribeAsync(self, .historyItemsAdded, self.itemsAdded(_:), queue: backgroundQueue)
+        
+        Messenger.subscribeAsync(self, .trackTransition, self.trackPlayed(_:),
+                                 filter: {msg in msg.playbackStarted},
+                                 queue: backgroundQueue)
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
@@ -130,7 +130,7 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageS
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
-    private func trackPlayed(_ message: TrackTransitionAsyncMessage) {
+    func trackPlayed(_ message: TrackTransitionNotification) {
         
         if let newTrack = message.endTrack {
         
@@ -141,7 +141,7 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageS
     }
     
     // Whenever items are added to the playlist, add entries to the "Recently added" list
-    private func itemsAdded(_ notification: HistoryItemsAddedNotification) {
+    func itemsAdded(_ notification: HistoryItemsAddedNotification) {
         
         let now = Date()
         
@@ -160,16 +160,5 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, AsyncMessageS
         }
         
         Messenger.publish(.historyUpdated)
-    }
-    
-    // MARK: Message handling
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.playbackStarted {
-            
-            trackPlayed(trackTransitionMsg)
-            return
-        }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber, PersistentModelObject {
+class Transcoder: TranscoderProtocol, MessageSubscriber, PersistentModelObject {
     
     // TODO: On appExit(), cancel all tasks and delete in-progress output files.
     
@@ -30,7 +30,7 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: backgroundQueue)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: backgroundQueue)
         
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: backgroundQueue)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: backgroundQueue)
     }
     
     func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {
@@ -215,8 +215,8 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, AsyncMessageSubscriber,
         beginEagerTranscoding()
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        beginEagerTranscoding((message as? TrackTransitionAsyncMessage)?.beginTrack)
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        beginEagerTranscoding(notification.beginTrack)
     }
     
     func checkDiskSpaceUsage() {

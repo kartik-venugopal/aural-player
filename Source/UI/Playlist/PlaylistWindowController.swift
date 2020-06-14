@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
+class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, NSTabViewDelegate {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -125,10 +125,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
         // Respond only if track duration has changed (affecting the summary)
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
-        // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
         Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
         
@@ -431,7 +430,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
         (tabGroup.selectedTabViewItem as? AuralTabViewItem)?.tabButton.redraw()
     }
     
-    private func trackChanged() {
+    func trackChanged() {
         
         if playbackInfo.chapterCount > 0 {
             
@@ -456,10 +455,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Mes
     // Updates the summary in response to a change in the tab group selected tab
     func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-    }
-    
-    func consumeNotification(_ message: NotificationMessage) {
-        trackChanged()
     }
     
     func consumeMessage(_ message: ActionMessage) {

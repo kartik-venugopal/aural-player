@@ -9,7 +9,7 @@ import Cocoa
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
  */
-class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
+class DockMenuController: NSObject, MessageSubscriber {
     
     // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     
@@ -55,7 +55,9 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
         Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: .main)
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+                                 filter: {msg in msg.trackChanged},
+                                 queue: .main)
         
         recreateHistoryMenus()
         
@@ -291,9 +293,9 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
         return menuItem
     }
     
-    private func trackTransitioned(_ msg: TrackTransitionAsyncMessage) {
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        if let trackFile = msg.endTrack?.file {
+        if let trackFile = notification.endTrack?.file {
             
             favoritesMenuItem.enable()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(trackFile))
@@ -303,17 +305,6 @@ class DockMenuController: NSObject, MessageSubscriber, AsyncMessageSubscriber {
             // No track playing
             favoritesMenuItem.off()
             favoritesMenuItem.disable()
-        }
-    }
-    
-    // MARK: Message handling
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage, trackTransitionMsg.trackChanged {
-            
-            trackTransitioned(trackTransitionMsg)
-            return
         }
     }
 }

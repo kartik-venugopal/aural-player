@@ -17,7 +17,7 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
+class PlayerViewController: NSViewController, MessageSubscriber {
     
     private var playingTrackView: PlayingTrackView = ViewFactory.playingTrackView as! PlayingTrackView
     private var waitingTrackView: NSView = ViewFactory.waitingTrackView
@@ -35,18 +35,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
             self.view.addSubview($0)
             $0.setFrameOrigin(NSPoint.zero)
         })
-        
-        initSubscriptions()
+
         switchView()
-    }
-    
-    private func initSubscriptions() {
-        
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.main)
+        Messenger.subscribeAsync(self, .trackTransition, self.switchView, queue: .main)
     }
     
     // Depending on current player state, switch to one of the 3 views.
-    private func switchView() {
+    func switchView() {
         
         switch player.state {
 
@@ -68,19 +63,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSub
             waitingTrackView.hide()
             
             transcodingTrackView.show()
-        }
-    }
-    
-    // MARK: Message handling
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
-            
-            SyncMessenger.publishNotification(TrackTransitionNotification(trackTransitionMsg.beginTrack, trackTransitionMsg.beginState, trackTransitionMsg.endTrack, trackTransitionMsg.endState, trackTransitionMsg.gapEndTime))
-            
-            switchView()
-            return
         }
     }
 }

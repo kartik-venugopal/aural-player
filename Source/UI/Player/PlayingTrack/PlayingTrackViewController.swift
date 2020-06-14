@@ -30,9 +30,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.playingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.currentTrack &&
                                     msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: DispatchQueue.main)
+                                 queue: .main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackTransitionNotification], subscriber: self)
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
@@ -89,15 +89,8 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         }
     }
     
-    // Consume synchronous notification messages
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let trackTransitionMsg = notification as? TrackTransitionNotification {
-            
-            trackChanged(trackTransitionMsg.endTrack)
-            return
-            
-        }
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        trackChanged(notification.endTrack)
     }
 }
 
