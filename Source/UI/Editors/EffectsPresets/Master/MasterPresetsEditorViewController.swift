@@ -141,7 +141,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
             oldPresetName = presetName
         }
         
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
+        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: numRows))
     }
     
     // MARK: Text field delegate functions

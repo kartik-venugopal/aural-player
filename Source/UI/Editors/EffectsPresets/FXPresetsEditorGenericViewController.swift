@@ -35,7 +35,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         previewBox.hide()
         
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
+        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: 0))
     }
     
     var selectedPresetNames: [String] {
@@ -91,7 +91,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             oldPresetName = presetName
         }
         
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
+        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: numRows))
     }
     
     // Returns a view for a single row

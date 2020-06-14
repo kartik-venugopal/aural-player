@@ -33,7 +33,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     override func viewDidLoad() {
         
         addSubViews()
-        SyncMessenger.subscribe(messageTypes: [.editorSelectionChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .editorSelectionChanged, self.editorSelectionChanged(_:))
     }
     
     override func viewDidAppear() {
@@ -142,10 +142,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if let msg = notification as? EditorSelectionChangedNotification {
-            updateButtonStates(msg.numberOfSelectedRows)
-        }
+    func editorSelectionChanged(_ notification: EditorSelectionChangedNotification) {
+        updateButtonStates(notification.numberOfSelectedRows)
     }
 }
