@@ -36,7 +36,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
         Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
         
-        SyncMessenger.subscribe(actionTypes: [.replayTrack, .toggleLoop, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        Messenger.subscribe(self, .player_replayTrack, self.replayTrack,
+                            filter: {self.player.state.isPlayingOrPaused})
+        
+        SyncMessenger.subscribe(actionTypes: [.toggleLoop, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -117,18 +120,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     // Replays the currently playing track, from the beginning, if there is one
-    private func replayTrack() {
+    func replayTrack() {
         
-        if player.state.isPlayingOrPaused {
-            
-            let wasPaused: Bool = player.state == .paused
-            
-            player.replay()
-            playbackView.updateSeekPosition()
-            
-            if wasPaused {
-                playbackView.playbackStateChanged(player.state)
-            }
+        let wasPaused: Bool = player.state == .paused
+        
+        player.replay()
+        playbackView.updateSeekPosition()
+        
+        if wasPaused {
+            playbackView.playbackStateChanged(player.state)
         }
     }
     
@@ -370,8 +370,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         switch message.actionType {
             
         // MARK: Player functions
-            
-        case .replayTrack: replayTrack()
             
         case .toggleLoop: toggleLoop()
             

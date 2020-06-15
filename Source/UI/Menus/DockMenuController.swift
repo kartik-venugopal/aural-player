@@ -182,7 +182,7 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayTrack))
+        Messenger.publish(.player_replayTrack)
     }
     
     // Plays the previous track in the current playback sequence
