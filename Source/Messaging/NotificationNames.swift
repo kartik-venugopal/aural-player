@@ -40,26 +40,56 @@ extension Notification.Name {
     static let tracksRemoved = Notification.Name("tracksRemoved")
     static let gapUpdated = Notification.Name("gapUpdated")
     
+    static let trackTransition = Notification.Name("trackTransition")
+    static let trackInfoUpdated = Notification.Name("trackInfoUpdated")
+    static let trackNotTranscoded = Notification.Name("trackNotTranscoded")
+    static let audioOutputChanged = Notification.Name("audioOutputChanged")
+    static let transcodingFinished = Notification.Name("transcodingFinished")
+    static let sequenceChanged = Notification.Name("sequenceChanged")
+    static let playingTrackInfoUpdated = Notification.Name("playingTrackInfoUpdated")
+    static let playbackLoopChanged = Notification.Name("playbackLoopChanged")
+    static let editorSelectionChanged = Notification.Name("editorSelectionChanged")
+    
     // ----------------------------------------------------------------------------------------
     
-    static let trackTransition = Notification.Name("trackTransition")
+    // MARK: Player commands
+    
+    // Play, pause, or resume playback
+    static let player_playOrPause = Notification.Name("player_playOrPause")
 
-    static let trackInfoUpdated = Notification.Name("trackInfoUpdated")
+    // Stop playback
+    static let player_stop = Notification.Name("player_stop")
 
-    static let trackNotTranscoded = Notification.Name("trackNotTranscoded")
+    // Play the previous track in the current playback sequence
+    static let player_previousTrack = Notification.Name("player_previousTrack")
 
-    static let audioOutputChanged = Notification.Name("audioOutputChanged")
+    // Play the next track in the current playback sequence
+    static let player_nextTrack = Notification.Name("player_nextTrack")
 
-    static let transcodingFinished = Notification.Name("transcodingFinished")
+    // Replay the currently playing track from the beginning, if there is one
+    static let player_replayTrack = Notification.Name("player_replayTrack")
 
-    static let sequenceChanged = Notification.Name("sequenceChanged")
+    // Toggle A->B segment playback loop
+    static let player_toggleLoop = Notification.Name("player_toggleLoop")
+    
+    // Seek backward within the currently playing track
+    static let player_seekBackward = Notification.Name("player_seekBackward")
 
-    static let playingTrackInfoUpdated = Notification.Name("playingTrackInfoUpdated")
+    // Seek forward within the currently playing track
+    static let player_seekForward = Notification.Name("player_seekForward")
 
-    static let playbackLoopChanged = Notification.Name("playbackLoopChanged")
+    // Seek backward within the currently playing track (secondary seek function - allows a different seek interval)
+    static let player_seekBackward_secondary = Notification.Name("player_seekBackward_secondary")
 
-    static let editorSelectionChanged = Notification.Name("editorSelectionChanged")
+    // Seek forward within the currently playing track (secondary seek function - allows a different seek interval)
+    static let player_seekForward_secondary = Notification.Name("player_seekForward_secondary")
 
+    // Seek to a specific position within the currently playing track
+    static let player_jumpToTime = Notification.Name("player_jumpToTime")
+    
+    // ----------
+    
+    
     static let refresh = Notification.Name("refresh")
 
     static let addTracks = Notification.Name("addTracks")
@@ -126,31 +156,9 @@ extension Notification.Name {
 
     static let selectedTrackInfo = Notification.Name("selectedTrackInfo")
 
-    static let dockLeft = Notification.Name("dockLeft")
-
-    static let dockRight = Notification.Name("dockRight")
-
-    static let dockBottom = Notification.Name("dockBottom")
-
-    static let maximize = Notification.Name("maximize")
-
-    static let maximizeHorizontal = Notification.Name("maximizeHorizontal")
-
-    static let maximizeVertical = Notification.Name("maximizeVertical")
-
     static let viewChapters = Notification.Name("viewChapters")
 
-    static let playOrPause = Notification.Name("playOrPause")
-
-    static let stop = Notification.Name("stop")
-
-    static let previousTrack = Notification.Name("previousTrack")
-
-    static let nextTrack = Notification.Name("nextTrack")
-
-    static let replayTrack = Notification.Name("replayTrack")
-
-    static let toggleLoop = Notification.Name("toggleLoop")
+    
 
     static let previousChapter = Notification.Name("previousChapter")
 
@@ -160,15 +168,7 @@ extension Notification.Name {
 
     static let toggleChapterLoop = Notification.Name("toggleChapterLoop")
 
-    static let seekBackward = Notification.Name("seekBackward")
-
-    static let seekForward = Notification.Name("seekForward")
-
-    static let seekBackward_secondary = Notification.Name("seekBackward_secondary")
-
-    static let seekForward_secondary = Notification.Name("seekForward_secondary")
-
-    static let jumpToTime = Notification.Name("jumpToTime")
+    
 
     static let repeatOff = Notification.Name("repeatOff")
 
@@ -257,14 +257,6 @@ extension Notification.Name {
     static let deleteEffectsPresets = Notification.Name("deleteEffectsPresets")
 
     static let applyEffectsPreset = Notification.Name("applyEffectsPreset")
-
-    static let dockTopLeft = Notification.Name("dockTopLeft")
-
-    static let dockTopRight = Notification.Name("dockTopRight")
-
-    static let dockBottomLeft = Notification.Name("dockBottomLeft")
-
-    static let dockBottomRight = Notification.Name("dockBottomRight")
 
     static let changePlayerView = Notification.Name("changePlayerView")
 
