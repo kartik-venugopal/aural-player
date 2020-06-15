@@ -176,6 +176,10 @@ class DockMenuController: NSObject, MessageSubscriber {
         Messenger.publish(.player_playOrPause)
     }
     
+    @IBAction func stopAction(_ sender: AnyObject) {
+        Messenger.publish(.player_stop)
+    }
+    
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayTrack))

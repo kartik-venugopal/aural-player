@@ -1545,6 +1545,12 @@ CA
                         <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Stop" id="hc1-22-4pF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="stopAction:" target="29W-IU-ITu" id="3Lu-7i-g1n"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Replay current track" id="xaX-37-oif" userLabel="Replay current track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
