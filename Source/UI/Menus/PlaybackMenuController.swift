@@ -112,7 +112,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.stop))
+        Messenger.publish(.player_stop)
     }
     
     // Plays the previous track in the current playback sequence
