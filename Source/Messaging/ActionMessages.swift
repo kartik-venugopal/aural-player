@@ -148,8 +148,6 @@ enum ActionType {
     
     // MARK: Playback actions
     
-    case replayTrack
-    
     case toggleLoop
     
     // Play the previous available chapter
