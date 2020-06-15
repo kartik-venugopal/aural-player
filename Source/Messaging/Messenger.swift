@@ -53,16 +53,25 @@ class Messenger {
         notifCtr.post(Notification(name: notifName))
     }
     
+    // With arbitrary object
+    static func publish(_ notifName: Notification.Name, payload: Any) {
+        
+        var notification = Notification(name: notifName)
+        notification.payload = payload
+        
+        notifCtr.post(notification)
+    }
+    
     // With payload
     static func subscribe<P>(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
-                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: NotificationPayload {
+                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: Any {
         
         subscribe(subscriber.subscriberId, notifName, msgHandler, filter: filter, opQueue: opQueue)
     }
     
     // With payload
     static func subscribe<P>(_ subscriberId: String, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
-                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: NotificationPayload {
+                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: Any {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             
@@ -101,7 +110,7 @@ class Messenger {
     
     // With payload
     static func subscribeAsync<P>(_ subscriber: MessageSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
-                                  filter: ((P) -> Bool)? = nil, queue: DispatchQueue) where P: NotificationPayload {
+                                  filter: ((P) -> Bool)? = nil, queue: DispatchQueue) where P: Any {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
             
@@ -158,10 +167,10 @@ class Messenger {
 
 extension Notification {
     
-    var payload: NotificationPayload? {
+    var payload: Any? {
         
         get {
-            return userInfo?["_payload_"] as? NotificationPayload
+            return userInfo?["_payload_"]
         }
         
         set(newValue) {

@@ -197,12 +197,12 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekBackward))
+        Messenger.publish(.player_seekBackward, payload: ActionMode.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward))
+        Messenger.publish(.player_seekForward, payload: ActionMode.discrete)
     }
     
     // Sets the repeat mode to "Off"
