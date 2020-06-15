@@ -67,7 +67,7 @@ class GestureHandler {
         if preferences.allowTrackChange {
             
             // Publish the action message
-            SyncMessenger.publishActionMessage(PlaybackActionMessage(swipeDirection == .left ? .previousTrack : .nextTrack))
+            Messenger.publish(swipeDirection == .left ? .player_previousTrack : .player_nextTrack)
         }
     }
     

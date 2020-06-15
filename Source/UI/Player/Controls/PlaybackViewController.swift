@@ -33,8 +33,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
         Messenger.subscribe(self, .player_stop, self.stop)
+        Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
+        Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
         
-        SyncMessenger.subscribe(actionTypes: [.replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.replayTrack, .toggleLoop, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -94,11 +96,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
+        previousTrack()
+    }
+    
+    func previousTrack() {
         player.previousTrack()
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
+        nextTrack()
+    }
+
+    func nextTrack() {
         player.nextTrack()
     }
     
@@ -364,10 +374,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .replayTrack: replayTrack()
             
         case .toggleLoop: toggleLoop()
-            
-        case .previousTrack: previousTrackAction(self)
-            
-        case .nextTrack: nextTrackAction(self)
             
         case .seekBackward:
             
