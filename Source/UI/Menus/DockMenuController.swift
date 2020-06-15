@@ -173,7 +173,7 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
+        Messenger.publish(.player_playOrPause)
     }
     
     // Replays the currently playing track from the beginning, if there is one

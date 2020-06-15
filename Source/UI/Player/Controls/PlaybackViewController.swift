@@ -17,24 +17,34 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     override func viewDidLoad() {
         
-        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
+        // MARK: Notifications --------------------------------------------------------------
         
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
         Messenger.subscribeAsync(self, .trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
         
         Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
-        Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
-        Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
         Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        // MARK: Commands --------------------------------------------------------------
         
-        SyncMessenger.subscribe(actionTypes: [.playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
+        Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
+        
+        Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
+        
+        
+        SyncMessenger.subscribe(actionTypes: [.stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
     
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
+        playOrPause()
+    }
+    
+    func playOrPause() {
         
         player.togglePlayPause()
         playbackView.playbackStateChanged(player.state)
@@ -350,8 +360,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         switch message.actionType {
             
         // MARK: Player functions
-            
-        case .playOrPause: playPauseAction(self)
             
         case .stop: stop()
             

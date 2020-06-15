@@ -71,7 +71,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
             if event.keyPressed {
                 
                 DispatchQueue.main.async {
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
+                    Messenger.publish(.player_playOrPause)
                 }
             }
             
