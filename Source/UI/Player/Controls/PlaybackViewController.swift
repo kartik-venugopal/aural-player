@@ -38,11 +38,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .player_replayTrack, self.replayTrack)
         Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))
         Messenger.subscribe(self, .player_seekForward, self.seekForward(_:))
-        
         Messenger.subscribe(self, .player_seekBackward_secondary, self.seekBackward_secondary)
         Messenger.subscribe(self, .player_seekForward_secondary, self.seekForward_secondary)
+        Messenger.subscribe(self, .player_jumpToTime, self.jumpToTime(_:))
+        Messenger.subscribe(self, .player_toggleLoop, self.toggleLoop)
         
-        SyncMessenger.subscribe(actionTypes: [.toggleLoop, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -219,7 +220,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         playbackView.updateSeekPosition()
     }
     
-    private func jumpToTime(_ time: Double) {
+    func jumpToTime(_ time: Double) {
         
         player.seekToTime(time)
         playbackView.updateSeekPosition()
@@ -239,7 +240,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         toggleLoop()
     }
     
-    private func toggleLoop() {
+    func toggleLoop() {
         
         if player.state.isPlayingOrPaused {
             
@@ -371,16 +372,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        // MARK: Player functions
-            
-        case .toggleLoop: toggleLoop()
-            
-        case .jumpToTime:
-            
-            if let jumpToTimeActionMessage = message as? JumpToTimeActionMessage {
-                jumpToTime(jumpToTimeActionMessage.time)
-            }
             
         // MARK: Player view settings
             

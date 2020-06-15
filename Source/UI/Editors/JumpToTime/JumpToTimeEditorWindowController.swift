@@ -159,7 +159,7 @@ class JumpToTimeEditorWindowController: NSWindowController, MessageSubscriber, M
             jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
         }
         
-        SyncMessenger.publishActionMessage(JumpToTimeActionMessage(jumpToTime))
+        Messenger.publish(.player_jumpToTime, payload: jumpToTime)
         
         modalDialogResponse = .ok
         UIUtils.dismissDialog(self.window!)

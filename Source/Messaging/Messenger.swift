@@ -81,8 +81,6 @@ class Messenger {
         })
         
         registerSubscription(subscriberId, notifName, observer)
-        
-//        print("\nSubscribed subscriber:", subscriberId, "to notif:", notifName.rawValue)
     }
     
     // No payload
@@ -104,8 +102,6 @@ class Messenger {
         })
         
         registerSubscription(subscriberId, notifName, observer)
-        
-//        print("\nSubscribed subscriber:", subscriberId, "to notif:", notifName.rawValue)
     }
     
     // With payload
@@ -123,8 +119,6 @@ class Messenger {
         })
         
         registerSubscription(subscriber.subscriberId, notifName, observer)
-        
-//        print("\nSubscribedAsync subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
     }
     
     // No payload
@@ -142,8 +136,6 @@ class Messenger {
         })
         
         registerSubscription(subscriber.subscriberId, notifName, observer)
-        
-//        print("\nSubscribedAsync subscriber:", subscriber.subscriberId, "to notif:", notifName.rawValue)
     }
     
     static func unsubscribe(_ subscriber: MessageSubscriber, _ notifName: Notification.Name) {
