@@ -117,12 +117,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
+        Messenger.publish(.player_previousTrack)
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextTrack))
+        Messenger.publish(.player_nextTrack)
     }
     
     // Replays the currently playing track from the beginning, if there is one

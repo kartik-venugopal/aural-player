@@ -118,7 +118,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
                 // Change track
                 DispatchQueue.main.async {
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
+                    Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
                 }
                 
             } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
@@ -139,7 +139,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
+                Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
             }
             
             // Only do this on keyDown, if it is being repeated
@@ -149,7 +149,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .nextTrack : .previousTrack))
+                    Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
                     
                 }, queue: .main)
                 

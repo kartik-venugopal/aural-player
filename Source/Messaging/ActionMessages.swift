@@ -148,10 +148,6 @@ enum ActionType {
     
     // MARK: Playback actions
     
-    case previousTrack
-    
-    case nextTrack
-    
     case replayTrack
     
     case toggleLoop

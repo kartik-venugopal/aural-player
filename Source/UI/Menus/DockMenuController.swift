@@ -187,12 +187,12 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
+        Messenger.publish(.player_previousTrack)
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextTrack))
+        Messenger.publish(.player_nextTrack)
     }
     
     // Seeks backward within the currently playing track
