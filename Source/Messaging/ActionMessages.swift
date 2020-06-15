@@ -148,8 +148,6 @@ enum ActionType {
     
     // MARK: Playback actions
     
-    case toggleLoop
-    
     // Play the previous available chapter
     case previousChapter
     
@@ -161,8 +159,6 @@ enum ActionType {
     
     // Toggle the current chapter playback loop
     case toggleChapterLoop
-    
-    case jumpToTime
     
     // Set repeat mode to "Off"
     case repeatOff
@@ -566,17 +562,6 @@ struct DelayedPlaybackActionMessage: ActionMessage {
     init(_ delay: Double, _ playlistType: PlaylistType?) {
         self.delay = delay
         self.playlistType = playlistType
-    }
-}
-
-struct JumpToTimeActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .jumpToTime
-    
-    let time: Double
-    
-    init(_ time: Double) {
-        self.time = time
     }
 }
 

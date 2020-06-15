@@ -132,7 +132,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Toggles A->B playback loop
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleLoop))
+        Messenger.publish(.player_toggleLoop)
     }
     
     // MARK: Basic playback functions (chapters)
