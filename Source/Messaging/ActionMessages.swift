@@ -148,8 +148,6 @@ enum ActionType {
     
     // MARK: Playback actions
     
-    case stop
-    
     case previousTrack
     
     case nextTrack

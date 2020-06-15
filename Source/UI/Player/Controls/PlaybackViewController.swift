@@ -32,9 +32,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
         
         Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
+        Messenger.subscribe(self, .player_stop, self.stop)
         
-        
-        SyncMessenger.subscribe(actionTypes: [.stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -102,7 +102,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         player.nextTrack()
     }
     
-    private func stop() {
+    func stop() {
         player.stop()
     }
     
@@ -360,8 +360,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         switch message.actionType {
             
         // MARK: Player functions
-            
-        case .stop: stop()
             
         case .replayTrack: replayTrack()
             
