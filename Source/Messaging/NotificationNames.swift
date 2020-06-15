@@ -69,9 +69,6 @@ extension Notification.Name {
     // Replay the currently playing track from the beginning, if there is one
     static let player_replayTrack = Notification.Name("player_replayTrack")
 
-    // Toggle A->B segment playback loop
-    static let player_toggleLoop = Notification.Name("player_toggleLoop")
-    
     // Seek backward within the currently playing track
     static let player_seekBackward = Notification.Name("player_seekBackward")
 
@@ -86,6 +83,9 @@ extension Notification.Name {
 
     // Seek to a specific position within the currently playing track
     static let player_jumpToTime = Notification.Name("player_jumpToTime")
+    
+    // Toggle A->B segment playback loop
+    static let player_toggleLoop = Notification.Name("player_toggleLoop")
     
     // ----------
     

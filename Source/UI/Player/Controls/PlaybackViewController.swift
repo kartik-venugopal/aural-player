@@ -35,11 +35,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .player_stop, self.stop)
         Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
         Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
+        Messenger.subscribe(self, .player_replayTrack, self.replayTrack)
+        Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))
+        Messenger.subscribe(self, .player_seekForward, self.seekForward(_:))
         
-        Messenger.subscribe(self, .player_replayTrack, self.replayTrack,
-                            filter: {self.player.state.isPlayingOrPaused})
+        Messenger.subscribe(self, .player_seekBackward_secondary, self.seekBackward_secondary)
+        Messenger.subscribe(self, .player_seekForward_secondary, self.seekForward_secondary)
         
-        SyncMessenger.subscribe(actionTypes: [.toggleLoop, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleLoop, .jumpToTime, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -187,32 +190,32 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         seekBackward(.discrete)
     }
     
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        seekForward(.discrete)
-    }
-    
-    private func seekForward(_ actionMode: ActionMode) {
-        
-        player.seekForward(actionMode)
-        playbackView.updateSeekPosition()
-    }
-    
-    private func seekBackward(_ actionMode: ActionMode) {
+    func seekBackward(_ actionMode: ActionMode) {
         
         player.seekBackward(actionMode)
         playbackView.updateSeekPosition()
     }
     
-    private func seekForward_secondary() {
+    func seekBackward_secondary() {
         
-        player.seekForwardSecondary()
+        player.seekBackwardSecondary()
         playbackView.updateSeekPosition()
     }
     
-    private func seekBackward_secondary() {
+    // Seeks forward within the currently playing track
+    @IBAction func seekForwardAction(_ sender: AnyObject) {
+        seekForward(.discrete)
+    }
+    
+    func seekForward(_ actionMode: ActionMode) {
         
-        player.seekBackwardSecondary()
+        player.seekForward(actionMode)
+        playbackView.updateSeekPosition()
+    }
+    
+    func seekForward_secondary() {
+        
+        player.seekForwardSecondary()
         playbackView.updateSeekPosition()
     }
     
@@ -372,26 +375,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // MARK: Player functions
             
         case .toggleLoop: toggleLoop()
-            
-        case .seekBackward:
-            
-            if let playbackActionMessage = message as? PlaybackActionMessage {
-                seekBackward(playbackActionMessage.actionMode)
-            }
-            
-        case .seekForward:
-            
-            if let playbackActionMessage = message as? PlaybackActionMessage {
-                seekForward(playbackActionMessage.actionMode)
-            }
-            
-        case .seekBackward_secondary:
-            
-            seekBackward_secondary()
-            
-        case .seekForward_secondary:
-            
-            seekForward_secondary()
             
         case .jumpToTime:
             

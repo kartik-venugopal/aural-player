@@ -111,7 +111,7 @@ class GestureHandler {
             if ScrollSession.validateEvent(event, scrollDirection) {
         
                 // Scroll left = seek backward, scroll right = seek forward
-                SyncMessenger.publishActionMessage(PlaybackActionMessage(scrollDirection == .left ? .seekBackward : .seekForward, .continuous))
+                Messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: ActionMode.continuous)
             }
         }
     }

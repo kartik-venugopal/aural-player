@@ -106,7 +106,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
+                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
                     
                 }, queue: .main)
                 
@@ -173,7 +173,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
+                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
             }
             
             // Only do this on keyDown, if it is being repeated
@@ -183,7 +183,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(isFwd ? .seekForward : .seekBackward))
+                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
                     
                 }, queue: .main)
                 

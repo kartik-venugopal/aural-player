@@ -162,18 +162,6 @@ enum ActionType {
     // Toggle the current chapter playback loop
     case toggleChapterLoop
     
-    
-    case seekBackward
-    
-    
-    case seekForward
-    
-    // Seek backward within the currently playing track
-    case seekBackward_secondary
-    
-    // Seek forward within the currently playing track
-    case seekForward_secondary
-    
     case jumpToTime
     
     // Set repeat mode to "Off"
