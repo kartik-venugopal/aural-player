@@ -252,12 +252,15 @@ extension Notification.Name {
     
     // MARK: Time FX unit commands
     
+    // Decreases the playback rate by a certain preset decrement
     static let timeFXUnit_decreaseRate = Notification.Name("timeFXUnit_decreaseRate")
 
+    // Increases the playback rate by a certain preset increment
     static let timeFXUnit_increaseRate = Notification.Name("timeFXUnit_increaseRate")
 
+    // Sets the playback rate to a specific value
     static let timeFXUnit_setRate = Notification.Name("timeFXUnit_setRate")
-    
+
     
 
     static let saveSoundProfile = Notification.Name("saveSoundProfile")

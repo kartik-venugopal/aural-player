@@ -217,19 +217,19 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Decreases the playback rate by a certain preset decrement
     @IBAction func decreaseRateAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseRate))
+        Messenger.publish(.timeFXUnit_decreaseRate)
     }
     
     // Increases the playback rate by a certain preset increment
     @IBAction func increaseRateAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseRate))
+        Messenger.publish(.timeFXUnit_increaseRate)
     }
     
     // Sets the playback rate to a value specified by the menu item clicked
     @IBAction func setRateAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the playback rate value associated with the menu item
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setRate, .discrete, sender.paramValue))
+        Messenger.publish(.timeFXUnit_setRate, payload: sender.paramValue)
     }
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {

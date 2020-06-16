@@ -87,15 +87,6 @@ enum ActionType {
     case moreInfo
     
     // MARK: Audio graph actions
-
-    // Increases the playback rate by a certain preset increment
-    case increaseRate
-    
-    // Decreases the playback rate by a certain preset decrement
-    case decreaseRate
-    
-    // Sets the playback rate to a specific value
-    case setRate
     
     // Saves the current settings in a sound profile for the current track
     case saveSoundProfile

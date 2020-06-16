@@ -36,7 +36,10 @@ class TimeViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
+        
+        Messenger.subscribe(self, .timeFXUnit_decreaseRate, self.decreaseRate)
+        Messenger.subscribe(self, .timeFXUnit_increaseRate, self.increaseRate)
+        Messenger.subscribe(self, .timeFXUnit_setRate, self.setRate(_:))
     }
     
     override func oneTimeSetup() {
@@ -175,27 +178,5 @@ class TimeViewController: FXUnitViewController {
         
         super.changeFunctionCaptionTextColor(color)
         timeView.changeFunctionCaptionTextColor()
-    }
-
-    // MARK: Message handling
-
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-
-        if let message = message as? AudioGraphActionMessage {
-
-            switch message.actionType {
-
-            case .increaseRate: increaseRate()
-
-            case .decreaseRate: decreaseRate()
-
-            case .setRate: setRate(message.value!)
-
-            default: return
-
-            }
-        }
     }
 }
