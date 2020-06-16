@@ -80,7 +80,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         setUpTabGroup()
         
-        changeTextSize()
+        changeTextSize(PlaylistViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -130,8 +130,9 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
         Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
+        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -367,7 +368,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         
         lblTracksSummary.font = Fonts.Playlist.summaryFont
         lblDurationSummary.font = Fonts.Playlist.summaryFont
@@ -474,10 +475,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         case .nextPlaylistView: nextPlaylistView()
             
         case .previousPlaylistView: previousPlaylistView()
-            
-        case .changePlaylistTextSize:
-            
-            changeTextSize()
             
         case .applyColorScheme:
             

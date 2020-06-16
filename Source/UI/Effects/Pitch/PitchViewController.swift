@@ -174,11 +174,5 @@ class PitchViewController: FXUnitViewController {
                 
             }
         }
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
-        }
     }
 }

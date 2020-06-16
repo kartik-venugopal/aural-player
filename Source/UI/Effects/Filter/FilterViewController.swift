@@ -257,7 +257,7 @@ class FilterViewController: FXUnitViewController {
         }
     }
     
-    override func changeTextSize() {
+    override func changeTextSize(_ textSize: TextSize) {
 
         bandControllers.forEach({$0.changeTextSize()})
         
@@ -268,7 +268,7 @@ class FilterViewController: FXUnitViewController {
         // Redraw the frequency chart
         filterView.changeTextSize()
         
-        super.changeTextSize()
+        super.changeTextSize(textSize)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
@@ -377,12 +377,6 @@ class FilterViewController: FXUnitViewController {
     override func consumeMessage(_ message: ActionMessage) {
         
         super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
-        }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             

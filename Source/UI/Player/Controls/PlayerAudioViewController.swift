@@ -55,7 +55,9 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .changePlayerTextSize, .applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
+        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
     }
     
     // Updates the volume
@@ -237,12 +239,6 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         case .panRight:
             
             panRight()
-            
-        case .changePlayerTextSize:
-            
-            if let textSizeMsg = message as? TextSizeActionMessage {
-                changeTextSize(textSizeMsg.textSize)
-            }
             
         case .applyColorScheme:
             

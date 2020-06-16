@@ -225,10 +225,6 @@ enum ActionType {
     case setTimeRemainingDisplayFormat
     case showOrHideTimeElapsedRemaining
     
-    case changePlayerTextSize
-    case changeEffectsTextSize
-    case changePlaylistTextSize
-    
     // Color scheme change actions
     case applyColorScheme
     
@@ -365,19 +361,6 @@ struct ViewActionMessage: ActionMessage {
     
     init(_ actionType: ActionType) {
         self.actionType = actionType
-    }
-}
-
-// An action message sent to a view to change the size of its text
-struct TextSizeActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    let textSize: TextSize
-    
-    init(_ actionType: ActionType, _ textSize: TextSize) {
-        
-        self.actionType = actionType
-        self.textSize = textSize
     }
 }
 

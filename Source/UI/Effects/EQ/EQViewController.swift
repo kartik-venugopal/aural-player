@@ -97,9 +97,9 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
-    override func changeTextSize() {
+    override func changeTextSize(_ textSize: TextSize) {
 
-        super.changeTextSize()
+        super.changeTextSize(textSize)
         
         // Resize selector button and sync button text
         eqView.changeTextSize()
@@ -183,12 +183,6 @@ class EQViewController: FXUnitViewController {
             default: return
                 
             }
-        }
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
         }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {

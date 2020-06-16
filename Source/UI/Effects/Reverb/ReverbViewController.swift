@@ -56,9 +56,9 @@ class ReverbViewController: FXUnitViewController {
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
     }
     
-    override func changeTextSize() {
+    override func changeTextSize(_ textSize: TextSize) {
         
-        super.changeTextSize()
+        super.changeTextSize(textSize)
         reverbView.changeTextSize()
     }
     
@@ -114,12 +114,6 @@ class ReverbViewController: FXUnitViewController {
     override func consumeMessage(_ message: ActionMessage) {
         
         super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
-        }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             

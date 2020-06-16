@@ -104,7 +104,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -587,7 +589,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         
         let selRows = playlistView.selectedRowIndexes
         playlistView.reloadData()
@@ -681,12 +683,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
                 
             }
             
-            return
-        }
-        
-        if message is TextSizeActionMessage {
-            
-            changeTextSize()
             return
         }
         

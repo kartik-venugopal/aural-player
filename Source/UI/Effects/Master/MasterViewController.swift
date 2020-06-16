@@ -136,7 +136,7 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
-    override func changeTextSize() {
+    override func changeTextSize(_ textSize: TextSize) {
         
         lblCaption.font = Fonts.Effects.unitCaptionFont
         
@@ -182,9 +182,6 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
-            
-        case .changeEffectsTextSize:
-            changeTextSize()
             
         default: return
             

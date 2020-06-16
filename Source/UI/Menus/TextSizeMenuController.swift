@@ -11,19 +11,19 @@ class TextSizeMenuController: NSObject, NSMenuDelegate {
             if PlayerViewState.textSize != size {
                 
                 PlayerViewState.textSize = size
-                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlayerTextSize, size))
+                Messenger.publish(.changePlayerTextSize, payload: size)
             }
             
             if PlaylistViewState.textSize != size {
                 
                 PlaylistViewState.textSize = size
-                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+                Messenger.publish(.changePlaylistTextSize, payload: size)
             }
             
             if EffectsViewState.textSize != size {
                 
                 EffectsViewState.textSize = size
-                SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, size))
+                Messenger.publish(.changeFXTextSize, payload: size)
             }
         }
     }

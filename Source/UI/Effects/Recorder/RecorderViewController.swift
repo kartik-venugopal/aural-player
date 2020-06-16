@@ -40,7 +40,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeTextButtonMenuColor, .changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -119,7 +121,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         
         lblCaption.font = Fonts.Effects.unitCaptionFont
         
@@ -204,12 +206,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     }
     
     func consumeMessage(_ message: ActionMessage) {
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
-        }
         
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             

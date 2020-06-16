@@ -72,7 +72,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         // Subscribe to message notifications
         Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .changeEffectsTextSize, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
+        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
     }
     
     func initControls() {
@@ -109,7 +111,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
     }
     
-    func changeTextSize() {
+    func changeTextSize(_ textSize: TextSize) {
         
         lblCaption.font = Fonts.Effects.unitCaptionFont
         functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})

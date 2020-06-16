@@ -286,7 +286,7 @@ extension Notification.Name {
 
     static let changePlayerTextSize = Notification.Name("changePlayerTextSize")
 
-    static let changeEffectsTextSize = Notification.Name("changeEffectsTextSize")
+    static let changeFXTextSize = Notification.Name("changeFXTextSize")
 
     static let changePlaylistTextSize = Notification.Name("changePlaylistTextSize")
 

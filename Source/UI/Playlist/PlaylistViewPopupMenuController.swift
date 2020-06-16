@@ -35,7 +35,7 @@ class PlaylistViewPopupMenuController: NSObject, NSMenuDelegate {
         if let size = TextSize(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
             
             PlaylistViewState.textSize = size
-            SyncMessenger.publishActionMessage(TextSizeActionMessage(.changePlaylistTextSize, size))
+            Messenger.publish(.changePlaylistTextSize, payload: size)
         }
     }
 }
