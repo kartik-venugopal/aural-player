@@ -104,7 +104,13 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
                             {(notif: DelayedPlaybackCommandNotification) in self.playSelectedItemWithDelay(notif.delay)},
                             filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(self.playlistType)})
         
-        SyncMessenger.subscribe(actionTypes: [.insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_insertGaps,
+                            {(notif: InsertPlaybackGapsCommandNotification) in self.insertGaps(notif.gapBeforeTrack, notif.gapAfterTrack)},
+                            filter: {(notif: InsertPlaybackGapsCommandNotification) in notif.viewSelector.includes(self.playlistType)})
+        
+        Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -689,7 +695,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         }
     }
     
-    private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
+    private func insertGaps(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
@@ -897,25 +903,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             
             applyColorScheme(colorSchemeMsg.scheme)
-            return
-        }
-        
-        if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
-            
-            // Check if this message is intended for this playlist view
-            if insertGapsMsg.playlistType == self.playlistType {
-                insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
-            }
-            
-            return
-        }
-        
-        if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
-            
-            if removeGapMsg.playlistType == self.playlistType {
-                removeGaps()
-            }
-            
             return
         }
     }

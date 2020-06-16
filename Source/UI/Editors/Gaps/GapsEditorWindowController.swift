@@ -189,7 +189,8 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             gapAfterTrack = PlaybackGap(duration2, .afterTrack, type2)
         }
         
-        SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBeforeTrack, gapAfterTrack, PlaylistViewState.current))
+        Messenger.publish(InsertPlaybackGapsCommandNotification(gapBeforeTrack: gapBeforeTrack, gapAfterTrack: gapAfterTrack,
+                                                                viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
         
         modalDialogResponse = .ok
         UIUtils.dismissDialog(self.window!)

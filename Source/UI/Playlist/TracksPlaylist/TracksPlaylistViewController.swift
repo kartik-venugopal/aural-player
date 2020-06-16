@@ -98,7 +98,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
                             {(notif: DelayedPlaybackCommandNotification) in self.playSelectedTrackWithDelay(notif.delay)},
                             filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(.tracks)})
         
-        SyncMessenger.subscribe(actionTypes: [.insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_insertGaps,
+                            {(notif: InsertPlaybackGapsCommandNotification) in self.insertGaps(notif.gapBeforeTrack, notif.gapAfterTrack)},
+                            filter: {(notif: InsertPlaybackGapsCommandNotification) in notif.viewSelector.includes(.tracks)})
+        
+        Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -541,7 +547,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         }
     }
     
-    private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
+    private func insertGaps(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
         if let track = playlist.trackAtIndex(playlistView.selectedRow)?.track {
             
@@ -724,25 +730,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
                 
             default: return
                 
-            }
-            
-            return
-        }
-        
-        if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
-            
-            // Check if this message is intended for this playlist view
-            if insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == .tracks {
-                insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
-            }
-            
-            return
-        }
-        
-        if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
-            
-            if removeGapMsg.playlistType == nil || removeGapMsg.playlistType == .tracks {
-                removeGaps()
             }
             
             return
