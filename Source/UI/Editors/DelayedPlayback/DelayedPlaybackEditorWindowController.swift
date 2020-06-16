@@ -87,7 +87,8 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         
         if delay < 0 {delay = 0}
         
-        SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(delay, PlaylistViewState.current))
+        Messenger.publish(DelayedPlaybackCommandNotification(delay: delay,
+                                                             viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
         
         modalDialogResponse = .ok
         UIUtils.dismissDialog(self.window!)

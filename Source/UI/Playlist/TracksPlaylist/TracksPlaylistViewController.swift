@@ -94,7 +94,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedTrack()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_playSelectedItemWithDelay,
+                            {(notif: DelayedPlaybackCommandNotification) in self.playSelectedTrackWithDelay(notif.delay)},
+                            filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(.tracks)})
+        
+        SyncMessenger.subscribe(actionTypes: [.insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -722,12 +726,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
                 
             }
             
-            return
-        }
-        
-        if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
-            
-            playSelectedTrackWithDelay(delayedPlaybackMsg.delay)
             return
         }
         

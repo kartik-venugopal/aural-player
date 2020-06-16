@@ -2,7 +2,7 @@
 
 ### Messaging (back end) redesign
 
-The messaging framework has been redesigned as a thin wrapper around NotificationCenter, resulting in much cleaner and more concise notification handling code throughout the app.
+The internal messaging framework has been redesigned as a thin wrapper around NotificationCenter, resulting in much cleaner and more concise notification handling code throughout the app.
 
 ### Bug fixes
 
