@@ -36,7 +36,7 @@ class PlaylistInputEventHandler {
         if preferences.allowPlaylistNavigation {
         
             // Publish the action message
-            SyncMessenger.publishActionMessage(PlaylistActionMessage(swipeDirection == .up ? .scrollToTop : .scrollToBottom, nil))
+            Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom, payload: PlaylistViewSelector.allViews)
         }
     }
     

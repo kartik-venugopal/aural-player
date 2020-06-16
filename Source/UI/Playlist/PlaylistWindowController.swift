@@ -351,20 +351,20 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
     
     // Scrolls the playlist view to the top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToTop, PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     // Scrolls the playlist view to the bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func pageUpAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageUp, PlaylistViewState.current))
+        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func pageDownAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
+        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     private func changeTextSize() {
