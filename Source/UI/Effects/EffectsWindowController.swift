@@ -115,7 +115,11 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize)
         
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        // MARK: Commands ----------------------------------------------------------------------------------------
+        
+        Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -208,40 +212,31 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         // Update the tab button states
         fxTabViewButtons.forEach({$0.updateState()})
     }
+    
+    func showTab(_ fxUnit: EffectsUnit) {
+        
+        switch fxUnit {
+
+        case .eq: tabViewAction(eqTabViewButton)
+
+        case .pitch: tabViewAction(pitchTabViewButton)
+
+        case .time: tabViewAction(timeTabViewButton)
+
+        case .reverb: tabViewAction(reverbTabViewButton)
+
+        case .delay: tabViewAction(delayTabViewButton)
+
+        case .filter: tabViewAction(filterTabViewButton)
+
+        case .recorder: tabViewAction(recorderTabViewButton)
+            
+        case .master: tabViewAction(masterTabViewButton)
+            
+        }
+    }
 
     func consumeMessage(_ message: ActionMessage) {
-
-        if let message = message as? EffectsViewActionMessage {
-
-            switch message.actionType {
-
-            // Action message to switch tabs
-            case .showEffectsUnitTab:
-
-                switch message.effectsUnit {
-
-                case .eq: tabViewAction(eqTabViewButton)
-
-                case .pitch: tabViewAction(pitchTabViewButton)
-
-                case .time: tabViewAction(timeTabViewButton)
-
-                case .reverb: tabViewAction(reverbTabViewButton)
-
-                case .delay: tabViewAction(delayTabViewButton)
-
-                case .filter: tabViewAction(filterTabViewButton)
-
-                case .recorder: tabViewAction(recorderTabViewButton)
-                    
-                case .master: tabViewAction(masterTabViewButton)
-                    
-                }
-
-            default: return
-
-            }
-        }
         
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             

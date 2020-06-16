@@ -67,7 +67,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     func applyPresetAction() {
         
         fxUnit.applyPreset(firstSelectedPresetName)
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, self.unitType))
+        Messenger.publish(.fx_updateFXUnitView, payload: self.unitType!)
     }
     
     func renderPreview(_ presetName: String) {}

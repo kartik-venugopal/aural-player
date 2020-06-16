@@ -81,15 +81,6 @@ enum ActionType {
      // Play the chapter selected within the chapters list
      case playSelectedChapter
     
-    // MARK: Effects view actions
-    
-    // Switches the Effects panel tab group to a specfic tab
-    case showEffectsUnitTab
-    
-    case updateEffectsView
-    
-    // MARK: View actions
-    
     // MARK: Effects presets editor actions
     
     case reloadPresets
@@ -209,33 +200,6 @@ struct PlaybackActionMessage: ActionMessage {
     }
 }
 
-// A message sent to the audio graph view controller to perform an audio graph (i.e. sound altering) function.
-struct AudioGraphActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    var actionMode: ActionMode
-    
-    // A generic numerical parameter value whose meaning depends on the action type. Example, if actionType = setRate, this value represents the desired playback rate.
-    var value: Float?
-    
-    init(_ actionType: ActionType, _ actionMode: ActionMode = .discrete, _ value: Float? = nil) {
-        
-        self.actionType = actionType
-        self.actionMode = actionMode
-        self.value = value
-    }
-}
-
-// A message sent to a window/view controller to perform a view-related function.
-struct ViewActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    init(_ actionType: ActionType) {
-        self.actionType = actionType
-    }
-}
-
 struct ColorSchemeComponentActionMessage: ActionMessage {
     
     let actionType: ActionType
@@ -255,29 +219,6 @@ struct ColorSchemeActionMessage: ActionMessage {
     
     init(_ scheme: ColorScheme) {
         self.scheme = scheme
-    }
-}
-
-// A message sent to the effects view controller to perform a function related to the effects view (e.g. switch to a certain effects unit tab)
-struct EffectsViewActionMessage: ActionMessage {
-    
-    var actionType: ActionType
- 
-    // The effects unit that is the sender of this message
-    let effectsUnit: EffectsUnit
-    
-    init(_ actionType: ActionType, _ effectsUnit: EffectsUnit) {
-        self.actionType = actionType
-        self.effectsUnit = effectsUnit
-    }
-}
-
-struct BookmarkActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    
-    init(_ actionType: ActionType) {
-        self.actionType = actionType
     }
 }
 
@@ -326,7 +267,6 @@ class PlaylistCommandNotification: NotificationPayload {
     }
 }
 
-// TODO: Refactor message hierarchy. This could be a child of PlaylistActionMessage ???
 class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
     
     let delay: Double
@@ -349,17 +289,5 @@ class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
         self.gapAfterTrack = gapAfterTrack
         
         super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
-    }
-}
-
-struct PlayerViewActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    let viewType: PlayerViewType?
-    
-    init(_ actionType: ActionType, _ viewType: PlayerViewType? = nil) {
-        
-        self.actionType = actionType
-        self.viewType = viewType
     }
 }

@@ -74,7 +74,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.updateEffectsView, .applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
+        Messenger.subscribe(self, .fx_updateFXUnitView, {(EffectsUnit) in self.initControls()},
+                            filter: {(unit: EffectsUnit) in unit == .master || (unit == self.unitType)})
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
     }
     
     func initControls() {
@@ -88,7 +91,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     }
     
     func showThisTab() {
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, unitType))
+        Messenger.publish(.fx_showFXUnitTab, payload: self.unitType!)
     }
     
     @IBAction func bypassAction(_ sender: AnyObject) {
@@ -225,13 +228,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {
-        
-        if let msg = message as? EffectsViewActionMessage, msg.effectsUnit == .master || msg.effectsUnit == self.unitType {
-            
-            initControls()
-            return
-        }
-        
+
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             
             applyColorScheme(colorSchemeMsg.scheme)

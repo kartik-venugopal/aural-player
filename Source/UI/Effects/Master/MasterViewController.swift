@@ -68,7 +68,7 @@ class MasterViewController: FXUnitViewController {
     @IBAction override func presetsAction(_ sender: AnyObject) {
         
         super.presetsAction(sender)
-        _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+        Messenger.publish(.fx_updateFXUnitView, payload: EffectsUnit.master)
     }
     
     private func updateButtons() {
@@ -137,7 +137,7 @@ class MasterViewController: FXUnitViewController {
         if let newTrack = notification.endTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
-            _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+            Messenger.publish(.fx_updateFXUnitView, payload: EffectsUnit.master)
         }
     }
     
