@@ -319,7 +319,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
     
     // Shows the currently playing track, within the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     func showPlayingTrack() {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
+        Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     private func nextPlaylistView() {

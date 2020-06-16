@@ -89,7 +89,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .playlist_pageUp, {(PlaylistViewSelector) in self.pageUp()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_pageDown, {(PlaylistViewSelector) in self.pageDown()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedItem, .playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -654,10 +657,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             
             switch msg.actionType {
                 
-            case .showPlayingTrack:
-                
-                showPlayingTrack()
-                
             case .playSelectedItem:
                 
                 playSelectedTrackAction(self)
@@ -665,10 +664,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             case .selectedTrackInfo:
                 
                 showSelectedTrackInfo()
-                
-            case .showTrackInFinder:
-                
-                showTrackInFinder()
                 
             default: return
                 

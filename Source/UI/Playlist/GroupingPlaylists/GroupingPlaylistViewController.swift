@@ -95,7 +95,10 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .playlist_expandAllGroups, {(PlaylistViewSelector) in self.expandAllGroups()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_collapseAllGroups, {(PlaylistViewSelector) in self.collapseAllGroups()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedItem, .playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -833,17 +836,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             
             switch msg.actionType {
                 
-            case .showPlayingTrack:
-                
-                showPlayingTrack()
-                
             case .playSelectedItem:
                 
                 playSelectedItemAction(self)
-                
-            case .showTrackInFinder:
-                
-                showTrackInFinder()
                 
             default: return
                 
