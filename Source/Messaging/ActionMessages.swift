@@ -39,11 +39,6 @@ enum ActionType {
     
     // ******** NO PAYLOAD ****************************************************************************************
 
-    // ------- PLAYER ------------------
-    
-    case savePlaybackProfile
-    case deletePlaybackProfile
-    
     // ------- PLAYLIST ------------------
     
     // Display detailed track info popover for the selected playlist track
@@ -231,17 +226,6 @@ struct SoundProfileActionMessage: ActionMessage {
     static let save: SoundProfileActionMessage = SoundProfileActionMessage(.saveSoundProfile)
     
     static let delete: SoundProfileActionMessage = SoundProfileActionMessage(.deleteSoundProfile)
-}
-
-struct PlaybackProfileActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    
-    private init(_ actionType: ActionType) {self.actionType = actionType}
-    
-    static let save: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.savePlaybackProfile)
-    
-    static let delete: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.deletePlaybackProfile)
 }
 
 struct EffectsPresetsEditorActionMessage: ActionMessage {
