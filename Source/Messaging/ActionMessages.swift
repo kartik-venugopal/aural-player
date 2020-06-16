@@ -46,8 +46,6 @@ enum ActionType {
     // Clear the playlist of all tracks
     case clearPlaylist
     
-    case playSelectedItemWithDelay
-    
     // Play the chapter selected within the chapters list
     case playSelectedChapter
     
@@ -72,24 +70,6 @@ enum ActionType {
     case selectedTrackInfo
     
     // MARK: Playlist window actions
-    
-    // Dock playlist to the left of the main window
-    case dockLeft
-    
-    // Dock playlist to the right of the main window
-    case dockRight
-    
-    // Dock playlist below the main window
-    case dockBottom
-    
-    // Maximize playlist both horizontally and vertically
-    case maximize
-    
-    // Maximize playlist horizontally
-    case maximizeHorizontal
-    
-    // Maximize playlist vertically
-    case maximizeVertical
     
     // Show chapters list window for currently playing track
     case viewChapters
@@ -230,13 +210,6 @@ enum ActionType {
     case deleteEffectsPresets
     case applyEffectsPreset
     
-    // MARK: Mini bar actions
-    
-    case dockTopLeft
-    case dockTopRight
-    case dockBottomLeft
-    case dockBottomRight
-    
     // Now playing view actions
     
     case changePlayerView
@@ -358,15 +331,6 @@ struct PlaylistActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.playlistType = playlistType
-    }
-}
-
-struct MiniBarActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    init(_ actionType: ActionType) {
-        self.actionType = actionType
     }
 }
 
@@ -527,17 +491,27 @@ struct RemovePlaybackGapsActionMessage: ActionMessage {
     }
 }
 
-// TODO: Refactor message hierarchy. This could be a child of PlaylistActionMessage ???
-struct DelayedPlaybackActionMessage: ActionMessage {
+class PlaylistCommandNotification: NotificationPayload {
+
+    let notificationName: Notification.Name
+    let viewSelector: PlaylistViewSelector
     
-    let actionType: ActionType = .playSelectedItemWithDelay
+    init(notificationName: Notification.Name, viewSelector: PlaylistViewSelector) {
+        
+        self.notificationName = notificationName
+        self.viewSelector = viewSelector
+    }
+}
+
+// TODO: Refactor message hierarchy. This could be a child of PlaylistActionMessage ???
+class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
     
     let delay: Double
-    let playlistType: PlaylistType?
     
-    init(_ delay: Double, _ playlistType: PlaylistType?) {
+    init(delay: Double, viewSelector: PlaylistViewSelector) {
+        
         self.delay = delay
-        self.playlistType = playlistType
+        super.init(notificationName: .playlist_playSelectedItemWithDelay, viewSelector: viewSelector)
     }
 }
 

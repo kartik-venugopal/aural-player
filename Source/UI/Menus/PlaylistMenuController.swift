@@ -367,7 +367,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(Double(delay), PlaylistViewState.current))
+            Messenger.publish(DelayedPlaybackCommandNotification(delay: Double(delay),
+                                                                 viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
         }
     }
     

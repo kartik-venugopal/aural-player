@@ -100,7 +100,11 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedItem()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_playSelectedItemWithDelay,
+                            {(notif: DelayedPlaybackCommandNotification) in self.playSelectedItemWithDelay(notif.delay)},
+                            filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(self.playlistType)})
+        
+        SyncMessenger.subscribe(actionTypes: [.insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -893,15 +897,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             
             applyColorScheme(colorSchemeMsg.scheme)
-            return
-        }
-        
-        if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
-            
-            if delayedPlaybackMsg.playlistType == self.playlistType {
-                playSelectedItemWithDelay(delayedPlaybackMsg.delay)
-            }
-            
             return
         }
         
