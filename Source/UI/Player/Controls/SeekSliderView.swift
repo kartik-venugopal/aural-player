@@ -127,10 +127,10 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
             }
             
         } else {
-            
             seekSliderCell.removeLoop()
         }
-        
+
+        seekSlider.redraw()
         updateSeekPosition()
     }
     
@@ -217,6 +217,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         
         // Slider knob position
         let knobRect = seekSliderCell.knobRect(flipped: false)
-        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.minX + knobRect.centerX, y: seekSlider.frame.minY + knobRect.minY))
+        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.minX + knobRect.minX, y: seekSlider.frame.minY + knobRect.minY))
     }
 }

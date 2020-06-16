@@ -53,9 +53,18 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
+        Messenger.subscribe(self, .player_moreInfo, self.moreInfo)
+        Messenger.subscribe(self, .player_addOrRemoveFavorite, self.addOrRemoveFavorite)
+        Messenger.subscribe(self, .player_bookmarkPosition, self.bookmarkPosition)
+        Messenger.subscribe(self, .player_bookmarkLoop, self.bookmarkLoop)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         self.view.hide()
+    }
+    
+    private func moreInfo() {
+        moreInfoAction(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -107,12 +116,20 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         }
     }
     
+    private func addOrRemoveFavorite() {
+        favoriteAction(self)
+    }
+    
     // Adds the currently playing track position to/from the "Bookmarks" list
     @IBAction func bookmarkAction(_ sender: Any) {
         
         if let playingTrack = player.playingTrack {
             doBookmark(playingTrack, player.seekPosition.timeElapsed)
         }
+    }
+    
+    private func bookmarkPosition() {
+        bookmarkAction(self)
     }
     
     // When a bookmark menu item is clicked, the item is played
@@ -246,13 +263,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .moreInfo: moreInfoAction(self)
         
-        case .bookmarkPosition: bookmarkAction(self)
-            
-        case .bookmarkLoop: bookmarkLoop()
-            
         case .applyColorScheme, .changeFunctionButtonColor:
                
             redrawButtons()

@@ -91,17 +91,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
-        
-        // Check if there is a track playing (this function cannot be invoked otherwise)
-        if let playingTrack = playbackInfo.currentTrack {
-            
-            // Publish an action message to add/remove the item to/from Favorites
-            if favorites.favoriteWithFileExists(playingTrack.file) {
-                favorites.deleteFavoriteWithFile(playingTrack.file)
-            } else {
-                _ = favorites.addFavorite(playingTrack)
-            }
-        }
+        Messenger.publish(.player_addOrRemoveFavorite)
     }
     
     // When a "Favorites" menu item is clicked, the item is played

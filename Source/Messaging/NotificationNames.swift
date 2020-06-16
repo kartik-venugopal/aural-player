@@ -145,6 +145,19 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Playing track commands
+    
+    // Show detailed info for the currently playing track
+    static let player_moreInfo = Notification.Name("player_moreInfo")
+    
+    static let player_bookmarkPosition = Notification.Name("player_bookmarkPosition")
+
+    static let player_bookmarkLoop = Notification.Name("player_bookmarkLoop")
+    
+    static let player_addOrRemoveFavorite = Notification.Name("player_addOrRemoveFavorite")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Playlist commands
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
@@ -234,10 +247,6 @@ extension Notification.Name {
 
     static let toggleChapterLoop = Notification.Name("toggleChapterLoop")
 
-    
-    static let moreInfo = Notification.Name("moreInfo")
-    
-    
     // ----------------------------------------------------------------------------------------
     
     // MARK: FX commands
@@ -317,11 +326,6 @@ extension Notification.Name {
 
     // Show/hide the effects window
     static let windowLayout_toggleEffectsWindow = Notification.Name("windowLayout_toggleEffectsWindow")
-
-
-    static let bookmarkPosition = Notification.Name("bookmarkPosition")
-
-    static let bookmarkLoop = Notification.Name("bookmarkLoop")
 
     static let windowLayout = Notification.Name("windowLayout")
 

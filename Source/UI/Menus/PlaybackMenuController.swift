@@ -214,7 +214,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.moreInfo))
+        Messenger.publish(.player_moreInfo)
     }
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
