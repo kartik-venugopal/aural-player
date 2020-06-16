@@ -3,7 +3,7 @@ import Foundation
 // A function that produces an optional Track (used when deciding which track will play next)
 typealias TrackProducer = () -> Track?
 
-class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, ActionMessageSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, MessageSubscriber {
     
     // The actual player
     let player: PlayerProtocol
@@ -38,10 +38,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         Messenger.subscribeAsync(self, .playbackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
         
-        SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
+        Messenger.subscribe(self, .player_savePlaybackProfile, self.savePlaybackProfile)
+        Messenger.subscribe(self, .player_deletePlaybackProfile, self.deletePlaybackProfile)
     }
-    
-    let subscriberId: String = "PlaybackDelegate"
     
     // MARK: play()
     
@@ -400,23 +399,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
         
         trackPlaybackCompletedChain.execute(requestContext)
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-            
-        case .savePlaybackProfile:
-            
-            savePlaybackProfile()
-            
-        case .deletePlaybackProfile:
-            
-            deletePlaybackProfile()
-            
-        default: return
-            
-        }
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there

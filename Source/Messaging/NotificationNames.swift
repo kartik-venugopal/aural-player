@@ -325,9 +325,9 @@ extension Notification.Name {
     static let deleteSoundProfile = Notification.Name("deleteSoundProfile")
     
 
-    static let savePlaybackProfile = Notification.Name("savePlaybackProfile")
+    static let player_savePlaybackProfile = Notification.Name("player_savePlaybackProfile")
 
-    static let deletePlaybackProfile = Notification.Name("deletePlaybackProfile")
+    static let player_deletePlaybackProfile = Notification.Name("player_deletePlaybackProfile")
     
 
     // Show/hide the playlist window
