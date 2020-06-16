@@ -93,18 +93,21 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         
+        Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
+        Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
+        
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
         
         Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
     
     // Shows/hides the playlist window (by delegating)
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
-        togglePlaylist()
+        togglePlaylistWindow()
     }
     
-    private func togglePlaylist() {
+    private func togglePlaylistWindow() {
 
         WindowManager.togglePlaylist()
         btnTogglePlaylist.toggle()
@@ -112,10 +115,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     // Shows/hides the effects panel on the main window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        toggleEffects()
+        toggleEffectsWindow()
     }
     
-    private func toggleEffects() {
+    private func toggleEffectsWindow() {
         
         WindowManager.toggleEffects()
         btnToggleEffects.toggle()
@@ -181,10 +184,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .toggleEffects: toggleEffects()
-            
-        case .togglePlaylist: togglePlaylist()
             
         case .changeBackgroundColor:
             

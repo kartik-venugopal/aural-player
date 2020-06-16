@@ -80,14 +80,3 @@ class WindowLayouts {
         return layouts[name] != nil
     }
 }
-
-struct WindowLayoutActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .windowLayout
-    
-    let layout: WindowLayoutPresets
-    
-    init(_ layout: WindowLayoutPresets) {
-        self.layout = layout
-    }
-}

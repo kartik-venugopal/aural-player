@@ -104,23 +104,13 @@ enum ActionType {
     
     case updateEffectsView
     
-    case editFilterBand
-    
     // MARK: View actions
-    
-    // Show/hide the playlist window
-    case togglePlaylist
-    
-    // Show/hide the Effects window
-    case toggleEffects
     
     // Show/hide the Chapters list window
     case toggleChaptersList
     
     case bookmarkPosition
     case bookmarkLoop
-    
-    case windowLayout
     
     // MARK: Effects presets editor actions
     
@@ -435,16 +425,5 @@ struct PlayerViewActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.viewType = viewType
-    }
-}
-
-struct EditFilterBandActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .editFilterBand
-    
-    let band: FilterBand
-    
-    init(_ band: FilterBand) {
-        self.band = band
     }
 }

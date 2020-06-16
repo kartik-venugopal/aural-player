@@ -132,7 +132,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+        Messenger.publish(.windowLayout_toggleEffectsWindow)
     }
     
     private func changeTextSize(_ textSize: TextSize) {
