@@ -163,12 +163,15 @@ extension Notification.Name {
     static let playlist_refresh = Notification.Name("playlist_refresh")
     
 
+    // Invoke the file dialog to add tracks to the playlist
     static let playlist_addTracks = Notification.Name("playlist_addTracks")
 
     static let playlist_removeTracks = Notification.Name("playlist_removeTracks")
 
+    // Save playlist to file
     static let playlist_savePlaylist = Notification.Name("playlist_savePlaylist")
 
+    // Clear the playlist of all tracks
     static let playlist_clearPlaylist = Notification.Name("playlist_clearPlaylist")
     
 
@@ -223,17 +226,22 @@ extension Notification.Name {
     static let playlist_pageDown = Notification.Name("playlist_pageDown")
     
     
-    static let playlist_previousPlaylistView = Notification.Name("playlist_previousPlaylistView")
+    // Switch to the previous playlist view (in the tab group)
+    static let playlist_previousView = Notification.Name("playlist_previousView")
 
-    static let playlist_nextPlaylistView = Notification.Name("playlist_nextPlaylistView")
+    // Switch to the next playlist view (in the tab group)
+    static let playlist_nextView = Notification.Name("playlist_nextView")
+    
 
     static let playlist_selectedTrackInfo = Notification.Name("playlist_selectedTrackInfo")
 
     static let playlist_viewChapters = Notification.Name("playlist_viewChapters")
     
     
+    // Invoke the search dialog
     static let playlist_search = Notification.Name("playlist_search")
 
+    // Invoke the sort dialog
     static let playlist_sort = Notification.Name("playlist_sort")
 
     

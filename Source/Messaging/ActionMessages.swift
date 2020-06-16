@@ -38,7 +38,6 @@ enum ActionType {
     // MARK: Playlist actions
     
     // ******** NO PAYLOAD ****************************************************************************************
-    
 
     // ------- PLAYER ------------------
     
@@ -46,28 +45,6 @@ enum ActionType {
     case deletePlaybackProfile
     
     // ------- PLAYLIST ------------------
-    
-    
-    // Add tracks to playlist
-    case addTracks
-    
-    // Save playlist to file
-    case savePlaylist
-    
-    // Clear the playlist of all tracks
-    case clearPlaylist
-    
-    // Invoke the search dialog
-       case search
-       
-       // Invoke the sort dialog
-       case sort
-    
-    // Switch to the previous playlist view (in the tab group)
-    case previousPlaylistView
-    
-    // Switch to the next playlist view (in the tab group)
-    case nextPlaylistView
     
     // Display detailed track info popover for the selected playlist track
     case selectedTrackInfo
