@@ -92,7 +92,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedItem, .playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedTrack()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -110,7 +112,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         playSelectedTrackWithDelay(nil)
     }
     
-    private func playSelectedTrackWithDelay(_ delay: Double?) {
+    func playSelectedTrack() {
+        playSelectedTrackWithDelay(nil)
+    }
+    
+    func playSelectedTrackWithDelay(_ delay: Double?) {
         
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
             Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow, delay: delay))
@@ -656,10 +662,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             }
             
             switch msg.actionType {
-                
-            case .playSelectedItem:
-                
-                playSelectedTrackAction(self)
                 
             case .selectedTrackInfo:
                 

@@ -46,9 +46,6 @@ enum ActionType {
     // Clear the playlist of all tracks
     case clearPlaylist
     
-    // Play the item selected within the current playlist view
-    case playSelectedItem
-    
     case playSelectedItemWithDelay
     
     // Play the chapter selected within the chapters list

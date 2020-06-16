@@ -352,7 +352,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
         } else {
 
-            SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
+            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         }
     }
     

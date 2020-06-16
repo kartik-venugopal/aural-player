@@ -98,7 +98,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedItem, .playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedItem()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedItemWithDelay, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -826,24 +828,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     // MARK: Message handlers
     
     func consumeMessage(_ message: ActionMessage) {
-        
-        if let msg = message as? PlaylistActionMessage {
-            
-            // Check if this message is intended for this playlist view
-            if let playlistType = msg.playlistType, playlistType != self.playlistType {
-                return
-            }
-            
-            switch msg.actionType {
-                
-            case .playSelectedItem:
-                
-                playSelectedItemAction(self)
-                
-            default: return
-                
-            }
-        }
         
         if message is TextSizeActionMessage {
             
