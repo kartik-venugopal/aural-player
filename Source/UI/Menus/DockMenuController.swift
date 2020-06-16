@@ -237,17 +237,17 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.muteOrUnmute))
+        Messenger.publish(.player_muteOrUnmute)
     }
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseVolume))
+        Messenger.publish(.player_decreaseVolume, payload: ActionMode.discrete)
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseVolume))
+        Messenger.publish(.player_increaseVolume, payload: ActionMode.discrete)
     }
     
     // Updates the menu item states per the current playback modes

@@ -52,7 +52,7 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Player commands
+    // MARK: Playback commands
     
     // Play, pause, or resume playback
     static let player_playOrPause = Notification.Name("player_playOrPause")
@@ -89,8 +89,26 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Playlist commands
+    // MARK: Player sound commands
     
+    // Mute or unmute the player
+    static let player_muteOrUnmute = Notification.Name("player_muteOrUnmute")
+    
+    // Decreases the volume by a certain preset decrement
+    static let player_decreaseVolume = Notification.Name("player_decreaseVolume")
+
+    // Increases the volume by a certain preset increment
+    static let player_increaseVolume = Notification.Name("player_increaseVolume")
+
+    // Pans the sound towards the left channel, by a certain preset value
+    static let player_panLeft = Notification.Name("player_panLeft")
+
+    // Pans the sound towards the right channel, by a certain preset value
+    static let player_panRight = Notification.Name("player_panRight")
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Playlist commands
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
 
@@ -188,19 +206,7 @@ extension Notification.Name {
 
     static let disableEffects = Notification.Name("disableEffects")
 
-    static let muteOrUnmute = Notification.Name("muteOrUnmute")
-
-    static let setVolume = Notification.Name("setVolume")
-
-    static let increaseVolume = Notification.Name("increaseVolume")
-
-    static let decreaseVolume = Notification.Name("decreaseVolume")
-
-    static let setPan = Notification.Name("setPan")
-
-    static let panLeft = Notification.Name("panLeft")
-
-    static let panRight = Notification.Name("panRight")
+    
 
     static let increaseBass = Notification.Name("increaseBass")
 

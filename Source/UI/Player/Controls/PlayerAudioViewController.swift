@@ -55,9 +55,17 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
+        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
+        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
+        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
+        
+        Messenger.subscribe(self, .player_panLeft, self.panLeft)
+        Messenger.subscribe(self, .player_panRight, self.panRight)
+        
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor],
+                                subscriber: self)
     }
     
     // Updates the volume
@@ -69,6 +77,10 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
+        muteOrUnmute()
+    }
+    
+    private func muteOrUnmute() {
         
         audioGraph.muted.toggle()
         updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
@@ -215,30 +227,6 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .muteOrUnmute:
-            
-            muteOrUnmuteAction(self)
-            
-        case .decreaseVolume:
-            
-            if let actionMode = (message as? AudioGraphActionMessage)?.actionMode {
-                decreaseVolume(actionMode)
-            }
-            
-        case .increaseVolume:
-            
-            if let actionMode = (message as? AudioGraphActionMessage)?.actionMode {
-                increaseVolume(actionMode)
-            }
-            
-        case .panLeft:
-            
-            panLeft()
-            
-        case .panRight:
-            
-            panRight()
             
         case .applyColorScheme:
             

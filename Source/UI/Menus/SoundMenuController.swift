@@ -136,27 +136,27 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.muteOrUnmute))
+        Messenger.publish(.player_muteOrUnmute)
     }
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseVolume))
+        Messenger.publish(.player_decreaseVolume, payload: ActionMode.discrete)
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseVolume))
+        Messenger.publish(.player_increaseVolume, payload: ActionMode.discrete)
     }
     
     // Pans the sound towards the left channel, by a certain preset value
     @IBAction func panLeftAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.panLeft))
+        Messenger.publish(.player_panLeft)
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     @IBAction func panRightAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.panRight))
+        Messenger.publish(.player_panRight)
     }
     
     // Toggles the master bypass switch
