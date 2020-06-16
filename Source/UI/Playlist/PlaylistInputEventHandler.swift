@@ -45,7 +45,7 @@ class PlaylistInputEventHandler {
         if preferences.allowPlaylistTabToggle {
             
             // Publish the action message
-            SyncMessenger.publishActionMessage(PlaylistActionMessage(swipeDirection == .left ? .previousPlaylistView : .nextPlaylistView, nil))
+            Messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
         }
     }
 }

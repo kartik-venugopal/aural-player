@@ -132,7 +132,19 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
+        // MARK: Commands -------------------------------------------------------------------------------------
+        
+        Messenger.subscribe(self, .playlist_addTracks, self.addTracks)
+        Messenger.subscribe(self, .playlist_savePlaylist, self.savePlaylist)
+        Messenger.subscribe(self, .playlist_clearPlaylist, self.clearPlaylist)
+        
+        Messenger.subscribe(self, .playlist_search, self.search)
+        Messenger.subscribe(self, .playlist_sort, self.sort)
+        
+        Messenger.subscribe(self, .playlist_previousView, self.previousView)
+        Messenger.subscribe(self, .playlist_nextView, self.nextView)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -155,6 +167,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         if (modalResponse == NSApplication.ModalResponse.OK) {
             playlist.addFiles(dialog.urls)
         }
+    }
+    
+    private func addTracks() {
+        addTracksAction(self)
     }
     
     // When a track add operation starts, the progress spinner needs to be initialized
@@ -275,6 +291,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         }
     }
     
+    private func savePlaylist() {
+        savePlaylistAction(self)
+    }
+    
     // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
@@ -290,6 +310,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
         
         updatePlaylistSummary()
+    }
+    
+    private func clearPlaylist() {
+        clearPlaylistAction(self)
     }
     
     // Moves any selected playlist items up one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
@@ -323,17 +347,21 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    private func nextPlaylistView() {
+    private func nextView() {
         PlaylistViewState.current == .genres ? tabGroup.selectTabViewItem(at: 0) : tabGroup.selectNextTabViewItem(self)
     }
     
-    private func previousPlaylistView() {
+    private func previousView() {
         PlaylistViewState.current == .tracks ? tabGroup.selectTabViewItem(at: 3) : tabGroup.selectPreviousTabViewItem(self)
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func searchAction(_ sender: AnyObject) {
         _ = playlistSearchDialog.showDialog()
+    }
+    
+    private func search() {
+        searchAction(self)
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
@@ -346,6 +374,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         }
         
         _ = playlistSortDialog.showDialog()
+    }
+    
+    private func sort() {
+        sortAction(self)
     }
     
     // MARK: Playlist window actions
@@ -461,21 +493,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .addTracks: addTracksAction(self)
-            
-        case .savePlaylist: savePlaylistAction(self)
-            
-        case .clearPlaylist: clearPlaylistAction(self)
-            
-        case .search: searchAction(self)
-            
-        case .sort: sortAction(self)
-            
-        case .nextPlaylistView: nextPlaylistView()
-            
-        case .previousPlaylistView: previousPlaylistView()
-            
+
         case .applyColorScheme:
             
             if let scheme = (message as? ColorSchemeActionMessage)?.scheme {

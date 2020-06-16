@@ -183,7 +183,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.addTracks, nil))
+        Messenger.publish(.playlist_addTracks)
     }
     
     // Removes any selected playlist items from the playlist
@@ -201,7 +201,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.savePlaylist, nil))
+        Messenger.publish(.playlist_savePlaylist)
     }
     
     // Removes all items from the playlist
@@ -213,7 +213,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.clearPlaylist, nil))
+        Messenger.publish(.playlist_clearPlaylist)
     }
     
     // Moves any selected playlist items up one row in the playlist
@@ -329,7 +329,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func playlistSearchAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.search, nil))
+        Messenger.publish(.playlist_search)
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
@@ -341,7 +341,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.sort, nil))
+        Messenger.publish(.playlist_sort)
     }
     
     // Plays the selected playlist item (track or group)
@@ -427,11 +427,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func previousPlaylistViewAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.previousPlaylistView, nil))
+        Messenger.publish(.playlist_previousView)
     }
     
     @IBAction func nextPlaylistViewAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.nextPlaylistView, nil))
+        Messenger.publish(.playlist_nextView)
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
