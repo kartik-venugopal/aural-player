@@ -239,10 +239,13 @@ extension Notification.Name {
     
     // MARK: Pitch FX unit commands
     
+    // Decreases the pitch by a certain preset decrement
     static let pitchFXUnit_decreasePitch = Notification.Name("pitchFXUnit_decreasePitch")
 
+    // Increases the pitch by a certain preset increment
     static let pitchFXUnit_increasePitch = Notification.Name("pitchFXUnit_increasePitch")
 
+    // Sets the pitch to a specific value
     static let pitchFXUnit_setPitch = Notification.Name("pitchFXUnit_setPitch")
     
     // ----------------------------------------------------------------------------------------

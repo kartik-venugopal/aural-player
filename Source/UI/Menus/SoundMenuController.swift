@@ -200,19 +200,19 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Decreases the pitch by a certain preset decrement
     @IBAction func decreasePitchAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreasePitch))
+        Messenger.publish(.pitchFXUnit_decreasePitch)
     }
     
     // Increases the pitch by a certain preset increment
     @IBAction func increasePitchAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increasePitch))
+        Messenger.publish(.pitchFXUnit_increasePitch)
     }
     
     // Sets the pitch to a value specified by the menu item clicked
     @IBAction func setPitchAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the pitch shift value associated with the menu item (in octaves)
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setPitch, .discrete, sender.paramValue))
+        Messenger.publish(.pitchFXUnit_setPitch, payload: sender.paramValue)
     }
     
     // Decreases the playback rate by a certain preset decrement
