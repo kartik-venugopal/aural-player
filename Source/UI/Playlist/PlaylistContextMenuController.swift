@@ -147,7 +147,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
+        Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func playSelectedItemAfterDelayAction(_ sender: NSMenuItem) {
