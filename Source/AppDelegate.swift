@@ -71,6 +71,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        WindowManager.initializeWindows()
+        
         // Update the appLaunched flag
         appLaunched = true
         
