@@ -71,13 +71,6 @@ enum ActionType {
     // Invoke the sort dialog
     case sort
     
-    case clearSelection
-    
-    case invertSelection
-    
-    // Crop selection
-    case cropSelection
-    
     case expandSelectedGroups
     
     case collapseSelectedItems
