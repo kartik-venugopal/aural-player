@@ -43,7 +43,8 @@ class MasterViewController: FXUnitViewController {
         Messenger.subscribeAsync(self, .trackTransition, self.trackChanged(_:),
                                  filter: {msg in msg.trackChanged && self.soundPreferences.rememberEffectsSettings},
                                  queue: .main)
-        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
+        
+        Messenger.subscribe(self, .masterFXUnit_toggleEffects, self.toggleEffects)
     }
     
     override func initControls() {
@@ -58,6 +59,10 @@ class MasterViewController: FXUnitViewController {
         super.bypassAction(sender)
         updateButtons()
         broadcastStateChangeNotification()
+    }
+    
+    private func toggleEffects() {
+        bypassAction(self)
     }
     
     @IBAction override func presetsAction(_ sender: AnyObject) {
@@ -172,19 +177,5 @@ class MasterViewController: FXUnitViewController {
     
     override func stateChanged() {
         updateButtons()
-    }
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        switch message.actionType {
-            
-        case .enableEffects, .disableEffects:
-            bypassAction(self)
-            
-        default: return
-            
-        }
     }
 }

@@ -201,36 +201,55 @@ extension Notification.Name {
     
     
     static let moreInfo = Notification.Name("moreInfo")
-
-    static let enableEffects = Notification.Name("enableEffects")
-
-    static let disableEffects = Notification.Name("disableEffects")
-
     
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: FX commands
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Master FX unit commands
 
-    static let increaseBass = Notification.Name("increaseBass")
+    static let masterFXUnit_toggleEffects = Notification.Name("masterFXUnit_toggleEffects")
 
-    static let decreaseBass = Notification.Name("decreaseBass")
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: EQ FX unit commands
+    
+    static let eqFXUnit_decreaseBass = Notification.Name("eqFXUnit_decreaseBass")
 
-    static let increaseMids = Notification.Name("increaseMids")
+    static let eqFXUnit_increaseBass = Notification.Name("eqFXUnit_increaseBass")
 
-    static let decreaseMids = Notification.Name("decreaseMids")
+    static let eqFXUnit_decreaseMids = Notification.Name("eqFXUnit_decreaseMids")
+    
+    static let eqFXUnit_increaseMids = Notification.Name("eqFXUnit_increaseMids")
 
-    static let increaseTreble = Notification.Name("increaseTreble")
+    static let eqFXUnit_decreaseTreble = Notification.Name("eqFXUnit_decreaseTreble")
+    
+    static let eqFXUnit_increaseTreble = Notification.Name("eqFXUnit_increaseTreble")
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Pitch FX unit commands
+    
+    static let pitchFXUnit_decreasePitch = Notification.Name("pitchFXUnit_decreasePitch")
 
-    static let decreaseTreble = Notification.Name("decreaseTreble")
+    static let pitchFXUnit_increasePitch = Notification.Name("pitchFXUnit_increasePitch")
 
-    static let increasePitch = Notification.Name("increasePitch")
+    static let pitchFXUnit_setPitch = Notification.Name("pitchFXUnit_setPitch")
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Time FX unit commands
+    
+    static let timeFXUnit_decreaseRate = Notification.Name("timeFXUnit_decreaseRate")
 
-    static let decreasePitch = Notification.Name("decreasePitch")
+    static let timeFXUnit_increaseRate = Notification.Name("timeFXUnit_increaseRate")
 
-    static let setPitch = Notification.Name("setPitch")
-
-    static let increaseRate = Notification.Name("increaseRate")
-
-    static let decreaseRate = Notification.Name("decreaseRate")
-
-    static let setRate = Notification.Name("setRate")
+    static let timeFXUnit_setRate = Notification.Name("timeFXUnit_setRate")
+    
+    
 
     static let saveSoundProfile = Notification.Name("saveSoundProfile")
 
