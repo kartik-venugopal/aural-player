@@ -107,27 +107,6 @@ enum ActionType {
     
     case disableEffects
     
-    // Mute or unmute the player
-    case muteOrUnmute
-    
-    // Sets the volume to a specific value
-    case setVolume
-    
-    // Increases the volume by a certain preset increment
-    case increaseVolume
-    
-    // Decreases the volume by a certain preset decrement
-    case decreaseVolume
-    
-    // Sets the stereo pan to a specific value
-    case setPan
-    
-    // Pans the sound towards the left channel, by a certain preset value
-    case panLeft
-    
-    // Pans the sound towards the right channel, by a certain preset value
-    case panRight
-    
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     case increaseBass
     

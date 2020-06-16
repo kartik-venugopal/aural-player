@@ -90,7 +90,7 @@ class GestureHandler {
         if preferences.allowVolumeControl && ScrollSession.validateEvent(event, scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
-            SyncMessenger.publishActionMessage(AudioGraphActionMessage(scrollDirection == .up ? .increaseVolume : .decreaseVolume, .continuous))
+            Messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: ActionMode.continuous)
         }
     }
     
