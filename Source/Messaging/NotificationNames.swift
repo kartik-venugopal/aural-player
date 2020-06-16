@@ -121,6 +121,7 @@ extension Notification.Name {
     // MARK: Playlist commands
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
+    
 
     static let playlist_addTracks = Notification.Name("playlist_addTracks")
 
@@ -129,18 +130,17 @@ extension Notification.Name {
     static let playlist_savePlaylist = Notification.Name("playlist_savePlaylist")
 
     static let playlist_clearPlaylist = Notification.Name("playlist_clearPlaylist")
-
-    static let playlist_showPlayingTrack = Notification.Name("playlist_showPlayingTrack")
+    
 
     static let playlist_playSelectedItem = Notification.Name("playlist_playSelectedItem")
 
     static let playlist_playSelectedItemWithDelay = Notification.Name("playlist_playSelectedItemWithDelay")
-
-    static let playlist_playSelectedChapter = Notification.Name("playlist_playSelectedChapter")
+    
 
     static let playlist_insertGaps = Notification.Name("playlist_insertGaps")
 
     static let playlist_removeGaps = Notification.Name("playlist_removeGaps")
+    
 
     static let playlist_moveTracksUp = Notification.Name("playlist_moveTracksUp")
 
@@ -149,18 +149,14 @@ extension Notification.Name {
     static let playlist_moveTracksDown = Notification.Name("playlist_moveTracksDown")
 
     static let playlist_moveTracksToBottom = Notification.Name("playlist_moveTracksToBottom")
-
-    static let playlist_showTrackInFinder = Notification.Name("playlist_showTrackInFinder")
-
-    static let playlist_search = Notification.Name("playlist_search")
-
-    static let playlist_sort = Notification.Name("playlist_sort")
-
+    
+    
     static let playlist_clearSelection = Notification.Name("playlist_clearSelection")
 
     static let playlist_invertSelection = Notification.Name("playlist_invertSelection")
 
     static let playlist_cropSelection = Notification.Name("playlist_cropSelection")
+    
 
     static let playlist_expandSelectedGroups = Notification.Name("playlist_expandSelectedGroups")
 
@@ -171,6 +167,12 @@ extension Notification.Name {
     static let playlist_expandAllGroups = Notification.Name("playlist_expandAllGroups")
 
     static let playlist_collapseAllGroups = Notification.Name("playlist_collapseAllGroups")
+    
+    
+    static let playlist_showPlayingTrack = Notification.Name("playlist_showPlayingTrack")
+
+    static let playlist_showTrackInFinder = Notification.Name("playlist_showTrackInFinder")
+    
 
     static let playlist_scrollToTop = Notification.Name("playlist_scrollToTop")
 
@@ -179,7 +181,8 @@ extension Notification.Name {
     static let playlist_pageUp = Notification.Name("playlist_pageUp")
 
     static let playlist_pageDown = Notification.Name("playlist_pageDown")
-
+    
+    
     static let playlist_previousPlaylistView = Notification.Name("playlist_previousPlaylistView")
 
     static let playlist_nextPlaylistView = Notification.Name("playlist_nextPlaylistView")
@@ -187,8 +190,14 @@ extension Notification.Name {
     static let playlist_selectedTrackInfo = Notification.Name("playlist_selectedTrackInfo")
 
     static let playlist_viewChapters = Notification.Name("playlist_viewChapters")
+    
+    
+    static let playlist_search = Notification.Name("playlist_search")
+
+    static let playlist_sort = Notification.Name("playlist_sort")
 
     
+    static let playSelectedChapter = Notification.Name("playSelectedChapter")
     
     static let previousChapter = Notification.Name("previousChapter")
 
@@ -198,7 +207,6 @@ extension Notification.Name {
 
     static let toggleChapterLoop = Notification.Name("toggleChapterLoop")
 
-    
     
     static let moreInfo = Notification.Name("moreInfo")
     
@@ -266,22 +274,23 @@ extension Notification.Name {
     static let saveSoundProfile = Notification.Name("saveSoundProfile")
 
     static let deleteSoundProfile = Notification.Name("deleteSoundProfile")
+    
 
     static let savePlaybackProfile = Notification.Name("savePlaybackProfile")
 
     static let deletePlaybackProfile = Notification.Name("deletePlaybackProfile")
+    
 
     static let showEffectsUnitTab = Notification.Name("showEffectsUnitTab")
 
     static let updateEffectsView = Notification.Name("updateEffectsView")
+    
+    // Show/hide the playlist window
+    static let windowLayout_togglePlaylistWindow = Notification.Name("windowLayout_togglePlaylistWindow")
 
-    static let editFilterBand = Notification.Name("editFilterBand")
+    // Show/hide the effects window
+    static let windowLayout_toggleEffectsWindow = Notification.Name("windowLayout_toggleEffectsWindow")
 
-    static let togglePlaylist = Notification.Name("togglePlaylist")
-
-    static let toggleEffects = Notification.Name("toggleEffects")
-
-    static let toggleChaptersList = Notification.Name("toggleChaptersList")
 
     static let bookmarkPosition = Notification.Name("bookmarkPosition")
 

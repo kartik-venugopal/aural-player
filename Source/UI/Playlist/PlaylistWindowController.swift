@@ -136,7 +136,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
+        Messenger.publish(.windowLayout_togglePlaylistWindow)
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
